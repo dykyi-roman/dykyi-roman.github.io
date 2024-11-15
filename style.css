@@ -1,0 +1,258 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f9;
+}
+.container {
+    max-width: 800px;
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid #dc7603;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+.header-left {
+    display: flex;
+    align-items: center;
+}
+.header-left img {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+}
+.header-left h1 {
+    margin: 0;
+    font-size: 1.8em;
+    color: #333;
+}
+.header-left h2 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.header-right {
+    text-align: right;
+}
+.contact-info {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 5px;
+}
+.social-icons a {
+    margin-left: 10px;
+    text-decoration: none;
+}
+.social-icons img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
+
+/* Custom HR Style */
+.custom-hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), #ce7513, rgba(0, 0, 0, 0));
+    margin: 20px 0;
+    position: relative;
+}
+
+.custom-hr::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -5px;
+    height: 2px;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0), rgb(44, 169, 140), rgba(0, 0, 0, 0));
+    box-shadow: 0px 4px 8px rgba(108, 99, 255, 0.3);
+    z-index: -1;
+}
+
+/* Title Styling */
+.section h3 {
+    font-size: 1.8em;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #333;
+    position: relative;
+    background: linear-gradient(45deg, #333133, #eff1f3);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+/* Styling for li elements */
+ul li {
+    position: relative;
+    padding: 10px 20px;
+    margin: 8px 0;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    font-size: 1em;
+    color: #333;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover Effect */
+ul li:hover {
+    background-color: #e0e4e8;
+    transform: translateX(5px);
+}
+
+/* Optional Text Styling for li */
+ul li span {
+    display: inline-block;
+    margin-left: 20px;
+    line-height: 1.4;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+
+/* Optional icon styling for items with "with-icon" class */
+li.with-icon::before {
+    content: "✔️"; /* Checkbox icon */
+    margin-right: 10px; /* Space between icon and text */
+    color: #4caf50; /* Icon color */
+    font-size: 1.2rem; /* Icon size */
+}
+
+/* Link styling */
+a {
+    color: #3366cc;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+    position: relative;
+}
+
+a:hover {
+    color: #ff6600;
+}
+
+/* Optional underline effect */
+a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #3366cc;
+    transition: width 0.3s ease;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+}
+
+a:hover::after {
+    width: 100%;
+}
+
+.social-icons a {
+    margin: 0 5px; /* Adds 10px of spacing on the left and right of each icon */
+    display: inline-block;
+}
+
+.social-icons img {
+    vertical-align: middle; /* Aligns the icon vertically with text if there’s any */
+}
+
+/* Basic link styling */
+a {
+    color: #dc7603; /* Default color for links */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, border-bottom 0.3s ease; /* Smooth transition */
+    position: relative;
+}
+
+/* Underline effect on hover */
+a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #dc7603; /* Match color with link text */
+    transition: width 0.3s ease;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+}
+
+/* Hover effect */
+a:hover {
+    color: #ff6600; /* Color changes on hover */
+}
+
+a:hover::after {
+    width: 100%; /* Full underline on hover */
+}
+
+/* Visited link styling */
+a:visited {
+    color: #ce7513; /* Different color for visited links */
+}
+
+/* Focus state for accessibility */
+a:focus {
+    outline: 2px dashed #ff6600;
+    outline-offset: 2px;
+}
+
+.experience {
+    display: flex;
+    flex-wrap: wrap; /* Allows content to wrap if it overflows */
+    align-items: flex-start; /* Aligns items to the top */
+}
+
+.company-logo {
+    width: 100px; /* Adjust the width and height as needed */
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%; /* This makes the div circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.company-logo img {
+    width: 100%; /* Image will take full width of the div */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.job-details {
+    flex: 1; /* Allows equal space distribution */
+    min-width: 300px; /* Optional: sets a minimum width to keep both sections from being too small */
+    margin-right: 20px; /* Space between job detail sections */
+}
+
+.job-details h3 {
+    margin: 0;
+}
+
+.job-details p {
+    margin: 5px 0;
+}
