@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dykyi Roman - Software Engineer</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+    <script>
+        fetch('headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <!--  Book Reviews  -->
+    <div class="section">
+        <h3>Intro</h3>
+        <p>Reading has always been a source of inspiration, knowledge, and escapism for me. Over the past few years, I
+            have immersed myself in the pages of some captivating books, each offering unique insights and perspectives.
+            In this collection of reviews, I share my thoughts and reflections on these literary journeys.</p>
+    </div>
+
+    <!--  Books  -->
+    <hr class="custom-hr">
+    <div class="section">
+        <h3>Books</h3>
+        <ul>
+            <li class="with-icon"><span><a href="/books/48_laws_of_power.html">48 laws of power | Author: Robert Greene</a></span>
+            <li class="with-icon"><span><a href="/books/7_habits_of_highly_effective_people.html">The 7 Habits of Highly Effective People | Author: Stephen Covey</a></span>
+            <li class="with-icon"><span><a href="/books/">The Power of Habit | Author: Charles Duhigg.</a></span>
+            <li class="with-icon"><span><a href="/books/">Thinking, Fast and Slow | Author: Daniel Kahneman.</a></span>
+            <li class="with-icon"><span><a href="/books/">Sapiens: A Brief History of Humankind | Author: Yuval Noah Harari.</a></span>
+            </li>
+            <li class="with-icon"><span><a href="/books/">From Third World To First: The Singapore Story: 1965-2000 | Author: Lee Kuan Yew.</a></span>
+            </li>
+            <li class="with-icon"><span><a href="/books/">The Story of My Experiments with Truth | Author: Mahatma Gandhi.</a></span>
+            </li>
+            <li class="with-icon"><span><a href="/books/">Atlas Shrugged | Author: Ayn Rand.</a></span></li>
+        </ul>
+    </div>
+
+    <hr class="custom-hr">
+    <div class="section">
+        <a href="https://dykyi-roman.github.io/book-review/">Review</a>
+        <a href="https://dykyi-roman.github.io/principles.html">Principles</a>
+        <a href="https://dykyi-roman.github.io/philosophy.html">Philosophy</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById("experience-years").textContent = (new Date().getFullYear() - 2010) - 5;
+</script>
+</body>
+</html>
