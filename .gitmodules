@@ -1,3 +1,1 @@
-[submodule "books"]
-    path = books
-    url = <URL_TO_YOUR_SUBMODULE_REPOSITORY>
+{{ ... }}
