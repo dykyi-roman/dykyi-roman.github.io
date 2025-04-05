@@ -1,47 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dykyi Roman - Software Engineer</title>
-  <link rel="icon" href="../icon.ico" type="image/x-icon">
-  <link rel="stylesheet" type="text/css" href="../style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dykyi Roman - Software Engineer</title>
+    <link rel="icon" href="../icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <style>
+        .concept {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .revolution {
+            background-color: #fdedec;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .revolution-title {
+            font-weight: bold;
+            color: #c0392b;
+            margin-bottom: 10px;
+        }
+
+        .imagination {
+            background-color: #eaf2f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .imagination-title {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+
+        .case-study {
+            background-color: #f5eef8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .case-title {
+            font-weight: bold;
+            color: #8e44ad;
+            margin-bottom: 10px;
+        }
+
+        .comparison {
+            margin: 25px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .comparison-row {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-header {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        .comparison-cell {
+            flex: 1;
+            padding: 12px 15px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: -50px;
+            top: 0;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-  <!-- Include header from external file -->
-  <div id="header-container"></div>
-  <script>
-    fetch('../headers.html')
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+    <script>
+        fetch('../headers.html')
             .then(response => response.text())
             .then(data => {
-              document.getElementById('header-container').innerHTML = data;
+                document.getElementById('header-container').innerHTML = data;
             })
             .catch(error => console.error('Error loading header:', error));
-  </script>
+    </script>
 
-  <!--  Book  -->
-  <div class="section">
-    <h3>Sapiens: A Brief History of Humankind</h3>
-    <p><strong>Author:</strong> Yuval Noah Harari</p>
+    <!--  Book  -->
+    <div class="section">
+        <h3>Sapiens: A Brief History of Humankind</h3>
+        <p><strong>Author:</strong> Yuval Noah Harari</p>
 
-    <div class="post-content">
-      <p>#1 New York Times Bestseller • New York Times Readers’ Pick: Top 100 Books of the 21st Century • The Summer Reading Pick for President Barack Obama and Bill Gates</p>
-      <p>One hundred thousand years ago, at least six different species of humans inhabited Earth. Yet today there is only one—homo sapiens. What happened to the others? And what may happen to us?</p>
-      <p>Most books about the history of humanity pursue either a historical or a biological approach, but Dr. Yuval Noah Harari breaks the mold with this highly original book that begins about 70,000 years ago with the appearance of modern cognition. From examining the role evolving humans have played in the global ecosystem to charting the rise of empires, Sapiens integrates history and science to reconsider accepted narratives, connect past developments with contemporary concerns, and examine specific events within the context of larger ideas.</p>
-      <p>Dr. Harari also compels us to look ahead, because over the last few decades humans have begun to bend laws of natural selection that have governed life for the past four billion years. We are acquiring the ability to design not only the world around us, but also ourselves. Where is this leading us, and what do we want to become?</p>
+        <div class="post-content">
+            <p>#1 New York Times Bestseller • New York Times Readers’ Pick: Top 100 Books of the 21st Century • The
+                Summer Reading Pick for President Barack Obama and Bill Gates</p>
+            <p>One hundred thousand years ago, at least six different species of humans inhabited Earth. Yet today there
+                is only one—homo sapiens. What happened to the others? And what may happen to us?</p>
+            <p>Most books about the history of humanity pursue either a historical or a biological approach, but Dr.
+                Yuval Noah Harari breaks the mold with this highly original book that begins about 70,000 years ago with
+                the appearance of modern cognition. From examining the role evolving humans have played in the global
+                ecosystem to charting the rise of empires, Sapiens integrates history and science to reconsider accepted
+                narratives, connect past developments with contemporary concerns, and examine specific events within the
+                context of larger ideas.</p>
+            <p>Dr. Harari also compels us to look ahead, because over the last few decades humans have begun to bend
+                laws of natural selection that have governed life for the past four billion years. We are acquiring the
+                ability to design not only the world around us, but also ourselves. Where is this leading us, and what
+                do we want to become?</p>
+        </div>
     </div>
-  </div>
 
-  <hr class="custom-hr">
+    <hr class="custom-hr">
 
-  <!-- Notes   -->
-  <div class="section">
-    <h3>Notes</h3>
-    <ul>
-      <li><span>{TEXT}</span></li>
-    </ul>
-  </div>
+    <!-- Review  -->
+    <div class="section">
+        <h3>Review</h3>
+        <div class="concept">
+            <h2>1. Когнитивная революция (70,000 лет назад)</h2>
+
+            <div class="revolution">
+                <div class="revolution-title">Основные изменения:</div>
+                <ul>
+                    <li>Развитие сложного языка</li>
+                    <li>Способность к абстрактному мышлению</li>
+                    <li>Умение создавать и верить в вымышленные концепции</li>
+                    <li>Формирование крупных социальных групп</li>
+                </ul>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Пример:</div>
+                <p>Племя сапиенсов могло объединиться вокруг веры в духов предков или тотемных животных, что позволяло
+                    создавать группы до 150 человек (предел Данбара), в то время как неандертальцы ограничивались
+                    небольшими семейными группами.</p>
+            </div>
+
+            <div class="imagination">
+                <div class="imagination-title">Роль коллективных мифов:</div>
+                <p>Харари подчеркивает, что способность верить в вымышленные реальности (богов, нации, деньги) позволила
+                    сапиенсам массово сотрудничать с незнакомцами, что стало ключевым преимуществом над другими видами
+                    человека.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>2. Сельскохозяйственная революция (12,000 лет назад)</h2>
+
+            <div class="comparison">
+                <div class="comparison-row comparison-header">
+                    <div class="comparison-cell">Аспект</div>
+                    <div class="comparison-cell">Охотники-собиратели</div>
+                    <div class="comparison-cell">Земледельцы</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Питание</div>
+                    <div class="comparison-cell">Разнообразное, сезонное</div>
+                    <div class="comparison-cell">Однообразное, зависимое от урожая</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Рабочее время</div>
+                    <div class="comparison-cell">4-5 часов в день</div>
+                    <div class="comparison-cell">12-15 часов в день</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Здоровье</div>
+                    <div class="comparison-cell">Крепкие кости, хорошие зубы</div>
+                    <div class="comparison-cell">Недостаток витаминов, болезни</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Социальная структура</div>
+                    <div class="comparison-cell">Эгалитарная</div>
+                    <div class="comparison-cell">Иерархическая</div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Парадокс сельского хозяйства:</div>
+                <p>Харари называет сельскохозяйственную революцию "величайшим обманом человечества" — хотя она позволила
+                    увеличить численность населения, качество жизни отдельных людей ухудшилось. Пшеница "одомашнила"
+                    человека, а не наоборот.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>3. Объединение человечества</h2>
+
+            <div class="imagination">
+                <div class="imagination-title">Три универсальных порядка:</div>
+                <ol>
+                    <li><strong>Деньги:</strong> Универсальная система взаимного доверия</li>
+                    <li><strong>Империи:</strong> Политический порядок, объединяющий разнообразные культуры</li>
+                    <li><strong>Религии:</strong> Идеологические системы с универсальными претензиями</li>
+                </ol>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <p><strong>[3000 до н.э.] Первые деньги:</strong> Шумерские серебряные шекели как универсальный эквивалент</p>
+                </div>
+                <div class="timeline-item">
+                    <p><strong>[200 до н.э.] Империя Хань:</strong> Объединение Китая под единой административной системой</p>
+                </div>
+                <div class="timeline-item">
+                    <p><strong>[313 н.э.] Миланский эдикт:</strong> Христианство как объединяющая религия Римской империи</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>4. Научная революция (500 лет назад)</h2>
+
+            <div class="revolution">
+                <div class="revolution-title">Ключевые особенности:</div>
+                <ul>
+                    <li>Признание невежества: "Мы не знаем всего"</li>
+                    <li>Культ научного метода и экспериментов</li>
+                    <li>Тесная связь науки с империализмом и капитализмом</li>
+                    <li>Беспрецедентный технологический прогресс</li>
+                </ul>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Пример научного империализма:</div>
+                <p>Экспедиция Джеймса Кука (1768-1771) совмещала научные цели (наблюдение прохождения Венеры) с
+                    колониальными амбициями Британской империи. Научный прогресс часто финансировался ради военных и
+                    экономических преимуществ.</p>
+            </div>
+
+            <div class="imagination">
+                <div class="imagination-title">Капитализм как религия:</div>
+                <p>Харари анализирует современную экономику как систему коллективных верований, где кредит основан на
+                    вере в будущий рост, а корпорации существуют как юридические фикции, в которые миллионы людей
+                    искренне верят.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>5. Будущее sapiens</h2>
+
+            <div class="comparison">
+                <div class="comparison-row comparison-header">
+                    <div class="comparison-cell">Тренд</div>
+                    <div class="comparison-cell">Возможности</div>
+                    <div class="comparison-cell">Риски</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Биоинженерия</div>
+                    <div class="comparison-cell">Победа над болезнями, увеличение продолжительности жизни</div>
+                    <div class="comparison-cell">Создание "суперлюдей", социальное неравенство</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Киборгизация</div>
+                    <div class="comparison-cell">Усиление когнитивных и физических способностей</div>
+                    <div class="comparison-cell">Потеря человеческой идентичности</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Искусственный интеллект</div>
+                    <div class="comparison-cell">Решение глобальных проблем</div>
+                    <div class="comparison-cell">Потеря контроля, обесценивание человека</div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Финальный вопрос Харари:</div>
+                <p>"Мы стали богами, но остались с психикой охотников-собирателей. Сможем ли мы найти смысл и счастье в
+                    мире, который сами создали, но не до конца понимаем?"</p>
+            </div>
+        </div>
+    </div>
+
+    <hr class="custom-hr">
+
+    <!-- Notes   -->
+    <div class="section">
+        <h3>Notes</h3>
+        <ul>
+            <li><span>Not saved</span></li>
+        </ul>
+    </div>
 
 </div>
 

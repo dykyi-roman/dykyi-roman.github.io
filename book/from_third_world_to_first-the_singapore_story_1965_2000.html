@@ -6,6 +6,99 @@
     <title>Dykyi Roman - Software Engineer</title>
     <link rel="icon" href="../icon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../style.css">
+    <style>
+        .concept {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .principle {
+            background-color: #E8F5E9;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .principle-title {
+            font-weight: bold;
+            color: #2E7D32;
+            margin-bottom: 10px;
+        }
+
+        .case-study {
+            background-color: #E3F2FD;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+            border-left: 4px solid #1976D2;
+        }
+
+        .case-title {
+            font-weight: bold;
+            color: #1565C0;
+            margin-bottom: 10px;
+        }
+
+        .comparison {
+            margin: 25px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .comparison-row {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-header {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        .comparison-cell {
+            flex: 1;
+            padding: 12px 15px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: -50px;
+            top: 0;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #555;
+            border-left: 4px solid #7f8c8d;
+            padding: 15px;
+            margin: 25px 0;
+            background-color: #f8f9f9;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -43,13 +136,170 @@
     <!-- Review  -->
     <div class="section">
         <h3>Review</h3>
-        <div class="post-content">
+        <div class="concept">
+            <h2>1. Прагматизм вместо идеологии</h2>
 
+            <div class="principle">
+                <div class="principle-title">Основные принципы:</div>
+                <ul>
+                    <li>"Не важно, черный кот или белый - главное, чтобы ловил мышей"</li>
+                    <li>Отказ от догм и слепого следования теориям</li>
+                    <li>Гибкость в выборе лучших практик со всего мира</li>
+                    <li>Ориентация на результаты, а не на процесс</li>
+                </ul>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Пример:</div>
+                <p>Сингапур перенял: британскую правовую систему, американские корпоративные практики, японские методы
+                    управления качеством, швейцарский подход к банковскому делу - создав уникальный гибрид.</p>
+            </div>
+
+            <div class="quote">
+                "Мы изучали, как другие страны решали аналогичные проблемы, и адаптировали их решения к нашим условиям,
+                не обращая внимания на идеологические ярлыки."
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>2. Верховенство закона и борьба с коррупцией</h2>
+
+            <div class="comparison">
+                <div class="comparison-row comparison-header">
+                    <div class="comparison-cell">Аспект</div>
+                    <div class="comparison-cell">До реформ</div>
+                    <div class="comparison-cell">После реформ</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Зарплата министров</div>
+                    <div class="comparison-cell">Символическая</div>
+                    <div class="comparison-cell">Самые высокие в мире (привязаны к доходам топ-менеджеров)</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Коррупционные случаи</div>
+                    <div class="comparison-cell">Повсеместные</div>
+                    <div class="comparison-cell">Единичные</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Судебная система</div>
+                    <div class="comparison-cell">Кулуарные решения</div>
+                    <div class="comparison-cell">Прозрачные процессы</div>
+                </div>
+            </div>
+
+            <div class="principle">
+                <div class="principle-title">Ключевые меры:</div>
+                <ol>
+                    <li>Независимость судебной системы</li>
+                    <li>Конкурентные зарплаты чиновников</li>
+                    <li>Жесткие наказания за коррупцию</li>
+                    <li>Упрощение бюрократических процедур</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>3. Экономические стратегии</h2>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-year">1960-е</div>
+                    <p><strong>Индустриализация:</strong> Привлечение иностранных инвестиций в обрабатывающую
+                        промышленность</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1970-е</div>
+                    <p><strong>Развитие инфраструктуры:</strong> Порт, аэропорт, дороги, жилье</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1980-е</div>
+                    <p><strong>Переход к high-tech:</strong> Электроника, нефтехимия, фармацевтика</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-year">1990-е</div>
+                    <p><strong>Финансовый центр:</strong> Банковский сектор, управление активами</p>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Стратегия привлечения инвестиций:</div>
+                <p>Сингапур создал особые экономические зоны с: гарантиями от национализации, налоговыми льготами,
+                    готовой инфраструктурой, квалифицированной рабочей силой. Компании типа Texas Instruments стали
+                    первопроходцами.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>4. Социальная инженерия</h2>
+
+            <div class="principle">
+                <div class="principle-title">Подход к многонациональному обществу:</div>
+                <ul>
+                    <li>Жесткое подавление межэтнических конфликтов</li>
+                    <li>Политика "мультикультурализма с сингапурской спецификой"</li>
+                    <li>Квоты на этнический состав в жилых кварталах</li>
+                    <li>Обязательное изучение английского + родного языка</li>
+                </ul>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Пример жилищной политики:</div>
+                <p>Программа HDB (Housing and Development Board) обеспечила 90% населения собственным жильем,
+                    сознательно смешивая этнические группы в новых кварталах для предотвращения геттоизации.</p>
+            </div>
+
+            <div class="quote">
+                "Мы не могли позволить себе роскошь этнических конфликтов. В нашем маленьком городе-государстве любое
+                насилие сразу становилось угрозой для всех."
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>5. Долгосрочное планирование</h2>
+
+            <div class="principle">
+                <div class="principle-title">Принципы стратегического управления:</div>
+                <ol>
+                    <li>Четкое видение будущего (20-30 лет вперед)</li>
+                    <li>Гибкость в тактике при верности стратегии</li>
+                    <li>Постоянное сканирование глобальных трендов</li>
+                    <li>Инвестиции в человеческий капитал</li>
+                    <li>Создание резервов на черный день</li>
+                </ol>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Пример: Развитие образования</div>
+                <p>С 1960-х последовательные реформы: сначала массовая грамотность, затем техническое образование, потом
+                    университеты мирового уровня (NUS), теперь акцент на креативность и инновации.</p>
+            </div>
+
+            <div class="comparison">
+                <div class="comparison-row comparison-header">
+                    <div class="comparison-cell">Критерий</div>
+                    <div class="comparison-cell">1965 (независимость)</div>
+                    <div class="comparison-cell">1990 (25 лет правления ЛКЮ)</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">ВВП на душу</div>
+                    <div class="comparison-cell">$500</div>
+                    <div class="comparison-cell">$12,000</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Безработица</div>
+                    <div class="comparison-cell">14%</div>
+                    <div class="comparison-cell">2%</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Грамотность</div>
+                    <div class="comparison-cell">60%</div>
+                    <div class="comparison-cell">92%</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <hr class="custom-hr">
-
     <!-- Notes   -->
     <div class="section">
         <h3>Notes</h3>

@@ -6,6 +6,112 @@
     <title>Dykyi Roman - Software Engineer</title>
     <link rel="icon" href="../icon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../style.css">
+    <style>
+        .concept {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .system-diagram {
+            background-color: #eaf2f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .system {
+            display: inline-block;
+            margin: 0 20px;
+            padding: 15px;
+            width: 200px;
+            vertical-align: top;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .system-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .bias {
+            background-color: #fdedec;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .bias-title {
+            font-weight: bold;
+            color: #c0392b;
+            margin-bottom: 10px;
+        }
+
+        .heuristic {
+            background-color: #e8f8f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .heuristic-title {
+            font-weight: bold;
+            color: #16a085;
+            margin-bottom: 10px;
+        }
+
+        .case-study {
+            background-color: #f5eef8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .case-title {
+            font-weight: bold;
+            color: #8e44ad;
+            margin-bottom: 10px;
+        }
+
+        .level {
+            margin-bottom: 40px;
+        }
+
+        .comparison {
+            margin: 25px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .comparison-row {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-header {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        .comparison-cell {
+            flex: 1;
+            padding: 12px 15px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -45,8 +151,134 @@
     <!-- Review  -->
     <div class="section">
         <h3>Review</h3>
-        <div class="post-content">
+        <div class="concept">
+            <h2>1. Две системы мышления</h2>
 
+            <div class="system-diagram">
+                <div class="system">
+                    <div class="system-title">Система 1</div>
+                    <ul style="text-align: left; padding-left: 20px;">
+                        <li>Автоматическая</li>
+                        <li>Быстрая</li>
+                        <li>Эмоциональная</li>
+                        <li>Бессознательная</li>
+                    </ul>
+                </div>
+
+                <div class="system">
+                    <div class="system-title">Система 2</div>
+                    <ul style="text-align: left; padding-left: 20px;">
+                        <li>Усиленная</li>
+                        <li>Медленная</li>
+                        <li>Логическая</li>
+                        <li>Сознательная</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="comparison">
+                <div class="comparison-row comparison-header">
+                    <div class="comparison-cell">Характеристика</div>
+                    <div class="comparison-cell">Система 1</div>
+                    <div class="comparison-cell">Система 2</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Скорость</div>
+                    <div class="comparison-cell">Мгновенная реакция</div>
+                    <div class="comparison-cell">Замедленное обдумывание</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Энергозатратность</div>
+                    <div class="comparison-cell">Низкая</div>
+                    <div class="comparison-cell">Высокая</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Примеры</div>
+                    <div class="comparison-cell">Распознавание эмоций, вождение по знакомой дороге</div>
+                    <div class="comparison-cell">Решение математических задач, парковка в узком месте</div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Пример взаимодействия систем:</div>
+                <p><strong>Иллюзия Мюллера-Лайера:</strong> Система 1 автоматически воспринимает одну линию длиннее
+                    другой, хотя они равны. Даже зная это (Система 2), мы продолжаем видеть иллюзию.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>2. Когнитивные искажения и эвристики</h2>
+
+            <div class="bias">
+                <div class="bias-title">Основные когнитивные искажения</div>
+                <ul>
+                    <li><strong>Эффект якоря:</strong> Первая полученная информация влияет на последующие оценки</li>
+                    <li><strong>Иллюзия контроля:</strong> Преувеличение своей способности влиять на события</li>
+                    <li><strong>Эвристика доступности:</strong> Оценка вероятности по легкости вспоминания примеров</li>
+                    <li><strong>Отклонение в сторону статус-кво:</strong> Предпочтение текущего состояния изменениям
+                    </li>
+                    <li><strong>Эффект обрамления:</strong> Разные формулировки одной проблемы приводят к разным
+                        решениям
+                    </li>
+                </ul>
+            </div>
+
+            <div class="heuristic">
+                <div class="heuristic-title">Ключевые эвристики</div>
+                <ul>
+                    <li><strong>Эвристика представительности:</strong> Оценка по степени соответствия стереотипу</li>
+                    <li><strong>Эвристика доступности:</strong> Оценка важности по легкости вспоминания</li>
+                    <li><strong>Эвристика привязки:</strong> Недостаточная корректировка от начальной точки</li>
+                </ul>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Пример эвристики представительности:</div>
+                <p><strong>Задача о Линде:</strong> Большинство оценивает "Линда — кассир и феминистка" как более
+                    вероятную, чем просто "Линда — кассир", хотя это нарушает законы вероятности.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>3. Теория перспектив</h2>
+
+            <p><strong>Основные принципы:</strong></p>
+            <ul>
+                <li>Люди оценивают результаты относительно точки отсчета, а не абсолютных величин</li>
+                <li>Потери переживаются сильнее, чем эквивалентные приобретения (эффект неприятия потерь)</li>
+                <li>Люди склонны к рискованному поведению при угрозе потерь и осторожны при возможности выигрыша</li>
+            </ul>
+
+            <div class="case-study">
+                <div class="case-title">Пример эффекта неприятия потерь:</div>
+                <p>Большинство людей откажется от ставки с 50% шансом выиграть $150 и 50% шансом проиграть $100, хотя
+                    математическое ожидание положительное (+$25).</p>
+            </div>
+        </div>
+
+        <div class="level">
+            <h2>Уровни применения концепции</h2>
+
+            <div class="case-study">
+                <div class="case-title">1. Личные решения</div>
+                <p><strong>Кейс:</strong> Почему люди плохо оценивают риски в повседневной жизни.</p>
+                <p><strong>Механизм:</strong> Эвристика доступности заставляет переоценивать вероятность ярких, но
+                    редких событий (теракты) и недооценивать рутинные риски (нездоровое питание).</p>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">2. Экономическое поведение</div>
+                <p><strong>Кейс:</strong> Как эффект привязки влияет на ценообразование.</p>
+                <p><strong>Механизм:</strong> Первая увиденная цена становится якорем для последующих оценок, что
+                    используют маркетологи.</p>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">3. Социальные и политические решения</div>
+                <p><strong>Кейс:</strong> Почему разные формулировки одной политики получают разную поддержку.</p>
+                <p><strong>Механизм:</strong> Эффект обрамления: "95% выживших" vs "5% умерших" вызывают разные реакции
+                    на одну и ту же статистику.</p>
+            </div>
         </div>
     </div>
 
