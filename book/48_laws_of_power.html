@@ -3,54 +3,863 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>48 laws of power</title>
-  <link rel="stylesheet" href="https://dykyi-roman.github.io/book-review/style.css">
+  <title>Dykyi Roman - Software Engineer</title>
+  <link rel="icon" href="../icon.ico" type="image/x-icon">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <style>
+    .skill-container {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      border-top: 4px solid #3498db;
+    }
+    .essence {
+      font-weight: bold;
+      color: #e74c3c;
+      display: block;
+      margin: 10px 0;
+      font-size: 1.1em;
+    }
+    .how-to {
+      font-weight: bold;
+      color: #27ae60;
+      display: block;
+      margin: 15px 0 10px 0;
+    }
+    .example {
+      font-style: italic;
+      background-color: #f0f8ff;
+      padding: 12px;
+      border-radius: 5px;
+      margin-top: 15px;
+      border-left: 3px solid #3498db;
+    }
+    .stage-header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 12px;
+      border-radius: 5px;
+      margin: 30px 0 20px 0;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+    .conclusion {
+      background-color: #e8f8f5;
+      padding: 25px;
+      border-radius: 8px;
+      margin-top: 40px;
+      border: 1px solid #16a085;
+    }
+    ul {
+      padding-left: 25px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+    .quote {
+      font-style: italic;
+      color: #7f8c8d;
+      text-align: center;
+      margin: 20px 0;
+      font-size: 1.1em;
+    }
+    .start-list {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+  </style>
 </head>
 <body>
-
 <div class="container">
-  <!-- Left section (Title) -->
-  <div class="title-section">
-    <h1>Books</h1>
-    <ul class="book-list">
-      <!-- dynamic load -->
-    </ul>
+  <!-- Include header from external file -->
+  <div id="header-container"></div>
+  <script>
+    fetch('../headers.html')
+            .then(response => response.text())
+            .then(data => {
+              document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+  </script>
 
-    <ul class="book-list">
-      <li><a class="white-text" href="https://dykyi-roman.github.io/book-review/index.html">Back</a></li>
-    </ul>
+  <!--  Book  -->
+  <div class="section">
+    <h3>48 laws of power</h3>
+    <p><strong>Author:</strong> Robert Greene</p>
+
+    <div class="post-content">
+      <p>In the book that People magazine proclaimed “beguiling” and “fascinating,” Robert Greene and Joost Elffers have distilled three thousand years of the history of power into 48 essential laws by drawing from the philosophies of Machiavelli, Sun Tzu, and Carl Von Clausewitz and also from the lives of figures ranging from Henry Kissinger to P.T. Barnum</p>
+      <p>Some laws teach the need for prudence (“Law 1: Never Outshine the Master”), others teach the value of confidence (“Law 28: Enter Action with Boldness”), and many recommend absolute self-preservation (“Law 15: Crush Your Enemy Totally”). Every law, though, has one thing in common: an interest in total domination. In a bold and arresting two-color package, The 48 Laws of Power is ideal whether your aim is conquest, self-defense, or simply to understand the rules of the game.</p>
+    </div>
   </div>
 
-  <!-- Right section (Post and Test) -->
-  <div class="content-section">
-    <div class="post">
-      <div class="post-title">48 laws of power</div>
-      <div>Author: Robert Greene</div>
-      <div class="post-content">
-        <p>In the book that People magazine proclaimed “beguiling” and “fascinating,” Robert Greene and Joost Elffers have distilled three thousand years of the history of power into 48 essential laws by drawing from the philosophies of Machiavelli, Sun Tzu, and Carl Von Clausewitz and also from the lives of figures ranging from Henry Kissinger to P.T. Barnum</p>
-        <p>Some laws teach the need for prudence (“Law 1: Never Outshine the Master”), others teach the value of confidence (“Law 28: Enter Action with Boldness”), and many recommend absolute self-preservation (“Law 15: Crush Your Enemy Totally”). Every law, though, has one thing in common: an interest in total domination. In a bold and arresting two-color package, The 48 Laws of Power is ideal whether your aim is conquest, self-defense, or simply to understand the rules of the game.</p>
+  <hr class="custom-hr">
+
+  <!--  Review  -->
+  <div class="section">
+    <!-- Закон 1 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 1.</span> Никогда не затмевайте господина</h2>
+      <span class="essence">Суть: Всегда давайте начальникам чувствовать свое превосходство</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Демонстрируйте скромность в присутствии вышестоящих</li>
+        <li>Приписывайте успехи руководству</li>
+        <li>Избегайте показной демонстрации своих талантов</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Придворные Людовика XIV никогда не одевались лучше короля.
       </div>
     </div>
 
-    <hr>
-    
-<div class="note">
-
-</div>
-
-    <div class="note">
-      ...
+    <!-- Закон 2 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 2.</span> Никогда не доверяйте друзьям слишком сильно, научитесь пользоваться врагами</h2>
+      <span class="essence">Суть: Друзья могут предать из-за зависти, враги более мотивированы</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Держите друзей под наблюдением</li>
+        <li>Используйте бывших врагов - они больше стараются доказать свою лояльность</li>
+        <li>Награждайте честность врагов</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Линкольн включил в кабинет бывших противников.
+      </div>
     </div>
 
-    <div class="test-section">
-      <div class="test-question">Useful links</div>
-      <div class="test-answer">...</a>
+    <!-- Закон 3 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 3.</span> Скрывайте свои намерения</h2>
+      <span class="essence">Суть: Сохраняйте элемент неожиданности</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Используйте "дымовые завесы" - ложные цели</li>
+        <li>Выдавайте свои действия за спонтанные</li>
+        <li>Никогда не раскрывайте весь план сразу</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Профессиональные покеристы никогда не показывают эмоций.
+      </div>
+    </div>
+
+    <!-- Закон 4 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 4.</span> Говорите всегда меньше необходимого</h2>
+      <span class="essence">Суть: Молчание создает ауру важности</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Отвечайте кратко и загадочно</li>
+        <li>Используйте паузы в разговоре</li>
+        <li>Пусть другие договаривают за вас</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Судьи ценят лаконичных адвокатов, а не болтливых.
+      </div>
+    </div>
+
+    <!-- Закон 5 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 5.</span> Так много зависит от репутации — защищайте ее любой ценой</h2>
+      <span class="essence">Суть: Репутация - основа власти</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Создавайте легенду о себе</li>
+        <li>Быстро реагируйте на атаки на репутацию</li>
+        <li>Используйте "благородных предков" даже если их не было</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Цезарь тщательно культивировал образ непобедимого полководца.
+      </div>
+    </div>
+
+    <!-- Закон 6 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 6.</span> Привлекайте к себе внимание любой ценой</h2>
+      <span class="essence">Суть: Лучше плохая слава, чем никакой</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Создавайте скандалы (но расчетливо)</li>
+        <li>Носите яркую одежду</li>
+        <li>Придумайте запоминающуюся особенность</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Сальвадор Дали сознательно эпатировал публику.
+      </div>
+    </div>
+
+    <!-- Закон 7 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 7.</span> Позвольте другим делать за вас работу, но присваивайте себе лавры</h2>
+      <span class="essence">Суть: Используйте чужие достижения</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Находите талантливых исполнителей</li>
+        <li>Показывайте их работу как свою</li>
+        <li>Контролируйте каналы информации</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Художники Ренессанса часто использовали помощников.
+      </div>
+    </div>
+
+    <!-- Закон 8 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 8.</span> Заставляйте других приходить к вам — используйте приманку, если нужно</h2>
+      <span class="essence">Суть: Контролируйте территорию игры</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Создавайте искусственный дефицит</li>
+        <li>Заманивайте ценными предложениями</li>
+        <li>Играйте в труднодоступного</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Модные рестораны создают очереди у входа.
+      </div>
+    </div>
+
+    <!-- Закон 9 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 9.</span> Побеждайте действием, а не спорами</h2>
+      <span class="essence">Суть: Демонстрация сильнее слов</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Создавайте впечатляющие жесты</li>
+        <li>Избегайте пустых дискуссий</li>
+        <li>Действуйте, когда другие спорят</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Наполеон предпочитал решительные атаки долгим совещаниям.
+      </div>
+    </div>
+
+    <!-- Закон 10 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 10.</span> Избегайте несчастных и неудачников</h2>
+      <span class="essence">Суть: Негатив заразителен</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Дистанцируйтесь от жалобщиков</li>
+        <li>Не спасайте тех, кто не хочет меняться</li>
+        <li>Окружайте себя победителями</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Успешные бизнесмены избегают хронических неудачников.
+      </div>
+    </div>
+    <!-- Закон 11 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 11.</span> Учитесь делать людей зависимыми от себя</h2>
+      <span class="essence">Суть: Станьте незаменимым</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Создавайте уникальные компетенции</li>
+        <li>Контролируйте ключевые ресурсы</li>
+        <li>Постепенно увеличивайте зависимость</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Придворные лекари становились незаменимыми, зная тайны здоровья правителей.
+      </div>
+    </div>
+
+    <!-- Закон 12 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 12.</span> Используйте избирательную честность и великодушие для обезоруживания жертвы</h2>
+      <span class="essence">Суть: Искренние жесты усыпляют бдительность</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Совершайте неожиданные благородные поступки</li>
+        <li>Признавайте мелкие недостатки, скрывая крупные</li>
+        <li>Создавайте репутацию честного человека</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Политики иногда признают мелкие ошибки, чтобы избежать вопросов о серьезных.
+      </div>
+    </div>
+
+    <!-- Закон 13 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 13.</span> Обращаясь за помощью, апеллируйте к личным интересам, а не к милосердию</h2>
+      <span class="essence">Суть: Люди помогают, когда видят выгоду</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Показывайте взаимную выгоду</li>
+        <li>Оформляйте просьбу как возможность</li>
+        <li>Создавайте иллюзию будущих дивидендов</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Дипломаты предлагают взаимовыгодные сделки, а не просят помощи.
+      </div>
+    </div>
+
+    <!-- Закон 14 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 14.</span> Притворяйтесь другом, а действуйте как шпион</h2>
+      <span class="essence">Суть: Информация - валюта власти</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Собирайте компромат под видом дружеских бесед</li>
+        <li>Создавайте сеть информаторов</li>
+        <li>Никогда не раскрывайте всех источников</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Кардинал Ришелье содержал целую сеть осведомителей при дворе.
+      </div>
+    </div>
+
+    <!-- Закон 15 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 15.</span> Уничтожайте врагов полностью</h2>
+      <span class="essence">Суть: Полуболь - хуже, чем ничего</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Не оставляйте возможности для мести</li>
+        <li>Доводите конфликты до логического конца</li>
+        <li>Уничтожайте репутацию, а не только позиции</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Римские императоры уничтожали всю семью потенциальных соперников.
+      </div>
+    </div>
+
+    <!-- Закон 16 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 16.</span> Используйте отсутствие для того, чтобы усилить уважение и честь</h2>
+      <span class="essence">Суть: Дефицит увеличивает ценность</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Создавайте искусственный дефицит своего присутствия</li>
+        <li>Исчезайте в ключевые моменты</li>
+        <li>Возвращайтесь триумфально</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Художники иногда исчезают перед выставками, подогревая интерес.
+      </div>
+    </div>
+
+    <!-- Закон 17 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 17.</span> Держите других в состоянии неуверенности, культивируя непредсказуемость</h2>
+      <span class="essence">Суть: Страх перед неизвестностью сильнее страха перед известным злом</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Создавайте репутацию непредсказуемого</li>
+        <li>Меняйте тактику без предупреждения</li>
+        <li>Используйте случайные акты доброты и жестокости</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Сталин менял фаворитов без видимых причин, держа всех в напряжении.
+      </div>
+    </div>
+
+    <!-- Закон 18 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 18.</span> Не стройте крепостей для защиты — изоляция опасна</h2>
+      <span class="essence">Суть: Защищаясь слишком сильно, вы теряете информацию</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Избегайте полной изоляции</li>
+        <li>Поддерживайте контролируемые каналы информации</li>
+        <li>Создавайте видимость доступности</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Современные лидеры используют соцсети для контролируемой открытости.
+      </div>
+    </div>
+
+    <!-- Закон 19 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 19.</span> Знайте, с кем имеете дело — не оскорбляйте не того человека</h2>
+      <span class="essence">Суть: Некоторые обиды не прощают</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Изучайте психологию оппонентов</li>
+        <li>Выявляйте скрытые амбиции</li>
+        <li>Избегайте конфликтов с мстительными типами</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Опытные дипломаты сначала изучают биографии переговорщиков.
+      </div>
+    </div>
+
+    <!-- Закон 20 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 20.</span> Не связывайтесь с теми, кому нечего терять</h2>
+      <span class="essence">Суть: Отчаянные люди опасны</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Избегайте конфликтов с маргиналами</li>
+        <li>Не провоцируйте тех, кто на грани</li>
+        <li>В спорах оставляйте противнику пути для отступления</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Умные правители дают поверженным врагам почетную отставку.
+      </div>
+    </div>
+    <!-- Закон 21 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 21.</span> Притворяйтесь простаком, чтобы поймать простака</h2>
+      <span class="essence">Суть: Играя глупого, вы заставляете других терять бдительность</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Намеренно допускайте мелкие ошибки</li>
+        <li>Просите "разъяснить очевидное"</li>
+        <li>Используйте маску простодушия для сбора информации</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Колумб специально преуменьшал свои знания о навигации, чтобы получить больше ресурсов для экспедиции.
+      </div>
+    </div>
+
+    <!-- Закон 22 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 22.</span> Используйте тактику капитуляции: превращайте слабость в мощь</h2>
+      <span class="essence">Суть: Стратегическое отступление может быть мощнее атаки</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Превращайте поражения в моральные победы</li>
+        <li>Используйте капитуляцию для перегруппировки сил</li>
+        <li>Создавайте образ мученика, когда проигрываете</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Ганди превратил аресты в инструмент политической борьбы.
+      </div>
+    </div>
+
+    <!-- Закон 23 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 23.</span> Концентрируйте свои силы</h2>
+      <span class="essence">Суть: Сосредоточение на ключевых направлениях приносит победу</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Выявляйте и атакуйте слабые места</li>
+        <li>Не распыляйте ресурсы</li>
+        <li>Доводите начатое до конца</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Наполеон всегда концентрировал войска для решающего удара.
+      </div>
+    </div>
+
+    <!-- Закон 24 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 24.</span> Играйте роль идеального придворного</h2>
+      <span class="essence">Суть: Совершенство в манерах открывает двери</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Освойте искусство лести без подхалимства</li>
+        <li>Создавайте атмосферу легкости</li>
+        <li>Избегайте грубости и резкости</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Придворные Людовика XIV довели манеры до совершенства.
+      </div>
+    </div>
+
+    <!-- Закон 25 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 25.</span> Создайте себе новый образ</h2>
+      <span class="essence">Суть: Вы можете переизобрести себя</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Придумайте убедительную легенду</li>
+        <li>Последовательно поддерживайте образ</li>
+        <li>Используйте визуальные символы</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Цезарь сознательно создавал образ воина-интеллектуала.
+      </div>
+    </div>
+
+    <!-- Закон 26 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 26.</span> Держите руки чистыми</h2>
+      <span class="essence">Суть: Пусть другие делают грязную работу</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Используйте посредников для неприятных дел</li>
+        <li>Создавайте правдоподобное алиби</li>
+        <li>Дистанцируйтесь от скандалов</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Екатерина Медичи использовала наемных убийц, сохраняя репутацию.
+      </div>
+    </div>
+
+    <!-- Закон 27 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 27.</span> Используйте веру других в то, что люди стремятся к выгоде</h2>
+      <span class="essence">Суть: Играйте на человеческой жадности</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Создавайте приманки для жадных</li>
+        <li>Показывайте мнимые выгоды</li>
+        <li>Используйте жадность как рычаг управления</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Финансовые пирамиды эксплуатируют человеческую жадность.
+      </div>
+    </div>
+
+    <!-- Закон 28 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 28.</span> Действуйте смело</h2>
+      <span class="essence">Суть: Решительность внушает страх и уважение</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Не сомневайтесь публично</li>
+        <li>Берите инициативу в кризисах</li>
+        <li>Совершайте неожиданные поступки</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Путин вернулся из отпуска во время кризиса с подлодкой "Курск".
+      </div>
+    </div>
+
+    <!-- Закон 29 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 29.</span> Планируйте все до конца</h2>
+      <span class="essence">Суть: Победа принадлежит тому, кто продумал финал</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Продумывайте все возможные исходы</li>
+        <li>Готовьте альтернативные сценарии</li>
+        <li>Контролируйте завершающую стадию</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Цезарь всегда планировал не только битвы, но и их политические последствия.
+      </div>
+    </div>
+
+    <!-- Закон 30 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 30.</span> Заставьте свои достижения казаться легкими</h2>
+      <span class="essence">Суть: Трудолюбие не впечатляет, талант - да</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Скрывайте подготовительную работу</li>
+        <li>Демонстрируйте естественность успеха</li>
+        <li>Избегайте разговоров о трудностях</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Моцарт представлял сложные произведения как легко созданные.
+      </div>
+    </div>
+    <!-- Закон 31 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 31.</span> Контролируйте варианты выбора: заставьте других играть по вашим картам</h2>
+      <span class="essence">Суть: Иллюзия выбора - лучший способ контроля</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Предлагайте ограниченный набор альтернатив</li>
+        <li>Делайте желаемый вариант наиболее привлекательным</li>
+        <li>Создавайте видимость свободы выбора</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Искусные продавцы предлагают 2-3 варианта, скрывая нежелательные.
+      </div>
+    </div>
+
+    <!-- Закон 32 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 32.</span> Используйте фантазии и желания людей</h2>
+      <span class="essence">Суть: Люди верят в то, во что хотят верить</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Играйте на популярных мечтах</li>
+        <li>Создавайте соблазнительные образы</li>
+        <li>Не разрушайте иллюзии фактами</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Реклама эксплуатирует мечты о красоте и успехе.
+      </div>
+    </div>
+
+    <!-- Закон 33 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 33.</span> Определите у каждого его слабую точку</h2>
+      <span class="essence">Суть: У каждого есть ахиллесова пята</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Наблюдайте за эмоциональными реакциями</li>
+        <li>Выявляйте скрытые страхи и желания</li>
+        <li>Используйте слабости избирательно</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Опытные переговорщики изучают слабости оппонентов перед встречами.
+      </div>
+    </div>
+
+    <!-- Закон 34 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 34.</span> Будьте королевским в своем поведении: действуйте как король, чтобы с тобой обращались как с королем</h2>
+      <span class="essence">Суть: Уважение порождает уважение</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Держитесь с достоинством</li>
+        <li>Требуйте соответствующего обращения</li>
+        <li>Не оправдывайтесь и не унижайтесь</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Наполеон вел себя как император еще до коронации.
+      </div>
+    </div>
+
+    <!-- Закон 35 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 35.</span> Овладейте искусством расчета времени</h2>
+      <span class="essence">Суть: Правильный момент решает все</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Научитесь чувствовать ритм событий</li>
+        <li>Не торопите ход времени</li>
+        <li>Используйте моменты кризисов</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Успешные инвесторы покупают активы в моменты паники.
+      </div>
+    </div>
+
+    <!-- Закон 36 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 36.</span> Презирайте то, чего не можете иметь: игнорирование — лучший ответ</h2>
+      <span class="essence">Суть: Презрение лишает противника силы</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Демонстративно игнорируйте атаки</li>
+        <li>Не тратьте силы на недостижимое</li>
+        <li>Создавайте впечатление превосходства</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Аристократы игнорировали выпады социальных низов.
+      </div>
+    </div>
+
+    <!-- Закон 37 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 37.</span> Создавайте зрелищные образы</h2>
+      <span class="essence">Суть: Яркие представления побеждают факты</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Используйте театральные жесты</li>
+        <li>Создавайте запоминающиеся сцены</li>
+        <li>Работайте на визуальное восприятие</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Политические митинги тщательно срежиссированы для ТВ.
+      </div>
+    </div>
+
+    <!-- Закон 38 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 38.</span> Думайте так, как вам хочется, но ведите себя как окружающие</h2>
+      <span class="essence">Суть: Маскировка - ключ к выживанию</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Адаптируйте манеры к окружению</li>
+        <li>Не выделяйтесь без необходимости</li>
+        <li>Сохраняйте внутреннюю независимость</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Разведчики годами живут под легендой, не выдавая себя.
+      </div>
+    </div>
+
+    <!-- Закон 39 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 39.</span> Расшевелите воды, чтобы поймать рыбу</h2>
+      <span class="essence">Суть: Хаос создает возможности</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Создавайте контролируемые кризисы</li>
+        <li>Используйте суматоху для маневра</li>
+        <li>Оставайтесь хладнокровным в хаосе</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Революционеры обостряют кризисы для захвата власти.
+      </div>
+    </div>
+
+    <!-- Закон 40 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 40.</span> Презирайте бесплатное</h2>
+      <span class="essence">Суть: То, что дается даром, не ценится</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Всегда требуйте взамен</li>
+        <li>Создавайте ощущение ценности</li>
+        <li>Избегайте выглядеть доступным</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Люксовые бренды никогда не делают больших скидок.
+      </div>
+    </div>
+    <!-- Закон 31 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 31.</span> Контролируйте варианты выбора: заставьте других играть по вашим картам</h2>
+      <span class="essence">Суть: Иллюзия выбора - лучший способ контроля</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Предлагайте ограниченный набор альтернатив</li>
+        <li>Делайте желаемый вариант наиболее привлекательным</li>
+        <li>Создавайте видимость свободы выбора</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Искусные продавцы предлагают 2-3 варианта, скрывая нежелательные.
+      </div>
+    </div>
+
+    <!-- Закон 32 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 32.</span> Используйте фантазии и желания людей</h2>
+      <span class="essence">Суть: Люди верят в то, во что хотят верить</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Играйте на популярных мечтах</li>
+        <li>Создавайте соблазнительные образы</li>
+        <li>Не разрушайте иллюзии фактами</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Реклама эксплуатирует мечты о красоте и успехе.
+      </div>
+    </div>
+
+    <!-- Закон 33 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 33.</span> Определите у каждого его слабую точку</h2>
+      <span class="essence">Суть: У каждого есть ахиллесова пята</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Наблюдайте за эмоциональными реакциями</li>
+        <li>Выявляйте скрытые страхи и желания</li>
+        <li>Используйте слабости избирательно</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Опытные переговорщики изучают слабости оппонентов перед встречами.
+      </div>
+    </div>
+
+    <!-- Закон 34 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 34.</span> Будьте королевским в своем поведении: действуйте как король, чтобы с тобой обращались как с королем</h2>
+      <span class="essence">Суть: Уважение порождает уважение</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Держитесь с достоинством</li>
+        <li>Требуйте соответствующего обращения</li>
+        <li>Не оправдывайтесь и не унижайтесь</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Наполеон вел себя как император еще до коронации.
+      </div>
+    </div>
+
+    <!-- Закон 35 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 35.</span> Овладейте искусством расчета времени</h2>
+      <span class="essence">Суть: Правильный момент решает все</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Научитесь чувствовать ритм событий</li>
+        <li>Не торопите ход времени</li>
+        <li>Используйте моменты кризисов</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Успешные инвесторы покупают активы в моменты паники.
+      </div>
+    </div>
+
+    <!-- Закон 36 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 36.</span> Презирайте то, чего не можете иметь: игнорирование — лучший ответ</h2>
+      <span class="essence">Суть: Презрение лишает противника силы</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Демонстративно игнорируйте атаки</li>
+        <li>Не тратьте силы на недостижимое</li>
+        <li>Создавайте впечатление превосходства</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Аристократы игнорировали выпады социальных низов.
+      </div>
+    </div>
+
+    <!-- Закон 37 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 37.</span> Создавайте зрелищные образы</h2>
+      <span class="essence">Суть: Яркие представления побеждают факты</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Используйте театральные жесты</li>
+        <li>Создавайте запоминающиеся сцены</li>
+        <li>Работайте на визуальное восприятие</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Политические митинги тщательно срежиссированы для ТВ.
+      </div>
+    </div>
+
+    <!-- Закон 38 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 38.</span> Думайте так, как вам хочется, но ведите себя как окружающие</h2>
+      <span class="essence">Суть: Маскировка - ключ к выживанию</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Адаптируйте манеры к окружению</li>
+        <li>Не выделяйтесь без необходимости</li>
+        <li>Сохраняйте внутреннюю независимость</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Разведчики годами живут под легендой, не выдавая себя.
+      </div>
+    </div>
+
+    <!-- Закон 39 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 39.</span> Расшевелите воды, чтобы поймать рыбу</h2>
+      <span class="essence">Суть: Хаос создает возможности</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Создавайте контролируемые кризисы</li>
+        <li>Используйте суматоху для маневра</li>
+        <li>Оставайтесь хладнокровным в хаосе</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Революционеры обостряют кризисы для захвата власти.
+      </div>
+    </div>
+
+    <!-- Закон 40 -->
+    <div class="law-container">
+      <h2><span class="law-number">Закон 40.</span> Презирайте бесплатное</h2>
+      <span class="essence">Суть: То, что дается даром, не ценится</span>
+      <span class="how-to">Как применять:</span>
+      <ul>
+        <li>Всегда требуйте взамен</li>
+        <li>Создавайте ощущение ценности</li>
+        <li>Избегайте выглядеть доступным</li>
+      </ul>
+      <div class="example">
+        <strong>Пример:</strong> Люксовые бренды никогда не делают больших скидок.
       </div>
     </div>
   </div>
+
+  <hr class="custom-hr">
+
+  <!-- Notes   -->
+  <div class="section">
+    <h3>Notes</h3>
+    <ul>
+      <li><span>{TEXT}</span></li>
+    </ul>
+  </div>
+
 </div>
 
-<script src="https://dykyi-roman.github.io/book-review/index.js"></script>
-  
 </body>
 </html>
