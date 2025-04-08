@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dykyi Roman - Senior Software Engineer</title>
     <link rel="icon" href="icon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="resources/style.css">
+    <link rel="stylesheet" href="resources/navigation.css">
 </head>
 <body>
+<!-- Side Navigation -->
+<div class="side-nav">
+    <button class="nav-button" onclick="scrollToSection('philosophy-section')">Philosophy</button>
+</div>
+
 <div class="container">
     <!-- Include header from external file -->
     <div id="header-container"></div>
@@ -22,7 +28,7 @@
 
     <!--  Philosophy  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="philosophy-section" class="section">
         <h3>Philosophy</h3>
         <ul>
           <li><span>Тот кто сегодня читает книги, завтра будет управлять теми кто их не читает. Я полностью уверен что прочитав 100 осознано выбраных книг ты будешь другим человеком. Меняется мышления. Мозг не решето, все что туда попало там и остаться. Не нужно смотреть тв, и глупые передачи. Нужно читать сложные книги и смотреть сложные фильмы и слушать сложную музыку.</span></li>
@@ -78,5 +84,7 @@
 <script>
     document.getElementById("experience-years").textContent = (new Date().getFullYear() - 2010)-5;
 </script>
+<script src="resources/back-to-top.js"></script>
+<script src="resources/navigation.js"></script>
 </body>
 </html>

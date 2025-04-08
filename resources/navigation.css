@@ -1,0 +1,33 @@
+/* Side Navigation Styles */
+.side-nav {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.nav-button {
+    background-color: #ce7513;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    text-align: left;
+    width: 120px;
+}
+.nav-button:hover {
+    background-color: #dc7603;
+    transform: translateX(5px);
+}
+@media (max-width: 1200px) {
+    .side-nav {
+        display: none;
+    }
+}

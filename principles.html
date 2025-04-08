@@ -5,9 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dykyi Roman - Senior Software Engineer</title>
     <link rel="icon" href="icon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="resources/style.css">
+    <link rel="stylesheet" href="resources/navigation.css">
 </head>
 <body>
+<!-- Side Navigation -->
+<div class="side-nav">
+    <button class="nav-button" onclick="scrollToSection('ownership-section')">Ownership</button>
+    <button class="nav-button" onclick="scrollToSection('church-section')">Church</button>
+    <button class="nav-button" onclick="scrollToSection('pleasure-section')">Pleasure</button>
+    <button class="nav-button" onclick="scrollToSection('friends-section')">Friends</button>
+    <button class="nav-button" onclick="scrollToSection('enemies-section')">Enemies</button>
+    <button class="nav-button" onclick="scrollToSection('job-section')">Job</button>
+    <button class="nav-button" onclick="scrollToSection('family-section')">Family</button>
+    <button class="nav-button" onclick="scrollToSection('health-section')">Health</button>
+    <button class="nav-button" onclick="scrollToSection('education-section')">Education</button>
+    <button class="nav-button" onclick="scrollToSection('personality-section')">Personality</button>
+    <button class="nav-button" onclick="scrollToSection('money-section')">Money</button>
+</div>
+
 <div class="container">
     <!-- Include header from external file -->
     <div id="header-container"></div>
@@ -22,7 +38,7 @@
 
     <!--  Ownership  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="ownership-section" class="section">
         <h3>Ownership</h3>
         <ul>
               <li><span>Следования пирамиде Маслоу</span></li>     
@@ -40,7 +56,7 @@
 
     <!--  Church  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="church-section" class="section">
         <h3>Church</h3>
         <ul>
               <li><span>Механизм управления массами</span></li>
@@ -49,7 +65,7 @@
 
     <!--  Pleasure  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="pleasure-section" class="section">
         <h3>Pleasure</h3>
         <ul>
              <li><span>Путешествия и познания мира</span></li>
@@ -63,7 +79,7 @@
 
     <!--  Friends  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="friends-section" class="section">
         <h3>Friends</h3>
         <ul>
             <li><span>Лучше друзья как правило остаются только с детства</span></li>
@@ -78,7 +94,7 @@
 
     <!--  Enemies  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="enemies-section" class="section">
         <h3>Enemies</h3>
         <ul>
             <li><span>Работа над собой чтобы стать выше своего врага</span></li>
@@ -95,7 +111,7 @@
 
     <!--  Job  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="job-section" class="section">
         <h3>Job</h3>
         <ul>
             <li><span>Средство получения денег для инвестиции в себя и свои проекты</span></li>
@@ -112,7 +128,7 @@
 
     <!--  Family  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="family-section" class="section">
         <h3>Family</h3>
         <ul>
             <li><span>Дом - место уюта, отдыха и расслабления</span></li>
@@ -139,7 +155,7 @@
     
     <!--  Health  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="health-section" class="section">
         <h3>Health</h3>
         <ul>
             <li><span>Алкоголь благородный позволителен но в очень ограниченных дозах</span></li>
@@ -163,7 +179,7 @@
 
     <!--  Education  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="education-section" class="section">
         <h3>Education</h3>
         <ul>
             <li><span>Много путешествуй. познавай мир, культуру, людей  через путешествия </span></li>
@@ -185,7 +201,7 @@
 
     <!--  Personality  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="personality-section" class="section">
         <h3>Personality</h3>
         <ul>
             <li><span>Не изменять своим ценностям ради чужого одобрения</span></li>
@@ -212,7 +228,7 @@
     
     <!--  Money  -->
     <hr class="custom-hr">
-    <div class="section">
+    <div id="money-section" class="section">
         <h3>Money</h3>
         <ul>
             <li><span>Деньги нужны, они увеличивают твои возможность. Их нужно инвестировать и откладывать</span></li>
@@ -234,5 +250,7 @@
 <script>
     document.getElementById("experience-years").textContent = (new Date().getFullYear() - 2010)-5;
 </script>
+<script src="resources/back-to-top.js"></script>
+<script src="resources/navigation.js"></script>
 </body>
 </html>

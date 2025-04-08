@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dykyi Roman - Software Engineer</title>
     <link rel="icon" href="../icon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="../resources/style.css">
     <style>
         .concept {
             background-color: white;
@@ -112,8 +112,16 @@
             padding: 12px 15px;
         }
     </style>
+    <link rel="stylesheet" href="../resources/navigation.css">
 </head>
 <body>
+<!-- Side Navigation -->
+<div class="side-nav">
+    <button class="nav-button" onclick="scrollToSection('book-section')">Intro</button>
+    <button class="nav-button" onclick="scrollToSection('review-section')">Review</button>
+    <button class="nav-button" onclick="scrollToSection('notes-section')">Notes</button>
+</div>
+
 <div class="container">
     <!-- Include header from external file -->
     <div id="header-container"></div>
@@ -127,7 +135,7 @@
     </script>
 
     <!--  Book  -->
-    <div class="section">
+    <div id="book-section" class="section">
         <h3>Thinking, Fast and Slow</h3>
         <p><strong>Author:</strong> Daniel Kahneman</p>
 
@@ -149,7 +157,7 @@
     <hr class="custom-hr">
 
     <!-- Review  -->
-    <div class="section">
+    <div id="review-section" class="section">
         <h3>Review</h3>
         <div class="concept">
             <h2>1. Две системы мышления</h2>
@@ -285,7 +293,7 @@
     <hr class="custom-hr">
 
     <!-- Notes   -->
-    <div class="section">
+    <div id="notes-section" class="section">
         <h3>Notes</h3>
         <ul>
             <li><span>
@@ -525,5 +533,6 @@
 </div>
 
 </body>
-<script src="../back-to-top.js"></script>
+<script src="../resources/back-to-top.js"></script>
+<script src="../resources/navigation.js"></script>
 </html>
