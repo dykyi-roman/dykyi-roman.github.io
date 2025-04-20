@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Validation Levels - Dykyi Roman</title>
+    <link rel="icon" href="../icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../resources/style.css">
+    <link rel="stylesheet" href="../resources/navigation.css">
+    <link rel="stylesheet" href="../resources/article-style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+    <script>
+        fetch('../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <!-- Article Content -->
+    <div class="article-container">
+        <div class="article-header">
+            <h1 class="article-title">Understanding Validation Levels</h1>
+            <img src="img/8.png" alt="Validation Levels" class="article-featured-img">
+        </div>
+
+        <div class="article-content">
+            <h2>Introduction</h2>
+            <p>Validation and Error Handling are fundamental challenges every developer faces, whether working with HTTP
+                requests, task queues, event processing, or asynchronous communication between system components.</p>
+
+            <h2>Why It Matters</h2>
+            <p>Your chosen strategy directly impacts:</p>
+            <ul>
+                <li><strong>Performance:</strong> Synchronous requests can block code execution, while asynchronous
+                    approaches reduce server load.
+                </li>
+                <li><strong>Scalability:</strong> Task queues and message brokers enable distributed workloads across
+                    services.
+                </li>
+                <li><strong>Security:</strong> Flawed input validation or ignored CSRF tokens can introduce
+                    vulnerabilities.
+                </li>
+            </ul>
+            <p><em>Remember: Frontend validation can never replace backend validation!</em></p>
+
+            <p>When the backend receives data from the frontend/third-party API or script, the "Never Trust User Input"
+                principle is the foundation of security. Backend data validation is a multi-layered process where each
+                stage serves its purpose:</p>
+
+            <ol>
+                <li><strong>Framework</strong> — The first filter checks request structure, including data types,
+                    required fields, and basic formats (e.g., email validity via regex).
+                </li>
+                <li><strong>Domain Layer (DDD)</strong> — Here, data is validated against business logic. For example,
+                    you can't create an order with a past date, even if it's technically correct. Such rules are
+                    encapsulated within Entities or Aggregates to maintain domain integrity.
+                </li>
+                <li><strong>ORM</strong> — Libraries like Doctrine or ActiveRecord ORM provide validation at the object
+                    model level. They check data formats, type compliance, and business rules before executing database
+                    queries. For example, validating an email format or checking value ranges. ORM also protects against
+                    SQL injections through prepared statements and input data escaping.
+                </li>
+                <li><strong>Database</strong> — The last line of defense for data protection. Here, built-in database
+                    constraints come into play: CHECK, UNIQUE, FOREIGN KEY, as well as triggers and stored procedures.
+                    These mechanisms ensure data integrity regardless of the application code. For example, a CHECK
+                    (price > 0) at the database level guarantees that a product with a negative price will not be saved,
+                    even if all previous validation layers missed the error.
+                </li>
+                <li><strong>Security</strong> — Specialized checks: HTML tag sanitization (against XSS), CSRF token
+                    validation, access authorization. These mechanisms are often built into middleware or API gateway
+                    filters.
+                </li>
+            </ol>
+
+            <p>Example workflow: A user submits birthdate 2077–01–01.</p>
+            <ul>
+                <li>Framework validates the date format (correct).</li>
+                <li>Domain layer rejects it as a future date.</li>
+                <li>If missed, the database triggers a `BEFORE INSERT` check comparing the date with the current time.
+                </li>
+            </ul>
+
+            <p><strong>Key point:</strong> Each layer duplicates previous checks, creating "defense layers" that
+                mitigate risks even if one layer becomes compromised.</p>
+
+            <h2>Framework</h2>
+            <h3>First Validation Level: Framework-Level Protection</h3>
+
+            <p>Imagine your application is a fortress. The first line of defense is the gate that keeps out enemies and
+                debris. Framework-level validation acts as precisely that gate. It prevents invalid data from breaking
+                through to your business logic, keeping your code clean and your users protected.</p>
+
+            <p>Let's examine how this works in Symfony and Laravel — and why you shouldn't rely only on this layer.</p>
+
+            <p>Validation in frameworks follows different architectural patterns, but the goal remains the same: isolate
+                raw data from business logic.</p>
+
+            <h3>Symfony</h3>
+            <h4>Symfony: Clean DTO Approach</h4>
+
+            <p>Symfony enforces strict separation using Data Transfer Objects (DTOs) with built-in validation:</p>
+
+            <p><strong>How it works:</strong></p>
+            <ol>
+                <li>Define a DTO class with validation rules (via annotations, YAML, or XML).</li>
+                <li>The framework automatically validates incoming data before it reaches the controller.</li>
+            </ol>
+
+            <p><strong>Key advantages:</strong></p>
+            <ul>
+                <li>Keeps application layers clean (no infrastructure code in controllers).</li>
+                <li>Reusable validation rules (e.g., @Assert\Email, @Assert\Range(min: 1, max: 100)).</li>
+            </ul>
+
+            <p><strong>Validator Component Features:</strong></p>
+            <ul>
+                <li>Supports annotations (e.g., @Assert\NotBlank), YAML, or XML for rule definitions.</li>
+                <li>Built-in validators for data types, formats (email, URL), and numeric ranges.</li>
+                <li>Custom constraints via Constraint and ConstraintValidator interfaces.</li>
+            </ul>
+
+            <p><strong>Example:</strong></p>
+            <div class="code-block">
+<pre>use Symfony\Component\Validator\Constraints as Assert;
+
+final readonly class CreateUserRequest {
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    public string $email;
+    
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 6)]
+    public string $password;
+}</pre>
+            </div>
+
+            <h3>Laravel</h3>
+            <h4>Laravel: Form Requests & Fluid Validation</h4>
+            <p>Laravel takes a pragmatic approach with Form Requests and inline validation.</p>
+
+            <p><strong>How it works:</strong></p>
+            <ol>
+                <li>Generate dedicated request classes (e.g., php artisan make:request StoreUserRequest).</li>
+                <li>Define rules like 'email' => 'required|email|unique:users'.</li>
+            </ol>
+
+            <p><strong>Key advantages:</strong></p>
+            <ul>
+                <li>Declarative syntax (rules as arrays or pipe-separated strings).</li>
+                <li>Automatic redirection or JSON error responses.</li>
+            </ul>
+
+            <p><strong>Flexible validation:</strong></p>
+            <ul>
+                <li>Use facades (Validator::make()) for quick checks.</li>
+                <li>Custom rules via Rule::class or closure-based rules.</li>
+            </ul>
+
+            <p><strong>Example:</strong></p>
+            <div class="code-block">
+<pre>public function rules() {
+    return [
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:6',
+    ];
+}</pre>
+            </div>
+
+            <h4>Laravel and DTOs: Manual Transformation for Clean Architecture</h4>
+            <p>Unlike Symfony, Laravel does not natively support DTOs, but developers use workarounds to prevent raw
+                Request objects from leaking into business logic. Here's how it's typically done:</p>
+
+            <p><strong>1. Manual Conversion to DTO.</strong> Transform $request->all() into a dedicated
+                UserData/OrderData object before passing it to services.</p>
+            <div class="code-block">
+<pre>final class UserStoreAction {
+    public function __invoke(CreateUserRequest $request): void {
+        $userData = new UserData(
+            email: $request->validated('email'),
+            password: $request->validated('password')
+        );
+        UserService::create($userData); // Clean domain service call
+    }
+}</pre>
+            </div>
+
+            <p><strong>2. Data Mapper Pattern.</strong> Use libraries like Spatie's Data Transfer Object or Laravel Data
+                to auto-map requests to typed objects.</p>
+            <div class="code-block">
+<pre>use Spatie\DataTransferObject\DataTransferObject;
+
+final readonly class UserData extends DataTransferObject {
+    public string $email;
+    public string $password;
+}
+// In action:
+$userData = new UserData(...$request->validated());</pre>
+            </div>
+
+            <p><strong>3. Manual Casting.</strong> Use an abstract request for magic property casting</p>
+            <div class="code-block">
+<pre>/**
+ * Abstract request class that provides property access with automatic type casting.
+ *
+ * Example usage:
+ *
+ * ```php
+ * /**
+ *  * @property-read int $userId
+ *  * @property-read string $email
+ *  *\/
+ * final class MyRequest extends AbstractRequest
+ * {
+ *     private const string FIELD_USER_ID = 'userId';
+ *     private const string FIELD_EMAIL   = 'email';
+ *
+ *     protected const array PROPERTY_TYPE_MAP = [
+ *         self::FIELD_USER_ID => 'int',
+ *         self::FIELD_EMAIL   => 'string',
+ *     ];
+ * }
+ *
+ * is_int($request->userId)   // true
+ * is_string($request->email) // true
+ *
+ * ```
+ */
+abstract class AbstractRequest extends FormRequest
+{
+    protected const PROPERTY_TYPE_MAP = [];
+
+    public function __get(mixed $key)
+    {
+        $value = $this->input($key);
+        if (isset(static::PROPERTY_TYPE_MAP[$key])) {
+            return $this->castValue($value, $key, static::PROPERTY_TYPE_MAP[$key]);
+        }
+        return $value;
+    }
+    
+    protected function castValue(mixed $value, string $key, string $type): mixed
+    {
+        $isNullable = str_starts_with($type, '?');
+        if ($isNullable) {
+            if ($value === null) {
+                return null;
+            }
+            $type = substr($type, 1);
+        }
+        
+        if (class_exists($type) && is_a($type, BackedEnum::class, true)) {
+            return $type::from($value);
+        }
+        
+        return match ($type) {
+            'int' => (int) $value,
+            'float' => (float) $value,
+            'bool' => (bool) $value,
+            'string' => (string) $value,
+            'array' => (array) $value,
+            'datetime_immutable' => $this->castToDateTimeImmutable($value),
+            default => $value,
+        };
+    }
+    
+    protected function castToDateTimeImmutable(mixed $value): ?DateTimeImmutable
+    {
+        try {
+            return new DateTimeImmutable($value);
+        } catch (Throwable) {
+            return null;
+        }
+    }
+}</pre>
+            </div>
+
+            <h3>Why This Matters</h3>
+            <ul>
+                <li><strong>Protection:</strong> Prevents accidental reliance on request structure (e.g.,
+                    $request->input('x.y')).
+                </li>
+                <li><strong>Type Safety:</strong> Enforces property types (e.g., string $email).</li>
+                <li><strong>Testability:</strong> DTOs are easier to mock than Request objects.</li>
+            </ul>
+
+            <h3>Why Framework-Level Validation Matters</h3>
+            <p>Framework validation isn't just technical formalism — it delivers tangible benefits for security,
+                development speed, and system reliability. Here's what it achieves in practice:</p>
+
+            <h4>Key Advantages</h4>
+            <ol>
+                <li><strong>Standardized Early Errors.</strong> Returns predictable HTTP statuses (e.g., 422
+                    Unprocessable Entity instead of 500 Server Error). Structured error messages simplify frontend
+                    integration.
+                </li>
+                <li><strong>Tooling Integration.</strong> Validation rules auto-populate Swagger/OpenAPI docs, helping
+                    frontend and QA teams understand API requirements.
+                </li>
+                <li><strong>Eliminates Boilerplate.</strong> No manual checks like if (!$request->has('email'))—the
+                    framework handles it.
+                </li>
+                <li><strong>Protects Domain Logic.</strong> Business logic stays clean of low-level checks (e.g., "Is
+                    this a valid email format?"). Focuses on domain rules (e.g., "Can this user reserve a VIP seat?").
+                </li>
+                <li><strong>Built-in Security.</strong> Validators often sanitize data (e.g., Laravel's the the email
+                    rule removes dangerous characters).
+                </li>
+            </ol>
+
+            <h4>Best Practices</h4>
+            <ol>
+                <li>Use native validators for common cases:
+                    <ul>
+                        <li>uuid, date_format, mimes:jpg,png (Laravel).</li>
+                        <li>@Assert\Uuid, @Assert\DateTime (Symfony).</li>
+                    </ul>
+                </li>
+                <li>Avoid Duplication:
+                    <ul>
+                        <li>Laravel: Form Request classes.</li>
+                        <li>Symfony: Validation groups or custom constraint classes.</li>
+                    </ul>
+                </li>
+                <li>Custom Rules for Complex Cases</li>
+            </ol>
+
+            <p>Framework validation only checks syntax (format, structure). It cannot enforce business rules like:</p>
+            <ul>
+                <li>"Does this user have permission to cancel this order?"</li>
+                <li>"Is this discount code valid for the selected products?"</li>
+            </ul>
+
+            <h2>Domain Layer</h2>
+            <p>After framework-level validation, domain validation becomes the critical next stage — a mechanism that
+                ensures compliance with all business rules and invariants within your core logic. Here, we're not just
+                checking if data is formally correct (e.g., valid email format), but whether it aligns with your
+                specific business requirements. It answers questions like:</p>
+
+            <ul>
+                <li>Can this user perform the action?</li>
+                <li>Does the operation violate any business constraints?</li>
+                <li>Is the data meaningful within our domain logic?</li>
+            </ul>
+
+            <p>Domain validation ensures that objects are always in a correct state. For example, an "Order" object
+                cannot be created if the order amount is below the minimum threshold or if required attributes
+                describing the business entity are missing. Even if data passes validation at the framework level,
+                specialized checks dependent on business logic might be overlooked. It is at the domain level that you
+                eliminate the possibility of "incorrect" objects, which could negatively impact the entire system.</p>
+
+            <p>Using Value Objects (VO), aggregates, and invariants allows you to embed business logic validation within
+                the domain model, as follows:</p>
+            <ul>
+                <li>VO ensures the correctness of individual values through factory methods, immediately preventing the
+                    creation of "dirty" data.
+                </li>
+                <li>Aggregates establish a context for validating interconnected rules and ensure that operations
+                    modifying the state do not violate overall consistency.
+                </li>
+                <li>Invariants are used to check complex conditions spanning multiple elements of the domain model,
+                    preventing the aggregate from transitioning into an invalid state.
+                </li>
+            </ul>
+
+            <h3>Value Objects (VOs): Guardians of Atomic Validity</h3>
+            <p><strong>Encapsulation of Rules:</strong> A VO is created via a constructor or factory method, within
+                which all necessary validation is performed. For example, when creating an "Email" object, the address
+                format is validated, or when creating a "Money" object, it is ensured that the amount is non-negative.
+            </p>
+
+            <p><strong>Always Valid Object:</strong> If the input data does not meet business requirements, the factory
+                method will not create the object (returning an error or throwing an exception). This ensures that
+                "dirty" values can never exist in the domain model because any attempt to create them will fail. Thus,
+                VOs automatically validate a portion of business rules at the level of a single field.</p>
+
+            <p><strong>Example:</strong> When creating a VO for "Order Amount," the factory method checks that the
+                amount is positive. If an attempt is made to create an "Order Amount" with a negative value, the object
+                will not be created, preventing further processing of invalid data.</p>
+
+            <div class="code-block">
+<pre>final class OrderAmount {
+    private function __construct(private float $value) {}
+
+    public static function create(float $value): Result {
+        if ($value <= 0) {
+            return Result::failure("Amount must be positive");
+        }
+        return Result::success(new self($value));
+    }
+}</pre>
+            </div>
+
+            <h4>When to Use VOs</h4>
+            <ul>
+                <li>Atomic Values: Email, Phone, Money, DateRange, Address.</li>
+                <li>Invariants: Values with strict rules (e.g., "Discount must be 0–100%").</li>
+                <li>Domain Primitives: Values specific to your business (e.g., ProductSKU).</li>
+            </ul>
+
+            <h3>Aggregate as a Context for Validating Interconnected Rules</h3>
+            <p><strong>Grouping Interconnected Objects:</strong> An aggregate combines entities and Value Objects (VOs)
+                that have business dependencies. For example, an "Order" may consist of multiple items, and the
+                aggregate root ensures compliance with rules, such as the correctness of the total order amount or the
+                minimum number of items.</p>
+
+            <p><strong>Validation of Business Operations:</strong> All changes within the aggregate are managed through
+                its root entity. A method that adds an item to the order first verifies that the addition of the new
+                item does not violate the aggregate's invariants (e.g., the maximum number of items or discount
+                conditions). If a rule is violated, the operation is not executed.</p>
+
+            <h4>Core Responsibilities of an Aggregate</h4>
+            <ul>
+                <li>Groups Related Objects</li>
+                <li>Centralizes Validation</li>
+                <li>Protects Invariants</li>
+            </ul>
+
+            <h4>Key Implementation Patterns</h4>
+            <ul>
+                <li>Transactional Consistency — changes are all-or-nothing</li>
+                <li>Eventual Checks with Domain Events</li>
+                <li>External code cannot modify child entities directly</li>
+            </ul>
+
+            <div class="code-block">
+<pre>// ❌ BAD: Bypasses aggregate root
+$order->lines[] = new OrderLine(...);
+
+// ✅ GOOD: Root manages changes
+$order->addItem($product, 2);</pre>
+            </div>
+
+            <p><strong>Example:</strong> The aggregate root method "Add Item to Order" checks that the total order
+                amount after adding the item does not exceed the business-defined limit. If the limit is exceeded, the
+                method returns an error without modifying the order's state.</p>
+
+            <div class="code-block">
+<pre>final class Order {
+    private OrderId $id;
+    private array $lines = [];
+    private Money $total;
+
+    public function addProduct(Product $product, int $quantity): void {
+        $this->assertNotPaid(); // Rule: Can't modify paid orders
+        $line = new OrderLine($product, $quantity);
+        // Rule: Max 10 items per order
+        if (count($this->lines) >= 10) {
+            throw new DomainException("Order item limit reached");
+        }
+        $this->lines[] = $line;
+        $this->total = $this->total->add($line->subtotal());
+    }
+}</pre>
+            </div>
+
+            <h3>Invariant as an Integral Part of the Domain Model</h3>
+            <p><strong>Defining Consistency Rules:</strong> Invariants are conditions that must always hold true for an
+                aggregate after any operation. They can span multiple objects within the aggregate, such as ensuring
+                consistency between an order's start and end dates or requiring that all items belong to the same
+                supplier.</p>
+
+            <p><strong>Protection Against Invalid States:</strong> During any business operation, the aggregate root
+                ensures that all invariants are satisfied after the changes are applied. This guarantees that the domain
+                model never transitions into an invalid state, even if incorrect data is mistakenly passed from higher
+                layers.</p>
+
+            <h4>Key Characteristics of Invariants</h4>
+            <ul>
+                <li>Always True</li>
+                <li>Cross-Object Rules</li>
+                <li>Enforced by the Aggregate Root</li>
+            </ul>
+
+            <p><strong>Example:</strong> In the "Order" aggregate, an invariant might require that the list of items is
+                never empty if the order is already confirmed. If an attempt is made to add an empty item, the aggregate
+                throws an error or returns a result indicating the violation, preventing the persistence of an invalid
+                order.</p>
+
+            <div class="code-block">
+<pre>final class Order {
+    private array $items;
+    private bool $isConfirmed = false;
+
+    public function confirm(): void {
+        // Invariant: Cannot confirm empty orders
+        if (empty($this->items)) {
+            throw new DomainException("Cannot confirm an empty order");
+        }
+        $this->isConfirmed = true;
+    }
+}</pre>
+            </div>
+
+            <p>Invariants encode your domain's fundamental truths. By embedding them in aggregates:</p>
+            <ul>
+                <li>Illegal states become unrepresentative</li>
+                <li>Business rules stay visible in code</li>
+                <li>Systems self-protect against logical errors</li>
+            </ul>
+
+            <h3>Data Transfer Object as a Mechanism for Data Transfer</h3>
+            <p>Data Transfer Object (DTO) is designed to transfer data between layers (e.g., from the interface to the
+                application). Its primary purpose is to transmit data structures without embedding complex business
+                logic into them</p>
+
+            <p><strong>Basic Validation:</strong> At the DTO level, it's convenient to perform checks for required
+                fields, formats (e.g., email, phone number), length constraints, and similar validations. This is often
+                done using frameworks or annotations (e.g., Bean Validation or Symfony Validator)</p>
+            <p><strong>Where Should Business Validation Occur?</strong> Although DTOs can validate the correctness of
+                incoming data, the core business validation (i.e., checking domain invariants and complex,
+                context-dependent rules) should be performed within the domain model — specifically in aggregates, their
+                entities, or Value Objects (VOs). This ensures that objects operating within the domain are always in a
+                correct, "error-free" state.</p>
+            <p><strong>Anti-Pattern:</strong></p>
+
+            <div class="code-block">
+<pre>// ❌ Business logic in DTO
+final readonly class OrderRequest {
+    public function isValid(): bool {
+        // Checks inventory, user permissions, etc.
+    }
+}</pre>
+            </div>
+
+            <p><strong>Key Takeaways:</strong></p>
+            <ul>
+                <li>DTOs are dumb containers — no behavior, just data.</li>
+                <li>Delegate deep validation to the domain layer (Aggregates/VOs).</li>
+                <li>Use framework validators for syntax checks in DTOs.</li>
+            </ul>
+
+            <h3>Rich Domain Model vs Anemic Domain Model with External Validation</h3>
+            <p>In the Rich Domain Model approach, all business logic — including validation rules and invariants — is
+                embedded directly within the domain model objects. These objects are responsible for maintaining their
+                state correctness. By ensuring objects are only created in a valid state, they guarantee data
+                integrity.</p>
+
+            <p><strong>Advantages:</strong></p>
+            <ul>
+                <li><strong>Encapsulation of Rules and Behavior:</strong> All validation and business rules reside
+                    within the object itself. For example, when creating an "Order" object via a factory method, the
+                    object itself checks that the order amount is positive and that the list of items is not empty. This
+                    prevents logic duplication across different services and ensures the object is never in an invalid
+                    state.
+                </li>
+                <li><strong>Single Source of Truth for Business Logic:</strong> The core logic resides within the domain
+                    model, making the code easier to maintain and understand. When business rule changes are needed,
+                    developers only need to modify methods inside the objects themselves, rather than refactoring
+                    external `ValidationService` classes.
+                </li>
+                <li><strong>Simplified Testing:</strong> Since validation rules are built into the objects, tests can
+                    directly verify the correctness of the domain model's behavior. This ensures not only data structure
+                    validation but also all business invariants, making the system more reliable.
+                </li>
+                <li><strong>Adherence to the "Make Illegal States Unrepresentable" Principle:</strong> By preventing the
+                    creation of objects with invalid data, the need for additional validation checks in higher
+                    application layers is minimized.
+                </li>
+            </ul>
+
+            <h3>Anemic Domain Model with External Validation (ValidationService)</h3>
+            <p>In this approach, domain model objects are merely data containers — they contain no business logic.
+                Validation and enforcement of invariants are delegated to external services (e.g., `ValidationService`),
+                which accept DTOs or models and verify their "correctness."</p>
+
+            <p><strong>Disadvantages:</strong></p>
+            <ul>
+                <li><strong>Scattered Business Logic:</strong> All validation logic is concentrated in separate services
+                    rather than being distributed across domain objects. This leads to validation rules and business
+                    logic residing in different places, making the code harder to understand and maintain.
+                </li>
+                <li><strong>Additional Code and Risk of Desynchronization:</strong> When using an external
+                    `ValidationService`, developers must ensure that validation is explicitly called before modifying an
+                    aggregate's state. Any oversight can result in the object transitioning into an invalid state, as
+                    the object itself is unaware of the need for validation.
+                </li>
+                <li><strong>Increased Coupling:</strong> Code relying on external validation must constantly interact
+                    with `ValidationService`, complicating testing — especially when mocking complex business processes
+                    is required.
+                </li>
+            </ul>
+
+            <p>An Anemic Domain Model, where logic is separated and moved into external services, can lead to
+                duplication, complex interactions, and inconsistencies between validations that reside outside the
+                domain objects themselves.</p>
+
+            <h3>Why is a Rich Domain Model Preferable?</h3>
+            <ul>
+                <li><strong>Direct Enforcement of Invariants:</strong> Domain objects are created and modified only
+                    through methods that ensure all business rules are satisfied.
+                </li>
+                <li><strong>Consolidated Business Logic:</strong> All rules and validations reside within domain
+                    objects, simplifying modifications and maintenance.
+                </li>
+                <li><strong>Increased System Reliability:</strong> Preventing the creation of "dirty" objects reduces
+                    the risk of system corruption, even when business requirements change.
+                </li>
+            </ul>
+
+            <p>By embedding validation and business rules directly into domain objects, the Rich Domain Model approach
+                ensures stronger encapsulation, better maintainability, and fewer runtime integrity issues compared to
+                an Anemic Domain Model with external validation.</p>
+
+            <h2>Doctrine vs. ActiveRecord ORM validation</h2>
+            <p>ORM (Object-Relational Mapping) tools are used for interacting with databases, but they can also perform
+                intermediate data validation before persistence. However, their role in validation often sparks debate.
+                Let's explore how Doctrine and ActiveRecord (e.g., in Laravel) approach this issue.</p>
+
+            <h3>Doctrine (Data Mapper): Validation via Symfony</h3>
+            <p>Doctrine itself does not include validators but integrates closely with the Symfony Validator, enabling
+                it to serve as a final validation layer before writing to the database.</p>
+
+            <p><strong>How It Works:</strong></p>
+            <ul>
+                <li>Annotations/Attributes: Validation rules are added directly to entities.</li>
+                <li>Syntactic Checks: Data formats, types, and uniqueness.</li>
+                <li>Lifecycle Integration: Validations are executed before `flush()`.</li>
+            </ul>
+
+            <p><strong>Example with Symfony Validator:</strong></p>
+            <div class="code-block">
+<pre>use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+#[ORM\Entity]
+class User {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private int $id;
+    
+    #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Email]
+    private string $email;
+    
+    #[ORM\Column]
+    #[Assert\Range(min: 1, max: 100)]
+    private int $age;
+}</pre>
+            </div>
+
+            <h3>ActiveRecord (Laravel Eloquent): Validation in Models</h3>
+            <p>ActiveRecord models (e.g., Eloquent in Laravel) often combine validation with business logic, which
+                contradicts clean architecture principles but is practical in use.</p>
+
+            <p><strong>Example of Validation in Eloquent:</strong></p>
+            <div class="code-block">
+<pre>class User extends Model {
+    protected static function boot() {
+        parent::boot();
+
+        static::saving(function ($user) {
+            $validator = Validator::make($user->toArray(), [
+                'email' => 'required|email',
+                'age' => 'integer|min:1|max:100',
+            ]);
+            if ($validator->fails()) {
+                throw new ValidationException($validator);
+            }
+        });
+    }
+}</pre>
+            </div>
+
+            <p>SRP Violation: Model is responsible for both data and validation.</p>
+
+            <h3>Guarantee of data consistency</h3>
+            <p><strong>Automatic Type Checking:</strong> ORM leverages the database schema to automatically validate
+                types and value ranges, reducing the likelihood of passing incorrect data into the application.</p>
+
+            <p><strong>Security:</strong> For example, checks for SQL injection, provided by ORM tools and database
+                configurations, mitigate attack risks by filtering out invalid input values.</p>
+
+            <h3>Audit mechanisms</h3>
+            <p><strong>Error Tracking:</strong> ORM tools enable logging of persistence errors, simplifying debugging
+                and monitoring compliance with business invariants at the persistence level.</p>
+
+            <h2>Database</h2>
+            <p>Working with the database serves as the final shield, protecting the application from errors and
+                violations of business rules, even if earlier validation layers (DTOs, domain model, services) fail to
+                catch them. Validation at the framework level, implemented through ORM tools and infrastructure, ensures
+                reliable preservation of data integrity and acts as an additional protective mechanism. Let's explore
+                the key aspects of this approach.</p>
+
+            <h3>Data types</h3>
+            <p>Each table column has a clearly defined data type (e.g., INT, VARCHAR, DATE), which automatically filters
+                out invalid values. Attempting to insert text into a numeric field will result in an error even before
+                additional constraints are applied.</p>
+
+            <h3>Constraints</h3>
+            <p>The DBMS gives low-order boundaries, which will inevitably stagnate under the hour of any operations with
+                data:</p>
+
+            <p><strong>PRIMARY KEY</strong> — guarantees the uniqueness and presence of a NULL value in the key field.
+            </p>
+            <div class="code-block">
+<pre>CREATE TABLE users (
+    id INT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL
+);</pre>
+            </div>
+
+            <p><strong>FOREIGN KEY</strong> — ensures connections between tables and records any changes to records that
+                are sent.</p>
+            <div class="code-block">
+<pre>CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);</pre>
+            </div>
+
+            <p><strong>UNIQUE</strong> — guarantees the uniqueness of the value of the item (for example, for email).
+            </p>
+            <div class="code-block">
+                <pre>ALTER TABLE users ADD CONSTRAINT unique_email UNIQUE (email);</pre>
+            </div>
+
+            <p><strong>NOT NULL</strong> — blocks NULL values from the column.</p>
+
+            <p><strong>CHECK</strong> — checks the values behind a given mind.</p>
+            <div class="code-block">
+<pre>CREATE TABLE products (
+    id INT PRIMARY KEY,
+    price DECIMAL(10,2) CHECK (price > 0)
+);</pre>
+            </div>
+
+            <h3>Triggers</h3>
+            <p>Triggers enable the implementation of complex validation logic that cannot be expressed with standard
+                constraints. For example, validating the format of a phone number or the correctness of time
+                intervals.</p>
+            <div class="code-block">
+<pre>CREATE TRIGGER validate_phone_format
+BEFORE INSERT ON customers
+FOR EACH ROW
+BEGIN
+    IF NEW.phone NOT REGEXP '^[0-9]{10}$' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid phone format';
+    END IF;
+END;</pre>
+            </div>
+
+            <p><strong>Important:</strong> It is not recommended to fully delegate domain validation related to business
+                logic to the database level, particularly through DB constraints. This can lead to duplication of rules
+                across different system layers and complicate their modification. For example, changing validation
+                conditions (if hardcoded in a `CHECK` constraint or Triggers) would require altering the database
+                schema, which often becomes a bottleneck in development. Additionally, error messages from the database
+                are typically technical and lack the flexibility needed to inform users effectively. DB constraints
+                should be used only for basic validations (e.g., age >= 0), while complex business rules (such as email
+                validation via regular expressions) are better implemented at the application level, where they are
+                easier to test and adapt.</p>
+
+            <h2>Safety</h2>
+            <p>Among numerous threats, three key vulnerabilities remain critical even for modern systems: SQL
+                injections, XSS, and CSRF. These exploit weaknesses in data validation, request handling, and session
+                management, turning ordinary application functions into "loopholes" for attackers. SQL injections target
+                databases by manipulating query logic, XSS injects malicious code through the client side, and CSRF
+                tricks users into performing unwanted actions without their knowledge. Understanding the mechanisms of
+                these attacks and how to neutralize them is not just theoretical knowledge but an essential skill for
+                developers. In the following sections, we will explore how these vulnerabilities work, their
+                consequences, and how to build robust defenses at the backend level.</p>
+
+            <h3>SQL Injection</h3>
+            <p><strong>What it is:</strong> An attacker injects malicious SQL code through input fields (e.g., form
+                inputs) to gain unauthorized access to or manipulate a database.</p>
+
+            <p><strong>Common Backend Errors:</strong></p>
+            <ul>
+                <li>Using raw SQL queries with string concatenation.</li>
+                <li>Failing to escape or parameterize user inputs.</li>
+                <li>Missing data type validation (e.g., expecting a number but receiving a string).</li>
+            </ul>
+
+            <p><strong>Vulnerable Code Example (PHP)</strong></p>
+            <div class="code-block">
+<pre>$user_id = $_GET['id']; // User enters: 1; DROP TABLE users;
+$sql = "SELECT * FROM users WHERE id = $user_id"; // Vulnerable query!</pre>
+            </div>
+
+            <p><strong>How to Mitigate:</strong></p>
+            <ul>
+                <li>Use Prepared Statements (Parameterized Queries)</li>
+                <li>ORM Libraries: Tools like Doctrine (PHP) auto-escape inputs.</li>
+                <li>Input Validation and Type Casting</li>
+                <li>Minimize Database Privileges: The application's database account should not have permissions for
+                    destructive operations like DROP TABLE.
+                </li>
+            </ul>
+
+            <h3>XSS (Cross-Site Scripting)</h3>
+            <p><strong>What it is:</strong> Injection of malicious JavaScript code through data rendered on a webpage
+                (e.g., comments, user profiles). The attack executes in the victim's browser.</p>
+
+            <p><strong>Common Backend Errors:</strong></p>
+            <ul>
+                <li>Outputting user-supplied data without escaping.</li>
+                <li>Allowing raw HTML/JS in user-generated content (e.g., via WYSIWYG editors) without sanitization.
+                </li>
+            </ul>
+
+            <p><strong>Vulnerable Code Example (PHP)</strong></p>
+            <div class="code-block">
+<pre>echo "<div>" . $_POST['comment'] . "</div>";
+// If comment contains: alert('XSS') → Executes!</pre>
+            </div>
+
+            <p><strong>How to Mitigate:</strong></p>
+            <ul>
+                <li>Escape Output: Use functions like htmlspecialchars() (PHP) or framework utilities.</li>
+                <li>Content Security Policy (CSP): Restrict inline scripts via HTTP headers.</li>
+                <li>Sanitize HTML Input: Use libraries like HTMLPurifier (PHP) or DOMPurify (JS) for WYSIWYG content.
+                </li>
+                <li>Use Modern Frameworks: React/Vue/Angular auto-escape by default (but stay cautious with
+                    dangerouslySetInnerHTML or v-html).
+                </li>
+            </ul>
+
+            <h3>CSRF (Cross-Site Request Forgery)</h3>
+            <p><strong>What it is:</strong> An attacker tricks a user into unknowingly executing malicious actions on a
+                website where they're authenticated (e.g., transferring money, changing passwords).</p>
+
+            <p><strong>Common Backend Errors:</strong></p>
+            <ul>
+                <li>No CSRF tokens implemented.</li>
+                <li>Relying solely on cookies for authentication (which browsers send automatically).</li>
+                <li>Using GET requests for state-changing actions (GET should be idempotent).</li>
+            </ul>
+
+            <p><strong>Vulnerable Code Example (PHP)</strong></p>
+            <div class="code-block">
+<pre>// Backend processes a money transfer without CSRF token validation
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $amount = (float) $_POST['amount'];
+    // ... execute transfer ...
+}</pre>
+            </div>
+
+            <p><strong>How to Mitigate:</strong></p>
+            <ul>
+                <li>Generate a unique token per user session</li>
+                <li>Embed it in forms and validate it on submission.</li>
+                <li>SameSite Cookies: Set cookies with SameSite=Strict or Lax to prevent cross-origin requests.</li>
+                <li>Require Re-Authentication: For sensitive actions (e.g., payments), prompt for passwords/2FA.</li>
+                <li>Avoid GET for State Changes: Use POST/PUT/DELETE for actions that modify data.</li>
+            </ul>
+
+            <h2>Architectural approaches for validation</h2>
+            <p>Data validation is not just a set of checks — it's a sophisticated process requiring thoughtful
+                architecture. Modern applications need to validate data at multiple levels, from syntax to business
+                context. How can we organize this process to keep the code maintainable and the rules flexible? Let's
+                examine three key approaches.</p>
+
+            <h3>Middleware: Input Validation</h3>
+            <p>Middleware acts as a "checkpoint" for incoming requests. It intercepts data before it reaches business
+                logic and performs preliminary validation. You can add middleware layers to verify authentication, CSRF
+                tokens, JSON formatting, or request structure.</p>
+
+            <p><strong>Advantages:</strong></p>
+            <ul>
+                <li>Centralization: Common rules (e.g., header checks) apply automatically to all routes.</li>
+                <li>Flexibility: Specific endpoints or groups (e.g., API vs. admin panel) can enforce custom rules
+                    (e.g., token requirements or role-based access).
+                </li>
+                <li>Performance: Requests with obvious errors (e.g., malformed Content-Type) are rejected early, saving
+                    server resources.
+                </li>
+            </ul>
+
+            <h3>Validation Services: Reusable Business Logic</h3>
+            <p>When validations become complex (e.g., checking the uniqueness of a combination of fields or integrating
+                with third-party APIs), they are moved to separate services. This allows:</p>
+            <ul>
+                <li>Code isolation: Validation logic is not scattered across controllers but resides in dedicated
+                    classes like `UserRegistrationValidator`.
+                </li>
+                <li>Simplified testing: Services can be tested independently of the HTTP layer, with dependencies
+                    (databases, external APIs) mocked.
+                </li>
+                <li>Logic reuse: The same validator can be used for APIs, CLI commands, and CSV data imports.</li>
+            </ul>
+
+            <h3>Chain of Responsibility: Validation in a Chain</h3>
+            <p>The Chain of Responsibility pattern breaks down complex validations into sequential stages. Each handler
+                in the chain is responsible for its own part:</p>
+            <ul>
+                <li>Syntax: The first handler checks basic parameters, such as data types and required fields.</li>
+                <li>Business Rules: Subsequent stages analyze data in the context of the domain (e.g., whether there are
+                    sufficient funds in an account for a transfer).
+                </li>
+                <li>External Checks: Final handlers may query external services (e.g., CAPTCHA verification or
+                    anti-fraud systems).
+                </li>
+            </ul>
+
+            <p><strong>Advantages:</strong></p>
+            <ul>
+                <li>Scalability: New validations can be added without rewriting existing code — simply create a new
+                    handler.
+                </li>
+                <li>Clarity: Each class focuses on a single responsibility, aligning with the SOLID principles.</li>
+                <li>Dynamic Configuration: Different chains can be assembled for various scenarios (e.g., strict
+                    validation for payments and simplified validation for reviews).
+                </li>
+            </ul>
+
+            <h3>Strategy Pattern: Dynamic Validation Selection</h3>
+            <p>The Strategy pattern enables the selection of a validation algorithm on the fly, depending on the
+                context. For example, data validation may vary for different user types, regions, or use cases.</p>
+
+            <p><strong>Advantages:</strong></p>
+            <ul>
+                <li>Flexibility: Rules can be changed without modifying the core code.</li>
+                <li>Elimination of Conditionals: Instead of using if-else statements, you leverage polymorphism.</li>
+                <li>Easy Testing: Each strategy can be tested in isolation.</li>
+            </ul>
+
+            <h3>How to Choose an Approach?</h3>
+            <ul>
+                <li>Middleware is ideal for cross-cutting validations (e.g., authentication, CORS).</li>
+                <li>Services are suitable for complex validations involving external calls.</li>
+                <li>Chain of Responsibility is best for sequential validations.</li>
+                <li>Strategy is appropriate when dynamically switching between validation algorithms is required.</li>
+            </ul>
+
+            <p><strong>Important:</strong> These approaches do not exclude but complement each other. For example,
+                Middleware can validate headers, Chain of Responsibility can handle request data, and a Service can
+                manage business logic validation.</p>
+
+            <h2>Data Validation in Microservice Architecture</h2>
+            <p>Microservice architecture, despite its flexibility and scalability, complicates data validation
+                management due to the distributed nature of services. Each microservice handles its own domain,
+                necessitating careful design of data validation at every stage of interaction. Let's explore the key
+                aspects of validation in such an architecture.</p>
+
+            <h3>Local Validation in Microservices</h3>
+            <p>Each microservice must independently validate data related to its domain. This includes checking formats,
+                data types, and business rules specific to that service. This approach ensures encapsulation of logic
+                and reduces dependency on other services.</p>
+
+            <h3>Validation of Data Between Microservices</h3>
+            <p>When one microservice relies on data from another (e.g., an order service requiring user information from
+                a user service), inter-service validation becomes necessary. Several approaches address this
+                challenge:</p>
+            <ul>
+                <li><strong>Synchronous Requests:</strong> Upon receiving data, a microservice makes an HTTP request to
+                    another service to verify its validity. This method is straightforward to implement but can increase
+                    latency and reduce fault tolerance due to dependency on the availability of other services.
+                </li>
+                <li><strong>Asynchronous Messaging and Event-Driven Architecture:</strong> Using message brokers (e.g.,
+                    RabbitMQ) allows microservices to exchange events and data asynchronously. This improves scalability
+                    and reduces coupling between services but complicates error handling and requires careful design.
+                </li>
+                <li><strong>Data Replication:</strong> Some data from one microservice can be copied and periodically
+                    updated in another for local validation. This reduces inter-service calls but may lead to data
+                    staleness and additional synchronization complexities.
+                </li>
+            </ul>
+
+            <h3>Centralized Schemas and Contracts</h3>
+            <p>To ensure data consistency across microservices, centralized schemas and API contracts are
+                recommended:</p>
+            <ul>
+                <li><strong>API Contracts:</strong> Defining clear contracts between services ensures that transmitted
+                    data conforms to expected formats and structures. Tools like OpenAPI can be useful for documenting
+                    and maintaining these contracts.
+                </li>
+                <li><strong>Data Schemas:</strong> Using shared data schemas (e.g., JSON Schema) enables standardized
+                    validation and structure for data exchanged between services.
+                </li>
+            </ul>
+
+            <p>Effective data validation in a microservice architecture requires balancing local service
+                responsibilities with the need for inter-service interaction, while considering performance, security,
+                and data consistency.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="../resources/back-to-top.js"></script>
+<script src="../resources/navigation.js"></script>
+</html>

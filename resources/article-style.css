@@ -1,0 +1,270 @@
+/* Article Styling - Medium-like */
+.article-container {
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+    color: #292929;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.article-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.article-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.article-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #757575;
+}
+
+.article-author-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.article-author-info {
+    text-align: left;
+}
+
+.article-author-name {
+    font-weight: bold;
+    color: #292929;
+}
+
+.article-date {
+    color: #757575;
+}
+
+.article-featured-img {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+.article-content {
+    font-size: 18px;
+}
+
+.article-content h2 {
+    font-size: 28px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.article-content h3 {
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.article-content p {
+    margin-bottom: 25px;
+}
+
+/* Override general styles for article lists */
+.container .article-container .article-content ul,
+.container .article-container .article-content ol {
+    list-style-position: outside;
+    margin: 0;
+    padding: 0;
+    padding-left: 25px;
+    margin-bottom: 25px;
+}
+
+.container .article-container .article-content ul {
+    list-style-type: disc;
+}
+
+.container .article-container .article-content ol {
+    list-style-type: decimal;
+}
+
+.container .article-container .article-content li {
+    margin-bottom: 10px;
+    position: static;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    transition: none;
+    display: list-item;
+}
+
+.article-content blockquote {
+    border-left: 3px solid #292929;
+    padding-left: 20px;
+    margin-left: 0;
+    margin-right: 0;
+    font-style: italic;
+    color: #555;
+}
+
+.article-content code {
+    background-color: #f3f3f3;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 16px;
+}
+
+.article-content pre {
+    background-color: #f3f3f3;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin-bottom: 25px;
+}
+
+.article-content pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+.article-content img {
+    max-width: 100%;
+    margin: 20px 0;
+    border-radius: 5px;
+}
+
+.article-content a {
+    color: #03a87c;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.article-content a:hover {
+    border-bottom-color: #03a87c;
+}
+
+.article-footer {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #e6e6e6;
+    font-family: Arial, sans-serif;
+}
+
+.article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.article-tag {
+    background-color: #f2f2f2;
+    color: #757575;
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.article-author-bio {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.article-author-bio-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+.article-author-bio-content {
+    flex: 1;
+}
+
+.article-author-bio-name {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.article-author-bio-text {
+    color: #757575;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.article-social-share {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.article-social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.article-social-icon:hover {
+    background-color: #e0e0e0;
+}
+
+/* Code block styling */
+.code-block {
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 20px 0;
+    overflow-x: auto;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    border: 1px solid #e0e0e0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .article-container {
+        padding: 15px;
+    }
+    
+    .article-title {
+        font-size: 28px;
+    }
+    
+    .article-content {
+        font-size: 16px;
+    }
+    
+    .article-content h2 {
+        font-size: 24px;
+    }
+    
+    .article-content h3 {
+        font-size: 20px;
+    }
+}

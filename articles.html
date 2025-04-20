@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dykyi Roman - Software Engineer</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="resources/style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+    <script>
+        fetch('headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <!--  Articles  -->
+    <div class="section">
+        <h3>Articles</h3>
+        <ul class="articles-ring">
+            <li>
+                <a href="articles/8.html">
+                    <div class="article-card">
+                        <img src="articles/img/8.png" alt="Understanding Validation Levels" class="article-thumb">
+                        <span class="article-title">Understanding Validation Levels</span>
+                    </div>
+                </a>
+            </li>
+
+            <li>
+                <a href="articles/7.html">
+                    <div class="article-card">
+                        <img src="articles/img/7.png" alt="Linking Contexts: A Guide to Effective Interaction" class="article-thumb">
+                        <span class="article-title">Linking Contexts: A Guide to Effective Interaction</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    document.getElementById("experience-years").textContent = (new Date().getFullYear() - 2010) - 5;
+</script>
+</body>
+</html>
