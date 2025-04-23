@@ -31,139 +31,260 @@
 
         <div class="article-content">
             <h1>Introduction</h1>
-            <p>In the previous article, “How to Organize Application Structure,” various approaches to code organization were discussed, including monolithic architecture, layered architecture, and clean architecture principles. I emphasized the importance of a clear code structure that facilitates understanding, implements new features, and reduces the likelihood of errors. Special attention was given to criteria for clarity, such as clear purposes for files and folders, separation of logic by modules or functional areas, the use of self-documenting names, and adherence to coding standards. The problems arising from unstructured code organization were also examined, including difficulties in navigation, lack of modularity, and violations of SOLID and GRASP principles.</p>
-            <p>In this article, we will continue this topic by focusing on a comparison of two approaches to code organization: <strong>Package by Feature</strong> and <strong>Package by Layer</strong>. We will explore in detail how each of these methods impacts project structure, code maintainability, and scalability.</p>
+            <p>In the previous article, “How to Organize Application Structure,” various approaches to code organization
+                were discussed, including monolithic architecture, layered architecture, and clean architecture
+                principles. I emphasized the importance of a clear code structure that facilitates understanding,
+                implements new features, and reduces the likelihood of errors. Special attention was given to criteria
+                for clarity, such as clear purposes for files and folders, separation of logic by modules or functional
+                areas, the use of self-documenting names, and adherence to coding standards. The problems arising from
+                unstructured code organization were also examined, including difficulties in navigation, lack of
+                modularity, and violations of SOLID and GRASP principles.</p>
+            <p>In this article, we will continue this topic by focusing on a comparison of two approaches to code
+                organization: <strong>Package by Feature</strong> and <strong>Package by Layer</strong>. We will explore
+                in detail how each of these methods impacts project structure, code maintainability, and scalability.
+            </p>
 
             <h2>Real Life Examples</h2>
             <h3>Example №1: Building a City</h3>
-            <p>Imagine you are building a city. This city has houses, schools, shops, and parks. You can organize the city in different ways:</p>
+            <p>Imagine you are building a city. This city has houses, schools, shops, and parks. You can organize the
+                city in different ways:</p>
             <ul>
-                <li><strong>Package by Layer</strong> — All similar buildings are grouped in one area: All shops are in one district, all houses in another, and all schools in a third. Would you want to live in such a city?</li>
-                <li><strong>Package by Feature</strong> — Districts where everything you need is located nearby: In one district, there are houses, shops, and schools — everything the district's residents might need.</li>
+                <li><strong>Package by Layer</strong> — All similar buildings are grouped in one area: All shops are in
+                    one district, all houses in another, and all schools in a third. Would you want to live in such a
+                    city?
+                </li>
+                <li><strong>Package by Feature</strong> — Districts where everything you need is located nearby: In one
+                    district, there are houses, shops, and schools — everything the district's residents might need.
+                </li>
             </ul>
             <h3>Example №2: Organizing Clothes in a Wardrobe</h3>
             <p>Imagine you are organizing clothes in a wardrobe. You can arrange them in different ways:</p>
             <ul>
-                <li><strong>Package by Layer</strong> — All T-shirts go on one shelf, all pants on another, and all socks in a separate drawer.</li>
-                <li><strong>Package by Feature</strong> — Organizing clothes by activity. Everything for swimming is in one place (swimsuit, towel, goggles), and everything for school is in another (textbooks, notebooks, pens).</li>
+                <li><strong>Package by Layer</strong> — All T-shirts go on one shelf, all pants on another, and all
+                    socks in a separate drawer.
+                </li>
+                <li><strong>Package by Feature</strong> — Organizing clothes by activity. Everything for swimming is in
+                    one place (swimsuit, towel, goggles), and everything for school is in another (textbooks, notebooks,
+                    pens).
+                </li>
             </ul>
             <h3>Example №3: Organizing a Restaurant Kitchen</h3>
-            <p>Imagine you have a restaurant with several chefs, and an order comes in for pizza, salad, and dessert. You have many ingredients and tools: flour, cheese, tomatoes, cucumbers, eggs, a mixer, knives, cutting boards, and so on. You need to organize everything so that cooking is convenient.</p>
+            <p>Imagine you have a restaurant with several chefs, and an order comes in for pizza, salad, and dessert.
+                You have many ingredients and tools: flour, cheese, tomatoes, cucumbers, eggs, a mixer, knives, cutting
+                boards, and so on. You need to organize everything so that cooking is convenient.</p>
             <ul>
-                <li><strong>Package by Layer</strong> — Similar to organizing everything by type, regardless of which dish it’s needed for. For example: Box “All Vegetables”, Box “All Tools”, Box “Spices”. If you’re making pizza, you need to take the box with vegetables, the box with tools, the box with dry ingredients, and the box with dishes. This takes a lot of time and effort. You might get confused because everything is scattered across different boxes.</li>
-                <li><strong>Package by Feature</strong> — Organize everything needed for each dish into separate boxes or zones in the kitchen. For example: Box “Pizza”, Box “Salads”, Box “Desserts”. You don’t get confused because everything for each dish is in one place. The chefs don’t get in each other’s way.</li>
+                <li><strong>Package by Layer</strong> — Similar to organizing everything by type, regardless of which
+                    dish it’s needed for. For example: Box “All Vegetables”, Box “All Tools”, Box “Spices”. If you’re
+                    making pizza, you need to take the box with vegetables, the box with tools, the box with dry
+                    ingredients, and the box with dishes. This takes a lot of time and effort. You might get confused
+                    because everything is scattered across different boxes.
+                </li>
+                <li><strong>Package by Feature</strong> — Organize everything needed for each dish into separate boxes
+                    or zones in the kitchen. For example: Box “Pizza”, Box “Salads”, Box “Desserts”. You don’t get
+                    confused because everything for each dish is in one place. The chefs don’t get in each other’s way.
+                </li>
             </ul>
             <h3>Example №4: Packing a School Backpack</h3>
             <p>Imagine you need to pack a school backpack.</p>
             <ul>
-                <li><strong>Package by Layer</strong> — Putting all textbooks together, all notebooks together, and all pens together. It’s convenient when you need to find all the textbooks, but it’s inconvenient when packing for specific subjects.</li>
-                <li><strong>Package by Feature</strong> — Packing everything for math separately (textbook, notebook, ruler) and everything for art separately (sketchbook, paints, brushes). It’s convenient when preparing for a specific lesson, but harder to find all textbooks at once.</li>
+                <li><strong>Package by Layer</strong> — Putting all textbooks together, all notebooks together, and all
+                    pens together. It’s convenient when you need to find all the textbooks, but it’s inconvenient when
+                    packing for specific subjects.
+                </li>
+                <li><strong>Package by Feature</strong> — Packing everything for math separately (textbook, notebook,
+                    ruler) and everything for art separately (sketchbook, paints, brushes). It’s convenient when
+                    preparing for a specific lesson, but harder to find all textbooks at once.
+                </li>
             </ul>
 
             <h2>How Do Programming Paradigms Affect Code Organization?</h2>
-            <p>Before diving into code organization, it’s important to understand that different programming paradigms can influence the choice between Package by Layer and Package by Feature.</p>
+            <p>Before diving into code organization, it’s important to understand that different programming paradigms
+                can influence the choice between Package by Layer and Package by Feature.</p>
 
             <h3>Object-Oriented Programming (OOP) and Code Organization</h3>
-            <p>OOP is a paradigm where a program is built around objects, which are instances of classes. The main principles of OOP include:</p>
+            <p>OOP is a paradigm where a program is built around objects, which are instances of classes. The main
+                principles of OOP include:</p>
             <ul>
-                <li><strong>Encapsulation:</strong> Hiding the internal state of an object and providing access to it only through methods.</li>
-                <li><strong>Inheritance:</strong> The ability to create new classes based on existing ones, allowing code reuse.</li>
-                <li><strong>Polymorphism:</strong> The ability of objects of different classes to be treated as objects of a single class.</li>
-                <li><strong>Abstraction:</strong> Simplifying complex systems by modeling classes that reflect only essential characteristics.</li>
+                <li><strong>Encapsulation:</strong> Hiding the internal state of an object and providing access to it
+                    only through methods.
+                </li>
+                <li><strong>Inheritance:</strong> The ability to create new classes based on existing ones, allowing
+                    code reuse.
+                </li>
+                <li><strong>Polymorphism:</strong> The ability of objects of different classes to be treated as objects
+                    of a single class.
+                </li>
+                <li><strong>Abstraction:</strong> Simplifying complex systems by modeling classes that reflect only
+                    essential characteristics.
+                </li>
             </ul>
-            <p>OOP revolves around objects that contain state (data) and behavior (methods). This leads to the following implications:</p>
+            <p>OOP revolves around objects that contain state (data) and behavior (methods). This leads to the following
+                implications:</p>
             <h4>Package by Feature</h4>
             <ul>
                 <li>Supports OOP principles such as encapsulation and implementation hiding.</li>
-                <li>Classes related to a single functionality are grouped together, making the code easier to understand and maintain.</li>
+                <li>Classes related to a single functionality are grouped together, making the code easier to understand
+                    and maintain.
+                </li>
                 <li>Allows encapsulation of all logic related to specific functionality within a single package.</li>
                 <li>Promotes highly cohesive modules with low coupling, aligning with SOLID principles.</li>
                 <li>Easier to adhere to the Single Responsibility Principle (SRP).</li>
-                <li>Works better with DDD (Domain-Driven Design) as it allows grouping objects related to a single business feature in one place.</li>
+                <li>Works better with DDD (Domain-Driven Design) as it allows grouping objects related to a single
+                    business feature in one place.
+                </li>
             </ul>
             <h4>Package by Layer</h4>
             <ul>
-                <li>Often found in classic monolithic applications, where layers (controllers, services, repositories) are separated.</li>
-                <li>Objects and classes responsible for different aspects of a single function are also separated into different layers.</li>
-                <li>Can make it harder to apply OOP principles such as polymorphism, leading to more complex and tangled relationships between objects.</li>
+                <li>Often found in classic monolithic applications, where layers (controllers, services, repositories)
+                    are separated.
+                </li>
+                <li>Objects and classes responsible for different aspects of a single function are also separated into
+                    different layers.
+                </li>
+                <li>Can make it harder to apply OOP principles such as polymorphism, leading to more complex and tangled
+                    relationships between objects.
+                </li>
             </ul>
-            <p>In summary, Package by Feature aligns more naturally with OOP principles, promoting encapsulation, cohesion, and maintainability, while Package by Layer can introduce complexity and reduce clarity in object interactions.</p>
+            <p>In summary, Package by Feature aligns more naturally with OOP principles, promoting encapsulation,
+                cohesion, and maintainability, while Package by Layer can introduce complexity and reduce clarity in
+                object interactions.</p>
 
             <h3>Functional Programming (FP) and Code Organization</h3>
-            <p>FP is a paradigm where a program is viewed as a set of functions that take input and return results. It is based on the ideas of pure functions, immutability, and composition. The main principles of FP include:</p>
+            <p>FP is a paradigm where a program is viewed as a set of functions that take input and return results. It
+                is based on the ideas of pure functions, immutability, and composition. The main principles of FP
+                include:</p>
             <ul>
-                <li><strong>Pure Functions:</strong> Functions that have no side effects and return the same result for the same input.</li>
-                <li><strong>Immutability:</strong> Data is not changed after creation; instead, new data is created.</li>
-                <li><strong>Higher-Order Functions:</strong> Functions that can take other functions as arguments or return them.</li>
+                <li><strong>Pure Functions:</strong> Functions that have no side effects and return the same result for
+                    the same input.
+                </li>
+                <li><strong>Immutability:</strong> Data is not changed after creation; instead, new data is created.
+                </li>
+                <li><strong>Higher-Order Functions:</strong> Functions that can take other functions as arguments or
+                    return them.
+                </li>
                 <li><strong>Recursion:</strong> Often used instead of loops for data processing.</li>
             </ul>
-            <p>Functional programming emphasizes what the program does rather than how it does it. This leads to a different approach to code structure:</p>
+            <p>Functional programming emphasizes what the program does rather than how it does it. This leads to a
+                different approach to code structure:</p>
             <h4>Package by Feature</h4>
             <ul>
                 <li>Works well with FP, as functionality is grouped around specific tasks or domain areas.</li>
                 <li>Allows the creation of modules that encapsulate logic related to a specific function.</li>
-                <li>Functions that work with the same data or solve the same task are located in one place, making it easier to compose and reuse functions.</li>
-                <li>Promotes the creation of pure functions, as each functionality is isolated and does not depend on the global state.</li>
+                <li>Functions that work with the same data or solve the same task are located in one place, making it
+                    easier to compose and reuse functions.
+                </li>
+                <li>Promotes the creation of pure functions, as each functionality is isolated and does not depend on
+                    the global state.
+                </li>
             </ul>
             <h4>Package by Layer</h4>
             <ul>
-                <li>Contradicts the principles of FP, as it separates code by technical criteria rather than functionality.</li>
+                <li>Contradicts the principles of FP, as it separates code by technical criteria rather than
+                    functionality.
+                </li>
                 <li>Can make function composition more difficult and scatter logic across different layers.</li>
-                <li>Functional code may become less readable if functions related to the same task are located in different packages.</li>
+                <li>Functional code may become less readable if functions related to the same task are located in
+                    different packages.
+                </li>
             </ul>
-            <p>In summary, Package by Feature aligns better with FP principles, promoting modularity, reusability, and clarity, while Package by Layer can introduce unnecessary complexity and reduce readability in functional programming.</p>
+            <p>In summary, Package by Feature aligns better with FP principles, promoting modularity, reusability, and
+                clarity, while Package by Layer can introduce unnecessary complexity and reduce readability in
+                functional programming.</p>
 
             <h2>What Do the Experts Say?</h2>
             <h3>Eric Evans in “Domain-Driven Design”</h3>
-            <p>Eric Evans introduces the four-layer architecture (Layered Architecture), which helps separate business logic, infrastructure, user interface, and data access. However, he does not insist on a specific directory structure, but rather emphasizes the importance of separating areas of responsibility.</p>
-            <blockquote>DDD does not dictate a rigid package structure. It is important that the code reflects the context boundaries and the domain model.<br>— Evans, DDD, Chapter 4 “Isolation of Domain Logic”</blockquote>
+            <p>Eric Evans introduces the four-layer architecture (Layered Architecture), which helps separate business
+                logic, infrastructure, user interface, and data access. However, he does not insist on a specific
+                directory structure, but rather emphasizes the importance of separating areas of responsibility.</p>
+            <blockquote>DDD does not dictate a rigid package structure. It is important that the code reflects the
+                context boundaries and the domain model.<br>— Evans, DDD, Chapter 4 “Isolation of Domain Logic”
+            </blockquote>
             <h4>Four layers according to Evans:</h4>
             <ul>
                 <li>The Domain Layer should be isolated from infrastructure. (Entities, Value Objects, Aggregates)</li>
-                <li>The Application Layer manages business processes but does not contain business logic. (Use Cases)</li>
+                <li>The Application Layer manages business processes but does not contain business logic. (Use Cases)
+                </li>
                 <li>The Infrastructure Layer implements data storage, APIs, and integrations.</li>
                 <li>The User Interface Layer is responsible for user interaction.</li>
             </ul>
-            <p>Evans does not prescribe exactly how the file structure should be organized. He provides a concept of separating responsibilities but does not give specific rules for naming folders. Additionally, Evans emphasizes the importance of Bounded Context and organizing code by contexts, not just by layers.</p>
-            <blockquote>“When a large system is divided into multiple Bounded Contexts, each has its own domain model and logic. The code must be organized to reflect the boundaries clearly.”<br>— Eric Evans, Domain-Driven Design, Chapter 14: Maintaining Model Integrity</blockquote>
-            <p>This hints at Package by Feature, where code is split by features/contexts (Bonus/, Customer/, Order/) rather than just layers (Domain/, Application/, Infrastructure/).</p>
+            <p>Evans does not prescribe exactly how the file structure should be organized. He provides a concept of
+                separating responsibilities but does not give specific rules for naming folders. Additionally, Evans
+                emphasizes the importance of Bounded Context and organizing code by contexts, not just by layers.</p>
+            <blockquote>“When a large system is divided into multiple Bounded Contexts, each has its own domain model
+                and logic. The code must be organized to reflect the boundaries clearly.”<br>— Eric Evans, Domain-Driven
+                Design, Chapter 14: Maintaining Model Integrity
+            </blockquote>
+            <p>This hints at Package by Feature, where code is split by features/contexts (Bonus/, Customer/, Order/)
+                rather than just layers (Domain/, Application/, Infrastructure/).</p>
 
             <h3>Vaughn Vernon in “Implementing Domain-Driven Design”</h3>
-            <p>Vaughn Vernon also supports the separation of layers, but he takes a more flexible approach to code organization. In his book “Implementing DDD”, he even mentions Package by Feature as a possible option!</p>
+            <p>Vaughn Vernon also supports the separation of layers, but he takes a more flexible approach to code
+                organization. In his book “Implementing DDD”, he even mentions Package by Feature as a possible
+                option!</p>
             <h4>Bounded Context and code organization:</h4>
-            <blockquote>“Bounded Context is a central pattern in Domain-Driven Design. It defines the boundaries within which a particular model applies and is consistent. Organizing code around Bounded Contexts, rather than just technical layers, helps to maintain clarity and alignment with the business domain.”</blockquote>
-            <blockquote>“A Bounded Context is a logical boundary. The application of architectural layers within a Bounded Context is a choice, not a requirement. The key is to keep the domain model pure and expressive within that boundary.”<br>— Vaughn Vernon, Implementing Domain-Driven Design, Chapter 2: Bounded Contexts</blockquote>
+            <blockquote>“Bounded Context is a central pattern in Domain-Driven Design. It defines the boundaries within
+                which a particular model applies and is consistent. Organizing code around Bounded Contexts, rather than
+                just technical layers, helps to maintain clarity and alignment with the business domain.”
+            </blockquote>
+            <blockquote>“A Bounded Context is a logical boundary. The application of architectural layers within a
+                Bounded Context is a choice, not a requirement. The key is to keep the domain model pure and expressive
+                within that boundary.”<br>— Vaughn Vernon, Implementing Domain-Driven Design, Chapter 2: Bounded
+                Contexts
+            </blockquote>
             <h4>Code structure and possible approaches:</h4>
-            <blockquote>“Organizing code strictly by layers often leads to an artificial separation of concerns. Instead, consider grouping code by domain concepts first, and then decide whether layers are needed inside each context.”<br>— Vaughn Vernon, Implementing Domain-Driven Design, Chapter 4: Strategic Design with Bounded Contexts</blockquote>
+            <blockquote>“Organizing code strictly by layers often leads to an artificial separation of concerns.
+                Instead, consider grouping code by domain concepts first, and then decide whether layers are needed
+                inside each context.”<br>— Vaughn Vernon, Implementing Domain-Driven Design, Chapter 4: Strategic Design
+                with Bounded Contexts
+            </blockquote>
             <p>What does it say about the structure of the code?</p>
-            <blockquote>“DDD does not dictate a rigid package structure. What’s important is that the code reflects the boundaries of the context and the domain model.”<br>— Vernon, IDDD, Chapter 2 “Context Boundaries”</blockquote>
-            <p>He acknowledges that Package by Feature can be used within DDD and recommends grouping code by Bounded Context, and layers can be used within each context. He suggests a hybrid approach between Package by Layer and Package by Feature.</p>
+            <blockquote>“DDD does not dictate a rigid package structure. What’s important is that the code reflects the
+                boundaries of the context and the domain model.”<br>— Vernon, IDDD, Chapter 2 “Context Boundaries”
+            </blockquote>
+            <p>He acknowledges that Package by Feature can be used within DDD and recommends grouping code by Bounded
+                Context, and layers can be used within each context. He suggests a hybrid approach between Package by
+                Layer and Package by Feature.</p>
             <img src="img/6.1.png" alt="" class="article-featured-img">
 
             <h3>Carlos Buenosvinos, Christian Soronellas, and Keyvan Akbary in “DDD in PHP”</h3>
-            <p>The book also touches on the issue of code organization, including models, layers, and Bounded Context. The authors of the book are guided by the principles of Evans and Vernon, but with adaptation to PHP.</p>
+            <p>The book also touches on the issue of code organization, including models, layers, and Bounded Context.
+                The authors of the book are guided by the principles of Evans and Vernon, but with adaptation to
+                PHP.</p>
             <h4>Prefer for Bounded Context and Package by Feature</h4>
-            <blockquote>“A good PHP architecture organizes the code around domain concepts, rather than technical layers. Each context should have its own domain logic, independent from infrastructure concerns.”<br>— PHP in DDD, Chapter 6: Organizing Code with Bounded Contexts</blockquote>
-            <p>Supports using Bounded Context and Package by Feature, not just layers. Code inside the Domain Layer should hide implementation details and work through Use Cases.</p>
+            <blockquote>“A good PHP architecture organizes the code around domain concepts, rather than technical
+                layers. Each context should have its own domain logic, independent from infrastructure concerns.”<br>—
+                PHP in DDD, Chapter 6: Organizing Code with Bounded Contexts
+            </blockquote>
+            <p>Supports using Bounded Context and Package by Feature, not just layers. Code inside the Domain Layer
+                should hide implementation details and work through Use Cases.</p>
             <h4>Layers are used flexibly</h4>
-            <blockquote>“Layered architecture is a useful tool, but it should not dictate how to structure your PHP application. The most important thing is to keep business logic separate from infrastructure.”<br>— PHP in DDD, Chapter 10: The Role of Application and Infrastructure Layers</blockquote>
+            <blockquote>“Layered architecture is a useful tool, but it should not dictate how to structure your PHP
+                application. The most important thing is to keep business logic separate from infrastructure.”<br>— PHP
+                in DDD, Chapter 10: The Role of Application and Infrastructure Layers
+            </blockquote>
 
             <h3>Uncle Bob’s in Clean Code</h3>
-            <p>Take a look at Uncle Bob’s Package Design Principles. He explains the reasons and motivations behind those principles, which I have elaborated on below.</p>
-            <p>The next three package principles are about package cohesion, they tell us what to put inside packages:</p>
+            <p>Take a look at Uncle Bob’s Package Design Principles. He explains the reasons and motivations behind
+                those principles, which I have elaborated on below.</p>
+            <p>The next three package principles are about package cohesion, they tell us what to put inside
+                packages:</p>
             <img src="img/6.2.png" alt="" class="article-featured-img">
 
             <p>How does this relate to Package by Feature and Package by Layer?</p>
             <img src="img/6.3.png" alt="" class="article-featured-img">
 
             <ul>
-                <li>Uncle Bob’s principles show that Package by Feature is a more flexible and scalable approach because:</li>
+                <li>Uncle Bob’s principles show that Package by Feature is a more flexible and scalable approach
+                    because:
+                </li>
                 <ul>
                     <li>It avoids cyclic dependencies.</li>
                     <li>Each feature can be changed independently.</li>
                     <li>It groups code by meaning, not by technical layers.</li>
                 </ul>
-                <li>However, if you use Package by Layer, you need to manage dependencies very carefully to avoid violating the principles!</li>
+                <li>However, if you use Package by Layer, you need to manage dependencies very carefully to avoid
+                    violating the principles!
+                </li>
             </ul>
 
             Comparison of Code Organization Approaches in DDD
@@ -175,12 +296,16 @@
                 <li>Package by Context + Package by Layer inside each context.</li>
                 <li>Flexible use of layers (separate the domain from infrastructure, but avoid overcomplicating).</li>
                 <li>The domain model is crucial (Entity, Aggregate, Value Objects).</li>
-                <li>DDD does not dictate the folder structure, but it does require a clear separation of responsibilities.</li>
+                <li>DDD does not dictate the folder structure, but it does require a clear separation of
+                    responsibilities.
+                </li>
                 <li>The main principle: DDD → Contexts first, then layers, not the other way around!</li>
             </ul>
 
             <h2>Use Cases in Clean Architecture and Package by Feature</h2>
-            <p>Use Cases are one of the key elements of Clean Architecture, responsible for handling business logic. Package by Feature is a way of organizing code where all files related to a single functionality (feature) are stored in one folder. These two approaches complement each other perfectly:</p>
+            <p>Use Cases are one of the key elements of Clean Architecture, responsible for handling business logic.
+                Package by Feature is a way of organizing code where all files related to a single functionality
+                (feature) are stored in one folder. These two approaches complement each other perfectly:</p>
             <ul>
                 <li>Use Cases allow you to isolate business logic.</li>
                 <li>Package by Feature makes the codebase more modular and understandable.</li>
@@ -188,10 +313,12 @@
             </ul>
             <img src="img/6.5.png" alt="" class="article-featured-img">
 
-            <p>Use Cases and Package by Feature do not contradict each other. On the contrary, they work exceptionally well together, as both aim to improve code structure.</p>
+            <p>Use Cases and Package by Feature do not contradict each other. On the contrary, they work exceptionally
+                well together, as both aim to improve code structure.</p>
             <ul>
                 <li>Use Cases help isolate business logic and make the code testable.</li>
-                <li>Package by Feature allows storing all code related to a feature in one place, making it modular.</li>
+                <li>Package by Feature allows storing all code related to a feature in one place, making it modular.
+                </li>
                 <li>By combining these approaches, you get the best of both worlds. As a result, you achieve:</li>
                 <ul>
                     <li>Flexible code grouped by features, which can be easily moved and tested independently.</li>
@@ -202,7 +329,8 @@
             </ul>
 
             <h2>When to Use What?</h2>
-            <p>In PHP projects, both approaches — Package by Feature and Package by Layer — are used depending on architectural decisions and project scale.</p>
+            <p>In PHP projects, both approaches — Package by Feature and Package by Layer — are used depending on
+                architectural decisions and project scale.</p>
             <h4>Package by Layer is suitable when:</h4>
             <ul>
                 <li>You have a small application.</li>
@@ -221,9 +349,8 @@
                 <li>The team is familiar with DDD</li>
                 <li>Using your own architecture or modular frameworks</li>
             </ul>
-        </div>
 
-        <h1>🎯 How to organize code?</h1>
+            <h1>🎯 How to organize code?</h1>
             Let’s look at them with examples.
 
             <h2>Package by Layer (Organization by Structure Layers)</h2>
@@ -234,7 +361,8 @@
                 <li>Repository — Manages database interactions.</li>
                 <li>Entity — Represents data models.</li>
             </ul>
-            <p>This structure organizes code based on its technical role, making it easier to manage layers but potentially harder to navigate features.</p>
+            <p>This structure organizes code based on its technical role, making it easier to manage layers but
+                potentially harder to navigate features.</p>
             <img src="img/6.6.png" alt="" class="article-featured-img">
 
             <h3>Package by Layer (Organization by Architecture Layers)</h3>
@@ -247,59 +375,119 @@
             </ul>
 
             <h2>Package by Feature</h2>
-             <img src="img/6.8.png" alt="" class="article-featured-img">
+            <img src="img/6.8.png" alt="" class="article-featured-img">
 
             <p>Here the code is grouped by features (work scenarios), not by layers.</p>
 
             <h2>DDD and Code Organization</h2>
-            <p>In my experience, I have encountered several approaches. All approaches are technically viable and support tactical patterns. In practice, a hybrid approach is often used, combining the best aspects of Package by Feature and Package by Layer.</p>
+            <p>In my experience, I have encountered several approaches. All approaches are technically viable and
+                support tactical patterns. In practice, a hybrid approach is often used, combining the best aspects of
+                Package by Feature and Package by Layer.</p>
 
             <h3>Approach №1: Domain-Oriented Layers</h3>
-            <p>A large context can naturally lead to components, which themselves might be organized into layers. However, deep component nesting should be avoided. If you observe excessive nesting, it’s time to rethink the component boundaries and architecture.</p>
+            <p>A large context can naturally lead to components, which themselves might be organized into layers.
+                However, deep component nesting should be avoided. If you observe excessive nesting, it’s time to
+                rethink the component boundaries and architecture.</p>
             <img src="img/6.9.png" alt="" class="article-featured-img">
 
             <h4>From the perspective of DDD and Layered Architecture, this approach is preferable. Here’s why:</h4>
             <ul>
-                <li><strong>Bounded Contexts:</strong> The first approach better reflects the concept of Bounded Contexts in DDD. Each functional area (e.g., order, bonus) represents a separate bounded context. This ensures better isolation of business logic and reduces coupling between different domains.</li>
-                <li><strong>Modularity and Scalability:</strong> With the first approach, it’s easier to add new functional modules. Each module contains all necessary layers and can evolve independently. It’s simpler for multiple teams to work on different modules.</li>
-                <li><strong>Maintenance and Navigation:</strong> It’s easier to locate all code related to a specific functionality. The boundaries of each module are clearer. There’s less risk of accidentally mixing code from different domains.</li>
-                <li><strong>Adherence to DDD Principles:</strong> It better reflects the strategic design of DDD. Boundaries of aggregates and domain services are more visible. It’s easier to control dependencies between modules.</li>
+                <li><strong>Bounded Contexts:</strong> The first approach better reflects the concept of Bounded
+                    Contexts in DDD. Each functional area (e.g., order, bonus) represents a separate bounded context.
+                    This ensures better isolation of business logic and reduces coupling between different domains.
+                </li>
+                <li><strong>Modularity and Scalability:</strong> With the first approach, it’s easier to add new
+                    functional modules. Each module contains all necessary layers and can evolve independently. It’s
+                    simpler for multiple teams to work on different modules.
+                </li>
+                <li><strong>Maintenance and Navigation:</strong> It’s easier to locate all code related to a specific
+                    functionality. The boundaries of each module are clearer. There’s less risk of accidentally mixing
+                    code from different domains.
+                </li>
+                <li><strong>Adherence to DDD Principles:</strong> It better reflects the strategic design of DDD.
+                    Boundaries of aggregates and domain services are more visible. It’s easier to control dependencies
+                    between modules.
+                </li>
             </ul>
 
             <h3>Approach №2: Layers with Contexts Inside the Domain</h3>
-            <p>This approach assumes that domain models are separated by contexts, but the remaining layers can be shared across the entire application.</p>
+            <p>This approach assumes that domain models are separated by contexts, but the remaining layers can be
+                shared across the entire application.</p>
             <img src="img/6.10.png" alt="" class="article-featured-img">
 
             <h4>Advantages:</h4>
             <ul>
-                <li>Reduced Code Duplication: If the infrastructure or presentation layers are truly common across your application, sharing them can minimize code redundancy. This means you write the code once and reuse it in multiple places.</li>
-                <li>Simplicity for Small Projects: For smaller projects or monolithic applications with a single entry point, a shared layer approach can be easier to manage initially due to its apparent simplicity.</li>
+                <li>Reduced Code Duplication: If the infrastructure or presentation layers are truly common across your
+                    application, sharing them can minimize code redundancy. This means you write the code once and reuse
+                    it in multiple places.
+                </li>
+                <li>Simplicity for Small Projects: For smaller projects or monolithic applications with a single entry
+                    point, a shared layer approach can be easier to manage initially due to its apparent simplicity.
+                </li>
             </ul>
             <h4>Disadvantages:</h4>
             <ul>
-                <li>Unwanted Dependencies: Shared application and infrastructure layers can lead to unwanted dependencies between bounded contexts. For example, a change in the infrastructure to support the “Bonus” context might inadvertently affect the “Analytical” context.</li>
-                <li>UI Separation Challenges: A shared presentation layer can make it difficult to separate the user interface by context if needed in the future. This can become problematic as your application grows and requirements evolve.</li>
-                <li>Violation of Bounded Context Autonomy: Sharing layers violates the principle of bounded context autonomy, as it increases coupling between different parts of the system. This makes it harder to evolve individual contexts independently.</li>
-                <li>Code Mixing: If the application and infrastructure layers lack subdirectories for each context, the code within them can become mixed and disorganized, making maintenance a nightmare.</li>
-                <li>Navigation Difficulties: As the project grows, navigating the codebase becomes increasingly challenging. This increases the risk of accidentally violating domain boundaries and introducing unintended side effects.</li>
+                <li>Unwanted Dependencies: Shared application and infrastructure layers can lead to unwanted
+                    dependencies between bounded contexts. For example, a change in the infrastructure to support the
+                    “Bonus” context might inadvertently affect the “Analytical” context.
+                </li>
+                <li>UI Separation Challenges: A shared presentation layer can make it difficult to separate the user
+                    interface by context if needed in the future. This can become problematic as your application grows
+                    and requirements evolve.
+                </li>
+                <li>Violation of Bounded Context Autonomy: Sharing layers violates the principle of bounded context
+                    autonomy, as it increases coupling between different parts of the system. This makes it harder to
+                    evolve individual contexts independently.
+                </li>
+                <li>Code Mixing: If the application and infrastructure layers lack subdirectories for each context, the
+                    code within them can become mixed and disorganized, making maintenance a nightmare.
+                </li>
+                <li>Navigation Difficulties: As the project grows, navigating the codebase becomes increasingly
+                    challenging. This increases the risk of accidentally violating domain boundaries and introducing
+                    unintended side effects.
+                </li>
             </ul>
 
             <h3>Approach №3: Layers with Subdomains Inside the Domain</h3>
-            <p>This approach suggests that domain models are separated by subdomains, but the remaining layers can be shared across the entire application.</p>
+            <p>This approach suggests that domain models are separated by subdomains, but the remaining layers can be
+                shared across the entire application.</p>
             <img src="img/6.11.png" alt="" class="article-featured-img">
 
-            <p>In DDD, subdomains are logical parts of the main domain that can be separated to simplify modeling. However, within a single bounded context, subdomains usually do not require strict physical separation at the code level unless there are explicit context boundaries between them. This decision is left to the developer.</p>
+            <p>In DDD, subdomains are logical parts of the main domain that can be separated to simplify modeling.
+                However, within a single bounded context, subdomains usually do not require strict physical separation
+                at the code level unless there are explicit context boundaries between them. This decision is left to
+                the developer.</p>
             <h4>Pros:</h4>
             <ul>
-                <li>Compactness: For a small microservice with a single bounded context, this structure is simple and clear. All layers are at the same level, which aligns with the classic DDD approach (layered architecture: presentation → application → domain → infrastructure).</li>
-                <li>Subdomains in the domain: Separating order and bonus within the domain is convenient for the logical grouping of entities and business logic. This is particularly useful if the subdomains have different business rules or aggregates but still operate within a single context.</li>
-                <li>Suitable for microservices: If the microservice is small, there is no need to complicate the structure with excessive nesting or separation into modules. One bounded context = one microservice is a typical approach in DDD when transitioning to a microservice architecture.</li>
+                <li>Compactness: For a small microservice with a single bounded context, this structure is simple and
+                    clear. All layers are at the same level, which aligns with the classic DDD approach (layered
+                    architecture: presentation → application → domain → infrastructure).
+                </li>
+                <li>Subdomains in the domain: Separating order and bonus within the domain is convenient for the logical
+                    grouping of entities and business logic. This is particularly useful if the subdomains have
+                    different business rules or aggregates but still operate within a single context.
+                </li>
+                <li>Suitable for microservices: If the microservice is small, there is no need to complicate the
+                    structure with excessive nesting or separation into modules. One bounded context = one microservice
+                    is a typical approach in DDD when transitioning to a microservice architecture.
+                </li>
             </ul>
             <h4>Cons:</h4>
             <ul>
-                <li>Mixing subdomains: If order and bonus have overlapping entities or dependencies, their physical separation within the domain may be redundant. In a small project, it might be possible to avoid subdirectories and simply separate the code logically (e.g., through class names or packages within a single domain).</li>
-                <li>Limited scalability: If in the future order or bonus grows into separate bounded contexts (e.g., they need to be split into different microservices), the current structure will require reorganization. In such a case, the first option from your previous question (with separate modules for each context) would be more flexible.</li>
-                <li>Ambiguity in the presentation layer: If the presentation layer is simply an entry point (e.g., a REST API), then it’s fine. But if it starts to contain business logic (which sometimes happens in small projects), this violates the principle of layer separation.</li>
+                <li>Mixing subdomains: If order and bonus have overlapping entities or dependencies, their physical
+                    separation within the domain may be redundant. In a small project, it might be possible to avoid
+                    subdirectories and simply separate the code logically (e.g., through class names or packages within
+                    a single domain).
+                </li>
+                <li>Limited scalability: If in the future order or bonus grows into separate bounded contexts (e.g.,
+                    they need to be split into different microservices), the current structure will require
+                    reorganization. In such a case, the first option from your previous question (with separate modules
+                    for each context) would be more flexible.
+                </li>
+                <li>Ambiguity in the presentation layer: If the presentation layer is simply an entry point (e.g., a
+                    REST API), then it’s fine. But if it starts to contain business logic (which sometimes happens in
+                    small projects), this violates the principle of layer separation.
+                </li>
             </ul>
 
             <h3>Tips for Organizing a DDD Project:</h3>
@@ -314,25 +502,44 @@
 
             <h3>Examples</h3>
             <ul>
-                <li><a href="https://github.com/CodelyTV/php-ddd-example" target="_blank">https://github.com/CodelyTV/php-ddd-example</a></li>
-                <li><a href="https://github.com/salletti/symfony-ddd-example" target="_blank">https://github.com/salletti/symfony-ddd-example</a></li>
+                <li><a href="https://github.com/CodelyTV/php-ddd-example" target="_blank">https://github.com/CodelyTV/php-ddd-example</a>
+                </li>
+                <li><a href="https://github.com/salletti/symfony-ddd-example" target="_blank">https://github.com/salletti/symfony-ddd-example</a>
+                </li>
             </ul>
 
             <h3>Conclusions</h3>
-            <p>Both approaches to code organization have their advantages and disadvantages. The choice between Package by Feature and Package by Layer depends on the specific requirements of the project and the preferences of the development team.</p>
-            <p>In general, Package by Feature seems more suitable for modern applications, as it aligns better with the principles of FP and OOP, promotes the creation of more modular and understandable code, and simplifies development and maintenance. This approach is particularly well-suited for projects using DDD (Domain-Driven Design).</p>
-            <p>However, it’s important to note that Package by Layer can also be effective in certain situations, especially in projects with a clearly defined layered architecture and strict requirements for separating responsibilities between layers.</p>
-            <p>Regardless of the chosen approach, it is crucial to maintain a consistent coding style and ensure good code documentation to make the code easier to understand and maintain.</p>
+            <p>Both approaches to code organization have their advantages and disadvantages. The choice between Package
+                by Feature and Package by Layer depends on the specific requirements of the project and the preferences
+                of the development team.</p>
+            <p>In general, Package by Feature seems more suitable for modern applications, as it aligns better with the
+                principles of FP and OOP, promotes the creation of more modular and understandable code, and simplifies
+                development and maintenance. This approach is particularly well-suited for projects using DDD
+                (Domain-Driven Design).</p>
+            <p>However, it’s important to note that Package by Layer can also be effective in certain situations,
+                especially in projects with a clearly defined layered architecture and strict requirements for
+                separating responsibilities between layers.</p>
+            <p>Regardless of the chosen approach, it is crucial to maintain a consistent coding style and ensure good
+                code documentation to make the code easier to understand and maintain.</p>
 
             <h3>Sources</h3>
             <ul>
-                <li><a target="_blank" href="https://medium.com/@psfpro/implementing-ddd-in-php-dfae8f3790c2">Implementing DDD in PHP</a></li>
+                <li><a target="_blank" href="https://medium.com/@psfpro/implementing-ddd-in-php-dfae8f3790c2">Implementing
+                    DDD in PHP</a></li>
                 <li><a href="https://phauer.com/2020/package-by-feature/">Package by Feature</a></li>
-                <li><a target="_blank" href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html">The Clean Code Blog</a></li>
-                <li><a target="_blank" href="https://github.com/shubham-shinde/books/blob/master/PHP/Domain-Driven%20Design%20in%20PHP%20-%20Buenosvinos%2C%20Carlos%3B%20Soronellas%2C%20Christian.pdf">DDD in PHP</a></li>
-                <li><a target="_blank" href="https://fabiofumarola.github.io/nosql/readingMaterial/Evans03.pdf">Eric Evans. Domain-Driven Design</a></li>
-                <li><a target="_blank" href="https://medium.com/@vitorbritto/the-package-by-feature-approach-c62a197a8a3d">The Package by Feature approach</a></li>
-                <li><a target="_blank" href="https://www.youtube.com/watch?v=TRkqqa9MIJo">Денис Цветцих. Чистая Архитектура и DDD 10 лет спустя</a></li>
+                <li><a target="_blank"
+                       href="https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html">The Clean
+                    Code Blog</a></li>
+                <li><a target="_blank"
+                       href="https://github.com/shubham-shinde/books/blob/master/PHP/Domain-Driven%20Design%20in%20PHP%20-%20Buenosvinos%2C%20Carlos%3B%20Soronellas%2C%20Christian.pdf">DDD
+                    in PHP</a></li>
+                <li><a target="_blank" href="https://fabiofumarola.github.io/nosql/readingMaterial/Evans03.pdf">Eric
+                    Evans. Domain-Driven Design</a></li>
+                <li><a target="_blank"
+                       href="https://medium.com/@vitorbritto/the-package-by-feature-approach-c62a197a8a3d">The Package
+                    by Feature approach</a></li>
+                <li><a target="_blank" href="https://www.youtube.com/watch?v=TRkqqa9MIJo">Денис Цветцих. Чистая
+                    Архитектура и DDD 10 лет спустя</a></li>
             </ul>
         </div>
     </div>
