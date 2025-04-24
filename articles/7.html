@@ -31,21 +31,22 @@
 
         <div class="article-content">
             <h3>Introduction</h3>
-            <p>In the previous article, "Pack your code right" we explored various approaches to organizing code,
+            <p>In the previous article, <strong>"Pack your code right"</strong> we explored various approaches to organizing code,
                 including monolithic and layered architectures, the principles of clean architecture, as well as the
-                concept of Bounded Context in Domain-Driven Design (DDD). We learned that Bounded Context helps
+                concept of <strong>Bounded Context</strong> in Domain-Driven Design <strong>(DDD)</strong>. We learned that Bounded Context helps
                 structure complex systems by dividing them into logical parts, each with its own domain model and clear,
                 consistent rules.</p>
 
             <p>Now that we understand how to identify and organize bounded contexts, it's time to delve into the next
-                important aspect of DDD — communication between them. In real-world systems, bounded contexts rarely
+                important aspect of <strong>DDD</strong> — communication between them. In real-world systems, bounded contexts rarely
                 exist in isolation. To implement business processes and ensure system integrity, it is necessary to
                 establish effective interaction between them. In this article, we will explore how bounded contexts can
                 communicate with each other, what communication approaches exist, and how to choose the right one
                 depending on your system's requirements. Let's continue our journey into the world of DDD to learn how
                 to create not only well-structured but also harmoniously functioning systems.</p>
 
-            <h3>Basic concepts</h3>
+            <hr>
+            <h1>Basic concepts</h1>
             <p>Communication between bounded contexts involves the exchange of data and the call functionality from one
                 context by another. Such interaction can be either synchronous (direct request-response) or asynchronous
                 (through events or messages), depending on the system's requirements:</p>
@@ -56,8 +57,8 @@
                 <li><strong>Data consistency:</strong> How critical immediate consistency is.</li>
             </ul>
 
-            <p><em>Important: Poorly organized communication can lead to tight coupling between contexts, which
-                contradicts the principles of DDD and complicates system maintenance and evolution.</em></p>
+            <blockquote><em><strong>Important</strong>: Poorly organized communication can lead to tight coupling between contexts, which
+                contradicts the principles of DDD and complicates system maintenance and evolution.</em></blockquote>
 
             <p>In DDD, there are several key strategies for communication between bounded contexts, each with its own
                 advantages, disadvantages, and use cases. These strategies help minimize coupling between contexts while
@@ -150,8 +151,8 @@
             <p>In such cases, synchronous calls can provide sufficient performance without the need for complex
                 asynchronous mechanisms, avoiding additional overhead.</p>
 
-            <p><strong>Important:</strong> As the load increases, synchronous calls can become a bottleneck. Therefore,
-                this approach requires careful analysis of both current and future system requirements.</p>
+            <blockquote><strong>Important:</strong> As the load increases, synchronous calls can become a bottleneck. Therefore,
+                this approach requires careful analysis of both current and future system requirements.</blockquote>
 
             <p>By choosing synchronous communication in these scenarios, you can achieve simplicity and efficiency, but
                 it's crucial to monitor system performance and be prepared to transition to more scalable solutions as
@@ -281,7 +282,8 @@
                 time-sensitive tasks (e.g., notifications or analytics). This balanced approach helps create systems
                 that are both reliable and efficient.</p>
 
-            <h3>Code coupling</h3>
+            <hr>
+            <h1>Code coupling</h1>
             <p>Before we dive into these approaches, let's revisit the principles of GRASP (General Responsibility
                 Assignment Software Patterns) to understand the problems they address. GRASP helps design systems with
                 low coupling and high cohesion, which are essential for flexibility and resilience. In the context of
@@ -416,7 +418,8 @@
                 its own domain model, adhering to the principles of DDD and creating a more maintainable and scalable
                 system.</p>
 
-            <h3>Synchronous communication</h3>
+            <hr>
+            <h1>Synchronous communication</h1>
             <p>Synchronous interaction is an important tool for scenarios where instant data consistency is required.
                 However, this approach creates a strong dependency between contexts, which can reduce system flexibility
                 and increase the complexity of its maintenance. To minimize this dependency, it is necessary to
@@ -614,8 +617,8 @@
                 </li>
                 <li>Low degree of interaction: If the contexts rarely interact, Shared Kernel may be unnecessary.</li>
             </ul>
-            <p><em>Important! Since Shared Kernel is used by multiple contexts, any changes to it must be coordinated
-                between the teams working on these contexts.</em></p>
+            <blockquote><em><strong>Important!</strong> Since Shared Kernel is used by multiple contexts, any changes to it must be coordinated
+                between the teams working on these contexts.</em></blockquote>
 
             <h4>Alternatives to Shared Kernel</h4>
             <p>Extract common code into packages. This is a popular alternative to Shared Kernel that reduces coupling
@@ -648,7 +651,8 @@
             <p>Unlike Shared Kernel, packages can be versioned, allowing different versions to be used by multiple
                 contexts.</p>
 
-            <h3>Asynchronous communication</h3>
+            <hr>
+            <h1>Asynchronous communication</h1>
             <p>Asynchronous communication is not just a technical pattern but a strategy for decomposing business
                 processes. As Eric Evans notes in Domain-Driven Design, it allows contexts to:</p>
             <ul>
@@ -663,18 +667,18 @@
             </blockquote>
 
 
-            <h4>Message Queue</h4>
+            <h3>Message Queue</h3>
             <p>Message Queues (e.g., RabbitMQ, Apache Kafka, Amazon SQS) are used to exchange messages between contexts
                 asynchronously. In this case, <strong>UserContext</strong> and <strong>OrderContext</strong> communicate
                 through a broker rather than directly calling each other’s APIs.</p>
-            <h5>Advantages of Message Queues:</h5>
+            <h4>Advantages of Message Queues:</h4>
             <ul>
                 <li>Independence of contexts: The sender and receiver do not depend on each other.</li>
                 <li>Reliability: If OrderContext is temporarily unavailable, the message remains in the queue.</li>
                 <li>Scalability: Messages can be processed in parallel by multiple services.</li>
                 <li>Message queues are used to transmit commands and tasks that must be processed reliably.</li>
             </ul>
-            <h5>Examples:</h5>
+            <h4>Examples:</h4>
             <ul>
                 <li><strong>SendWelcomeEmailQueue:</strong> Sending a welcome email after user registration. UserContext
                     adds the task to the queue. NotificationService processes and sends the email.
@@ -698,13 +702,13 @@
                     BillingService attempts to charge the payment again.
                 </li>
             </ul>
-            <h5>Implementation Example:</h5>
+            <h4>Implementation Example:</h4>
             <ol>
                 <li>Placing a message in the queue.</li>
                 <li>Processing in another context.</li>
             </ol>
 
-            <h4>Event-Driven Architecture</h4>
+            <h3>Event-Driven Architecture</h3>
             <p>In the event-driven model, contexts exchange not just messages but domain events. This means that
                 UserContext does not simply say “UserCreatedOrder” but publishes an event to which OrderContext
                 reacts.</p>
@@ -721,7 +725,7 @@
                     immediate response.
                 </li>
             </ul>
-            <h5>Examples:</h5>
+            <h4>Examples:</h4>
             <ul>
                 <li><strong>UserRegistered:</strong> A user registered in the system.</li>
                 <li><strong>UserUpdatedProfile:</strong> A user updated their profile data. UserContext publishes this
@@ -749,7 +753,7 @@
                 <li>Events are used to notify other parts of the system about facts that have occurred.</li>
                 <li>Message queues ensure the guaranteed execution of critical commands.</li>
             </ul>
-            <h5>Implementation Example:</h5>
+            <h4>Implementation Example:</h4>
             <ol>
                 <li>Define the Domain Event.</li>
                 <li>Generate and Publish the Event.</li>
@@ -757,7 +761,8 @@
                 <li>Configure Messenger at the Infrastructure Level.</li>
             </ol>
 
-            <h4>The Eventual Consistency Problem</h4>
+            <hr>
+            <h1>The Eventual Consistency Problem</h1>
             <p>Communication between bounded contexts via messaging improves the scalability and fault tolerance of a
                 system but introduces additional complexities related to ensuring data consistency. One of the key
                 challenges in this context is eventual consistency.</p>
@@ -770,7 +775,7 @@
                 to note that eventual consistency is not a drawback but rather a characteristic that must be considered
                 during design and development.</p>
 
-            <h5>Impact on Business Processes</h5>
+            <h4>Impact on Business Processes</h4>
             <p>Eventual consistency can significantly affect business processes, especially in systems that require an
                 immediate response to changes. Let’s consider an example:</p>
             <p><strong>Example: Interaction between UserContext and OrderContext</strong></p>
@@ -781,7 +786,7 @@
             <p><strong>Problem:</strong> The user may be blocked in UserContext, but OrderContext has not yet received
                 this update and allows the creation of the order. This can lead to violations of business rules, such as
                 blocked users being able to create orders.</p>
-            <h5>How to Handle Eventual Consistency?</h5>
+            <h4>How to Handle Eventual Consistency?</h4>
             <ol>
                 <li><strong>Compensating Actions (Compensating Transactions):</strong> If the system detects that data
                     is inconsistent, it can perform compensating actions. For example, if a product runs out of stock
@@ -800,7 +805,8 @@
                 </li>
             </ol>
 
-            <h4>Visualization of Interactions</h4>
+            <hr>
+            <h1>Visualization of Interactions</h1>
             <p>After defining how your Bounded Contexts interact with each other, it’s time to formalize these
                 relationships in the form of a <strong>Context Map</strong>. This tool, introduced by Eric Evans in the
                 book <em>Domain-Driven Design</em>, helps visualize and document the connections between contexts, which
@@ -821,7 +827,8 @@
             </ul>
             <p>A Context Map is a living document that should be updated as the system evolves.</p>
 
-            <h5>How to Build a Context Map?</h5>
+            <hr>
+            <h1>How to Build a Context Map?</h1>
             <ol>
                 <li><strong>Step 1: Define Contexts</strong><br>
                     Start by identifying all bounded contexts in your system. A bounded context is a logical area with
@@ -846,10 +853,10 @@
                 </li>
             </ol>
 
-            <h5>Step 2: Define Relationships Between Contexts</h5>
+            <h4>Step 2: Define Relationships Between Contexts</h4>
             <p>Once you’ve identified the contexts, you need to determine how they interact with each other.</p>
 
-            <h5>Example Relationships:</h5>
+            <h4>Example Relationships:</h4>
             <ul>
                 <li><strong>UserContext and OrderContext:</strong> Client-Supplier. UserContext provides user data for
                     order placement.
@@ -859,18 +866,18 @@
                 </li>
             </ul>
 
-            <h5>Step 3: Visualize the Connections</h5>
+            <h4>Step 3: Visualize the Connections</h4>
             <p>Use diagrams to represent the relationships between contexts. This could be a diagram where each context
                 is represented as a block, and the connections between them are shown as arrows indicating the type of
                 interaction.</p>
 
-            <h5>Advantages of Context Maps:</h5>
+            <h4>Advantages of Context Maps:</h4>
             <ul>
                 <li>Transparency: All team members (developers, architects, managers) understand how the system is
                     structured and how its parts interact.
                 </li>
             </ul>
-            <h5>Practical Recommendations</h5>
+            <h4>Practical Recommendations</h4>
             <ol>
                 <li><strong>Use Tools:</strong> For creating diagrams, use tools like Miro, Lucidchart, Draw.io, or even
                     simple UML diagrams.
@@ -886,7 +893,8 @@
                 </li>
             </ol>
 
-            <h4>Architectural Nuances</h4>
+            <hr>
+            <h1>Architectural Nuances</h1>
             <p>When designing and implementing communication between contexts in a distributed system, you may encounter
                 numerous pitfalls. These issues can lead to reduced performance, increased maintenance complexity, data
                 inconsistency, and even complete system failure. Below are the main pitfalls and ways to address or
@@ -920,7 +928,8 @@
                 </li>
             </ul>
 
-            <h5>Common Design Mistakes</h5>
+            <hr>
+            <h1>Common Design Mistakes</h1>
             <ul>
                 <li><strong>Incorrect Definition of Boundaries and Mixing Terminology:</strong> If context boundaries
                     are not clearly defined or the same term is used differently, there is a risk of “leaking” one
@@ -946,7 +955,8 @@
                 </li>
             </ul>
 
-            <h4>Conclusions</h4>
+            <hr>
+            <h1>Conclusions</h1>
             <p>Choosing between synchronous and asynchronous communication is always a compromise. Synchronous calls are
                 simpler and faster to implement but create rigid dependencies and limit scalability. Asynchronous
                 communication requires more effort but provides flexibility, resilience, and the ability for the system
@@ -977,6 +987,8 @@
                 development strategy. And remember: even if you choose synchronous communication today, design the
                 system so that you can transition to an asynchronous model in the future without completely rewriting
                 the code.</p>
+
+            <p><strong>That’s it 🎉, thanks for reading!</strong></p>
         </div>
     </div>
 </div>

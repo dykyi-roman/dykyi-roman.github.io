@@ -30,11 +30,11 @@
         </div>
 
         <div class="article-content">
-            <h2>Introduction</h2>
+            <h1>Introduction</h1>
             <p>Validation and Error Handling are fundamental challenges every developer faces, whether working with HTTP
                 requests, task queues, event processing, or asynchronous communication between system components.</p>
 
-            <h2>Why It Matters</h2>
+            <h3>Why It Matters</h3>
             <p>Your chosen strategy directly impacts:</p>
             <ul>
                 <li><strong>Performance:</strong> Synchronous requests can block code execution, while asynchronous
@@ -86,11 +86,12 @@
                 </li>
             </ul>
 
-            <p><strong>Key point:</strong> Each layer duplicates previous checks, creating "defense layers" that
-                mitigate risks even if one layer becomes compromised.</p>
+            <blockquote><strong>Key point:</strong> Each layer duplicates previous checks, creating "defense layers" that
+                mitigate risks even if one layer becomes compromised.</blockquote>
 
-            <h2>Framework</h2>
-            <h3>First Validation Level: Framework-Level Protection</h3>
+            <hr>
+            <h1>Framework</h1>
+            <strong>First Validation Level: Framework-Level Protection</strong>
 
             <p>Imagine your application is a fortress. The first line of defense is the gate that keeps out enemies and
                 debris. Framework-level validation acts as precisely that gate. It prevents invalid data from breaking
@@ -98,13 +99,12 @@
 
             <p>Let's examine how this works in Symfony and Laravel — and why you shouldn't rely only on this layer.</p>
 
-            <p>Validation in frameworks follows different architectural patterns, but the goal remains the same: isolate
-                raw data from business logic.</p>
+            <blockquote>Validation in frameworks follows different architectural patterns, but the goal remains the same: <strong>isolate raw data from business logic</strong>.</blockquote>
 
             <h3>Symfony</h3>
-            <h4>Symfony: Clean DTO Approach</h4>
+            <h4>Symfony: <a target="_blank" href="https://symfony.com/blog/new-in-symfony-6-3-mapping-request-data-to-typed-objects">Clean DTO Approach</a></h4>
 
-            <p>Symfony enforces strict separation using Data Transfer Objects (DTOs) with built-in validation:</p>
+            <p>Symfony enforces <strong>strict separation</strong> using <strong>Data Transfer Objects (DTOs)</strong> with built-in validation:</p>
 
             <p><strong>How it works:</strong></p>
             <ol>
@@ -127,7 +127,8 @@
 
             <p><strong>Example:</strong></p>
             <div class="code-block">
-<pre>use Symfony\Component\Validator\Constraints as Assert;
+<pre>
+use Symfony\Component\Validator\Constraints as Assert;
 
 final readonly class CreateUserRequest {
     #[Assert\NotBlank]
@@ -280,7 +281,7 @@ abstract class AbstractRequest extends FormRequest
 }</pre>
             </div>
 
-            <h3>Why This Matters</h3>
+            <h4>Why This Matters</h4>
             <ul>
                 <li><strong>Protection:</strong> Prevents accidental reliance on request structure (e.g.,
                     $request->input('x.y')).
@@ -330,13 +331,16 @@ abstract class AbstractRequest extends FormRequest
                 <li>Custom Rules for Complex Cases</li>
             </ol>
 
-            <p>Framework validation only checks syntax (format, structure). It cannot enforce business rules like:</p>
+            <blockquote>
+            <p>Framework validation <strong>only checks syntax</strong> (format, structure). It <strong>cannot enforce business rules</strong> like:</p>
             <ul>
                 <li>"Does this user have permission to cancel this order?"</li>
                 <li>"Is this discount code valid for the selected products?"</li>
             </ul>
+            </blockquote>
 
-            <h2>Domain Layer</h2>
+            <hr>
+            <h1>Domain Layer</h1>
             <p>After framework-level validation, domain validation becomes the critical next stage — a mechanism that
                 ensures compliance with all business rules and invariants within your core logic. Here, we're not just
                 checking if data is formally correct (e.g., valid email format), but whether it aligns with your
@@ -357,13 +361,13 @@ abstract class AbstractRequest extends FormRequest
             <p>Using Value Objects (VO), aggregates, and invariants allows you to embed business logic validation within
                 the domain model, as follows:</p>
             <ul>
-                <li>VO ensures the correctness of individual values through factory methods, immediately preventing the
+                <li><strong>VO</strong> ensures the correctness of individual values through factory methods, immediately preventing the
                     creation of "dirty" data.
                 </li>
-                <li>Aggregates establish a context for validating interconnected rules and ensure that operations
+                <li><strong>Aggregates</strong> establish a context for validating interconnected rules and ensure that operations
                     modifying the state do not violate overall consistency.
                 </li>
-                <li>Invariants are used to check complex conditions spanning multiple elements of the domain model,
+                <li><strong>Invariants</strong> are used to check complex conditions spanning multiple elements of the domain model,
                     preventing the aggregate from transitioning into an invalid state.
                 </li>
             </ul>
@@ -398,9 +402,9 @@ abstract class AbstractRequest extends FormRequest
 
             <h4>When to Use VOs</h4>
             <ul>
-                <li>Atomic Values: Email, Phone, Money, DateRange, Address.</li>
-                <li>Invariants: Values with strict rules (e.g., "Discount must be 0–100%").</li>
-                <li>Domain Primitives: Values specific to your business (e.g., ProductSKU).</li>
+                <li><strong>Atomic Values</strong>: Email, Phone, Money, DateRange, Address.</li>
+                <li><strong>Invariants</strong>: Values with strict rules (e.g., "Discount must be 0–100%").</li>
+                <li><strong>Domain Primitives</strong>: Values specific to your business (e.g., ProductSKU).</li>
             </ul>
 
             <h3>Aggregate as a Context for Validating Interconnected Rules</h3>
@@ -607,7 +611,8 @@ final readonly class OrderRequest {
                 ensures stronger encapsulation, better maintainability, and fewer runtime integrity issues compared to
                 an Anemic Domain Model with external validation.</p>
 
-            <h2>Doctrine vs. ActiveRecord ORM validation</h2>
+            <hr>
+            <h1>ORM validation</h1>
             <p>ORM (Object-Relational Mapping) tools are used for interacting with databases, but they can also perform
                 intermediate data validation before persistence. However, their role in validation often sparks debate.
                 Let's explore how Doctrine and ActiveRecord (e.g., in Laravel) approach this issue.</p>
@@ -669,7 +674,7 @@ class User {
 }</pre>
             </div>
 
-            <p>SRP Violation: Model is responsible for both data and validation.</p>
+            <blockquote>SRP Violation: Model is responsible for both data and validation.</blockquote>
 
             <h3>Guarantee of data consistency</h3>
             <p><strong>Automatic Type Checking:</strong> ORM leverages the database schema to automatically validate
@@ -682,7 +687,8 @@ class User {
             <p><strong>Error Tracking:</strong> ORM tools enable logging of persistence errors, simplifying debugging
                 and monitoring compliance with business invariants at the persistence level.</p>
 
-            <h2>Database</h2>
+            <hr>
+            <h1>Database</h1>
             <p>Working with the database serves as the final shield, protecting the application from errors and
                 violations of business rules, even if earlier validation layers (DTOs, domain model, services) fail to
                 catch them. Validation at the framework level, implemented through ORM tools and infrastructure, ensures
@@ -748,7 +754,7 @@ BEGIN
 END;</pre>
             </div>
 
-            <p><strong>Important:</strong> It is not recommended to fully delegate domain validation related to business
+            <blockquote><strong>Important:</strong> It is not recommended to fully delegate domain validation related to business
                 logic to the database level, particularly through DB constraints. This can lead to duplication of rules
                 across different system layers and complicate their modification. For example, changing validation
                 conditions (if hardcoded in a `CHECK` constraint or Triggers) would require altering the database
@@ -756,9 +762,10 @@ END;</pre>
                 are typically technical and lack the flexibility needed to inform users effectively. DB constraints
                 should be used only for basic validations (e.g., age >= 0), while complex business rules (such as email
                 validation via regular expressions) are better implemented at the application level, where they are
-                easier to test and adapt.</p>
+                easier to test and adapt.</blockquote>
 
-            <h2>Safety</h2>
+            <hr>
+            <h1>Safety</h1>
             <p>Among numerous threats, three key vulnerabilities remain critical even for modern systems: SQL
                 injections, XSS, and CSRF. These exploit weaknesses in data validation, request handling, and session
                 management, turning ordinary application functions into "loopholes" for attackers. SQL injections target
@@ -781,8 +788,10 @@ END;</pre>
 
             <p><strong>Vulnerable Code Example (PHP)</strong></p>
             <div class="code-block">
-<pre>$user_id = $_GET['id']; // User enters: 1; DROP TABLE users;
-$sql = "SELECT * FROM users WHERE id = $user_id"; // Vulnerable query!</pre>
+<pre>
+echo "<dіv>" . $_POST['comment'] . "</dіv>";
+// If comment contains: <scrіpt>alert('XSS')</scrіpt> → Executes!
+</pre>
             </div>
 
             <p><strong>How to Mitigate:</strong></p>
@@ -808,8 +817,10 @@ $sql = "SELECT * FROM users WHERE id = $user_id"; // Vulnerable query!</pre>
 
             <p><strong>Vulnerable Code Example (PHP)</strong></p>
             <div class="code-block">
-<pre>echo "<div>" . $_POST['comment'] . "</div>";
-// If comment contains: alert('XSS') → Executes!</pre>
+<pre>
+    echo "<div>" . $_POST['comment'] . "</div>";
+// If comment contains: alert('XSS') → Executes!
+</pre>
             </div>
 
             <p><strong>How to Mitigate:</strong></p>
@@ -852,7 +863,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li>Avoid GET for State Changes: Use POST/PUT/DELETE for actions that modify data.</li>
             </ul>
 
-            <h2>Architectural approaches for validation</h2>
+            <hr>
+            <h1>Architectural approaches for validation</h1>
             <p>Data validation is not just a set of checks — it's a sophisticated process requiring thoughtful
                 architecture. Modern applications need to validate data at multiple levels, from syntax to business
                 context. How can we organize this process to keep the code maintainable and the rules flexible? Let's
@@ -930,11 +942,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <li>Strategy is appropriate when dynamically switching between validation algorithms is required.</li>
             </ul>
 
-            <p><strong>Important:</strong> These approaches do not exclude but complement each other. For example,
+            <blockquote><strong>Important:</strong> These approaches do not exclude but complement each other. For example,
                 Middleware can validate headers, Chain of Responsibility can handle request data, and a Service can
-                manage business logic validation.</p>
+                manage business logic validation.</blockquote>
 
-            <h2>Data Validation in Microservice Architecture</h2>
+            <hr>
+            <h1>Data Validation in Microservice Architecture</h1>
             <p>Microservice architecture, despite its flexibility and scalability, complicates data validation
                 management due to the distributed nature of services. Each microservice handles its own domain,
                 necessitating careful design of data validation at every stage of interaction. Let's explore the key
@@ -980,6 +993,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p>Effective data validation in a microservice architecture requires balancing local service
                 responsibilities with the need for inter-service interaction, while considering performance, security,
                 and data consistency.</p>
+
+            <p><strong>That’s it 🎉, thanks for reading!</strong></p>
         </div>
     </div>
 </div>
