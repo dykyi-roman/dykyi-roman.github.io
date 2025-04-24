@@ -30,27 +30,6 @@
     color: #757575;
 }
 
-.article-author-img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-    object-fit: cover;
-}
-
-.article-author-info {
-    text-align: left;
-}
-
-.article-author-name {
-    font-weight: bold;
-    color: #292929;
-}
-
-.article-date {
-    color: #757575;
-}
-
 .article-featured-img {
     width: 100%;
     max-height: 450px;
