@@ -27,12 +27,289 @@
         <div class="article-header">
             <h1 class="article-title">From Legacy to Candy: A Project Transformation Story</h1>
             <div class="article-meta">22 min read | Nov 23, 2024</div>
-            <img src="img/4.png" alt="From Legacy to Candy: A Project Transformation Story"
+            <img src="img/3.png" alt="From Legacy to Candy: A Project Transformation Story"
                  class="article-featured-img">
         </div>
 
         <div class="article-content">
+            <h1>🔔 Introduction</h1>
+            <p>A year-long story of development. Every developer eventually encounters legacy code — that old, often unclear, and sometimes intimidating set of lines that can be easy to get lost in. Legacy code can evoke mixed feelings: on the one hand, it’s the result of someone’s hard work and a part of the company’s history; on the other, it’s a constant challenge that demands not just maintenance but regular improvements. Turning such code into a polished, efficient system is no easy task, but it’s entirely possible.</p>
+            <p>In my case, the code came to us during the transition of a project from outsourcing to in-house development. Such situations often bring their own set of challenges: the transferred code may lack proper documentation, include temporary fixes, and fail to align with the company’s standards. It’s often the product of several teams, each potentially making changes without much thought for long-term maintainability. As a result, we inherited a classic example of legacy code — a tangled set of scripts that required thorough analysis and substantial refactoring to become a truly functional and sustainable system.</p>
+            <p>In this article, I’ll share how our team approached updating and modernizing this project, which took us an entire year to complete.</p>
+            <blockquote><em>It should be noted that I am writing this article a year after the completion of the project, and perhaps some moments have already been erased from memory or remained behind the scenes.</em></blockquote>
 
+            <hr>
+            <h1>🔖 Dictionary</h1>
+            <ul>
+                <li><strong>Legacy Code</strong> — refers to code written using outdated technologies that are no longer supported or considered inefficient. This type of code is challenging to modify or integrate with modern solutions.</li>
+                <li><strong>Technical Debt</strong> — code created to provide a quick solution without considering long-term maintenance or quality. It requires rework or refactoring to avoid becoming a barrier to the product’s growth.</li>
+                <li><strong>Code Without Tests</strong> — is often classified as legacy code as well. Without test coverage, such code is difficult and risky to change, as there’s no guarantee that modifying one part won’t break another.</li>
+                <li><strong>“Ball of Mud”</strong> — a term used to describe code that is so tangled it lacks clear structure and logic. Over time, such projects devolve into chaotic systems where each new module or function adds to the confusion.</li>
+                <li><strong>Unoptimized Code</strong> — refers to code that performs its task but does so inefficiently, consuming excessive resources and time.</li>
+                <li><strong>Rapidly Obsolete Code</strong> — sometimes, even recently written code can become legacy. Technologies and product requirements evolve so quickly that high-quality code written by an experienced developer just a month ago can turn into a “legacy.” This happens when the approaches used in the code no longer align with current standards or business goals.</li>
+                <li><strong>Hard-to-Maintain Code</strong> — code lacks proper documentation or its logic is overly complex, it can become legacy, even if it was crafted by experienced developers.</li>
+            </ul>
+
+            <hr>
+            <h1>🎢 Project transition process</h1>
+            <h3>Formation of an internal team</h3>
+            <p>During the discussion with the management, it was decided to allocate a separate team to transfer the project from outsourcing to internal development, as well as for further support and development of the project.</p>
+            <ul>
+                <li><strong>Defining the Required Roles:</strong> Tech Lead, Tech Writer, 3 Backend Developers, 2 QA Engineers, 1 DevOps Specialist, and 1 Project Manager.</li>
+                <li><strong>Hiring Staff:</strong> Conducting interviews, and evaluating candidates’ skills and experience.</li>
+                <li><strong>Engaging Internal Employees:</strong> Temporarily transferring a Front-End Specialist from another team.</li>
+                <li><strong>Training:</strong> Training new employees on project specifics, technologies, and processes.</li>
+            </ul>
+
+            <h3>Creating a transition plan</h3>
+            <ul>
+                <li><strong>Defining Deadlines and Timelines.</strong> The project was divided into three phases with specific deadlines, spanning a total of three months. This structure allowed for progress monitoring and timely adjustments when necessary.</li>
+                <li><strong>Ensuring Business Continuity.</strong> All ongoing tasks had to be completed efficiently and delivered on schedule to keep the business running smoothly.</li>
+                <li><strong>Seamless Transition Execution.</strong> All changes were implemented so that end users would not notice any disruptions or face issues in the process. This minimized risks to the user experience.</li>
+                <li><strong>Establishing a Shared Chat and Communication Environment.</strong> A shared communication channel was set up to facilitate quick exchanges of information and maintain synchronization across teams.</li>
+                <li><strong>Identifying Risks and Minimization Strategies.</strong> Potential issues, such as code inconsistencies or conflicting approaches, were analyzed, and strategies to mitigate these risks were developed. One month was allocated for thorough analysis and preparation.</li>
+                <li><strong>Regular Team Check-ins.</strong> Weekly status meetings were held to discuss ongoing tasks, identify challenges, and coordinate work.</li>
+                <li><strong>Synchronization Calls with Both Teams.</strong> Weekly joint meetings with both teams were conducted to share updates on progress, current issues, and achievements. These meetings helped avoid misunderstandings and streamlined decision-making.</li>
+                <li><strong>Collaborative Development in a Unified Codebase.</strong> For a period, both teams worked in the same codebase. While this occasionally caused tension, a collaborative development phase was necessary for a successful transition. To ensure stability, no changes were made to the codebase for one month during this period.</li>
+                <li><strong>Backup and 1:1 Infrastructure Migration.</strong> Comprehensive backups of all systems and data were created, and the infrastructure was migrated to the new environment with minimal downtime. This step ensured data protection and availability in the new setup.</li>
+                <li><strong>Migrating Tasks to Jira.</strong> A new Jira project was created for the in-house team, or the existing project was reconfigured to align with the team’s requirements. Tasks and epics from the current project were transferred.</li>
+                <li><strong>User File Migration via CDN.</strong> A strategy was developed for transferring user files to internal servers or a new CDN.</li>
+                <li><strong>Updating Passwords and Access.</strong> An audit of current passwords and accounts used in the project was conducted, covering databases, APIs, third-party services, and tools.</li>
+                <li><strong>Preparing Final Documentation and Codebase Guidelines.</strong> Comprehensive and detailed documentation was created to make the transition as smooth as possible and to ensure successful and predictable ongoing maintenance.</li>
+                <li><strong>Post-Transition Review.</strong> A retrospective was conducted to discuss lessons learned and identify opportunities for improvement in future transitions.</li>
+            </ul>
+
+            <h3>Analysis of the current project state</h3>
+            <ul>
+                <li><strong>Infrastructure.</strong> Before the development team joined the project, our DevOps specialist was the first to grasp the full scale of the problem. One month before we even saw the code, they began studying the existing infrastructure, dependencies, servers, and databases to lay the groundwork for the team’s future efforts.</li>
+                <li><strong>Codebase Evaluation.</strong> Once we gained access to the repository, it became clear what we were dealing with. A thorough analysis of the existing code was conducted to identify technical debt and uncover architectural issues. I’ll go into more detail about this later.</li>
+                <li><strong>Documentation.</strong> You can probably guess what this section will say. That’s right — there was no documentation. All we could find were some broken Postman collections that only added to the confusion of an already challenging task. The Tech Writer played a critical role in the transition process. Throughout the project, they meticulously gathered information about all processes and created comprehensive documentation. Their efforts helped systematize knowledge, providing the team with access to necessary information and facilitating adaptation to the new environment. Thanks to their work, we avoided losing critical information and significantly improved the team’s understanding of internal processes.</li>
+                <li><strong>Processes.</strong> After analyzing the existing development processes, it became evident that they wouldn’t work for us. The current processes were, to put it mildly, unstructured: there were no clear guidelines for workflows, testing, deployment, or standards for the tools in use. Identifying the people responsible for specific tasks was extremely difficult.</li>
+                <li><strong>Team.</strong> In our assessment, the skills and experience of the outsourced development team matched that of beginner juniors, while the official documentation indicated they were hiring strong senior-level staff.</li>
+            </ul>
+
+            <h3>Implementation of processes</h3>
+            <ul>
+                <li><strong>Implementing Agile Development Methodologies.</strong> The first step was to choose an appropriate Agile methodology (Scrum, Kanban, or others) that would suit the needs of the team and the project. We chose Scrum.</li>
+                <li><strong>Establishing Coding Standards.</strong> Coding standards were defined, including rules for code formatting, variable naming, and writing comments to ensure consistency and code readability.</li>
+                <li><strong>Automation.</strong> Automation was introduced through plugins (Jira, Git) and tools for test automation, deployment, and monitoring.</li>
+                <li><strong>Version Control Systems.</strong> We migrated to a unified version control system (e.g., Git, SVN). Git-flow was selected as the primary Git branching model.</li>
+                <li><strong>Incident Manager Assignment.</strong> An incident manager was appointed to take responsibility for managing incidents, and identifying, and resolving critical issues promptly.</li>
+                <li><strong>Building a Tech Backlog.</strong> A technical backlog was created, including current tasks and necessary improvements based on code analysis and business requirements.</li>
+                <li><strong>Release Process Organization.</strong> A release format and process were established, along with communication protocols to keep the team informed about upcoming changes. This ensured readiness for updates and minimized potential issues.</li>
+            </ul>
+
+            <h3>Retrospective</h3>
+            <ul>
+                <li><strong>Timelines:</strong> The project deadlines were met — 3 months.</li>
+                <li><strong>Transition:</strong> A seamless transition was not achieved, leading to certain difficulties in the team’s adaptation to new processes.</li>
+                <li><strong>Incidents:</strong> Incidents occurred daily, highlighting shortcomings in testing and quality control prior to releases.</li>
+                <li><strong>Deployment Process:</strong> The deployment process remained semi-manual, increasing the risk of errors and slowing down updates.</li>
+                <li><strong>DevOps:</strong> The DevOps engineer did not pass the probation period and was dismissed, complicating the automation and process improvement efforts.</li>
+                <li><strong>Team:</strong> The team was well-assembled and cohesive, fostering open communication and collaboration.</li>
+                <li><strong>Domain Knowledge:</strong> Poor domain knowledge resulted in task timelines needing to be extended by a factor of two.</li>
+            </ul>
+
+            <hr>
+            <h1>🏊 Deep Dive</h1>
+            <p>The project has been transitioned to in-house development, and now the next phase begins — support and further development. Naturally, in its current state, accomplishing this would be extremely difficult, if not nearly impossible.</p>
+            <p>Delving into the code (though a different term might fit better here) — this process involves analyzing the existing codebase, identifying its strengths and weaknesses, and pinpointing areas for improvement. Gaining domain knowledge allowed us not only to address emerging issues more efficiently but also to implement changes following best practices and development standards.</p>
+
+            <h3>Dockerization</h3>
+            <p>To simplify project deployment on any OS for developers, the following steps were taken:</p>
+            <ul>
+                <li>A docker-compose.yml file was created.</li>
+                <li>A Makefile was developed to automate commands.</li>
+                <li>An install.sh script was created for quick project setup.</li>
+                <li>Detailed instructions were added to README.md, including:</li>
+                <ul>
+                    <li>Steps for installing Docker and Docker Compose.</li>
+                    <li>Guidelines for building and running the project using commands from the Makefile.</li>
+                    <li>Descriptions of potential issues and how to resolve them.</li>
+                </ul>
+            </ul>
+            <p>Following these steps, any developer can easily set up the project, regardless of their operating system.</p>
+
+            <h3>Git</h3>
+            <p>To organize work with Git, the following rules were developed and implemented to ensure a structured and efficient workflow:</p>
+            <ul>
+                <li><strong>Transition to Gitflow:</strong> Gitflow is a branch management strategy that helps structure the development process. The main branches are main (or master) for stable versions and develop for active development.</li>
+                <li><strong>Squash before merging into the develop:</strong> Before merging changes into the develop branch, it's recommended to perform a squash, combining multiple commits into one. This helps keep the develop history clean and concise, improving readability and simplifying the tracking of changes, especially for long and complex developments.</li>
+                <li><strong>Branch naming conventions:</strong> New features, bug fixes, and release versions are developed in separate branches (feature/*, bugfix/*, hotfix/*, release/*), which makes version management and change tracking easier.</li>
+                <li><strong>Commits:</strong> Each commit should represent a single logical change and be accompanied by a clear message describing the nature of the changes. A webhook was created to enforce a consistent commit style:</li>
+            </ul>
+            <pre><code>#!/bin/bash
+FILE=$1
+MESSAGE=$(cat $FILE)
+TICKET=$(git rev-parse --abbrev-ref HEAD | grep -Eo '^(w+/)?(w+[-_])?[0-9]+' | grep -Eo '(w+[-])?[0-9]+' | tr "[:lower:]" "[:upper:]")
+if [[ -z "$TICKET" || "$MESSAGE" == "$TICKET"* ]]; then
+exit 0
+fi
+
+NEW_MESSAGE="$TICKET: $MESSAGE"
+echo "$NEW_MESSAGE" > $FILE
+</code></pre>
+            <ul>
+                <li><strong>Merge Request (MR) naming:</strong> Merge Requests should be named according to established rules using the task number from JIRA and its description (e.g., AMG-33: task name). This helps link changes to the corresponding tasks and simplifies tracking.</li>
+            </ul>
+
+            <h3>Technical documentation</h3>
+            <p>Technical documentation was created. It gave the team a clearer understanding of the system and helped developers and engineers understand how the system works, and what its capabilities and limitations are. Provided instructions for installation, configuration, architecture, and code. It served as a guide not only for users but also for developers, helping them master new systems and programs.</p>
+
+            <h3>Logging</h3>
+            <p>To optimize logging in the project, the following rules were developed and implemented:</p>
+            <ul>
+                <li><strong>Standardizing log format:</strong> A standard log format was defined, including key fields such as timestamps, logging levels (info, error, warning), request identifiers, and other important information. This makes it easier to analyze logs, search for errors, and understand the sequence of events. A unified format makes the logs more structured and convenient for searching.</li>
+                <li><strong>Removing unnecessary logs and adding necessary ones:</strong> An audit of the existing logs was performed: redundant and duplicate entries were removed, and important logs necessary for tracking key actions and processes were added. This helps reduce the amount of stored data, making the logs more concise and informative, while also improving system performance.</li>
+                <li><strong>Request logging:</strong> Logging of all incoming and outgoing requests/responses was enabled to track every step of interaction with the system. This is especially useful for diagnosing issues and analyzing system behavior in case of errors. Request and response logging includes information about headers, URLs, query parameters, and response statuses, which helps quickly find and fix errors in integrations and APIs.</li>
+                <li><strong>Splitting log channels by levels and types:</strong> Separate channels were created for different types of logs, such as info, error, debug, warning, and critical. This allows more flexible control over the level of detail and quick filtering of logs based on importance.</li>
+                <li><strong>Creating separate channels for key components:</strong> Logs were split into channels reflecting the main system components: request, response, database, auth, payment, console, api, etc. This allows focusing on logs for specific components, simplifying analysis and troubleshooting.</li>
+            </ul>
+
+            These logging rules helped maintain the structure, informativeness, and usefulness of the logs, significantly easing monitoring, diagnostics, and system optimization.
+
+            <h2>Application Architecture</h2>
+            <blockquote>I want to say that the implementation of a layered architecture was a preparation for transitioning to a DDD (Domain-Driven Design) architecture with a domain focus. It would have been very difficult to make such a leap from the beggining without knowledge of the domains and their boundaries.</blockquote>
+            <p>The introduction of a layered architecture helped to structure the project, improve code readability, and simplify its maintenance. The transition from a chaotic folder organization to a layered architecture involved several steps.</p>
+            <h3>Selecting the main layers</h3>
+            <ul>
+                <li><strong>Presentation (or Interface) Layer</strong> — contains logic related to the user interface (e.g., API controllers and web controllers).</li>
+                <li><strong>Application Layer</strong> — responsible for orchestrating business logic, handling commands, and invoking necessary services, but does not contain business logic itself.</li>
+                <li><strong>Domain (or Business) Layer</strong> — includes business logic and core rules. This layer contains entities, interfaces, and other components that describe business processes.</li>
+                <li><strong>Infrastructure Layer</strong> — responsible for interacting with external systems and resources: databases, file systems, and external APIs. This layer handles the technological aspects of the system.</li>
+            </ul>
+            <h3>Organizing the code structure</h3>
+            <p>Structure the folders in your project according to the selected layers.</p>
+            <img src="img/3.1.png" alt="" class="article-featured-img">
+
+            <h3>Move from Controllers to ADR</h3>
+            <p>The transition to the ADR (Action-Domain-Responder) pattern became a key step in improving code structure and readability. Instead of large controllers containing a lot of logic, we implemented the following approach:</p>
+            <ul>
+                <li><strong>Action:</strong> Handles incoming requests and interacts with the domain. This component is responsible for extracting the necessary data and executing business logic.</li>
+                <li><strong>Domain:</strong> Contains business logic and models, including rules and data validation. The domain model remains independent of external technologies and infrastructure.</li>
+                <li><strong>Responder:</strong> Forms the response for the client. This component is responsible for presenting data and may include logic for formatting different response types, such as JSON or HTML.</li>
+            </ul>
+            <p>With the transition to ADR, our controllers became lighter and more specialized. Each controller now only performs functions related to routing and passing control between Action and Responder, which simplifies the code and makes it more readable.</p>
+            <h3>Simplified Testing</h3>
+            <p>By dividing the logic into three components, testing became more manageable. We can test each part (Action, Domain, Responder) separately, which simplifies debugging and increases the reliability of the code.</p>
+            <h3>Flexibility and Scalability</h3>
+            <p>The ADR structure allows for easier addition of new actions and modification of existing ones, as changes in one component do not affect others. This makes the code more adaptable to changes in business requirements.</p>
+            <h3>Improved Code Understanding</h3>
+            <p>Clear separation of components based on their responsibilities makes the code more understandable for new developers, as they can quickly navigate the application’s structure and understand where to find specific functionality.</p>
+            <h3>Working with the Application Layer</h3>
+            <p>Using CQS and the Use Case approach in the Application Layer significantly improved the architecture of our application. It allowed us to separate read and write commands, which helped improve performance and simplify the management of business logic.</p>
+            <h3>Working with the Infrastructure Layer</h3>
+            <ul>
+                <li><strong>Working with Queues:</strong> To ensure that the message structure in the queue is predictable and easy to process, implement a unified message format. A middleware layer serves as an intermediary between the application’s logic and the specific queue implementation. It abstracts the implementation details, allowing developers to focus on business logic.</li>
+                <li><strong>Access to the Database via the Repository Pattern:</strong> Repositories perform data operations and provide interfaces for working with specific entities. Create interfaces for each repository that will describe data access methods. Implement the interfaces in repositories that will perform database operations via ORM or SQL queries. This increases the flexibility of the code and simplifies testing and implementing changes.</li>
+                <li><strong>Middleware Layer for MessageBus:</strong> For working with the MessageBus, we added an intermediate layer to manage sending and processing messages. This layer acts as an intermediary between the application logic and the actual MessageBus calls, manages message serialization/deserialization, handles exceptions and logs errors, supports a unified message format, and provides standardized interfaces for sending messages. This also simplifies testing.</li>
+                <li><strong>Transition to EightPointsGuzzle:</strong> The EightPointsGuzzle library provided a convenient integration layer with Guzzle for Symfony, offering standard middleware for logging, error handling, and request tracking. Using this package allows reducing the complexity of working with external APIs by providing a single client for HTTP requests, configuring common middleware for all requests, and easy integration with Symfony services and configuration.</li>
+            </ul>
+            <h3>Working with Domain</h3>
+            <p>As we studied the domain together with the team, we began to form subdomains and identify bounded contexts. This allowed us to more accurately define the boundaries of responsibility for each module, improve the structuring of business logic, and simplify the work with individual components of the system. As a result, each subdomain came to represent a distinct part of the domain, with its own rules, entities, and interactions, which facilitates both the maintenance and the development of the project.</p>
+            <h2>Dependency Injection</h2>
+            <ul>
+                <li><strong>Accessing services via DI:</strong> Instead of obtaining services directly from the container, we use dependency injection to pass the necessary services into classes via constructors or methods. This allows seeing which dependencies each component requires and simplifies testing, as dependencies can easily be swapped with mock objects.</li>
+                <li><strong>Accessing parameters via DI:</strong> Configuration parameters are also passed through dependency injection. This avoids tight coupling with the container and makes classes more independent. As a result, components become more modular and reusable, and managing settings and configurations is simplified.</li>
+                <li><strong>Disallowing container usage:</strong> We prohibited the use of the container in classes and methods. This means components cannot directly access the container to fetch dependencies. These measures allowed eliminating the dependency on the container, simplifying testing, and increasing the level of abstraction.</li>
+            </ul>
+            <p>Dependency injection enables a more maintainable and flexible architecture, which in turn improves code quality and boosts the development team’s productivity.</p>
+            <h2>Security</h2>
+            <ul>
+                <li><strong>Moving from parameters to environment variables (env):</strong> We replaced the use of configuration parameters with environment variables. This allows us to store sensitive information, such as API keys and passwords, outside of the code and configuration files, significantly reducing the risk of leakage.</li>
+                <li><strong>Removal of passwords from the git repository:</strong> All passwords and confidential data were removed from the repository. Instead, we now use environment variables to store this information. This ensures data protection and prevents accidental disclosure when working with version control systems.</li>
+                <li><strong>Moving SQL queries from code to repositories:</strong> SQL queries were moved into separate files or repositories. This not only improves the structure of the code but also allows us to apply best practices, such as using migrations to manage the database schema and data.</li>
+                <li><strong>Use of encryption for confidential information:</strong> We implemented encryption for storing and transmitting confidential information. This helps protect data even in the case of a breach. For example, libraries for encrypting passwords and storing tokens can be used.</li>
+                <li><strong>Regular security audits of the code:</strong> We started conducting regular security audits of the code using static analyzers and tools to check for vulnerabilities. This helps identify potential issues before they become serious threats.</li>
+                <li><strong>Authentication and authorization:</strong> We improved authentication and authorization mechanisms by implementing two-factor authentication (2FA) and updating resource access policies. This provides an additional layer of protection and prevents unauthorized access.</li>
+                <li><strong>Logging and monitoring:</strong> We implemented logging and monitoring systems to track suspicious activities and potential security threats. This allows for timely responses to incidents and facilitates investigations.</li>
+                <li><strong>Removal of secrets from logs:</strong> We introduced a mechanism to filter and remove confidential information (such as passwords and tokens) from logs. This prevents unauthorized access to sensitive data that could accidentally be written to log files.</li>
+            </ul>
+            <p>These measures significantly improved the security of our project, reduced risks, and protected confidential data.</p>
+            <h2>Refactoring</h2>
+            <ul>
+                <li><strong>Removal of non-working tests:</strong> All non-functional and outdated tests were removed, which improved the quality of test coverage and increased confidence in the stability of the code. This also freed up time to write new tests covering relevant functionalities.</li>
+                <li><strong>Removal of unnecessary commands and consumers:</strong> Unused commands and consumers that were no longer practically applicable were removed. This improved code readability and reduced complexity, making further development and maintenance easier.</li>
+                <li><strong>Removal of dead code and comments:</strong> All dead code and outdated comments were removed, making the code cleaner and more understandable. This contributes to better comprehension of the application’s logic and facilitates maintenance by new developers.</li>
+                <li><strong>Refactoring and simplifying the code structure:</strong> Refactoring of existing code was done to simplify its structure and improve readability. This includes breaking large functions into smaller ones, and renaming variables and classes for better clarity.</li>
+                <li><strong>Updating Swagger documentation:</strong> We performed a complete update of the Swagger documentation for our API. This includes adding new endpoints, updating descriptions and examples, as well as fixing errors in existing documents. The updated documentation provides a more accurate representation of the API functionality and simplifies the work for developers using it.</li>
+                <li><strong>Setting up Postman collections:</strong> We created and configured Postman collections for automating API testing. This allows the team to easily execute requests, test new functionalities, and share them with other team members. The collections also include tests for verifying API responses, which helps in faster issue detection and improves code quality.</li>
+                <li><strong>Renaming cron tasks:</strong> We reviewed cron tasks and renamed them for greater clarity and consistency with common naming standards (add cron: before each command). This simplifies understanding the purpose of each task and eases their maintenance. Renaming tasks also helps avoid confusion, especially in environments with a large number of scheduled operations.</li>
+            </ul>
+
+            <h2>Working with Domain</h2>
+            <p>As we studied the domain together with the team, we began to form subdomains and identify bounded contexts. This allowed us to more accurately define the boundaries of responsibility for each module, improve the structuring of business logic, and simplify the work with individual components of the system. As a result, each subdomain came to represent a distinct part of the domain, with its own rules, entities, and interactions, which facilitates both the maintenance and the development of the project.</p>
+            <h2>Performance Improvements</h2>
+            <ul>
+                <li><strong>Performance Analysis:</strong> We conducted a performance analysis of the website using monitoring tools, which allowed us to identify bottlenecks and areas for optimization.</li>
+                <li><strong>Resource Loading Optimization:</strong> Images, fonts, and other static resources were optimized. This includes compressing images and using modern formats such as WebP, which reduces page load times.</li>
+                <li><strong>Caching:</strong> We implemented caching at both the server and client levels. Using cache headers and caching static resources significantly reduces the number of server requests and speeds up page load times for users.</li>
+                <li><strong>Minification and File Concatenation:</strong> CSS and JavaScript files were minified and concatenated to reduce the number of HTTP requests and the total size of the resources being loaded.</li>
+                <li><strong>Using CDN:</strong> We deployed a CDN to deliver static content, which helps reduce response times by using servers closer to the user.</li>
+                <li><strong>Database Optimization:</strong> Database queries were optimized, including indexing, removing unused data, and simplifying complex queries.</li>
+                <li><strong>Deadlock Prevention:</strong> We analyzed and optimized database operations to prevent deadlocks. This includes optimizing the order of transaction execution and using timeouts to avoid mutual locks, which improves overall system performance.</li>
+                <li><strong>Code Optimization:</strong> Refactoring was done to eliminate redundancy and increase code efficiency. This includes removing dead code and optimizing the algorithms used in the application.</li>
+                <li><strong>Performance Monitoring:</strong> We set up monitoring systems to track the performance of the website in real time. This helps quickly identify and address performance issues.</li>
+                <li><strong>Load Testing:</strong> Load tests were conducted to determine the website’s maximum performance and identify points that may cause failures as the number of users increases.</li>
+            </ul>
+            <p>These measures have significantly improved the website’s performance, making it more resilient to increased traffic and enhancing the user experience.</p>
+            <h2>DB (MySQL)</h2>
+            <ul>
+                <li><strong>Standardization of Field and Table Names:</strong> We standardized the names of fields and tables to a consistent style using camelCase to improve readability and consistency. This simplifies understanding of the database structure and helps developers navigate the code more quickly.</li>
+                <li><strong>Adding Foreign Keys:</strong> A review of fields with identifiers was conducted, and foreign keys were added where they were missing. This helped ensure data integrity and improved the reliability of interactions between tables.</li>
+                <li><strong>Unified Naming Convention:</strong> A unified naming convention was applied to all database entities, improving consistency and simplifying ongoing maintenance. This is especially important in large projects where multiple developers are involved.</li>
+                <li><strong>Merging Migrations:</strong> More than 1,000 migrations were merged into one, simplifying the process of updating the database schema in the future. This reduced the likelihood of errors when executing old migrations and made the application startup process more manageable.</li>
+                <li><strong>Replacing Static Tables to Enum(s):</strong> Static tables were replaced with Enum(s), which improved performance and simplified data management, especially for fields with a limited number of values. This also reduced data redundancy and enhanced readability.</li>
+                <li><strong>Adding Indexes for Frequent Queries:</strong> Indexes were added to fields that are frequently used in queries, significantly increasing the speed of read operations. After analyzing queries, outdated indexes that were no longer in use were removed, reducing overhead for database maintenance.</li>
+                <li><strong>Optimizing Queries:</strong> SQL queries were optimized to reduce execution time and the load on the database. This included reworking complex queries and using JOINs instead of subqueries where possible.</li>
+                <li><strong>Regular Performance Monitoring:</strong> Monitoring tools were set up to track database performance, allowing for the quick identification of bottlenecks and prompt actions to address them. This contributes to more stable application performance and better user service.</li>
+            </ul>
+            <h2>NoSQL (MongoDB)</h2>
+            <ul>
+                <li><strong>Technology Stack Reduction:</strong> It became clear that MongoDB was chosen based on hype and was not used for its intended purpose. Therefore, we created a plan to reduce the technology stack.</li>
+                <li><strong>Data Schema Optimization:</strong> We removed some tables and redesigned the remaining ones to improve data structure and reduce duplication.</li>
+                <li><strong>Feature Assessment:</strong> We assessed which features of MongoDB were being used in the project and how they could be implemented using other databases that are already in use.</li>
+                <li><strong>Codebase Update:</strong> We updated the application code to remove dependencies on MongoDB.</li>
+            </ul>
+
+            <hr>
+            <h1>🏫 Infrastructure</h1>
+            <ul>
+                <li><strong>Enabling VPN for Internal Resources:</strong> VPN configuration ensures secure access to the company’s internal resources for employees. This helps protect data and maintain confidentiality when working with sensitive information.</li>
+                <li><strong>Migration of Services to Amazon Cloud:</strong> The process of migrating existing services to the Amazon Web Services (AWS) cloud infrastructure is underway. This allows for the use of scalable resources, improving application availability and optimizing server maintenance costs.</li>
+                <li><strong>Replication Settings for Key Elements:</strong> Replication settings have been established for critical data and services. This ensures high availability and fault tolerance, as well as protection against data loss in case of failure.</li>
+                <li><strong>Creation of Staging Environments for Internal Development:</strong> Staging environments have been created for testing and developing new features. This allows developers to safely check changes before they are deployed to the production environment, minimizing risks and ensuring application stability.</li>
+                <li><strong>Redis Cluster Setup:</strong> A Redis cluster has been deployed to improve performance and fault tolerance of data caching. This enables efficient handling of high loads and provides fast access to frequently requested information.</li>
+                <li><strong>Migration of Logs to Elasticsearch:</strong> System logs have been migrated to Elasticsearch for centralized storage and analysis. This ensures easy access to data, allowing for convenient searching and visualization of performance data and system issues.</li>
+            </ul>
+            <blockquote><strong>Separation of logs and business data in Elasticsearch:</strong> A separate Elasticsearch for business data was created.</blockquote>
+
+            <hr>
+            <h1>🔧 CI/CD Settings</h1>
+            <ul>
+                <li><strong>Gradual CI Setup:</strong> CI integration was gradually added to increase automation in the development process (csfixer, phpstan (9-level), psalm, deptrac, unit/functional tests).</li>
+                <li><strong>Reducing Deployment Time:</strong> Optimizing processes to reduce the time needed to deploy applications.</li>
+                <li><strong>Combining Deploy and Build Buttons:</strong> Merging deployment and build actions into one button for simplified deployment and build processes.</li>
+                <li><strong>Moving Migrations from Deployment to Build:</strong> Migrations were moved to the build process to improve version control management.</li>
+                <li><strong>Blue/Green Deployment Issues:</strong> Faced challenges when implementing the blue/green deployment approach.</li>
+                <li><strong>Night-time Staging Runs:</strong> Running staging environments at night for testing and development.</li>
+                <li><strong>Resource Optimization on Staging:</strong> Optimizing resource usage to save costs.</li>
+                <li><strong>Nightly Cron Jobs Setup:</strong> Configuring automated tasks to run during the night.</li>
+                <li><strong>Jira + GitLab Integration:</strong> Linking systems to enhance project and task management.</li>
+                <li><strong>Disabling Commits to Master:</strong> Establishing a policy to prevent direct commits to the master branch.</li>
+                <li><strong>Automatic Tagging:</strong> Configuring automatic version tagging during deployments.</li>
+                <li><strong>Automatic Release Version Updates in Sentry:</strong> Automatically updating version information in Sentry.</li>
+                <li><strong>Automatic npm Build on Front-end Changes:</strong> Setting up automatic builds for npm packages when changes occur on the front end.</li>
+                <li><strong>Resource Shortage Issues:</strong> Ongoing resource shortages were addressed through vertical scaling and identifying memory leaks in the code.</li>
+                <li><strong>Alert Configuration:</strong> Configuring the alert system to monitor the status of applications.</li>
+                <li><strong>Moving Cron and Supervisor Configuration to Repository:</strong> Organizing configuration for task and process management.</li>
+                <li><strong>Kubernetes Version Updates:</strong> Regular updates to ensure stability and security.</li>
+            </ul>
+
+            <hr>
+            <h1>🏁 Conclusion</h1>
+            <p>The process of transforming the legacy project turned out to be filled with challenges and unexpected difficulties, both for the team and for the business. We had to solve numerous technical and organizational problems, rethink the architecture, and adapt old solutions to meet modern requirements. Thanks to our efforts and perseverance, we managed to turn the project into a truly “sweet spot” — a stable, flexible, and user-friendly system, ready for further development and support.</p>
+            <p>Exactly one year has passed since the transition, and it took us this long to complete the transformation. Throughout this time, business tasks were performed in parallel with technical changes, without pauses or noticeable inconveniences for users.</p>
             <p><strong>That’s it 🎉, thanks for reading!</strong></p>
         </div>
     </div>

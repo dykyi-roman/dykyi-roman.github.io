@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dykyi Roman - Software Engineer</title>
+    <link rel="icon" href="../icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../resources/style.css">
+    <link rel="stylesheet" href="../resources/navigation.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+    <script>
+        fetch('../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <!--  Book  -->
+    <div id="book-section" class="section">
+        <h3>Games People Play</h3>
+        <p><strong>Author:</strong>  Eric Berne</p>
+
+        <div class="post-content">
+            <p>The bestselling "Games People Play" is the book that has helped millions of people understand the dynamics of relationships, by psychiatrist Eric Berne. We all play games. In every encounter with other people we are doing so. The nature of these games depends both on the situation and on who we meet. Eric Berne's classic "Games People Play" is the most accessible and insightful book ever written about the games we play: those patterns of behaviour that reveal hidden feelings and emotions. Wise and witty, it shows the underlying motivations behind our relationships and explores the roles that we try to play - and are forced to play. "Games People Play" gives you the keys to unlock the psychology of others - and yourself. You'll become more honest, more effective, and a true team player. "A brilliant, amusing, and clear catalogue of the psychological theatricals that human beings play over and over again". (Kurt Vonnegut). Eric Berne was a prominent psychiatrist and bestselling author. After inventing his groundbreaking Transactional Analysis, he continued to develop and apply this new methodology leading him to publish "Games People Play".</p>
+        </div>
+    </div>
+
+    <hr class="custom-hr">
+
+    <!-- Review  -->
+    <div id="review-section" class="section">
+        <h3>Review</h3>
+        <img src="/images/games_people_play-1.png" width="362" height="322">
+        <img src="/images/games_people_play-2.png" width="362" height="322">
+
+        <div class="post-content">
+            <p>«Игры, в которые играют люди» — классическая работа Эрика Берна, основателя транзакционного анализа. Книга исследует скрытые психологические сценарии и паттерны поведения, которые люди используют в повседневной жизни и общении. Берн вводит понятие «игр» — повторяющихся, зачастую бессознательных моделей взаимодействия, которые могут мешать личностному росту и искреннему общению.</p>
+            <ul>
+                <li>Автор объясняет, как люди играют в психологические «игры» для получения эмоциональных выгод, избегания ответственности или подтверждения своих внутренних убеждений.</li>
+                <li>Книга делит поведение на три эго-состояния: <b>Родитель</b> (установки, усвоенные в детстве), <b>Взрослый</b> (рациональное мышление), <b>Ребёнок</b> (спонтанные эмоции), и показывает, как эти состояния проявляются в общении.</li>
+                <li>Психологические игры — повторяющиеся схемы общения с скрытой выгодой, ведущие к предсказуемому конфликту.</li>
+                <li>Сценарии жизни — бессознательные «программы» поведения, заложенные в детстве.</li>
+                <li>Книга помогает читателю распознать собственные и чужие «игры», выйти из деструктивных сценариев и строить более осознанные и честные отношения.</li>
+                <li>«Игры, в которые играют люди» оказала огромное влияние на психологию, психотерапию и популярную культуру, оставаясь актуальной спустя десятилетия после публикации.</li>
+            </ul>
+            <h4>Примеры игр:</h4>
+            <ul>
+                <li>«Почему бы вам не… — Да, но» Сценарий: Человек просит совета, но отвергает все варианты, сохраняя статус жертвы.</li>
+                <li>«Динамо» - Манипуляция через чередование агрессии и обаяния.</li>
+                <li>«Смотри, что я из-за тебя сделал» Переложение ответственности за свои неудачи на других.</li>
+            </ul>
+            <h4>Ключевые цитаты:</h4>
+            <blockquote>Игра — это серия скрытых транзакций, ведущих к чётко определённому предсказуемому исходу.</blockquote>
+            <blockquote>Люди рождаются принцами и принцессами, а жизненные сценарии превращают их в лягушек.</blockquote>
+            <blockquote>Автономия — это способность видеть реальность, освободившись от власти сценария</blockquote>
+        </div>
+    </div>
+
+    <hr class="custom-hr">
+
+    <!-- Notes   -->
+    <div id="notes-section" class="section">
+        <h3>Notes</h3>
+        <ul>
+
+        </ul>
+    </div>
+
+</div>
+
+</body>
+<script src="../resources/back-to-top.js"></script>
+<script src="../resources/navigation.js"></script>
+</html>
