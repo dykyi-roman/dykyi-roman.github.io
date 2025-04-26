@@ -7,8 +7,17 @@
     <link rel="icon" href="../icon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../resources/style.css">
     <link rel="stylesheet" href="../resources/navigation.css">
+    <link rel="stylesheet" href="../resources/vocabulary-section.css">
 </head>
 <body>
+<!-- Side Navigation -->
+<div class="side-nav">
+    <button class="nav-button" onclick="scrollToSection('book-section')">Intro</button>
+    <button class="nav-button" onclick="scrollToSection('vocabulary-section')">Vocabulary</button>
+    <button class="nav-button" onclick="scrollToSection('review-section')">Review</button>
+    <button class="nav-button" onclick="scrollToSection('notes-section')">Notes</button>
+</div>
+
 <div class="container">
     <!-- Include header from external file -->
     <div id="header-container"></div>
@@ -31,17 +40,24 @@
         </div>
     </div>
 
-    <hr class="custom-hr">
-
     <!-- Review  -->
+    <hr class="custom-hr">
     <div id="review-section" class="section">
         <h3>Review</h3>
 
     </div>
 
+    <!--  Vocabulary  -->
     <hr class="custom-hr">
+    <div id="vocabulary-section" class="section vocabulary-section">
+        <h3>Vocabulary</h3>
+        <ul>
+            <li></li>
+        </ul>
+    </div>
 
     <!-- Notes   -->
+    <hr class="custom-hr">
     <div id="notes-section" class="section">
         <h3>Notes</h3>
         <ul>
