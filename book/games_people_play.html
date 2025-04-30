@@ -21,14 +21,6 @@
 <div class="container">
     <!-- Include header from external file -->
     <div id="header-container"></div>
-    <script>
-        fetch('../headers.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-            })
-            .catch(error => console.error('Error loading header:', error));
-    </script>
 
     <!-- Book  -->
     <div id="book-section" class="section">
@@ -68,7 +60,8 @@
                 взять ответственность за свои коммуникации.
             </p>
             <p>
-                <strong>«Любой человек — это оружие массового поражения, если нажать на нужную кнопку» (Эрик Берн).</strong>
+                <strong>«Любой человек — это оружие массового поражения, если нажать на нужную кнопку» (Эрик
+                    Берн).</strong>
             </p>
         </div>
     </div>
@@ -429,6 +422,7 @@
 
 </div>
 
+<script src="../resources/load-header.js"></script>
 </body>
 <script src="../resources/back-to-top.js"></script>
 <script src="../resources/navigation.js"></script>
