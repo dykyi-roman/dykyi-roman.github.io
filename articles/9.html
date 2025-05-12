@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error handling and strategies - Dykyi Roman</title>
+    <link rel="icon" href="../icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../resources/style.css">
+    <link rel="stylesheet" href="../resources/navigation.css">
+    <link rel="stylesheet" href="../resources/article-style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+
+    <!-- Article Content -->
+    <div class="article-container">
+        <div class="article-header">
+            <h1 class="article-title">Error handling and strategies</h1>
+            <div class="article-meta">28 min read | May 12, 2025</div>
+            <img src="img/9.png" alt="Error handling and strategies" class="article-featured-img">
+        </div>
+
+        <div class="article-content">
+            Introduction
+            In the world of business application development, especially those built on the principles of Domain-Driven Design (DDD), error handling is an important architectural element. An incorrectly implemented strategy can lead to logical chaos and a poor user experience. Imagine if a database error were to directly reach the UI — this is not only unsightly but also dangerous.
+
+            Layered architecture implies a clear separation of responsibilities:
+
+            Infrastructure Layer — working with external systems.
+            Domain Layer — business logic.
+            Application Layer — coordination of operations.
+            Presentation Layer — API, UI, CLI.
+            Errors can occur at any level, but it is very important to correctly catch, transform, and log them. In this article, we will look at how to set up error handling in accordance with DDD principles and industrial development practices.
+
+            Let’s consider a common processing flow with an example: you make a request to retrieve an entity from the database. A connection failure occurred. What’s next? If it SqlException directly reaches the client, you have violated all levels of abstraction. Therefore, it is important that each layer does its job.
+
+            Here’s how this flow looks:
+
+            An error occurs at the Infrastructure Layer — for example, IOException, HttpRequestException, SqlException.
+            The Infrastructure Layer catches the low-level error, logs it if necessary, and throws a generalized exception understandable to the Domain Layer — for example, StorageUnavailableException.
+            The Domain Layer receives the exception and transforms it, if necessary, into a domain-specific one: InvalidOrderStateException, BusinessRuleViolationException.
+            The Application Layer receives the domain exception and makes a decision:
+            Retry?
+            Write to audit?
+            Return Result.Failure(...)?
+            Propagate upwards?
+            5. The Presentation Layer receives the result: either Result.Success(...) an error or. It transforms this into a standardized HTTP response: ApiError, HttpException.
+
+            This approach:
+
+            Maintains the isolation of layers.
+            Provides flexibility in interpretation.
+            Allows for centralized logging and tracing of errors.
+            Sequential Exception Handling Pattern
+            Over the years of working with error handling in programming, I’ve tried many approaches: from cumbersome try-catch blocks to excessive logs that only masked problems instead of solving them. Through trial and error, I’ve developed a pattern that I want to share with you. With its help, we achieve:
+
+            Minimizes code duplication — exceptions are handled at the appropriate level, without unnecessary nested checks.
+            Ensures transparency — each error is either logged, transformed into a clear response, or passed up the call stack.
+            Preserves context — even in cascading failures, the system doesn’t lose important details, helping to quickly find the root cause.
+            Here’s how the flow looks within each layer:
+
+            Infrastructure Layer
+
+            ⟹ throw low-level Exception (e.g., SqlException, IOException)
+
+            ⟹ log error (technical details, e.g., errors from a third-party service)
+
+            Domain Layer
+
+            ⟹ Catch a low-level exception
+
+            ⟹ map to DomainException (e.g., DomainRuleViolationException)
+
+            ⟹ throw DomainException (for business logic)
+
+            Application Layer
+
+            ⟹ catch DomainException
+
+            ⟹ enrich error context (e.g., user ID, use-case)
+
+            ⟹ Take action: apply patterns — retry, rollback transaction, throw a domain exception
+
+            ⟹ log error (if it’s a business logic error or an unexpected error)
+
+            ⟹ throw ApplicationException (with an error code)
+
+            Presentation Layer (API, UI)
+
+            ⟹ catch ApplicationException
+
+            ⟹ map to HTTP response (e.g., 400, 409, 500)
+
+            ⟹ Include a unique error code in the response
+
+            What are your thoughts on this translation? Is there anything you’d like to refine or discuss further about this pattern?
+
+            Errors at the Infrastructure level
+            Infrastructure Layer — this encompasses everything that interacts with the “outside world”: databases, file systems, APIs, message queues. Errors occur frequently here and are almost always technical. Typical examples include:
+
+            SqlException — SQL query or connection error
+            IOException — problems with files
+            HttpRequestException — failures when calling external services
+            TimeoutException — timeout exceeded
+            The main task at this level is to catch low-level technical exceptions and transform them into more abstract errors, understandable from the perspective of our system.
+
+            Example:
+
+            public function findById(UserId $userId): UserInterface
+            {
+            return $this->repository->find($userId->toRfc4122())
+            ?? throw new UserNotFoundException($userId);
+            }
+            Here, we used a domain error because the Repository pattern is more a part of the domain. Also, one approach to throwing an error could be a more generalized exception, which can be used for all types of entities, for example, EntityNotFoundException. This would be caught at the Domain level and then transformed into UserNotFoundException if necessary. However, from the perspective of pure DDD, using UserNotFoundException is the more correct approach.
+
+            Exceptions should be defined in the domain, not in the infrastructure, because this exception relates to business rules and domain semantics.
+
+            This layer is also the ideal place for logging technical details. Here you know everything: call stacks, connections, timeouts. Logging here is safe, helpful for support, and doesn’t affect business logic. However, you should follow certain principles:
+
+            Log technical details: Status codes, response times, technical connection errors.
+            Do not duplicate business logic: The main interpretation of errors should occur higher up.
+            Adhere to logging levels:
+            DEBUGDetails of requests/responses.
+
+            INFOSuccessful operations.
+
+            WARNRetries, temporary failures.
+
+            ERRORCritical errors at the infrastructure level.
+
+            Example:
+
+            <?php
+    private function request(string $method, string $endpoint, array $options = []): array
+    {
+       $url = "{$this->baseUri}{$endpoint}"
+            $this->logger->debug('API request initiated', [
+            'method' => $method,
+            'url' => $url,
+            ]);
+            $startTime = microtime(true);
+            try {
+            $response = $this->httpClient->request($method, $url, $options);
+            $duration = microtime(true) - $startTime;
+            $statusCode = $response->getStatusCode();
+
+            $this->logger->info('API request completed', [
+            'method' => $method,
+            'url' => $url,
+            'status_code' => $statusCode,
+            'duration_ms' => round($duration * 1000),
+            ]);
+
+            $body = $response->getBody()->getContents();
+            $data = json_decode($body, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+            $this->logger->warning('Failed to parse API response', [
+            'error' => json_last_error_msg(),
+            'body_preview' => mb_substr($body, 0, 100) . (mb_strlen($body) > 100 ? '...' : ''),
+            ]);
+
+            throw new ExternalApiException('Invalid JSON response from API', $statusCode);
+            }
+
+            return $data;
+
+            } catch (GuzzleException $e) {
+            $duration = microtime(true) - $startTime;
+            $statusCode = $e->getCode();
+            $context = [
+            'method' => $method,
+            'url' => $url,
+            'status_code' => $statusCode,
+            'duration_ms' => round($duration * 1000),
+            'exception' => get_class($e),
+            'message' => $e->getMessage(),
+            ];
+
+            if ($statusCode >= 500) {
+            $this->logger->error('API server error', $context);
+            } elseif ($statusCode >= 400) {
+            $this->logger->warning('API client error', $context);
+            } else {
+            $this->logger->error('API connection error', $context);
+            }
+
+            throw new ExternalApiException(
+            message: "API request failed: {$e->getMessage()}",
+            code: $statusCode ?: 0,
+            previous: $e
+            );
+            }
+            }
+            Processing Domain level errors
+            In any non-trivial system, the Domain Layer, which contains the core business logic, inevitably interacts with external dependencies through the Infrastructure Layer. These dependencies can include databases, file systems, external APIs, message queues, etc. During the interaction with the infrastructure, errors specific to that infrastructure can occur (e.g., database connection problems, file system errors, network timeouts). The uncontrolled propagation of such “infrastructure” exceptions into the domain layer is an anti-pattern, violating the principle of encapsulation and making the domain layer dependent on the implementation details of the infrastructure.
+
+            Conditionally, all errors in the domain can be divided into those that came to us from the layer below (Infrastructure) and those created by us during operations within the Domain (VO, Aggregate, Domain Services).
+
+            Handling infrastructure errors
+            To maintain the cleanliness of the domain and its independence from technical details, it is critical to correctly handle infrastructure errors at the boundary between the infrastructure and domain layers. Effective handling implies adherence to several key principles:
+
+            Catching at the domain boundary: Infrastructure exceptions should not cross the domain layer boundary in their original form. They should be caught in the infrastructure layer or at the very junction between the layers. This ensures that the domain layer operates only with concepts and errors relevant to its business logic.
+            Here, we need to pause and clarify what “at the junction” means.
+
+            To do this, let’s break down a few terms:
+
+            Infrastructure exception — an error related to external systems (database, API, file system, etc.). Example: PDOException, GuzzleHttp\Exception\RequestException.
+            Domain boundary — the conceptual line between business logic (domain) and the external world (infrastructure).
+            “At the junction” — code that resides between the layers and is responsible for transforming exceptions (adapter, application layer).
+            “Not at the junction” — deep within a layer (for example, in a repository or a domain service).
+            Example: Catching at the junction (domain boundary)
+
+            // Domain/Exception/PersistenceException.php
+            class PersistenceException extends \RuntimeException {}
+
+            // Domain/UserService.php
+            class UserService {
+            public function createUser(string $name) {
+            $user = new User($name);
+            $this->repository->save($user); // only PersistenceException
+            }
+            }
+            Example: Interception not at the junction (in the infrastructure)
+            If the exception can be processed immediately in the infrastructure without forwarding to the domain. When the DB error is not critical for the business logic (for example, caching).
+
+            // Infrastructure/UserRepository.php
+            class UserRepository {
+            public function save(User $user): void {
+            try {
+            $this->pdo->prepare('INSERT ...')->execute(...);
+            } catch (\PDOException $e) {
+            $this->logger->error("DB error", [$e]);
+            return null;
+            }
+            }
+            }
+            “At the junction” ⟹excludes transformation when transitioning between layers.
+
+            “Not at the junction” ⟹processing inside the layer without transitioning outside.
+
+            2. Transformation into domain exceptions: After catching an infrastructure exception, it should be converted (transformed) into an exception specific to the domain layer. These domain exceptions should express the reason for the error in terms of business logic or the domain, and not in terms of the technical details of the infrastructure. For example, a DatabaseConnectionException from the infrastructure might be transformed into a RepositoryUnavailableException or a DataAccessException in the domain.
+
+            3. Preserving necessary technical context: Despite the transformation, it’s important not to lose all the technical context of the original exception. Certain technical information (e.g., database error code, error message from an external service, request details) can be critical for debugging or logging at higher levels of the application (e.g., at the presentation or logging level). This context can be preserved within the domain exception (e.g., as properties) or passed along with it.
+
+            Example:
+
+            // Infrastructure Layer (repository)
+            class UserRepository {
+            public function save($data) {
+            try {
+            // PDOException might be thrown here
+            $this->pdo->query('INSERT...');
+            } catch (PDOException $e) {
+            // Simply wrap it in a domain exception, passing the original exception
+            throw new DomainException("Save failed", 0, $e);
+            }
+            }
+            }
+            Strategies for Handling Infrastructure Exceptions
+            There are several strategies for transforming and handling infrastructure exceptions. These strategies provide flexibility in how you manage the transition of errors from the technical realm of the infrastructure to the business-focused Domain Layer:
+
+            Direct transformation: The simplest strategy, where each specific infrastructure exception is directly mapped to a corresponding domain exception. For example, FtpConnectionException maps toFileStorageUnavailableException, and HttpClientTimeoutException maps to ExternalServiceTimeoutException. This strategy is suitable when there is a clear one-to-one correspondence between infrastructure and domain errors.
+            Context enrichment: During the transformation, the domain exception is enriched with additional context that can be useful for handling the error further up the call stack. This context might include the original infrastructure exception (for logging), the parameters of the operation that led to the error, or any other relevant technical details. This allows you to preserve information for debugging without polluting the domain layer with infrastructure exception types.
+            Error aggregation: In some cases, one operation in the domain might interact with multiple infrastructure components, and each of them could generate an error. In such situations, it can be useful to aggregate multiple infrastructure errors into a single domain exception (e.g., MultiFileUploadFailedException, which contains a list of individual errors for each file). This simplifies the handling of multiple failures at the domain level.
+            Anti-patterns
+            Improper handling of infrastructure errors can lead to anti-patterns that degrade the quality of the codebase and complicate its maintenance:
+
+            Propagating “naked” infrastructure exceptions: The most common anti-pattern. When an infrastructure exception is thrown across the domain boundary without any transformation, the domain layer becomes explicitly dependent on the specific infrastructure being used. This violates the principles of loose coupling and encapsulation, making the domain layer fragile to changes in the infrastructure layer.
+            Excessive logging in the domain layer: The domain layer should be focused on business logic. Logging low-level technical details of infrastructure errors in the domain layer pollutes it and creates unnecessary coupling. Logging infrastructure details should occur at the boundary or in the infrastructure layer, while the domain layer can log domain events related to the error.
+            Loss of technical context: When transforming an exception, it’s important not to discard all technical information. Complete loss of context makes debugging and diagnosing problems extremely difficult, as it becomes impossible to determine the root cause of the error in the infrastructure layer.
+            These are important points to keep in mind when designing the error handling strategy between layers.
+
+            Main types of domain errors
+            In contrast to infrastructure errors, which are related to technical failures when interacting with external systems, domain errors arise from violations of business rules, invariants, or the logic of the domain itself. These errors are part of business processes and should be handled at the appropriate level of the application, often leading to informing the user or changing the execution flow of a business operation.
+
+            The correct identification and typing of domain errors are critical for building a clean and expressive domain layer that clearly communicates the reasons for failures in domain-specific terms. Let’s highlight a few main types of domain errors:
+
+            Violation of aggregate invariants
+
+            In Domain-Driven Design (DDD), an Aggregate is a cluster of associated domain objects that are treated as a single unit for the purpose of data changes. Aggregates have invariants — rules that must always hold true for the aggregate to be in a consistent (valid) state. Aggregate invariants ensure the integrity of business data within its boundaries.
+
+            A violation of an aggregate invariant occurs when an operation attempts to move the aggregate into a state that contradicts one or more of these rules. Such violations are fundamental domain errors because they mean that a business object is in an incorrect state from the perspective of the domain.
+
+            Example: In an e-commerce domain, the Order aggregate might have an invariant: "The total cost of items in the order must equal the sum of the order line items minus any applied discounts." If an attempt to add or modify an order line item leads to a violation of this rule, it constitutes a violation of the Order aggregate's invariant, which should be signaled by a domain error (e.g., InvalidOrderStateException).
+
+            Attempt to create invalid value
+
+            Many Entities and Value Objects (VOs) in the domain have restrictions on the allowed values of their properties. For example, an email address must have a specific format, a phone number must conform to a certain pattern, and the quantity of an item in a shopping cart cannot be negative. Attempting to create a domain object or assign a property a value that does not meet these restrictions is a domain error.
+
+            This type of error is often related to input validation within the domain layer, in the constructors or factory methods of domain objects, rather than at the user interface or API level. Validation at the domain entry point ensures that only correct, valid data, from a business logic perspective, is operated on within the domain.
+
+            Example: Creating an EmailAddress Value Object. Its constructor should check if the provided string matches the email format. If the format is incorrect, the constructor should throw a domain exception (e.g., InvalidEmailFormatException).
+
+            Application Layer Errors
+            In Layered Architecture and Domain-Driven Design (DDD), each layer performs its specific role. The Domain Layer contains pure business logic and invariants, while the Presentation Layer handles interaction with the user (HTTP API, UI). Between them lies the Application Layer.
+
+            The Application Layer acts as an orchestrator or coordinator. It receives input from the Presentation Layer (often in the form of DTOs), organizes the execution of a specific use case (as in Clean Architecture) by calling methods of domain services, aggregates, and repositories, and also interacts with the Infrastructure Layer. The result of executing a use case can be a successful change in the system’s state or an error.
+
+            Error handling is the responsibility of the Application Layer
+            Why the Application Layer, and not, say, the controller or the domain itself?
+
+            Domain Isolation: The Domain Layer should be focused solely on business logic. It should not be aware of how errors are handled at a system level (logging, retries, formatting responses for the user). Domain objects and services signal errors by throwing domain exceptions that describe violations of business rules.
+            Infrastructure Isolation: The Infrastructure Layer, in turn, throws exceptions specific to the particular technology (e.g., DatabaseConnectionException, CurlException). The Domain Layer also should not depend on these technical details.
+            Coordinator Role: The Application Layer is the first level that is aware of the full context of the operation’s execution: which use case was invoked, what input data was passed, who (which user) invoked it. It is here that all the information necessary to decide how to react to an error that occurred either in the domain or in the infrastructure during the execution of this use case is available. The Presentation Layer should not contain this business logic of error handling; it only displays the result of the Application Layer’s work.
+            Thus, the Application Layer acts as a barrier and a translator of errors. It catches exceptions from the lower layers (domain and infrastructure), handles them, enriches them with context, and transforms them into a unified format understandable to the Presentation Layer.
+
+            Error handling flow
+            The standard error handling scenario in a typical use case or command/query (in the case of CQRS) looks like this:
+
+            Catching Exceptions: The use case code is wrapped in a try...catch block. Expected domain exceptions are caught (e.g., UserNotFoundException, InvalidOrderStateException, ProductOutOfStockException), as well as potentially infrastructure exceptions that were not fully transformed at the infrastructure boundary (although it's preferable for the infrastructure to transform them into its "boundary" exceptions, which the Application Layer would then catch). Unexpected exceptions (\Throwable) are also caught.
+
+            Context Enrichment: When an exception is caught, it’s crucial to gather as much useful information as possible for debugging and analysis. This context may include:
+
+            The ID of the user performing the action.
+            The name of the use case being executed.
+            The input data is passed to the use case.
+            A unique request/trace ID.
+            The system state that might have influenced the error.
+            The original exception ($exception->getPrevious()).
+            Decision Making: Based on the type of the caught exception and the enriched context, the Application Layer can make a decision:
+
+            Retry: If the error is temporary and possibly infrastructure-related (e.g., network timeout, temporary service unavailability). This decision should consider a retry strategy (how many times, with what delay).
+            Rollback: If the operation involves changing the state in persistence (e.g., via a database transaction) and the error occurred before its completion, all changes must be rolled back to maintain data integrity.
+            Form a new error: In most cases, after processing and enrichment, the original exception is transformed into an exception specific to the Application Layer (ApplicationException) or an error object (ApplicationErrorDto) that will be passed to the Presentation Layer.
+            Logging: Information about the error is logged at this stage.
+
+            Business errors: Domain errors that may indicate attempts at incorrect user actions or violations of business processes are logged. The logging level can be INFO or WARNING.
+            Unexpected exceptions: Any uncaught specific exceptions (domain, infrastructure) or general \Throwable should be logged with a high level of criticality (ERROR, CRITICAL), as they indicate potential problems in the code or infrastructure. The context gathered earlier is passed to the logger.
+            Transformation into ApplicationException or ApplicationError: The final step is to form the result for the Presentation Layer. This can be done by throwing an ApplicationException or returning an object containing error information (e.g., ApplicationError) within it. This object/exception should contain unified information:
+
+            Error type (e.g., BusinessError, ValidationError, TechnicalError).
+            Error code (often using an Enum).
+            A message understandable to the user (or the Presentation Layer).
+            Possibly an additional “payload” with error details (e.g., a list of fields with validation errors).
+            Example:
+
+            try {
+            $user = $this->userService->changeEmail($userId, $newEmail);
+
+            return ApplicationResult::success([
+            'userId' => $user->getId(),
+            'email' => $user->getEmail()
+            ]);
+            } catch (DomainException $e) {
+            // Handling a general domain exception
+            return ApplicationResult::failure(
+            'domain_error',
+            $e->getMessage(),
+            400
+            );
+
+            } catch (Throwable $e) {
+            // Logging unexpected errors
+            $this->logger->error($e->getMessage(), ['exception' => $e]);
+
+            // Transforming into ApplicationException for system errors
+            throw new ApplicationException(
+            'An internal system error occurred',
+            500,
+            $e
+            );
+            }
+            ApplicationException serves to:
+
+            Encapsulate errors that occurred in the domain or infrastructure.
+            Provide adapters (e.g., controllers) with information about the error without revealing internal details.
+            Simplify error handling at the user interface level.
+            Anti-patterns:
+
+            Re-throwing without enriching: Simply re-throwing a caught exception without adding any context makes debugging difficult.
+            Swallowing exceptions: Silently ignoring errors (an empty catch block) hides problems and leads to unpredictable behavior.
+            Using \Exception instead of specialized types: Catching and throwing general exceptions makes error handling code unspecific and fragile. Always try to catch and throw more specific exception types.
+            Logging without context: An error message without any connection to the specific use case, user, or input data is useless for diagnosis.
+            Return union type: ApplicationResult|ApplicationError
+            Creating an interface (ApplicationResultInterface) or, in newer versions of PHP 8.0 and above, returning a union type (ApplicationResult|ApplicationError). This approach has its drawbacks:
+
+            Uncertainty of return type — when using union types (|), it's harder to control the logic for handling the result, requiring additional type checking:
+            $result = $service->someMethod();
+            if ($result instanceof ApplicationError) {
+            // Error handling
+            } else {
+            // Handling a successful result
+            }
+            Mental load — developers have to remember the possible different types and handle them correctly, which increases the likelihood of errors.
+            Problems with static analysis — static analysis tools do not always work well with union types, especially in older versions of PHP.
+            Violation of the single responsibility principle — the method takes on the responsibility of returning different data structures depending on the result.
+            Complexity of typing in basic interfaces — if you define interfaces for services, union types can complicate them.
+            Instead of this approach, I recommend using a single return type ApplicationResult, as shown in the previous example. This approach has the following advantages:
+
+            Uniformity — the same type is always returned, which simplifies API usage.
+            Predictability — the client code knows the structure of the returned value exactly.
+            Encapsulation of state — the ApplicationResult object encapsulates both successful and unsuccessful states:
+            $result = $service->someMethod();
+            if ($result->isSuccessful()) {
+            $data = $result->getData();
+            } else {
+            $error = $result->getErrorMessage();
+            }
+            Extensibility — it’s easier to add new states or attributes to the result without changing method signatures.
+            Compliance with DDD practices — at the application level, we transform domain responses into a uniform format that can be easily converted into API responses.
+            I agree with your points. Using a dedicated ApplicationResult object often leads to cleaner and more maintainable code, especially when dealing with outcomes that can represent either success or failure.
+
+            Processing in Presentation Layer
+            The Presentation Layer, whether it’s an HTTP API, a web interface, or a CLI interface, is the entry point for the external world and the exit point for the results of business logic execution. Its primary responsibility in the context of error handling is to catch errors that originated in the layers below (primarily ApplicationException from the Application Layer) and transform them into a format suitable for consumption by the client (browser, mobile application, another service).
+
+            One point to catch errors
+            A key principle of error handling at the presentation level is having a single point of interception. This means that instead of wrapping every controller or request handler in try...catch blocks, a centralized mechanism is used to catch all unhandled exceptions that "fly out" from the Application Layer (or other parts of the system if they reach this level).
+
+            The advantages of this approach are:
+
+            Unification: All errors are handled uniformly, ensuring a consistent response format for the client.
+            Reduction of code duplication: Error handling logic (logging, response formatting, internationalization) is not repeated in every request handler.
+            Simplified maintenance: Changing the error handling logic (e.g., adding a new field to the error response) only requires modification in one place.
+            Increased reliability: The likelihood of missing an unhandled exception is reduced.
+            Standardization of the Response
+            When an error is caught at the single point of interception, it needs to be presented to the client in a standardized format. For HTTP APIs, this usually means:
+
+            Appropriate HTTP status code: Validation errors (ValidationError) can map to 400 Bad Request, access errors (e.g., BusinessRuleViolation of the "no rights" type) to 403 Forbidden, resource not found (NotFound) to 404 Not Found, and technical errors (TechnicalError) to 500 Internal Server Error (or 503 Service Unavailable if it's a temporary issue).
+            Structured response body: JSON is often used. The response body should contain error information in a predictable structure. Based on the ApplicationException (which contains the error type, error code, and message), such a response can be formed.
+            Example:
+
+            {
+            "error": {
+            "type": "BUSINESS_RULE_VIOLATION",     // Error type from ApplicationErrorType
+            "code": "USER_BLOCKED",                // Error code from ApplicationErrorCode
+            "message": "Your account is blocked.", // Localized message
+            "details": {                           // Optional: additional details (e.g., validation fields)
+            "field": "email",
+            "reason": "invalid_format"
+            }
+            }
+            }
+            This standardized format makes it much easier for clients to understand and handle errors consistently. The inclusion of error type, code, a human-readable message, and optional details provides a good balance of information.
+
+            In the context of the Action-Domain-Responder (ADR) pattern, this standardized error format would primarily be the responsibility of the Responder component
+
+            Internationalization of Error Messages
+            Error messages that the end-user sees should be understandable and, where possible, presented in the user’s language. The Presentation Layer is the ideal place to implement internationalization (i18n) of error messages.
+
+            The i18n flow:
+
+            Application Layer returns an error code (Enum): As we saw in the previous section, ApplicationException contains a structured error code (ApplicationErrorCode::USER_NOT_FOUND, ApplicationErrorCode::INVALID_EMAIL_FORMAT, etc.). This code is a language-independent identifier of a specific business or validation problem.
+            Presentation Layer determines the user’s locale: The user’s locale (preferred language) can be determined in various ways:
+            From the HTTP Accept-Language header.
+            From the settings of an authenticated user’s profile.
+            From a request parameter.
+            From a subdomain or URL path.
+            3. Presentation Layer looks up the localized text: Using the error code received from the ApplicationException and the determined user locale, the Presentation Layer accesses the localization system (e.g., gettext, Symfony Translation Component, or a simple array of code -> text mappings) to retrieve the corresponding localized message.
+
+            This separation of responsibilities allows the domain and application layers to remain independent of specific languages, while the presentation layer takes on the task of presenting information in the required language.
+
+            Handling errors at the Presentation Layer completes the error handling cycle in the application. Creating a single point of interception, standardizing the response format, and properly internationalizing error messages make your application more user-friendly and API-client-friendly, as well as simplifying its maintenance and development. Using error codes from the Application Layer as keys for localization ensures a clear separation of concerns and flexibility.
+
+            ErrorObject vs throw exception
+            When designing the Domain and Application Layers, a fundamental question arises: how to signal the occurrence of errors? There are two main approaches: using the exception mechanism (throw Exception) or returning a special object that encapsulates error information (ErrorObject or ErrorObjectList, often found in VO or DTO concepts). The choice between these approaches depends on the nature of the error and the expected behavior of the system. It's important to consider the trade-offs between performance and development convenience, as exceptions, when used correctly, can make the code cleaner and more understandable in certain scenarios.
+
+            Throw Exception
+            The exception mechanism is designed to signal exceptional situations that disrupt the normal flow of program execution and prevent an operation from completing successfully.
+
+            Unforeseen or unrecoverable errors: These can be critical failures, violations of basic domain invariants, or technical problems that make further execution of the current operation impossible.
+            Violation of method contract: If a method has a “contract” (for example, it promises to create a valid object, but the input data makes this impossible), a violation of this contract is signaled by an exception.
+            Interrupting the flow: Exceptions are effectively “thrown” up the call stack, interrupting the current flow of execution until they are caught by a suitable handler at the appropriate level (e.g., Application Layer or Presentation Layer).
+            ErrorObject
+            This approach is used when an “error” is an expected and predictable outcome of an operation, which is part of the normal business logic. Instead of interrupting the flow, the operation returns an object that explicitly indicates success or failure, and in case of failure, contains the error details.
+
+            Validation errors: When input data does not comply with business rules, but this is not an “exceptional” situation, but rather an expected scenario requiring user feedback. Often, validation can reveal multiple errors simultaneously, and ErrorObjectList allows returning all of them.
+            Expected business rejections: For example, “user not found” when searching for a user in a list of users, “insufficient funds” when attempting a withdrawal (if this is not a critical violation, but an expected business scenario).
+            Functional approach: In programming styles oriented towards a functional approach, functions prefer to always return a value (either a result or an error) instead of throwing exceptions, which promotes more explicit flow control.
+            Memory Consumption Assessment
+            From a performance and memory consumption perspective, returning an It ErrorObject is usually more performant than throwing exceptions.
+
+            The reason is that when an exception is thrown, most programming languages (including PHP) create and capture a stack trace. This is a relatively expensive operation in terms of both execution time and memory consumption, as it involves traversing the call stack and collecting information about each function in it. If exceptions are thrown very frequently (for example, in a loop or on every failed validation step), this can significantly impact performance and the amount of memory used. PHP also performs additional work to handle exceptions, including searching for catch blocks and unwinding the stack.
+
+            In contrast, creating an ErrorObject is simply creating an object or an array of objects, which is a much less resource-intensive operation. It's just allocating memory for the object's data, without the overhead of building a stack trace. You know exactly how much memory your error object consumes because you define its structure. The memory consumed by error objects is more predictable and can be optimized for specific scenarios.
+
+            Recommendations for High-Load Systems
+            If you have a high-load system where errors occur regularly, using ErrorObject will be significantly more efficient in terms of memory.
+
+            What can be done:
+
+            In performance-critical parts of the code (hot paths), you should avoid exceptions and use error objects.
+            When using ErrorObject, you can implement caching or pooling mechanisms for typical errors, which will further reduce memory consumption.
+            If you need stack trace information theErrorObject, you can implement its lazy generation only upon request, which will avoid unnecessary overhead.
+            The difference in memory consumption can be substantial:
+
+            A typical exception in PHP can consume from 4 to 10 KB of memory or more, depending on the depth of the call stack.
+            An ErrorObject typically consumes from 0.5 to 2 KB, depending on the amount of information stored.
+            The difference in performance only becomes noticeable when exceptions are thrown repeatedly and frequently. For most business applications, where exceptions signal truly exceptional situations (which occur rarely), this factor is not decisive when choosing an approach.
+
+            Optimizing Work with Exceptions
+            If you’ve chosen the throw Exception flow for a high-load application, or if it happened historically, or if your application suddenly became high-load and you're facing the issue of memory saving (which is a perfectly valid concern, as creating exceptions, especially capturing the stack trace, can indeed be resource-intensive), it's important to understand that the primary recommendation for saving memory in this case is to minimize the number of exceptions thrown in "hot" paths, using them strictly for their intended purpose (exceptional situations). However, if this flow cannot be abandoned, there are mechanisms that can help.
+
+            Limiting Information in the Stack Trace (use wisely)
+            Using Exception with a disabled stack: Creating custom exceptions with minimal memory consumption:
+            final readonly class LightweightException extends Exception
+            {
+            public function __construct(string $message, int $code = 0)
+            {
+            parent::__construct($message, $code, null); // null instead of the previous exception
+            }
+            }
+            Setting the stack depth limit (PHP 7.4+): Configuring the zend.exception_ignore_args and zend.exception_string_param_max_len parameters in php.ini to limit the size of the information stored in the stack.
+            2. PHP System Settings
+
+            OPCache Optimization: Properly configuring OPCache can reduce overall memory consumption, including that of exceptions.
+            Increasing Memory Limits: Strategically increasing memory_limit to prevent crashes under peak loads.
+            Garbage Collector Configuration: Optimizing the parameters zend.enable_gc and relevant settings for your application.
+            3. Refactoring
+
+            Batch processing and error aggregation
+            “Fail-fast” pattern with a reasonable approach: In some cases, you can interrupt the execution of an operation as early as possible to avoid deep call stacks and diving into unnecessary layers.
+            Profiling Tools
+
+            Finally, the most important “mechanism” is profiling. Don’t apply memory optimizations “blindly.” Use profiling tools such as Xdebug (memory profiling), Blackfire, or Tideways to accurately determine if exceptions are indeed a significant source of memory consumption in your high-load application. The bottleneck might be somewhere else entirely.
+
+            Despite these optimizations, it’s important to understand that using exceptions in high-load scenarios will always be more resource-intensive than using ErrorObject. It is recommended to apply a mixed approach and transition to ErrorObject:
+
+            Use ErrorObject for frequent, predictable errors in critical parts of the system.
+            Apply optimized exceptions for truly exceptional situations.
+            Consider using static analysis tools to identify places where exceptions are used unnecessarily.
+            By correctly combining these approaches, you can significantly reduce memory consumption even when using the exception mechanism in a high-load application.
+
+            goto is bad, and throw is good?
+            In the PHP world, two operators are particularly hotly debated: goto and throw. The former is considered “bad practice,” the latter is an important part of error handling. But some developers draw parallels between the two, claiming that throw is a “civilized goto.” Or is it?
+
+            How throw and goto work in PHP
+            throw is used to throw an exception in PHP. It allows the normal execution of the program to be interrupted when an error occurs and control to be transferred to the nearest catch block. throw “jumps” from a function into a catch block, bypassing all intermediate code.
+
+            goto allows a program to jump immediately to a predetermined label. It is often criticized for making readability worse and debugging more difficult. goto jumps to the end label, ignoring the rest of the loop body.
+
+            Why does throw resemble goto
+            That’s an interesting analogy, and you’ve highlighted some valid points where throw and goto might seem similar at a superficial level. You're right that both involve a non-linear transfer of control. Let's break down why that comparison arises:
+
+            Arguments for the Similarity:
+
+            Immediate Exit: Both throw and goto cause an immediate departure from the current point of execution.
+            Transfer of Control: throw transfers execution to the nearest matching catch block, bypassing intervening code, which can be seen as a form of "jumping," similar to how goto jumps to a label.
+            Non-obvious Flow: Exceptions can indeed make the control flow less immediately apparent when reading code, as the error handling logic is located elsewhere.
+            Complexity in Reading: Both can create “invisible” execution paths. Furthermore, just as goto can be misused to create spaghetti code, exceptions, if not used judiciously, can sometimes obscure the primary logic of a function.
+            However, despite these similarities in their effect on the flow of execution, there are fundamental differences in their intent and the mechanisms they employ. Would you like to explore those differences next? Understanding why It throw is generally considered a more structured and safer way to handle control flow compared to goto might be helpful in distinguishing them.
+
+            Key Similarities and Differences between throw and goto
+            That’s an excellent and concise summary of the key differences between throw and goto. You've clearly articulated why, despite some superficial similarities in their effect on program flow, they serve fundamentally different purposes and have vastly different implications for code structure and maintainability.
+
+            Key Similarities and Differences Between throw and goto
+
+            Despite some behavioral similarities, the differences between these operators are far greater — and significant.
+
+            Purpose of Use
+
+            goto — a simple jump to another part of the code. Most often used to exit nested loops or bypass code.
+            throw — an error handling mechanism designed to deal with exceptional situations.
+            Context and Structure
+
+            throw requires a strict try-catch structure, which adds architectural clarity.
+            goto lacks structural context and can lead execution anywhere, making code maintenance difficult.
+            Readability
+
+            throw reads as an "explicit error signal" and is expected in certain parts of the code.
+            goto breaks predictability, especially with frequent use.
+            Debugging and Scalability
+
+            Exceptions can be logged, wrapped, and passed up the chain.
+            goto does not integrate with logging and error debugging systems.
+            Tool Support
+
+            Modern IDEs can analyze exceptions, offer autocompletion, and highlight uncaught throw statements.
+            goto is not analyzed by most static analysis tools as a potentially dangerous section of code.
+            Informativeness and Safety
+
+            goto simply transfer execution to another location, without context.
+
+            throw creates an exception object that contains:
+
+            Error type (InvalidArgumentException, RuntimeException, etc.)
+            A message for the developer
+            A full call stack
+            How appropriate is the comparison?
+            The comparison between throw and goto is appropriate only at a superficial level — in terms of the mechanism of "jumping" to another part of the program. However, their conceptual differences are too significant to consider them equivalent from a code design perspective.
+
+            Using throw is part of an architectural approach to programming that includes decomposition, exception handling, and error management. Whereas goto is almost always a symptom of poor design.
+
+            The PHP community tends to perceive throw as a more mature and safer alternative for control flow, unlike goto. In the book "Clean Code," Robert Martin emphasizes the importance of structured error handling, and throw, being a built-in element of exceptions, aligns with this philosophy.
+
+            You’ve perfectly summarized the consensus within the programming community. While both alter the sequential flow, throw does so within a well-defined structure for error management, whereas goto often leads to unstructured and harder-to-maintain code.
+
+            Thank you for bringing this nuanced perspective to the discussion! It’s a valuable clarification. Is there anything else you’d like to discuss?
+
+            Goto: Path to Exile
+            Historical Evolution of the Attitude Towards goto
+
+            1960s:
+
+            Early languages (FORTRAN, COBOL, BASIC) actively used goto as the primary way to control flow.
+            In 1968, Edsger Dijkstra published the famous article “Go To Statement Considered Harmful,” where he called goto:
+            A “primitive tool”
+            A “source of unstructured code”
+            An “obstacle to mathematically rigorous programming”
+            1970s — The Structural Programming Revolution:
+
+            Emergence of alternatives: loops (while, for), conditional blocks (if-else), subroutines.
+            Languages Pascal (1970) and C (1972) formally supported goto but offered more structured alternatives.
+            Research showed that code with goto:
+            Was 30–50% harder to understand.
+            Took 25% longer to debug.
+            Contained twice as many errors.
+            1980s-1990s — Gradual Exile:
+
+            Modern languages (Ada, Modula-2) began to restrict goto.
+            In object-oriented languages (C++, Java), goto became an anachronism.
+            The emergence of exceptions (exception handling) as a civilized alternative.
+            2000s — The Modern State:
+
+            In Python, Java, JavaScript, goto is absent as a concept.
+            In PHP, Perl, C, it is retained but with strict limitations.
+            Go (Golang) consciously excluded goto from its syntax.
+            Reasons for the Negative Attitude:
+
+            Spaghetti code — difficulty in tracking the flow of execution.
+            Violation of encapsulation — jumps across the boundaries of logical blocks.
+            Difficulties in refactoring — fragility of code when changes are made.
+            While goto played an important role in the history of programming, modern development has almost completely abandoned it in favor of structured approaches. Exceptions provide all the benefits of control flow management without the drawbacks of goto, making code more reliable, maintainable, and secure.
+
+            Throw: The Path to Structured Error Handling
+            Evolutionary Path:
+
+            Early languages: error codes and checking return values.
+            1980s: first implementations of exceptions (Ada, ML).
+            1990s: widespread adoption in C++, Java, Python.
+            2000s: exceptions as the standard in most languages.
+            Advantages of the Approach:
+
+            Separation of the normal flow from error handling.
+            Guaranteed handling through the try/catch mechanism.
+            Rich context — call stack, exception types, messages.
+            Fail First, Fail Fast
+            The principle of “Fail First, Fail Fast” (often simply “Fail Fast”) states that a system should check for all possible failure conditions as early as possible and, if an error is found, immediately stop the operation, signaling the problem. Instead of trying to continue working with incorrect data or in an erroneous state, which can lead to cascading failures, unexpected behavior, and, worst of all, data corruption, the application should “fail” in a controlled manner.
+
+            The key ideas here are:
+
+            Early detection: Errors are identified at the earliest stage, as soon as incorrect data is received or an invalid state arises.
+            Rapid termination: Upon detecting an error, the execution of the current operation is interrupted, preventing further calculations or state changes based on invalid assumptions.
+            Clear signaling: The system should explicitly report the error, typically by throwing an exception.
+            Applying the “Fail Fast” principle brings many benefits:
+
+            Simplified debugging: The error is detected close to its source. This significantly reduces the time spent searching for and fixing the problem, as you don’t have to unravel a long chain of events to understand what went wrong and where.
+            Prevention of cascading failures: Fast failure prevents the error from spreading through the system, causing new, often more complex to diagnose, problems in other parts of it.
+            Data protection: Terminating the operation upon detection of incorrect input data or conditions prevents the writing or modification of data based on wrong information, ensuring its integrity.
+            Increased predictability: The system behaves more deterministically. If something goes wrong, it becomes obvious immediately, rather than manifesting as strange behavior sometime later.
+            Resource saving: Unnecessary operations with incorrect data are prevented, saving processor time, memory, and other resources.
+            Clearer contracts for methods/functions: Functions that follow this principle explicitly define their expectations regarding input data and execution conditions, making the code more understandable and easier to use.
+            You’re absolutely right. Throwing exceptions is a key way to implement the “Fail Fast” principle in PHP. It ensures that errors are not silently ignored and encourages explicit handling.
+
+            Throwing Exceptions
+            Exceptions are the primary mechanism in PHP for signaling errors in a “Fail Fast” style. Instead of returning false, null, or error codes, which might be ignored by the calling code, throwing an exception forces the handling of the abnormal situation.
+
+            Use standard SPL exception types (InvalidArgumentException, RuntimeException, LengthException, DomainException, OutOfBoundsException, etc.) when appropriate.
+            Create your own exception classes, inheriting from Exception or its descendants, for errors specific to your application. This allows for more granular error handling in try-catch blocks.
+            Recommendations
+            Don’t catch all exceptions indiscriminately; handle only the expected ones.
+            Use strict typing and specialized exception classes.
+            Avoid “silent” errors; always log exceptions.
+            Do not expose internal error details to the user.
+            Use enums for error codes: for example, ErrorCode::USER_NOT_FOUND.
+            Integrate with external systems: Sentry, Bugsnag, and other error monitoring tools.
+            Support Retry/Backoff strategies: retrying operations in case of temporary failures.
+            Add TraceId/RequestId to every log.
+            Separate log levels: Info, Warn, Error, Critical, Debug.
+            Use ErrorObject for critical, high-load areas.
+            By following these practices, you can create a reliable error handling system that will adhere to DDD principles and ensure the high quality of your PHP application.
+        </div>
+    </div>
+</div>
+
+<script src="../resources/load-header.js"></script>
+</body>
+<script src="../resources/back-to-top.js"></script>
+<script src="../resources/navigation.js"></script>
+</html>
