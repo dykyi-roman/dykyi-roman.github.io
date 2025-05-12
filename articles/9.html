@@ -23,151 +23,146 @@
         </div>
 
         <div class="article-content">
-            Introduction
-            In the world of business application development, especially those built on the principles of Domain-Driven Design (DDD), error handling is an important architectural element. An incorrectly implemented strategy can lead to logical chaos and a poor user experience. Imagine if a database error were to directly reach the UI — this is not only unsightly but also dangerous.
+            <h1>Introduction</h1>
+            <p>In the world of business application development, especially those built on the principles of Domain-Driven Design (DDD), error handling is an important architectural element. An incorrectly implemented strategy can lead to logical chaos and a poor user experience. Imagine if a database error were to directly reach the UI — this is not only unsightly but also dangerous.</p>
 
-            Layered architecture implies a clear separation of responsibilities:
+            <p>Layered architecture implies a clear separation of responsibilities:</p>
+            <ul>
+                <li><strong>Infrastructure Layer</strong> — working with external systems.</li>
+                <li><strong>Domain Layer</strong> — business logic.</li>
+                <li><strong>Application Layer</strong> — coordination of operations.</li>
+                <li><strong>Presentation Layer</strong> — API, UI, CLI.</li>
+            </ul>
+            <p>Errors can occur at any level, but it is very important to correctly catch, transform, and log them. In this article, we will look at how to set up error handling in accordance with DDD principles and industrial development practices.</p>
 
-            Infrastructure Layer — working with external systems.
-            Domain Layer — business logic.
-            Application Layer — coordination of operations.
-            Presentation Layer — API, UI, CLI.
-            Errors can occur at any level, but it is very important to correctly catch, transform, and log them. In this article, we will look at how to set up error handling in accordance with DDD principles and industrial development practices.
+            <p>Let’s consider a common processing flow with an example: you make a request to retrieve an entity from the database. A connection failure occurred. What’s next? If it SqlException directly reaches the client, you have violated all levels of abstraction. Therefore, it is important that each layer does its job.</p>
 
-            Let’s consider a common processing flow with an example: you make a request to retrieve an entity from the database. A connection failure occurred. What’s next? If it SqlException directly reaches the client, you have violated all levels of abstraction. Therefore, it is important that each layer does its job.
+            <h2>Here’s how this flow looks:</h2>
+            <ol>
+                <li>An error occurs at the Infrastructure Layer — for example, IOException, HttpRequestException, SqlException.</li>
+                <li>The Infrastructure Layer catches the low-level error, logs it if necessary, and throws a generalized exception understandable to the Domain Layer — for example, StorageUnavailableException.</li>
+                <li>The Domain Layer receives the exception and transforms it, if necessary, into a domain-specific one: InvalidOrderStateException, BusinessRuleViolationException.</li>
+                <li>The Application Layer receives the domain exception and makes a decision:
+                    <ul>
+                        <li>Retry?</li>
+                        <li>Write to audit?</li>
+                        <li>Return Result.Failure(...)?</li>
+                        <li>Propagate upwards?</li>
+                    </ul>
+                </li>
+                <li>The Presentation Layer receives the result: either Result.Success(...) or an error. It transforms this into a standardized HTTP response: ApiError, HttpException.</li>
+            </ol>
 
-            Here’s how this flow looks:
+            <p>This approach:</p>
+            <ul>
+                <li>Maintains the isolation of layers.</li>
+                <li>Provides flexibility in interpretation.</li>
+                <li>Allows for centralized logging and tracing of errors.</li>
+            </ul>
 
-            An error occurs at the Infrastructure Layer — for example, IOException, HttpRequestException, SqlException.
-            The Infrastructure Layer catches the low-level error, logs it if necessary, and throws a generalized exception understandable to the Domain Layer — for example, StorageUnavailableException.
-            The Domain Layer receives the exception and transforms it, if necessary, into a domain-specific one: InvalidOrderStateException, BusinessRuleViolationException.
-            The Application Layer receives the domain exception and makes a decision:
-            Retry?
-            Write to audit?
-            Return Result.Failure(...)?
-            Propagate upwards?
-            5. The Presentation Layer receives the result: either Result.Success(...) an error or. It transforms this into a standardized HTTP response: ApiError, HttpException.
+            <hr>
+            <h2>Sequential Exception Handling Pattern</h2>
+            <p>Over the years of working with error handling in programming, I’ve tried many approaches: from cumbersome try-catch blocks to excessive logs that only masked problems instead of solving them. Through trial and error, I’ve developed a pattern that I want to share with you. With its help, we achieve:</p>
+            <ul>
+                <li>Minimizes code duplication — exceptions are handled at the appropriate level, without unnecessary nested checks.</li>
+                <li>Ensures transparency — each error is either logged, transformed into a clear response, or passed up the call stack.</li>
+                <li>Preserves context — even in cascading failures, the system doesn’t lose important details, helping to quickly find the root cause.</li>
+            </ul>
+            <p>Here’s how the flow looks within each layer:</p>
 
-            This approach:
+            <h3>Infrastructure Layer</h3>
+            <ul>
+                <li>&#x27A1; throw low-level Exception (e.g., <code>SqlException</code>, <code>IOException</code>)</li>
+                <li>&#x27A1; log error (technical details, e.g., errors from a third-party service)</li>
+            </ul>
+            <h3>Domain Layer</h3>
+            <ul>
+                <li>&#x27A1; Catch a low-level exception</li>
+                <li>&#x27A1; map to <code>DomainException</code> (e.g., <code>DomainRuleViolationException</code>)</li>
+                <li>&#x27A1; throw <code>DomainException</code> (for business logic)</li>
+            </ul>
+            <h3>Application Layer</h3>
+            <ul>
+                <li>&#x27A1; catch <code>DomainException</code></li>
+                <li>&#x27A1; enrich error context (e.g., user ID, use-case)</li>
+                <li>&#x27A1; Take action: apply patterns — retry, rollback transaction, throw a domain exception</li>
+                <li>&#x27A1; log error (if it’s a business logic error or an unexpected error)</li>
+                <li>&#x27A1; throw <code>ApplicationException</code> (with an error code)</li>
+            </ul>
+            <h3>Presentation Layer (API, UI)</h3>
+            <ul>
+                <li>&#x27A1; catch <code>ApplicationException</code></li>
+                <li>&#x27A1; map to HTTP response (e.g., 400, 409, 500)</li>
+                <li>&#x27A1; Include a unique error code in the response</li>
+            </ul>
 
-            Maintains the isolation of layers.
-            Provides flexibility in interpretation.
-            Allows for centralized logging and tracing of errors.
-            Sequential Exception Handling Pattern
-            Over the years of working with error handling in programming, I’ve tried many approaches: from cumbersome try-catch blocks to excessive logs that only masked problems instead of solving them. Through trial and error, I’ve developed a pattern that I want to share with you. With its help, we achieve:
+            <h2>Errors at the Infrastructure level</h2>
+            <p><strong>Infrastructure Layer</strong> — this encompasses everything that interacts with the “outside world”: databases, file systems, APIs, message queues. Errors occur frequently here and are almost always technical. Typical examples include:</p>
+            <ul>
+                <li><strong>SqlException</strong> — SQL query or connection error</li>
+                <li><strong>IOException</strong> — problems with files</li>
+                <li><strong>HttpRequestException</strong> — failures when calling external services</li>
+                <li><strong>TimeoutException</strong> — timeout exceeded</li>
+            </ul>
+            <p>The main task at this level is to catch low-level technical exceptions and transform them into more abstract errors, understandable from the perspective of our system.</p>
+            <h3>Example:</h3>
+            <pre><code>public function findById(UserId $userId): UserInterface
+{
+    return $this->repository->find($userId->toRfc4122())
+        ?? throw new UserNotFoundException($userId);
+}</code></pre>
+            <p>Here, we used a domain error because the Repository pattern is more a part of the domain. Also, one approach to throwing an error could be a more generalized exception, which can be used for all types of entities, for example, <strong>EntityNotFoundException</strong>. This would be caught at the Domain level and then transformed into <strong>UserNotFoundException</strong> if necessary. However, from the perspective of pure DDD, using <strong>UserNotFoundException</strong> is the more correct approach.</p>
+            <p>Exceptions should be defined in the domain, not in the infrastructure, because this exception relates to business rules and domain semantics.</p>
+            <p>This layer is also the ideal place for logging technical details. Here you know everything: call stacks, connections, timeouts. Logging here is safe, helpful for support, and doesn’t affect business logic. However, you should follow certain principles:</p>
+            <ul>
+                <li>Log technical details: Status codes, response times, technical connection errors.</li>
+                <li>Do not duplicate business logic: The main interpretation of errors should occur higher up.</li>
+                <li>Adhere to logging levels:</li>
+            </ul>
+            <ul>
+                <li><strong>DEBUG</strong> — Details of requests/responses.</li>
+                <li><strong>INFO</strong> — Successful operations.</li>
+                <li><strong>WARN</strong> — Retries, temporary failures.</li>
+                <li><strong>ERROR</strong> — Critical errors at the infrastructure level.</li>
+            </ul>
+            <h4>Example:</h4>
 
-            Minimizes code duplication — exceptions are handled at the appropriate level, without unnecessary nested checks.
-            Ensures transparency — each error is either logged, transformed into a clear response, or passed up the call stack.
-            Preserves context — even in cascading failures, the system doesn’t lose important details, helping to quickly find the root cause.
-            Here’s how the flow looks within each layer:
+            <pre><code>&lt;?php
+private function request(string $method, string $endpoint, array $options = []): array
+{
+    $url = "{$this->baseUri}{$endpoint}";
+    $this->logger->debug('API request initiated', [
+        'method' => $method,
+        'url' => $url,
+    ]);
+    $startTime = microtime(true);
+    try {
+        $response = $this->httpClient->request($method, $url, $options);
+        $duration = microtime(true) - $startTime;
+        $statusCode = $response->getStatusCode();
 
-            Infrastructure Layer
-
-            ⟹ throw low-level Exception (e.g., SqlException, IOException)
-
-            ⟹ log error (technical details, e.g., errors from a third-party service)
-
-            Domain Layer
-
-            ⟹ Catch a low-level exception
-
-            ⟹ map to DomainException (e.g., DomainRuleViolationException)
-
-            ⟹ throw DomainException (for business logic)
-
-            Application Layer
-
-            ⟹ catch DomainException
-
-            ⟹ enrich error context (e.g., user ID, use-case)
-
-            ⟹ Take action: apply patterns — retry, rollback transaction, throw a domain exception
-
-            ⟹ log error (if it’s a business logic error or an unexpected error)
-
-            ⟹ throw ApplicationException (with an error code)
-
-            Presentation Layer (API, UI)
-
-            ⟹ catch ApplicationException
-
-            ⟹ map to HTTP response (e.g., 400, 409, 500)
-
-            ⟹ Include a unique error code in the response
-
-            What are your thoughts on this translation? Is there anything you’d like to refine or discuss further about this pattern?
-
-            Errors at the Infrastructure level
-            Infrastructure Layer — this encompasses everything that interacts with the “outside world”: databases, file systems, APIs, message queues. Errors occur frequently here and are almost always technical. Typical examples include:
-
-            SqlException — SQL query or connection error
-            IOException — problems with files
-            HttpRequestException — failures when calling external services
-            TimeoutException — timeout exceeded
-            The main task at this level is to catch low-level technical exceptions and transform them into more abstract errors, understandable from the perspective of our system.
-
-            Example:
-
-            public function findById(UserId $userId): UserInterface
-            {
-            return $this->repository->find($userId->toRfc4122())
-            ?? throw new UserNotFoundException($userId);
-            }
-            Here, we used a domain error because the Repository pattern is more a part of the domain. Also, one approach to throwing an error could be a more generalized exception, which can be used for all types of entities, for example, EntityNotFoundException. This would be caught at the Domain level and then transformed into UserNotFoundException if necessary. However, from the perspective of pure DDD, using UserNotFoundException is the more correct approach.
-
-            Exceptions should be defined in the domain, not in the infrastructure, because this exception relates to business rules and domain semantics.
-
-            This layer is also the ideal place for logging technical details. Here you know everything: call stacks, connections, timeouts. Logging here is safe, helpful for support, and doesn’t affect business logic. However, you should follow certain principles:
-
-            Log technical details: Status codes, response times, technical connection errors.
-            Do not duplicate business logic: The main interpretation of errors should occur higher up.
-            Adhere to logging levels:
-            DEBUGDetails of requests/responses.
-
-            INFOSuccessful operations.
-
-            WARNRetries, temporary failures.
-
-            ERRORCritical errors at the infrastructure level.
-
-            Example:
-
-            <?php
-    private function request(string $method, string $endpoint, array $options = []): array
-    {
-       $url = "{$this->baseUri}{$endpoint}"
-            $this->logger->debug('API request initiated', [
-            'method' => $method,
-            'url' => $url,
-            ]);
-            $startTime = microtime(true);
-            try {
-            $response = $this->httpClient->request($method, $url, $options);
-            $duration = microtime(true) - $startTime;
-            $statusCode = $response->getStatusCode();
-
-            $this->logger->info('API request completed', [
+        $this->logger->info('API request completed', [
             'method' => $method,
             'url' => $url,
             'status_code' => $statusCode,
             'duration_ms' => round($duration * 1000),
-            ]);
+        ]);
 
-            $body = $response->getBody()->getContents();
-            $data = json_decode($body, true);
+        $body = $response->getBody()->getContents();
+        $data = json_decode($body, true);
 
-            if (json_last_error() !== JSON_ERROR_NONE) {
+        if (json_last_error() !== JSON_ERROR_NONE) {
             $this->logger->warning('Failed to parse API response', [
             'error' => json_last_error_msg(),
             'body_preview' => mb_substr($body, 0, 100) . (mb_strlen($body) > 100 ? '...' : ''),
             ]);
 
             throw new ExternalApiException('Invalid JSON response from API', $statusCode);
-            }
+        }
 
-            return $data;
+        return $data;
 
-            } catch (GuzzleException $e) {
+        } catch (GuzzleException $e) {
             $duration = microtime(true) - $startTime;
             $statusCode = $e->getCode();
             $context = [
@@ -192,8 +187,8 @@
             code: $statusCode ?: 0,
             previous: $e
             );
-            }
-            }
+        }
+    }</code></pre>
             Processing Domain level errors
             In any non-trivial system, the Domain Layer, which contains the core business logic, inevitably interacts with external dependencies through the Infrastructure Layer. These dependencies can include databases, file systems, external APIs, message queues, etc. During the interaction with the infrastructure, errors specific to that infrastructure can occur (e.g., database connection problems, file system errors, network timeouts). The uncontrolled propagation of such “infrastructure” exceptions into the domain layer is an anti-pattern, violating the principle of encapsulation and making the domain layer dependent on the implementation details of the infrastructure.
 
