@@ -468,6 +468,20 @@ if ($result->isSuccessful()) {
                 <li><strong>Expected business rejections:</strong> For example, “user not found” when searching for a user in a list of users, “insufficient funds” when attempting a withdrawal (if this is not a critical violation, but an expected business scenario).</li>
                 <li><strong>Functional approach:</strong> In programming styles oriented towards a functional approach, functions prefer to always return a value (either a result or an error) instead of throwing exceptions, which promotes more explicit flow control.</li>
             </ul>
+            <h4>Railway-oriented programming: the functional way of error handling (Updated: 15.05.2025)</h4>
+            <p>In functional programming, there’s an interesting approach to error handling often called “Railway-oriented programming” (ROP). This technique focuses on clearly separating successful computations and potential errors, guiding the flow of execution along one of two “rails” — either the path of success or the path of failure.</p>
+            <p>A key concept in ROP is the use of algebraic data types (ADTs) such as Either or Result. These types explicitly represent the outcome of an operation, which can be either a successful value or error information.</p>
+            <p>The Either type (often also called Result, especially when dealing with operations that can fail) typically has two possible forms:</p>
+            <ul>
+                <li>
+                    Right(value): Represents a successful result, containing some value.
+                </li>
+                <li>
+                    Left(error): Represents a failed result, containing error information.
+                </li>
+            </ul>
+            <p>The idea is that all functions in a computation chain accept and return Either/Result objects. This allows subsequent steps to be automatically “skipped” in the event of an error.</p>
+
             <h4>Memory Consumption Assessment</h4>
             <p>From a performance and memory consumption perspective, returning an <code>ErrorObject</code> is usually more performant than throwing exceptions.</p>
             <p>The reason is that when an exception is thrown, most programming languages (including PHP) create and capture a stack trace. This is a relatively expensive operation in terms of both execution time and memory consumption, as it involves traversing the call stack and collecting information about each function in it. If exceptions are thrown very frequently (for example, in a loop or on every failed validation step), this can significantly impact performance and the amount of memory used. PHP also performs additional work to handle exceptions, including searching for catch blocks and unwinding the stack.</p>
