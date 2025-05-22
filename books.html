@@ -31,7 +31,7 @@
     <!--  Books  -->
     <hr class="custom-hr">
     <div class="section">
-        <h3>Books</h3>
+        <h3>Books <span id="book-stats" style="font-size: 0.4em; margin-left: 10px; font-weight: normal;"></span></h3>
         <h4>Information and Technology</h4>
         <ul>
             <li class="with-icon"><span>Clean Code | Author: Robert C. Martin</span></li>
@@ -98,7 +98,14 @@
 </div>
 
 <script>
-    document.getElementById("experience-years").textContent = (new Date().getFullYear() - 2010) - 5;
+    // Calculate and display book stats
+    const allBookItems = document.querySelectorAll('div.section ul li');
+    const readBookItems = document.querySelectorAll('div.section ul li.with-icon');
+    const bookStatsElement = document.getElementById('book-stats');
+
+    if (bookStatsElement) {
+        bookStatsElement.textContent = `(Read ${readBookItems.length} of ${allBookItems.length})`;
+    }
 </script>
 </body>
 </html>
