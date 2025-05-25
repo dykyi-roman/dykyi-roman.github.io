@@ -7,23 +7,30 @@
     <link rel="icon" href="icon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="resources/style.css">
     <link rel="stylesheet" href="resources/navigation.css">
+    <!-- Добавляем Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
 <!-- Side Navigation -->
 <div class="side-nav">
-    <button class="nav-button" onclick="scrollToSection('practice-section')">Practice</button>
-    <button class="nav-button" onclick="scrollToSection('philosophy-section')">Philosophy</button>
-    <button class="nav-button" onclick="scrollToSection('ownership-section')">Ownership</button>
-    <button class="nav-button" onclick="scrollToSection('pleasure-section')">Pleasure</button>
-    <button class="nav-button" onclick="scrollToSection('friends-section')">Friends</button>
-    <button class="nav-button" onclick="scrollToSection('enemies-section')">Enemies</button>
-    <button class="nav-button" onclick="scrollToSection('job-section')">Job</button>
-    <button class="nav-button" onclick="scrollToSection('family-section')">Family</button>
-    <button class="nav-button" onclick="scrollToSection('health-section')">Health</button>
-    <button class="nav-button" onclick="scrollToSection('church-section')">Church</button>
-    <button class="nav-button" onclick="scrollToSection('education-section')">Education</button>
-    <button class="nav-button" onclick="scrollToSection('personality-section')">Personality</button>
-    <button class="nav-button" onclick="scrollToSection('money-section')">Money</button>
+    <div class="nav-toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="scrollToSection('practice-section')"><i class="fas fa-dumbbell"></i> <span class="nav-text">Practice</span></button>
+        <button class="nav-button" onclick="scrollToSection('philosophy-section')"><i class="fas fa-brain"></i> <span class="nav-text">Philosophy</span></button>
+        <button class="nav-button" onclick="scrollToSection('ownership-section')"><i class="fas fa-key"></i> <span class="nav-text">Ownership</span></button>
+        <button class="nav-button" onclick="scrollToSection('pleasure-section')"><i class="fas fa-heart"></i> <span class="nav-text">Pleasure</span></button>
+        <button class="nav-button" onclick="scrollToSection('friends-section')"><i class="fas fa-user-friends"></i> <span class="nav-text">Friends</span></button>
+        <button class="nav-button" onclick="scrollToSection('enemies-section')"><i class="fas fa-user-slash"></i> <span class="nav-text">Enemies</span></button>
+        <button class="nav-button" onclick="scrollToSection('job-section')"><i class="fas fa-briefcase"></i> <span class="nav-text">Job</span></button>
+        <button class="nav-button" onclick="scrollToSection('family-section')"><i class="fas fa-home"></i> <span class="nav-text">Family</span></button>
+        <button class="nav-button" onclick="scrollToSection('health-section')"><i class="fas fa-heartbeat"></i> <span class="nav-text">Health</span></button>
+        <button class="nav-button" onclick="scrollToSection('church-section')"><i class="fas fa-church"></i> <span class="nav-text">Church</span></button>
+        <button class="nav-button" onclick="scrollToSection('education-section')"><i class="fas fa-graduation-cap"></i> <span class="nav-text">Education</span></button>
+        <button class="nav-button" onclick="scrollToSection('personality-section')"><i class="fas fa-user"></i> <span class="nav-text">Personality</span></button>
+        <button class="nav-button" onclick="scrollToSection('money-section')"><i class="fas fa-money-bill-wave"></i> <span class="nav-text">Money</span></button>
+    </div>
 </div>
 
 <div class="container">
@@ -43,8 +50,8 @@
         <h3>Strengthen Your Willpower</h3>
         <p><strong>Сила воли – как мышца, её нужно прокачивать постепенно.</strong></p>
         <ul>
-            <li><span>Утренний ритуал дисциплины: Просыпайся рано (например, в 5 утра) и сразу приступай к полезным действиям (зарядка, медитация, чтение).</span></li>
-            <li><span>Холодный душ: Начинай день с холодного душа – это тренирует выдержку и закаляет характер.</span></li>
+            <li><span><strong>Утренний ритуал дисциплины</strong>: Просыпайся рано (например, в 5 утра) и сразу приступай к полезным действиям (зарядка, медитация, чтение).</span></li>
+            <li><span><strong>Холодный душ</strong>: Начинай день с холодного душа – это тренирует выдержку и закаляет характер.</span></li>
             <li><span>Медитация (10-30 минут в день): учись контролировать ум через осознанность.</span></li>
             <li><span>Ведение дневника: Записывай свои цели, успехи и слабости. Анализируй, где сдаёшься, а где проявляешь стойкость.</span></li>
             <li><span>Цифровой детокс: Выдели часы без соцсетей и гаджетов. Тренируй концентрацию.</span></li>
@@ -178,21 +185,21 @@
             <li><span>Никогда не давай деньги в долг</span></li>
             <li><span>Честность и открытость – настоящая дружба строится на искренности</span></li>
             <li><span>Время – главный ресурс – дружба требует регулярного общения и внимания</span></li>
-            
+
             <h4>Различие между друзьями и знакомыми</h4>
             <li><span>Друг – тот, кто готов встать среди ночи и помочь; знакомый – тот, кто выразит сочувствие позже</span></li>
             <li><span>Друг видит тебя настоящего, знакомый – только публичный образ</span></li>
             <li><span>С другом можно молчать и чувствовать комфорт; со знакомым тишина создает напряжение</span></li>
             <li><span>Друг останется, когда ты упадешь; знакомый появится, когда ты поднимешься</span></li>
             <li><span>Друг интересуется тем, что с тобой происходит; знакомый тем, что может от тебя получить</span></li>
-            
+
             <h4>Распознавание токсичных отношений</h4>
             <li><span>Токсичный "друг" постоянно критикует, но никогда не поддерживает</span></li>
             <li><span>Если после общения с человеком ты чувствуешь истощение – это сигнал</span></li>
             <li><span>Токсичные люди используют манипуляции, чтобы контролировать ситуацию</span></li>
             <li><span>Настоящий друг радуется твоим успехам; токсичный – принижает их значимость</span></li>
             <li><span>Если дружба односторонняя – ты всегда даешь, а другой только берет – стоит задуматься</span></li>
-            
+
             <h4>Построение глубоких и длительных связей</h4>
             <li><span>Инвестируй в отношения – качественное время, искренний интерес, поддержка</span></li>
             <li><span>Учись слушать, а не только говорить – глубокая дружба строится на понимании</span></li>
@@ -340,7 +347,7 @@
     <div id="ownership-section" class="section">
         <h3>Ownership</h3>
         <ul>
-            <li><span>Следования пирамиде Маслоу</span></li>     
+            <li><span>Следования пирамиде Маслоу</span></li>
             <li><span>Ценность выше количества – лучше меньше вещей, но качественных и полезных</span></li>
             <li><span>Ответственность – владение чем-либо требует заботы и правильного использования</span></li>
             <li><span>Нет привязки к вещам. вещи должны служить мне, а не наоборот</span></li>
@@ -390,34 +397,34 @@
             <li><span>Деньги – это энергия – они должны работать на меня и создавать ценность</span></li>
             <li><span>Тратить меньше чем зарабатывать. Контроль расходов основа стабильности</span></li>
             <li><span>Не экономить на ключевом – здоровье, образование и развитие – самые важные инвестиции</span></li>
-            
+
             <h4>Заработок</h4>
             <li><span>Нужно иметь несколько источников дохода</span></li>
             <li><span>Работая на кого-то вы реализуете его мечту. Только свой бизнес даёт полную финансовую свободу</span></li>
             <li><span>Развивай навыки, которые повышают твою ценность на рынке труда</span></li>
             <li><span>Автоматизируй процессы зарабатывания – создавай системы, работающие без твоего постоянного участия</span></li>
             <li><span>Никогда не работай только за деньги – ищи проекты, которые дают опыт, связи или удовольствие</span></li>
-            
+
             <h4>Инвестирование</h4>
             <li><span>Инвестировать, а не хранить – деньги должны создавать новые деньги</span></li>
             <li><span>Диверсифицировать свой капитал – не клади все яйца в одну корзину</span></li>
             <li><span>Инвестируй в то, что понимаешь – избегай вложений в непонятные инструменты</span></li>
             <li><span>Начинай инвестировать как можно раньше – используй силу сложного процента</span></li>
             <li><span>Регулярность важнее суммы – лучше инвестировать малые суммы регулярно, чем большие редко</span></li>
-            
+
             <h4>Накопление</h4>
             <li><span>Создавай резервный фонд на 6-12 месяцев жизни – это твоя финансовая подушка безопасности</span></li>
             <li><span>Автоматизируй сбережения – настрой автоматические переводы части дохода на сберегательный счет</span></li>
             <li><span>Разделяй расходы на разные типы кошельков – используй метод 6 кошельков для контроля финансов</span></li>
             <li><span>Накапливай на конкретные цели – это мотивирует и дает ощущение прогресса</span></li>
             <li><span>Отделяй "хочу" от "нужно" – научись откладывать желания ради финансовой стабильности</span></li>
-            
+
             <h4>Траты</h4>
             <li><span>Ведение бюджета – знай, куда уходят твои деньги</span></li>
             <li><span>Правило 24 часа – откладывай крупные покупки минимум на сутки, чтобы избежать импульсивных трат</span></li>
             <li><span>Щедрость возвращается – помогай другим и вкладывайся в добрые дела</span></li>
             <li><span>Инвестируй в опыт, а не в вещи – впечатления делают нас счастливее, чем материальные приобретения</span></li>
-            
+
             <h4>Финансовая безопасность</h4>
             <li><span>Защищай личные данные – будь осторожен при операциях в интернете</span></li>
             <li><span>Страхуй важные активы – здоровье, жильё, автомобиль</span></li>
@@ -429,10 +436,7 @@
 </div>
 </div>
 
-<script>
-    document.getElementById("experience-years").textContent = (new Date().getFullYear() - 2010)-5;
-</script>
-<script src="resources/back-to-top.js"></script>
+<scri   pt src="resources/back-to-top.js"></script>
 <script src="resources/navigation.js"></script>
 </body>
 </html>
