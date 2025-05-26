@@ -8,6 +8,15 @@ html, body {
     box-sizing: border-box;
 }
 
+/* Стили для иконок в заголовках секций */
+.section h3 i {
+    margin-right: 10px;
+    color: #2c3e50;
+    width: 25px;
+    text-align: center;
+    display: inline-block;
+}
+
 * {
     box-sizing: border-box;
 }
