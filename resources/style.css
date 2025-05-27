@@ -555,13 +555,23 @@ a:focus {
     left: 0;
     margin-top: 5px;
     word-wrap: break-word;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.countries-container:hover .countries-list {
+.countries-list.visible {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 #visited-countries {
     cursor: pointer;
     margin-bottom: 0;
+    transition: color 0.2s ease;
+}
+
+#visited-countries:hover {
+    color: #3366cc;
 }
