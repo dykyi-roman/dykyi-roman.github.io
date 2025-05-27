@@ -521,3 +521,43 @@ a:focus {
     color: white;
     line-height: 1;
 }
+
+.countries-container {
+    position: relative;
+    display: inline-block;
+}
+
+.countries-list {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    background-color: white;
+    /*padding: 10px 15px;*/
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    min-width: 250px;
+    max-width: 350px;
+    text-align: center;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    word-spacing: 5px;
+    top: 100%;
+    left: 0;
+    margin-top: 5px;
+    word-wrap: break-word;
+}
+
+.countries-container:hover .countries-list {
+    display: block;
+}
+
+#visited-countries {
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+#visited-countries:after {
+    content: " 👇";
+    font-size: 0.8em;
+    opacity: 0.7;
+}
