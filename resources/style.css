@@ -523,8 +523,18 @@ a:focus {
 }
 
 .countries-container {
+    margin: 0 !important;
+    padding: 0 !important;
     position: relative;
-    display: inline-block;
+    display: block;
+    line-height: 1.2;
+}
+
+.countries-container p,
+.countries-container #visited-countries {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: inherit;
 }
 
 .countries-list {
@@ -532,7 +542,7 @@ a:focus {
     position: absolute;
     z-index: 10;
     background-color: white;
-    /*padding: 10px 15px;*/
+    padding: 10px 15px;
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     min-width: 250px;
