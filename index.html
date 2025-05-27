@@ -26,10 +26,12 @@
         <p>🌍 Nationality: Ukrainian 🇺🇦</p>
         <p>🏡 Residence: Spain 🇪🇸</p>
         <p>💖 Family: Team of 3 👩‍❤️‍👨👧</p>
-        <p>🏁 Hobby: 📚 🌴 🗻 🚴 🏊 🚣 🎭</p>
+        <p>🏁 Hobby: 📚 🌴 🗻 🚴 🏊 🚣 🎭 <span id="plane-icon" class="plane-icon">✈️</span></p>
         <div class="countries-container" id="countries-container">
-            <p id="visited-countries" onclick="toggleCountriesList()">✈️ Visited: <span id="countries-count">0</span> countries</p>
-            <div class="countries-list" id="countries-list"></div>
+            <div class="countries-list" id="countries-list">
+                <div class="countries-count-text">Visited: <span id="countries-count">0</span> countries</div>
+                <div class="countries-flags"></div>
+            </div>
         </div>
         <hr class="custom-hr">
     </div>
@@ -276,29 +278,39 @@
 </script>
 
 <script>
-    // Define the list of country flags
-    const flags = ['🇯🇵', '🇲🇴', '🇭🇰', '🇲🇻', '🇱🇰', '🇳🇵', '🇮🇳', '🇮🇩', '🇵🇭', '🇹🇭', '🇱🇦', '🇻🇳', '🇰🇭', '🇸🇬', '🇲🇾', '🇦🇪', '🇮🇱', '🇹🇷', '🇧🇾', '🇵🇱', '🇱🇹', '🇱🇻', '🇪🇪', '🇫🇮', '🇸🇪', '🇩🇪', '🇦🇹', '🇨🇿', '🇫🇷', '🇮🇹', '🇳🇱', '🇸🇲', '🇬🇷', '🇧🇪', '🇭🇺', '🇬🇪', '🇦🇿'];
-    
-    // Update the countries list and count
-    const countriesList = document.getElementById('countries-list');
-    countriesList.textContent = flags.join(' ');
-    document.getElementById('countries-count').textContent = flags.length;
-
-    // Toggle countries list visibility
-    function toggleCountriesList() {
-        const countriesList = document.getElementById('countries-list');
-        countriesList.classList.toggle('visible');
-    }
-
-    // Close the countries list when clicking outside
-    document.addEventListener('click', function(event) {
-        const countriesContainer = document.getElementById('countries-container');
-        const countriesList = document.getElementById('countries-list');
-        const isClickInside = countriesContainer.contains(event.target);
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Define the list of country flags
+        const flags = ['🇯🇵', '🇲🇴', '🇭🇰', '🇲🇻', '🇱🇰', '🇳🇵', '🇮🇳', '🇮🇩', '🇵🇭', '🇹🇭', '🇱🇦', '🇻🇳', '🇰🇭', '🇸🇬', '🇲🇾', '🇦🇪', '🇮🇱', '🇹🇷', '🇧🇾', '🇵🇱', '🇱🇹', '🇱🇻', '🇪🇪', '🇫🇮', '🇸🇪', '🇩🇪', '🇦🇹', '🇨🇿', '🇫🇷', '🇮🇹', '🇳🇱', '🇸🇲', '🇬🇷', '🇧🇪', '🇭🇺', '🇬🇪', '🇦🇿'];
         
-        if (!isClickInside && countriesList.classList.contains('visible')) {
-            countriesList.classList.remove('visible');
+        // Update the countries list and count
+        const countriesFlags = document.querySelector('.countries-flags');
+        const countElement = document.getElementById('countries-count');
+        
+        countriesFlags.textContent = flags.join(' ');
+        countElement.textContent = flags.length;
+        
+        // Add click handler to plane icon
+        const planeIcon = document.getElementById('plane-icon');
+        if (planeIcon) {
+            planeIcon.addEventListener('click', function(e) {
+                e.stopPropagation();
+                document.getElementById('countries-list').classList.toggle('visible');
+            });
         }
+        
+        // Close when clicking outside
+        document.addEventListener('click', function() {
+            const countriesList = document.getElementById('countries-list');
+            if (countriesList.classList.contains('visible')) {
+                countriesList.classList.remove('visible');
+            }
+        });
+        
+        // Prevent closing when clicking inside the list
+        document.querySelector('.countries-list').addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
     });
 </script>
 <script src="resources/back-to-top.js"></script>

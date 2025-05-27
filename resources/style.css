@@ -537,26 +537,28 @@ a:focus {
     line-height: inherit;
 }
 
+.countries-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .countries-list {
     display: none;
     position: absolute;
-    z-index: 10;
+    z-index: 1000;
     background-color: white;
-    padding: 10px 15px;
-    border-radius: 6px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    min-width: 250px;
-    max-width: 350px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    min-width: 280px;
     text-align: center;
-    line-height: 1.5;
-    letter-spacing: 1px;
-    word-spacing: 5px;
     top: 100%;
     left: 0;
-    margin-top: 5px;
-    word-wrap: break-word;
+    right: 0;
+    margin: 8px auto 0;
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(10px);
     transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
@@ -566,12 +568,29 @@ a:focus {
     transform: translateY(0);
 }
 
-#visited-countries {
-    cursor: pointer;
-    margin-bottom: 0;
-    transition: color 0.2s ease;
+.countries-count-text {
+    font-size: 0.95em;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 500;
 }
 
-#visited-countries:hover {
+.countries-flags {
+    line-height: 1.8;
+    word-spacing: 5px;
+    letter-spacing: 1px;
+}
+
+.plane-icon {
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.2s ease;
+    margin-left: 5px;
+    padding: 2px 5px;
+    border-radius: 3px;
+}
+
+.plane-icon:hover {
+    transform: translateY(-2px);
     color: #3366cc;
 }
