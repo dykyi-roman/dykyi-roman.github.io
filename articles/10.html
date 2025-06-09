@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error handling and strategies - Dykyi Roman</title>
+    <link rel="icon" href="../icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../resources/style.css">
+    <link rel="stylesheet" href="../resources/navigation.css">
+    <link rel="stylesheet" href="../resources/article-style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+
+    <!-- Article Content -->
+    <div class="article-container">
+        <div class="article-header">
+            <h1 class="article-title">Bridges of the digital world: client-server, server-server</h1>
+            <div class="article-meta">24 min read | Jun 09, 2025</div>
+            <img src="img/10.png" alt="Bridges of the digital world: client-server, server-server" class="article-featured-img">
+        </div>
+
+        <div class="article-content">
+            As technology advances, the world has become more interconnected. At the heart of this interconnectedness are communications between various devices and systems. In this article, we will examine two primary types of interactions: client-server and server-server.
+
+            To visually demonstrate these communication mechanisms, I’ve prepared a small demo application, with a link provided at the end of the article. There, you’ll find practical examples of how these approaches are implemented, allowing you to gain a deeper understanding of their features and choose the most suitable one for your needs.
+
+            Communication
+            Communication between different parts of an application is the foundation of a successful modern web service. The exchange of data, execution of business logic, and maintenance of high performance are all ensured through interactions between the frontend and backend, as well as among the backend services themselves. In this article, we’ll explore the key communication mechanisms used to ensure the efficient operation of web applications and microservice architectures.
+
+            Communication Protocols and Technologies
+            SOAP: An XML-based messaging protocol, typically used in more traditional, enterprise solutions.
+            HTTP (REST API): A standard approach for client-server interaction, utilizing HTTP and REST principles.
+            Long Polling: A technique where the client makes a request to the server, which then doesn’t return a response until new data becomes available. In modern applications, it’s being replaced by more efficient technologies like WebSockets or SSE.
+            WebSockets: A protocol that provides bi-directional communication between client and server, useful for low-latency applications.
+            GraphQL: An alternative to REST that allows the client to precisely request only the data it needs.
+            Server-Sent Events (SSE): One-way communication where the server sends data to the client in real-time.
+            gRPC: A high-performance RPC framework based on HTTP/2, supporting bi-directional data transfer.
+            Message Brokers:
+            Kafka: A messaging system that provides reliable, scalable processing of events and data streams.
+
+            RabbitMQ (STOMP): A message broker that uses a message queue for asynchronous data transfer.
+
+            Redis (Pub/Sub): A publish/subscribe mechanism that supports high-speed message transfer.
+
+            Front & Back
+            The communication between the client (frontend) and the server (backend) is the cornerstone of any web application. The frontend is the “face” of the application — what the user interacts with. It is responsible for the visual presentation of data and the interface for interaction. The backend, in turn, acts as the “brain” of the application, processing data, managing business logic, and interacting with databases.
+
+            Proper communication between the frontend and backend is critically important for ensuring performance, security, and user experience. Web applications need to efficiently exchange data to keep information up-to-date at all levels. However, not all communication methods between these layers are equally effective or applicable for different types of tasks.
+
+            It’s worth noting that not all data transfer methods are suitable for sending data between the frontend and backend in web applications. SSE, Kafka, and Redis typically lack direct browser support. gRPC can be used, but it often requires special tools or proxies rather than direct browser communication. Additionally, two other methods are possible but generally not recommended: SOAP is too heavyweight for web frontends, and Long Polling is an outdated approach.
+
+            Back & Back
+            Service architecture is an application design approach where a monolithic application is broken down into independent services, each responsible for a specific piece of functionality. Communication between these services plays a crucial role in ensuring data consistency and interaction between different system components.
+
+            The main methods of communication between servers include:
+
+            HTTP (REST API): This is a standard and widely used protocol for interaction between microservices. For more efficient data serialization, gRPC, based on Protobufs, can be used.
+            Message Brokers: Kafka, RabbitMQ, and other message brokers are frequently used for exchanging data between services and ensuring asynchronous processing. This allows for efficient management of data streams and enhances system fault tolerance.
+            Shared Databases: Some microservices may use one or more shared databases for data storage. This approach, however, can lead to issues with data consistency and system scalability.
+            In-memory Data (Redis): Redis and other in-memory data stores are often used for data caching and real-time information exchange. This accelerates information transfer and reduces the load on databases.
+            These methods and technologies provide the flexibility and scalability needed to create complex and highly efficient systems, allowing microservices to exchange data according to business needs.
+
+            Factors for Selection
+            The choice of the optimal mechanism for sending data depends on a multitude of factors. Let’s examine them in more detail:
+
+            Application Type: Different types of applications may require different solutions. For instance, web applications traditionally use HTTP requests or WebSockets, while mobile applications often employ specialized APIs or Push Notifications.
+
+            Data Volume: For small data volumes (e.g., a form with a few fields), simple HTTP requests or a REST API will suffice. For large data volumes or streaming operations, mechanisms like Kafka, which allow for efficient processing of large data streams, are better.
+
+            Synchronicity: It’s important to consider whether an immediate response is required. Synchronous methods (e.g., REST or WebSockets) are suitable for requests where a quick answer is important. Meanwhile, asynchronous solutions (e.g., using message queues like Kafka or RabbitMQ) allow for dealing with delays, which is useful when processing large volumes of data.
+
+            Data Sending Frequency: If data is sent frequently, it’s worth considering mechanisms optimized for real-time, such as WebSockets or Server-Sent Events (SSE), which provide continuous communication between client and server without the need for constant requests.
+
+            Data Structure: For working with complex data structures (e.g., nested objects), more flexible data exchange formats like GraphQL can be used, allowing you to query only the necessary data, minimizing the volume of transmitted information.
+
+            Security: For transmitting sensitive data, it’s essential to use secure protocols (HTTPS) and additional authentication mechanisms (e.g., OAuth, JWT) to protect data from unauthorized access. Beyond authentication and authorization, it’s also worth considering the need for data encryption (e.g., via TLS) to protect information during transmission, especially when dealing with confidential data.
+
+            Caching: The decision of whether to use caching depends on the nature of the data and its frequency of change. For example, for frequently changing data, it’s advisable to use server-side or browser-level caching to minimize network load.
+
+            Browser Compatibility: If support for older browser versions or mobile devices is required, it’s wise to choose more compatible solutions like AJAX or Long Polling, which do not necessitate support for modern technologies like WebSockets.
+
+            Real-time Requirement: For instantaneous data updates (e.g., chats, notifications), real-time solutions like WebSockets, SSE, or Push Notifications are ideal.
+
+            Delivery Reliability: The higher the requirements for message delivery reliability, the more important it is to choose robust mechanisms such as Kafka or RabbitMQ, which guarantee message delivery and allow for reprocessing failed requests.
+
+            Complexity: It’s important to consider not only the technical complexity of implementation but also the maintainability of the chosen solution in the future. Simple solutions like a REST API require minimal effort, while more complex solutions like Kafka or WebSockets may require additional effort for setup and monitoring.
+
+            Scalability: Assess how scalable your solution needs to be. Mechanisms like Kafka or RabbitMQ are ideally suited for large and rapidly growing systems where high loads need to be handled.
+
+            Cost: If your system requires high resources or scaling, it’s important to consider the costs of infrastructure and maintaining the solution, as well as potential additional expenses for external services, such as cloud solutions for message storage.
+
+            Application domains
+            SOAP
+            Example 1: Financial applications (e.g., banking systems) where strict adherence to security standards is required.
+            Example 2: Integration with legacy systems, such as in healthcare, where security standards and requirements are high.
+            Example 3: Telecommunication services where interaction between different operators demands high reliability and clear specifications.
+            HTTP (REST API)
+            Example 1: E-commerce web services where various system components (payment, catalog, search) interact via REST API.
+            Example 2: Mobile applications that communicate with the server via RESTful API to retrieve data (e.g., in social media applications).
+            Example 3: Web applications for information exchange (e.g., project management systems, chat programs).
+            Long Polling
+            Example 1: Real-time chat applications where the server needs to send a message as soon as it arrives.
+            Example 2: Web notifications, where the system alerts the user about events in real-time.
+            Example 3: Mobile applications with real-time updates, for example, for tracking news or social media.
+            WebSockets
+            Example 1: Online games where instantaneous data transfer between players is crucial.
+            Example 2: Financial applications, such as trading platforms, for real-time market price data transmission.
+            Example 3: Virtual offices and video conferencing, where real-time audio and video exchange is required.
+            GraphQL
+            Example 1: Mobile applications where it’s important to reduce the amount of data transferred from the server.
+            Example 2: Web applications that require complex data queries with the ability to aggregate and filter data.
+            Example 3: Microservice architectures where each service provides specific data, and it’s important to control what data needs to be retrieved.
+            Server-Sent Events (SSE)
+            Example 1: Web notifications and news feeds, where users receive new messages or updates without needing to request the server.
+            Example 2: Real-time data trackers, such as delivery status tracking or system monitoring.
+            Example 3: Video or audio streaming where data is continuously sent from the server to the client.
+            gRPC
+            Example 1: Microservice architectures that require efficient data exchange between services.
+            Example 2: High-performance web services, for example, for processing large volumes of data.
+            Example 3: Media processing applications where fast transmission of large data (e.g., video processing) is important.
+            Kafka
+            Example 1: Real-time analytics, such as in monitoring systems, where high-throughput event processing is necessary.
+            Example 2: Big data processing systems, such as IoT platforms or telemetry processing systems.
+            Example 3: Financial platforms for processing real-time transactions and event streams.
+            RabbitMQ (STOMP)
+            Example 1: Order and delivery systems where user requests need to be processed asynchronously.
+            Example 2: Messaging systems where high availability and queuing of messages for further processing are crucial.
+            Example 3: Web applications for processing background requests and tasks, such as in notification or mailing systems.
+            Redis (Pub/Sub)
+            Example 1: Real-time chat systems where users can subscribe to channels to receive messages.
+            Example 2: Monitoring and logging where event data needs to be immediately transmitted to multiple recipients.
+            Example 3: Microservice architectures where different services can subscribe to channels to receive event notifications.
+            SOAP
+            It’s technically possible to use SOAP with a frontend, but it’s not recommended for modern web applications. In most cases, SOAP remains the preferred choice for server-to-server interactions, especially in enterprise environments. For communication between the frontend and backend, using REST API with JSON is preferable because it’s simpler and faster. Modern frontend frameworks (e.g., React, Angular, Vue.js) are primarily optimized to work with RESTful APIs and JSON, so SOAP support isn’t built-in by default and requires additional code or libraries.
+
+            Downsides of Using SOAP on the Frontend:
+
+            Data Processing Complexity: Working with XML requires more code than working with JSON.
+            Increased Client Load: SOAP messages are larger and more complex than simple JSON objects, which increases processing time and data transfer.
+            Compatibility: Modern web technologies are geared towards REST and JSON, so integrating SOAP requires additional libraries.
+            HTTP-requests
+            Using standard GET, POST, PUT, DELETE, and PATCH requests on the frontend to send data to the backend is the most common method of interaction between a client and server, especially for CRUD operations (Create, Read, Update, Delete data). HTTP requests are typically implemented using REST APIs, which offer flexibility and simplicity. This approach is also well-suited for simple requests like retrieving data or submitting forms.
+
+            It’s a great fit for applications that need to dynamically query data, handle complex structures, or maintain a high level of control over data on the client side. If your application is relatively straightforward or caching is crucial, a REST API might be more convenient.
+
+            When to Use HTTP Requests
+            Your application doesn’t require instantaneous data updates: For example, if information updates after a user action, like submitting a form.
+            You don’t need a bi-directional connection: If you only need to send data or request it from the server without a persistent communication channel.
+            When Not to Use HTTP Requests
+            Real-time is required: For example, in chat applications, games, or other scenarios where data needs to update instantly.
+            Bi-directional communication is needed: If the server needs to not only receive data but also initiate sending data to the client.
+            A large number of small requests: If the application sends many requests in a short period, it can overload the server.
+            Pros of HTTP Requests
+            Simplicity and Universality: They’re easy to set up and use across a wide range of applications.
+            Browser Support: Browsers and many libraries (e.g., fetch, axios) provide straightforward ways to send HTTP requests.
+            Security: HTTP supports SSL/TLS, ensuring secure data transmission. Authorization methods like tokens, cookies, and JWT are also easily integrated.
+            Caching: You can configure caching for GET requests.
+            Cons of HTTP Requests
+            Lack of Real-time: HTTP requests don’t maintain a persistent connection, making them unsuitable for applications requiring real-time data updates.
+            Unnecessary Server Load: Constant requests to the server can overload it, especially if requests are sent too frequently.
+            Limited Flexibility: HTTP requests don’t natively support streaming data, so they can be inefficient if you need to transmit a continuous stream of data (e.g., video).
+            GraphQL: A Flexible Alternative to REST
+            GraphQL serves as an alternative to REST for more flexible data handling. It is a powerful tool for transferring data between the frontend and backend, especially when you have complex or dynamic data and need control over precisely what data to receive. It allows the frontend to request only the necessary data, rather than the entire response, which reduces data transfer volume and improves performance.
+
+            When to Use GraphQL
+            You need to query complex and/or related data: If your interface requires intricate data structures (e.g., user data, their orders, and order items), GraphQL allows you to request all necessary data in a single query.
+            You need control over the data structure: GraphQL allows the client to define exactly which data it wants to receive, which is particularly useful for pages or components that require different data depending on the context.
+            Dynamic data queries are necessary: When different parts of the interface request different fields of the same object, GraphQL helps avoid redundant requests and allows data retrieval based on frontend needs.
+            Ideal for mobile applications: Reducing the volume of data transferred is beneficial for mobile applications where minimizing latency and traffic is important.
+            When Not to Use GraphQL
+            Simple data structure and queries: For simple queries and small applications where data is limited (e.g., a few fields), a REST API might be simpler and easier to implement.
+            Traditional authorization and caching methods are required: While GraphQL supports these, implementing them can be more complex than with REST.
+            Pros of GraphQL
+            Query Flexibility: The frontend can select only the necessary fields and avoid redundant data, which speeds up queries.
+            Query Optimization: A single GraphQL query can replace multiple REST requests, reducing the number of requests and improving performance.
+            Dynamic Data Management: It scales easily as frontend needs change, as additional fields can be added to queries without modifying backend code.
+            Support for Nested Data: GraphQL easily handles nested structures and complex relationships, allowing you to get all the necessary information at once.
+            Cons of GraphQL
+            Complexity of Setup and Maintenance: Setting up GraphQL can be more complex than a REST API and may require greater attention to data structure.
+            Caching Challenges: Caching GraphQL responses at the CDN level is harder to implement because queries can be highly individualized.
+            Excessive Requests: Poorly designed GraphQL queries can overload the server, especially if queries include deep nesting or too much data.
+            WebSockets: Real-time, Bi-directional Communication
+            WebSockets are a technology that allows for establishing a persistent, bi-directional connection between a client and a server, making it an excellent choice for real-time applications such as chats or games. WebSockets operate over TCP and enable data to be sent from the client to the server (and vice versa) without the constant re-sending of requests.
+
+            When to Use WebSockets
+            Your application requires real-time data updates: Suitable for chats, games, trading platforms, real-time monitoring, and other applications where data changes need to be instantly reflected on the client.
+            Bi-directional communication is needed: When the server needs to send updates to the client (e.g., notifications), a WebSocket can establish a persistent communication channel, simplifying two-way data transfer.
+            High-frequency data updates: Suitable for streaming data, such as price feeds, sports scores, or sensor readings.
+            When Not to Use WebSockets
+            Your application doesn’t need a persistent connection: For simple CRUD operations or regular API calls, REST is a better choice.
+            Reliable message delivery is crucial: WebSockets do not guarantee message delivery, unlike protocols like HTTP/2.0. In such cases, it’s better to use protocols with delivery confirmations.
+            Limited resource budget: Persistent WebSocket connections can consume more server resources, especially if you have many simultaneous connections.
+            Pros of WebSockets
+            High Performance: Instant data updates due to the persistent connection, which reduces latency.
+            Reduced Server Load: The absence of a need for constant HTTP requests can lower server load, especially with a large number of requests.
+            Flexibility for Real-time Tasks: Convenient for applications requiring asynchronous data, making them ideal for various applications with multi-user features.
+            Cons of WebSockets
+            Increased Complexity of Implementation and Support: Requires additional effort for implementation, connection management, and security.
+            Server Resource Consumption: Maintaining a persistent connection can demand more resources than REST or GraphQL, especially when scaling.
+            Limited Caching Capabilities
+            Popular Solutions for WebSockets
+            Centrifugo
+
+            Description: An open-source solution for managing WebSocket connections, supporting publish/subscribe, and integration with various backends. Suitable for applications with high load and multi-user features.
+            Advantages: Simple integration, good scalability, support for real-time updates, and replication mechanisms.
+            Socket.IO
+
+            Description: A JavaScript library for real-time applications that works based on WebSockets with fallback methods for older browsers.
+            Advantages: Scalability support, automatic reconnection, and easily integrates with Node.js.
+            Pusher
+
+            Description: A commercial solution with support for channels, WebSockets, and other real-time features. Well-suited for chats, notifications, and other functionalities.
+            Advantages: Ease of use and setup, support for channels and events, global infrastructure for reliability.
+            Firebase Realtime Database
+
+            Description: A Google platform that supports real-time updates via WebSockets, working with JSON data structures.
+            Advantages: Simple integration, reliability, suitable for applications with a large number of users, and mobile applications.
+            Ably
+
+            Description: A real-time platform that provides an API for real-time messaging.
+            Advantages: Global infrastructure, support for various protocols, including WebSocket, MQTT, and HTTP.
+            Server-Sent Events (SSE): Unidirectional Real-time Data Streaming
+            Server-Sent Events (SSE) are a technology that allows a server to send updates to a client over a unidirectional communication channel. SSE is used for streaming real-time data from the server to the client.
+
+            When to Use SSE
+            Unidirectional Data Streams: SSE is suitable when data needs to be sent from the server to the client, but a reverse communication channel from the client to the server is not required. Examples include:
+            Real-time notifications (e.g., social media updates)
+            News feeds where the server only sends updates
+            Events and data that need to flow continuously to the client
+            Applications with relatively low update frequency: SSE handles real-time data transfer, but is best suited for cases where data updates do not occur too frequently.
+            When Not to Use SSE
+            Bi-directional Communication: If you need two-way communication (client <-> server), SSE is not suitable as it’s a unidirectional channel. In such cases, WebSockets are a better choice.
+            High-Frequency Updates: If very frequent data transmission is required (e.g., for real-time games or applications demanding high update frequency), SSE may not perform as effectively as WebSockets.
+            Challenges with Older Browser Support: While SSE is supported by most modern browsers, older browsers or specific enterprise systems may not support SSE.
+            Pros of SSE
+            Simple Implementation: SSE is simpler to set up and use compared to WebSockets, especially if only unidirectional communication is needed.
+            Standard HTTP Protocol: It works over HTTP/1.1, which simplifies integration with existing systems and proxy servers.
+            Automatic Reconnection: SSE automatically re-establishes the connection if it breaks.
+            Cons of SSE
+            Unidirectional Communication: SSE only supports data transmission from the server to the client. If data needs to be sent in the reverse direction, additional HTTP requests will be required.
+            Connection Limit: Some browsers have limitations on the number of concurrent connections, which can be a problem for applications with a large number of data streams.
+            Not Ideal for Unreliable Networks: In networks with frequent disconnections, SSE may not be as reliable.
+            Long Polling: A Real-time Simulation Technique
+            Long Polling is a technique used to implement real-time client-server interaction. With Long Polling, the client sends a request to the server and waits for the server to send a response. If there’s no data to send, the server holds the connection open until data becomes available or a timeout occurs. As soon as the server sends a response, the client immediately makes a new request to wait for updates again.
+
+            How Does Long Polling Work?
+            The client makes an HTTP request to the server.
+            The server holds the request open until data is available to send or a timeout expires.
+            As soon as the server sends data or the timeout expires, the client immediately makes a new request to wait for data again.
+            This cycle repeats, creating the impression that data is being transmitted in real time.
+
+            When to Use Long Polling
+            Simple Real-time Implementations: If you need to provide real-time functionality, but WebSockets or SSE are unavailable or complex to implement.
+            Legacy Browser Support: Long Polling works in all browsers and doesn’t require special protocols, making it universally compatible.
+            Applications with Infrequent Updates: If data updates aren’t very frequent.
+            When Not to Use Long Polling
+            High Update Frequency: If data updates very frequently, Long Polling becomes inefficient as it creates many HTTP requests, leading to significant overhead.
+            Network Constraints: In environments with limited network resources, Long Polling can cause a significant load on the server, especially with a large number of users.
+            Pros of Long Polling
+            Simplicity and Compatibility: It works with all web servers and browsers, as it’s an extension of standard HTTP requests.
+            Real-time Emulation: Allows data to be received from the server without significant delays, making it suitable for chats, notifications, and simple real-time updates.
+            Legacy Technology Support: Ideal for cases where WebSockets or other protocols are unavailable.
+            Cons of Long Polling
+            High Server Load: Constant HTTP requests create a significant load on the server, especially with a large number of users. This can increase bandwidth consumption and CPU resources.
+            Delays and Timeouts: If data updates frequently, Long Polling still introduces a delay between requests and responses, making it less efficient than a persistent connection like WebSockets.
+            Resource Intensive: Keeping many requests open requires significant resources, which reduces server performance in high-load systems.
+            Message Brokers: Mediating Communication
+            A message broker acts as an intermediary between publishers and subscribers. Publishers send messages to specific topics, and subscribers subscribe to these topics, receiving new messages as they arrive. Popular message brokers include RabbitMQ, Kafka, and Redis Pub/Sub. Each has its own features and suits different tasks.
+
+            1. RabbitMQ
+            RabbitMQ is an open-source message broker that supports various protocols, including AMQP, STOMP, and MQTT. It’s used for asynchronous message passing between different services, making it an excellent solution for scalable, distributed systems.
+
+            STOMP (Streaming Text Oriented Messaging Protocol) is a text-based messaging protocol that operates over TCP and is widely used in conjunction with WebSockets and message brokers like RabbitMQ. STOMP aims to simplify working with message brokers and is a good alternative to more complex protocols such as AMQP.
+
+            When to Use RabbitMQ with STOMP?
+            RabbitMQ with STOMP is a strong choice when WebSockets alone might not handle the load or when you need more robust messaging features.
+
+            Real-time and Asynchronous Processing: When your application requires fast, real-time message delivery between client and server (e.g., for chats, notifications, or gaming applications).
+            Scalability: When your application needs to support a large number of clients with the ability to scale. RabbitMQ helps manage high message volumes and ensures efficient load distribution.
+            Asynchronicity and Reliability: STOMP and RabbitMQ enable asynchronous message processing, which can reduce server load and ensure reliable message delivery (e.g., if a client is temporarily unavailable).
+            Long-lived Connections (e.g., WebSockets): If your application requires persistent connections with clients, such as for real-time monitoring or control, RabbitMQ + STOMP is a suitable solution.
+            When Not to Use RabbitMQ + STOMP?
+            Simple Applications: For very basic applications where the overhead isn’t justified.
+            High Latency Concerns: RabbitMQ can introduce additional latency due to the intermediate step of message transmission through the broker.
+            Direct WebSocket Support is Sufficient: If your architecture only needs direct WebSocket communication between the client and server and doesn’t require this intermediate message processing, RabbitMQ might be unnecessary.
+            Pros of RabbitMQ + STOMP
+            Scalability: RabbitMQ allows for efficient application scaling by handling large message volumes and effectively managing queues.
+            Real-time Capabilities: STOMP combined with RabbitMQ and WebSockets enables real-time message sending, making it an ideal solution for chats, notifications, and other low-latency applications.
+            Asynchronous Processing: RabbitMQ allows a large number of messages to be processed asynchronously, which reduces server load and increases fault tolerance.
+            Guaranteed Message Delivery: RabbitMQ supports message delivery guarantees.
+            Cons of RabbitMQ + STOMP
+            Architectural Complexity: Using RabbitMQ adds an additional layer of complexity to the system. You’ll need to set up and maintain the message broker, requiring extra effort.
+            Latency: Using a message broker can introduce additional latency into the system, especially if the broker is overloaded or if messages must pass through multiple queues.
+            Configuration Complexity: Configuring RabbitMQ and STOMP can be challenging, especially for beginners. In some cases, it might be overkill if your application doesn’t require such technologies.
+            Resource Intensiveness: Maintaining RabbitMQ requires more system resources.
+            Conclusion
+
+            Every solution has its pros and cons, and it’s important to choose the right one based on your application’s requirements.
+
+            WebSockets are suitable for simpler cases where you need to maintain a persistent connection with clients and send real-time data.
+
+            RabbitMQ with STOMP or other protocols is useful in more complex scenarios where you need to scale the system, guarantee message delivery, or perform asynchronous task processing. If your project is straightforward and only requires bi-directional real-time communication with clients, WebSockets alone will suffice, and RabbitMQ won’t be necessary.
+
+            2. Apache Kafka: A Distributed Streaming Platform
+            Apache Kafka is a distributed streaming platform that enables efficient processing of enormous volumes of messages in real-time.
+
+            When to Use Kafka
+            High Throughput and Performance: Kafka is suitable for applications where it’s necessary to process and transmit a massive number of messages in real-time. For instance, when a system generates thousands or millions of events, such as data from sensors, user actions, etc.
+            Asynchronous Communication: Kafka is ideal when the backend and frontend do not require synchronous data exchange. For example, a message can be sent from the frontend, and the backend processes it later.
+            Message Durability and Fault Tolerance: Kafka guarantees message persistence, even if the system fails, which is useful for critical business applications.
+            Scalability: Kafka scales excellently and allows for processing and transmitting data between a large number of servers, which is beneficial under growing loads.
+            Deferred Processing and Queues: If the backend cannot immediately process a request, Kafka allows for implementing mechanisms for deferred processing or queues.
+            When Not to Use Kafka
+            Low Latency and Direct Interaction: Kafka is not suitable for applications where low latency or immediate synchronous response is crucial, such as UI updates, where the frontend requires an immediate response from the backend.
+            Simplicity of Development and Maintenance: Kafka is a complex system requiring significant effort for setup and support. For small applications where standard HTTP requests or WebSocket connections suffice, using Kafka might be unnecessarily complicated.
+            Low Load: If the number of messages between the frontend and backend is small, then using Kafka might be unjustified and superfluous.
+            Pros of Kafka
+            High Performance: Kafka is capable of processing a large number of messages.
+            Scalability: Easily scales horizontally.
+            Fault Tolerance: Messages are persisted and can be processed later.
+            Flexibility: Possibility of integration with various system components.
+            Cons of Kafka
+            Complexity: Requires complex setup and management.
+            Latency: Not always suitable for low-latency scenarios.
+            Over-engineering for Simple Tasks: For small applications, using Kafka can be excessive.
+            3. Redis Pub/Sub: Real-time Messaging for Simple Scenarios
+            Redis Pub/Sub is used for communication between various parts of a system (e.g., server-to-server or backend-to-frontend). In the context of backend-to-frontend communication, Redis can serve as an intermediary for sending real-time messages from the server to clients.
+
+            When to Use Redis Pub/Sub?
+            Ease of Integration: If you need to quickly set up a simple real-time messaging system between a server and a client, Redis Pub/Sub is a good choice. It’s easier to integrate than more complex systems like Kafka or RabbitMQ.
+            Real-time Needs: Redis Pub/Sub is ideal for scenarios where you need to send notifications, data updates, or other messages to the client frontend in real time.
+            Small to Medium Loads: Redis excels for small to medium projects requiring low latency and high performance with modest data volumes and connections.
+            Scalability via Multiple Instances: Redis allows you to scale the solution using replication and clustering. If your system grows, you can configure Redis to work with multiple nodes to serve more users and process more data.
+            When Not to Use Redis Pub/Sub?
+            When High Message Reliability is Required: Redis Pub/Sub does not guarantee message delivery. If a client is not connected when a message is sent, that message will be lost. In such cases, if reliable message delivery is critical (e.g., transaction confirmations or important notifications), you should choose a solution that guarantees delivery, like RabbitMQ or Kafka.
+            When System Load is Very High: For very high loads and a large number of clients, Redis may not cope without additional configurations (e.g., clustering). In such scenarios, it’s better to consider more scalable systems like Kafka.
+            When a Long-term Cache or Queue is Needed: If you need to store messages for an extended period or want to use a message queue with retransmission capabilities (e.g., message delays or retries), Redis Pub/Sub is not suitable. In these cases, use solutions that support message persistence, like RabbitMQ, ActiveMQ, or Kafka.
+            Pros of Redis Pub/Sub
+            High Performance and Low Latency: Redis is known for its high performance, and Pub/Sub is no exception. This solution is excellent for applications requiring fast message delivery with minimal delay.
+            Ease of Integration and Setup: Redis is one of the simplest tools to set up, and its integration with various frameworks (including PHP and JavaScript) usually poses no problems.
+            Scalability: Redis supports replication and clustering, allowing you to scale the solution as needed. This is important if your application grows and the number of users increases.
+            Ease of Use: Redis Pub/Sub makes it easy to organize bi-directional communication with the frontend via WebSockets, using an intermediary server for publishing and subscribing to channels.
+            Cons of Redis Pub/Sub
+            No Message Delivery Guarantees: Unlike more complex solutions (Kafka or RabbitMQ), Redis Pub/Sub does not guarantee message delivery. If a client is not connected when a message is published, it will be lost.
+            Not Suitable for Long-term Message Storage: Redis is a real-time messaging solution and is not designed for long-term storage or archiving of data. This can be an issue if you need to retain messages for subsequent processing.
+            No Support for Complex Routing: Redis Pub/Sub does not provide mechanisms for complex message routing (e.g., routing by different topics or filtering messages by multiple criteria). This can be a limitation in more complex applications.
+            Not Suitable for Very High Loads: Redis performs well under normal loads, but if the number of connections or messages increases significantly, you might encounter issues. For such scenarios, consider more complex systems.
+            gRPC: High-Performance RPC for Modern Systems
+            gRPC is a high-performance Remote Procedure Call (RPC) protocol developed by Google, which uses HTTP/2 for transport and Protocol Buffers (protobuf) as its serialization format. It is widely used for server-to-server communications but can also be applied for frontend-to-backend communication. Let’s explore when to use it, when not to, and its pros and cons.
+
+            When to Use gRPC?
+            High Performance: gRPC uses HTTP/2, which allows for efficient handling of multiple requests/responses over a single connection (multiplexing), supports data streaming, and has low latency. This can be beneficial for high-load applications such as real-time chats, video conferencing, and games, where fast data transfer is crucial.
+            API with Clear Contract: If you have clearly defined APIs and want to ensure strict adherence to contracts, then gRPC with Protocol Buffers is ideal. It allows for automatic generation of client and server code in various programming languages, simplifying integration.
+            Complex or Heavy Operations: If the application requires transferring complex data structures (e.g., multimedia files, large data structures, binary data), gRPC is efficient due to its compact and fast data serialization format — Protocol Buffers.
+            Mobile Applications: For mobile applications (iOS/Android), gRPC can be useful as it reduces data volume through efficient serialization and supports bi-directional data exchange, which is suitable for real-time and multiple requests/responses.
+            When Not to Use gRPC?
+            Browser Compatibility: Unlike REST, gRPC is not directly supported in browsers because browsers lack native HTTP/2 support in the context of gRPC, creating difficulties for clients using regular web browsers. You need to use gRPC-Web, which is an adaptation of gRPC for browser environments, but this adds additional complexity.
+            Setup and Learning Curve Complexity: gRPC can require a more complex setup and additional learning time, especially if your team is not familiar with this tool.
+            Debugging Challenges: gRPC uses Protocol Buffers for data serialization, which makes debugging and working with requests/responses more difficult than with text formats like JSON (used in REST).
+            Advantages of gRPC
+            High Performance: gRPC uses Protocol Buffers, which are significantly faster and more efficient compared to text formats like JSON. This helps save network resources and speeds up data transfer.
+            Streaming Support: gRPC supports both unidirectional and bidirectional data streaming. This makes it a good choice for applications that need to transmit data in real-time (e.g., chat, video conferencing).
+            Automatic Code Generation: gRPC automatically generates client and server code from .proto files. This reduces the likelihood of errors and simplifies integration between different programming languages.
+            Multi-language Support: gRPC supports a large number of programming languages, allowing it to be used for communication between various systems (e.g., PHP server and JS client).
+            Context and Authentication Management: gRPC has built-in features for handling context, authentication, and authorization, which simplifies the security of frontend-backend interaction.
+            Disadvantages of gRPC
+            Lack of Browser Support (without gRPC-Web): Standard gRPC is not supported in browsers. To use gRPC in a browser, you need to use gRPC-Web, which adds extra configuration and complexity.
+            Requires Specific Infrastructure: To use gRPC, both the server and client must support the protocol, requiring the presence of appropriate libraries and tools in both client and server ecosystems.
+            Debugging Complexity: Since data is transmitted in a binary format (via Protocol Buffers), debugging is more difficult, especially when dealing with network interaction issues.
+            Not Always Necessary: For most modern web applications that only require basic data transfer (e.g., CRUD operations), REST or GraphQL will be a simpler and more convenient solution.
+            Performance Benchmark
+            Here are some benchmarks I collected while working on sending data from the backend to the frontend. The measurements were taken on a MacBook Air with an M2 chip and 16GB of RAM. For the experiment, 10, 100, and 1000 messages were sent, with each series repeated 10 times. The arithmetic mean of the results was then calculated.
+
+            Sample code can be found at the link: GitHub.
+        </div>
+    </div>
+</div>
+
+<script src="../resources/load-header.js"></script>
+</body>
+<script src="../resources/back-to-top.js"></script>
+<script src="../resources/navigation.js"></script>
+</html>
