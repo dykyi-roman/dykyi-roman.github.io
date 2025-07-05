@@ -8,11 +8,13 @@
     <link rel="stylesheet" type="text/css" href="resources/style.css">
     <link rel="stylesheet" href="resources/navigation.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCboRvHNcHWuBFdV5ggCyMI-iz9W99k-Yg&callback=initMap" async defer></script>
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <style>
         #map {
             height: 600px;
             width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
 
         .travel-stats {
@@ -75,6 +77,68 @@
         
         .country-item:hover {
             transform: scale(1.2);
+        }
+        
+        #map-controls {
+            margin-bottom: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .map-filter-button {
+            padding: 8px 15px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .map-filter-button.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .map-filter-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .custom-info-window {
+            padding: 5px;
+            max-width: 250px;
+        }
+        
+        .info-location-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .info-continent {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .continent-asia {
+            background-color: #4CAF50;
+        }
+        
+        .continent-europe {
+            background-color: #2196F3;
+        }
+        
+        .continent-caucasus {
+            background-color: #FF9800;
         }
         
         @media (max-width: 768px) {
@@ -146,6 +210,13 @@
             </div>
         </div>
         
+        <div id="map-controls">
+            <button class="map-filter-button active" data-filter="all">All</button>
+            <button class="map-filter-button" data-filter="asia">Asia</button>
+            <button class="map-filter-button" data-filter="europe">Europe</button>
+            <button class="map-filter-button" data-filter="caucasus">Caucasus</button>
+        </div>
+        
         <div id="map"></div>
     </div>
 
@@ -153,6 +224,7 @@
 
 <script src="resources/back-to-top.js"></script>
 <script src="resources/navigation.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCboRvHNcHWuBFdV5ggCyMI-iz9W99k-Yg&callback=initMap&libraries=visualization" async defer></script>
 <script>
     // Countries data with flags and continent grouping
     const countriesData = {
@@ -174,7 +246,9 @@
             { flag: '🇲🇾', name: 'Malaysia' },
             { flag: '🇦🇪', name: 'UAE' },
             { flag: '🇮🇱', name: 'Israel' },
-            { flag: '🇹🇷', name: 'Turkey' }
+            { flag: '🇹🇷', name: 'Turkey' },
+            // { flag: '🇰🇿', name: 'Kazakstan' },
+            // { flag: '🇺🇿', name: 'Uzbekistan' },
         ],
         europe: [
             { flag: '🇧🇾', name: 'Belarus' },
@@ -244,16 +318,68 @@
     });
 
     function initMap() {
+        // Custom map style - travel themed
+        const mapStyles = [
+            {
+                "featureType": "administrative",
+                "elementType": "labels.text.fill",
+                "stylers": [{"color": "#444444"}]
+            },
+            {
+                "featureType": "landscape",
+                "elementType": "all",
+                "stylers": [{"color": "#f2f2f2"}]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "all",
+                "stylers": [{"visibility": "off"}]
+            },
+            {
+                "featureType": "road",
+                "elementType": "all",
+                "stylers": [{"saturation": -100}, {"lightness": 45}]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "all",
+                "stylers": [{"visibility": "simplified"}]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "labels.icon",
+                "stylers": [{"visibility": "off"}]
+            },
+            {
+                "featureType": "transit",
+                "elementType": "all",
+                "stylers": [{"visibility": "off"}]
+            },
+            {
+                "featureType": "water",
+                "elementType": "all",
+                "stylers": [{"color": "#a3ccff"}, {"visibility": "on"}]
+            }
+        ];
+
         const map = new google.maps.Map(document.getElementById("map"), {
             zoom: 2,
             center: { lat: 20, lng: 0 },
+            styles: mapStyles,
+            mapTypeControl: false,
+            fullscreenControl: true,
+            streetViewControl: false,
+            zoomControlOptions: {
+                position: google.maps.ControlPosition.RIGHT_TOP
+            }
         });
 
-        // Пример массива точек (можно загружать из JSON)
         const locations = [
             //Ukraine +
             { lat: 46.4749082, lng: 30.7287808, title: "Odessa, Bazarna 104" },
             { lat: 50.5101285, lng: 30.5001186, title: "Kyiv, Obolonska avenue 16a" },
+            // San Marino
+            { lat: 43.9423601, lng: 12.4577739, title: "San Marino, Via del Ponte" },
             // India
             { lat: 15.5355982, lng: 73.7620102, title: "Goa, Calangute, Home in Calangute" },
             { lat: 26.9130762, lng: 75.792761, title: "Jaipur" },
@@ -326,23 +452,184 @@
             { lat: -6.1967763, lng: 106.8154447, title: "Jakarta, Thamrin Executive Residence"},
             { lat: -6.1185777, lng: 106.6874956, title: "Jakarta, Benda"},
             // Vietnam
+            // Kazakhstan
+            // { lat: 43.2598898, lng: 76.9330709, title: "Astana, "},
+            // Uzbekistan
         ];
 
-        locations.forEach(location => {
+        const continentFilters = document.querySelectorAll('.map-filter-button');
+        const continentFilterButtons = Array.from(continentFilters);
+
+        // Group markers by continent for different icons
+        const continentColors = {
+            'asia': '#4CAF50',
+            'europe': '#2196F3',
+            'caucasus': '#FF9800'
+        };
+        
+        // Create markers with different icons based on continent
+        const markers = locations.map(location => {
+            const continent = getContinent(location.title);
             const marker = new google.maps.Marker({
                 position: { lat: location.lat, lng: location.lng },
                 map: map,
                 title: location.title,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    fillColor: continentColors[continent] || '#FF0000',
+                    fillOpacity: 0.8,
+                    strokeWeight: 1,
+                    strokeColor: '#FFFFFF',
+                    scale: 8
+                },
+                animation: google.maps.Animation.DROP // Add animation to markers
             });
 
-            // Добавляем InfoWindow для отображения информации при клике
+            // Custom info window content
             const infoWindow = new google.maps.InfoWindow({
-                content: location.title
+                content: `
+                    <div class="custom-info-window">
+                        <div class="info-location-name">${location.title}</div>
+                        <div class="info-continent continent-${continent}">${continent ? continent.charAt(0).toUpperCase() + continent.slice(1) : 'Unknown'}</div>
+                    </div>
+                `,
+                maxWidth: 250
             });
 
             marker.addListener('click', () => {
                 infoWindow.open(map, marker);
             });
+            
+            return marker;
+        });
+
+        // Add markers to clusters for better performance and visuals
+        const markerCluster = new markerClusterer.MarkerClusterer({
+            map,
+            markers,
+            gridSize: 50,
+            maxZoom: 15,
+            minimumClusterSize: 2,
+            styles: [
+                {
+                    textColor: 'white',
+                    url: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png',
+                    width: 53,
+                    height: 53
+                }
+            ]
+        });
+
+        function getContinent(title) {
+            // Get continent based on country mentions in title
+            const asiaKeywords = ['India', 'Goa', 'Jaipur', 'Japan', 'Osaka', 'Hong Kong', 'Maldives', 'Sri Lanka', 'Benthota', 'Unawatuna', 'Mount Lavinia', 'Nepal', 'Indonesia', 'Bali', 'Jakarta', 'Philippines', 'Cebu', 'El Nido', 'Coron', 'Boracay', 'Panglao', 'Manila', 'Thailand', 'Bangkok', 'Phuket', 'Pattaya', 'Chiang Mai', 'Krabi', 'Ko Samui', 'Laos', 'Vientiane', 'Vietnam', 'Cambodia', 'Siem Reap', 'Singapore', 'Malaysia', 'Kuala Lumpur', 'UAE', 'Israel', 'Jerusalem', 'Turkey', 'Istanbul'];
+            const europeKeywords = ['Ukraine', 'Odessa', 'Kyiv', 'Belarus', 'Poland', 'Lithuania', 'Vilnius', 'Latvia', 'Riga', 'Estonia', 'Finland', 'Sweden', 'Germany', 'Austria', 'Czech', 'France', 'Italy', 'Treviso', 'Bologna', 'Florence', 'Netherlands', 'Amsterdam', 'Diemen', 'San Marino', 'Greece', 'Athens', 'Belgium', 'Hungary', 'San Marino'];
+            const caucasusKeywords = ['Georgia', 'Batumi', 'Tbilisi', 'Mestia', 'Kutaisi', 'Azerbaijan', 'Baku'];
+            
+            for (const keyword of asiaKeywords) {
+                if (title.includes(keyword)) return 'asia';
+            }
+            
+            for (const keyword of europeKeywords) {
+                if (title.includes(keyword)) return 'europe';
+            }
+            
+            for (const keyword of caucasusKeywords) {
+                if (title.includes(keyword)) return 'caucasus';
+            }
+            
+            return 'unknown';
+        }
+
+        // Filter markers by continent
+        continentFilterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button UI
+                continentFilterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Get filter value (all, asia, europe, caucasus)
+                const filter = button.getAttribute('data-filter');
+                console.log("Filtering by:", filter); // Debug log
+                
+                // Filter markers based on the selected continent
+                markers.forEach((marker, i) => {
+                    const location = locations[i];
+                    const continent = getContinent(location.title);
+                    console.log(location.title, "Continent:", continent); // Debug log
+                    
+                    if (filter === 'all' || continent === filter) {
+                        marker.setVisible(true);
+                    } else {
+                        marker.setVisible(false);
+                    }
+                });
+                
+                // Update clusters after filtering
+                markerCluster.clearMarkers();
+                markerCluster.addMarkers(markers.filter(m => m.getVisible()));
+            });
+        });
+
+        // Add heat map option
+        const heatMapButton = document.createElement('button');
+        heatMapButton.className = 'map-filter-button';
+        heatMapButton.innerHTML = '<i class="fas fa-fire"></i> Heat Map';
+        document.getElementById('map-controls').appendChild(heatMapButton);
+        
+        let heatmap = null;
+        
+        heatMapButton.addEventListener('click', function() {
+            if (heatmap) {
+                heatmap.setMap(null);
+                heatmap = null;
+                this.classList.remove('active');
+            } else {
+                const heatmapData = markers.map(marker => {
+                    return {
+                        location: new google.maps.LatLng(marker.getPosition().lat(), marker.getPosition().lng()),
+                        weight: 1
+                    };
+                });
+                
+                heatmap = new google.maps.visualization.HeatmapLayer({
+                    data: heatmapData,
+                    map: map,
+                    radius: 20
+                });
+                
+                this.classList.add('active');
+            }
+        });
+
+        // Draw travel path - connect markers chronologically for visual travel journey
+        const flightPath = new google.maps.Polyline({
+            path: locations.map(loc => ({lat: loc.lat, lng: loc.lng})),
+            geodesic: true,
+            strokeColor: '#FF0000',
+            strokeOpacity: 0.7,
+            strokeWeight: 2
+        });
+
+        // Add checkbox to toggle travel path
+        const mapContainer = document.getElementById('map');
+        const pathToggle = document.createElement('div');
+        pathToggle.innerHTML = `
+            <div style="position: absolute; bottom: 30px; left: 10px; z-index: 100; background: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">
+                <label style="display: flex; align-items: center; cursor: pointer;">
+                    <input type="checkbox" id="path-toggle"> 
+                    <span style="margin-left: 5px;">Show travel path</span>
+                </label>
+            </div>
+        `;
+        mapContainer.appendChild(pathToggle);
+        
+        document.getElementById('path-toggle').addEventListener('change', function() {
+            if (this.checked) {
+                flightPath.setMap(map);
+            } else {
+                flightPath.setMap(null);
+            }
         });
     }
 </script>
