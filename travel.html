@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dykyi Roman - Senior Software Engineer</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="resources/style.css">
+    <link rel="stylesheet" href="resources/navigation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCboRvHNcHWuBFdV5ggCyMI-iz9W99k-Yg&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 600px;
+            width: 100%;
+        }
+
+        .travel-stats {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+        
+        .total-countries {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .total-countries h4 {
+            margin: 0;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        
+        .country-count {
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .countries-by-continent {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .continent-group {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .continent-group h5 {
+            margin: 0 0 15px 0;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #FFD700;
+        }
+        
+        .country-flags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .country-item {
+            font-size: 2em;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            display: inline-block;
+        }
+        
+        .country-item:hover {
+            transform: scale(1.2);
+        }
+        
+        @media (max-width: 768px) {
+            .travel-stats {
+                padding: 15px;
+                margin-bottom: 20px;
+            }
+            
+            .total-countries h4 {
+                font-size: 1.3em;
+            }
+            
+            .continent-group h5 {
+                font-size: 1.1em;
+            }
+            
+            .country-item {
+                font-size: 1.8em;
+            }
+            
+            .countries-by-continent {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+    <script>
+        fetch('headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <!--  Travel  -->
+    <div id="practice-section" class="section">
+        <h3><i class="fas fa-plane"></i>Travel</h3>
+        
+        <!-- Countries Statistics -->
+        <div class="travel-stats">
+            <div class="total-countries">
+                <h4><i class="fas fa-globe"></i> Total countries visited: <span class="country-count">0</span></h4>
+            </div>
+            
+            <div class="countries-by-continent">
+                <div class="continent-group">
+                    <h5><i class="fas fa-mountain"></i> Asia</h5>
+                    <div class="country-flags">
+                    </div>
+                </div>
+                
+                <div class="continent-group">
+                    <h5><i class="fas fa-castle"></i> Europe</h5>
+                    <div class="country-flags">
+                    </div>
+                </div>
+                
+                <div class="continent-group">
+                    <h5><i class="fas fa-mountain-sun"></i> Caucasus</h5>
+                    <div class="country-flags">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="map"></div>
+    </div>
+
+</div>
+
+<script src="resources/back-to-top.js"></script>
+<script src="resources/navigation.js"></script>
+<script>
+    // Countries data with flags and continent grouping
+    const countriesData = {
+        asia: [
+            { flag: '🇯🇵', name: 'Japan' },
+            { flag: '🇲🇴', name: 'Macao' },
+            { flag: '🇭🇰', name: 'Hong Kong' },
+            { flag: '🇲🇻', name: 'Maldives' },
+            { flag: '🇱🇰', name: 'Sri Lanka' },
+            { flag: '🇳🇵', name: 'Nepal' },
+            { flag: '🇮🇳', name: 'India' },
+            { flag: '🇮🇩', name: 'Indonesia' },
+            { flag: '🇵🇭', name: 'Philippines' },
+            { flag: '🇹🇭', name: 'Thailand' },
+            { flag: '🇱🇦', name: 'Laos' },
+            { flag: '🇻🇳', name: 'Vietnam' },
+            { flag: '🇰🇭', name: 'Cambodia' },
+            { flag: '🇸🇬', name: 'Singapore' },
+            { flag: '🇲🇾', name: 'Malaysia' },
+            { flag: '🇦🇪', name: 'UAE' },
+            { flag: '🇮🇱', name: 'Israel' },
+            { flag: '🇹🇷', name: 'Turkey' }
+        ],
+        europe: [
+            { flag: '🇧🇾', name: 'Belarus' },
+            { flag: '🇵🇱', name: 'Poland' },
+            { flag: '🇱🇹', name: 'Lithuania' },
+            { flag: '🇱🇻', name: 'Latvia' },
+            { flag: '🇪🇪', name: 'Estonia' },
+            { flag: '🇫🇮', name: 'Finland' },
+            { flag: '🇸🇪', name: 'Sweden' },
+            { flag: '🇩🇪', name: 'Germany' },
+            { flag: '🇦🇹', name: 'Austria' },
+            { flag: '🇨🇿', name: 'Czech Republic' },
+            { flag: '🇫🇷', name: 'France' },
+            { flag: '🇮🇹', name: 'Italy' },
+            { flag: '🇳🇱', name: 'Netherlands' },
+            { flag: '🇸🇲', name: 'San Marino' },
+            { flag: '🇬🇷', name: 'Greece' },
+            { flag: '🇧🇪', name: 'Belgium' },
+            { flag: '🇭🇺', name: 'Hungary' }
+        ],
+        caucasus: [
+            { flag: '🇬🇪', name: 'Georgia' },
+            { flag: '🇦🇿', name: 'Azerbaijan' }
+        ]
+    };
+
+    // Calculate total countries count
+    function getTotalCountriesCount() {
+        return countriesData.asia.length + countriesData.europe.length + countriesData.caucasus.length;
+    }
+
+    // Update countries display
+    function updateCountriesDisplay() {
+        // Update total count
+        const totalCount = getTotalCountriesCount();
+        document.querySelector('.country-count').textContent = totalCount;
+        
+        // Update continent counts
+        document.querySelector('.continent-group:nth-child(1) h5').innerHTML = 
+            `<i class="fas fa-mountain"></i> Asia (${countriesData.asia.length} countries)`;
+        document.querySelector('.continent-group:nth-child(2) h5').innerHTML = 
+            `<i class="fas fa-castle"></i> Europe (${countriesData.europe.length} countries)`;
+        document.querySelector('.continent-group:nth-child(3) h5').innerHTML = 
+            `<i class="fas fa-mountain-sun"></i> Caucasus (${countriesData.caucasus.length} countries)`;
+        
+        // Update country flags
+        const asiaFlags = document.querySelector('.continent-group:nth-child(1) .country-flags');
+        const europeFlags = document.querySelector('.continent-group:nth-child(2) .country-flags');
+        const caucasusFlags = document.querySelector('.continent-group:nth-child(3) .country-flags');
+        
+        asiaFlags.innerHTML = countriesData.asia.map(country => 
+            `<span class="country-item" title="${country.name}">${country.flag}</span>`
+        ).join('');
+        
+        europeFlags.innerHTML = countriesData.europe.map(country => 
+            `<span class="country-item" title="${country.name}">${country.flag}</span>`
+        ).join('');
+        
+        caucasusFlags.innerHTML = countriesData.caucasus.map(country => 
+            `<span class="country-item" title="${country.name}">${country.flag}</span>`
+        ).join('');
+    }
+
+    // Initialize countries display when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCountriesDisplay();
+    });
+
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 2,
+            center: { lat: 20, lng: 0 },
+        });
+
+        // Пример массива точек (можно загружать из JSON)
+        const locations = [
+            //Ukraine +
+            { lat: 46.4749082, lng: 30.7287808, title: "Odessa, Bazarna 104" },
+            { lat: 50.5101285, lng: 30.5001186, title: "Kyiv, Obolonska avenue 16a" },
+            // India
+            { lat: 15.5355982, lng: 73.7620102, title: "Goa, Calangute, Home in Calangute" },
+            { lat: 26.9130762, lng: 75.792761, title: "Jaipur" },
+            // Greece
+            { lat: 37.9659202, lng: 23.7441294, title: "Athens, Pagrati" },
+            // Turkey +
+            { lat: 41.0115158, lng: 28.9431013, title: "Istanbul, Home in Fatih" },
+            //Latvia +
+            { lat: 56.9348137, lng: 24.0352716, title: "Riga, Kalnciema Iella 135" },
+            { lat: 56.950761, lng: 24.1277996, title: "Riga, Avotu Iella 6" },
+            //Lithuania +
+            { lat: 54.6831074, lng: 25.2883817, title: "Vilnius, Home in Vilnius" },
+            // Niderlands +
+            { lat: 52.3343232, lng: 4.950593, title: "Amsterdam, Home in Diemen" },
+            //Italia
+            { lat: 45.6622584, lng: 12.2336997, title: "Treviso"},
+            { lat: 45.6622584, lng: 12.2336997, title: "Bologna"},
+            { lat: 43.7710583, lng: 11.2501702, title: "Florence"},
+            // Israel
+            { lat: 31.7838176, lng: 35.209266, title: "Jerusalem, Home in Jerusalem" },
+            // Georgia +
+            { lat: 41.6393818, lng: 41.6115515, title: "Batumi, Orbi Twin Towers" },
+            { lat: 41.643333, lng: 41.625653, title: "Batumi, 38 Takaishvili Str" },
+            { lat: 41.7006091, lng: 44.7976594, title: "Tbilisi" },
+            { lat: 43.0448858, lng: 42.7239988, title: "Mestia" },
+            { lat: 42.2684883, lng: 42.7062823, title: "Kutaisi" },
+            // Azerbaijan +
+            { lat: 40.3736538, lng: 49.8333648, title: "Baku" },
+            // Malaysia +
+            { lat: 3.1589606, lng: 101.7026803, title: "Kuala Lumpur, Summer Suites Bernice" },
+            { lat: 3.1559413, lng: 101.7084828, title: "Kuala Lumpur, Park view" },
+            // Thailand - Ko Lan
+            { lat: 13.7674467, lng: 100.6390582, title: "Bangkok, Khet Bang Kapi" },
+            { lat: 13.7419321, lng: 100.508378, title: "Bangkok, Khet Samphanthawong" },
+            { lat: 13.7588358, lng: 100.505161, title: "Bangkok, Alameda Suites" },
+            { lat: 7.8874916, lng: 98.3003037, title: "Phuket, Pa Tong" },
+            { lat: 12.8952547, lng: 100.8825032, title: "Pattaya, Home in Pattaya City" },
+            { lat: 12.932119, lng: 100.8814636, title: "Pattaya, Beach" },
+            { lat: 18.7829125, lng: 98.9966371, title: "Chiang Mai, Phra Sing" },
+            { lat: 8.033644, lng: 98.8296906, title: "Krabi, Ao Nang, La Belle" },
+            { lat: 8.0387975, lng: 98.8198457, title: "Krabi, Ao Nang, The Rocco Ao-Nang Krabi" },
+            { lat: 8.0128819, lng: 98.8421495, title: "Krabi, Railay Bay, Diamond Cave Resort"},
+            { lat: 9.5542579, lng: 100.029924, title: "Ko Samui" },
+            { lat: 9.458672, lng: 100.0305871, title: "Ko Samui, Lamai Viewpoint"},
+            { lat: 13.7244415, lng: 100.562694, title: "Bangkok, The Emporio Place"},
+            { lat: 13.7118771, lng: 100.6062321, title: "Bangkok, Home in Khet Suan Luang"},
+            // Cambodia
+            { lat: 13.3524143, lng: 103.8547441, title: "Siem Reap, Krong Siem Reap"},
+            // Shri Lanka
+            { lat: 6.4225108, lng: 79.9975638, title: "Benthota, Home in Bentota"},
+            { lat: 6.0098045, lng: 80.2482118, title: "Unawatuna, Home in Unawatuna"},
+            { lat: 6.8424305, lng: 79.8638464, title: "Mount Lavinia, Self order"},
+            // Laos
+            { lat: 17.9678224, lng: 102.6011228, title: "Vientiane"},
+            // Japan
+            { lat: 34.6734763, lng: 135.5228785, title: "Osaka, Home in Osaka"},
+            // Hong Kong +
+            { lat: 22.321771, lng: 114.1675655, title: "Hong Kong"},
+            // Philippines +
+            { lat: 10.3329783, lng: 123.9073145, title: "Cebu City, Avida Towers"},
+            { lat: 11.1827228, lng: 119.3927341, title: "El Nido, Silverise Pension"},
+            { lat: 12.0024527, lng: 120.2060122, title: "Coron, Ina HomeStay"},
+            { lat: 11.9523585, lng: 121.9295729, title: "Boracay, White Bitch"},
+            { lat: 9.5517335, lng: 123.7746862, title: "Panglao"},
+            { lat: 14.5624157, lng: 120.9908138, title: "Manila, Century Park Hotel"},
+            // Singapore
+            // Indonesia
+            { lat: -8.3350301, lng: 115.6476298, title: "Bali, Amed, Home in Abang"},
+            { lat: -8.7038072, lng: 115.2537278, title: "Bali, Sanur, Denpasar Selatan"},
+            { lat: -6.1967763, lng: 106.8154447, title: "Jakarta, Thamrin Executive Residence"},
+            { lat: -6.1185777, lng: 106.6874956, title: "Jakarta, Benda"},
+            // Vietnam
+        ];
+
+        locations.forEach(location => {
+            const marker = new google.maps.Marker({
+                position: { lat: location.lat, lng: location.lng },
+                map: map,
+                title: location.title,
+            });
+
+            // Добавляем InfoWindow для отображения информации при клике
+            const infoWindow = new google.maps.InfoWindow({
+                content: location.title
+            });
+
+            marker.addListener('click', () => {
+                infoWindow.open(map, marker);
+            });
+        });
+    }
+</script>
+</body>
+</html>
