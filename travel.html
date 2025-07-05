@@ -378,6 +378,8 @@
             //Ukraine +
             { lat: 46.4749082, lng: 30.7287808, title: "Odessa, Bazarna 104" },
             { lat: 50.5101285, lng: 30.5001186, title: "Kyiv, Obolonska avenue 16a" },
+            // Belarus
+            { lat: 53.9000000, lng: 27.5666667, title: "Minsk, Gorky avenue 1" },
             // San Marino
             { lat: 43.9423601, lng: 12.4577739, title: "San Marino, Via del Ponte" },
             // India
@@ -527,7 +529,7 @@
         function getContinent(title) {
             // Get continent based on country mentions in title
             const asiaKeywords = ['India', 'Goa', 'Jaipur', 'Japan', 'Osaka', 'Hong Kong', 'Maldives', 'Sri Lanka', 'Benthota', 'Unawatuna', 'Mount Lavinia', 'Nepal', 'Indonesia', 'Bali', 'Jakarta', 'Philippines', 'Cebu', 'El Nido', 'Coron', 'Boracay', 'Panglao', 'Manila', 'Thailand', 'Bangkok', 'Phuket', 'Pattaya', 'Chiang Mai', 'Krabi', 'Ko Samui', 'Laos', 'Vientiane', 'Vietnam', 'Cambodia', 'Siem Reap', 'Singapore', 'Malaysia', 'Kuala Lumpur', 'UAE', 'Israel', 'Jerusalem', 'Turkey', 'Istanbul'];
-            const europeKeywords = ['Ukraine', 'Odessa', 'Kyiv', 'Belarus', 'Poland', 'Lithuania', 'Vilnius', 'Latvia', 'Riga', 'Estonia', 'Finland', 'Sweden', 'Germany', 'Austria', 'Czech', 'France', 'Italy', 'Treviso', 'Bologna', 'Florence', 'Netherlands', 'Amsterdam', 'Diemen', 'San Marino', 'Greece', 'Athens', 'Belgium', 'Hungary', 'San Marino'];
+            const europeKeywords = ['Ukraine', 'Odessa', 'Kyiv', 'Belarus','Minsk', 'Poland', 'Lithuania', 'Vilnius', 'Latvia', 'Riga', 'Estonia', 'Finland', 'Sweden', 'Germany', 'Austria', 'Czech', 'France', 'Italy', 'Treviso', 'Bologna', 'Florence', 'Netherlands', 'Amsterdam', 'Diemen', 'San Marino', 'Greece', 'Athens', 'Belgium', 'Hungary', 'San Marino'];
             const caucasusKeywords = ['Georgia', 'Batumi', 'Tbilisi', 'Mestia', 'Kutaisi', 'Azerbaijan', 'Baku'];
             
             for (const keyword of asiaKeywords) {
