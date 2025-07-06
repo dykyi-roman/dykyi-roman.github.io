@@ -374,122 +374,217 @@
             }
         });
 
-        const locations = [
-            //Ukraine +
-            { lat: 46.4749082, lng: 30.7287808, title: "Odessa, Bazarna 104" },
-            { lat: 50.5101285, lng: 30.5001186, title: "Kyiv, Obolonska avenue 16a" },
-            // Belarus
-            { lat: 53.9000000, lng: 27.5666667, title: "Minsk, Gorky avenue 1" },
-            // San Marino
-            { lat: 43.9423601, lng: 12.4577739, title: "San Marino, Via del Ponte" },
-            // India
-            { lat: 15.5355982, lng: 73.7620102, title: "Goa, Calangute, Home in Calangute" },
-            { lat: 26.9130762, lng: 75.792761, title: "Jaipur" },
-            // Greece
-            { lat: 37.9659202, lng: 23.7441294, title: "Athens, Pagrati" },
-            // Turkey +
-            { lat: 41.0115158, lng: 28.9431013, title: "Istanbul, Home in Fatih" },
-            //Latvia +
-            { lat: 56.9348137, lng: 24.0352716, title: "Riga, Kalnciema Iella 135" },
-            { lat: 56.950761, lng: 24.1277996, title: "Riga, Avotu Iella 6" },
-            //Lithuania +
-            { lat: 54.6831074, lng: 25.2883817, title: "Vilnius, Home in Vilnius" },
-            // Niderlands +
-            { lat: 52.3343232, lng: 4.950593, title: "Amsterdam, Home in Diemen" },
-            //Italia
-            { lat: 45.6622584, lng: 12.2336997, title: "Treviso"},
-            { lat: 45.6622584, lng: 12.2336997, title: "Bologna"},
-            { lat: 43.7710583, lng: 11.2501702, title: "Florence"},
-            // Israel
-            { lat: 31.7838176, lng: 35.209266, title: "Jerusalem, Home in Jerusalem" },
-            // Georgia +
-            { lat: 41.6393818, lng: 41.6115515, title: "Batumi, Orbi Twin Towers" },
-            { lat: 41.643333, lng: 41.625653, title: "Batumi, 38 Takaishvili Str" },
-            { lat: 41.7006091, lng: 44.7976594, title: "Tbilisi" },
-            { lat: 43.0448858, lng: 42.7239988, title: "Mestia" },
-            { lat: 42.2684883, lng: 42.7062823, title: "Kutaisi" },
-            // Azerbaijan +
-            { lat: 40.3736538, lng: 49.8333648, title: "Baku" },
-            // UAE +
-            { lat: 25.1927589, lng: 55.27857342, title: "Dubai, Millennium Central Downtown"},
-            { lat: 24.4225781, lng: 54.4551371, title: "Abu Dhabi, Millennium Al Rawdah Hotel"},
-            // Nepal +
-            { lat: 27.6731487, lng: 85.4265879, title: "Kathmandu, Tulaja Boutique Hotel" },
-            { lat: 27.7150956, lng: 85.3114999, title: "Kathmandu, Oasis Kathmandu Hotel" },
-            // Malaysia +
-            { lat: 3.1589606, lng: 101.7026803, title: "Kuala Lumpur, Summer Suites Bernice" },
-            { lat: 3.1559413, lng: 101.7084828, title: "Kuala Lumpur, Park view" },
-            { lat: 3.1566564, lng: 101.7066367, title: "Kuala Lumpur, Sky Suites by Lynn" },
-            // Thailand - Ko Lan
-            { lat: 13.7674467, lng: 100.6390582, title: "Bangkok, Khet Bang Kapi" },
-            { lat: 13.7419321, lng: 100.508378, title: "Bangkok, Khet Samphanthawong" },
-            { lat: 13.7588358, lng: 100.505161, title: "Bangkok, Alameda Suites" },
-            { lat: 7.8874916, lng: 98.3003037, title: "Phuket, Pa Tong" },
-            { lat: 7.7407571, lng: 98.7749888, title: "Phi Phu, Valentines Bungalow" },
-            { lat: 12.8952547, lng: 100.8825032, title: "Pattaya, Home in Pattaya City" },
-            { lat: 12.932119, lng: 100.8814636, title: "Pattaya, Beach" },
-            { lat: 18.7829125, lng: 98.9966371, title: "Chiang Mai, Phra Sing" },
-            { lat: 8.033644, lng: 98.8296906, title: "Krabi, Ao Nang, La Belle" },
-            { lat: 8.0342885, lng: 98.8267155, title: "Krabi, Ao Nang, Monotel" },
-            { lat: 8.0387975, lng: 98.8198457, title: "Krabi, Ao Nang, The Rocco Ao-Nang Krabi" },
-            { lat: 8.0128819, lng: 98.8421495, title: "Krabi, Railay Bay, Diamond Cave Resort"},
-            { lat: 9.5542579, lng: 100.029924, title: "Ko Samui" },
-            { lat: 9.458672, lng: 100.0305871, title: "Ko Samui, Lamai Viewpoint"},
-            { lat: 9.7026519, lng: 100.0106684, title: "Ko Pha Ngan, The Cosy Sunset Beach Resort & Restaurant"},
-            { lat: 10.0981192, lng: 99.8290426, title: "Ko Tao, Home in Ko Tao"},
-            { lat: 10.1166193, lng: 99.8138068, title: "Koh Nang, Koh Nang Yuan Viewpoint"},
-            { lat: 13.7244415, lng: 100.562694, title: "Bangkok, The Emporio Place"},
-            { lat: 13.7118771, lng: 100.6062321, title: "Bangkok, Home in Khet Suan Luang"},
-            // Cambodia
-            { lat: 13.3524143, lng: 103.8547441, title: "Siem Reap, Krong Siem Reap"},
-            // Shri Lanka
-            { lat: 6.4225108, lng: 79.9975638, title: "Benthota, Home in Bentota"},
-            { lat: 6.0098045, lng: 80.2482118, title: "Unawatuna, Home in Unawatuna"},
-            { lat: 6.8424305, lng: 79.8638464, title: "Mount Lavinia, Self order"},
-            // Laos +
-            { lat: 17.9678224, lng: 102.6011228, title: "Vientiane"},
-            { lat: 19.8845625, lng: 102.1328626, title: "Luang Prabang, Chaliya Boutique Garden"},
-            { lat: 18.928473, lng: 102.4452279, title: "Vang Vieng, Bountang Mountain View Riverside Hotel"},
-            // Japan
-            { lat: 34.6734763, lng: 135.5228785, title: "Osaka, Home in Osaka"},
-            { lat: 34.9945252, lng: 135.7568764, title: "Kyoto, Super Hotel Kyoto Karasuma Gojo"},
-            { lat: 35.7039206, lng: 139.7948724, title: "Tokyo, HOTEL MYSTAYS Asakusa"},
-            // Hong Kong +
-            { lat: 22.321771, lng: 114.1675655, title: "Hong Kong"},
-            // Philippines +
-            { lat: 10.3329783, lng: 123.9073145, title: "Cebu City, Avida Towers"},
-            { lat: 10.3166272, lng: 119.3414294, title: "Palawan, Ocean Manor Inn"},
-            { lat: 9.7394999, lng: 118.7313656, title: "Puerto Princesa, Mariner's Pension House"},
-            { lat: 9.9525364, lng: 123.3660057, title: "Moalboal, Dolce Vita Resort"},
-            { lat: 9.5221595, lng: 123.4288375, title: "Oslob, Luna Oslob Travellers Inn"},
-            { lat: 11.1827228, lng: 119.3927341, title: "El Nido, Silverise Pension"},
-            { lat: 12.0024527, lng: 120.2060122, title: "Coron, Ina HomeStay"},
-            { lat: 11.9523585, lng: 121.9295729, title: "Boracay, White Bitch"},
-            { lat: 9.5517335, lng: 123.7746862, title: "Panglao"},
-            { lat: 9.5632636, lng: 123.8035985, title: "Panglao, Tyner's Place"},
-            { lat: 14.5624157, lng: 120.9908138, title: "Manila, Century Park Hotel"},
-            // Singapore
-            // Indonesia
-            { lat: -8.3350301, lng: 115.6476298, title: "Bali, Amed, Home in Abang"},
-            { lat: -8.7038072, lng: 115.2537278, title: "Bali, Sanur, Denpasar Selatan"},
-            { lat: -6.1967763, lng: 106.8154447, title: "Jakarta, Thamrin Executive Residence"},
-            { lat: -6.1185777, lng: 106.6874956, title: "Jakarta, Benda"},
-            { lat: -8.7205673, lng: 115.1696496, title: "Kuta, OYO 4012 Ari Beach Inn"},
-            { lat: -8.5032796, lng: 115.2640809, title: "Ubud, Kertayasa house"},
-            // Vietnam
-            { lat: 16.0513323, lng: 108.2405212, title: "Da Nang, Home in Da Nang"},
-            // Kazakhstan
-            // { lat: 43.2598898, lng: 76.9330709, title: "Astana, Apartment in Almaty"},
-            // Uzbekistan
-            // { lat: 41.3086111, lng: 69.2665918, title: "Tashkent, City Centre Hotel"},
-            // { lat: 39.6567259, lng: 66.9707512, title: "Samarkand, City Centre Hotel"},
-            // Turkey
-            // { lat: 41.0063429, lng: 28.9661672, title: "Istanbul, Le Valeria Deluxe"},
-            // Spain
-            // { lat: 41.377071, lng: 2.1504022, title: "Barcelona, Home in Barcelona"},
-            // { lat: 39.4739172, lng: -0.3646948, title: "Valencia, Home in Valencia"},
+        const locations = {
+            "Ukraine": [
+                { lat: 46.4749082, lng: 30.7287808, title: "Odessa, Bazarna 104" },
+                { lat: 50.5101285, lng: 30.5001186, title: "Kyiv, Obolonska avenue 16a" },
+            ],
+            "Belarus": [
+                { lat: 53.9000000, lng: 27.5666667, title: "Minsk, Gorky avenue 1" },
+            ],
+            "San Marino": [
+                { lat: 43.9423601, lng: 12.4577739, title: "San Marino, Via del Ponte" },
+            ],
+            "India": [
+                { lat: 15.5355982, lng: 73.7620102, title: "Goa, Calangute, Home in Calangute" },
+                { lat: 26.9130762, lng: 75.792761, title: "Jaipur" },
+            ],
+            "Greece": [
+                { lat: 37.9659202, lng: 23.7441294, title: "Athens, Pagrati" },
+                { lat: 37.9575197, lng: 23.7207616, title: "Athens, Loid Tzortz Guest House" },
+                { lat: 39.7074472, lng: 21.6214896, title: "Kalampaka, Aeolic Star Hotel" },
+                { lat: 36.4203258, lng: 25.4218707, title: "Santorini, Santorini Camping & Hostel" },
+            ],
+            'Finland': [
+                { lat: 60.1657988, lng: 24.9673356, title: "Helsinki, Eurohostel" },
+                { lat: 66.5048301, lng: 25.716365, title: "Rovaniemi, GuestHouse Arctic Heart" },
+            ],
+            "Maldives": [
+                { lat: 4.4360125, lng: 72.9576381, title: "Maldives, Evila Inn - Thoddoo" },
+            ],
+            "Turkey": [
+                { lat: 41.0115158, lng: 28.9431013, title: "Istanbul, Home in Fatih" },
+            ],
+            "Latvia": [
+                { lat: 56.9348137, lng: 24.0352716, title: "Riga, Kalnciema Iella 135" },
+                { lat: 56.950761, lng: 24.1277996, title: "Riga, Avotu Iella 6" },
+            ],
+            "Lithuania": [
+                { lat: 54.6831074, lng: 25.2883817, title: "Vilnius, Home in Vilnius" },
+                { lat: 54.6723695, lng: 25.2784091, title: "Vilnius, Hostel Oras" },
+            ],
+            "Netherlands": [
+                { lat: 52.3343232, lng: 4.950593, title: "Amsterdam, Home in Diemen" },
+            ],
+            "Italia": [
+                { lat: 45.6622584, lng: 12.2336997, title: "Treviso"},
+                { lat: 45.6622584, lng: 12.2336997, title: "Bologna"},
+                { lat: 43.7710583, lng: 11.2501702, title: "Florence"},
+                { lat: 45.4390869, lng: 12.3344736, title: "Venice, Residenza Grisostomo"},
+                { lat: 44.061159, lng: 12.5820507, title: "Rimini, Hotel Jana"},
+            ],
+            "Israel": [
+                { lat: 31.7838176, lng: 35.209266, title: "Jerusalem, Home in Jerusalem" },
+                { lat: 32.0708739, lng: 34.7624001, title: "Tel Aviv-Yafo, Gold Sea Hostel" },
+            ],
+            "Georgia": [
+                { lat: 41.6393818, lng: 41.6115515, title: "Batumi, Orbi Twin Towers" },
+                { lat: 41.643333, lng: 41.625653, title: "Batumi, 38 Takaishvili Str" },
+                { lat: 41.7006091, lng: 44.7976594, title: "Tbilisi" },
+                { lat: 43.0448858, lng: 42.7239988, title: "Mestia" },
+                { lat: 42.2684883, lng: 42.7062823, title: "Kutaisi" },
+            ],
+            "Azerbaijan": [
+                { lat: 40.3736538, lng: 49.8333648, title: "Baku" },
+            ],
+            "UAE": [
+                { lat: 25.1927589, lng: 55.27857342, title: "Dubai, Millennium Central Downtown"},
+                { lat: 24.4225781, lng: 54.4551371, title: "Abu Dhabi, Millennium Al Rawdah Hotel"},
+            ],
+            "Nepal": [
+                { lat: 27.6731487, lng: 85.4265879, title: "Kathmandu, Tulaja Boutique Hotel" },
+                { lat: 27.7150956, lng: 85.3114999, title: "Kathmandu, Oasis Kathmandu Hotel" },
+            ],
+            "Malaysia": [
+                { lat: 3.1589606, lng: 101.7026803, title: "Kuala Lumpur, Summer Suites Bernice" },
+                { lat: 3.1559413, lng: 101.7084828, title: "Kuala Lumpur, Park view" },
+                { lat: 3.1566564, lng: 101.7066367, title: "Kuala Lumpur, Sky Suites by Lynn" },
+            ],
+            "Thailand": [
+                { lat: 13.7674467, lng: 100.6390582, title: "Bangkok, Khet Bang Kapi" },
+                { lat: 13.7419321, lng: 100.508378, title: "Bangkok, Khet Samphanthawong" },
+                { lat: 13.7588358, lng: 100.505161, title: "Bangkok, Alameda Suites" },
+                { lat: 7.8874916, lng: 98.3003037, title: "Phuket, Pa Tong" },
+                { lat: 7.7407571, lng: 98.7749888, title: "Phi Phu, Valentines Bungalow" },
+                { lat: 12.8952547, lng: 100.8825032, title: "Pattaya, Home in Pattaya City" },
+                { lat: 12.932119, lng: 100.8814636, title: "Pattaya, Beach" },
+                { lat: 18.7829125, lng: 98.9966371, title: "Chiang Mai, Phra Sing" },
+                { lat: 8.033644, lng: 98.8296906, title: "Krabi, Ao Nang, La Belle" },
+                { lat: 8.0342885, lng: 98.8267155, title: "Krabi, Ao Nang, Monotel" },
+                { lat: 8.0387975, lng: 98.8198457, title: "Krabi, Ao Nang, The Rocco Ao-Nang Krabi" },
+                { lat: 8.0128819, lng: 98.8421495, title: "Krabi, Railay Bay, Diamond Cave Resort"},
+                { lat: 9.5542579, lng: 100.029924, title: "Ko Samui" },
+                { lat: 9.458672, lng: 100.0305871, title: "Ko Samui, Lamai Viewpoint"},
+                { lat: 9.7026519, lng: 100.0106684, title: "Ko Pha Ngan, The Cosy Sunset Beach Resort & Restaurant"},
+                { lat: 10.0981192, lng: 99.8290426, title: "Ko Tao, Home in Ko Tao"},
+                { lat: 10.1166193, lng: 99.8138068, title: "Koh Nang, Koh Nang Yuan Viewpoint"},
+                { lat: 13.7244415, lng: 100.562694, title: "Bangkok, The Emporio Place"},
+                { lat: 13.7118771, lng: 100.6062321, title: "Bangkok, Home in Khet Suan Luang"},
+            ],
+            "Cambodia": [
+                { lat: 13.3524143, lng: 103.8547441, title: "Siem Reap, Krong Siem Reap"},
+                { lat: 11.5510929, lng: 104.9204016, title: "Phnom Penh, SKY Residence"},
+            ],
+            "Shri Lanka": [
+                { lat: 6.4225108, lng: 79.9975638, title: "Benthota, Home in Bentota"},
+                { lat: 6.0098045, lng: 80.2482118, title: "Unawatuna, Home in Unawatuna"},
+                { lat: 6.8424305, lng: 79.8638464, title: "Mount Lavinia, Self order"},
+                { lat: 7.2874413, lng: 80.6394468, title: "Kandy, Kandy IVY Banks Holiday Resort"},
+                { lat: 7.8736801, lng: 80.6466919, title: "Dambulla, Gamagedara Resort"},
+                { lat: 7.9407759, lng: 81.0153238, title: "Polonnaruwa, Thisal Guest House"},
+                { lat: 6.8413057, lng: 79.8620323, title: "Mount Lavinia, Ranveli Beach Resort"},
+                { lat: 7.2998006, lng: 80.3825923, title: "Pinnawala, Hotel Elephant Bay"},
+            ],
+            "Laos": [
+                { lat: 17.9678224, lng: 102.6011228, title: "Vientiane"},
+                { lat: 19.8845625, lng: 102.1328626, title: "Luang Prabang, Chaliya Boutique Garden"},
+                { lat: 18.928473, lng: 102.4452279, title: "Vang Vieng, Bountang Mountain View Riverside Hotel"},
+            ],
+            "Japan": [
+                { lat: 34.6734763, lng: 135.5228785, title: "Osaka, Home in Osaka"},
+                { lat: 34.9945252, lng: 135.7568764, title: "Kyoto, Super Hotel Kyoto Karasuma Gojo"},
+                { lat: 35.7039206, lng: 139.7948724, title: "Tokyo, HOTEL MYSTAYS Asakusa"},
+                { lat: 35.3606246, lng: 138.7170637, title: "Fujinomiya, Mount fuji"},
+                { lat: 35.446711, lng: 139.6515033, title: "Yokohama, The Gundam Factory Yokohama"},
+                { lat: 34.685047, lng: 135.8404371, title: "Nara, Park Nara"},
+            ],
+            "Hong Kong": [
+                { lat: 22.321771, lng: 114.1675655, title: "Hong Kong"},
+            ],
+            "Philippines": [
+                { lat: 10.3329783, lng: 123.9073145, title: "Cebu City, Avida Towers"},
+                { lat: 10.3166272, lng: 119.3414294, title: "Palawan, Ocean Manor Inn"},
+                { lat: 9.7394999, lng: 118.7313656, title: "Puerto Princesa, Mariner's Pension House"},
+                { lat: 9.9525364, lng: 123.3660057, title: "Moalboal, Dolce Vita Resort"},
+                { lat: 9.5221595, lng: 123.4288375, title: "Oslob, Luna Oslob Travellers Inn"},
+                { lat: 11.1827228, lng: 119.3927341, title: "El Nido, Silverise Pension"},
+                { lat: 12.0024527, lng: 120.2060122, title: "Coron, Ina HomeStay"},
+                { lat: 11.9523585, lng: 121.9295729, title: "Boracay, White Bitch"},
+                { lat: 9.5517335, lng: 123.7746862, title: "Panglao"},
+                { lat: 9.5632636, lng: 123.8035985, title: "Panglao, Tyner's Place"},
+                { lat: 14.5624157, lng: 120.9908138, title: "Manila, Century Park Hotel"},
+            ],
+            "Singapore": [
+                { lat: 1.2985179, lng: 103.8548296, title: "Singapore, The Snooze Hotel at Bugis"},
+            ],
+            "Indonesia": [
+                { lat: -8.3350301, lng: 115.6476298, title: "Bali, Amed, Home in Abang"},
+                { lat: -8.7038072, lng: 115.2537278, title: "Bali, Sanur, Denpasar Selatan"},
+                { lat: -6.1967763, lng: 106.8154447, title: "Jakarta, Thamrin Executive Residence"},
+                { lat: -6.1185777, lng: 106.6874956, title: "Jakarta, Benda"},
+                { lat: -6.1529539, lng: 106.8178944, title: "Jakarta, RedDoorz near Hayam Wuruk Plaza"},
+                { lat: -8.7205673, lng: 115.1696496, title: "Kuta, OYO 4012 Ari Beach Inn"},
+                { lat: -8.5032796, lng: 115.2640809, title: "Ubud, Kertayasa house"},
+            ],
+            "Vietnam": [
+                { lat: 16.0513323, lng: 108.2405212, title: "Da Nang, Home in Da Nang"},
+            ],
+            "Kazakhstan": [],
+            "Uzbekistan": [],
+            "Spain": [],
+        };
 
-        ];
+        // Build continent mapping dynamically from countries in locations
+        const continentMapping = {};
+        
+        // Define continent for each country that exists in locations
+        const countryToContinentMap = {
+            "Finland": "europe",
+            "Ukraine": "europe",
+            "Belarus": "europe", 
+            "San Marino": "europe",
+            "Greece": "europe",
+            "Latvia": "europe",
+            "Lithuania": "europe",
+            "Netherlands": "europe",
+            "Italia": "europe",
+            "Spain": "europe",
+            "UAE": "asia",
+            "Nepal": "asia",
+            "India": "asia",
+            "Japan": "asia",
+            "Hong Kong": "asia",
+            "Shri Lanka": "asia",
+            "Laos": "asia",
+            "Philippines": "asia",
+            "Singapore": "asia",
+            "Indonesia": "asia",
+            "Vietnam": "asia",
+            "Malaysia": "asia",
+            "Thailand": "asia",
+            "Cambodia": "asia",
+            "Israel": "asia",
+            "Turkey": "asia",
+            "Kazakhstan": "asia",
+            "Uzbekistan": "asia",
+            "Georgia": "caucasus",
+            "Azerbaijan": "caucasus"
+        };
+
+        // Build continentMapping from countryToContinentMap
+        for (const [country, continent] of Object.entries(countryToContinentMap)) {
+            if (!continentMapping[continent]) {
+                continentMapping[continent] = [];
+            }
+            // Only add countries that actually exist in locations
+            if (locations[country]) {
+                continentMapping[continent].push(country);
+            }
+        }
+
+        function getContinent(country) {
+            return countryToContinentMap[country] || 'unknown';
+        }
 
         const continentFilters = document.querySelectorAll('.map-filter-button');
         const continentFilterButtons = Array.from(continentFilters);
@@ -502,40 +597,44 @@
         };
         
         // Create markers with different icons based on continent
-        const markers = locations.map(location => {
-            const continent = getContinent(location.title);
-            const marker = new google.maps.Marker({
-                position: { lat: location.lat, lng: location.lng },
-                map: map,
-                title: location.title,
-                icon: {
-                    path: google.maps.SymbolPath.CIRCLE,
-                    fillColor: continentColors[continent] || '#FF0000',
-                    fillOpacity: 0.8,
-                    strokeWeight: 1,
-                    strokeColor: '#FFFFFF',
-                    scale: 8
-                },
-                animation: google.maps.Animation.DROP // Add animation to markers
-            });
+        const markers = [];
+        let i = 0;
+        for (const country in locations) {
+            for (const location of locations[country]) {
+                const continent = getContinent(country);
+                const marker = new google.maps.Marker({
+                    position: { lat: location.lat, lng: location.lng },
+                    map: map,
+                    title: location.title,
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillColor: continentColors[continent] || '#FF0000',
+                        fillOpacity: 0.8,
+                        strokeWeight: 1,
+                        strokeColor: '#FFFFFF',
+                        scale: 8
+                    },
+                    animation: google.maps.Animation.DROP // Add animation to markers
+                });
 
-            // Custom info window content
-            const infoWindow = new google.maps.InfoWindow({
-                content: `
-                    <div class="custom-info-window">
-                        <div class="info-location-name">${location.title}</div>
-                        <div class="info-continent continent-${continent}">${continent ? continent.charAt(0).toUpperCase() + continent.slice(1) : 'Unknown'}</div>
-                    </div>
-                `,
-                maxWidth: 250
-            });
+                // Custom info window content
+                const infoWindow = new google.maps.InfoWindow({
+                    content: `
+                        <div class="custom-info-window">
+                            <div class="info-location-name">${location.title}</div>
+                            <div class="info-continent continent-${continent}">${continent ? continent.charAt(0).toUpperCase() + continent.slice(1) : 'Unknown'}</div>
+                        </div>
+                    `,
+                    maxWidth: 250
+                });
 
-            marker.addListener('click', () => {
-                infoWindow.open(map, marker);
-            });
-            
-            return marker;
-        });
+                marker.addListener('click', () => {
+                    infoWindow.open(map, marker);
+                });
+                
+                markers.push(marker);
+            }
+        }
 
         // Add markers to clusters for better performance and visuals
         const markerCluster = new markerClusterer.MarkerClusterer({
@@ -554,27 +653,6 @@
             ]
         });
 
-        function getContinent(title) {
-            // Get continent based on country mentions in title
-            const asiaKeywords = ['Palawan', 'Puerto Princesa', 'Moalboal', 'Oslob', 'Kyoto', 'Kuta', 'Ubud', 'Ko Tao', 'Nang Yuan Island', 'Ko Pha Ngan', 'Phi Phi', 'UAE', 'Dubai', 'Abu Dhabi', 'Kathmandu', 'Nepal', 'India', 'Goa', 'Jaipur', 'Japan', 'Osaka', 'Tokyo', 'Hong Kong', 'Maldives', 'Sri Lanka', 'Benthota', 'Unawatuna', 'Mount Lavinia', 'Indonesia', 'Bali', 'Jakarta', 'Amed', 'Sanur', 'Denpasar', 'Abang', 'Philippines', 'Cebu', 'El Nido', 'Coron', 'Boracay', 'Panglao', 'Manila', 'Thailand', 'Bangkok', 'Phuket', 'Pattaya', 'Chiang Mai', 'Krabi', 'Ko Samui', 'Lamai', 'Koh Nang', 'Pa Tong', 'Ao Nang', 'Railay Bay', 'Laos', 'Vientiane', 'Luang Prabang', 'Vang Vieng', 'Vietnam', 'Da Nang', 'Cambodia', 'Siem Reap', 'Krong Siem Reap', 'Singapore', 'Malaysia', 'Kuala Lumpur', 'Israel', 'Jerusalem', 'Turkey', 'Istanbul', 'Tyner'];
-            const europeKeywords = ['Ukraine', 'Odessa', 'Kyiv', 'Belarus','Minsk', 'Poland', 'Lithuania', 'Vilnius', 'Latvia', 'Riga', 'Estonia', 'Finland', 'Sweden', 'Germany', 'Austria', 'Czech', 'France', 'Italy', 'Treviso', 'Bologna', 'Florence', 'Netherlands', 'Amsterdam', 'Diemen', 'San Marino', 'Greece', 'Athens', 'Pagrati', 'Belgium', 'Hungary'];
-            const caucasusKeywords = ['Georgia', 'Batumi', 'Tbilisi', 'Mestia', 'Kutaisi', 'Azerbaijan', 'Baku'];
-            
-            for (const keyword of asiaKeywords) {
-                if (title.includes(keyword)) return 'asia';
-            }
-            
-            for (const keyword of europeKeywords) {
-                if (title.includes(keyword)) return 'europe';
-            }
-            
-            for (const keyword of caucasusKeywords) {
-                if (title.includes(keyword)) return 'caucasus';
-            }
-            
-            return 'unknown';
-        }
-
         // Filter markers by continent
         continentFilterButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -587,17 +665,20 @@
                 console.log("Filtering by:", filter); // Debug log
                 
                 // Filter markers based on the selected continent
-                markers.forEach((marker, i) => {
-                    const location = locations[i];
-                    const continent = getContinent(location.title);
-                    console.log(location.title, "Continent:", continent); // Debug log
-                    
-                    if (filter === 'all' || continent === filter) {
-                        marker.setVisible(true);
-                    } else {
-                        marker.setVisible(false);
+                let markerIndex = 0;
+                for (const country in locations) {
+                    for (const location of locations[country]) {
+                        const continent = getContinent(country);
+                        console.log(country, "Continent:", continent); // Debug log
+                        
+                        if (filter === 'all' || continent === filter) {
+                            markers[markerIndex].setVisible(true);
+                        } else {
+                            markers[markerIndex].setVisible(false);
+                        }
+                        markerIndex++;
                     }
-                });
+                }
                 
                 // Update clusters after filtering
                 markerCluster.clearMarkers();
@@ -638,7 +719,7 @@
 
         // Draw travel path - connect markers chronologically for visual travel journey
         const flightPath = new google.maps.Polyline({
-            path: locations.map(loc => ({lat: loc.lat, lng: loc.lng})),
+            path: Object.values(locations).flat().map(loc => ({lat: loc.lat, lng: loc.lng})),
             geodesic: true,
             strokeColor: '#FF0000',
             strokeOpacity: 0.7,
