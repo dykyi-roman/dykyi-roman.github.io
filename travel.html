@@ -306,6 +306,7 @@
             { flag: '🇨🇿', name: 'Czech Republic' },
             { flag: '🇫🇷', name: 'France' },
             { flag: '🇮🇹', name: 'Italy' },
+            // { flag: '🇪🇸', name: 'Spain' },
             { flag: '🇳🇱', name: 'Netherlands' },
             { flag: '🇸🇲', name: 'San Marino' },
             { flag: '🇬🇷', name: 'Greece' },
@@ -953,8 +954,18 @@
         });
 
         // Draw travel path - connect markers chronologically for visual travel journey
+        // Exclude wishlist locations from the travel path
+        const travelPathLocations = [];
+        for (const country in locations) {
+            for (const location of locations[country]) {
+                if (!location.wishlist) {
+                    travelPathLocations.push({lat: location.lat, lng: location.lng});
+                }
+            }
+        }
+        
         const flightPath = new google.maps.Polyline({
-            path: Object.values(locations).flat().map(loc => ({lat: loc.lat, lng: loc.lng})),
+            path: travelPathLocations,
             geodesic: true,
             strokeColor: '#FF0000',
             strokeOpacity: 0.7,
