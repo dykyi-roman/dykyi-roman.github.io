@@ -832,13 +832,21 @@
                     position: { lat: location.lat, lng: location.lng },
                     map: map,
                     title: location.title,
-                    icon: {
-                        path: isWishlist ? google.maps.SymbolPath.FORWARD_CLOSED_ARROW : google.maps.SymbolPath.CIRCLE,
+                    icon: isWishlist ? {
+                        url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(`
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                                <text x="16" y="24" font-size="24" text-anchor="middle" fill="#FFD700">🌟</text>
+                            </svg>
+                        `),
+                        scaledSize: new google.maps.Size(32, 32),
+                        anchor: new google.maps.Point(16, 16)
+                    } : {
+                        path: google.maps.SymbolPath.CIRCLE,
                         fillColor: continentColors[continent] || '#FF0000',
-                        fillOpacity: isWishlist ? 0.9 : 0.8,
-                        strokeWeight: isWishlist ? 2 : 1,
-                        strokeColor: isWishlist ? '#FFD700' : '#FFFFFF',
-                        scale: isWishlist ? 10 : 8
+                        fillOpacity: 0.8,
+                        strokeWeight: 1,
+                        strokeColor: '#FFFFFF',
+                        scale: 8
                     },
                     animation: google.maps.Animation.DROP // Add animation to markers
                 });
