@@ -141,6 +141,37 @@
             background-color: #FF9800;
         }
         
+        .continent-wishlist {
+            background-color: #E91E63;
+        }
+        
+        .wishlist-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .wishlist-title {
+            color: #FFD700;
+            margin-bottom: 15px;
+        }
+        
+        .wishlist-item {
+            position: relative;
+            display: inline-block;
+            margin: 2px;
+        }
+        
+        .wishlist-item .wish-icon {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 0.8em;
+            background: white;
+            border-radius: 50%;
+            padding: 1px;
+        }
+        
         @media (max-width: 768px) {
             .travel-stats {
                 padding: 15px;
@@ -208,6 +239,17 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="wishlist-section">
+                <h5 class="wishlist-title"><i class="fas fa-heart"></i> Wishlist Countries</h5>
+                <div class="countries-by-continent">
+                    <div class="continent-group">
+                        <h5><i class="fas fa-globe"></i> Wishlist</h5>
+                        <div class="country-flags">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div id="map-controls">
@@ -215,6 +257,7 @@
             <button class="map-filter-button" data-filter="asia">Asia</button>
             <button class="map-filter-button" data-filter="europe">Europe</button>
             <button class="map-filter-button" data-filter="caucasus">Caucasus</button>
+            <button class="map-filter-button" data-filter="wishlist">Wishlist</button>
         </div>
         
         <div id="map"></div>
@@ -301,18 +344,18 @@
         ],
         'latin-america': [
             { flag: '🇧🇷', name: 'Brazil', wishIcon: '🌟' },
-            { flag: '🇦🇴', name: 'Argentina', wishIcon: '🌟' },
+            { flag: '🇦🇷', name: 'Argentina', wishIcon: '🌟' },
             { flag: '🇨🇱', name: 'Chile', wishIcon: '🌟' },
-            { flag: '🇨🇷', name: 'Colombia', wishIcon: '🌟' },
-            { flag: '🇨🇴', name: 'Venezuela', wishIcon: '🌟' },
-            { flag: '🇪🇨', name: 'Panama', wishIcon: '🌟' },
+            { flag: '🇨🇴', name: 'Colombia', wishIcon: '🌟' },
+            { flag: '🇻🇪', name: 'Venezuela', wishIcon: '🌟' },
+            { flag: '🇵🇦', name: 'Panama', wishIcon: '🌟' },
             { flag: '🇲🇽', name: 'Mexico', wishIcon: '🌟' },
-            { flag: '🇲🇾', name: 'Guatemala', wishIcon: '🌟' },
-            { flag: '🇦🇷', name: 'Peru', wishIcon: '🌟' },
-            { flag: '🇻🇪', name: 'Ecuador', wishIcon: '🌟' },
+            { flag: '🇬🇹', name: 'Guatemala', wishIcon: '🌟' },
+            { flag: '🇵🇪', name: 'Peru', wishIcon: '🌟' },
+            { flag: '🇪🇨', name: 'Ecuador', wishIcon: '🌟' },
             { flag: '🇧🇴', name: 'Bolivia', wishIcon: '🌟' },
-            { flag: '🇪🇷', name: 'Cuba', wishIcon: '🌟' },
-            { flag: '🇵🇪', name: 'Puerto Rico', wishIcon: '🌟' },
+            { flag: '🇨🇺', name: 'Cuba', wishIcon: '🌟' },
+            { flag: '🇵🇷', name: 'Puerto Rico', wishIcon: '🌟' },
         ]
     };
 
@@ -320,11 +363,17 @@
     function getTotalCountriesCount() {
         return countriesData.asia.length + countriesData.europe.length + countriesData.caucasus.length;
     }
+    
+    // Calculate total wishlist countries count
+    function getTotalWishlistCount() {
+        return Object.values(wishlistCountries).reduce((total, continent) => total + continent.length, 0);
+    }
 
     // Update countries display
     function updateCountriesDisplay() {
         // Update total count
         const totalCount = getTotalCountriesCount();
+        const wishlistCount = getTotalWishlistCount();
         document.querySelector('.country-count').textContent = totalCount;
         
         // Update continent counts
@@ -334,6 +383,10 @@
             `<i class="fas fa-castle"></i> Europe (${countriesData.europe.length} countries)`;
         document.querySelector('.continent-group:nth-child(3) h5').innerHTML = 
             `<i class="fas fa-mountain-sun"></i> Caucasus (${countriesData.caucasus.length} countries)`;
+        
+        // Update wishlist count
+        document.querySelector('.wishlist-section .continent-group h5').innerHTML = 
+            `<i class="fas fa-globe"></i> Wishlist (${wishlistCount} countries)`;
         
         // Update country flags
         const asiaFlags = document.querySelector('.continent-group:nth-child(1) .country-flags');
@@ -350,6 +403,12 @@
         
         caucasusFlags.innerHTML = countriesData.caucasus.map(country => 
             `<span class="country-item" title="${country.name}">${country.flag}</span>`
+        ).join('');
+        
+        // Wishlist countries
+        const wishlistFlags = document.querySelector('.wishlist-section .country-flags');
+        wishlistFlags.innerHTML = Object.values(wishlistCountries).flat().map(country => 
+            `<span class="wishlist-item" title="${country.name}">${country.flag}<span class="wish-icon">${country.wishIcon}</span></span>`
         ).join('');
     }
 
@@ -508,58 +567,6 @@
                 { lat: 13.7588358, lng: 100.505161, title: "Bangkok, Alameda Suites" },
                 { lat: 7.8874916, lng: 98.3003037, title: "Phuket, Pa Tong" },
                 { lat: 7.7407571, lng: 98.7749888, title: "Phi Phu, Valentines Bungalow" },
-                { lat: 12.0024527, lng: 120.2060122, title: "Pattaya, Home in Pattaya City" },
-                { lat: 12.932119, lng: 100.8814636, title: "Pattaya, Beach" },
-                { lat: 18.7829125, lng: 98.9966371, title: "Chiang Mai, Phra Sing" },
-                { lat: 8.033644, lng: 98.8296906, title: "Krabi, Ao Nang, La Belle" },
-                { lat: 8.0342885, lng: 98.8267155, title: "Krabi, Ao Nang, Monotel" },
-                { lat: 8.0387975, lng: 98.8198457, title: "Krabi, Ao Nang, The Rocco Ao-Nang Krabi" },
-                { lat: 8.0128819, lng: 98.8421495, title: "Krabi, Railay Bay, Diamond Cave Resort"},
-                { lat: 9.5542579, lng: 100.029924, title: "Ko Samui" },
-                { lat: 9.458672, lng: 100.0305871, title: "Ko Samui, Lamai Viewpoint"},
-                { lat: 9.7026519, lng: 100.0106684, title: "Ko Pha Ngan, The Cosy Sunset Beach Resort & Restaurant"},
-                { lat: 10.0981192, lng: 99.8290426, title: "Ko Tao, Home in Ko Tao"},
-                { lat: 10.1166193, lng: 99.8138068, title: "Koh Nang, Koh Nang Yuan Viewpoint"},
-                { lat: 13.7244415, lng: 100.562694, title: "Bangkok, The Emporio Place"},
-                { lat: 13.7118771, lng: 100.6062321, title: "Bangkok, Home in Khet Suan Luang"},
-            ],
-            "Cambodia": [
-                { lat: 13.3524143, lng: 103.8547441, title: "Siem Reap, Krong Siem Reap"},
-                { lat: 11.5510929, lng: 104.9204016, title: "Phnom Penh, SKY Residence"},
-            ],
-            "Sri Lanka": [
-                { lat: 6.4225108, lng: 79.9975638, title: "Benthota, Home in Bentota"},
-                { lat: 6.0098045, lng: 80.2482118, title: "Unawatuna, Home in Unawatuna"},
-                { lat: 6.8424305, lng: 79.8638464, title: "Mount Lavinia, Self order"},
-                { lat: 7.2874413, lng: 80.6394468, title: "Kandy, Kandy IVY Banks Holiday Resort"},
-                { lat: 7.8736801, lng: 80.6466919, title: "Dambulla, Gamagedara Resort"},
-                { lat: 7.9407759, lng: 81.0153238, title: "Polonnaruwa, Thisal Guest House"},
-                { lat: 6.8413057, lng: 79.8620323, title: "Mount Lavinia, Ranveli Beach Resort"},
-                { lat: 7.2998006, lng: 80.3825923, title: "Pinnawala, Hotel Elephant Bay"},
-            ],
-            "Laos": [
-                { lat: 17.9678224, lng: 102.6011228, title: "Vientiane"},
-                { lat: 19.8845625, lng: 102.1328626, title: "Luang Prabang, Chaliya Boutique Garden"},
-                { lat: 18.928473, lng: 102.4452279, title: "Vang Vieng, Bountang Mountain View Riverside Hotel"},
-            ],
-            "Japan": [
-                { lat: 34.6734763, lng: 135.5228785, title: "Osaka, Home in Osaka"},
-                { lat: 34.9945252, lng: 135.7568764, title: "Kyoto, Super Hotel Kyoto Karasuma Gojo"},
-                { lat: 35.7039206, lng: 139.7948724, title: "Tokyo, HOTEL MYSTAYS Asakusa"},
-                { lat: 35.3606246, lng: 138.7170637, title: "Fujinomiya, Mount fuji"},
-                { lat: 35.446711, lng: 139.6515033, title: "Yokohama, The Gundam Factory Yokohama"},
-                { lat: 34.685047, lng: 135.8404371, title: "Nara, Park Nara"},
-            ],
-            "Hong Kong": [
-                { lat: 22.321771, lng: 114.1675655, title: "Hong Kong"},
-            ],
-            "Philippines": [
-                { lat: 10.3329783, lng: 123.9073145, title: "Cebu City, Avida Towers"},
-                { lat: 10.3166272, lng: 119.3414294, title: "Palawan, Ocean Manor Inn"},
-                { lat: 9.7394999, lng: 118.7313656, title: "Puerto Princesa, Mariner's Pension House"},
-                { lat: 9.9525364, lng: 123.3660057, title: "Moalboal, Dolce Vita Resort"},
-                { lat: 9.5221595, lng: 123.4288375, title: "Oslob, Luna Oslob Travellers Inn"},
-                { lat: 11.1827228, lng: 119.3927341, title: "El Nido, Silverise Pension"},
                 { lat: 12.0024527, lng: 120.2060122, title: "Coron, Ina HomeStay"},
                 { lat: 11.9523585, lng: 121.9295729, title: "Boracay, White Bitch"},
                 { lat: 9.5517335, lng: 123.7746862, title: "Panglao"},
@@ -628,6 +635,87 @@
             "Hungary": [
                 { lat: 47.498, lng: 19.0402, title: "Budapest"},
             ],
+            "Egypt": [
+                { lat: 30.0444196, lng: 31.2357116, title: "Cairo (Wishlist)", wishlist: true},
+            ],
+            "Madagascar": [
+                { lat: -18.8791902, lng: 47.5079055, title: "Antananarivo (Wishlist)", wishlist: true},
+            ],
+            "Mauritius": [
+                { lat: -20.348404, lng: 57.552152, title: "Port Louis (Wishlist)", wishlist: true},
+            ],
+            "Tanzania": [
+                { lat: -6.792354, lng: 39.208328, title: "Dar es Salaam (Wishlist)", wishlist: true},
+            ],
+            "Kenya": [
+                { lat: -1.292066, lng: 36.821946, title: "Nairobi (Wishlist)", wishlist: true},
+            ],
+            "Ethiopia": [
+                { lat: 9.145, lng: 40.489673, title: "Addis Ababa (Wishlist)", wishlist: true},
+            ],
+            "Qatar": [
+                { lat: 25.276987, lng: 51.520008, title: "Doha (Wishlist)", wishlist: true},
+            ],
+            "China": [
+                { lat: 39.904211, lng: 116.407395, title: "Beijing (Wishlist)", wishlist: true},
+            ],
+            "South Korea": [
+                { lat: 37.566535, lng: 126.9779692, title: "Seoul (Wishlist)", wishlist: true},
+            ],
+            "Papua New Guinea": [
+                { lat: -9.4438, lng: 147.1803, title: "Port Moresby (Wishlist)", wishlist: true},
+            ],
+            "Australia": [
+                { lat: -33.8688, lng: 151.2093, title: "Sydney (Wishlist)", wishlist: true},
+            ],
+            "New Zealand": [
+                { lat: -36.8485, lng: 174.7633, title: "Auckland (Wishlist)", wishlist: true},
+            ],
+            "Canada": [
+                { lat: 45.5017, lng: -73.5673, title: "Montreal (Wishlist)", wishlist: true},
+            ],
+            "USA": [
+                { lat: 40.7128, lng: -74.0060, title: "New York (Wishlist)", wishlist: true},
+            ],
+            "Brazil": [
+                { lat: -22.9068, lng: -43.1729, title: "Rio de Janeiro (Wishlist)", wishlist: true},
+            ],
+            "Argentina": [
+                { lat: -34.6118, lng: -58.3960, title: "Buenos Aires (Wishlist)", wishlist: true},
+            ],
+            "Chile": [
+                { lat: -33.4489, lng: -70.6693, title: "Santiago (Wishlist)", wishlist: true},
+            ],
+            "Colombia": [
+                { lat: 4.7110, lng: -74.0721, title: "Bogotá (Wishlist)", wishlist: true},
+            ],
+            "Venezuela": [
+                { lat: 10.4806, lng: -66.9036, title: "Caracas (Wishlist)", wishlist: true},
+            ],
+            "Panama": [
+                { lat: 8.9824, lng: -79.5199, title: "Panama City (Wishlist)", wishlist: true},
+            ],
+            "Mexico": [
+                { lat: 19.4326, lng: -99.1332, title: "Mexico City (Wishlist)", wishlist: true},
+            ],
+            "Guatemala": [
+                { lat: 14.6349, lng: -90.5069, title: "Guatemala City (Wishlist)", wishlist: true},
+            ],
+            "Peru": [
+                { lat: -12.0464, lng: -77.0428, title: "Lima (Wishlist)", wishlist: true},
+            ],
+            "Ecuador": [
+                { lat: -0.1807, lng: -78.4678, title: "Quito (Wishlist)", wishlist: true},
+            ],
+            "Bolivia": [
+                { lat: -16.2902, lng: -63.5887, title: "Santa Cruz (Wishlist)", wishlist: true},
+            ],
+            "Cuba": [
+                { lat: 23.1136, lng: -82.3666, title: "Havana (Wishlist)", wishlist: true},
+            ],
+            "Puerto Rico": [
+                { lat: 18.4655, lng: -66.1057, title: "San Juan (Wishlist)", wishlist: true},
+            ],
         };
 
         // Build continent mapping dynamically from countries in locations
@@ -675,7 +763,34 @@
             "Macao": "asia",
             "Maldives": "asia",
             "Georgia": "caucasus",
-            "Azerbaijan": "caucasus"
+            "Azerbaijan": "caucasus",
+            "Egypt": "wishlist",
+            "Madagascar": "wishlist",
+            "Mauritius": "wishlist",
+            "Tanzania": "wishlist",
+            "Kenya": "wishlist",
+            "Ethiopia": "wishlist",
+            "Qatar": "wishlist",
+            "China": "wishlist",
+            "South Korea": "wishlist",
+            "Papua New Guinea": "wishlist",
+            "Australia": "wishlist",
+            "New Zealand": "wishlist",
+            "Canada": "wishlist",
+            "USA": "wishlist",
+            "Brazil": "wishlist",
+            "Argentina": "wishlist",
+            "Chile": "wishlist",
+            "Colombia": "wishlist",
+            "Venezuela": "wishlist",
+            "Panama": "wishlist",
+            "Mexico": "wishlist",
+            "Guatemala": "wishlist",
+            "Peru": "wishlist",
+            "Ecuador": "wishlist",
+            "Bolivia": "wishlist",
+            "Cuba": "wishlist",
+            "Puerto Rico": "wishlist",
         };
 
         // Build continentMapping from countryToContinentMap
@@ -700,7 +815,8 @@
         const continentColors = {
             'asia': '#4CAF50',
             'europe': '#2196F3',
-            'caucasus': '#FF9800'
+            'caucasus': '#FF9800',
+            'wishlist': '#E91E63'
         };
         
         // Create markers with different icons based on continent
@@ -709,17 +825,19 @@
         for (const country in locations) {
             for (const location of locations[country]) {
                 const continent = getContinent(country);
+                const isWishlist = location.wishlist === true;
+                
                 const marker = new google.maps.Marker({
                     position: { lat: location.lat, lng: location.lng },
                     map: map,
                     title: location.title,
                     icon: {
-                        path: google.maps.SymbolPath.CIRCLE,
+                        path: isWishlist ? google.maps.SymbolPath.FORWARD_CLOSED_ARROW : google.maps.SymbolPath.CIRCLE,
                         fillColor: continentColors[continent] || '#FF0000',
-                        fillOpacity: 0.8,
-                        strokeWeight: 1,
-                        strokeColor: '#FFFFFF',
-                        scale: 8
+                        fillOpacity: isWishlist ? 0.9 : 0.8,
+                        strokeWeight: isWishlist ? 2 : 1,
+                        strokeColor: isWishlist ? '#FFD700' : '#FFFFFF',
+                        scale: isWishlist ? 10 : 8
                     },
                     animation: google.maps.Animation.DROP // Add animation to markers
                 });
@@ -728,7 +846,7 @@
                 const infoWindow = new google.maps.InfoWindow({
                     content: `
                         <div class="custom-info-window">
-                            <div class="info-location-name">${location.title}</div>
+                            <div class="info-location-name">${location.title} ${isWishlist ? '🌟' : ''}</div>
                             <div class="info-continent continent-${continent}">${continent ? continent.charAt(0).toUpperCase() + continent.slice(1) : 'Unknown'}</div>
                         </div>
                     `,
@@ -767,7 +885,7 @@
                 continentFilterButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
                 
-                // Get filter value (all, asia, europe, caucasus)
+                // Get filter value (all, asia, europe, caucasus, wishlist)
                 const filter = button.getAttribute('data-filter');
                 console.log("Filtering by:", filter); // Debug log
                 
@@ -776,9 +894,19 @@
                 for (const country in locations) {
                     for (const location of locations[country]) {
                         const continent = getContinent(country);
-                        console.log(country, "Continent:", continent); // Debug log
+                        const isWishlist = location.wishlist === true;
+                        console.log(country, "Continent:", continent, "Wishlist:", isWishlist); // Debug log
                         
-                        if (filter === 'all' || continent === filter) {
+                        let shouldShow = false;
+                        if (filter === 'all') {
+                            shouldShow = true;
+                        } else if (filter === 'wishlist') {
+                            shouldShow = isWishlist;
+                        } else {
+                            shouldShow = continent === filter && !isWishlist;
+                        }
+                        
+                        if (shouldShow) {
                             markers[markerIndex].setVisible(true);
                         } else {
                             markers[markerIndex].setVisible(false);
