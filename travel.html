@@ -216,12 +216,6 @@
                     <div class="country-flags">
                     </div>
                 </div>
-                
-                <div class="continent-group">
-                    <h5><i class="fas fa-mountain-sun"></i> Caucasus</h5>
-                    <div class="country-flags">
-                    </div>
-                </div>
             </div>
             
             <div class="wishlist-section">
@@ -240,7 +234,6 @@
             <button class="map-filter-button active" data-filter="all">All</button>
             <button class="map-filter-button" data-filter="asia">Asia</button>
             <button class="map-filter-button" data-filter="europe">Europe</button>
-            <button class="map-filter-button" data-filter="caucasus">Caucasus</button>
             <button class="map-filter-button" data-filter="wishlist">Wishlist</button>
         </div>
         
@@ -274,6 +267,8 @@
             { flag: '🇦🇪', name: 'UAE' },
             { flag: '🇮🇱', name: 'Israel' },
             { flag: '🇹🇷', name: 'Turkey' },
+            { flag: '🇬🇪', name: 'Georgia' },
+            { flag: '🇦🇿', name: 'Azerbaijan' },
             // { flag: '🇰🇿', name: 'Kazakstan' },
             // { flag: '🇺🇿', name: 'Uzbekistan' },
         ],
@@ -297,10 +292,6 @@
             { flag: '🇧🇪', name: 'Belgium' },
             { flag: '🇭🇺', name: 'Hungary' }
         ],
-        caucasus: [
-            { flag: '🇬🇪', name: 'Georgia' },
-            { flag: '🇦🇿', name: 'Azerbaijan' }
-        ]
     };
 
     // Wishlist countries - places to visit in the future
@@ -347,7 +338,7 @@
 
     // Calculate total countries count
     function getTotalCountriesCount() {
-        return countriesData.asia.length + countriesData.europe.length + countriesData.caucasus.length;
+        return countriesData.asia.length + countriesData.europe.length;
     }
     
     // Calculate total wishlist countries count
@@ -367,9 +358,7 @@
             `<i class="fas fa-mountain"></i> Asia (${countriesData.asia.length} countries)`;
         document.querySelector('.continent-group:nth-child(2) h5').innerHTML = 
             `<i class="fas fa-castle"></i> Europe (${countriesData.europe.length} countries)`;
-        document.querySelector('.continent-group:nth-child(3) h5').innerHTML = 
-            `<i class="fas fa-mountain-sun"></i> Caucasus (${countriesData.caucasus.length} countries)`;
-        
+
         // Update wishlist count
         document.querySelector('.wishlist-section .continent-group h5').innerHTML = 
             `<i class="fas fa-globe"></i> Wishlist (${wishlistCount} countries)`;
@@ -377,17 +366,12 @@
         // Update country flags
         const asiaFlags = document.querySelector('.continent-group:nth-child(1) .country-flags');
         const europeFlags = document.querySelector('.continent-group:nth-child(2) .country-flags');
-        const caucasusFlags = document.querySelector('.continent-group:nth-child(3) .country-flags');
-        
+
         asiaFlags.innerHTML = countriesData.asia.map(country => 
             `<span class="country-item" title="${country.name}">${country.flag}</span>`
         ).join('');
         
         europeFlags.innerHTML = countriesData.europe.map(country => 
-            `<span class="country-item" title="${country.name}">${country.flag}</span>`
-        ).join('');
-        
-        caucasusFlags.innerHTML = countriesData.caucasus.map(country => 
             `<span class="country-item" title="${country.name}">${country.flag}</span>`
         ).join('');
         
@@ -801,8 +785,8 @@
             "Uzbekistan": "asia",
             "Macao": "asia",
             "Maldives": "asia",
-            "Georgia": "caucasus",
-            "Azerbaijan": "caucasus",
+            "Georgia": "asia",
+            "Azerbaijan": "asia",
             "Egypt": "wishlist",
             "Madagascar": "wishlist",
             "Mauritius": "wishlist",
@@ -854,7 +838,6 @@
         const continentColors = {
             'asia': '#4CAF50',
             'europe': '#2196F3',
-            'caucasus': '#FF9800',
             'wishlist': '#E91E63'
         };
         
@@ -932,7 +915,7 @@
                 continentFilterButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
                 
-                // Get filter value (all, asia, europe, caucasus, wishlist)
+                // Get filter value (all, asia, europe, wishlist)
                 const filter = button.getAttribute('data-filter');
                 console.log("Filtering by:", filter); // Debug log
                 
