@@ -322,6 +322,215 @@
             margin: 5px 0;
             padding-left: 10px;
         }
+
+        /* Journey Animation Styles */
+        .journey-controls {
+            margin-bottom: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+
+        .journey-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .journey-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .journey-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .journey-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .journey-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .journey-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .journey-btn.active {
+            background: #FFD700;
+            color: #333;
+        }
+
+        .journey-timeline {
+            margin-bottom: 20px;
+        }
+
+        .timeline-container {
+            position: relative;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            border-radius: 20px;
+            width: 0%;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .timeline-progress::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transform: translate(50%, -50%);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .journey-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .current-country {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .country-flag-large {
+            font-size: 2em;
+        }
+
+        .journey-stats {
+            text-align: right;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .speed-slider {
+            flex: 1;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .speed-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #FFD700;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .speed-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #FFD700;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .animated-marker {
+            animation: markerPulse 2s infinite;
+        }
+
+        @keyframes markerPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .journey-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawPath 2s ease-in-out forwards;
+        }
+
+        @keyframes drawPath {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .journey-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .journey-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .journey-info {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .journey-stats {
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -384,6 +593,57 @@
                         <span id="visited-count">0</span> of <span id="total-world-countries">195</span> countries visited
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Journey Animation Controls -->
+        <div class="journey-controls">
+            <div class="journey-header">
+                <h3 class="journey-title">
+                    <i class="fas fa-route"></i> Journey Animation
+                </h3>
+                <div class="journey-buttons">
+                    <button class="journey-btn" id="play-journey">
+                        <i class="fas fa-play"></i> Play
+                    </button>
+                    <button class="journey-btn" id="pause-journey" disabled>
+                        <i class="fas fa-pause"></i> Pause
+                    </button>
+                    <button class="journey-btn" id="reset-journey">
+                        <i class="fas fa-stop"></i> Reset
+                    </button>
+                </div>
+            </div>
+
+            <div class="journey-timeline">
+                <div class="timeline-container">
+                    <div class="timeline-progress" id="timeline-progress"></div>
+                </div>
+                <div class="timeline-labels">
+                    <span id="start-year">2000</span>
+                    <span id="end-year">2024</span>
+                </div>
+            </div>
+
+            <div class="journey-info">
+                <div class="current-country">
+                    <span class="country-flag-large" id="current-flag">🌍</span>
+                    <div>
+                        <div id="current-country-name">Ready to start journey</div>
+                        <div id="current-visit-date" style="font-size: 0.9em; opacity: 0.8;"></div>
+                    </div>
+                </div>
+                <div class="journey-stats">
+                    <div>Countries visited: <span id="journey-countries-count">0</span></div>
+                    <div>Journey progress: <span id="journey-progress-percent">0%</span></div>
+                </div>
+            </div>
+
+            <div class="speed-control">
+                <i class="fas fa-tachometer-alt"></i>
+                <span style="margin-left: 5px;">Speed:</span>
+                <input type="range" class="speed-slider" id="speed-slider" min="0.5" max="3" step="0.5" value="1">
+                <span id="speed-value">1x</span>
             </div>
         </div>
 
@@ -456,9 +716,9 @@
             { flag: '🇰🇭', name: 'Cambodia', visitDate: '2022-06', duration: '21 days', rating: '⭐⭐⭐⭐', highlights: ['Siem Reap', 'Phnom Penh'], notes: 'Rich Khmer heritage' },
             { flag: '🇸🇬', name: 'Singapore', visitDate: '2022-05', duration: '4 days', rating: '⭐⭐⭐⭐', highlights: ['Singapore'], notes: 'Modern city-state perfection' },
             { flag: '🇲🇾', name: 'Malaysia', visitDate: '2022-07', duration: '70 days', rating: '⭐⭐⭐⭐', highlights: ['Kuala Lumpur'], notes: 'Great cultural diversity' },
-            { flag: '🇦🇪', name: 'UAE', visitDate: '2024-05', duration: '21 days', rating: '⭐⭐⭐⭐', highlights: ['Dubai', 'Abu Dhabi'], notes: 'Modern Arabian dream' },
+            { flag: '🇦🇪', name: 'UAE', visitDate: '2018-03', duration: '21 days', rating: '⭐⭐⭐⭐', highlights: ['Dubai', 'Abu Dhabi'], notes: 'Modern Arabian dream' },
             { flag: '🇮🇱', name: 'Israel', visitDate: '2019-05', duration: '14 days', rating: '⭐⭐⭐⭐', highlights: ['Jerusalem', 'Tel Aviv-Yafo', 'Haifa'], notes: 'Historical and spiritual journey' },
-            { flag: '🇹🇷', name: 'Turkey', visitDate: '2017-01', duration: '14 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Istanbul'], notes: 'Bridge between Europe and Asia' },
+            { flag: '🇹🇷', name: 'Turkey', visitDate: '2018-05', duration: '14 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Istanbul'], notes: 'Bridge between Europe and Asia' },
             { flag: '🇬🇪', name: 'Georgia', visitDate: '2024-05', duration: '360 days', rating: '⭐⭐⭐⭐', highlights: ['Kutaisi', 'Batumi', 'Tbilisi', 'Borjomi', 'Mestia'], notes: 'Hidden gem with great hospitality' },
             { flag: '🇦🇿', name: 'Azerbaijan', visitDate: '2024-09', duration: '10 days', rating: '⭐⭐⭐', highlights: ['Baku'], notes: 'Land of fire and oil' },
             // { flag: '🇺🇿', name: 'Uzbekistan', visitDate: '2025-08', duration: '07 days', rating: '⭐⭐⭐', highlights: ['Tashkent'], notes: 'Land of rivers and mountains' },
@@ -466,22 +726,22 @@
         ],
         europe: [
             { flag: '🇧🇾', name: 'Belarus', visitDate: '2014-06', duration: '7 days', rating: '⭐⭐⭐', highlights: ['Minsk'], notes: 'Last dictatorship of Europe' },
-            { flag: '🇵🇱', name: 'Poland', visitDate: '2015-09', duration: '30 days', rating: '⭐⭐⭐⭐', highlights: ['Warsaw', 'Kraków', 'Wrocław'], notes: 'Rich history and culture' },
+            { flag: '🇵🇱', name: 'Poland', visitDate: '2018-10', duration: '30 days', rating: '⭐⭐⭐⭐', highlights: ['Warsaw', 'Kraków', 'Wrocław'], notes: 'Rich history and culture' },
             { flag: '🇱🇹', name: 'Lithuania', visitDate: '2019-10', duration: '5 days', rating: '⭐⭐⭐⭐', highlights: ['Vilnius'], notes: 'Beautiful Baltic state' },
-            { flag: '🇱🇻', name: 'Latvia', visitDate: '2000-01', duration: '1000 days', rating: '⭐⭐⭐', highlights: ['Riga', 'Jūrmala'], notes: 'Charming medieval city' },
-            { flag: '🇪🇪', name: 'Estonia', visitDate: '2000-01', duration: '1 days', rating: '⭐⭐⭐⭐', highlights: ['Tallinn'], notes: 'Most digital country' },
-            { flag: '🇫🇮', name: 'Finland', visitDate: '2022-07', duration: '10 days', rating: '⭐⭐⭐⭐', highlights: ['Helsinki', 'Rovaniemi'], notes: 'Land of thousand lakes' },
-            { flag: '🇸🇪', name: 'Sweden', visitDate: '2000-01', duration: '1 days', rating: '⭐⭐⭐⭐', highlights: ['Stockholm'], notes: 'Scandinavian perfection' },
-            { flag: '🇩🇪', name: 'Germany', visitDate: '2000-01', duration: '30 days', rating: '⭐⭐⭐⭐', highlights: ['Berlin', 'Frankfurt am Main'], notes: 'Efficient and historical' },
-            { flag: '🇦🇹', name: 'Austria', visitDate: '2000-01', duration: '7 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Vienna'], notes: 'Musical and mountainous' },
-            { flag: '🇨🇿', name: 'Czech Republic', visitDate: '2021-09', duration: '14 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Prague', 'Pilzen'], notes: 'Fairy tale architecture' },
+            { flag: '🇱🇻', name: 'Latvia', visitDate: '2019-06', duration: '1000 days', rating: '⭐⭐⭐', highlights: ['Riga', 'Jūrmala'], notes: 'Charming medieval city' },
+            { flag: '🇪🇪', name: 'Estonia', visitDate: '2019-11', duration: '1 days', rating: '⭐⭐⭐⭐', highlights: ['Tallinn'], notes: 'Most digital country' },
+            { flag: '🇫🇮', name: 'Finland', visitDate: '2022-01', duration: '10 days', rating: '⭐⭐⭐⭐', highlights: ['Helsinki', 'Rovaniemi'], notes: 'Land of thousand lakes' },
+            { flag: '🇸🇪', name: 'Sweden', visitDate: '2019-10', duration: '1 days', rating: '⭐⭐⭐⭐', highlights: ['Stockholm'], notes: 'Scandinavian perfection' },
+            { flag: '🇩🇪', name: 'Germany', visitDate: '2017-09', duration: '30 days', rating: '⭐⭐⭐⭐', highlights: ['Berlin', 'Frankfurt am Main'], notes: 'Efficient and historical' },
+            { flag: '🇦🇹', name: 'Austria', visitDate: '2007-01', duration: '7 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Vienna'], notes: 'Musical and mountainous' },
+            { flag: '🇨🇿', name: 'Czech Republic', visitDate: '2017-09', duration: '14 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Prague', 'Pilzen'], notes: 'Fairy tale architecture' },
             { flag: '🇫🇷', name: 'France', visitDate: '2017-04', duration: '7 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Paris'], notes: 'Art, culture, and cuisine' },
             { flag: '🇮🇹', name: 'Italy', visitDate: '2021-09', duration: '21 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Milan', 'Treviso', 'Bologna', 'Florence', 'Venice', 'Rimini'], notes: 'Renaissance and romance' },
-            { flag: '🇳🇱', name: 'Netherlands', visitDate: '2000-01', duration: '7 days', rating: '⭐⭐⭐⭐', highlights: ['Amsterdam', 'Rotterdam'], notes: 'Liberal and flat' },
-            { flag: '🇸🇲', name: 'San Marino', visitDate: '2000-01', duration: '1 day', rating: '⭐⭐⭐', highlights: ['San Marino'], notes: 'Tiny mountain republic' },
+            { flag: '🇳🇱', name: 'Netherlands', visitDate: '2018-03', duration: '7 days', rating: '⭐⭐⭐⭐', highlights: ['Amsterdam', 'Rotterdam'], notes: 'Liberal and flat' },
+            { flag: '🇸🇲', name: 'San Marino', visitDate: '2021-09', duration: '1 day', rating: '⭐⭐⭐', highlights: ['San Marino'], notes: 'Tiny mountain republic' },
             { flag: '🇬🇷', name: 'Greece', visitDate: '2017-08', duration: '14 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Athens', 'Kalampaka', 'Santorini'], notes: 'Cradle of civilization' },
             { flag: '🇧🇪', name: 'Belgium', visitDate: '2016-10', duration: '7 days', rating: '⭐⭐⭐⭐', highlights: ['Brussels'], notes: 'Waffles and medieval charm' },
-            { flag: '🇭🇺', name: 'Hungary', visitDate: '2000-01', duration: '7 days', rating: '⭐⭐⭐⭐', highlights: ['Budapest'], notes: 'Pearl of the Danube' },
+            { flag: '🇭🇺', name: 'Hungary', visitDate: '2017-01', duration: '7 days', rating: '⭐⭐⭐⭐', highlights: ['Budapest'], notes: 'Pearl of the Danube' },
             // { flag: '🇪🇸', name: 'Spain', visitDate: '2025-08', duration: 'long term', rating: '⭐⭐⭐⭐', highlights: ['Barcelona'], notes: 'Catalonia and Andalusia' }
         ],
     };
@@ -1275,6 +1535,290 @@
                 flightPath.setMap(null);
             }
         });
+
+        // Journey Animation System
+        let journeyAnimation = {
+            isPlaying: false,
+            isPaused: false,
+            currentStep: 0,
+            speed: 1,
+            intervalId: null,
+            journeyData: [],
+            animatedMarkers: [],
+            animatedPaths: []
+        };
+
+        // Prepare journey data - sort countries by visit date
+        function prepareJourneyData() {
+            const allCountries = [];
+
+            // Collect all countries with visit dates
+            Object.values(countriesData).flat().forEach(country => {
+                if (country.visitDate && !country.visitDate.includes('2025')) {
+                    allCountries.push({
+                        ...country,
+                        visitYear: parseInt(country.visitDate.split('-')[0]),
+                        visitMonth: parseInt(country.visitDate.split('-')[1])
+                    });
+                }
+            });
+
+            // Sort by visit date
+            allCountries.sort((a, b) => {
+                if (a.visitYear !== b.visitYear) {
+                    return a.visitYear - b.visitYear;
+                }
+                return a.visitMonth - b.visitMonth;
+            });
+
+            journeyAnimation.journeyData = allCountries;
+
+            // Update timeline labels
+            if (allCountries.length > 0) {
+                document.getElementById('start-year').textContent = allCountries[0].visitYear;
+                document.getElementById('end-year').textContent = allCountries[allCountries.length - 1].visitYear;
+            }
+        }
+
+        // Create animated marker for country
+        function createAnimatedMarker(country) {
+            const countryLocations = locations[country.name];
+            if (!countryLocations || countryLocations.length === 0) return null;
+
+            const location = countryLocations[0]; // Use first location
+            const marker = new google.maps.Marker({
+                position: { lat: location.lat, lng: location.lng },
+                map: map,
+                title: `${country.name} (${country.visitDate})`,
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 8,
+                    fillColor: '#FFD700',
+                    fillOpacity: 1,
+                    strokeColor: '#FF6B35',
+                    strokeWeight: 3
+                },
+                animation: google.maps.Animation.DROP
+            });
+
+            // Add pulse animation
+            setTimeout(() => {
+                marker.setIcon({
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 12,
+                    fillColor: '#FFD700',
+                    fillOpacity: 0.8,
+                    strokeColor: '#FF6B35',
+                    strokeWeight: 4
+                });
+            }, 600);
+
+            // Add info window
+            const infoWindow = new google.maps.InfoWindow({
+                content: `
+                    <div class="custom-info-window">
+                        <div class="info-location-name">${country.flag} ${country.name}</div>
+                        <div class="info-visit-date">Visited: ${country.visitDate}</div>
+                        <div class="info-duration">Duration: ${country.duration}</div>
+                        <div class="info-rating">Rating: ${country.rating}</div>
+                    </div>
+                `
+            });
+
+            marker.addListener('click', () => {
+                infoWindow.open(map, marker);
+            });
+
+            return marker;
+        }
+
+        // Create animated path between two points
+        function createAnimatedPath(fromMarker, toMarker) {
+            if (!fromMarker || !toMarker) return null;
+
+            const path = new google.maps.Polyline({
+                path: [fromMarker.getPosition(), toMarker.getPosition()],
+                geodesic: true,
+                strokeColor: '#FF6B35',
+                strokeOpacity: 0.8,
+                strokeWeight: 3,
+                map: map
+            });
+
+            return path;
+        }
+
+        // Update journey UI
+        function updateJourneyUI(step) {
+            const progress = (step / journeyAnimation.journeyData.length) * 100;
+            document.getElementById('timeline-progress').style.width = `${progress}%`;
+            document.getElementById('journey-progress-percent').textContent = `${Math.round(progress)}%`;
+            document.getElementById('journey-countries-count').textContent = step;
+
+            if (step > 0 && step <= journeyAnimation.journeyData.length) {
+                const currentCountry = journeyAnimation.journeyData[step - 1];
+                document.getElementById('current-flag').textContent = currentCountry.flag;
+                document.getElementById('current-country-name').textContent = currentCountry.name;
+                document.getElementById('current-visit-date').textContent = `Visited: ${currentCountry.visitDate}`;
+            }
+        }
+
+        // Play journey animation
+        function playJourney() {
+            if (journeyAnimation.isPlaying) return;
+
+            journeyAnimation.isPlaying = true;
+            document.getElementById('play-journey').disabled = true;
+            document.getElementById('pause-journey').disabled = false;
+            document.getElementById('play-journey').classList.add('active');
+
+            const stepDuration = 2000 / journeyAnimation.speed; // 2 seconds per step divided by speed
+
+            journeyAnimation.intervalId = setInterval(() => {
+                if (journeyAnimation.currentStep >= journeyAnimation.journeyData.length) {
+                    stopJourney();
+                    return;
+                }
+
+                const country = journeyAnimation.journeyData[journeyAnimation.currentStep];
+                const marker = createAnimatedMarker(country);
+
+                if (marker) {
+                    journeyAnimation.animatedMarkers.push(marker);
+
+                    // Create path from previous marker
+                    if (journeyAnimation.animatedMarkers.length > 1) {
+                        const prevMarker = journeyAnimation.animatedMarkers[journeyAnimation.animatedMarkers.length - 2];
+                        const path = createAnimatedPath(prevMarker, marker);
+                        if (path) {
+                            journeyAnimation.animatedPaths.push(path);
+                        }
+                    }
+
+                    // Center map on current marker
+                    map.panTo(marker.getPosition());
+                    map.setZoom(6);
+
+                    // Zoom back out after a moment
+                    setTimeout(() => {
+                        if (journeyAnimation.isPlaying) {
+                            map.setZoom(3);
+                        }
+                    }, 1000);
+                }
+
+                journeyAnimation.currentStep++;
+                updateJourneyUI(journeyAnimation.currentStep);
+            }, stepDuration);
+        }
+
+        // Pause journey animation
+        function pauseJourney() {
+            if (!journeyAnimation.isPlaying) return;
+
+            journeyAnimation.isPlaying = false;
+            journeyAnimation.isPaused = true;
+
+            if (journeyAnimation.intervalId) {
+                clearInterval(journeyAnimation.intervalId);
+                journeyAnimation.intervalId = null;
+            }
+
+            document.getElementById('play-journey').disabled = false;
+            document.getElementById('pause-journey').disabled = true;
+            document.getElementById('play-journey').classList.remove('active');
+            document.getElementById('play-journey').innerHTML = '<i class="fas fa-play"></i> Resume';
+        }
+
+        // Stop and reset journey animation
+        function resetJourney() {
+            journeyAnimation.isPlaying = false;
+            journeyAnimation.isPaused = false;
+            journeyAnimation.currentStep = 0;
+
+            if (journeyAnimation.intervalId) {
+                clearInterval(journeyAnimation.intervalId);
+                journeyAnimation.intervalId = null;
+            }
+
+            // Clear animated markers
+            journeyAnimation.animatedMarkers.forEach(marker => {
+                marker.setMap(null);
+            });
+            journeyAnimation.animatedMarkers = [];
+
+            // Clear animated paths
+            journeyAnimation.animatedPaths.forEach(path => {
+                path.setMap(null);
+            });
+            journeyAnimation.animatedPaths = [];
+
+            // Reset UI
+            document.getElementById('play-journey').disabled = false;
+            document.getElementById('pause-journey').disabled = true;
+            document.getElementById('play-journey').classList.remove('active');
+            document.getElementById('play-journey').innerHTML = '<i class="fas fa-play"></i> Play';
+
+            updateJourneyUI(0);
+            document.getElementById('current-flag').textContent = '🌍';
+            document.getElementById('current-country-name').textContent = 'Ready to start journey';
+            document.getElementById('current-visit-date').textContent = '';
+
+            // Reset map view
+            map.setCenter({ lat: 20, lng: 0 });
+            map.setZoom(2);
+        }
+
+        // Stop journey (used when animation completes)
+        function stopJourney() {
+            journeyAnimation.isPlaying = false;
+            journeyAnimation.isPaused = false;
+
+            if (journeyAnimation.intervalId) {
+                clearInterval(journeyAnimation.intervalId);
+                journeyAnimation.intervalId = null;
+            }
+
+            document.getElementById('play-journey').disabled = false;
+            document.getElementById('pause-journey').disabled = true;
+            document.getElementById('play-journey').classList.remove('active');
+            document.getElementById('play-journey').innerHTML = '<i class="fas fa-play"></i> Replay';
+
+            // Show completion message
+            document.getElementById('current-country-name').textContent = 'Journey completed!';
+            document.getElementById('current-visit-date').textContent = `${journeyAnimation.journeyData.length} countries visited`;
+        }
+
+        // Initialize journey animation
+        function initJourneyAnimation() {
+            prepareJourneyData();
+
+            // Event listeners
+            document.getElementById('play-journey').addEventListener('click', () => {
+                if (journeyAnimation.currentStep >= journeyAnimation.journeyData.length) {
+                    resetJourney();
+                }
+                playJourney();
+            });
+
+            document.getElementById('pause-journey').addEventListener('click', pauseJourney);
+            document.getElementById('reset-journey').addEventListener('click', resetJourney);
+
+            // Speed control
+            const speedSlider = document.getElementById('speed-slider');
+            const speedValue = document.getElementById('speed-value');
+
+            speedSlider.addEventListener('input', (e) => {
+                journeyAnimation.speed = parseFloat(e.target.value);
+                speedValue.textContent = `${journeyAnimation.speed}x`;
+            });
+
+            // Initialize UI
+            updateJourneyUI(0);
+        }
+
+        // Initialize journey animation after map is ready
+        initJourneyAnimation();
     }
 </script>
 
