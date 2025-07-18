@@ -448,9 +448,9 @@
             { flag: '🇱🇰', name: 'Sri Lanka', visitDate: '2020-01', duration: '60 days', rating: '⭐⭐⭐⭐', highlights: ['Benthota', 'Unawatuna', 'Mount Lavinia', 'Kandy', 'Dambulla', 'Polonnaruwa', 'Pinnawala'], notes: 'Rich history and nature' },
             { flag: '🇳🇵', name: 'Nepal', visitDate: '2018-10', duration: '21 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Kathmandu'], notes: 'Life-changing trekking experience' },
             { flag: '🇮🇳', name: 'India', visitDate: '2018-09', duration: '30 days', rating: '⭐⭐⭐⭐', highlights: ['New Delhi', 'Jaipur', 'Varanasi', 'Agra', 'Goa'], notes: 'Incredible diversity and chaos' },
-            { flag: '🇮🇩', name: 'Indonesia', visitDate: '2017-12', duration: '60 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Bali', 'Jakarta', 'Kuta', 'Ubud'], notes: 'Island paradise with rich culture' },
+            { flag: '🇮🇩', name: 'Indonesia', visitDate: '2017-12', duration: '60 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Jakarta', 'Kuta', 'Ubud', 'Amed', 'Sanur'], notes: 'Island paradise with rich culture' },
             { flag: '🇵🇭', name: 'Philippines', visitDate: '2017-11', duration: '120 days', rating: '⭐⭐⭐⭐', highlights: ['Cebu City', 'Palawan', 'Puerto Princesa', 'Moalboal', 'Oslob', 'El Nido', 'Coron', 'Boracay', 'Panglao', 'Manila', 'Bohol'], notes: 'Beautiful islands and friendly people' },
-            { flag: '🇹🇭', name: 'Thailand', visitDate: '2017-10', duration: '360 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Bangkok', 'Phuket', 'Phi Phu', 'Pattaya', 'Chiang Mai', 'Krabi', 'Ko Samui', 'Koh Pha Ngan', 'Koh Nang'], notes: 'Perfect backpacking destination' },
+            { flag: '🇹🇭', name: 'Thailand', visitDate: '2017-10', duration: '360 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Bangkok', 'Phuket', 'Phi Phu', 'Pattaya', 'Chiang Mai', 'Krabi', 'Koh Samui', 'Koh Pha Ngan', 'Koh Nang'], notes: 'Perfect backpacking destination' },
             { flag: '🇱🇦', name: 'Laos', visitDate: '2017-09', duration: '30 days', rating: '⭐⭐⭐⭐', highlights: ['Vientiane', 'Luang Prabang', 'Vang Vieng'], notes: 'Peaceful and authentic' },
             { flag: '🇻🇳', name: 'Vietnam', visitDate: '2017-08', duration: '30 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Hanoi', 'Da Nang', 'Hội An'], notes: 'Amazing food and landscapes' },
             { flag: '🇰🇭', name: 'Cambodia', visitDate: '2017-07', duration: '21 days', rating: '⭐⭐⭐⭐', highlights: ['Siem Reap', 'Phnom Penh'], notes: 'Rich Khmer heritage' },
@@ -547,7 +547,7 @@
         document.querySelector('.continent-group:nth-child(1) h5').innerHTML =
             `<i class="fas fa-mountain"></i> Asia (${countriesData.asia.length} countries)`;
         document.querySelector('.continent-group:nth-child(2) h5').innerHTML =
-            `<i class="fas fa-castle"></i> Europe (${countriesData.europe.length} countries)`;
+            `<i class="fa-solid fa-chess-rook"></i></i> Europe (${countriesData.europe.length} countries)`;
 
         // Update wishlist count
         document.querySelector('.wishlist-section .continent-group h5').innerHTML =
@@ -791,10 +791,10 @@
                 { lat: 8.0342885, lng: 98.8267155, title: "Krabi, Ao Nang, Monotel" },
                 { lat: 8.0387975, lng: 98.8198457, title: "Krabi, Ao Nang, The Rocco Ao-Nang Krabi" },
                 { lat: 8.0128819, lng: 98.8421495, title: "Krabi, Railay Bay, Diamond Cave Resort"},
-                { lat: 9.5542579, lng: 100.029924, title: "Ko Samui" },
-                { lat: 9.458672, lng: 100.0305871, title: "Ko Samui, Lamai Viewpoint"},
-                { lat: 9.7026519, lng: 100.0106684, title: "Ko Pha Ngan, The Cosy Sunset Beach Resort & Restaurant"},
-                { lat: 10.0981192, lng: 99.8290426, title: "Ko Tao, Home in Ko Tao"},
+                { lat: 9.5542579, lng: 100.029924, title: "Koh Samui" },
+                { lat: 9.458672, lng: 100.0305871, title: "Koh Samui, Lamai Viewpoint"},
+                { lat: 9.7026519, lng: 100.0106684, title: "Koh Pha Ngan, The Cosy Sunset Beach Resort & Restaurant"},
+                { lat: 10.0981192, lng: 99.8290426, title: "Koh Tao, Home in Koh Tao"},
                 { lat: 10.1166193, lng: 99.8138068, title: "Koh Nang, Koh Nang Yuan Viewpoint"},
                 { lat: 13.7244415, lng: 100.562694, title: "Bangkok, The Emporio Place"},
                 { lat: 13.7118771, lng: 100.6062321, title: "Bangkok, Home in Khet Suan Luang"},
@@ -828,13 +828,13 @@
                 { lat: 1.2985179, lng: 103.8548296, title: "Singapore, The Snooze Hotel at Bugis" },
             ],
             "Indonesia": [
-                { lat: -8.3350301, lng: 115.6476298, title: "Bali, Amed, Home in Abang" },
-                { lat: -8.7038072, lng: 115.2537278, title: "Bali, Sanur, Denpasar Selatan" },
+                { lat: -8.3350301, lng: 115.6476298, title: "Bali(Amed), Home in Abang" },
+                { lat: -8.7038072, lng: 115.2537278, title: "Bali(Sanur), Denpasar Selatan" },
                 { lat: -6.1967763, lng: 106.8154447, title: "Jakarta, Thamrin Executive Residence" },
                 { lat: -6.1185777, lng: 106.6874956, title: "Jakarta, Benda" },
                 { lat: -6.1529539, lng: 106.8178944, title: "Jakarta, RedDoorz near Hayam Wuruk Plaza" },
-                { lat: -8.7205673, lng: 115.1696496, title: "Kuta, OYO 4012 Ari Beach Inn" },
-                { lat: -8.5032796, lng: 115.2640809, title: "Ubud, Kertayasa house" },
+                { lat: -8.7205673, lng: 115.1696496, title: "Bali(Kuta), OYO 4012 Ari Beach Inn" },
+                { lat: -8.5032796, lng: 115.2640809, title: "Bali(Ubud), Kertayasa house" },
             ],
             "Vietnam": [
                 { lat: 21.0276262, lng: 105.8346467, title: "Hanoi" },
