@@ -156,6 +156,49 @@
             padding: 1px;
         }
         
+        .world-progress {
+            margin-top: 20px;
+        }
+        
+        .progress-label {
+            font-size: 1.1em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar {
+            background-color: rgba(255, 255, 255, 0.3);
+            height: 25px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            height: 100%;
+            width: 0%;
+            transition: width 1.5s ease-in-out;
+            border-radius: 15px;
+        }
+        
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+        
+        .progress-details {
+            font-size: 1.1em;
+            margin-top: 5px;
+        }
+        
         @media (max-width: 768px) {
             .travel-stats {
                 padding: 15px;
@@ -177,6 +220,108 @@
             .countries-by-continent {
                 gap: 15px;
             }
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+        
+        [data-theme="dark"] .modal-content {
+            background-color: #2a2a2a;
+            border-color: #555;
+            color: #fff;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 15px;
+        }
+        
+        [data-theme="dark"] .modal-header {
+            border-bottom-color: #555;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            color: #333;
+        }
+        
+        [data-theme="dark"] .modal-header h2 {
+            color: #fff;
+        }
+        
+        .close-modal {
+            cursor: pointer;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: #FFD700;
+        }
+        
+        .country-flag-large {
+            font-size: 64px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .country-info {
+            margin-bottom: 20px;
+        }
+        
+        .info-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #FFD700;
+        }
+        
+        [data-theme="dark"] .info-item {
+            background-color: #3a3a3a;
+            color: #fff;
+        }
+        
+        .info-item strong {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        [data-theme="dark"] .info-item strong {
+            color: #FFD700;
+        }
+        
+        #modal-highlights div {
+            margin: 5px 0;
+            padding-left: 10px;
         }
     </style>
 </head>
@@ -202,6 +347,16 @@
         <div class="travel-stats">
             <div class="total-countries">
                 <h4><i class="fas fa-globe"></i> Total countries visited: <span class="country-count">0</span></h4>
+                <div class="world-progress">
+                    <div class="progress-label">World Exploration Progress</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="world-progress-fill"></div>
+                        <span class="progress-text" id="world-progress-text">0%</span>
+                    </div>
+                    <div class="progress-details">
+                        <span id="visited-count">0</span> of <span id="total-world-countries">195</span> countries visited
+                    </div>
+                </div>
             </div>
             
             <div class="countries-by-continent">
@@ -238,6 +393,41 @@
         </div>
         
         <div id="map"></div>
+        
+        <!-- Country Details Modal -->
+        <div id="country-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="modal-country-name">Country Name</h2>
+                    <span class="close-modal">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="country-flag-large" id="modal-country-flag">🏳️</div>
+                    <div class="country-info">
+                        <div class="info-item">
+                            <strong>Continent:</strong> <span id="modal-continent">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Visit Date:</strong> <span id="modal-visit-date">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Duration:</strong> <span id="modal-duration">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Rating:</strong> <span id="modal-rating">-</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Highlights:</strong>
+                            <div id="modal-highlights">-</div>
+                        </div>
+                        <div class="info-item">
+                            <strong>Notes:</strong>
+                            <div id="modal-notes">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -249,48 +439,45 @@
     // Countries data with flags and continent grouping
     const countriesData = {
         asia: [
-            { flag: '🇯🇵', name: 'Japan' },
-            { flag: '🇲🇴', name: 'Macao' },
-            { flag: '🇭🇰', name: 'Hong Kong' },
-            { flag: '🇲🇻', name: 'Maldives' },
-            { flag: '🇱🇰', name: 'Sri Lanka' },
-            { flag: '🇳🇵', name: 'Nepal' },
-            { flag: '🇮🇳', name: 'India' },
-            { flag: '🇮🇩', name: 'Indonesia' },
-            { flag: '🇵🇭', name: 'Philippines' },
-            { flag: '🇹🇭', name: 'Thailand' },
-            { flag: '🇱🇦', name: 'Laos' },
-            { flag: '🇻🇳', name: 'Vietnam' },
-            { flag: '🇰🇭', name: 'Cambodia' },
-            { flag: '🇸🇬', name: 'Singapore' },
-            { flag: '🇲🇾', name: 'Malaysia' },
-            { flag: '🇦🇪', name: 'UAE' },
-            { flag: '🇮🇱', name: 'Israel' },
-            { flag: '🇹🇷', name: 'Turkey' },
-            { flag: '🇬🇪', name: 'Georgia' },
-            { flag: '🇦🇿', name: 'Azerbaijan' },
-            // { flag: '🇰🇿', name: 'Kazakstan' },
-            // { flag: '🇺🇿', name: 'Uzbekistan' },
+            { flag: '🇯🇵', name: 'Japan', visitDate: '2019-03', duration: '30 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Osaka', 'Kyoto', 'Tokyo', 'Fujinomiya', 'Yokohama', 'Nara'], notes: 'Amazing culture and technology blend' },
+            { flag: '🇲🇴', name: 'Macao', visitDate: '2019-04', duration: '1 day', rating: '⭐⭐⭐⭐', highlights: ['Macau'], notes: 'Unique East-West fusion' },
+            { flag: '🇭🇰', name: 'Hong Kong', visitDate: '2019-04', duration: '14 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Hong Kong'], notes: 'Incredible city energy' },
+            { flag: '🇲🇻', name: 'Maldives', visitDate: '2020-02', duration: '30 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Male', 'Thoddoo', 'Ukulhas'], notes: 'Paradise on Earth' },
+            { flag: '🇱🇰', name: 'Sri Lanka', visitDate: '2020-01', duration: '60 days', rating: '⭐⭐⭐⭐', highlights: ['Benthota', 'Unawatuna', 'Mount Lavinia', 'Kandy', 'Dambulla', 'Polonnaruwa', 'Pinnawala'], notes: 'Rich history and nature' },
+            { flag: '🇳🇵', name: 'Nepal', visitDate: '2018-10', duration: '21 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Kathmandu'], notes: 'Life-changing trekking experience' },
+            { flag: '🇮🇳', name: 'India', visitDate: '2018-09', duration: '30 days', rating: '⭐⭐⭐⭐', highlights: ['New Delhi', 'Jaipur', 'Varanasi', 'Agra', 'Goa'], notes: 'Incredible diversity and chaos' },
+            { flag: '🇮🇩', name: 'Indonesia', visitDate: '2017-12', duration: '60 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Bali', 'Jakarta', 'Kuta', 'Ubud'], notes: 'Island paradise with rich culture' },
+            { flag: '🇵🇭', name: 'Philippines', visitDate: '2017-11', duration: '120 days', rating: '⭐⭐⭐⭐', highlights: ['Cebu City', 'Palawan', 'Puerto Princesa', 'Moalboal', 'Oslob', 'El Nido', 'Coron', 'Boracay', 'Panglao', 'Manila', 'Bohol'], notes: 'Beautiful islands and friendly people' },
+            { flag: '🇹🇭', name: 'Thailand', visitDate: '2017-10', duration: '360 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Bangkok', 'Phuket', 'Phi Phu', 'Pattaya', 'Chiang Mai', 'Krabi', 'Ko Samui', 'Koh Pha Ngan', 'Koh Nang'], notes: 'Perfect backpacking destination' },
+            { flag: '🇱🇦', name: 'Laos', visitDate: '2017-09', duration: '30 days', rating: '⭐⭐⭐⭐', highlights: ['Vientiane', 'Luang Prabang', 'Vang Vieng'], notes: 'Peaceful and authentic' },
+            { flag: '🇻🇳', name: 'Vietnam', visitDate: '2017-08', duration: '30 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Hanoi', 'Da Nang', 'Hội An'], notes: 'Amazing food and landscapes' },
+            { flag: '🇰🇭', name: 'Cambodia', visitDate: '2017-07', duration: '21 days', rating: '⭐⭐⭐⭐', highlights: ['Siem Reap', 'Phnom Penh'], notes: 'Rich Khmer heritage' },
+            { flag: '🇸🇬', name: 'Singapore', visitDate: '2017-06', duration: '4 days', rating: '⭐⭐⭐⭐', highlights: ['Singapore'], notes: 'Modern city-state perfection' },
+            { flag: '🇲🇾', name: 'Malaysia', visitDate: '2017-05', duration: '70 days', rating: '⭐⭐⭐⭐', highlights: ['Kuala Lumpur'], notes: 'Great cultural diversity' },
+            { flag: '🇦🇪', name: 'UAE', visitDate: '2016-12', duration: '21 days', rating: '⭐⭐⭐⭐', highlights: ['Dubai', 'Abu Dhabi'], notes: 'Modern Arabian dream' },
+            { flag: '🇮🇱', name: 'Israel', visitDate: '2016-08', duration: '14 days', rating: '⭐⭐⭐⭐', highlights: ['Jerusalem', 'Tel Aviv-Yafo', 'Haifa'], notes: 'Historical and spiritual journey' },
+            { flag: '🇹🇷', name: 'Turkey', visitDate: '2016-07', duration: '14 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Istanbul'], notes: 'Bridge between Europe and Asia' },
+            { flag: '🇬🇪', name: 'Georgia', visitDate: '2015-09', duration: '360 days', rating: '⭐⭐⭐⭐', highlights: ['Kutaisi', 'Batumi', 'Tbilisi', 'Borjomi', 'Mestia'], notes: 'Hidden gem with great hospitality' },
+            { flag: '🇦🇿', name: 'Azerbaijan', visitDate: '2015-08', duration: '10 days', rating: '⭐⭐⭐', highlights: ['Baku'], notes: 'Land of fire and oil' },
         ],
         europe: [
-            { flag: '🇧🇾', name: 'Belarus' },
-            { flag: '🇵🇱', name: 'Poland' },
-            { flag: '🇱🇹', name: 'Lithuania' },
-            { flag: '🇱🇻', name: 'Latvia' },
-            { flag: '🇪🇪', name: 'Estonia' },
-            { flag: '🇫🇮', name: 'Finland' },
-            { flag: '🇸🇪', name: 'Sweden' },
-            { flag: '🇩🇪', name: 'Germany' },
-            { flag: '🇦🇹', name: 'Austria' },
-            { flag: '🇨🇿', name: 'Czech Republic' },
-            { flag: '🇫🇷', name: 'France' },
-            { flag: '🇮🇹', name: 'Italy' },
-            // { flag: '🇪🇸', name: 'Spain' },
-            { flag: '🇳🇱', name: 'Netherlands' },
-            { flag: '🇸🇲', name: 'San Marino' },
-            { flag: '🇬🇷', name: 'Greece' },
-            { flag: '🇧🇪', name: 'Belgium' },
-            { flag: '🇭🇺', name: 'Hungary' }
+            { flag: '🇧🇾', name: 'Belarus', visitDate: '2021-06', duration: '7 days', rating: '⭐⭐⭐', highlights: ['Minsk'], notes: 'Last dictatorship of Europe' },
+            { flag: '🇵🇱', name: 'Poland', visitDate: '2021-05', duration: '30 days', rating: '⭐⭐⭐⭐', highlights: ['Warsaw', 'Kraków', 'Wrocław'], notes: 'Rich history and culture' },
+            { flag: '🇱🇹', name: 'Lithuania', visitDate: '2021-04', duration: '5 days', rating: '⭐⭐⭐⭐', highlights: ['Vilnius'], notes: 'Beautiful Baltic state' },
+            { flag: '🇱🇻', name: 'Latvia', visitDate: '2021-03', duration: '1000 days', rating: '⭐⭐⭐', highlights: ['Riga', 'Jūrmala'], notes: 'Charming medieval city' },
+            { flag: '🇪🇪', name: 'Estonia', visitDate: '2021-02', duration: '1 days', rating: '⭐⭐⭐⭐', highlights: ['Tallinn'], notes: 'Most digital country' },
+            { flag: '🇫🇮', name: 'Finland', visitDate: '2020-12', duration: '10 days', rating: '⭐⭐⭐⭐', highlights: ['Helsinki', 'Rovaniemi'], notes: 'Land of thousand lakes' },
+            { flag: '🇸🇪', name: 'Sweden', visitDate: '2020-11', duration: '1 days', rating: '⭐⭐⭐⭐', highlights: ['Stockholm'], notes: 'Scandinavian perfection' },
+            { flag: '🇩🇪', name: 'Germany', visitDate: '2019-10', duration: '30 days', rating: '⭐⭐⭐⭐', highlights: ['Berlin', 'Frankfurt am Main'], notes: 'Efficient and historical' },
+            { flag: '🇦🇹', name: 'Austria', visitDate: '2019-09', duration: '7 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Vienna'], notes: 'Musical and mountainous' },
+            { flag: '🇨🇿', name: 'Czech Republic', visitDate: '2019-08', duration: '14 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Prague', 'Pilzen'], notes: 'Fairy tale architecture' },
+            { flag: '🇫🇷', name: 'France', visitDate: '2019-07', duration: '7 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Paris'], notes: 'Art, culture, and cuisine' },
+            { flag: '🇮🇹', name: 'Italy', visitDate: '2019-06', duration: '60 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Milan', 'Treviso', 'Bologna', 'Florence', 'Venice', 'Rimini'], notes: 'Renaissance and romance' },
+            { flag: '🇳🇱', name: 'Netherlands', visitDate: '2019-05', duration: '7 days', rating: '⭐⭐⭐⭐', highlights: ['Amsterdam', 'Rotterdam'], notes: 'Liberal and flat' },
+            { flag: '🇸🇲', name: 'San Marino', visitDate: '2019-06', duration: '1 day', rating: '⭐⭐⭐', highlights: ['San Marino'], notes: 'Tiny mountain republic' },
+            { flag: '🇬🇷', name: 'Greece', visitDate: '2018-08', duration: '14 days', rating: '⭐⭐⭐⭐⭐', highlights: ['Athens', 'Kalampaka', 'Santorini'], notes: 'Cradle of civilization' },
+            { flag: '🇧🇪', name: 'Belgium', visitDate: '2018-07', duration: '7 days', rating: '⭐⭐⭐⭐', highlights: ['Brussels'], notes: 'Waffles and medieval charm' },
+            { flag: '🇭🇺', name: 'Hungary', visitDate: '2018-06', duration: '7 days', rating: '⭐⭐⭐⭐', highlights: ['Budapest'], notes: 'Pearl of the Danube' }
         ],
     };
 
@@ -369,11 +556,11 @@
         const europeFlags = document.querySelector('.continent-group:nth-child(2) .country-flags');
 
         asiaFlags.innerHTML = countriesData.asia.map(country => 
-            `<span class="country-item" title="${country.name}">${country.flag}</span>`
+            `<span class="country-item" title="${country.name}" data-continent="Asia" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${country.highlights.join(', ')}" data-notes="${country.notes}">${country.flag}</span>`
         ).join('');
         
         europeFlags.innerHTML = countriesData.europe.map(country => 
-            `<span class="country-item" title="${country.name}">${country.flag}</span>`
+            `<span class="country-item" title="${country.name}" data-continent="Europe" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${country.highlights.join(', ')}" data-notes="${country.notes}">${country.flag}</span>`
         ).join('');
         
         // Wishlist countries
@@ -381,11 +568,67 @@
         wishlistFlags.innerHTML = Object.values(wishlistCountries).flat().map(country => 
             `<span class="wishlist-item" title="${country.name}">${country.flag}<span class="wish-icon">${country.wishIcon}</span></span>`
         ).join('');
+        
+        // Update world exploration progress
+        const visitedCount = totalCount;
+        const totalWorldCountries = 195;
+        const progressPercentage = (visitedCount / totalWorldCountries) * 100;
+        document.getElementById('world-progress-fill').style.width = `${progressPercentage}%`;
+        document.getElementById('world-progress-text').textContent = `${progressPercentage.toFixed(1)}%`;
+        document.getElementById('visited-count').textContent = visitedCount;
+        document.getElementById('total-world-countries').textContent = totalWorldCountries;
+        
+        // Add event listeners to country flags after they are created
+        setTimeout(() => {
+            addCountryClickListeners();
+        }, 100);
+    }
+
+    // Function to add click listeners to country flags
+    function addCountryClickListeners() {
+        const countryFlags = document.querySelectorAll('.country-item');
+        countryFlags.forEach(flag => {
+            flag.addEventListener('click', () => {
+                const countryName = flag.title;
+                const continent = flag.getAttribute('data-continent');
+                const visitDate = flag.getAttribute('data-visit-date');
+                const duration = flag.getAttribute('data-duration');
+                const rating = flag.getAttribute('data-rating');
+                const highlights = flag.getAttribute('data-highlights').split(', ');
+                const notes = flag.getAttribute('data-notes');
+
+                // Update modal content
+                document.getElementById('modal-country-name').textContent = countryName;
+                document.getElementById('modal-country-flag').textContent = flag.textContent;
+                document.getElementById('modal-continent').textContent = continent;
+                document.getElementById('modal-visit-date').textContent = visitDate;
+                document.getElementById('modal-duration').textContent = duration;
+                document.getElementById('modal-rating').textContent = rating;
+                document.getElementById('modal-highlights').innerHTML = highlights.map(highlight => `<div>• ${highlight}</div>`).join('');
+                document.getElementById('modal-notes').textContent = notes;
+
+                // Show modal
+                document.getElementById('country-modal').style.display = 'block';
+            });
+        });
     }
 
     // Initialize countries display when page loads
     document.addEventListener('DOMContentLoaded', function() {
         updateCountriesDisplay();
+        
+        // Add event listener to close modal
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            document.getElementById('country-modal').style.display = 'none';
+        });
+        
+        // Close modal when clicking outside of it
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('country-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
     });
 
     function initMap() {
@@ -492,7 +735,7 @@
                 { lat: 54.6723695, lng: 25.2784091, title: "Vilnius, Hostel Oras" },
             ],
             "Netherlands": [
-                { lat: 52.3343232, lng: 4.950593, title: "Amsterdam, Home in Diemen" },
+                { lat: 52.3343232, lng: 4.950593, title: "Amsterdam, Summer Suites Bernice" },
                 { lat: 51.9215708, lng: 4.4539677, title: "Rotterdam" },
             ],
             "Italy": [
@@ -1029,5 +1272,6 @@
         });
     }
 </script>
+
 </body>
 </html>
