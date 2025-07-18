@@ -156,16 +156,15 @@
             padding: 1px;
         }
         
-        .world-progress {
+        .world-progress-section {
             margin-top: 20px;
         }
-        
-        .progress-label {
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-bottom: 5px;
+
+        .progress-title {
+            color: #FFD700;
+            margin-bottom: 15px;
         }
-        
+
         .progress-bar {
             background-color: rgba(255, 255, 255, 0.3);
             height: 25px;
@@ -174,7 +173,7 @@
             position: relative;
             margin: 10px 0;
         }
-        
+
         .progress-fill {
             background: linear-gradient(90deg, #FFD700, #FFA500);
             height: 100%;
@@ -182,7 +181,7 @@
             transition: width 1.5s ease-in-out;
             border-radius: 15px;
         }
-        
+
         .progress-text {
             position: absolute;
             top: 50%;
@@ -193,35 +192,35 @@
             color: #333;
             text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
         }
-        
+
         .progress-details {
             font-size: 1.1em;
             margin-top: 5px;
         }
-        
+
         @media (max-width: 768px) {
             .travel-stats {
                 padding: 15px;
                 margin-bottom: 20px;
             }
-            
+
             .total-countries h4 {
                 font-size: 1.3em;
             }
-            
+
             .continent-group h5 {
                 font-size: 1.1em;
             }
-            
+
             .country-item {
                 font-size: 1.8em;
             }
-            
+
             .countries-by-continent {
                 gap: 15px;
             }
         }
-        
+
         /* Modal styles */
         .modal {
             display: none;
@@ -235,7 +234,7 @@
             background-color: rgb(0,0,0);
             background-color: rgba(0,0,0,0.4);
         }
-        
+
         .modal-content {
             background-color: #fefefe;
             margin: 15% auto;
@@ -246,13 +245,13 @@
             border-radius: 10px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
         }
-        
+
         [data-theme="dark"] .modal-content {
             background-color: #2a2a2a;
             border-color: #555;
             color: #fff;
         }
-        
+
         .modal-header {
             display: flex;
             justify-content: space-between;
@@ -261,20 +260,20 @@
             border-bottom: 2px solid #eee;
             padding-bottom: 15px;
         }
-        
+
         [data-theme="dark"] .modal-header {
             border-bottom-color: #555;
         }
-        
+
         .modal-header h2 {
             margin: 0;
             color: #333;
         }
-        
+
         [data-theme="dark"] .modal-header h2 {
             color: #fff;
         }
-        
+
         .close-modal {
             cursor: pointer;
             font-size: 28px;
@@ -282,21 +281,21 @@
             color: #aaa;
             transition: color 0.3s ease;
         }
-        
+
         .close-modal:hover {
             color: #FFD700;
         }
-        
+
         .country-flag-large {
             font-size: 64px;
             margin-bottom: 20px;
             text-align: center;
         }
-        
+
         .country-info {
             margin-bottom: 20px;
         }
-        
+
         .info-item {
             margin-bottom: 15px;
             padding: 10px;
@@ -304,21 +303,21 @@
             border-radius: 8px;
             border-left: 4px solid #FFD700;
         }
-        
+
         [data-theme="dark"] .info-item {
             background-color: #3a3a3a;
             color: #fff;
         }
-        
+
         .info-item strong {
             font-weight: 600;
             color: #333;
         }
-        
+
         [data-theme="dark"] .info-item strong {
             color: #FFD700;
         }
-        
+
         #modal-highlights div {
             margin: 5px 0;
             padding-left: 10px;
@@ -342,37 +341,27 @@
     <!--  Travel  -->
     <div id="practice-section" class="section">
         <h3><i class="fas fa-plane"></i>Travel</h3>
-        
+
         <!-- Countries Statistics -->
         <div class="travel-stats">
             <div class="total-countries">
                 <h4><i class="fas fa-globe"></i> Total countries visited: <span class="country-count">0</span></h4>
-                <div class="world-progress">
-                    <div class="progress-label">World Exploration Progress</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="world-progress-fill"></div>
-                        <span class="progress-text" id="world-progress-text">0%</span>
-                    </div>
-                    <div class="progress-details">
-                        <span id="visited-count">0</span> of <span id="total-world-countries">195</span> countries visited
-                    </div>
-                </div>
             </div>
-            
+
             <div class="countries-by-continent">
                 <div class="continent-group">
                     <h5><i class="fas fa-mountain"></i> Asia</h5>
                     <div class="country-flags">
                     </div>
                 </div>
-                
+
                 <div class="continent-group">
                     <h5><i class="fas fa-castle"></i> Europe</h5>
                     <div class="country-flags">
                     </div>
                 </div>
             </div>
-            
+
             <div class="wishlist-section">
                 <h5 class="wishlist-title"><i class="fas fa-heart"></i> Wishlist Countries</h5>
                 <div class="countries-by-continent">
@@ -383,17 +372,30 @@
                     </div>
                 </div>
             </div>
+
+            <div class="world-progress-section">
+                <h5 class="progress-title"><i class="fas fa-chart-line"></i> World Exploration Progress</h5>
+                <div class="world-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="world-progress-fill"></div>
+                        <span class="progress-text" id="world-progress-text">0%</span>
+                    </div>
+                    <div class="progress-details">
+                        <span id="visited-count">0</span> of <span id="total-world-countries">195</span> countries visited
+                    </div>
+                </div>
+            </div>
         </div>
-        
+
         <div id="map-controls">
             <button class="map-filter-button active" data-filter="all">All</button>
             <button class="map-filter-button" data-filter="asia">Asia</button>
             <button class="map-filter-button" data-filter="europe">Europe</button>
             <button class="map-filter-button" data-filter="wishlist">Wishlist</button>
         </div>
-        
+
         <div id="map"></div>
-        
+
         <!-- Country Details Modal -->
         <div id="country-modal" class="modal">
             <div class="modal-content">
@@ -528,7 +530,7 @@
     function getTotalCountriesCount() {
         return countriesData.asia.length + countriesData.europe.length;
     }
-    
+
     // Calculate total wishlist countries count
     function getTotalWishlistCount() {
         return Object.values(wishlistCountries).reduce((total, continent) => total + continent.length, 0);
@@ -540,35 +542,35 @@
         const totalCount = getTotalCountriesCount();
         const wishlistCount = getTotalWishlistCount();
         document.querySelector('.country-count').textContent = totalCount;
-        
+
         // Update continent counts
-        document.querySelector('.continent-group:nth-child(1) h5').innerHTML = 
+        document.querySelector('.continent-group:nth-child(1) h5').innerHTML =
             `<i class="fas fa-mountain"></i> Asia (${countriesData.asia.length} countries)`;
-        document.querySelector('.continent-group:nth-child(2) h5').innerHTML = 
+        document.querySelector('.continent-group:nth-child(2) h5').innerHTML =
             `<i class="fas fa-castle"></i> Europe (${countriesData.europe.length} countries)`;
 
         // Update wishlist count
-        document.querySelector('.wishlist-section .continent-group h5').innerHTML = 
+        document.querySelector('.wishlist-section .continent-group h5').innerHTML =
             `<i class="fas fa-globe"></i> Wishlist (${wishlistCount} countries)`;
-        
+
         // Update country flags
         const asiaFlags = document.querySelector('.continent-group:nth-child(1) .country-flags');
         const europeFlags = document.querySelector('.continent-group:nth-child(2) .country-flags');
 
-        asiaFlags.innerHTML = countriesData.asia.map(country => 
+        asiaFlags.innerHTML = countriesData.asia.map(country =>
             `<span class="country-item" title="${country.name}" data-continent="Asia" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${country.highlights.join(', ')}" data-notes="${country.notes}">${country.flag}</span>`
         ).join('');
-        
-        europeFlags.innerHTML = countriesData.europe.map(country => 
+
+        europeFlags.innerHTML = countriesData.europe.map(country =>
             `<span class="country-item" title="${country.name}" data-continent="Europe" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${country.highlights.join(', ')}" data-notes="${country.notes}">${country.flag}</span>`
         ).join('');
-        
+
         // Wishlist countries
         const wishlistFlags = document.querySelector('.wishlist-section .country-flags');
-        wishlistFlags.innerHTML = Object.values(wishlistCountries).flat().map(country => 
+        wishlistFlags.innerHTML = Object.values(wishlistCountries).flat().map(country =>
             `<span class="wishlist-item" title="${country.name}">${country.flag}<span class="wish-icon">${country.wishIcon}</span></span>`
         ).join('');
-        
+
         // Update world exploration progress
         const visitedCount = totalCount;
         const totalWorldCountries = 195;
@@ -577,7 +579,7 @@
         document.getElementById('world-progress-text').textContent = `${progressPercentage.toFixed(1)}%`;
         document.getElementById('visited-count').textContent = visitedCount;
         document.getElementById('total-world-countries').textContent = totalWorldCountries;
-        
+
         // Add event listeners to country flags after they are created
         setTimeout(() => {
             addCountryClickListeners();
@@ -616,12 +618,12 @@
     // Initialize countries display when page loads
     document.addEventListener('DOMContentLoaded', function() {
         updateCountriesDisplay();
-        
+
         // Add event listener to close modal
         document.querySelector('.close-modal').addEventListener('click', () => {
             document.getElementById('country-modal').style.display = 'none';
         });
-        
+
         // Close modal when clicking outside of it
         window.addEventListener('click', (event) => {
             const modal = document.getElementById('country-modal');
@@ -809,54 +811,54 @@
                 { lat: 22.321771, lng: 114.1675655, title: "Hong Kong"},
             ],
             "Philippines": [
-                { lat: 10.3329783, lng: 123.9073145, title: "Cebu City, Avida Towers"},
-                { lat: 10.3166272, lng: 119.3414294, title: "Palawan, Ocean Manor Inn"},
-                { lat: 9.7394999, lng: 118.7313656, title: "Puerto Princesa, Mariner's Pension House"},
-                { lat: 9.9525364, lng: 123.3660057, title: "Moalboal, Dolce Vita Resort"},
-                { lat: 9.5221595, lng: 123.4288375, title: "Oslob, Luna Oslob Travellers Inn"},
-                { lat: 11.1827228, lng: 119.3927341, title: "El Nido, Silverise Pension"},
-                { lat: 12.0024527, lng: 120.2060122, title: "Coron, Ina HomeStay"},
-                { lat: 11.9523585, lng: 121.9295729, title: "Boracay, White Bitch"},
-                { lat: 9.5517335, lng: 123.7746862, title: "Panglao"},
-                { lat: 9.5632636, lng: 123.8035985, title: "Panglao, Tyner's Place"},
-                { lat: 14.5624157, lng: 120.9908138, title: "Manila, Century Park Hotel"},
-                { lat: 9.8297076, lng: 124.1293758, title: "Bohol, Chocolate Hills, Travel by car"},
+                { lat: 10.3329783, lng: 123.9073145, title: "Cebu City, Avida Towers" },
+                { lat: 10.3166272, lng: 119.3414294, title: "Palawan, Ocean Manor Inn" },
+                { lat: 9.7394999, lng: 118.7313656, title: "Puerto Princesa, Mariner's Pension House" },
+                { lat: 9.9525364, lng: 123.3660057, title: "Moalboal, Dolce Vita Resort" },
+                { lat: 9.5221595, lng: 123.4288375, title: "Oslob, Luna Oslob Travellers Inn" },
+                { lat: 11.1827228, lng: 119.3927341, title: "El Nido, Silverise Pension" },
+                { lat: 12.0024527, lng: 120.2060122, title: "Coron, Ina HomeStay" },
+                { lat: 11.9523585, lng: 121.9295729, title: "Boracay, White Bitch" },
+                { lat: 9.5517335, lng: 123.7746862, title: "Panglao" },
+                { lat: 9.5632636, lng: 123.8035985, title: "Panglao, Tyner's Place" },
+                { lat: 14.5624157, lng: 120.9908138, title: "Manila, Century Park Hotel" },
+                { lat: 9.8297076, lng: 124.1293758, title: "Bohol, Chocolate Hills, Travel by car" },
             ],
             "Singapore": [
-                { lat: 1.2985179, lng: 103.8548296, title: "Singapore, The Snooze Hotel at Bugis"},
+                { lat: 1.2985179, lng: 103.8548296, title: "Singapore, The Snooze Hotel at Bugis" },
             ],
             "Indonesia": [
-                { lat: -8.3350301, lng: 115.6476298, title: "Bali, Amed, Home in Abang"},
-                { lat: -8.7038072, lng: 115.2537278, title: "Bali, Sanur, Denpasar Selatan"},
-                { lat: -6.1967763, lng: 106.8154447, title: "Jakarta, Thamrin Executive Residence"},
-                { lat: -6.1185777, lng: 106.6874956, title: "Jakarta, Benda"},
-                { lat: -6.1529539, lng: 106.8178944, title: "Jakarta, RedDoorz near Hayam Wuruk Plaza"},
-                { lat: -8.7205673, lng: 115.1696496, title: "Kuta, OYO 4012 Ari Beach Inn"},
-                { lat: -8.5032796, lng: 115.2640809, title: "Ubud, Kertayasa house"},
+                { lat: -8.3350301, lng: 115.6476298, title: "Bali, Amed, Home in Abang" },
+                { lat: -8.7038072, lng: 115.2537278, title: "Bali, Sanur, Denpasar Selatan" },
+                { lat: -6.1967763, lng: 106.8154447, title: "Jakarta, Thamrin Executive Residence" },
+                { lat: -6.1185777, lng: 106.6874956, title: "Jakarta, Benda" },
+                { lat: -6.1529539, lng: 106.8178944, title: "Jakarta, RedDoorz near Hayam Wuruk Plaza" },
+                { lat: -8.7205673, lng: 115.1696496, title: "Kuta, OYO 4012 Ari Beach Inn" },
+                { lat: -8.5032796, lng: 115.2640809, title: "Ubud, Kertayasa house" },
             ],
             "Vietnam": [
-                { lat: 21.0276262, lng: 105.8346467, title: "Hanoi"},
-                { lat: 16.0513323, lng: 108.2405212, title: "Da Nang"},
-                { lat: 15.8827741, lng: 108.3371248, title: "Hội An"},
+                { lat: 21.0276262, lng: 105.8346467, title: "Hanoi" },
+                { lat: 16.0513323, lng: 108.2405212, title: "Da Nang" },
+                { lat: 15.8827741, lng: 108.3371248, title: "Hội An" },
             ],
             "Laos": [
-                { lat: 17.9678224, lng: 102.6011228, title: "Vientiane"},
-                { lat: 19.8845625, lng: 102.1328626, title: "Luang Prabang, Chaliya Boutique Garden"},
-                { lat: 18.928473, lng: 102.4452279, title: "Vang Vieng, Bountang Mountain View Riverside Hotel"},
+                { lat: 17.9678224, lng: 102.6011228, title: "Vientiane" },
+                { lat: 19.8845625, lng: 102.1328626, title: "Luang Prabang, Chaliya Boutique Garden" },
+                { lat: 18.928473, lng: 102.4452279, title: "Vang Vieng, Bountang Mountain View Riverside Hotel" },
             ],
             "Cambodia": [
-                { lat: 13.3524143, lng: 103.8547441, title: "Siem Reap, Krong Siem Reap"},
-                { lat: 11.5510929, lng: 104.9204016, title: "Phnom Penh, SKY Residence"},
+                { lat: 13.3524143, lng: 103.8547441, title: "Siem Reap, Krong Siem Reap" },
+                { lat: 11.5510929, lng: 104.9204016, title: "Phnom Penh, SKY Residence" },
             ],
             "Sri Lanka": [
-                { lat: 6.4225108, lng: 79.9975638, title: "Benthota, Home in Bentota"},
-                { lat: 6.0098045, lng: 80.2482118, title: "Unawatuna, Home in Unawatuna"},
-                { lat: 6.8424305, lng: 79.8638464, title: "Mount Lavinia, Self order"},
-                { lat: 7.2874413, lng: 80.6394468, title: "Kandy, Kandy IVY Banks Holiday Resort"},
-                { lat: 7.8736801, lng: 80.6466919, title: "Dambulla, Gamagedara Resort"},
-                { lat: 7.9407759, lng: 81.0153238, title: "Polonnaruwa, Thisal Guest House"},
-                { lat: 6.8413057, lng: 79.8620323, title: "Mount Lavinia, Ranveli Beach Resort"},
-                { lat: 7.2998006, lng: 80.3825923, title: "Pinnawala, Hotel Elephant Bay"},
+                { lat: 6.4225108, lng: 79.9975638, title: "Benthota, Home in Bentota" },
+                { lat: 6.0098045, lng: 80.2482118, title: "Unawatuna, Home in Unawatuna" },
+                { lat: 6.8424305, lng: 79.8638464, title: "Mount Lavinia, Self order" },
+                { lat: 7.2874413, lng: 80.6394468, title: "Kandy, Kandy IVY Banks Holiday Resort" },
+                { lat: 7.8736801, lng: 80.6466919, title: "Dambulla, Gamagedara Resort" },
+                { lat: 7.9407759, lng: 81.0153238, title: "Polonnaruwa, Thisal Guest House" },
+                { lat: 6.8413057, lng: 79.8620323, title: "Mount Lavinia, Ranveli Beach Resort" },
+                { lat: 7.2998006, lng: 80.3825923, title: "Pinnawala, Hotel Elephant Bay" },
             ],
             "Kazakhstan": [
                 // { lat: 43.2598898, lng: 76.9330709, title: "Astana, Apartment in Almaty"},
@@ -871,38 +873,38 @@
                 // { lat: 39.4739172, lng: -0.3646948, title: "Valencia, Home in Valencia"},
             ],
             "Macao": [
-                { lat: 22.1903224, lng: 113.543226, title: "Macau, Travel by ship"},
+                { lat: 22.1903224, lng: 113.543226, title: "Macau, Travel by ship" },
             ],
             "Poland": [
-                { lat: 52.2296756, lng: 21.0122287, title: "Warsaw"}, // ???
-                { lat: 50.0639797, lng: 19.9405603, title: "Kraków"}, // ???
-                { lat: 51.1119111, lng: 17.0246375, title: "Wrocław"}, // ???
+                { lat: 52.2296756, lng: 21.0122287, title: "Warsaw" }, // ???
+                { lat: 50.0639797, lng: 19.9405603, title: "Kraków" }, // ???
+                { lat: 51.1119111, lng: 17.0246375, title: "Wrocław" }, // ???
             ],
             "Estonia": [
-                { lat: 58.380259, lng: 26.7205862, title: "Tallinn, Travel by bus"},
+                { lat: 58.380259, lng: 26.7205862, title: "Tallinn, Travel by bus" },
             ],
             "Sweden": [
-                { lat: 59.3329783, lng: 18.9073145, title: "Stockholm, Home in Stockholm"},
+                { lat: 59.3329783, lng: 18.9073145, title: "Stockholm, Home in Stockholm" },
             ],
             "Germany": [
-                { lat: 52.520008, lng: 13.404954, title: "Berlin"}, // ???
-                { lat: 50.1203354, lng: 8.6734046, title: "Frankfurt am Main"}, // ???
+                { lat: 52.520008, lng: 13.404954, title: "Berlin" }, // ???
+                { lat: 50.1203354, lng: 8.6734046, title: "Frankfurt am Main" }, // ???
             ],
             "Austria": [
-                { lat: 48.2081749, lng: 16.3738199, title: "Vienna"}, // ???
+                { lat: 48.2081749, lng: 16.3738199, title: "Vienna" }, // ???
             ],
             "Czech Republic": [
-                { lat: 50.0755391, lng: 14.4378, title: "Prague, Home in Prague"},
-                { lat: 49.7448685, lng: 13.3767192, title: "Pilzen, Home in Pilzen"},
+                { lat: 50.0755391, lng: 14.4378, title: "Prague, Home in Prague" },
+                { lat: 49.7448685, lng: 13.3767192, title: "Pilzen, Home in Pilzen" },
             ],
             "France": [
-                { lat: 48.856614, lng: 2.3522219, title: "Paris, Travel by Couch-surfing"},
+                { lat: 48.856614, lng: 2.3522219, title: "Paris, Travel by Couch-surfing" },
             ],
             "Belgium": [
-                { lat: 50.85034, lng: 4.35171, title: "Brussels, Travel by Couch-surfing"},
+                { lat: 50.85034, lng: 4.35171, title: "Brussels, Travel by Couch-surfing" },
             ],
             "Hungary": [
-                { lat: 47.498, lng: 19.0402, title: "Budapest"},
+                { lat: 47.498, lng: 19.0402, title: "Budapest" },
             ],
             'Yemen': [
                 { lat: 12.5063988, lng: 53.2603338, title: "Socotra (Wishlist)", wishlist: true},
