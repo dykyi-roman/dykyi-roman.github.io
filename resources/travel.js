@@ -548,13 +548,36 @@ function addCountryClickListeners() {
             document.getElementById('modal-rating').textContent = rating;
             document.getElementById('modal-highlights').innerHTML = highlights.map(highlight => `<div>• ${highlight}</div>`).join('');
             document.getElementById('modal-notes').textContent = notes;
-            document.getElementById('modal-instagram').innerHTML = instagram.map(link => `<div><a href="${link}" target="_blank">• ${link}</a></div>`).join('');
-            document.getElementById('modal-facebook').innerHTML = facebook.map(link => `<div><a href="${link}" target="_blank">• ${link}</a></div>`).join('');
+            
+            // Update social media icons
+            updateSocialMediaIcons('modal-instagram-icons', instagram, 'instagram');
+            updateSocialMediaIcons('modal-facebook-icons', facebook, 'facebook');
 
             // Show modal
             document.getElementById('country-modal').style.display = 'block';
         });
     });
+}
+
+// Function to update social media icons
+function updateSocialMediaIcons(containerId, links, platform) {
+    const container = document.getElementById(containerId);
+    
+    if (!links || links.length === 0 || (links.length === 1 && links[0] === '')) {
+        container.innerHTML = '';
+        return;
+    }
+    
+    const validLinks = links.filter(link => link && link.trim() !== '');
+    
+    if (validLinks.length === 0) {
+        container.innerHTML = '';
+        return;
+    }
+    
+    container.innerHTML = validLinks.map(link => {
+        return `<a href="${link}" target="_blank" rel="noopener noreferrer" class="social-icon ${platform}"></a>`;
+    }).join('');
 }
 
 // Initialize countries display when page loads

@@ -290,64 +290,96 @@
     padding-left: 10px;
 }
 
-/* Social Media Links Styles */
-#modal-instagram div, #modal-facebook div {
-    margin: 8px 0;
-    padding-left: 10px;
+/* Social Media Section */
+.social-media-section {
+    margin: 15px 0;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 15px;
 }
 
-#modal-instagram a, #modal-facebook a {
-    color: #007bff;
-    text-decoration: none;
+[data-theme="dark"] .social-media-section {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.social-icon {
     display: inline-flex;
     align-items: center;
-    padding: 8px 12px;
-    border-radius: 8px;
-    background-color: rgba(0, 123, 255, 0.1);
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    text-decoration: none;
+    font-size: 20px;
     transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.social-icon.instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3);
+}
+
+.social-icon.facebook {
+    background: #1877f2;
+    color: white;
+    box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
+}
+
+.social-icon:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.social-icon.instagram:hover {
+    box-shadow: 0 8px 25px rgba(225, 48, 108, 0.5);
+}
+
+.social-icon.facebook:hover {
+    box-shadow: 0 8px 25px rgba(24, 119, 242, 0.5);
+}
+
+.social-icon::before {
+    font-size: 22px;
+}
+
+.social-icon.instagram::before {
+    content: "IG";
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: bold;
     font-size: 14px;
-    margin: 4px 0;
-    word-break: break-all;
 }
 
-[data-theme="dark"] #modal-instagram a,
-[data-theme="dark"] #modal-facebook a {
-    color: #4dabf7;
-    background-color: rgba(77, 171, 247, 0.1);
+.social-icon.facebook::before {
+    content: "FB";
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
 }
 
-#modal-instagram a:hover, #modal-facebook a:hover {
-    background-color: rgba(0, 123, 255, 0.2);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+.social-icon::after {
+    content: none;
 }
 
-[data-theme="dark"] #modal-instagram a:hover,
-[data-theme="dark"] #modal-facebook a:hover {
-    background-color: rgba(77, 171, 247, 0.2);
-    box-shadow: 0 4px 12px rgba(77, 171, 247, 0.3);
-}
-
-#modal-instagram a::before {
-    content: "📷";
-    margin-right: 8px;
-    font-size: 16px;
-}
-
-#modal-facebook a::before {
-    content: "📘";
-    margin-right: 8px;
-    font-size: 16px;
-}
-
-/* Empty social media message */
-.social-empty {
+/* Empty state for social icons */
+.social-empty-icons {
     color: #6c757d;
     font-style: italic;
-    padding: 8px 12px;
+    font-size: 14px;
+    text-align: center;
+    padding: 10px;
 }
 
-[data-theme="dark"] .social-empty {
+[data-theme="dark"] .social-empty-icons {
     color: #adb5bd;
 }
 
