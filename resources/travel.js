@@ -223,7 +223,15 @@ const countriesData = {
             rating: '⭐⭐⭐',
             highlights: ['Baku'],
             notes: 'Land of fire and oil',
-            instagram: [],
+            instagram: [
+                'https://www.instagram.com/dykyi.roman/p/C_04IBJIDQN',
+                'https://www.instagram.com/dykyi.roman/p/C_3bIi2oO7f/',
+                'https://www.instagram.com/dykyi.roman/p/C_9y3FeIb11',
+                'https://www.instagram.com/dykyi.roman/p/DAAX8gQo3vs',
+                'https://www.instagram.com/dykyi.roman/p/DAEM2lzIwYz',
+                'https://www.instagram.com/dykyi.roman/p/DAK0UG4Ixsb',
+                'https://www.instagram.com/dykyi.roman/p/C_yVOj5ohBf',
+            ],
             facebook: []
         },
         // { flag: '🇺🇿', name: 'Uzbekistan', visitDate: '2025-08', duration: '07 days', rating: '⭐⭐⭐', highlights: ['Tashkent'], notes: 'Land of rivers and mountains' },
@@ -1399,18 +1407,10 @@ function initMap() {
 
                 // Center map on current marker
                 map.panTo(marker.getPosition());
-                map.setZoom(6);
 
-                // Zoom back out after a moment
-                setTimeout(() => {
-                    if (journeyAnimation.isPlaying) {
-                        map.setZoom(3);
-                    }
-                }, 1000);
+                journeyAnimation.currentStep++;
+                updateJourneyUI(journeyAnimation.currentStep);
             }
-
-            journeyAnimation.currentStep++;
-            updateJourneyUI(journeyAnimation.currentStep);
         }, stepDuration);
     }
 
