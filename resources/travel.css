@@ -290,97 +290,86 @@
     padding-left: 10px;
 }
 
-/* Social Media Section */
-.social-media-section {
-    margin: 15px 0;
-    text-align: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 15px;
+/* City highlights with social icons */
+.highlights-with-social {
+    margin-top: 10px;
 }
 
-[data-theme="dark"] .social-media-section {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
-}
-
-.social-icons {
+.city-highlight {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 8px 0;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
 }
 
-.social-icon {
+[data-theme="dark"] .city-highlight {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.city-highlight:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .city-highlight:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.city-name {
+    font-weight: 500;
+    color: #333;
+}
+
+[data-theme="dark"] .city-name {
+    color: #fff;
+}
+
+.city-social-icons {
+    display: flex;
+    gap: 8px;
+}
+
+.city-social-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 45px;
-    height: 45px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 12px;
     transition: all 0.3s ease;
-    position: relative;
-    cursor: pointer;
 }
 
-.social-icon.instagram {
+.city-social-icon.instagram {
     background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
     color: white;
-    box-shadow: 0 4px 15px rgba(225, 48, 108, 0.3);
 }
 
-.social-icon.facebook {
+.city-social-icon.facebook {
     background: #1877f2;
     color: white;
-    box-shadow: 0 4px 15px rgba(24, 119, 242, 0.3);
 }
 
-.social-icon:hover {
-    transform: translateY(-3px) scale(1.1);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+.city-social-icon:hover {
+    transform: scale(1.1);
 }
 
-.social-icon.instagram:hover {
-    box-shadow: 0 8px 25px rgba(225, 48, 108, 0.5);
+.city-social-icon::before {
+    font-size: 10px;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: bold;
 }
 
-.social-icon.facebook:hover {
-    box-shadow: 0 8px 25px rgba(24, 119, 242, 0.5);
-}
-
-.social-icon::before {
-    font-size: 22px;
-}
-
-.social-icon.instagram::before {
+.city-social-icon.instagram::before {
     content: "IG";
-    font-family: 'Arial Black', Arial, sans-serif;
-    font-weight: bold;
-    font-size: 14px;
 }
 
-.social-icon.facebook::before {
+.city-social-icon.facebook::before {
     content: "FB";
-    font-family: 'Arial Black', Arial, sans-serif;
-    font-weight: bold;
-    font-size: 14px;
-}
-
-.social-icon::after {
-    content: none;
-}
-
-/* Empty state for social icons */
-.social-empty-icons {
-    color: #6c757d;
-    font-style: italic;
-    font-size: 14px;
-    text-align: center;
-    padding: 10px;
-}
-
-[data-theme="dark"] .social-empty-icons {
-    color: #adb5bd;
 }
 
 /* Journey Animation Styles */

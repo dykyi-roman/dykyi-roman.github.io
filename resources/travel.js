@@ -7,7 +7,32 @@ const countriesData = {
             visitDate: '2023-04',
             duration: '30 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Osaka', 'Kyoto', 'Tokyo', 'Fujinomiya', 'Yokohama', 'Nara'],
+            highlights: {
+                'Osaka': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Kyoto': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Tokyo': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Fujinomiya': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Yokohama': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Nara': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Amazing culture and technology blend',
             instagram: [],
             facebook: []
@@ -18,7 +43,12 @@ const countriesData = {
             visitDate: '2023-04',
             duration: '1 day',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Macau'],
+            highlights: {
+                'Macau': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Unique East-West fusion',
             instagram: [],
             facebook: []
@@ -29,7 +59,12 @@ const countriesData = {
             visitDate: '2023-04',
             duration: '14 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Hong Kong'],
+            highlights: {
+                'Hong Kong': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Incredible city energy',
             instagram: [],
             facebook: []
@@ -40,7 +75,20 @@ const countriesData = {
             visitDate: '2022-02',
             duration: '30 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Male', 'Thoddoo', 'Ukulhas'],
+            highlights: {
+                'Male': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Thoddoo': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Ukulhas': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Paradise on Earth',
             instagram: [],
             facebook: []
@@ -51,7 +99,36 @@ const countriesData = {
             visitDate: '2022-07',
             duration: '60 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Benthota', 'Unawatuna', 'Mount Lavinia', 'Kandy', 'Dambulla', 'Polonnaruwa', 'Pinnawala'],
+            highlights: {
+                'Benthota': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Unawatuna': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Mount Lavinia': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Kandy': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Dambulla': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Polonnaruwa': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Pinnawala': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Rich history and nature',
             instagram: [],
             facebook: []
@@ -62,7 +139,12 @@ const countriesData = {
             visitDate: '2024-05',
             duration: '21 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Kathmandu'],
+            highlights: {
+                'Kathmandu': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Life-changing trekking experience',
             instagram: [],
             facebook: []
@@ -73,7 +155,28 @@ const countriesData = {
             visitDate: '2019-07',
             duration: '30 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['New Delhi', 'Jaipur', 'Varanasi', 'Agra', 'Goa'],
+            highlights: {
+                'New Delhi': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Jaipur': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Varanasi': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Agra': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Goa': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Incredible diversity and chaos',
             instagram: [],
             facebook: []
@@ -84,7 +187,28 @@ const countriesData = {
             visitDate: '2022-09',
             duration: '60 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Jakarta', 'Kuta', 'Ubud', 'Amed', 'Sanur'],
+            highlights: {
+                'Jakarta': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Kuta': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Ubud': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Amed': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Sanur': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Island paradise with rich culture',
             instagram: [],
             facebook: []
@@ -95,7 +219,52 @@ const countriesData = {
             visitDate: '2023-01',
             duration: '120 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Cebu City', 'Palawan', 'Puerto Princesa', 'Moalboal', 'Oslob', 'El Nido', 'Coron', 'Boracay', 'Panglao', 'Manila', 'Bohol'],
+            highlights: {
+                'Cebu City': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Palawan': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Puerto Princesa': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Moalboal': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Oslob': {
+                    instagram: [],
+                    facebook: []
+                },
+                'El Nido': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Coron': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Boracay': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Panglao': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Manila': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Bohol': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Beautiful islands and friendly people',
             instagram: [],
             facebook: []
@@ -106,7 +275,44 @@ const countriesData = {
             visitDate: '2022-07',
             duration: '360 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Bangkok', 'Phuket', 'Phi Phu', 'Pattaya', 'Chiang Mai', 'Krabi', 'Koh Samui', 'Koh Pha Ngan', 'Koh Nang'],
+            highlights: {
+                'Bangkok': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Phuket': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Phi Phu': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Pattaya': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Chiang Mai': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Krabi': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Koh Samui': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Koh Pha Ngan': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Koh Nang': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Perfect backpacking destination',
             instagram: [],
             facebook: []
@@ -117,7 +323,20 @@ const countriesData = {
             visitDate: '2023-06',
             duration: '30 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Vientiane', 'Luang Prabang', 'Vang Vieng'],
+            highlights: {
+                'Vientiane': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Luang Prabang': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Vang Vieng': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Peaceful and authentic',
             instagram: [],
             facebook: []
@@ -128,7 +347,20 @@ const countriesData = {
             visitDate: '2023-07',
             duration: '30 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Hanoi', 'Da Nang', 'Hội An'],
+            highlights: {
+                'Hanoi': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Da Nang': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Hội An': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Amazing food and landscapes',
             instagram: [],
             facebook: []
@@ -139,7 +371,16 @@ const countriesData = {
             visitDate: '2022-06',
             duration: '21 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Siem Reap', 'Phnom Penh'],
+            highlights: {
+                'Siem Reap': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Phnom Penh': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Rich Khmer heritage',
             instagram: [],
             facebook: []
@@ -150,7 +391,12 @@ const countriesData = {
             visitDate: '2022-05',
             duration: '4 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Singapore'],
+            highlights: {
+                'Singapore': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Modern city-state perfection',
             instagram: [],
             facebook: []
@@ -161,7 +407,12 @@ const countriesData = {
             visitDate: '2022-07',
             duration: '70 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Kuala Lumpur'],
+            highlights: {
+                'Kuala Lumpur': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Great cultural diversity',
             instagram: [],
             facebook: []
@@ -172,7 +423,16 @@ const countriesData = {
             visitDate: '2018-03',
             duration: '21 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Dubai', 'Abu Dhabi'],
+            highlights: {
+                'Dubai': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Abu Dhabi': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Modern Arabian dream',
             instagram: [],
             facebook: []
@@ -183,7 +443,20 @@ const countriesData = {
             visitDate: '2019-05',
             duration: '14 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Jerusalem', 'Tel Aviv-Yafo', 'Haifa'],
+            highlights: {
+                'Jerusalem': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Tel Aviv-Yafo': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Haifa': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Historical and spiritual journey',
             instagram: [],
             facebook: []
@@ -194,7 +467,12 @@ const countriesData = {
             visitDate: '2018-05',
             duration: '14 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Istanbul'],
+            highlights: {
+                'Istanbul': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Bridge between Europe and Asia',
             instagram: [],
             facebook: []
@@ -205,14 +483,69 @@ const countriesData = {
             visitDate: '2024-05',
             duration: '360 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Kutaisi', 'Batumi', 'Tbilisi', 'Borjomi', 'Mestia'],
+            highlights: {
+                'Kutaisi': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/C7lQ8tCIWdm',
+                        'https://www.instagram.com/dykyi.roman/p/C7nv2N4oou9',
+                        'https://www.instagram.com/dykyi.roman/p/C7qNDFXot-T',
+                    ],
+                    facebook: []
+                },
+                'Vanadzia': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/DLQE-zFIgF_/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DLb_hv6ITvi/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Batumi': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/C8gTZDfI6dY',
+                        'https://www.instagram.com/dykyi.roman/p/C8iw5Zuo2RD/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C9C-eWjoZ26/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C9Eo3y6IW5Q/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C9WW_9Lon49/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C-KyjlvIydG/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C-hVn3Vo5dW/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DDC3ndeoQD8/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DL34bUPoQkD/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DMCM2jDoh5W/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DMRkHgSowRw/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Tbilisi': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/DERYlJXofLc/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DFhR85vIUdm/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DFjss2zo_QT/?img_index=1',
+                    ],
+                    facebook: [],
+                },
+                'Borjomi': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/DEunVoWo80N/?img_index=1'
+                    ],
+                    facebook: []
+                },
+                'Mestia': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/DA1LKymocVM/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DA2W8_zoWwE/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DA450E_oAAL/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DA7elW-oT4v/?img_index=1',
+                    ],
+                    facebook: [],
+                }
+            },
             notes: 'Hidden gem with great hospitality',
             instagram: [
                 'https://www.instagram.com/p/DMRkHgSowRw',
                 'https://www.instagram.com/p/DMCM2jDoh5W'
             ],
             facebook: [
-                'https://www.facebook.com/share/v/1PGfzjtX9S/'
+                'https://www.facebook.com/p/1PGfzjtX9S'
             ]
         },
         {
@@ -221,7 +554,20 @@ const countriesData = {
             visitDate: '2024-09',
             duration: '10 days',
             rating: '⭐⭐⭐',
-            highlights: ['Baku'],
+            highlights: {
+                'Baku': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/C_04IBJIDQN',
+                        'https://www.instagram.com/dykyi.roman/p/C_3bIi2oO7f/',
+                        'https://www.instagram.com/dykyi.roman/p/C_9y3FeIb11',
+                        'https://www.instagram.com/dykyi.roman/p/DAAX8gQo3vs',
+                        'https://www.instagram.com/dykyi.roman/p/DAEM2lzIwYz',
+                        'https://www.instagram.com/dykyi.roman/p/DAK0UG4Ixsb',
+                        'https://www.instagram.com/dykyi.roman/p/C_yVOj5ohBf',
+                    ],
+                    facebook: []
+                }
+            },
             notes: 'Land of fire and oil',
             instagram: [
                 'https://www.instagram.com/dykyi.roman/p/C_04IBJIDQN',
@@ -244,7 +590,12 @@ const countriesData = {
             visitDate: '2014-06',
             duration: '7 days',
             rating: '⭐⭐⭐',
-            highlights: ['Minsk'],
+            highlights: {
+                'Minsk': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Last dictatorship of Europe',
             instagram: [],
             facebook: []
@@ -255,7 +606,20 @@ const countriesData = {
             visitDate: '2018-10',
             duration: '30 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Warsaw', 'Kraków', 'Wrocław'],
+            highlights: {
+                'Warsaw': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Kraków': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Wrocław': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Rich history and culture',
             instagram: [],
             facebook: []
@@ -266,7 +630,12 @@ const countriesData = {
             visitDate: '2019-10',
             duration: '5 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Vilnius'],
+            highlights: {
+                'Vilnius': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Beautiful Baltic state',
             instagram: [],
             facebook: []
@@ -277,7 +646,16 @@ const countriesData = {
             visitDate: '2019-06',
             duration: '1000 days',
             rating: '⭐⭐⭐',
-            highlights: ['Riga', 'Jūrmala'],
+            highlights: {
+                'Riga': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Jūrmala': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Charming medieval city',
             instagram: [],
             facebook: []
@@ -288,7 +666,12 @@ const countriesData = {
             visitDate: '2019-11',
             duration: '1 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Tallinn'],
+            highlights: {
+                'Tallinn': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Most digital country',
             instagram: [],
             facebook: []
@@ -299,7 +682,16 @@ const countriesData = {
             visitDate: '2022-01',
             duration: '10 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Helsinki', 'Rovaniemi'],
+            highlights: {
+                'Helsinki': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Rovaniemi': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Land of thousand lakes',
             instagram: [],
             facebook: []
@@ -310,7 +702,12 @@ const countriesData = {
             visitDate: '2019-10',
             duration: '1 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Stockholm'],
+            highlights: {
+                'Stockholm': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Scandinavian perfection',
             instagram: [],
             facebook: []
@@ -321,7 +718,16 @@ const countriesData = {
             visitDate: '2017-09',
             duration: '30 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Berlin', 'Frankfurt am Main'],
+            highlights: {
+                'Berlin': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Frankfurt am Main': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Efficient and historical',
             instagram: [],
             facebook: []
@@ -332,7 +738,12 @@ const countriesData = {
             visitDate: '2007-01',
             duration: '7 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Vienna'],
+            highlights: {
+                'Vienna': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Musical and mountainous',
             instagram: [],
             facebook: []
@@ -343,7 +754,16 @@ const countriesData = {
             visitDate: '2017-09',
             duration: '14 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Prague', 'Pilzen'],
+            highlights: {
+                'Prague': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Pilzen': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Fairy tale architecture',
             instagram: [],
             facebook: []
@@ -354,7 +774,12 @@ const countriesData = {
             visitDate: '2017-04',
             duration: '7 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Paris'],
+            highlights: {
+                'Paris': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Art, culture, and cuisine',
             instagram: [],
             facebook: []
@@ -365,7 +790,32 @@ const countriesData = {
             visitDate: '2021-09',
             duration: '21 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Milan', 'Treviso', 'Bologna', 'Florence', 'Venice', 'Rimini'],
+            highlights: {
+                'Milan': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Treviso': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Bologna': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Florence': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Venice': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Rimini': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Renaissance and romance',
             instagram: [],
             facebook: []
@@ -376,7 +826,16 @@ const countriesData = {
             visitDate: '2018-03',
             duration: '7 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Amsterdam', 'Rotterdam'],
+            highlights: {
+                'Amsterdam': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Rotterdam': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Liberal and flat',
             instagram: [],
             facebook: []
@@ -387,7 +846,12 @@ const countriesData = {
             visitDate: '2021-09',
             duration: '1 day',
             rating: '⭐⭐⭐',
-            highlights: ['San Marino'],
+            highlights: {
+                'San Marino': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Tiny mountain republic',
             instagram: [],
             facebook: []
@@ -398,7 +862,20 @@ const countriesData = {
             visitDate: '2017-08',
             duration: '14 days',
             rating: '⭐⭐⭐⭐⭐',
-            highlights: ['Athens', 'Kalampaka', 'Santorini'],
+            highlights: {
+                'Athens': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Kalampaka': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Santorini': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Cradle of civilization',
             instagram: [],
             facebook: []
@@ -409,7 +886,12 @@ const countriesData = {
             visitDate: '2016-10',
             duration: '7 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Brussels'],
+            highlights: {
+                'Brussels': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Waffles and medieval charm',
             instagram: [],
             facebook: []
@@ -420,7 +902,12 @@ const countriesData = {
             visitDate: '2017-01',
             duration: '7 days',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Budapest'],
+            highlights: {
+                'Budapest': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
             notes: 'Pearl of the Danube',
             instagram: [],
             facebook: []
@@ -504,11 +991,11 @@ function updateCountriesDisplay() {
     const europeFlags = document.querySelector('.continent-group:nth-child(2) .country-flags');
 
     asiaFlags.innerHTML = countriesData.asia.map(country =>
-        `<span class="country-item" title="${country.name}" data-continent="Asia" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${country.highlights.join(', ')}" data-notes="${country.notes}" data-instagram="${country.instagram.join(', ')}" data-facebook="${country.facebook.join(', ')}">${country.flag}</span>`
+        `<span class="country-item" title="${country.name}" data-continent="Asia" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${country.instagram.join(', ')}" data-facebook="${country.facebook.join(', ')}">${country.flag}</span>`
     ).join('');
 
     europeFlags.innerHTML = countriesData.europe.map(country =>
-        `<span class="country-item" title="${country.name}" data-continent="Europe" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${country.highlights.join(', ')}" data-notes="${country.notes}" data-instagram="${country.instagram.join(', ')}" data-facebook="${country.facebook.join(', ')}">${country.flag}</span>`
+        `<span class="country-item" title="${country.name}" data-continent="Europe" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${country.instagram.join(', ')}" data-facebook="${country.facebook.join(', ')}">${country.flag}</span>`
     ).join('');
 
     // Wishlist countries
@@ -542,7 +1029,7 @@ function addCountryClickListeners() {
             const visitDate = flag.getAttribute('data-visit-date');
             const duration = flag.getAttribute('data-duration');
             const rating = flag.getAttribute('data-rating');
-            const highlights = flag.getAttribute('data-highlights').split(', ');
+            const highlights = JSON.parse(decodeURIComponent(flag.getAttribute('data-highlights')));
             const notes = flag.getAttribute('data-notes');
             const instagram = flag.getAttribute('data-instagram').split(', ');
             const facebook = flag.getAttribute('data-facebook').split(', ');
@@ -554,38 +1041,41 @@ function addCountryClickListeners() {
             document.getElementById('modal-visit-date').textContent = visitDate;
             document.getElementById('modal-duration').textContent = duration;
             document.getElementById('modal-rating').textContent = rating;
-            document.getElementById('modal-highlights').innerHTML = highlights.map(highlight => `<div>• ${highlight}</div>`).join('');
-            document.getElementById('modal-notes').textContent = notes;
             
-            // Update social media icons
-            updateSocialMediaIcons('modal-instagram-icons', instagram, 'instagram');
-            updateSocialMediaIcons('modal-facebook-icons', facebook, 'facebook');
+            document.getElementById('modal-highlights').innerHTML = Object.keys(highlights).map(cityName => {
+                const cityData = highlights[cityName];
+                const socialIcons = [];
+                
+                // Add Instagram icons
+                if (cityData.instagram && cityData.instagram.length > 0) {
+                    cityData.instagram.forEach(link => {
+                        socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon instagram"></a>`);
+                    });
+                }
+                
+                // Add Facebook icons
+                if (cityData.facebook && cityData.facebook.length > 0) {
+                    cityData.facebook.forEach(link => {
+                        socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon facebook"></a>`);
+                    });
+                }
+                
+                return `
+                    <div class="city-highlight">
+                        <span class="city-name">${cityName}</span>
+                        <div class="city-social-icons">
+                            ${socialIcons.join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('modal-notes').textContent = notes;
 
             // Show modal
             document.getElementById('country-modal').style.display = 'block';
         });
     });
-}
-
-// Function to update social media icons
-function updateSocialMediaIcons(containerId, links, platform) {
-    const container = document.getElementById(containerId);
-    
-    if (!links || links.length === 0 || (links.length === 1 && links[0] === '')) {
-        container.innerHTML = '';
-        return;
-    }
-    
-    const validLinks = links.filter(link => link && link.trim() !== '');
-    
-    if (validLinks.length === 0) {
-        container.innerHTML = '';
-        return;
-    }
-    
-    container.innerHTML = validLinks.map(link => {
-        return `<a href="${link}" target="_blank" rel="noopener noreferrer" class="social-icon ${platform}"></a>`;
-    }).join('');
 }
 
 // Initialize countries display when page loads
