@@ -77,15 +77,21 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Male': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CaKyVsgPo1n/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Thoddoo': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CZ3si2VrBEd/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Ukulhas': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CaKxxQaP1Sx/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -100,6 +106,12 @@ const countriesData = {
             duration: '60 days',
             rating: '⭐⭐⭐⭐',
             highlights: {
+                'Colombo': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CfVSgySLLPZ/',
+                    ],
+                    facebook: []
+                },
                 'Benthota': {
                     instagram: [],
                     facebook: []
@@ -109,25 +121,49 @@ const countriesData = {
                     facebook: []
                 },
                 'Mount Lavinia': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CfUM1_8PE3M/',
+                    ],
                     facebook: []
                 },
                 'Kandy': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CfJNkp3LMMT/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Dambulla': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CfOjMv6LicW/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Polonnaruwa': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CfRA-oVrra6/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Pinnawala': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CfWvOlevU7n/?img_index=1',
+                    ],
                     facebook: []
-                }
+                },
+                'Galle': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CfHR5AOvMtJ/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CfIM6m7PaaA/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Ella': {
+                  instagram: [
+                      'https://www.instagram.com/dykyi.roman/p/CfJ0KZvP424/?img_index=1',
+                      'https://www.instagram.com/dykyi.roman/p/CfMUmFxvm1q/',
+                  ],
+                  facebook: []
+                },
             },
             notes: 'Rich history and nature',
             instagram: [],
@@ -157,23 +193,33 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'New Delhi': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CUAnqh8oQ72/',
+                    ],
                     facebook: []
                 },
                 'Jaipur': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_9eTjLrAe/',
+                    ],
                     facebook: []
                 },
                 'Varanasi': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_8xBtLFXQ/',
+                    ],
                     facebook: []
                 },
                 'Agra': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_-G5cLydv/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Goa': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT__16hLARO/',
+                    ],
                     facebook: []
                 }
             },
@@ -277,7 +323,16 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Bangkok': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CgHVtGEr4JU/',
+                        'https://www.instagram.com/dykyi.roman/p/CgIlwikvoNX/',
+                        'https://www.instagram.com/dykyi.roman/p/CgUdPOUrPBr/',
+                        'https://www.instagram.com/dykyi.roman/p/CgVd8wyPcHN/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cghe3WBvlj9/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cgnm_5yrFMI/',
+                        'https://www.instagram.com/dykyi.roman/p/Cg1PpjYLCrt/',
+                        'https://www.instagram.com/dykyi.roman/p/Cg3L_zCrmjo/',
+                    ],
                     facebook: []
                 },
                 'Phuket': {
@@ -289,11 +344,37 @@ const countriesData = {
                     facebook: []
                 },
                 'Pattaya': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/ChU7ak0POcr/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/ChaAzn1Jr_p/',
+                        'https://www.instagram.com/dykyi.roman/p/Ch2U5FFv7fg/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Ch4yDk-rQtn/',
+                        'https://www.instagram.com/dykyi.roman/p/Ch_dC1JrqhZ/',
+                        'https://www.instagram.com/dykyi.roman/p/CiClM4Erxw6/',
+                        'https://www.instagram.com/dykyi.roman/p/CiMgvM5LhtB/',
+                        'https://www.instagram.com/dykyi.roman/p/CiPdzCgryX1/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Chiang Mai': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cg61Ps9rOb2/',
+                        'https://www.instagram.com/dykyi.roman/p/ChGfOn6PQwt/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Koh Lang': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CiFnuftLqNb/',
+                    ],
+                    facebook: []
+                },
+                'Chiang Rai': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cg8ZoRVL0ma/',
+                        'https://www.instagram.com/dykyi.roman/p/ChBWArfvD4b/',
+                        'https://www.instagram.com/dykyi.roman/p/ChJWSUErb4h/',
+                    ],
                     facebook: []
                 },
                 'Krabi': {
@@ -325,7 +406,9 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Vientiane': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_gXUgI1n7/',
+                    ],
                     facebook: []
                 },
                 'Luang Prabang': {
@@ -373,11 +456,18 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Siem Reap': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CeqlpEErGUS/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CeqmGLKru_k/',
+                    ],
                     facebook: []
                 },
                 'Phnom Penh': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Ceqoh-WrQ_c/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CeqpeYJLeZ5/',
+                        'https://www.instagram.com/dykyi.roman/p/CetVzuzLUb5/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -393,7 +483,9 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Singapore': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CeGzz_6L2U3/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -409,7 +501,20 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Kuala Lumpur': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CfgXqpjLksH/',
+                        'https://www.instagram.com/dykyi.roman/p/Cfi-EKxLCMf/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CfxoigvL28z/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cf0S5HJLOg6/',
+                        'https://www.instagram.com/dykyi.roman/p/Cf1RIgSrwUQ/',
+                        'https://www.instagram.com/dykyi.roman/p/Cf3CtT6L151/',
+                    ],
+                    facebook: []
+                },
+                'Malacca': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CfsVcaMvo7r/',
+                    ],
                     facebook: []
                 }
             },
@@ -425,11 +530,15 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Dubai': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/CT-ASs6oGan/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Abu Dhabi': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/CT-A36zojAm/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -445,15 +554,22 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Jerusalem': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_hZ4BoCfA/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CT_iS-yoyFR/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Tel Aviv-Yafo': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_jU7JIy56/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Haifa': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_jbnlo-st/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -469,7 +585,9 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Istanbul': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/CT9gkMPIgaY/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -592,7 +710,9 @@ const countriesData = {
             rating: '⭐⭐⭐',
             highlights: {
                 'Minsk': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/CT9btReLc3g/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -616,7 +736,9 @@ const countriesData = {
                     facebook: []
                 },
                 'Wrocław': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/CT9bKpdrN6n/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -632,7 +754,9 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Vilnius': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/CT9-REDIPg5/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -648,7 +772,9 @@ const countriesData = {
             rating: '⭐⭐⭐',
             highlights: {
                 'Riga': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_kC2EoAI6/',
+                    ],
                     facebook: []
                 },
                 'Jūrmala': {
@@ -668,7 +794,9 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Tallinn': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_nVVPoUI6/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -684,11 +812,15 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Helsinki': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CYbD3x2AMQx/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Rovaniemi': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CYbE_qooyNh/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -704,7 +836,9 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Stockholm': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_mQuYoGPa/',
+                    ],
                     facebook: []
                 }
             },
@@ -720,11 +854,15 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Berlin': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_3Wj8L_yC/',
+                    ],
                     facebook: []
                 },
                 'Frankfurt am Main': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_xrSVrVNo/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -760,7 +898,9 @@ const countriesData = {
                     facebook: []
                 },
                 'Pilzen': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT9amNSrQaC/',
+                    ],
                     facebook: []
                 }
             },
@@ -776,7 +916,9 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Paris': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_vWIELWxO/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -792,7 +934,9 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Milan': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CUHDwqnICSi/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Treviso': {
@@ -804,16 +948,34 @@ const countriesData = {
                     facebook: []
                 },
                 'Florence': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CUHFw1coo2i/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Venice': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CUHE-zjoy0i/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Rimini': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CUHHRNXoDFL/?img_index=1',
+                    ],
                     facebook: []
+                },
+                'Bologna': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CUHEdeno_e1/',
+                    ],
+                    facebook: []
+                },
+                'Pisa': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CUHGK8IoEtp/',
+                    ],
+                    facebook: [],
                 }
             },
             notes: 'Renaissance and romance',
@@ -828,11 +990,15 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Amsterdam': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/CT9dWDcLJtp/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Rotterdam': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/CT9dbaQr_YE/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -848,7 +1014,9 @@ const countriesData = {
             rating: '⭐⭐⭐',
             highlights: {
                 'San Marino': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CULT2wBr86B/',
+                    ],
                     facebook: []
                 }
             },
@@ -864,15 +1032,21 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Athens': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_fJs-o0IM/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Kalampaka': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_fPijoxaV/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Santorini': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT-QwHlrpRb/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -888,7 +1062,9 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Brussels': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CT_rqssL8XT/',
+                    ],
                     facebook: []
                 }
             },
@@ -904,7 +1080,9 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Budapest': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/CT9eTYKLkyd/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
