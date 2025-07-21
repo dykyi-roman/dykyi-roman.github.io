@@ -9,27 +9,48 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Osaka': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CrzXBv6ybEu/',
+                        'https://www.instagram.com/dykyi.roman/p/Cr2hhS1LRs7/',
+                    ],
                     facebook: []
                 },
                 'Kyoto': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CsD_X39rasD/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CsI24yKrNHg/',
+                    ],
                     facebook: []
                 },
                 'Tokyo': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cshj-fFyOPQ/',
+                        'https://www.instagram.com/dykyi.roman/p/CskKrKhSprj/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CsvcEnVr9aT/',
+                        'https://www.instagram.com/dykyi.roman/p/CsxJLPuy1LO/',
+                        'https://www.instagram.com/dykyi.roman/p/Csykvz1SK2g/',
+                        'https://www.instagram.com/dykyi.roman/p/CszwL3HSFK8/',
+                        'https://www.instagram.com/dykyi.roman/p/Cs2JGwXy0P9/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cs3viqKL9cs/',
+                    ],
                     facebook: []
                 },
                 'Fujinomiya': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CsoRv8OS9Xw/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Yokohama': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Csq3NivS5D-/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Nara': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cro8DcpyNO8/',
+                    ],
                     facebook: []
                 }
             },
@@ -45,7 +66,10 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Macau': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CrjxcGZyZMN/',
+                        'https://www.instagram.com/dykyi.roman/p/CrmSx6uSXPD/',
+                    ],
                     facebook: []
                 }
             },
@@ -61,7 +85,13 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Hong Kong': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CrW-9m7yKYA/',
+                        'https://www.instagram.com/dykyi.roman/p/CrUcMSVy-ng/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CrbMDA0ytmO/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CrfXMVhrHPg/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CrhA19OSbsK/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -158,11 +188,11 @@ const countriesData = {
                     facebook: []
                 },
                 'Ella': {
-                  instagram: [
-                      'https://www.instagram.com/dykyi.roman/p/CfJ0KZvP424/?img_index=1',
-                      'https://www.instagram.com/dykyi.roman/p/CfMUmFxvm1q/',
-                  ],
-                  facebook: []
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CfJ0KZvP424/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CfMUmFxvm1q/',
+                    ],
+                    facebook: []
                 },
             },
             notes: 'Rich history and nature',
@@ -235,25 +265,60 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Jakarta': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CknKy_oLiun/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cko9DJ9SqQs/',
+                        'https://www.instagram.com/dykyi.roman/p/Ckrc2lDy7Hj/',
+                    ],
                     facebook: []
                 },
                 'Kuta': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CkUST3oy1YX/',
+                        'https://www.instagram.com/dykyi.roman/p/CkW6jKDyGea/',
+                        'https://www.instagram.com/dykyi.roman/p/CkZVov3y0i3/',
+                        'https://www.instagram.com/dykyi.roman/p/CkcC55CSzoc/',
+                    ],
                     facebook: []
                 },
                 'Ubud': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Ci6P7X_PQZp/',
+                        'https://www.instagram.com/dykyi.roman/p/Ci8xkE2PG2S/',
+                        'https://www.instagram.com/dykyi.roman/p/Ci_P6oDv1FS/',
+                        'https://www.instagram.com/dykyi.roman/p/CjB32m5vXpY/',
+                        'https://www.instagram.com/dykyi.roman/p/CjIqWeGr8PB/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CjNhqNeL5iJ/',
+                        'https://www.instagram.com/dykyi.roman/p/CjVg0I5rgxw/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CjZBR62vcrg/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CjaNtvKL6rP/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Amed': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cjl2fuzvfFj/',
+                        'https://www.instagram.com/dykyi.roman/p/CjrSg9zLhEX/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CkMx-ShydtN/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Sanur': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CiXur1Ir1mz/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CigfxnGv52K/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CijO8NpLxjd/',
+                        'https://www.instagram.com/dykyi.roman/p/CipI6vuLGy2/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Ciy-04PLpMk/?img_index=1',
+                    ],
                     facebook: []
-                }
+                },
+                'Nusa Penida': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CimtnoQL9Z9/',
+                    ],
+                    facebook: []
+                },
             },
             notes: 'Island paradise with rich culture',
             instagram: [],
@@ -267,47 +332,82 @@ const countriesData = {
             rating: '⭐⭐⭐⭐',
             highlights: {
                 'Cebu City': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CobIyCQSsP6/',
+                    ],
                     facebook: []
                 },
                 'Palawan': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cpd03DSSzE0/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Puerto Princesa': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CpbNGVBSuXZ/',
+                    ],
                     facebook: []
                 },
                 'Moalboal': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CoeJ4iYrlnY/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Oslob': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CogVXuPyRfM/',
+                    ],
                     facebook: []
                 },
                 'El Nido': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cpmk_JxLwjF/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cpqx5G1SQUL/',
+                        'https://www.instagram.com/dykyi.roman/p/CptUG0yyZwz/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cpv4gZzvpaO/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CpyhzxCSMvd/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Coron': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cp3n5MGSD3x/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cp7qGI0rZ2b/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CqKhl2SrsU4/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Boracay': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CqT34UvSUnf/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CqWi8t7S7yJ/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Panglao': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CpFyY05SL1y/',
+                        'https://www.instagram.com/dykyi.roman/p/CpJQWGoyT_S/',
+                        'https://www.instagram.com/dykyi.roman/p/CpLtho2SPhW/',
+                    ],
                     facebook: []
                 },
                 'Manila': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cqx8h5ByCoF/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cq0OnJlLHeW/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cq6uFZtS0_0/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cq9OzwRyHos/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Bohol': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CojxXHHLlKT/',
+                        'https://www.instagram.com/dykyi.roman/p/CpG1GRnymPK/',
+                    ],
                     facebook: []
                 }
             },
@@ -332,15 +432,39 @@ const countriesData = {
                         'https://www.instagram.com/dykyi.roman/p/Cgnm_5yrFMI/',
                         'https://www.instagram.com/dykyi.roman/p/Cg1PpjYLCrt/',
                         'https://www.instagram.com/dykyi.roman/p/Cg3L_zCrmjo/',
+                        'https://www.instagram.com/dykyi.roman/p/CmmAIV5LMYW/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cm1zGeiyCNV/',
+                    ],
+                    facebook: []
+                },
+                'Sala Keo Kou': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CtEqy_vy5E7/',
                     ],
                     facebook: []
                 },
                 'Phuket': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Ck59KAYS6gd/',
+                        'https://www.instagram.com/dykyi.roman/p/Ck9iun-yG0w/',
+                        'https://www.instagram.com/dykyi.roman/p/ClADZhRyLKA/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cl9C5k5yDEN/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cl_gxC3Sm0J/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CmSjyzfSXNS/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CmVErbIyAMB/',
+                        'https://www.instagram.com/dykyi.roman/p/CmXp7K0SimG/',
+                        'https://www.instagram.com/dykyi.roman/p/CoPAn6xLoV9/', // 1 Year in Asia
+                    ],
                     facebook: []
                 },
-                'Phi Phu': {
-                    instagram: [],
+                'Phi Phi': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Clde8njLjgX/',
+                        'https://www.instagram.com/dykyi.roman/p/Cle_nTAyLd5/',
+                        'https://www.instagram.com/dykyi.roman/p/CnPaN2AybCc/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CnhepUVya9m/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cnj-IbtSnoX/',
+                    ],
                     facebook: []
                 },
                 'Pattaya': {
@@ -408,15 +532,30 @@ const countriesData = {
                 'Vientiane': {
                     instagram: [
                         'https://www.instagram.com/dykyi.roman/p/CT_gXUgI1n7/',
+                        'https://www.instagram.com/dykyi.roman/p/CtoM_x4LioV/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CtjiD-BSORR/',
+                        'https://www.instagram.com/dykyi.roman/p/CtlkDrVr3_I/',
                     ],
                     facebook: []
                 },
                 'Luang Prabang': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CuI4MXdS_em/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CuLQOEnSlgo/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CuQcQeUysA0/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CuS-WCSyH5J/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CuVn8NjyTyX/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Vang Vieng': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Ct3lTX6rYoe/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Ct5LTBBSVoL/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Ct7-IgRSynL/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Ct-T32aSy47/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CuA-0htS4lA/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -432,15 +571,43 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Hanoi': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CujCoHZLTlh/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cuk_YO2y8zT/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CunpcdvSXxl/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cvd8fq0rMls/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Halong': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cu0i578Sjyb/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cu3ElMyy6OK/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cu5qlqnyc2Z/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cu7SEJOSam5/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CvC-nWAyZlz/?img_index=1',
+                    ],
+                    facebook: [],
+                },
+                'Nin Binh': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CvLlRx7SPU3/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CvOLC5FydNc/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CvRhjtlLryI/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Da Nang': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CvlmkfALZIf/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CvYhneDSph_/?img_index=1',
+                    ],
                     facebook: []
                 },
-                'Hội An': {
-                    instagram: [],
+                'Hoi An': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cvi0SUrSZMg/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -1219,25 +1386,25 @@ function addCountryClickListeners() {
             document.getElementById('modal-visit-date').textContent = visitDate;
             document.getElementById('modal-duration').textContent = duration;
             document.getElementById('modal-rating').textContent = rating;
-            
+
             document.getElementById('modal-highlights').innerHTML = Object.keys(highlights).map(cityName => {
                 const cityData = highlights[cityName];
                 const socialIcons = [];
-                
+
                 // Add Instagram icons
                 if (cityData.instagram && cityData.instagram.length > 0) {
                     cityData.instagram.forEach(link => {
                         socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon instagram"></a>`);
                     });
                 }
-                
+
                 // Add Facebook icons
                 if (cityData.facebook && cityData.facebook.length > 0) {
                     cityData.facebook.forEach(link => {
                         socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon facebook"></a>`);
                     });
                 }
-                
+
                 return `
                     <div class="city-highlight">
                         <span class="city-name">${cityName}</span>
@@ -1247,7 +1414,7 @@ function addCountryClickListeners() {
                     </div>
                 `;
             }).join('');
-            
+
             document.getElementById('modal-notes').textContent = notes;
 
             // Show modal
