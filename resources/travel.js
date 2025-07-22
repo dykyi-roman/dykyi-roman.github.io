@@ -207,9 +207,32 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Kathmandu': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/C6qozKsIz4f/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C6tVCTtJ9ds/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C6umuwBPHx4/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C6xb-eyIF6a/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C6zyCL2PV2f/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C62jTv2JRgs/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C65JL1dJmOA/?img_index=1',
+                    ],
                     facebook: []
-                }
+                },
+                'Baktapur': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/C67zwrLptKr/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C6-YSwzJSxd/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C7A47TiJAbb/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C7DmW6WRVSq/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Lukla': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/C7GH329pKwt/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C7InUIcp1_W/?img_index=1',
+                    ],
+                },
             },
             notes: 'Life-changing trekking experience',
             instagram: [],
@@ -434,6 +457,7 @@ const countriesData = {
                         'https://www.instagram.com/dykyi.roman/p/Cg3L_zCrmjo/',
                         'https://www.instagram.com/dykyi.roman/p/CmmAIV5LMYW/?img_index=1',
                         'https://www.instagram.com/dykyi.roman/p/Cm1zGeiyCNV/',
+                        'https://www.instagram.com/dykyi.roman/p/Cv1AgTTrSvn/?img_index=1',
                     ],
                     facebook: []
                 },
@@ -464,6 +488,9 @@ const countriesData = {
                         'https://www.instagram.com/dykyi.roman/p/CnPaN2AybCc/?img_index=1',
                         'https://www.instagram.com/dykyi.roman/p/CnhepUVya9m/?img_index=1',
                         'https://www.instagram.com/dykyi.roman/p/Cnj-IbtSnoX/',
+                        'https://www.instagram.com/dykyi.roman/p/C6DZUaxpfx1/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C6FbJj_Po-P/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C6IM0pHo6Vm/?img_index=1',
                     ],
                     facebook: []
                 },
@@ -502,21 +529,60 @@ const countriesData = {
                     facebook: []
                 },
                 'Krabi': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CwPLCWqL43O/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CwY2ey6SmAH/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CweLIgwSRKE/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CwtcY-iSh03/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/CwwJr4VyKkJ/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cwyl7s0SAu-/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C1kACz8JdhR/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C2Y-w3tJdkg/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C2mJlvmJwDN/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C2n9hhSPpAz/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C2qmiWbvdd-/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C24e5jFJyX6/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C25_rIVvfbt/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C3ma0ThvcBt/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C3tgOyMPkqU/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C3wK_MOJptZ/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C47FiF9JaEQ/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C5LwOFcpLwD/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C5PQz0Dy1Ol/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C5Uz2U1Jm57/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C5xcd0CJb-_/?img_index=1', // NY
+                    ],
                     facebook: []
                 },
                 'Koh Samui': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CxkFf_9rR_w/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Czz2IEWy1A0/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cz46T6WSJYU/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C0DJowJSARl/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C0F0nXDSAf6/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C1PN_CepLPc/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Koh Pha Ngan': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CxzBhZZywUC/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Koh Nang': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/CyXNsEBrmuR/?img_index=1',
+                    ],
                     facebook: []
-                }
+                },
+                'Koh Tao': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/Cx4OjjwSw23/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/Cx6ti_syXWT/?img_index=1',
+                    ],
+                    facebook: []
             },
             notes: 'Perfect backpacking destination',
             instagram: [],
@@ -675,6 +741,10 @@ const countriesData = {
                         'https://www.instagram.com/dykyi.roman/p/Cf0S5HJLOg6/',
                         'https://www.instagram.com/dykyi.roman/p/Cf1RIgSrwUQ/',
                         'https://www.instagram.com/dykyi.roman/p/Cf3CtT6L151/',
+                        'https://www.instagram.com/dykyi.roman/p/C1QqzQTpJf7/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C2BVExdIUV2/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C4g_3UpPqLN/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C6bpRaUozg2/?img_index=1',
                     ],
                     facebook: []
                 },
@@ -699,12 +769,17 @@ const countriesData = {
                 'Dubai': {
                     instagram: [
                         'https://www.instagram.com/p/CT-ASs6oGan/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C7XLoCYo6Ae/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C7bF7HWIPna/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C7dQ__IIeEX/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C7f37cLol25/?img_index=1',
                     ],
                     facebook: []
                 },
                 'Abu Dhabi': {
                     instagram: [
                         'https://www.instagram.com/p/CT-A36zojAm/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C7TE4AzI8Wr/?img_index=1',
                     ],
                     facebook: []
                 }
