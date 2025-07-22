@@ -583,7 +583,8 @@ const countriesData = {
                         'https://www.instagram.com/dykyi.roman/p/Cx6ti_syXWT/?img_index=1',
                     ],
                     facebook: []
-            },
+                }, // close 'Koh Tao'
+            }, // close 'highlights'
             notes: 'Perfect backpacking destination',
             instagram: [],
             facebook: []
