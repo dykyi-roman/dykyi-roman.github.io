@@ -329,7 +329,9 @@
 
 .city-social-icons {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
+    max-width: 400px;
 }
 
 .city-social-icon {
