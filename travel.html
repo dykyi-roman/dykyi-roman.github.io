@@ -21,6 +21,10 @@
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
+                // Call updateCountriesDisplay after header is loaded
+                if (typeof updateCountriesDisplay === 'function') {
+                    updateCountriesDisplay();
+                }
             })
             .catch(error => console.error('Error loading header:', error));
     </script>
@@ -36,13 +40,13 @@
             </div>
 
             <div class="countries-by-continent">
-                <div class="continent-group">
+                <div class="continent-group asia">
                     <h5><i class="fas fa-mountain"></i> Asia</h5>
                     <div class="country-flags">
                     </div>
                 </div>
 
-                <div class="continent-group">
+                <div class="continent-group europe">
                     <h5><i class="fas fa-castle"></i> Europe</h5>
                     <div class="country-flags">
                     </div>

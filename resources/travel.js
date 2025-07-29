@@ -1398,32 +1398,46 @@ function updateCountriesDisplay() {
     document.querySelector('.country-count').textContent = totalCount;
 
     // Update continent counts
-    document.querySelector('.continent-group:nth-child(1) h5').innerHTML =
-        `<i class="fas fa-mountain"></i> Asia (${countriesData.asia.length} countries)`;
-    document.querySelector('.continent-group:nth-child(2) h5').innerHTML =
-        `<i class="fa-solid fa-chess-rook"></i></i> Europe (${countriesData.europe.length} countries)`;
+    const asiaElement = document.querySelector('.continent-group.asia h5');
+    const europeElement = document.querySelector('.continent-group.europe h5');
+    
+    console.log('Asia element:', asiaElement);
+    console.log('Europe element:', europeElement);
+    
+    if (asiaElement) {
+        asiaElement.innerHTML = `<i class="fas fa-mountain"></i> Asia (${countriesData.asia.length} countries)`;
+    }
+    if (europeElement) {
+        europeElement.innerHTML = `<i class="fa-solid fa-chess-rook"></i></i> Europe (${countriesData.europe.length} countries)`;
+    }
 
     // Update wishlist count
     document.querySelector('.wishlist-section .continent-group h5').innerHTML =
         `<i class="fas fa-globe"></i> Wishlist (${wishlistCount} countries)`;
 
     // Update country flags
-    const asiaFlags = document.querySelector('.continent-group:nth-child(1) .country-flags');
-    const europeFlags = document.querySelector('.continent-group:nth-child(2) .country-flags');
+    const asiaFlags = document.querySelector('.countries-by-continent .continent-group.asia .country-flags');
+    const europeFlags = document.querySelector('.countries-by-continent .continent-group.europe .country-flags');
 
-    asiaFlags.innerHTML = countriesData.asia.map(country =>
-        `<span class="country-item" title="${country.name}" data-continent="Asia" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${country.instagram.join(', ')}" data-facebook="${country.facebook.join(', ')}">${country.flag}</span>`
-    ).join('');
+    if (asiaFlags) {
+        asiaFlags.innerHTML = countriesData.asia.map(country =>
+            `<span class="country-item" title="${country.name}" data-continent="Asia" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${(country.instagram || []).join(', ')}" data-facebook="${(country.facebook || []).join(', ')}">${country.flag}</span>`
+        ).join('');
+    }
 
-    europeFlags.innerHTML = countriesData.europe.map(country =>
-        `<span class="country-item" title="${country.name}" data-continent="Europe" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${country.instagram.join(', ')}" data-facebook="${country.facebook.join(', ')}">${country.flag}</span>`
-    ).join('');
+    if (europeFlags) {
+        europeFlags.innerHTML = countriesData.europe.map(country =>
+            `<span class="country-item" title="${country.name}" data-continent="Europe" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${(country.instagram || []).join(', ')}" data-facebook="${(country.facebook || []).join(', ')}">${country.flag}</span>`
+        ).join('');
+    }
 
     // Wishlist countries
     const wishlistFlags = document.querySelector('.wishlist-section .country-flags');
-    wishlistFlags.innerHTML = Object.values(wishlistCountries).flat().map(country =>
-        `<span class="wishlist-item" title="${country.name}">${country.flag}<span class="wish-icon">${country.wishIcon}</span></span>`
-    ).join('');
+    if (wishlistFlags) {
+        wishlistFlags.innerHTML = Object.values(wishlistCountries).flat().map(country =>
+            `<span class="wishlist-item" title="${country.name}">${country.flag}<span class="wish-icon">${country.wishIcon}</span></span>`
+        ).join('');
+    }
 
     // Update world exploration progress
     const visitedCount = totalCount;
@@ -1745,7 +1759,7 @@ function initMap() {
             {lat: 7.2998006, lng: 80.3825923, title: "Pinnawala, Hotel Elephant Bay"},
         ],
         "Kazakhstan": [
-            { lat: 43.2598898, lng: 76.9330709, title: "Astana, Apartment in Almaty"},
+            {lat: 43.2598898, lng: 76.9330709, title: "Almaty, Apartment in Almaty"},
         ],
         "Uzbekistan": [
             // { lat: 41.3086111, lng: 69.2665918, title: "Tashkent, City Centre Hotel"},
