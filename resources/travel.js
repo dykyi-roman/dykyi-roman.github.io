@@ -942,7 +942,12 @@ const countriesData = {
             facebook: []
         },
         // { flag: '🇺🇿', name: 'Uzbekistan', visitDate: '2025-08', duration: '07 days', rating: '⭐⭐⭐', highlights: ['Tashkent'], notes: 'Land of rivers and mountains' },
-        { flag: '🇰🇿', name: 'Kazakhstan', visitDate: '2025-08', duration: '14 days', rating: '⭐⭐⭐', highlights: ['Almaty'], notes: 'Land of rivers and mountains' },
+        { flag: '🇰🇿', name: 'Kazakhstan', visitDate: '2025-08', duration: '14 days', rating: '⭐⭐⭐', highlights: {
+            'Almaty': {
+                instagram: [],
+                facebook: []
+            }
+        }, notes: 'Land of rivers and mountains' },
     ],
     europe: [
         {
