@@ -942,7 +942,7 @@ const countriesData = {
             facebook: []
         },
         // { flag: '🇺🇿', name: 'Uzbekistan', visitDate: '2025-08', duration: '07 days', rating: '⭐⭐⭐', highlights: ['Tashkent'], notes: 'Land of rivers and mountains' },
-        // { flag: '🇰🇿', name: 'Kazakhstan', visitDate: '2025-08', duration: '14 days', rating: '⭐⭐⭐', highlights: ['Almaty'], notes: 'Land of rivers and mountains' },
+        { flag: '🇰🇿', name: 'Kazakhstan', visitDate: '2025-08', duration: '14 days', rating: '⭐⭐⭐', highlights: ['Almaty'], notes: 'Land of rivers and mountains' },
     ],
     europe: [
         {
@@ -1745,7 +1745,7 @@ function initMap() {
             {lat: 7.2998006, lng: 80.3825923, title: "Pinnawala, Hotel Elephant Bay"},
         ],
         "Kazakhstan": [
-            // { lat: 43.2598898, lng: 76.9330709, title: "Astana, Apartment in Almaty"},
+            { lat: 43.2598898, lng: 76.9330709, title: "Astana, Apartment in Almaty"},
         ],
         "Uzbekistan": [
             // { lat: 41.3086111, lng: 69.2665918, title: "Tashkent, City Centre Hotel"},
