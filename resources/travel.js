@@ -941,7 +941,7 @@ const countriesData = {
             ],
             facebook: []
         },
-        // { flag: '🇺🇿', name: 'Uzbekistan', visitDate: '2025-08', duration: '07 days', rating: '⭐⭐⭐', highlights: ['Tashkent'], notes: 'Land of rivers and mountains' },
+        { flag: '🇺🇿', name: 'Uzbekistan', visitDate: '2025-08', duration: '07 days', rating: '⭐⭐⭐', highlights: ['Tashkent'], notes: 'Land of rivers and mountains' },
         { flag: '🇰🇿', name: 'Kazakhstan', visitDate: '2025-08', duration: '14 days', rating: '⭐⭐⭐', highlights: {
             'Almaty': {
                 instagram: [],
@@ -1767,9 +1767,9 @@ function initMap() {
             {lat: 43.2598898, lng: 76.9330709, title: "Almaty, Apartment in Almaty"},
         ],
         "Uzbekistan": [
-            // { lat: 41.3086111, lng: 69.2665918, title: "Tashkent, City Centre Hotel"},
-            // { lat: 39.6567259, lng: 66.9707512, title: "Samarkand, City Centre Hotel"},
-            // { lat: 39.7774923, lng: 64.4204554, title: "Bukhara, Travel by train"},
+            { lat: 41.3086111, lng: 69.2665918, title: "Tashkent, City Centre Hotel"},
+            { lat: 39.6567259, lng: 66.9707512, title: "Samarkand, City Centre Hotel"},
+            { lat: 39.7774923, lng: 64.4204554, title: "Bukhara, Travel by train"},
         ],
         "Spain": [
             // { lat: 41.377071, lng: 2.1504022, title: "Barcelona, Home in Barcelona"},
