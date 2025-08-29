@@ -1338,7 +1338,7 @@ const countriesData = {
             instagram: [],
             facebook: []
         },
-        // { flag: '🇪🇸', name: 'Spain', visitDate: '2025-08', duration: 'long term', rating: '⭐⭐⭐⭐', highlights: ['Barcelona'], notes: 'Catalonia and Andalusia' }
+        { flag: '🇪🇸', name: 'Spain', visitDate: '2025-08', duration: 'long term', rating: '⭐⭐⭐⭐', highlights: ['Barcelona'], notes: 'Catalonia and Andalusia' }
     ],
 };
 
@@ -1628,7 +1628,7 @@ function initMap() {
         ],
         "Turkey": [
             {lat: 41.0115158, lng: 28.9431013, title: "Istanbul, Home in Fatih"},
-            // { lat: 41.0063429, lng: 28.9661672, title: "Istanbul, Le Valeria Deluxe"},
+            { lat: 41.0063429, lng: 28.9661672, title: "Istanbul, Le Valeria Deluxe"},
         ],
         "Latvia": [
             {lat: 56.9348137, lng: 24.0352716, title: "Riga, Kalnciema Iella 135"},
@@ -1772,8 +1772,8 @@ function initMap() {
             { lat: 39.7774923, lng: 64.4204554, title: "Bukhara, Travel by train"},
         ],
         "Spain": [
-            // { lat: 41.377071, lng: 2.1504022, title: "Barcelona, Home in Barcelona"},
-            // { lat: 39.4739172, lng: -0.3646948, title: "Valencia, Home in Valencia"},
+            { lat: 41.377071, lng: 2.1504022, title: "Barcelona, Home in Barcelona"},
+            { lat: 39.4739172, lng: -0.3646948, title: "Valencia, Home in Valencia"},
         ],
         "Macao": [
             {lat: 22.1903224, lng: 113.543226, title: "Macau, Travel by ship"},
