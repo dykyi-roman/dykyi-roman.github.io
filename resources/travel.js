@@ -829,6 +829,8 @@ const countriesData = {
             highlights: {
                 'Istanbul': {
                     instagram: [
+                        'https://www.instagram.com/p/DN3wgZ-3Pyr/?img_index=1',
+                        'https://www.instagram.com/p/DN7agDViL7g/?img_index=1',
                         'https://www.instagram.com/p/CT9gkMPIgaY/?img_index=1',
                     ],
                     facebook: []
@@ -941,10 +943,37 @@ const countriesData = {
             ],
             facebook: []
         },
-        { flag: '🇺🇿', name: 'Uzbekistan', visitDate: '2025-08', duration: '07 days', rating: '⭐⭐⭐', highlights: ['Tashkent'], notes: 'Land of rivers and mountains' },
+        { flag: '🇺🇿', name: 'Uzbekistan', visitDate: '2025-08', duration: '07 days', rating: '⭐⭐⭐', highlights: {
+                'Tashkent': {
+                    instagram: [
+                        'https://www.instagram.com/p/DNSuH2fI8Lj/?img_index=1',
+                        'https://www.instagram.com/p/DNUorL7ope0/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Bukhara': {
+                  instagram: [
+                      'https://www.instagram.com/p/DNfAyhBovtf/?img_index=1',
+                  ]
+                },
+                'Samarkand': {
+                    instagram: [
+                        'https://www.instagram.com/p/DNkUnixoU9o/?img_index=1',
+                        'https://www.instagram.com/p/DNpNVFoo7j8/?img_index=1',
+                        'https://www.instagram.com/p/DNrydc0UMAQ/?img_index=1',
+                        'https://www.instagram.com/p/DNujNl_0OMi/?img_index=1',
+                    ],
+                }
+            }, notes: 'Land of rivers and mountains' },
         { flag: '🇰🇿', name: 'Kazakhstan', visitDate: '2025-08', duration: '14 days', rating: '⭐⭐⭐', highlights: {
             'Almaty': {
-                instagram: [],
+                instagram: [
+                    'https://www.instagram.com/p/DM4NsTKovon/?img_index=1',
+                    'https://www.instagram.com/p/DM_6h67IMBj/?img_index=1',
+                    'https://www.instagram.com/p/DNJSQa_o-fz/?img_index=1',
+                    'https://www.instagram.com/p/DNLvam_okPs/?img_index=1',
+                    'https://www.instagram.com/p/DNOQORBIHVV/?img_index=1',
+                ],
                 facebook: []
             }
         }, notes: 'Land of rivers and mountains' },
