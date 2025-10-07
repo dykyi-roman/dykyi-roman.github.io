@@ -23,7 +23,407 @@
         </div>
 
         <div class="article-content">
+            Reflections on Architectural Patterns
+            At a software development conference, I got into a conversation with a colleague about modern approaches and architectural patterns. During our conversation, he asked me a seemingly simple question:
+
+            “What architectural pattern is used in your current project?”
+
+            This question made me pause and look at the problem of choosing an architecture from a different angle. Perhaps the conference atmosphere influenced me (after all, they’re supposed to be useful), but I began to wonder: why do we so often rely on a single architectural pattern when developing applications, instead of combining several? Yet, as my own experience and discussions within the professional community have shown, this question often assumes there is only one “correct” answer. In reality, though, we frequently see teams trying to stick to a dominant approach — whether it’s focusing on CQRS, strictly following Hexagonal Architecture, or applying DDD within the limits of the team’s current understanding and experience. But very few attempt to use multiple approaches at once, where each pattern solves its own problem.
+
+            Hybrid approaches that combine the strengths of different architectural solutions are not just a possible option but often a necessity. Each of these approaches can effectively address specific challenges:
+
+            Hexagonal (Ports & Adapters) — to isolate business logic from infrastructure details, ensuring flexibility when integrating with external services.
+            Layered Architecture — to clearly separate responsibilities between layers (presentation, business, data), simplifying maintenance and testing.
+            Domain-Driven Design (DDD) — to thoroughly model a complex domain through aggregates, entities, and value objects.
+            Clean Architecture — to ensure business rules remain independent of frameworks and UI, focusing on use cases.
+            CQRS — to separate read and write operations, which is critical for high-load systems.
+            Event Sourcing — to store state changes as a sequence of events, providing auditability and temporal queries.
+            Of course, combining patterns increases complexity, but when thoughtfully implemented, it provides significant long-term advantages:
+
+            Flexibility and Adaptability: Individual components built on different principles can be replaced or evolved relatively independently.
+            Scalability: Dividing responsibilities across different patterns allows bottlenecks in the system to be identified and scaled more precisely.
+            Resilience to Change: The architecture becomes more resistant to new or changing requirements, enabling targeted solutions without the need to rebuild the entire system.
+            Thus, instead of asking “Which architectural pattern are you using?” I asked myself a different question: “Which architectural approaches are best suited to solving the specific problems and challenges in my system?” Because it is the understanding of the principles behind each pattern that becomes key. In this context, the physical structure of the project — folder organization, namespace naming — while still important for simplifying comprehension and navigation, is no longer the defining indicator of the chosen architecture.
+
+            I’m not insisting this is a good thing; in practice, it’s much more convenient when the code structure is easily understood even at the project tree level. This simplifies navigation and speeds up understanding of the architecture, even without having to delve deeply into the contents of individual files.
+
+            It is important to realize that:
+
+            The absence of explicitly named folders such as Presentation, Application, Domain, or Infrastructure does not negate the logical separation of code into layers with one-way dependencies.
+            The absence of a dedicated Domain folder or subfolders for Aggregates, Entities, or Value Objects does not exclude the application of DDD concepts.
+            The absence of folders like Ports and Adapters or other specific nomenclature does not mean you are not following the ideas of Hexagonal Architecture, as long as the business logic is isolated from external dependencies through clearly defined interfaces (ports) and their implementations (adapters).
+            Not using standard frameworks for inversion of control or dependency injection does not mean abandoning the principles of Clean Architecture, as long as dependencies point inward and business rules remain independent.
+            And so on — I think you get the idea.
+
+            The key to success is making conscious choices in each architectural approach. Patterns should complement each other, not conflict. Perhaps choosing a single pattern and sticking to it often comes down to habit, a desire for simplicity, or fear of unnecessary complexity. However, modern projects frequently demand hybrid solutions, and blindly following a single pattern can limit development.
+
+            The main thing is not to choose an architecture “because everyone else does it,” but to understand what specific problems it should solve.
+
+            Examples
+            In my practice, there have been several cases where applying a combination of patterns produced a tangible impact. Unfortunately, these were commercial projects, so I cannot share the code. However, we can try applying architectural approaches together to an open-source project on GitHub. This would allow us to break down practical cases and highlight their advantages. Let’s look at a few examples:
+
+            Example #1: Gaming Service (in-game online store)
+
+            Patterns:
+
+            Clean Architecture — a core with purchasing rules, independent of the game engine.
+            DDD — clear bounded contexts: Inventory, Payments, Promotions.
+            Layered Architecture — isolation of UI, business logic, and infrastructure data (Redis + PostgreSQL).
+            Result: After refactoring, the error rate during updates (e.g., introducing a new currency) dropped by 70%.
+
+            Example #2: Forex Trading Platform
+
+            Patterns:
+
+            CQRS — Commands: order execution (high write load). Queries: price analytics and trade history (frequent reads).
+            Event-Driven Architecture — real-time handling of domain events.
+            Hexagonal Architecture — adapters for: Broker APIs (MetaTrader, FIX protocol), Reuters/Bloomberg data, Audit systems for regulators.
+            Result: The platform processes 10,000+ market events per second with zero data loss. Trade auditing for compliance takes minutes (previously — hours).
+
+            Example #3: Payment System (CRM)
+
+            Patterns:
+
+            CQRS — separation of DB workloads into Commands and Queries to reduce database pressure.
+            DDD — well-defined bounded contexts to ensure low coupling and high cohesion.
+            Get Started with Enterprise Skeleton
+            For writing an open-access example on GitHub, I used Enterprise Skeleton. It was designed with the goal of maximizing development speed. It provides a ready-to-use foundation, allowing teams to jump straight into implementing business logic while skipping the routine steps of infrastructure setup.
+
+            Imagine you need to launch a new project. Instead of spending time choosing, configuring, and integrating a web server, database, caching system, and other essential services, Enterprise Skeleton offers a unified and streamlined process.
+
+            Everything starts with cloning the repository, as shown in the installation section. Then, with just a few commands, you can select the services you need by simply uncommenting the corresponding lines in the configuration file. Want to use Nginx and PostgreSQL? Just make sure server=nginx and database=postgres are enabled. Need Redis for caching? Uncomment the line cache=redis.
+
+            Moreover, switching the base PHP framework is equally straightforward. With a single command — make framework laravel — you can switch from Symfony (the default) to Laravel, adapting the skeleton to your team’s preferences. The final step is running make install. This command automatically installs all required dependencies and brings up a fully functional environment, ready for development.
+
+            In this way, Enterprise Skeleton allows developers to focus on what really matters — creating business value. You get a working infrastructure “out of the box,” which drastically reduces the time from idea to first prototype and enables faster time-to-market. This package is ideal for quickly bootstrapping and starting development of almost any project, while providing a reliable and flexible foundation for future growth and scalability.
+
+            DDD
+            After a thorough analysis of the task, we decided to begin our journey with Domain-Driven Design (DDD). It offers not just a set of technical solutions, but rather a way of thinking that places the business domain at the center of the development process. This approach provides a powerful set of concepts and patterns for modeling complex, business-oriented software.
+
+            In our example, we will demonstrate how applying both strategic and tactical DDD patterns helps to build a well-structured, understandable, and evolving application.
+
+            Application of strategic patterns
+            DDD strategic patterns help define domain boundaries and organize the large-scale structure of an application.
+
+            Bounded Contexts
+
+            We start by explicitly defining bounded contexts, which allows us to focus on a specific part of the domain and design a model that makes sense within that particular context. In our example, we identified two key contexts:
+
+            OrderContext: Focused on the process of creating an order, adding order items, and calculating the total amount. Here, the domain model reflects business rules directly related to orders.
+            PaymentContext: Responsible for processing payments, checking their status, and confirming or rejecting transactions. The model in this context is dedicated to the logic surrounding financial operations.
+            Having clearly defined contexts helps prevent the mixing of concepts and ensures clarity in each module’s responsibility.
+
+            Common code that can be reused across multiple contexts is placed in a Shared directory.
+            You can read about other ways of communicating between contexts besides Shared in my article: Linking Contexts: A Guide to Effective Interaction
+
+            Ubiquitous language
+            To ensure clear communication between developers and domain experts within each bounded context, we strive to use a ubiquitous language. This language is reflected both in the code and in the documentation. In our example, we document the key terms and their meanings within each context using dedicated README.md files:
+
+            code/src/OrderContext/README.md
+            code/src/PaymentContext/README.md
+            This ensures that all project participants rely on the same definitions and concepts.
+
+            Context Map
+            To understand the relationships between different bounded contexts, we use a Context Map. This artifact visualizes how contexts interact with one another. In our example, this information is presented in the file:
+
+            code/src/CONTEXT_MAP.md
+            The context map helps make informed decisions about integration and dependency management between different parts of the system.
+
+            Tactical Patterns Within Each Context
+            Inside each bounded context, we apply tactical DDD patterns to model the domain at the code level. This includes concepts such as Entities, Value Objects, Aggregates, Repositories, and Domain Events, ensuring that the code accurately reflects business rules while maintaining clarity and separation of concerns.
+
+            OrderContext:
+
+            Aggregates: OrderAggregate serves as the transactional boundary and ensures consistency among related entities (Order, OrderItem).
+            Entities: Order (the order itself) and OrderItem (an item in the order) have unique identities that persist over time.
+            Value Objects: OrderId (order identifier), Money (representation of monetary amounts) have no identity of their own and are defined by their attributes.
+            Enums: OrderStatus (order status: new, paid, canceled, etc.) represents a limited set of possible values.
+            Domain Events: OrderCreated (order created), OrderPaid (order paid) capture significant events that occur in the domain.
+            Domain Services: OrderTotalCalculator encapsulates business logic that does not naturally belong to a specific entity or aggregate (calculating the total order amount).
+            Factories: OrderFactory encapsulates complex creation logic for OrderAggregate objects.
+            PaymentContext:
+
+            Aggregates: PaymentAggregate manages the payment lifecycle and ensures consistency of the associated Payment entity.
+            Entities: Payment represents the information about a processed payment.
+            Value Objects: TransactionId (transaction identifier), PaymentMethod (method of payment).
+            Enums: PaymentStatus (payment status: created, succeeded, failed, etc.).
+            Domain Events: PaymentSucceeded (payment completed successfully), PaymentFailed (payment failed).
+            Domain Services: PaymentGatewayService handles interaction with external payment systems.
+            Factories: PaymentFactory is used to create PaymentAggregate objects.
+            Applying these tactical patterns in each context allows us to build a rich and expressive domain model that closely aligns with business requirements.
+
+            To ensure the integrity of our architecture and control dependencies between layers, we use the Deptrac static analysis tool. The configuration file tools/deptrac/deptrac-domain.yaml helps us enforce that dependencies within and between contexts conform to our architectural vision, preventing unwanted coupling and maintaining low interdependency.
+
+            What we got
+
+            src/
+            OrderContext
+            PaymentContext
+            Shared
+            CONTEXT_MAP.md
+            As a result of this approach, we can confidently state that our solution follows DDD principles. Here’s why:
+
+            We structured the application around clearly defined bounded contexts, such as OrderContext and PaymentContext, each with its own ubiquitous language and reflecting the specifics of the corresponding business area. Interactions between these contexts are intentionally designed using a context map.
+
+            Within each context, we apply tactical patterns — such as Aggregates, Entities, Value Objects, Domain Events, and Domain Services — to create a rich and expressive domain model. This enables us to develop software that closely aligns with business requirements and can easily adapt as the domain evolves.
+
+            Layer Architecture
+            In developing our solution, in addition to general architectural principles, we made another key decision: to ensure clarity and ease of use for each context, we divided them into layers. This allowed us to clearly structure the code, define areas of responsibility, and significantly improve system maintainability. We identified the following architectural layers:
+
+            Presentation Layer: This layer handles interaction with users or external systems. It includes user interfaces (UI), API endpoints, controllers, and everything related to data presentation and user input handling. Its responsibility is to translate requests into a format understood by the application layer and to display the results of its work.
+
+            Application Layer: The core of business logic in terms of specific use cases. This layer coordinates the actions of the domain layer and infrastructure to accomplish specific tasks. It does not contain business rules itself but orchestrates their execution by invoking domain objects and interacting with infrastructure services.
+
+            Domain Layer: The most important layer, containing domain entities, their behavior, business rules, and aggregates. It is the “heart” of the system, encapsulating the core business logic and ensuring data consistency. This layer is completely independent of the other layers and should not have dependencies on them.
+
+            Infrastructure Layer: This layer handles technical concerns such as database access, integration with external services, logging, caching, etc. It provides necessary support to the domain and application layers, allowing them to focus on business logic.
+
+            To strictly enforce dependencies between these layers and prevent circular or incorrect references, we used the Deptrac static analysis tool. Its configuration, defined in tools/deptrac/deptrac-layers.yaml, explicitly specifies allowable dependencies between layers.
+
+            Running the make deptrac command at any point during development allows you to check the architectural integrity and identify any dependency violations.
+
+            What we got
+
+            src/
+            OrderContext
+            Application
+            DomainModel
+            Infrastructure
+            Presentation
+            README.md
+            PaymentContext
+            Application
+            DomainModel
+            Infrastructure
+            Presentation
+            README.md
+            Shared
+            CONTEXT_MAP.md
+            As a result of this approach, we can confidently state that our solution employs a Layered Architecture. Here’s why:
+
+            Clear Separation of Responsibilities: Each layer has a well-defined role, making the system easier to understand and modify. Changes in one layer (e.g., altering the database in the Infrastructure Layer) have minimal impact on others.
+            Isolation of Domain Logic: The domain layer is completely independent of technical details and external interfaces, making it more testable, stable, and resilient to technological changes.
+            Improved Testability: Thanks to the separation, each layer can be tested in isolation, simplifying the testing process and increasing system reliability.
+            Flexibility in Evolution: Layers can be replaced or adapted without rewriting the entire system (e.g., switching to a different ORM or UI framework).
+            Dependency Control: Using Deptrac ensures that architectural rules are not accidentally violated, maintaining cleanliness and order in the codebase throughout the project’s lifecycle.
+            For a more detailed look at code organization, see the articles:
+
+            Pack Your Code Properly
+            How to Organize Application Structure
+            Clean architecture
+            Building on the principles established in Domain-Driven Design (DDD) and Layered Architecture, we arrived at the need to apply Clean Architecture.
+
+            The key idea of Clean Architecture is to organize code into concentric circles, where dependencies always point inward. The innermost circles contain the most general, high-level business logic, while the outer circles contain implementation details. This approach naturally complements our layered structure:
+
+            Entities: In our case, these are the Domain Models in each context (OrderContext/DomainModel, PaymentContext/DomainModel). This layer contains the core business rules, aggregates, and domain entities, which remain stable regardless of changes in the UI, databases, or external services. This is the innermost circle.
+            Use Cases / Interactors: Implemented at the Application Layer in each context (OrderContext/Application/UseCases, PaymentContext/Application/UseCases). Here resides application-specific business logic that orchestrates interactions between domain entities and external components to fulfill specific scenarios (e.g., “create order,” “initiate payment”). Use Cases define input and output data, as well as the business rules that must be enforced for each use case.
+            Interface Adapters: This corresponds to our Presentation and Infrastructure layers.
+            Presentation (OrderContext/Presentation, PaymentContext/Presentation) acts as an adapter for external systems or users, translating data between formats understood by the Use Cases and formats suitable for display (e.g., REST controllers, GraphQL endpoints).
+            Infrastructure (OrderContext/Infrastructure, PaymentContext/Infrastructure) acts as an adapter for databases, external APIs, file systems, and other technical concerns. It implements interfaces defined in the Application or Domain layers to interact with the external world (e.g., repositories, gateways).
+            Frameworks and Drivers: The outermost circle, which includes the specific technologies and frameworks we use. We only use the framework for Request/Response handling, making it easy to switch frameworks later by rewriting only the Presentation layer.
+            Implementing Use Cases in the Application layer allowed us to focus on the actions users or systems want to perform, rather than on technical details. For example, instead of thinking in terms of “ORM query to create an order,” we think in terms of “create an order with these data.” Each Use Case receives a DTO (Data Transfer Object) as input, passes it to the appropriate domain objects, invokes their methods to perform business logic, and then returns the result, potentially as another DTO.
+
+            This approach keeps the business logic clean, testable, and independent from the UI or database.
+
+            What we got
+
+            src/
+            OrderContext
+            Application
+            UseCases
+            CreateOrder
+            GetOrderDetails
+            ….
+            PaymentContext
+            Application
+            UseCases
+            CreateDraftPayment
+            InitiatePayment
+            ….
+            As a result of this approach, we can confidently state that our solution actively leverages Clean Architecture. Here’s why:
+
+            Framework Independence: We can easily switch the web framework, ORM, or even the database without significantly impacting the core business logic in the DomainModel and Application layers.
+            Testability: The central business logic (Domain and Use Cases) is completely independent of external dependencies, making it extremely easy to test in isolation (unit tests).
+            UI Independence: Changing the user interface (e.g., from a web interface to a mobile app or console) does not require any changes to the business logic. The Presentation layer simply acts as an adapter.
+            Database Independence: Similarly, switching to another database (e.g., from relational to NoSQL) or modifying the schema does not affect the Domain and Application layers, as they interact with the Infrastructure layer through abstractions (repository interfaces).
+            Consistency with DDD and Layered Architecture: Clean Architecture integrates seamlessly with our previously adopted approaches, such as DDD (ensuring domain focus) and Layered Architecture (providing clear rules for dependencies and layer organization).
+            CQRS
+            Once the contexts were clearly defined and structured using layers, and with Use Cases now implemented in the Application layer, the next important step was designing communication between layers. At this stage, we made another fundamental architectural decision by applying the CQRS (Command Query Responsibility Segregation) pattern.
+
+            CQRS separates operations that modify the system state (Commands) from operations that only read data (Queries). This separation allows these two types of operations to be optimized and scaled independently, while also simplifying their understanding and development.
+
+            In our case, each context was designed with this separation in mind.
+
+            OrderContext — In the order management context, we clearly separated operations:
+
+            POST /api/orders — This is an example of a Command. The endpoint is responsible for creating a new order. Upon receiving the request, the system applies the relevant business rules, modifies the domain state (creates a new order), and may generate events. This operation is idempotent and state-changing.
+            GET /api/orders/{id} — This is an example of a Query. The endpoint is used solely to retrieve details of an existing order by its identifier. It does not modify system state and simply returns data, potentially from a read-optimized store.
+            PaymentContext — Similarly, in the payment processing context:
+
+            POST /api/payments — This is a Command that initiates a new payment. It records the user’s intent to make a payment, modifies the corresponding state in the payment system (e.g., sets status to “pending”), and may interact with an external payment provider.
+            POST /api/payments/{id}/callback — This is also a Command, triggered by the external payment system. It handles a webhook callback informing about the payment status (success, failure, etc.). This command also modifies the state of the corresponding payment in our system.
+            What we got
+
+            src/
+            OrderContext
+            Application
+            UseCase
+            CreateOrder
+            CreateOrderCommand
+            CreateOrderHandler
+            GetOrderDetails
+            GetOrderDetailsQuery
+            GetOrderDetailsHandler
+            ….
+            PaymentContext
+            Application
+            UseCase
+            CreateDraftPayment
+            CreateDraftPaymentCommand
+            CreateDraftPaymentHandler
+            InitiatePayment
+            InitiatePaymentCommand
+            InitiatePaymentHandler
+            ….
+            As a result of this approach, we can confidently state that our solution actively leverages CQRS architecture. Here’s why:
+
+            Independent Scalability: Write operations (Commands) and read operations (Queries) often have different performance and scaling requirements. CQRS allows them to be optimized and scaled independently, for example by using separate databases or caches for reads.
+            Performance Optimization: Separation enables the creation of specialized Read Models, which are tailored for queries and display, and Write Models, optimized for consistency and integrity when executing commands.
+            Simplification of Complex Logic: In complex domains where the business logic for writes differs significantly from reads, CQRS reduces complexity by allowing each part to focus only on its specific responsibility.
+            Increased Flexibility: Different technologies can be used for handling commands and queries (e.g., Event Sourcing for commands and relational databases for queries).
+            Clearer APIs: Separating commands and queries makes the API more intuitive and predictable. It becomes easy to distinguish operations that modify data from those that merely read it.
+            Event-driven architecture
+            To ensure flexible and loosely coupled communication between our contexts, and to efficiently implement Concurrent Query Reduction (CQRS), we implemented Event-Driven Architecture (EDA) in combination with Event Sourcing.
+
+            Event-Driven Architecture for Communication
+
+            Instead of direct calls between services, our contexts interact through event exchange. When a significant business event occurs in one context (for example, creating an order, successful payment), it publishes a corresponding domain event. Other contexts interested in this event can subscribe to it and respond asynchronously. This approach significantly reduces coupling between services, increases their fault tolerance, and allows each context to evolve independently.
+
+            Event Sourcing for CQRS
+
+            Event Sourcing has become a key element of our strategy for synchronizing the Command Side and Query Side within the CQRS framework:
+
+            Command Side: When a command arrives (e.g., create an order, initiate a payment), we process it, apply business logic, and — if successful — generate one or more domain events that reflect the state changes that occurred. Instead of directly updating the current state of the object, we store these events in an Event Store (event log). This makes the history of all system state changes explicit and immutable.
+            Query Side: To support efficient data reading, we use projections. The Query Side subscribes to the event stream from the Event Store and uses these events to build and update optimized read models, which are ideal for query operations. These projections can be stored in different types of data stores, chosen to best suit read-intensive tasks.
+            Key Aspects of Implementation:
+
+            Eventual Consistency: Since projection updates occur asynchronously after an event is recorded, there may be a slight delay between the execution of a command and the reflection of that change in the read models. This is taken into account when designing the user experience.
+            Projection Update Latency: We acknowledge that updating projections can take time, and we design our interfaces with this in mind.
+            Idempotent Event Handling: To ensure reliability, event handlers on the Query Side are idempotent, meaning that processing the same event multiple times does not produce unintended side effects.
+            The Event Store can be:
+
+            A specialized event database (EventStoreDB, Axon Server, Chronicle)
+            A standard relational database
+            Message queues
+            A hybrid solution
+            Challenges and Their Solutions:
+
+            Guaranteed Event Delivery (Transactional Outbox): To ensure reliable event delivery after data changes, we use the Transactional Outbox pattern. This means that when a write transaction occurs (e.g., saving an aggregate), we simultaneously persist outgoing domain events in a dedicated “outbox” table. A separate process then asynchronously reads these messages from the outbox and publishes them to our message queue. This ensures that events are only published after the main transaction successfully commits.
+            Event Reprocessing and Message Loss Prevention: We rely on our message queue’s capabilities (e.g., at-least-once delivery) to ensure messages are not lost. Additionally, we can track event processing progress on the consumer side to avoid duplicate handling in case of failures (using a separate progress tracking table). Specialized Event Stores may also provide Catch-up Subscriptions, allowing new subscribers or recovering services to process the entire event history.
+            What we got
+
+            src/
+            OrderContext
+            Domain
+            Event
+            ….
+            PaymentContext
+            Domain
+            Event
             ...
+            As a result of this approach, we can confidently state that our solution actively leverages Event-Driven Architecture (EDA) and Event Sourcing. Here’s why:
+
+            Loose Coupling: Services communicate via events, reducing interdependencies and simplifying independent development and deployment.
+            Reliability: Using the Transactional Outbox ensures that events reflecting state changes are reliably delivered for further processing.
+            Scalability: Asynchronous event handling allows different parts of the system to scale more efficiently according to their load.
+            Audit and History: Event Sourcing provides a complete and immutable history of all state changes, which is valuable for auditing, debugging, and understanding the evolution of business logic.
+            Applying EDA and Event Sourcing has become a powerful tool in our toolkit, enabling us to build a more flexible, reliable, and scalable system.
+
+            Haxegonal architecture
+            Alongside the principles of Clean Architecture, we actively applied the Hexagonal Architecture pattern, also known as Ports and Adapters. This approach extends the idea that the core business logic of an application should be completely isolated from external mechanisms and implementation details. The goal is to make the application independent of databases, UIs, testing tools, or third-party APIs.
+
+            The essence of Hexagonal Architecture is that our domain core (the central part of the “hexagon”) interacts with the outside world exclusively through ports. Ports are interfaces that define the required functionality but not its implementation. The implementations of these interfaces, or adapters, reside outside the core and serve to connect the core to specific technologies.
+
+            Ports in the Domain:
+
+            Repository Interfaces: At the DomainModel level in each context (e.g., /DomainModel/Repository/OrderRepositoryInterface), we defined interfaces for interacting with the data storage.
+
+            Common Service Interfaces: For shared services like messaging or notifications, we defined interfaces at /Shared/DomainModel/Services/:
+
+            /Shared/DomainModel/Services/MessageBusInterface.php
+            /Shared/DomainModel/Services/NotificationInterface.php
+            PSR Interfaces: We also rely on standard PSR interfaces, such as:
+
+            Psr\Http\Client\ClientInterface
+            Psr\Cache\CacheItemInterface
+            Psr\Log\LoggerInterface
+            Our domain core (the central part of the “hexagon”) interacts with the external world exclusively through these ports. Ports define what functionality is needed, but not how it is implemented. The implementation of these interfaces, or adapters, resides outside the core and connects it to specific technologies.
+
+            Adapters in the Infrastructure Layer:
+
+            HTTP Clients: Using clients like Guzzle or HttpPlug.
+            Logging: Using Monolog.
+            Repository Pattern + Doctrine ORM: Implements persistence logic for domain entities.
+            Examples of Adapters:
+
+            Shared/Infrastructure/MessageBus/SymfonyMessageBus.php — This adapter implements MessageBusInterface using a specific library (Symfony Messenger) to send messages, while the domain layer remains unaware of the implementation details.
+            Shared/Infrastructure/Notification/NotificationAdapter.php — Implements NotificationInterface, encapsulating the specifics of sending notifications via a concrete service (e.g., email provider or SMS gateway).
+            What we got
+
+            src/
+            OrderContext
+            DomainModel
+            Repository
+            Infrastructure
+            Persistence
+            Doctrine
+            Repository
+            …
+            PaymentContext
+            DomainModel
+            Repository
+            Infrastructure
+            Persistence
+            Doctrine
+            Repository
+            …
+            Shared
+            DomainModel
+            Services
+            MessageBusInterface.php
+            NotificationInterface.php
+            Infrastructure
+            HttpClient
+            MessageBus
+            Notification
+            ….
+            As a result of this approach, we can confidently state that our solution actively employs Hexagonal Architecture. Here’s why:
+
+            Complete Isolation of the Domain Core: The central business logic and domain entities (DomainModel, Application layers) are completely unaware of external technologies (databases, web frameworks, message buses, third-party APIs). They depend solely on their own interfaces (ports).
+            Interchangeable Technologies: We can easily swap one adapter for another — for example, switch databases, change the notification service provider, or use a different HTTP client — without modifying a single line of code in the domain layer.
+            Clear Boundaries of Responsibility: Each adapter has a single, well-defined responsibility: transforming requests from the outside world into a format understandable by the domain, and vice versa.
+            In our project, Hexagonal Architecture acts as a reliable guardian, ensuring that our core business logic remains clean, independent, and resilient to changes in the external environment — a key factor for the system’s longevity and success.
+
+            Conclusions
+            Here’s a polished English translation of your text:
+
+            Developing modern software requires not only writing functional code but also creating a system that is resilient, scalable, maintainable, and adaptable to change. In our project, we consistently applied a set of proven architectural patterns and principles, which allowed us to achieve these goals.
+
+            As a result, we ended up with a project (link to it here) that:
+
+            Follows Domain-Driven Design (DDD) principles: We focused on the business domain, defining clear bounded contexts (OrderContext, PaymentContext). This allowed us to create models that accurately reflect business processes and terminology, ensuring a deep understanding and a shared language between developers and domain experts.
+            Uses Layered Architecture: Each context was structured into logical layers — Presentation, Application, DomainModel, and Infrastructure. This separation of responsibilities ensured clean code, isolated domain logic, and high testability. Strict dependency rules between layers, enforced by Deptrac, guarantee architectural integrity.
+            Applies Clean Architecture: We went further by implementing Clean Architecture principles, where the business logic (Domain and Use Cases) sits at the center, independent of external concerns such as databases, UI, or third-party services. This ensures maximum flexibility, testability, and long-term maintainability of the system.
+            Uses CQRS (Command Query Responsibility Segregation): By separating operations that change system state (commands) from read operations (queries), we were able to optimize performance, improve scalability, and simplify the handling of complex business logic within each context.
+            Applies Event-Driven Architecture (EDA): For synchronizing read and write stores in CQRS, as well as generating domain events after successful operations. These events can be used for asynchronous communication between contexts or for building read models, which is a key aspect of Event-Driven Architecture, increasing system flexibility and extensibility through loose coupling.
+            Follows Hexagonal Architecture (Ports and Adapters): This pattern is synonymous with Clean Architecture, emphasizing that the core application interacts with the outside world only through “ports” (interfaces), while the specific implementations of these ports (“adapters”) reside at the periphery. This ensures that our domain core does not depend on external technologies, making it truly “plug-in ready.”
+            Together, these architectural decisions allowed us to create a reliable, flexible, and easily evolvable system capable of effectively meeting both current and future business requirements.
+
+            If you want, I can also make an even more concise, executive-summary style version in English suitable for presentations or project documentation. It would preserve all the key points but be more streamlined. Do you want me to do that?
+
+            Useful links
+            DDD, Hexagonal, Onion, Clean, CQRS, … How I put it all together
+            The Best way of implementing Domain-driven design, Clean Architecture and CQRS
         </div>
     </div>
 
