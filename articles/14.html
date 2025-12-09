@@ -143,171 +143,193 @@
 
             <h1>[V] Agents in CI/CD</h1>
             <p>AI tools for code review have become a natural part of the modern development process. They help find errors, vulnerabilities, style inconsistencies, architectural principle violations, and even provide refactoring recommendations. Unlike static analyzers, AI can consider the context of the entire project, understand the developer's intentions, and suggest more "human" improvements.</p>
-            Основные задачи AI-Code Review:
-            Автоматический анализ Pull/Merge Request’ов
-            Выявление ошибок, потенциальных багов и edge-кейсов
-            Анализ безопасности
-            Детекция code smells
-            Оценка архитектурных нарушений
-            Предложение рефакторинга и улучшений
-            Консистентность стиля и соглашений в проекте
-            Ускорение ревью и разгрузка Senior/Lead разработчиков
+            <p><strong>Main tasks of AI Code Review:</strong></p>
+            <ul>
+                <li>Automatic analysis of Pull/Merge Requests</li>
+                <li>Detection of errors, potential bugs, and edge cases</li>
+                <li>Security analysis</li>
+                <li>Code smell detection</li>
+                <li>Evaluation of architectural violations</li>
+                <li>Refactoring and improvement suggestions</li>
+                <li>Style and convention consistency in the project</li>
+                <li>Speeding up review and offloading Senior/Lead developers</li>
+            </ul>
 
             <h2>CodeRabbit AI</h2>
-            Один из самых популярных стартапов в области AI-code review. Работает в GitHub и GitLab. Особо силён в объяснениях и улучшении readability. Это почти «виртуальный тимлид», который читает PR как человек. Отлично подходит для команд, где ревьюеров мало, а PR много.
-            Что умеет:
-            Проводит полноценный AI code review на уровне senior-инженера
-            Детально комментирует строки, функции, файлы
-            Построения Sequence Diagram(s)
-            Анализирует архитектурные решения
-            Дает рекомендации по рефакторингу и чистоте кода
-            Отвечает на вопросы прямо в PR
+            <p>One of the most popular startups in AI code review. Works with GitHub and GitLab. Particularly strong in explanations and improving readability. It's almost a "virtual team lead" who reads PRs like a human. Great for teams where there are few reviewers but many PRs.</p>
+            <p><strong>Capabilities:</strong></p>
+            <ul>
+                <li>Conducts full AI code review at senior engineer level</li>
+                <li>Detailed comments on lines, functions, files</li>
+                <li>Builds Sequence Diagrams</li>
+                <li>Analyzes architectural decisions</li>
+                <li>Provides refactoring and code cleanliness recommendations</li>
+                <li>Answers questions directly in PR</li>
+            </ul>
+
+            <h2>GitHub Copilot (Copilot Reviews / Copilot for PRs)</h2>
+            <p>Copilot has long gone beyond autocompletion and become a full-fledged review assistant. The best option if the project is hosted on GitHub. Deep integration, fast operation, supports large context.</p>
+            <p><strong>Capabilities:</strong></p>
+            <ul>
+                <li>Analyzes the entire Pull Request</li>
+                <li>Summarizes changes and explains what the PR does</li>
+                <li>Finds bugs, logical errors, SOLID/clean architecture violations</li>
+                <li>Writes review comments automatically</li>
+                <li>Can suggest fixes and even generate patches</li>
+            </ul>
+
+            <h2>Snyk Code (AI Security Review)</h2>
+            <p>Snyk is a leader in security, and their AI code analysis focuses specifically on vulnerabilities. If security review quality is important (and for senior devs it's critical), Snyk Code provides deeper analysis than Copilot or static analyzers.</p>
+            <p><strong>Capabilities:</strong></p>
+            <ul>
+                <li>Finds security holes: SQL injections, XSS, unsafe deserialization, insecure config</li>
+                <li>Suggests secure fixes</li>
+                <li>Analyzes dependencies and libraries</li>
+                <li>Checks infrastructure files (Docker, K8s)</li>
+                <li>Supports many languages, including PHP</li>
+            </ul>
+
+            <h1>[VI] Agents !== Silver Bullet</h1>
+            <p>When the first AI agents for development appeared, many perceived them as a revolution. "Now you can just describe a task, and the agent will do everything itself!" — such headlines flashed in tech blogs and Twitter. Reality turned out to be more complex: AI agents are a powerful tool, but not a magic wand. They don't replace engineering thinking, don't eliminate the need to understand code, and don't make code review obsolete. Rather the opposite — they make these skills even more important.</p>
+
+            <h2>Code Review Becomes More Critical</h2>
+            <p>Paradox: the more code AI generates, the more important human review becomes.</p>
+            <p>An agent can write code that works, passes tests, but at the same time:</p>
+            <ul>
+                <li>Violates the project's architectural principles</li>
+                <li>Duplicates existing functionality (the agent simply didn't know about it)</li>
+                <li>Creates non-obvious technical debt</li>
+                <li>Uses outdated patterns or libraries</li>
+                <li>Solves the problem "head-on", ignoring edge cases</li>
+            </ul>
+            <blockquote>Example 1: "The agent wrote me an authorization service in 5 minutes. Everything worked. During review, I discovered it didn't use our existing AuthService, created duplicate logic, and hardcoded several values. The fix took longer than if I had written it myself."</blockquote>
+            <blockquote>Example 2: "The agent wrote me an authorization service in 5 minutes. The remaining 7 hours and 55 minutes I spent rewriting it."</blockquote>
+            <p>This doesn't mean the agent is useless. It means its code requires the same (and sometimes more thorough) review as code from a junior developer.</p>
+
+            <h2>Prompt Quality === Result Quality</h2>
+            <p><code>Garbage in — garbage out</code> — this principle works with AI agents too. A vague task description leads to a vague result.</p>
+            <p><strong>Bad:</strong> "Add email validation"</p>
+            <p><strong>Good:</strong> "Add email validation to the registration form. Use our existing EmailValidator from namespace App\Shared\Validator. Validation should trigger on blur and on submit. Display errors below the input field in the format already used for other fields."</p>
+            <p>The second prompt gives the agent context: where to look for existing code, what behavior is expected, how it should look visually. The result will be fundamentally different.</p>
+            <p>A good task description for an agent is a skill that needs to be developed. It's not "just write what you want" — it's engineering communication.</p>
+
+            <h2>Project Context — Your Responsibility</h2>
+            <p>The agent doesn't know your project's history. It wasn't present at meetings where you decided to use a certain pattern. It didn't read the RFC where the architectural decision was justified. It doesn't know that "this hack" is a temporary workaround for a bug in a third-party library. Without context, the agent will make decisions based on general best practices. Sometimes this matches your agreements, sometimes it doesn't.</p>
+            <p><strong>Solution:</strong> create project rules. Files like <code>.cursorrules</code>, <code>.windsurfrules</code>, memory systems in AI tools — these are ways to pass context to the agent that it cannot learn from code.</p>
+            <blockquote>Architectural principles, code style, patterns used, forbidden approaches — all this should be documented not only for people but also for AI.</blockquote>
+            <p>These files and mechanisms are ways to control AI assistant behavior at the project level, not individual requests. You're essentially creating a layer of instructions that AI automatically considers in any interaction with code.</p>
 
 
+            <h1>[VII] Vibecoding !== AI Agent Development</h1>
+            <p>A term "vibecoding" has appeared in the community — a work style where a developer just "vibes" with AI, generating code without deep understanding of the result. Prompt → code → works? → commit.</p>
 
-            GitHub Copilot (Copilot Reviews / Copilot for PRs)
-            Copilot давно вышел за рамки автокомплита и стал полноценным помощником в review. Лучший вариант, если проект хранится на GitHub. Интеграция глубокая, работает быстро, поддерживает контекст большого объема.
-            Что умеет:
-            Проводит анализ Pull Request целиком
-            Суммирует изменения и объясняет, что делает PR
-            Находит баги, логические ошибки, нарушения SOLID/чистой архитектуры
-            Пишет ревью-комментарии автоматически
-            Может предложить фиксы и даже сгенерировать патчи
-            Snyk Code (AI Security Review)
-            Snyk — лидер в области безопасности, и их AI-анализ кода фокусируется именно на уязвимостях. Если важно качество security-review (а для senior dev это критично), Snyk Code дает более глубокий анализ, чем Copilot или статические анализаторы.
-            Что умеет:
-            Находит security-дыры: SQL-инъекции, XSS, unsafe deserialization, insecure config
-            Предлагает безопасные фиксы
-            Анализирует зависимости и библиотеки
-            Проверяет инфраструктурные файлы (Docker, K8s)
-            Поддерживает множество языков, включая PHP
-            [VII] Агенты !== silver bullet
-            Когда появились первые AI-агенты для разработки, многие восприняли их как революцию. "Теперь можно просто описать задачу, и агент всё сделает сам!" — такие заголовки мелькали в технических блогах и Twitter. Реальность оказалась сложнее: AI-агенты — это мощный инструмент, но не волшебная палочка. Они не заменяют инженерное мышление, не отменяют необходимость понимать код и не делают code review устаревшим. Скорее наоборот — они делают эти навыки ещё более важными.
-            Code Review становится критичнее
-            Парадокс: чем больше кода генерирует AI, тем важнее становится человеческое ревью.
-            Агент может написать код, который работает, проходит тесты, но при этом:
-            Нарушает архитектурные принципы проекта
-            Дублирует существующую функциональность (агент просто не знал о ней)
-            Создаёт неочевидный технический долг
-            Использует устаревшие паттерны или библиотеки
-            Решает задачу "в лоб", игнорируя edge cases
-            Пример 1: "Агент за 5 минут написал мне сервис авторизации. Всё работало. На ревью я обнаружил, что он не использовал наш существующий AuthService, создал дублирующую логику и захардкодил несколько значений. Исправление заняло больше времени, чем если бы я писал сам."
-            Пример 2: “Агент за 5 минут написал мне сервис авторизации. Остальные 7 часов 55 минут я переписывал его”.
-            Это не значит, что агент бесполезен. Это значит, что его код требует такого же (а иногда и более тщательного) ревью, как код от junior-разработчика.
-            Качество промпта === качество результата
-            ```Garbage in — garbage out```` — этот принцип работает и с AI-агентами. Расплывчатое описание задачи приводит к расплывчатому результату.
-            Плохо: "Добавь валидацию email"
-            Хорошо: "Добавь валидацию email в форму регистрации. Используй наш существующий EmailValidator из namespace App\Shared\Validator. Валидация должна срабатывать на blur и при submit. Ошибки отображать под полем ввода в формате, который уже используется для других полей."
-            Второй промпт даёт агенту контекст: где искать существующий код, какое поведение ожидается, как это должно выглядеть визуально. Результат будет принципиально другим.
-            Хорошее описание задачи для агента — это навык, который нужно развивать. Это не "просто написать что хочешь" — это инженерная коммуникация.
-            Контекст проекта — ваша ответственность
-            Агент не знает историю вашего проекта. Он не присутствовал на митингах, где вы решили использовать определённый паттерн. Он не читал RFC, где обосновывалось архитектурное решение. Он не знает, что "этот костыль" — временный workaround для бага в сторонней библиотеке. Без контекста агент будет принимать решения на основе общих best practices. Иногда это совпадает с вашими договорённостями, иногда — нет.
-            Решение: создавайте правила проекта. Файлы `.cursorrules`, `.windsurfrules`, системы memory в AI-инструментах — это способ передать агенту контекст, который он не может узнать из кода.
-            ````Архитектурные принципы, код-стайл, используемые паттерны, запрещённые подходы — всё это должно быть задокументировано не только для людей, но и для AI.````
-            Эти файлы и механизмы — это способы управлять поведением AI-ассистента на уровне проекта, а не отдельного запроса. То есть ты фактически создаёшь слой инструкций, который AI автоматически учитывает при любом взаимодействии с кодом.
-            [VIII] Vibecoding !== AI Agent Development
-            В сообществе появился термин "vibecoding" — стиль работы, когда разработчик просто "вайбит" с AI, генерируя код без глубокого понимания результата. Промпт → код → работает? → коммит.
+            <blockquote>It's like programming by copy-paste from StackOverflow, only faster and on a larger scale.</blockquote>
 
-            ```Это похоже на программирование методом copy-paste со StackOverflow, только быстрее и в больших масштабах.```
+            <p>Vibecoding can work for prototypes, hackathons, or pet projects. But for production code that will be maintained for years, it's a path to disaster.</p>
 
-            Vibecoding может работать для прототипов, хакатонов или pet-проектов. Но для production-кода, который будут поддерживать годами, это путь к катастрофе.
+            <p>AI Agent Development is a fundamentally different approach. It's not a rejection of AI tools, but conscious work with them.</p>
 
-            AI Agent Development — это принципиально другой подход. Это не отказ от AI-инструментов, а осознанная работа с ними.
+            <blockquote><strong>Vibecoding:</strong> When you ask an LLM "make it pretty", paste the code, it works, but you don't fully understand why. This is "Hello World" level or a quick MVP. Risks: security holes, unoptimized queries (in PHP this is the classic N+1), spaghetti code.</blockquote>
+            <blockquote><strong>Agent Orchestration:</strong> An approach where you're the client and tech lead. You provide context, require SOLID compliance, PSR-12, design patterns. You use agents for specific tasks (one writes tests, another refactors, a third writes documentation).</blockquote>
+            <p><em>"Vibecoding is when AI leads you by the hand. Orchestration is when you lead AI on a leash."</em></p>
 
-            ```Вайбкодинг: Это когда ты просишь LLM «сделай мне красиво», вставляешь код, он работает, но ты не до конца понимаешь почему. Это уровень "Hello World" или MVP на коленке. Риски: дыры в безопасности, неоптимизированные запросы (в PHP это классика N+1), спагетти-код.```
-            ```Оркестрация агентов: Это подход, где ты — заказчик и техлид. Ты даешь контекст, требуешь соблюдения SOLID, PSR-12, паттернов проектирования. Ты используешь агентов для специфических задач (один пишет тесты, другой рефакторит, третий пишет документацию).```
-            "Вайбкодинг — это когда AI ведет тебя за руку. Оркестрация — это когда ты ведешь AI на поводке.
-            Вы — тимлид, AI — ваша команда
-            Каждый разработчик стает техлидом! Представьте, что вы перестали быть individual contributor и стали техлидом. Теперь вы не пишете весь код сами — у вас есть команда. Ваша роль изменилась:
+            <h2>You're the Team Lead, AI is Your Team</h2>
+            <p>Every developer becomes a tech lead! Imagine you stopped being an individual contributor and became a tech lead. Now you don't write all the code yourself — you have a team. Your role has changed:</p>
+            <ul>
+                <li><strong>Task Setting.</strong> You decompose requirements, formulate clear tasks, define acceptance criteria.</li>
+                <li><strong>Architectural Decisions.</strong> You decide how components should interact, which patterns to use, where to draw module boundaries.</li>
+                <li><strong>Code Review.</strong> You check the result, find problems, suggest improvements.</li>
+                <li><strong>Responsibility.</strong> If the code breaks production — you're responsible, not your team.</li>
+            </ul>
 
-            - Постановка задач. Вы декомпозируете требования, формулируете чёткие задачи, определяете критерии приёмки.
-            - Архитектурные решения. Вы решаете, как компоненты должны взаимодействовать, какие паттерны использовать, где провести границы модулей.
-            - Code Review. Вы проверяете результат, находите проблемы, предлагаете улучшения.
-            - Ответственность. Если код сломает production — отвечаете вы, не ваша команда.
+            <p>Working with AI agents is the same model. Agents are your team. They're fast, don't get tired, can work in parallel. But they don't make final decisions. You're responsible for code quality, architecture, and consequences.</p>
 
-            Работа с AI-агентами — это та же модель. Агенты — ваша команда. Они быстрые, не устают, могут работать параллельно. Но они не принимают финальных решений. За качество кода, архитектуру и последствия отвечаете вы.
+            <p>This doesn't mean you should micromanage every line. A good team lead trusts the team but checks the result. Same with agents: give them autonomy within the task, but always review the result.</p>
 
-            Это не означает, что вы должны микроменеджить каждую строку. Хороший тимлид доверяет команде, но проверяет результат. То же самое с агентами: дайте им автономию в рамках задачи, но всегда ревьюйте результат.
-            AI Онбординг или Принцип "нового сотрудника"
-            Есть полезная ментальная модель для работы с AI-агентами. Представьте, что к вам в команду пришёл новый разработчик. Он талантливый — прошёл сложное техническое собеседование, имеет опыт работы с вашим стеком, пишет чистый код. Но он совершенно не знает ваш проект. Не знает, почему сервис авторизации называется именно так. Не знает про технический долг в модуле платежей. Не знает, что половина кода в `legacy/` — это то, что "мы собираемся переписать уже два года".
+            <h2>AI Onboarding or the "New Employee" Principle</h2>
+            <p>There's a useful mental model for working with AI agents. Imagine a new developer joined your team. They're talented — passed a complex technical interview, have experience with your stack, write clean code. But they know absolutely nothing about your project. They don't know why the authorization service is named that way. They don't know about technical debt in the payments module. They don't know that half the code in <code>legacy/</code> is what "we've been planning to rewrite for two years."</p>
 
-            Что вы делаете с таким сотрудником?
+            <p>What do you do with such an employee?</p>
+            <ol>
+                <li><strong>Onboarding.</strong> You don't throw them at complex tasks right away. You explain the architecture, show key modules, tell them about agreements and rules. "This is how we name services. Business logic lives here. Don't touch this folder — there be dragons."</li>
+                <li><strong>Context for Tasks.</strong> You don't say "add feature X". You explain: "We need feature X. It should integrate with module Y, use existing service Z, and note that clients sometimes send invalid data — here's a ticket with examples."</li>
+                <li><strong>Code Review.</strong> You check their pull requests. Not because you don't trust them, but because they might not know about non-obvious requirements or agreements.</li>
+                <li><strong>Feedback.</strong> If something is done wrong, you explain why. "It's better to use pattern X here because..." This helps them understand context and do better in the future.</li>
+            </ol>
 
-            1. Онбординг. Вы не бросаете его сразу на сложные задачи. Вы объясняете архитектуру, показываете ключевые модули, рассказываете о договорённостях и правилах. "Вот так мы именуем сервисы. Вот здесь живёт бизнес-логика. Эту папку не трогай — там драконы."
+            <p>An AI agent is exactly such an employee. It's smart, fast, but doesn't know your project. The difference is that the agent doesn't learn between sessions (yet). Every time you work with a "new employee" who needs context explained again.</p>
 
-            2. Контекст для задач Вы не говорите "добавь фичу X". Вы объясняете: "Нам нужна фича X. Она должна интегрироваться с модулем Y, использовать существующий сервис Z, и учти, что клиенты иногда присылают невалидные данные — вот тикет с примерами."
+            <p>That's why project rules, good documentation, and structured prompts are so important. This is your "onboarding" for the agent.</p>
 
-            3. Code Review. Вы проверяете его pull requests. Не потому что не доверяете, а потому что он может не знать о неочевидных требованиях или договорённостях.
+            <h2>Understanding Over Speed</h2>
+            <p>The main rule of AI Agent Development: you must understand what the agent did and why. This doesn't mean you should be able to write this code yourself in the same time. It means you should:</p>
+            <ul>
+                <li>Understand the solution logic</li>
+                <li>See why this particular approach was chosen</li>
+                <li>Be able to explain the code to a colleague</li>
+                <li>Know how to debug it if it breaks</li>
+            </ul>
 
-            4. Обратная связь. Если что-то сделано не так, вы объясняете почему. "Здесь лучше использовать паттерн X, потому что..." Это помогает ему понять контекст и делать лучше в будущем.
-
-            AI-агент — это именно такой сотрудник. Он умный, быстрый, но не знает вашего проекта. Разница в том, что агент не учится между сессиями (пока что). Каждый раз вы работаете с "новым сотрудником", которому нужно заново объяснять контекст.
-
-            Поэтому так важны правила проекта, хорошая документация и структурированные промпты. Это ваш "онбординг" для агента.
-            Понимание важнее скорости
-            Главное правило AI Agent Development: вы должны понимать, что сделал агент и почему. Это не значит, что вы должны уметь написать этот код сами за то же время. Это значит, что вы должны:
-            Понимать логику решения
-            Видеть, почему выбран именно этот подход
-            Уметь объяснить код коллеге
-            Знать, как это отлаживать, если сломается
-
-            Если агент сгенерировал 500 строк кода, а вы не понимаете, как они работают — не коммитьте. Разберитесь. Попросите агента объяснить. Упростите решение. Разбейте на части. Потому что код, который вы не понимаете — это бомба замедленного действия.
-            Скорость генерации кода ничего не значит, если вы потеряете контроль над кодовой базой. AI Agent Development — это про умное использование инструментов, а не про максимальную скорость генерации.
-
-            <h1>[IX] Практические советы. Как эффективно работать с AI</h1>
-            Выбор правильного инструмента. Если у вас есть быстрый вопрос используйте чат. Если нужно написать код используйте EDI + AI. Если нужно решить комплексную задачу - Используйте Агент. Нужно сделать автоматизацию - MCP + CLI.
-            Проверяйте код. AI может галлюцинировать — всегда ревьюьте сгенерированный код.
-            Не пытайтесь получить идеальный результат с первого раза. Уточняйте, корректируйте, направляйте, пробуйте разные модели.
-            Следите за контекстом. Чем больше релевантного контекста вы даёте, тем лучше результат.
-            Создавайте правила проекта.
-            Ловушки и Галлюцинации: Не ведите переписку слишком долго в одном контекстном окне.
-            Всегда наблюдайте за процессом. Модель может зависнуть и по кругу ганять один и тот же запрос добавля строку потом ее удаляет.
-
-            <h1>[X] Мой опыт за 1 год работы с AI агентом</h1>
-
-            Одним из главных желаний, которое теперь стало реальностью, является возможность создания универсальных "Fixer"-инструментов.
-            ```"У нас есть CsFixer для CodeSniffer — было бы здорово, когда-то думал я, чтобы был такой инструмент для phpstan, psalm, deptrac..."```
+            <p>If the agent generated 500 lines of code and you don't understand how they work — don't commit. Figure it out. Ask the agent to explain. Simplify the solution. Break it into parts. Because code you don't understand is a ticking time bomb.</p>
+            <p>Code generation speed means nothing if you lose control over the codebase. AI Agent Development is about smart use of tools, not maximum generation speed.</p>
 
 
-            И такие интсрументы появились. AI-агент способен генерировать или адаптировать код, который автоматически исправляет ошибки, выявленные инструментами статического анализа (например, phpstan или psalm), что значительно снижает технический долг и ускоряет процесс внедрения строгих стандартов качества.
-            Ускорение Разработки и Отладки
-            Написание тестов стало быстрее: Агент берет на себя рутину создания шаблонных тестов, моков и граничных случаев, позволяя разработчику сосредоточиться на логике, а не на синтаксисе.
+            <h1>[VIII] Practical Tips: How to Work Effectively with AI</h1>
+            <ul>
+                <li><strong>Choose the right tool.</strong> If you have a quick question — use chat. If you need to write code — use IDE + AI. If you need to solve a complex task — use an Agent. Need automation — MCP + CLI.</li>
+                <li><strong>Review the code.</strong> AI can hallucinate — always review generated code.</li>
+                <li><strong>Don't try to get perfect results on the first try.</strong> Clarify, correct, guide, try different models.</li>
+                <li><strong>Watch the context.</strong> The more relevant context you provide, the better the result.</li>
+                <li><strong>Create project rules.</strong></li>
+                <li><strong>Traps and Hallucinations:</strong> Don't keep a conversation going too long in one context window.</li>
+                <li><strong>Always observe the process.</strong> The model can get stuck and loop the same request, adding a line then deleting it.</li>
+            </ul>
 
-            Debug стал быстрее: За счет быстрого анализа логов, трассировок стека и контекста ошибки, агент мгновенно предлагает вероятные причины и пути решения, сокращая время, затрачиваемое на поиск проблемы, с часов до минут.
-            Работа с Логами
-            Ускоренный поиск причин: Вместо того чтобы вручную просматривать терабайты данных, агент может быстро идентифицировать паттерны, выделить аномалии или сгруппировать связанные события, что позволяет мгновенно локализовать первопричину сбоя.
+            <h1>[IX] My Experience After 1 Year Working with AI Agent</h1>
 
-            Перевод логов в естественный язык: Агент способен объяснить сложные или зашифрованные системные сообщения простым языком, превращая технический жаргон (например, коды ошибок или трассировки стека) в понятное описание проблемы и предложит конкретные действия для её устранения.
-            Работа с Legacy и Документация
-            Объяснение работы "легаси" кода: Агент способен декомпозировать и объяснить работу сложного, плохо документированного или устаревшего кода, давая мгновенный контекст и снижая порог входа для новых разработчиков или при работе со старыми проектами.
+            <p>One of the main wishes that has now become reality is the ability to create universal "Fixer" tools.</p>
+            <blockquote>"We have CsFixer for CodeSniffer — it would be great, I once thought, if there was such a tool for phpstan, psalm, deptrac..."</blockquote>
 
-            Составление UML-диаграмм: Автоматическое создание структурных или поведенческих UML-диаграмм на основе исходного кода значительно улучшает понимание архитектуры проекта, что критически важно для планирования рефакторинга и документирования.
-            Расширение Компетенций Команды
+            <p>And such tools have appeared. An AI agent can generate or adapt code that automatically fixes errors detected by static analysis tools (e.g., phpstan or psalm), significantly reducing technical debt and accelerating the implementation of strict quality standards.</p>
 
-            Закрытие позиции верстальщика: Агент отлично пишет CSS, JS и HTML код. Он может быстро реализовать макеты, создать адаптивные стили и написать небольшие JS-скрипты, что позволяет бэкенд-разработчикам не отвлекаться на фронтенд-рутину и тем самым оптимизировать штатную структуру.
+            <h2>Accelerating Development and Debugging</h2>
+            <p><strong>Writing tests became faster:</strong> The agent takes on the routine of creating template tests, mocks, and edge cases, allowing the developer to focus on logic rather than syntax.</p>
+            <p><strong>Debugging became faster:</strong> Through quick analysis of logs, stack traces, and error context, the agent instantly suggests probable causes and solutions, reducing problem-finding time from hours to minutes.</p>
 
-            Сканирование на уязвимости
-            Агент может быстро анализировать фрагменты кода на наличие распространенных уязвимостей (например, SQL-инъекции, XSS, небезопасная сериализация) и предлагать патчи или более безопасные альтернативы реализации.
-            Производительность и Оптимизация
-            Рефакторинг для повышения производительности: Агент не только исправляет ошибки, но и предлагает структурные изменения (рефакторинг), направленные на повышение скорости выполнения кода (например, оптимизация циклов, запросов к БД).
-            Локализация и интернационализация (i18n): Автоматическое выявление строк, требующих локализации, и помощь в создании файлов переводов (например, JSON, PO-файлы) для поддержки нескольких языков.
-            Инфраструктура и DevOps
-            Генерация конфигураций: Ускоренное написание или редактирование сложных конфигурационных файлов для CI/CD (например, GitLab CI, GitHub Actions, Jenkins), Dockerfiles, или конфигураций веб-серверов (Nginx, Apache).
+            <h2>Working with Logs</h2>
+            <p><strong>Accelerated root cause analysis:</strong> Instead of manually reviewing terabytes of data, the agent can quickly identify patterns, highlight anomalies, or group related events, allowing instant localization of the root cause of failure.</p>
+            <p><strong>Translating logs to natural language:</strong> The agent can explain complex or cryptic system messages in plain language, turning technical jargon (e.g., error codes or stack traces) into an understandable problem description and suggest specific actions to fix it.</p>
 
-            Перенос данных и миграции (Schema Conversion): Помощь в создании скриптов для миграции баз данных или конвертации схем (например, из MySQL в PostgreSQL или наоборот), значительно снижая ручной труд при переходе на новые системы.
-            Повышение Эффективности Коммуникаций
+            <h2>Working with Legacy and Documentation</h2>
+            <p><strong>Explaining legacy code:</strong> The agent can decompose and explain how complex, poorly documented, or outdated code works, providing instant context and lowering the entry barrier for new developers or when working with old projects.</p>
+            <p><strong>Creating UML diagrams:</strong> Automatic creation of structural or behavioral UML diagrams based on source code significantly improves understanding of project architecture, which is critical for refactoring planning and documentation.</p>
 
-            Написание/Редактирование корпоративных писем: От составления официальных ответов до редактирования внутренней документации — агент помогает поддерживать профессиональный, грамотный и унифицированный стиль коммуникации, экономя время на формулировании мыслей.
+            <h2>Expanding Team Competencies</h2>
+            <p><strong>Filling the frontend developer position:</strong> The agent writes CSS, JS, and HTML code excellently. It can quickly implement layouts, create responsive styles, and write small JS scripts, allowing backend developers not to be distracted by frontend routine and thus optimize the staffing structure.</p>
 
-            <h1>[XI] Навык работы с AI — обязательный "Hard Skill" 2026 года</h1>
-            Если в 2024 году умение пользоваться Copilot и ChatGPT было конкурентным преимуществом, то к 2026 году эффективное взаимодействие с AI-агентами станет базовым требованием на рынке труда, сравнимым со знанием Git или SQL.
-            Компании ожидают, что сотрудники будут тратить время на высокоуровневые, неавтоматизируемые задачи: архитектурное планирование, решение сложных бизнес-проблем, менторство и стратегическое видение. Именно AI-агенты освобождают время для этого. Поэтому разработчик, не использующий AI-агентов, не сможет конкурировать по скорости выполнения задач с разработчиком, который умеет эффективно делегировать рутину машине. Разрыв в производительности будет слишком велик. Автоматизация рутинного кодирования приведет к исчезновению вакансий, требующих исключительно "написания кода по ТЗ". На рынке останутся либо эксперты-архитекторы (Тимлиды), либо операторы AI-систем с глубоким знанием домена. Навык работы с агентами — это ваш билет в первую категорию.
-            Таким образом, АI-агенты не избавляют вас от необходимости глубокого понимания инженерии. Напротив, они поднимают вас на уровень, где вы перестаете быть исполнителем и становитесь высококвалифицированным архитектором и менеджером качества, чьё основное оружие — это критическое мышление и точная постановка задач. Это и есть новое Тимлидство.
+            <h2>Vulnerability Scanning</h2>
+            <p>The agent can quickly analyze code fragments for common vulnerabilities (e.g., SQL injections, XSS, unsafe serialization) and suggest patches or safer implementation alternatives.</p>
 
-            <h1>Заключение</h1>
-            AI-инструменты для разработки прошли путь от экспериментальных чат-ботов до полноценных агентов, способных самостоятельно решать задачи. Ключевые тренды:
+            <h2>Performance and Optimization</h2>
+            <p><strong>Refactoring for performance:</strong> The agent not only fixes errors but also suggests structural changes (refactoring) aimed at improving code execution speed (e.g., loop optimization, database query optimization).</p>
+            <p><strong>Localization and internationalization (i18n):</strong> Automatic detection of strings requiring localization and assistance in creating translation files (e.g., JSON, PO files) to support multiple languages.</p>
 
-            Это не замена разработчиков, а их усиление. AI берёт на себя рутину, освобождая время для архитектурных решений, креативного решения проблем и того, что машины пока делать не умеют — понимать бизнес-контекст и принимать ответственные решения.
+            <h2>Infrastructure and DevOps</h2>
+            <p><strong>Configuration generation:</strong> Accelerated writing or editing of complex configuration files for CI/CD (e.g., GitLab CI, GitHub Actions, Jenkins), Dockerfiles, or web server configurations (Nginx, Apache).</p>
+            <p><strong>Data migration and schema conversion:</strong> Assistance in creating scripts for database migration or schema conversion (e.g., from MySQL to PostgreSQL or vice versa), significantly reducing manual labor when transitioning to new systems.</p>
+
+            <h2>Improving Communication Efficiency</h2>
+            <p><strong>Writing/Editing corporate emails:</strong> From composing official responses to editing internal documentation — the agent helps maintain a professional, literate, and unified communication style, saving time on formulating thoughts.</p>
+
+            <h1>[X] Working with AI — Essential "Hard Skill" of 2026</h1>
+            <p>If in 2024 the ability to use Copilot and ChatGPT was a competitive advantage, by 2026 effective interaction with AI agents will become a basic requirement in the job market, comparable to knowing Git or SQL.</p>
+            <p>Companies expect employees to spend time on high-level, non-automatable tasks: architectural planning, solving complex business problems, mentoring, and strategic vision. AI agents free up time for this. Therefore, a developer not using AI agents won't be able to compete in task completion speed with a developer who knows how to effectively delegate routine to machines. The productivity gap will be too large.</p>
+            <p>Automation of routine coding will lead to the disappearance of positions requiring only "writing code according to specs." The market will be left with either expert architects (Team Leads) or AI system operators with deep domain knowledge. The skill of working with agents is your ticket to the first category.</p>
+            <p>Thus, AI agents don't relieve you of the need for deep engineering understanding. On the contrary, they elevate you to a level where you stop being an executor and become a highly qualified architect and quality manager, whose main weapon is critical thinking and precise task setting. This is the new Team Leadership.</p>
+
+            <h1>Conclusion</h1>
+            <p>AI tools for development have come a long way from experimental chatbots to full-fledged agents capable of independently solving tasks. Key trends:</p>
+            <p>This is not a replacement for developers, but their enhancement. AI takes on the routine, freeing up time for architectural decisions, creative problem-solving, and what machines still can't do — understanding business context and making responsible decisions.</p>
 
         </div>
     </div>
