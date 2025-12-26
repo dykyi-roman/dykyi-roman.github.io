@@ -4,7 +4,7 @@ const countriesData = {
         {
             flag: '🇪🇬',
             name: 'Egypt',
-            visitDate: '2025',
+            visitDate: '2025-12',
             duration: '7 days',
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
@@ -969,7 +969,8 @@ const countriesData = {
             ],
             facebook: []
         },
-        { flag: '🇺🇿', name: 'Uzbekistan', visitDate: '2025-08', duration: '07 days', rating: '⭐⭐⭐', highlights: {
+        {
+            flag: '🇺🇿', name: 'Uzbekistan', visitDate: '2025-08', duration: '07 days', rating: '⭐⭐⭐', highlights: {
                 'Tashkent': {
                     instagram: [
                         'https://www.instagram.com/p/DNSuH2fI8Lj/?img_index=1',
@@ -978,9 +979,9 @@ const countriesData = {
                     facebook: []
                 },
                 'Bukhara': {
-                  instagram: [
-                      'https://www.instagram.com/p/DNfAyhBovtf/?img_index=1',
-                  ]
+                    instagram: [
+                        'https://www.instagram.com/p/DNfAyhBovtf/?img_index=1',
+                    ]
                 },
                 'Samarkand': {
                     instagram: [
@@ -990,19 +991,22 @@ const countriesData = {
                         'https://www.instagram.com/p/DNujNl_0OMi/?img_index=1',
                     ],
                 }
-            }, notes: 'Land of rivers and mountains' },
-        { flag: '🇰🇿', name: 'Kazakhstan', visitDate: '2025-08', duration: '14 days', rating: '⭐⭐⭐', highlights: {
-            'Almaty': {
-                instagram: [
-                    'https://www.instagram.com/p/DM4NsTKovon/?img_index=1',
-                    'https://www.instagram.com/p/DM_6h67IMBj/?img_index=1',
-                    'https://www.instagram.com/p/DNJSQa_o-fz/?img_index=1',
-                    'https://www.instagram.com/p/DNLvam_okPs/?img_index=1',
-                    'https://www.instagram.com/p/DNOQORBIHVV/?img_index=1',
-                ],
-                facebook: []
-            }
-        }, notes: 'Land of rivers and mountains' },
+            }, notes: 'Land of rivers and mountains'
+        },
+        {
+            flag: '🇰🇿', name: 'Kazakhstan', visitDate: '2025-08', duration: '14 days', rating: '⭐⭐⭐', highlights: {
+                'Almaty': {
+                    instagram: [
+                        'https://www.instagram.com/p/DM4NsTKovon/?img_index=1',
+                        'https://www.instagram.com/p/DM_6h67IMBj/?img_index=1',
+                        'https://www.instagram.com/p/DNJSQa_o-fz/?img_index=1',
+                        'https://www.instagram.com/p/DNLvam_okPs/?img_index=1',
+                        'https://www.instagram.com/p/DNOQORBIHVV/?img_index=1',
+                    ],
+                    facebook: []
+                }
+            }, notes: 'Land of rivers and mountains'
+        },
     ],
     europe: [
         {
@@ -1393,7 +1397,15 @@ const countriesData = {
             instagram: [],
             facebook: []
         },
-        { flag: '🇪🇸', name: 'Spain', visitDate: '2025-08', duration: 'long term', rating: '⭐⭐⭐⭐', highlights: ['Barcelona'], notes: 'Catalonia and Andalusia' }
+        {
+            flag: '🇪🇸',
+            name: 'Spain',
+            visitDate: '2025-08',
+            duration: 'long term',
+            rating: '⭐⭐⭐⭐',
+            highlights: ['Barcelona'],
+            notes: 'Catalonia and Andalusia'
+        }
     ],
 };
 
@@ -1460,7 +1472,7 @@ function updateCountriesDisplay() {
     const asiaElement = document.querySelector('.continent-group.asia h5');
     const africaElement = document.querySelector('.continent-group.africa h5');
     const europeElement = document.querySelector('.continent-group.europe h5');
-    
+
     if (asiaElement) {
         asiaElement.innerHTML = `<i class="fas fa-mountain"></i> Asia (${countriesData.asia.length} countries)`;
     }
@@ -1690,7 +1702,7 @@ function initMap() {
         ],
         "Turkey": [
             {lat: 41.0115158, lng: 28.9431013, title: "Istanbul, Home in Fatih"},
-            { lat: 41.0063429, lng: 28.9661672, title: "Istanbul, Le Valeria Deluxe"},
+            {lat: 41.0063429, lng: 28.9661672, title: "Istanbul, Le Valeria Deluxe"},
         ],
         "Latvia": [
             {lat: 56.9348137, lng: 24.0352716, title: "Riga, Kalnciema Iella 135"},
@@ -1829,13 +1841,13 @@ function initMap() {
             {lat: 43.2598898, lng: 76.9330709, title: "Almaty, Apartment in Almaty"},
         ],
         "Uzbekistan": [
-            { lat: 41.3086111, lng: 69.2665918, title: "Tashkent, City Centre Hotel"},
-            { lat: 39.6567259, lng: 66.9707512, title: "Samarkand, City Centre Hotel"},
-            { lat: 39.7774923, lng: 64.4204554, title: "Bukhara, Travel by train"},
+            {lat: 41.3086111, lng: 69.2665918, title: "Tashkent, City Centre Hotel"},
+            {lat: 39.6567259, lng: 66.9707512, title: "Samarkand, City Centre Hotel"},
+            {lat: 39.7774923, lng: 64.4204554, title: "Bukhara, Travel by train"},
         ],
         "Spain": [
-            { lat: 41.377071, lng: 2.1504022, title: "Barcelona, Home in Barcelona"},
-            { lat: 39.4739172, lng: -0.3646948, title: "Valencia, Home in Valencia"},
+            {lat: 41.377071, lng: 2.1504022, title: "Barcelona, Home in Barcelona"},
+            {lat: 39.4739172, lng: -0.3646948, title: "Valencia, Home in Valencia"},
         ],
         "Macao": [
             {lat: 22.1903224, lng: 113.543226, title: "Macau, Travel by ship"},
