@@ -1,5 +1,31 @@
 // Countries data with flags and continent grouping
 const countriesData = {
+    africa: [
+        {
+            flag: '🇪🇬',
+            name: 'Egypt',
+            visitDate: '2025',
+            duration: '7 days',
+            rating: '⭐⭐⭐⭐⭐',
+            highlights: {
+                'Cairo': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Luxor': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Aswan': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
+            notes: 'Pyramids and history',
+            instagram: [],
+            facebook: []
+        }
+    ],
     asia: [
         {
             flag: '🇯🇵',
@@ -1374,7 +1400,6 @@ const countriesData = {
 // Wishlist countries - places to visit in the future
 const wishlistCountries = {
     africa: [
-        {flag: '🇪🇬', name: 'Egypt', wishIcon: '🌟'},
         {flag: '🇲🇬', name: 'Madagascar', wishIcon: '🌟'},
         {flag: '🇲🇺', name: 'Mauritius', wishIcon: '🌟'},
         {flag: '🇹🇿', name: 'Tanzania', wishIcon: '🌟'},
@@ -1416,7 +1441,7 @@ const wishlistCountries = {
 
 // Calculate total countries count
 function getTotalCountriesCount() {
-    return countriesData.asia.length + countriesData.europe.length;
+    return countriesData.asia.length + countriesData.africa.length + countriesData.europe.length;
 }
 
 // Calculate total wishlist countries count
@@ -1433,13 +1458,14 @@ function updateCountriesDisplay() {
 
     // Update continent counts
     const asiaElement = document.querySelector('.continent-group.asia h5');
+    const africaElement = document.querySelector('.continent-group.africa h5');
     const europeElement = document.querySelector('.continent-group.europe h5');
-    
-    console.log('Asia element:', asiaElement);
-    console.log('Europe element:', europeElement);
     
     if (asiaElement) {
         asiaElement.innerHTML = `<i class="fas fa-mountain"></i> Asia (${countriesData.asia.length} countries)`;
+    }
+    if (africaElement) {
+        africaElement.innerHTML = `<i class="fas fa-sun"></i> Africa (${countriesData.africa.length} countries)`;
     }
     if (europeElement) {
         europeElement.innerHTML = `<i class="fa-solid fa-chess-rook"></i></i> Europe (${countriesData.europe.length} countries)`;
@@ -1451,11 +1477,18 @@ function updateCountriesDisplay() {
 
     // Update country flags
     const asiaFlags = document.querySelector('.countries-by-continent .continent-group.asia .country-flags');
+    const africaFlags = document.querySelector('.countries-by-continent .continent-group.africa .country-flags');
     const europeFlags = document.querySelector('.countries-by-continent .continent-group.europe .country-flags');
 
     if (asiaFlags) {
         asiaFlags.innerHTML = countriesData.asia.map(country =>
             `<span class="country-item" title="${country.name}" data-continent="Asia" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${(country.instagram || []).join(', ')}" data-facebook="${(country.facebook || []).join(', ')}">${country.flag}</span>`
+        ).join('');
+    }
+
+    if (africaFlags) {
+        africaFlags.innerHTML = countriesData.africa.map(country =>
+            `<span class="country-item" title="${country.name}" data-continent="Africa" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${(country.instagram || []).join(', ')}" data-facebook="${(country.facebook || []).join(', ')}">${country.flag}</span>`
         ).join('');
     }
 
@@ -1842,7 +1875,8 @@ function initMap() {
             {lat: 12.5063988, lng: 53.2603338, title: "Socotra (Wishlist)", wishlist: true},
         ],
         "Egypt": [
-            {lat: 30.0444196, lng: 31.2357116, title: "Cairo (Wishlist)", wishlist: true},
+            {lat: 30.0444196, lng: 31.2357116, title: "Cairo"},
+            {lat: 25.687243, lng: 32.639637, title: "Luxor"},
         ],
         "Madagascar": [
             {lat: -18.8791902, lng: 47.5079055, title: "Antananarivo (Wishlist)", wishlist: true},
@@ -1970,7 +2004,7 @@ function initMap() {
         "Maldives": "asia",
         "Georgia": "asia",
         "Azerbaijan": "asia",
-        "Egypt": "wishlist",
+        "Egypt": "africa",
         "Madagascar": "wishlist",
         "Mauritius": "wishlist",
         "Tanzania": "wishlist",
@@ -2020,6 +2054,7 @@ function initMap() {
     // Group markers by continent for different icons
     const continentColors = {
         'asia': '#4CAF50',
+        'africa': '#FFC107',
         'europe': '#2196F3',
         'wishlist': '#E91E63'
     };
