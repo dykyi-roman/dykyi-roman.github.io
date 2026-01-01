@@ -1514,7 +1514,7 @@ function updateCountriesDisplay() {
     const wishlistFlags = document.querySelector('.wishlist-section .country-flags');
     if (wishlistFlags) {
         wishlistFlags.innerHTML = Object.values(wishlistCountries).flat().map(country =>
-            `<span class="wishlist-item" title="${country.name}">${country.flag}<span class="wish-icon">${country.wishIcon}</span></span>`
+            `<span class="wishlist-item" title="${country.name}">${country.flag}</span>`
         ).join('');
     }
 

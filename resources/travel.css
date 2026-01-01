@@ -134,16 +134,13 @@
     position: relative;
     display: inline-block;
     margin: 2px;
+    font-size: 2em;
+    cursor: default;
+    transition: transform 0.2s ease;
 }
 
-.wishlist-item .wish-icon {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    font-size: 0.8em;
-    background: white;
-    border-radius: 50%;
-    padding: 1px;
+.wishlist-item:hover {
+    transform: scale(1.2);
 }
 
 .world-progress-section {
