@@ -828,7 +828,7 @@ a:focus {
 }
 
 .content::before {
-    content: "Твій текст тут...";
+    content: "Твой текст здесь...";
     color: #ccc;
     font-style: italic;
     position: absolute;
