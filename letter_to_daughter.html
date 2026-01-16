@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лист до дочки - Dykyi Roman</title>
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="resources/style.css">
+    <link rel="stylesheet" href="resources/navigation.css">
+</head>
+<body>
+
+<!-- Side Navigation -->
+<div class="side-nav">
+    <button class="nav-toggle">&#9776;</button>
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="scrollToSection('section-family')">I. Семья</button>
+        <button class="nav-button" onclick="scrollToSection('section-travel')">II. Путешествия</button>
+        <button class="nav-button" onclick="scrollToSection('section-birth')">III. Рождение</button>
+        <button class="nav-button" onclick="scrollToSection('section-experience')">IV. Опыт</button>
+        <button class="nav-button" onclick="scrollToSection('section-wisdom')">V. Мудрость</button>
+        <button class="nav-button" onclick="scrollToSection('section-personal')">VI. Личное</button>
+    </div>
+</div>
+
+<div class="container">
+    <div id="header-container"></div>
+    <script>
+        fetch('headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <div class="section">
+        <h2>Letter to Daughter</h2>
+
+        <!-- ==================== I. СЕМЬЯ И КОРНИ ==================== -->
+        <div id="section-family" class="letter-section">
+            <h3>I. Семья и корни</h3>
+
+            <div class="topic-block">
+                <h4>История семьи</h4>
+                <p class="hint">Рассказ о твоих корнях и предках</p>
+                <ul class="subtopics">
+                    <li>Кем были твои бабушки и дедушки, чем занимались</li>
+                    <li>Откуда родом наша семья, история рода</li>
+                    <li>Семейные традиции, которые передавались поколениями</li>
+                    <li>Интересные истории из жизни предков</li>
+                    <li>Черты характера, которые передались по наследству</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>История любви</h4>
+                <p class="hint">Как мы с мамой нашли друг друга</p>
+                <ul class="subtopics">
+                    <li>Где и как мы познакомились</li>
+                    <li>Первое впечатление друг о друге</li>
+                    <li>Первое свидание — где были, что чувствовал</li>
+                    <li>Момент, когда понял, что это "та самая"</li>
+                    <li>Как делал предложение</li>
+                    <li>Что для меня значит любовь и семья</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+        </div>
+
+        <!-- ==================== II. ПУТЕШЕСТВИЯ ==================== -->
+        <div id="section-travel" class="letter-section">
+            <h3>II. Путешествия</h3>
+
+            <div class="topic-block">
+                <h4>Первое большое путешествие</h4>
+                <p class="hint">Путешествие, которое открыло мир</p>
+                <ul class="subtopics">
+                    <li>Куда поехал и почему выбрал именно это место</li>
+                    <li>С кем путешествовал</li>
+                    <li>Самые яркие впечатления и эмоции</li>
+                    <li>Что было страшно или непривычно</li>
+                    <li>Чему научило это путешествие</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Самое запоминающееся место</h4>
+                <p class="hint">Место, которое осталось в сердце навсегда</p>
+                <ul class="subtopics">
+                    <li>Что это за место и чем оно особенное</li>
+                    <li>Что там увидел, услышал, почувствовал</li>
+                    <li>Люди, которых там встретил</li>
+                    <li>Почему хотел бы вернуться туда</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Путешествия с мамой</h4>
+                <p class="hint">Романтические приключения вдвоём</p>
+                <ul class="subtopics">
+                    <li>Медовый месяц — куда поехали и как это было</li>
+                    <li>Самая романтическая поездка</li>
+                    <li>Забавные ситуации в путешествиях вдвоём</li>
+                    <li>Как путешествия укрепляли наши отношения</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Путешествие, которое изменило взгляд на жизнь</h4>
+                <p class="hint">Когда дорога меняет тебя изнутри</p>
+                <ul class="subtopics">
+                    <li>Что увидел такого, что перевернуло мышление</li>
+                    <li>Какие убеждения изменились после поездки</li>
+                    <li>Люди, которые повлияли на меня в пути</li>
+                    <li>Решения, которые принял благодаря этому опыту</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Смешные и неловкие ситуации</h4>
+                <p class="hint">Истории, над которыми можно посмеяться вместе</p>
+                <ul class="subtopics">
+                    <li>Когда что-то пошло не по плану</li>
+                    <li>Языковые барьеры и забавные недоразумения</li>
+                    <li>Потерялся, опоздал, забыл — истории провалов</li>
+                    <li>Неожиданные приключения</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Люди, которых встретил в путешествиях</h4>
+                <p class="hint">Случайные встречи, которые запомнились</p>
+                <ul class="subtopics">
+                    <li>Незнакомцы, которые помогли в трудную минуту</li>
+                    <li>Интересные люди и их истории</li>
+                    <li>Дружба, которая началась в дороге</li>
+                    <li>Чему научили меня эти люди</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Места, куда хочу поехать с тобой</h4>
+                <p class="hint">Мечты о совместных путешествиях</p>
+                <ul class="subtopics">
+                    <li>Места, которые хочу тебе показать</li>
+                    <li>Почему именно эти места важны для меня</li>
+                    <li>Что хочу, чтобы ты там увидела и почувствовала</li>
+                    <li>Приключения, которые хочу пережить вместе</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Уроки из путешествий</h4>
+                <p class="hint">Мудрость, собранная в дороге</p>
+                <ul class="subtopics">
+                    <li>Терпение — когда всё идёт не по плану</li>
+                    <li>Открытость — принимать новое без осуждения</li>
+                    <li>Адаптация — выживать в незнакомых условиях</li>
+                    <li>Благодарность — ценить то, что имеешь дома</li>
+                    <li>Смелость — делать первый шаг в неизвестность</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+        </div>
+
+        <!-- ==================== III. РОЖДЕНИЕ ДОЧЕРИ ==================== -->
+        <div id="section-birth" class="letter-section">
+            <h3>III. Рождение дочери</h3>
+
+            <div class="topic-block">
+                <h4>Как узнали о беременности</h4>
+                <p class="hint">Момент, когда жизнь изменилась навсегда</p>
+                <ul class="subtopics">
+                    <li>Как мама сообщила новость</li>
+                    <li>Что почувствовал в первую секунду</li>
+                    <li>О чём думал в тот день</li>
+                    <li>Кому первому рассказали</li>
+                    <li>Страхи и радость одновременно</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>9 месяцев ожидания</h4>
+                <p class="hint">Путь к твоему появлению</p>
+                <ul class="subtopics">
+                    <li>Как готовились к твоему появлению</li>
+                    <li>Первое УЗИ — увидеть тебя впервые</li>
+                    <li>Как выбирали вещи, кроватку, коляску</li>
+                    <li>Разговоры с тобой, когда ты была в животике</li>
+                    <li>Мои страхи и переживания</li>
+                    <li>Мечты о том, какой ты будешь</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>День твоего рождения</h4>
+                <p class="hint">Самый важный день в моей жизни</p>
+                <ul class="subtopics">
+                    <li>Как начался этот день</li>
+                    <li>Дорога в роддом — что чувствовал</li>
+                    <li>Ожидание — самые длинные часы в жизни</li>
+                    <li>Момент, когда тебя увидел впервые</li>
+                    <li>Первый взгляд на тебя — что почувствовал</li>
+                    <li>Первые слёзы счастья</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Первые слова, которые тебе сказал</h4>
+                <p class="hint">Слова, которые навсегда в моём сердце</p>
+                <ul class="subtopics">
+                    <li>Что сказал, когда впервые взял тебя на руки</li>
+                    <li>Обещания, которые дал тебе в тот момент</li>
+                    <li>Чувства, которые невозможно описать словами</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Выбор имени</h4>
+                <p class="hint">Почему тебя зовут именно так</p>
+                <ul class="subtopics">
+                    <li>Какие имена рассматривали</li>
+                    <li>Почему выбрали именно это имя</li>
+                    <li>Что оно означает</li>
+                    <li>Кто предложил это имя</li>
+                    <li>Связь имени с семейной историей (если есть)</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Первые дни и недели</h4>
+                <p class="hint">Учиться быть отцом</p>
+                <ul class="subtopics">
+                    <li>Первая ночь дома — бессонница и счастье</li>
+                    <li>Первый раз менял подгузник, кормил, купал</li>
+                    <li>Страх сделать что-то не так</li>
+                    <li>Моменты, когда не знал что делать</li>
+                    <li>Как менялись отношения с мамой</li>
+                    <li>Усталость и счастье одновременно</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Как изменилась моя жизнь</h4>
+                <p class="hint">Ты изменила всё</p>
+                <ul class="subtopics">
+                    <li>Что понял о себе благодаря тебе</li>
+                    <li>Как изменились мои приоритеты</li>
+                    <li>Новый смысл жизни</li>
+                    <li>Чего перестал бояться</li>
+                    <li>За что стал больше ценить</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Первое "папа"</h4>
+                <p class="hint">Слово, которое растопило сердце</p>
+                <ul class="subtopics">
+                    <li>Когда и где это произошло</li>
+                    <li>Что делал в тот момент</li>
+                    <li>Что почувствовал, услышав это слово</li>
+                    <li>Как изменилось ощущение отцовства после этого</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Держать тебя на руках впервые</h4>
+                <p class="hint">Момент абсолютного счастья</p>
+                <ul class="subtopics">
+                    <li>Какой маленькой и хрупкой ты была</li>
+                    <li>Страх уронить или сделать больно</li>
+                    <li>Запах, тепло, ощущение</li>
+                    <li>Обещание защищать тебя всегда</li>
+                    <li>Слёзы, которые не мог сдержать</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+        </div>
+
+        <!-- ==================== IV. ЛИЧНЫЙ ОПЫТ ==================== -->
+        <div id="section-experience" class="letter-section">
+            <h3>IV. Личный опыт</h3>
+
+            <div class="topic-block">
+                <h4>Ошибки и уроки</h4>
+                <p class="hint">Провалы, которые сделали меня сильнее</p>
+                <ul class="subtopics">
+                    <li>Самая большая ошибка в карьере и чему она научила</li>
+                    <li>Ошибка в отношениях, которую не хочу повторять</li>
+                    <li>Финансовые провалы и выводы из них</li>
+                    <li>Решения, о которых жалею</li>
+                    <li>Как научился прощать себя за ошибки</li>
+                    <li>Почему ошибки — это не конец, а начало</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Страхи и как их преодолевать</h4>
+                <p class="hint">Быть смелым — не значит не бояться</p>
+                <ul class="subtopics">
+                    <li>Чего боялся в детстве и юности</li>
+                    <li>Страхи, которые мешали двигаться вперёд</li>
+                    <li>Как научился действовать несмотря на страх</li>
+                    <li>Страхи, которые так и не преодолел</li>
+                    <li>Что помогает справляться со страхом</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Моменты счастья</h4>
+                <p class="hint">Что приносило настоящую радость</p>
+                <ul class="subtopics">
+                    <li>Самый счастливый день в жизни (кроме твоего рождения)</li>
+                    <li>Маленькие радости, которые ценю</li>
+                    <li>Люди, которые делают меня счастливым</li>
+                    <li>Достижения, которыми горжусь</li>
+                    <li>Моменты, когда чувствовал себя по-настоящему живым</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+        </div>
+
+        <!-- ==================== V. ПРАКТИЧЕСКАЯ МУДРОСТЬ ==================== -->
+        <div id="section-wisdom" class="letter-section">
+            <h3>V. Практическая мудрость</h3>
+
+            <div class="topic-block">
+                <h4>Финансы и деньги</h4>
+                <p class="hint">Чему научила жизнь о деньгах</p>
+                <ul class="subtopics">
+                    <li>Моё отношение к деньгам и как оно формировалось</li>
+                    <li>Ошибки с деньгами, которые совершал</li>
+                    <li>Важность накоплений и финансовой подушки</li>
+                    <li>Инвестиции — что работает, что нет</li>
+                    <li>Деньги и счастье — как они связаны</li>
+                    <li>Щедрость vs экономность — баланс</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Здоровье</h4>
+                <p class="hint">Самый ценный ресурс</p>
+                <ul class="subtopics">
+                    <li>Что понял о здоровье слишком поздно</li>
+                    <li>Привычки, которые помогают</li>
+                    <li>Привычки, от которых стоит избавиться</li>
+                    <li>Ментальное здоровье — почему это важно</li>
+                    <li>Спорт и движение — мой опыт</li>
+                    <li>Сон, питание, отдых — базовые вещи</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Дружба</h4>
+                <p class="hint">Люди, которые идут рядом по жизни</p>
+                <ul class="subtopics">
+                    <li>Что для меня значит настоящая дружба</li>
+                    <li>Как отличить настоящего друга от знакомого</li>
+                    <li>Друзья, которые были рядом в трудные времена</li>
+                    <li>Дружба, которую потерял и почему</li>
+                    <li>Как поддерживать дружбу на расстоянии</li>
+                    <li>Качества, которые ценю в друзьях</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Работа и жизнь</h4>
+                <p class="hint">Баланс между карьерой и всем остальным</p>
+                <ul class="subtopics">
+                    <li>Ошибки в балансе, которые совершал</li>
+                    <li>Когда работа забирала слишком много</li>
+                    <li>Как научился говорить "нет"</li>
+                    <li>Что важнее — карьера или семья (мой ответ)</li>
+                    <li>Как находить время на всё</li>
+                    <li>Выгорание — как распознать и что делать</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+        </div>
+
+        <!-- ==================== VI. ЛИЧНОЕ ==================== -->
+        <div id="section-personal" class="letter-section">
+            <h3>VI. Личное</h3>
+
+            <div class="topic-block">
+                <h4>Ценности и принципы</h4>
+                <p class="hint">Во что верю и чем руководствуюсь</p>
+                <ul class="subtopics">
+                    <li>Главные ценности, которые определяют мою жизнь</li>
+                    <li>Принципы, от которых никогда не отступлю</li>
+                    <li>Что для меня неприемлемо</li>
+                    <li>Как формировались мои убеждения</li>
+                    <li>Ценности, которые хочу передать тебе</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Книги, фильмы, музыка</h4>
+                <p class="hint">Что сформировало моё мировоззрение</p>
+                <ul class="subtopics">
+                    <li>Книги, которые изменили мой взгляд на мир</li>
+                    <li>Фильмы, которые тронули до глубины души</li>
+                    <li>Музыка, которая сопровождает по жизни</li>
+                    <li>Произведения, которые хочу, чтобы ты прочитала/посмотрела</li>
+                    <li>Почему искусство важно</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Мечты для тебя</h4>
+                <p class="hint">Чего желаю тебе в жизни</p>
+                <ul class="subtopics">
+                    <li>Какой хочу видеть тебя в будущем</li>
+                    <li>Качества, которые хочу, чтобы ты развила</li>
+                    <li>Чего хочу, чтобы ты избежала</li>
+                    <li>Мечты, которые имею для тебя</li>
+                    <li>Свобода выбирать свой путь — моё главное желание</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+
+            <div class="topic-block">
+                <h4>Слова любви</h4>
+                <p class="hint">То, что хочу, чтобы ты знала всегда</p>
+                <ul class="subtopics">
+                    <li>Как сильно я тебя люблю</li>
+                    <li>За что люблю тебя именно такой</li>
+                    <li>Что ты значишь для меня</li>
+                    <li>Обещания, которые даю тебе</li>
+                    <li>Слова, которые хочу, чтобы ты помнила всегда</li>
+                    <li>Я всегда буду рядом — в любой форме</li>
+                </ul>
+                <div class="content"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="resources/navigation.js"></script>
+<script src="resources/back-to-top.js"></script>
+</body>
+</html>
