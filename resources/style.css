@@ -812,22 +812,32 @@ a:focus {
 
 /* Content area for writing */
 .content {
-    min-height: 120px;
     padding: 20px;
     background-color: #fff;
-    border: 2px dashed #ddd;
     border-radius: 8px;
     margin-top: 15px;
     position: relative;
     transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-.content:hover {
+/* Empty content - dashed border placeholder */
+.content:empty {
+    min-height: 120px;
+    border: 2px dashed #ddd;
+}
+
+.content:empty:hover {
     border-color: #dc7603;
     background-color: #fffaf5;
 }
 
-.content::before {
+/* Content with text - solid border */
+.content:not(:empty) {
+    border: 1px solid #eee;
+    background-color: #fafbfc;
+}
+
+.content:empty::before {
     content: "Твой текст здесь...";
     color: #ccc;
     font-style: italic;
@@ -837,15 +847,50 @@ a:focus {
     pointer-events: none;
 }
 
-.content:not(:empty)::before {
-    display: none;
-}
-
 .content p,
 .content span {
     margin: 0;
     color: #333;
     line-height: 1.7;
+}
+
+/* Content with text - показываем содержимое */
+.content p {
+    margin-bottom: 1em;
+}
+
+.content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Family member subheadings */
+.content h5 {
+    font-size: 1.15em;
+    color: #2c3e50;
+    margin: 1.5em 0 0.5em 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #dc7603;
+    font-weight: 600;
+}
+
+.content h5:first-child {
+    margin-top: 0;
+}
+
+/* Date info under headings */
+.content .date-info {
+    font-size: 0.9em;
+    color: #666;
+    margin: 0 0 1em 0;
+    display: block;
+}
+
+/* Horizontal rule in content */
+.content hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, rgba(220, 118, 3, 0), #dc7603, rgba(220, 118, 3, 0));
+    margin: 2em 0;
 }
 
 /* Responsive for letter */
@@ -870,5 +915,182 @@ a:focus {
 
     .letter-section > h3 {
         font-size: 1.3em;
+    }
+}
+
+/* ==================== FAMILY HISTORY ARTISTIC STYLES ==================== */
+
+/* Chapter introduction - italic intro text */
+.chapter-intro {
+    font-size: 1.05em;
+    color: #555;
+    font-style: italic;
+    padding: 20px 25px;
+    margin: 0 0 25px 0;
+    background: linear-gradient(135deg, #fef9f3 0%, #fff 100%);
+    border-left: 4px solid #dc7603;
+    border-radius: 0 8px 8px 0;
+    line-height: 1.7;
+}
+
+/* Chapter subheadings (h6 in content) */
+.content h6 {
+    font-size: 1.2em;
+    color: #2c3e50;
+    margin: 2em 0 1em 0;
+    padding: 12px 0;
+    border-bottom: 2px solid #e0e0e0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.content h6:first-of-type {
+    margin-top: 1em;
+}
+
+/* Historical note blockquote */
+.content blockquote.historical-note {
+    background: linear-gradient(135deg, #f8f6f0 0%, #faf9f5 100%);
+    border-left: 4px solid #8b7355;
+    padding: 20px 25px;
+    margin: 25px 0;
+    border-radius: 0 10px 10px 0;
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.7;
+    box-shadow: 0 2px 8px rgba(139, 115, 85, 0.1);
+}
+
+.content blockquote.historical-note p {
+    margin-bottom: 0.8em;
+}
+
+.content blockquote.historical-note p:last-child {
+    margin-bottom: 0;
+}
+
+/* Archive document blockquote */
+.content blockquote.archive-document {
+    background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
+    border: 1px solid #ddd;
+    border-left: 4px solid #666;
+    padding: 20px 25px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    font-family: 'Georgia', serif;
+    font-size: 0.93em;
+    color: #444;
+    line-height: 1.6;
+}
+
+.content blockquote.archive-document p {
+    margin-bottom: 0.8em;
+}
+
+.content blockquote.archive-document p:last-child {
+    margin-bottom: 0;
+}
+
+.content blockquote.archive-document ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.content blockquote.archive-document ul li {
+    background: none;
+    box-shadow: none;
+    padding: 4px 0;
+    margin: 0;
+    font-size: 0.95em;
+    color: #444;
+    display: list-item;
+    list-style-type: disc;
+}
+
+.content blockquote.archive-document ul li:hover {
+    background: none;
+    transform: none;
+}
+
+/* Archive findings list */
+.content ul.archive-findings {
+    margin: 15px 0;
+    padding: 0;
+}
+
+.content ul.archive-findings li {
+    background: linear-gradient(135deg, #fff 0%, #fafbfc 100%);
+    border: 1px solid #e8e8e8;
+    border-left: 3px solid #dc7603;
+    padding: 15px 20px;
+    margin: 12px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95em;
+    color: #444;
+    line-height: 1.6;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    display: block;
+}
+
+.content ul.archive-findings li:hover {
+    transform: translateX(3px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+.content ul.archive-findings li::before {
+    display: none;
+}
+
+/* Family member paragraph styling */
+.content p.family-member {
+    margin-top: 1.8em;
+    margin-bottom: 0.3em;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #ccc;
+}
+
+.content p.family-member + p {
+    margin-top: 0.5em;
+    padding-left: 15px;
+    border-left: 2px solid #e0e0e0;
+}
+
+/* Reflection paragraph - concluding thoughts */
+.content p.reflection {
+    font-size: 1.02em;
+    color: #555;
+    padding: 20px 25px;
+    margin: 30px 0 10px 0;
+    background: linear-gradient(135deg, #f5f0eb 0%, #faf8f5 100%);
+    border-left: 4px solid #dc7603;
+    border-radius: 0 8px 8px 0;
+    line-height: 1.7;
+}
+
+/* Responsive adjustments for family history */
+@media (max-width: 600px) {
+    .chapter-intro {
+        padding: 15px 18px;
+        font-size: 1em;
+    }
+
+    .content h6 {
+        font-size: 1.1em;
+    }
+
+    .content blockquote.historical-note,
+    .content blockquote.archive-document {
+        padding: 15px 18px;
+        font-size: 0.9em;
+    }
+
+    .content ul.archive-findings li {
+        padding: 12px 15px;
+    }
+
+    .content p.reflection {
+        padding: 15px 18px;
+        font-size: 0.98em;
     }
 }
