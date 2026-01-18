@@ -763,11 +763,44 @@ a:focus {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Collapsible header */
+.topic-block .topic-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+    margin-bottom: 0;
+    transition: margin-bottom 0.3s ease;
+}
+
+.topic-block.expanded .topic-header {
+    margin-bottom: 8px;
+}
+
+.topic-block .topic-header:hover h4 {
+    color: #dc7603;
+}
+
 .topic-block h4 {
     font-size: 1.15em;
     color: #333;
-    margin: 0 0 8px 0;
+    margin: 0;
     font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+/* Toggle icon */
+.topic-toggle {
+    font-size: 1.2em;
+    color: #dc7603;
+    transition: transform 0.3s ease;
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+.topic-block.expanded .topic-toggle {
+    transform: rotate(180deg);
 }
 
 /* Hint text */
@@ -775,15 +808,35 @@ a:focus {
     font-size: 0.9em;
     color: #888;
     font-style: italic;
-    margin: 0 0 15px 0;
+    margin: 0;
     padding-left: 15px;
     border-left: 2px solid #ddd;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+}
+
+.topic-block.expanded .hint {
+    max-height: 100px;
+    opacity: 1;
+    margin: 0 0 15px 0;
 }
 
 /* Subtopics list */
 .subtopics {
-    margin: 10px 0 15px 0;
+    margin: 0;
     padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease;
+}
+
+.topic-block.expanded .subtopics {
+    max-height: 1000px;
+    opacity: 1;
+    margin: 10px 0 15px 0;
 }
 
 .subtopics li {
@@ -817,27 +870,47 @@ a:focus {
     border-radius: 8px;
     margin-top: 15px;
     position: relative;
-    transition: border-color 0.3s ease, background-color 0.3s ease;
+    transition: border-color 0.3s ease, background-color 0.3s ease, max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    padding: 0 20px;
+    margin-top: 0;
+}
+
+/* Expanded topic-block shows content */
+.topic-block.expanded .content {
+    max-height: none;
+    opacity: 1;
+    padding: 20px;
+    margin-top: 15px;
+    overflow: visible;
+}
+
+/* Collapsed content - only show header */
+.topic-block.expanded .content.collapsed {
+    padding: 10px 20px;
+    max-height: none;
 }
 
 /* Empty content - dashed border placeholder */
-.content:empty {
+.topic-block.expanded .content:empty {
     min-height: 120px;
     border: 2px dashed #ddd;
 }
 
-.content:empty:hover {
+.topic-block.expanded .content:empty:hover {
     border-color: #dc7603;
     background-color: #fffaf5;
 }
 
 /* Content with text - solid border */
-.content:not(:empty) {
+.topic-block.expanded .content:not(:empty) {
     border: 1px solid #eee;
     background-color: #fafbfc;
 }
 
-.content:empty::before {
+.topic-block.expanded .content:empty::before {
     content: "Твой текст здесь...";
     color: #ccc;
     font-style: italic;
@@ -875,6 +948,57 @@ a:focus {
 
 .content h5:first-child {
     margin-top: 0;
+}
+
+/* Collapsible content header (h5) */
+.content h5.content-header {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    transition: color 0.2s ease;
+    margin: 0;
+    padding: 8px 0;
+}
+
+.content h5.content-header:hover {
+    color: #dc7603;
+}
+
+/* Toggle icon for content */
+.content-toggle {
+    font-size: 0.9em;
+    color: #dc7603;
+    transition: transform 0.3s ease;
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+.content.collapsed .content-toggle {
+    transform: rotate(-90deg);
+}
+
+/* Hide content body when collapsed */
+.content.collapsed > *:not(h5) {
+    display: none;
+}
+
+/* Remove border from h5 when content is collapsed */
+.content.collapsed h5.content-header {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+/* Add subtle background for collapsed content */
+.topic-block.expanded .content.collapsed {
+    background-color: #f8f9fa;
+    border: 1px solid #e8e8e8;
+}
+
+.topic-block.expanded .content.collapsed:hover {
+    background-color: #f0f2f5;
+    border-color: #dc7603;
 }
 
 /* Date info under headings */
