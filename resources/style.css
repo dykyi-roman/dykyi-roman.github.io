@@ -938,6 +938,41 @@ a:focus {
     margin-bottom: 0;
 }
 
+/* Regular lists inside content */
+.content ul {
+    margin: 1.2em 0;
+    padding: 15px 20px 15px 40px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+    border-left: 3px solid #dc7603;
+    border-radius: 0 8px 8px 0;
+    list-style-type: disc;
+}
+
+.content ul li {
+    background: none;
+    box-shadow: none;
+    padding: 8px 0;
+    margin: 0;
+    font-size: 1em;
+    color: #444;
+    line-height: 1.7;
+    border-radius: 0;
+    display: list-item;
+}
+
+.content ul li:hover {
+    background: none;
+    transform: none;
+}
+
+.content ul li::before {
+    display: none;
+}
+
+.content ul li::marker {
+    color: #dc7603;
+}
+
 /* Family member subheadings */
 .content h5 {
     font-size: 1.15em;
