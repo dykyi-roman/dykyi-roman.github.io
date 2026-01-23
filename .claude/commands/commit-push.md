@@ -1,3 +1,7 @@
+---
+allowed-tools: Bash(git *), Read, Glob, Grep
+---
+
 # /commit-push Command
 
 Commit all changes and push to remote repository in one command.
