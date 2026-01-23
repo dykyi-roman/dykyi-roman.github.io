@@ -14,17 +14,17 @@
 <div class="side-nav">
     <button class="nav-toggle">&#9776;</button>
     <div class="nav-buttons">
+        <button class="nav-button" onclick="scrollToSection('toc')">Contents</button>
         <button class="nav-button" onclick="scrollToSection('section-family')">I. Family</button>
         <button class="nav-button" onclick="scrollToSection('section-travel')">II. Travel</button>
         <button class="nav-button" onclick="scrollToSection('section-birth')">III. Birth</button>
         <button class="nav-button" onclick="scrollToSection('section-experience')">IV. Experience</button>
         <button class="nav-button" onclick="scrollToSection('section-personal')">V. Personal</button>
-        <button class="nav-button" onclick="scrollToSection('section-childhood')">VI. Childhood</button>
-        <button class="nav-button" onclick="scrollToSection('section-career')">VII. Career</button>
-        <button class="nav-button" onclick="scrollToSection('section-relationships')">VIII. Relationships</button>
-        <button class="nav-button" onclick="scrollToSection('section-faith')">IX. Faith</button>
-        <button class="nav-button" onclick="scrollToSection('section-world')">X. World</button>
-        <button class="nav-button" onclick="scrollToSection('section-letters')">XI. Letters</button>
+        <button class="nav-button" onclick="scrollToSection('section-career')">VI. Career</button>
+        <button class="nav-button" onclick="scrollToSection('section-relationships')">VII. Relationships</button>
+        <button class="nav-button" onclick="scrollToSection('section-faith')">VIII. Faith</button>
+        <button class="nav-button" onclick="scrollToSection('section-world')">IX. World</button>
+        <button class="nav-button" onclick="scrollToSection('section-letters')">X. Letters</button>
     </div>
 </div>
 
@@ -43,11 +43,11 @@
         <h2>Письмо дочери</h2>
 
         <!-- Table of Contents -->
-        <div class="letter-toc">
-            <h4>Содержание</h4>
+        <div id="toc" class="letter-toc">
+            <h4>Contents</h4>
             <nav class="toc-nav">
                 <details>
-                    <summary><a href="#section-family">I. Семья и корни</a></summary>
+                    <summary><a href="#section-family">I. Family and Roots</a></summary>
                     <ul>
                         <li>
                             <a href="#topic-family-history">История семьи</a>
@@ -251,7 +251,7 @@
 
         <!-- ==================== I. FAMILY AND ROOTS ==================== -->
         <div id="section-family" class="letter-section">
-            <h3>I. Семья и корни</h3>
+            <h3>I. Family and Roots</h3>
 
             <div id="topic-family-history" class="topic-block expanded">
                 <h4>История семьи</h4>
@@ -264,7 +264,7 @@
                     <li>Интересные истории из жизни предков</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-family-origin" class="content-header">Откуда наша семья, история нашего рода</h5>
+                    <h5 id="h5-family-origin">Откуда наша семья, история нашего рода</h5>
 
                     <p class="chapter-intro"><em>История рода Солошенко — это переплетение судьбы, труда и памяти. Эти
                         страницы я собирал по крупицам: из рассказов прабабушки, архивных записей, метрических книг и
@@ -421,7 +421,7 @@
                         доченька, несёшь в себе частицу каждого из них.</em></p>
                 </div>
                 <div class="content">
-                    <h5 id="h5-family-traditions" class="content-header">Семейные традиции</h5>
+                    <h5 id="h5-family-traditions">Семейные традиции</h5>
 
                     <p>О семейных традициях, передающихся из поколения в поколение, мне сложно что-то вспомнить. В нашем
                         доме не было устойчивых ритуалов или привычек, которые осознанно повторялись год за годом.
@@ -454,7 +454,7 @@
                     <p class="chapter-intro"><em>Время дороже денег — качественное общение важнее материальных благ.</em></p>
                 </div>
                 <div class="content">
-                    <h5 id="h5-character-traits" class="content-header">Черты характера, унаследованные через поколения</h5>
+                    <h5 id="h5-character-traits">Черты характера, унаследованные через поколения</h5>
 
                     <p>В нашем роду всегда ценилось практическое мастерство. Умение не только думать, но и создавать
                         что-то своими руками — от столярного дела до домашнего уюта.</p>
@@ -479,7 +479,7 @@
                     <p class="chapter-intro"><em>Страх — сигнал, а не преграда. Идти навстречу сложностям, а не убегать от них.</em></p>
                 </div>
                 <div class="content">
-                    <h5 id="h5-papa" class="content-header">Папа — Дикий Роман Александрович</h5>
+                    <h5 id="h5-papa" data-birth="1989-01-07">Папа — Дикий Роман Александрович</h5>
                     <p class="date-info"><em>07 января 1989, г. Золотоноша</em></p>
 
                     <h6>Детство и дом</h6>
@@ -628,13 +628,13 @@
                     <p><em>(продолжение следует)</em></p>
                 </div>
                 <div class="content">
-                    <h5 id="h5-mama" class="content-header">Мама — Сотникова Анжела Николаевна</h5>
+                    <h5 id="h5-mama" data-birth="1986-09-06">Мама — Сотникова Анжела Николаевна</h5>
                     <p class="date-info"><em>06 сентября 1986, г. Козятин</em></p>
 
                 </div>
                 <div class="content">
                     <!-- Дедушка (по отцовской линии) -->
-                    <h5 id="h5-grandfather" class="content-header">Дедушка — Дикий Александр Николаевич</h5>
+                    <h5 id="h5-grandfather" data-birth="1964-02-14">Дедушка — Дикий Александр Николаевич</h5>
                     <p class="date-info"><em>14 февраля 1964, с. Зорівка — г. Золотоноша</em></p>
 
                     <p>Твой дедушка, а мой папа, всю свою жизнь прожил с твоей бабушкой, моей мамой, в городе Золотоноша
@@ -673,7 +673,7 @@
                 </div>
                 <div class="content">
                     <!-- Бабушка (по отцовской линии) -->
-                    <h5 id="h5-grandmother" class="content-header">Бабушка — Дикая Валентина Анатольевна (Зайченко)</h5>
+                    <h5 id="h5-grandmother" data-birth="1961-02-21">Бабушка — Дикая Валентина Анатольевна (Зайченко)</h5>
                     <p class="date-info"><em>21 февраля 1961, г. Золотоноша</em></p>
 
                     <p>Твоя бабушка, а моя мама, родилась и прожила всю свою жизнь в городе Золотоноша — рядом со своей
@@ -701,7 +701,7 @@
                 </div>
                 <div class="content">
                     <!-- Прабабушка -->
-                    <h5 id="h5-great-grandmother" class="content-header">Прабабушка — Солошенко (Зайченко) Наталья Васильевна</h5>
+                    <h5 id="h5-great-grandmother" data-birth="1927-12-27" data-death="2025-08-19">Прабабушка — Солошенко (Зайченко) Наталья Васильевна</h5>
                     <p class="date-info"><em>27 декабря 1927 — 19 августа 2025, г. Золотоноша</em></p>
 
                     <p>Наталья Васильевна — дочь <strong>Василия Яковлевича Солошенко</strong> и <strong>Марфы Андреевны
@@ -737,7 +737,7 @@
                 </div>
                 <div class="content">
                     <!-- Прадедушка -->
-                    <h5 id="h5-great-grandfather" class="content-header">Прадедушка — Кропачев Анатолий</h5>
+                    <h5 id="h5-great-grandfather">Прадедушка — Кропачев Анатолий</h5>
                     <p class="date-info"><em>03 марта 1931 - ???</em></p>
 
                     <p>Прадедушку я не застал в своей памяти. Как рассказывала бабушка, он умер ещё до моего рождения
@@ -763,8 +763,8 @@
             </div>
 
             <div id="topic-love-story" class="topic-block expanded">
-                <h4>Love Story</h4>
-                <p class="hint">How mom and I found each other</p>
+                <h4>История любви</h4>
+                <p class="hint">Как мы с мамой нашли друг друга</p>
                 <ul class="subtopics">
                     <li>Где и как мы познакомились</li>
                     <li>Первые впечатления друг о друге</li>
@@ -774,7 +774,7 @@
                     <li>Что для меня значат любовь и семья</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-love-history" class="content-header">История нашей любви</h5>
+                    <h5 id="h5-love-history">История нашей любви</h5>
                     <p class="date-info"><em>2016 — начало, 2 декабря 2017 — свадьба</em></p>
 
                     <h6>Где и как мы познакомились</h6>
@@ -829,8 +829,8 @@
             <h3>II. Travel</h3>
 
             <div id="topic-first-trip" class="topic-block expanded">
-                <h4>First Big Trip</h4>
-                <p class="hint">The journey that opened up the world</p>
+                <h4>Первое большое путешествие</h4>
+                <p class="hint">Путешествие, открывшее мир</p>
                 <ul class="subtopics">
                     <li>Куда я поехал и почему выбрал это место</li>
                     <li>Самые яркие впечатления и эмоции</li>
@@ -838,8 +838,8 @@
                     <li>Чему научило меня это путешествие</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-asia-years" class="content-header">Три года в Азии</h5>
-                    <p class="date-info"><em>03 февраля 2022 — начало путешествия</em></p>
+                    <h5 id="h5-asia-years" data-start="2022-02-03" data-end="2025-08-27">Три года в Азии</h5>
+                    <p class="date-info"><em>03 февраля 2022 — 27 августа 2025</em></p>
 
                     <h6>Куда я поехал и почему выбрал это место</h6>
                     <p>Это был план зимовки в Азии, который постепенно перерос почти в три года невероятного времени —
@@ -890,8 +890,8 @@
             </div>
 
             <div id="topic-memorable-places" class="topic-block expanded">
-                <h4>Most Memorable Places</h4>
-                <p class="hint">Places that stayed in my heart forever</p>
+                <h4>Самые запоминающиеся места</h4>
+                <p class="hint">Места, навсегда оставшиеся в сердце</p>
                 <ul class="subtopics">
                     <li>Что это за место и чем оно особенное</li>
                     <li>Что я там видел, слышал, чувствовал</li>
@@ -899,7 +899,7 @@
                     <li>Почему хочу туда вернуться</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-krabi" class="content-header">Краби, Таиланд</h5>
+                    <h5 id="h5-krabi">Краби, Таиланд</h5>
 
                     <h6>Что это за место и чем оно особенное</h6>
                     <p>Краби — провинция на юге Таиланда, которая навсегда осталась в моём сердце. Это место, где
@@ -940,7 +940,7 @@
                     <p class="chapter-intro"><em>Благодарность — ценить то, что имеешь, и тех, кто рядом. Благодарность умножает счастье.</em></p>
                 </div>
                 <div class="content">
-                    <h5 id="h5-kuala-lumpur" class="content-header">Куала-Лумпур, Малайзия</h5>
+                    <h5 id="h5-kuala-lumpur">Куала-Лумпур, Малайзия</h5>
 
                     <h6>Что это за место и чем оно особенное</h6>
                     <p>Куала-Лумпур — столица Малайзии и город, где я впервые почувствовал себя на своём месте. Не как
@@ -977,8 +977,8 @@
             </div>
 
             <div id="topic-life-changing-trip" class="topic-block expanded">
-                <h4>A Trip That Changed My View of Life</h4>
-                <p class="hint">When the road changes you from within</p>
+                <h4>Путешествие, изменившее взгляд на жизнь</h4>
+                <p class="hint">Когда дорога меняет тебя изнутри</p>
                 <ul class="subtopics">
                     <li>Что я увидел, что перевернуло моё мышление</li>
                     <li>Какие убеждения изменились после поездки</li>
@@ -986,7 +986,7 @@
                     <li>Решения, которые я принял благодаря этому опыту</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-india" class="content-header">Индия</h5>
+                    <h5 id="h5-india">Индия</h5>
 
                     <h6>Что я увидел, что перевернуло моё мышление</h6>
                     <p>Индия — это страна, которая не оставляет тебя прежним. Она бьёт по всем органам чувств
@@ -1052,8 +1052,8 @@
             </div>
 
             <div id="topic-places-to-visit" class="topic-block expanded">
-                <h4>Places I Want to Visit with You</h4>
-                <p class="hint">Dreams of traveling together</p>
+                <h4>Места, которые хочу посетить с тобой</h4>
+                <p class="hint">Мечты о совместных путешествиях</p>
                 <ul class="subtopics">
                     <li>Места, которые хочу тебе показать</li>
                     <li>Почему эти места важны для меня</li>
@@ -1061,7 +1061,7 @@
                     <li>Приключения, которые хочу пережить вместе</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-world-for-you" class="content-header">Весь мир — для тебя</h5>
+                    <h5 id="h5-world-for-you">Весь мир — для тебя</h5>
 
                     <h6>Места, которые хочу тебе показать</h6>
                     <p>Почти все страны и города, которые я посетил, мы посетили вместе. Но не все ты помнишь — ты была
@@ -1115,7 +1115,7 @@
 
             <div id="topic-9-months" class="topic-block expanded">
                 <h4>9 Months of Waiting</h4>
-                <p class="hint">The path to your arrival</p>
+                <p class="hint">Путь к твоему появлению</p>
                 <ul class="subtopics">
                     <li>Как мама сообщила новость</li>
                     <li>Кому рассказали первым</li>
@@ -1128,7 +1128,7 @@
                     <li>Выбор имени</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-waiting-miracle" class="content-header">Ожидание чуда</h5>
+                    <h5 id="h5-waiting-miracle">Ожидание чуда</h5>
                     <p class="date-info"><em>9 месяцев до твоего рождения</em></p>
 
                     <h6>Как мама сообщила новость</h6>
@@ -1213,8 +1213,8 @@
             </div>
 
             <div id="topic-birth-day" class="topic-block expanded">
-                <h4>The Day You Were Born</h4>
-                <p class="hint">The most important day of my life</p>
+                <h4>День, когда ты родилась</h4>
+                <p class="hint">Самый важный день моей жизни</p>
                 <ul class="subtopics">
                     <li>Как начался этот день</li>
                     <li>Дорога в роддом — что я чувствовал</li>
@@ -1224,7 +1224,7 @@
                     <li>Чувства, которые невозможно описать словами</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-birth-day-story" class="content-header">День, когда ты появилась на свет</h5>
+                    <h5 id="h5-birth-day-story">День, когда ты появилась на свет</h5>
                     <p class="date-info"><em>18 августа 2020 года, 00:49 ночи</em></p>
 
                     <h6>Как начался этот день</h6>
@@ -1287,8 +1287,8 @@
             </div>
 
             <div id="topic-first-days" class="topic-block expanded">
-                <h4>First Days and Weeks</h4>
-                <p class="hint">Learning to be a father</p>
+                <h4>Первые дни и недели</h4>
+                <p class="hint">Учусь быть отцом</p>
                 <ul class="subtopics">
                     <li>Первая ночь дома — бессонница и счастье</li>
                     <li>Первая смена подгузника, кормление, купание</li>
@@ -1298,7 +1298,7 @@
                     <li>Усталость и счастье одновременно</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-first-days-weeks" class="content-header">Первые дни и недели</h5>
+                    <h5 id="h5-first-days-weeks">Первые дни и недели</h5>
                     <p class="date-info"><em>Август — сентябрь 2020 года</em></p>
 
                     <h6>Первая ночь дома — бессонница и счастье</h6>
@@ -1370,15 +1370,15 @@
             </div>
 
             <div id="topic-life-changed" class="topic-block expanded">
-                <h4>How My Life Changed</h4>
-                <p class="hint">You changed everything</p>
+                <h4>Как изменилась моя жизнь</h4>
+                <p class="hint">Ты изменила всё</p>
                 <ul class="subtopics">
                     <li>Что я понял о себе благодаря тебе</li>
                     <li>Как изменились мои приоритеты</li>
                     <li>Что я начал ценить больше</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-understood-myself" class="content-header">Что я понял о себе благодаря тебе</h5>
+                    <h5 id="h5-understood-myself">Что я понял о себе благодаря тебе</h5>
 
                     <h6>Я тоже ещё ребёнок — только большой</h6>
                     <p>Я понял, что сам ещё не до конца вырос. Когда ты плакала — я часто терялся.</p>
@@ -1416,7 +1416,7 @@
                     <p class="chapter-intro"><em>Родители — пример для детей — дети учатся не по словам, а по делам.</em></p>
                 </div>
                 <div class="content">
-                    <h5 id="h5-priorities-changed" class="content-header">Как изменились мои приоритеты</h5>
+                    <h5 id="h5-priorities-changed">Как изменились мои приоритеты</h5>
 
                     <h6>Твои успехи важнее моих</h6>
                     <p>Раньше я мечтал о карьерных вершинах, о признании, о достижениях, которыми можно гордиться. Я и
@@ -1458,7 +1458,7 @@
                     <p class="chapter-intro"><em>Хорошо организованное время — это верный признак хорошо организованного ума.</em></p>
                 </div>
                 <div class="content">
-                    <h5 id="h5-value-more" class="content-header">Что я начал ценить больше</h5>
+                    <h5 id="h5-value-more">Что я начал ценить больше</h5>
 
                     <h6>Совместное время — главная ценность</h6>
                     <p>Раньше «провести время вместе» означало просто находиться в одном помещении. Каждый при этом мог
@@ -1521,8 +1521,8 @@
             <h3>IV. Personal Experience</h3>
 
             <div id="topic-mistakes" class="topic-block expanded">
-                <h4>Mistakes and Lessons</h4>
-                <p class="hint">Failures that made me stronger</p>
+                <h4>Ошибки и уроки</h4>
+                <p class="hint">Неудачи, сделавшие меня сильнее</p>
                 <ul class="subtopics">
                     <li>Самая большая ошибка в карьере и чему она научила</li>
                     <li>Ошибка в отношениях, которую не хочу повторять</li>
@@ -1532,7 +1532,7 @@
                     <li>Почему ошибки — это не конец, а начало</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-mistakes-beginning" class="content-header">Почему ошибки — это не конец, а начало</h5>
+                    <h5 id="h5-mistakes-beginning">Почему ошибки — это не конец, а начало</h5>
 
                     <p class="chapter-intro"><em>Ошибки — это не приговор, а уроки, которые жизнь преподносит нам иногда
                         мягко, а иногда болезненно. В этих строках я хочу поделиться с тобой своими падениями и теми
@@ -1635,8 +1635,8 @@
             </div>
 
             <div id="topic-happiness" class="topic-block expanded">
-                <h4>Moments of Happiness</h4>
-                <p class="hint">What brought true joy</p>
+                <h4>Моменты счастья</h4>
+                <p class="hint">Что приносило настоящую радость</p>
                 <ul class="subtopics">
                     <li>Самый счастливый день в моей жизни (кроме твоего рождения)</li>
                     <li>Маленькие радости, которые я ценю</li>
@@ -1644,7 +1644,7 @@
                     <li>Моменты, когда я чувствовал себя по-настоящему живым</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-happiness-moments" class="content-header">Моменты счастья</h5>
+                    <h5 id="h5-happiness-moments">Моменты счастья</h5>
                     <p class="date-info"><em>Вся жизнь — коллекция драгоценных мгновений</em></p>
 
                     <h6>Самый счастливый день в моей жизни (кроме твоего рождения)</h6>
@@ -1731,8 +1731,8 @@
             </div>
 
             <div id="topic-finances" class="topic-block expanded">
-                <h4>Finances and Money</h4>
-                <p class="hint">What life taught me about money</p>
+                <h4>Финансы и деньги</h4>
+                <p class="hint">Чему жизнь научила меня о деньгах</p>
                 <ul class="subtopics">
                     <li>Моё отношение к деньгам и как оно сформировалось</li>
                     <li>Денежные ошибки, которые я совершал</li>
@@ -1742,7 +1742,7 @@
                     <li>Щедрость vs бережливость — поиск баланса</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-finances-money" class="content-header">Финансы и деньги</h5>
+                    <h5 id="h5-finances-money">Финансы и деньги</h5>
                     <p class="date-info"><em>Уроки, которые стоили дорого — в прямом смысле</em></p>
 
                     <h6>Моё отношение к деньгам и как оно сформировалось</h6>
@@ -1859,8 +1859,8 @@
             </div>
 
             <div id="topic-health" class="topic-block expanded">
-                <h4>Health</h4>
-                <p class="hint">The most valuable resource</p>
+                <h4>Здоровье</h4>
+                <p class="hint">Самый ценный ресурс</p>
                 <ul class="subtopics">
                     <li>Что я понял о здоровье слишком поздно</li>
                     <li>Привычки, которые помогают</li>
@@ -1870,7 +1870,7 @@
                     <li>Сон, питание, отдых — основы</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-health-lessons" class="content-header">Что я понял о здоровье слишком поздно</h5>
+                    <h5 id="h5-health-lessons">Что я понял о здоровье слишком поздно</h5>
                     <p>Когда тебе 20 лет, кажется, что здоровье — это бесконечный ресурс. Можно не спать ночами, есть
                         что попало, игнорировать спорт. Тело прощает. До поры до времени.</p>
                     <p>К 35 годам я понял простую истину: <strong>здоровье — это не то, что у тебя есть, а то, что ты
@@ -2006,8 +2006,8 @@
             </div>
 
             <div id="topic-friendship" class="topic-block expanded">
-                <h4>Friendship</h4>
-                <p class="hint">People who walk alongside you through life</p>
+                <h4>Дружба</h4>
+                <p class="hint">Люди, идущие рядом по жизни</p>
                 <ul class="subtopics">
                     <li>Что для меня значит настоящая дружба</li>
                     <li>Как отличить настоящего друга от приятеля</li>
@@ -2016,7 +2016,7 @@
                     <li>Качества, которые ценю в друзьях</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-real-friendship" class="content-header">Что для меня значит настоящая дружба</h5>
+                    <h5 id="h5-real-friendship">Что для меня значит настоящая дружба</h5>
                     <p>Дружба — это одно из самых ценных явлений в жизни. Не количество друзей делает тебя счастливой, а
                         их качество. Один настоящий друг стоит сотни приятелей.</p>
                     <p>Настоящий друг — это:</p>
@@ -2144,8 +2144,8 @@
             <h3>V. Personal</h3>
 
             <div id="topic-values" class="topic-block expanded">
-                <h4>Values and Principles</h4>
-                <p class="hint">What I believe in and live by</p>
+                <h4>Ценности и принципы</h4>
+                <p class="hint">Во что я верю и чем живу</p>
                 <ul class="subtopics">
                     <li>Ошибки баланса, которые я совершал</li>
                     <li>Главные ценности, определяющие мою жизнь</li>
@@ -2155,7 +2155,7 @@
                     <li>Как найти время на всё</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-main-values" class="content-header">Главные ценности, определяющие мою жизнь</h5>
+                    <h5 id="h5-main-values">Главные ценности, определяющие мою жизнь</h5>
                     <p>Ценности — это внутренний компас. Когда не знаешь, как поступить — сверяйся с ними. Вот что для
                         меня важнее всего:</p>
                     <ul>
@@ -2274,8 +2274,8 @@
             </div>
 
             <div id="topic-books-movies" class="topic-block expanded">
-                <h4>Books, Movies, Music</h4>
-                <p class="hint">What shaped my worldview</p>
+                <h4>Книги, фильмы, музыка</h4>
+                <p class="hint">Что сформировало моё мировоззрение</p>
                 <ul class="subtopics">
                     <li>Книги, которые изменили моё видение мира</li>
                     <li>Фильмы, которые глубоко тронули</li>
@@ -2283,7 +2283,7 @@
                     <li>Почему искусство важно</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-books-movies-music" class="content-header">Books, Movies, Music</h5>
+                    <h5 id="h5-books-movies-music">Books, Movies, Music</h5>
                     <h6>Книги, которые изменили моё видение мира</h6>
                     <p>Книги — это спрессованный опыт других людей. За несколько часов чтения ты можешь прожить чью-то
                         жизнь, понять чужие ошибки и озарения, получить знания, которые автор собирал десятилетиями.</p>
@@ -2354,8 +2354,8 @@
             </div>
 
             <div id="topic-dreams" class="topic-block expanded">
-                <h4>Dreams for You</h4>
-                <p class="hint">What I wish for you in life</p>
+                <h4>Мечты для тебя</h4>
+                <p class="hint">Чего я желаю тебе в жизни</p>
                 <ul class="subtopics">
                     <li>Кем я хочу тебя видеть</li>
                     <li>Качества, которые хочу, чтобы ты развила</li>
@@ -2363,7 +2363,7 @@
                     <li>Мечты, которые у меня есть для тебя</li>
                 </ul>
                 <div class="content">
-                    <h5 id="h5-dreams-for-you" class="content-header">Мечты для тебя</h5>
+                    <h5 id="h5-dreams-for-you">Мечты для тебя</h5>
                     <p class="chapter-intro"><em>Каждый родитель мечтает о счастье своего ребёнка. Я не исключение. Но я не хочу навязывать тебе свой путь — я хочу поделиться своим видением, своими надеждами, своим опытом. А ты сама решишь, что из этого возьмёшь с собой.</em></p>
 
                     <h6>Кем я хочу тебя видеть</h6>
@@ -2473,87 +2473,13 @@
             </div>
         </div>
 
-        <!-- ==================== VII. MY CHILDHOOD AND YOUTH ==================== -->
-        <div id="section-childhood" class="letter-section">
-            <h3>VII. My Childhood and Youth</h3>
-
-            <div id="topic-child" class="topic-block expanded">
-                <h4>What Kind of Child I Was</h4>
-                <p class="hint">Little me — before I became an adult</p>
-                <ul class="subtopics">
-                    <li>Мой характер в детстве — тихий или шумный, смелый или застенчивый</li>
-                    <li>Любимые игры и занятия</li>
-                    <li>О чём я мечтал, кем хотел стать</li>
-                    <li>Любимые игрушки и вещи</li>
-                    <li>Страхи и как с ними справлялся</li>
-                    <li>Первые друзья</li>
-                </ul>
-                <div class="content"></div>
-            </div>
-
-            <div id="topic-school" class="topic-block expanded">
-                <h4>School Years</h4>
-                <p class="hint">Years that shaped me</p>
-                <ul class="subtopics">
-                    <li>Каким я был учеником — отличником, хулиганом или где-то посередине</li>
-                    <li>Любимые и нелюбимые предметы</li>
-                    <li>Учителя, которые на меня повлияли</li>
-                    <li>Школьные друзья — где они сейчас</li>
-                    <li>Первая влюблённость</li>
-                    <li>Конфликты и как я их решал</li>
-                    <li>Что бы я изменил, если бы мог вернуться</li>
-                </ul>
-                <div class="content"></div>
-            </div>
-
-            <div id="topic-parents" class="topic-block expanded">
-                <h4>Parents and Upbringing</h4>
-                <p class="hint">What my parents gave me</p>
-                <ul class="subtopics">
-                    <li>Какими были мои родители</li>
-                    <li>Чему они меня научили</li>
-                    <li>Правила и запреты в нашем доме</li>
-                    <li>За что я им благодарен</li>
-                    <li>Что бы я хотел, чтобы было иначе</li>
-                    <li>Как их воспитание повлияло на меня как отца</li>
-                </ul>
-                <div class="content"></div>
-            </div>
-
-            <div id="topic-turning-points" class="topic-block expanded">
-                <h4>Turning Points of Youth</h4>
-                <p class="hint">Events that shaped me as a person</p>
-                <ul class="subtopics">
-                    <li>Момент, когда я повзрослел</li>
-                    <li>Первая серьёзная ответственность</li>
-                    <li>Потери и как я с ними справлялся</li>
-                    <li>Решения, определившие моё будущее</li>
-                    <li>Люди, появившиеся в нужный момент</li>
-                </ul>
-                <div class="content"></div>
-            </div>
-
-            <div id="topic-silly-things" class="topic-block expanded">
-                <h4>Silly Things I Did</h4>
-                <p class="hint">Stories we can laugh about</p>
-                <ul class="subtopics">
-                    <li>Самые безумные вещи, которые я делал</li>
-                    <li>За что меня наказывали</li>
-                    <li>Приключения с друзьями</li>
-                    <li>Моменты, когда мне повезло, что всё обошлось</li>
-                    <li>Что бы я сказал себе молодому</li>
-                </ul>
-                <div class="content"></div>
-            </div>
-        </div>
-
-        <!-- ==================== VIII. CAREER AND CALLING ==================== -->
+        <!-- ==================== VII. CAREER AND CALLING ==================== -->
         <div id="section-career" class="letter-section">
-            <h3>VIII. Career and Calling</h3>
+            <h3>VI. Career and Calling</h3>
 
             <div id="topic-profession" class="topic-block expanded">
-                <h4>How I Chose My Profession</h4>
-                <p class="hint">The path to what I do</p>
+                <h4>Как я выбрал профессию</h4>
+                <p class="hint">Путь к тому, чем я занимаюсь</p>
                 <ul class="subtopics">
                     <li>Кем я мечтал стать в детстве</li>
                     <li>Как выбирал, где учиться</li>
@@ -2561,12 +2487,22 @@
                     <li>Люди, которые меня направляли</li>
                     <li>Сомнения и альтернативные пути</li>
                 </ul>
-                <div class="content"></div>
+                <div class="content">
+                    <h5 id="h5-belief-in-myself">Вера в себя</h5>
+
+                    <p>Мне всегда казалось, что какой бы профессией я ни занимался — я смог бы достичь в ней максимальных высот. Юрист, стоматолог, архитектор, инженер — неважно. Я верил, что если полностью погрузиться в дело, отдать ему всю энергию и время, результат придёт.</p>
+
+                    <p>Это не было самоуверенностью или заносчивостью. Скорее — глубокое убеждение, что <strong>успех определяется не талантом, а упорством</strong>. Что любой навык можно освоить, любую вершину — покорить, если идти к ней достаточно долго и настойчиво.</p>
+
+                    <p>Возможно, именно эта вера помогла мне не бояться менять направление, пробовать новое и не сдаваться, когда что-то не получалось с первого раза.</p>
+
+                    <p class="chapter-intro"><em>Талант — это лишь стартовая точка. Всё остальное — работа, дисциплина и время.</em></p>
+                </div>
             </div>
 
             <div id="topic-first-job" class="topic-block expanded">
-                <h4>First Job</h4>
-                <p class="hint">Entry into adult life</p>
+                <h4>Первая работа</h4>
+                <p class="hint">Вход во взрослую жизнь</p>
                 <ul class="subtopics">
                     <li>Где и кем я впервые работал</li>
                     <li>Первая зарплата — на что потратил</li>
@@ -2578,8 +2514,8 @@
             </div>
 
             <div id="topic-achievements" class="topic-block expanded">
-                <h4>Achievements I'm Proud Of</h4>
-                <p class="hint">Victories on my professional path</p>
+                <h4>Достижения, которыми горжусь</h4>
+                <p class="hint">Победы на профессиональном пути</p>
                 <ul class="subtopics">
                     <li>Успешные проекты</li>
                     <li>Признание и награды</li>
@@ -2591,8 +2527,8 @@
             </div>
 
             <div id="topic-career-failures" class="topic-block expanded">
-                <h4>Career Failures</h4>
-                <p class="hint">Falls that taught more than victories</p>
+                <h4>Карьерные неудачи</h4>
+                <p class="hint">Падения, научившие больше, чем победы</p>
                 <ul class="subtopics">
                     <li>Увольнение и как я с этим справился</li>
                     <li>Проекты, которые провалились</li>
@@ -2604,8 +2540,8 @@
             </div>
 
             <div id="topic-do-differently" class="topic-block expanded">
-                <h4>What I Would Do Differently</h4>
-                <p class="hint">Advice to my younger self</p>
+                <h4>Что бы я сделал иначе</h4>
+                <p class="hint">Совет себе молодому</p>
                 <ul class="subtopics">
                     <li>Навыки, которые стоило развить раньше</li>
                     <li>Упущенные возможности</li>
@@ -2617,8 +2553,8 @@
             </div>
 
             <div id="topic-work-meaning" class="topic-block expanded">
-                <h4>What Work Means to Me</h4>
-                <p class="hint">Calling or earning?</p>
+                <h4>Что для меня значит работа</h4>
+                <p class="hint">Призвание или заработок?</p>
                 <ul class="subtopics">
                     <li>Люблю ли я то, чем занимаюсь</li>
                     <li>Что работа даёт мне кроме денег</li>
@@ -2632,11 +2568,11 @@
 
         <!-- ==================== IX. RELATIONSHIPS AND PEOPLE ==================== -->
         <div id="section-relationships" class="letter-section">
-            <h3>IX. Relationships and People</h3>
+            <h3>VII. Relationships and People</h3>
 
             <div id="topic-people" class="topic-block expanded">
-                <h4>People Who Changed My Life</h4>
-                <p class="hint">Those without whom I would be different</p>
+                <h4>Люди, изменившие мою жизнь</h4>
+                <p class="hint">Те, без кого я был бы другим</p>
                 <ul class="subtopics">
                     <li>Наставники и учителя жизни</li>
                     <li>Друзья, которые были рядом в ключевые моменты</li>
@@ -2648,8 +2584,8 @@
             </div>
 
             <div id="topic-read-people" class="topic-block expanded">
-                <h4>How I Learned to Read People</h4>
-                <p class="hint">Wisdom gained through experience</p>
+                <h4>Как я научился понимать людей</h4>
+                <p class="hint">Мудрость, приобретённая через опыт</p>
                 <ul class="subtopics">
                     <li>Красные флаги — признаки, что человеку нельзя доверять</li>
                     <li>Зелёные флаги — признаки надёжного человека</li>
@@ -2661,8 +2597,8 @@
             </div>
 
             <div id="topic-toxic" class="topic-block expanded">
-                <h4>Toxic Relationships</h4>
-                <p class="hint">How to recognize and leave</p>
+                <h4>Токсичные отношения</h4>
+                <p class="hint">Как распознать и уйти</p>
                 <ul class="subtopics">
                     <li>Признаки токсичных отношений</li>
                     <li>Мой опыт с токсичными людьми</li>
@@ -2674,8 +2610,8 @@
             </div>
 
             <div id="topic-forgiveness" class="topic-block expanded">
-                <h4>Forgiveness</h4>
-                <p class="hint">Freeing yourself from the burden of resentment</p>
+                <h4>Прощение</h4>
+                <p class="hint">Освобождение от груза обиды</p>
                 <ul class="subtopics">
                     <li>Кого я простил и почему</li>
                     <li>Кого не смог простить</li>
@@ -2687,8 +2623,8 @@
             </div>
 
             <div id="topic-loneliness" class="topic-block expanded">
-                <h4>Loneliness</h4>
-                <p class="hint">How to cope with it</p>
+                <h4>Одиночество</h4>
+                <p class="hint">Как с этим справляться</p>
                 <ul class="subtopics">
                     <li>Моменты, когда я чувствовал себя одиноким</li>
                     <li>Разница между одиночеством и уединением</li>
@@ -2702,11 +2638,11 @@
 
         <!-- ==================== X. FAITH AND MEANING OF LIFE ==================== -->
         <div id="section-faith" class="letter-section">
-            <h3>X. Faith and Meaning of Life</h3>
+            <h3>VIII. Faith and Meaning of Life</h3>
 
             <div id="topic-believe" class="topic-block expanded">
-                <h4>What I Believe In</h4>
-                <p class="hint">My beliefs about the higher</p>
+                <h4>Во что я верю</h4>
+                <p class="hint">Мои убеждения о высшем</p>
                 <ul class="subtopics">
                     <li>Моё отношение к религии</li>
                     <li>Как мои взгляды менялись с возрастом</li>
@@ -2718,8 +2654,8 @@
             </div>
 
             <div id="topic-death" class="topic-block expanded">
-                <h4>My View on Death</h4>
-                <p class="hint">How I relate to mortality</p>
+                <h4>Мой взгляд на смерть</h4>
+                <p class="hint">Как я отношусь к смертности</p>
                 <ul class="subtopics">
                     <li>Боюсь ли я смерти</li>
                     <li>Как менялось моё отношение с возрастом</li>
@@ -2731,8 +2667,8 @@
             </div>
 
             <div id="topic-meaning" class="topic-block expanded">
-                <h4>Where I See the Meaning of Life</h4>
-                <p class="hint">The answer I've been searching for all my life</p>
+                <h4>В чём я вижу смысл жизни</h4>
+                <p class="hint">Ответ, который я искал всю жизнь</p>
                 <ul class="subtopics">
                     <li>Как менялось моё понимание смысла</li>
                     <li>Что даёт мне силы вставать каждое утро</li>
@@ -2744,8 +2680,8 @@
             </div>
 
             <div id="topic-questions" class="topic-block expanded">
-                <h4>Questions Without Answers</h4>
-                <p class="hint">What I still think about</p>
+                <h4>Вопросы без ответов</h4>
+                <p class="hint">О чём я всё ещё думаю</p>
                 <ul class="subtopics">
                     <li>Вопросы, не дающие уснуть по ночам</li>
                     <li>Загадки, которые хотел бы разгадать</li>
@@ -2758,11 +2694,11 @@
 
         <!-- ==================== XI. THE WORLD AROUND ==================== -->
         <div id="section-world" class="letter-section">
-            <h3>XI. The World Around</h3>
+            <h3>IX. The World Around</h3>
 
             <div id="topic-world-changed" class="topic-block expanded">
-                <h4>How the World Changed During My Lifetime</h4>
-                <p class="hint">From my childhood to yours</p>
+                <h4>Как изменился мир за мою жизнь</h4>
+                <p class="hint">От моего детства к твоему</p>
                 <ul class="subtopics">
                     <li>Технологии — от дискового телефона до смартфона</li>
                     <li>Как изменилось общение между людьми</li>
@@ -2774,8 +2710,8 @@
             </div>
 
             <div id="topic-war" class="topic-block expanded">
-                <h4>War and Its Impact</h4>
-                <p class="hint">What changed us</p>
+                <h4>Война и её влияние</h4>
+                <p class="hint">Что изменило нас</p>
                 <ul class="subtopics">
                     <li>Где я был, когда всё началось</li>
                     <li>Как изменилась наша жизнь</li>
@@ -2788,8 +2724,8 @@
             </div>
 
             <div id="topic-ukraine" class="topic-block expanded">
-                <h4>Ukraine</h4>
-                <p class="hint">What homeland means to me</p>
+                <h4>Украина</h4>
+                <p class="hint">Что для меня значит родина</p>
                 <ul class="subtopics">
                     <li>Что я люблю в своей стране</li>
                     <li>Места, дорогие моему сердцу</li>
@@ -2801,8 +2737,8 @@
             </div>
 
             <div id="topic-future-hopes" class="topic-block expanded">
-                <h4>Hopes for the Future</h4>
-                <p class="hint">What kind of world I want for you</p>
+                <h4>Надежды на будущее</h4>
+                <p class="hint">Какой мир я хочу для тебя</p>
                 <ul class="subtopics">
                     <li>Мир, о котором мечтаю для тебя</li>
                     <li>Изменения, которые хочу увидеть</li>
@@ -2816,11 +2752,11 @@
 
         <!-- ==================== XII. LETTERS FOR THE FUTURE ==================== -->
         <div id="section-letters" class="letter-section">
-            <h3>XII. Letters for the Future</h3>
+            <h3>X. Letters for the Future</h3>
 
             <div id="topic-advice-18" class="topic-block expanded">
-                <h4>Advice at 18 years old</h4>
-                <p class="hint">When you become an adult</p>
+                <h4>Советы на 18-летие</h4>
+                <p class="hint">Когда ты станешь взрослой</p>
                 <ul class="subtopics">
                     <li>Поздравление с совершеннолетием</li>
                     <li>Какой я тебя вижу в этот день</li>
@@ -2832,8 +2768,8 @@
             </div>
 
             <div id="topic-hard-times" class="topic-block expanded">
-                <h4>When Times Are Hard</h4>
-                <p class="hint">Words of support in dark times</p>
+                <h4>Когда тяжело</h4>
+                <p class="hint">Слова поддержки в тёмные времена</p>
                 <ul class="subtopics">
                     <li>Что делать, когда кажется, что всё рушится</li>
                     <li>Как я справлялся с трудностями</li>
@@ -2850,5 +2786,48 @@
 
 <script src="resources/navigation.js"></script>
 <script src="resources/back-to-top.js"></script>
+<script>
+// Calculate and display age for family members
+document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('[data-birth]');
+
+    elements.forEach(function(el) {
+        const birthDate = new Date(el.dataset.birth);
+        const deathDate = el.dataset.death ? new Date(el.dataset.death) : null;
+        const endDate = deathDate || new Date();
+
+        let age = endDate.getFullYear() - birthDate.getFullYear();
+        const monthDiff = endDate.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && endDate.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        // Russian age formatting
+        const lastDigit = age % 10;
+        const lastTwoDigits = age % 100;
+        let ageWord;
+        if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
+            ageWord = 'лет';
+        } else if (lastDigit === 1) {
+            ageWord = 'год';
+        } else if (lastDigit >= 2 && lastDigit <= 4) {
+            ageWord = 'года';
+        } else {
+            ageWord = 'лет';
+        }
+
+        const prefix = deathDate ? '†' : '';
+        const ageText = ` [${prefix}${age} ${ageWord}]`;
+
+        // Find the first text node and append age to it
+        for (let node of el.childNodes) {
+            if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+                node.textContent = node.textContent.trimEnd() + ageText;
+                break;
+            }
+        }
+    });
+});
+</script>
 </body>
 </html>

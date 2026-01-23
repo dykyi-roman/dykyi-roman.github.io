@@ -1111,6 +1111,14 @@ a:focus {
     color: #dc7603;
 }
 
+/* Age badge for family members */
+.age-badge {
+    font-weight: normal;
+    font-size: 0.85em;
+    color: #888;
+    margin-left: 8px;
+}
+
 /* Toggle icon for content */
 .content-toggle {
     font-size: 0.9em;
