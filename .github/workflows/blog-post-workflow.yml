@@ -1,0 +1,3 @@
+- uses: gautamkrishnar/blog-post-workflow@master
+  with:
+    feed_list: "https://medium.com/feed/@dykyi.roman, https://habr.com/ru/rss/users/dykyi_roman/publications/articles/"
