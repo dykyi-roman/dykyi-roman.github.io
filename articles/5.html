@@ -59,7 +59,7 @@
 
             <hr>
             <h1>🔖 Monolithic</h1>
-            <img src="img/5.1.png" alt="" class="article-featured-img">
+            <img src="img/5.1.png" alt="Monolithic application structure diagram showing unorganized code organization" class="article-featured-img">
 
             <h3>What are the problems we have?</h3>
             <h4>Too General Level of Abstraction</h4>
@@ -127,14 +127,14 @@
 
             <hr>
             <h1>🔖 MVC</h1>
-            <img src="img/5.2.png" alt="" class="article-featured-img">
+            <img src="img/5.2.png" alt="MVC architecture structure diagram showing Model-View-Controller pattern" class="article-featured-img">
 
             <h3>What are the problems we have?</h3>
             <p>Occurs in small projects. Has similar problems with unstructured ways of organizing.</p>
 
             <hr>
             <h1>🔖 Multilayer</h1>
-            <img src="img/5.3.png" alt="" class="article-featured-img">
+            <img src="img/5.3.png" alt="Multilayer architecture diagram showing Presentation, Application, Domain and Infrastructure layers" class="article-featured-img">
 
             <h3>Advantages of the Structure</h3>
             <p>This structure provides a clear separation of responsibilities. Changes in one layer will not affect
@@ -192,7 +192,7 @@
 
             <hr>
             <h1>🔖 Clean Architecture</h1>
-            <img src="img/5.4.png" alt="" class="article-featured-img">
+            <img src="img/5.4.png" alt="Clean Architecture structure diagram showing Use Cases, Entities, Presenters organization" class="article-featured-img">
 
             <blockquote>Use Cases are application components that handle business logic, interact with entities, and
                 perform specific operations within the application.
@@ -221,7 +221,7 @@
 
             <hr>
             <h1>🔖 Hexagonal</h1>
-            <img src="img/5.5.png" alt="" class="article-featured-img">
+            <img src="img/5.5.png" alt="Hexagonal Architecture diagram showing Ports and Adapters pattern" class="article-featured-img">
 
             <blockquote>
                 <p>Inbound Ports define the interfaces through which external components or systems interact with your
@@ -260,7 +260,7 @@
 
             <hr>
             <h1>🔖 DDD (Domain Driven Design)</h1>
-            <img src="img/5.6.png" alt="" class="article-featured-img">
+            <img src="img/5.6.png" alt="DDD Domain-Driven Design structure with Bounded Contexts and domain modules" class="article-featured-img">
 
             <h3>Advantages of the Structure</h3>
             <ul>
@@ -317,17 +317,17 @@
                 <li>
                     <strong>Tip #1:</strong> Sometimes layers can be excessive. For example, if we have a small domain
                     and can confidently say that it will not expand.
-                    <img src="img/5.7.png" alt="" class="article-featured-img">
+                    <img src="img/5.7.png" alt="Simplified domain structure for small projects" class="article-featured-img">
                 </li>
                 <li><strong>Tip #2:</strong> Sometimes layers can include multiple subdomains. In this case, the
                     structure will be expanded.
-                    <img src="img/5.8.png" alt="" class="article-featured-img">
+                    <img src="img/5.8.png" alt="Extended domain structure with multiple subdomains" class="article-featured-img">
                 </li>
                 <li>
                     <strong>Tip #3:</strong> Moving configuration, migrations, and fixtures within the module boundaries
                     makes the module fully self-contained: everything needed for development, testing, and deployment is
                     located in one place.
-                    <img src="img/5.9.png" alt="" class="article-featured-img">
+                    <img src="img/5.9.png" alt="Self-contained module structure with config, migrations and fixtures" class="article-featured-img">
                 </li>
             </ul>
             <p>It isolates configurations, migrations, and fixtures into a separate folder, simplifying navigation and

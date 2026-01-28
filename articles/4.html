@@ -294,12 +294,12 @@ networks:
                 </div>
 
                 <p>In the result, you will see:</p>
-                <img src="img/4.1.png" alt="" class="article-featured-img">
+                <img src="img/4.1.png" alt="Ngrok terminal output showing public URL and session status" class="article-featured-img">
 
                 <p>Ngrok will provide a public URL (<a href="https://41d8-128-199-48-62.ngrok-free.app">https://41d8-128-199-48-62.ngrok-free.app</a>), which will now direct
                     traffic to your local server, and a local URL (<a href="http://127.0.0.1:4040">http://127.0.0.1:4040</a>), which will now display the
                     server’s responses.</p>
-                <img src="img/4.2.png" alt="" class="article-featured-img">
+                <img src="img/4.2.png" alt="Ngrok web interface showing HTTP traffic inspection" class="article-featured-img">
 
                 <p>4. To interact with an external API, we need to create two routes:</p>
                 <p><strong>api/test</strong> — this route will receive data from the client and send a request to the external
@@ -361,7 +361,7 @@ final class ApiWebhookAction
                 <div class="code-block">
                     <pre>curl -G "http://localhost:8080/api/test" --data-urlencode "callback_url=https://41d8-128-199-48-62.ngrok-free.app/api/webhook"</pre>
                 </div>
-                <img src="img/4.3.png" alt="" class="article-featured-img">
+                <img src="img/4.3.png" alt="Webhook callback response in Ngrok inspector" class="article-featured-img">
 
                 <h3>Domains</h3>
                 <p>Domain objects enable you to create Endpoints to listen for traffic on those domain names. Domains

@@ -6,106 +6,175 @@ function scrollToSection(sectionId) {
             behavior: 'smooth'
         });
     }
-    
-    // Если боковая навигация в мобильном виде и развернута, сворачиваем её после выбора
+
+    // Close mobile navigation after selection
     if (window.innerWidth <= 1200) {
         const sideNav = document.querySelector('.side-nav');
-        if (sideNav.classList.contains('expanded')) {
+        if (sideNav && sideNav.classList.contains('expanded')) {
             sideNav.classList.remove('expanded');
+            updateNavToggleAria(false);
         }
     }
 }
 
-// Функция для переключения состояния боковой навигации
+// Toggle side navigation state
 function toggleSideNav() {
     const sideNav = document.querySelector('.side-nav');
-    sideNav.classList.toggle('expanded');
+    if (!sideNav) return;
+
+    const isExpanded = sideNav.classList.toggle('expanded');
+    updateNavToggleAria(isExpanded);
 }
 
-// Инициализация при загрузке страницы
+// Update ARIA attributes for nav toggle
+function updateNavToggleAria(isExpanded) {
+    const navToggle = document.querySelector('.nav-toggle');
+    if (navToggle) {
+        navToggle.setAttribute('aria-expanded', isExpanded.toString());
+        navToggle.setAttribute('aria-label', isExpanded ? 'Close navigation menu' : 'Open navigation menu');
+    }
+}
+
+// Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
-    // Добавляем обработчик клика для кнопки переключения
+    // Add click handler for toggle button
     const navToggle = document.querySelector('.nav-toggle');
     if (navToggle) {
         navToggle.addEventListener('click', toggleSideNav);
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'Open navigation menu');
+        navToggle.setAttribute('aria-controls', 'side-nav');
+
+        // Add keyboard support
+        navToggle.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSideNav();
+            }
+        });
     }
 
-    // Обработчик изменения размера окна
+    // Add ARIA role to side nav
+    const sideNav = document.querySelector('.side-nav');
+    if (sideNav) {
+        sideNav.setAttribute('role', 'navigation');
+        sideNav.setAttribute('aria-label', 'Page sections navigation');
+        sideNav.id = 'side-nav';
+    }
+
+    // Handle window resize
     window.addEventListener('resize', function() {
-        // Если ширина экрана больше 1200px, убираем класс expanded
         if (window.innerWidth > 1200) {
             const sideNav = document.querySelector('.side-nav');
-            sideNav.classList.remove('expanded');
+            if (sideNav) {
+                sideNav.classList.remove('expanded');
+                updateNavToggleAria(false);
+            }
         }
     });
 
-    // Инициализация сворачиваемых блоков content
+    // Initialize collapsible topics
     initCollapsibleTopics();
 });
 
-// Функция инициализации сворачиваемых topic-block
+// Initialize collapsible topic blocks
 function initCollapsibleTopics() {
     const topicBlocks = document.querySelectorAll('.topic-block');
 
-    topicBlocks.forEach(function(block) {
+    topicBlocks.forEach(function(block, index) {
         const h4 = block.querySelector('h4');
         if (!h4) return;
 
-        // Проверяем, не была ли уже добавлена обёртка
+        // Check if wrapper already exists
         if (h4.parentElement.classList.contains('topic-header')) return;
 
-        // Создаём обёртку для заголовка
+        // Create wrapper for header
         const header = document.createElement('div');
         header.className = 'topic-header';
+        header.setAttribute('role', 'button');
+        header.setAttribute('tabindex', '0');
+        header.setAttribute('aria-expanded', 'false');
+        header.setAttribute('aria-controls', 'topic-content-' + index);
 
-        // Создаём иконку
+        // Create toggle icon
         const toggle = document.createElement('span');
         toggle.className = 'topic-toggle';
         toggle.innerHTML = '▼';
+        toggle.setAttribute('aria-hidden', 'true');
 
-        // Вставляем обёртку перед h4
+        // Insert wrapper before h4
         h4.parentNode.insertBefore(header, h4);
 
-        // Перемещаем h4 внутрь обёртки
+        // Move h4 inside wrapper
         header.appendChild(h4);
         header.appendChild(toggle);
 
-        // Добавляем обработчик клика
+        // Add content ID for aria-controls
+        const content = block.querySelector('.content');
+        if (content) {
+            content.id = 'topic-content-' + index;
+        }
+
+        // Add click handler
         header.addEventListener('click', function() {
-            block.classList.toggle('expanded');
+            const isExpanded = block.classList.toggle('expanded');
+            header.setAttribute('aria-expanded', isExpanded.toString());
+        });
+
+        // Add keyboard support
+        header.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const isExpanded = block.classList.toggle('expanded');
+                header.setAttribute('aria-expanded', isExpanded.toString());
+            }
         });
     });
 
-    // Инициализация сворачиваемых content блоков с h5
+    // Initialize collapsible content blocks with h5
     initCollapsibleContent();
 }
 
-// Функция инициализации сворачиваемых content блоков
+// Initialize collapsible content blocks
 function initCollapsibleContent() {
     const contentBlocks = document.querySelectorAll('.topic-block .content');
 
-    contentBlocks.forEach(function(content) {
+    contentBlocks.forEach(function(content, index) {
         const h5 = content.querySelector('h5');
         if (!h5) return;
 
-        // Проверяем, не была ли уже добавлена обёртка
+        // Check if wrapper already exists
         if (h5.classList.contains('content-header')) return;
 
-        // Добавляем класс для стилизации
+        // Add class for styling
         h5.classList.add('content-header');
+        h5.setAttribute('role', 'button');
+        h5.setAttribute('tabindex', '0');
+        h5.setAttribute('aria-expanded', 'false');
 
-        // Создаём иконку
+        // Create toggle icon
         const toggle = document.createElement('span');
         toggle.className = 'content-toggle';
         toggle.innerHTML = '▼';
+        toggle.setAttribute('aria-hidden', 'true');
         h5.appendChild(toggle);
 
-        // По умолчанию контент свёрнут
+        // Collapsed by default
         content.classList.add('collapsed');
 
-        // Добавляем обработчик клика на h5
+        // Add click handler on h5
         h5.addEventListener('click', function() {
-            content.classList.toggle('collapsed');
+            const isCollapsed = content.classList.toggle('collapsed');
+            h5.setAttribute('aria-expanded', (!isCollapsed).toString());
+        });
+
+        // Add keyboard support
+        h5.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const isCollapsed = content.classList.toggle('collapsed');
+                h5.setAttribute('aria-expanded', (!isCollapsed).toString());
+            }
         });
     });
 }

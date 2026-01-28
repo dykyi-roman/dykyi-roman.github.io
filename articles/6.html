@@ -18,7 +18,7 @@
     <div class="article-container">
         <div class="article-header">
             <h1 class="article-title">Pack your code right</h1>
-            <div class="article-meta">15 min read | Fab 15, 2025</div>
+            <div class="article-meta">15 min read | Feb 15, 2025</div>
             <img src="img/6.png" alt="Pack your code right" class="article-featured-img">
         </div>
 
@@ -239,7 +239,7 @@
             <p>He acknowledges that Package by Feature can be used within DDD and recommends grouping code by Bounded
                 Context, and layers can be used within each context. He suggests a hybrid approach between Package by
                 Layer and Package by Feature.</p>
-            <img src="img/6.1.png" alt="" class="article-featured-img">
+            <img src="img/6.1.png" alt="Vaughn Vernon hybrid approach combining Package by Feature and Package by Layer" class="article-featured-img">
 
             <h3>Carlos Buenosvinos, Christian Soronellas, and Keyvan Akbary in “DDD in PHP”</h3>
             <p>The book also touches on the issue of code organization, including models, layers, and Bounded Context.
@@ -263,10 +263,10 @@
                 those principles, which I have elaborated on below.</p>
             <p>The next three package principles are about package cohesion, they tell us what to put inside
                 packages:</p>
-            <img src="img/6.2.png" alt="" class="article-featured-img">
+            <img src="img/6.2.png" alt="Uncle Bob package design principles: REP, CCP, CRP for cohesion" class="article-featured-img">
 
             <p>How does this relate to Package by Feature and Package by Layer?</p>
-            <img src="img/6.3.png" alt="" class="article-featured-img">
+            <img src="img/6.3.png" alt="Comparison of package principles with Package by Feature and Package by Layer" class="article-featured-img">
 
             <ul>
                 <li>Uncle Bob’s principles show that Package by Feature is a more flexible and scalable approach
@@ -283,7 +283,7 @@
             </ul>
 
             Comparison of Code Organization Approaches in DDD
-            <img src="img/6.4.png" alt="" class="article-featured-img">
+            <img src="img/6.4.png" alt="Comparison table of code organization approaches in DDD by different authors" class="article-featured-img">
 
             <strong>Key Points</strong>
             <ul>
@@ -307,7 +307,7 @@
                 <li>Package by Feature makes the codebase more modular and understandable.</li>
                 <li>Together, they create a clean, maintainable, and scalable structure for your application.</li>
             </ul>
-            <img src="img/6.5.png" alt="" class="article-featured-img">
+            <img src="img/6.5.png" alt="Use Cases in Clean Architecture combined with Package by Feature structure" class="article-featured-img">
 
             <p>Use Cases and Package by Feature do not contradict each other. On the contrary, they work exceptionally
                 well together, as both aim to improve code structure.</p>
@@ -361,10 +361,10 @@
             </ul>
             <p>This structure organizes code based on its technical role, making it easier to manage layers but
                 potentially harder to navigate features.</p>
-            <img src="img/6.6.png" alt="" class="article-featured-img">
+            <img src="img/6.6.png" alt="Package by Layer structure: Controller, Service, Repository, Entity folders" class="article-featured-img">
 
             <h3>Package by Layer (Organization by Architecture Layers)</h3>
-            <img src="img/6.7.png" alt="" class="article-featured-img">
+            <img src="img/6.7.png" alt="Package by Layer with architecture layers: Application, Domain, Infrastructure" class="article-featured-img">
 
             <h4>Cons:</h4>
             <ul>
@@ -373,7 +373,7 @@
             </ul>
 
             <h3>Package by Feature</h3>
-            <img src="img/6.8.png" alt="" class="article-featured-img">
+            <img src="img/6.8.png" alt="Package by Feature structure grouping code by business features" class="article-featured-img">
 
             <p>Here the code is grouped by features (work scenarios), not by layers.</p>
 
@@ -386,7 +386,7 @@
             <p>A large context can naturally lead to components, which themselves might be organized into layers.
                 However, deep component nesting should be avoided. If you observe excessive nesting, it’s time to
                 rethink the component boundaries and architecture.</p>
-            <img src="img/6.9.png" alt="" class="article-featured-img">
+            <img src="img/6.9.png" alt="Approach 1: Domain-oriented layers with Bounded Contexts" class="article-featured-img">
 
             <h4>From the perspective of DDD and Layered Architecture, this approach is preferable. Here’s why:</h4>
             <ul>
@@ -411,7 +411,7 @@
             <h3>Approach №2: Layers with Contexts Inside the Domain</h3>
             <p>This approach assumes that domain models are separated by contexts, but the remaining layers can be
                 shared across the entire application.</p>
-            <img src="img/6.10.png" alt="" class="article-featured-img">
+            <img src="img/6.10.png" alt="Approach 2: Shared layers with contexts inside Domain" class="article-featured-img">
 
             <h4>Advantages:</h4>
             <ul>
@@ -449,7 +449,7 @@
             <h3>Approach №3: Layers with Subdomains Inside the Domain</h3>
             <p>This approach suggests that domain models are separated by subdomains, but the remaining layers can be
                 shared across the entire application.</p>
-            <img src="img/6.11.png" alt="" class="article-featured-img">
+            <img src="img/6.11.png" alt="Approach 3: Layers with subdomains inside Domain for microservices" class="article-featured-img">
 
             <p>In DDD, subdomains are logical parts of the main domain that can be separated to simplify modeling.
                 However, within a single bounded context, subdomains usually do not require strict physical separation

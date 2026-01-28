@@ -1180,7 +1180,7 @@ const countriesData = {
         {
             flag: '🇦🇹',
             name: 'Austria',
-            visitDate: '2007-01',
+            visitDate: '2017-01',
             duration: '7 days',
             rating: '⭐⭐⭐⭐⭐',
             highlights: {

@@ -67,7 +67,7 @@
             </ul>
             <p>These contexts will serve as the foundation for illustrating the communication strategies and patterns
                 discussed throughout the article.</p>
-            <img src="img/7.3.png" alt="" class="article-featured-img">
+            <img src="img/7.3.png" alt="UserContext and OrderContext bounded contexts interaction diagram" class="article-featured-img">
 
             <h3>Strategies for integrating contexts</h3>
             <p>To avoid tight coupling, DDD employs the following approaches:</p>
@@ -469,7 +469,7 @@
                 as a buffer between contexts, transforming data and requests from one context into a format
                 understandable by the other. The ACL helps isolate changes in one context from another, increasing the
                 system's resilience to changes.</p>
-            <img src="img/7.2.png" alt="" class="article-featured-img">
+            <img src="img/7.2.png" alt="Anti-Corruption Layer (ACL) pattern between bounded contexts" class="article-featured-img">
 
             <p>The structure of an ACL typically includes:</p>
             <ul>
@@ -574,7 +574,7 @@
             </ul>
             <p>The Shared Kernel is used when multiple contexts need to work with the same data or logic, but it is
                 important to minimize code duplication and ensure consistency.</p>
-            <img src="img/7.1.png" alt="" class="article-featured-img">
+            <img src="img/7.1.png" alt="Shared Kernel pattern between bounded contexts" class="article-featured-img">
 
             <p>This approach is suitable in the following cases:</p>
             <ul>

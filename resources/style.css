@@ -1,5 +1,39 @@
 @charset "UTF-8";
 
+/* CSS Custom Properties (Variables) */
+:root {
+    /* Colors */
+    --color-primary: #dc7603;
+    --color-primary-hover: #ff6600;
+    --color-primary-visited: #ce7513;
+    --color-text: #333;
+    --color-text-light: #555;
+    --color-background: #f4f4f9;
+    --color-white: #fff;
+    --color-success: #4caf50;
+
+    /* Typography */
+    --font-family: Arial, sans-serif;
+    --font-size-base: 1rem;
+    --font-size-small: 0.9rem;
+    --font-size-large: 1.2rem;
+
+    /* Spacing */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 20px;
+    --spacing-lg: 30px;
+
+    /* Breakpoints (for reference in comments) */
+    /* --breakpoint-mobile: 480px */
+    /* --breakpoint-tablet: 768px */
+    /* --breakpoint-desktop: 900px */
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+}
+
 /* Skip to content link for accessibility */
 .skip-link {
     position: absolute;
@@ -19,6 +53,19 @@
     top: 0;
     outline: 2px solid #ff6600;
     outline-offset: 2px;
+}
+
+/* Visually hidden class for accessibility */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 html, body {
@@ -284,36 +331,6 @@ li.with-icon::before {
     font-size: 1.2rem; /* Icon size */
 }
 
-/* Link styling */
-a {
-    color: #3366cc;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease, border-bottom 0.3s ease;
-    position: relative;
-}
-
-a:hover {
-    color: #ff6600;
-}
-
-/* Optional underline effect */
-a::after {
-    content: "";
-    display: block;
-    width: 0;
-    height: 2px;
-    background: #3366cc;
-    transition: width 0.3s ease;
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-}
-
-a:hover::after {
-    width: 100%;
-}
-
 .social-icons a {
     margin: 0 5px; /* Adds spacing on the left and right of each icon */
     display: inline-block;
@@ -545,6 +562,7 @@ a:focus {
     height: 40px;
     background-color: #dc7603;
     color: white;
+    border: none;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -556,6 +574,12 @@ a:focus {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
     z-index: 1000;
     cursor: pointer;
+    padding: 0;
+}
+
+.back-to-top:focus {
+    outline: 2px solid #ff6600;
+    outline-offset: 2px;
 }
 
 .back-to-top.visible {
@@ -579,7 +603,8 @@ a:focus {
     margin: 0 !important;
     padding: 0 !important;
     position: relative;
-    display: block;
+    display: inline-block;
+    vertical-align: middle;
     line-height: 1.2;
 }
 
@@ -588,12 +613,6 @@ a:focus {
     margin: 0 !important;
     padding: 0 !important;
     line-height: inherit;
-}
-
-.countries-container {
-    position: relative;
-    display: inline-block;
-    vertical-align: middle;
 }
 
 .countries-list {

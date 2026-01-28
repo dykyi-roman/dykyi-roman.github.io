@@ -85,7 +85,7 @@
                 <li>platform.sh</li>
             </ul>
             <h1>Vertical scaling</h1>
-            <img src="img/12.1.png" alt="" class="article-featured-img">
+            <img src="img/12.1.png" alt="Vertical scaling diagram showing server resource upgrade" class="article-featured-img">
 
             In the world of IT infrastructure, vertical scaling is the path chosen when the goal is to quickly boost system performance without introducing complex changes. Imagine the situation: your website or application starts slowing down, users complain about delays, and the server is increasingly hitting its limits. At that moment, the logical step seems to be simply upgrading the existing server — adding more RAM, a faster CPU, or additional disk space.
 
@@ -121,7 +121,7 @@
             <h1>Application Scaling</h1>
             When designing and deploying scalable applications, the load balancer plays a key role. This component is responsible for distributing incoming traffic across multiple servers, ensuring high availability and optimal system performance.
 
-            <img src="img/12.2.png" alt="" class="article-featured-img">
+            <img src="img/12.2.png" alt="Load balancer distributing traffic across multiple servers" class="article-featured-img">
             A load balancer receives incoming requests from clients and determines which server among the available ones should handle each request. The load distribution process can be based on various algorithms, such as:
 
             <ul>
@@ -146,7 +146,7 @@
             <h2>Shared session</h2>
             User state can be stored in server memory. However, this may cause problems if a server fails or is replaced. In such cases, mechanisms for backing up the state must be provided. To increase resilience, external data storage systems such as databases, Redis, or Memcached can be used. This allows user states to be stored in a centralized location accessible to all servers. Thus, regardless of which server handles a request, the user’s state can always be restored.
 
-            <img src="img/12.3.png" alt="" class="article-featured-img">
+            <img src="img/12.3.png" alt="Shared session storage architecture using Redis or Memcached" class="article-featured-img">
             <h2>Memcached Scaling</h2>
             Memcached supports horizontal scaling — adding new servers to distribute data and load among them. Data is distributed using key hashing, so when the number of servers increases, the cache is recalculated and data may move to other nodes.
 
@@ -173,7 +173,7 @@
                 <li>It requires monitoring the synchronization state of files.</li>
                 <li>You need to manage caching and cache invalidation.</li>
             </ul>
-            <img src="img/12.4.png" alt="" class="article-featured-img">
+            <img src="img/12.4.png" alt="File replication between servers using rsync or GlusterFS" class="article-featured-img">
 
             <h2>Caching uploaded files</h2>
             You can use a cache to store uploaded files. For example, after uploading, files can be cached in Redis or Memcached, and then when requested, the system checks whether the file is in the cache. However, the most common and reliable method is to use a shared storage accessible by all servers.
@@ -190,11 +190,11 @@
             <ul>
                 <li>Additional latency when accessing network resources.</li>
             </ul>
-            <img src="img/12.5.png" alt="" class="article-featured-img">
+            <img src="img/12.5.png" alt="Shared storage architecture with S3 or NAS" class="article-featured-img">
 
             <h1>Database scaling</h1>
             To make our project more complex, we will add a database (DB) that will serve as the primary storage for the application’s data. This will allow us to manage data more efficiently, ensure long-term storage, and perform more complex queries.
-            <img src="img/12.6.png" alt="" class="article-featured-img">
+            <img src="img/12.6.png" alt="Application architecture with database as primary data storage" class="article-featured-img">
 
             There are three approaches to organizing a database when scaling servers:
             <ol>
@@ -203,7 +203,7 @@
                 <li><strong>Sharding.</strong> Data is distributed across multiple servers using sharding, where each server (or shard) stores only a portion of the data. This reduces the load on each server and increases overall capacity, allowing the database to scale horizontally.</li>
             </ol>
             <h2>One common database for all servers</h2>
-            <img src="img/12.7.png" alt="" class="article-featured-img">
+            <img src="img/12.7.png" alt="Single shared database architecture for all application servers" class="article-featured-img">
             If your application does not expect high traffic, and simplicity, data integrity, and the ability to perform complex queries are important, it makes sense to start with a single shared database. This simplifies data management, avoids synchronization issues, and allows you to focus on developing the application’s functionality.
 
             <h3>Advantages</h3>
@@ -241,7 +241,7 @@
                 <li>High availability with automatic recovery is needed</li>
             </ul>
             <h2>Separate databases on each server</h2>
-            <img src="img/12.8.png" alt="" class="article-featured-img">
+            <img src="img/12.8.png" alt="Separate database instances on each server architecture" class="article-featured-img">
 
             If the application does not require frequent data exchange between nodes and can operate in a “local data” mode, it is more practical to use separate databases.
 
@@ -266,7 +266,7 @@
                 <li>Use periodic synchronization scripts if data changes infrequently.</li>
             </ul>
             <h2>Sharding</h2>
-            <img src="img/12.9.png" alt="" class="article-featured-img">
+            <img src="img/12.9.png" alt="Database sharding architecture distributing data across multiple servers" class="article-featured-img">
             Although sharding adds some complexity to the architecture, the performance and scalability benefits make it the best choice for high-load applications with multiple services.
 
             The first step is to choose a sharding strategy, which determines how data will be distributed across different database instances. This can be based on various criteria, such as users, regions, or data types. For example, you could distribute users across different databases depending on their geographic location, which helps improve performance and reduce latency.
@@ -277,7 +277,7 @@
 
             <h1>Scaling ElasticSearch</h1>
             Let’s add ElasticSearch to our application to search and analyze large amounts of data in real time. ElasticSearch supports both replication and sharding.
-            <img src="img/12.10.png" alt="" class="article-featured-img">
+            <img src="img/12.10.png" alt="Elasticsearch scaling with sharding and replication" class="article-featured-img">
 
             <h2>Sharding and Replication in Elasticsearch</h2>
 
