@@ -129,7 +129,7 @@ const countriesData = {
             flag: '🇲🇻',
             name: 'Maldives',
             visitDate: '2022-02',
-            duration: '30 days',
+            duration: '14 days',
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Male': {
@@ -2527,4 +2527,292 @@ function initMap() {
 
     // Initialize journey animation after map is ready
     initJourneyAnimation();
+
+    // Restore state from localStorage
+    restoreState();
 }
+
+// Animated Counter function
+function animateCounter(element, target, duration = 1500) {
+    if (element.dataset.animated === 'true') return;
+    element.dataset.animated = 'true';
+
+    let start = 0;
+    const startTime = performance.now();
+
+    function updateCounter(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+        const current = Math.floor(easeOutQuart * target);
+
+        element.textContent = current;
+
+        if (progress < 1) {
+            requestAnimationFrame(updateCounter);
+        } else {
+            element.textContent = target;
+        }
+    }
+
+    requestAnimationFrame(updateCounter);
+}
+
+// IntersectionObserver for counter animation
+function initCounterAnimation() {
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px'
+    };
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.dataset.target);
+                if (!isNaN(target) && target > 0) {
+                    animateCounter(entry.target, target);
+                }
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('[data-target]').forEach(el => {
+        counterObserver.observe(el);
+    });
+}
+
+// Search functionality
+function initSearch() {
+    const searchInput = document.getElementById('country-search');
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        const countryItems = document.querySelectorAll('.country-item');
+
+        countryItems.forEach(item => {
+            const countryName = (item.dataset.country || item.title || '').toLowerCase();
+            if (query === '' || countryName.includes(query)) {
+                item.classList.remove('hidden');
+                if (query !== '' && countryName.includes(query)) {
+                    item.classList.add('highlight');
+                    setTimeout(() => item.classList.remove('highlight'), 1000);
+                }
+            } else {
+                item.classList.add('hidden');
+            }
+        });
+
+        saveState();
+    });
+}
+
+// Calculate detailed statistics from countriesData
+function calculateDetailedStats() {
+    let totalDays = 0;
+    let totalCities = 0;
+    let totalRatings = 0;
+    let ratingCount = 0;
+
+    const excludeFromDays = ['Latvia'];
+
+    const daysByContinent = { asia: 0, africa: 0, europe: 0 };
+    const citiesByContinent = { asia: 0, africa: 0, europe: 0 };
+
+    Object.keys(countriesData).forEach(continent => {
+        countriesData[continent].forEach(country => {
+            if (country.duration && !excludeFromDays.includes(country.name)) {
+                const durationMatch = country.duration.match(/(\d+)/);
+                if (durationMatch) {
+                    const days = parseInt(durationMatch[1]);
+                    totalDays += days;
+                    daysByContinent[continent] += days;
+                }
+            }
+
+            if (country.highlights) {
+                let cities = 0;
+                if (typeof country.highlights === 'object' && !Array.isArray(country.highlights)) {
+                    cities = Object.keys(country.highlights).length;
+                } else if (Array.isArray(country.highlights)) {
+                    cities = country.highlights.length;
+                }
+                totalCities += cities;
+                citiesByContinent[continent] += cities;
+            }
+
+            if (country.rating) {
+                const stars = (country.rating.match(/⭐/g) || []).length;
+                if (stars > 0) {
+                    totalRatings += stars;
+                    ratingCount++;
+                }
+            }
+        });
+    });
+
+    const avgRating = ratingCount > 0 ? (totalRatings / ratingCount).toFixed(1) : 0;
+    const allCountries = [...countriesData.asia, ...countriesData.africa, ...countriesData.europe];
+    const estimatedFlights = allCountries.length * 2;
+
+    return {
+        days: totalDays,
+        cities: totalCities,
+        flights: estimatedFlights,
+        avgRating: avgRating,
+        daysByContinent: daysByContinent,
+        citiesByContinent: citiesByContinent
+    };
+}
+
+// Update detailed stats display
+function updateDetailedStats() {
+    const stats = calculateDetailedStats();
+
+    const daysEl = document.getElementById('stat-days');
+    const citiesEl = document.getElementById('stat-cities');
+    const flightsEl = document.getElementById('stat-flights');
+    const ratingEl = document.getElementById('stat-rating');
+
+    if (daysEl) {
+        daysEl.dataset.target = stats.days;
+        const daysCard = daysEl.closest('.stat-card');
+        if (daysCard) {
+            daysCard.title = `Asia: ${stats.daysByContinent.asia} days\nEurope: ${stats.daysByContinent.europe} days\nAfrica: ${stats.daysByContinent.africa} days`;
+        }
+    }
+    if (citiesEl) {
+        citiesEl.dataset.target = stats.cities;
+        const citiesCard = citiesEl.closest('.stat-card');
+        if (citiesCard) {
+            citiesCard.title = `Asia: ${stats.citiesByContinent.asia} cities\nEurope: ${stats.citiesByContinent.europe} cities\nAfrica: ${stats.citiesByContinent.africa} cities`;
+        }
+    }
+    if (flightsEl) {
+        flightsEl.dataset.target = stats.flights;
+    }
+    if (ratingEl) {
+        ratingEl.textContent = stats.avgRating;
+    }
+}
+
+// Generate journey timeline
+function generateTimeline() {
+    const container = document.getElementById('timeline-container');
+    if (!container) return;
+
+    const allTrips = [...countriesData.europe, ...countriesData.asia, ...countriesData.africa]
+        .filter(country => country.visitDate)
+        .map((country, index) => ({...country, _index: index}))
+        .sort((a, b) => {
+            const dateA = new Date(a.visitDate);
+            const dateB = new Date(b.visitDate);
+            if (dateB.getTime() === dateA.getTime()) {
+                return a._index - b._index;
+            }
+            return dateB - dateA;
+        })
+
+    container.innerHTML = allTrips.map(trip => `
+        <div class="timeline-item">
+            <div class="timeline-date">${formatVisitDate(trip.visitDate)}</div>
+            <div class="timeline-country">
+                <span class="timeline-flag">${trip.flag}</span>
+                <span class="timeline-name">${trip.name}</span>
+            </div>
+            <div class="timeline-duration">${trip.duration || 'Duration unknown'}</div>
+        </div>
+    `).join('');
+}
+
+// Format visit date for display
+function formatVisitDate(dateStr) {
+    if (!dateStr) return 'Unknown';
+    const [year, month] = dateStr.split('-');
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${months[parseInt(month) - 1] || ''} ${year}`;
+}
+
+// Local Storage functions
+function saveState() {
+    const speedSlider = document.getElementById('speed-slider');
+    const searchInput = document.getElementById('country-search');
+    const activeFilter = document.querySelector('.map-filter-button.active');
+
+    const state = {
+        speed: speedSlider ? speedSlider.value : '1',
+        searchQuery: searchInput ? searchInput.value : '',
+        filter: activeFilter ? activeFilter.dataset.filter : 'all'
+    };
+
+    try {
+        localStorage.setItem('travelMapState', JSON.stringify(state));
+    } catch (e) {
+        console.warn('Could not save state to localStorage:', e);
+    }
+}
+
+function restoreState() {
+    try {
+        const savedState = localStorage.getItem('travelMapState');
+        if (!savedState) return;
+
+        const state = JSON.parse(savedState);
+
+        const speedSlider = document.getElementById('speed-slider');
+        const speedValue = document.getElementById('speed-value');
+        if (speedSlider && state.speed) {
+            speedSlider.value = state.speed;
+            if (speedValue) {
+                speedValue.textContent = `${state.speed}x`;
+            }
+        }
+
+        if (state.filter && state.filter !== 'all') {
+            const filterButton = document.querySelector(`.map-filter-button[data-filter="${state.filter}"]`);
+            if (filterButton) {
+                filterButton.click();
+            }
+        }
+    } catch (e) {
+        console.warn('Could not restore state from localStorage:', e);
+    }
+}
+
+// Add data-country attribute to country items for tooltips
+function enhanceCountryItems() {
+    const countryItems = document.querySelectorAll('.country-item');
+    countryItems.forEach(item => {
+        const countryName = item.title;
+        const visitDate = item.dataset.visitDate;
+        if (countryName) {
+            item.dataset.country = visitDate ? `${countryName} • ${visitDate}` : countryName;
+        }
+    });
+}
+
+// Initialize all new features on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        updateDetailedStats();
+        generateTimeline();
+        initSearch();
+        enhanceCountryItems();
+        initCounterAnimation();
+    }, 500);
+});
+
+// Also add speed slider change listener for localStorage
+document.addEventListener('DOMContentLoaded', function() {
+    const speedSlider = document.getElementById('speed-slider');
+    if (speedSlider) {
+        speedSlider.addEventListener('change', saveState);
+    }
+
+    const filterButtons = document.querySelectorAll('.map-filter-button');
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            setTimeout(saveState, 100);
+        });
+    });
+})
