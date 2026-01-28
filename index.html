@@ -13,7 +13,27 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dykyi-roman.github.io/">
     <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/">
     <link rel="stylesheet" type="text/css" href="resources/style.css">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Dykyi Roman",
+        "jobTitle": "Senior Software Engineer",
+        "url": "https://dykyi-roman.github.io",
+        "sameAs": [
+            "https://linkedin.com/in/roman-dykyi-43428543/",
+            "https://github.com/dykyi-roman",
+            "https://medium.com/@dykyi.roman"
+        ],
+        "knowsAbout": ["PHP", "Domain-Driven Design", "Software Architecture", "Team Leadership"],
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Bohdan Khmelnytsky National University of Cherkasy"
+        }
+    }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -29,8 +49,9 @@
     </script>
 
     <!--  About  -->
+    <main id="main-content">
     <div class="section">
-        <h3>About me</h3>
+        <h2>About me</h2>
         <p>🌍 Nationality: Ukrainian 🇺🇦</p>
         <p>🏡 Residence: Spain 🇪🇸</p>
         <p>💖 Family: Team of 3 👩‍❤️‍👨<span class="plane-icon"><a href="letter_to_daughter.html" title="Letter to Daughter">👧</a></span></p>
@@ -46,19 +67,15 @@
 
     <!--  Profile  -->
     <div class="section">
-        <h3>Profile</h3>
-        <p><strong>Senior Software Developer</strong> with <strong><span id="experience-years"></span> years</strong> in WEB and Desktop application development. Open-source contributions, check out my <a target="_blank" href="https://github.com/dykyi-roman">GitHub</a>
-            account to see my projects. Sharing knowledge is my passion, and I enjoy teaching and writing articles in my free time.</p>
-        <p>I am capable of taking on the roles of <strong>Team Lead</strong> or <strong>Tech Lead</strong>. I excel at
-            guiding the overall architecture of projects and driving team development. I'm particularly passionate about
-            project and application <strong>architecture</strong> and advocate for <strong>Domain-Driven Design (DDD)</strong> to ensure that solutions effectively address
-            real business problems.</p>
+        <h2>Profile</h2>
+        <p><strong>Senior Software Engineer</strong> with <strong><span id="experience-years"></span>+ years</strong> of experience designing and building scalable backend systems. I specialize in <strong>DDD</strong>, <strong>CQRS</strong>, <strong>Event-Driven Architecture</strong>, <strong>Event Sourcing</strong>, and <strong>Microservices</strong>, applying Clean, Layered, and Hexagonal architecture patterns to solve complex business problems.</p>
+        <p>Experienced in <strong>Team Lead</strong> and <strong>Tech Lead</strong> roles — driving architectural decisions, mentoring engineers, and delivering high-quality solutions. Passionate about clean code, continuous improvement, and knowledge sharing through <a target="_blank" href="https://medium.com/@dykyi.roman">articles</a>, teaching, and <a target="_blank" href="https://github.com/dykyi-roman">open-source contributions</a>.</p>
     </div>
 
     <!--  Articles  -->
     <hr class="custom-hr">
     <div class="section">
-        <h3>Articles</h3>
+        <h2>Articles</h2>
         <ul>
             <li><span><a href="https://medium.com/@dykyi.roman" target="_blank">Medium Blog ::: @dykyi.roman</a></span>
             </li>
@@ -72,7 +89,7 @@
     <!--  Published  -->
     <hr class="custom-hr">
     <div class="section">
-        <h3>Published</h3>
+        <h2>Published</h2>
         <ul>
             <li>
                 <span>
@@ -104,7 +121,7 @@
     <!-- Teaching  -->
     <hr class="custom-hr">
     <div class="section">
-        <h3>Teaching</h3>
+        <h2>Teaching</h2>
         <ul>
             <li>
                 <div class="experience">
@@ -126,7 +143,7 @@
     <!-- Independent Expert  -->
     <hr class="custom-hr">
     <div class="section">
-        <h3>Technical Auditor</h3>
+        <h2>Technical Auditor</h2>
         <ul>
             <li>
                 <div class="experience">
@@ -144,17 +161,19 @@
     <!-- Skills  -->
     <hr class="custom-hr">
     <div class="section">
-        <h3>Skills</h3>
+        <h2>Skills</h2>
         <ul>
-            <li class="with-icon"><span>Languages: PHP, JS, Delphi, Go</span></li>
+            <li class="with-icon"><span>Programming: PHP, JS, Delphi, Go</span></li>
+            <li class="with-icon"><span>Languages: English (Professional), Ukrainian (Native), Russian (Native)</span></li>
             <li class="with-icon"><span>Frameworks: Symfony, Laravel, Yii2, Codeigniter (understanding framework-agnostic principle)</span></li>
             <li class="with-icon"><span>Stack: <a href="https://github.com/dykyi-roman/enterprise-skeleton?tab=readme-ov-file#enterprise-skeleton-project" target="_blank">MySQL, PostgreSQL, MongoDB, Redis, Elasticsearch, RabbitMQ, Kafka</a></span></li>
             <li class="with-icon"><span>Philosophy: DDD, ADR, GRASP, SOLID, KISS, DRY, YAGNI</span></li>
             <li class="with-icon"><span>Architecture: <a href="https://github.com/dykyi-roman/architecture?tab=readme-ov-file#architecture" target="_blank">Clean, Layered, CQRS, Hexagonal, EDA, Modular, Microservice Architecture</a></span></li>
             <li class="with-icon"><span>Design: <a href="https://c4model.com/" target="_blank">C4 Diagrams</a>, <a href="https://plantuml.com/" target="_blank">PlantUML</a>, <a href="https://12factor.net/" target="_blank">12 factor architecture</a>, <a href="https://swagger.io/" target="_blank">API specifications</a></span>, Technical documentation,</li>
             <li class="with-icon"><span>Tests: PhpUnit, Codeception, Postman</span></li>
-            <li class="with-icon"><span>Tools: <a href="https://deptrac.github.io/deptrac/" target="_blank">Deptrac</a>, <a href="https://mlocati.github.io/php-cs-fixer-configurator/#version:3.75" target="_blank">PhpCsFixer</a>, <a href="https://psalm.dev/" target="_blank">Psalm</a>, <a target="_blank" href="https://phpstan.org/try/">PHPStan</a>, <a href="https://suckup.de/2025/05/the-phpdoc-guide-2025-edition/#headline10" target="_blank">PHPDoc</a></span></li>
-            <li class="with-icon"><span>AI: Claude Code, AI Agents, Prompt Engineering</span></li>
+            <li class="with-icon"><span>Tools: <a href="https://deptrac.github.io/deptrac/" target="_blank">Deptrac</a>, <a href="https://mlocati.github.io/php-cs-fixer-configurator/#version:3.75" target="_blank">PhpCsFixer</a>, <a href="https://psalm.dev/" target="_blank">Psalm</a>, <a target="_blank" href="https://phpstan.org/user-guide/getting-started">PHPStan</a>, <a href="https://suckup.de/2025/05/the-phpdoc-guide-2025-edition/#headline10" target="_blank">PHPDoc</a></span></li>
+            <li class="with-icon"><span>DevOps: Docker, GitLab CI, GitHub Actions</span></li>
+            <li class="with-icon"><span>AI: Claude Code (daily workflow), AI Agents development, Prompt Engineering</span></li>
             <li class="with-icon"><span>Others: <a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank">GitFlow</a>, Teamwork, Mentoring, Onboarding, Organizational, Motivation, Learn and Adapt</span></li>
             <li class="with-icon"><span>Management: <a href="https://framework.scaledagile.com/#big-picture/" target="_blank">SAFE</a></span>, <a target="_blank" href="https://www.scrum.org/">SCRUM</a>, <a target="_blank" href="https://www.productplan.com/glossary/moscow-prioritization/">MoSCoW</a></li>
         </ul>
@@ -163,13 +182,13 @@
     <!-- Achievements   -->
     <hr class="custom-hr">
     <div class="section">
-        <h3>Achievements</h3>
+        <h2>Achievements</h2>
         <ul>
             <li>
                 <span>
                     <strong><a href="https://github.com/dykyi-roman/separate-microservice-architecture" target="_blank">Creating a unified admin panel for microservices architecture</a>:</strong> Development of a manifest and methods for communication between services. The goal was to create a flexible admin panel that does not require constant adjustments with changes in the system architecture.</a>
 
-                    <p><strong>Development of a custom billing CRM:</strong> Creating a suite of services, including CardStore, PaymentIntegration, Notification, and RiskAssessment. The goal was moveout from paid payment gateways and save business money.</p>
+                    <p><strong>Development of a custom billing CRM:</strong> Creating a suite of services, including CardStore, PaymentIntegration, Notification, and RiskAssessment. The goal was move out from paid payment gateways and save business money.</p>
                 </span>
             </li>
             <li>
@@ -188,7 +207,7 @@
     <!-- Career  -->
     <hr class="custom-hr">
     <div class="section">
-        <h3>Career History</h3>
+        <h2>Career History</h2>
         <ul>
             <!-- Forex4you -->
             <li>
@@ -308,7 +327,7 @@
     <!-- Education  -->
     <hr class="custom-hr">
     <div class="section">
-        <h3>Education</h3>
+        <h2>Education</h2>
         <ul>
             <li>
                 <div class="experience">
@@ -325,6 +344,7 @@
             </li>
         </ul>
     </div>
+    </main>
 </div>
 
 <script>

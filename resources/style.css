@@ -1,5 +1,26 @@
 @charset "UTF-8";
 
+/* Skip to content link for accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: #dc7603;
+    color: white;
+    padding: 8px 16px;
+    z-index: 10000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 0 0 4px 0;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 2px solid #ff6600;
+    outline-offset: 2px;
+}
+
 html, body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -11,6 +32,7 @@ html, body {
 }
 
 /* Стили для иконок в заголовках секций */
+.section h2 i,
 .section h3 i {
     margin-right: 10px;
     color: #2c3e50;
@@ -200,6 +222,7 @@ body {
 }
 
 /* Title Styling */
+.section h2,
 .section h3 {
     font-size: 1.8em;
     font-weight: 600;
@@ -302,25 +325,26 @@ a:hover::after {
     .header-left h1 {
         font-size: 1.3em;
     }
-    
+
     .header-left h2 {
         font-size: 0.9em;
     }
-    
+
     .header-links a {
         font-size: 0.8em;
         margin: 3px;
     }
-    
+
     .contact-info {
         font-size: 0.8em;
     }
-    
+
     .social-icons img {
         width: 20px;
         height: 20px;
     }
-    
+
+    .section h2,
     .section h3 {
         font-size: 1.5em;
     }
@@ -1369,5 +1393,111 @@ a:focus {
     .content p.reflection {
         padding: 15px 18px;
         font-size: 0.98em;
+    }
+}
+
+/* ==================== PRINT STYLES ==================== */
+@media print {
+    /* Hide non-essential elements */
+    .back-to-top,
+    .skip-link,
+    .social-icons,
+    .header-links,
+    .plane-icon,
+    .countries-container {
+        display: none !important;
+    }
+
+    /* Remove shadows and backgrounds */
+    body {
+        background-color: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .container {
+        box-shadow: none !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 20px !important;
+        border-radius: 0 !important;
+    }
+
+    /* Show full URLs for links */
+    a[href^="http"]::after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        font-weight: normal;
+        color: #666;
+    }
+
+    /* Don't show URLs for internal links or social media */
+    .social-icons a::after,
+    .header-left a::after {
+        content: none !important;
+    }
+
+    /* Ensure proper page breaks */
+    .section {
+        page-break-inside: avoid;
+    }
+
+    .experience {
+        page-break-inside: avoid;
+    }
+
+    ul li {
+        page-break-inside: avoid;
+    }
+
+    h2, h3, h4 {
+        page-break-after: avoid;
+    }
+
+    /* Remove decorative elements */
+    .custom-hr {
+        background: #333 !important;
+        height: 1px !important;
+    }
+
+    .custom-hr::before {
+        display: none !important;
+    }
+
+    /* Simplify colors for print */
+    a {
+        color: #333 !important;
+    }
+
+    a:visited {
+        color: #333 !important;
+    }
+
+    /* Section titles */
+    .section h2,
+    .section h3 {
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: #333 !important;
+        color: #333 !important;
+        text-shadow: none !important;
+    }
+
+    /* List items */
+    ul li {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        border: 1px solid #eee;
+    }
+
+    /* Header styling for print */
+    .header {
+        border-bottom: 2px solid #333 !important;
+    }
+
+    /* Company logos */
+    .company-logo img {
+        filter: grayscale(100%);
     }
 }
