@@ -226,6 +226,77 @@ const countriesData = {
             facebook: []
         },
         {
+            flag: '🇬🇪',
+            name: 'Georgia',
+            visitDate: '2024-05',
+            duration: '360 days',
+            rating: '⭐⭐⭐⭐',
+            highlights: {
+                'Kutaisi': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/C7lQ8tCIWdm',
+                        'https://www.instagram.com/dykyi.roman/p/C7nv2N4oou9',
+                        'https://www.instagram.com/dykyi.roman/p/C7qNDFXot-T',
+                    ],
+                    facebook: []
+                },
+                'Vanadzia': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/DLQE-zFIgF_/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DLb_hv6ITvi/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Batumi': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/C8gTZDfI6dY',
+                        'https://www.instagram.com/dykyi.roman/p/C8iw5Zuo2RD/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C9C-eWjoZ26/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C9Eo3y6IW5Q/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C9WW_9Lon49/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C-KyjlvIydG/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/C-hVn3Vo5dW/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DDC3ndeoQD8/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DL34bUPoQkD/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DMCM2jDoh5W/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DMRkHgSowRw/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Tbilisi': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/DERYlJXofLc/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DFhR85vIUdm/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DFjss2zo_QT/?img_index=1',
+                    ],
+                    facebook: [],
+                },
+                'Borjomi': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/DEunVoWo80N/?img_index=1'
+                    ],
+                    facebook: []
+                },
+                'Mestia': {
+                    instagram: [
+                        'https://www.instagram.com/dykyi.roman/p/DA1LKymocVM/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DA2W8_zoWwE/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DA450E_oAAL/?img_index=1',
+                        'https://www.instagram.com/dykyi.roman/p/DA7elW-oT4v/?img_index=1',
+                    ],
+                    facebook: [],
+                }
+            },
+            notes: 'Hidden gem with great hospitality',
+            instagram: [
+                'https://www.instagram.com/p/DMRkHgSowRw',
+                'https://www.instagram.com/p/DMCM2jDoh5W'
+            ],
+            facebook: [
+                'https://www.facebook.com/p/1PGfzjtX9S'
+            ]
+        },
+        {
             flag: '🇳🇵',
             name: 'Nepal',
             visitDate: '2024-05',
@@ -865,77 +936,6 @@ const countriesData = {
             notes: 'Bridge between Europe and Asia',
             instagram: [],
             facebook: []
-        },
-        {
-            flag: '🇬🇪',
-            name: 'Georgia',
-            visitDate: '2024-05',
-            duration: '360 days',
-            rating: '⭐⭐⭐⭐',
-            highlights: {
-                'Kutaisi': {
-                    instagram: [
-                        'https://www.instagram.com/dykyi.roman/p/C7lQ8tCIWdm',
-                        'https://www.instagram.com/dykyi.roman/p/C7nv2N4oou9',
-                        'https://www.instagram.com/dykyi.roman/p/C7qNDFXot-T',
-                    ],
-                    facebook: []
-                },
-                'Vanadzia': {
-                    instagram: [
-                        'https://www.instagram.com/dykyi.roman/p/DLQE-zFIgF_/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/DLb_hv6ITvi/?img_index=1',
-                    ],
-                    facebook: []
-                },
-                'Batumi': {
-                    instagram: [
-                        'https://www.instagram.com/dykyi.roman/p/C8gTZDfI6dY',
-                        'https://www.instagram.com/dykyi.roman/p/C8iw5Zuo2RD/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/C9C-eWjoZ26/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/C9Eo3y6IW5Q/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/C9WW_9Lon49/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/C-KyjlvIydG/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/C-hVn3Vo5dW/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/DDC3ndeoQD8/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/DL34bUPoQkD/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/DMCM2jDoh5W/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/DMRkHgSowRw/?img_index=1',
-                    ],
-                    facebook: []
-                },
-                'Tbilisi': {
-                    instagram: [
-                        'https://www.instagram.com/dykyi.roman/p/DERYlJXofLc/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/DFhR85vIUdm/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/DFjss2zo_QT/?img_index=1',
-                    ],
-                    facebook: [],
-                },
-                'Borjomi': {
-                    instagram: [
-                        'https://www.instagram.com/dykyi.roman/p/DEunVoWo80N/?img_index=1'
-                    ],
-                    facebook: []
-                },
-                'Mestia': {
-                    instagram: [
-                        'https://www.instagram.com/dykyi.roman/p/DA1LKymocVM/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/DA2W8_zoWwE/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/DA450E_oAAL/?img_index=1',
-                        'https://www.instagram.com/dykyi.roman/p/DA7elW-oT4v/?img_index=1',
-                    ],
-                    facebook: [],
-                }
-            },
-            notes: 'Hidden gem with great hospitality',
-            instagram: [
-                'https://www.instagram.com/p/DMRkHgSowRw',
-                'https://www.instagram.com/p/DMCM2jDoh5W'
-            ],
-            facebook: [
-                'https://www.facebook.com/p/1PGfzjtX9S'
-            ]
         },
         {
             flag: '🇦🇿',
@@ -2270,7 +2270,7 @@ function initMap() {
 
         // Collect all countries with visit dates
         Object.values(countriesData).flat().forEach(country => {
-            if (country.visitDate && !country.visitDate.includes('2025')) {
+            if (country.visitDate) {
                 allCountries.push({
                     ...country,
                     visitYear: parseInt(country.visitDate.split('-')[0]),
