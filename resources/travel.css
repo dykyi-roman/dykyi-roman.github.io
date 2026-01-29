@@ -685,12 +685,31 @@
     }
 
     .detailed-stats {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 10px;
     }
 
     .stat-card {
         padding: 15px;
+    }
+
+    .stat-card-wide {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .stat-breakdown {
+        border-left: none;
+        border-top: 2px solid rgba(255, 215, 0, 0.3);
+        margin-left: 0;
+        margin-top: 15px;
+        padding-left: 0;
+        padding-top: 15px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
     }
 
     .stat-value {
@@ -808,7 +827,7 @@
 /* Detailed Statistics */
 .detailed-stats {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
     margin-top: 20px;
 }
@@ -822,6 +841,48 @@
     border-radius: 15px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card-wide {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    padding: 25px 30px;
+}
+
+.stat-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+}
+
+.stat-main i {
+    font-size: 2em;
+    color: #FFD700;
+    margin-bottom: 10px;
+}
+
+.stat-breakdown {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 20px;
+    border-left: 2px solid rgba(255, 215, 0, 0.3);
+    margin-left: 20px;
+}
+
+.breakdown-item {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    gap: 8px;
+}
+
+.breakdown-label {
+    color: rgba(255, 255, 255, 0.6);
+    min-width: 55px;
 }
 
 .stat-card:hover {

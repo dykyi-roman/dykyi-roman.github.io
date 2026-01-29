@@ -1554,7 +1554,6 @@ function addCountryClickListeners() {
             document.getElementById('modal-continent').textContent = continent;
             document.getElementById('modal-visit-date').textContent = visitDate;
             document.getElementById('modal-duration').textContent = duration;
-            document.getElementById('modal-rating').textContent = rating;
 
             document.getElementById('modal-highlights').innerHTML = Object.keys(highlights).map(cityName => {
                 const cityData = highlights[cityName];
@@ -1617,7 +1616,6 @@ function openCountryModal(countryName) {
     document.getElementById('modal-continent').textContent = continent.charAt(0).toUpperCase() + continent.slice(1);
     document.getElementById('modal-visit-date').textContent = countryData.visitDate || '-';
     document.getElementById('modal-duration').textContent = countryData.duration || '-';
-    document.getElementById('modal-rating').textContent = countryData.rating || '-';
 
     const highlights = countryData.highlights || {};
     document.getElementById('modal-highlights').innerHTML = Object.keys(highlights).map(cityName => {
@@ -2675,8 +2673,6 @@ function initSearch() {
 function calculateDetailedStats() {
     let totalDays = 0;
     let totalCities = 0;
-    let totalRatings = 0;
-    let ratingCount = 0;
 
     const excludeFromDays = ['Latvia'];
 
@@ -2705,17 +2701,9 @@ function calculateDetailedStats() {
                 citiesByContinent[continent] += cities;
             }
 
-            if (country.rating) {
-                const stars = (country.rating.match(/⭐/g) || []).length;
-                if (stars > 0) {
-                    totalRatings += stars;
-                    ratingCount++;
-                }
-            }
         });
     });
 
-    const avgRating = ratingCount > 0 ? (totalRatings / ratingCount).toFixed(1) : 0;
     const allCountries = [...countriesData.asia, ...countriesData.africa, ...countriesData.europe];
     const estimatedFlights = allCountries.length * 2;
 
@@ -2723,7 +2711,6 @@ function calculateDetailedStats() {
         days: totalDays,
         cities: totalCities,
         flights: estimatedFlights,
-        avgRating: avgRating,
         daysByContinent: daysByContinent,
         citiesByContinent: citiesByContinent
     };
@@ -2735,29 +2722,29 @@ function updateDetailedStats() {
 
     const daysEl = document.getElementById('stat-days');
     const citiesEl = document.getElementById('stat-cities');
-    const flightsEl = document.getElementById('stat-flights');
-    const ratingEl = document.getElementById('stat-rating');
 
     if (daysEl) {
         daysEl.dataset.target = stats.days;
-        const daysCard = daysEl.closest('.stat-card');
-        if (daysCard) {
-            daysCard.title = `Asia: ${stats.daysByContinent.asia} days\nEurope: ${stats.daysByContinent.europe} days\nAfrica: ${stats.daysByContinent.africa} days`;
-        }
     }
     if (citiesEl) {
         citiesEl.dataset.target = stats.cities;
-        const citiesCard = citiesEl.closest('.stat-card');
-        if (citiesCard) {
-            citiesCard.title = `Asia: ${stats.citiesByContinent.asia} cities\nEurope: ${stats.citiesByContinent.europe} cities\nAfrica: ${stats.citiesByContinent.africa} cities`;
-        }
     }
-    if (flightsEl) {
-        flightsEl.dataset.target = stats.flights;
-    }
-    if (ratingEl) {
-        ratingEl.textContent = stats.avgRating;
-    }
+
+    // Update days breakdown
+    const daysAsia = document.getElementById('days-asia');
+    const daysEurope = document.getElementById('days-europe');
+    const daysAfrica = document.getElementById('days-africa');
+    if (daysAsia) daysAsia.textContent = stats.daysByContinent.asia;
+    if (daysEurope) daysEurope.textContent = stats.daysByContinent.europe;
+    if (daysAfrica) daysAfrica.textContent = stats.daysByContinent.africa;
+
+    // Update cities breakdown
+    const citiesAsia = document.getElementById('cities-asia');
+    const citiesEurope = document.getElementById('cities-europe');
+    const citiesAfrica = document.getElementById('cities-africa');
+    if (citiesAsia) citiesAsia.textContent = stats.citiesByContinent.asia;
+    if (citiesEurope) citiesEurope.textContent = stats.citiesByContinent.europe;
+    if (citiesAfrica) citiesAfrica.textContent = stats.citiesByContinent.africa;
 }
 
 // Generate journey timeline
