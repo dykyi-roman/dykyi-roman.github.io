@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="resources/travel.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    <!-- Globe.gl for 3D globe visualization -->
+    <script src="https://unpkg.com/globe.gl"></script>
 </head>
 <body>
 
@@ -183,6 +185,16 @@
             </div>
         </div>
 
+        <!-- View Toggle (2D Map / 3D Globe) -->
+        <div class="view-toggle">
+            <button class="view-toggle-btn active" data-view="map" title="2D Map View">
+                <i class="fas fa-map"></i> 2D Map
+            </button>
+            <button class="view-toggle-btn" data-view="globe" title="3D Globe View">
+                <i class="fas fa-globe-americas"></i> 3D Globe
+            </button>
+        </div>
+
         <div id="map-controls">
             <button class="map-filter-button active" data-filter="all">All</button>
             <button class="map-filter-button" data-filter="asia">Asia</button>
@@ -192,6 +204,40 @@
         </div>
 
         <div id="map"></div>
+
+        <!-- 3D Globe Container -->
+        <div id="globe-container" style="display: none;">
+            <div id="globe"></div>
+            <div class="globe-controls">
+                <button class="globe-control-btn" id="globe-zoom-in" title="Zoom In">
+                    <i class="fas fa-plus"></i>
+                </button>
+                <button class="globe-control-btn" id="globe-zoom-out" title="Zoom Out">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button class="globe-control-btn active" id="globe-auto-rotate" title="Toggle Auto-Rotate">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+            <div class="globe-legend">
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #4CAF50;"></span>
+                    <span>Asia</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #2196F3;"></span>
+                    <span>Europe</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #FFC107;"></span>
+                    <span>Africa</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #E91E63;"></span>
+                    <span>Wishlist</span>
+                </div>
+            </div>
+        </div>
 
         <!-- Featured Asia Journey Video -->
         <div class="video-section">
@@ -248,6 +294,7 @@
 
 <script src="resources/back-to-top.js"></script>
 <script src="resources/navigation.js"></script>
+<script src="resources/globe.js"></script>
 <script src="resources/travel.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCboRvHNcHWuBFdV5ggCyMI-iz9W99k-Yg&callback=initMap&libraries=visualization" async defer></script>
 

@@ -1592,6 +1592,66 @@ function addCountryClickListeners() {
     });
 }
 
+/**
+ * Open country modal by country name (used by globe integration)
+ */
+function openCountryModal(countryName) {
+    // Find country data
+    let countryData = null;
+    let continent = null;
+
+    for (const cont of Object.keys(countriesData)) {
+        const found = countriesData[cont].find(c => c.name === countryName);
+        if (found) {
+            countryData = found;
+            continent = cont;
+            break;
+        }
+    }
+
+    if (!countryData) return;
+
+    // Update modal content
+    document.getElementById('modal-country-name').textContent = countryData.name;
+    document.getElementById('modal-country-flag').textContent = countryData.flag;
+    document.getElementById('modal-continent').textContent = continent.charAt(0).toUpperCase() + continent.slice(1);
+    document.getElementById('modal-visit-date').textContent = countryData.visitDate || '-';
+    document.getElementById('modal-duration').textContent = countryData.duration || '-';
+    document.getElementById('modal-rating').textContent = countryData.rating || '-';
+
+    const highlights = countryData.highlights || {};
+    document.getElementById('modal-highlights').innerHTML = Object.keys(highlights).map(cityName => {
+        const cityData = highlights[cityName];
+        const socialIcons = [];
+
+        if (cityData.instagram && cityData.instagram.length > 0) {
+            cityData.instagram.forEach(link => {
+                socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon instagram"></a>`);
+            });
+        }
+
+        if (cityData.facebook && cityData.facebook.length > 0) {
+            cityData.facebook.forEach(link => {
+                socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon facebook"></a>`);
+            });
+        }
+
+        return `
+            <div class="city-highlight">
+                <span class="city-name">${cityName}</span>
+                <div class="city-social-icons">
+                    ${socialIcons.join('')}
+                </div>
+            </div>
+        `;
+    }).join('') || '-';
+
+    document.getElementById('modal-notes').textContent = countryData.notes || '-';
+
+    // Show modal
+    document.getElementById('country-modal').style.display = 'block';
+}
+
 // Initialize countries display when page loads
 document.addEventListener('DOMContentLoaded', function () {
     updateCountriesDisplay();
@@ -2055,6 +2115,10 @@ function initMap() {
             continentMapping[continent].push(country);
         }
     }
+
+    // Export locations and countryToContinentMap for globe integration
+    window.travelLocations = locations;
+    window.countryToContinentMap = countryToContinentMap;
 
     function getContinent(country) {
         return countryToContinentMap[country] || 'unknown';
@@ -2815,4 +2879,306 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(saveState, 100);
         });
     });
+});
+
+// ==========================================
+// 3D Globe Integration
+// ==========================================
+
+let travelGlobe = null;
+let isGlobeView = false;
+let globeInitialized = false;
+
+/**
+ * Initialize the view toggle between 2D Map and 3D Globe
+ */
+function initViewToggle() {
+    const viewToggleButtons = document.querySelectorAll('.view-toggle-btn');
+    const mapElement = document.getElementById('map');
+    const mapControls = document.getElementById('map-controls');
+    const globeContainer = document.getElementById('globe-container');
+
+    if (!viewToggleButtons.length || !mapElement || !globeContainer) return;
+
+    // Restore saved view preference
+    const savedView = localStorage.getItem('travelMapView') || 'map';
+    if (savedView === 'globe') {
+        switchToGlobeView();
+        viewToggleButtons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.view === 'globe');
+        });
+    }
+
+    viewToggleButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const view = btn.dataset.view;
+
+            // Update button states
+            viewToggleButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Switch view
+            if (view === 'globe') {
+                switchToGlobeView();
+            } else {
+                switchToMapView();
+            }
+
+            // Save preference
+            localStorage.setItem('travelMapView', view);
+        });
+    });
+}
+
+/**
+ * Switch to 3D Globe view
+ */
+function switchToGlobeView() {
+    const mapElement = document.getElementById('map');
+    const globeContainer = document.getElementById('globe-container');
+
+    if (!mapElement || !globeContainer) return;
+
+    mapElement.style.display = 'none';
+    globeContainer.style.display = 'block';
+    isGlobeView = true;
+
+    // Lazy-load the globe on first view
+    if (!globeInitialized) {
+        initGlobe();
+    } else if (travelGlobe) {
+        // Trigger resize to fix any rendering issues
+        travelGlobe.handleResize();
+    }
+}
+
+/**
+ * Switch to 2D Map view
+ */
+function switchToMapView() {
+    const mapElement = document.getElementById('map');
+    const globeContainer = document.getElementById('globe-container');
+
+    if (!mapElement || !globeContainer) return;
+
+    mapElement.style.display = 'block';
+    globeContainer.style.display = 'none';
+    isGlobeView = false;
+
+    // Stop globe auto-rotation to save resources
+    if (travelGlobe) {
+        travelGlobe.setAutoRotate(false);
+    }
+}
+
+/**
+ * Initialize the 3D Globe
+ */
+function initGlobe() {
+    if (globeInitialized || !window.TravelGlobe) {
+        console.warn('Globe already initialized or TravelGlobe not available');
+        return;
+    }
+
+    const globeContainer = document.getElementById('globe-container');
+    if (globeContainer) {
+        globeContainer.classList.add('loading');
+    }
+
+    // Create globe instance
+    travelGlobe = new TravelGlobe('globe', {
+        onMarkerClick: handleGlobeMarkerClick,
+        onAnimationStep: handleGlobeAnimationStep,
+        onAnimationComplete: handleGlobeAnimationComplete
+    });
+
+    // Build locations object for globe (need to access from initMap scope)
+    // We'll use a global reference that initMap sets
+    if (window.travelLocations && window.countryToContinentMap) {
+        travelGlobe.init(countriesData, window.travelLocations, window.countryToContinentMap);
+
+        // Prepare journey animation data
+        const journeyData = prepareGlobeJourneyData();
+        travelGlobe.prepareJourneyAnimation(journeyData, window.travelLocations);
+    }
+
+    // Initialize globe controls
+    initGlobeControls();
+
+    // Sync filter buttons with globe
+    syncFiltersWithGlobe();
+
+    globeInitialized = true;
+
+    if (globeContainer) {
+        globeContainer.classList.remove('loading');
+    }
+}
+
+/**
+ * Prepare journey data for globe animation
+ */
+function prepareGlobeJourneyData() {
+    const allCountries = [];
+
+    Object.values(countriesData).flat().forEach(country => {
+        if (country.visitDate) {
+            allCountries.push({
+                ...country,
+                visitYear: parseInt(country.visitDate.split('-')[0]),
+                visitMonth: parseInt(country.visitDate.split('-')[1])
+            });
+        }
+    });
+
+    // Sort by visit date
+    allCountries.sort((a, b) => {
+        if (a.visitYear !== b.visitYear) {
+            return a.visitYear - b.visitYear;
+        }
+        return a.visitMonth - b.visitMonth;
+    });
+
+    return allCountries;
+}
+
+/**
+ * Handle globe marker click - open country modal
+ */
+function handleGlobeMarkerClick(marker) {
+    // Find country data
+    let countryData = null;
+    for (const continent of Object.keys(countriesData)) {
+        const found = countriesData[continent].find(c => c.name === marker.name);
+        if (found) {
+            countryData = { ...found, continent };
+            break;
+        }
+    }
+
+    if (countryData) {
+        openCountryModal(countryData.name);
+    }
+}
+
+/**
+ * Handle globe animation step - sync with journey UI
+ */
+function handleGlobeAnimationStep(step, total) {
+    // Update journey progress UI
+    const progress = ((step + 1) / total) * 100;
+    document.getElementById('timeline-progress').style.width = `${progress}%`;
+    document.getElementById('journey-progress-percent').textContent = `${Math.round(progress)}%`;
+    document.getElementById('journey-countries-count').textContent = step + 1;
+}
+
+/**
+ * Handle globe animation complete
+ */
+function handleGlobeAnimationComplete() {
+    document.getElementById('play-journey').disabled = false;
+    document.getElementById('pause-journey').disabled = true;
+    document.getElementById('play-journey').classList.remove('active');
+    document.getElementById('play-journey').innerHTML = '<i class="fas fa-play"></i> Replay';
+    document.getElementById('current-country-name').textContent = 'Journey completed!';
+}
+
+/**
+ * Initialize globe control buttons
+ */
+function initGlobeControls() {
+    const zoomInBtn = document.getElementById('globe-zoom-in');
+    const zoomOutBtn = document.getElementById('globe-zoom-out');
+    const autoRotateBtn = document.getElementById('globe-auto-rotate');
+
+    if (zoomInBtn) {
+        zoomInBtn.addEventListener('click', () => {
+            if (travelGlobe) travelGlobe.zoomIn();
+        });
+    }
+
+    if (zoomOutBtn) {
+        zoomOutBtn.addEventListener('click', () => {
+            if (travelGlobe) travelGlobe.zoomOut();
+        });
+    }
+
+    if (autoRotateBtn) {
+        autoRotateBtn.addEventListener('click', () => {
+            if (travelGlobe) {
+                const isRotating = travelGlobe.toggleAutoRotate();
+                autoRotateBtn.classList.toggle('active', isRotating);
+            }
+        });
+    }
+}
+
+/**
+ * Sync map filter buttons with globe
+ */
+function syncFiltersWithGlobe() {
+    const filterButtons = document.querySelectorAll('.map-filter-button');
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (travelGlobe && isGlobeView) {
+                const filter = btn.dataset.filter;
+                travelGlobe.filterByContinent(filter);
+            }
+        });
+    });
+}
+
+/**
+ * Sync journey controls with globe
+ */
+function syncJourneyWithGlobe() {
+    const playBtn = document.getElementById('play-journey');
+    const pauseBtn = document.getElementById('pause-journey');
+    const resetBtn = document.getElementById('reset-journey');
+    const speedSlider = document.getElementById('speed-slider');
+
+    if (playBtn) {
+        const originalPlayClick = playBtn.onclick;
+        playBtn.addEventListener('click', () => {
+            if (travelGlobe && isGlobeView) {
+                if (travelGlobe.currentArcIndex >= travelGlobe.journeyArcs.length) {
+                    travelGlobe.resetJourneyAnimation();
+                }
+                travelGlobe.startJourneyAnimation();
+            }
+        });
+    }
+
+    if (pauseBtn) {
+        pauseBtn.addEventListener('click', () => {
+            if (travelGlobe && isGlobeView) {
+                travelGlobe.pauseJourneyAnimation();
+            }
+        });
+    }
+
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            if (travelGlobe && isGlobeView) {
+                travelGlobe.resetJourneyAnimation();
+            }
+        });
+    }
+
+    if (speedSlider) {
+        speedSlider.addEventListener('input', (e) => {
+            if (travelGlobe) {
+                travelGlobe.setAnimationSpeed(parseFloat(e.target.value));
+            }
+        });
+    }
+}
+
+// Initialize view toggle and globe integration
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        initViewToggle();
+        syncJourneyWithGlobe();
+    }, 600);
 })
