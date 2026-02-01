@@ -1,0 +1,496 @@
+D<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dykyi Roman - Software Engineer</title>
+    <link rel="icon" href="../icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../resources/style.css">
+    <style>
+        .level-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #3498db;
+        }
+
+        .level-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .level-number {
+            background-color: #2c3e50;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 15px;
+        }
+
+        .level-title {
+            font-weight: bold;
+            font-size: 1.3em;
+            color: #2c3e50;
+        }
+
+        .essence {
+            font-weight: bold;
+            color: #e74c3c;
+            display: block;
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+
+        .characteristics {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .example {
+            font-style: italic;
+            background-color: #f0f8ff;
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 3px solid #3498db;
+        }
+
+        .concept-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 30px 0 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .principle-box {
+            background-color: #e8f8f5;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #16a085;
+        }
+
+        .warning-box {
+            background-color: #fdedec;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .warning-title {
+            font-weight: bold;
+            color: #c0392b;
+            margin-bottom: 10px;
+        }
+
+        .comparison {
+            margin: 25px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .comparison-row {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-header {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        .comparison-cell {
+            flex: 1;
+            padding: 12px 15px;
+        }
+
+        .quote {
+            font-style: italic;
+            color: #7f8c8d;
+            text-align: center;
+            margin: 20px 0;
+            font-size: 1.1em;
+            padding: 15px;
+            border-left: 3px solid #3498db;
+            background-color: #f8f9fa;
+        }
+
+        .conclusion {
+            background-color: #e8f8f5;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 40px;
+            border: 1px solid #16a085;
+        }
+
+        .key-insight {
+            background-color: #fef9e7;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #f1c40f;
+        }
+
+        .key-insight-title {
+            font-weight: bold;
+            color: #d4ac0d;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+    </style>
+    <link rel="stylesheet" href="../resources/navigation.css">
+</head>
+<body>
+<!-- Side Navigation -->
+<div class="side-nav">
+    <button class="nav-button" onclick="scrollToSection('book-section')">Intro</button>
+    <button class="nav-button" onclick="scrollToSection('review-section')">Review</button>
+    <button class="nav-button" onclick="scrollToSection('notes-section')">Notes</button>
+</div>
+
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+
+    <!--  Book  -->
+    <div id="book-section" class="section">
+        <h3>Good to Great: Why Some Companies Make the Leap... and Others Don't</h3>
+        <p><strong>Author:</strong> Jim Collins</p>
+        <p><strong>Audiobook:</strong> <a href="https://www.youtube.com/watch?v=Fco0zquL9uU" target="_blank">YouTube</a></p>
+
+        <div class="post-content">
+            <p>
+                Джим Коллинз провел масштабное исследование, чтобы ответить на вопрос: почему одни компании совершают
+                прорыв от хороших результатов к выдающимся, а другие — нет? Команда из 21 исследователя проанализировала
+                данные за 40 лет по 1435 компаниям и выявила 11, которые смогли совершить этот переход и удерживать
+                выдающиеся результаты минимум 15 лет.
+            </p>
+            <p>
+                Книга разрушает многие мифы о трансформации бизнеса. Оказалось, что великие компании не запускались
+                с помощью харизматичных лидеров, революционных технологий или грандиозных стратегий. Вместо этого они
+                следовали набору неочевидных, но последовательных принципов.
+            </p>
+            <p>
+                Коллинз выделяет три ключевые области: дисциплинированные люди, дисциплинированное мышление и
+                дисциплинированные действия. В основе всего лежит концепция «Маховика» — постепенного накопления
+                потенциала через последовательные, согласованные усилия, которые в итоге приводят к стремительному росту.
+            </p>
+            <p>
+                Первые две концепции — «Руководители 5 уровня» и «Сначала кто, затем что» — формируют фундамент
+                дисциплинированных людей и являются обязательным условием для перехода от хорошего к великому.
+            </p>
+        </div>
+
+        <img src="/images/2_from_good_to_great.png" alt="Модель От хорошего к великому" width="600">
+    </div>
+
+    <hr class="custom-hr">
+
+    <!--  Review  -->
+    <div id="review-section" class="section">
+        <h3>Review</h3>
+        <div class="post-content">
+            <p>Эта глава раскрывает два фундаментальных принципа, отличающих великие компании от просто хороших:</p>
+            <ul>
+                <li><strong>Руководители 5 уровня</strong> — особый тип лидеров, сочетающих личную скромность с профессиональной волей</li>
+                <li><strong>Сначала кто, затем что</strong> — приоритет подбора правильных людей над определением стратегии</li>
+            </ul>
+        </div>
+
+        <div class="concept-header">
+            Концепция 1: Руководители 5 уровня
+        </div>
+
+        <div class="post-content">
+            <p>
+                Коллинз обнаружил парадоксальный факт: во главе всех компаний, совершивших переход от хорошего к великому,
+                стояли руководители с похожим набором качеств — сочетание крайней личной скромности с интенсивной
+                профессиональной волей. Это не харизматичные «звезды», а скорее тихие, сдержанные, даже застенчивые люди.
+            </p>
+        </div>
+
+        <img src="/images/1_from_good_to_great.png" alt="Пирамида уровней руководства" width="500">
+
+        <div class="level-container">
+            <div class="level-header">
+                <div class="level-number">I</div>
+                <span class="level-title">Высокопрофессиональный сотрудник</span>
+            </div>
+            <span class="essence">Суть: Индивидуальный вклад через знания и навыки</span>
+            <div class="characteristics">
+                <ul>
+                    <li>Вносит вклад через активное использование своих способностей, знаний, опыта</li>
+                    <li>Умеет организовать свой труд</li>
+                    <li>Фокус на личной продуктивности</li>
+                </ul>
+            </div>
+            <div class="example">
+                <strong>Пример:</strong> Талантливый программист, который пишет качественный код и решает сложные технические задачи.
+            </div>
+        </div>
+
+        <div class="level-container">
+            <div class="level-header">
+                <div class="level-number">II</div>
+                <span class="level-title">Ценный член команды</span>
+            </div>
+            <span class="essence">Суть: Работа в команде для достижения общих целей</span>
+            <div class="characteristics">
+                <ul>
+                    <li>Вносит личный вклад в достижение целей, стоящих перед компанией</li>
+                    <li>Эффективно работает с другими членами команды</li>
+                    <li>Умеет подчинять личные интересы групповым целям</li>
+                </ul>
+            </div>
+            <div class="example">
+                <strong>Пример:</strong> Разработчик, который помогает коллегам, участвует в код-ревью и вносит вклад в общий успех проекта.
+            </div>
+        </div>
+
+        <div class="level-container">
+            <div class="level-header">
+                <div class="level-number">III</div>
+                <span class="level-title">Компетентный менеджер</span>
+            </div>
+            <span class="essence">Суть: Организация людей и ресурсов для достижения целей</span>
+            <div class="characteristics">
+                <ul>
+                    <li>Организует людей и рационально распределяет ресурсы</li>
+                    <li>Эффективно выполняет поставленные задачи</li>
+                    <li>Фокус на операционной эффективности</li>
+                </ul>
+            </div>
+            <div class="example">
+                <strong>Пример:</strong> Тимлид, который распределяет задачи в команде, следит за сроками и обеспечивает выполнение плана.
+            </div>
+        </div>
+
+        <div class="level-container">
+            <div class="level-header">
+                <div class="level-number">IV</div>
+                <span class="level-title">Эффективный руководитель</span>
+            </div>
+            <span class="essence">Суть: Видение и движение к амбициозным целям</span>
+            <div class="characteristics">
+                <ul>
+                    <li>Формулирует видение будущего компании</li>
+                    <li>Последовательно добивается того, чтобы компания продвигалась по намеченному пути</li>
+                    <li>Обеспечивает высокие стандарты качества работы</li>
+                </ul>
+            </div>
+            <div class="example">
+                <strong>Пример:</strong> CTO, который определяет техническую стратегию, вдохновляет команду и ведет компанию к технологическому лидерству.
+            </div>
+        </div>
+
+        <div class="level-container" style="border-top-color: #e74c3c;">
+            <div class="level-header">
+                <div class="level-number" style="background-color: #e74c3c;">V</div>
+                <span class="level-title">Руководитель пятого уровня</span>
+            </div>
+            <span class="essence">Суть: Парадоксальное сочетание скромности и воли</span>
+            <div class="characteristics">
+                <ul>
+                    <li>Добивается исключительных долгосрочных результатов</li>
+                    <li>Сочетает выдающиеся личностные качества с твердой профессиональной волей</li>
+                    <li>Направляет амбиции на компанию, а не на себя</li>
+                    <li>Готовит преемников для еще большего успеха</li>
+                </ul>
+            </div>
+            <div class="example">
+                <strong>Пример:</strong> Дарвин Смит (Kimberly-Clark), который за 20 лет превратил бумажную компанию в мирового лидера потребительских товаров, при этом оставаясь скромным и избегая публичности.
+            </div>
+        </div>
+
+        <div class="comparison">
+            <div class="comparison-row comparison-header">
+                <div class="comparison-cell">Характеристика</div>
+                <div class="comparison-cell">Руководитель 5 уровня</div>
+                <div class="comparison-cell">Харизматичный лидер</div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Амбиции</div>
+                <div class="comparison-cell">Направлены на компанию</div>
+                <div class="comparison-cell">Направлены на себя</div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">При успехе</div>
+                <div class="comparison-cell">Смотрит в окно — благодарит других</div>
+                <div class="comparison-cell">Смотрит в зеркало — приписывает себе</div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">При неудаче</div>
+                <div class="comparison-cell">Смотрит в зеркало — берет ответственность</div>
+                <div class="comparison-cell">Смотрит в окно — обвиняет других</div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Преемственность</div>
+                <div class="comparison-cell">Готовит сильных преемников</div>
+                <div class="comparison-cell">Часто оставляет после себя хаос</div>
+            </div>
+        </div>
+
+        <div class="quote">
+            «Руководители пятого уровня смотрят в окно, чтобы приписать успех факторам, которые не имеют к ним
+            отношения. Когда же результаты неудовлетворительны, они смотрят в зеркало и берут всю ответственность
+            на себя.» — Джим Коллинз
+        </div>
+
+        <div class="key-insight">
+            <div class="key-insight-title">Выводы: Руководители 5 уровня</div>
+            <ul>
+                <li><strong>Парадокс скромности и воли:</strong> Лидеры 5 уровня сочетают личную скромность с непоколебимой решимостью делать то, что нужно для успеха компании.</li>
+                <li><strong>Амбиции направлены на компанию:</strong> Они честолюбивы, но их амбиции в первую очередь касаются компании, а не личной славы.</li>
+                <li><strong>Окно и зеркало:</strong> При успехе смотрят в окно и благодарят других; при неудаче смотрят в зеркало и берут ответственность на себя.</li>
+                <li><strong>Преемственность:</strong> Готовят преемников для ещё большего успеха, а не создают зависимость от себя.</li>
+                <li><strong>Не харизма, а характер:</strong> Великие компании строятся не харизматичными «звёздами», а скромными, но решительными лидерами.</li>
+            </ul>
+        </div>
+
+        <div class="concept-header">
+            Концепция 2: Сначала кто, затем что
+        </div>
+
+        <div class="post-content">
+            <p>
+                Руководители великих компаний не начинали с определения стратегии, видения или курса. Сначала они
+                подбирали нужных людей в команду (и избавлялись от ненужных), а уже потом решали, куда двигаться.
+            </p>
+        </div>
+
+        <div class="principle-box">
+            <h4>Три истины о «правильных людях»</h4>
+            <ol>
+                <li><strong>Если начать с «кто», легче адаптироваться к изменениям.</strong> Если люди сели в автобус из-за того, куда он едет, что произойдет, когда нужно изменить направление? Проблемы. Но если они сели из-за того, кто еще в автобусе, изменить направление гораздо легче.</li>
+                <li><strong>С правильными людьми отпадает проблема мотивации.</strong> Правильные люди не нуждаются в жестком управлении или стимулах — они сами себя мотивируют внутренним стремлением достичь наилучших результатов.</li>
+                <li><strong>Без правильных людей видение бесполезно.</strong> Если у вас неподходящие люди, неважно, какое у вас видение — все равно великой компанией не стать.</li>
+            </ol>
+        </div>
+
+        <div class="key-insight">
+            <div class="key-insight-title">Ключевой инсайт</div>
+            <p>«Нужные люди» — это не вопрос специальных знаний, образования или опыта. Это вопрос характера и
+                врожденных способностей. Великие компании нанимали людей за их характер, а специальным навыкам обучали.</p>
+        </div>
+
+        <div class="comparison">
+            <div class="comparison-row comparison-header">
+                <div class="comparison-cell">Аспект</div>
+                <div class="comparison-cell">«Сначала кто»</div>
+                <div class="comparison-cell">«Сначала что»</div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Первый шаг</div>
+                <div class="comparison-cell">Подобрать правильных людей</div>
+                <div class="comparison-cell">Определить стратегию</div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Адаптация к изменениям</div>
+                <div class="comparison-cell">Легкая — люди готовы к переменам</div>
+                <div class="comparison-cell">Сложная — люди привязаны к плану</div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Роль лидера</div>
+                <div class="comparison-cell">Создатель команды</div>
+                <div class="comparison-cell">Визионер-одиночка</div>
+            </div>
+            <div class="comparison-row">
+                <div class="comparison-cell">Устойчивость</div>
+                <div class="comparison-cell">Компания процветает и после ухода лидера</div>
+                <div class="comparison-cell">Зависимость от конкретного человека</div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <div class="warning-title">Важное предупреждение Коллинза</div>
+            <p>«Сначала кто» — это не просто о найме хороших работников. Это о жестком решении: если человек не подходит,
+                нужно действовать. Великие компании не избегали трудных кадровых решений. Они понимали: оставлять не тех
+                людей — это несправедливо по отношению к тем, кто подходит.</p>
+        </div>
+
+        <div class="quote">
+            «Если сомневаетесь — не нанимайте, продолжайте искать. Компания должна ограничивать свой рост в
+            зависимости от её способности привлечь достаточно правильных людей.» — Джим Коллинз
+        </div>
+
+        <div class="level-container">
+            <h4>Три практических правила</h4>
+            <ol>
+                <li><strong>Если сомневаетесь — не нанимайте, продолжайте искать.</strong> Лучше упустить возможность роста, чем нанять неподходящего человека.</li>
+                <li><strong>Когда знаете, что нужно менять человека — действуйте.</strong> Не откладывайте трудные решения. Но сначала убедитесь, что человек не просто на неподходящей позиции.</li>
+                <li><strong>Лучших людей ставьте на лучшие возможности, а не на решение проблем.</strong> Если вы продаете проблемное направление, продавайте вместе с людьми. Лучших оставляйте для лучших возможностей.</li>
+            </ol>
+        </div>
+
+        <div class="key-insight">
+            <div class="key-insight-title">Выводы: Сначала кто, затем что</div>
+            <ul>
+                <li><strong>Люди важнее стратегии:</strong> Сначала соберите правильную команду, потом определяйте направление. Не наоборот.</li>
+                <li><strong>Характер важнее навыков:</strong> Нанимайте за характер и ценности, обучайте навыкам. Технические знания можно получить, характер — нет.</li>
+                <li><strong>Автобус как метафора:</strong> Правильные люди садятся в автобус не из-за того, куда он едет, а из-за того, кто в нём едет.</li>
+                <li><strong>Самомотивация:</strong> Правильным людям не нужны внешние стимулы — они мотивированы внутренним стремлением к совершенству.</li>
+                <li><strong>Жёсткие решения без жестокости:</strong> Если человек не подходит — действуйте быстро, но справедливо. Откладывание решения вредит всем.</li>
+                <li><strong>Лучших — на лучшие возможности:</strong> Не тратьте талантливых людей на решение проблем. Направляйте их туда, где они создадут максимальную ценность.</li>
+            </ul>
+        </div>
+
+        <div class="conclusion">
+            <h2>Взаимосвязь двух концепций</h2>
+            <p>Руководители 5 уровня и принцип «Сначала кто, затем что» неразрывно связаны. Только руководитель
+                5 уровня способен:</p>
+            <ul>
+                <li>Ставить интересы компании выше личного эго при подборе команды</li>
+                <li>Принимать жесткие кадровые решения без жестокости</li>
+                <li>Создавать культуру, где «правильные люди» хотят работать</li>
+                <li>Готовить преемников, а не «незаменимых» подчиненных</li>
+            </ul>
+            <p style="margin-top: 20px;"><strong>Главный вывод:</strong> Великие компании строятся не на гениальных стратегиях
+                или революционных технологиях. Они строятся на правильных людях под руководством скромных, но решительных
+                лидеров, которые направляют свои амбиции на успех компании, а не на личную славу.</p>
+        </div>
+    </div>
+
+    <hr class="custom-hr">
+
+    <!-- Notes -->
+    <div id="notes-section" class="section">
+        <h3>Notes</h3>
+        <ul>
+
+        </ul>
+    </div>
+</div>
+
+<script src="../resources/load-header.js"></script>
+</body>
+<script src="../resources/back-to-top.js"></script>
+<script src="../resources/navigation.js"></script>
+</html>
