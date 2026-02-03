@@ -1283,3 +1283,221 @@
         gap: 5px;
     }
 }
+
+/* ==================== */
+/* Country Analytics    */
+/* ==================== */
+
+.analytics-section {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.analytics-section h3 {
+    color: #FFD700;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.analytics-disclaimer {
+    font-size: 0.75em;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.analytics-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+.analytics-category {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 15px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.analytics-category:hover {
+    transform: translateY(-3px);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.analytics-category-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.analytics-category-header i {
+    font-size: 1.3em;
+    color: rgba(255, 255, 255, 0.8);
+    width: 28px;
+    text-align: center;
+}
+
+.analytics-category-header h4 {
+    margin: 0;
+    font-size: 1em;
+    color: white;
+    font-weight: 600;
+}
+
+.analytics-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.analytics-item + .analytics-item {
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.analytics-item-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.analytics-medal {
+    font-size: 1.1em;
+    min-width: 24px;
+    text-align: center;
+}
+
+.analytics-flag {
+    font-size: 1.4em;
+}
+
+.analytics-country-name {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+}
+
+.analytics-value {
+    font-size: 0.85em;
+    color: #fff;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+
+/* Analytics groups (top 3 and bottom 3) */
+.analytics-group {
+    margin-bottom: 10px;
+}
+
+.analytics-group:last-child {
+    margin-bottom: 0;
+}
+
+.analytics-group-label {
+    font-size: 0.75em;
+    font-weight: 600;
+    margin-bottom: 6px;
+    padding: 3px 8px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.analytics-group-top {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.analytics-group-bottom {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.analytics-number {
+    font-size: 0.85em;
+    min-width: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 600;
+}
+
+.analytics-value-bottom {
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Rank-based styling for top 3 */
+.analytics-rank-1 .analytics-value {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.analytics-rank-2 .analytics-value {
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.analytics-rank-3 .analytics-value {
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Mobile Responsive Styles for Analytics */
+@media (max-width: 768px) {
+    .analytics-categories {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-category {
+        padding: 12px;
+    }
+
+    .analytics-category-header i {
+        font-size: 1.1em;
+        width: 24px;
+    }
+
+    .analytics-category-header h4 {
+        font-size: 0.95em;
+    }
+
+    .analytics-flag {
+        font-size: 1.2em;
+    }
+
+    .analytics-country-name {
+        font-size: 0.85em;
+    }
+
+    .analytics-value {
+        font-size: 0.8em;
+        padding: 2px 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .analytics-section h3 {
+        font-size: 1.1em;
+    }
+
+    .analytics-disclaimer {
+        font-size: 0.7em;
+    }
+
+    .analytics-item {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .analytics-item-left {
+        flex: 1;
+    }
+}

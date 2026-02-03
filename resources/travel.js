@@ -3168,4 +3168,168 @@ document.addEventListener('DOMContentLoaded', function() {
         initViewToggle();
         syncJourneyWithGlobe();
     }, 600);
-})
+});
+
+// ==========================================
+// Country Analytics Section
+// ==========================================
+
+/**
+ * Get list of visited country names from countriesData
+ */
+function getVisitedCountryNames() {
+    const countryNames = [];
+    Object.values(countriesData).forEach(continent => {
+        continent.forEach(country => {
+            countryNames.push(country.name);
+        });
+    });
+    return countryNames;
+}
+
+/**
+ * Get country flag by name
+ */
+function getCountryFlag(countryName) {
+    for (const continent of Object.values(countriesData)) {
+        const country = continent.find(c => c.name === countryName);
+        if (country) {
+            return country.flag;
+        }
+    }
+    return '🏳️';
+}
+
+/**
+ * Analyze countries by all categories - returns top 3 and bottom 3
+ */
+function analyzeCountries(countryNames) {
+    if (typeof countryStatsData === 'undefined' || typeof analyticsCategories === 'undefined') {
+        console.warn('Country stats data not loaded');
+        return null;
+    }
+
+    const results = {};
+
+    analyticsCategories.forEach(category => {
+        const validCountries = countryNames
+            .filter(name => countryStatsData[name] && countryStatsData[name][category.id] !== undefined)
+            .map(name => ({
+                name,
+                flag: getCountryFlag(name),
+                value: countryStatsData[name][category.id]
+            }));
+
+        if (validCountries.length < 6) {
+            results[category.id] = null;
+            return;
+        }
+
+        // Sort descending by value (highest first)
+        validCountries.sort((a, b) => b.value - a.value);
+
+        // Get top 3 and bottom 3 based on whether higher is better
+        let top3, bottom3;
+        if (category.higherBetter) {
+            top3 = validCountries.slice(0, 3);
+            bottom3 = validCountries.slice(-3).reverse();
+        } else {
+            top3 = validCountries.slice(-3).reverse();
+            bottom3 = validCountries.slice(0, 3);
+        }
+
+        results[category.id] = {
+            category,
+            top3: top3.map(country => ({
+                ...country,
+                formattedValue: category.format(country.value)
+            })),
+            bottom3: bottom3.map(country => ({
+                ...country,
+                formattedValue: category.format(country.value)
+            }))
+        };
+    });
+
+    return results;
+}
+
+/**
+ * Render analytics section HTML - shows top 3 and bottom 3 countries per category
+ */
+function renderAnalyticsSection(results) {
+    const container = document.getElementById('analytics-categories');
+    if (!container) return;
+
+    if (!results) {
+        container.innerHTML = '<p style="color: rgba(255,255,255,0.7);">Analytics data not available</p>';
+        return;
+    }
+
+    const topMedals = ['🥇', '🥈', '🥉'];
+    const bottomNumbers = ['1', '2', '3'];
+
+    const html = analyticsCategories
+        .filter(category => results[category.id])
+        .map(category => {
+            const data = results[category.id];
+
+            const topItemsHtml = data.top3.map((country, index) => `
+                <div class="analytics-item analytics-rank-${index + 1}">
+                    <div class="analytics-item-left">
+                        <span class="analytics-medal">${topMedals[index]}</span>
+                        <span class="analytics-flag">${country.flag}</span>
+                        <span class="analytics-country-name">${country.name}</span>
+                    </div>
+                    <span class="analytics-value">${country.formattedValue}</span>
+                </div>
+            `).join('');
+
+            const bottomItemsHtml = data.bottom3.map((country, index) => `
+                <div class="analytics-item analytics-bottom-${index + 1}">
+                    <div class="analytics-item-left">
+                        <span class="analytics-number">${bottomNumbers[index]}</span>
+                        <span class="analytics-flag">${country.flag}</span>
+                        <span class="analytics-country-name">${country.name}</span>
+                    </div>
+                    <span class="analytics-value analytics-value-bottom">${country.formattedValue}</span>
+                </div>
+            `).join('');
+
+            return `
+                <div class="analytics-category">
+                    <div class="analytics-category-header">
+                        <i class="fas ${category.icon}"></i>
+                        <h4>${category.title}</h4>
+                    </div>
+                    <div class="analytics-group">
+                        <div class="analytics-group-label analytics-group-top">${category.labelTop}</div>
+                        ${topItemsHtml}
+                    </div>
+                    <div class="analytics-group">
+                        <div class="analytics-group-label analytics-group-bottom">${category.labelBottom}</div>
+                        ${bottomItemsHtml}
+                    </div>
+                </div>
+            `;
+        })
+        .join('');
+
+    container.innerHTML = html;
+}
+
+/**
+ * Initialize country analytics section
+ */
+function initCountryAnalytics() {
+    const visitedCountries = getVisitedCountryNames();
+    const analysisResults = analyzeCountries(visitedCountries);
+    renderAnalyticsSection(analysisResults);
+}
+
+// Initialize analytics on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        initCountryAnalytics();
+    }, 700);
+});
