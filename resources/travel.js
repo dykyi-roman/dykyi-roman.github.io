@@ -1533,66 +1533,112 @@ function updateCountriesDisplay() {
     }, 100);
 }
 
+// Track currently selected country for toggle behavior
+let currentSelectedCountry = null;
+
+// Function to toggle country details panel
+function toggleCountryPanel(show, countryData = null) {
+    const panel = document.getElementById('country-details-panel');
+
+    if (show && countryData) {
+        // Update panel content
+        document.getElementById('panel-country-name').textContent = countryData.name;
+        document.getElementById('panel-country-flag').textContent = countryData.flag;
+        document.getElementById('panel-continent').textContent = countryData.continent;
+        document.getElementById('panel-visit-date').textContent = countryData.visitDate || '-';
+        document.getElementById('panel-duration').textContent = countryData.duration || '-';
+
+        const highlights = countryData.highlights || {};
+        const highlightsHtml = Object.keys(highlights).map(cityName => {
+            const cityData = highlights[cityName];
+            const socialIcons = [];
+
+            if (cityData.instagram && cityData.instagram.length > 0) {
+                cityData.instagram.forEach(link => {
+                    socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon instagram"></a>`);
+                });
+            }
+
+            if (cityData.facebook && cityData.facebook.length > 0) {
+                cityData.facebook.forEach(link => {
+                    socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon facebook"></a>`);
+                });
+            }
+
+            return `
+                <div class="city-highlight">
+                    <span class="city-name">${cityName}</span>
+                    <div class="city-social-icons">
+                        ${socialIcons.join('')}
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        document.getElementById('panel-highlights').innerHTML = highlightsHtml;
+        document.getElementById('panel-notes').textContent = countryData.notes || '';
+
+        // Expand panel
+        panel.classList.add('expanded');
+        panel.classList.remove('collapsed');
+
+        // Scroll to panel
+        setTimeout(() => {
+            panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    } else {
+        // Collapse panel
+        panel.classList.remove('expanded');
+        panel.classList.add('collapsed');
+        currentSelectedCountry = null;
+    }
+}
+
 // Function to add click listeners to country flags
 function addCountryClickListeners() {
     const countryFlags = document.querySelectorAll('.country-item');
     countryFlags.forEach(flag => {
         flag.addEventListener('click', () => {
             const countryName = flag.title;
+
+            // If clicking the same country, toggle panel closed
+            if (currentSelectedCountry === countryName) {
+                toggleCountryPanel(false);
+                return;
+            }
+
             const continent = flag.getAttribute('data-continent');
             const visitDate = flag.getAttribute('data-visit-date');
             const duration = flag.getAttribute('data-duration');
-            const rating = flag.getAttribute('data-rating');
             const highlights = JSON.parse(decodeURIComponent(flag.getAttribute('data-highlights')));
             const notes = flag.getAttribute('data-notes');
-            const instagram = flag.getAttribute('data-instagram').split(', ');
-            const facebook = flag.getAttribute('data-facebook').split(', ');
 
-            // Update modal content
-            document.getElementById('modal-country-name').textContent = countryName;
-            document.getElementById('modal-country-flag').textContent = flag.textContent;
-            document.getElementById('modal-continent').textContent = continent;
-            document.getElementById('modal-visit-date').textContent = visitDate;
-            document.getElementById('modal-duration').textContent = duration;
+            const countryData = {
+                name: countryName,
+                flag: flag.textContent,
+                continent: continent,
+                visitDate: visitDate,
+                duration: duration,
+                highlights: highlights,
+                notes: notes
+            };
 
-            document.getElementById('modal-highlights').innerHTML = Object.keys(highlights).map(cityName => {
-                const cityData = highlights[cityName];
-                const socialIcons = [];
-
-                // Add Instagram icons
-                if (cityData.instagram && cityData.instagram.length > 0) {
-                    cityData.instagram.forEach(link => {
-                        socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon instagram"></a>`);
-                    });
-                }
-
-                // Add Facebook icons
-                if (cityData.facebook && cityData.facebook.length > 0) {
-                    cityData.facebook.forEach(link => {
-                        socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon facebook"></a>`);
-                    });
-                }
-
-                return `
-                    <div class="city-highlight">
-                        <span class="city-name">${cityName}</span>
-                        <div class="city-social-icons">
-                            ${socialIcons.join('')}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            document.getElementById('modal-notes').textContent = notes;
-
-            // Show modal
-            document.getElementById('country-modal').style.display = 'block';
+            currentSelectedCountry = countryName;
+            toggleCountryPanel(true, countryData);
         });
     });
+
+    // Add close button listener
+    const closeBtn = document.querySelector('.panel-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            toggleCountryPanel(false);
+        });
+    }
 }
 
 /**
- * Open country modal by country name (used by globe integration)
+ * Open country panel by country name (used by globe integration)
  */
 function openCountryModal(countryName) {
     // Find country data
@@ -1610,62 +1656,29 @@ function openCountryModal(countryName) {
 
     if (!countryData) return;
 
-    // Update modal content
-    document.getElementById('modal-country-name').textContent = countryData.name;
-    document.getElementById('modal-country-flag').textContent = countryData.flag;
-    document.getElementById('modal-continent').textContent = continent.charAt(0).toUpperCase() + continent.slice(1);
-    document.getElementById('modal-visit-date').textContent = countryData.visitDate || '-';
-    document.getElementById('modal-duration').textContent = countryData.duration || '-';
+    // If clicking the same country, toggle panel closed
+    if (currentSelectedCountry === countryName) {
+        toggleCountryPanel(false);
+        return;
+    }
 
-    const highlights = countryData.highlights || {};
-    document.getElementById('modal-highlights').innerHTML = Object.keys(highlights).map(cityName => {
-        const cityData = highlights[cityName];
-        const socialIcons = [];
+    const panelData = {
+        name: countryData.name,
+        flag: countryData.flag,
+        continent: continent.charAt(0).toUpperCase() + continent.slice(1),
+        visitDate: countryData.visitDate,
+        duration: countryData.duration,
+        highlights: countryData.highlights,
+        notes: countryData.notes
+    };
 
-        if (cityData.instagram && cityData.instagram.length > 0) {
-            cityData.instagram.forEach(link => {
-                socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon instagram"></a>`);
-            });
-        }
-
-        if (cityData.facebook && cityData.facebook.length > 0) {
-            cityData.facebook.forEach(link => {
-                socialIcons.push(`<a href="${link}" target="_blank" rel="noopener noreferrer" class="city-social-icon facebook"></a>`);
-            });
-        }
-
-        return `
-            <div class="city-highlight">
-                <span class="city-name">${cityName}</span>
-                <div class="city-social-icons">
-                    ${socialIcons.join('')}
-                </div>
-            </div>
-        `;
-    }).join('') || '-';
-
-    document.getElementById('modal-notes').textContent = countryData.notes || '-';
-
-    // Show modal
-    document.getElementById('country-modal').style.display = 'block';
+    currentSelectedCountry = countryName;
+    toggleCountryPanel(true, panelData);
 }
 
 // Initialize countries display when page loads
 document.addEventListener('DOMContentLoaded', function () {
     updateCountriesDisplay();
-
-    // Add event listener to close modal
-    document.querySelector('.close-modal').addEventListener('click', () => {
-        document.getElementById('country-modal').style.display = 'none';
-    });
-
-    // Close modal when clicking outside of it
-    window.addEventListener('click', (event) => {
-        const modal = document.getElementById('country-modal');
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
 });
 
 function initMap() {

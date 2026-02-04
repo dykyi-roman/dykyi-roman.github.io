@@ -44,6 +44,36 @@
     <div id="travel-section" class="section">
         <h1><i class="fas fa-plane"></i> Travel</h1>
 
+        <!-- Country Details Panel (expandable) -->
+        <div id="country-details-panel" class="country-panel collapsed">
+            <button class="panel-close" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="panel-content">
+                <div class="panel-header">
+                    <span class="panel-flag" id="panel-country-flag">🏳️</span>
+                    <div class="panel-title">
+                        <h3 id="panel-country-name">Country Name</h3>
+                        <span id="panel-continent" class="panel-continent">Continent</span>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="panel-info-grid">
+                        <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <span id="panel-visit-date">-</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span id="panel-duration">-</span>
+                        </div>
+                    </div>
+                    <div class="panel-cities" id="panel-highlights"></div>
+                    <div class="panel-notes" id="panel-notes"></div>
+                </div>
+            </div>
+        </div>
+
         <!-- Countries Statistics -->
         <div class="travel-stats">
             <div class="total-countries">
@@ -265,38 +295,6 @@
             </div>
         </div>
 
-        <!-- Country Details Modal -->
-        <div id="country-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h2 id="modal-country-name">Country Name</h2>
-                    <span class="close-modal">&times;</span>
-                </div>
-                <div class="modal-body">
-                    <div class="country-flag-large" id="modal-country-flag">🏳️</div>
-                    
-                    <div class="country-info">
-                        <div class="info-item">
-                            <strong>Continent:</strong> <span id="modal-continent">-</span>
-                        </div>
-                        <div class="info-item">
-                            <strong>Visit Date:</strong> <span id="modal-visit-date">-</span>
-                        </div>
-                        <div class="info-item">
-                            <strong>Duration:</strong> <span id="modal-duration">-</span>
-                        </div>
-                        <div class="info-item">
-                            <strong>Highlights:</strong>
-                            <div id="modal-highlights" class="highlights-with-social">-</div>
-                        </div>
-                        <div class="info-item">
-                            <strong>Notes:</strong>
-                            <div id="modal-notes">-</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     </main>
 
