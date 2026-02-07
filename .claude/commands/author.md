@@ -1,49 +1,60 @@
 # /author Command
 
-Interactive workflow for creating content on Dykyi Roman's personal website.
+Content creation workflow for Dykyi Roman's personal website.
+
+## Usage
+
+```
+/author <type> -- <optional meta prompt>
+```
+
+**Parameters:**
+- `<type>` (required): `article` | `book` | `principles` | `letter`
+- `-- <meta prompt>` (optional): additional context, instructions, sections, topics, or any details to guide content generation
+
+**Examples:**
+```
+/author article
+/author book -- From Good to Great by Jim Collins. Focus on Hedgehog Concept and Confront the Brutal Facts
+/author principles -- Job area, principle about continuous learning
+/author letter -- Section: Travel, memories from Italy trip, lesson about curiosity
+```
 
 ## Workflow
 
-When the user invokes `/author`, follow these steps:
+### Step 1: Parse Arguments
 
-### Step 1: Ask Content Type
+Extract `<type>` and optional `<meta prompt>` from the command arguments (`$ARGUMENTS`).
 
-Use AskUserQuestion to ask what type of content to create:
-
-```
-Question: "What type of content would you like to create?"
-Header: "Content type"
-Options:
-1. Technical Article (label: "Article", description: "Technical article in English for articles/ directory")
-2. Book Review (label: "Book Review", description: "Book review with philosophy analysis for book/ directory")
-3. Life Principles (label: "Principles", description: "Life principles section in Russian for principles.html")
-4. Letter to Daughter (label: "Letter", description: "Personal letter section in Russian for letter_to_daughter.html")
-```
+- If `<type>` is missing or invalid, show usage help and stop.
+- If `-- <meta prompt>` is provided, use it as additional context for all subsequent steps (skip redundant questions that are already answered in the meta prompt).
 
 ### Step 2: Gather Information Based on Type
 
-#### For Technical Article:
-Ask the following questions:
+Use AskUserQuestion to collect any missing information not already provided in the meta prompt. **Skip questions that are clearly answered by the meta prompt.**
+
+#### For `article`:
+Collect (if not in meta prompt):
 1. "What is the article topic?" (free text)
 2. "What are the main sections/chapters?" (free text)
 3. "What is the estimated reading time?" (options: "5 min", "10 min", "15 min", "20 min", "25 min", "30 min")
 4. "What technologies/concepts should be covered?" (free text)
 
-#### For Book Review:
-Ask the following questions:
+#### For `book`:
+Collect (if not in meta prompt):
 1. "What is the book title and author?" (free text)
 2. "What are the main philosophical concepts?" (free text)
 3. "What key characters should be analyzed?" (free text)
 4. "What quotes should be included?" (free text)
 
-#### For Life Principles:
-Ask the following questions:
+#### For `principles`:
+Collect (if not in meta prompt):
 1. "What life area does this principle cover?" (options: "Practice", "Philosophy", "Friends", "Enemies", "Job", "Family", "Health", "Education", "Personality", "Ownership", "Church", "Pleasure", "Finance")
 2. "What is the main principle statement?" (free text)
 3. "What supporting points should be included?" (free text)
 
-#### For Letter to Daughter:
-Ask the following questions:
+#### For `letter`:
+Collect (if not in meta prompt):
 1. "What section is this for?" (options: "Family", "Travel", "Birth", "Experience", "Personal", "Childhood", "Career", "Relationships", "Faith", "World", "Letters")
 2. "What topic within the section?" (free text)
 3. "What key memories/stories to include?" (free text)
@@ -51,14 +62,12 @@ Ask the following questions:
 
 ### Step 3: Invoke Appropriate Agent
 
-Based on the content type selected, spawn the appropriate agent using the Task tool:
+Spawn the appropriate agent using the Task tool, passing all gathered information + meta prompt:
 
-- **Article**: Use `article-writer` agent with gathered information
-- **Book Review**: Use `book-reviewer` agent with gathered information
-- **Principles**: Use `principles-builder` agent with gathered information
-- **Letter**: Use `letter-writer` agent with gathered information
-
-Pass all gathered information to the agent in a structured prompt.
+- **article**: Use `article-writer` agent
+- **book**: Use `book-reviewer` agent
+- **principles**: Use `principles-builder` agent
+- **letter**: Use `letter-writer` agent
 
 ### Step 4: Generate HTML
 
@@ -68,10 +77,10 @@ The agent will generate HTML content following the appropriate template from ski
 
 After content is generated, propose the file path:
 
-- **Article**: `/Users/dykyi/projects/dykyi-roman.github.io/articles/{next_number}.html`
-- **Book Review**: `/Users/dykyi/projects/dykyi-roman.github.io/book/{book_name_slug}.html`
-- **Principles**: Append to `/Users/dykyi/projects/dykyi-roman.github.io/principles.html`
-- **Letter**: Append to `/Users/dykyi/projects/dykyi-roman.github.io/letter_to_daughter.html`
+- **article**: `/Users/dykyi/projects/dykyi-roman.github.io/articles/{next_number}.html`
+- **book**: `/Users/dykyi/projects/dykyi-roman.github.io/book/{book_name_slug}.html`
+- **principles**: Append to `/Users/dykyi/projects/dykyi-roman.github.io/principles.html`
+- **letter**: Append to `/Users/dykyi/projects/dykyi-roman.github.io/letter_to_daughter.html`
 
 Ask the user to confirm before saving.
 
