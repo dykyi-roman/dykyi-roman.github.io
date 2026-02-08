@@ -331,6 +331,56 @@ li.with-icon::before {
     font-size: 1.2rem; /* Icon size */
 }
 
+/* Skills table */
+.skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--spacing-sm);
+}
+
+.skills-table tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.skills-table tr:last-child {
+    border-bottom: none;
+}
+
+.skills-table td {
+    padding: 10px 12px;
+    vertical-align: top;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.skills-table .skills-category {
+    font-weight: 600;
+    color: var(--color-text);
+    white-space: nowrap;
+    width: 120px;
+}
+
+.skills-table a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+.skills-table a:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .skills-table .skills-category {
+        width: auto;
+    }
+
+    .skills-table td {
+        padding: 8px 6px;
+        font-size: 0.9rem;
+    }
+}
+
 .social-icons a {
     margin: 0 5px; /* Adds spacing on the left and right of each icon */
     display: inline-block;
