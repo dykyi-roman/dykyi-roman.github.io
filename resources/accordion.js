@@ -29,6 +29,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 toggleAccordion(this);
             }
         });
+
+        // Open main accordions by default (no animation on load)
+        header.classList.add('active');
+        if (content) {
+            content.style.transition = 'none';
+            content.classList.add('active');
+            // Restore transition after paint
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    content.style.transition = '';
+                });
+            });
+        }
+        header.setAttribute('aria-expanded', 'true');
     });
 
     // Sub-accordion headers (for nested sections like in Practice)
