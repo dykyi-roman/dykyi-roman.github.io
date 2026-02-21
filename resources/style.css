@@ -11,9 +11,10 @@
     --color-background: #f4f4f9;
     --color-white: #fff;
     --color-success: #4caf50;
+    --color-heading: #2c3e50;
 
     /* Typography */
-    --font-family: Arial, sans-serif;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     --font-size-base: 1rem;
     --font-size-small: 0.9rem;
     --font-size-large: 1.2rem;
@@ -69,7 +70,7 @@
 }
 
 html, body {
-    font-family: Arial, sans-serif;
+    font-family: var(--font-family);
     margin: 0;
     padding: 0;
     background-color: #f4f4f9;
@@ -82,7 +83,7 @@ html, body {
 .section h2 i,
 .section h3 i {
     margin-right: 10px;
-    color: #2c3e50;
+    color: var(--color-heading);
     width: 25px;
     text-align: center;
     display: inline-block;
@@ -274,12 +275,11 @@ body {
     font-size: 1.8em;
     font-weight: 600;
     text-transform: uppercase;
-    color: #333;
+    color: var(--color-heading);
     position: relative;
-    background: linear-gradient(45deg, #333133, #eff1f3);
+    background: linear-gradient(135deg, #2c3e50, #34495e);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
     padding-bottom: 5px;
 }
@@ -1463,6 +1463,56 @@ a:focus {
         padding: 15px 18px;
         font-size: 0.98em;
     }
+}
+
+/* Job location text */
+.job-location {
+    color: rgb(128, 128, 128);
+}
+
+/* Skills table accent bar and hover */
+.skills-table tr {
+    position: relative;
+    transition: background-color var(--transition-fast);
+}
+
+.skills-table tr:hover {
+    background-color: #fef8f0;
+}
+
+.skills-table .skills-category::before {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    height: 1em;
+    background-color: var(--color-primary);
+    margin-right: 8px;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+
+/* Site footer */
+.site-footer {
+    text-align: center;
+    padding: var(--spacing-md) 0;
+    margin-top: var(--spacing-lg);
+    border-top: 3px solid var(--color-primary);
+    font-size: var(--font-size-small);
+    color: var(--color-text-light);
+}
+
+.site-footer p {
+    margin: 0 0 var(--spacing-sm) 0;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+
+.footer-links a {
+    font-weight: normal;
 }
 
 /* ==================== PRINT STYLES ==================== */
