@@ -38,12 +38,25 @@ When creating new pages, include `<div id="header-container"></div>` and the app
 | Principles | `principles.html` | `style.css` (+ FontAwesome CDN) |
 | Letter | `letter_to_daughter.html` | `style.css` + `navigation.css` |
 
-### CSS Variables
+### CSS Variables & Design Tokens
 
-Defined in `:root` of `resources/style.css`:
-- Primary color: `--color-primary: #dc7603`, hover: `--color-primary-hover: #ff6600`
-- Font: Arial, sans-serif
-- Spacing: `--spacing-xs` (5px) through `--spacing-lg` (30px)
+All colors, typography, spacing, and transitions are defined as CSS custom properties in `:root` of `resources/style.css`. **Always use variables instead of hardcoded values** (exceptions: inside `linear-gradient()`, `rgba()`, and `@media print`).
+
+Key variable groups:
+- **Colors**: `--color-primary` (#dc7603), `--color-primary-hover`, `--color-primary-visited`, `--color-text`, `--color-text-light`, `--color-background`, `--color-white`, `--color-success`, `--color-heading`
+- **Font**: `--font-family` (system font stack: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`)
+- **Spacing**: `--spacing-xs` (5px) through `--spacing-lg` (30px)
+- **Transitions**: `--transition-fast` (0.2s), `--transition-normal` (0.3s)
+
+### CSS Scoping Convention
+
+Card-like list styles (background, box-shadow, hover transforms) on `index.html` are scoped to `.section > ul > li`, **not** global `ul li`. This prevents style leakage into `.content ul li`, `.subtopics li`, `.articles-ring li`, etc. When adding new list styles, scope them appropriately.
+
+### Global CSS Behaviors
+
+- `scroll-behavior: smooth` on `html, body` (with `prefers-reduced-motion: reduce` fallback)
+- `line-height: 1.6` on `html, body`
+- Print styles (`@media print`): hides `.back-to-top`, `.skip-link`, `.social-icons`, `.header-links`, `.plane-icon`, `.countries-container`, `.site-footer`
 
 ### Content Patterns
 
@@ -75,8 +88,11 @@ Defined in `:root` of `resources/style.css`:
 ### Responsive Breakpoints
 
 - `1200px` — navigation collapses to mobile toggle
+- `900px` — header layout stacks vertically
 - `768px` — article text and layout adjustments
+- `600px` — company logos shrink, job details compress, list layout adjustments
 - `480px` — small screen adaptations
+- `400px` — minimal layout tweaks
 
 ### Adding New Content
 
@@ -92,7 +108,7 @@ All pages include: meta charset UTF-8, viewport, Open Graph tags (`og:title`, `o
 
 - **FontAwesome 6.5.1** — icons for principles and travel pages
 - **globe.gl** (unpkg) — 3D globe visualization for travel page
-- **simple-icons v3/v11** (jsDelivr) — social media icons in header
+- **simple-icons v11** (jsDelivr) — social media icons in header
 - **Google Maps MarkerClusterer** (unpkg) — travel page map clustering
 
 ## GitHub Actions
