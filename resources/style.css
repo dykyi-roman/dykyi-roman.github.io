@@ -1022,6 +1022,25 @@ a:focus {
     margin-top: 0;
 }
 
+.accordion-content ul li,
+.sub-accordion-content ul li {
+    padding: 8px 12px 8px 0;
+    border-bottom: 1px solid #eee;
+    line-height: 1.6;
+    list-style: disc;
+    margin-left: 20px;
+}
+
+.accordion-content ul li:last-child,
+.sub-accordion-content ul li:last-child {
+    border-bottom: none;
+}
+
+.accordion-content ul li strong,
+.sub-accordion-content ul li strong {
+    color: var(--color-heading);
+}
+
 /* Sub-accordion styles for nested sections */
 .sub-accordion-header {
     cursor: pointer;

@@ -71,6 +71,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 toggleSubAccordion(this);
             }
         });
+
+        // Open sub-accordions by default (no animation on load)
+        header.classList.add('active');
+        header.setAttribute('aria-expanded', 'true');
+        if (content) {
+            content.style.transition = 'none';
+            content.classList.add('active');
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    content.style.transition = '';
+                });
+            });
+        }
     });
 });
 
