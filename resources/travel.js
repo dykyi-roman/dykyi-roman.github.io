@@ -1487,27 +1487,29 @@ function updateCountriesDisplay() {
     document.querySelector('.wishlist-section .continent-group h5').innerHTML =
         `<i class="fas fa-globe"></i> Wishlist (${wishlistCount} countries)`;
 
+    // Sort countries by visitDate (oldest first) for display
+    const sortByDate = (a, b) => a.visitDate.localeCompare(b.visitDate);
+
+    const renderCountryFlags = (countries, continent) =>
+        countries.slice().sort(sortByDate).map(country =>
+            `<span class="country-item" title="${country.name}" data-continent="${continent}" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${(country.instagram || []).join(', ')}" data-facebook="${(country.facebook || []).join(', ')}">${country.flag}</span>`
+        ).join('');
+
     // Update country flags
     const asiaFlags = document.querySelector('.countries-by-continent .continent-group.asia .country-flags');
     const africaFlags = document.querySelector('.countries-by-continent .continent-group.africa .country-flags');
     const europeFlags = document.querySelector('.countries-by-continent .continent-group.europe .country-flags');
 
     if (asiaFlags) {
-        asiaFlags.innerHTML = countriesData.asia.map(country =>
-            `<span class="country-item" title="${country.name}" data-continent="Asia" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${(country.instagram || []).join(', ')}" data-facebook="${(country.facebook || []).join(', ')}">${country.flag}</span>`
-        ).join('');
+        asiaFlags.innerHTML = renderCountryFlags(countriesData.asia, 'Asia');
     }
 
     if (africaFlags) {
-        africaFlags.innerHTML = countriesData.africa.map(country =>
-            `<span class="country-item" title="${country.name}" data-continent="Africa" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${(country.instagram || []).join(', ')}" data-facebook="${(country.facebook || []).join(', ')}">${country.flag}</span>`
-        ).join('');
+        africaFlags.innerHTML = renderCountryFlags(countriesData.africa, 'Africa');
     }
 
     if (europeFlags) {
-        europeFlags.innerHTML = countriesData.europe.map(country =>
-            `<span class="country-item" title="${country.name}" data-continent="Europe" data-visit-date="${country.visitDate}" data-duration="${country.duration}" data-rating="${country.rating}" data-highlights="${encodeURIComponent(JSON.stringify(country.highlights))}" data-notes="${country.notes}" data-instagram="${(country.instagram || []).join(', ')}" data-facebook="${(country.facebook || []).join(', ')}">${country.flag}</span>`
-        ).join('');
+        europeFlags.innerHTML = renderCountryFlags(countriesData.europe, 'Europe');
     }
 
     // Wishlist countries
