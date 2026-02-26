@@ -247,3 +247,81 @@
         font-size: 20px;
     }
 }
+
+/* Audit checklist */
+.audit-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.audit-group h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #292929;
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #dc7603;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.audit-group h3 i {
+    color: #dc7603;
+    margin-right: 8px;
+    width: 20px;
+    text-align: center;
+}
+
+.audit-group ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.audit-group li {
+    position: relative;
+    padding: 8px 12px 8px 32px;
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #444;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+.audit-group li:last-child {
+    border-bottom: none;
+}
+
+.audit-group li:hover {
+    background-color: #fafafa;
+}
+
+.audit-group li::before {
+    content: "\f00c";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 8px;
+    top: 10px;
+    font-size: 12px;
+    color: #4caf50;
+}
+
+@media (max-width: 768px) {
+    .audit-group h3 {
+        font-size: 16px;
+    }
+
+    .audit-group li {
+        font-size: 14px;
+        padding: 6px 10px 6px 28px;
+    }
+
+    .audit-group li::before {
+        top: 8px;
+    }
+}
