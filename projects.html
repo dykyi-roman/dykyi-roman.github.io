@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Dykyi Roman | Software Engineering Blog</title>
+    <meta name="description" content="Projects for fun Dykyi Roman.">
+    <meta name="author" content="Dykyi Roman">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Projects - Dykyi Roman">
+    <meta property="og:description" content="Technical projects on PHP, DDD, Clean Architecture, CQRS, and software engineering best practices.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dykyi-roman.github.io/projects.html">
+    <link rel="icon" href="icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/projects.html">
+    <link rel="stylesheet" type="text/css" href="resources/style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+    <script>
+        fetch('headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">Projects</span>
+    </nav>
+
+    <main id="main-content">
+    <!--  Projects  -->
+    <div class="section">
+        <h1>Projects</h1>
+        <ul class="articles-ring">
+            <li>
+                <a href="projects/uuid-to-picture/index.html">
+                    <div class="article-card">
+                        <img src="projects/uuid-to-picture/docs/example.png" alt="The developer's golden cage " class="article-thumb">
+                        <span class="article-title">UUID to picture</span>
+                    </div>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+        <div class="footer-links">
+            <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+            <a href="mailto:mr.dukuy@gmail.com">Email</a>
+        </div>
+    </footer>
+</div>
+
+<script src="resources/back-to-top.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</body>
+</html>
