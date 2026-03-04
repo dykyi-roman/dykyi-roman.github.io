@@ -1,0 +1,29 @@
+{
+  "name": "uuid-to-picture",
+  "version": "1.0.0",
+  "description": "Convert UUIDs into visual dot-matrix images and back",
+  "keywords": [
+    "uuid",
+    "picture",
+    "encoder",
+    "decoder",
+    "dot-matrix",
+    "canvas",
+    "svg",
+    "visualization"
+  ],
+  "license": "MIT",
+  "author": "Dykyi Roman",
+  "scripts": {
+    "serve": "npx serve .",
+    "lint": "eslint js/",
+    "lint:fix": "eslint js/ --fix",
+    "format": "prettier --write 'js/**/*.js' 'css/**/*.css' '*.html'"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "globals": "^15.0.0",
+    "prettier": "^3.2.0"
+  }
+}

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#0b1220"/>
+  <rect x="80" y="40" width="50" height="50" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <rect x="130" y="40" width="50" height="50" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <rect x="180" y="40" width="50" height="50" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <rect x="230" y="40" width="50" height="50" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <rect x="280" y="40" width="50" height="50" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <rect x="180" y="90" width="50" height="50" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <rect x="180" y="140" width="50" height="50" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <rect x="180" y="190" width="50" height="50" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <rect x="130" y="140" width="50" height="50" fill="rgba(76,175,80,0.2)" stroke="#4caf50" stroke-width="1"/>
+  <rect x="230" y="140" width="50" height="50" fill="rgba(220,118,3,0.25)" stroke="#dc7603" stroke-width="1"/>
+  <text x="105" y="72" fill="#e5e7eb" font-size="22" font-family="Arial" text-anchor="middle" font-weight="600">C</text>
+  <text x="155" y="72" fill="#e5e7eb" font-size="22" font-family="Arial" text-anchor="middle" font-weight="600">R</text>
+  <text x="205" y="72" fill="#e5e7eb" font-size="22" font-family="Arial" text-anchor="middle" font-weight="600">O</text>
+  <text x="255" y="72" fill="#e5e7eb" font-size="22" font-family="Arial" text-anchor="middle" font-weight="600">S</text>
+  <text x="305" y="72" fill="#e5e7eb" font-size="22" font-family="Arial" text-anchor="middle" font-weight="600">S</text>
+  <text x="205" y="122" fill="#e5e7eb" font-size="22" font-family="Arial" text-anchor="middle" font-weight="600">R</text>
+  <text x="155" y="172" fill="#4caf50" font-size="22" font-family="Arial" text-anchor="middle" font-weight="600">W</text>
+  <text x="205" y="172" fill="#e5e7eb" font-size="22" font-family="Arial" text-anchor="middle" font-weight="600">D</text>
+  <text x="255" y="172" fill="#dc7603" font-size="22" font-family="Arial" text-anchor="middle" font-weight="600">?</text>
+  <text x="205" y="222" fill="#e5e7eb" font-size="22" font-family="Arial" text-anchor="middle" font-weight="600">S</text>
+  <text x="88" y="55" fill="#a1a1aa" font-size="9" font-family="Arial">1</text>
+  <text x="188" y="55" fill="#a1a1aa" font-size="9" font-family="Arial">2</text>
+  <text x="138" y="155" fill="#a1a1aa" font-size="9" font-family="Arial">3</text>
+  <text x="200" y="270" fill="#dc7603" font-size="16" font-family="Arial" text-anchor="middle" font-weight="600">Crossword Puzzle</text>
+</svg>

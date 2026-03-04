@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crossword Puzzle - Dykyi Roman</title>
+    <meta name="description" content="Interactive crossword puzzle generator powered by public word APIs.">
+    <meta name="author" content="Dykyi Roman">
+    <meta property="og:title" content="Crossword Puzzle - Dykyi Roman">
+    <meta property="og:description" content="Generate and solve crossword puzzles with words from public APIs.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dykyi-roman.github.io/projects/crossword/">
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/projects/crossword/">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/navigation.css">
+    <link rel="stylesheet" href="../../resources/article-style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div id="header-container"></div>
+    <script>
+        fetch('../../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="/projects.html">Projects</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">Crossword Puzzle</span>
+    </nav>
+
+    <div class="article-container cw-page">
+        <div class="article-header">
+            <h1 class="article-title">Crossword Puzzle</h1>
+        </div>
+
+        <!-- Controls -->
+        <div class="cw-controls">
+            <label>
+                Words:
+                <input type="range" id="level-range" min="2" max="30" value="8">
+                <span id="level-value" class="cw-level-value">8</span>
+            </label>
+
+            <button id="btn-generate" class="cw-btn-generate">Generate</button>
+            <button id="btn-check" class="cw-btn-check" hidden>Check</button>
+        </div>
+
+        <!-- Stats -->
+        <div id="cw-stats" class="cw-stats" hidden>
+            Words placed: <span id="words-placed">0</span> &nbsp;|&nbsp;
+            Solved: <span id="words-solved">0</span>
+        </div>
+
+        <!-- Game Area -->
+        <div id="game-area" class="cw-game" hidden>
+            <div class="cw-grid-wrapper" id="grid-wrapper">
+                <div class="cw-grid" id="crossword-grid"></div>
+            </div>
+
+            <div class="cw-clues">
+                <div class="cw-clues-section">
+                    <h3>Across</h3>
+                    <ul class="cw-clues-list" id="clues-across"></ul>
+                </div>
+                <div class="cw-clues-section">
+                    <h3>Down</h3>
+                    <ul class="cw-clues-list" id="clues-down"></ul>
+                </div>
+            </div>
+        </div>
+
+        <footer class="site-footer">
+            <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+            <div class="footer-links">
+                <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+                <a href="mailto:mr.dukuy@gmail.com">Email</a>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script type="module" src="crossword.js"></script>
+<script src="../../resources/back-to-top.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</body>
+</html>

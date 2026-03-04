@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UUID to Picture - Dykyi Roman</title>
+    <meta name="description" content="Convert UUID to unique visual picture and decode it back. Deterministic visual encoding.">
+    <meta name="author" content="Dykyi Roman">
+    <meta property="og:title" content="UUID to Picture - Dykyi Roman">
+    <meta property="og:description" content="Convert UUID to unique visual picture and decode it back.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dykyi-roman.github.io/projects/uuid-to-picture/">
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/projects/uuid-to-picture/">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/navigation.css">
+    <link rel="stylesheet" href="../../resources/article-style.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <div id="header-container"></div>
+    <script>
+        fetch('../../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="/projects.html">Projects</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">UUID to Picture</span>
+    </nav>
+
+    <div class="article-container">
+        <div class="article-header">
+            <h1 class="article-title">UUID to Picture</h1>
+        </div>
+
+        <!-- Encode Section -->
+        <div class="utp-section">
+            <h2>Encode UUID</h2>
+
+            <div class="input-group">
+                <label for="uuid-input">UUID</label>
+                <div class="uuid-input-row">
+                    <input type="text" id="uuid-input" placeholder="e.g. 550e8400-e29b-41d4-a716-446655440000" autocomplete="off">
+                    <button id="btn-generate-uuid">Generate</button>
+                </div>
+                <span id="uuid-error" class="error-message" hidden>Invalid UUID format</span>
+            </div>
+
+            <div class="colors-group">
+                <label>Segment Colors</label>
+                <div class="color-pickers">
+                    <div class="color-picker">
+                        <input type="color" id="color-seg1" value="#e74c3c">
+                        <span>Seg 1</span>
+                    </div>
+                    <div class="color-picker">
+                        <input type="color" id="color-seg2" value="#3498db">
+                        <span>Seg 2</span>
+                    </div>
+                    <div class="color-picker">
+                        <input type="color" id="color-seg3" value="#2ecc71">
+                        <span>Seg 3</span>
+                    </div>
+                    <div class="color-picker">
+                        <input type="color" id="color-seg4" value="#f39c12">
+                        <span>Seg 4</span>
+                    </div>
+                    <div class="color-picker">
+                        <input type="color" id="color-seg5" value="#9b59b6">
+                        <span>Seg 5</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="btn-generate-picture" class="btn-primary">Generate Picture</button>
+
+            <div id="encode-result" class="result-area" hidden>
+                <canvas id="encode-canvas"></canvas>
+                <div class="download-buttons">
+                    <button id="btn-download-png">Download PNG</button>
+                    <button id="btn-download-svg">Download SVG</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Decode Section -->
+        <div class="utp-section">
+            <h2>Decode Picture</h2>
+
+            <div id="drop-zone" class="drop-zone">
+                <p>Drop PNG image here</p>
+                <span class="drop-zone-or">or</span>
+                <label for="file-input" class="file-label">Choose File</label>
+                <input type="file" id="file-input" accept="image/png" hidden>
+            </div>
+
+            <span id="decode-error" class="error-message" hidden></span>
+
+            <div id="decode-result" class="result-area" hidden>
+                <canvas id="decode-canvas"></canvas>
+                <div class="decoded-uuid-row">
+                    <label>Decoded UUID</label>
+                    <div class="uuid-output-row">
+                        <input type="text" id="decoded-uuid" readonly>
+                        <button id="btn-copy">Copy</button>
+                    </div>
+                    <span id="decode-confidence" class="confidence-label"></span>
+                </div>
+            </div>
+        </div>
+
+        <footer class="site-footer">
+            <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+            <div class="footer-links">
+                <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+                <a href="mailto:mr.dukuy@gmail.com">Email</a>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script src="js/uuid.js"></script>
+<script src="js/encoder.js"></script>
+<script src="js/decoder.js"></script>
+<script src="js/canvas-renderer.js"></script>
+<script src="js/svg-renderer.js"></script>
+<script src="js/app.js"></script>
+<script src="../../resources/back-to-top.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</body>
+</html>
