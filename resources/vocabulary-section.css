@@ -1,16 +1,16 @@
 .vocabulary-section {
-    background: #f9fafb;
+    background: rgba(255, 255, 255, 0.02);
     border-radius: 14px;
     box-shadow: 0 4px 18px rgba(44,169,140,0.10), 0 1.5px 4px rgba(44,169,140,0.07);
     padding: 32px 28px 24px 28px;
     margin: 32px 0 32px 0;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 .vocabulary-section h3 {
     font-size: 2em;
     margin-bottom: 18px;
-    color: #2ca98c;
+    color: var(--color-primary);
     text-align: center;
     letter-spacing: 0.04em;
     font-weight: 700;
@@ -29,23 +29,25 @@
     }
 }
 .vocabulary-section li {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(44,169,140,0.06);
-    padding: 16px 20px;
-    margin: 0;
-    font-size: 1.08em;
-    color: #222;
-    transition: box-shadow 0.2s, transform 0.2s;
-    display: block;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(44,169,140,0.06) !important;
+    padding: 16px 20px !important;
+    margin: 0 !important;
+    font-size: 1.08em !important;
+    color: var(--color-text) !important;
+    transition: box-shadow 0.2s, transform 0.2s !important;
+    display: block !important;
+    position: relative !important;
+    transform: none !important;
 }
 .vocabulary-section li strong {
-    color: #dc7603;
-    font-size: 1.02em;
-    font-weight: 600;
+    color: var(--color-primary) !important;
+    font-size: 1.02em !important;
+    font-weight: 600 !important;
 }
 .vocabulary-section li:hover {
-    box-shadow: 0 4px 18px rgba(44,169,140,0.17);
-    transform: translateY(-3px) scale(1.02);
-    background: #f6fefd;
+    box-shadow: 0 4px 18px rgba(44,169,140,0.17) !important;
+    transform: translateY(-3px) scale(1.02) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
 }

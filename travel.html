@@ -478,12 +478,31 @@
 
 </div>
 
+<footer class="site-footer">
+    <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+    <div class="footer-links">
+        <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+        <a href="mailto:mr.dukuy@gmail.com">Email</a>
+    </div>
+</footer>
+
 <script src="resources/back-to-top.js"></script>
 <script src="resources/navigation.js"></script>
 <script src="resources/globe.js"></script>
 <script src="resources/country-stats.js"></script>
 <script src="resources/travel.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCboRvHNcHWuBFdV5ggCyMI-iz9W99k-Yg&callback=initMap&libraries=visualization" async defer></script>
+<script>
+    // Set current year in footer
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentYear = new Date().getFullYear();
+        const yearElements = document.querySelectorAll('.current-year');
+        yearElements.forEach(element => {
+            element.textContent = currentYear;
+        });
+    });
+</script>
 
 </body>
 </html>

@@ -2,7 +2,7 @@
 .article-container {
     font-family: 'Georgia', serif;
     line-height: 1.6;
-    color: #292929;
+    color: var(--color-text);
     max-width: 700px;
     margin: 0 auto;
     padding: 20px;
@@ -27,7 +27,7 @@
     margin-bottom: 30px;
     font-family: Arial, sans-serif;
     font-size: 14px;
-    color: #757575;
+    color: var(--color-text-light);
 }
 
 .article-featured-img {
@@ -40,6 +40,29 @@
 
 .article-content {
     font-size: 18px;
+}
+
+.article-content,
+.article-content p,
+.article-content li,
+.article-content span,
+.article-content strong,
+.article-content em,
+.article-content blockquote {
+    color: var(--color-text) !important;
+}
+
+.article-content h1,
+.article-content h2,
+.article-content h3,
+.article-content h4,
+.article-content h5,
+.article-content h6 {
+    color: var(--color-heading) !important;
+}
+
+.article-content a {
+    color: var(--color-primary) !important;
 }
 
 .article-content h2 {
@@ -90,16 +113,16 @@
 }
 
 .article-content blockquote {
-    border-left: 3px solid #292929;
+    border-left: 3px solid var(--color-border);
     padding-left: 20px;
     margin-left: 0;
     margin-right: 0;
     font-style: italic;
-    color: #555;
+    color: var(--color-text-light);
 }
 
 .article-content code {
-    background-color: #f3f3f3;
+    background-color: rgba(255, 255, 255, 0.06);
     padding: 2px 5px;
     border-radius: 3px;
     font-family: 'Courier New', monospace;
@@ -107,7 +130,7 @@
 }
 
 .article-content pre {
-    background-color: #f3f3f3;
+    background-color: rgba(255, 255, 255, 0.06);
     padding: 15px;
     border-radius: 5px;
     overflow-x: auto;
@@ -126,20 +149,20 @@
 }
 
 .article-content a {
-    color: #03a87c;
+    color: var(--color-primary);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: border-color 0.3s;
 }
 
 .article-content a:hover {
-    border-bottom-color: #03a87c;
+    border-bottom-color: var(--color-primary);
 }
 
 .article-footer {
     margin-top: 50px;
     padding-top: 30px;
-    border-top: 1px solid #e6e6e6;
+    border-top: 1px solid var(--color-border);
     font-family: Arial, sans-serif;
 }
 
@@ -150,8 +173,8 @@
 }
 
 .article-tag {
-    background-color: #f2f2f2;
-    color: #757575;
+    background-color: rgba(255, 255, 255, 0.06);
+    color: var(--color-text-light);
     padding: 5px 10px;
     border-radius: 3px;
     margin-right: 10px;
@@ -184,7 +207,7 @@
 }
 
 .article-author-bio-text {
-    color: #757575;
+    color: var(--color-text-light);
     font-size: 16px;
     margin-bottom: 10px;
 }
@@ -199,7 +222,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #f2f2f2;
+    background-color: rgba(255, 255, 255, 0.06);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -209,12 +232,12 @@
 }
 
 .article-social-icon:hover {
-    background-color: #e0e0e0;
+    background-color: rgba(255, 255, 255, 0.10);
 }
 
 /* Code block styling */
 .code-block {
-    background-color: #f8f8f8;
+    background-color: rgba(255, 255, 255, 0.06);
     border-radius: 5px;
     padding: 15px;
     margin: 20px 0;
@@ -222,7 +245,7 @@
     font-family: 'Courier New', monospace;
     font-size: 14px;
     line-height: 1.5;
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--color-border);
 }
 
 /* Responsive adjustments */
@@ -258,7 +281,7 @@
 .audit-group h3 {
     font-size: 18px;
     font-weight: 600;
-    color: #292929;
+    color: var(--color-heading);
     margin: 0 0 12px;
     padding-bottom: 8px;
     border-bottom: 2px solid #dc7603;
@@ -284,11 +307,11 @@
     margin: 0;
     font-size: 15px;
     line-height: 1.5;
-    color: #444;
+    color: var(--color-text);
     background: none;
     border-radius: 0;
     box-shadow: none;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--color-border);
     transition: background-color 0.2s;
 }
 
@@ -297,7 +320,7 @@
 }
 
 .audit-group li:hover {
-    background-color: #fafafa;
+    background-color: rgba(255, 255, 255, 0.04);
 }
 
 .audit-group li::before {
