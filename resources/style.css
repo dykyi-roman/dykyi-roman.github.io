@@ -1889,3 +1889,81 @@ a.about-card-link {
         filter: grayscale(100%);
     }
 }
+
+/* Info Notice Styles */
+.info-notice {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-left: 4px solid var(--color-primary);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: var(--transition-normal);
+}
+
+.info-notice:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.info-notice p {
+    margin: 0;
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+}
+
+.info-notice strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.info-notice a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: var(--transition-fast);
+}
+
+.info-notice a:hover {
+    color: var(--color-primary-hover);
+    border-bottom-color: var(--color-primary-hover);
+}
+
+/* Dark theme support for info notice */
+@media (prefers-color-scheme: dark) {
+    .info-notice {
+        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+        border-left-color: #ff6600;
+    }
+    
+    .info-notice p {
+        color: #e2e8f0;
+    }
+    
+    .info-notice strong {
+        color: #ff6600;
+    }
+    
+    .info-notice a {
+        color: #ff6600;
+    }
+    
+    .info-notice a:hover {
+        color: #ff8533;
+        border-bottom-color: #ff8533;
+    }
+}
+
+/* Mobile responsive for info notice */
+@media (max-width: 768px) {
+    .info-notice {
+        margin-bottom: var(--spacing-md);
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .info-notice p {
+        font-size: var(--font-size-small);
+    }
+}
