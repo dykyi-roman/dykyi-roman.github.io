@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Broker Visualizer - Dykyi Roman</title>
+    <meta name="description" content="Interactive visualizer for RabbitMQ, Apache Kafka, and Redis Pub/Sub message broker patterns.">
+    <meta name="author" content="Dykyi Roman">
+    <meta property="og:title" content="Message Broker Visualizer - Dykyi Roman">
+    <meta property="og:description" content="Interactive visualizer for RabbitMQ, Apache Kafka, and Redis Pub/Sub message broker patterns.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dykyi-roman.github.io/projects/message-broker-visualizer/">
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/projects/message-broker-visualizer/">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/navigation.css">
+    <link rel="stylesheet" href="../../resources/article-style.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <div id="header-container"></div>
+    <script>
+        fetch('../../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">&rsaquo;</span>
+        <a href="/projects.html">Projects</a>
+        <span class="breadcrumb-separator">&rsaquo;</span>
+        <span class="breadcrumb-current">Message Broker Visualizer</span>
+    </nav>
+
+    <div class="article-container mbv-page">
+        <div class="article-header">
+            <h1 class="article-title">Message Broker Visualizer</h1>
+        </div>
+
+        <!-- Broker Navigation (Level 1) -->
+        <div class="broker-nav" role="tablist" aria-label="Select message broker">
+            <button class="broker-tab active" data-broker="rabbitmq" role="tab" aria-selected="true">
+                <span class="broker-icon">&#x1F407;</span> RabbitMQ
+            </button>
+            <button class="broker-tab" data-broker="kafka" role="tab" aria-selected="false">
+                <span class="broker-icon">&#x1F4E1;</span> Apache Kafka
+            </button>
+            <button class="broker-tab" data-broker="redis" role="tab" aria-selected="false">
+                <span class="broker-icon">&#x26A1;</span> Redis Pub/Sub
+            </button>
+        </div>
+
+        <!-- Global Controls -->
+        <div class="global-controls">
+            <div class="controls-left">
+                <button class="ctrl-btn burst-btn" id="btn-burst" title="Send 5 messages rapidly">&#x26A1; Burst</button>
+                <button class="ctrl-btn error-btn" id="btn-error" title="Next message gets NACK">Simulate Error</button>
+                <button class="ctrl-btn pause-btn" id="btn-pause" title="Pause/Resume simulation">&#x23F8; Pause</button>
+                <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state">&#x21BA; Reset</button>
+            </div>
+            <div class="controls-right">
+                <label class="confirm-toggle" id="confirm-toggle-wrap">
+                    <span>Publisher Confirms:</span>
+                    <input type="checkbox" id="toggle-confirms">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item"><span class="stat-label">Sent</span><span class="stat-value" id="stat-sent">0</span></div>
+            <div class="stat-item"><span class="stat-label">Delivered</span><span class="stat-value" id="stat-delivered">0</span></div>
+            <div class="stat-item"><span class="stat-label">In Queue</span><span class="stat-value" id="stat-queued">0</span></div>
+            <div class="stat-item"><span class="stat-label">msg/sec</span><span class="stat-value" id="stat-throughput">0</span></div>
+        </div>
+
+        <!-- Mode Tabs (Level 2 - broker-specific) -->
+        <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select pattern"></div>
+
+        <!-- Pattern Description -->
+        <div class="pattern-desc" id="pattern-desc"></div>
+
+        <!-- Main Visualization Area -->
+        <div class="viz-area" id="viz-area">
+            <!-- Producers Column -->
+            <div class="viz-col viz-producers" id="producers-col"></div>
+
+            <!-- Broker Column -->
+            <div class="viz-col viz-broker" id="broker-col">
+                <div class="broker-header" id="broker-header">
+                    <span class="broker-name" id="broker-name">RabbitMQ</span>
+                    <span class="broker-status live" id="broker-status">live</span>
+                </div>
+                <div class="broker-body" id="broker-body"></div>
+                <div class="throughput-chart" id="throughput-chart">
+                    <canvas id="throughput-canvas" width="200" height="40"></canvas>
+                </div>
+            </div>
+
+            <!-- Consumers Column -->
+            <div class="viz-col viz-consumers" id="consumers-col"></div>
+
+            <!-- Animation Layer (flying dots) -->
+            <div class="animation-layer" id="animation-layer"></div>
+        </div>
+
+        <!-- Extra panels (RPC reply queues, Kafka settings, Redis state, etc.) -->
+        <div class="extra-panels" id="extra-panels"></div>
+
+        <!-- Event Log -->
+        <div class="event-log-container">
+            <div class="event-log-header">
+                <span>Event Log</span>
+                <button class="log-clear-btn" id="btn-clear-log">Clear</button>
+            </div>
+            <div class="event-log" id="event-log"></div>
+        </div>
+    </div>
+</div>
+
+<script src="js/engine.js"></script>
+<script src="js/rabbitmq.js"></script>
+<script src="js/kafka.js"></script>
+<script src="js/redis.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
