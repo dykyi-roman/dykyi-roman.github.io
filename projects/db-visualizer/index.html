@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Index Visualizer - Dykyi Roman</title>
+    <meta name="description" content="Interactive visualizer for database index structures: B-Tree, Hash, GIN, GiST, BRIN, Skip List and more across MySQL, PostgreSQL, MongoDB, Redis.">
+    <meta name="author" content="Dykyi Roman">
+    <meta property="og:title" content="Database Index Visualizer - Dykyi Roman">
+    <meta property="og:description" content="Interactive visualizer for database index structures across MySQL, PostgreSQL, MongoDB, Redis.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dykyi-roman.github.io/projects/db-visualizer/">
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/projects/db-visualizer/">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/navigation.css">
+    <link rel="stylesheet" href="../../resources/article-style.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <div id="header-container"></div>
+    <script>
+        fetch('../../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">&rsaquo;</span>
+        <a href="/projects.html">Projects</a>
+        <span class="breadcrumb-separator">&rsaquo;</span>
+        <span class="breadcrumb-current">Database Index Visualizer</span>
+    </nav>
+
+    <div class="article-container dbiv-page">
+        <div class="article-header">
+            <h1 class="article-title">Database Index Visualizer</h1>
+        </div>
+
+        <!-- Database Navigation (Level 1) -->
+        <div class="db-nav" role="tablist" aria-label="Select database">
+            <button class="db-tab active" data-db="mysql" role="tab" aria-selected="true">
+                <span class="db-icon">&#x1F42C;</span> MySQL
+            </button>
+            <button class="db-tab" data-db="postgresql" role="tab" aria-selected="false">
+                <span class="db-icon">&#x1F418;</span> PostgreSQL
+            </button>
+            <button class="db-tab" data-db="mongodb" role="tab" aria-selected="false">
+                <span class="db-icon">&#x1F343;</span> MongoDB
+            </button>
+            <button class="db-tab" data-db="redis" role="tab" aria-selected="false">
+                <span class="db-icon">&#x26A1;</span> Redis
+            </button>
+        </div>
+
+        <!-- Global Controls -->
+        <div class="global-controls">
+            <div class="controls-left">
+                <button class="ctrl-btn run-btn" id="btn-run" title="Execute query through index">&#x25B6; Run Query</button>
+                <button class="ctrl-btn burst-btn" id="btn-burst" title="Run 5 queries rapidly">&#x26A1; Burst</button>
+                <button class="ctrl-btn error-btn" id="btn-miss" title="Next query skips index (full scan)">Index Miss</button>
+                <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state">&#x21BA; Reset</button>
+            </div>
+            <div class="controls-right">
+                <label class="compare-toggle" id="compare-toggle-wrap">
+                    <span>Compare with Full Scan:</span>
+                    <input type="checkbox" id="toggle-compare">
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item"><span class="stat-label">Pages Read</span><span class="stat-value" id="stat-pages">0</span></div>
+            <div class="stat-item"><span class="stat-label">Rows Examined</span><span class="stat-value" id="stat-rows">0</span></div>
+            <div class="stat-item"><span class="stat-label">Index Lookups</span><span class="stat-value" id="stat-lookups">0</span></div>
+            <div class="stat-item"><span class="stat-label">Query Time</span><span class="stat-value" id="stat-time">0 ms</span></div>
+        </div>
+
+        <!-- Mode Tabs (Level 2 - db-specific) -->
+        <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select index type"></div>
+
+        <!-- Pattern Description -->
+        <div class="pattern-desc" id="pattern-desc"></div>
+
+        <!-- Main Visualization Area -->
+        <div class="viz-area" id="viz-area">
+            <!-- Query Input Column -->
+            <div class="viz-col viz-query" id="query-col"></div>
+
+            <!-- Index Structure Column -->
+            <div class="viz-col viz-index" id="index-col">
+                <div class="index-header" id="index-header">
+                    <span class="index-name" id="index-name">B-Tree Index</span>
+                    <span class="index-status ready" id="index-status">ready</span>
+                </div>
+                <div class="index-body" id="index-body"></div>
+            </div>
+
+            <!-- Data Pages / Results Column -->
+            <div class="viz-col viz-results" id="results-col"></div>
+
+            <!-- Animation Layer -->
+            <div class="animation-layer" id="animation-layer"></div>
+        </div>
+
+        <!-- Comparison Panel (hidden by default) -->
+        <div class="comparison-panel" id="comparison-panel" style="display:none">
+            <div class="comparison-side" id="compare-index">
+                <div class="comparison-title">Index Scan</div>
+                <div class="comparison-stats" id="compare-index-stats"></div>
+            </div>
+            <div class="comparison-side" id="compare-full">
+                <div class="comparison-title">Full Table Scan</div>
+                <div class="comparison-stats" id="compare-full-stats"></div>
+            </div>
+        </div>
+
+        <!-- Extra panels -->
+        <div class="extra-panels" id="extra-panels"></div>
+
+        <!-- Event Log -->
+        <div class="event-log-container">
+            <div class="event-log-header">
+                <span>Event Log</span>
+                <button class="log-clear-btn" id="btn-clear-log">Clear</button>
+            </div>
+            <div class="event-log" id="event-log"></div>
+        </div>
+    </div>
+</div>
+
+<script src="js/engine.js"></script>
+<script src="js/mysql.js"></script>
+<script src="js/postgresql.js"></script>
+<script src="js/mongodb.js"></script>
+<script src="js/redis.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

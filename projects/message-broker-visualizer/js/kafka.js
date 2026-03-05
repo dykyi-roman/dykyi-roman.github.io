@@ -38,11 +38,13 @@ MBV.kafka._renderBrokerBody = function() {
         html += `<div class="partition-row" id="partition-${i}">
             <span class="partition-label">P${i}</span>
             <div class="partition-cells" id="pcells-${i}">`;
+        const startOffset = Math.max(0, p.nextOffset - s.retentionSize);
         for (let j = 0; j < s.retentionSize; j++) {
-            const msg = p.messages[j];
+            const offset = startOffset + j;
+            const msg = p.messages.find(m => m.offset === offset);
             const filled = msg ? 'filled' : '';
-            const text = msg ? j : '';
-            html += `<div class="partition-cell ${filled}" id="cell-${i}-${j}">${text}</div>`;
+            const text = msg ? offset : '';
+            html += `<div class="partition-cell ${filled}" id="cell-${i}-${offset % s.retentionSize}">${text}</div>`;
         }
         html += `</div></div>`;
     });
@@ -50,11 +52,15 @@ MBV.kafka._renderBrokerBody = function() {
 };
 
 MBV.kafka._addToPartition = function(partIdx, msgId, key) {
-    const p = MBV.kafka.state.partitions[partIdx];
+    const s = MBV.kafka.state;
+    const p = s.partitions[partIdx];
     const offset = p.nextOffset++;
     p.messages.push({ offset, msgId, key });
+    if (p.messages.length > s.retentionSize) {
+        p.messages = p.messages.slice(-s.retentionSize);
+    }
     MBV.kafka._renderBrokerBody();
-    MBV.kafka._renderGroupOffsets();
+    if (s.groups) MBV.kafka._renderGroupOffsets();
     // Highlight cell
     const cellId = `cell-${partIdx}-${offset % MBV.kafka.state.retentionSize}`;
     const cell = document.getElementById(cellId);
@@ -190,6 +196,8 @@ MBV.kafka.partitions = {
         MBV.state.queued++;
         MBV.updateStats();
         MBV.log('ROUTE', `msg_id=${id} \u2192 P${partIdx} offset=${offset}`);
+
+        await MBV.animateInsideQueue(document.getElementById('partition-' + partIdx), { label: `P${partIdx}:${offset}`, duration: 550 });
 
         const deliver = async () => {
             MBV.state.queued--;
@@ -558,7 +566,7 @@ MBV.kafka.exactlyOnce = {
     init() {
         MBV.kafka._resetPartitions();
         const s = MBV.kafka.state;
-        s.deliveryMode = 'at-least-once';
+        s.deliveryMode = 'at-most-once';
 
         document.getElementById('producers-col').innerHTML = `
         <div class="card" id="card-eo-prod">

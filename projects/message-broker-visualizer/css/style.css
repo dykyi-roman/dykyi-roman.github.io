@@ -770,7 +770,36 @@
     bottom: 0;
     pointer-events: none;
     z-index: 10;
-    overflow: hidden;
+    overflow: visible;
+}
+
+/* Queue traversal dot */
+.queue-traversal-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--mbv-accent);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    pointer-events: none;
+    box-shadow: 0 0 6px var(--mbv-accent), 0 0 2px rgba(0,0,0,0.3);
+}
+
+.queue-traversal-dot .dot-label {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    font-weight: 600;
+    white-space: nowrap;
+    background: rgba(26,32,48,0.95);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: #e0e4ea;
+    border: 1px solid var(--mbv-border);
 }
 
 /* Pipe (SVG connection line) */

@@ -52,6 +52,8 @@ MBV.rabbitmq.hello = {
         MBV.updateStats();
         MBV.log('ROUTE', `msg_id=${id} enqueued in "hello" (${this.queueMessages} pending)`);
 
+        await MBV.animateInsideQueue(document.getElementById('queue-hello'), { label: `#${id}`, duration: 600 });
+
         if (MBV.state.confirmsEnabled) {
             MBV.rabbitmq._sendConfirm(prodPort, id);
         }
@@ -68,6 +70,8 @@ MBV.rabbitmq.hello = {
             if (!qPortR || !consPort) return;
             await MBV.animateDot(qPortR, consPort, { label: `#${id}`, duration: 450 });
             MBV.state.delivered++;
+            const recvEl = document.getElementById('count-receiver');
+            if (recvEl) recvEl.textContent = parseInt(recvEl.textContent) + 1;
             MBV.log('RECV', `msg_id=${id} delivered to Receiver`);
             MBV.updateStats();
         };
@@ -216,6 +220,8 @@ MBV.rabbitmq.work = {
         MBV.updateStats();
         MBV.log('ROUTE', `msg_id=${id} enqueued (${this.queueMessages} pending)`);
 
+        await MBV.animateInsideQueue(document.getElementById('queue-task'), { label: `#${id}`, duration: 600 });
+
         if (MBV.state.confirmsEnabled) {
             MBV.rabbitmq._sendConfirm(prodPort, id);
         }
@@ -307,6 +313,8 @@ MBV.rabbitmq.pubsub = {
                 const exPortR = document.getElementById('ex-fanout-port-r');
                 if (!qPortL || !exPortR) return;
                 await MBV.animateDot(exPortR, qPortL, { label: `#${id}`, duration: 300 });
+
+                await MBV.animateInsideQueue(document.getElementById('queue-' + c.id), { label: `#${id}`, duration: 500 });
 
                 const qPortR = document.getElementById('q-' + c.id + '-port-r');
                 const consPort = document.getElementById('port-' + c.id);
@@ -450,6 +458,8 @@ MBV.rabbitmq.routing = {
                 const qPortL = document.getElementById('q-' + c.id + '-port-l');
                 if (!exPortR || !qPortL) continue;
                 await MBV.animateDot(exPortR, qPortL, { label: rkey, duration: 300 });
+
+                await MBV.animateInsideQueue(document.getElementById('queue-' + c.id), { label: `#${id}`, duration: 500 });
 
                 const qPortR = document.getElementById('q-' + c.id + '-port-r');
                 const consPort = document.getElementById('port-' + c.id);
@@ -722,6 +732,8 @@ MBV.rabbitmq.rpc = {
         MBV.state.queued++;
         MBV.updateStats();
 
+        await MBV.animateInsideQueue(document.getElementById('queue-rpc'), { label: `req \u00B7 ${corrId}`, duration: 550 });
+
         const deliver = async () => {
             MBV.state.queued--;
             MBV.updateStats();
@@ -843,6 +855,8 @@ MBV.rabbitmq.confirms = {
 
         MBV.state.queued++;
         MBV.updateStats();
+
+        await MBV.animateInsideQueue(document.getElementById('queue-confirm'), { label: `#${id}`, duration: 550 });
 
         const deliver = async () => {
             MBV.state.queued--;

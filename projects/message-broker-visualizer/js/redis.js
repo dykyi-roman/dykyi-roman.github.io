@@ -125,6 +125,9 @@ MBV.redis.pubsub = {
         const chPortL = document.getElementById('ch-' + chKey + '-port-l');
         await MBV.animateDot(prodPort, chPortL, { label: channel, duration: 300 });
 
+        const chNode = document.getElementById('channel-' + chKey);
+        if (chNode) await MBV.animateInsideQueue(chNode, { label: `#${id}`, duration: 500 });
+
         const activeSubs = this.subs.filter(s => s.channel === channel && s.connected);
 
         if (activeSubs.length === 0) {
@@ -285,8 +288,8 @@ MBV.redis.pattern = {
             };
         });
 
-        // Quick channel buttons for producers
-        document.querySelectorAll('.quick-key-btn[data-prod]').forEach(btn => {
+        // Quick channel buttons for producers (only buttons with data-prod and without data-sub)
+        document.querySelectorAll('.quick-key-btn[data-prod]:not([data-sub])').forEach(btn => {
             btn.onclick = () => {
                 const input = document.getElementById('chan-' + btn.dataset.prod);
                 if (input) input.value = btn.dataset.key;
@@ -315,6 +318,9 @@ MBV.redis.pattern = {
             chEl = document.getElementById('broker-body');
         }
         await MBV.animateDot(prodPort, chEl, { label: channel, duration: 300 });
+
+        const chNode = document.getElementById('channel-' + chKey);
+        if (chNode) await MBV.animateInsideQueue(chNode, { label: `#${id}`, duration: 500 });
 
         // Match subscribers
         const matched = this.subs.filter(s => {
@@ -637,22 +643,23 @@ MBV.redis.eventsourcing = {
             ${html}`;
     },
 
-    _applyEvent(eventType) {
+    _applyEvent(eventType, eventData) {
         const s = MBV.redis.state.esState;
-        const orderId = 'ORD-' + (s.orders + 1);
 
         if (eventType === 'order.created') {
             s.orders++;
-            const amount = Math.floor(50 + Math.random() * 200);
+            const orderId = 'ORD-' + s.orders;
+            const amount = eventData && eventData.amount ? eventData.amount : Math.floor(50 + Math.random() * 200);
             s.totalAmount += amount;
-            s.activeOrders.push(orderId);
+            s.activeOrders.push({ id: orderId, amount });
         } else if (eventType === 'order.paid') {
-            // Mark latest as paid (no visible change to active list)
+            // Mark latest active as paid (visual state unchanged)
         } else if (eventType === 'order.shipped') {
-            // Mark latest as shipped
+            // Mark latest active as shipped
         } else if (eventType === 'order.cancelled') {
             if (s.activeOrders.length > 0) {
-                s.activeOrders.pop();
+                const cancelled = s.activeOrders.pop();
+                s.totalAmount = Math.max(0, s.totalAmount - cancelled.amount);
                 s.orders = Math.max(0, s.orders - 1);
             }
         }
@@ -665,7 +672,8 @@ MBV.redis.eventsourcing = {
         document.getElementById('sv-orders').textContent = s.orders;
         document.getElementById('sv-total').textContent = '$' + s.totalAmount;
         document.getElementById('sv-last').textContent = s.lastEvent;
-        document.getElementById('sv-active').textContent = s.activeOrders.length > 3 ? `[${s.activeOrders.slice(-3).join(', ')}...]` : `[${s.activeOrders.join(', ')}]`;
+        const orderIds = s.activeOrders.map(o => o.id || o);
+        document.getElementById('sv-active').textContent = orderIds.length > 3 ? `[${orderIds.slice(-3).join(', ')}...]` : `[${orderIds.join(', ')}]`;
     },
 
     async send() {
@@ -680,7 +688,8 @@ MBV.redis.eventsourcing = {
         MBV.log('SEND', `XADD events ${entryId} type=${eventType}`);
         MBV.updateStats();
 
-        const entry = { id: entryId, data: eventType, type: eventType };
+        const eventData = eventType === 'order.created' ? { amount: Math.floor(50 + Math.random() * 200) } : {};
+        const entry = { id: entryId, data: eventType, type: eventType, eventData };
         MBV.redis.state.streamEntries.push(entry);
         this.eventLog.push(entry);
 
@@ -705,7 +714,7 @@ MBV.redis.eventsourcing = {
             if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
             MBV.updateStats();
 
-            this._applyEvent(eventType);
+            this._applyEvent(eventType, entry.eventData);
             MBV.log('RECV', `Event ${eventType} applied to state`);
         };
 
@@ -724,7 +733,7 @@ MBV.redis.eventsourcing = {
 
         for (const entry of this.eventLog) {
             await MBV.sleep(400);
-            this._applyEvent(entry.type);
+            this._applyEvent(entry.type, entry.eventData);
 
             const seEl = document.getElementById('se-' + entry.id);
             if (seEl) {

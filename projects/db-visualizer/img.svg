@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+  <rect width="400" height="250" rx="12" fill="#141922"/>
+  <!-- B-Tree visualization -->
+  <!-- Root -->
+  <rect x="160" y="30" width="80" height="28" rx="4" fill="#0d1f24" stroke="#00758F" stroke-width="2"/>
+  <text x="200" y="49" text-anchor="middle" fill="#00758F" font-family="monospace" font-size="12" font-weight="bold">25 | 50</text>
+  <!-- Internal left -->
+  <rect x="60" y="85" width="70" height="24" rx="4" fill="#0d1f24" stroke="#2a3444" stroke-width="1.5"/>
+  <text x="95" y="101" text-anchor="middle" fill="#e0e4ea" font-family="monospace" font-size="10">10 | 20</text>
+  <!-- Internal right -->
+  <rect x="270" y="85" width="70" height="24" rx="4" fill="#0d1f24" stroke="#2a3444" stroke-width="1.5"/>
+  <text x="305" y="101" text-anchor="middle" fill="#e0e4ea" font-family="monospace" font-size="10">35 | 60</text>
+  <!-- Connectors -->
+  <line x1="180" y1="58" x2="95" y2="85" stroke="#2a3444" stroke-width="1.5"/>
+  <line x1="220" y1="58" x2="305" y2="85" stroke="#2a3444" stroke-width="1.5"/>
+  <!-- Leaf nodes -->
+  <rect x="20" y="135" width="55" height="20" rx="3" fill="#0d1f24" stroke="#153038" stroke-width="1"/>
+  <text x="47" y="149" text-anchor="middle" fill="#8892a4" font-family="monospace" font-size="9">5|8|10</text>
+  <rect x="85" y="135" width="55" height="20" rx="3" fill="#153038" stroke="#00758F" stroke-width="1.5"/>
+  <text x="112" y="149" text-anchor="middle" fill="#00758F" font-family="monospace" font-size="9">15|20</text>
+  <rect x="260" y="135" width="55" height="20" rx="3" fill="#0d1f24" stroke="#153038" stroke-width="1"/>
+  <text x="287" y="149" text-anchor="middle" fill="#8892a4" font-family="monospace" font-size="9">30|35</text>
+  <rect x="325" y="135" width="55" height="20" rx="3" fill="#0d1f24" stroke="#153038" stroke-width="1"/>
+  <text x="352" y="149" text-anchor="middle" fill="#8892a4" font-family="monospace" font-size="9">50|60</text>
+  <line x1="95" y1="109" x2="47" y2="135" stroke="#2a3444" stroke-width="1"/>
+  <line x1="95" y1="109" x2="112" y2="135" stroke="#00758F" stroke-width="1.5"/>
+  <line x1="305" y1="109" x2="287" y2="135" stroke="#2a3444" stroke-width="1"/>
+  <line x1="305" y1="109" x2="352" y2="135" stroke="#2a3444" stroke-width="1"/>
+  <!-- Animated dot -->
+  <circle cx="112" cy="135" r="5" fill="#00758F" opacity="0.8">
+    <animate attributeName="r" values="5;8;5" dur="1.5s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.8;1;0.8" dur="1.5s" repeatCount="indefinite"/>
+  </circle>
+  <!-- DB logos -->
+  <text x="30" y="200" fill="#00758F" font-size="10" font-weight="bold" font-family="sans-serif">MySQL</text>
+  <text x="110" y="200" fill="#336791" font-size="10" font-weight="bold" font-family="sans-serif">PostgreSQL</text>
+  <text x="220" y="200" fill="#47A248" font-size="10" font-weight="bold" font-family="sans-serif">MongoDB</text>
+  <text x="315" y="200" fill="#DC382D" font-size="10" font-weight="bold" font-family="sans-serif">Redis</text>
+  <!-- Title -->
+  <text x="200" y="235" text-anchor="middle" fill="#e0e4ea" font-size="14" font-weight="bold" font-family="sans-serif">Database Index Visualizer</text>
+</svg>

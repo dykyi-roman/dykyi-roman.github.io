@@ -43,7 +43,7 @@ MBV.log = function(type, text) {
     const logEl = document.getElementById('event-log');
     if (!logEl) return;
     const now = new Date();
-    const ts = now.toTimeString().slice(0, 8) + '.' + String(now.getMilliseconds()).padStart(3, '0').slice(0,2);
+    const ts = now.toTimeString().slice(0, 8) + '.' + String(now.getMilliseconds()).padStart(3, '0');
     const entry = document.createElement('div');
     entry.className = 'log-entry';
     entry.innerHTML = `<span class="log-time">${ts}</span><span class="log-type ${type}">${type}</span><span class="log-text">${text}</span>`;
@@ -221,6 +221,48 @@ MBV.animateDot = function(fromEl, toEl, options = {}) {
                 if (pipeFlow) { pipeFlow.classList.add('pipe-fade'); setTimeout(() => pipeFlow.remove(), 600); }
 
                 if (onArrive) onArrive();
+                resolve();
+            }
+        }
+        requestAnimationFrame(step);
+    });
+};
+
+MBV.animateInsideQueue = function(queueNodeEl, options = {}) {
+    const { label = '', duration = 350 } = options;
+
+    return new Promise(resolve => {
+        if (!queueNodeEl) { resolve(); return; }
+
+        const dot = document.createElement('div');
+        dot.className = 'queue-traversal-dot';
+        if (label) {
+            const lbl = document.createElement('span');
+            lbl.className = 'dot-label';
+            lbl.textContent = label;
+            dot.appendChild(lbl);
+        }
+
+        queueNodeEl.style.position = 'relative';
+        queueNodeEl.appendChild(dot);
+
+        const padding = 14;
+        const startX = padding;
+        const endX = queueNodeEl.offsetWidth - padding;
+
+        dot.style.left = startX + 'px';
+
+        let start = null;
+        function step(ts) {
+            if (!start) start = ts;
+            const t = Math.min((ts - start) / duration, 1);
+            const eased = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            dot.style.left = (startX + (endX - startX) * eased) + 'px';
+
+            if (t < 1) {
+                requestAnimationFrame(step);
+            } else {
+                dot.remove();
                 resolve();
             }
         }

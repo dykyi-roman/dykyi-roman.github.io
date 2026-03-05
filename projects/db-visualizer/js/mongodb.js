@@ -1,0 +1,454 @@
+/* ===== MongoDB Index Modes ===== */
+
+DBIV.mongodb = {};
+
+DBIV.mongodb.modes = [
+    { id: 'single', label: 'Single Field', desc: 'B-Tree index on a single document field. Supports equality, range, and sort queries. MongoDB automatically creates an index on _id.' },
+    { id: 'compound', label: 'Compound Index', desc: 'Multi-key compound index with prefix rule and sort optimization. Index {a:1, b:1, c:1} supports queries on (a), (a,b), (a,b,c).' },
+    { id: 'multikey', label: 'Multikey Index', desc: 'When indexed field contains an array, MongoDB creates separate index entries for each element. One document \u2192 multiple index entries.' },
+    { id: 'text', label: 'Text Index', desc: 'Text index with stemming, stop word removal, and TF-IDF scoring. Supports $text queries with $search, $language, $caseSensitive.' },
+];
+
+DBIV.mongodb._queryCard = function(query, presets) {
+    return `
+    <div class="query-card" id="query-card">
+        <span class="port port-right" id="port-query"></span>
+        <div class="query-card-header">
+            <span class="query-card-icon">&#x1F343;</span>
+            <span class="query-card-name">Query</span>
+        </div>
+        <textarea class="query-input" id="query-input">${query}</textarea>
+        <div class="preset-buttons">
+            ${presets.map(p => `<button class="preset-btn" data-query="${p.replace(/"/g, '&quot;')}">${p.length > 32 ? p.slice(0, 32) + '...' : p}</button>`).join('')}
+        </div>
+        <button class="card-send-btn" id="btn-run-query">Run Query</button>
+    </div>`;
+};
+
+DBIV.mongodb._setupQueryCard = DBIV.mysql._setupQueryCard;
+
+DBIV.mongodb._docs = [
+    { _id: 1, name: 'Alice', age: 28, city: 'NYC', tags: ['admin', 'user'], bio: 'Senior developer working on cloud systems' },
+    { _id: 2, name: 'Bob', age: 35, city: 'LA', tags: ['user'], bio: 'Database administrator and systems architect' },
+    { _id: 3, name: 'Carol', age: 22, city: 'NYC', tags: ['user', 'editor'], bio: 'Frontend developer building web applications' },
+    { _id: 4, name: 'Dave', age: 31, city: 'SF', tags: ['admin'], bio: 'DevOps engineer managing cloud infrastructure' },
+    { _id: 5, name: 'Eve', age: 27, city: 'LA', tags: ['user', 'moderator'], bio: 'Full-stack developer and team lead' },
+    { _id: 6, name: 'Frank', age: 42, city: 'NYC', tags: ['admin', 'user', 'owner'], bio: 'CTO with extensive database experience' },
+    { _id: 7, name: 'Grace', age: 19, city: 'SF', tags: ['user'], bio: 'Junior developer learning web development' },
+    { _id: 8, name: 'Hank', age: 38, city: 'LA', tags: ['editor', 'user'], bio: 'Technical writer and documentation specialist' },
+];
+
+/* ---------- 1. Single Field Index ---------- */
+DBIV.mongodb.single = {
+    init() {
+        const presets = [
+            'db.users.find({ age: 28 })',
+            'db.users.find({ age: { $gt: 30 } })',
+            'db.users.find({ age: { $gte: 25, $lte: 35 } })',
+            'db.users.find({ name: "Alice" })',
+        ];
+
+        document.getElementById('query-col').innerHTML = DBIV.mongodb._queryCard(presets[0], presets);
+        document.getElementById('index-name').textContent = 'B-Tree (age)';
+
+        const tree = DBIV.sampleData.btreeFromField(DBIV.mongodb._docs, 'age');
+        DBIV.renderBTree(document.getElementById('index-body'), tree);
+
+        let resultsHtml = '<div class="data-page"><div class="data-page-header">Documents</div>';
+        DBIV.mongodb._docs.forEach(doc => {
+            resultsHtml += `<div class="data-row" id="mdoc-${doc._id}">`;
+            resultsHtml += `<span class="data-row-id">${doc._id}</span>`;
+            resultsHtml += `<span class="data-row-value">${doc.name}, age:${doc.age}, ${doc.city}</span>`;
+            resultsHtml += '</div>';
+        });
+        resultsHtml += '</div>';
+        document.getElementById('results-col').innerHTML = resultsHtml;
+
+        document.getElementById('extra-panels').innerHTML = '';
+        DBIV.mongodb._setupQueryCard(() => this.run());
+    },
+
+    async run() {
+        const query = document.getElementById('query-input').value;
+        const qid = DBIV.nextQueryId();
+        DBIV.log('QUERY', `Q${qid}: ${query}`);
+
+        const statusEl = document.getElementById('index-status');
+        statusEl.textContent = 'scanning';
+        statusEl.className = 'index-status scanning';
+
+        const eqMatch = query.match(/age:\s*(\d+)/);
+        const gtMatch = query.match(/\$gt:\s*(\d+)/);
+        const gteMatch = query.match(/\$gte:\s*(\d+)/);
+        const lteMatch = query.match(/\$lte:\s*(\d+)/);
+        const nameMatch = query.match(/name:\s*"([^"]+)"/);
+
+        if (nameMatch) {
+            DBIV.log('MISS', `Q${qid}: No index on "name" - collection scan`);
+            const rows = document.querySelectorAll('.data-row');
+            await DBIV.animateFullScan(Array.from(rows));
+            const matched = DBIV.mongodb._docs.filter(d => d.name === nameMatch[1]);
+            matched.forEach(d => {
+                const row = document.getElementById('mdoc-' + d._id);
+                if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 1500); }
+            });
+            DBIV.addStats(2, rows.length, 0, 15);
+            DBIV.log('RESULT', `Q${qid}: ${matched.length} doc(s) via COLLSCAN`);
+        } else {
+            const treeNodes = document.querySelectorAll('.tree-node');
+            const searchAge = eqMatch ? parseInt(eqMatch[1]) : (gteMatch ? parseInt(gteMatch[1]) : (gtMatch ? parseInt(gtMatch[1]) + 1 : 1));
+            const path = DBIV.findPathInTree(searchAge, treeNodes);
+
+            await DBIV.animateTreeTraversal(path);
+            DBIV.log('LOOKUP', `Q${qid}: B-Tree traversal: ${path.length} nodes`);
+
+            let results;
+            if (eqMatch) {
+                const age = parseInt(eqMatch[1]);
+                results = DBIV.mongodb._docs.filter(d => d.age === age);
+            } else if (gteMatch && lteMatch) {
+                const lo = parseInt(gteMatch[1]), hi = parseInt(lteMatch[1]);
+                results = DBIV.mongodb._docs.filter(d => d.age >= lo && d.age <= hi);
+            } else if (gtMatch) {
+                const gt = parseInt(gtMatch[1]);
+                results = DBIV.mongodb._docs.filter(d => d.age > gt);
+            } else {
+                results = [];
+            }
+
+            results.forEach(d => {
+                const row = document.getElementById('mdoc-' + d._id);
+                if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 1500); }
+            });
+
+            DBIV.addStats(1 + path.length, results.length, path.length, 2);
+            DBIV.log('RESULT', `Q${qid}: ${results.length} doc(s) via IXSCAN`);
+        }
+
+        statusEl.textContent = 'ready';
+        statusEl.className = 'index-status ready';
+    }
+};
+
+/* ---------- 2. Compound Index ---------- */
+DBIV.mongodb.compound = {
+    init() {
+        const presets = [
+            'db.users.find({ city: "NYC" })',
+            'db.users.find({ city: "NYC", age: 28 })',
+            'db.users.find({ age: 28 })',
+            'db.users.find({ city: "LA" }).sort({ age: 1 })',
+        ];
+
+        document.getElementById('query-col').innerHTML = DBIV.mongodb._queryCard(presets[0], presets);
+        document.getElementById('index-name').textContent = 'Compound (city, age)';
+
+        const sorted = [...DBIV.mongodb._docs].sort((a, b) => a.city.localeCompare(b.city) || a.age - b.age);
+        const tree = {
+            levels: [
+                [{ keys: ['NYC', 'SF'], pointers: true }],
+                [
+                    { keys: sorted.filter(d => d.city === 'LA').map(d => String(d.age)) },
+                    { keys: sorted.filter(d => d.city === 'NYC').map(d => String(d.age)) },
+                    { keys: sorted.filter(d => d.city === 'SF').map(d => String(d.age)) },
+                ]
+            ]
+        };
+        DBIV.renderBTree(document.getElementById('index-body'), tree);
+
+        let resultsHtml = '<div class="data-page"><div class="data-page-header">Documents</div>';
+        sorted.forEach(doc => {
+            resultsHtml += `<div class="data-row" id="cdoc-${doc._id}">`;
+            resultsHtml += `<span class="data-row-id">${doc._id}</span>`;
+            resultsHtml += `<span class="data-row-value">${doc.city}, age:${doc.age}, ${doc.name}</span>`;
+            resultsHtml += '</div>';
+        });
+        resultsHtml += '</div>';
+        document.getElementById('results-col').innerHTML = resultsHtml;
+
+        document.getElementById('extra-panels').innerHTML = `
+        <div style="padding:8px 12px;background:var(--dbiv-card-bg);border:1px solid var(--dbiv-border);border-radius:6px;font-size:12px;color:var(--dbiv-text-light);">
+            <strong style="color:var(--dbiv-text)">Prefix Rule:</strong>
+            Index {city:1, age:1} supports: <span style="color:#6fcf97">{city}</span>, <span style="color:#6fcf97">{city, age}</span>, <span style="color:#6fcf97">{city}.sort({age})</span>.
+            <span style="color:#f38ba8">NOT {age} alone</span>.
+        </div>`;
+
+        DBIV.mongodb._setupQueryCard(() => this.run());
+    },
+
+    async run() {
+        const query = document.getElementById('query-input').value;
+        const qid = DBIV.nextQueryId();
+        DBIV.log('QUERY', `Q${qid}: ${query}`);
+
+        const cityMatch = query.match(/city:\s*"([^"]+)"/);
+        const ageMatch = query.match(/age:\s*(\d+)/);
+        const sortMatch = query.match(/sort\(\s*\{\s*age:\s*1\s*\}/);
+
+        const statusEl = document.getElementById('index-status');
+        statusEl.textContent = 'scanning';
+        statusEl.className = 'index-status scanning';
+
+        if (!cityMatch && ageMatch) {
+            DBIV.log('MISS', `Q${qid}: Cannot use compound index - prefix field "city" missing`);
+            DBIV.flashCard(document.getElementById('query-card'), 'red');
+            const rows = document.querySelectorAll('.data-row');
+            await DBIV.animateFullScan(Array.from(rows));
+            DBIV.addStats(2, rows.length, 0, 18);
+        } else {
+            const treeNodes = document.querySelectorAll('.tree-node');
+            const path = [treeNodes[0]];
+            if (cityMatch) {
+                const cityChildMap = { 'LA': 0, 'NYC': 1, 'SF': 2 };
+                const idx = cityChildMap[cityMatch[1]];
+                if (idx !== undefined && treeNodes[idx + 1]) path.push(treeNodes[idx + 1]);
+
+                const rootKeys = treeNodes[0].querySelectorAll('.tree-key');
+                rootKeys.forEach(k => {
+                    if (k.dataset.key === cityMatch[1]) k.classList.add('active');
+                    else k.classList.add('compared');
+                    setTimeout(() => { k.classList.remove('active', 'compared'); }, 1200);
+                });
+            }
+
+            await DBIV.animateTreeTraversal(path);
+
+            let results = DBIV.mongodb._docs;
+            if (cityMatch) results = results.filter(d => d.city === cityMatch[1]);
+            if (ageMatch) results = results.filter(d => d.age === parseInt(ageMatch[1]));
+            if (sortMatch && cityMatch) {
+                DBIV.log('INDEX', `Q${qid}: Sort covered by index (no in-memory sort)`);
+            }
+
+            results.forEach(d => {
+                const row = document.getElementById('cdoc-' + d._id);
+                if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 1500); }
+            });
+
+            DBIV.addStats(1 + path.length, results.length, path.length, 2);
+            DBIV.log('RESULT', `Q${qid}: ${results.length} doc(s) via IXSCAN`);
+        }
+
+        statusEl.textContent = 'ready';
+        statusEl.className = 'index-status ready';
+    }
+};
+
+/* ---------- 3. Multikey Index ---------- */
+DBIV.mongodb.multikey = {
+    init() {
+        const presets = [
+            'db.users.find({ tags: "admin" })',
+            'db.users.find({ tags: "user" })',
+            'db.users.find({ tags: { $all: ["admin", "user"] } })',
+            'db.users.find({ tags: "editor" })',
+        ];
+
+        document.getElementById('query-col').innerHTML = DBIV.mongodb._queryCard(presets[0], presets);
+        document.getElementById('index-name').textContent = 'Multikey (tags)';
+
+        const invertedIndex = {};
+        DBIV.mongodb._docs.forEach(doc => {
+            doc.tags.forEach(tag => {
+                if (!invertedIndex[tag]) invertedIndex[tag] = [];
+                invertedIndex[tag].push(doc._id);
+            });
+        });
+
+        let bodyHtml = '<div class="gin-container">';
+        bodyHtml += '<div style="font-size:10px;color:var(--dbiv-text-light);margin-bottom:6px;">One doc with array \u2192 multiple index entries</div>';
+        Object.keys(invertedIndex).sort().forEach(tag => {
+            bodyHtml += `<div class="gin-entry" id="mk-${tag}" data-token="${tag}">`;
+            bodyHtml += `<span class="gin-token">"${tag}"</span>`;
+            bodyHtml += '<div class="gin-posting-list">';
+            invertedIndex[tag].forEach(id => {
+                bodyHtml += `<span class="gin-doc-ref" data-docid="${id}">_id:${id}</span>`;
+            });
+            bodyHtml += '</div></div>';
+        });
+        bodyHtml += '</div>';
+        document.getElementById('index-body').innerHTML = bodyHtml;
+        this._index = invertedIndex;
+
+        let resultsHtml = '<div class="data-page"><div class="data-page-header">Documents</div>';
+        DBIV.mongodb._docs.forEach(doc => {
+            resultsHtml += `<div class="data-row" id="mkdoc-${doc._id}">`;
+            resultsHtml += `<span class="data-row-id">${doc._id}</span>`;
+            resultsHtml += `<span class="data-row-value">${doc.name} [${doc.tags.join(',')}]</span>`;
+            resultsHtml += '</div>';
+        });
+        resultsHtml += '</div>';
+        document.getElementById('results-col').innerHTML = resultsHtml;
+
+        document.getElementById('extra-panels').innerHTML = '';
+        DBIV.mongodb._setupQueryCard(() => this.run());
+    },
+
+    async run() {
+        const query = document.getElementById('query-input').value;
+        const qid = DBIV.nextQueryId();
+        DBIV.log('QUERY', `Q${qid}: ${query}`);
+
+        const singleMatch = query.match(/tags:\s*"([^"]+)"/);
+        const allMatch = query.match(/\$all:\s*\[([^\]]+)\]/);
+
+        const statusEl = document.getElementById('index-status');
+        statusEl.textContent = 'scanning';
+        statusEl.className = 'index-status scanning';
+
+        let searchTags = [];
+        if (allMatch) {
+            searchTags = allMatch[1].match(/"([^"]+)"/g).map(s => s.replace(/"/g, ''));
+        } else if (singleMatch) {
+            searchTags = [singleMatch[1]];
+        }
+
+        let resultIds = null;
+        for (const tag of searchTags) {
+            const entry = document.getElementById('mk-' + tag);
+            if (entry) {
+                entry.classList.add('matched');
+                entry.querySelectorAll('.gin-doc-ref').forEach(r => r.classList.add('matched'));
+                DBIV.log('LOOKUP', `Q${qid}: Multikey entry "${tag}" \u2192 [${(this._index[tag] || []).join(', ')}]`);
+                await DBIV.sleep(400);
+
+                const ids = new Set(this._index[tag] || []);
+                if (resultIds === null) resultIds = ids;
+                else resultIds = new Set([...resultIds].filter(id => ids.has(id)));
+            } else {
+                DBIV.log('LOOKUP', `Q${qid}: Multikey entry "${tag}" not found`);
+                resultIds = new Set();
+            }
+        }
+
+        const finalIds = resultIds || new Set();
+        finalIds.forEach(id => {
+            const row = document.getElementById('mkdoc-' + id);
+            if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 1500); }
+        });
+
+        DBIV.addStats(searchTags.length, finalIds.size, searchTags.length, 2);
+        DBIV.log('RESULT', `Q${qid}: ${finalIds.size} doc(s) matched`);
+
+        setTimeout(() => {
+            document.querySelectorAll('.gin-entry').forEach(e => e.classList.remove('matched'));
+            document.querySelectorAll('.gin-doc-ref').forEach(e => e.classList.remove('matched'));
+        }, 2000);
+
+        statusEl.textContent = 'ready';
+        statusEl.className = 'index-status ready';
+    }
+};
+
+/* ---------- 4. Text Index ---------- */
+DBIV.mongodb.text = {
+    init() {
+        const stopWords = ['and', 'the', 'for', 'a', 'an', 'on', 'with'];
+        const invertedIndex = {};
+
+        DBIV.mongodb._docs.forEach(doc => {
+            const tokens = doc.bio.toLowerCase().split(/\s+/)
+                .map(t => t.replace(/[^a-z]/g, ''))
+                .filter(t => t.length > 2 && !stopWords.includes(t));
+
+            const uniqueTokens = [...new Set(tokens)];
+            uniqueTokens.forEach(token => {
+                if (!invertedIndex[token]) invertedIndex[token] = [];
+                const tf = tokens.filter(t => t === token).length / tokens.length;
+                invertedIndex[token].push({ id: doc._id, tf: Math.round(tf * 100) / 100 });
+            });
+        });
+        this._index = invertedIndex;
+
+        const presets = [
+            'db.users.find({ $text: { $search: "developer" } })',
+            'db.users.find({ $text: { $search: "cloud database" } })',
+            'db.users.find({ $text: { $search: "web" } })',
+            'db.users.find({ $text: { $search: "team lead" } })',
+        ];
+
+        document.getElementById('query-col').innerHTML = DBIV.mongodb._queryCard(presets[0], presets);
+        document.getElementById('index-name').textContent = 'Text Index (bio)';
+
+        let bodyHtml = '<div class="gin-container">';
+        const sortedTokens = Object.keys(invertedIndex).sort().slice(0, 14);
+        sortedTokens.forEach(token => {
+            bodyHtml += `<div class="gin-entry" id="txt-${token}" data-token="${token}">`;
+            bodyHtml += `<span class="gin-token">${token}</span>`;
+            bodyHtml += '<div class="gin-posting-list">';
+            invertedIndex[token].forEach(entry => {
+                bodyHtml += `<span class="gin-doc-ref" data-docid="${entry.id}">_id:${entry.id} (tf:${entry.tf})</span>`;
+            });
+            bodyHtml += '</div></div>';
+        });
+        bodyHtml += '</div>';
+        document.getElementById('index-body').innerHTML = bodyHtml;
+
+        let resultsHtml = '<div class="data-page"><div class="data-page-header">Documents</div>';
+        DBIV.mongodb._docs.forEach(doc => {
+            resultsHtml += `<div class="data-row" id="txtdoc-${doc._id}">`;
+            resultsHtml += `<span class="data-row-id">${doc._id}</span>`;
+            resultsHtml += `<span class="data-row-value">${doc.bio.slice(0, 35)}...</span>`;
+            resultsHtml += '</div>';
+        });
+        resultsHtml += '</div>';
+        document.getElementById('results-col').innerHTML = resultsHtml;
+
+        document.getElementById('extra-panels').innerHTML = '';
+        DBIV.mongodb._setupQueryCard(() => this.run());
+    },
+
+    async run() {
+        const query = document.getElementById('query-input').value;
+        const qid = DBIV.nextQueryId();
+        DBIV.log('QUERY', `Q${qid}: ${query}`);
+
+        const searchMatch = query.match(/\$search:\s*"([^"]+)"/);
+        if (!searchMatch) {
+            DBIV.log('MISS', `Q${qid}: Invalid $text.$search syntax`);
+            return;
+        }
+
+        const terms = searchMatch[1].toLowerCase().split(/\s+/).filter(t => t.length > 1);
+
+        const statusEl = document.getElementById('index-status');
+        statusEl.textContent = 'scanning';
+        statusEl.className = 'index-status scanning';
+
+        const scores = {};
+        for (const term of terms) {
+            const entry = document.getElementById('txt-' + term);
+            if (entry && this._index[term]) {
+                entry.classList.add('matched');
+                entry.querySelectorAll('.gin-doc-ref').forEach(r => r.classList.add('matched'));
+
+                const idf = Math.log(DBIV.mongodb._docs.length / this._index[term].length);
+                this._index[term].forEach(e => {
+                    scores[e.id] = (scores[e.id] || 0) + e.tf * idf;
+                });
+
+                DBIV.log('LOOKUP', `Q${qid}: "${term}" \u2192 ${this._index[term].length} doc(s), IDF=${idf.toFixed(2)}`);
+                await DBIV.sleep(400);
+            } else {
+                DBIV.log('LOOKUP', `Q${qid}: "${term}" not in text index`);
+            }
+        }
+
+        const sortedResults = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+        sortedResults.forEach(([id]) => {
+            const row = document.getElementById('txtdoc-' + id);
+            if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 2000); }
+        });
+
+        DBIV.addStats(terms.length, sortedResults.length, terms.length, 3);
+        DBIV.log('RESULT', `Q${qid}: ${sortedResults.length} doc(s) matched, ranked by TF-IDF score`);
+
+        setTimeout(() => {
+            document.querySelectorAll('.gin-entry').forEach(e => e.classList.remove('matched'));
+            document.querySelectorAll('.gin-doc-ref').forEach(e => e.classList.remove('matched'));
+        }, 2000);
+
+        statusEl.textContent = 'ready';
+        statusEl.className = 'index-status ready';
+    }
+};
