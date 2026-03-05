@@ -29,9 +29,7 @@
             <h1 class="article-title">OfficeAI</h1>
         </div>
 
-        <div class="project-iframe-container">
-            Coming soon
-        </div>
+        Coming soon
 
         <footer class="site-footer">
             <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
@@ -43,10 +41,18 @@
         </footer>
     </div>
 
-    <script src="../../resources/load-header.js"></script>
+    <script>
+        fetch('../../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+    <script src="../../resources/back-to-top.js"></script>
+    <script>
+        document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+    </script>
+</div>
 </body>
-<script src="../../resources/back-to-top.js"></script>
-<script>
-    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
-</script>
 </html>
