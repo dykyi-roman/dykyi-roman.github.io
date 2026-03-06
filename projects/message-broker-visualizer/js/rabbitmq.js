@@ -3,8 +3,8 @@
 MBV.rabbitmq = {};
 
 MBV.rabbitmq.modes = [
-    { id: 'hello', label: '1. Hello World', desc: 'P \u2192 Queue \u2192 C. Producer writes to a named queue, Consumer reads from it. One to one.' },
-    { id: 'work', label: '2. Work Queues', desc: 'Work Queue distributes tasks among workers via round-robin. Each message is processed by exactly one worker. Used for parallel processing of heavy tasks.' },
+    { id: 'hello', label: '1. Direct Queue', desc: 'P \u2192 Queue \u2192 C. Producer writes to a named queue, Consumer reads from it. One to one.' },
+    { id: 'work', label: '2. Round-Robin', desc: 'Queue distributes tasks among workers via round-robin. Each message is processed by exactly one worker. Used for parallel processing of heavy tasks.' },
     { id: 'pubsub', label: '3. Pub/Sub', desc: 'Fanout Exchange broadcasts every message to all subscribers simultaneously. Used for logging, cache invalidation, realtime updates.' },
     { id: 'routing', label: '4. Routing', desc: 'Direct Exchange delivers messages only to queues with exact binding key match. Routing key is set by the producer.' },
     { id: 'topics', label: '5. Topics', desc: 'Topic Exchange matches routing key by patterns: * \u2014 exactly one word, # \u2014 any number of words. Flexible event filtering by hierarchy.' },
@@ -38,6 +38,8 @@ MBV.rabbitmq.hello = {
     async send() {
         const id = MBV.nextMsgId();
         MBV.state.sent++;
+        const sentEl = document.getElementById('sent-sender');
+        if (sentEl) sentEl.textContent = parseInt(sentEl.textContent) + 1;
         MBV.log('SEND', `msg_id=${id} \u2192 queue "hello"`);
         MBV.updateStats();
 
@@ -207,6 +209,8 @@ MBV.rabbitmq.work = {
     async send() {
         const id = MBV.nextMsgId();
         MBV.state.sent++;
+        const sentEl = document.getElementById('sent-taskprod');
+        if (sentEl) sentEl.textContent = parseInt(sentEl.textContent) + 1;
         MBV.log('SEND', `msg_id=${id} \u2192 task_queue`);
         MBV.updateStats();
 
@@ -290,6 +294,8 @@ MBV.rabbitmq.pubsub = {
     async send(prodId) {
         const id = MBV.nextMsgId();
         MBV.state.sent++;
+        const sentEl = document.getElementById('sent-' + prodId);
+        if (sentEl) sentEl.textContent = parseInt(sentEl.textContent) + 1;
         MBV.log('SEND', `msg_id=${id} from ${prodId} \u2192 fanout exchange`);
         MBV.updateStats();
 

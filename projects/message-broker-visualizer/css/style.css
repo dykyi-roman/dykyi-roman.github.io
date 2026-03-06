@@ -288,6 +288,24 @@
     z-index: 1;
 }
 
+.viz-col-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--mbv-text-light);
+    text-align: center;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--mbv-border);
+}
+
+#producers-col,
+#consumers-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 /* Producer / Consumer Cards */
 .card {
     background: var(--mbv-card-bg);
@@ -594,6 +612,41 @@
     background: var(--mbv-accent-bg);
     padding: 0 4px;
     border-radius: 2px;
+}
+
+/* Section labels inside broker body */
+.broker-body > .exchange-node:first-child {
+    margin-top: 20px;
+}
+
+.broker-body > .exchange-node:first-child::before {
+    content: 'EXCHANGE';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--mbv-text-light);
+}
+
+.broker-body > .queue-node:first-child,
+.broker-body > .exchange-node + .queue-node {
+    margin-top: 20px;
+}
+
+.broker-body > .queue-node:first-child::before,
+.broker-body > .exchange-node + .queue-node::before {
+    content: 'QUEUE';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--mbv-text-light);
 }
 
 /* Exchange visualization */

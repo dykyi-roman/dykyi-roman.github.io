@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+D<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -89,7 +89,10 @@
         <!-- Main Visualization Area -->
         <div class="viz-area" id="viz-area">
             <!-- Producers Column -->
-            <div class="viz-col viz-producers" id="producers-col"></div>
+            <div class="viz-col viz-producers">
+                <div class="viz-col-label">Producers</div>
+                <div id="producers-col"></div>
+            </div>
 
             <!-- Broker Column -->
             <div class="viz-col viz-broker" id="broker-col">
@@ -104,7 +107,10 @@
             </div>
 
             <!-- Consumers Column -->
-            <div class="viz-col viz-consumers" id="consumers-col"></div>
+            <div class="viz-col viz-consumers">
+                <div class="viz-col-label">Consumers</div>
+                <div id="consumers-col"></div>
+            </div>
 
             <!-- Animation Layer (flying dots) -->
             <div class="animation-layer" id="animation-layer"></div>
