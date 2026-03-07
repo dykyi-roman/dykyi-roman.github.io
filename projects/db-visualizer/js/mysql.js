@@ -204,6 +204,8 @@ DBIV.mysql.hash = {
     async run() {
         const query = document.getElementById('query-input').value;
         const qid = DBIV.nextQueryId();
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
         const eqMatch = query.match(/email\s*=\s*"([^"]+)"/i);
@@ -213,7 +215,20 @@ DBIV.mysql.hash = {
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
 
-        if (rangeMatch) {
+        if (isMiss && eqMatch) {
+            DBIV.log('MISS', `Q${qid}: Index not used - full table scan`);
+            DBIV.flashCard(document.getElementById('query-card'), 'red');
+            const rows = document.querySelectorAll('.data-row');
+            await DBIV.animateFullScan(Array.from(rows));
+            DBIV.addStats(3, rows.length, 0, 38);
+            DBIV.log('RESULT', `Q${qid}: Full scan forced - ${rows.length} rows examined`);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 3, rows: rows.length, time: 38 },
+                    { pages: 3, rows: rows.length, time: 38 }
+                );
+            }
+        } else if (rangeMatch) {
             DBIV.log('MISS', `Q${qid}: Hash index does NOT support range queries!`);
             DBIV.log('SCAN', `Q${qid}: Falling back to full table scan`);
             DBIV.flashCard(document.getElementById('query-card'), 'red');
@@ -332,6 +347,8 @@ DBIV.mysql.composite = {
     async run() {
         const query = document.getElementById('query-input').value;
         const qid = DBIV.nextQueryId();
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
         const cityMatch = query.match(/city\s*=\s*"([^"]+)"/i);
@@ -347,7 +364,19 @@ DBIV.mysql.composite = {
         if (cityMatch && ageMatch) prefixCols.push('age');
         if (cityMatch && ageMatch && nameMatch) prefixCols.push('name');
 
-        if (!cityMatch && (ageMatch || nameMatch)) {
+        if (isMiss) {
+            DBIV.log('MISS', `Q${qid}: Index not used - full table scan`);
+            DBIV.flashCard(document.getElementById('query-card'), 'red');
+            const rows = document.querySelectorAll('.data-row');
+            await DBIV.animateFullScan(Array.from(rows));
+            DBIV.addStats(3, rows.length, 0, 35);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 3, rows: rows.length, time: 35 },
+                    { pages: 3, rows: rows.length, time: 35 }
+                );
+            }
+        } else if (!cityMatch && (ageMatch || nameMatch)) {
             DBIV.log('MISS', `Q${qid}: Cannot use composite index - leftmost prefix "city" not in query`);
             DBIV.flashCard(document.getElementById('query-card'), 'red');
 
@@ -497,6 +526,8 @@ DBIV.mysql.fulltext = {
     async run() {
         const query = document.getElementById('query-input').value;
         const qid = DBIV.nextQueryId();
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
         const match = query.match(/AGAINST\s*\("([^"]+)"\)/i);
@@ -509,6 +540,35 @@ DBIV.mysql.fulltext = {
         const statusEl = document.getElementById('index-status');
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
+
+        if (isMiss) {
+            DBIV.log('MISS', `Q${qid}: Index not used - sequential document scan`);
+            DBIV.flashCard(document.getElementById('query-card'), 'red');
+            const allRows = [];
+            this.documents.forEach(doc => {
+                const row = document.getElementById('ftdoc-' + doc.id);
+                if (row) allRows.push(row);
+            });
+            await DBIV.animateFullScan(allRows);
+            const matched = this.documents.filter(doc =>
+                searchTerms.some(term => doc.text.toLowerCase().includes(term))
+            );
+            matched.forEach(doc => {
+                const row = document.getElementById('ftdoc-' + doc.id);
+                if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 1500); }
+            });
+            DBIV.addStats(1, this.documents.length, 0, this.documents.length * 3);
+            DBIV.log('RESULT', `Q${qid}: ${matched.length} doc(s) found via sequential scan`);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 1, rows: this.documents.length, time: this.documents.length * 3 },
+                    { pages: 1, rows: this.documents.length, time: this.documents.length * 3 }
+                );
+            }
+            statusEl.textContent = 'ready';
+            statusEl.className = 'index-status ready';
+            return;
+        }
 
         const matchedDocIds = new Set();
         for (const term of searchTerms) {

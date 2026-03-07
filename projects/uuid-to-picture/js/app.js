@@ -188,6 +188,7 @@
   // Click on drop zone opens file dialog
   dropZone.addEventListener('click', (e) => {
     if (e.target.closest('.file-label')) return;
+    fileInput.click();
   });
 
   fileInput.addEventListener('change', () => {

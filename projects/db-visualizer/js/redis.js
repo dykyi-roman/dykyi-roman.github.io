@@ -73,6 +73,9 @@ DBIV.redis.zset = {
         const qid = DBIV.nextQueryId();
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
+
         const statusEl = document.getElementById('index-status');
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
@@ -81,7 +84,35 @@ DBIV.redis.zset = {
         const rankRangeMatch = query.match(/ZRANGE\s+\S+\s+(\d+)\s+(\d+)/i);
         const zaddMatch = query.match(/ZADD\s+\S+\s+(\d+)\s+(\S+)/i);
 
-        if (scoreRangeMatch) {
+        if (isMiss && (scoreRangeMatch || rankRangeMatch)) {
+            DBIV.log('MISS', `Q${qid}: Skip list not used - linear scan`);
+            const allRows = [];
+            this.members.forEach(m => {
+                const row = document.getElementById('zrow-' + m.member);
+                if (row) allRows.push(row);
+            });
+            await DBIV.animateFullScan(allRows);
+            let matched;
+            if (scoreRangeMatch) {
+                const low = parseInt(scoreRangeMatch[1]), high = parseInt(scoreRangeMatch[2]);
+                matched = this.members.filter(m => m.score >= low && m.score <= high);
+            } else {
+                const start = parseInt(rankRangeMatch[1]), stop = parseInt(rankRangeMatch[2]);
+                matched = this.members.slice(start, stop + 1);
+            }
+            matched.forEach(m => {
+                const row = document.getElementById('zrow-' + m.member);
+                if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 1500); }
+            });
+            DBIV.addStats(1, this.members.length, 0, this.members.length);
+            DBIV.log('RESULT', `Q${qid}: Linear scan - ${matched.length} member(s) found, ${this.members.length} examined`);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 1, rows: this.members.length, time: this.members.length },
+                    { pages: 1, rows: this.members.length, time: this.members.length }
+                );
+            }
+        } else if (scoreRangeMatch) {
             const low = parseInt(scoreRangeMatch[1]);
             const high = parseInt(scoreRangeMatch[2]);
 
@@ -305,6 +336,9 @@ DBIV.redis.hashIndex = {
         const qid = DBIV.nextQueryId();
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
+
         const statusEl = document.getElementById('index-status');
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
@@ -313,7 +347,24 @@ DBIV.redis.hashIndex = {
         const hsetMatch = query.match(/HSET\s+(\S+)\s+(\S+)/i);
         const rehashMatch = /TRIGGER\s+REHASH/i.test(query);
 
-        if (rehashMatch) {
+        if (isMiss && hgetMatch) {
+            const key = hgetMatch[1];
+            DBIV.log('MISS', `Q${qid}: Hash lookup skipped - scanning all buckets`);
+            const totalBuckets = this.rehashIdx >= 0 ? this.numBuckets0 + this.numBuckets1 : this.numBuckets0;
+            for (let i = 0; i < this.numBuckets0; i++) {
+                const el = document.getElementById('ht0-' + i);
+                if (el) { el.classList.add('targeted'); await DBIV.sleep(200); el.classList.remove('targeted'); }
+            }
+            if (this.rehashIdx >= 0) {
+                for (let i = 0; i < this.numBuckets1; i++) {
+                    const el = document.getElementById('ht1-' + i);
+                    if (el) { el.classList.add('targeted'); await DBIV.sleep(200); el.classList.remove('targeted'); }
+                }
+            }
+            const found = this._entries.find(e => e.key === key);
+            DBIV.addStats(totalBuckets, found ? 1 : 0, totalBuckets, totalBuckets);
+            DBIV.log('RESULT', `Q${qid}: Scanned ${totalBuckets} buckets - ${found ? '"' + found.value + '"' : '(nil)'}`);
+        } else if (rehashMatch) {
             if (this.rehashIdx < 0) this.rehashIdx = 0;
 
             DBIV.log('HASH', `Q${qid}: Starting progressive rehash`);
@@ -482,11 +533,34 @@ DBIV.redis.secondary = {
     async run() {
         const query = document.getElementById('query-input').value;
         const qid = DBIV.nextQueryId();
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
         const statusEl = document.getElementById('index-status');
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
+
+        if (isMiss) {
+            DBIV.log('MISS', `Q${qid}: Secondary index not used - SCAN all keys`);
+            const allRows = [];
+            this.users.forEach(u => {
+                const row = document.getElementById('suser-' + u.id);
+                if (row) allRows.push(row);
+            });
+            await DBIV.animateFullScan(allRows);
+            DBIV.addStats(1, this.users.length, this.users.length, this.users.length);
+            DBIV.log('RESULT', `Q${qid}: SCAN complete - ${this.users.length} keys examined`);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 1, rows: this.users.length, time: this.users.length },
+                    { pages: 1, rows: this.users.length, time: this.users.length }
+                );
+            }
+            statusEl.textContent = 'ready';
+            statusEl.className = 'index-status ready';
+            return;
+        }
 
         const ageMatch = query.match(/idx:age\s+(\d+)\s+(\d+)/i);
         const salaryMatch = query.match(/idx:salary\s+(\d+)\s+(\d+)/i);

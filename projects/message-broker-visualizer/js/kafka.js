@@ -164,6 +164,9 @@ MBV.kafka.partitions = {
     },
 
     async send(prodId) {
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
+
         const s = MBV.kafka.state;
         const id = MBV.nextMsgId();
         let partIdx;
@@ -206,11 +209,19 @@ MBV.kafka.partitions = {
             const consPort = document.getElementById('port-kafka-cons');
             if (pRow && consPort) {
                 await MBV.animateDot(pRow, consPort, { label: `P${partIdx}:${offset}`, duration: 400 });
-                MBV.state.delivered++;
-                const countEl = document.getElementById('count-kafka-cons');
-                if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
-                MBV.log('RECV', `msg_id=${id} P${partIdx}:${offset} delivered`);
-                MBV.updateStats();
+                if (isError) {
+                    const card = document.getElementById('card-kafka-cons');
+                    MBV.flashCard(card, 'red');
+                    MBV.addBadge(card, `FAIL P${partIdx}:${offset}`, 'nack');
+                    MBV.log('ERROR', `msg_id=${id} P${partIdx}:${offset} consumer FAILED \u2014 offset not advanced`);
+                    MBV.updateStats();
+                } else {
+                    MBV.state.delivered++;
+                    const countEl = document.getElementById('count-kafka-cons');
+                    if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
+                    MBV.log('RECV', `msg_id=${id} P${partIdx}:${offset} delivered`);
+                    MBV.updateStats();
+                }
             }
         };
 
@@ -331,6 +342,9 @@ MBV.kafka.consumerGroups = {
     },
 
     async send() {
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
+
         const s = MBV.kafka.state;
         const id = MBV.nextMsgId();
         const partIdx = s.rrIndex % s.numPartitions;
@@ -351,19 +365,33 @@ MBV.kafka.consumerGroups = {
         MBV.updateStats();
         MBV.log('ROUTE', `msg_id=${id} \u2192 P${partIdx} offset=${offset}`);
 
+        const failGroupIdx = isError ? Math.floor(Math.random() * this.groups.length) : -1;
+
         const deliver = async () => {
             MBV.state.queued--;
             MBV.updateStats();
-            for (const g of this.groups) {
+            for (let gi = 0; gi < this.groups.length; gi++) {
+                const g = this.groups[gi];
                 const consIdx = g.assignment[partIdx];
                 if (consIdx === undefined) continue;
                 const cId = g.consumers[consIdx];
+
+                await MBV.sleep(200);
+                /* Fetch elements AFTER sleep — concurrent sends may re-render partitions */
                 const consPort = document.getElementById('port-' + cId);
                 const pRow = document.getElementById('partition-' + partIdx);
                 if (!consPort || !pRow) continue;
 
-                await MBV.sleep(200);
                 await MBV.animateDot(pRow, consPort, { label: `P${partIdx}:${offset}`, color: g.color, duration: 350 });
+
+                if (gi === failGroupIdx) {
+                    const card = document.getElementById('card-' + cId);
+                    MBV.flashCard(card, 'red');
+                    MBV.addBadge(card, `FAIL P${partIdx}:${offset}`, 'nack');
+                    MBV.log('ERROR', `msg_id=${id} \u2192 ${g.name}/${cId} FAILED \u2014 offset not advanced, lag increases`);
+                    MBV.updateStats();
+                    continue;
+                }
 
                 g.offsets[partIdx] = offset + 1;
                 MBV.state.delivered++;
@@ -476,6 +504,9 @@ MBV.kafka.retention = {
     },
 
     async send() {
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
+
         const s = MBV.kafka.state;
         const id = MBV.nextMsgId();
         const partIdx = s.rrIndex % s.numPartitions;
@@ -495,10 +526,13 @@ MBV.kafka.retention = {
         MBV.updateStats();
         MBV.log('ROUTE', `msg_id=${id} \u2192 P${partIdx} offset=${offset}`);
 
+        const failGroupIdx = isError ? Math.floor(Math.random() * s.groups.length) : -1;
+
         const deliver = async () => {
             MBV.state.queued--;
             MBV.updateStats();
-            for (const g of s.groups) {
+            for (let gi = 0; gi < s.groups.length; gi++) {
+                const g = s.groups[gi];
                 const consIdx = g.assignment[partIdx];
                 if (consIdx === undefined) continue;
                 const cId = g.consumers[consIdx];
@@ -506,6 +540,14 @@ MBV.kafka.retention = {
                 const pRow = document.getElementById('partition-' + partIdx);
                 if (!consPort || !pRow) continue;
                 await MBV.animateDot(pRow, consPort, { label: `P${partIdx}:${offset}`, color: g.color, duration: 350 });
+                if (gi === failGroupIdx) {
+                    const card = document.getElementById('card-' + cId);
+                    MBV.flashCard(card, 'red');
+                    MBV.addBadge(card, `FAIL P${partIdx}:${offset}`, 'nack');
+                    MBV.log('ERROR', `msg_id=${id} ${g.name}/${cId} FAILED \u2014 offset not committed`);
+                    MBV.updateStats();
+                    continue;
+                }
                 g.offsets[partIdx] = offset + 1;
                 MBV.state.delivered++;
                 const countEl = document.getElementById('count-' + cId);
@@ -610,6 +652,9 @@ MBV.kafka.exactlyOnce = {
     },
 
     async send() {
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
+
         const s = MBV.kafka.state;
         const id = MBV.nextMsgId();
         s.seqNum++;
@@ -633,6 +678,14 @@ MBV.kafka.exactlyOnce = {
         const label = deliveryMode === 'exactly-once' ? `#${id} ${seqLabel}` : `#${id}`;
 
         await MBV.animateDot(prodPort, partRow, { label, duration: 400 });
+
+        if (isError) {
+            const card = document.getElementById('card-eo-prod');
+            MBV.flashCard(card, 'red');
+            MBV.addBadge(card, `REJECTED #${id}`, 'nack');
+            MBV.log('ERROR', `msg_id=${id} broker REJECTED write \u2014 message NOT committed`);
+            return;
+        }
 
         if (lost) {
             const lostEl = document.getElementById('lost-eo-prod');

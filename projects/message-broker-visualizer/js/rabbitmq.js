@@ -37,6 +37,8 @@ MBV.rabbitmq.hello = {
 
     async send() {
         const id = MBV.nextMsgId();
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-sender');
         if (sentEl) sentEl.textContent = parseInt(sentEl.textContent) + 1;
@@ -71,10 +73,18 @@ MBV.rabbitmq.hello = {
             const consPort = document.getElementById('port-receiver');
             if (!qPortR || !consPort) return;
             await MBV.animateDot(qPortR, consPort, { label: `#${id}`, duration: 450 });
-            MBV.state.delivered++;
-            const recvEl = document.getElementById('count-receiver');
-            if (recvEl) recvEl.textContent = parseInt(recvEl.textContent) + 1;
-            MBV.log('RECV', `msg_id=${id} delivered to Receiver`);
+
+            if (isError) {
+                const consCard = document.getElementById('card-receiver');
+                MBV.flashCard(consCard, 'red');
+                MBV.addBadge(consCard, `NACK \u2717 #${id}`, 'nack');
+                MBV.log('ERROR', `msg_id=${id} consumer REJECTED (NACK) - message lost`);
+            } else {
+                MBV.state.delivered++;
+                const recvEl = document.getElementById('count-receiver');
+                if (recvEl) recvEl.textContent = parseInt(recvEl.textContent) + 1;
+                MBV.log('RECV', `msg_id=${id} delivered to Receiver`);
+            }
             MBV.updateStats();
         };
 
@@ -186,6 +196,20 @@ MBV.rabbitmq.work = {
         MBV.log('RECV', `msg_id=${msgId} \u2192 ${worker.name}`);
         MBV.updateStats();
 
+        if (this._nextError) {
+            this._nextError = false;
+            const card = document.getElementById('card-' + worker.id);
+            MBV.flashCard(card, 'red');
+            MBV.addBadge(card, `FAIL \u2717 #${msgId}`, 'nack');
+            worker.busy = false;
+            statusEl.textContent = 'error';
+            statusEl.className = 'card-status error';
+            MBV.log('ERROR', `msg_id=${msgId} processing FAILED on ${worker.name} - message dropped`);
+            setTimeout(() => { statusEl.textContent = 'ready'; statusEl.className = 'card-status ready'; }, 1500);
+            this._processQueue();
+            return;
+        }
+
         const processingTime = 1200 + Math.random() * 800;
         const startTime = Date.now();
         const animate = () => {
@@ -208,6 +232,9 @@ MBV.rabbitmq.work = {
 
     async send() {
         const id = MBV.nextMsgId();
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
+        this._nextError = isError;
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-taskprod');
         if (sentEl) sentEl.textContent = parseInt(sentEl.textContent) + 1;
@@ -293,6 +320,8 @@ MBV.rabbitmq.pubsub = {
 
     async send(prodId) {
         const id = MBV.nextMsgId();
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-' + prodId);
         if (sentEl) sentEl.textContent = parseInt(sentEl.textContent) + 1;
@@ -314,7 +343,8 @@ MBV.rabbitmq.pubsub = {
         const deliver = async () => {
             MBV.state.queued--;
             MBV.updateStats();
-            const promises = this.consumers.map(async c => {
+            const failIdx = isError ? Math.floor(Math.random() * this.consumers.length) : -1;
+            const promises = this.consumers.map(async (c, ci) => {
                 const qPortL = document.getElementById('q-' + c.id + '-port-l');
                 const exPortR = document.getElementById('ex-fanout-port-r');
                 if (!qPortL || !exPortR) return;
@@ -327,10 +357,17 @@ MBV.rabbitmq.pubsub = {
                 if (!qPortR || !consPort) return;
                 await MBV.animateDot(qPortR, consPort, { label: `#${id}`, duration: 350 });
 
-                MBV.state.delivered++;
-                const countEl = document.getElementById('count-' + c.id);
-                if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
-                MBV.log('RECV', `msg_id=${id} \u2192 ${c.name}`);
+                if (ci === failIdx) {
+                    const card = document.getElementById('card-' + c.id);
+                    MBV.flashCard(card, 'red');
+                    MBV.addBadge(card, `NACK \u2717 #${id}`, 'nack');
+                    MBV.log('ERROR', `msg_id=${id} \u2192 ${c.name} REJECTED (NACK)`);
+                } else {
+                    MBV.state.delivered++;
+                    const countEl = document.getElementById('count-' + c.id);
+                    if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
+                    MBV.log('RECV', `msg_id=${id} \u2192 ${c.name}`);
+                }
                 MBV.updateStats();
             });
             await Promise.all(promises);
@@ -421,6 +458,8 @@ MBV.rabbitmq.routing = {
     async send(prodId) {
         const rkey = document.getElementById('rkey-' + prodId).value;
         const id = MBV.nextMsgId();
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-' + prodId);
         sentEl.textContent = parseInt(sentEl.textContent) + 1;
@@ -472,10 +511,17 @@ MBV.rabbitmq.routing = {
                 if (!qPortR || !consPort) continue;
                 await MBV.animateDot(qPortR, consPort, { label: `#${id}`, duration: 350 });
 
-                MBV.state.delivered++;
-                const countEl = document.getElementById('count-' + c.id);
-                if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
-                MBV.log('RECV', `msg_id=${id} \u2192 ${c.name}`);
+                if (isError) {
+                    const card = document.getElementById('card-' + c.id);
+                    MBV.flashCard(card, 'red');
+                    MBV.addBadge(card, `NACK \u2717 #${id}`, 'nack');
+                    MBV.log('ERROR', `msg_id=${id} \u2192 ${c.name} REJECTED (NACK)`);
+                } else {
+                    MBV.state.delivered++;
+                    const countEl = document.getElementById('count-' + c.id);
+                    if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
+                    MBV.log('RECV', `msg_id=${id} \u2192 ${c.name}`);
+                }
                 MBV.updateStats();
             }
         };
@@ -606,6 +652,8 @@ MBV.rabbitmq.topics = {
             return;
         }
         const id = MBV.nextMsgId();
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-' + prodId);
         sentEl.textContent = parseInt(sentEl.textContent) + 1;
@@ -647,16 +695,24 @@ MBV.rabbitmq.topics = {
         const deliver = async () => {
             MBV.state.queued--;
             MBV.updateStats();
-            const promises = matchedConsumers.map(async c => {
+            const failIdx = isError && matchedConsumers.length > 0 ? Math.floor(Math.random() * matchedConsumers.length) : -1;
+            const promises = matchedConsumers.map(async (c, ci) => {
                 const exPortR = document.getElementById('ex-topic-port-r');
                 const consPort = document.getElementById('port-' + c.id);
                 if (!exPortR || !consPort) return;
                 await MBV.animateDot(exPortR, consPort, { label: `#${id}`, duration: 450 });
 
-                MBV.state.delivered++;
-                const countEl = document.getElementById('count-' + c.id);
-                if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
-                MBV.log('RECV', `msg_id=${id} \u2192 ${c.name}`);
+                if (ci === failIdx) {
+                    const card = document.getElementById('card-' + c.id);
+                    MBV.flashCard(card, 'red');
+                    MBV.addBadge(card, `NACK \u2717 #${id}`, 'nack');
+                    MBV.log('ERROR', `msg_id=${id} \u2192 ${c.name} REJECTED (NACK)`);
+                } else {
+                    MBV.state.delivered++;
+                    const countEl = document.getElementById('count-' + c.id);
+                    if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
+                    MBV.log('RECV', `msg_id=${id} \u2192 ${c.name}`);
+                }
                 MBV.updateStats();
             });
             await Promise.all(promises);
@@ -714,6 +770,9 @@ MBV.rabbitmq.rpc = {
     },
 
     async send() {
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
+
         const id = MBV.nextMsgId();
         const corrId = Math.random().toString(16).slice(2, 6);
         MBV.state.sent++;
@@ -771,6 +830,18 @@ MBV.rabbitmq.rpc = {
             });
             if (card) card.style.boxShadow = '';
             if (progressEl) progressEl.style.width = '0%';
+
+            if (isError) {
+                MBV.flashCard(card, 'red');
+                MBV.addBadge(card, `FAIL \u2717 corr_id=${corrId}`, 'nack');
+                if (statusEl) statusEl.textContent = 'server error \u2717';
+                MBV.log('ERROR', `corr_id=${corrId} RPC Server FAILED \u2014 no reply sent`);
+                setTimeout(() => {
+                    rqEl.style.opacity = '0';
+                    setTimeout(() => rqEl.remove(), 500);
+                }, 2000);
+                return;
+            }
 
             const countEl = document.getElementById('count-rpc-server');
             if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;

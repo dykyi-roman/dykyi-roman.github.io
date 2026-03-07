@@ -112,6 +112,9 @@ MBV.redis.pubsub = {
     },
 
     async send(prodId) {
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
+
         const channel = document.getElementById('chan-' + prodId).value;
         const chKey = channel.replace(/[^a-z0-9]/gi, '_');
         const id = MBV.nextMsgId();
@@ -138,21 +141,31 @@ MBV.redis.pubsub = {
         MBV.state.queued++;
         MBV.updateStats();
 
+        const failIdx = isError && activeSubs.length > 0 ? Math.floor(Math.random() * activeSubs.length) : -1;
+
         const deliver = async () => {
             MBV.state.queued--;
             MBV.updateStats();
             const chPortR = document.getElementById('ch-' + chKey + '-port-r');
             if (!chPortR) return;
-            const promises = activeSubs.map(async s => {
+            const promises = activeSubs.map(async (s, si) => {
                 const consPort = document.getElementById('port-' + s.id);
                 if (!consPort) return;
                 await MBV.animateDot(chPortR, consPort, { label: `#${id}`, duration: 350 });
-                s.received++;
-                MBV.state.delivered++;
-                const countEl = document.getElementById('count-' + s.id);
-                if (countEl) countEl.textContent = s.received;
-                MBV.log('RECV', `msg_id=${id} \u2192 ${s.name} (${channel})`);
-                MBV.updateStats();
+                if (si === failIdx) {
+                    const card = document.getElementById('card-' + s.id);
+                    MBV.flashCard(card, 'red');
+                    MBV.addBadge(card, `CRASH #${id}`, 'nack');
+                    MBV.log('ERROR', `msg_id=${id} \u2192 ${s.name} CRASHED \u2014 message lost (no retry in Pub/Sub)`);
+                    MBV.updateStats();
+                } else {
+                    s.received++;
+                    MBV.state.delivered++;
+                    const countEl = document.getElementById('count-' + s.id);
+                    if (countEl) countEl.textContent = s.received;
+                    MBV.log('RECV', `msg_id=${id} \u2192 ${s.name} (${channel})`);
+                    MBV.updateStats();
+                }
             });
             await Promise.all(promises);
         };
@@ -302,6 +315,9 @@ MBV.redis.pattern = {
     },
 
     async send(prodId) {
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
+
         const channel = document.getElementById('chan-' + prodId).value.trim();
         if (!channel) return;
         const id = MBV.nextMsgId();
@@ -353,6 +369,8 @@ MBV.redis.pattern = {
             return;
         }
 
+        const failIdx = isError && matched.length > 0 ? Math.floor(Math.random() * matched.length) : -1;
+
         MBV.state.queued++;
         MBV.updateStats();
 
@@ -361,10 +379,18 @@ MBV.redis.pattern = {
             MBV.updateStats();
             let chPortR = document.getElementById('ch-' + chKey + '-port-r') || document.getElementById('broker-body');
 
-            const promises = matched.map(async s => {
+            const promises = matched.map(async (s, si) => {
                 const consPort = document.getElementById('port-' + s.id);
                 if (!consPort || !chPortR) return;
                 await MBV.animateDot(chPortR, consPort, { label: `#${id}`, duration: 350 });
+                if (si === failIdx) {
+                    const card = document.getElementById('card-' + s.id);
+                    MBV.flashCard(card, 'red');
+                    MBV.addBadge(card, `CRASH #${id}`, 'nack');
+                    MBV.log('ERROR', `msg_id=${id} \u2192 ${s.name} CRASHED \u2014 message lost`);
+                    MBV.updateStats();
+                    return;
+                }
                 s.received++;
                 MBV.state.delivered++;
                 const countEl = document.getElementById('count-' + s.id);
@@ -471,6 +497,9 @@ MBV.redis.streams = {
     },
 
     async send() {
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
+
         const id = MBV.nextMsgId();
         const streamId = MBV.redis.state.streamNextId++;
         const entryId = `${Date.now()}-${streamId}`.slice(-12);
@@ -500,15 +529,31 @@ MBV.redis.streams = {
             return { group: g, cId: g.consumers[consIdx] };
         });
 
+        const failAssignIdx = isError && assignments.length > 0 ? Math.floor(Math.random() * assignments.length) : -1;
+
         const deliver = async () => {
             MBV.state.queued--;
             MBV.updateStats();
             const bBody = document.getElementById('broker-body');
-            for (const { group: g, cId } of assignments) {
+            for (let ai = 0; ai < assignments.length; ai++) {
+                const { group: g, cId } = assignments[ai];
                 const consPort = document.getElementById('port-' + cId);
                 if (!consPort || !bBody) continue;
 
                 await MBV.animateDot(bBody, consPort, { label: entryId, color: g.color, duration: 350 });
+
+                if (ai === failAssignIdx) {
+                    const card = document.getElementById('card-' + cId);
+                    MBV.flashCard(card, 'red');
+                    MBV.addBadge(card, `FAIL ${entryId}`, 'nack');
+                    g.pending[cId] = g.pending[cId] || [];
+                    g.pending[cId].push(entryId);
+                    const pendEl = document.getElementById('pending-' + cId);
+                    if (pendEl) pendEl.textContent = g.pending[cId].length;
+                    MBV.log('ERROR', `XREADGROUP ${g.name}/${cId} FAILED \u2014 ${entryId} stays in PEL`);
+                    MBV.updateStats();
+                    continue;
+                }
 
                 g.pending[cId] = g.pending[cId] || [];
                 g.pending[cId].push(entryId);
@@ -677,6 +722,9 @@ MBV.redis.eventsourcing = {
     },
 
     async send() {
+        const isError = MBV.state.simulateError;
+        if (isError) MBV.state.simulateError = false;
+
         const eventType = document.getElementById('event-type-select').value;
         const id = MBV.nextMsgId();
         const streamId = MBV.redis.state.streamNextId++;
@@ -708,6 +756,15 @@ MBV.redis.eventsourcing = {
             const consPort = document.getElementById('port-es-cons');
             if (!bBody || !consPort) return;
             await MBV.animateDot(bBody, consPort, { label: eventType, duration: 350 });
+
+            if (isError) {
+                const card = document.getElementById('card-es-cons');
+                MBV.flashCard(card, 'red');
+                MBV.addBadge(card, `FAIL ${eventType}`, 'nack');
+                MBV.log('ERROR', `Event ${eventType} written to stream but NOT applied to state`);
+                MBV.updateStats();
+                return;
+            }
 
             MBV.state.delivered++;
             const countEl = document.getElementById('count-es-cons');

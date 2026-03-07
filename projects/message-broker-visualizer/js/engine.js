@@ -156,14 +156,19 @@ MBV.animateDot = function(fromEl, toEl, options = {}) {
 
         const from = MBV.getPortCenter(fromEl);
         const to = MBV.getPortCenter(toEl);
+
+        /* Skip animation if source/target coordinates are invalid (detached element) */
+        if (from.x === 0 && from.y === 0 && to.x === 0 && to.y === 0) { resolve(); return; }
+
         const bezier = MBV._buildBezierPath(from, to);
 
         const svg = MBV._ensureSvgLayer();
 
-        /* --- Draw the pipe (SVG path) --- */
+        /* --- Draw the pipe (SVG path) — skip when too many concurrent animations --- */
+        const skipPipe = MBV.state.animations.length > 6;
         let pipeBg = null;
         let pipeFlow = null;
-        if (svg) {
+        if (svg && !skipPipe) {
             pipeBg = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             pipeBg.setAttribute('d', bezier.d);
             pipeBg.setAttribute('class', 'pipe-bg');
@@ -188,6 +193,9 @@ MBV.animateDot = function(fromEl, toEl, options = {}) {
         const dot = document.createElement('div');
         dot.className = 'flying-dot ' + cssClass;
         if (color) dot.style.background = color;
+        /* Set initial position before appending to prevent one-frame flash */
+        dot.style.left = (from.x - 5) + 'px';
+        dot.style.top = (from.y - 5) + 'px';
         if (label) {
             const lbl = document.createElement('span');
             lbl.className = 'dot-label';
@@ -197,10 +205,25 @@ MBV.animateDot = function(fromEl, toEl, options = {}) {
         layer.appendChild(dot);
 
         let start = null;
+        let resolved = false;
         const animId = {};
         MBV.state.animations.push(animId);
 
+        /* Safety: remove dot if animation stalls */
+        const safetyTimer = setTimeout(() => {
+            if (!resolved) {
+                resolved = true;
+                if (dot.parentNode) dot.remove();
+                const idx = MBV.state.animations.indexOf(animId);
+                if (idx > -1) MBV.state.animations.splice(idx, 1);
+                if (pipeBg && pipeBg.parentNode) pipeBg.remove();
+                if (pipeFlow && pipeFlow.parentNode) pipeFlow.remove();
+                resolve();
+            }
+        }, duration + 2000);
+
         function step(ts) {
+            if (resolved) return;
             if (!start) start = ts;
             let t = Math.min((ts - start) / duration, 1);
             const it = 1 - t;
@@ -212,6 +235,9 @@ MBV.animateDot = function(fromEl, toEl, options = {}) {
             if (t < 1) {
                 requestAnimationFrame(step);
             } else {
+                if (resolved) return;
+                resolved = true;
+                clearTimeout(safetyTimer);
                 dot.remove();
                 const idx = MBV.state.animations.indexOf(animId);
                 if (idx > -1) MBV.state.animations.splice(idx, 1);

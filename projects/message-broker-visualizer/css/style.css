@@ -286,6 +286,7 @@
     flex-direction: column;
     gap: 10px;
     z-index: 1;
+    min-width: 0;
 }
 
 .viz-col-label {

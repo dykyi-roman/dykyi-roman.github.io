@@ -64,6 +64,8 @@ DBIV.postgresql.btree = {
     async run() {
         const query = document.getElementById('query-input').value;
         const qid = DBIV.nextQueryId();
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
         const match = query.match(/WHERE\s+id\s*=\s*(\d+)/i);
@@ -73,6 +75,38 @@ DBIV.postgresql.btree = {
         const statusEl = document.getElementById('index-status');
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
+
+        if (isMiss) {
+            DBIV.log('MISS', `Q${qid}: Index not used - sequential scan`);
+            const rows = [];
+            this.tuples.forEach(t => {
+                const row = document.getElementById('pgtuple-' + t.id);
+                if (row) rows.push(row);
+            });
+            await DBIV.animateFullScan(rows);
+            let visible = 0;
+            this.tuples.forEach(t => {
+                if (!t.dead) visible++;
+                const row = document.getElementById('pgtuple-' + t.id);
+                if (row && !t.dead) {
+                    if ((targetId && t.id === targetId) || (rangeMatch && t.id >= parseInt(rangeMatch[1]) && t.id <= parseInt(rangeMatch[2]))) {
+                        row.classList.add('matched');
+                        setTimeout(() => row.classList.remove('matched'), 1500);
+                    }
+                }
+            });
+            DBIV.addStats(3, this.tuples.length, 0, this.tuples.length * 2);
+            DBIV.log('RESULT', `Q${qid}: Full scan - ${this.tuples.length} tuples examined`);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 3, rows: this.tuples.length, time: this.tuples.length * 2 },
+                    { pages: 3, rows: this.tuples.length, time: this.tuples.length * 2 }
+                );
+            }
+            statusEl.textContent = 'ready';
+            statusEl.className = 'index-status ready';
+            return;
+        }
 
         const treeNodes = document.querySelectorAll('.tree-node');
         const searchVal = targetId || (rangeMatch ? parseInt(rangeMatch[1]) : 1);
@@ -187,6 +221,8 @@ DBIV.postgresql.hash = {
     async run() {
         const query = document.getElementById('query-input').value;
         const qid = DBIV.nextQueryId();
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
         const eqMatch = query.match(/email\s*=\s*"([^"]+)"/i);
@@ -196,7 +232,20 @@ DBIV.postgresql.hash = {
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
 
-        if (rangeMatch) {
+        if (isMiss && eqMatch) {
+            DBIV.log('MISS', `Q${qid}: Index not used - full table scan`);
+            DBIV.flashCard(document.getElementById('query-card'), 'red');
+            const rows = document.querySelectorAll('.data-row');
+            await DBIV.animateFullScan(Array.from(rows));
+            DBIV.addStats(3, rows.length, 0, 40);
+            DBIV.log('RESULT', `Q${qid}: Full scan forced - ${rows.length} rows examined`);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 3, rows: rows.length, time: 40 },
+                    { pages: 3, rows: rows.length, time: 40 }
+                );
+            }
+        } else if (rangeMatch) {
             DBIV.log('MISS', `Q${qid}: Hash index does NOT support range queries`);
             DBIV.flashCard(document.getElementById('query-card'), 'red');
             const rows = document.querySelectorAll('.data-row');
@@ -317,9 +366,34 @@ DBIV.postgresql.gin = {
         const qid = DBIV.nextQueryId();
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
+
         const statusEl = document.getElementById('index-status');
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
+
+        if (isMiss) {
+            DBIV.log('MISS', `Q${qid}: Index not used - sequential scan`);
+            DBIV.flashCard(document.getElementById('query-card'), 'red');
+            const allRows = [];
+            this.documents.forEach(doc => {
+                const row = document.getElementById('gindoc-' + doc.id);
+                if (row) allRows.push(row);
+            });
+            await DBIV.animateFullScan(allRows);
+            DBIV.addStats(2, this.documents.length, 0, this.documents.length * 2);
+            DBIV.log('RESULT', `Q${qid}: Sequential scan - ${this.documents.length} docs examined`);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 2, rows: this.documents.length, time: this.documents.length * 2 },
+                    { pages: 2, rows: this.documents.length, time: this.documents.length * 2 }
+                );
+            }
+            statusEl.textContent = 'ready';
+            statusEl.className = 'index-status ready';
+            return;
+        }
 
         let searchKey = null;
         const tagsMatch = query.match(/tags.*\["([^"]+)"\]/);
@@ -432,10 +506,57 @@ DBIV.postgresql.gist = {
 
         const qx1 = parseInt(boxMatch[1]), qy1 = parseInt(boxMatch[2]);
         const qx2 = parseInt(boxMatch[3]), qy2 = parseInt(boxMatch[4]);
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
 
         const statusEl = document.getElementById('index-status');
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
+
+        if (isMiss) {
+            DBIV.log('MISS', `Q${qid}: Index not used - scanning all points`);
+            const qbox = document.getElementById('gist-query-box');
+            qbox.style.display = 'block';
+            qbox.style.left = qx1 + '%'; qbox.style.top = qy1 + '%';
+            qbox.style.width = (qx2 - qx1) + '%'; qbox.style.height = (qy2 - qy1) + '%';
+            const allRows = [];
+            this.points.forEach(p => {
+                const row = document.getElementById('gist-row-' + p.id);
+                if (row) allRows.push(row);
+            });
+            await DBIV.animateFullScan(allRows);
+            let matched = 0;
+            this.points.forEach(p => {
+                const inside = p.x >= qx1 && p.x <= qx2 && p.y >= qy1 && p.y <= qy2;
+                if (inside) {
+                    const pointEl = document.getElementById('gist-p-' + p.id);
+                    const rowEl = document.getElementById('gist-row-' + p.id);
+                    if (pointEl) pointEl.classList.add('matched');
+                    if (rowEl) rowEl.classList.add('matched');
+                    matched++;
+                }
+            });
+            DBIV.addStats(1, this.points.length, 0, this.points.length * 2);
+            DBIV.log('RESULT', `Q${qid}: Sequential scan - ${matched} point(s) found, ${this.points.length} examined`);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 1, rows: this.points.length, time: this.points.length * 2 },
+                    { pages: 1, rows: this.points.length, time: this.points.length * 2 }
+                );
+            }
+            setTimeout(() => {
+                qbox.style.display = 'none';
+                this.points.forEach(p => {
+                    const pointEl = document.getElementById('gist-p-' + p.id);
+                    const rowEl = document.getElementById('gist-row-' + p.id);
+                    if (pointEl) pointEl.classList.remove('matched');
+                    if (rowEl) rowEl.classList.remove('matched');
+                });
+            }, 2500);
+            statusEl.textContent = 'ready';
+            statusEl.className = 'index-status ready';
+            return;
+        }
 
         const qbox = document.getElementById('gist-query-box');
         qbox.style.display = 'block';
@@ -567,9 +688,16 @@ DBIV.postgresql.brin = {
             return;
         }
 
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
+
         const statusEl = document.getElementById('index-status');
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
+
+        if (isMiss) {
+            DBIV.log('MISS', `Q${qid}: BRIN index not used - scanning ALL blocks`);
+        }
 
         let scannedBlocks = 0;
         let matchedBlocks = 0;
@@ -583,7 +711,7 @@ DBIV.postgresql.brin = {
             await DBIV.sleep(200);
             el.classList.remove('scanned');
 
-            const overlaps = block.min <= high && block.max >= low;
+            const overlaps = isMiss ? true : (block.min <= high && block.max >= low);
             if (overlaps) {
                 el.classList.add('matched');
                 matchedBlocks++;

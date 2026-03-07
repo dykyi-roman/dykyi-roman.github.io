@@ -73,6 +73,9 @@ DBIV.mongodb.single = {
         const qid = DBIV.nextQueryId();
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
+
         const statusEl = document.getElementById('index-status');
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
@@ -83,7 +86,28 @@ DBIV.mongodb.single = {
         const lteMatch = query.match(/\$lte:\s*(\d+)/);
         const nameMatch = query.match(/name:\s*"([^"]+)"/);
 
-        if (nameMatch) {
+        if (isMiss) {
+            DBIV.log('MISS', `Q${qid}: Index not used - collection scan`);
+            const rows = document.querySelectorAll('.data-row');
+            await DBIV.animateFullScan(Array.from(rows));
+            let results = DBIV.mongodb._docs;
+            if (eqMatch) results = results.filter(d => d.age === parseInt(eqMatch[1]));
+            else if (gteMatch && lteMatch) results = results.filter(d => d.age >= parseInt(gteMatch[1]) && d.age <= parseInt(lteMatch[1]));
+            else if (gtMatch) results = results.filter(d => d.age > parseInt(gtMatch[1]));
+            else if (nameMatch) results = results.filter(d => d.name === nameMatch[1]);
+            results.forEach(d => {
+                const row = document.getElementById('mdoc-' + d._id);
+                if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 1500); }
+            });
+            DBIV.addStats(2, rows.length, 0, 15);
+            DBIV.log('RESULT', `Q${qid}: ${results.length} doc(s) via COLLSCAN`);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 2, rows: rows.length, time: 15 },
+                    { pages: 2, rows: rows.length, time: 15 }
+                );
+            }
+        } else if (nameMatch) {
             DBIV.log('MISS', `Q${qid}: No index on "name" - collection scan`);
             const rows = document.querySelectorAll('.data-row');
             await DBIV.animateFullScan(Array.from(rows));
@@ -193,6 +217,8 @@ DBIV.mongodb.compound = {
     async run() {
         const query = document.getElementById('query-input').value;
         const qid = DBIV.nextQueryId();
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
         const cityMatch = query.match(/city:\s*"([^"]+)"/);
@@ -203,7 +229,19 @@ DBIV.mongodb.compound = {
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
 
-        if (!cityMatch && ageMatch) {
+        if (isMiss) {
+            DBIV.log('MISS', `Q${qid}: Index not used - collection scan`);
+            DBIV.flashCard(document.getElementById('query-card'), 'red');
+            const rows = document.querySelectorAll('.data-row');
+            await DBIV.animateFullScan(Array.from(rows));
+            DBIV.addStats(2, rows.length, 0, 18);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 2, rows: rows.length, time: 18 },
+                    { pages: 2, rows: rows.length, time: 18 }
+                );
+            }
+        } else if (!cityMatch && ageMatch) {
             DBIV.log('MISS', `Q${qid}: Cannot use compound index - prefix field "city" missing`);
             DBIV.flashCard(document.getElementById('query-card'), 'red');
             const rows = document.querySelectorAll('.data-row');
@@ -317,12 +355,46 @@ DBIV.mongodb.multikey = {
         const qid = DBIV.nextQueryId();
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
+
         const singleMatch = query.match(/tags:\s*"([^"]+)"/);
         const allMatch = query.match(/\$all:\s*\[([^\]]+)\]/);
 
         const statusEl = document.getElementById('index-status');
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
+
+        if (isMiss) {
+            DBIV.log('MISS', `Q${qid}: Index not used - collection scan`);
+            const allRows = [];
+            DBIV.mongodb._docs.forEach(doc => {
+                const row = document.getElementById('mkdoc-' + doc._id);
+                if (row) allRows.push(row);
+            });
+            await DBIV.animateFullScan(allRows);
+            let searchTags = [];
+            if (allMatch) searchTags = allMatch[1].match(/"([^"]+)"/g).map(s => s.replace(/"/g, ''));
+            else if (singleMatch) searchTags = [singleMatch[1]];
+            const results = DBIV.mongodb._docs.filter(d =>
+                searchTags.every(tag => d.tags.includes(tag))
+            );
+            results.forEach(d => {
+                const row = document.getElementById('mkdoc-' + d._id);
+                if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 1500); }
+            });
+            DBIV.addStats(2, DBIV.mongodb._docs.length, 0, DBIV.mongodb._docs.length * 2);
+            DBIV.log('RESULT', `Q${qid}: ${results.length} doc(s) via COLLSCAN`);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 2, rows: DBIV.mongodb._docs.length, time: DBIV.mongodb._docs.length * 2 },
+                    { pages: 2, rows: DBIV.mongodb._docs.length, time: DBIV.mongodb._docs.length * 2 }
+                );
+            }
+            statusEl.textContent = 'ready';
+            statusEl.className = 'index-status ready';
+            return;
+        }
 
         let searchTags = [];
         if (allMatch) {
@@ -444,11 +516,43 @@ DBIV.mongodb.text = {
             return;
         }
 
+        const isMiss = DBIV.state.simulateError;
+        if (isMiss) DBIV.state.simulateError = false;
+
         const terms = searchMatch[1].toLowerCase().split(/\s+/).filter(t => t.length > 1);
 
         const statusEl = document.getElementById('index-status');
         statusEl.textContent = 'scanning';
         statusEl.className = 'index-status scanning';
+
+        if (isMiss) {
+            DBIV.log('MISS', `Q${qid}: Text index not used - collection scan`);
+            DBIV.flashCard(document.getElementById('query-card'), 'red');
+            const allRows = [];
+            DBIV.mongodb._docs.forEach(doc => {
+                const row = document.getElementById('txtdoc-' + doc._id);
+                if (row) allRows.push(row);
+            });
+            await DBIV.animateFullScan(allRows);
+            const matched = DBIV.mongodb._docs.filter(doc =>
+                terms.some(term => doc.bio.toLowerCase().includes(term))
+            );
+            matched.forEach(doc => {
+                const row = document.getElementById('txtdoc-' + doc._id);
+                if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 1500); }
+            });
+            DBIV.addStats(2, DBIV.mongodb._docs.length, 0, DBIV.mongodb._docs.length * 2);
+            DBIV.log('RESULT', `Q${qid}: ${matched.length} doc(s) via COLLSCAN`);
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 2, rows: DBIV.mongodb._docs.length, time: DBIV.mongodb._docs.length * 2 },
+                    { pages: 2, rows: DBIV.mongodb._docs.length, time: DBIV.mongodb._docs.length * 2 }
+                );
+            }
+            statusEl.textContent = 'ready';
+            statusEl.className = 'index-status ready';
+            return;
+        }
 
         const scores = {};
         for (const term of terms) {
