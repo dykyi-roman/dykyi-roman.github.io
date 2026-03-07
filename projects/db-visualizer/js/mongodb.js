@@ -94,6 +94,13 @@ DBIV.mongodb.single = {
             });
             DBIV.addStats(2, rows.length, 0, 15);
             DBIV.log('RESULT', `Q${qid}: ${matched.length} doc(s) via COLLSCAN`);
+
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 2, rows: rows.length, time: 15 },
+                    { pages: 2, rows: rows.length, time: 15 }
+                );
+            }
         } else {
             const treeNodes = document.querySelectorAll('.tree-node');
             const searchAge = eqMatch ? parseInt(eqMatch[1]) : (gteMatch ? parseInt(gteMatch[1]) : (gtMatch ? parseInt(gtMatch[1]) + 1 : 1));
@@ -123,6 +130,13 @@ DBIV.mongodb.single = {
 
             DBIV.addStats(1 + path.length, results.length, path.length, 2);
             DBIV.log('RESULT', `Q${qid}: ${results.length} doc(s) via IXSCAN`);
+
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 1 + path.length, rows: results.length, time: 2 },
+                    { pages: 2, rows: DBIV.mongodb._docs.length, time: 15 }
+                );
+            }
         }
 
         statusEl.textContent = 'ready';
@@ -195,6 +209,13 @@ DBIV.mongodb.compound = {
             const rows = document.querySelectorAll('.data-row');
             await DBIV.animateFullScan(Array.from(rows));
             DBIV.addStats(2, rows.length, 0, 18);
+
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 2, rows: rows.length, time: 18 },
+                    { pages: 2, rows: rows.length, time: 18 }
+                );
+            }
         } else {
             const treeNodes = document.querySelectorAll('.tree-node');
             const path = [treeNodes[0]];
@@ -227,6 +248,13 @@ DBIV.mongodb.compound = {
 
             DBIV.addStats(1 + path.length, results.length, path.length, 2);
             DBIV.log('RESULT', `Q${qid}: ${results.length} doc(s) via IXSCAN`);
+
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 1 + path.length, rows: results.length, time: 2 },
+                    { pages: 2, rows: DBIV.mongodb._docs.length, time: 18 }
+                );
+            }
         }
 
         statusEl.textContent = 'ready';
@@ -329,6 +357,13 @@ DBIV.mongodb.multikey = {
 
         DBIV.addStats(searchTags.length, finalIds.size, searchTags.length, 2);
         DBIV.log('RESULT', `Q${qid}: ${finalIds.size} doc(s) matched`);
+
+        if (DBIV.state.comparisonMode) {
+            DBIV.showComparison(
+                { pages: searchTags.length, rows: finalIds.size, time: 2 },
+                { pages: 2, rows: DBIV.mongodb._docs.length, time: DBIV.mongodb._docs.length * 2 }
+            );
+        }
 
         setTimeout(() => {
             document.querySelectorAll('.gin-entry').forEach(e => e.classList.remove('matched'));
@@ -442,6 +477,13 @@ DBIV.mongodb.text = {
 
         DBIV.addStats(terms.length, sortedResults.length, terms.length, 3);
         DBIV.log('RESULT', `Q${qid}: ${sortedResults.length} doc(s) matched, ranked by TF-IDF score`);
+
+        if (DBIV.state.comparisonMode) {
+            DBIV.showComparison(
+                { pages: terms.length, rows: sortedResults.length, time: 3 },
+                { pages: 2, rows: DBIV.mongodb._docs.length, time: DBIV.mongodb._docs.length * 2 }
+            );
+        }
 
         setTimeout(() => {
             document.querySelectorAll('.gin-entry').forEach(e => e.classList.remove('matched'));

@@ -222,6 +222,13 @@ DBIV.mysql.hash = {
             await DBIV.animateFullScan(Array.from(rows));
             DBIV.addStats(3, rows.length, 0, 38);
             DBIV.log('RESULT', `Q${qid}: Range query requires full scan with hash index`);
+
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 3, rows: rows.length, time: 38 },
+                    { pages: 3, rows: rows.length, time: 38 }
+                );
+            }
         } else if (eqMatch) {
             const email = eqMatch[1];
             const bucketIdx = DBIV.hashKey(email) % 4;
@@ -261,6 +268,13 @@ DBIV.mysql.hash = {
             } else {
                 DBIV.addStats(1, 0, 1, 1);
                 DBIV.log('RESULT', `Q${qid}: Not found in bucket ${bucketIdx}`);
+            }
+
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 1, rows: 1, time: 1 },
+                    { pages: 3, rows: 12, time: 38 }
+                );
             }
 
             setTimeout(() => {
@@ -341,6 +355,13 @@ DBIV.mysql.composite = {
             await DBIV.animateFullScan(Array.from(rows));
             DBIV.addStats(3, rows.length, 0, 35);
 
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 3, rows: rows.length, time: 35 },
+                    { pages: 3, rows: rows.length, time: 35 }
+                );
+            }
+
             const treeKeys = document.querySelectorAll('.tree-key');
             treeKeys.forEach(k => {
                 k.style.background = '#3d1a1a';
@@ -391,6 +412,14 @@ DBIV.mysql.composite = {
 
             DBIV.addStats(1 + path.length, results.length, path.length, 2);
             DBIV.log('RESULT', `Q${qid}: ${results.length} row(s) returned using index`);
+
+            if (DBIV.state.comparisonMode) {
+                const rows = document.querySelectorAll('.data-row');
+                DBIV.showComparison(
+                    { pages: 1 + path.length, rows: results.length, time: 2 },
+                    { pages: 3, rows: rows.length, time: 35 }
+                );
+            }
         }
 
         statusEl.textContent = 'ready';
@@ -510,6 +539,13 @@ DBIV.mysql.fulltext = {
 
         DBIV.addStats(searchTerms.length, matchedDocIds.size, searchTerms.length, 3);
         DBIV.log('RESULT', `Q${qid}: ${matchedDocIds.size} document(s) matched`);
+
+        if (DBIV.state.comparisonMode) {
+            DBIV.showComparison(
+                { pages: searchTerms.length, rows: matchedDocIds.size, time: 3 },
+                { pages: 1, rows: this.documents.length, time: this.documents.length * 3 }
+            );
+        }
 
         setTimeout(() => {
             document.querySelectorAll('.gin-entry').forEach(e => e.classList.remove('matched'));

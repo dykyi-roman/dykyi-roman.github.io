@@ -124,6 +124,13 @@ DBIV.redis.zset = {
             DBIV.addStats(1, matched.length, 4, 1);
             DBIV.log('RESULT', `Q${qid}: ${matched.length} member(s) in range [${low}, ${high}]`);
 
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 1, rows: matched.length, time: 1 },
+                    { pages: 1, rows: this.members.length, time: this.members.length }
+                );
+            }
+
             setTimeout(() => {
                 document.querySelectorAll('.skiplist-node').forEach(n => n.classList.remove('highlighted'));
             }, 2000);
@@ -147,6 +154,13 @@ DBIV.redis.zset = {
 
             DBIV.addStats(1, slice.length, 1, 1);
             DBIV.log('RESULT', `Q${qid}: ${slice.length} member(s) at ranks [${start}, ${stop}]`);
+
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 1, rows: slice.length, time: 1 },
+                    { pages: 1, rows: this.members.length, time: this.members.length }
+                );
+            }
 
             setTimeout(() => {
                 document.querySelectorAll('.skiplist-node').forEach(n => n.classList.remove('highlighted'));

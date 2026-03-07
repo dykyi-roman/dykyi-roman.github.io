@@ -126,6 +126,14 @@ DBIV.postgresql.btree = {
             DBIV.addStats(1 + path.length, 0, path.length, 2);
         }
 
+        if (DBIV.state.comparisonMode) {
+            const totalTuples = this.tuples.length;
+            DBIV.showComparison(
+                { pages: 1 + path.length, rows: targetId ? 1 : (rangeMatch ? parseInt(rangeMatch[2]) - parseInt(rangeMatch[1]) + 1 : 0), time: 3 },
+                { pages: 3, rows: totalTuples, time: totalTuples * 2 }
+            );
+        }
+
         statusEl.textContent = 'ready';
         statusEl.className = 'index-status ready';
     }
@@ -194,6 +202,13 @@ DBIV.postgresql.hash = {
             const rows = document.querySelectorAll('.data-row');
             await DBIV.animateFullScan(Array.from(rows));
             DBIV.addStats(3, rows.length, 0, 40);
+
+            if (DBIV.state.comparisonMode) {
+                DBIV.showComparison(
+                    { pages: 3, rows: rows.length, time: 40 },
+                    { pages: 3, rows: rows.length, time: 40 }
+                );
+            }
         } else if (eqMatch) {
             const email = eqMatch[1];
             const bucketIdx = DBIV.hashKey(email) % 4;
@@ -216,6 +231,14 @@ DBIV.postgresql.hash = {
 
             DBIV.addStats(2, found ? 1 : 0, 1, 2);
             DBIV.log('RESULT', `Q${qid}: ${found ? '1 row found' : 'not found'} via hash lookup`);
+
+            if (DBIV.state.comparisonMode) {
+                const rows = document.querySelectorAll('.data-row');
+                DBIV.showComparison(
+                    { pages: 2, rows: found ? 1 : 0, time: 2 },
+                    { pages: 3, rows: rows.length, time: 40 }
+                );
+            }
 
             setTimeout(() => {
                 document.querySelectorAll('.hash-bucket').forEach(b => b.classList.remove('targeted'));
@@ -326,6 +349,13 @@ DBIV.postgresql.gin = {
 
                 DBIV.addStats(1, docIds.length, 1, 2);
                 DBIV.log('RESULT', `Q${qid}: ${docIds.length} document(s) found via GIN`);
+
+                if (DBIV.state.comparisonMode) {
+                    DBIV.showComparison(
+                        { pages: 1, rows: docIds.length, time: 2 },
+                        { pages: 2, rows: this.documents.length, time: this.documents.length * 2 }
+                    );
+                }
 
                 setTimeout(() => {
                     document.querySelectorAll('.gin-entry').forEach(e => e.classList.remove('matched'));
@@ -446,6 +476,13 @@ DBIV.postgresql.gist = {
 
         DBIV.addStats(2, matched, 2, 3);
         DBIV.log('RESULT', `Q${qid}: ${matched} point(s) inside query box`);
+
+        if (DBIV.state.comparisonMode) {
+            DBIV.showComparison(
+                { pages: 2, rows: matched, time: 3 },
+                { pages: 1, rows: this.points.length, time: this.points.length * 2 }
+            );
+        }
 
         setTimeout(() => {
             qbox.style.display = 'none';
