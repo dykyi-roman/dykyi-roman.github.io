@@ -123,11 +123,12 @@ ARCHV.setAccentColors = function(archId) {
     var themes = {
         layered:        { accent: '#6366F1', bg: '#161830', light: '#1e2248' },
         clean:          { accent: '#8B5CF6', bg: '#1a1630', light: '#241e48' },
-        hexagonal:      { accent: '#06B6D4', bg: '#0d1f24', light: '#153038' },
+        hexagonal:      { accent: '#3B82F6', bg: '#0d1630', light: '#152048' },
         ddd:            { accent: '#F59E0B', bg: '#1f1a0d', light: '#302615' },
         cqrs:           { accent: '#10B981', bg: '#0d1f18', light: '#153024' },
         eventsourcing:  { accent: '#EC4899', bg: '#1f0d1a', light: '#301524' },
         eda:            { accent: '#F97316', bg: '#1f150d', light: '#302015' },
+        microservices:  { accent: '#84CC16', bg: '#1a1f0d', light: '#283015' },
         mvc:            { accent: '#EF4444', bg: '#1f0d0d', light: '#301515' }
     };
     var t = themes[archId] || themes.layered;
@@ -150,10 +151,38 @@ ARCHV.clearAnimations = function() {
 };
 
 /* ===== Render Component ===== */
-ARCHV.renderComponent = function(id, name, icon) {
-    return '<span class="archv-component" id="' + id + '">' +
+ARCHV.renderComponent = function(id, name, icon, tooltip) {
+    return '<span class="archv-component" id="' + id + '"' +
+        (tooltip ? ' data-tooltip="' + tooltip.replace(/"/g, '&quot;') + '"' : '') +
+        '>' +
         (icon ? '<span class="comp-icon">' + icon + '</span>' : '') +
         name + '</span>';
+};
+
+/* ===== Tooltip System ===== */
+ARCHV._initTooltips = function() {
+    document.addEventListener('mouseover', function(e) {
+        var target = e.target.closest('[data-tooltip]');
+        if (!target || target.querySelector('.archv-tooltip')) return;
+        var tip = document.createElement('div');
+        tip.className = 'archv-tooltip';
+        tip.textContent = target.getAttribute('data-tooltip');
+        target.appendChild(tip);
+    });
+    document.addEventListener('mouseout', function(e) {
+        var target = e.target.closest('[data-tooltip]');
+        if (!target) return;
+        var tip = target.querySelector('.archv-tooltip');
+        if (tip) tip.remove();
+    });
+};
+
+ARCHV._tooltipsInitialized = false;
+ARCHV.ensureTooltips = function() {
+    if (!ARCHV._tooltipsInitialized) {
+        ARCHV._initTooltips();
+        ARCHV._tooltipsInitialized = true;
+    }
 };
 
 /* ===== Render Arrow Connector ===== */
@@ -177,8 +206,23 @@ ARCHV._showStepLabel = function(el, stepNum, label) {
 /* ===== Animate Flow ===== */
 ARCHV.animateFlow = async function(steps, options) {
     if (ARCHV.state.running) return;
+
+    if (ARCHV.stepMode.active) {
+        ARCHV.exitStepMode();
+        ARCHV.clearAnimations();
+        ARCHV.resetStats();
+        ARCHV.clearLog();
+    }
+
+    ARCHV.state.layersTraversed = 0;
+    ARCHV.state.componentsHit = 0;
+    ARCHV.state.depsUsed = 0;
+    ARCHV.updateStats();
+
     ARCHV.state.running = true;
     ARCHV.state.stepIndex = 0;
+    ARCHV.state._flowSteps = steps;
+    ARCHV.state._flowOptions = options;
 
     var svg = document.getElementById('archv-svg-layer');
     if (svg) svg.innerHTML = '';
@@ -242,6 +286,8 @@ ARCHV.animateFlow = async function(steps, options) {
     }
     ARCHV.state.running = false;
     ARCHV.state.paused = false;
+    ARCHV.state._flowSteps = null;
+    ARCHV.state._flowOptions = null;
     var pauseBtn = document.getElementById('btn-pause');
     if (pauseBtn) {
         pauseBtn.disabled = true;
@@ -395,6 +441,241 @@ ARCHV._drawArrow = function(fromEl, toEl, flowType, stepNum) {
         text.setAttribute('class', 'flow-step-num');
         text.textContent = stepNum;
         svg.appendChild(text);
+    }
+};
+
+/* ===== Trade-offs Rendering ===== */
+ARCHV.showTradeoffs = function(tradeoffs) {
+    var container = document.getElementById('tradeoffs-panel');
+    var body = document.getElementById('tradeoffs-body');
+    var toggle = document.getElementById('tradeoffs-toggle');
+    if (!container || !body || !toggle) return;
+
+    if (!tradeoffs) {
+        container.style.display = 'none';
+        body.classList.remove('expanded');
+        toggle.setAttribute('aria-expanded', 'false');
+        return;
+    }
+
+    var html = '<div class="tradeoffs-grid">';
+    html += '<div class="tradeoffs-col"><div class="tradeoffs-col-title pros">&#x2705; Pros</div>';
+    (tradeoffs.pros || []).forEach(function(p) {
+        html += '<div class="tradeoffs-item pro">' + p + '</div>';
+    });
+    html += '</div>';
+    html += '<div class="tradeoffs-col"><div class="tradeoffs-col-title cons">&#x274C; Cons</div>';
+    (tradeoffs.cons || []).forEach(function(c) {
+        html += '<div class="tradeoffs-item con">' + c + '</div>';
+    });
+    html += '</div></div>';
+
+    if (tradeoffs.whenToUse) {
+        html += '<div class="tradeoffs-when">' +
+            '<div class="tradeoffs-when-title">When to Use</div>' +
+            tradeoffs.whenToUse + '</div>';
+    }
+
+    body.innerHTML = html;
+    body.classList.remove('expanded');
+    toggle.setAttribute('aria-expanded', 'false');
+    container.style.display = 'block';
+};
+
+/* ===== Step Mode ===== */
+ARCHV.stepMode = {
+    active: false,
+    steps: null,
+    index: 0,
+    options: null
+};
+
+ARCHV.startStepMode = function(steps, options, resumeFromIndex) {
+    if (resumeFromIndex > 0) {
+        ARCHV.state.running = false;
+        ARCHV.stepMode.active = true;
+        ARCHV.stepMode.steps = steps;
+        ARCHV.stepMode.index = resumeFromIndex;
+        ARCHV.stepMode.options = options || {};
+        ARCHV.stepMode._reqId = ARCHV.state.requestId;
+
+        var layersSet = new Set();
+        var componentsCount = 0;
+        var depsCount = 0;
+        for (var i = 0; i < resumeFromIndex; i++) {
+            if (steps[i].layerId) layersSet.add(steps[i].layerId);
+            componentsCount++;
+            if (i > 0) depsCount++;
+        }
+        ARCHV.state.layersTraversed = layersSet.size;
+        ARCHV.state.componentsHit = componentsCount;
+        ARCHV.state.depsUsed = depsCount;
+        ARCHV.updateStats();
+
+        ARCHV.log('FLOW', 'Switched to step mode at step ' + resumeFromIndex);
+    } else {
+        ARCHV.clearAnimations();
+        ARCHV.resetStats();
+        ARCHV.clearLog();
+        ARCHV.stepMode.active = true;
+        ARCHV.stepMode.steps = steps;
+        ARCHV.stepMode.index = 0;
+        ARCHV.stepMode.options = options || {};
+
+        var svg = document.getElementById('archv-svg-layer');
+        if (svg) svg.innerHTML = '';
+
+        var reqId = ARCHV.nextRequestId();
+        ARCHV.stepMode._reqId = reqId;
+        ARCHV.log('REQUEST', 'R' + reqId + ': ' + (options && options.requestLabel ? options.requestLabel : 'Step mode started'));
+    }
+
+    ARCHV._updateStepButtons();
+};
+
+ARCHV.switchToStepMode = function() {
+    if (!ARCHV.state.running || !ARCHV.state.paused || !ARCHV.state._flowSteps) return;
+
+    var steps = ARCHV.state._flowSteps;
+    var options = ARCHV.state._flowOptions || {};
+    var currentIndex = ARCHV.state.stepIndex;
+
+    ARCHV.state._flowSteps = null;
+    ARCHV.state._flowOptions = null;
+
+    ARCHV.state.running = false;
+    ARCHV.resume();
+
+    var pauseBtn = document.getElementById('btn-pause');
+    if (pauseBtn) {
+        pauseBtn.disabled = true;
+        pauseBtn.innerHTML = '&#x23F8; Pause';
+    }
+
+    ARCHV.startStepMode(steps, options, currentIndex);
+};
+
+ARCHV.stepForward = function() {
+    var sm = ARCHV.stepMode;
+    if (!sm.active || sm.index >= sm.steps.length) return;
+
+    var step = sm.steps[sm.index];
+    var el = document.getElementById(step.elementId);
+
+    if (step.layerId) {
+        var layerEl = document.getElementById(step.layerId);
+        if (layerEl) layerEl.classList.add('archv-layer-active');
+    }
+
+    if (el) {
+        el.classList.remove('archv-visited');
+        el.classList.add('archv-active');
+        ARCHV._showStepLabel(el, sm.index + 1, step.label);
+    }
+
+    ARCHV.log(step.logType || 'FLOW', 'Step ' + (sm.index + 1) + ': ' + step.label + (step.description ? ' - ' + step.description : ''));
+
+    if (sm.index > 0 && el) {
+        var prevEl = document.getElementById(sm.steps[sm.index - 1].elementId);
+        if (prevEl) ARCHV._drawArrow(prevEl, el, step.logType, sm.index + 1);
+    } else if (el) {
+        ARCHV._drawStepBadge(el, sm.index + 1);
+    }
+
+    sm.index++;
+    ARCHV.state.stepIndex = sm.index;
+
+    var layersSet = new Set();
+    for (var j = 0; j < sm.index; j++) {
+        if (sm.steps[j].layerId) layersSet.add(sm.steps[j].layerId);
+    }
+    ARCHV.state.layersTraversed = layersSet.size;
+    ARCHV.state.componentsHit = sm.index;
+    ARCHV.updateStats();
+
+    if (sm.index >= sm.steps.length) {
+        ARCHV.log('RESPONSE', 'R' + sm._reqId + ': Flow completed (' + sm.steps.length + ' steps)');
+    }
+
+    ARCHV._updateStepButtons();
+};
+
+ARCHV.stepBack = function() {
+    var sm = ARCHV.stepMode;
+    if (!sm.active || sm.index <= 0) return;
+
+    sm.index--;
+    ARCHV.state.stepIndex = sm.index;
+
+    var step = sm.steps[sm.index];
+    var el = document.getElementById(step.elementId);
+    if (el) {
+        el.classList.remove('archv-active', 'archv-visited');
+    }
+    document.querySelectorAll('.archv-step-indicator').forEach(function(s) { s.remove(); });
+
+    var svg = document.getElementById('archv-svg-layer');
+    if (svg) svg.innerHTML = '';
+    document.querySelectorAll('.archv-layer-active').forEach(function(el) {
+        el.classList.remove('archv-layer-active');
+    });
+
+    var layersSet = new Set();
+    var componentsCount = 0;
+    for (var i = 0; i < sm.index; i++) {
+        var s = sm.steps[i];
+        var e = document.getElementById(s.elementId);
+        if (e) {
+            e.classList.remove('archv-active');
+            e.classList.add('archv-visited');
+        }
+        if (s.layerId) {
+            var layerEl = document.getElementById(s.layerId);
+            if (layerEl) layerEl.classList.add('archv-layer-active');
+            layersSet.add(s.layerId);
+        }
+        componentsCount++;
+        if (i > 0) {
+            var prevE = document.getElementById(sm.steps[i - 1].elementId);
+            if (prevE && e) ARCHV._drawArrow(prevE, e, s.logType, i + 1);
+        } else if (e) {
+            ARCHV._drawStepBadge(e, 1);
+        }
+    }
+
+    ARCHV.state.layersTraversed = layersSet.size;
+    ARCHV.state.componentsHit = componentsCount;
+    ARCHV.updateStats();
+
+    ARCHV._updateStepButtons();
+};
+
+ARCHV.exitStepMode = function() {
+    ARCHV.stepMode.active = false;
+    ARCHV.stepMode.steps = null;
+    ARCHV.stepMode.index = 0;
+    ARCHV._updateStepButtons();
+};
+
+ARCHV._updateStepButtons = function() {
+    var sm = ARCHV.stepMode;
+    var btnBack = document.getElementById('btn-step-back');
+    var btnFwd = document.getElementById('btn-step-fwd');
+    var btnStep = document.getElementById('btn-step-mode');
+    if (!btnBack || !btnFwd || !btnStep) return;
+
+    if (sm.active) {
+        btnBack.disabled = sm.index <= 0;
+        btnFwd.disabled = sm.index >= (sm.steps ? sm.steps.length : 0);
+        btnBack.style.display = '';
+        btnFwd.style.display = '';
+        btnStep.classList.add('active');
+        btnStep.innerHTML = '&#x23F9; Exit Steps';
+    } else {
+        btnBack.style.display = 'none';
+        btnFwd.style.display = 'none';
+        btnStep.classList.remove('active');
+        btnStep.innerHTML = '&#x23ED; Step Mode';
     }
 };
 

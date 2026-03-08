@@ -18,7 +18,7 @@ ARCHV.clean.depRules = [
     { from: 'Entities', to: 'Frameworks & Drivers', allowed: false }
 ];
 
-function renderCleanComponent(id, name, icon, angleDeg, ringSize) {
+function renderCleanComponent(id, name, icon, angleDeg, ringSize, tooltip) {
     var rad = angleDeg * Math.PI / 180;
     var r = (ringSize / 2) - 30;
     var cx = ringSize / 2;
@@ -28,6 +28,7 @@ function renderCleanComponent(id, name, icon, angleDeg, ringSize) {
     var leftPct = (px / ringSize * 100).toFixed(1);
     var topPct = (py / ringSize * 100).toFixed(1);
     return '<span class="archv-component archv-ring-component" id="' + id + '" ' +
+        (tooltip ? 'data-tooltip="' + tooltip.replace(/"/g, '&quot;') + '" ' : '') +
         'style="left:' + leftPct + '%;top:' + topPct + '%;">' +
         (icon ? '<span class="comp-icon">' + icon + '</span>' : '') +
         name + '</span>';
@@ -41,26 +42,27 @@ function renderClean(entryIcon, entryLabel, outputLabel, outputIcon) {
         '<div class="layout-concentric">' +
             '<div class="archv-ring ring-3" id="ring-frameworks">' +
                 '<span class="archv-ring-label">Frameworks & Drivers</span>' +
-                renderCleanComponent('comp-cl-framework', entryLabel, entryIcon, 205, 520) +
-                renderCleanComponent('comp-cl-db', 'Database', '&#x1F4BE;', 60, 520) +
-                renderCleanComponent('comp-cl-ui', outLabel, outIcon, 310, 520) +
+                renderCleanComponent('comp-cl-framework', entryLabel, entryIcon, 205, 520, 'Outermost ring: frameworks and drivers are thin glue code, easily replaceable') +
+                renderCleanComponent('comp-cl-db', 'Database', '&#x1F4BE;', 60, 520, 'External storage detail in the outermost ring, accessed only through Gateways') +
+                renderCleanComponent('comp-cl-ui', outLabel, outIcon, 310, 520, 'Output delivery mechanism in the outermost ring, renders ViewModel data') +
             '</div>' +
             '<div class="archv-ring ring-2" id="ring-adapters">' +
                 '<span class="archv-ring-label">Interface Adapters</span>' +
-                renderCleanComponent('comp-cl-controller', 'Controller', '&#x1F3AE;', 185, 410) +
-                renderCleanComponent('comp-cl-presenter', 'Presenter', '&#x1F4CA;', 310, 410) +
-                renderCleanComponent('comp-cl-viewmodel', 'ViewModel', '&#x1F4CB;', 345, 410) +
-                renderCleanComponent('comp-cl-gateway', 'Gateway', '&#x1F6AA;', 95, 410) +
+                renderCleanComponent('comp-cl-controller', 'Controller', '&#x1F3AE;', 185, 410, 'Adapter translating input into request DTOs and calling InputBoundary') +
+                renderCleanComponent('comp-cl-presenter', 'Presenter', '&#x1F4CA;', 310, 410, 'Adapter implementing OutputBoundary, converts use case output to ViewModel') +
+                renderCleanComponent('comp-cl-viewmodel', 'ViewModel', '&#x1F4CB;', 345, 410, 'Plain data structure with display-ready data, no business logic') +
+                renderCleanComponent('comp-cl-gateway', 'Gateway', '&#x1F6AA;', 95, 410, 'Adapter implementing repository interfaces for data access operations') +
             '</div>' +
             '<div class="archv-ring ring-1" id="ring-usecases">' +
                 '<span class="archv-ring-label">Use Cases</span>' +
-                renderCleanComponent('comp-cl-input-boundary', 'InputBoundary (I)', '&#x1F6E1;', 150, 290) +
-                renderCleanComponent('comp-cl-usecase', 'UseCase', '&#x2699;', 90, 290) +
-                renderCleanComponent('comp-cl-output-boundary', 'OutputBoundary (I)', '&#x1F4E4;', 10, 290) +
+                renderCleanComponent('comp-cl-input-boundary', 'InputBoundary (I)', '&#x1F6E1;', 150, 290, 'Interface for incoming requests. Controllers call this to invoke use cases.') +
+                renderCleanComponent('comp-cl-usecase', 'UseCase', '&#x2699;', 90, 290, 'Application-specific business logic orchestrator at the center') +
+                renderCleanComponent('comp-cl-output-boundary', 'OutputBoundary (I)', '&#x1F4E4;', 10, 290, 'Interface for outgoing results. UseCase calls this to pass data outward.') +
             '</div>' +
             '<div class="archv-ring ring-0" id="ring-entities">' +
                 '<span class="archv-ring-label">Entities</span>' +
                 '<span class="archv-component archv-ring-component" id="comp-cl-entity" ' +
+                    'data-tooltip="Enterprise-wide business rules at the innermost core, independent of everything" ' +
                     'style="left:50%;top:45%;">' +
                     '<span class="comp-icon">&#x1F4CB;</span>Entity</span>' +
             '</div>' +
@@ -86,7 +88,22 @@ ARCHV.clean.details = {
             { term: 'Presenter', definition: 'Interface Adapter that implements OutputBoundary. Converts use case output into a ViewModel suitable for the view layer.' },
             { term: 'Gateway', definition: 'Interface Adapter implementing repository interfaces defined by Use Cases. Translates between domain objects and database operations.' },
             { term: 'ViewModel', definition: 'Plain data structure created by the Presenter. Contains only display-ready data — no business logic, no framework dependencies.' }
-        ]
+        ],
+        tradeoffs: {
+            pros: [
+                'Highly testable — business logic is isolated from frameworks and infrastructure',
+                'Framework-independent — swap frameworks without touching domain or use cases',
+                'Domain-focused — entities and use cases are at the center, not infrastructure',
+                'Clear dependency rules make it easy to reason about code boundaries'
+            ],
+            cons: [
+                'More code and abstractions (boundaries, presenters, gateways) than simpler architectures',
+                'Mapping overhead between layers (DTOs, ViewModels, domain objects)',
+                'Can feel over-engineered for simple CRUD applications',
+                'Steeper onboarding curve for developers unfamiliar with the pattern'
+            ],
+            whenToUse: 'Best for long-lived projects where framework independence matters, complex domains requiring thorough testing, and systems where you expect the delivery mechanism or infrastructure to change over time.'
+        }
     },
     console: {
         principles: [
@@ -101,7 +118,22 @@ ARCHV.clean.details = {
             { term: 'Controller', definition: 'Interface Adapter that translates CLI arguments into a request DTO and calls InputBoundary. Decouples the framework from application logic.' },
             { term: 'UseCase', definition: 'Application-specific business rule orchestrator. Receives input via InputBoundary, interacts with Entities, and returns results via OutputBoundary.' },
             { term: 'Entity', definition: 'Enterprise-wide business object at the core. Contains critical business rules that are the least likely to change when something external changes.' }
-        ]
+        ],
+        tradeoffs: {
+            pros: [
+                'Highly testable — business logic is isolated from frameworks and infrastructure',
+                'Framework-independent — swap frameworks without touching domain or use cases',
+                'Domain-focused — entities and use cases are at the center, not infrastructure',
+                'Clear dependency rules make it easy to reason about code boundaries'
+            ],
+            cons: [
+                'More code and abstractions (boundaries, presenters, gateways) than simpler architectures',
+                'Mapping overhead between layers (DTOs, ViewModels, domain objects)',
+                'Can feel over-engineered for simple CRUD applications',
+                'Steeper onboarding curve for developers unfamiliar with the pattern'
+            ],
+            whenToUse: 'Best for long-lived projects where framework independence matters, complex domains requiring thorough testing, and systems where you expect the delivery mechanism or infrastructure to change over time.'
+        }
     },
     message: {
         principles: [
@@ -116,14 +148,29 @@ ARCHV.clean.details = {
             { term: 'InputBoundary', definition: 'Interface in the Use Cases ring. The message Controller calls this to trigger use case logic, keeping the queue driver decoupled.' },
             { term: 'OutputBoundary', definition: 'Interface in the Use Cases ring. UseCase pushes results outward through this boundary — the Presenter decides how to format the acknowledgment.' },
             { term: 'Presenter', definition: 'Interface Adapter that formats the use case output into an acknowledgment or event payload, without the UseCase knowing the delivery mechanism.' }
-        ]
+        ],
+        tradeoffs: {
+            pros: [
+                'Highly testable — business logic is isolated from frameworks and infrastructure',
+                'Framework-independent — swap frameworks without touching domain or use cases',
+                'Domain-focused — entities and use cases are at the center, not infrastructure',
+                'Clear dependency rules make it easy to reason about code boundaries'
+            ],
+            cons: [
+                'More code and abstractions (boundaries, presenters, gateways) than simpler architectures',
+                'Mapping overhead between layers (DTOs, ViewModels, domain objects)',
+                'Can feel over-engineered for simple CRUD applications',
+                'Steeper onboarding curve for developers unfamiliar with the pattern'
+            ],
+            whenToUse: 'Best for long-lived projects where framework independence matters, complex domains requiring thorough testing, and systems where you expect the delivery mechanism or infrastructure to change over time.'
+        }
     }
 };
 
 ARCHV.clean.http = {
     init: function() { renderClean('&#x1F310;', 'HTTP Server'); },
-    run: function() {
-        ARCHV.animateFlow([
+    steps: function() {
+        return [
             { elementId: 'comp-cl-framework', label: 'HTTP Server', description: 'Request enters framework layer', logType: 'REQUEST', layerId: 'ring-frameworks' },
             { elementId: 'comp-cl-controller', label: 'Controller', description: 'Parse input, create Request DTO', logType: 'LAYER', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-input-boundary', label: 'InputBoundary', description: 'Cross boundary via interface (Controller → UseCase)', logType: 'LAYER', layerId: 'ring-usecases' },
@@ -136,14 +183,18 @@ ARCHV.clean.http = {
             { elementId: 'comp-cl-presenter', label: 'Presenter', description: 'Format output into ViewModel', logType: 'RESPONSE', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-viewmodel', label: 'ViewModel', description: 'Data structure for view rendering', logType: 'RESPONSE', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-ui', label: 'Web/UI', description: 'Render ViewModel response', logType: 'RESPONSE', layerId: 'ring-frameworks' }
-        ], { requestLabel: 'HTTP GET /api/users/1' });
+        ];
+    },
+    stepOptions: function() { return { requestLabel: 'HTTP GET /api/users/1' }; },
+    run: function() {
+        ARCHV.animateFlow(ARCHV.clean.http.steps(), ARCHV.clean.http.stepOptions());
     }
 };
 
 ARCHV.clean.console = {
     init: function() { renderClean('&#x1F4BB;', 'CLI Framework', 'Console', '&#x1F4BB;'); },
-    run: function() {
-        ARCHV.animateFlow([
+    steps: function() {
+        return [
             { elementId: 'comp-cl-framework', label: 'CLI Framework', description: 'Console command received', logType: 'REQUEST', layerId: 'ring-frameworks' },
             { elementId: 'comp-cl-controller', label: 'Controller', description: 'Parse CLI arguments', logType: 'LAYER', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-input-boundary', label: 'InputBoundary', description: 'Cross boundary via interface', logType: 'LAYER', layerId: 'ring-usecases' },
@@ -156,14 +207,18 @@ ARCHV.clean.console = {
             { elementId: 'comp-cl-presenter', label: 'Presenter', description: 'Format CLI output', logType: 'RESPONSE', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-viewmodel', label: 'ViewModel', description: 'Data structure for CLI display', logType: 'RESPONSE', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-ui', label: 'Console', description: 'Print output to console', logType: 'RESPONSE', layerId: 'ring-frameworks' }
-        ], { requestLabel: 'CLI: migrate:run' });
+        ];
+    },
+    stepOptions: function() { return { requestLabel: 'CLI: migrate:run' }; },
+    run: function() {
+        ARCHV.animateFlow(ARCHV.clean.console.steps(), ARCHV.clean.console.stepOptions());
     }
 };
 
 ARCHV.clean.message = {
     init: function() { renderClean('&#x1F4E9;', 'Queue Driver', 'Queue ACK', '&#x2705;'); },
-    run: function() {
-        ARCHV.animateFlow([
+    steps: function() {
+        return [
             { elementId: 'comp-cl-framework', label: 'Queue Driver', description: 'Message from queue', logType: 'REQUEST', layerId: 'ring-frameworks' },
             { elementId: 'comp-cl-controller', label: 'Controller', description: 'Deserialize message payload', logType: 'LAYER', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-input-boundary', label: 'InputBoundary', description: 'Cross boundary via interface', logType: 'LAYER', layerId: 'ring-usecases' },
@@ -176,6 +231,10 @@ ARCHV.clean.message = {
             { elementId: 'comp-cl-presenter', label: 'Presenter', description: 'Format acknowledgment', logType: 'RESPONSE', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-viewmodel', label: 'ViewModel', description: 'Data structure for response output', logType: 'RESPONSE', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-ui', label: 'Queue ACK', description: 'Acknowledge message to broker', logType: 'RESPONSE', layerId: 'ring-frameworks' }
-        ], { requestLabel: 'Message: user.registered' });
+        ];
+    },
+    stepOptions: function() { return { requestLabel: 'Message: user.registered' }; },
+    run: function() {
+        ARCHV.animateFlow(ARCHV.clean.message.steps(), ARCHV.clean.message.stepOptions());
     }
 };

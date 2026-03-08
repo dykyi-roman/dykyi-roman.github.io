@@ -51,6 +51,7 @@
             <button class="arch-tab" data-arch="cqrs" role="tab" aria-selected="false">CQRS</button>
             <button class="arch-tab" data-arch="eventsourcing" role="tab" aria-selected="false">Event Sourcing</button>
             <button class="arch-tab" data-arch="eda" role="tab" aria-selected="false">EDA</button>
+            <button class="arch-tab" data-arch="microservices" role="tab" aria-selected="false">Microservices</button>
             <button class="arch-tab" data-arch="mvc" role="tab" aria-selected="false">MVC</button>
         </div>
 
@@ -60,6 +61,9 @@
                 <button class="ctrl-btn run-btn" id="btn-run" title="Send request through architecture">&#x25B6; Send Request</button>
                 <button class="ctrl-btn pause-btn" id="btn-pause" title="Pause / Resume animation" disabled>&#x23F8; Pause</button>
                 <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state">&#x21BA; Reset</button>
+                <button class="step-btn" id="btn-step-mode" title="Toggle step-by-step mode">&#x23ED; Step Mode</button>
+                <button class="step-btn" id="btn-step-back" title="Step back" style="display:none" disabled>&#x23EE; Back</button>
+                <button class="step-btn" id="btn-step-fwd" title="Step forward" style="display:none" disabled>&#x23ED; Next</button>
                 <label class="speed-label" for="speed-range">Speed:</label>
                 <input type="range" class="speed-range" id="speed-range" min="100" max="1200" value="600" step="50">
                 <span class="speed-value" id="speed-value">Normal</span>
@@ -91,6 +95,15 @@
             <svg class="archv-svg-layer" id="archv-svg-layer"></svg>
         </div>
 
+        <!-- Trade-offs Panel -->
+        <div class="pattern-tradeoffs" id="tradeoffs-panel" style="display:none">
+            <button class="pattern-tradeoffs-toggle" id="tradeoffs-toggle" aria-expanded="false">
+                <span class="pattern-tradeoffs-toggle-icon">&#x25B6;</span>
+                <span>Trade-offs: Pros, Cons &amp; When to Use</span>
+            </button>
+            <div class="pattern-tradeoffs-body" id="tradeoffs-body"></div>
+        </div>
+
         <!-- Dependency Rules Panel -->
         <div class="dep-rules-panel" id="dep-rules-panel">
             <div class="dep-rules-header">Dependency Rules</div>
@@ -120,6 +133,7 @@
 <script src="js/cqrs.js"></script>
 <script src="js/eventsourcing.js"></script>
 <script src="js/eda.js"></script>
+<script src="js/microservices.js"></script>
 <script src="js/mvc.js"></script>
 <script src="js/app.js"></script>
 </body>

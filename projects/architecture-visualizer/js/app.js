@@ -67,6 +67,15 @@
             },
             depRules: ARCHV.eda.depRules
         },
+        microservices: {
+            name: 'Microservices Architecture',
+            modes: ARCHV.microservices.modes,
+            initMode: function(modeId) {
+                var map = { sync: ARCHV.microservices.sync, async: ARCHV.microservices.async, saga: ARCHV.microservices.saga };
+                if (map[modeId]) map[modeId].init();
+            },
+            depRules: ARCHV.microservices.depRules
+        },
         mvc: {
             name: 'MVC / MVP / MVVM',
             modes: ARCHV.mvc.modes,
@@ -161,6 +170,7 @@
             cqrs: { http: ARCHV.cqrs.http, console: ARCHV.cqrs.console, message: ARCHV.cqrs.message },
             eventsourcing: { http: ARCHV.eventsourcing.http, console: ARCHV.eventsourcing.console, message: ARCHV.eventsourcing.message },
             eda: { http: ARCHV.eda.http, choreography: ARCHV.eda.choreography, orchestration: ARCHV.eda.orchestration },
+            microservices: { sync: ARCHV.microservices.sync, async: ARCHV.microservices.async, saga: ARCHV.microservices.saga },
             mvc: { mvc: ARCHV.mvc.mvcMode, mvp: ARCHV.mvc.mvpMode, mvvm: ARCHV.mvc.mvvmMode }
         };
         return modeMap[archId] && modeMap[archId][modeId] ? modeMap[archId][modeId] : null;
@@ -206,6 +216,9 @@
         body.classList.remove('expanded');
         toggle.setAttribute('aria-expanded', 'false');
         container.style.display = 'block';
+
+        var tradeoffs = details.tradeoffs || null;
+        ARCHV.showTradeoffs(tradeoffs);
     }
 
     function setupControls() {
@@ -267,6 +280,33 @@
             body.classList.toggle('expanded');
         };
 
+        document.getElementById('tradeoffs-toggle').onclick = function() {
+            var body = document.getElementById('tradeoffs-body');
+            var expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !expanded);
+            body.classList.toggle('expanded');
+        };
+
+        document.getElementById('btn-step-mode').onclick = function() {
+            if (ARCHV.state.running && ARCHV.state.paused) {
+                ARCHV.switchToStepMode();
+                return;
+            }
+            if (ARCHV.stepMode.active) {
+                ARCHV.exitStepMode();
+                ARCHV.clearAnimations();
+                return;
+            }
+            var mode = getCurrentMode();
+            if (!mode || !mode.run) return;
+            var steps = mode.steps ? mode.steps() : null;
+            if (!steps) return;
+            ARCHV.startStepMode(steps, mode.stepOptions ? mode.stepOptions() : {});
+        };
+
+        document.getElementById('btn-step-fwd').onclick = function() { ARCHV.stepForward(); };
+        document.getElementById('btn-step-back').onclick = function() { ARCHV.stepBack(); };
+
         document.querySelectorAll('.arch-tab').forEach(function(tab) {
             tab.onclick = function() { switchArch(tab.dataset.arch); };
         });
@@ -274,6 +314,8 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         setupControls();
+        ARCHV.ensureTooltips();
+        ARCHV._updateStepButtons();
         var saved = readHash();
         if (saved) {
             switchArch(saved.arch, saved.mode);

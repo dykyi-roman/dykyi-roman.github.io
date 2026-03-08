@@ -1,6 +1,6 @@
 # Architecture Visualizer
 
-Interactive visualizer for software architecture patterns — **Layered**, **Clean**, **Hexagonal**, **DDD**, **CQRS**, **Event Sourcing**, **EDA**, and **MVC/MVP/MVVM**. Built with pure HTML5, CSS3, and vanilla JavaScript — no frameworks, no dependencies.
+Interactive visualizer for software architecture patterns — **Layered**, **Clean**, **Hexagonal**, **DDD**, **CQRS**, **Event Sourcing**, **EDA**, **Microservices**, and **MVC/MVP/MVVM**. Built with pure HTML5, CSS3, and vanilla JavaScript — no frameworks, no dependencies.
 
 ![Preview](img.svg)
 
@@ -66,6 +66,14 @@ Interactive visualizer for software architecture patterns — **Layered**, **Cle
 | **Choreography** | Services react to events independently without central coordination. Each service listens for relevant events and publishes new ones. Flow emerges from individual reactions |
 | **Orchestration (Saga)** | Saga orchestrator coordinates the distributed transaction, sending commands to services and managing compensation on failure |
 
+### Microservices Architecture (3 Modes)
+
+| Mode | Description |
+|------|-------------|
+| **Sync (REST/gRPC)** | Synchronous request flows through the API Gateway to individual services. The gateway authenticates, routes, and aggregates responses. Services communicate via REST or gRPC through the gateway — never directly |
+| **Async (Events)** | Event-driven communication between services via a Message Bus. Services publish domain events after state changes. Other services consume relevant events and react independently. No direct service-to-service calls |
+| **Saga Pattern** | Distributed transaction coordinated by a Saga Orchestrator. Each step is a local transaction in a service. On failure, compensating transactions are executed in reverse order to maintain data consistency |
+
 ### MVC / MVP / MVVM (3 Modes)
 
 | Mode | Description |
@@ -81,6 +89,7 @@ Interactive visualizer for software architecture patterns — **Layered**, **Cle
 | **Send Request** | Execute a request flow through the selected architecture pattern |
 | **Pause / Resume** | Freeze or resume the animation |
 | **Reset** | Clear all state, counters, logs, and re-initialize current mode |
+| **Step Mode** | Toggle step-by-step execution with Back/Next navigation. Can be entered from a paused animation to continue step-by-step |
 | **Speed** | Adjustable animation speed: Slow, Normal, Fast, Ultra |
 
 ### Visualization Engine
@@ -91,7 +100,8 @@ Interactive visualizer for software architecture patterns — **Layered**, **Cle
 - **Step indicators** — numbered badges on arrows and components showing execution order
 - **Dependency rules panel** — allowed (green) and forbidden (red) dependency directions per pattern
 - **Collapsible Principles & Key Concepts** — pattern-specific principles and terminology
-- **Color-coded event log** — timestamped entries with types: REQUEST, FLOW, RESPONSE
+- **Collapsible Trade-offs panel** — Pros, Cons & When to Use for each pattern/mode
+- **Color-coded event log** — timestamped entries with types: REQUEST, FLOW, COMMAND, EVENT, ERROR, RESPONSE
 - **Live stats bar** — Layers traversed, Components hit (cumulative across requests)
 - **Architecture-specific color themes** — each pattern has its own accent color and dark background
 
@@ -101,11 +111,12 @@ Interactive visualizer for software architecture patterns — **Layered**, **Cle
 |---------|--------|------------|-------|
 | Layered | `#6366F1` | `#161830` | `#1e2248` |
 | Clean | `#8B5CF6` | `#1a1630` | `#241e48` |
-| Hexagonal | `#06B6D4` | `#0d1f24` | `#153038` |
+| Hexagonal | `#3B82F6` | `#0d1630` | `#152048` |
 | DDD | `#F59E0B` | `#1f1a0d` | `#302615` |
 | CQRS | `#10B981` | `#0d1f18` | `#153024` |
 | Event Sourcing | `#EC4899` | `#1f0d1a` | `#301524` |
 | EDA | `#F97316` | `#1f150d` | `#302015` |
+| Microservices | `#84CC16` | `#1a1f0d` | `#283015` |
 | MVC | `#EF4444` | `#1f0d0d` | `#301515` |
 
 ## Architecture
@@ -140,7 +151,12 @@ DOMContentLoaded
 | `ARCHV._edgePoint()` | Edge calculation | Finds where a line from rect center toward target exits the bounding rect |
 | `ARCHV._drawStepBadge()` | Step badge | SVG numbered circle on the first step element |
 | `ARCHV.showDependencyRules()` | Dependency rules | Renders allowed/forbidden dependency directions in the rules panel |
+| `ARCHV.showTradeoffs()` | Trade-offs panel | Renders Pros, Cons & When to Use for current pattern/mode |
 | `ARCHV.setAccentColors()` | Theming | Sets `--archv-accent`, `--archv-accent-bg`, `--archv-accent-light` CSS variables per architecture |
+| `ARCHV.startStepMode()` | Step mode start | Initializes step-by-step execution with optional resume from index |
+| `ARCHV.stepForward()` | Step forward | Advances one step: highlights component, draws arrow, updates stats |
+| `ARCHV.stepBack()` | Step back | Reverses one step: redraws previous state from scratch |
+| `ARCHV.switchToStepMode()` | Pause-to-step | Converts a paused animation into step mode at the current step |
 | `ARCHV.sleep()` | Pause support | Async delay with pause/resume capability |
 
 ## Project Structure
@@ -159,6 +175,7 @@ architecture-visualizer/
 │   ├── cqrs.js             # 3 modes: HTTP, Console, Message — separated read/write paths
 │   ├── eventsourcing.js    # 3 modes: HTTP, Console, Message — event store & projections
 │   ├── eda.js              # 3 modes: HTTP, Choreography, Orchestration — event mesh layout
+│   ├── microservices.js    # 3 modes: Sync, Async, Saga — gateway + services layout
 │   ├── mvc.js              # 3 modes: MVC, MVP, MVVM — triad component layout
 │   └── app.js              # IIFE: architecture switching, mode tabs, control bindings, bootstrap
 ├── img.svg                 # Project preview image
@@ -177,8 +194,9 @@ Scripts must load in this exact order (each depends on the previous):
 6. `cqrs.js` — registers `ARCHV.cqrs` with separated read/write paths
 7. `eventsourcing.js` — registers `ARCHV.eventsourcing` with event store flow
 8. `eda.js` — registers `ARCHV.eda` with event mesh and saga orchestration
-9. `mvc.js` — registers `ARCHV.mvc` with MVC/MVP/MVVM triad layouts
-10. `app.js` — IIFE that reads all `ARCHV.*` namespaces and wires up the UI
+9. `microservices.js` — registers `ARCHV.microservices` with gateway, services, and saga layout
+10. `mvc.js` — registers `ARCHV.mvc` with MVC/MVP/MVVM triad layouts
+11. `app.js` — IIFE that reads all `ARCHV.*` namespaces and wires up the UI
 
 ## Styling
 

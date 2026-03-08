@@ -76,14 +76,21 @@
 
 <script>
     (function() {
-        const PASSWORD = '18082020';
+        const HASH = '78cf42d2643427e07e8119272eca63827525d18c19bc296edb00e64342ade8da';
         const overlay = document.getElementById('password-overlay');
         const input = document.getElementById('password-input');
         const error = document.getElementById('password-error');
         const btn = document.getElementById('password-submit');
 
-        function checkPassword() {
-            if (input.value === PASSWORD) {
+        async function sha256(text) {
+            const data = new TextEncoder().encode(text);
+            const buffer = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkPassword() {
+            const hash = await sha256(input.value);
+            if (hash === HASH) {
                 overlay.style.display = 'none';
             } else {
                 error.style.display = 'block';
