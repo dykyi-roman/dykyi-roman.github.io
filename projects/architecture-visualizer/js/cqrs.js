@@ -87,7 +87,20 @@ function renderCQRS() {
                     '</div>' +
                 '</div>' +
             '</div>' +
-            '<div class="archv-event-bus" id="comp-cqrs-eventbus" data-tooltip="Routes events from write side to projection consumers for read model updates">&#x1F4E1; Event Bus (Projections)</div>' +
+            '<div class="archv-bridge-arrows">' +
+                '<div class="archv-bridge-arrow">' +
+                    '<span class="bridge-label">EventStore</span>' +
+                    '<span class="bridge-line"></span>' +
+                    '<span>&#x25B6;</span>' +
+                '</div>' +
+                '<span class="bridge-label">Event Bus</span>' +
+                '<div class="archv-bridge-arrow">' +
+                    '<span>&#x25B6;</span>' +
+                    '<span class="bridge-line"></span>' +
+                    '<span class="bridge-label">ReadModel</span>' +
+                '</div>' +
+            '</div>' +
+            '<div class="archv-event-bus" id="comp-cqrs-eventbus" data-tooltip="Routes events from write side to projection consumers for read model updates">&#x1F4E1; Event Bus (Projections)<span class="archv-async-badge">async</span></div>' +
         '</div>';
 }
 
