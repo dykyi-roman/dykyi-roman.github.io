@@ -48,7 +48,24 @@
         }
     };
 
-    function switchBroker(brokerId) {
+    function updateHash(brokerId, modeId) {
+        history.replaceState(null, '', '#' + brokerId + '/' + modeId);
+    }
+
+    function readHash() {
+        const hash = location.hash.replace('#', '');
+        if (!hash) return null;
+        const parts = hash.split('/');
+        if (parts.length === 2 && brokerConfigs[parts[0]]) {
+            const config = brokerConfigs[parts[0]];
+            if (config.modes.some(m => m.id === parts[1])) {
+                return { broker: parts[0], mode: parts[1] };
+            }
+        }
+        return null;
+    }
+
+    function switchBroker(brokerId, modeId) {
         MBV.state.broker = brokerId;
         MBV.setAccentColors(brokerId);
 
@@ -75,10 +92,7 @@
 
         // Render mode tabs
         renderModeTabs(brokerId);
-
-        // Activate first mode
-        const firstMode = config.modes[0].id;
-        switchMode(brokerId, firstMode);
+        switchMode(brokerId, modeId || config.modes[0].id);
     }
 
     function renderModeTabs(brokerId) {
@@ -95,6 +109,7 @@
 
     function switchMode(brokerId, modeId) {
         MBV.state.mode = modeId;
+        updateHash(brokerId, modeId);
         const config = brokerConfigs[brokerId];
         const modeConfig = config.modes.find(m => m.id === modeId);
 
@@ -180,7 +195,8 @@
             MBV.log('ACK', 'State reset');
         };
 
-        // Clear Log
+        // Copy / Clear Log
+        document.getElementById('btn-copy-log').onclick = () => MBV.copyLog();
         document.getElementById('btn-clear-log').onclick = () => MBV.clearLog();
 
         // Publisher Confirms toggle
@@ -199,6 +215,18 @@
     document.addEventListener('DOMContentLoaded', () => {
         setupControls();
         MBV.startThroughputTracker();
-        switchBroker('rabbitmq');
+        const saved = readHash();
+        if (saved) {
+            switchBroker(saved.broker, saved.mode);
+        } else {
+            switchBroker('rabbitmq');
+        }
+    });
+
+    window.addEventListener('hashchange', () => {
+        const saved = readHash();
+        if (saved && (saved.broker !== MBV.state.broker || saved.mode !== MBV.state.mode)) {
+            switchBroker(saved.broker, saved.mode);
+        }
     });
 })();

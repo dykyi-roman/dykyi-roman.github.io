@@ -57,12 +57,14 @@ MBV.rabbitmq.hello = {
         MBV.log('ROUTE', `msg_id=${id} enqueued in "hello" (${this.queueMessages} pending)`);
 
         await MBV.animateInsideQueue(document.getElementById('queue-hello'), { label: `#${id}`, duration: 600 });
+        MBV.addQueueDot(document.getElementById('queue-hello'), `#${id}`);
 
         if (MBV.state.confirmsEnabled) {
             MBV.rabbitmq._sendConfirm(prodPort, id);
         }
 
         const deliver = async () => {
+            MBV.removeQueueDot(document.getElementById('queue-hello'));
             await MBV.sleep(300);
             this.queueMessages--;
             MBV.state.queued--;
@@ -99,9 +101,9 @@ MBV.rabbitmq.hello = {
 /* ---------- Tutorial 2: Work Queues ---------- */
 MBV.rabbitmq.work = {
     workers: [
-        { id: 'w1', name: 'Worker 1', busy: false, processed: 0 },
-        { id: 'w2', name: 'Worker 2', busy: false, processed: 0 },
-        { id: 'w3', name: 'Worker 3', busy: false, processed: 0 },
+        { id: 'w1', name: 'Worker 1', busy: false, processed: 0, connected: true },
+        { id: 'w2', name: 'Worker 2', busy: false, processed: 0, connected: true },
+        { id: 'w3', name: 'Worker 3', busy: false, processed: 0, connected: true },
     ],
     queueMessages: 0,
     pendingQueue: [],
@@ -109,7 +111,7 @@ MBV.rabbitmq.work = {
     init() {
         this.queueMessages = 0;
         this.pendingQueue = [];
-        this.workers.forEach(w => { w.busy = false; w.processed = 0; });
+        this.workers.forEach(w => { w.busy = false; w.processed = 0; w.connected = true; });
 
         document.getElementById('producers-col').innerHTML = MBV.rabbitmq._producerCard('taskprod', 'Task Producer', '\uD83D\uDCCB');
         document.getElementById('broker-body').innerHTML = `
@@ -129,6 +131,7 @@ MBV.rabbitmq.work = {
                 <div class="card-header">
                     <span class="card-icon">\u2699\uFE0F</span>
                     <span class="card-name">${w.name}</span>
+                    <button class="toggle-connect-btn" id="toggle-${w.id}">Disconnect</button>
                 </div>
                 <div class="card-stats"><span class="card-status ready" id="status-${w.id}">ready</span> Processed: <span id="count-${w.id}">0</span></div>
                 <div class="card-progress"><div class="card-progress-fill" id="progress-${w.id}"></div></div>
@@ -139,6 +142,20 @@ MBV.rabbitmq.work = {
         document.getElementById('extra-panels').innerHTML = '';
 
         document.getElementById('send-taskprod').onclick = () => this.send();
+
+        this.workers.forEach(w => {
+            document.getElementById('toggle-' + w.id).onclick = () => {
+                w.connected = !w.connected;
+                const card = document.getElementById('card-' + w.id);
+                const btn = document.getElementById('toggle-' + w.id);
+                card.classList.toggle('disconnected', !w.connected);
+                btn.classList.toggle('disconnected', !w.connected);
+                btn.textContent = w.connected ? 'Disconnect' : 'Connect';
+                if (w.connected) this._processQueue();
+                this._highlightNextWorker();
+            };
+        });
+
         this._highlightNextWorker();
         MBV.onResume = () => this._processQueue();
     },
@@ -157,7 +174,7 @@ MBV.rabbitmq.work = {
         const start = MBV.state.roundRobinIndex;
         for (let i = 0; i < this.workers.length; i++) {
             const idx = (start + i) % this.workers.length;
-            if (!this.workers[idx].busy) {
+            if (!this.workers[idx].busy && this.workers[idx].connected) {
                 MBV.state.roundRobinIndex = idx + 1;
                 this._highlightNextWorker();
                 return this.workers[idx];
@@ -173,6 +190,7 @@ MBV.rabbitmq.work = {
         if (!worker) return;
 
         const msgId = this.pendingQueue.shift();
+        MBV.removeQueueDot(document.getElementById('queue-task'));
         this.queueMessages--;
         MBV.state.queued--;
         document.getElementById('q-task-count').textContent = this.queueMessages;
@@ -252,6 +270,7 @@ MBV.rabbitmq.work = {
         MBV.log('ROUTE', `msg_id=${id} enqueued (${this.queueMessages} pending)`);
 
         await MBV.animateInsideQueue(document.getElementById('queue-task'), { label: `#${id}`, duration: 600 });
+        MBV.addQueueDot(document.getElementById('queue-task'), `#${id}`);
 
         if (MBV.state.confirmsEnabled) {
             MBV.rabbitmq._sendConfirm(prodPort, id);
@@ -267,13 +286,15 @@ MBV.rabbitmq.work = {
 /* ---------- Tutorial 3: Publish/Subscribe (Fanout) ---------- */
 MBV.rabbitmq.pubsub = {
     consumers: [
-        { id: 'log-svc', name: 'Log Service', icon: '\uD83D\uDCDD' },
-        { id: 'cache-svc', name: 'Cache Service', icon: '\uD83D\uDCBE' },
-        { id: 'notify-svc', name: 'Notification Service', icon: '\uD83D\uDD14' },
-        { id: 'analytics-svc', name: 'Analytics Service', icon: '\uD83D\uDCC8' },
+        { id: 'log-svc', name: 'Log Service', icon: '\uD83D\uDCDD', connected: true, received: 0, pendingMessages: [] },
+        { id: 'cache-svc', name: 'Cache Service', icon: '\uD83D\uDCBE', connected: true, received: 0, pendingMessages: [] },
+        { id: 'notify-svc', name: 'Notification Service', icon: '\uD83D\uDD14', connected: true, received: 0, pendingMessages: [] },
+        { id: 'analytics-svc', name: 'Analytics Service', icon: '\uD83D\uDCC8', connected: true, received: 0, pendingMessages: [] },
     ],
 
     init() {
+        this.consumers.forEach(c => { c.connected = true; c.received = 0; c.pendingMessages = []; });
+
         let prodHtml = MBV.rabbitmq._producerCard('pub1', 'Publisher 1', '\uD83D\uDCE4');
         prodHtml += MBV.rabbitmq._producerCard('pub2', 'Publisher 2', '\uD83D\uDCE4');
         document.getElementById('producers-col').innerHTML = prodHtml;
@@ -305,6 +326,7 @@ MBV.rabbitmq.pubsub = {
                 <div class="card-header">
                     <span class="card-icon">${c.icon}</span>
                     <span class="card-name">${c.name}</span>
+                    <button class="toggle-connect-btn" id="toggle-${c.id}">Disconnect</button>
                 </div>
                 <div class="card-stats">Received: <span id="count-${c.id}">0</span></div>
                 <div class="card-progress"><div class="card-progress-fill" id="progress-${c.id}"></div></div>
@@ -313,6 +335,18 @@ MBV.rabbitmq.pubsub = {
         });
         document.getElementById('consumers-col').innerHTML = consumersHtml;
         document.getElementById('extra-panels').innerHTML = '';
+
+        this.consumers.forEach(c => {
+            document.getElementById('toggle-' + c.id).onclick = () => {
+                c.connected = !c.connected;
+                const card = document.getElementById('card-' + c.id);
+                const btn = document.getElementById('toggle-' + c.id);
+                card.classList.toggle('disconnected', !c.connected);
+                btn.classList.toggle('disconnected', !c.connected);
+                btn.textContent = c.connected ? 'Disconnect' : 'Connect';
+                if (c.connected) this._drainPending(c);
+            };
+        });
 
         document.getElementById('send-pub1').onclick = () => this.send('pub1');
         document.getElementById('send-pub2').onclick = () => this.send('pub2');
@@ -339,8 +373,10 @@ MBV.rabbitmq.pubsub = {
         MBV.state.queued++;
         MBV.updateStats();
         MBV.log('ROUTE', `msg_id=${id} broadcast to ${this.consumers.length} queues`);
+        MBV.addQueueDot(document.getElementById('exchange-fanout'), `#${id}`);
 
         const deliver = async () => {
+            MBV.removeQueueDot(document.getElementById('exchange-fanout'));
             MBV.state.queued--;
             MBV.updateStats();
             const failIdx = isError ? Math.floor(Math.random() * this.consumers.length) : -1;
@@ -351,6 +387,15 @@ MBV.rabbitmq.pubsub = {
                 await MBV.animateDot(exPortR, qPortL, { label: `#${id}`, duration: 300 });
 
                 await MBV.animateInsideQueue(document.getElementById('queue-' + c.id), { label: `#${id}`, duration: 500 });
+
+                if (!c.connected) {
+                    c.pendingMessages.push({ id, isError: ci === failIdx });
+                    const qCountEl = document.getElementById('q-' + c.id + '-count');
+                    if (qCountEl) qCountEl.textContent = c.pendingMessages.length;
+                    MBV.addQueueDot(document.getElementById('queue-' + c.id), `#${id}`);
+                    MBV.log('QUEUE', `msg_id=${id} queued for ${c.name} (${c.pendingMessages.length} pending)`);
+                    return;
+                }
 
                 const qPortR = document.getElementById('q-' + c.id + '-port-r');
                 const consPort = document.getElementById('port-' + c.id);
@@ -364,8 +409,9 @@ MBV.rabbitmq.pubsub = {
                     MBV.log('ERROR', `msg_id=${id} \u2192 ${c.name} REJECTED (NACK)`);
                 } else {
                     MBV.state.delivered++;
+                    c.received++;
                     const countEl = document.getElementById('count-' + c.id);
-                    if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
+                    if (countEl) countEl.textContent = c.received;
                     MBV.log('RECV', `msg_id=${id} \u2192 ${c.name}`);
                 }
                 MBV.updateStats();
@@ -378,19 +424,50 @@ MBV.rabbitmq.pubsub = {
         } else {
             await deliver();
         }
+    },
+
+    async _drainPending(consumer) {
+        const pending = consumer.pendingMessages.splice(0);
+        if (pending.length === 0) return;
+        MBV.log('DRAIN', `${consumer.name} reconnected — delivering ${pending.length} queued messages`);
+        for (const msg of pending) {
+            const qPortR = document.getElementById('q-' + consumer.id + '-port-r');
+            const consPort = document.getElementById('port-' + consumer.id);
+            if (!qPortR || !consPort) continue;
+            MBV.removeQueueDot(document.getElementById('queue-' + consumer.id));
+            await MBV.animateDot(qPortR, consPort, { label: `#${msg.id}`, duration: 200 });
+
+            if (msg.isError) {
+                const card = document.getElementById('card-' + consumer.id);
+                MBV.flashCard(card, 'red');
+                MBV.addBadge(card, `NACK \u2717 #${msg.id}`, 'nack');
+                MBV.log('ERROR', `msg_id=${msg.id} \u2192 ${consumer.name} REJECTED (NACK)`);
+            } else {
+                MBV.state.delivered++;
+                consumer.received++;
+                const countEl = document.getElementById('count-' + consumer.id);
+                if (countEl) countEl.textContent = consumer.received;
+                MBV.log('RECV', `msg_id=${msg.id} \u2192 ${consumer.name}`);
+            }
+            const qCountEl = document.getElementById('q-' + consumer.id + '-count');
+            if (qCountEl) qCountEl.textContent = Math.max(0, parseInt(qCountEl.textContent) - 1);
+            MBV.updateStats();
+        }
     }
 };
 
 /* ---------- Tutorial 4: Routing (Direct Exchange) ---------- */
 MBV.rabbitmq.routing = {
     consumers: [
-        { id: 'err-handler', name: 'Error Handler', icon: '\u274C', binding: 'error' },
-        { id: 'warn-monitor', name: 'Warning Monitor', icon: '\u26A0\uFE0F', binding: 'warning' },
-        { id: 'info-logger', name: 'Info Logger', icon: '\u2139\uFE0F', binding: 'info' },
+        { id: 'err-handler', name: 'Error Handler', icon: '\u274C', binding: 'error', connected: true, received: 0, pendingMessages: [] },
+        { id: 'warn-monitor', name: 'Warning Monitor', icon: '\u26A0\uFE0F', binding: 'warning', connected: true, received: 0, pendingMessages: [] },
+        { id: 'info-logger', name: 'Info Logger', icon: '\u2139\uFE0F', binding: 'info', connected: true, received: 0, pendingMessages: [] },
     ],
     routingKeys: ['error', 'warning', 'info'],
 
     init() {
+        this.consumers.forEach(c => { c.connected = true; c.received = 0; c.pendingMessages = []; });
+
         let prodHtml = '';
         ['app-logger', 'db-logger'].forEach((pId, i) => {
             const name = i === 0 ? 'App Logger' : 'DB Logger';
@@ -441,6 +518,7 @@ MBV.rabbitmq.routing = {
                 <div class="card-header">
                     <span class="card-icon">${c.icon}</span>
                     <span class="card-name">${c.name}</span>
+                    <button class="toggle-connect-btn" id="toggle-${c.id}">Disconnect</button>
                 </div>
                 <div class="card-meta">binding: <span class="key-label">${c.binding}</span></div>
                 <div class="card-stats">Received: <span id="count-${c.id}">0</span></div>
@@ -449,6 +527,18 @@ MBV.rabbitmq.routing = {
         });
         document.getElementById('consumers-col').innerHTML = consumersHtml;
         document.getElementById('extra-panels').innerHTML = '';
+
+        this.consumers.forEach(c => {
+            document.getElementById('toggle-' + c.id).onclick = () => {
+                c.connected = !c.connected;
+                const card = document.getElementById('card-' + c.id);
+                const btn = document.getElementById('toggle-' + c.id);
+                card.classList.toggle('disconnected', !c.connected);
+                btn.classList.toggle('disconnected', !c.connected);
+                btn.textContent = c.connected ? 'Disconnect' : 'Connect';
+                if (c.connected) this._drainPending(c);
+            };
+        });
 
         ['app-logger', 'db-logger'].forEach(pId => {
             document.getElementById('send-' + pId).onclick = () => this.send(pId);
@@ -479,7 +569,7 @@ MBV.rabbitmq.routing = {
 
         unmatched.forEach(c => {
             const card = document.getElementById('card-' + c.id);
-            if (card) { card.style.opacity = '0.4'; setTimeout(() => { card.style.opacity = '1'; }, 600); }
+            if (card) { card.style.opacity = '0.4'; setTimeout(() => { card.style.opacity = ''; }, 600); }
         });
 
         matched.forEach(c => {
@@ -494,8 +584,10 @@ MBV.rabbitmq.routing = {
 
         MBV.state.queued++;
         MBV.updateStats();
+        MBV.addQueueDot(document.getElementById('exchange-direct'), `#${id}`);
 
         const deliver = async () => {
+            MBV.removeQueueDot(document.getElementById('exchange-direct'));
             MBV.state.queued--;
             MBV.updateStats();
             for (const c of matched) {
@@ -505,6 +597,15 @@ MBV.rabbitmq.routing = {
                 await MBV.animateDot(exPortR, qPortL, { label: rkey, duration: 300 });
 
                 await MBV.animateInsideQueue(document.getElementById('queue-' + c.id), { label: `#${id}`, duration: 500 });
+
+                if (!c.connected) {
+                    c.pendingMessages.push({ id, isError });
+                    const qCountEl = document.getElementById('q-' + c.id + '-count');
+                    if (qCountEl) qCountEl.textContent = c.pendingMessages.length;
+                    MBV.addQueueDot(document.getElementById('queue-' + c.id), `#${id}`);
+                    MBV.log('QUEUE', `msg_id=${id} queued for ${c.name} (${c.pendingMessages.length} pending)`);
+                    continue;
+                }
 
                 const qPortR = document.getElementById('q-' + c.id + '-port-r');
                 const consPort = document.getElementById('port-' + c.id);
@@ -518,8 +619,9 @@ MBV.rabbitmq.routing = {
                     MBV.log('ERROR', `msg_id=${id} \u2192 ${c.name} REJECTED (NACK)`);
                 } else {
                     MBV.state.delivered++;
+                    c.received++;
                     const countEl = document.getElementById('count-' + c.id);
-                    if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
+                    if (countEl) countEl.textContent = c.received;
                     MBV.log('RECV', `msg_id=${id} \u2192 ${c.name}`);
                 }
                 MBV.updateStats();
@@ -530,6 +632,35 @@ MBV.rabbitmq.routing = {
             MBV.enqueueDelivery(deliver);
         } else {
             await deliver();
+        }
+    },
+
+    async _drainPending(consumer) {
+        const pending = consumer.pendingMessages.splice(0);
+        if (pending.length === 0) return;
+        MBV.log('DRAIN', `${consumer.name} reconnected — delivering ${pending.length} queued messages`);
+        for (const msg of pending) {
+            const qPortR = document.getElementById('q-' + consumer.id + '-port-r');
+            const consPort = document.getElementById('port-' + consumer.id);
+            if (!qPortR || !consPort) continue;
+            MBV.removeQueueDot(document.getElementById('queue-' + consumer.id));
+            await MBV.animateDot(qPortR, consPort, { label: `#${msg.id}`, duration: 200 });
+
+            if (msg.isError) {
+                const card = document.getElementById('card-' + consumer.id);
+                MBV.flashCard(card, 'red');
+                MBV.addBadge(card, `NACK \u2717 #${msg.id}`, 'nack');
+                MBV.log('ERROR', `msg_id=${msg.id} \u2192 ${consumer.name} REJECTED (NACK)`);
+            } else {
+                MBV.state.delivered++;
+                consumer.received++;
+                const countEl = document.getElementById('count-' + consumer.id);
+                if (countEl) countEl.textContent = consumer.received;
+                MBV.log('RECV', `msg_id=${msg.id} \u2192 ${consumer.name}`);
+            }
+            const qCountEl = document.getElementById('q-' + consumer.id + '-count');
+            if (qCountEl) qCountEl.textContent = Math.max(0, parseInt(qCountEl.textContent) - 1);
+            MBV.updateStats();
         }
     }
 };
@@ -691,8 +822,10 @@ MBV.rabbitmq.topics = {
         MBV.state.queued++;
         MBV.updateStats();
         MBV.log('ROUTE', `msg_id=${id} matched ${matchedConsumers.length} consumer(s)`);
+        MBV.addQueueDot(document.getElementById('exchange-topic'), `#${id}`);
 
         const deliver = async () => {
+            MBV.removeQueueDot(document.getElementById('exchange-topic'));
             MBV.state.queued--;
             MBV.updateStats();
             const failIdx = isError && matchedConsumers.length > 0 ? Math.floor(Math.random() * matchedConsumers.length) : -1;
@@ -798,8 +931,10 @@ MBV.rabbitmq.rpc = {
         MBV.updateStats();
 
         await MBV.animateInsideQueue(document.getElementById('queue-rpc'), { label: `req \u00B7 ${corrId}`, duration: 550 });
+        MBV.addQueueDot(document.getElementById('queue-rpc'), `req\u00B7${corrId}`);
 
         const deliver = async () => {
+            MBV.removeQueueDot(document.getElementById('queue-rpc'));
             MBV.state.queued--;
             MBV.updateStats();
 
@@ -934,8 +1069,10 @@ MBV.rabbitmq.confirms = {
         MBV.updateStats();
 
         await MBV.animateInsideQueue(document.getElementById('queue-confirm'), { label: `#${id}`, duration: 550 });
+        MBV.addQueueDot(document.getElementById('queue-confirm'), `#${id}`);
 
         const deliver = async () => {
+            MBV.removeQueueDot(document.getElementById('queue-confirm'));
             MBV.state.queued--;
             MBV.updateStats();
             await MBV.sleep(300);

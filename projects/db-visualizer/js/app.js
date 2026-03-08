@@ -59,7 +59,24 @@
         }
     };
 
-    function switchDb(dbId) {
+    function updateHash(dbId, modeId) {
+        history.replaceState(null, '', '#' + dbId + '/' + modeId);
+    }
+
+    function readHash() {
+        const hash = location.hash.replace('#', '');
+        if (!hash) return null;
+        const parts = hash.split('/');
+        if (parts.length === 2 && dbConfigs[parts[0]]) {
+            const config = dbConfigs[parts[0]];
+            if (config.modes.some(m => m.id === parts[1])) {
+                return { db: parts[0], mode: parts[1] };
+            }
+        }
+        return null;
+    }
+
+    function switchDb(dbId, modeId) {
         DBIV.state.db = dbId;
         DBIV.setAccentColors(dbId);
 
@@ -79,8 +96,7 @@
         DBIV.hideComparison();
 
         renderModeTabs(dbId);
-        const firstMode = config.modes[0].id;
-        switchMode(dbId, firstMode);
+        switchMode(dbId, modeId || config.modes[0].id);
     }
 
     function renderModeTabs(dbId) {
@@ -98,6 +114,7 @@
     function switchMode(dbId, modeId) {
         DBIV.state.mode = modeId;
         DBIV.state.simulateError = false;
+        updateHash(dbId, modeId);
         const config = dbConfigs[dbId];
         const modeConfig = config.modes.find(m => m.id === modeId);
 
@@ -170,7 +187,8 @@
             DBIV.log('QUERY', 'State reset');
         };
 
-        // Clear Log
+        // Copy / Clear Log
+        document.getElementById('btn-copy-log').onclick = () => DBIV.copyLog();
         document.getElementById('btn-clear-log').onclick = () => DBIV.clearLog();
 
         // Compare toggle
@@ -187,6 +205,18 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         setupControls();
-        switchDb('mysql');
+        const saved = readHash();
+        if (saved) {
+            switchDb(saved.db, saved.mode);
+        } else {
+            switchDb('mysql');
+        }
+    });
+
+    window.addEventListener('hashchange', () => {
+        const saved = readHash();
+        if (saved && (saved.db !== DBIV.state.db || saved.mode !== DBIV.state.mode)) {
+            switchDb(saved.db, saved.mode);
+        }
     });
 })();

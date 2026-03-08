@@ -12,47 +12,50 @@ Interactive visualizer for three message brokers — **RabbitMQ**, **Apache Kafk
 
 ### RabbitMQ (7 Tutorials)
 
-| Mode | Pattern | Description |
-|------|---------|-------------|
-| **Hello World** | P -> Queue -> C | Simplest one-to-one messaging |
-| **Work Queues** | Competing Consumers | Round-robin distribution across multiple workers with busy/ready states |
-| **Pub/Sub** | Fanout Exchange | Broadcast every message to all bound queues simultaneously |
-| **Routing** | Direct Exchange | Route messages by exact binding key match |
-| **Topics** | Topic Exchange | Pattern-based routing with `*` (one word) and `#` (zero or more words) wildcards |
-| **RPC** | Request/Reply | Synchronous call with `correlation_id` and temporary reply queues |
-| **Publisher Confirms** | ACK/NACK | Broker acknowledges each message write; guarantees at-least-once delivery |
+| # | Mode | Pattern | Description |
+|---|------|---------|-------------|
+| 1 | **Direct Queue** | P -> Queue -> C | Producer writes to a named queue, Consumer reads from it. One to one |
+| 2 | **Round-Robin** | Competing Consumers | Queue distributes tasks among workers via round-robin. Each message is processed by exactly one worker |
+| 3 | **Pub/Sub** | Fanout Exchange | Broadcasts every message to all subscribers simultaneously. Used for logging, cache invalidation, realtime updates |
+| 4 | **Routing** | Direct Exchange | Delivers messages only to queues with exact binding key match. Routing key is set by the producer |
+| 5 | **Topics** | Topic Exchange | Matches routing key by patterns: `*` (exactly one word), `#` (any number of words). Flexible event filtering by hierarchy |
+| 6 | **RPC** | Request/Reply | Client sends a request with `correlation_id` and `reply_to` queue. Server processes and replies. Client waits for response in its temporary queue |
+| 7 | **Confirms** | ACK/NACK | Publisher Confirms — broker acknowledges each message write via ACK/NACK. Guarantees at-least-once delivery on the producer side |
 
 ### Apache Kafka (4 Modes)
 
 | Mode | Description |
 |------|-------------|
-| **Partitions** | Three partitioning strategies: Round-Robin, Key-Based (hash), Manual |
-| **Consumer Groups** | Independent consumer groups with partition assignment and rebalancing |
-| **Retention & Replay** | Persistent log with configurable retention and offset seek/replay |
-| **Exactly-Once** | Delivery guarantees comparison: at-most-once, at-least-once, exactly-once |
+| **Partitions** | Distributes messages across partitions. Three strategies: Round-Robin (no key), Key-Based (hash), Manual. Messages within a partition are strictly ordered |
+| **Consumer Groups** | Each partition is consumed by exactly one consumer in a group. Groups are independent. Offset is tracked per-group. Supports rebalancing |
+| **Retention & Replay** | Stores messages in an ordered log. Consumer group reads independently and can seek offset back for replay. Messages are not deleted after reading. Configurable retention size |
+| **Exactly-Once** | Delivery guarantees comparison: at-most-once (acks=0, may lose), at-least-once (acks=1, may duplicate), exactly-once (idempotent producer with sequence numbers, no loss or dups) |
 
 ### Redis (4 Modes)
 
 | Mode | Description |
 |------|-------------|
-| **Pub/Sub** | Fire-and-forget channel messaging with connect/disconnect simulation |
-| **Pattern Sub** | PSUBSCRIBE with glob patterns: `*`, `?`, `[abc]` |
-| **Streams** | Persistent event log with consumer groups, XREADGROUP, XACK, and replay |
-| **Event Sourcing** | State reconstruction by replaying events from an immutable stream log |
+| **Pub/Sub** | Fire-and-forget channel messaging. Messages are not stored — if a subscriber is disconnected, it will not receive the message. Connect/disconnect simulation |
+| **Pattern Sub** | PSUBSCRIBE with glob patterns: `*` (any chars), `?` (one char), `[abc]` (one of). Editable patterns per subscriber, mode switch between SUBSCRIBE and PSUBSCRIBE |
+| **Streams** | Persistent event log with consumer groups. Unlike Pub/Sub, messages are stored and available for re-reading. Supports XREADGROUP, XACK, and pending entry list (PEL) |
+| **Event Sourcing** | State reconstruction by replaying events from an immutable stream log. Supports order lifecycle events (created, paid, shipped, cancelled) and full state rebuild |
 
 ### Common Controls
 
 - **Burst** — send 5 messages rapidly from all producers
 - **Simulate Error** — next message triggers a broker NACK
-- **Pause / Resume** — freeze all animations and queue processing
+- **Pause / Resume** — freeze all animations and queue processing; queued deliveries flush on resume
 - **Reset** — clear all state, counters, and logs
-- **Publisher Confirms toggle** — enable ACK/NACK feedback on any RabbitMQ mode
+- **Publisher Confirms toggle** — enable ACK/NACK feedback on any RabbitMQ mode (auto-enabled in Confirms tutorial)
 
 ### Visualization Engine
 
 - Animated message dots flying along cubic Bezier curves between producers, broker, and consumers
+- SVG pipe paths drawn along flight trajectories with flow animation
+- Queue dot accumulation — messages visually stack inside queue nodes
+- Inside-queue traversal animation showing message passing through the queue
 - Real-time throughput chart (canvas-based, last 24 seconds)
-- Color-coded event log with timestamps (SEND, ROUTE, RECV, ACK, NACK, ERROR, REPLY, CONFIRM, SEEK, PMATCH)
+- Color-coded event log with millisecond timestamps (SEND, ROUTE, RECV, ACK, NACK, ERROR, REPLY, CONFIRM, SEEK, PMATCH)
 - Live stats bar: Sent, Delivered, In Queue, msg/sec
 - Broker-specific color themes (RabbitMQ orange, Kafka blue, Redis red)
 
@@ -62,24 +65,28 @@ Interactive visualizer for three message brokers — **RabbitMQ**, **Apache Kafk
 message-broker-visualizer/
 ├── index.html          # Main page with all UI markup
 ├── css/
-│   └── style.css       # All visualizer styles (~1300 lines), dark theme, responsive
+│   └── style.css       # All visualizer styles (~1470 lines), dark theme, responsive
 ├── js/
-│   ├── engine.js       # Animation engine, event log, stats, message routing helpers
+│   ├── engine.js       # Animation engine, SVG pipes, queue dots, event log, stats, helpers
 │   ├── rabbitmq.js     # RabbitMQ tutorials 1-7 implementation
 │   ├── kafka.js        # Kafka partitions, consumer groups, retention, exactly-once
 │   ├── redis.js        # Redis Pub/Sub, pattern matching, streams, event sourcing
-│   └── app.js          # Broker switching, mode tabs, global controls
+│   └── app.js          # Broker switching, mode tabs, global controls, DOMContentLoaded bootstrap
 ├── img.png             # Project preview image
 └── tasks/
-    └── message-broker-visualizer-full-tasks.md  # Full specification (20 tasks)
+    └── message-broker-visualizer-full-tasks.md  # Full specification
 ```
 
 ## Tech Stack
 
 - **HTML5** — semantic markup with ARIA attributes for accessibility
-- **CSS3** — custom properties, grid layout, flexbox, CSS animations (shake, pulse, fade)
-- **Vanilla JavaScript** — IIFE modules, `requestAnimationFrame` for animations, Canvas API for throughput chart
+- **CSS3** — custom properties (`--mbv-*`), grid layout, flexbox, CSS animations (shake, pulse, fade)
+- **Vanilla JavaScript** — IIFE modules, global `MBV` namespace, `requestAnimationFrame` for animations, Canvas API for throughput chart, SVG for pipe paths
 - **No dependencies** — zero npm packages, zero CDN libraries
+
+## Architecture
+
+Global namespace object `MBV` on `window`. Each broker file registers `MBV.{broker}.modes` (tab definitions) and `MBV.{broker}.{mode}` objects with `init()` methods. `engine.js` provides shared rendering, animation helpers, topic/glob matching, and logging. `app.js` wires broker tabs to `switchBroker()` and mode tabs to `switchMode()` which call `init()` on the selected mode.
 
 ## Running Locally
 

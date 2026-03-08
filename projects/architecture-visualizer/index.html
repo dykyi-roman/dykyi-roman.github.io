@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Visualizer - Dykyi Roman</title>
+    <meta name="description" content="Interactive visualizer for software architecture patterns: Layered, Clean, Hexagonal, DDD, CQRS, Event Sourcing, EDA, MVC/MVP/MVVM.">
+    <meta name="author" content="Dykyi Roman">
+    <meta property="og:title" content="Architecture Visualizer - Dykyi Roman">
+    <meta property="og:description" content="Interactive visualizer for software architecture patterns with animated request flows and dependency rules.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dykyi-roman.github.io/projects/architecture-visualizer/">
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/projects/architecture-visualizer/">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/navigation.css">
+    <link rel="stylesheet" href="../../resources/article-style.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <div id="header-container"></div>
+    <script>
+        fetch('../../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">&rsaquo;</span>
+        <a href="/projects.html">Projects</a>
+        <span class="breadcrumb-separator">&rsaquo;</span>
+        <span class="breadcrumb-current">Architecture Visualizer</span>
+    </nav>
+
+    <div class="article-container archv-page">
+        <div class="article-header">
+            <h1 class="article-title">Architecture Visualizer</h1>
+        </div>
+
+        <!-- Architecture Navigation (Level 1) -->
+        <div class="arch-nav" role="tablist" aria-label="Select architecture pattern">
+            <button class="arch-tab active" data-arch="layered" role="tab" aria-selected="true">Layered</button>
+            <button class="arch-tab" data-arch="clean" role="tab" aria-selected="false">Clean</button>
+            <button class="arch-tab" data-arch="hexagonal" role="tab" aria-selected="false">Hexagonal</button>
+            <button class="arch-tab" data-arch="ddd" role="tab" aria-selected="false">DDD</button>
+            <button class="arch-tab" data-arch="cqrs" role="tab" aria-selected="false">CQRS</button>
+            <button class="arch-tab" data-arch="eventsourcing" role="tab" aria-selected="false">Event Sourcing</button>
+            <button class="arch-tab" data-arch="eda" role="tab" aria-selected="false">EDA</button>
+            <button class="arch-tab" data-arch="mvc" role="tab" aria-selected="false">MVC</button>
+        </div>
+
+        <!-- Global Controls -->
+        <div class="global-controls">
+            <div class="controls-left">
+                <button class="ctrl-btn run-btn" id="btn-run" title="Send request through architecture">&#x25B6; Send Request</button>
+                <button class="ctrl-btn pause-btn" id="btn-pause" title="Pause / Resume animation" disabled>&#x23F8; Pause</button>
+                <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state">&#x21BA; Reset</button>
+                <label class="speed-label" for="speed-range">Speed:</label>
+                <input type="range" class="speed-range" id="speed-range" min="100" max="1200" value="600" step="50">
+                <span class="speed-value" id="speed-value">Normal</span>
+            </div>
+            <div class="controls-right">
+                <div class="stat-item"><span class="stat-label">Layers</span><span class="stat-value" id="stat-layers">0</span></div>
+                <div class="stat-item"><span class="stat-label">Hit</span><span class="stat-value" id="stat-components">0</span></div>
+            </div>
+        </div>
+
+        <!-- Mode Tabs (Level 2) -->
+        <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select request mode"></div>
+
+        <!-- Pattern Description -->
+        <div class="pattern-desc" id="pattern-desc"></div>
+
+        <!-- Collapsible Principles & Key Concepts -->
+        <div class="pattern-details" id="pattern-details" style="display:none">
+            <button class="pattern-details-toggle" id="pattern-details-toggle" aria-expanded="false">
+                <span class="pattern-details-toggle-icon">&#x25B6;</span>
+                <span>Principles &amp; Key Concepts</span>
+            </button>
+            <div class="pattern-details-body" id="pattern-details-body"></div>
+        </div>
+
+        <!-- Main Visualization Area -->
+        <div class="viz-area" id="viz-area">
+            <div id="archv-canvas"></div>
+            <svg class="archv-svg-layer" id="archv-svg-layer"></svg>
+        </div>
+
+        <!-- Dependency Rules Panel -->
+        <div class="dep-rules-panel" id="dep-rules-panel">
+            <div class="dep-rules-header">Dependency Rules</div>
+            <div class="dep-rules-body" id="dep-rules-body"></div>
+        </div>
+
+        <!-- Event Log -->
+        <div class="event-log-container">
+            <div class="event-log-header">
+                <span>Event Log</span>
+                <div>
+                    <button class="log-clear-btn" id="btn-copy-log">Copy</button>
+                    <button class="log-clear-btn" id="btn-clear-log">Clear</button>
+                </div>
+            </div>
+            <div class="event-log" id="event-log"></div>
+        </div>
+    </div>
+</div>
+
+<script src="../../resources/back-to-top.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/layered.js"></script>
+<script src="js/clean.js"></script>
+<script src="js/hexagonal.js"></script>
+<script src="js/ddd.js"></script>
+<script src="js/cqrs.js"></script>
+<script src="js/eventsourcing.js"></script>
+<script src="js/eda.js"></script>
+<script src="js/mvc.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

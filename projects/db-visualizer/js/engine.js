@@ -67,6 +67,24 @@ DBIV.clearLog = function() {
     if (logEl) logEl.innerHTML = '';
 };
 
+DBIV.copyLog = function() {
+    const logEl = document.getElementById('event-log');
+    if (!logEl) return;
+    const entries = logEl.querySelectorAll('.log-entry');
+    const lines = Array.from(entries).map(function(e) {
+        const time = e.querySelector('.log-time');
+        const type = e.querySelector('.log-type');
+        const text = e.querySelector('.log-text');
+        return (time ? time.textContent : '') + ' ' + (type ? type.textContent : '') + ' ' + (text ? text.textContent : '');
+    });
+    navigator.clipboard.writeText(lines.join('\n')).then(function() {
+        const btn = document.getElementById('btn-copy-log');
+        if (!btn) return;
+        btn.textContent = 'Copied!';
+        setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+    });
+};
+
 /* ===== Stats ===== */
 DBIV.updateStats = function() {
     const s = DBIV.state;

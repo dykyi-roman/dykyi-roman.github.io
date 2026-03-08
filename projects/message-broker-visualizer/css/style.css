@@ -856,6 +856,56 @@
     border: 1px solid var(--mbv-border);
 }
 
+/* Queue message accumulation dots */
+.queue-dots {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+    padding: 0 2px;
+    overflow: hidden;
+    min-height: 8px;
+}
+
+.exchange-node .queue-dots {
+    flex: none;
+    justify-content: center;
+    margin-top: 6px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.queue-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--mbv-accent);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    flex-shrink: 0;
+}
+
+.queue-dot.visible {
+    opacity: 0.85;
+    transform: scale(1);
+    box-shadow: 0 0 4px var(--mbv-accent);
+    animation: queueDotPulse 2s ease-in-out 0.3s infinite;
+}
+
+.queue-dot.removing {
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.2s ease-in;
+    animation: none;
+}
+
+@keyframes queueDotPulse {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; box-shadow: 0 0 8px var(--mbv-accent); }
+}
+
 /* Pipe (SVG connection line) */
 .pipe-bg {
     fill: none;
@@ -1119,6 +1169,8 @@
     font-size: 11px;
     cursor: pointer;
 }
+
+.event-log-header > div { display: flex; gap: 6px; }
 
 .log-clear-btn:hover { background: var(--mbv-border); }
 

@@ -1042,6 +1042,8 @@
     cursor: pointer;
 }
 
+.event-log-header > div { display: flex; gap: 6px; }
+
 .log-clear-btn:hover { background: var(--dbiv-border); }
 
 .event-log {
