@@ -1798,7 +1798,7 @@
     color: #cba6f7;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin: 8px 0;
+    margin: 20px 0 12px;
     transition: all var(--archv-transition);
 }
 
@@ -1813,7 +1813,8 @@
 }
 
 .layout-ddd-ohs .archv-consumers {
-    gap: 24px;
+    gap: 64px;
+    margin-top: 32px;
 }
 
 /* ===== Layout: DDD Saga ===== */

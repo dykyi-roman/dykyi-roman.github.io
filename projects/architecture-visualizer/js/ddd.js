@@ -155,6 +155,13 @@ function renderDDDOpenHost() {
         '<div class="layout-ddd-ohs">' +
             '<div class="archv-bounded-context" id="ctx-ohs-order">' +
                 '<span class="archv-context-label">Order Context (Upstream)</span>' +
+                '<div class="archv-layer" id="layer-ohs-app">' +
+                    '<div class="archv-layer-name">Application</div>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-ohs-usecase', 'PlaceOrder', '&#x2699;', 'Use case orchestrating order creation') +
+                    '</div>' +
+                '</div>' +
+                ARCHV.renderArrowConnector() +
                 '<div class="archv-layer" id="layer-ohs-domain">' +
                     '<div class="archv-layer-name">Domain</div>' +
                     '<div class="archv-components">' +
@@ -163,11 +170,10 @@ function renderDDDOpenHost() {
                     '</div>' +
                 '</div>' +
                 ARCHV.renderArrowConnector() +
-                '<div class="archv-layer" id="layer-ohs-app">' +
-                    '<div class="archv-layer-name">Application</div>' +
+                '<div class="archv-layer" id="layer-ohs-infra">' +
+                    '<div class="archv-layer-name">Infrastructure</div>' +
                     '<div class="archv-components">' +
-                        ARCHV.renderComponent('comp-ohs-usecase', 'PlaceOrder', '&#x2699;', 'Use case orchestrating order creation') +
-                        ARCHV.renderComponent('comp-ohs-publisher', 'EventPublisher', '&#x1F4E8;', 'Publishes events through OHS') +
+                        ARCHV.renderComponent('comp-ohs-publisher', 'EventPublisher', '&#x1F4E8;', 'Infrastructure adapter publishing events through OHS contract') +
                     '</div>' +
                 '</div>' +
             '</div>' +
@@ -576,16 +582,17 @@ ARCHV.ddd['open-host'] = {
     init: function() { renderDDDOpenHost(); },
     steps: function() {
         return [
-            { elementId: 'comp-ohs-aggregate', label: 'Order', description: 'Client places an order', logType: 'REQUEST', layerId: 'layer-ohs-domain' },
-            { elementId: 'comp-ohs-event', label: 'OrderPlaced', description: 'Domain event raised', logType: 'EVENT', layerId: 'layer-ohs-domain' },
-            { elementId: 'comp-ohs-usecase', label: 'PlaceOrder', description: 'Use case orchestrates flow', logType: 'COMMAND', layerId: 'layer-ohs-app' },
-            { elementId: 'comp-ohs-publisher', label: 'EventPublisher', description: 'Publish through OHS contract', logType: 'EVENT', layerId: 'layer-ohs-app' },
+            { elementId: 'comp-ohs-usecase', label: 'PlaceOrder', description: 'Use case orchestrates order creation', logType: 'COMMAND', layerId: 'layer-ohs-app' },
+            { elementId: 'comp-ohs-aggregate', label: 'Order', description: 'Aggregate processes command and raises event', logType: 'REQUEST', layerId: 'layer-ohs-domain' },
+            { elementId: 'comp-ohs-event', label: 'OrderPlaced', description: 'Domain event raised by aggregate', logType: 'EVENT', layerId: 'layer-ohs-domain' },
+            { elementId: 'comp-ohs-publisher', label: 'EventPublisher', description: 'Infrastructure adapter publishes event through OHS', logType: 'EVENT', layerId: 'layer-ohs-infra' },
             { elementId: 'comp-ohs-service', label: 'OHS', description: 'Open Host Service exposes Published Language (OpenAPI)', logType: 'FLOW' },
-            { elementId: 'comp-ohs-payment', label: 'Payment', description: 'Payment receives OrderPlaced via OHS', logType: 'ASYNC', noArrowFromPrev: true, arrowFromId: 'comp-ohs-service' },
+            { elementId: 'comp-ohs-payment', label: 'Payment', description: 'Payment receives OrderPlaced via OHS', logType: 'ASYNC', arrowFromId: 'comp-ohs-service' },
             { elementId: 'comp-ohs-shipping', label: 'Shipping', description: 'Shipping receives OrderPlaced via OHS', logType: 'ASYNC', parallel: true, arrowFromId: 'comp-ohs-service' },
             { elementId: 'comp-ohs-analytics', label: 'Analytics', description: 'Analytics receives OrderPlaced via OHS', logType: 'ASYNC', parallel: true, arrowFromId: 'comp-ohs-service' },
-            { elementId: 'comp-ohs-payment', label: 'Payment', description: 'Translates to PaymentRequired in local language', logType: 'LAYER' },
-            { elementId: 'comp-ohs-shipping', label: 'Shipping', description: 'Translates to ShipmentRequested in local language', logType: 'LAYER', noArrowFromPrev: true }
+            { elementId: 'comp-ohs-payment', label: 'Payment', description: 'Translates to PaymentRequired in local language', logType: 'LAYER', arrowFromId: 'comp-ohs-service', arrowFromOffset: -0.15, arrowToOffset: 0.2 },
+            { elementId: 'comp-ohs-shipping', label: 'Shipping', description: 'Translates to ShipmentRequested in local language', logType: 'LAYER', parallel: true, arrowFromId: 'comp-ohs-service', arrowFromOffset: 0.05, arrowToOffset: 0.2 },
+            { elementId: 'comp-ohs-analytics', label: 'Analytics', description: 'Translates to SaleRecorded in local language', logType: 'LAYER', parallel: true, arrowFromId: 'comp-ohs-service', arrowFromOffset: 0.15, arrowToOffset: -0.2 }
         ];
     },
     stepOptions: function() { return { requestLabel: 'OHS: Order.place() → Published Language' }; },
