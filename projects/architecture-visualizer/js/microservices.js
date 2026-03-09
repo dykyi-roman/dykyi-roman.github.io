@@ -19,8 +19,8 @@ ARCHV.microservices.depRules = [
     { from: 'Message Queue', to: 'Service (consume)', allowed: true }
 ];
 
-function renderMicroservicesDb(name) {
-    return '<span class="archv-ms-db"><span class="archv-ms-db-icon">&#x1F4BE;</span>' + name + '</span>';
+function renderMicroservicesDb(name, id) {
+    return '<span class="archv-ms-db"' + (id ? ' id="' + id + '"' : '') + '><span class="archv-ms-db-icon">&#x1F4BE;</span>' + name + '</span>';
 }
 
 function renderMicroservicesDefault(canvas, mode) {
@@ -101,7 +101,7 @@ function renderMicroservicesAsync(canvas) {
             '<div class="archv-ms-service-components">' +
                 ARCHV.renderComponent('comp-ms-order-svc', 'Order Service', '&#x1F6D2;', 'Creates orders and publishes OrderCreated events. Consumes PaymentProcessed to finalize orders.') +
             '</div>' +
-            renderMicroservicesDb('orders_db') +
+            renderMicroservicesDb('orders_db', 'db-ms-orders') +
         '</div>';
 
     var inventoryHtml =
@@ -110,7 +110,7 @@ function renderMicroservicesAsync(canvas) {
             '<div class="archv-ms-service-components">' +
                 ARCHV.renderComponent('comp-ms-inventory-svc', 'Inventory Service', '&#x1F4E6;', 'Consumes OrderCreated, reserves stock, publishes StockReserved event.') +
             '</div>' +
-            renderMicroservicesDb('inventory_db') +
+            renderMicroservicesDb('inventory_db', 'db-ms-inventory') +
         '</div>';
 
     var paymentHtml =
@@ -119,7 +119,7 @@ function renderMicroservicesAsync(canvas) {
             '<div class="archv-ms-service-components">' +
                 ARCHV.renderComponent('comp-ms-payment-svc', 'Payment Service', '&#x1F4B3;', 'Consumes StockReserved, processes payment, publishes PaymentProcessed event.') +
             '</div>' +
-            renderMicroservicesDb('payments_db') +
+            renderMicroservicesDb('payments_db', 'db-ms-payments') +
         '</div>';
 
     var notificationHtml =
@@ -128,7 +128,7 @@ function renderMicroservicesAsync(canvas) {
             '<div class="archv-ms-service-components">' +
                 ARCHV.renderComponent('comp-ms-notification-svc', 'Notification Service', '&#x1F514;', 'Consumes PaymentProcessed events and sends confirmation notifications. Pure consumer — never called directly.') +
             '</div>' +
-            renderMicroservicesDb('notifications_db') +
+            renderMicroservicesDb('notifications_db', 'db-ms-notifications') +
         '</div>';
 
     var queueHtml =
@@ -290,11 +290,15 @@ ARCHV.microservices.async = {
             { elementId: 'comp-ms-order-svc', label: 'Order Service', description: 'Order created, publish OrderCreated event', logType: 'EVENT', layerId: 'svc-order' },
             { elementId: 'comp-ms-queue', label: 'Message Queue', description: 'Receive OrderCreated, route to subscribers', logType: 'ASYNC', layerId: 'ms-queue-area' },
             { elementId: 'comp-ms-inventory-svc', label: 'Inventory Service', description: 'Consume OrderCreated, reserve stock', logType: 'EVENT', layerId: 'svc-inventory' },
+            { elementId: 'db-ms-inventory', label: 'inventory_db', description: 'Save stock reservation', logType: 'FLOW', layerId: 'svc-inventory', delay: 400 },
             { elementId: 'comp-ms-queue', label: 'Message Queue', description: 'Inventory publishes StockReserved event', logType: 'ASYNC', layerId: 'ms-queue-area', arrowFromId: 'comp-ms-inventory-svc' },
             { elementId: 'comp-ms-payment-svc', label: 'Payment Service', description: 'Consume StockReserved, process payment', logType: 'EVENT', layerId: 'svc-payment' },
+            { elementId: 'db-ms-payments', label: 'payments_db', description: 'Save payment transaction', logType: 'FLOW', layerId: 'svc-payment', delay: 400 },
             { elementId: 'comp-ms-queue', label: 'Message Queue', description: 'Payment publishes PaymentProcessed event', logType: 'ASYNC', layerId: 'ms-queue-area', arrowFromId: 'comp-ms-payment-svc' },
-            { elementId: 'comp-ms-notification-svc', label: 'Notification Service', description: 'Consume PaymentProcessed, send confirmation email', logType: 'EVENT', layerId: 'svc-notification' },
-            { elementId: 'comp-ms-order-svc', label: 'Order Service', description: 'Consume PaymentProcessed, finalize order status', logType: 'EVENT', layerId: 'svc-order', arrowFromId: 'comp-ms-queue' }
+            { elementId: 'comp-ms-notification-svc', label: 'Notification Service', description: 'Consume PaymentProcessed, send confirmation email', logType: 'EVENT', layerId: 'svc-notification', arrowFromId: 'comp-ms-queue' },
+            { elementId: 'comp-ms-order-svc', label: 'Order Service', description: 'Consume PaymentProcessed, finalize order status', logType: 'EVENT', layerId: 'svc-order', arrowFromId: 'comp-ms-queue', parallel: true },
+            { elementId: 'db-ms-notifications', label: 'notifications_db', description: 'Save notification log', logType: 'FLOW', layerId: 'svc-notification', arrowFromId: 'comp-ms-notification-svc', delay: 400 },
+            { elementId: 'db-ms-orders', label: 'orders_db', description: 'Update order status', logType: 'FLOW', layerId: 'svc-order', arrowFromId: 'comp-ms-order-svc', parallel: true, delay: 400 }
         ];
     },
     stepOptions: function() { return { requestLabel: 'Event: OrderCreated (async)' }; },

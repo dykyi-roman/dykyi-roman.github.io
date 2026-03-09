@@ -238,11 +238,31 @@ ARCHV.animateFlow = async function(steps, options) {
 
     ARCHV.log('REQUEST', 'R' + reqId + ': ' + (options && options.requestLabel ? options.requestLabel : 'Request initiated'));
 
+    var displayStep = 0;
+    var parallelSuffix = 0;
+    var inParallelGroup = false;
+
     for (var i = 0; i < steps.length; i++) {
         if (!ARCHV.state.running) break;
 
         var step = steps[i];
         var el = document.getElementById(step.elementId);
+        var nextIsParallel = i + 1 < steps.length && steps[i + 1].parallel;
+        if (!step.parallel) {
+            displayStep++;
+            if (nextIsParallel) {
+                inParallelGroup = true;
+                parallelSuffix = 1;
+            } else {
+                inParallelGroup = false;
+                parallelSuffix = 0;
+            }
+        } else {
+            parallelSuffix++;
+        }
+        var stepLabel = (inParallelGroup || step.parallel)
+            ? displayStep + String.fromCharCode(96 + parallelSuffix)
+            : String(displayStep);
         ARCHV.state.stepIndex = i + 1;
 
         if (step.layerId) {
@@ -255,25 +275,25 @@ ARCHV.animateFlow = async function(steps, options) {
 
         if (el) {
             el.classList.add('archv-active');
-            ARCHV._showStepLabel(el, i + 1, step.label);
+            ARCHV._showStepLabel(el, stepLabel, step.label);
         }
 
-        ARCHV.log(step.logType || 'FLOW', 'Step ' + (i + 1) + ': ' + step.label + (step.description ? ' - ' + step.description : ''));
+        ARCHV.log(step.logType || 'FLOW', 'Step ' + stepLabel + ': ' + step.label + (step.description ? ' - ' + step.description : ''));
 
         if (i > 0 && el) {
             if (step.noArrowFromPrev) {
-                ARCHV._drawStepBadge(el, i + 1);
+                ARCHV._drawStepBadge(el, stepLabel);
             } else {
                 var sourceEl = step.arrowFromId
                     ? document.getElementById(step.arrowFromId)
                     : document.getElementById(steps[i - 1].elementId);
                 if (sourceEl) {
-                    ARCHV._drawArrow(sourceEl, el, step.logType, i + 1, step.arrowFromOffset, step.arrowToOffset);
+                    ARCHV._drawArrow(sourceEl, el, step.logType, stepLabel, step.arrowFromOffset, step.arrowToOffset);
                     depsCount++;
                 }
             }
         } else if (el) {
-            ARCHV._drawStepBadge(el, i + 1);
+            ARCHV._drawStepBadge(el, stepLabel);
         }
 
         var stepDelay = step.delay !== undefined ? step.delay : (customDelay || ARCHV.state.stepDelay);
@@ -627,12 +647,37 @@ ARCHV.switchToStepMode = function() {
     ARCHV.startStepMode(steps, options, currentIndex);
 };
 
+ARCHV._displayStepLabel = function(steps, index) {
+    var num = 0;
+    var suffix = 0;
+    var inGroup = false;
+    for (var j = 0; j <= index; j++) {
+        var nextIsParallel = j + 1 < steps.length && steps[j + 1].parallel;
+        if (!steps[j].parallel) {
+            num++;
+            if (nextIsParallel) {
+                inGroup = true;
+                suffix = 1;
+            } else {
+                inGroup = false;
+                suffix = 0;
+            }
+        } else {
+            suffix++;
+        }
+    }
+    return (inGroup || steps[index].parallel)
+        ? num + String.fromCharCode(96 + suffix)
+        : String(num);
+};
+
 ARCHV.stepForward = function() {
     var sm = ARCHV.stepMode;
     if (!sm.active || sm.index >= sm.steps.length) return;
 
     var step = sm.steps[sm.index];
     var el = document.getElementById(step.elementId);
+    var stepLabel = ARCHV._displayStepLabel(sm.steps, sm.index);
 
     if (step.layerId) {
         var layerEl = document.getElementById(step.layerId);
@@ -642,22 +687,22 @@ ARCHV.stepForward = function() {
     if (el) {
         el.classList.remove('archv-visited');
         el.classList.add('archv-active');
-        ARCHV._showStepLabel(el, sm.index + 1, step.label);
+        ARCHV._showStepLabel(el, stepLabel, step.label);
     }
 
-    ARCHV.log(step.logType || 'FLOW', 'Step ' + (sm.index + 1) + ': ' + step.label + (step.description ? ' - ' + step.description : ''));
+    ARCHV.log(step.logType || 'FLOW', 'Step ' + stepLabel + ': ' + step.label + (step.description ? ' - ' + step.description : ''));
 
     if (sm.index > 0 && el) {
         if (step.noArrowFromPrev) {
-            ARCHV._drawStepBadge(el, sm.index + 1);
+            ARCHV._drawStepBadge(el, stepLabel);
         } else {
             var sourceEl = step.arrowFromId
                 ? document.getElementById(step.arrowFromId)
                 : document.getElementById(sm.steps[sm.index - 1].elementId);
-            if (sourceEl) ARCHV._drawArrow(sourceEl, el, step.logType, sm.index + 1, step.arrowFromOffset);
+            if (sourceEl) ARCHV._drawArrow(sourceEl, el, step.logType, stepLabel, step.arrowFromOffset);
         }
     } else if (el) {
-        ARCHV._drawStepBadge(el, sm.index + 1);
+        ARCHV._drawStepBadge(el, stepLabel);
     }
 
     sm.index++;
