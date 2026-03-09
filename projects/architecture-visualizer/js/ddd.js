@@ -3,7 +3,7 @@
 ARCHV.ddd = {};
 
 ARCHV.ddd.modes = [
-    { id: 'http', label: 'HTTP Request', desc: 'HTTP request enters the Bounded Context through the Application layer. The Anti-Corruption Layer protects context boundaries. Domain Events propagate between contexts through the Shared Kernel or messaging.' },
+    { id: 'http', label: 'HTTP Request', desc: 'HTTP request enters the Bounded Context through the Presentation layer (Controller). UseCase orchestrates domain logic and persists the Aggregate via Repository. Domain Events propagate between contexts through the EventBus.' },
     { id: 'console', label: 'Console Command', desc: 'Console command triggers a use case within a Bounded Context. Domain logic stays isolated inside the context boundary, communicating with other contexts via Domain Events.' },
     { id: 'message', label: 'Message (Cross-Context)', desc: 'Domain Event from another Bounded Context arrives through the Anti-Corruption Layer, gets translated, and processed within the local context. This demonstrates context mapping.' },
     { id: 'context-map', label: 'Context Map', desc: 'Bird\'s-eye view of all Bounded Contexts and their strategic relationships: ACL, Shared Kernel, Customer-Supplier, Conformist. Before writing code, define how contexts relate to each other.' },
@@ -28,7 +28,16 @@ ARCHV.ddd.depRules = [
     { from: 'Context A', to: 'Context B (direct)', allowed: false }
 ];
 
-function renderDDD() {
+function renderDDD(opts) {
+    opts = opts || {};
+    var appComponents = '';
+    if (opts.showUseCase !== false) {
+        appComponents += ARCHV.renderComponent('comp-ddd-usecase', 'UseCase', '&#x2699;', 'Application layer orchestrator for domain operations');
+    }
+    if (opts.showAppService !== false) {
+        appComponents += ARCHV.renderComponent('comp-ddd-appservice', 'AppService', '&#x1F527;', 'Coordinates use case execution without containing business logic');
+    }
+
     var canvas = document.getElementById('archv-canvas');
     canvas.innerHTML =
         '<div class="layout-vertical">' +
@@ -45,8 +54,7 @@ function renderDDD() {
                 '<div class="archv-layer" id="layer-ddd-application">' +
                     '<div class="archv-layer-name">Application</div>' +
                     '<div class="archv-components">' +
-                        ARCHV.renderComponent('comp-ddd-usecase', 'UseCase', '&#x2699;', 'Application layer orchestrator for domain operations') +
-                        ARCHV.renderComponent('comp-ddd-appservice', 'AppService', '&#x1F527;', 'Coordinates use case execution without containing business logic') +
+                        appComponents +
                     '</div>' +
                 '</div>' +
                 ARCHV.renderArrowConnector() +
@@ -59,6 +67,7 @@ function renderDDD() {
                         ARCHV.renderComponent('comp-ddd-domservice', 'DomainService', '&#x1F3AF;', 'Stateless logic spanning multiple aggregates or entities') +
                         ARCHV.renderComponent('comp-ddd-event', 'DomainEvent', '&#x1F514;', 'Record of something significant that happened in the domain') +
                         ARCHV.renderComponent('comp-ddd-spec', 'Specification', '&#x1F50D;', 'Encapsulates a business rule as a reusable boolean predicate') +
+                        ARCHV.renderComponent('comp-ddd-repo-iface', 'Repository (I)', '&#x1F4DC;', 'Domain interface defining persistence contract — implemented in Infrastructure') +
                     '</div>' +
                 '</div>' +
                 ARCHV.renderArrowConnector() +
@@ -448,19 +457,20 @@ ARCHV.ddd.details = {
 };
 
 ARCHV.ddd.http = {
-    init: function() { renderDDD(); },
+    init: function() { renderDDD({ showAppService: false }); },
     steps: function() {
         return [
             { elementId: 'comp-ddd-controller', label: 'Controller', description: 'HTTP request enters Order Context', logType: 'REQUEST', layerId: 'layer-ddd-presentation' },
-            { elementId: 'comp-ddd-dto', label: 'DTO', description: 'Map to command DTO', logType: 'LAYER', layerId: 'layer-ddd-presentation' },
-            { elementId: 'comp-ddd-usecase', label: 'UseCase', description: 'CreateOrder use case', logType: 'COMMAND', layerId: 'layer-ddd-application' },
+            { elementId: 'comp-ddd-dto', label: 'DTO', description: 'Map to CreateOrderCommand DTO', logType: 'LAYER', layerId: 'layer-ddd-presentation' },
+            { elementId: 'comp-ddd-usecase', label: 'UseCase', description: 'CreateOrder use case orchestrates flow', logType: 'COMMAND', layerId: 'layer-ddd-application' },
             { elementId: 'comp-ddd-spec', label: 'Specification', description: 'Check order spec rules', logType: 'LAYER', layerId: 'layer-ddd-domain' },
             { elementId: 'comp-ddd-aggregate', label: 'Aggregate', description: 'Create Order aggregate', logType: 'LAYER', layerId: 'layer-ddd-domain' },
             { elementId: 'comp-ddd-entity', label: 'Entity', description: 'Add OrderLine entities', logType: 'LAYER', layerId: 'layer-ddd-domain' },
             { elementId: 'comp-ddd-vo', label: 'ValueObject', description: 'Validate Money, Address VOs', logType: 'LAYER', layerId: 'layer-ddd-domain' },
-            { elementId: 'comp-ddd-event', label: 'DomainEvent', description: 'Raise OrderCreated event', logType: 'EVENT', layerId: 'layer-ddd-domain' },
-            { elementId: 'comp-ddd-repo', label: 'Repository', description: 'Persist Order aggregate', logType: 'LAYER', layerId: 'layer-ddd-infra' },
-            { elementId: 'comp-ddd-eventbus', label: 'EventBus', description: 'Publish OrderCreated to bus', logType: 'EVENT', layerId: 'layer-ddd-infra' },
+            { elementId: 'comp-ddd-event', label: 'DomainEvent', description: 'Aggregate raises OrderCreated event internally', logType: 'EVENT', layerId: 'layer-ddd-domain' },
+            { elementId: 'comp-ddd-repo-iface', label: 'Repository (I)', description: 'UseCase calls domain Repository interface', logType: 'LAYER', layerId: 'layer-ddd-domain', arrowFromId: 'comp-ddd-usecase' },
+            { elementId: 'comp-ddd-repo', label: 'Repository', description: 'Infrastructure implements persistence', logType: 'LAYER', layerId: 'layer-ddd-infra' },
+            { elementId: 'comp-ddd-eventbus', label: 'EventBus', description: 'Dispatch OrderCreated after persist', logType: 'EVENT', layerId: 'layer-ddd-infra' },
             { elementId: 'comp-ddd-acl', label: 'ACL', description: 'Translate event for Payment Context', logType: 'FLOW' },
             { elementId: 'comp-ddd-pay-handler', label: 'EventHandler', description: 'Payment context receives event', logType: 'EVENT', layerId: 'layer-ddd-pay' },
             { elementId: 'comp-ddd-pay-service', label: 'PaymentService', description: 'Process payment', logType: 'LAYER', layerId: 'layer-ddd-pay' },
@@ -474,7 +484,7 @@ ARCHV.ddd.http = {
 };
 
 ARCHV.ddd.console = {
-    init: function() { renderDDD(); },
+    init: function() { renderDDD({ showUseCase: false }); },
     steps: function() {
         return [
             { elementId: 'comp-ddd-controller', label: 'Controller', description: 'CLI command enters context', logType: 'REQUEST', layerId: 'layer-ddd-presentation' },
@@ -483,7 +493,9 @@ ARCHV.ddd.console = {
             { elementId: 'comp-ddd-domservice', label: 'DomainService', description: 'Complex domain logic', logType: 'LAYER', layerId: 'layer-ddd-domain' },
             { elementId: 'comp-ddd-aggregate', label: 'Aggregate', description: 'Modify aggregate', logType: 'LAYER', layerId: 'layer-ddd-domain' },
             { elementId: 'comp-ddd-event', label: 'DomainEvent', description: 'Emit event', logType: 'EVENT', layerId: 'layer-ddd-domain' },
-            { elementId: 'comp-ddd-repo', label: 'Repository', description: 'Persist changes', logType: 'LAYER', layerId: 'layer-ddd-infra' }
+            { elementId: 'comp-ddd-repo-iface', label: 'Repository (I)', description: 'AppService calls domain Repository interface', logType: 'LAYER', layerId: 'layer-ddd-domain', arrowFromId: 'comp-ddd-appservice' },
+            { elementId: 'comp-ddd-repo', label: 'Repository', description: 'Infrastructure persists changes', logType: 'LAYER', layerId: 'layer-ddd-infra' },
+            { elementId: 'comp-ddd-eventbus', label: 'EventBus', description: 'Dispatch domain events after persist', logType: 'EVENT', layerId: 'layer-ddd-infra' }
         ];
     },
     stepOptions: function() { return { requestLabel: 'CLI: order:recalculate' }; },
@@ -493,7 +505,7 @@ ARCHV.ddd.console = {
 };
 
 ARCHV.ddd.message = {
-    init: function() { renderDDD(); },
+    init: function() { renderDDD({ showAppService: false }); },
     steps: function() {
         return [
             { elementId: 'comp-ddd-pay-handler', label: 'EventHandler', description: 'External event received', logType: 'REQUEST', layerId: 'layer-ddd-pay' },
@@ -502,7 +514,8 @@ ARCHV.ddd.message = {
             { elementId: 'comp-ddd-aggregate', label: 'Aggregate', description: 'Update Order status', logType: 'LAYER', layerId: 'layer-ddd-domain' },
             { elementId: 'comp-ddd-entity', label: 'Entity', description: 'Mark as paid', logType: 'LAYER', layerId: 'layer-ddd-domain' },
             { elementId: 'comp-ddd-event', label: 'DomainEvent', description: 'OrderPaid event', logType: 'EVENT', layerId: 'layer-ddd-domain' },
-            { elementId: 'comp-ddd-repo', label: 'Repository', description: 'Persist updated state', logType: 'LAYER', layerId: 'layer-ddd-infra' },
+            { elementId: 'comp-ddd-repo-iface', label: 'Repository (I)', description: 'UseCase calls domain Repository interface', logType: 'LAYER', layerId: 'layer-ddd-domain', arrowFromId: 'comp-ddd-usecase' },
+            { elementId: 'comp-ddd-repo', label: 'Repository', description: 'Infrastructure persists updated state', logType: 'LAYER', layerId: 'layer-ddd-infra' },
             { elementId: 'comp-ddd-eventbus', label: 'EventBus', description: 'Publish OrderPaid', logType: 'EVENT', layerId: 'layer-ddd-infra' }
         ];
     },
