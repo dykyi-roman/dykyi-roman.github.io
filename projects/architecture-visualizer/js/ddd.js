@@ -514,7 +514,8 @@ ARCHV.ddd.message = {
             { elementId: 'comp-ddd-aggregate', label: 'Aggregate', description: 'Update Order status', logType: 'LAYER', layerId: 'layer-ddd-domain' },
             { elementId: 'comp-ddd-entity', label: 'Entity', description: 'Mark as paid', logType: 'LAYER', layerId: 'layer-ddd-domain' },
             { elementId: 'comp-ddd-event', label: 'DomainEvent', description: 'OrderPaid event', logType: 'EVENT', layerId: 'layer-ddd-domain' },
-            { elementId: 'comp-ddd-repo-iface', label: 'Repository (I)', description: 'UseCase calls domain Repository interface', logType: 'LAYER', layerId: 'layer-ddd-domain', arrowFromId: 'comp-ddd-usecase' },
+            { elementId: 'comp-ddd-domservice', label: 'DomainService', description: 'Recalculate order totals after payment', logType: 'LAYER', layerId: 'layer-ddd-domain', arrowFromId: 'comp-ddd-usecase' },
+            { elementId: 'comp-ddd-repo-iface', label: 'Repository (I)', description: 'DomainService calls Repository interface', logType: 'LAYER', layerId: 'layer-ddd-domain' },
             { elementId: 'comp-ddd-repo', label: 'Repository', description: 'Infrastructure persists updated state', logType: 'LAYER', layerId: 'layer-ddd-infra' },
             { elementId: 'comp-ddd-eventbus', label: 'EventBus', description: 'Publish OrderPaid', logType: 'EVENT', layerId: 'layer-ddd-infra' }
         ];
