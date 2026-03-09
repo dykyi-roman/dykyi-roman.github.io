@@ -116,6 +116,7 @@
         ARCHV.clearAnimations();
         ARCHV.clearLog();
         ARCHV.resetStats();
+        if (ARCHV.stepMode.active) ARCHV.exitStepMode();
 
         var config = archConfigs[archId];
         renderModeTabs(archId);
@@ -155,6 +156,7 @@
         ARCHV.clearAnimations();
         ARCHV.resetStats();
         ARCHV.clearLog();
+        if (ARCHV.stepMode.active) ARCHV.exitStepMode();
 
         config.initMode(modeId);
     }
@@ -340,15 +342,19 @@
         var controlsTop = 0;
         var controlsHeight = 0;
         var marginBottom = 10;
+        var measured = false;
 
         function measure() {
             if (!controls.classList.contains('is-fixed')) {
                 controlsTop = controls.offsetTop;
                 controlsHeight = controls.offsetHeight;
+                measured = controlsTop > 0;
             }
         }
 
         function onScroll() {
+            if (!measured) { measure(); }
+            if (!measured) return;
             if (window.scrollY >= controlsTop) {
                 if (!controls.classList.contains('is-fixed')) {
                     placeholder.style.height = (controlsHeight + marginBottom) + 'px';
@@ -364,8 +370,13 @@
             }
         }
 
-        measure();
+        requestAnimationFrame(function() {
+            measure();
+            if (!measured) {
+                setTimeout(measure, 300);
+            }
+        });
         window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', function() { measure(); onScroll(); });
+        window.addEventListener('resize', function() { measured = false; measure(); onScroll(); });
     });
 })();

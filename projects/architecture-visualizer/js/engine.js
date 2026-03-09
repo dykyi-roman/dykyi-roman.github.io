@@ -379,6 +379,19 @@ ARCHV._ensureArrowMarker = function(svg) {
     markerReplay.appendChild(polygonReplay);
     defs.appendChild(markerReplay);
 
+    var markerCompensate = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    markerCompensate.setAttribute('id', 'archv-arrowhead-compensate');
+    markerCompensate.setAttribute('markerWidth', '8');
+    markerCompensate.setAttribute('markerHeight', '6');
+    markerCompensate.setAttribute('refX', '8');
+    markerCompensate.setAttribute('refY', '3');
+    markerCompensate.setAttribute('orient', 'auto');
+    var polygonCompensate = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    polygonCompensate.setAttribute('points', '0 0, 8 3, 0 6');
+    polygonCompensate.setAttribute('class', 'flow-arrow-head-compensate');
+    markerCompensate.appendChild(polygonCompensate);
+    defs.appendChild(markerCompensate);
+
     var markerWrite = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
     markerWrite.setAttribute('id', 'archv-arrowhead-write');
     markerWrite.setAttribute('markerWidth', '8');
@@ -474,6 +487,7 @@ ARCHV._drawArrow = function(fromEl, toEl, flowType, stepNum, sourceOffset, targe
     var isReplay = flowType === 'REPLAY';
     var isWrite = flowType === 'WRITE_EVENT';
     var isAsync = flowType === 'ASYNC';
+    var isCompensate = flowType === 'COMPENSATE';
     var dx = x2 - x1;
     var dy = y2 - y1;
     var dist = Math.sqrt(dx * dx + dy * dy);
@@ -502,6 +516,10 @@ ARCHV._drawArrow = function(fromEl, toEl, flowType, stepNum, sourceOffset, targe
         arrowClass = 'flow-arrow flow-arrow-write';
         markerId = 'archv-arrowhead-write';
         badgeClass = 'flow-step-bg flow-step-bg-write';
+    } else if (isCompensate) {
+        arrowClass = 'flow-arrow flow-arrow-compensate';
+        markerId = 'archv-arrowhead-compensate';
+        badgeClass = 'flow-step-bg flow-step-bg-compensate';
     } else if (isAsync) {
         arrowClass = 'flow-arrow flow-arrow-async';
         markerId = 'archv-arrowhead-async';

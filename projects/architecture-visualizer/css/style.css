@@ -1768,6 +1768,7 @@
 .log-type.COMMAND { color: #74c7ec; }
 .log-type.QUERY { color: #b4befe; }
 .log-type.LOAD { color: #a6e3a1; background: rgba(166, 227, 161, 0.1); }
+.log-type.COMPENSATE { color: #f38ba8; background: rgba(243, 139, 168, 0.15); }
 
 .log-text {
     color: var(--archv-text);
@@ -1978,6 +1979,19 @@
     opacity: 0.7;
 }
 
+/* Compensate arrow — red dashed, failure/rollback path */
+.archv-svg-layer .flow-arrow.flow-arrow-compensate {
+    stroke: #f38ba8;
+    stroke-width: 2.5;
+    stroke-dasharray: 6 4;
+    opacity: 0.9;
+    animation: archvDash 0.8s linear infinite;
+}
+
+.archv-svg-layer .flow-arrow-head-compensate {
+    fill: #f38ba8;
+}
+
 .archv-svg-layer .dep-arrow-allowed {
     fill: none;
     stroke: #a6e3a1;
@@ -2013,6 +2027,10 @@
 .archv-svg-layer .flow-step-bg-async {
     fill: var(--archv-accent);
     opacity: 0.7;
+}
+
+.archv-svg-layer .flow-step-bg-compensate {
+    fill: #f38ba8;
 }
 
 .archv-svg-layer .flow-step-num {

@@ -28,12 +28,12 @@ function renderMicroservicesDefault(canvas, mode) {
     var meshLabel = 'Service Mesh (Istio / Linkerd)';
 
     var servicesHtml =
-        '<div class="archv-ms-service-box" id="svc-user">' +
-            '<div class="archv-ms-service-label">User Service</div>' +
+        '<div class="archv-ms-service-box" id="svc-payment">' +
+            '<div class="archv-ms-service-label">Payment Service</div>' +
             '<div class="archv-ms-service-components">' +
-                ARCHV.renderComponent('comp-ms-user-svc', 'User Service', '&#x1F464;', 'Manages user accounts, authentication, and profile data. Owns its own user database.') +
+                ARCHV.renderComponent('comp-ms-payment-svc', 'Payment Service', '&#x1F4B3;', 'Processes payments, manages transactions, and handles refunds. Owns the payments database.') +
             '</div>' +
-            renderMicroservicesDb('users_db') +
+            renderMicroservicesDb('payments_db') +
         '</div>' +
         '<div class="archv-ms-service-box" id="svc-order">' +
             '<div class="archv-ms-service-label">Order Service</div>' +
@@ -49,12 +49,12 @@ function renderMicroservicesDefault(canvas, mode) {
             '</div>' +
             renderMicroservicesDb('inventory_db') +
         '</div>' +
-        '<div class="archv-ms-service-box" id="svc-payment">' +
-            '<div class="archv-ms-service-label">Payment Service</div>' +
+        '<div class="archv-ms-service-box" id="svc-user">' +
+            '<div class="archv-ms-service-label">User Service</div>' +
             '<div class="archv-ms-service-components">' +
-                ARCHV.renderComponent('comp-ms-payment-svc', 'Payment Service', '&#x1F4B3;', 'Processes payments, manages transactions, and handles refunds. Owns the payments database.') +
+                ARCHV.renderComponent('comp-ms-user-svc', 'User Service', '&#x1F464;', 'Manages user accounts, authentication, and profile data. Owns its own user database.') +
             '</div>' +
-            renderMicroservicesDb('payments_db') +
+            renderMicroservicesDb('users_db') +
         '</div>' +
         '<div class="archv-ms-service-box" id="svc-notification">' +
             '<div class="archv-ms-service-label">Notification Service</div>' +
@@ -69,15 +69,25 @@ function renderMicroservicesDefault(canvas, mode) {
             ARCHV.renderComponent('comp-ms-client', 'Client', '&#x1F4F1;', 'External client application (web, mobile, or API consumer).') +
         '</div>';
 
+    var gatewayIcon = isSaga ? '&#x1F3AF;' : '&#x1F6E1;';
+    var gatewayLabel = isSaga ? 'Saga Orchestrator' : 'API Gateway';
+    var gatewayTooltip = isSaga
+        ? 'Central coordinator that manages the saga workflow. Sends commands to services, waits for replies, and triggers compensating transactions on failure. Communicates with services via sync calls and publishes completion events to the Message Queue.'
+        : 'Single entry point for all client requests. Handles routing, authentication, rate limiting, and response aggregation.';
+
     var gatewayHtml =
         '<div class="archv-ms-gateway" id="ms-gateway-area">' +
-            ARCHV.renderComponent('comp-ms-gateway', 'API Gateway', '&#x1F6E1;', 'Single entry point for all client requests. Handles routing, authentication, rate limiting, and response aggregation.') +
+            ARCHV.renderComponent('comp-ms-gateway', gatewayLabel, gatewayIcon, gatewayTooltip) +
         '</div>';
+
+    var queueTooltip = isSaga
+        ? 'Kafka / RabbitMQ — used by the Saga Orchestrator to publish completion events (e.g., OrderCompleted). Notification Service consumes these events asynchronously.'
+        : 'Kafka / RabbitMQ — asynchronous message routing. Decouples producers from consumers for reliable event delivery.';
 
     var queueHtml =
         '<div class="archv-ms-queue-area" id="ms-queue-area">' +
             '<div class="archv-ms-queue-box" id="ms-queue-box">' +
-                ARCHV.renderComponent('comp-ms-queue', 'Message Queue', '&#x1F4E1;', 'Kafka / RabbitMQ — asynchronous message routing. Decouples producers from consumers for reliable event delivery.') +
+                ARCHV.renderComponent('comp-ms-queue', 'Message Queue', '&#x1F4E1;', queueTooltip) +
             '</div>' +
         '</div>';
 
@@ -312,6 +322,7 @@ ARCHV.microservices.saga = {
     init: function() { renderMicroservices('saga'); },
     steps: function() {
         return [
+            { elementId: 'comp-ms-client', label: 'Client', description: 'HTTP POST /api/orders — start order saga', logType: 'REQUEST', layerId: 'ms-client-area' },
             { elementId: 'comp-ms-gateway', label: 'Saga Orchestrator', description: 'Initiate order saga', logType: 'REQUEST', layerId: 'ms-gateway-area' },
             { elementId: 'comp-ms-inventory-svc', label: 'Inventory Service', description: 'Step 1: Reserve inventory (local tx)', logType: 'COMMAND', layerId: 'svc-inventory' },
             { elementId: 'comp-ms-gateway', label: 'Saga Orchestrator', description: 'Inventory reserved, proceed to payment', logType: 'RESPONSE', layerId: 'ms-gateway-area', arrowFromId: 'comp-ms-inventory-svc' },
