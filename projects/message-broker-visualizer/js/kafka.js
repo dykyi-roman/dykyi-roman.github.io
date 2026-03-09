@@ -9,6 +9,73 @@ MBV.kafka.modes = [
     { id: 'exactly-once', label: 'Exactly-Once', desc: 'Delivery guarantees: at-most-once (acks=0, may lose), at-least-once (acks=1, may duplicate), exactly-once (idempotent producer, no loss or dups).' },
 ];
 
+MBV.kafka.details = {
+    partitions: {
+        principles: [
+            'A Kafka topic is split into partitions — each partition is an ordered, immutable log of messages',
+            'Messages within a single partition are strictly ordered; no global ordering guarantee across partitions',
+            'Partition assignment strategies: Round-Robin (no key), Key-Based (hash of key mod partition count), Manual',
+            'Partitions are the unit of parallelism — more partitions allow more consumers to read in parallel',
+            'Each partition is replicated across brokers (replication factor) for fault tolerance'
+        ],
+        concepts: [
+            { term: 'Partition', definition: 'An ordered, append-only log within a topic. Each message gets a sequential offset. Partitions enable parallelism.' },
+            { term: 'Offset', definition: 'Sequential position of a message within a partition. Consumers track their position by offset.' },
+            { term: 'Key-Based Routing', definition: 'Messages with the same key always go to the same partition (hash(key) mod N). Guarantees per-key ordering.' },
+            { term: 'Leader/Follower', definition: 'Each partition has one leader (handles reads/writes) and N-1 followers (replicate data). Leader election on failure.' },
+            { term: 'ISR', definition: 'In-Sync Replicas — followers that are caught up with the leader. Only ISR members can become the new leader.' }
+        ]
+    },
+    'consumer-groups': {
+        principles: [
+            'Each partition is consumed by exactly one consumer within a consumer group — no duplicate processing',
+            'Different consumer groups are independent — each group processes the full stream independently',
+            'When a consumer joins or leaves, partitions are rebalanced across remaining group members',
+            'If there are more consumers than partitions in a group, excess consumers sit idle',
+            'Consumer group offset tracking enables each group to read at its own pace'
+        ],
+        concepts: [
+            { term: 'Consumer Group', definition: 'Named group of consumers that collectively read a topic. Each partition is assigned to exactly one member.' },
+            { term: 'Rebalance', definition: 'Partition reassignment triggered when a consumer joins, leaves, or crashes. Causes brief processing pause.' },
+            { term: 'Group Coordinator', definition: 'Broker responsible for managing consumer group membership and partition assignment.' },
+            { term: 'Committed Offset', definition: 'Last processed offset per partition, stored in __consumer_offsets topic. Enables resume after restart.' },
+            { term: 'Lag', definition: 'Difference between the latest message offset and the consumer\'s committed offset. High lag = consumer falling behind.' }
+        ]
+    },
+    retention: {
+        principles: [
+            'Kafka retains messages based on time (retention.ms) or size (retention.bytes), not consumption status',
+            'Messages are NOT deleted after consumption — multiple consumer groups can re-read the same data',
+            'Log compaction keeps only the latest value per key, enabling changelog/snapshot patterns',
+            'Consumers can seek to any offset (beginning, end, timestamp, specific offset) for replay or reprocessing',
+            'Retention policy is set per topic — different topics can have different retention periods'
+        ],
+        concepts: [
+            { term: 'Retention', definition: 'How long messages are kept. retention.ms=604800000 (7 days) is default. -1 means keep forever.' },
+            { term: 'Log Compaction', definition: 'Instead of time-based deletion, keeps only the latest value per key. Like a changelog with deduplication.' },
+            { term: 'Segment', definition: 'Partition is split into segment files. Retention and compaction operate on whole segments, not individual messages.' },
+            { term: 'Offset Reset', definition: 'What happens when a consumer has no committed offset: auto.offset.reset=earliest (start from beginning) or latest (only new messages).' },
+            { term: 'Replay', definition: 'Consumers can seek to an earlier offset to reprocess messages. Enables fixing bugs and rebuilding state.' }
+        ]
+    },
+    'exactly-once': {
+        principles: [
+            'Three delivery guarantees: at-most-once (may lose), at-least-once (may duplicate), exactly-once (no loss, no dups)',
+            'Idempotent producer assigns sequence numbers per partition — broker deduplicates retried messages',
+            'Transactions enable atomic writes across multiple partitions and topics (all-or-nothing)',
+            'acks=all ensures the leader waits for all ISR replicas to confirm before acknowledging the produce request',
+            'Exactly-once semantics (EOS) combines idempotent producer + transactions + consumer read_committed isolation'
+        ],
+        concepts: [
+            { term: 'Idempotent Producer', definition: 'Producer assigns sequence numbers. Broker detects and discards duplicate messages from retries. enable.idempotence=true.' },
+            { term: 'Producer ID (PID)', definition: 'Unique ID assigned to each producer by the broker. Combined with sequence number for deduplication.' },
+            { term: 'Transaction', definition: 'Atomic write across partitions. All messages in a transaction are either all committed or all aborted.' },
+            { term: 'acks=all', definition: 'Producer waits for all in-sync replicas to acknowledge. Strongest durability guarantee but higher latency.' },
+            { term: 'read_committed', definition: 'Consumer isolation level that only reads committed (non-transactional or committed transactional) messages.' }
+        ]
+    }
+};
+
 MBV.kafka.state = {
     numPartitions: 3,
     replicationFactor: 1,

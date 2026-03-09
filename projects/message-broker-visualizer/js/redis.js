@@ -9,6 +9,73 @@ MBV.redis.modes = [
     { id: 'eventsourcing', label: 'Event Sourcing', desc: 'Event Sourcing: system state is not stored directly \u2014 it is reconstructed by replaying events. Redis Stream stores an immutable log. Rebuild replays the full history.' },
 ];
 
+MBV.redis.details = {
+    pubsub: {
+        principles: [
+            'Redis Pub/Sub is fire-and-forget: messages are NOT stored and NOT persisted to disk',
+            'If a subscriber is disconnected at the moment of publishing, it will never receive that message',
+            'There is no acknowledgment mechanism — the publisher does not know if anyone received the message',
+            'Messages are delivered to all currently connected subscribers on the channel simultaneously',
+            'Pub/Sub operates outside the key space — SUBSCRIBE/PUBLISH do not interact with normal Redis keys'
+        ],
+        concepts: [
+            { term: 'Channel', definition: 'Named message bus. Publishers send to a channel, subscribers listen on it. No persistence, no history.' },
+            { term: 'SUBSCRIBE', definition: 'Blocks the connection and listens for messages on one or more channels. Connection becomes subscribe-only.' },
+            { term: 'PUBLISH', definition: 'Sends a message to a channel. Returns the number of subscribers that received it (0 if none).' },
+            { term: 'Fire-and-Forget', definition: 'Messages are immediately dispatched to current subscribers and then discarded. No retry, no storage.' },
+            { term: 'Client State', definition: 'A subscribed client enters a special mode — it can only run SUBSCRIBE, UNSUBSCRIBE, PSUBSCRIBE, PUNSUBSCRIBE, PING, RESET.' }
+        ]
+    },
+    pattern: {
+        principles: [
+            'PSUBSCRIBE matches channels using glob-style patterns: * (any chars), ? (one char), [abc] (character class)',
+            'A single pattern subscription can match multiple channels simultaneously without knowing their exact names',
+            'Pattern matching is evaluated on every PUBLISH — high number of patterns can increase CPU load',
+            'A client can mix regular SUBSCRIBE and PSUBSCRIBE — it receives messages from both',
+            'If both SUBSCRIBE and PSUBSCRIBE match the same channel, the client receives the message twice'
+        ],
+        concepts: [
+            { term: 'PSUBSCRIBE', definition: 'Subscribe using a glob pattern. "chat:*" matches chat:room1, chat:room2, etc. Checked on every publish.' },
+            { term: '* Glob', definition: 'Matches any sequence of characters. "events:*" matches "events:created", "events:deleted", "events:foo:bar".' },
+            { term: '? Glob', definition: 'Matches exactly one character. "log?" matches "log1", "logA", but not "log" or "log12".' },
+            { term: 'Pattern Count', definition: 'PUBSUB NUMPAT returns the number of active pattern subscriptions. Many patterns = higher per-publish CPU cost.' },
+            { term: 'Dual Delivery', definition: 'If a client subscribes to both "chat:room1" (exact) and "chat:*" (pattern), it gets the same message twice.' }
+        ]
+    },
+    streams: {
+        principles: [
+            'Redis Streams provide a persistent, append-only log with consumer groups — unlike ephemeral Pub/Sub',
+            'Each entry has a unique auto-generated ID (timestamp-sequence) and one or more field-value pairs',
+            'Consumer groups track per-consumer progress; messages are not re-delivered to other group members',
+            'XACK explicitly acknowledges processing — unacknowledged messages remain in the Pending Entries List (PEL)',
+            'XCLAIM allows transferring ownership of pending messages from a failed consumer to another'
+        ],
+        concepts: [
+            { term: 'Stream', definition: 'Append-only log data structure. Each entry has ID + field-value pairs. Persisted to disk like any Redis key.' },
+            { term: 'Entry ID', definition: 'Format: timestamp-sequence (e.g., 1234567890-0). Auto-generated, monotonically increasing. Used for range queries.' },
+            { term: 'Consumer Group', definition: 'Named group that reads from a stream. Each entry is delivered to one consumer in the group. Tracks last-delivered-id.' },
+            { term: 'PEL', definition: 'Pending Entries List — entries delivered to a consumer but not yet XACK\'d. Enables at-least-once delivery guarantee.' },
+            { term: 'XCLAIM', definition: 'Transfers ownership of a pending entry from one consumer to another. Used to handle consumer failures.' }
+        ]
+    },
+    eventsourcing: {
+        principles: [
+            'Event Sourcing: application state is derived by replaying an immutable sequence of events, not stored directly',
+            'Redis Stream serves as the event store — append-only, ordered, persistent, with consumer group support',
+            'State is rebuilt by reading all events from the stream and applying each event\'s transformation in order',
+            'Snapshots can be periodically saved to avoid replaying the entire history for state reconstruction',
+            'Events are immutable — to correct a mistake, append a compensating event rather than modifying history'
+        ],
+        concepts: [
+            { term: 'Event Store', definition: 'Persistent log of domain events in order. Redis Stream provides this with XADD (write) and XRANGE (read).' },
+            { term: 'State Rebuild', definition: 'Process of replaying all events from the beginning to reconstruct the current application state.' },
+            { term: 'Projection', definition: 'A read-optimized view derived from the event stream. Can be rebuilt at any time by replaying events.' },
+            { term: 'Compensating Event', definition: 'An event that reverses the effect of a previous event. Events are never deleted or modified — only appended.' },
+            { term: 'Snapshot', definition: 'Periodic capture of current state to avoid replaying the full event history. State = snapshot + events after snapshot.' }
+        ]
+    }
+};
+
 MBV.redis.state = {
     channels: ['notifications', 'chat:room1', 'alerts', 'events:created'],
     subscribers: [],

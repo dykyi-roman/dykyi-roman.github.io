@@ -44,37 +44,6 @@
     font-family: inherit;
 }
 
-/* ===== Sticky Panel ===== */
-.sticky-panel {
-    transition: none;
-}
-
-.sticky-panel.is-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: var(--mbv-bg);
-    padding: 8px 12px 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.sticky-panel.is-fixed .broker-nav,
-.sticky-panel.is-fixed .mode-tabs,
-.sticky-panel.is-fixed .global-controls {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.sticky-panel-placeholder {
-    display: none;
-}
-
-.sticky-panel-placeholder.is-active {
-    display: block;
-}
 
 /* Broker Navigation */
 .broker-nav {
@@ -142,6 +111,27 @@
     border: 1px solid var(--mbv-border);
     border-radius: var(--mbv-radius);
     padding: 8px 12px;
+    transition: none;
+}
+
+.global-controls.is-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.global-controls-placeholder {
+    display: none;
+}
+
+.global-controls-placeholder.is-active {
+    display: block;
 }
 
 .controls-left {
@@ -296,6 +286,125 @@
     border-radius: 0 6px 6px 0;
     margin-bottom: 12px;
     line-height: 1.5;
+}
+
+/* ===== Pattern Details (Collapsible) ===== */
+.pattern-details {
+    margin-bottom: 12px;
+    background: var(--mbv-card-bg);
+    border: 1px solid var(--mbv-border);
+    border-radius: var(--mbv-radius);
+    overflow: hidden;
+}
+
+.pattern-details-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    color: var(--mbv-text);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background var(--mbv-transition);
+}
+
+.pattern-details-toggle:hover {
+    background: var(--mbv-bg);
+}
+
+.pattern-details-toggle-icon {
+    font-size: 10px;
+    transition: transform var(--mbv-transition);
+    color: var(--mbv-accent);
+}
+
+.pattern-details-toggle[aria-expanded="true"] .pattern-details-toggle-icon {
+    transform: rotate(90deg);
+}
+
+.pattern-details-body {
+    display: none;
+    padding: 0 14px 14px;
+}
+
+.pattern-details-body.expanded {
+    display: block;
+}
+
+.pattern-details-section {
+    margin-bottom: 12px;
+}
+
+.pattern-details-section:last-child {
+    margin-bottom: 0;
+}
+
+.pattern-details-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--mbv-accent);
+    margin-bottom: 6px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--mbv-border);
+}
+
+.pattern-details-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.pattern-details-list li {
+    font-size: 12px;
+    color: var(--mbv-text-light);
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: var(--mbv-bg);
+    line-height: 1.4;
+}
+
+.pattern-details-list li::before {
+    content: '\2022';
+    color: var(--mbv-accent);
+    margin-right: 6px;
+    font-weight: 700;
+}
+
+.pattern-concepts-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pattern-concept {
+    display: flex;
+    gap: 8px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    background: var(--mbv-bg);
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+.pattern-concept-term {
+    font-weight: 700;
+    color: var(--mbv-accent);
+    white-space: nowrap;
+    min-width: 80px;
+    flex-shrink: 0;
+}
+
+.pattern-concept-def {
+    color: var(--mbv-text-light);
 }
 
 /* Visualization Area */

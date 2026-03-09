@@ -111,6 +111,48 @@
         });
     }
 
+    function updatePatternDetails(dbId, modeId) {
+        var container = document.getElementById('pattern-details');
+        var body = document.getElementById('pattern-details-body');
+        var toggle = document.getElementById('pattern-details-toggle');
+        if (!container || !body || !toggle) return;
+
+        var dbObj = DBIV[dbId];
+        var details = dbObj && dbObj.details && dbObj.details[modeId];
+        if (!details) {
+            container.style.display = 'none';
+            body.classList.remove('expanded');
+            toggle.setAttribute('aria-expanded', 'false');
+            return;
+        }
+
+        var html = '';
+        if (details.principles) {
+            html += '<div class="pattern-details-section">' +
+                '<div class="pattern-details-section-title">Principles</div>' +
+                '<ul class="pattern-details-list">' +
+                details.principles.map(function(p) { return '<li>' + p + '</li>'; }).join('') +
+                '</ul></div>';
+        }
+        if (details.concepts) {
+            html += '<div class="pattern-details-section">' +
+                '<div class="pattern-details-section-title">Key Concepts</div>' +
+                '<div class="pattern-concepts-grid">' +
+                details.concepts.map(function(c) {
+                    return '<div class="pattern-concept">' +
+                        '<span class="pattern-concept-term">' + c.term + '</span>' +
+                        '<span class="pattern-concept-def">' + c.definition + '</span>' +
+                        '</div>';
+                }).join('') +
+                '</div></div>';
+        }
+
+        body.innerHTML = html;
+        body.classList.remove('expanded');
+        toggle.setAttribute('aria-expanded', 'false');
+        container.style.display = 'block';
+    }
+
     function switchMode(dbId, modeId) {
         DBIV.state.mode = modeId;
         DBIV.state.simulateError = false;
@@ -123,6 +165,7 @@
         });
 
         document.getElementById('pattern-desc').textContent = modeConfig ? modeConfig.desc : '';
+        updatePatternDetails(dbId, modeId);
 
         DBIV.clearAnimations();
         DBIV.resetStats();
@@ -197,6 +240,17 @@
             if (!e.target.checked) DBIV.hideComparison();
         };
 
+        // Pattern details toggle
+        var detailsToggle = document.getElementById('pattern-details-toggle');
+        if (detailsToggle) {
+            detailsToggle.onclick = function() {
+                var body = document.getElementById('pattern-details-body');
+                var expanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !expanded);
+                body.classList.toggle('expanded');
+            };
+        }
+
         // DB tabs
         document.querySelectorAll('.db-tab').forEach(tab => {
             tab.onclick = () => switchDb(tab.dataset.db);
@@ -220,32 +274,32 @@
         }
     });
 
-    /* ===== Sticky Panel (fixed on scroll) ===== */
+    /* ===== Sticky Global Controls (fixed on scroll) ===== */
     document.addEventListener('DOMContentLoaded', function() {
-        var panel = document.getElementById('sticky-panel');
-        var placeholder = document.getElementById('sticky-placeholder');
-        if (!panel || !placeholder) return;
+        var controls = document.getElementById('global-controls');
+        var placeholder = document.getElementById('controls-placeholder');
+        if (!controls || !placeholder) return;
 
-        var panelTop = 0;
-        var panelHeight = 0;
+        var controlsTop = 0;
+        var controlsHeight = 0;
 
         function measure() {
-            if (!panel.classList.contains('is-fixed')) {
-                panelTop = panel.offsetTop;
-                panelHeight = panel.offsetHeight;
+            if (!controls.classList.contains('is-fixed')) {
+                controlsTop = controls.offsetTop;
+                controlsHeight = controls.offsetHeight;
             }
         }
 
         function onScroll() {
-            if (window.scrollY >= panelTop) {
-                if (!panel.classList.contains('is-fixed')) {
-                    placeholder.style.height = panelHeight + 'px';
+            if (window.scrollY >= controlsTop) {
+                if (!controls.classList.contains('is-fixed')) {
+                    placeholder.style.height = controlsHeight + 'px';
                     placeholder.classList.add('is-active');
-                    panel.classList.add('is-fixed');
+                    controls.classList.add('is-fixed');
                 }
             } else {
-                if (panel.classList.contains('is-fixed')) {
-                    panel.classList.remove('is-fixed');
+                if (controls.classList.contains('is-fixed')) {
+                    controls.classList.remove('is-fixed');
                     placeholder.classList.remove('is-active');
                     placeholder.style.height = '0';
                 }

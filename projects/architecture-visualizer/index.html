@@ -42,9 +42,6 @@
             <h1 class="article-title">Architecture Visualizer</h1>
         </div>
 
-        <!-- Sticky Panel: Navigation + Controls -->
-        <div class="sticky-panel-placeholder" id="sticky-placeholder"></div>
-        <div class="sticky-panel" id="sticky-panel">
         <!-- Architecture Navigation (Level 1) -->
         <div class="arch-nav" role="tablist" aria-label="Select architecture pattern">
             <button class="arch-tab active" data-arch="mvc" role="tab" aria-selected="true">MVC</button>
@@ -62,7 +59,8 @@
         <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select request mode"></div>
 
         <!-- Global Controls -->
-        <div class="global-controls">
+        <div class="global-controls-placeholder" id="controls-placeholder"></div>
+        <div class="global-controls" id="global-controls">
             <div class="controls-left">
                 <button class="ctrl-btn run-btn" id="btn-run" title="Send request through architecture">&#x25B6; Send Request</button>
                 <button class="ctrl-btn pause-btn" id="btn-pause" title="Pause / Resume animation" disabled>&#x23F8; Pause</button>
@@ -78,7 +76,6 @@
                 <div class="stat-item"><span class="stat-label">Layers</span><span class="stat-value" id="stat-layers">0</span></div>
                 <div class="stat-item"><span class="stat-label">Hit</span><span class="stat-value" id="stat-components">0</span></div>
             </div>
-        </div>
         </div>
 
         <!-- Pattern Description -->

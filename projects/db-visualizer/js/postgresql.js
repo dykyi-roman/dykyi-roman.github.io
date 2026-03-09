@@ -10,6 +10,89 @@ DBIV.postgresql.modes = [
     { id: 'brin', label: 'BRIN Index', desc: 'Block Range Index stores min/max per block range. Extremely small index, best for naturally ordered (correlated) data like timestamps.' },
 ];
 
+DBIV.postgresql.details = {
+    btree: {
+        principles: [
+            'PostgreSQL B-Tree stores heap TIDs (tuple identifiers) in leaf nodes, not the actual row data',
+            'MVCC means each tuple carries xmin/xmax transaction IDs — visibility is checked at read time, not write time',
+            'Dead tuples (from UPDATE/DELETE) remain in index pages until VACUUM removes them',
+            'HOT (Heap-Only Tuple) updates avoid index modification when indexed columns are unchanged',
+            'Deduplication (v13+) compresses duplicate key entries in leaf pages, reducing index size significantly'
+        ],
+        concepts: [
+            { term: 'Heap TID', definition: 'Tuple Identifier (block number + offset). Points from an index leaf entry to the actual row in the heap table.' },
+            { term: 'MVCC', definition: 'Multi-Version Concurrency Control. Readers never block writers. Each transaction sees a consistent snapshot of data.' },
+            { term: 'VACUUM', definition: 'Reclaims space from dead tuples. Without it, tables and indexes bloat. Autovacuum runs periodically.' },
+            { term: 'Visibility Map', definition: 'Bitmap tracking which heap pages have only visible-to-all tuples. Enables index-only scans to skip heap lookups.' },
+            { term: 'HOT Update', definition: 'Heap-Only Tuple update. When no indexed column changes, the new tuple is placed on the same page — no index update needed.' }
+        ]
+    },
+    hash: {
+        principles: [
+            'PostgreSQL hash index uses a 4-page structure: meta page, primary buckets, overflow pages, and bitmap pages',
+            'Supports only equality comparisons (=); cannot do range, sorting, or multicolumn operations',
+            'Since PostgreSQL 10, hash indexes are WAL-logged and crash-safe (previously they were not)',
+            'Bucket count doubles when load factor exceeds threshold — split is done incrementally',
+            'Hash indexes are smaller than B-Trees for simple equality-only lookups on large text columns'
+        ],
+        concepts: [
+            { term: 'Meta Page', definition: 'Page 0 of the hash index. Stores bucket count, high mask, low mask, and other control information.' },
+            { term: 'Bucket Page', definition: 'Primary storage for hash entries. Each bucket holds tuples whose hash value maps to that bucket number.' },
+            { term: 'Overflow Page', definition: 'Chained to a bucket when it runs out of space. Forms a linked list from the primary bucket page.' },
+            { term: 'Bitmap Page', definition: 'Tracks which overflow pages are currently in use. Enables efficient allocation and deallocation.' },
+            { term: 'Split', definition: 'When load factor exceeds threshold, one bucket is split into two. Tuples are rehashed to the new bucket.' }
+        ]
+    },
+    gin: {
+        principles: [
+            'GIN (Generalized Inverted Index) maps each element/key to a sorted list of heap TIDs (posting list)',
+            'Ideal for multi-valued data types: arrays, JSONB, tsvector (full-text search), hstore',
+            'The entry tree is a B-Tree of keys; each key points to a posting tree or compressed posting list',
+            'Pending list + fastupdate: new entries are batched in a pending list and merged into the main index later',
+            'GIN supports intersection and union of posting lists for multi-key queries (AND/OR)'
+        ],
+        concepts: [
+            { term: 'Entry Tree', definition: 'B-Tree of extracted keys (words, array elements, JSONB paths). Each leaf points to a posting list or posting tree.' },
+            { term: 'Posting List', definition: 'Sorted array of heap TIDs for a given key. Stored inline in the entry leaf if small enough.' },
+            { term: 'Posting Tree', definition: 'When a posting list grows too large, it becomes a separate B-Tree of TIDs for efficient lookup and update.' },
+            { term: 'Fast Update', definition: 'New tuples go to a pending list (unsorted). Periodically merged into the main GIN structure during VACUUM or when list is full.' },
+            { term: 'Consistent fn', definition: 'Operator-class function that checks whether a given key satisfies the query. Used during index scan to filter results.' }
+        ]
+    },
+    gist: {
+        principles: [
+            'GiST (Generalized Search Tree) is a balanced tree where each entry represents a bounding region (predicate)',
+            'Supports nearest-neighbor, containment, overlap, and intersection queries on geometric/range data',
+            'Internal nodes store bounding boxes that encompass all child entries — search prunes branches that don\'t overlap the query',
+            'Extensible: custom data types can define their own consistent, union, penalty, and picksplit methods',
+            'GiST indexes support exclusion constraints (e.g., no overlapping time ranges in a scheduling table)'
+        ],
+        concepts: [
+            { term: 'Bounding Box', definition: 'Minimum enclosing region for a set of entries. Internal nodes use bounding boxes to decide which subtrees to search.' },
+            { term: 'R-Tree', definition: 'The most common GiST specialization. Stores spatial data with rectangular bounding boxes for 2D points and polygons.' },
+            { term: 'Penalty', definition: 'Function that estimates the cost of inserting an entry into a subtree. GiST picks the subtree with lowest penalty.' },
+            { term: 'Picksplit', definition: 'Determines how to split an overfull page into two groups. Good splits minimize bounding box overlap.' },
+            { term: 'KNN Search', definition: 'K-Nearest-Neighbor query. GiST traverses the tree by distance priority, returning closest items first.' }
+        ]
+    },
+    brin: {
+        principles: [
+            'BRIN stores summary data (min/max) for ranges of physical table blocks — extremely small index',
+            'Works best when data is naturally ordered on disk (correlated): timestamps, serial IDs, append-only tables',
+            'pages_per_range parameter controls granularity: smaller = more precise but larger index',
+            'BRIN cannot pinpoint exact rows — it identifies candidate block ranges that must be rechecked',
+            'For uncorrelated data, BRIN is useless because every range will contain the full value spectrum'
+        ],
+        concepts: [
+            { term: 'Block Range', definition: 'Group of consecutive heap pages (default: 128). BRIN stores one summary entry per range.' },
+            { term: 'Summary Tuple', definition: 'Stores min_value and max_value for all tuples in the block range. Used to decide if the range might contain matches.' },
+            { term: 'Correlation', definition: 'Statistical measure of how well physical row order matches logical value order. BRIN needs high correlation to be effective.' },
+            { term: 'Revmap', definition: 'Reverse mapping structure that maps a block range number to its summary tuple. Enables fast range-to-summary lookup.' },
+            { term: 'Lossy Scan', definition: 'BRIN identifies candidate ranges but cannot confirm matches. The executor must recheck actual rows in matching ranges.' }
+        ]
+    }
+};
+
 DBIV.postgresql._queryCard = DBIV.mysql._queryCard;
 DBIV.postgresql._setupQueryCard = DBIV.mysql._setupQueryCard;
 

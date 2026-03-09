@@ -42,9 +42,6 @@
             <h1 class="article-title">Database Index Visualizer</h1>
         </div>
 
-        <!-- Sticky Panel: Navigation + Mode Tabs + Controls -->
-        <div class="sticky-panel-placeholder" id="sticky-placeholder"></div>
-        <div class="sticky-panel" id="sticky-panel">
         <!-- Database Navigation (Level 1) -->
         <div class="db-nav" role="tablist" aria-label="Select database">
             <button class="db-tab active" data-db="mysql" role="tab" aria-selected="true">
@@ -65,7 +62,8 @@
         <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select index type"></div>
 
         <!-- Global Controls -->
-        <div class="global-controls">
+        <div class="global-controls-placeholder" id="controls-placeholder"></div>
+        <div class="global-controls" id="global-controls">
             <div class="controls-left">
                 <button class="ctrl-btn run-btn" id="btn-run" title="Execute query through index">&#x25B6; Run Query</button>
                 <button class="ctrl-btn burst-btn" id="btn-burst" title="Run 5 queries rapidly">&#x26A1; Burst</button>
@@ -88,10 +86,18 @@
             <div class="stat-item"><span class="stat-label">Index Lookups</span><span class="stat-value" id="stat-lookups">0</span></div>
             <div class="stat-item"><span class="stat-label">Query Time</span><span class="stat-value" id="stat-time">0 ms</span></div>
         </div>
-        </div>
 
         <!-- Pattern Description -->
         <div class="pattern-desc" id="pattern-desc"></div>
+
+        <!-- Principles & Key Concepts (collapsible) -->
+        <div class="pattern-details" id="pattern-details" style="display:none">
+            <button class="pattern-details-toggle" id="pattern-details-toggle" aria-expanded="false">
+                <span class="pattern-details-toggle-icon">&#x25B6;</span>
+                <span>Principles &amp; Key Concepts</span>
+            </button>
+            <div class="pattern-details-body" id="pattern-details-body"></div>
+        </div>
 
         <!-- Main Visualization Area -->
         <div class="viz-area" id="viz-area">

@@ -10,6 +10,89 @@ DBIV.mysql.modes = [
     { id: 'explain', label: 'EXPLAIN Plan', desc: 'Query \u2192 Parser \u2192 Optimizer \u2192 Index Selection \u2192 Access Method. EXPLAIN shows how MySQL plans to execute your query, including cost estimates.' },
 ];
 
+DBIV.mysql.details = {
+    btree: {
+        principles: [
+            'B+Tree keeps all data in leaf nodes; internal nodes store only keys and pointers for navigation',
+            'Tree stays balanced after every INSERT/DELETE via page splits and merges, guaranteeing O(log n) lookups',
+            'Leaf nodes are linked in a doubly-linked list, enabling efficient range scans without backtracking',
+            'InnoDB clusters rows by primary key (clustered index); secondary indexes store PK values, not row pointers',
+            'Page size (16 KB default) determines fan-out: higher fan-out = fewer levels = fewer disk reads'
+        ],
+        concepts: [
+            { term: 'Page / Block', definition: 'Smallest I/O unit (16 KB in InnoDB). Each tree node occupies one page. Fewer pages read = faster query.' },
+            { term: 'Fan-out', definition: 'Number of child pointers per internal node. High fan-out keeps tree shallow (3-4 levels for billions of rows).' },
+            { term: 'Clustered Index', definition: 'InnoDB table IS the B+Tree ordered by primary key. Row data lives in leaf pages. Only one per table.' },
+            { term: 'Covering Index', definition: 'Index that contains all columns needed by a query. Avoids going back to the clustered index (no "bookmark lookup").' },
+            { term: 'Page Split', definition: 'When a leaf page is full and a new key must be inserted, the page splits in two. Causes fragmentation over time.' }
+        ]
+    },
+    hash: {
+        principles: [
+            'Hash index maps key through a hash function directly to a bucket for O(1) average-case equality lookups',
+            'Only supports equality predicates (=, IN); cannot be used for range queries, ORDER BY, or partial matches',
+            'Hash collisions are resolved by chaining entries within the same bucket',
+            'In MySQL, only the MEMORY engine supports explicit hash indexes; InnoDB uses adaptive hash index internally',
+            'Adaptive Hash Index (AHI) in InnoDB is built automatically for hot pages — not manually controlled'
+        ],
+        concepts: [
+            { term: 'Hash Function', definition: 'Maps an arbitrary key to a fixed-size bucket number. Good functions distribute keys uniformly across buckets.' },
+            { term: 'Bucket', definition: 'A slot in the hash table. Contains one or more entries (via chaining) that share the same hash value.' },
+            { term: 'Collision', definition: 'Two different keys hash to the same bucket. Resolved by chaining or open addressing.' },
+            { term: 'Adaptive Hash', definition: 'InnoDB automatically builds an in-memory hash index for frequently accessed B-Tree leaf pages. Transparent to the user.' },
+            { term: 'O(1) Lookup', definition: 'Constant-time access regardless of table size — the key advantage of hash indexes for point queries.' }
+        ]
+    },
+    composite: {
+        principles: [
+            'Composite index INDEX(a, b, c) follows the leftmost prefix rule: usable for (a), (a,b), or (a,b,c) but NOT (b,c) alone',
+            'Column order matters: place high-selectivity columns and equality predicates first for best filtering',
+            'A range predicate on column N stops the index from being used for columns N+1, N+2, etc.',
+            'Composite indexes can satisfy ORDER BY if the sort order matches the index column order',
+            'The ESR rule (Equality, Sort, Range) guides optimal column ordering in composite indexes'
+        ],
+        concepts: [
+            { term: 'Leftmost Prefix', definition: 'Index (a,b,c) can satisfy queries on (a), (a,b), (a,b,c), but not (b), (c), or (b,c). Must start from the left.' },
+            { term: 'Selectivity', definition: 'Ratio of distinct values to total rows. High selectivity (many unique values) means better filtering power.' },
+            { term: 'Index Skip Scan', definition: 'MySQL 8.0+ optimization: can use a composite index even when the leading column is skipped, if it has few distinct values.' },
+            { term: 'ESR Rule', definition: 'Equality columns first, then Sort columns, then Range columns — the optimal order for composite index design.' },
+            { term: 'Covering Index', definition: 'A composite index that includes all columns referenced by the query, eliminating the need for table lookups.' }
+        ]
+    },
+    fulltext: {
+        principles: [
+            'Full-text index creates an inverted index: each word maps to a posting list of document IDs where it appears',
+            'Text is tokenized by the parser, then filtered (stopwords removed, minimum word length applied)',
+            'Supports three search modes: Natural Language (relevance ranking), Boolean (operators +, -, *), and Query Expansion',
+            'InnoDB full-text uses an auxiliary table design with FTS_DOC_ID for document tracking',
+            'Full-text search calculates relevance scores based on TF-IDF (Term Frequency - Inverse Document Frequency)'
+        ],
+        concepts: [
+            { term: 'Inverted Index', definition: 'Maps each unique word to the list of documents containing it. The core data structure behind full-text search.' },
+            { term: 'Posting List', definition: 'For each word, stores the list of document IDs (and positions) where that word occurs.' },
+            { term: 'Stopwords', definition: 'Common words (the, is, at) excluded from indexing because they appear in too many documents to be useful.' },
+            { term: 'TF-IDF', definition: 'Term Frequency * Inverse Document Frequency. Words that are common in a doc but rare overall get higher relevance.' },
+            { term: 'Boolean Mode', definition: 'Allows operators: + (must include), - (must exclude), * (wildcard), "" (exact phrase) for precise search control.' }
+        ]
+    },
+    explain: {
+        principles: [
+            'EXPLAIN shows the execution plan the optimizer chose — which indexes, join order, and access methods will be used',
+            'The optimizer evaluates multiple plans and picks the one with lowest estimated cost (based on statistics)',
+            'Key columns to check: type (access method), key (chosen index), rows (estimated rows to examine), Extra (additional info)',
+            'Access types from best to worst: system > const > eq_ref > ref > range > index > ALL',
+            'EXPLAIN ANALYZE (MySQL 8.0.18+) actually executes the query and shows real vs estimated row counts'
+        ],
+        concepts: [
+            { term: 'Access Type', definition: 'How MySQL accesses the table: ALL (full scan), index (full index scan), range (index range), ref (index lookup), const (single row).' },
+            { term: 'Cost Estimate', definition: 'Optimizer assigns a cost to each plan based on I/O and CPU. Lower cost = preferred plan. Based on table statistics.' },
+            { term: 'Index Selection', definition: 'Optimizer picks the index that filters the most rows. May choose full scan if index selectivity is poor.' },
+            { term: 'Using filesort', definition: 'Appears in Extra when MySQL must sort results outside the index. Often indicates a missing or mismatched index.' },
+            { term: 'Using index', definition: 'Appears in Extra when the query is satisfied entirely from the index (covering index) — no table data access needed.' }
+        ]
+    }
+};
+
 /* ===== Shared Query Card Builder ===== */
 DBIV.mysql._queryCard = function(query, presets) {
     return `

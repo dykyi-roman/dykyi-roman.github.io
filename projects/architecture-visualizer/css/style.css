@@ -61,37 +61,6 @@
     font-family: inherit;
 }
 
-/* ===== Sticky Panel ===== */
-.sticky-panel {
-    transition: none;
-}
-
-.sticky-panel.is-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: var(--archv-bg);
-    padding: 8px 12px 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.sticky-panel.is-fixed .arch-nav,
-.sticky-panel.is-fixed .mode-tabs,
-.sticky-panel.is-fixed .global-controls {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.sticky-panel-placeholder {
-    display: none;
-}
-
-.sticky-panel-placeholder.is-active {
-    display: block;
-}
 
 /* ===== Architecture Navigation ===== */
 .arch-nav {
@@ -195,6 +164,27 @@
     border: 1px solid var(--archv-border);
     border-radius: var(--archv-radius);
     padding: 8px 12px;
+    transition: none;
+}
+
+.global-controls.is-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.global-controls-placeholder {
+    display: none;
+}
+
+.global-controls-placeholder.is-active {
+    display: block;
 }
 
 .controls-left {
@@ -1517,6 +1507,38 @@
     border-color: rgba(249, 115, 22, 0.7);
     background: rgba(249, 115, 22, 0.1);
     box-shadow: 0 0 12px rgba(249, 115, 22, 0.2);
+}
+
+/* ===== Layout: Microservices Async (hub-and-spoke) ===== */
+
+.layout-microservices-async {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-height: 600px;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 0;
+    position: relative;
+}
+
+.archv-ms-async-top,
+.archv-ms-async-bottom {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.layout-microservices-async .archv-ms-queue-area {
+    padding: 40px 0;
+}
+
+.layout-microservices-async .archv-ms-queue-box {
+    padding: 16px 32px;
+    border-width: 2px;
 }
 
 /* ===== Layout: Triad (MVC/MVP/MVVM) ===== */

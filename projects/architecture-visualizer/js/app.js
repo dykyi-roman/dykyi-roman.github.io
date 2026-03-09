@@ -331,32 +331,32 @@
         }
     });
 
-    /* ===== Sticky Panel (fixed on scroll) ===== */
+    /* ===== Sticky Global Controls (fixed on scroll) ===== */
     document.addEventListener('DOMContentLoaded', function() {
-        var panel = document.getElementById('sticky-panel');
-        var placeholder = document.getElementById('sticky-placeholder');
-        if (!panel || !placeholder) return;
+        var controls = document.getElementById('global-controls');
+        var placeholder = document.getElementById('controls-placeholder');
+        if (!controls || !placeholder) return;
 
-        var panelTop = 0;
-        var panelHeight = 0;
+        var controlsTop = 0;
+        var controlsHeight = 0;
 
         function measure() {
-            if (!panel.classList.contains('is-fixed')) {
-                panelTop = panel.offsetTop;
-                panelHeight = panel.offsetHeight;
+            if (!controls.classList.contains('is-fixed')) {
+                controlsTop = controls.offsetTop;
+                controlsHeight = controls.offsetHeight;
             }
         }
 
         function onScroll() {
-            if (window.scrollY >= panelTop) {
-                if (!panel.classList.contains('is-fixed')) {
-                    placeholder.style.height = panelHeight + 'px';
+            if (window.scrollY >= controlsTop) {
+                if (!controls.classList.contains('is-fixed')) {
+                    placeholder.style.height = controlsHeight + 'px';
                     placeholder.classList.add('is-active');
-                    panel.classList.add('is-fixed');
+                    controls.classList.add('is-fixed');
                 }
             } else {
-                if (panel.classList.contains('is-fixed')) {
-                    panel.classList.remove('is-fixed');
+                if (controls.classList.contains('is-fixed')) {
+                    controls.classList.remove('is-fixed');
                     placeholder.classList.remove('is-active');
                     placeholder.style.height = '0';
                 }

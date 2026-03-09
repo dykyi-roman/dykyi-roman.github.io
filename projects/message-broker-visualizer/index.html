@@ -42,42 +42,39 @@
             <h1 class="article-title">Message Broker Visualizer</h1>
         </div>
 
-        <!-- Sticky Panel -->
-        <div class="sticky-panel" id="sticky-panel">
-            <!-- Broker Navigation (Level 1) -->
-            <div class="broker-nav" role="tablist" aria-label="Select message broker">
-                <button class="broker-tab active" data-broker="rabbitmq" role="tab" aria-selected="true">
-                    <span class="broker-icon">&#x1F407;</span> RabbitMQ
-                </button>
-                <button class="broker-tab" data-broker="kafka" role="tab" aria-selected="false">
-                    <span class="broker-icon">&#x1F4E1;</span> Apache Kafka
-                </button>
-                <button class="broker-tab" data-broker="redis" role="tab" aria-selected="false">
-                    <span class="broker-icon">&#x26A1;</span> Redis Pub/Sub
-                </button>
+        <!-- Broker Navigation (Level 1) -->
+        <div class="broker-nav" role="tablist" aria-label="Select message broker">
+            <button class="broker-tab active" data-broker="rabbitmq" role="tab" aria-selected="true">
+                <span class="broker-icon">&#x1F407;</span> RabbitMQ
+            </button>
+            <button class="broker-tab" data-broker="kafka" role="tab" aria-selected="false">
+                <span class="broker-icon">&#x1F4E1;</span> Apache Kafka
+            </button>
+            <button class="broker-tab" data-broker="redis" role="tab" aria-selected="false">
+                <span class="broker-icon">&#x26A1;</span> Redis Pub/Sub
+            </button>
+        </div>
+
+        <!-- Mode Tabs (Level 2 - broker-specific) -->
+        <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select pattern"></div>
+
+        <!-- Global Controls -->
+        <div class="global-controls-placeholder" id="controls-placeholder"></div>
+        <div class="global-controls" id="global-controls">
+            <div class="controls-left">
+                <button class="ctrl-btn burst-btn" id="btn-burst" title="Send 5 messages rapidly">&#x26A1; Burst</button>
+                <button class="ctrl-btn error-btn" id="btn-error" title="Next message gets NACK">Simulate Error</button>
+                <button class="ctrl-btn pause-btn" id="btn-pause" title="Pause/Resume simulation">&#x23F8; Pause</button>
+                <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state">&#x21BA; Reset</button>
             </div>
-
-            <!-- Mode Tabs (Level 2 - broker-specific) -->
-            <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select pattern"></div>
-
-            <!-- Global Controls -->
-            <div class="global-controls">
-                <div class="controls-left">
-                    <button class="ctrl-btn burst-btn" id="btn-burst" title="Send 5 messages rapidly">&#x26A1; Burst</button>
-                    <button class="ctrl-btn error-btn" id="btn-error" title="Next message gets NACK">Simulate Error</button>
-                    <button class="ctrl-btn pause-btn" id="btn-pause" title="Pause/Resume simulation">&#x23F8; Pause</button>
-                    <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state">&#x21BA; Reset</button>
-                </div>
-                <div class="controls-right">
-                    <label class="confirm-toggle" id="confirm-toggle-wrap">
-                        <span>Publisher Confirms:</span>
-                        <input type="checkbox" id="toggle-confirms">
-                        <span class="toggle-slider"></span>
-                    </label>
-                </div>
+            <div class="controls-right">
+                <label class="confirm-toggle" id="confirm-toggle-wrap">
+                    <span>Publisher Confirms:</span>
+                    <input type="checkbox" id="toggle-confirms">
+                    <span class="toggle-slider"></span>
+                </label>
             </div>
         </div>
-        <div class="sticky-panel-placeholder" id="sticky-placeholder"></div>
 
         <!-- Stats Bar -->
         <div class="stats-bar">
@@ -89,6 +86,15 @@
 
         <!-- Pattern Description -->
         <div class="pattern-desc" id="pattern-desc"></div>
+
+        <!-- Principles & Key Concepts (collapsible) -->
+        <div class="pattern-details" id="pattern-details" style="display:none">
+            <button class="pattern-details-toggle" id="pattern-details-toggle" aria-expanded="false">
+                <span class="pattern-details-toggle-icon">&#x25B6;</span>
+                <span>Principles &amp; Key Concepts</span>
+            </button>
+            <div class="pattern-details-body" id="pattern-details-body"></div>
+        </div>
 
         <!-- Main Visualization Area -->
         <div class="viz-area" id="viz-area">

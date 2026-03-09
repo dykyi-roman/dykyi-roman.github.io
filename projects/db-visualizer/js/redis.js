@@ -8,6 +8,57 @@ DBIV.redis.modes = [
     { id: 'secondary', label: 'Secondary Index', desc: 'Redis has no built-in secondary indexes. Pattern: use Sorted Sets as indexes \u2014 ZRANGEBYSCORE for numeric ranges, ZRANGEBYLEX for string prefixes.' },
 ];
 
+DBIV.redis.details = {
+    zset: {
+        principles: [
+            'Sorted Set combines a skip list (for ordered access) with a hash table (for O(1) member lookup)',
+            'Skip list provides O(log n) insert, delete, and range operations with probabilistic balancing',
+            'Each element has a unique member name and a floating-point score used for ordering',
+            'Elements with equal scores are sorted lexicographically by member name',
+            'ZRANGEBYSCORE and ZRANGEBYLEX enable efficient range queries on scores and member names respectively'
+        ],
+        concepts: [
+            { term: 'Skip List', definition: 'Probabilistic data structure with multiple levels of linked lists. Higher levels skip over elements for faster traversal — like an express lane.' },
+            { term: 'Score', definition: 'Floating-point value (double) that determines element ordering. Multiple members can share the same score.' },
+            { term: 'Level', definition: 'Each skip list node has a random height (1-32). Higher levels contain fewer nodes, enabling O(log n) search.' },
+            { term: 'ZADD', definition: 'Adds member with score. If member exists, updates the score. O(log n) due to skip list repositioning.' },
+            { term: 'Ziplist Encoding', definition: 'For small sorted sets (<128 elements, <64 bytes per entry), Redis uses a compact ziplist instead of a skip list.' }
+        ]
+    },
+    'hash-index': {
+        principles: [
+            'Redis hash tables use progressive (incremental) rehashing — migration happens gradually, not all at once',
+            'Two hash tables (ht[0] and ht[1]) coexist during rehashing; every operation migrates one bucket',
+            'Rehashing triggers when load factor exceeds 1 (or 5 during BGSAVE) or drops below 0.1',
+            'MurmurHash2 is used as the hash function for good distribution and performance',
+            'Hash tables grow by doubling and shrink by halving the bucket count'
+        ],
+        concepts: [
+            { term: 'Progressive Rehash', definition: 'Instead of rehashing all keys at once (which would block), Redis migrates one bucket per operation until complete.' },
+            { term: 'Load Factor', definition: 'Ratio of used entries to bucket count. Rehashing starts when this exceeds the threshold (1 normally, 5 during BGSAVE).' },
+            { term: 'ht[0] / ht[1]', definition: 'During rehashing, ht[0] is the old table, ht[1] is the new (larger/smaller) table. Lookups check both.' },
+            { term: 'Bucket', definition: 'Each hash table slot is a bucket that can hold a chain of entries with the same hash value.' },
+            { term: 'BGSAVE Guard', definition: 'During background save, Redis delays rehashing (threshold rises to 5) to avoid copy-on-write memory amplification.' }
+        ]
+    },
+    secondary: {
+        principles: [
+            'Redis has no built-in secondary indexes — they must be implemented using Sorted Sets or Sets as manual indexes',
+            'Pattern: ZADD index:field score member to create a numeric index; ZRANGEBYSCORE to query it',
+            'For string prefix search, use ZRANGEBYLEX with a lexicographic Sorted Set (all scores = 0)',
+            'Application code is responsible for keeping secondary indexes in sync with primary data (no automatic updates)',
+            'RediSearch module provides automatic secondary indexing with full-text search capabilities'
+        ],
+        concepts: [
+            { term: 'Manual Index', definition: 'A Sorted Set or Set maintained by application code alongside the primary data. Must be updated on every write.' },
+            { term: 'ZRANGEBYSCORE', definition: 'Queries a Sorted Set by score range. Used to implement numeric range queries on secondary indexes.' },
+            { term: 'ZRANGEBYLEX', definition: 'Queries a Sorted Set lexicographically (all scores must be equal). Enables string prefix and range searches.' },
+            { term: 'Composite Key', definition: 'Pattern: encode multiple fields into the member name (e.g., "NYC:Alice") for multi-field secondary lookups.' },
+            { term: 'RediSearch', definition: 'Redis module providing real-time secondary indexing, full-text search, aggregation, and auto-complete out of the box.' }
+        ]
+    }
+};
+
 DBIV.redis._queryCard = function(query, presets) {
     return `
     <div class="query-card" id="query-card">

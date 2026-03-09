@@ -9,6 +9,73 @@ DBIV.mongodb.modes = [
     { id: 'text', label: 'Text Index', desc: 'Text index with stemming, stop word removal, and TF-IDF scoring. Supports $text queries with $search, $language, $caseSensitive.' },
 ];
 
+DBIV.mongodb.details = {
+    single: {
+        principles: [
+            'MongoDB uses B-Tree indexes on individual document fields for efficient equality, range, and sort queries',
+            'Every collection automatically has a unique index on the _id field — this cannot be dropped',
+            'Index entries store the field value and a pointer to the document location on disk (RecordId)',
+            'Queries that match the index order can avoid an in-memory sort (index provides natural ordering)',
+            'Sparse indexes skip documents where the indexed field is missing, saving space and improving selectivity'
+        ],
+        concepts: [
+            { term: 'RecordId', definition: 'Internal document locator. The index leaf stores field value + RecordId to find the document on disk.' },
+            { term: 'Selectivity', definition: 'How many distinct values exist relative to total documents. High selectivity = better index performance.' },
+            { term: 'Sparse Index', definition: 'Only indexes documents that contain the indexed field. Useful for optional fields to reduce index size.' },
+            { term: 'Index Scan', definition: 'Query reads from the index in order. If the query needs only indexed fields, it becomes a covered query (no document fetch).' },
+            { term: 'Collection Scan', definition: 'Full scan of every document when no suitable index exists. Shown as COLLSCAN in explain output.' }
+        ]
+    },
+    compound: {
+        principles: [
+            'Compound index {a:1, b:1, c:1} supports prefix queries: (a), (a,b), (a,b,c), but NOT (b,c) alone',
+            'The ESR rule (Equality, Sort, Range) determines optimal field order in compound indexes',
+            'Sort direction in the index matters: {a:1, b:-1} can serve sort({a:1, b:-1}) but NOT sort({a:1, b:1})',
+            'A compound index can satisfy queries and sorts simultaneously if field order and directions align',
+            'Index intersection (using multiple single-field indexes) is generally slower than a well-designed compound index'
+        ],
+        concepts: [
+            { term: 'Prefix Rule', definition: 'Only the leftmost fields of a compound index can be used. {a,b,c} supports queries on (a), (a,b), (a,b,c).' },
+            { term: 'ESR Rule', definition: 'Place Equality fields first, then Sort fields, then Range fields for optimal compound index performance.' },
+            { term: 'Sort Direction', definition: 'Index {a:1, b:-1} sorts a ascending, b descending. The index can serve the exact or fully reversed direction.' },
+            { term: 'Index Bounds', definition: 'The range of index keys to scan. Tighter bounds = fewer keys examined = faster query.' },
+            { term: 'Covered Query', definition: 'Query whose projection only includes indexed fields. MongoDB returns results directly from the index without fetching documents.' }
+        ]
+    },
+    multikey: {
+        principles: [
+            'When an indexed field contains an array, MongoDB creates separate index entries for each array element',
+            'One document with N array elements produces N index entries — the index can be significantly larger than the collection',
+            'A compound index can have at most one array field (multikey); two array fields in the same compound index are not allowed',
+            'Multikey indexes cannot be used as shard keys and have restrictions on covered queries',
+            'MongoDB tracks which fields are multikey in the index metadata to adjust query planning'
+        ],
+        concepts: [
+            { term: 'Array Expansion', definition: 'Each element of the array field gets its own index entry. A document with tags:[a,b,c] creates 3 index entries.' },
+            { term: 'Multikey Flag', definition: 'Index metadata marking which fields are multikey. Affects query planner decisions and index bounds calculation.' },
+            { term: 'Compound Multikey', definition: 'Compound index where one field is an array. At most one field can be multikey — two array fields is prohibited.' },
+            { term: '$elemMatch', definition: 'Query operator for matching array elements. With multikey indexes, ensures conditions are applied to the same array element.' },
+            { term: 'Index Size', definition: 'Multikey indexes can grow much larger than the collection due to entry-per-element expansion. Monitor with collStats.' }
+        ]
+    },
+    text: {
+        principles: [
+            'Text index tokenizes string fields into stems, removes stopwords, and builds an inverted index of terms',
+            'Each document gets a relevance score based on term frequency and inverse document frequency (TF-IDF)',
+            'A collection can have at most one text index, but it can cover multiple string fields with different weights',
+            'Text search supports language-specific stemming (e.g., "running" matches "run") and stopword lists',
+            'The $text query operator with $meta: "textScore" returns and sorts results by relevance score'
+        ],
+        concepts: [
+            { term: 'Stemming', definition: 'Reduces words to their root form: "running" -> "run", "better" -> "good". Language-specific rules are applied.' },
+            { term: 'Stopwords', definition: 'Common words excluded from indexing (the, and, is). Language-specific lists. Can be customized per index.' },
+            { term: 'Term Weight', definition: 'Each field in a compound text index can have a weight (default 1). Higher weight increases that field\'s impact on relevance scoring.' },
+            { term: 'Text Score', definition: 'TF-IDF based relevance score. Access via $meta: "textScore" in projection. Higher score = better match.' },
+            { term: 'Wildcard Text', definition: '$** text index covers all string fields in the document. Useful for collections with dynamic or unknown schema.' }
+        ]
+    }
+};
+
 DBIV.mongodb._queryCard = function(query, presets) {
     return `
     <div class="query-card" id="query-card">

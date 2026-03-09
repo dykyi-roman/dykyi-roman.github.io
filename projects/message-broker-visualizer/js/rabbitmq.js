@@ -12,6 +12,121 @@ MBV.rabbitmq.modes = [
     { id: 'confirms', label: '7. Confirms', desc: 'Publisher Confirms \u2014 broker acknowledges each message write via ACK/NACK. Guarantees at-least-once delivery on the producer side.' },
 ];
 
+MBV.rabbitmq.details = {
+    hello: {
+        principles: [
+            'Simplest messaging pattern: one producer sends directly to a named queue, one consumer reads from it',
+            'Messages are stored in the queue until a consumer is ready to process them (asynchronous decoupling)',
+            'Default exchange ("") routes messages to queues by name — no explicit exchange binding needed',
+            'Messages are removed from the queue once acknowledged by the consumer (at-most-once without ack)',
+            'Queue must be declared before use; both producer and consumer can declare it (idempotent operation)'
+        ],
+        concepts: [
+            { term: 'Queue', definition: 'FIFO buffer that stores messages until they are consumed. Durable queues survive broker restarts.' },
+            { term: 'Default Exchange', definition: 'Nameless exchange ("") that routes messages to the queue whose name matches the routing key.' },
+            { term: 'Acknowledgment', definition: 'Consumer sends ACK after processing. Without ACK, messages are re-delivered if consumer disconnects.' },
+            { term: 'Durable Queue', definition: 'Queue that persists across broker restarts. Combined with persistent messages for full durability.' },
+            { term: 'Connection', definition: 'TCP connection to the broker. Channels are lightweight virtual connections multiplexed over one TCP connection.' }
+        ]
+    },
+    work: {
+        principles: [
+            'Work queue distributes tasks among multiple workers via round-robin dispatching',
+            'Each message is delivered to exactly one worker — competing consumers pattern',
+            'prefetch_count=1 ensures a worker receives the next message only after acknowledging the current one',
+            'Fair dispatch prevents fast workers from being idle while slow workers are overloaded',
+            'Manual acknowledgment ensures messages are requeued if a worker crashes mid-processing'
+        ],
+        concepts: [
+            { term: 'Round-Robin', definition: 'Default dispatch: broker sends messages to consumers in rotation. Does not consider consumer load.' },
+            { term: 'Prefetch', definition: 'QoS setting (prefetch_count) limits how many unacknowledged messages a consumer can hold. Key to fair dispatch.' },
+            { term: 'Competing Consumers', definition: 'Multiple consumers on the same queue. Each message goes to exactly one consumer. Enables horizontal scaling.' },
+            { term: 'Message TTL', definition: 'Time-to-live for messages. Expired messages are dead-lettered or discarded. Set per-queue or per-message.' },
+            { term: 'Dead Letter', definition: 'Messages that are rejected, expire, or exceed queue length are routed to a dead-letter exchange for inspection.' }
+        ]
+    },
+    pubsub: {
+        principles: [
+            'Fanout exchange broadcasts every message to all bound queues — true publish/subscribe pattern',
+            'Each subscriber gets its own queue; messages are copied to every bound queue independently',
+            'Producers don\'t know which queues exist — full decoupling between publishers and subscribers',
+            'Temporary (exclusive, auto-delete) queues are typical for subscribers that don\'t need persistence',
+            'Adding a new subscriber requires no changes to the producer — just bind a new queue to the exchange'
+        ],
+        concepts: [
+            { term: 'Fanout Exchange', definition: 'Ignores routing keys entirely. Delivers a copy of every message to every bound queue. One-to-many pattern.' },
+            { term: 'Binding', definition: 'Link between an exchange and a queue. For fanout exchanges, the binding key is ignored.' },
+            { term: 'Exclusive Queue', definition: 'Queue that only one connection can use. Automatically deleted when the connection closes. Ideal for temporary subscribers.' },
+            { term: 'Exchange', definition: 'Receives messages from producers and routes them to queues based on type (fanout, direct, topic, headers).' },
+            { term: 'Auto-Delete', definition: 'Queue or exchange that is automatically deleted when the last consumer disconnects.' }
+        ]
+    },
+    routing: {
+        principles: [
+            'Direct exchange routes messages only to queues whose binding key exactly matches the routing key',
+            'Multiple queues can bind to the same exchange with the same routing key — messages are copied to all of them',
+            'A queue can have multiple bindings with different routing keys to receive messages from several sources',
+            'Routing key is set by the producer at publish time; binding key is set by the consumer at bind time',
+            'Direct exchange enables selective message filtering — consumers receive only the message types they need'
+        ],
+        concepts: [
+            { term: 'Direct Exchange', definition: 'Routes messages by exact routing key match. Message goes only to queues bound with the same key.' },
+            { term: 'Routing Key', definition: 'String set by the producer on each message. Direct exchange compares it to binding keys for routing decisions.' },
+            { term: 'Binding Key', definition: 'String specified when binding a queue to an exchange. Must match the routing key exactly for direct exchanges.' },
+            { term: 'Selective Filtering', definition: 'Each consumer binds with specific keys and only receives matching messages. Unlike fanout, not all messages go everywhere.' },
+            { term: 'Multiple Bindings', definition: 'A queue can bind multiple times with different keys to the same exchange, receiving messages matching any of them.' }
+        ]
+    },
+    topics: {
+        principles: [
+            'Topic exchange matches routing keys by dot-separated word patterns using * (one word) and # (zero or more words)',
+            'Routing key must be a dot-separated string (e.g., "order.created.eu") — max 255 bytes',
+            'Pattern * substitutes exactly one word; # substitutes zero or more words — powerful filtering hierarchy',
+            'A topic exchange with "#" binding behaves like fanout; with no wildcards, it behaves like direct',
+            'Topic exchanges enable event hierarchies: "order.*" gets all order events, "*.created.*" gets all creation events'
+        ],
+        concepts: [
+            { term: 'Topic Exchange', definition: 'Routes messages by pattern matching on dot-separated routing keys. Supports * and # wildcards.' },
+            { term: '* Wildcard', definition: 'Matches exactly one word in the routing key. "order.*.eu" matches "order.created.eu" but not "order.eu".' },
+            { term: '# Wildcard', definition: 'Matches zero or more words. "order.#" matches "order", "order.created", "order.created.eu", etc.' },
+            { term: 'Word', definition: 'A segment between dots in the routing key. "stock.usd.nyse" has three words: "stock", "usd", "nyse".' },
+            { term: 'Hierarchy', definition: 'Topic keys form a natural hierarchy (domain.event.region) enabling flexible subscription at any level.' }
+        ]
+    },
+    rpc: {
+        principles: [
+            'RPC over messaging: client sends request with reply_to queue and correlation_id, server processes and replies',
+            'Each client creates an exclusive callback queue to receive responses — one queue per client connection',
+            'correlation_id matches responses to requests, enabling multiple outstanding RPCs on the same callback queue',
+            'Server is stateless — it simply consumes from the request queue and publishes to the reply_to address',
+            'RPC over messaging adds reliability (retries, persistence) but introduces latency vs direct HTTP calls'
+        ],
+        concepts: [
+            { term: 'Correlation ID', definition: 'Unique identifier set on the request message. The server copies it to the response so the client can match request-response pairs.' },
+            { term: 'Reply-To Queue', definition: 'Exclusive queue created by the client. Its name is sent in the reply_to property so the server knows where to send the response.' },
+            { term: 'Callback Queue', definition: 'Same as reply-to queue. Client listens on this queue for RPC responses. Typically exclusive and auto-delete.' },
+            { term: 'Request-Reply', definition: 'Pattern where one party sends a request and waits for a response. Over messaging, this is asynchronous but feels synchronous to the caller.' },
+            { term: 'Timeout', definition: 'Client should set a timeout for RPC responses. If the server crashes, the client must handle the missing response gracefully.' }
+        ]
+    },
+    confirms: {
+        principles: [
+            'Publisher confirms: broker acknowledges (ACK/NACK) each message after it is written to disk or delivered',
+            'Without confirms, the producer has no way to know if the broker received and persisted the message',
+            'Messages are confirmed in order; a single ACK with multiple=true can confirm all messages up to that sequence number',
+            'NACK indicates the broker could not handle the message (e.g., disk full, internal error)',
+            'Publisher confirms + consumer ACK + durable queues + persistent messages = end-to-end at-least-once delivery'
+        ],
+        concepts: [
+            { term: 'Publisher Confirm', definition: 'Broker sends ACK back to the producer after successfully queuing/persisting a message. Async confirmation.' },
+            { term: 'Sequence Number', definition: 'Monotonically increasing number assigned to each published message. Used to track which messages are confirmed.' },
+            { term: 'Batch Confirm', definition: 'ACK with multiple=true confirms all messages up to the given sequence number. More efficient than per-message confirms.' },
+            { term: 'NACK', definition: 'Negative acknowledgment from broker. Indicates the message was not processed. Producer should retry or handle the failure.' },
+            { term: 'At-Least-Once', definition: 'Delivery guarantee: message is delivered at least once (may be duplicated). Achieved with confirms + persistent messages + durable queues.' }
+        ]
+    }
+};
+
 /* ---------- Tutorial 1: Hello World ---------- */
 MBV.rabbitmq.hello = {
     workers: [],
