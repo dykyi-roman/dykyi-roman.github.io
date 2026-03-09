@@ -282,7 +282,7 @@ ARCHV.animateFlow = async function(steps, options) {
 
         if (i > 0 && el) {
             if (step.noArrowFromPrev) {
-                ARCHV._drawStepBadge(el, stepLabel);
+                ARCHV._drawStepBadge(el, stepLabel, step.badgePosition);
             } else {
                 var sourceEl = step.arrowFromId
                     ? document.getElementById(step.arrowFromId)
@@ -293,7 +293,7 @@ ARCHV.animateFlow = async function(steps, options) {
                 }
             }
         } else if (el) {
-            ARCHV._drawStepBadge(el, stepLabel);
+            ARCHV._drawStepBadge(el, stepLabel, step.badgePosition);
         }
 
         var stepDelay = step.delay !== undefined ? step.delay : (customDelay || ARCHV.state.stepDelay);
@@ -432,7 +432,7 @@ ARCHV._edgePoint = function(rect, areaRect, targetX, targetY, padding) {
 };
 
 /* ===== Draw Step Badge on Element ===== */
-ARCHV._drawStepBadge = function(el, stepNum) {
+ARCHV._drawStepBadge = function(el, stepNum, position) {
     var svg = document.getElementById('archv-svg-layer');
     if (!svg || !el) return;
 
@@ -440,8 +440,17 @@ ARCHV._drawStepBadge = function(el, stepNum) {
     var areaRect = vizArea.getBoundingClientRect();
     var elRect = el.getBoundingClientRect();
 
-    var x = elRect.left - areaRect.left - 14;
-    var y = elRect.top - areaRect.top + elRect.height / 2;
+    var x, y;
+    if (position === 'top') {
+        x = elRect.left - areaRect.left + elRect.width / 2;
+        y = elRect.top - areaRect.top - 14;
+    } else if (position === 'right') {
+        x = elRect.left - areaRect.left + elRect.width + 14;
+        y = elRect.top - areaRect.top + elRect.height / 2;
+    } else {
+        x = elRect.left - areaRect.left - 14;
+        y = elRect.top - areaRect.top + elRect.height / 2;
+    }
 
     var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', x);
@@ -712,7 +721,7 @@ ARCHV.stepForward = function() {
 
     if (sm.index > 0 && el) {
         if (step.noArrowFromPrev) {
-            ARCHV._drawStepBadge(el, stepLabel);
+            ARCHV._drawStepBadge(el, stepLabel, step.badgePosition);
         } else {
             var sourceEl = step.arrowFromId
                 ? document.getElementById(step.arrowFromId)
@@ -720,7 +729,7 @@ ARCHV.stepForward = function() {
             if (sourceEl) ARCHV._drawArrow(sourceEl, el, step.logType, stepLabel, step.arrowFromOffset);
         }
     } else if (el) {
-        ARCHV._drawStepBadge(el, stepLabel);
+        ARCHV._drawStepBadge(el, stepLabel, step.badgePosition);
     }
 
     sm.index++;
@@ -778,7 +787,7 @@ ARCHV.stepBack = function() {
         componentsCount++;
         if (i > 0) {
             if (s.noArrowFromPrev) {
-                if (e) ARCHV._drawStepBadge(e, i + 1);
+                if (e) ARCHV._drawStepBadge(e, i + 1, s.badgePosition);
             } else {
                 var sourceE = s.arrowFromId
                     ? document.getElementById(s.arrowFromId)
@@ -786,7 +795,7 @@ ARCHV.stepBack = function() {
                 if (sourceE && e) ARCHV._drawArrow(sourceE, e, s.logType, i + 1, s.arrowFromOffset, s.arrowToOffset);
             }
         } else if (e) {
-            ARCHV._drawStepBadge(e, 1);
+            ARCHV._drawStepBadge(e, 1, s.badgePosition);
         }
     }
 

@@ -1660,12 +1660,18 @@
 }
 
 /* ===== Layout: Context Map (DDD Strategic) ===== */
+.context-map-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .layout-context-map {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: 24px;
-    min-height: 420px;
+    grid-template-rows: auto auto;
+    gap: 80px 40px;
+    min-height: 320px;
     padding: 20px 10px;
     align-items: start;
     justify-items: center;
@@ -1673,12 +1679,13 @@
 
 .layout-context-map .archv-bounded-context {
     width: 100%;
+    max-width: 180px;
     min-height: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 12px 14px;
+    padding: 16px 10px 12px;
     text-align: center;
 }
 
@@ -1700,22 +1707,21 @@
 
 .layout-context-map .ctx-bottom-left {
     grid-column: 1;
-    grid-row: 3;
+    grid-row: 2;
 }
 
 .layout-context-map .ctx-bottom-right {
     grid-column: 3;
-    grid-row: 3;
+    grid-row: 2;
 }
 
-.layout-context-map .archv-ctx-relationships {
-    grid-column: 1 / -1;
-    grid-row: 2;
+.context-map-wrapper > .archv-ctx-relationships {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
     width: 100%;
+    padding: 0 10px;
 }
 
 .archv-ctx-relationship {
@@ -2350,6 +2356,7 @@
 
     .layout-context-map {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .layout-context-map .ctx-core,
@@ -2359,10 +2366,6 @@
     .layout-context-map .ctx-bottom-right {
         grid-column: 1;
         grid-row: auto;
-    }
-
-    .layout-context-map .archv-ctx-relationships {
-        grid-column: 1;
     }
 
 }

@@ -96,47 +96,55 @@ function renderDDD(opts) {
 function renderDDDContextMap() {
     var canvas = document.getElementById('archv-canvas');
     canvas.innerHTML =
-        '<div class="layout-context-map">' +
-            '<div class="archv-bounded-context ctx-left" id="ctx-cm-crm">' +
-                '<span class="archv-context-label">CRM Context</span>' +
-                '<div class="archv-components">' +
-                    ARCHV.renderComponent('comp-cm-crm-customer', 'Customer', '&#x1F464;', 'Customer entity in CRM context') +
-                    ARCHV.renderComponent('comp-cm-crm-segment', 'Segment', '&#x1F3AF;', 'Customer segmentation logic') +
+        '<div class="context-map-wrapper">' +
+            '<div class="layout-context-map">' +
+                '<div class="archv-bounded-context ctx-left" id="ctx-cm-crm">' +
+                    '<span class="archv-context-label">CRM Context</span>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-cm-crm-customer', 'Customer', '&#x1F464;', 'Customer entity in CRM context') +
+                        ARCHV.renderComponent('comp-cm-crm-segment', 'Segment', '&#x1F3AF;', 'Customer segmentation logic') +
+                    '</div>' +
                 '</div>' +
-            '</div>' +
-            '<div class="archv-bounded-context ctx-core" id="ctx-cm-order">' +
-                '<span class="archv-context-label">Order Context (Core)</span>' +
-                '<div class="archv-components">' +
-                    ARCHV.renderComponent('comp-cm-order-agg', 'Order', '&#x1F4E6;', 'Order aggregate — the core domain') +
-                    ARCHV.renderComponent('comp-cm-order-event', 'OrderPlaced', '&#x1F514;', 'Domain event signaling order creation') +
+                '<div class="archv-bounded-context ctx-core" id="ctx-cm-order">' +
+                    '<span class="archv-context-label">Order Context (Core)</span>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-cm-order-agg', 'Order', '&#x1F4E6;', 'Order aggregate — the core domain') +
+                        ARCHV.renderComponent('comp-cm-order-event', 'OrderPlaced', '&#x1F514;', 'Domain event signaling order creation') +
+                    '</div>' +
                 '</div>' +
-            '</div>' +
-            '<div class="archv-bounded-context ctx-right" id="ctx-cm-payment">' +
-                '<span class="archv-context-label">Payment Context</span>' +
-                '<div class="archv-components">' +
-                    ARCHV.renderComponent('comp-cm-pay-service', 'PaymentService', '&#x1F4B3;', 'Payment processing service') +
-                    ARCHV.renderComponent('comp-cm-pay-acl', 'ACL', '&#x1F6E1;', 'Anti-Corruption Layer translating Order concepts') +
+                '<div class="archv-bounded-context ctx-right" id="ctx-cm-payment">' +
+                    '<span class="archv-context-label">Payment Context</span>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-cm-pay-service', 'PaymentService', '&#x1F4B3;', 'Payment processing service') +
+                        ARCHV.renderComponent('comp-cm-pay-acl', 'ACL', '&#x1F6E1;', 'Anti-Corruption Layer translating Order concepts') +
+                    '</div>' +
+                '</div>' +
+                '<div class="archv-bounded-context ctx-bottom-left" id="ctx-cm-inventory">' +
+                    '<span class="archv-context-label">Inventory Context</span>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-cm-inv-stock', 'Stock', '&#x1F4E6;', 'Stock management aggregate') +
+                        ARCHV.renderComponent('comp-cm-inv-shared', 'ProductId (SK)', '&#x1F91D;', 'Shared Kernel value object') +
+                    '</div>' +
+                '</div>' +
+                '<div class="archv-bounded-context ctx-bottom-right" id="ctx-cm-shipping">' +
+                    '<span class="archv-context-label">Shipping Context</span>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-cm-ship-delivery', 'Delivery', '&#x1F69A;', 'Delivery aggregate in Shipping context') +
+                        ARCHV.renderComponent('comp-cm-ship-tracking', 'Tracking', '&#x1F4CD;', 'Shipment tracking service') +
+                    '</div>' +
                 '</div>' +
             '</div>' +
             '<div class="archv-ctx-relationships" id="ctx-cm-relationships">' +
-                '<span class="archv-ctx-relationship rel-acl" id="rel-acl" data-tooltip="ACL protects Payment from Order model changes">&#x1F6E1; ACL: Order &#x2194; Payment</span>' +
-                '<span class="archv-ctx-relationship rel-shared-kernel" id="rel-shared-kernel" data-tooltip="Shared code owned jointly by Order and Inventory teams">&#x1F91D; Shared Kernel: Order &#x2194; Inventory</span>' +
-                '<span class="archv-ctx-relationship rel-customer-supplier" id="rel-customer-supplier" data-tooltip="Order (customer) depends on Shipping (supplier) for delivery">&#x1F4E6; Customer-Supplier: Order &#x2192; Shipping</span>' +
-                '<span class="archv-ctx-relationship rel-conformist" id="rel-conformist" data-tooltip="CRM conforms to Order model without translation">&#x1F4CB; Conformist: CRM &#x2192; Order</span>' +
+                '<span class="archv-ctx-relationship rel-acl" id="rel-acl" data-tooltip="Payment protects itself from Order model changes via ACL">&#x1F6E1; ACL: Order &#x2192; Payment</span>' +
+                '<span class="archv-ctx-relationship rel-shared-kernel" id="rel-shared-kernel" data-tooltip="ProductId jointly owned by Order and Inventory teams">&#x1F91D; Shared Kernel: Order &#x2194; Inventory</span>' +
+                '<span class="archv-ctx-relationship rel-customer-supplier" id="rel-customer-supplier" data-tooltip="Order (downstream) negotiates API with Shipping (upstream)">&#x1F4E6; Customer-Supplier: Order &#x2193; &#x2192; Shipping &#x2191;</span>' +
+                '<span class="archv-ctx-relationship rel-conformist" id="rel-conformist" data-tooltip="CRM conforms to Order model without any translation">&#x1F4CB; Conformist: Order &#x2192; CRM</span>' +
             '</div>' +
-            '<div class="archv-bounded-context ctx-bottom-left" id="ctx-cm-inventory">' +
-                '<span class="archv-context-label">Inventory Context</span>' +
-                '<div class="archv-components">' +
-                    ARCHV.renderComponent('comp-cm-inv-stock', 'Stock', '&#x1F4E6;', 'Stock management aggregate') +
-                    ARCHV.renderComponent('comp-cm-inv-shared', 'ProductId (SK)', '&#x1F91D;', 'Shared Kernel value object') +
-                '</div>' +
-            '</div>' +
-            '<div class="archv-bounded-context ctx-bottom-right" id="ctx-cm-shipping">' +
-                '<span class="archv-context-label">Shipping Context</span>' +
-                '<div class="archv-components">' +
-                    ARCHV.renderComponent('comp-cm-ship-delivery', 'Delivery', '&#x1F69A;', 'Delivery aggregate in Shipping context') +
-                    ARCHV.renderComponent('comp-cm-ship-tracking', 'Tracking', '&#x1F4CD;', 'Shipment tracking service') +
-                '</div>' +
+            '<div class="archv-flow-legend">' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> ACL (Order &#x2192; Payment)</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> Shared Kernel (Order &#x2194; Inventory)</div>' +
+                '<div class="legend-item"><span class="legend-line-write"></span> Customer-Supplier (Order &#x2192; Shipping)</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> Conformist (Order &#x2192; CRM)</div>' +
             '</div>' +
         '</div>';
 }
@@ -531,16 +539,30 @@ ARCHV.ddd['context-map'] = {
     init: function() { renderDDDContextMap(); },
     steps: function() {
         return [
-            { elementId: 'comp-cm-order-agg', label: 'Order', description: 'Core domain — Order Context is the system nucleus', logType: 'LAYER', noArrowFromPrev: true },
-            { elementId: 'comp-cm-order-event', label: 'OrderPlaced', description: 'Order raises domain events consumed by other contexts', logType: 'EVENT' },
-            { elementId: 'comp-cm-pay-acl', label: 'ACL', description: 'Payment builds ACL to translate Order concepts', logType: 'FLOW', noArrowFromPrev: true },
-            { elementId: 'comp-cm-pay-service', label: 'PaymentService', description: 'Payment processes orders through its own model', logType: 'LAYER' },
-            { elementId: 'rel-acl', label: 'ACL Relationship', description: 'ACL: Payment protects itself from Order model changes', logType: 'FLOW', noArrowFromPrev: true },
-            { elementId: 'comp-cm-inv-shared', label: 'Shared Kernel', description: 'ProductId is shared code owned by both Order and Inventory', logType: 'LAYER', noArrowFromPrev: true },
-            { elementId: 'rel-shared-kernel', label: 'Shared Kernel', description: 'Shared Kernel: both teams must agree on changes to ProductId', logType: 'FLOW', noArrowFromPrev: true },
-            { elementId: 'comp-cm-ship-delivery', label: 'Delivery', description: 'Shipping supplies delivery capabilities to Order', logType: 'LAYER', noArrowFromPrev: true },
-            { elementId: 'rel-customer-supplier', label: 'Customer-Supplier', description: 'Customer-Supplier: Order negotiates API with Shipping', logType: 'FLOW', noArrowFromPrev: true },
-            { elementId: 'rel-conformist', label: 'Conformist', description: 'Conformist: CRM accepts Order model as-is, no translation', logType: 'FLOW', noArrowFromPrev: true }
+            // 1. Core domain highlight
+            { elementId: 'ctx-cm-order', label: 'Order (Core)',
+              description: 'Core domain — Order Context is the strategic nucleus of the system',
+              logType: 'LAYER', noArrowFromPrev: true, badgePosition: 'top' },
+
+            // 2. ACL: Order → Payment (right neighbor)
+            { elementId: 'ctx-cm-payment', label: 'Payment (ACL)',
+              description: 'Payment builds an Anti-Corruption Layer to protect itself from Order model changes. ACL translates Order concepts into Payment\'s own Ubiquitous Language',
+              logType: 'FLOW', arrowFromId: 'ctx-cm-order', arrowFromOffset: 0.2 },
+
+            // 3. Shared Kernel: Order ↔ Inventory (bottom-left)
+            { elementId: 'ctx-cm-inventory', label: 'Inventory (Shared Kernel)',
+              description: 'Order and Inventory jointly own the ProductId value object. Both teams must coordinate and agree before changing the shared code',
+              logType: 'ASYNC', arrowFromId: 'ctx-cm-order', arrowFromOffset: -0.2 },
+
+            // 4. Customer-Supplier: Order → Shipping (bottom-right)
+            { elementId: 'ctx-cm-shipping', label: 'Shipping (Supplier)',
+              description: 'Order (downstream customer) negotiates the API contract with Shipping (upstream supplier). Shipping provides delivery capabilities on Order\'s terms',
+              logType: 'WRITE_EVENT', arrowFromId: 'ctx-cm-order', arrowFromOffset: 0.2 },
+
+            // 5. Conformist: Order → CRM (left neighbor)
+            { elementId: 'ctx-cm-crm', label: 'CRM (Conformist)',
+              description: 'CRM conforms to Order\'s model as-is — no ACL, no translation. CRM reuses Order\'s Ubiquitous Language (OrderId, OrderStatus) directly in its Customer and Segment entities',
+              logType: 'RESPONSE', arrowFromId: 'ctx-cm-order', arrowFromOffset: -0.2 }
         ];
     },
     stepOptions: function() { return { requestLabel: 'Context Map: Strategic Overview' }; },
