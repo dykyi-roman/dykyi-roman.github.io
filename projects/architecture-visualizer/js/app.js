@@ -4,6 +4,15 @@
     'use strict';
 
     var archConfigs = {
+        mvc: {
+            name: 'MVC / MVP / MVVM',
+            modes: ARCHV.mvc.modes,
+            initMode: function(modeId) {
+                var map = { mvc: ARCHV.mvc.mvcMode, mvp: ARCHV.mvc.mvpMode, mvvm: ARCHV.mvc.mvvmMode };
+                if (map[modeId]) map[modeId].init();
+            },
+            depRules: ARCHV.mvc.depRules
+        },
         layered: {
             name: 'Layered Architecture',
             modes: ARCHV.layered.modes,
@@ -30,15 +39,6 @@
                 if (map[modeId]) map[modeId].init();
             },
             depRules: ARCHV.hexagonal.depRules
-        },
-        ddd: {
-            name: 'Domain-Driven Design',
-            modes: ARCHV.ddd.modes,
-            initMode: function(modeId) {
-                var map = { http: ARCHV.ddd.http, console: ARCHV.ddd.console, message: ARCHV.ddd.message };
-                if (map[modeId]) map[modeId].init();
-            },
-            depRules: ARCHV.ddd.depRules
         },
         cqrs: {
             name: 'CQRS',
@@ -76,14 +76,14 @@
             },
             depRules: ARCHV.microservices.depRules
         },
-        mvc: {
-            name: 'MVC / MVP / MVVM',
-            modes: ARCHV.mvc.modes,
+        ddd: {
+            name: 'Domain-Driven Design',
+            modes: ARCHV.ddd.modes,
             initMode: function(modeId) {
-                var map = { mvc: ARCHV.mvc.mvcMode, mvp: ARCHV.mvc.mvpMode, mvvm: ARCHV.mvc.mvvmMode };
+                var map = { http: ARCHV.ddd.http, console: ARCHV.ddd.console, message: ARCHV.ddd.message };
                 if (map[modeId]) map[modeId].init();
             },
-            depRules: ARCHV.mvc.depRules
+            depRules: ARCHV.ddd.depRules
         }
     };
 
@@ -320,7 +320,7 @@
         if (saved) {
             switchArch(saved.arch, saved.mode);
         } else {
-            switchArch('layered');
+            switchArch('mvc');
         }
     });
 
@@ -329,5 +329,42 @@
         if (saved && (saved.arch !== ARCHV.state.arch || saved.mode !== ARCHV.state.mode)) {
             switchArch(saved.arch, saved.mode);
         }
+    });
+
+    /* ===== Sticky Panel (fixed on scroll) ===== */
+    document.addEventListener('DOMContentLoaded', function() {
+        var panel = document.getElementById('sticky-panel');
+        var placeholder = document.getElementById('sticky-placeholder');
+        if (!panel || !placeholder) return;
+
+        var panelTop = 0;
+        var panelHeight = 0;
+
+        function measure() {
+            if (!panel.classList.contains('is-fixed')) {
+                panelTop = panel.offsetTop;
+                panelHeight = panel.offsetHeight;
+            }
+        }
+
+        function onScroll() {
+            if (window.scrollY >= panelTop) {
+                if (!panel.classList.contains('is-fixed')) {
+                    placeholder.style.height = panelHeight + 'px';
+                    placeholder.classList.add('is-active');
+                    panel.classList.add('is-fixed');
+                }
+            } else {
+                if (panel.classList.contains('is-fixed')) {
+                    panel.classList.remove('is-fixed');
+                    placeholder.classList.remove('is-active');
+                    placeholder.style.height = '0';
+                }
+            }
+        }
+
+        measure();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', function() { measure(); onScroll(); });
     });
 })();

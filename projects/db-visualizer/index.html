@@ -42,6 +42,9 @@
             <h1 class="article-title">Database Index Visualizer</h1>
         </div>
 
+        <!-- Sticky Panel: Navigation + Mode Tabs + Controls -->
+        <div class="sticky-panel-placeholder" id="sticky-placeholder"></div>
+        <div class="sticky-panel" id="sticky-panel">
         <!-- Database Navigation (Level 1) -->
         <div class="db-nav" role="tablist" aria-label="Select database">
             <button class="db-tab active" data-db="mysql" role="tab" aria-selected="true">
@@ -57,6 +60,9 @@
                 <span class="db-icon">&#x26A1;</span> Redis
             </button>
         </div>
+
+        <!-- Mode Tabs (Level 2 - db-specific) -->
+        <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select index type"></div>
 
         <!-- Global Controls -->
         <div class="global-controls">
@@ -82,9 +88,7 @@
             <div class="stat-item"><span class="stat-label">Index Lookups</span><span class="stat-value" id="stat-lookups">0</span></div>
             <div class="stat-item"><span class="stat-label">Query Time</span><span class="stat-value" id="stat-time">0 ms</span></div>
         </div>
-
-        <!-- Mode Tabs (Level 2 - db-specific) -->
-        <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select index type"></div>
+        </div>
 
         <!-- Pattern Description -->
         <div class="pattern-desc" id="pattern-desc"></div>

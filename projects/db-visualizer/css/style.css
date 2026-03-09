@@ -47,6 +47,39 @@
     font-family: inherit;
 }
 
+/* ===== Sticky Panel ===== */
+.sticky-panel {
+    transition: none;
+}
+
+.sticky-panel.is-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--dbiv-bg);
+    padding: 8px 12px 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sticky-panel.is-fixed .db-nav,
+.sticky-panel.is-fixed .mode-tabs,
+.sticky-panel.is-fixed .global-controls,
+.sticky-panel.is-fixed .stats-bar {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sticky-panel-placeholder {
+    display: none;
+}
+
+.sticky-panel-placeholder.is-active {
+    display: block;
+}
+
 /* Database Navigation */
 .db-nav {
     display: flex;

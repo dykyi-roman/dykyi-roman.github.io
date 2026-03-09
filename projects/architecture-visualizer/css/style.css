@@ -61,6 +61,38 @@
     font-family: inherit;
 }
 
+/* ===== Sticky Panel ===== */
+.sticky-panel {
+    transition: none;
+}
+
+.sticky-panel.is-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--archv-bg);
+    padding: 8px 12px 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sticky-panel.is-fixed .arch-nav,
+.sticky-panel.is-fixed .mode-tabs,
+.sticky-panel.is-fixed .global-controls {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sticky-panel-placeholder {
+    display: none;
+}
+
+.sticky-panel-placeholder.is-active {
+    display: block;
+}
+
 /* ===== Architecture Navigation ===== */
 .arch-nav {
     display: flex;
@@ -1350,28 +1382,59 @@
 .layout-microservices {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    min-height: 420px;
+    gap: 0;
+    min-height: 820px;
+    height: 100%;
     align-items: center;
+    justify-content: flex-start;
+    padding: 30px 0;
+    position: relative;
+}
+
+.archv-ms-client {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 36px;
 }
 
 .archv-ms-gateway {
     display: flex;
     justify-content: center;
     width: 100%;
+    padding-bottom: 36px;
 }
 
-.archv-ms-mesh {
-    display: flex;
-    justify-content: center;
+.archv-ms-mesh-layer {
+    position: relative;
     width: 100%;
+    padding: 28px 20px;
+    margin-bottom: 36px;
+    border: 1px dashed rgba(132, 204, 22, 0.25);
+    border-radius: 12px;
+    background: rgba(132, 204, 22, 0.04);
+}
+
+.archv-ms-mesh-label {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(132, 204, 22, 0.6);
+    background: var(--archv-bg);
+    padding: 0 8px;
 }
 
 .archv-ms-services {
     display: flex;
-    gap: 12px;
+    gap: 36px;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
+    padding: 0 20px;
 }
 
 .archv-ms-service-box {
@@ -1379,11 +1442,11 @@
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    padding: 12px 14px;
+    padding: 12px 14px 10px;
     border: 1px solid var(--archv-border);
     border-radius: 8px;
     background: var(--archv-card-bg);
-    min-width: 120px;
+    min-width: 130px;
     transition: all var(--archv-transition);
 }
 
@@ -1394,7 +1457,7 @@
 }
 
 .archv-ms-service-label {
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--archv-text-light);
@@ -1406,6 +1469,54 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
+}
+
+.archv-ms-db {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    color: var(--archv-text-light);
+    padding: 3px 8px;
+    border: 1px dashed var(--archv-border);
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.15);
+    margin-top: 4px;
+    transition: all var(--archv-transition);
+}
+
+.archv-ms-db-icon {
+    font-size: 12px;
+}
+
+.archv-ms-service-box.archv-layer-active .archv-ms-db {
+    border-color: var(--archv-accent);
+    color: var(--archv-text);
+}
+
+.archv-ms-queue-area {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 36px;
+}
+
+.archv-ms-queue-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 18px;
+    border: 1px dashed rgba(249, 115, 22, 0.4);
+    border-radius: 8px;
+    background: rgba(249, 115, 22, 0.05);
+    transition: all var(--archv-transition);
+}
+
+.archv-ms-queue-box.archv-layer-active {
+    border-color: rgba(249, 115, 22, 0.7);
+    background: rgba(249, 115, 22, 0.1);
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.2);
 }
 
 /* ===== Layout: Triad (MVC/MVP/MVVM) ===== */

@@ -219,4 +219,41 @@
             switchDb(saved.db, saved.mode);
         }
     });
+
+    /* ===== Sticky Panel (fixed on scroll) ===== */
+    document.addEventListener('DOMContentLoaded', function() {
+        var panel = document.getElementById('sticky-panel');
+        var placeholder = document.getElementById('sticky-placeholder');
+        if (!panel || !placeholder) return;
+
+        var panelTop = 0;
+        var panelHeight = 0;
+
+        function measure() {
+            if (!panel.classList.contains('is-fixed')) {
+                panelTop = panel.offsetTop;
+                panelHeight = panel.offsetHeight;
+            }
+        }
+
+        function onScroll() {
+            if (window.scrollY >= panelTop) {
+                if (!panel.classList.contains('is-fixed')) {
+                    placeholder.style.height = panelHeight + 'px';
+                    placeholder.classList.add('is-active');
+                    panel.classList.add('is-fixed');
+                }
+            } else {
+                if (panel.classList.contains('is-fixed')) {
+                    panel.classList.remove('is-fixed');
+                    placeholder.classList.remove('is-active');
+                    placeholder.style.height = '0';
+                }
+            }
+        }
+
+        measure();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', function() { measure(); onScroll(); });
+    });
 })();

@@ -42,18 +42,24 @@
             <h1 class="article-title">Architecture Visualizer</h1>
         </div>
 
+        <!-- Sticky Panel: Navigation + Controls -->
+        <div class="sticky-panel-placeholder" id="sticky-placeholder"></div>
+        <div class="sticky-panel" id="sticky-panel">
         <!-- Architecture Navigation (Level 1) -->
         <div class="arch-nav" role="tablist" aria-label="Select architecture pattern">
-            <button class="arch-tab active" data-arch="layered" role="tab" aria-selected="true">Layered</button>
+            <button class="arch-tab active" data-arch="mvc" role="tab" aria-selected="true">MVC</button>
+            <button class="arch-tab" data-arch="layered" role="tab" aria-selected="false">Layered</button>
             <button class="arch-tab" data-arch="clean" role="tab" aria-selected="false">Clean</button>
             <button class="arch-tab" data-arch="hexagonal" role="tab" aria-selected="false">Hexagonal</button>
-            <button class="arch-tab" data-arch="ddd" role="tab" aria-selected="false">DDD</button>
             <button class="arch-tab" data-arch="cqrs" role="tab" aria-selected="false">CQRS</button>
             <button class="arch-tab" data-arch="eventsourcing" role="tab" aria-selected="false">Event Sourcing</button>
             <button class="arch-tab" data-arch="eda" role="tab" aria-selected="false">EDA</button>
             <button class="arch-tab" data-arch="microservices" role="tab" aria-selected="false">Microservices</button>
-            <button class="arch-tab" data-arch="mvc" role="tab" aria-selected="false">MVC</button>
+            <button class="arch-tab" data-arch="ddd" role="tab" aria-selected="false">DDD</button>
         </div>
+
+        <!-- Mode Tabs (Level 2) -->
+        <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select request mode"></div>
 
         <!-- Global Controls -->
         <div class="global-controls">
@@ -73,9 +79,7 @@
                 <div class="stat-item"><span class="stat-label">Hit</span><span class="stat-value" id="stat-components">0</span></div>
             </div>
         </div>
-
-        <!-- Mode Tabs (Level 2) -->
-        <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select request mode"></div>
+        </div>
 
         <!-- Pattern Description -->
         <div class="pattern-desc" id="pattern-desc"></div>
@@ -126,15 +130,15 @@
 
 <script src="../../resources/back-to-top.js"></script>
 <script src="js/engine.js"></script>
+<script src="js/mvc.js"></script>
 <script src="js/layered.js"></script>
 <script src="js/clean.js"></script>
 <script src="js/hexagonal.js"></script>
-<script src="js/ddd.js"></script>
 <script src="js/cqrs.js"></script>
 <script src="js/eventsourcing.js"></script>
 <script src="js/eda.js"></script>
 <script src="js/microservices.js"></script>
-<script src="js/mvc.js"></script>
+<script src="js/ddd.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
