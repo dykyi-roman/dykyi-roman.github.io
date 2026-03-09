@@ -47,6 +47,10 @@ function renderMVC() {
                     ARCHV.renderComponent('comp-mvc-data', 'Data', '&#x1F4CB;', 'Application state and data storage, notifies observers on change') +
                 '</div>' +
             '</div>' +
+        '</div>' +
+        '<div class="archv-flow-legend">' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Request)</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> Observer notify</div>' +
         '</div>';
 }
 
@@ -78,6 +82,10 @@ function renderMVP() {
                     ARCHV.renderComponent('comp-mvp-logic', 'Logic', '&#x2699;', 'Business rules and validation, accessed only through Presenter') +
                 '</div>' +
             '</div>' +
+        '</div>' +
+        '<div class="archv-flow-legend">' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Delegate)</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> Presenter update</div>' +
         '</div>';
 }
 
@@ -109,6 +117,10 @@ function renderMVVM() {
                     ARCHV.renderComponent('comp-mvvm-logic', 'Logic', '&#x2699;', 'Business rules and validation, accessed by ViewModel') +
                 '</div>' +
             '</div>' +
+        '</div>' +
+        '<div class="archv-flow-legend">' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Binding)</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> Observable notify</div>' +
         '</div>';
 }
 

@@ -69,6 +69,10 @@ function renderClean(entryIcon, entryLabel, outputLabel, outputIcon) {
             '<span class="archv-dep-direction" style="position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:10px;color:#8892a4;letter-spacing:0.5px;white-space:nowrap;">' +
                 '&#x27A1; Dependencies point INWARD &#x2B05;' +
             '</span>' +
+        '</div>' +
+        '<div class="archv-flow-legend" style="margin-top: 30px;">' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Inward)</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> Response (Outward)</div>' +
         '</div>';
 }
 

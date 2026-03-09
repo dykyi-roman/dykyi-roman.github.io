@@ -22,6 +22,18 @@ function renderEDA(mode) {
     var canvas = document.getElementById('archv-canvas');
     var sagaDisplay = mode === 'orchestration' ? '' : ' style="display:none"';
 
+    var isOrchestration = mode === 'orchestration';
+    var legendHtml =
+        '<div class="archv-flow-legend">' +
+            (isOrchestration
+                ? '<div class="legend-item"><span class="legend-line-sync"></span> Command</div>' +
+                  '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+                  '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
+                  '<div class="legend-item"><span class="legend-line-compensate"></span> Compensate</div>'
+                : '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
+                  '<div class="legend-item"><span class="legend-line-sync"></span> Sync</div>') +
+        '</div>';
+
     canvas.innerHTML =
         '<div class="layout-event-mesh">' +
             '<div class="archv-mesh-label">Producers</div>' +
@@ -39,6 +51,7 @@ function renderEDA(mode) {
                 '<div class="archv-consumer" id="comp-eda-cons-analytics" data-tooltip="Tracks metrics and builds reports from all domain events"><span>&#x1F4CA;</span><span>Analytics</span></div>' +
                 '<div class="archv-consumer" id="comp-eda-cons-notify" data-tooltip="Sends notifications (email, SMS, push) in response to domain events"><span>&#x1F514;</span><span>Notification</span></div>' +
             '</div>' +
+            legendHtml +
         '</div>';
 }
 

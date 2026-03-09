@@ -62,6 +62,11 @@ function renderLayered(entryIcon, entryLabel) {
                     ARCHV.renderComponent('comp-event-dispatcher', 'EventDispatcher', '&#x1F4E1;', 'Infrastructure implementation delivering domain events to subscribers') +
                 '</div>' +
             '</div>' +
+            '<div class="archv-flow-legend">' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Layer call)</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> Event dispatch</div>' +
+            '</div>' +
         '</div>';
 }
 

@@ -1116,10 +1116,10 @@
 
 /* ===== Flow Legend ===== */
 .archv-flow-legend {
-    grid-column: 1 / -1;
     display: flex;
     justify-content: center;
     gap: 20px;
+    width: 100%;
     padding: 6px 0 0;
     font-size: 10px;
     color: var(--archv-text-light);
@@ -1150,6 +1150,16 @@
 .archv-flow-legend .legend-line-write {
     width: 24px;
     border-top: 2.5px solid #f9e2af;
+}
+
+.archv-flow-legend .legend-line-response {
+    width: 24px;
+    border-top: 2px solid #94e2d5;
+}
+
+.archv-flow-legend .legend-line-compensate {
+    width: 24px;
+    border-top: 2.5px dashed #f38ba8;
 }
 
 /* ===== Phase Labels (Event Sourcing) ===== */
@@ -1417,6 +1427,13 @@
     color: rgba(132, 204, 22, 0.6);
     background: var(--archv-bg);
     padding: 0 8px;
+}
+
+.archv-ms-orchestrator {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 16px 0 24px;
 }
 
 .archv-ms-services {

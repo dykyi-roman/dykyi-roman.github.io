@@ -49,13 +49,14 @@ function renderMicroservicesDefault(canvas, mode) {
             '</div>' +
             renderMicroservicesDb('inventory_db') +
         '</div>' +
+        (isSaga ? '' :
         '<div class="archv-ms-service-box" id="svc-user">' +
             '<div class="archv-ms-service-label">User Service</div>' +
             '<div class="archv-ms-service-components">' +
                 ARCHV.renderComponent('comp-ms-user-svc', 'User Service', '&#x1F464;', 'Manages user accounts, authentication, and profile data. Owns its own user database.') +
             '</div>' +
             renderMicroservicesDb('users_db') +
-        '</div>' +
+        '</div>') +
         '<div class="archv-ms-service-box" id="svc-notification">' +
             '<div class="archv-ms-service-label">Notification Service</div>' +
             '<div class="archv-ms-service-components">' +
@@ -69,16 +70,17 @@ function renderMicroservicesDefault(canvas, mode) {
             ARCHV.renderComponent('comp-ms-client', 'Client', '&#x1F4F1;', 'External client application (web, mobile, or API consumer).') +
         '</div>';
 
-    var gatewayIcon = isSaga ? '&#x1F3AF;' : '&#x1F6E1;';
-    var gatewayLabel = isSaga ? 'Saga Orchestrator' : 'API Gateway';
-    var gatewayTooltip = isSaga
-        ? 'Central coordinator that manages the saga workflow. Sends commands to services, waits for replies, and triggers compensating transactions on failure. Communicates with services via sync calls and publishes completion events to the Message Queue.'
-        : 'Single entry point for all client requests. Handles routing, authentication, rate limiting, and response aggregation.';
-
     var gatewayHtml =
         '<div class="archv-ms-gateway" id="ms-gateway-area">' +
-            ARCHV.renderComponent('comp-ms-gateway', gatewayLabel, gatewayIcon, gatewayTooltip) +
+            ARCHV.renderComponent('comp-ms-gateway', 'API Gateway', '&#x1F6E1;', 'Single entry point for all client requests. Handles routing, authentication, rate limiting, and response aggregation.') +
         '</div>';
+
+    var orchestratorHtml = isSaga
+        ? '<div class="archv-ms-orchestrator" id="ms-orchestrator-area">' +
+              ARCHV.renderComponent('comp-ms-orchestrator', 'Saga Orchestrator', '&#x1F3AF;',
+                  'Central coordinator that manages the saga workflow. Sends commands to services, waits for replies, and triggers compensating transactions on failure.') +
+          '</div>'
+        : '';
 
     var queueTooltip = isSaga
         ? 'Kafka / RabbitMQ — used by the Saga Orchestrator to publish completion events (e.g., OrderCompleted). Notification Service consumes these events asynchronously.'
@@ -91,16 +93,26 @@ function renderMicroservicesDefault(canvas, mode) {
             '</div>' +
         '</div>';
 
+    var legendHtml =
+        '<div class="archv-flow-legend">' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (HTTP/gRPC)</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+            '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
+            (isSaga ? '<div class="legend-item"><span class="legend-line-compensate"></span> Compensate</div>' : '') +
+        '</div>';
+
     canvas.innerHTML =
         '<div class="layout-microservices">' +
             clientHtml +
             gatewayHtml +
             '<div class="archv-ms-mesh-layer" id="ms-mesh-layer"><span class="archv-ms-mesh-label">' + meshLabel + '</span>' +
+                orchestratorHtml +
                 '<div class="archv-ms-services" id="ms-services">' +
                     servicesHtml +
                 '</div>' +
             '</div>' +
             queueHtml +
+            legendHtml +
         '</div>';
 }
 
@@ -148,6 +160,12 @@ function renderMicroservicesAsync(canvas) {
             '</div>' +
         '</div>';
 
+    var legendHtml =
+        '<div class="archv-flow-legend">' +
+            '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> DB Write</div>' +
+        '</div>';
+
     canvas.innerHTML =
         '<div class="layout-microservices-async">' +
             '<div class="archv-ms-async-top" id="ms-services-top">' +
@@ -159,6 +177,7 @@ function renderMicroservicesAsync(canvas) {
                 paymentHtml +
                 notificationHtml +
             '</div>' +
+            legendHtml +
         '</div>';
 }
 
@@ -322,18 +341,18 @@ ARCHV.microservices.saga = {
     init: function() { renderMicroservices('saga'); },
     steps: function() {
         return [
-            { elementId: 'comp-ms-client', label: 'Client', description: 'HTTP POST /api/orders — start order saga', logType: 'REQUEST', layerId: 'ms-client-area' },
-            { elementId: 'comp-ms-gateway', label: 'Saga Orchestrator', description: 'Initiate order saga', logType: 'REQUEST', layerId: 'ms-gateway-area' },
-            { elementId: 'comp-ms-inventory-svc', label: 'Inventory Service', description: 'Step 1: Reserve inventory (local tx)', logType: 'COMMAND', layerId: 'svc-inventory' },
-            { elementId: 'comp-ms-gateway', label: 'Saga Orchestrator', description: 'Inventory reserved, proceed to payment', logType: 'RESPONSE', layerId: 'ms-gateway-area', arrowFromId: 'comp-ms-inventory-svc' },
-            { elementId: 'comp-ms-payment-svc', label: 'Payment Service', description: 'Step 2: Process payment (local tx)', logType: 'COMMAND', layerId: 'svc-payment' },
-            { elementId: 'comp-ms-gateway', label: 'Saga Orchestrator', description: 'Payment processed, confirm order', logType: 'RESPONSE', layerId: 'ms-gateway-area', arrowFromId: 'comp-ms-payment-svc' },
-            { elementId: 'comp-ms-order-svc', label: 'Order Service', description: 'Step 3: Confirm order (local tx)', logType: 'COMMAND', layerId: 'svc-order' },
-            { elementId: 'comp-ms-gateway', label: 'Saga Orchestrator', description: 'Order confirmed, send notification', logType: 'RESPONSE', layerId: 'ms-gateway-area', arrowFromId: 'comp-ms-order-svc' },
-            { elementId: 'comp-ms-queue', label: 'Message Queue', description: 'Publish OrderCompleted event', logType: 'ASYNC', layerId: 'ms-queue-area' },
-            { elementId: 'comp-ms-notification-svc', label: 'Notification Service', description: 'Consume event, send notification', logType: 'EVENT', layerId: 'svc-notification' },
-            { elementId: 'comp-ms-gateway', label: 'Saga Orchestrator', description: 'If failure: compensating transactions in reverse', logType: 'ERROR', layerId: 'ms-gateway-area', arrowFromId: 'comp-ms-notification-svc' },
-            { elementId: 'comp-ms-gateway', label: 'Saga Orchestrator', description: 'Saga completed successfully', logType: 'RESPONSE', layerId: 'ms-gateway-area' }
+            { elementId: 'comp-ms-client', label: 'Client', description: 'HTTP POST /api/orders', logType: 'REQUEST', layerId: 'ms-client-area' },
+            { elementId: 'comp-ms-gateway', label: 'API Gateway', description: 'Route to Saga Orchestrator', logType: 'REQUEST', layerId: 'ms-gateway-area', arrowFromId: 'comp-ms-client' },
+            { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'Initiate order saga', logType: 'COMMAND', layerId: 'ms-orchestrator-area', arrowFromId: 'comp-ms-gateway' },
+            { elementId: 'comp-ms-inventory-svc', label: 'Inventory Service', description: 'Step 1: Reserve inventory (local tx)', logType: 'COMMAND', layerId: 'svc-inventory', arrowFromId: 'comp-ms-orchestrator' },
+            { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'Inventory reserved', logType: 'RESPONSE', layerId: 'ms-orchestrator-area', arrowFromId: 'comp-ms-inventory-svc' },
+            { elementId: 'comp-ms-payment-svc', label: 'Payment Service', description: 'Step 2: Process payment (local tx)', logType: 'COMMAND', layerId: 'svc-payment', arrowFromId: 'comp-ms-orchestrator' },
+            { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'Payment processed', logType: 'RESPONSE', layerId: 'ms-orchestrator-area', arrowFromId: 'comp-ms-payment-svc' },
+            { elementId: 'comp-ms-order-svc', label: 'Order Service', description: 'Step 3: Confirm order (local tx)', logType: 'COMMAND', layerId: 'svc-order', arrowFromId: 'comp-ms-orchestrator' },
+            { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'Order confirmed', logType: 'RESPONSE', layerId: 'ms-orchestrator-area', arrowFromId: 'comp-ms-order-svc' },
+            { elementId: 'comp-ms-queue', label: 'Message Queue', description: 'Publish OrderCompleted event', logType: 'ASYNC', layerId: 'ms-queue-area', arrowFromId: 'comp-ms-orchestrator' },
+            { elementId: 'comp-ms-notification-svc', label: 'Notification Service', description: 'Consume event, send notification', logType: 'EVENT', layerId: 'svc-notification', arrowFromId: 'comp-ms-queue' },
+            { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'If failure: compensating txns in reverse', logType: 'ERROR', layerId: 'ms-orchestrator-area', noArrowFromPrev: true }
         ];
     },
     stepOptions: function() { return { requestLabel: 'Saga: Order fulfillment' }; },

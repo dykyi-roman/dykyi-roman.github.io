@@ -52,6 +52,11 @@ function renderHexagonal(activeAdapter) {
                 ARCHV.renderComponent('comp-hex-email', 'Email Adapter', '&#x1F4E7;', 'Implements output port for sending emails and notifications') +
                 ARCHV.renderComponent('comp-hex-api', 'External API', '&#x1F30D;', 'Implements output port for calling external services') +
             '</div>' +
+        '</div>' +
+        '<div class="archv-flow-legend">' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Port call)</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+            (activeAdapter === 'msg' ? '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' : '') +
         '</div>';
 }
 
