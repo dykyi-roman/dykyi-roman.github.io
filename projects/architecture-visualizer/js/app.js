@@ -71,7 +71,7 @@
             name: 'Microservices Architecture',
             modes: ARCHV.microservices.modes,
             initMode: function(modeId) {
-                var map = { sync: ARCHV.microservices.sync, async: ARCHV.microservices.async, saga: ARCHV.microservices.saga };
+                var map = { sync: ARCHV.microservices.sync, async: ARCHV.microservices.async, saga: ARCHV.microservices.saga, 'saga-fail': ARCHV.microservices['saga-fail'] };
                 if (map[modeId]) map[modeId].init();
             },
             depRules: ARCHV.microservices.depRules
@@ -172,7 +172,7 @@
             cqrs: { http: ARCHV.cqrs.http, console: ARCHV.cqrs.console, message: ARCHV.cqrs.message },
             eventsourcing: { http: ARCHV.eventsourcing.http, console: ARCHV.eventsourcing.console, message: ARCHV.eventsourcing.message },
             eda: { http: ARCHV.eda.http, choreography: ARCHV.eda.choreography, orchestration: ARCHV.eda.orchestration },
-            microservices: { sync: ARCHV.microservices.sync, async: ARCHV.microservices.async, saga: ARCHV.microservices.saga },
+            microservices: { sync: ARCHV.microservices.sync, async: ARCHV.microservices.async, saga: ARCHV.microservices.saga, 'saga-fail': ARCHV.microservices['saga-fail'] },
             mvc: { mvc: ARCHV.mvc.mvcMode, mvp: ARCHV.mvc.mvpMode, mvvm: ARCHV.mvc.mvvmMode }
         };
         return modeMap[archId] && modeMap[archId][modeId] ? modeMap[archId][modeId] : null;

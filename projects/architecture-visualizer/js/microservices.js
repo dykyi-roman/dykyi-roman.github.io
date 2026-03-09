@@ -5,7 +5,8 @@ ARCHV.microservices = {};
 ARCHV.microservices.modes = [
     { id: 'sync', label: 'Sync (REST/gRPC)', desc: 'Synchronous request flows through the API Gateway to individual services. The gateway authenticates, routes, and aggregates responses. Services communicate via REST or gRPC through the gateway — never directly.' },
     { id: 'async', label: 'Async (Events)', desc: 'Event-driven communication between services via a Message Queue. Services publish domain events after state changes. Other services consume relevant events and react independently. No direct service-to-service calls.' },
-    { id: 'saga', label: 'Saga Pattern', desc: 'Distributed transaction coordinated by a Saga Orchestrator. Each step is a local transaction in a service. On failure, compensating transactions are executed in reverse order to maintain data consistency.' }
+    { id: 'saga', label: 'Saga (Success)', desc: 'Successful distributed transaction coordinated by a Saga Orchestrator. Each step is a local transaction committed sequentially. All steps complete successfully and the order is fulfilled.' },
+    { id: 'saga-fail', label: 'Saga (Failure)', desc: 'Failed saga with compensating transactions executed in reverse order. Payment fails after inventory is reserved, triggering compensations to restore consistency.' }
 ];
 
 ARCHV.microservices.depRules = [
@@ -24,7 +25,7 @@ function renderMicroservicesDb(name, id) {
 }
 
 function renderMicroservicesDefault(canvas, mode) {
-    var isSaga = mode === 'saga';
+    var isSaga = mode === 'saga' || mode === 'saga-fail';
     var meshLabel = 'Service Mesh (Istio / Linkerd)';
 
     var servicesHtml =
@@ -282,6 +283,36 @@ ARCHV.microservices.details = {
             ],
             whenToUse: 'Best for business operations that span multiple services and require data consistency (e.g., order fulfillment, booking). Use when two-phase commit is not feasible.'
         }
+    },
+    'saga-fail': {
+        principles: [
+            'Compensating transactions undo committed steps in reverse order',
+            'Each compensation must be idempotent — safe to retry on failure',
+            'Orchestrator tracks which steps succeeded to know what to compensate',
+            'Compensations are semantic inverses, not rollbacks (e.g., refund vs. undo payment)',
+            'The system remains in a consistent state after all compensations complete'
+        ],
+        concepts: [
+            { term: 'Compensating Transaction', definition: 'An operation that semantically undoes a previously committed local transaction (e.g., release inventory, cancel payment).' },
+            { term: 'Backward Recovery', definition: 'The process of executing compensating transactions in reverse order of the original saga steps to restore consistency.' },
+            { term: 'Saga Log', definition: 'A persistent record of saga progress. Tracks which steps completed and which compensations are needed on failure.' },
+            { term: 'Semantic Undo', definition: 'Unlike database rollback, compensations create new transactions that reverse the business effect (e.g., a refund creates a new credit, not a deletion).' }
+        ],
+        tradeoffs: {
+            pros: [
+                'Guarantees eventual consistency even on partial failures',
+                'Each service remains autonomous — no distributed locks',
+                'Failure handling is explicit and auditable via saga log',
+                'Compensations can include business logic (notifications, alerts)'
+            ],
+            cons: [
+                'Every step must have a well-defined compensation — doubles implementation effort',
+                'Compensations themselves can fail, requiring retry logic',
+                'Intermediate inconsistency is visible during compensation execution',
+                'Complex to test all failure-and-compensation scenarios'
+            ],
+            whenToUse: 'Essential when distributed transactions can fail at any step and you need automated recovery. Design compensations from the start — retrofitting them is extremely difficult.'
+        }
     }
 };
 
@@ -351,12 +382,35 @@ ARCHV.microservices.saga = {
             { elementId: 'comp-ms-order-svc', label: 'Order Service', description: 'Step 3: Confirm order (local tx)', logType: 'COMMAND', layerId: 'svc-order', arrowFromId: 'comp-ms-orchestrator' },
             { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'Order confirmed', logType: 'RESPONSE', layerId: 'ms-orchestrator-area', arrowFromId: 'comp-ms-order-svc' },
             { elementId: 'comp-ms-queue', label: 'Message Queue', description: 'Publish OrderCompleted event', logType: 'ASYNC', layerId: 'ms-queue-area', arrowFromId: 'comp-ms-orchestrator' },
-            { elementId: 'comp-ms-notification-svc', label: 'Notification Service', description: 'Consume event, send notification', logType: 'EVENT', layerId: 'svc-notification', arrowFromId: 'comp-ms-queue' },
-            { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'If failure: compensating txns in reverse', logType: 'ERROR', layerId: 'ms-orchestrator-area', noArrowFromPrev: true }
+            { elementId: 'comp-ms-notification-svc', label: 'Notification Service', description: 'Consume event, send notification', logType: 'EVENT', layerId: 'svc-notification', arrowFromId: 'comp-ms-queue' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Saga: Order fulfillment' }; },
+    stepOptions: function() { return { requestLabel: 'Saga: Order fulfillment (success)' }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.microservices.saga.steps(), ARCHV.microservices.saga.stepOptions());
+    }
+};
+
+/* ===== Saga Failure Mode: Compensating transactions ===== */
+ARCHV.microservices['saga-fail'] = {
+    init: function() { renderMicroservices('saga-fail'); },
+    steps: function() {
+        return [
+            { elementId: 'comp-ms-client', label: 'Client', description: 'HTTP POST /api/orders', logType: 'REQUEST', layerId: 'ms-client-area' },
+            { elementId: 'comp-ms-gateway', label: 'API Gateway', description: 'Route to Saga Orchestrator', logType: 'REQUEST', layerId: 'ms-gateway-area', arrowFromId: 'comp-ms-client' },
+            { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'Initiate order saga', logType: 'COMMAND', layerId: 'ms-orchestrator-area', arrowFromId: 'comp-ms-gateway' },
+            { elementId: 'comp-ms-inventory-svc', label: 'Inventory Service', description: 'Step 1: Reserve inventory (local tx) \u2713', logType: 'COMMAND', layerId: 'svc-inventory', arrowFromId: 'comp-ms-orchestrator' },
+            { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'Inventory reserved \u2713', logType: 'RESPONSE', layerId: 'ms-orchestrator-area', arrowFromId: 'comp-ms-inventory-svc' },
+            { elementId: 'comp-ms-payment-svc', label: 'Payment Service', description: 'Step 2: Process payment \u2014 FAILED!', logType: 'ERROR', layerId: 'svc-payment', arrowFromId: 'comp-ms-orchestrator' },
+            { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'Payment failed (tx not committed), start compensation', logType: 'ERROR', layerId: 'ms-orchestrator-area', arrowFromId: 'comp-ms-payment-svc' },
+            { elementId: 'comp-ms-inventory-svc', label: 'Inventory Service', description: 'Compensate: Release reserved stock (undo Step 1)', logType: 'COMPENSATE', layerId: 'svc-inventory', arrowFromId: 'comp-ms-orchestrator' },
+            { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'All compensations done, saga failed', logType: 'ERROR', layerId: 'ms-orchestrator-area', arrowFromId: 'comp-ms-inventory-svc' },
+            { elementId: 'comp-ms-gateway', label: 'API Gateway', description: 'Return 409 Conflict to client', logType: 'RESPONSE', layerId: 'ms-gateway-area', arrowFromId: 'comp-ms-orchestrator' },
+            { elementId: 'comp-ms-client', label: 'Client', description: 'Order failed \u2014 inventory released, no charge', logType: 'RESPONSE', layerId: 'ms-client-area', arrowFromId: 'comp-ms-gateway' }
+        ];
+    },
+    stepOptions: function() { return { requestLabel: 'Saga: Order fulfillment (failure)' }; },
+    run: function() {
+        ARCHV.animateFlow(ARCHV.microservices['saga-fail'].steps(), ARCHV.microservices['saga-fail'].stepOptions());
     }
 };

@@ -493,7 +493,7 @@ ARCHV._drawArrow = function(fromEl, toEl, flowType, stepNum, sourceOffset, targe
     var dist = Math.sqrt(dx * dx + dy * dy);
 
     var baseCurve = dist > 50 ? Math.min(dist * 0.25, 80) : 0;
-    var curvature = baseCurve;
+    var curvature = isCompensate ? -baseCurve * 1.8 : baseCurve;
     var mx = (x1 + x2) / 2;
     var my = (y1 + y2) / 2;
     var nx = dist > 0 ? -dy / dist : 0;
