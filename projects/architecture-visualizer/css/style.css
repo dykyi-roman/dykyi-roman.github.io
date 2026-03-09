@@ -495,12 +495,15 @@
     border-radius: var(--archv-radius);
     border: 1px solid var(--archv-border);
     box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
 }
 
 #archv-canvas {
     position: relative;
     width: 100%;
     min-height: 540px;
+    flex: 1;
     z-index: 1;
 }
 
@@ -1270,14 +1273,17 @@
 .layout-event-mesh {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 36px;
     min-height: 420px;
-    align-items: center;
+    align-items: stretch;
+    justify-content: center;
+    padding: 10px 0;
+    height: 100%;
 }
 
 .archv-producers, .archv-consumers {
     display: flex;
-    gap: 10px;
+    gap: 48px;
     flex-wrap: wrap;
     justify-content: center;
 }
@@ -1315,12 +1321,14 @@
     text-transform: uppercase;
     color: var(--archv-text-light);
     letter-spacing: 0.5px;
+    text-align: center;
 }
 
 .archv-saga-box {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 4px;
     padding: 8px 16px;
     border: 2px dashed var(--archv-accent);

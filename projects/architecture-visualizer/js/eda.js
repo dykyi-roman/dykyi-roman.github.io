@@ -28,7 +28,6 @@ function renderEDA(mode) {
             '<div class="archv-producers">' +
                 '<div class="archv-producer" id="comp-eda-prod-order" data-tooltip="Publishes order-related domain events (OrderCreated, OrderConfirmed, etc.)"><span>&#x1F6D2;</span><span>Order Service</span></div>' +
                 '<div class="archv-producer" id="comp-eda-prod-user" data-tooltip="Publishes user-related events (UserRegistered, ProfileUpdated, etc.)"><span>&#x1F464;</span><span>User Service</span></div>' +
-                '<div class="archv-producer" id="comp-eda-prod-notify" data-tooltip="Sends notifications (email, SMS, push) in response to domain events"><span>&#x1F514;</span><span>Notification</span></div>' +
             '</div>' +
             '<div class="archv-saga-box" id="comp-eda-saga" data-tooltip="Central coordinator managing distributed transaction steps and compensations"' + sagaDisplay + '>&#x1F3AF; Saga Orchestrator</div>' +
             '<div class="archv-event-bus" id="comp-eda-bus" data-tooltip="Messaging infrastructure routing events from producers to interested consumers">&#x1F4E1; Event Bus / Message Broker</div>' +
@@ -38,6 +37,7 @@ function renderEDA(mode) {
                 '<div class="archv-consumer" id="comp-eda-cons-payment" data-tooltip="Processes payments in response to order creation events"><span>&#x1F4B3;</span><span>Payment</span></div>' +
                 '<div class="archv-consumer" id="comp-eda-cons-shipping" data-tooltip="Creates shipments when orders are confirmed and paid"><span>&#x1F69A;</span><span>Shipping</span></div>' +
                 '<div class="archv-consumer" id="comp-eda-cons-analytics" data-tooltip="Tracks metrics and builds reports from all domain events"><span>&#x1F4CA;</span><span>Analytics</span></div>' +
+                '<div class="archv-consumer" id="comp-eda-cons-notify" data-tooltip="Sends notifications (email, SMS, push) in response to domain events"><span>&#x1F514;</span><span>Notification</span></div>' +
             '</div>' +
         '</div>';
 }
@@ -134,11 +134,11 @@ ARCHV.eda.http = {
         return [
             { elementId: 'comp-eda-prod-order', label: 'Order Service', description: 'HTTP request creates order', logType: 'REQUEST' },
             { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Publish OrderCreated event', logType: 'EVENT' },
-            { elementId: 'comp-eda-cons-inventory', label: 'Inventory', description: 'Reserve stock items', logType: 'EVENT' },
-            { elementId: 'comp-eda-cons-payment', label: 'Payment', description: 'Initiate payment', logType: 'EVENT' },
-            { elementId: 'comp-eda-cons-shipping', label: 'Shipping', description: 'Prepare shipment', logType: 'EVENT' },
-            { elementId: 'comp-eda-cons-analytics', label: 'Analytics', description: 'Track order metric', logType: 'EVENT' },
-            { elementId: 'comp-eda-prod-notify', label: 'Notification', description: 'Send confirmation email', logType: 'RESPONSE' }
+            { elementId: 'comp-eda-cons-inventory', label: 'Inventory', description: 'Reserve stock items', logType: 'EVENT', arrowFromId: 'comp-eda-bus', arrowFromOffset: -0.32, delay: 100 },
+            { elementId: 'comp-eda-cons-payment', label: 'Payment', description: 'Initiate payment', logType: 'EVENT', arrowFromId: 'comp-eda-bus', arrowFromOffset: -0.16, delay: 100 },
+            { elementId: 'comp-eda-cons-shipping', label: 'Shipping', description: 'Prepare shipment', logType: 'EVENT', arrowFromId: 'comp-eda-bus', arrowFromOffset: 0, delay: 100 },
+            { elementId: 'comp-eda-cons-analytics', label: 'Analytics', description: 'Track order metric', logType: 'EVENT', arrowFromId: 'comp-eda-bus', arrowFromOffset: 0.16, delay: 100 },
+            { elementId: 'comp-eda-cons-notify', label: 'Notification', description: 'Send confirmation email', logType: 'EVENT', arrowFromId: 'comp-eda-bus', arrowFromOffset: 0.32, delay: 100 }
         ];
     },
     stepOptions: function() { return { requestLabel: 'HTTP POST /api/orders' }; },
@@ -152,15 +152,15 @@ ARCHV.eda.choreography = {
     steps: function() {
         return [
             { elementId: 'comp-eda-prod-order', label: 'Order Service', description: 'OrderCreated event emitted', logType: 'EVENT' },
-            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Route to subscribers', logType: 'EVENT' },
-            { elementId: 'comp-eda-cons-inventory', label: 'Inventory', description: 'StockReserved emitted', logType: 'EVENT' },
-            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Route StockReserved', logType: 'EVENT' },
-            { elementId: 'comp-eda-cons-payment', label: 'Payment', description: 'PaymentProcessed emitted', logType: 'EVENT' },
-            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Route PaymentProcessed', logType: 'EVENT' },
-            { elementId: 'comp-eda-cons-shipping', label: 'Shipping', description: 'ShipmentCreated emitted', logType: 'EVENT' },
-            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Route ShipmentCreated', logType: 'EVENT' },
-            { elementId: 'comp-eda-prod-notify', label: 'Notification', description: 'Send shipment notification', logType: 'RESPONSE' },
-            { elementId: 'comp-eda-cons-analytics', label: 'Analytics', description: 'Track full order lifecycle', logType: 'FLOW' }
+            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Route to subscribers', logType: 'EVENT', arrowToOffset: -0.3 },
+            { elementId: 'comp-eda-cons-inventory', label: 'Inventory', description: 'StockReserved emitted', logType: 'EVENT', arrowFromOffset: -0.3 },
+            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Route StockReserved', logType: 'EVENT', arrowToOffset: -0.1 },
+            { elementId: 'comp-eda-cons-payment', label: 'Payment', description: 'PaymentProcessed emitted', logType: 'EVENT', arrowFromOffset: -0.1 },
+            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Route PaymentProcessed', logType: 'EVENT', arrowToOffset: 0.1 },
+            { elementId: 'comp-eda-cons-shipping', label: 'Shipping', description: 'ShipmentCreated emitted', logType: 'EVENT', arrowFromOffset: 0.1 },
+            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Route ShipmentCreated', logType: 'EVENT', arrowToOffset: 0.3 },
+            { elementId: 'comp-eda-cons-notify', label: 'Notification', description: 'Send shipment notification', logType: 'EVENT', arrowFromId: 'comp-eda-bus', arrowFromOffset: 0.2 },
+            { elementId: 'comp-eda-cons-analytics', label: 'Analytics', description: 'Track full order lifecycle', logType: 'EVENT', arrowFromId: 'comp-eda-bus', arrowFromOffset: 0.35 }
         ];
     },
     stepOptions: function() { return { requestLabel: 'Choreography: Order lifecycle' }; },
@@ -174,19 +174,19 @@ ARCHV.eda.orchestration = {
     steps: function() {
         return [
             { elementId: 'comp-eda-prod-order', label: 'Order Service', description: 'Order created, start saga', logType: 'COMMAND' },
-            { elementId: 'comp-eda-saga', label: 'Saga', description: 'Begin OrderSaga', logType: 'COMMAND' },
-            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Send ReserveStock command', logType: 'COMMAND' },
-            { elementId: 'comp-eda-cons-inventory', label: 'Inventory', description: 'Reserve stock', logType: 'EVENT' },
-            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'StockReserved reply', logType: 'EVENT' },
-            { elementId: 'comp-eda-saga', label: 'Saga', description: 'Step 1 done, next: payment', logType: 'COMMAND' },
-            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Send ProcessPayment command', logType: 'COMMAND' },
+            { elementId: 'comp-eda-saga', label: 'Saga', description: 'Begin OrderSaga', logType: 'COMMAND', arrowToOffset: -0.3 },
+            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Send ReserveStock command', logType: 'COMMAND', arrowFromOffset: -0.3, arrowToOffset: -0.3 },
+            { elementId: 'comp-eda-cons-inventory', label: 'Inventory', description: 'Reserve stock', logType: 'EVENT', arrowFromOffset: -0.3 },
+            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'StockReserved reply', logType: 'EVENT', arrowToOffset: -0.15 },
+            { elementId: 'comp-eda-saga', label: 'Saga', description: 'Step 1 done, next: payment', logType: 'COMMAND', arrowFromOffset: -0.15, arrowToOffset: -0.1 },
+            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Send ProcessPayment command', logType: 'COMMAND', arrowFromOffset: 0, arrowToOffset: 0 },
             { elementId: 'comp-eda-cons-payment', label: 'Payment', description: 'Process payment', logType: 'EVENT' },
-            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'PaymentProcessed reply', logType: 'EVENT' },
-            { elementId: 'comp-eda-saga', label: 'Saga', description: 'Step 2 done, next: shipping', logType: 'COMMAND' },
-            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Send CreateShipment command', logType: 'COMMAND' },
-            { elementId: 'comp-eda-cons-shipping', label: 'Shipping', description: 'Create shipment', logType: 'EVENT' },
-            { elementId: 'comp-eda-saga', label: 'Saga', description: 'Saga completed successfully', logType: 'RESPONSE' },
-            { elementId: 'comp-eda-prod-notify', label: 'Notification', description: 'Send order confirmation', logType: 'RESPONSE' }
+            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'PaymentProcessed reply', logType: 'EVENT', arrowToOffset: 0.15 },
+            { elementId: 'comp-eda-saga', label: 'Saga', description: 'Step 2 done, next: shipping', logType: 'COMMAND', arrowFromOffset: 0.15, arrowToOffset: 0.1 },
+            { elementId: 'comp-eda-bus', label: 'Event Bus', description: 'Send CreateShipment command', logType: 'COMMAND', arrowFromOffset: 0.3, arrowToOffset: 0.3 },
+            { elementId: 'comp-eda-cons-shipping', label: 'Shipping', description: 'Create shipment', logType: 'EVENT', arrowFromOffset: 0.3 },
+            { elementId: 'comp-eda-saga', label: 'Saga', description: 'Saga completed successfully', logType: 'RESPONSE', arrowToOffset: 0.3 },
+            { elementId: 'comp-eda-cons-notify', label: 'Notification', description: 'Send order confirmation', logType: 'EVENT', arrowFromId: 'comp-eda-bus', arrowFromOffset: 0.4 }
         ];
     },
     stepOptions: function() { return { requestLabel: 'Saga: Order fulfillment' }; },

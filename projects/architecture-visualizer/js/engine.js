@@ -268,7 +268,7 @@ ARCHV.animateFlow = async function(steps, options) {
                     ? document.getElementById(step.arrowFromId)
                     : document.getElementById(steps[i - 1].elementId);
                 if (sourceEl) {
-                    ARCHV._drawArrow(sourceEl, el, step.logType, i + 1);
+                    ARCHV._drawArrow(sourceEl, el, step.logType, i + 1, step.arrowFromOffset, step.arrowToOffset);
                     depsCount++;
                 }
             }
@@ -276,7 +276,8 @@ ARCHV.animateFlow = async function(steps, options) {
             ARCHV._drawStepBadge(el, i + 1);
         }
 
-        await ARCHV.sleep(customDelay || ARCHV.state.stepDelay);
+        var stepDelay = step.delay !== undefined ? step.delay : (customDelay || ARCHV.state.stepDelay);
+        await ARCHV.sleep(stepDelay);
 
         if (el) {
             el.classList.remove('archv-active');
@@ -425,7 +426,7 @@ ARCHV._drawStepBadge = function(el, stepNum) {
 };
 
 /* ===== Draw Arrow Between Elements ===== */
-ARCHV._drawArrow = function(fromEl, toEl, flowType, stepNum) {
+ARCHV._drawArrow = function(fromEl, toEl, flowType, stepNum, sourceOffset, targetOffset) {
     var svg = document.getElementById('archv-svg-layer');
     if (!svg || !fromEl || !toEl) return;
 
@@ -436,9 +437,11 @@ ARCHV._drawArrow = function(fromEl, toEl, flowType, stepNum) {
     var fromRect = fromEl.getBoundingClientRect();
     var toRect = toEl.getBoundingClientRect();
 
-    var cx1 = fromRect.left + fromRect.width / 2 - areaRect.left;
+    var srcOffPx = sourceOffset ? sourceOffset * fromRect.width : 0;
+    var tgtOffPx = targetOffset ? targetOffset * toRect.width : 0;
+    var cx1 = fromRect.left + fromRect.width / 2 + srcOffPx - areaRect.left;
     var cy1 = fromRect.top + fromRect.height / 2 - areaRect.top;
-    var cx2 = toRect.left + toRect.width / 2 - areaRect.left;
+    var cx2 = toRect.left + toRect.width / 2 + tgtOffPx - areaRect.left;
     var cy2 = toRect.top + toRect.height / 2 - areaRect.top;
 
     var from = ARCHV._edgePoint(fromRect, areaRect, cx2, cy2, 2);
@@ -651,7 +654,7 @@ ARCHV.stepForward = function() {
             var sourceEl = step.arrowFromId
                 ? document.getElementById(step.arrowFromId)
                 : document.getElementById(sm.steps[sm.index - 1].elementId);
-            if (sourceEl) ARCHV._drawArrow(sourceEl, el, step.logType, sm.index + 1);
+            if (sourceEl) ARCHV._drawArrow(sourceEl, el, step.logType, sm.index + 1, step.arrowFromOffset);
         }
     } else if (el) {
         ARCHV._drawStepBadge(el, sm.index + 1);
@@ -717,7 +720,7 @@ ARCHV.stepBack = function() {
                 var sourceE = s.arrowFromId
                     ? document.getElementById(s.arrowFromId)
                     : document.getElementById(sm.steps[i - 1].elementId);
-                if (sourceE && e) ARCHV._drawArrow(sourceE, e, s.logType, i + 1);
+                if (sourceE && e) ARCHV._drawArrow(sourceE, e, s.logType, i + 1, s.arrowFromOffset, s.arrowToOffset);
             }
         } else if (e) {
             ARCHV._drawStepBadge(e, 1);
