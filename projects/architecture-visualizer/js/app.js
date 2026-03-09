@@ -339,6 +339,7 @@
 
         var controlsTop = 0;
         var controlsHeight = 0;
+        var marginBottom = 10;
 
         function measure() {
             if (!controls.classList.contains('is-fixed')) {
@@ -350,7 +351,7 @@
         function onScroll() {
             if (window.scrollY >= controlsTop) {
                 if (!controls.classList.contains('is-fixed')) {
-                    placeholder.style.height = controlsHeight + 'px';
+                    placeholder.style.height = (controlsHeight + marginBottom) + 'px';
                     placeholder.classList.add('is-active');
                     controls.classList.add('is-fixed');
                 }

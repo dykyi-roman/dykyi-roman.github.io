@@ -176,6 +176,7 @@
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 0 0 var(--archv-radius) var(--archv-radius);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 

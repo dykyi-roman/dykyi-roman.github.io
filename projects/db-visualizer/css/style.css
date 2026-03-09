@@ -133,6 +133,7 @@
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 0 0 var(--dbiv-radius) var(--dbiv-radius);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -594,7 +595,8 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 /* ===== B-Tree / Tree Structures ===== */
@@ -852,12 +854,14 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    overflow-x: auto;
 }
 
 .skiplist-level {
     display: flex;
     align-items: center;
     gap: 4px;
+    min-width: min-content;
 }
 
 .skiplist-level-label {
