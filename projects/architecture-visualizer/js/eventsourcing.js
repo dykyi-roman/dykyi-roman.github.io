@@ -9,30 +9,32 @@ ARCHV.eventsourcing.modes = [
 ];
 
 ARCHV.eventsourcing.depRules = [
-    { from: 'Command', to: 'Aggregate', allowed: true },
-    { from: 'Aggregate', to: 'Event Store', allowed: true },
-    { from: 'Event Store', to: 'Projector', allowed: true },
-    { from: 'Projector', to: 'Read Model', allowed: true },
-    { from: 'Read Model', to: 'Event Store', allowed: false },
-    { from: 'Aggregate', to: 'Read Model', allowed: false },
-    { from: 'Read Model', to: 'Aggregate', allowed: false }
+    { from: 'Command', to: 'Aggregate (Load)', allowed: true },
+    { from: 'Aggregate (Load)', to: 'Event Store', allowed: true },
+    { from: 'Aggregate (Apply)', to: 'Event Store', allowed: true },
+    { from: 'Event Store', to: 'Event Bus', allowed: true },
+    { from: 'Event Bus', to: 'Projections', allowed: true },
+    { from: 'Projections', to: 'Event Store', allowed: false },
+    { from: 'Aggregate', to: 'Projections', allowed: false },
+    { from: 'Projections', to: 'Aggregate', allowed: false }
 ];
 
 function renderEventSourcing() {
     var canvas = document.getElementById('archv-canvas');
     canvas.innerHTML =
         '<div class="layout-timeline">' +
+            '<div class="archv-phase-label" id="phase-es-1">Load (replay events)</div>' +
             '<div class="archv-layer" id="layer-es-command">' +
                 '<div class="archv-layer-name">Command Processing</div>' +
                 '<div class="archv-components">' +
                     ARCHV.renderComponent('comp-es-command', 'Command', '&#x1F4DD;', 'Intent to change state, triggers event emission from the aggregate') +
                     ARCHV.renderComponent('comp-es-handler', 'Handler', '&#x2699;', 'Routes command to the appropriate aggregate for processing') +
-                    ARCHV.renderComponent('comp-es-aggregate', 'Aggregate', '&#x1F4E6;', 'Domain object whose state is rebuilt by replaying its event stream') +
+                    ARCHV.renderComponent('comp-es-aggregate-load', 'Aggregate (Load)', '&#x1F504;', 'Loads aggregate state by replaying events from the Event Store') +
                 '</div>' +
             '</div>' +
-            ARCHV.renderArrowConnector('emits events') +
+            ARCHV.renderArrowConnector('reads events') +
             '<div class="archv-layer" id="layer-es-store">' +
-                '<div class="archv-layer-name">Event Store (Source of Truth)</div>' +
+                '<div class="archv-layer-name">Event Store (Append-Only Source of Truth)</div>' +
                 '<div class="archv-timeline-events" id="es-timeline">' +
                     '<div class="archv-event-card" id="comp-es-evt1" data-tooltip="Immutable event: order was created with initial data"><span class="archv-event-seq">#1</span><span class="archv-event-name">OrderCreated</span></div>' +
                     '<span class="archv-timeline-arrow">&#x2192;</span>' +
@@ -47,7 +49,16 @@ function renderEventSourcing() {
                     '<div class="archv-event-card" id="comp-es-new" data-tooltip="Next event to be appended to the stream" style="border-style:dashed;opacity:0.5;"><span class="archv-event-seq">#6</span><span class="archv-event-name">new event</span></div>' +
                 '</div>' +
             '</div>' +
-            ARCHV.renderArrowConnector('projects to') +
+            '<div class="archv-phase-label" id="phase-es-2">Phase 2 &mdash; Execute (apply command, emit event)</div>' +
+            '<div class="archv-layer" id="layer-es-execute">' +
+                '<div class="archv-layer-name">Aggregate Decision</div>' +
+                '<div class="archv-components">' +
+                    ARCHV.renderComponent('comp-es-aggregate-apply', 'Aggregate (Apply)', '&#x1F4E6;', 'State rebuilt, applies new command and emits a new domain event') +
+                '</div>' +
+            '</div>' +
+            ARCHV.renderArrowConnector('appends event (write)') +
+            '<div class="archv-phase-label" id="phase-es-3">Project (async via Event Bus)</div>' +
+            '<div class="archv-event-bus" id="comp-es-eventbus" data-tooltip="Publishes committed events to downstream consumers asynchronously">&#x1F4E1; Event Bus<span class="archv-async-badge">async</span></div>' +
             '<div class="archv-layer" id="layer-es-projections">' +
                 '<div class="archv-layer-name">Projections (Read Models)</div>' +
                 '<div class="archv-projections">' +
@@ -56,6 +67,12 @@ function renderEventSourcing() {
                     '<div class="archv-projection" id="comp-es-proj-stats" data-tooltip="Read model: aggregated statistics like revenue, counts, averages"><span>&#x1F4C8;</span><span>Statistics</span></div>' +
                     '<div class="archv-projection" id="comp-es-proj-search" data-tooltip="Read model: full-text search index for fast order lookup"><span>&#x1F50D;</span><span>Search Index</span></div>' +
                 '</div>' +
+            '</div>' +
+            '<div class="archv-flow-legend">' +
+                '<div class="legend-item"><span class="legend-line-replay"></span> Read (replay)</div>' +
+                '<div class="legend-item"><span class="legend-line-write"></span> Write (append)</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> Async</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> Sync</div>' +
             '</div>' +
         '</div>';
 }
@@ -149,16 +166,17 @@ ARCHV.eventsourcing.http = {
     init: function() { renderEventSourcing(); },
     steps: function() {
         return [
-            { elementId: 'comp-es-command', label: 'Command', description: 'AddItem command received', logType: 'COMMAND', layerId: 'layer-es-command' },
-            { elementId: 'comp-es-handler', label: 'Handler', description: 'Route to handler', logType: 'LAYER', layerId: 'layer-es-command' },
-            { elementId: 'comp-es-aggregate', label: 'Aggregate', description: 'Load from event stream', logType: 'LAYER', layerId: 'layer-es-command' },
-            { elementId: 'comp-es-evt1', label: 'Replay #1', description: 'OrderCreated applied', logType: 'EVENT', layerId: 'layer-es-store' },
-            { elementId: 'comp-es-evt2', label: 'Replay #2', description: 'ItemAdded applied', logType: 'EVENT', layerId: 'layer-es-store' },
-            { elementId: 'comp-es-evt3', label: 'Replay #3', description: 'ItemAdded applied', logType: 'EVENT', layerId: 'layer-es-store' },
-            { elementId: 'comp-es-aggregate', label: 'Aggregate', description: 'State rebuilt, apply new command', logType: 'LAYER', layerId: 'layer-es-command' },
-            { elementId: 'comp-es-new', label: 'New Event', description: 'ItemAdded #6 emitted & stored', logType: 'EVENT', layerId: 'layer-es-store' },
-            { elementId: 'comp-es-proj-list', label: 'Order List', description: 'Update list projection', logType: 'FLOW', layerId: 'layer-es-projections' },
-            { elementId: 'comp-es-proj-detail', label: 'Order Detail', description: 'Update detail projection', logType: 'FLOW', layerId: 'layer-es-projections' }
+            { elementId: 'comp-es-command', label: 'Command', description: 'AddItem command received', logType: 'COMMAND', layerId: 'layer-es-command', phase: 1 },
+            { elementId: 'comp-es-handler', label: 'Handler', description: 'Route to handler', logType: 'LAYER', layerId: 'layer-es-command', phase: 1 },
+            { elementId: 'comp-es-aggregate-load', label: 'Aggregate (Load)', description: 'Load from event stream', logType: 'LAYER', layerId: 'layer-es-command', phase: 1 },
+            { elementId: 'comp-es-evt1', label: 'Replay #1', description: 'OrderCreated applied', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
+            { elementId: 'comp-es-evt2', label: 'Replay #2', description: 'ItemAdded applied', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
+            { elementId: 'comp-es-evt3', label: 'Replay #3', description: 'ItemAdded applied', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
+            { elementId: 'comp-es-aggregate-apply', label: 'Aggregate (Apply)', description: 'State rebuilt, apply new command', logType: 'LAYER', layerId: 'layer-es-execute', phase: 2 },
+            { elementId: 'comp-es-new', label: 'New Event', description: 'ItemAdded #6 appended to store', logType: 'WRITE_EVENT', layerId: 'layer-es-store', phase: 2 },
+            { elementId: 'comp-es-eventbus', label: 'Event Bus', description: 'Publish event to subscribers', logType: 'ASYNC', layerId: null, phase: 3 },
+            { elementId: 'comp-es-proj-list', label: 'Order List', description: 'Update list projection', logType: 'ASYNC', layerId: 'layer-es-projections', phase: 3 },
+            { elementId: 'comp-es-proj-detail', label: 'Order Detail', description: 'Update detail projection', logType: 'ASYNC', layerId: 'layer-es-projections', phase: 3 }
         ];
     },
     stepOptions: function() { return { requestLabel: 'HTTP POST /api/orders/42/items' }; },
@@ -168,16 +186,33 @@ ARCHV.eventsourcing.http = {
 };
 
 ARCHV.eventsourcing.console = {
-    init: function() { renderEventSourcing(); },
+    init: function() {
+        renderEventSourcing();
+        var phase2 = document.getElementById('phase-es-2');
+        if (phase2) { phase2.textContent = 'State Ready'; }
+        // Hide layers not participating in this flow
+        ['phase-es-3', 'comp-es-eventbus', 'layer-es-projections'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+        });
+        // Hide the second arrow connector ("appends event (write)")
+        var connectors = document.querySelectorAll('.archv-arrow-connector');
+        if (connectors[1]) connectors[1].style.display = 'none';
+        // Dim unused components
+        ['comp-es-command', 'comp-es-handler', 'comp-es-new'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.style.opacity = '0.3';
+        });
+    },
     steps: function() {
         return [
-            { elementId: 'comp-es-aggregate', label: 'Aggregate', description: 'Rebuild state from scratch', logType: 'COMMAND', layerId: 'layer-es-command' },
-            { elementId: 'comp-es-evt1', label: 'Event #1', description: 'Apply OrderCreated', logType: 'EVENT', layerId: 'layer-es-store' },
-            { elementId: 'comp-es-evt2', label: 'Event #2', description: 'Apply ItemAdded', logType: 'EVENT', layerId: 'layer-es-store' },
-            { elementId: 'comp-es-evt3', label: 'Event #3', description: 'Apply ItemAdded', logType: 'EVENT', layerId: 'layer-es-store' },
-            { elementId: 'comp-es-evt4', label: 'Event #4', description: 'Apply OrderConfirmed', logType: 'EVENT', layerId: 'layer-es-store' },
-            { elementId: 'comp-es-evt5', label: 'Event #5', description: 'Apply PaymentReceived', logType: 'EVENT', layerId: 'layer-es-store' },
-            { elementId: 'comp-es-aggregate', label: 'Aggregate', description: 'State fully rebuilt: confirmed, paid, 2 items', logType: 'RESPONSE', layerId: 'layer-es-command' }
+            { elementId: 'comp-es-aggregate-load', label: 'Aggregate (Load)', description: 'Rebuild state from scratch', logType: 'LOAD', layerId: 'layer-es-command', phase: 1 },
+            { elementId: 'comp-es-evt1', label: 'Event #1', description: 'Apply OrderCreated', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
+            { elementId: 'comp-es-evt2', label: 'Event #2', description: 'Apply ItemAdded', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
+            { elementId: 'comp-es-evt3', label: 'Event #3', description: 'Apply ItemAdded', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
+            { elementId: 'comp-es-evt4', label: 'Event #4', description: 'Apply OrderConfirmed', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
+            { elementId: 'comp-es-evt5', label: 'Event #5', description: 'Apply PaymentReceived', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
+            { elementId: 'comp-es-aggregate-apply', label: 'Aggregate (Apply)', description: 'State fully rebuilt: confirmed, paid, 2 items', logType: 'RESPONSE', layerId: 'layer-es-execute', phase: 1 }
         ];
     },
     stepOptions: function() { return { requestLabel: 'Rebuild: Order #42 state' }; },
@@ -187,17 +222,35 @@ ARCHV.eventsourcing.console = {
 };
 
 ARCHV.eventsourcing.message = {
-    init: function() { renderEventSourcing(); },
+    init: function() {
+        renderEventSourcing();
+        // Hide layers not participating in this flow (+ arrow connectors between them)
+        ['phase-es-1', 'layer-es-command', 'phase-es-2', 'layer-es-execute'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.style.display = 'none';
+        });
+        // Hide arrow connectors ("reads events", "appends event (write)")
+        var connectors = document.querySelectorAll('.archv-arrow-connector');
+        connectors.forEach(function(c) { c.style.display = 'none'; });
+        // Rename phase label — no phases in this flow
+        var phase3 = document.getElementById('phase-es-3');
+        if (phase3) phase3.textContent = 'Event Store \u2192 Event Bus \u2192 Projections';
+        // Dim unused events in the timeline
+        ['comp-es-evt1', 'comp-es-evt2', 'comp-es-evt3', 'comp-es-new'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.style.opacity = '0.3';
+        });
+    },
     steps: function() {
         return [
-            { elementId: 'comp-es-evt4', label: 'Event #4', description: 'OrderConfirmed event published', logType: 'EVENT', layerId: 'layer-es-store' },
-            { elementId: 'comp-es-proj-list', label: 'Order List', description: 'Update status in list view', logType: 'FLOW', layerId: 'layer-es-projections' },
-            { elementId: 'comp-es-proj-detail', label: 'Order Detail', description: 'Update detail view', logType: 'FLOW', layerId: 'layer-es-projections' },
-            { elementId: 'comp-es-proj-stats', label: 'Statistics', description: 'Increment confirmed count', logType: 'FLOW', layerId: 'layer-es-projections' },
-            { elementId: 'comp-es-proj-search', label: 'Search Index', description: 'Re-index order', logType: 'FLOW', layerId: 'layer-es-projections' },
-            { elementId: 'comp-es-evt5', label: 'Event #5', description: 'PaymentReceived next', logType: 'EVENT', layerId: 'layer-es-store' },
-            { elementId: 'comp-es-proj-stats', label: 'Statistics', description: 'Update revenue stats', logType: 'FLOW', layerId: 'layer-es-projections' },
-            { elementId: 'comp-es-proj-detail', label: 'Order Detail', description: 'Mark as paid', logType: 'FLOW', layerId: 'layer-es-projections' }
+            { elementId: 'comp-es-evt4', label: 'Event #4', description: 'OrderConfirmed event published', logType: 'EVENT', layerId: 'layer-es-store', phase: 3 },
+            { elementId: 'comp-es-eventbus', label: 'Event Bus', description: 'Route OrderConfirmed to consumers', logType: 'ASYNC', layerId: null, phase: 3 },
+            { elementId: 'comp-es-proj-list', label: 'Order List', description: 'Update order status to confirmed', logType: 'ASYNC', layerId: 'layer-es-projections', phase: 3, arrowFromId: 'comp-es-eventbus' },
+            { elementId: 'comp-es-proj-detail', label: 'Order Detail', description: 'Add confirmation timestamp', logType: 'ASYNC', layerId: 'layer-es-projections', phase: 3, arrowFromId: 'comp-es-eventbus' },
+            { elementId: 'comp-es-evt5', label: 'Event #5', description: 'PaymentReceived event published', logType: 'EVENT', layerId: 'layer-es-store', phase: 3, noArrowFromPrev: true },
+            { elementId: 'comp-es-eventbus', label: 'Event Bus', description: 'Route PaymentReceived to consumers', logType: 'ASYNC', layerId: null, phase: 3 },
+            { elementId: 'comp-es-proj-stats', label: 'Statistics', description: 'Increment revenue counter', logType: 'ASYNC', layerId: 'layer-es-projections', phase: 3, arrowFromId: 'comp-es-eventbus' },
+            { elementId: 'comp-es-proj-search', label: 'Search Index', description: 'Re-index order as paid', logType: 'ASYNC', layerId: 'layer-es-projections', phase: 3, arrowFromId: 'comp-es-eventbus' }
         ];
     },
     stepOptions: function() { return { requestLabel: 'Projection rebuild from events' }; },

@@ -230,7 +230,7 @@ ARCHV.animateFlow = async function(steps, options) {
         el.classList.remove('archv-visited');
     });
 
-    var delay = options && options.delay ? options.delay : ARCHV.state.stepDelay;
+    var customDelay = options && options.delay ? options.delay : 0;
     var reqId = ARCHV.nextRequestId();
     var startTime = performance.now();
     var layersSet = new Set();
@@ -261,16 +261,22 @@ ARCHV.animateFlow = async function(steps, options) {
         ARCHV.log(step.logType || 'FLOW', 'Step ' + (i + 1) + ': ' + step.label + (step.description ? ' - ' + step.description : ''));
 
         if (i > 0 && el) {
-            var prevEl = document.getElementById(steps[i - 1].elementId);
-            if (prevEl) {
-                ARCHV._drawArrow(prevEl, el, step.logType, i + 1);
-                depsCount++;
+            if (step.noArrowFromPrev) {
+                ARCHV._drawStepBadge(el, i + 1);
+            } else {
+                var sourceEl = step.arrowFromId
+                    ? document.getElementById(step.arrowFromId)
+                    : document.getElementById(steps[i - 1].elementId);
+                if (sourceEl) {
+                    ARCHV._drawArrow(sourceEl, el, step.logType, i + 1);
+                    depsCount++;
+                }
             }
         } else if (el) {
             ARCHV._drawStepBadge(el, i + 1);
         }
 
-        await ARCHV.sleep(ARCHV.state.stepDelay);
+        await ARCHV.sleep(customDelay || ARCHV.state.stepDelay);
 
         if (el) {
             el.classList.remove('archv-active');
@@ -325,6 +331,45 @@ ARCHV._ensureArrowMarker = function(svg) {
     polygonResp.setAttribute('class', 'flow-arrow-head-response');
     markerResp.appendChild(polygonResp);
     defs.appendChild(markerResp);
+
+    var markerAsync = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    markerAsync.setAttribute('id', 'archv-arrowhead-async');
+    markerAsync.setAttribute('markerWidth', '8');
+    markerAsync.setAttribute('markerHeight', '6');
+    markerAsync.setAttribute('refX', '8');
+    markerAsync.setAttribute('refY', '3');
+    markerAsync.setAttribute('orient', 'auto');
+    var polygonAsync = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    polygonAsync.setAttribute('points', '0 0, 8 3, 0 6');
+    polygonAsync.setAttribute('class', 'flow-arrow-head-async');
+    markerAsync.appendChild(polygonAsync);
+    defs.appendChild(markerAsync);
+
+    var markerReplay = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    markerReplay.setAttribute('id', 'archv-arrowhead-replay');
+    markerReplay.setAttribute('markerWidth', '8');
+    markerReplay.setAttribute('markerHeight', '6');
+    markerReplay.setAttribute('refX', '8');
+    markerReplay.setAttribute('refY', '3');
+    markerReplay.setAttribute('orient', 'auto');
+    var polygonReplay = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    polygonReplay.setAttribute('points', '0 0, 8 3, 0 6');
+    polygonReplay.setAttribute('class', 'flow-arrow-head-replay');
+    markerReplay.appendChild(polygonReplay);
+    defs.appendChild(markerReplay);
+
+    var markerWrite = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    markerWrite.setAttribute('id', 'archv-arrowhead-write');
+    markerWrite.setAttribute('markerWidth', '8');
+    markerWrite.setAttribute('markerHeight', '6');
+    markerWrite.setAttribute('refX', '8');
+    markerWrite.setAttribute('refY', '3');
+    markerWrite.setAttribute('orient', 'auto');
+    var polygonWrite = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    polygonWrite.setAttribute('points', '0 0, 8 3, 0 6');
+    polygonWrite.setAttribute('class', 'flow-arrow-head-write');
+    markerWrite.appendChild(polygonWrite);
+    defs.appendChild(markerWrite);
 
     svg.appendChild(defs);
 };
@@ -403,6 +448,9 @@ ARCHV._drawArrow = function(fromEl, toEl, flowType, stepNum) {
     var x2 = to.x, y2 = to.y;
 
     var isResponse = flowType === 'RESPONSE';
+    var isReplay = flowType === 'REPLAY';
+    var isWrite = flowType === 'WRITE_EVENT';
+    var isAsync = flowType === 'ASYNC';
     var dx = x2 - x1;
     var dy = y2 - y1;
     var dist = Math.sqrt(dx * dx + dy * dy);
@@ -416,15 +464,36 @@ ARCHV._drawArrow = function(fromEl, toEl, flowType, stepNum) {
     var cpx = mx + nx * curvature;
     var cpy = my + ny * curvature;
 
+    var arrowClass = 'flow-arrow';
+    var markerId = 'archv-arrowhead';
+    var badgeClass = 'flow-step-bg';
+    if (isResponse) {
+        arrowClass = 'flow-arrow flow-arrow-response';
+        markerId = 'archv-arrowhead-response';
+        badgeClass = 'flow-step-bg flow-step-bg-response';
+    } else if (isReplay) {
+        arrowClass = 'flow-arrow flow-arrow-replay';
+        markerId = 'archv-arrowhead-replay';
+        badgeClass = 'flow-step-bg flow-step-bg-replay';
+    } else if (isWrite) {
+        arrowClass = 'flow-arrow flow-arrow-write';
+        markerId = 'archv-arrowhead-write';
+        badgeClass = 'flow-step-bg flow-step-bg-write';
+    } else if (isAsync) {
+        arrowClass = 'flow-arrow flow-arrow-async';
+        markerId = 'archv-arrowhead-async';
+        badgeClass = 'flow-step-bg flow-step-bg-async';
+    }
+
     var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     var d = 'M ' + x1 + ' ' + y1 + ' Q ' + cpx + ' ' + cpy + ' ' + x2 + ' ' + y2;
     path.setAttribute('d', d);
-    path.setAttribute('class', isResponse ? 'flow-arrow flow-arrow-response' : 'flow-arrow');
-    path.setAttribute('marker-end', isResponse ? 'url(#archv-arrowhead-response)' : 'url(#archv-arrowhead)');
+    path.setAttribute('class', arrowClass);
+    path.setAttribute('marker-end', 'url(#' + markerId + ')');
     svg.appendChild(path);
 
     if (stepNum) {
-        var t = 0.2;
+        var t = 0.75;
         var labelX = (1 - t) * (1 - t) * x1 + 2 * (1 - t) * t * cpx + t * t * x2;
         var labelY = (1 - t) * (1 - t) * y1 + 2 * (1 - t) * t * cpy + t * t * y2;
 
@@ -432,7 +501,7 @@ ARCHV._drawArrow = function(fromEl, toEl, flowType, stepNum) {
         circle.setAttribute('cx', labelX);
         circle.setAttribute('cy', labelY);
         circle.setAttribute('r', '10');
-        circle.setAttribute('class', isResponse ? 'flow-step-bg flow-step-bg-response' : 'flow-step-bg');
+        circle.setAttribute('class', badgeClass);
         svg.appendChild(circle);
 
         var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
@@ -576,8 +645,14 @@ ARCHV.stepForward = function() {
     ARCHV.log(step.logType || 'FLOW', 'Step ' + (sm.index + 1) + ': ' + step.label + (step.description ? ' - ' + step.description : ''));
 
     if (sm.index > 0 && el) {
-        var prevEl = document.getElementById(sm.steps[sm.index - 1].elementId);
-        if (prevEl) ARCHV._drawArrow(prevEl, el, step.logType, sm.index + 1);
+        if (step.noArrowFromPrev) {
+            ARCHV._drawStepBadge(el, sm.index + 1);
+        } else {
+            var sourceEl = step.arrowFromId
+                ? document.getElementById(step.arrowFromId)
+                : document.getElementById(sm.steps[sm.index - 1].elementId);
+            if (sourceEl) ARCHV._drawArrow(sourceEl, el, step.logType, sm.index + 1);
+        }
     } else if (el) {
         ARCHV._drawStepBadge(el, sm.index + 1);
     }
@@ -636,8 +711,14 @@ ARCHV.stepBack = function() {
         }
         componentsCount++;
         if (i > 0) {
-            var prevE = document.getElementById(sm.steps[i - 1].elementId);
-            if (prevE && e) ARCHV._drawArrow(prevE, e, s.logType, i + 1);
+            if (s.noArrowFromPrev) {
+                if (e) ARCHV._drawStepBadge(e, i + 1);
+            } else {
+                var sourceE = s.arrowFromId
+                    ? document.getElementById(s.arrowFromId)
+                    : document.getElementById(sm.steps[i - 1].elementId);
+                if (sourceE && e) ARCHV._drawArrow(sourceE, e, s.logType, i + 1);
+            }
         } else if (e) {
             ARCHV._drawStepBadge(e, 1);
         }

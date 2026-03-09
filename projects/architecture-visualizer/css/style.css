@@ -604,7 +604,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 28px;
+    height: 18px;
     color: var(--archv-text-light);
     font-size: 18px;
     position: relative;
@@ -969,6 +969,19 @@
     border-top: 5px solid var(--archv-accent);
 }
 
+/* Event card tooltips: show below to avoid clipping by timeline container */
+.archv-event-card .archv-tooltip {
+    bottom: auto;
+    top: calc(100% + 8px);
+}
+
+.archv-event-card .archv-tooltip::after {
+    top: auto;
+    bottom: 100%;
+    border-top: none;
+    border-bottom: 5px solid var(--archv-accent);
+}
+
 /* ===== Layout: Split (CQRS) ===== */
 .layout-split {
     display: grid;
@@ -1103,12 +1116,41 @@
     border-top: 2px dashed var(--archv-accent);
 }
 
+.archv-flow-legend .legend-line-replay {
+    width: 24px;
+    border-top: 2px dashed #94e2d5;
+}
+
+.archv-flow-legend .legend-line-write {
+    width: 24px;
+    border-top: 2.5px solid #f9e2af;
+}
+
+/* ===== Phase Labels (Event Sourcing) ===== */
+.archv-phase-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--archv-accent);
+    opacity: 0.7;
+    padding: 2px 0;
+    border-left: 3px solid var(--archv-accent);
+    padding-left: 8px;
+    margin: 2px 0 -6px;
+}
+
 /* ===== Layout: Timeline (Event Sourcing) ===== */
 .layout-timeline {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 30px;
     min-height: 420px;
+}
+
+.layout-timeline .archv-event-bus {
+    grid-column: unset;
+    grid-row: unset;
 }
 
 .archv-timeline-row {
@@ -1137,7 +1179,7 @@
     display: flex;
     gap: 6px;
     flex: 1;
-    overflow-x: auto;
+    overflow: visible;
     padding: 8px;
     background: var(--archv-card-bg);
     border: 1px solid var(--archv-border);
@@ -1195,10 +1237,10 @@
 
 .archv-projections {
     display: flex;
-    gap: 10px;
+    gap: 60px;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 12px;
+    padding: 20px 40px;
     border: 1px solid var(--archv-border);
     border-radius: 6px;
     background: var(--archv-card-bg);
@@ -1208,8 +1250,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
-    padding: 8px 14px;
+    gap: 6px;
+    padding: 12px 28px;
     border: 1px solid var(--archv-border);
     border-radius: 5px;
     background: var(--archv-bg);
@@ -1578,8 +1620,12 @@
 .log-type.RESPONSE { color: #94e2d5; }
 .log-type.ERROR { color: #f38ba8; }
 .log-type.EVENT { color: #fab387; }
+.log-type.REPLAY { color: #94e2d5; background: rgba(148, 226, 213, 0.1); }
+.log-type.WRITE_EVENT { color: #f9e2af; background: rgba(249, 226, 175, 0.1); }
+.log-type.ASYNC { color: #cba6f7; background: rgba(203, 166, 247, 0.1); }
 .log-type.COMMAND { color: #74c7ec; }
 .log-type.QUERY { color: #b4befe; }
+.log-type.LOAD { color: #a6e3a1; background: rgba(166, 227, 161, 0.1); }
 
 .log-text {
     color: var(--archv-text);
@@ -1743,12 +1789,51 @@
     opacity: 0.9;
 }
 
+/* Replay arrow (read from Event Store) — dashed, teal color */
+.archv-svg-layer .flow-arrow.flow-arrow-replay {
+    stroke: #94e2d5;
+    stroke-width: 2;
+    stroke-dasharray: 4 4;
+    opacity: 0.7;
+}
+
+/* Write arrow (store new event) — solid, bright accent */
+.archv-svg-layer .flow-arrow.flow-arrow-write {
+    stroke: #f9e2af;
+    stroke-width: 2.5;
+    stroke-dasharray: none;
+    opacity: 0.9;
+    animation: none;
+}
+
 .archv-svg-layer .flow-arrow-head {
     fill: var(--archv-accent);
 }
 
 .archv-svg-layer .flow-arrow-head-response {
     fill: #94e2d5;
+}
+
+.archv-svg-layer .flow-arrow-head-replay {
+    fill: #94e2d5;
+}
+
+.archv-svg-layer .flow-arrow-head-write {
+    fill: #f9e2af;
+}
+
+/* Async arrow — dashed, accent color, slower animation */
+.archv-svg-layer .flow-arrow.flow-arrow-async {
+    stroke: var(--archv-accent);
+    stroke-width: 2;
+    stroke-dasharray: 8 4;
+    opacity: 0.7;
+    animation: archvDash 1.2s linear infinite;
+}
+
+.archv-svg-layer .flow-arrow-head-async {
+    fill: var(--archv-accent);
+    opacity: 0.7;
 }
 
 .archv-svg-layer .dep-arrow-allowed {
@@ -1773,6 +1858,19 @@
 
 .archv-svg-layer .flow-step-bg-response {
     fill: #94e2d5;
+}
+
+.archv-svg-layer .flow-step-bg-replay {
+    fill: #94e2d5;
+}
+
+.archv-svg-layer .flow-step-bg-write {
+    fill: #f9e2af;
+}
+
+.archv-svg-layer .flow-step-bg-async {
+    fill: var(--archv-accent);
+    opacity: 0.7;
 }
 
 .archv-svg-layer .flow-step-num {
