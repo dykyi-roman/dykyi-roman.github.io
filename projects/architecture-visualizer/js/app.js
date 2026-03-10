@@ -87,6 +87,7 @@
                     'context-map': ARCHV.ddd['context-map'],
                     'open-host': ARCHV.ddd['open-host'],
                     saga: ARCHV.ddd.saga,
+                    'saga-fail': ARCHV.ddd['saga-fail'],
                     'domain-events': ARCHV.ddd['domain-events']
                 };
                 if (map[modeId]) map[modeId].init();
@@ -176,7 +177,7 @@
             layered: { http: ARCHV.layered.http, console: ARCHV.layered.console, message: ARCHV.layered.message },
             clean: { http: ARCHV.clean.http, console: ARCHV.clean.console, message: ARCHV.clean.message },
             hexagonal: { http: ARCHV.hexagonal.http, console: ARCHV.hexagonal.console, message: ARCHV.hexagonal.message },
-            ddd: { http: ARCHV.ddd.http, console: ARCHV.ddd.console, message: ARCHV.ddd.message, 'context-map': ARCHV.ddd['context-map'], 'open-host': ARCHV.ddd['open-host'], saga: ARCHV.ddd.saga, 'domain-events': ARCHV.ddd['domain-events'] },
+            ddd: { http: ARCHV.ddd.http, console: ARCHV.ddd.console, message: ARCHV.ddd.message, 'context-map': ARCHV.ddd['context-map'], 'open-host': ARCHV.ddd['open-host'], saga: ARCHV.ddd.saga, 'saga-fail': ARCHV.ddd['saga-fail'], 'domain-events': ARCHV.ddd['domain-events'] },
             cqrs: { http: ARCHV.cqrs.http, console: ARCHV.cqrs.console, message: ARCHV.cqrs.message },
             eventsourcing: { http: ARCHV.eventsourcing.http, console: ARCHV.eventsourcing.console, message: ARCHV.eventsourcing.message },
             eda: { http: ARCHV.eda.http, choreography: ARCHV.eda.choreography, orchestration: ARCHV.eda.orchestration },

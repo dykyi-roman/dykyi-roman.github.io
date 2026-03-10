@@ -4,11 +4,12 @@ ARCHV.ddd = {};
 
 ARCHV.ddd.modes = [
     { id: 'http', label: 'HTTP Request', desc: 'HTTP request enters the Bounded Context through the Presentation layer (Controller). UseCase orchestrates domain logic and persists the Aggregate via Repository. Domain Events propagate between contexts through the EventBus.' },
-    { id: 'console', label: 'Console Command', desc: 'Console command triggers a use case within a Bounded Context. Domain logic stays isolated inside the context boundary, communicating with other contexts via Domain Events.' },
-    { id: 'message', label: 'Message (Cross-Context)', desc: 'Domain Event from another Bounded Context arrives through the Anti-Corruption Layer, gets translated, and processed within the local context. This demonstrates context mapping.' },
+    { id: 'console', label: 'Console', desc: 'Console command triggers a use case within a Bounded Context. Domain logic stays isolated inside the context boundary, communicating with other contexts via Domain Events.' },
+    { id: 'message', label: 'Message', desc: 'Domain Event from another Bounded Context arrives through the Anti-Corruption Layer, gets translated, and processed within the local context. This demonstrates context mapping.' },
     { id: 'context-map', label: 'Context Map', desc: 'Bird\'s-eye view of all Bounded Contexts and their strategic relationships: ACL, Shared Kernel, Customer-Supplier, Conformist. Before writing code, define how contexts relate to each other.' },
-    { id: 'open-host', label: 'Open Host Service', desc: 'A context publishes a formal API (Open Host Service) with Published Language (OpenAPI/Protobuf). Multiple downstream contexts consume the same standardized contract instead of point-to-point translations.' },
-    { id: 'saga', label: 'Saga (Cross-Context)', desc: 'Saga/Process Manager coordinates a business process spanning multiple Bounded Contexts. Each context owns its local transaction; the Saga orchestrates the overall workflow and handles compensation on failure.' },
+    { id: 'open-host', label: 'Open Host', desc: 'A context publishes a formal API (Open Host Service) with Published Language (OpenAPI/Protobuf). Multiple downstream contexts consume the same standardized contract instead of point-to-point translations.' },
+    { id: 'saga', label: 'Saga ✓', desc: 'Saga/Process Manager coordinates a business process spanning multiple Bounded Contexts. Each context owns its local transaction; the Saga orchestrates the overall workflow. All steps succeed: Order → Payment → Shipment → COMPLETED.' },
+    { id: 'saga-fail', label: 'Saga ✗', desc: 'Payment fails after Order is confirmed. Saga Orchestrator triggers compensating transactions in reverse order: CancelOrder undoes the committed step. State machine reaches COMPENSATED instead of COMPLETED.' },
     { id: 'domain-events', label: 'Domain Events', desc: 'A Domain Event propagates through the Event Bus to multiple contexts. Each consumer translates the event through its own ACL/Translator into its local Ubiquitous Language, demonstrating eventual consistency.' }
 ];
 
@@ -230,6 +231,42 @@ function renderDDDSaga() {
         '</div>';
 }
 
+function renderDDDSagaFail() {
+    var canvas = document.getElementById('archv-canvas');
+    canvas.innerHTML =
+        '<div class="layout-ddd-saga">' +
+            '<div class="archv-saga-box" id="comp-sagaf-orchestrator" data-tooltip="Saga Orchestrator detects failure and triggers compensating transactions in reverse order">' +
+                '&#x1F3AF; Saga Orchestrator' +
+                '<div style="font-size:10px;color:var(--archv-text-light);margin-top:2px" id="comp-sagaf-state">State: IDLE</div>' +
+            '</div>' +
+            '<div class="archv-saga-contexts">' +
+                '<div class="archv-bounded-context" id="ctx-sagaf-order">' +
+                    '<span class="archv-context-label">Order Context</span>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-sagaf-order-cmd', 'CreateOrder', '&#x2699;', 'Command to create order') +
+                        ARCHV.renderComponent('comp-sagaf-order-event', 'OrderConfirmed', '&#x1F514;', 'Event confirming order creation') +
+                        ARCHV.renderComponent('comp-sagaf-cancel-cmd', 'CancelOrder', '&#x274C;', 'Compensating command to cancel order') +
+                        ARCHV.renderComponent('comp-sagaf-cancel-event', 'OrderCancelled', '&#x1F514;', 'Event confirming order cancellation') +
+                    '</div>' +
+                '</div>' +
+                '<div class="archv-bounded-context" id="ctx-sagaf-payment">' +
+                    '<span class="archv-context-label">Payment Context</span>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-sagaf-pay-cmd', 'ProcessPayment', '&#x1F4B3;', 'Command to process payment') +
+                        ARCHV.renderComponent('comp-sagaf-pay-fail', 'PaymentFailed', '&#x1F6A8;', 'Payment rejected — insufficient funds') +
+                    '</div>' +
+                '</div>' +
+                '<div class="archv-bounded-context" id="ctx-sagaf-shipping">' +
+                    '<span class="archv-context-label">Shipping Context</span>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-sagaf-ship-cmd', 'CreateShipment', '&#x1F69A;', 'Command to create shipment (never reached)') +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="archv-event-bus" id="comp-sagaf-eventbus" data-tooltip="Event Bus carries commands and events between Saga and contexts">&#x1F4E8; Event Bus</div>' +
+        '</div>';
+}
+
 function renderDDDDomainEvents() {
     var canvas = document.getElementById('archv-canvas');
     canvas.innerHTML =
@@ -439,6 +476,36 @@ ARCHV.ddd.details = {
             whenToUse: 'When a business process spans 3+ Bounded Contexts and you need consistency without distributed transactions. Common in e-commerce, booking, and financial systems.'
         }
     },
+    'saga-fail': {
+        principles: [
+            'Compensating transactions undo committed steps in reverse order',
+            'Each compensation must be idempotent — safe to retry on failure',
+            'Orchestrator tracks which steps succeeded to know what to compensate',
+            'Compensations are semantic inverses, not database rollbacks (e.g., CancelOrder vs. undo)',
+            'The system reaches COMPENSATED state — consistent, not broken'
+        ],
+        concepts: [
+            { term: 'Compensating Transaction', definition: 'An operation that semantically undoes a previously committed local transaction. CancelOrder reverses CreateOrder, but it is a new command, not a rollback.' },
+            { term: 'Backward Recovery', definition: 'Executing compensating transactions in reverse order of the original saga steps. Only committed steps need compensation.' },
+            { term: 'Saga State Machine', definition: 'States include COMPENSATING and COMPENSATED in addition to happy path states. The orchestrator transitions to COMPENSATING on any step failure.' },
+            { term: 'Semantic Undo', definition: 'Unlike database rollback, compensation creates new domain events (OrderCancelled) that other contexts can react to.' }
+        ],
+        tradeoffs: {
+            pros: [
+                'Guarantees eventual consistency even on partial failures',
+                'Each context remains autonomous — no distributed locks needed',
+                'Failure handling is explicit and auditable via saga state machine',
+                'Compensations produce domain events that other contexts can consume'
+            ],
+            cons: [
+                'Every step must have a well-defined compensation — doubles implementation effort',
+                'Compensations themselves can fail, requiring retry and dead-letter strategies',
+                'Intermediate inconsistency is visible during compensation execution',
+                'State machine complexity grows with each step added to the saga'
+            ],
+            whenToUse: 'Essential when distributed transactions can fail at any step. Design compensations from the start — retrofitting them into an existing saga is extremely difficult.'
+        }
+    },
     'domain-events': {
         principles: [
             'Domain Events represent facts — something that already happened',
@@ -607,15 +674,15 @@ ARCHV.ddd.saga = {
     steps: function() {
         return [
             { elementId: 'comp-saga-orchestrator', label: 'Saga', description: 'Saga starts: state → ORDER_PENDING', logType: 'REQUEST' },
-            { elementId: 'comp-saga-order-cmd', label: 'CreateOrder', description: 'Saga sends CreateOrder command', logType: 'COMMAND', arrowFromId: 'comp-saga-orchestrator' },
+            { elementId: 'comp-saga-order-cmd', label: 'CreateOrder', description: 'Saga sends CreateOrder command', logType: 'COMMAND', arrowFromId: 'comp-saga-orchestrator', arrowFromOffset: -0.2 },
             { elementId: 'comp-saga-order-event', label: 'OrderConfirmed', description: 'Order context confirms: OrderConfirmed event', logType: 'EVENT' },
             { elementId: 'comp-saga-eventbus', label: 'EventBus', description: 'Event routed through bus to Saga', logType: 'ASYNC' },
-            { elementId: 'comp-saga-orchestrator', label: 'Saga', description: 'Saga state → ORDER_CONFIRMED', logType: 'FLOW', arrowFromId: 'comp-saga-eventbus' },
+            { elementId: 'comp-saga-orchestrator', label: 'Saga', description: 'Saga state → ORDER_CONFIRMED', logType: 'FLOW', arrowFromId: 'comp-saga-eventbus', arrowFromOffset: -0.15, arrowToOffset: -0.15 },
             { elementId: 'comp-saga-pay-cmd', label: 'ProcessPayment', description: 'Saga sends ProcessPayment command', logType: 'COMMAND', arrowFromId: 'comp-saga-orchestrator' },
             { elementId: 'comp-saga-pay-event', label: 'PaymentCompleted', description: 'Payment context confirms: PaymentCompleted event', logType: 'EVENT' },
             { elementId: 'comp-saga-eventbus', label: 'EventBus', description: 'Event routed through bus to Saga', logType: 'ASYNC' },
-            { elementId: 'comp-saga-orchestrator', label: 'Saga', description: 'Saga state → PAYMENT_COMPLETED', logType: 'FLOW', arrowFromId: 'comp-saga-eventbus' },
-            { elementId: 'comp-saga-ship-cmd', label: 'CreateShipment', description: 'Saga sends CreateShipment command', logType: 'COMMAND', arrowFromId: 'comp-saga-orchestrator' },
+            { elementId: 'comp-saga-orchestrator', label: 'Saga', description: 'Saga state → PAYMENT_COMPLETED', logType: 'FLOW', arrowFromId: 'comp-saga-eventbus', arrowFromOffset: 0.15, arrowToOffset: 0.15 },
+            { elementId: 'comp-saga-ship-cmd', label: 'CreateShipment', description: 'Saga sends CreateShipment command', logType: 'COMMAND', arrowFromId: 'comp-saga-orchestrator', arrowFromOffset: 0.2 },
             { elementId: 'comp-saga-ship-event', label: 'ShipmentCreated', description: 'Shipping context confirms: ShipmentCreated event', logType: 'EVENT' },
             { elementId: 'comp-saga-orchestrator', label: 'Saga', description: 'Saga state → COMPLETED. All steps successful.', logType: 'RESPONSE', arrowFromId: 'comp-saga-ship-event' }
         ];
@@ -623,6 +690,32 @@ ARCHV.ddd.saga = {
     stepOptions: function() { return { requestLabel: 'Saga: PlaceOrder workflow' }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.ddd.saga.steps(), ARCHV.ddd.saga.stepOptions());
+    }
+};
+
+/* ===== Saga Failure Mode: Compensating Transactions ===== */
+ARCHV.ddd['saga-fail'] = {
+    init: function() { renderDDDSagaFail(); },
+    steps: function() {
+        return [
+            { elementId: 'comp-sagaf-orchestrator', label: 'Saga', description: 'Saga starts: state → ORDER_PENDING', logType: 'REQUEST' },
+            { elementId: 'comp-sagaf-order-cmd', label: 'CreateOrder', description: 'Saga sends CreateOrder command', logType: 'COMMAND', arrowFromId: 'comp-sagaf-orchestrator', arrowFromOffset: -0.2 },
+            { elementId: 'comp-sagaf-order-event', label: 'OrderConfirmed', description: 'Order context confirms: OrderConfirmed event ✓', logType: 'EVENT' },
+            { elementId: 'comp-sagaf-eventbus', label: 'EventBus', description: 'Event routed through bus to Saga', logType: 'ASYNC' },
+            { elementId: 'comp-sagaf-orchestrator', label: 'Saga', description: 'Saga state → ORDER_CONFIRMED', logType: 'FLOW', arrowFromId: 'comp-sagaf-eventbus', arrowFromOffset: -0.45, arrowToOffset: -0.4 },
+            { elementId: 'comp-sagaf-pay-cmd', label: 'ProcessPayment', description: 'Saga sends ProcessPayment command', logType: 'COMMAND', arrowFromId: 'comp-sagaf-orchestrator' },
+            { elementId: 'comp-sagaf-pay-fail', label: 'PaymentFailed', description: 'Payment rejected — insufficient funds!', logType: 'ERROR' },
+            { elementId: 'comp-sagaf-eventbus', label: 'EventBus', description: 'PaymentFailed event routed to Saga', logType: 'ASYNC' },
+            { elementId: 'comp-sagaf-orchestrator', label: 'Saga', description: 'Saga state → COMPENSATING. Starting backward recovery.', logType: 'ERROR', arrowFromId: 'comp-sagaf-eventbus' },
+            { elementId: 'comp-sagaf-cancel-cmd', label: 'CancelOrder', description: 'Compensate: Saga sends CancelOrder command (undo Step 1)', logType: 'COMPENSATE', arrowFromId: 'comp-sagaf-orchestrator', arrowFromOffset: 0.2 },
+            { elementId: 'comp-sagaf-cancel-event', label: 'OrderCancelled', description: 'Order context confirms: OrderCancelled event', logType: 'COMPENSATE' },
+            { elementId: 'comp-sagaf-eventbus', label: 'EventBus', description: 'OrderCancelled event routed to Saga', logType: 'ASYNC' },
+            { elementId: 'comp-sagaf-orchestrator', label: 'Saga', description: 'Saga state → COMPENSATED. All compensations done.', logType: 'ERROR', arrowFromId: 'comp-sagaf-eventbus', arrowFromOffset: 0.45, arrowToOffset: 0.4 }
+        ];
+    },
+    stepOptions: function() { return { requestLabel: 'Saga: PlaceOrder workflow (failure)' }; },
+    run: function() {
+        ARCHV.animateFlow(ARCHV.ddd['saga-fail'].steps(), ARCHV.ddd['saga-fail'].stepOptions());
     }
 };
 

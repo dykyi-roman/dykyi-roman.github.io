@@ -5,8 +5,8 @@ ARCHV.microservices = {};
 ARCHV.microservices.modes = [
     { id: 'sync', label: 'Sync (REST/gRPC)', desc: 'Synchronous request flows through the API Gateway to individual services. The gateway authenticates, routes, and aggregates responses. Services communicate via REST or gRPC through the gateway — never directly.' },
     { id: 'async', label: 'Async (Events)', desc: 'Event-driven communication between services via a Message Queue. Services publish domain events after state changes. Other services consume relevant events and react independently. No direct service-to-service calls.' },
-    { id: 'saga', label: 'Saga (Success)', desc: 'Successful distributed transaction coordinated by a Saga Orchestrator. Each step is a local transaction committed sequentially. All steps complete successfully and the order is fulfilled.' },
-    { id: 'saga-fail', label: 'Saga (Failure)', desc: 'Failed saga with compensating transactions executed in reverse order. Payment fails after inventory is reserved, triggering compensations to restore consistency.' }
+    { id: 'saga', label: 'Saga ✓', desc: 'Successful distributed transaction coordinated by a Saga Orchestrator. Each step is a local transaction committed sequentially. All steps complete successfully and the order is fulfilled.' },
+    { id: 'saga-fail', label: 'Saga ✗', desc: 'Failed saga with compensating transactions executed in reverse order. Payment fails after inventory is reserved, triggering compensations to restore consistency.' }
 ];
 
 ARCHV.microservices.depRules = [
