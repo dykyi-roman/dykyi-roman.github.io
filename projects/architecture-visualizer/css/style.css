@@ -926,7 +926,8 @@
 .archv-consumer[data-tooltip],
 .archv-event-bus[data-tooltip],
 .archv-saga-box[data-tooltip],
-.archv-acl[data-tooltip] {
+.archv-acl[data-tooltip],
+.archv-translator[data-tooltip] {
     cursor: help;
 }
 
@@ -937,7 +938,8 @@
 .archv-consumer[data-tooltip],
 .archv-event-bus[data-tooltip],
 .archv-saga-box[data-tooltip],
-.archv-acl[data-tooltip] {
+.archv-acl[data-tooltip],
+.archv-translator[data-tooltip] {
     position: relative;
 }
 
@@ -1134,12 +1136,12 @@
 
 .archv-flow-legend .legend-line-sync {
     width: 24px;
-    border-top: 2px solid var(--archv-text-light);
+    border-top: 2px dashed var(--archv-accent);
 }
 
 .archv-flow-legend .legend-line-async {
     width: 24px;
-    border-top: 2px dashed var(--archv-accent);
+    border-top: 2px dashed #cba6f7;
 }
 
 .archv-flow-legend .legend-line-replay {
@@ -1149,12 +1151,12 @@
 
 .archv-flow-legend .legend-line-write {
     width: 24px;
-    border-top: 2.5px solid #f9e2af;
+    border-top: 2.5px dashed #f9e2af;
 }
 
 .archv-flow-legend .legend-line-response {
     width: 24px;
-    border-top: 2px solid #94e2d5;
+    border-top: 2px dashed #94e2d5;
 }
 
 .archv-flow-legend .legend-line-compensate {
@@ -1863,15 +1865,20 @@
 }
 
 .layout-ddd-events .archv-bounded-context {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
 }
 
 .layout-ddd-events .archv-event-bus {
-    margin: 8px 0;
+    margin: 24px 0;
 }
 
 .layout-ddd-events .archv-consumers {
-    gap: 16px;
+    gap: 40px;
+    margin-top: 24px;
+}
+
+.layout-ddd-events .archv-consumer {
+    min-width: 150px;
 }
 
 .archv-translator {
@@ -2238,18 +2245,18 @@
     fill: #f9e2af;
 }
 
-/* Async arrow — dashed, accent color, slower animation */
+/* Async arrow — dashed, light purple, slower animation */
 .archv-svg-layer .flow-arrow.flow-arrow-async {
-    stroke: var(--archv-accent);
+    stroke: #cba6f7;
     stroke-width: 2;
     stroke-dasharray: 8 4;
-    opacity: 0.7;
+    opacity: 0.8;
     animation: archvDash 1.2s linear infinite;
 }
 
 .archv-svg-layer .flow-arrow-head-async {
-    fill: var(--archv-accent);
-    opacity: 0.7;
+    fill: #cba6f7;
+    opacity: 0.8;
 }
 
 /* Compensate arrow — red dashed, failure/rollback path */

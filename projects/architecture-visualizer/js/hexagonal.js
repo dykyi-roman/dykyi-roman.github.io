@@ -56,7 +56,6 @@ function renderHexagonal(activeAdapter) {
         '<div class="archv-flow-legend">' +
             '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Port call)</div>' +
             '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
-            (activeAdapter === 'msg' ? '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' : '') +
         '</div>';
 }
 

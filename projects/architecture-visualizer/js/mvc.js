@@ -50,7 +50,7 @@ function renderMVC() {
         '</div>' +
         '<div class="archv-flow-legend">' +
             '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Request)</div>' +
-            '<div class="legend-item"><span class="legend-line-response"></span> Observer notify</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
         '</div>';
 }
 
@@ -85,7 +85,7 @@ function renderMVP() {
         '</div>' +
         '<div class="archv-flow-legend">' +
             '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Delegate)</div>' +
-            '<div class="legend-item"><span class="legend-line-response"></span> Presenter update</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
         '</div>';
 }
 
@@ -120,7 +120,7 @@ function renderMVVM() {
         '</div>' +
         '<div class="archv-flow-legend">' +
             '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Binding)</div>' +
-            '<div class="legend-item"><span class="legend-line-response"></span> Observable notify</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
         '</div>';
 }
 

@@ -91,6 +91,11 @@ function renderDDD(opts) {
                     '</div>' +
                 '</div>' +
             '</div>' +
+            '<div class="archv-flow-legend">' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Layer call)</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> Event (Domain)</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+            '</div>' +
         '</div>';
 }
 
@@ -193,6 +198,11 @@ function renderDDDOpenHost() {
                     '<div class="archv-local-event">SaleRecorded</div>' +
                 '</div>' +
             '</div>' +
+            '<div class="archv-flow-legend">' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Layer call)</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+            '</div>' +
         '</div>';
 }
 
@@ -228,6 +238,11 @@ function renderDDDSaga() {
                 '</div>' +
             '</div>' +
             '<div class="archv-event-bus" id="comp-saga-eventbus" data-tooltip="Event Bus carries commands from Saga to contexts and events back to Saga">&#x1F4E8; Event Bus</div>' +
+            '<div class="archv-flow-legend">' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> Command</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+            '</div>' +
         '</div>';
 }
 
@@ -264,6 +279,11 @@ function renderDDDSagaFail() {
                 '</div>' +
             '</div>' +
             '<div class="archv-event-bus" id="comp-sagaf-eventbus" data-tooltip="Event Bus carries commands and events between Saga and contexts">&#x1F4E8; Event Bus</div>' +
+            '<div class="archv-flow-legend">' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> Command</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
+                '<div class="legend-item"><span class="legend-line-compensate"></span> Compensate</div>' +
+            '</div>' +
         '</div>';
 }
 
@@ -273,10 +293,21 @@ function renderDDDDomainEvents() {
         '<div class="layout-ddd-events">' +
             '<div class="archv-bounded-context" id="ctx-de-order">' +
                 '<span class="archv-context-label">Order Context (Producer)</span>' +
-                '<div class="archv-components">' +
-                    ARCHV.renderComponent('comp-de-place', 'Order.place()', '&#x2699;', 'Business method that places an order') +
-                    ARCHV.renderComponent('comp-de-event', 'OrderPlaced', '&#x1F514;', 'Domain event raised after order is placed') +
-                    ARCHV.renderComponent('comp-de-publisher', 'EventPublisher', '&#x1F4E8;', 'Publishes domain event to event bus') +
+                '<div class="archv-layer" id="layer-de-app"><span class="archv-layer-label">Application</span>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-de-usecase', 'PlaceOrder', '&#x2699;', 'Application UseCase orchestrates order placement') +
+                    '</div>' +
+                '</div>' +
+                '<div class="archv-layer" id="layer-de-domain"><span class="archv-layer-label">Domain</span>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-de-place', 'Order.place()', '&#x1F4CB;', 'Aggregate method creates order and raises domain event') +
+                        ARCHV.renderComponent('comp-de-event', 'OrderPlaced', '&#x1F514;', 'Domain event raised after order is placed') +
+                    '</div>' +
+                '</div>' +
+                '<div class="archv-layer" id="layer-de-infra"><span class="archv-layer-label">Infrastructure</span>' +
+                    '<div class="archv-components">' +
+                        ARCHV.renderComponent('comp-de-publisher', 'EventPublisher', '&#x1F4E8;', 'Infrastructure adapter publishes domain event to external bus') +
+                    '</div>' +
                 '</div>' +
             '</div>' +
             '<div class="archv-event-bus" id="comp-de-eventbus" data-tooltip="Event Bus distributes domain events to all subscribed contexts">&#x1F4E8; Event Bus &mdash; OrderPlaced</div>' +
@@ -301,6 +332,11 @@ function renderDDDDomainEvents() {
                     '<div class="archv-translator" id="comp-de-analytics-acl" data-tooltip="ACL translates OrderPlaced into SaleRecorded">&#x1F6E1; ACL</div>' +
                     '<div class="archv-local-event" id="comp-de-analytics-local">&#x2192; SaleRecorded</div>' +
                 '</div>' +
+            '</div>' +
+            '<div class="archv-flow-legend">' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> Sync</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
             '</div>' +
         '</div>';
 }
@@ -724,19 +760,16 @@ ARCHV.ddd['domain-events'] = {
     init: function() { renderDDDDomainEvents(); },
     steps: function() {
         return [
-            { elementId: 'comp-de-place', label: 'Order.place()', description: 'Business method creates order', logType: 'REQUEST' },
-            { elementId: 'comp-de-event', label: 'OrderPlaced', description: 'Domain event raised: OrderPlaced', logType: 'EVENT' },
-            { elementId: 'comp-de-publisher', label: 'EventPublisher', description: 'Publish event to Event Bus', logType: 'EVENT' },
+            { elementId: 'comp-de-usecase', label: 'PlaceOrder', description: 'UseCase receives command and delegates to aggregate', logType: 'REQUEST', layerId: 'layer-de-app' },
+            { elementId: 'comp-de-place', label: 'Order.place()', description: 'Aggregate method creates order and raises domain event', logType: 'COMMAND', layerId: 'layer-de-domain' },
+            { elementId: 'comp-de-event', label: 'OrderPlaced', description: 'Domain event raised: OrderPlaced', logType: 'EVENT', layerId: 'layer-de-domain' },
+            { elementId: 'comp-de-publisher', label: 'EventPublisher', description: 'Infrastructure adapter publishes event to external bus', logType: 'EVENT', layerId: 'layer-de-infra' },
             { elementId: 'comp-de-eventbus', label: 'EventBus', description: 'Event Bus distributes OrderPlaced to all subscribers', logType: 'ASYNC' },
-            { elementId: 'comp-de-payment', label: 'Payment', description: 'Payment context receives OrderPlaced', logType: 'ASYNC', arrowFromId: 'comp-de-eventbus' },
-            { elementId: 'comp-de-pay-acl', label: 'ACL', description: 'ACL translates OrderPlaced → PaymentRequired', logType: 'FLOW' },
-            { elementId: 'comp-de-inventory', label: 'Inventory', description: 'Inventory context receives OrderPlaced', logType: 'ASYNC', noArrowFromPrev: true, arrowFromId: 'comp-de-eventbus' },
-            { elementId: 'comp-de-inv-acl', label: 'ACL', description: 'ACL translates OrderPlaced → StockReservationNeeded', logType: 'FLOW' },
-            { elementId: 'comp-de-notification', label: 'Notification', description: 'Notification context receives OrderPlaced', logType: 'ASYNC', noArrowFromPrev: true, arrowFromId: 'comp-de-eventbus' },
-            { elementId: 'comp-de-notif-acl', label: 'ACL', description: 'ACL translates OrderPlaced → OrderConfirmationEmail', logType: 'FLOW' },
-            { elementId: 'comp-de-analytics', label: 'Analytics', description: 'Analytics context receives OrderPlaced', logType: 'ASYNC', noArrowFromPrev: true, arrowFromId: 'comp-de-eventbus' },
-            { elementId: 'comp-de-analytics-acl', label: 'ACL', description: 'ACL translates OrderPlaced → SaleRecorded', logType: 'FLOW' },
-            { elementId: 'comp-de-eventbus', label: 'EventBus', description: 'All consumers processed — eventual consistency achieved', logType: 'RESPONSE', noArrowFromPrev: true }
+            { elementId: 'comp-de-payment', label: 'Payment', description: 'Receives OrderPlaced, ACL translates → PaymentRequired', logType: 'ASYNC', arrowFromId: 'comp-de-eventbus', arrowFromOffset: -0.35 },
+            { elementId: 'comp-de-inventory', label: 'Inventory', description: 'Receives OrderPlaced, ACL translates → StockReservationNeeded', logType: 'ASYNC', arrowFromId: 'comp-de-eventbus', arrowFromOffset: -0.12 },
+            { elementId: 'comp-de-notification', label: 'Notification', description: 'Receives OrderPlaced, ACL translates → OrderConfirmationEmail', logType: 'ASYNC', arrowFromId: 'comp-de-eventbus', arrowFromOffset: 0.12 },
+            { elementId: 'comp-de-analytics', label: 'Analytics', description: 'Receives OrderPlaced, ACL translates → SaleRecorded', logType: 'ASYNC', arrowFromId: 'comp-de-eventbus', arrowFromOffset: 0.35 },
+            { elementId: 'comp-de-eventbus', label: 'EventBus', description: 'Fan-out complete — each consumer processes asynchronously', logType: 'RESPONSE', noArrowFromPrev: true }
         ];
     },
     stepOptions: function() { return { requestLabel: 'Event: OrderPlaced propagation' }; },

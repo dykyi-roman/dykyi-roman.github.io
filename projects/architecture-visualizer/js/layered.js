@@ -63,9 +63,8 @@ function renderLayered(entryIcon, entryLabel) {
                 '</div>' +
             '</div>' +
             '<div class="archv-flow-legend">' +
-                '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Layer call)</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> Sync</div>' +
                 '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
-                '<div class="legend-item"><span class="legend-line-async"></span> Event dispatch</div>' +
             '</div>' +
         '</div>';
 }

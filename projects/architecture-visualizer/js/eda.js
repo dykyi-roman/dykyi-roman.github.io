@@ -27,11 +27,8 @@ function renderEDA(mode) {
         '<div class="archv-flow-legend">' +
             (isOrchestration
                 ? '<div class="legend-item"><span class="legend-line-sync"></span> Command</div>' +
-                  '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
-                  '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
-                  '<div class="legend-item"><span class="legend-line-compensate"></span> Compensate</div>'
-                : '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
-                  '<div class="legend-item"><span class="legend-line-sync"></span> Sync</div>') +
+                  '<div class="legend-item"><span class="legend-line-response"></span> Response</div>'
+                : '<div class="legend-item"><span class="legend-line-sync"></span> Sync</div>') +
         '</div>';
 
     canvas.innerHTML =
