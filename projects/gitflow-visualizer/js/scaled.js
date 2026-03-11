@@ -146,7 +146,7 @@ GFV.scaled.program = {
     init: function() {
         this._b1 = 'team/' + GFV.jira();
         this._b2 = 'team/' + GFV.jira();
-        GFV.initGraph(['main', 'develop', this._b1, this._b2]);
+        GFV.initGraph(['main', 'develop', this._b1, this._b2], { commitSpacing: 60 });
     },
     steps: function() {
         var b1 = this._b1, b2 = this._b2;
@@ -161,9 +161,12 @@ GFV.scaled.program = {
             { op: 'commit', branch: b2, label: 'API tests', description: 'Backend team adds API tests — integration tests for endpoint responses, auth, and rate limiting', logType: 'COMMIT' },
             { op: 'merge', fromBranch: b1, toBranch: 'develop', label: 'Integrate FE', description: 'Merge ' + b1 + ' into develop — frontend work integrated, ready for cross-team testing with backend', logType: 'MERGE' },
             { op: 'merge', fromBranch: b2, toBranch: 'develop', label: 'Integrate BE', description: 'Merge ' + b2 + ' into develop — backend integrated, full-stack feature now assembled on develop', logType: 'MERGE' },
+            { op: 'commit', branch: 'develop', label: 'Stabilize', description: 'Integration stabilization on develop — verifying FE + BE compatibility, running full-stack regression and contract tests', logType: 'COMMIT' },
             { op: 'merge', fromBranch: 'develop', toBranch: 'main', label: 'PI Release', description: 'Merge develop into main — both teams\' work validated together, Program Increment complete', logType: 'MERGE' },
             { op: 'tag', branch: 'main', tagName: 'v3.0-PI', description: 'Tag v3.0-PI on main — marking the coordinated Program Increment delivery milestone', logType: 'TAG' },
-            { op: 'deploy', branch: 'main', envName: 'production', description: 'Deploy Program Increment to production — dashboard feature from both teams is now live', logType: 'DEPLOY' }
+            { op: 'deploy', branch: 'main', envName: 'production', description: 'Deploy Program Increment to production — dashboard feature from both teams is now live', logType: 'DEPLOY' },
+            { op: 'delete-branch', branch: b1, label: 'Cleanup', description: 'Delete ' + b1 + ' branch — frontend team work delivered, branch no longer needed', logType: 'DELETE' },
+            { op: 'delete-branch', branch: b2, label: 'Cleanup', description: 'Delete ' + b2 + ' branch — backend team work delivered, branch no longer needed', logType: 'DELETE' }
         ];
     },
     stepOptions: function() {
