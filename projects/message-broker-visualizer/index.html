@@ -140,9 +140,18 @@
             </div>
             <div class="event-log" id="event-log"></div>
         </div>
+        <footer class="site-footer">
+            <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+            <div class="footer-links">
+                <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+                <a href="mailto:mr.dukuy@gmail.com">Email</a>
+            </div>
+        </footer>
     </div>
 </div>
 
+<script>document.querySelector('.current-year').textContent = new Date().getFullYear();</script>
 <script src="../../resources/back-to-top.js"></script>
 <script src="js/engine.js"></script>
 <script src="js/rabbitmq.js"></script>

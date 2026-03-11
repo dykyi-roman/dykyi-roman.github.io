@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" rx="12" fill="#141922"/>
+  <rect x="10" y="10" width="380" height="280" rx="8" fill="#1a2030" stroke="#2a3444" stroke-width="1"/>
+
+  <!-- Title -->
+  <text x="200" y="38" text-anchor="middle" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#e0e4ea">GitFlow Visualizer</text>
+
+  <!-- Branch: main -->
+  <line x1="80" y1="80" x2="360" y2="80" stroke="#a6e3a1" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+  <text x="20" y="84" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#a6e3a1">main</text>
+  <circle cx="120" cy="80" r="5" fill="#a6e3a1"/>
+  <circle cx="280" cy="80" r="6" fill="#a6e3a1" stroke="#89b4fa" stroke-width="2"/>
+  <circle cx="340" cy="80" r="5" fill="#a6e3a1"/>
+
+  <!-- Branch: develop -->
+  <line x1="80" y1="140" x2="360" y2="140" stroke="#89b4fa" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+  <text x="20" y="144" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#89b4fa">develop</text>
+  <circle cx="140" cy="140" r="5" fill="#89b4fa"/>
+  <circle cx="200" cy="140" r="5" fill="#89b4fa"/>
+  <circle cx="300" cy="140" r="6" fill="#89b4fa" stroke="#cba6f7" stroke-width="2"/>
+
+  <!-- Branch: feature -->
+  <line x1="80" y1="200" x2="320" y2="200" stroke="#cba6f7" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+  <text x="20" y="204" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#cba6f7">feature</text>
+  <circle cx="180" cy="200" r="5" fill="#cba6f7"/>
+  <circle cx="240" cy="200" r="5" fill="#cba6f7"/>
+
+  <!-- Branch fork: develop → feature -->
+  <path d="M 140 140 C 155 140 155 200 170 200" stroke="#cba6f7" stroke-width="2" fill="none" opacity="0.6"/>
+
+  <!-- Merge: feature → develop -->
+  <path d="M 240 200 C 265 200 265 140 300 140" stroke="#cba6f7" stroke-width="2" fill="none" opacity="0.7"/>
+
+  <!-- Merge: develop → main -->
+  <path d="M 200 140 C 230 140 230 80 280 80" stroke="#89b4fa" stroke-width="2" fill="none" opacity="0.7"/>
+
+  <!-- Tag on main -->
+  <rect x="318" y="58" width="44" height="16" rx="4" fill="#f9e2af"/>
+  <text x="340" y="70" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" font-weight="700" fill="#0d1117">v1.0</text>
+
+  <!-- Branch: hotfix -->
+  <line x1="280" y1="250" x2="360" y2="250" stroke="#f38ba8" stroke-width="3" stroke-linecap="round" opacity="0.3"/>
+  <text x="20" y="254" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#f38ba8">hotfix</text>
+  <circle cx="310" cy="250" r="5" fill="#f38ba8"/>
+
+  <!-- Fork: main → hotfix -->
+  <path d="M 280 80 C 290 80 290 250 300 250" stroke="#f38ba8" stroke-width="2" fill="none" opacity="0.6"/>
+
+  <!-- Merge: hotfix → main -->
+  <path d="M 310 250 C 330 250 330 80 340 80" stroke="#f38ba8" stroke-width="2" fill="none" opacity="0.7"/>
+</svg>
