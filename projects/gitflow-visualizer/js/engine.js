@@ -807,6 +807,8 @@ GFV.animateFlow = async function(steps, options) {
 
 /* ===== Execute Single Step ===== */
 GFV._executeStep = function(step) {
+    if (step.xPad) GFV.graph.commitX += step.xPad;
+
     switch (step.op) {
         case 'branch':
             GFV.addBranch(step.fromBranch, step.branch);

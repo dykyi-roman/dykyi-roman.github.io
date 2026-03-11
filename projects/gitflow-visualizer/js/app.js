@@ -171,6 +171,12 @@
         var descText = modeConfig ? modeConfig.desc : '';
         if (flowId === 'classic') {
             descEl.innerHTML = descText + ' <a href="https://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="noopener noreferrer" class="pattern-desc-link">Read original article by Vincent Driessen</a>';
+        } else if (flowId === 'trunk') {
+            descEl.innerHTML = descText + ' <a href="https://trunkbaseddevelopment.com/" target="_blank" rel="noopener noreferrer" class="pattern-desc-link">Read Trunk Based Development guide</a>';
+        } else if (flowId === 'github') {
+            descEl.innerHTML = descText + ' <a href="https://docs.github.com/en/get-started/using-github/github-flow" target="_blank" rel="noopener noreferrer" class="pattern-desc-link">Read GitHub Flow documentation</a>';
+        } else if (flowId === 'gitlab') {
+            descEl.innerHTML = descText + ' <a href="https://about.gitlab.com/topics/version-control/what-is-gitlab-flow/" target="_blank" rel="noopener noreferrer" class="pattern-desc-link">Read GitLab Flow documentation</a>';
         } else {
             descEl.textContent = descText;
         }

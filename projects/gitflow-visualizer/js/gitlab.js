@@ -163,8 +163,8 @@
             { op: 'merge',  fromBranch: 'main',    toBranch: 'staging',   label: 'Promote',   logType: 'MERGE',  description: 'Promote main to staging — pushing accumulated changes for pre-production validation' },
             { op: 'deploy', branch: 'staging',     envName: 'staging',    logType: 'DEPLOY',  description: 'Deploy to staging environment — running full test suite and manual QA verification' },
             { op: 'merge',  fromBranch: 'staging', toBranch: 'production', label: 'Promote',  logType: 'MERGE',  description: 'Promote staging to production — QA passed, changes approved for live deployment' },
-            { op: 'deploy', branch: 'production',  envName: 'production', logType: 'DEPLOY',  description: 'Deploy to production environment — changes are now live for all end users' },
-            { op: 'tag',    branch: 'production',  tagName: 'v1.0.0',     logType: 'TAG',     description: 'Tag production release v1.0.0 — official version marker for this deployment' }
+            { op: 'tag',    branch: 'production',  tagName: 'v1.0.0',     logType: 'TAG',     description: 'Tag production release v1.0.0 — official version marker for this deployment' },
+            { op: 'deploy', branch: 'production',  envName: 'production', logType: 'DEPLOY',  description: 'Deploy to production environment — changes are now live for all end users' }
         ];
     };
 

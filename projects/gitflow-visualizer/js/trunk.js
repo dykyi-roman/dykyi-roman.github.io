@@ -158,7 +158,7 @@ GFV.trunk['short-lived'].run = function() {
 GFV.trunk.flags = {};
 
 GFV.trunk.flags.init = function() {
-    GFV.initGraph(['main']);
+    GFV.initGraph(['main'], { commitSpacing: 130 });
 };
 
 GFV.trunk.flags.steps = function() {

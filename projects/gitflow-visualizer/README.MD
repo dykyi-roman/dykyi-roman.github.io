@@ -72,3 +72,10 @@ python -m http.server 8000
 ## URL Hash Navigation
 
 Supports deep linking: `#classic/feature`, `#github/deploy`, `#trunk/flags`, etc.
+
+## Author
+
+**Dykyi Roman** — Software Engineer
+
+- Website: [dykyi-roman.github.io](https://dykyi-roman.github.io/)
+- GitHub: [dykyi-roman](https://github.com/dykyi-roman)

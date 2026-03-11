@@ -192,7 +192,7 @@ GFV.release.parallel = {
             { op: 'commit', branch: 'release/2.0', label: 'stabilize', description: 'Stabilize release/2.0 — performance tuning for analytics queries, load testing under production data volume', logType: 'COMMIT' },
             { op: 'merge', fromBranch: 'release/1.0', toBranch: 'main', label: 'merge', description: 'Merge release/1.0 into main — v1.0 stabilization fixes are now part of the mainline', logType: 'MERGE' },
             { op: 'tag', branch: 'main', tagName: 'v1.0', description: 'Tag release v1.0 — first version shipped to customers on the standard tier', logType: 'TAG' },
-            { op: 'merge', fromBranch: 'release/2.0', toBranch: 'main', label: 'merge', description: 'Merge release/2.0 into main — v2.0 stabilization complete, ready for enterprise customers', logType: 'MERGE' },
+            { op: 'merge', fromBranch: 'release/2.0', toBranch: 'main', label: 'merge', description: 'Merge release/2.0 into main — may require conflict resolution if v1.0 stabilization touched the same files. Resolve, then v2.0 is ready for enterprise customers', logType: 'MERGE' },
             { op: 'tag', branch: 'main', tagName: 'v2.0', description: 'Tag release v2.0 — premium version with analytics shipped to enterprise tier', logType: 'TAG' }
         ];
     },

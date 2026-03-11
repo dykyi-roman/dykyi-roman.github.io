@@ -128,7 +128,7 @@ GFV.forking.contribute = {
             { op: 'commit', branch: b, label: 'fix-2', description: 'Second commit: add unit tests for the new validation logic and update API documentation', logType: 'COMMIT' },
             { op: 'pr', fromBranch: b, toBranch: 'upstream/main', label: 'PR #1', description: 'Open cross-repo PR: ' + b + ' → upstream/main — proposing the contribution for maintainer review', logType: 'PR' },
             { op: 'merge', fromBranch: b, toBranch: 'upstream/main', label: 'merge', description: 'Maintainer reviews, approves, and merges the PR into upstream/main — contribution accepted', logType: 'MERGE' },
-            { op: 'merge', fromBranch: 'upstream/main', toBranch: 'origin/main', label: 'sync', description: 'Sync origin/main with upstream (git pull upstream main) — pulling back the merged contribution plus any other new commits', logType: 'MERGE' },
+            { op: 'merge', fromBranch: 'upstream/main', toBranch: 'origin/main', label: 'sync', xPad: 30, description: 'Sync origin/main with upstream (git pull upstream main) — pulling back the merged contribution plus any other new commits', logType: 'MERGE' },
             { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' branch from fork — contribution merged, keeping the fork clean for the next task', logType: 'BRANCH' }
         ];
     },

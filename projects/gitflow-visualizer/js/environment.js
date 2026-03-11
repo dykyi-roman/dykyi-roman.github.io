@@ -17,7 +17,7 @@ GFV.environment.branchRules = [
     { from: 'develop', to: 'qa', allowed: true },
     { from: 'qa', to: 'staging', allowed: true },
     { from: 'staging', to: 'production', allowed: true },
-    { from: 'production', to: 'develop', allowed: true },
+    { from: 'production', to: 'develop', allowed: true, note: 'Hotfix sync only' },
     { from: 'production', to: 'staging', allowed: false },
     { from: 'qa', to: 'develop', allowed: false }
 ];
@@ -28,15 +28,16 @@ GFV.environment.details = {
         principles: [
             'Each environment has its own long-lived branch',
             'Code promotes forward only: develop \u2192 qa \u2192 staging \u2192 production',
+            'All changes enter through develop \u2014 never commit directly to environment branches',
             'Never merge backward (except hotfix sync from production to develop)',
             'Deploying means merging into the target environment branch',
             'Every promotion is an auditable merge commit'
         ],
         concepts: [
-            { term: 'develop', definition: 'Active development branch where new features land. Starting point of the promotion pipeline.' },
-            { term: 'qa', definition: 'Quality assurance branch. Code is tested here before advancing to staging.' },
-            { term: 'staging', definition: 'Pre-production environment. Final validation before going live.' },
-            { term: 'production', definition: 'Live environment branch. Only receives merges from staging (or hotfix commits).' },
+            { term: 'develop', definition: 'Active development branch where new features land. Starting point of the promotion pipeline. All fixes and changes must be committed here first.' },
+            { term: 'qa', definition: 'Quality assurance branch. Receives merges from develop only \u2014 never direct commits. If a QA issue is found, the fix goes through develop and is re-promoted.' },
+            { term: 'staging', definition: 'Pre-production environment. Receives merges from qa only \u2014 never direct commits. Config changes must flow from develop through the pipeline.' },
+            { term: 'production', definition: 'Live environment branch. Only receives merges from staging (or hotfix commits in emergencies).' },
             { term: 'Promotion', definition: 'Forward merge from one environment branch to the next. The mechanism by which code advances toward production.' }
         ],
         tradeoffs: {
@@ -122,17 +123,15 @@ GFV.environment.promote = {
     },
     steps: function() {
         return [
-            { op: 'commit', branch: 'develop', label: 'Feature A', description: 'New user notifications feature committed to develop — ready to begin the promotion pipeline', logType: 'COMMIT' },
-            { op: 'commit', branch: 'develop', label: 'Feature B', description: 'Database query optimizer committed to develop — two features batched for downstream promotion', logType: 'COMMIT' },
-            { op: 'merge', fromBranch: 'develop', toBranch: 'qa', label: 'Promote', description: 'Promote develop to QA — merging 2 features into the QA branch for automated and manual testing', logType: 'MERGE' },
-            { op: 'deploy', branch: 'qa', envName: 'QA', description: 'Deploy to QA environment — running full regression suite, API contract tests, and manual exploratory testing', logType: 'DEPLOY' },
-            { op: 'commit', branch: 'qa', label: 'QA fix', description: 'Fix issue found during QA — notification emails were missing the unsubscribe link required by regulations', logType: 'COMMIT' },
-            { op: 'merge', fromBranch: 'qa', toBranch: 'staging', label: 'Promote', description: 'Promote QA to staging — all QA tests pass, moving to pre-production for final validation with production-like data', logType: 'MERGE' },
-            { op: 'deploy', branch: 'staging', envName: 'Staging', description: 'Deploy to staging environment — running load tests and verifying with production database snapshot', logType: 'DEPLOY' },
-            { op: 'commit', branch: 'staging', label: 'Config tweak', description: 'Adjust staging configuration — tune connection pool size and cache TTL for production-scale traffic', logType: 'COMMIT' },
-            { op: 'merge', fromBranch: 'staging', toBranch: 'production', label: 'Release', description: 'Promote staging to production — all environments validated, final approval received from release manager', logType: 'MERGE' },
-            { op: 'deploy', branch: 'production', envName: 'Production', description: 'Deploy to production — both features and the QA fix are now live for all end users', logType: 'DEPLOY' },
-            { op: 'tag', branch: 'production', tagName: 'v2.0', description: 'Tag production release v2.0 — marking the auditable deployment point for compliance records', logType: 'TAG' }
+            { op: 'commit', branch: 'develop', label: 'Feature A', description: 'New user notifications feature committed to develop \u2014 ready to begin the promotion pipeline', logType: 'COMMIT' },
+            { op: 'commit', branch: 'develop', label: 'Feature B', description: 'Database query optimizer committed to develop \u2014 two features batched for downstream promotion', logType: 'COMMIT' },
+            { op: 'merge', fromBranch: 'develop', toBranch: 'qa', label: 'Promote', description: 'Promote develop to QA \u2014 merging 2 features into the QA branch for automated and manual testing', logType: 'MERGE' },
+            { op: 'deploy', branch: 'qa', envName: 'QA', description: 'Deploy to QA environment \u2014 running full regression suite, API contract tests, and manual exploratory testing', logType: 'DEPLOY' },
+            { op: 'merge', fromBranch: 'qa', toBranch: 'staging', label: 'Promote', description: 'Promote QA to staging \u2014 all QA tests pass, moving to pre-production for final validation with production-like data', logType: 'MERGE' },
+            { op: 'deploy', branch: 'staging', envName: 'Staging', description: 'Deploy to staging environment \u2014 running load tests and verifying with production database snapshot', logType: 'DEPLOY' },
+            { op: 'merge', fromBranch: 'staging', toBranch: 'production', label: 'Release', description: 'Promote staging to production \u2014 all environments validated, final approval received from release manager', logType: 'MERGE' },
+            { op: 'tag', branch: 'production', tagName: 'v2.0', description: 'Tag production release v2.0 \u2014 marking the auditable deployment point before going live', logType: 'TAG' },
+            { op: 'deploy', branch: 'production', envName: 'Production', description: 'Deploy tagged v2.0 to production \u2014 both features are now live for all end users', logType: 'DEPLOY' }
         ];
     },
     stepOptions: function() {
@@ -154,8 +153,8 @@ GFV.environment.hotfix = {
             { op: 'commit', branch: 'production', label: 'v2.0', description: 'Production is running v2.0 — stable release serving live customer traffic', logType: 'COMMIT' },
             { op: 'commit', branch: 'develop', label: 'WIP', description: 'Normal development continues on develop — team is working on v2.1 features', logType: 'COMMIT' },
             { op: 'commit', branch: 'production', label: 'Emergency fix', description: 'EMERGENCY: Apply fix directly on production — critical data corruption bug causing incorrect user balances', logType: 'COMMIT' },
-            { op: 'deploy', branch: 'production', envName: 'Production', description: 'Deploy hotfix to production immediately — bypassing QA and staging due to severity, balance corruption stopped', logType: 'DEPLOY' },
             { op: 'tag', branch: 'production', tagName: 'v2.0.1', description: 'Tag hotfix release v2.0.1 — documenting the emergency patch for audit trail and rollback reference', logType: 'TAG' },
+            { op: 'deploy', branch: 'production', envName: 'Production', description: 'Deploy tagged v2.0.1 to production — bypassing QA and staging due to severity, balance corruption stopped', logType: 'DEPLOY' },
             { op: 'merge', fromBranch: 'production', toBranch: 'develop', label: 'Sync fix', description: 'Sync hotfix back to develop (backward merge) — ensuring the fix is not lost when the next promotion happens', logType: 'MERGE' },
             { op: 'commit', branch: 'develop', label: 'Continue', description: 'Development continues on develop with the hotfix included — next promotion will carry the fix forward naturally', logType: 'COMMIT' }
         ];
@@ -172,7 +171,7 @@ GFV.environment.hotfix = {
 /* ===== Rollback Mode ===== */
 GFV.environment.rollback = {
     init: function() {
-        GFV.initGraph(['staging', 'production']);
+        GFV.initGraph(['develop', 'staging', 'production']);
     },
     steps: function() {
         return [
@@ -181,7 +180,8 @@ GFV.environment.rollback = {
             { op: 'deploy', branch: 'production', envName: 'Production', description: 'Deploy to production — within minutes, monitoring alerts fire as memory usage climbs steadily', logType: 'DEPLOY' },
             { op: 'commit', branch: 'production', label: 'Revert', description: 'Revert the bad merge on production — git revert creates a new commit that undoes the problematic changes while preserving history', logType: 'COMMIT' },
             { op: 'deploy', branch: 'production', envName: 'Rollback', description: 'Redeploy production with reverted state — service restored to the previous known-good configuration', logType: 'DEPLOY' },
-            { op: 'tag', branch: 'production', tagName: 'v2.0.2', description: 'Tag rollback release v2.0.2 — marking the recovery point for incident report and audit trail', logType: 'TAG' }
+            { op: 'tag', branch: 'production', tagName: 'v2.0.2', description: 'Tag rollback release v2.0.2 — marking the recovery point for incident report and audit trail', logType: 'TAG' },
+            { op: 'merge', fromBranch: 'production', toBranch: 'develop', label: 'Sync revert', description: 'Sync revert commit back to develop — prevents the reverted bug from returning on the next promotion cycle', logType: 'MERGE' }
         ];
     },
     stepOptions: function() {

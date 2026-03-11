@@ -7,7 +7,7 @@ GFV.github = {};
 
 GFV.github.modes = [
     { id: 'feature', label: 'Feature + PR', desc: 'Branch from main, open a Pull Request, merge and deploy — the standard GitHub Flow cycle' },
-    { id: 'deploy', label: 'Deploy from Main', desc: 'Commit directly to main, promote through staging to production, and tag the release' },
+    { id: 'deploy', label: 'Deploy from Main', desc: 'Merge to main triggers CI/CD pipeline — tests run, build completes, auto-deploy to production' },
     { id: 'hotfix', label: 'Quick Fix', desc: 'Create a short-lived fix branch, patch the issue via PR, merge and deploy immediately' }
 ];
 
@@ -50,30 +50,30 @@ GFV.github.details = {
     },
     deploy: {
         principles: [
-            'Anything in <code>main</code> is always deployable',
-            'Branch off <code>main</code> for every piece of work',
-            'Open a Pull Request for code review before merging',
-            'Deploy immediately after merge to <code>main</code>'
+            'Every merge to <code>main</code> triggers an automatic deploy to production',
+            'No staging branch gate — CI/CD pipeline is the quality gate',
+            'Tests, builds, and deploys are automated pipeline steps, not manual processes',
+            'Tag releases after successful production deployment'
         ],
         concepts: [
             { term: 'main', definition: 'Single long-lived branch, always in a deployable state' },
-            { term: 'Feature branches', definition: 'Short-lived branches created from main for each task' },
-            { term: 'Pull Request', definition: 'Code review gate before merging into main' },
-            { term: 'Continuous Deployment', definition: 'Every merge to main triggers an automatic deploy' }
+            { term: 'CI/CD Pipeline', definition: 'Automated gate that runs tests, builds, and deploys on every merge to main' },
+            { term: 'Auto-deploy', definition: 'Production deployment triggered automatically — no manual promotion or staging branch' },
+            { term: 'Release tagging', definition: 'Git tags mark specific deployments as versioned releases' }
         ],
         tradeoffs: {
             pros: [
-                'Simple and easy to understand',
-                'Fast iteration with minimal overhead',
-                'CI/CD friendly — deploy on every merge',
-                'Encourages small, frequent pull requests'
+                'Zero manual deployment steps — fully automated pipeline',
+                'Fast feedback loop — code reaches production within minutes',
+                'No environment branch drift — main is always production',
+                'Simple rollback via revert commit + automatic redeploy'
             ],
             cons: [
-                'No dedicated staging or release branches',
-                'Risky for complex releases requiring coordination',
-                'Rollback relies on reverting commits or re-deploying'
+                'Requires robust test suite — no staging safety net',
+                'Pipeline failures block all deployments',
+                'Feature flags needed for partially-complete work'
             ],
-            whenToUse: 'Small teams, web applications, SaaS products, and projects practicing continuous deployment where main should always be production-ready.'
+            whenToUse: 'Teams with strong CI/CD culture, comprehensive automated tests, and applications where every merge should go live immediately without manual gates.'
         }
     },
     hotfix: {
@@ -145,19 +145,23 @@ GFV.github.feature = {
 /* ===== Deploy from Main Mode ===== */
 GFV.github.deploy = {
     label: 'Deploy from Main',
-    description: 'Commit to main, deploy to staging, run tests, deploy to production, tag release.',
+    description: 'Feature merged to main, CI/CD runs tests and builds, auto-deploy to production, tag release.',
 
     init: function() {
-        GFV.initGraph(['main']);
+        this._b = 'feature/' + GFV.jira();
+        GFV.initGraph(['main', this._b]);
     },
 
     steps: function() {
+        var b = this._b;
         return [
-            { op: 'commit', branch: 'main', label: 'feat-1', description: 'New search feature merged to main via PR — ready for deployment pipeline', logType: 'COMMIT' },
-            { op: 'deploy', branch: 'main', envName: 'staging', description: 'Deploy main to staging environment for smoke testing and integration validation', logType: 'DEPLOY' },
-            { op: 'commit', branch: 'main', label: 'tests', description: 'Integration tests pass on staging — all 247 tests green, no regressions detected', logType: 'COMMIT' },
-            { op: 'deploy', branch: 'main', envName: 'production', description: 'Promote to production — staging validated, deploying to live environment for all users', logType: 'DEPLOY' },
-            { op: 'tag', branch: 'main', tagName: 'v1.0.0', description: 'Tag release v1.0.0 — marking this deployment as an official versioned release', logType: 'TAG' }
+            { op: 'branch', branch: b, fromBranch: 'main', label: 'branch', description: 'Create ' + b + ' from main — starting work on new search feature', logType: 'BRANCH' },
+            { op: 'commit', branch: b, label: 'search-1', description: 'Implement search API endpoint with Elasticsearch integration and pagination support', logType: 'COMMIT' },
+            { op: 'pr', fromBranch: b, toBranch: 'main', label: 'PR #3', description: 'Open Pull Request: ' + b + ' → main — CI runs automated tests on the PR branch', logType: 'PR' },
+            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'merge', description: 'PR approved and merged — CI/CD pipeline triggers automatically on main', logType: 'MERGE' },
+            { op: 'deploy', branch: 'main', envName: 'production', description: 'Auto-deploy main to production — every merge to main goes live immediately, no staging gate', logType: 'DEPLOY' },
+            { op: 'tag', branch: 'main', tagName: 'v1.0.0', description: 'Tag release v1.0.0 — marking the deployment as a versioned release', logType: 'TAG' },
+            { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' — feature deployed, branch no longer needed', logType: 'BRANCH' }
         ];
     },
 
