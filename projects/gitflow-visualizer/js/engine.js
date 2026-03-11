@@ -332,6 +332,40 @@ GFV.addZoneSeparator = function(yPos, label) {
     }
 };
 
+/* ===== Add Zone Label (right-aligned description for a branch row) ===== */
+GFV.addZoneLabel = function(yPos, label) {
+    var svg = document.getElementById('gfv-canvas');
+    if (!svg) return;
+    var g = GFV.graph;
+
+    var badgeW = label.length * 7 + 16;
+    var badgeH = 20;
+    var bx = g.svgWidth - 14 - badgeW;
+    var labelY = yPos - 20;
+    var by = labelY - badgeH / 2;
+
+    var rect = GFV._createSVG('rect', {
+        x: bx, y: by,
+        width: badgeW, height: badgeH,
+        rx: 4, ry: 4,
+        fill: 'rgba(255,255,255,0.08)',
+        stroke: 'rgba(255,255,255,0.2)',
+        'stroke-width': 1
+    });
+    svg.appendChild(rect);
+
+    var text = GFV._createSVG('text', {
+        x: bx + badgeW / 2, y: labelY,
+        'text-anchor': 'middle', 'dominant-baseline': 'central',
+        fill: 'rgba(255,255,255,0.6)',
+        'font-size': '11px',
+        'font-weight': '600',
+        'letter-spacing': '0.5px'
+    });
+    text.textContent = label;
+    svg.appendChild(text);
+};
+
 /* ===== Add Commit ===== */
 GFV.addCommit = function(branch, label) {
     var svg = document.getElementById('gfv-canvas');
@@ -638,6 +672,173 @@ GFV.addRebase = function(fromBranch, toBranch, count) {
     svg.appendChild(group);
 };
 
+/* ===== Add Fork (visual fork from upstream to origin) ===== */
+GFV.addFork = function(fromBranch, toBranch, label) {
+    var svg = document.getElementById('gfv-canvas');
+    var g = GFV.graph;
+    var from = g.branches[fromBranch];
+    var to = g.branches[toBranch];
+    if (!svg || !from || !to) return;
+
+    var x = g.commitX;
+    g.commitX += g.commitSpacing;
+    from.headX = x;
+    to.headX = x;
+
+    var group = GFV._createSVG('g', { class: 'gfv-fade-in' });
+
+    var path = GFV._createSVG('path', {
+        d: 'M ' + x + ' ' + from.y + ' L ' + x + ' ' + to.y,
+        stroke: to.color,
+        'stroke-width': 2,
+        'stroke-dasharray': '6 4',
+        fill: 'none',
+        opacity: 0.7
+    });
+    group.appendChild(path);
+
+    var arrow = GFV._createSVG('polygon', {
+        points: (x - 5) + ',' + (to.y - 12) + ' ' + x + ',' + (to.y - 4) + ' ' + (x + 5) + ',' + (to.y - 12),
+        fill: to.color,
+        opacity: 0.8
+    });
+    group.appendChild(arrow);
+
+    var midY = (from.y + to.y) / 2;
+    var badgeText = '\uD83C\uDF74 ' + (label || 'Fork');
+    var badgeW = badgeText.length * 7 + 14;
+    var rect = GFV._createSVG('rect', {
+        x: x - badgeW / 2 - 2, y: midY - 10,
+        width: badgeW + 4, height: 20,
+        rx: 4, ry: 4,
+        fill: '#89dceb', opacity: 0.9
+    });
+    group.appendChild(rect);
+
+    var text = GFV._createSVG('text', {
+        x: x, y: midY,
+        'text-anchor': 'middle', 'dominant-baseline': 'central',
+        fill: '#0d1117', 'font-size': '11px', 'font-weight': 'bold'
+    });
+    text.textContent = badgeText;
+    group.appendChild(text);
+
+    svg.appendChild(group);
+    GFV.state.branches++;
+    GFV.updateStats();
+};
+
+/* ===== Add Push (dashed arrow from branch to remote, with ⬆ icon) ===== */
+GFV.addPush = function(branch, toBranch, label) {
+    var svg = document.getElementById('gfv-canvas');
+    var g = GFV.graph;
+    var b = g.branches[branch];
+    if (!svg || !b) return;
+
+    var x = g.commitX;
+    g.commitX += g.commitSpacing;
+    b.headX = x;
+
+    var y = b.y;
+    var group = GFV._createSVG('g', { class: 'gfv-fade-in' });
+
+    var to = toBranch ? g.branches[toBranch] : null;
+    if (to) {
+        var toY = to.y;
+        to.headX = x;
+
+        var path = GFV._createSVG('path', {
+            d: 'M ' + x + ' ' + y + ' L ' + x + ' ' + toY,
+            stroke: b.color,
+            'stroke-width': 2,
+            'stroke-dasharray': '5 4',
+            fill: 'none',
+            opacity: 0.6
+        });
+        group.appendChild(path);
+
+        var arrowDir = toY < y ? -1 : 1;
+        var arrowY = toY + arrowDir * 4;
+        var arrow = GFV._createSVG('polygon', {
+            points: (x - 5) + ',' + (arrowY - arrowDir * 8) + ' ' +
+                    x + ',' + arrowY + ' ' +
+                    (x + 5) + ',' + (arrowY - arrowDir * 8),
+            fill: b.color,
+            opacity: 0.7
+        });
+        group.appendChild(arrow);
+
+        var midY = (y + toY) / 2;
+        var icon = GFV._createSVG('text', {
+            x: x + 16, y: midY + 4,
+            'text-anchor': 'middle', 'font-size': '14px'
+        });
+        icon.textContent = '\u2B06';
+        group.appendChild(icon);
+
+        if (label) {
+            var text = GFV._createSVG('text', {
+                x: x + 16, y: midY - 10,
+                class: 'gfv-commit-label',
+                'text-anchor': 'middle'
+            });
+            text.textContent = label;
+            group.appendChild(text);
+        }
+    } else {
+        var iconOnly = GFV._createSVG('text', {
+            x: x, y: y - 4,
+            'text-anchor': 'middle', 'font-size': '16px'
+        });
+        iconOnly.textContent = '\u2B06';
+        group.appendChild(iconOnly);
+
+        if (label) {
+            var textOnly = GFV._createSVG('text', {
+                x: x, y: y - 20,
+                class: 'gfv-commit-label',
+                'text-anchor': 'middle'
+            });
+            textOnly.textContent = label;
+            group.appendChild(textOnly);
+        }
+    }
+
+    svg.appendChild(group);
+};
+
+/* ===== Add Annotation (small badge near a branch's head) ===== */
+GFV.addAnnotation = function(branch, text, atX, position) {
+    var svg = document.getElementById('gfv-canvas');
+    var g = GFV.graph;
+    var b = g.branches[branch];
+    if (!svg || !b) return;
+
+    var x = atX || b.headX;
+    var y = b.y;
+    var offsetY = (position === 'above') ? -34 : 34;
+    var group = GFV._createSVG('g', { class: 'gfv-fade-in' });
+
+    var badgeW = text.length * 6.5 + 12;
+    var rect = GFV._createSVG('rect', {
+        x: x - badgeW / 2, y: y + offsetY,
+        width: badgeW, height: 18,
+        rx: 9, ry: 9,
+        fill: 'rgba(249,226,175,0.9)'
+    });
+    group.appendChild(rect);
+
+    var label = GFV._createSVG('text', {
+        x: x, y: y + offsetY + 9,
+        'text-anchor': 'middle', 'dominant-baseline': 'central',
+        fill: '#0d1117', 'font-size': '10px', 'font-weight': 'bold'
+    });
+    label.textContent = text;
+    group.appendChild(label);
+
+    svg.appendChild(group);
+};
+
 /* ===== Add Deploy ===== */
 GFV.addDeploy = function(branch, envName) {
     var svg = document.getElementById('gfv-canvas');
@@ -834,6 +1035,12 @@ GFV._executeStep = function(step) {
         case 'rebase':
             GFV.addRebase(step.fromBranch, step.toBranch, step.count);
             break;
+        case 'fork':
+            GFV.addFork(step.fromBranch, step.toBranch, step.label);
+            break;
+        case 'push':
+            GFV.addPush(step.branch, step.toBranch, step.label);
+            break;
         case 'delete-branch':
             GFV.deleteBranch(step.branch);
             break;
@@ -858,6 +1065,10 @@ GFV._executeStep = function(step) {
             var targetBranch;
             if (step.op === 'branch') {
                 targetBranch = step.branch;
+            } else if (step.op === 'fork') {
+                targetBranch = step.toBranch || step.branch;
+            } else if (step.op === 'push') {
+                targetBranch = step.branch;
             } else if (step.op === 'pr') {
                 targetBranch = step.fromBranch || step.branch;
             } else if (step.op === 'merge' || step.op === 'cherry-pick') {
@@ -869,6 +1080,16 @@ GFV._executeStep = function(step) {
             if (br) {
                 GFV._addStepNumber(svg, br.headX, br.y, step._stepNum, step.description || '');
             }
+        }
+    }
+
+    /* Render annotation badge if present */
+    if (step.annotation) {
+        var annotBranch = step.annotationBranch || step.toBranch || step.branch;
+        var sourceBranch = step.branch || step.fromBranch;
+        var atX = (annotBranch !== sourceBranch && sourceBranch) ? g.branches[sourceBranch].headX : undefined;
+        if (annotBranch) {
+            GFV.addAnnotation(annotBranch, step.annotation, atX, step.annotationPosition);
         }
     }
 };

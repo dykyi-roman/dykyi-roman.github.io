@@ -110,24 +110,30 @@ GFV.forking.contribute = {
 
     init: function() {
         this._b = 'feature/' + GFV.jira();
-        GFV.initGraph(['upstream/main', 'origin/main', this._b], { height: 260 });
+        GFV.initGraph(['upstream/main', 'origin/main', this._b], { height: 280 });
         var g = GFV.graph;
         var upstreamY = g.branches['upstream/main'].y;
         var originY = g.branches['origin/main'].y;
+        var featureY = g.branches[this._b].y;
         var separatorY = Math.round((upstreamY + originY) / 2);
         GFV.addZoneSeparator(separatorY, 'Fork boundary');
+        GFV.addZoneLabel(upstreamY, 'GitHub (upstream)');
+        GFV.addZoneLabel(originY, 'GitHub (fork)');
+        GFV.addZoneLabel(featureY, 'Local');
     },
 
     steps: function() {
         var b = this._b;
         return [
             { op: 'commit', branch: 'upstream/main', label: 'v1.0', description: 'Upstream repository has existing commits — this is the original project owned by maintainers', logType: 'COMMIT' },
+            { op: 'fork', fromBranch: 'upstream/main', toBranch: 'origin/main', label: 'Fork', description: 'Fork the upstream repo on GitHub — creating a personal copy under the contributor\'s account', logType: 'BRANCH' },
             { op: 'commit', branch: 'origin/main', label: 'sync', description: 'Sync personal fork with upstream (git fetch upstream && git merge) — ensuring fork is up to date before starting work', logType: 'COMMIT' },
             { op: 'branch', branch: b, fromBranch: 'origin/main', label: 'branch', description: 'Create ' + b + ' from origin/main — working in the contributor\'s own fork, not the upstream repo', logType: 'BRANCH' },
-            { op: 'commit', branch: b, label: 'fix-1', description: 'First commit: add input validation for the search query parameter — preventing SQL injection', logType: 'COMMIT' },
-            { op: 'commit', branch: b, label: 'fix-2', description: 'Second commit: add unit tests for the new validation logic and update API documentation', logType: 'COMMIT' },
+            { op: 'commit', branch: b, label: 'impl-1', description: 'First commit: add input validation for the search query parameter — preventing SQL injection', logType: 'COMMIT' },
+            { op: 'commit', branch: b, label: 'impl-2', description: 'Second commit: add unit tests for the new validation logic and update API documentation', logType: 'COMMIT' },
+            { op: 'push', branch: b, toBranch: 'origin/main', label: 'push', description: 'Push feature branch to origin (git push origin ' + b + ') — making commits available for PR', logType: 'COMMIT' },
             { op: 'pr', fromBranch: b, toBranch: 'upstream/main', label: 'PR #1', description: 'Open cross-repo PR: ' + b + ' → upstream/main — proposing the contribution for maintainer review', logType: 'PR' },
-            { op: 'merge', fromBranch: b, toBranch: 'upstream/main', label: 'merge', description: 'Maintainer reviews, approves, and merges the PR into upstream/main — contribution accepted', logType: 'MERGE' },
+            { op: 'merge', fromBranch: b, toBranch: 'upstream/main', label: 'merge', annotation: '\uD83D\uDD11 Maintainer', description: 'Maintainer reviews, approves, and merges the PR into upstream/main — contribution accepted', logType: 'MERGE' },
             { op: 'merge', fromBranch: 'upstream/main', toBranch: 'origin/main', label: 'sync', xPad: 30, description: 'Sync origin/main with upstream (git pull upstream main) — pulling back the merged contribution plus any other new commits', logType: 'MERGE' },
             { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' branch from fork — contribution merged, keeping the fork clean for the next task', logType: 'BRANCH' }
         ];
@@ -162,11 +168,10 @@ GFV.forking.sync = {
 
     steps: function() {
         return [
-            { op: 'commit', branch: 'upstream/main', label: 'feat-A', description: 'New feature (dark mode) merged to upstream by another contributor — upstream advances', logType: 'COMMIT' },
-            { op: 'commit', branch: 'upstream/main', label: 'feat-B', description: 'Bug fix merged to upstream — the project is active, upstream keeps moving forward', logType: 'COMMIT' },
-            { op: 'commit', branch: 'origin/main', label: 'old', description: 'Origin/main is now 2 commits behind upstream — fork has drifted and needs synchronization', logType: 'COMMIT' },
-            { op: 'merge', fromBranch: 'upstream/main', toBranch: 'origin/main', label: 'sync', description: 'Fetch upstream changes and merge into fork (git fetch upstream && git merge upstream/main) — resolving any drift', logType: 'MERGE' },
-            { op: 'commit', branch: 'origin/main', label: 'up-to-date', description: 'Origin/main is now in sync with upstream — safe to create new feature branches from this point', logType: 'COMMIT' }
+            { op: 'commit', branch: 'upstream/main', label: 'feat-A', description: 'New feature merged to upstream by another contributor — upstream advances', logType: 'COMMIT' },
+            { op: 'commit', branch: 'upstream/main', label: 'feat-B', description: 'Bug fix merged to upstream — fork is now 2 commits behind', logType: 'COMMIT', annotation: '2 commits behind', annotationBranch: 'origin/main', annotationPosition: 'above' },
+            { op: 'merge', fromBranch: 'upstream/main', toBranch: 'origin/main', label: 'sync', description: 'Fetch upstream and merge into fork (git fetch upstream && git merge upstream/main) — or use GitHub "Sync fork" button', logType: 'MERGE', xPad: 30 },
+            { op: 'commit', branch: 'origin/main', label: 'up-to-date', description: 'Origin/main is now in sync with upstream — safe to create new feature branches', logType: 'COMMIT' }
         ];
     },
 
