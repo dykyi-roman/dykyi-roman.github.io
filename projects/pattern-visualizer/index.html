@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Pattern Visualizer - Dykyi Roman</title>
+    <meta name="description" content="Interactive visualizer for GoF design patterns: Creational, Structural, and Behavioral patterns with animated UML diagrams and runtime flows.">
+    <meta name="author" content="Dykyi Roman">
+    <meta property="og:title" content="Design Pattern Visualizer - Dykyi Roman">
+    <meta property="og:description" content="Interactive visualizer for GoF design patterns with animated UML class diagrams and object creation flows.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dykyi-roman.github.io/projects/pattern-visualizer/">
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/projects/pattern-visualizer/">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/navigation.css">
+    <link rel="stylesheet" href="../../resources/article-style.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <div id="header-container"></div>
+    <script>
+        fetch('../../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">&rsaquo;</span>
+        <a href="/projects.html">Projects</a>
+        <span class="breadcrumb-separator">&rsaquo;</span>
+        <span class="breadcrumb-current">Design Pattern Visualizer</span>
+    </nav>
+
+    <div class="article-container pv-page">
+        <div class="article-header">
+            <h1 class="article-title">Design Pattern Visualizer</h1>
+        </div>
+
+        <!-- Category Bar -->
+        <div class="pv-category-bar" role="tablist" aria-label="Pattern category">
+            <button class="pv-category active" data-category="creational" role="tab" aria-selected="true">Creational</button>
+            <button class="pv-category disabled" data-category="structural" role="tab" aria-selected="false" disabled title="Coming soon">Structural</button>
+            <button class="pv-category disabled" data-category="behavioral" role="tab" aria-selected="false" disabled title="Coming soon">Behavioral</button>
+        </div>
+
+        <!-- Pattern Navigation (Level 1) -->
+        <div class="pv-nav" id="pv-nav" role="tablist" aria-label="Select design pattern">
+            <button class="pv-tab active" data-pattern="simple-factory" role="tab" aria-selected="true">Simple Factory</button>
+            <button class="pv-tab" data-pattern="static-factory" role="tab" aria-selected="false">Static Factory</button>
+            <button class="pv-tab" data-pattern="factory-method" role="tab" aria-selected="false">Factory Method</button>
+            <button class="pv-tab" data-pattern="abstract-factory" role="tab" aria-selected="false">Abstract Factory</button>
+            <button class="pv-tab" data-pattern="builder" role="tab" aria-selected="false">Builder</button>
+            <button class="pv-tab" data-pattern="prototype" role="tab" aria-selected="false">Prototype</button>
+            <button class="pv-tab" data-pattern="singleton" role="tab" aria-selected="false">Singleton</button>
+            <button class="pv-tab" data-pattern="pool" role="tab" aria-selected="false">Object Pool</button>
+        </div>
+
+        <!-- Mode Tabs (Level 2) -->
+        <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select mode"></div>
+
+        <!-- Global Controls -->
+        <div class="global-controls-placeholder" id="controls-placeholder"></div>
+        <div class="global-controls" id="global-controls">
+            <div class="controls-left">
+                <button class="ctrl-btn run-btn" id="btn-run" title="Run pattern animation">&#x25B6; Run</button>
+                <button class="ctrl-btn pause-btn" id="btn-pause" title="Pause / Resume animation" disabled>&#x23F8; Pause</button>
+                <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state">&#x21BA; Reset</button>
+                <button class="step-btn" id="btn-step-mode" title="Toggle step-by-step mode">&#x23ED; Step Mode</button>
+                <button class="step-btn" id="btn-step-back" title="Step back" style="display:none" disabled>&#x23EE; Back</button>
+                <button class="step-btn" id="btn-step-fwd" title="Step forward" style="display:none" disabled>&#x23ED; Next</button>
+                <label class="speed-label" for="speed-range">Speed:</label>
+                <input type="range" class="speed-range" id="speed-range" min="100" max="1200" value="600" step="50">
+                <span class="speed-value" id="speed-value">Normal</span>
+            </div>
+            <div class="controls-right">
+                <div class="stat-item"><span class="stat-label">Steps</span><span class="stat-value" id="stat-steps">0</span></div>
+                <div class="stat-item"><span class="stat-label">Objects</span><span class="stat-value" id="stat-objects">0</span></div>
+            </div>
+        </div>
+
+        <!-- Pattern Description -->
+        <div class="pattern-desc" id="pattern-desc"></div>
+
+        <!-- Collapsible Principles & Key Concepts -->
+        <div class="pattern-details" id="pattern-details" style="display:none">
+            <button class="pattern-details-toggle" id="pattern-details-toggle" aria-expanded="false">
+                <span class="pattern-details-toggle-icon">&#x25B6;</span>
+                <span>Principles &amp; Key Concepts</span>
+            </button>
+            <div class="pattern-details-body" id="pattern-details-body"></div>
+        </div>
+
+        <!-- Main Visualization Area -->
+        <div class="viz-area" id="viz-area">
+            <div id="pv-canvas"></div>
+            <svg class="pv-svg-layer" id="pv-svg-layer"></svg>
+        </div>
+
+        <!-- Trade-offs Panel -->
+        <div class="pattern-tradeoffs" id="tradeoffs-panel" style="display:none">
+            <button class="pattern-tradeoffs-toggle" id="tradeoffs-toggle" aria-expanded="false">
+                <span class="pattern-tradeoffs-toggle-icon">&#x25B6;</span>
+                <span>Trade-offs: Pros, Cons &amp; When to Use</span>
+            </button>
+            <div class="pattern-tradeoffs-body" id="tradeoffs-body"></div>
+        </div>
+
+        <!-- UML Legend -->
+        <div class="dep-rules-panel" id="dep-rules-panel">
+            <div class="dep-rules-header">Pattern Participants</div>
+            <div class="dep-rules-body" id="dep-rules-body"></div>
+        </div>
+
+        <!-- Event Log -->
+        <div class="event-log-container">
+            <div class="event-log-header">
+                <span>Event Log</span>
+                <div>
+                    <button class="log-clear-btn" id="btn-copy-log">Copy</button>
+                    <button class="log-clear-btn" id="btn-clear-log">Clear</button>
+                </div>
+            </div>
+            <div class="event-log" id="event-log"></div>
+        </div>
+        <footer class="site-footer">
+            <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+            <div class="footer-links">
+                <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+                <a href="mailto:mr.dukuy@gmail.com">Email</a>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script>document.querySelector('.current-year').textContent = new Date().getFullYear();</script>
+<script src="../../resources/back-to-top.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/simple-factory.js"></script>
+<script src="js/static-factory.js"></script>
+<script src="js/factory-method.js"></script>
+<script src="js/abstract-factory.js"></script>
+<script src="js/builder.js"></script>
+<script src="js/prototype.js"></script>
+<script src="js/singleton.js"></script>
+<script src="js/pool.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
