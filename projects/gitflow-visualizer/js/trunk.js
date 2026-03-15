@@ -109,18 +109,18 @@ GFV.trunk.direct.init = function() {
 
 GFV.trunk.direct.steps = function() {
     return [
-        { op: 'commit', branch: 'main', label: 'Add feature A', logType: 'COMMIT', description: 'Developer commits feature A (search autocomplete) directly to trunk — no branch, no PR, small atomic change' },
-        { op: 'commit', branch: 'main', label: 'Fix bug', logType: 'COMMIT', description: 'Bug fix committed directly to trunk — corrected off-by-one error in pagination, verified by existing tests' },
-        { op: 'deploy', branch: 'main', envName: 'production', logType: 'DEPLOY', description: 'CI/CD pipeline automatically deploys trunk to production — every green commit goes live immediately' },
-        { op: 'commit', branch: 'main', label: 'Add feature B', logType: 'COMMIT', description: 'Another developer commits feature B (email templates) directly to trunk — independent small change' },
-        { op: 'deploy', branch: 'main', envName: 'production', logType: 'DEPLOY', description: 'Continuous deployment triggers again — trunk deployed to production, both features now live' }
+        { op: 'commit', branch: 'main', label: 'Add feature A', logType: 'COMMIT', description: 'Developer commits feature A (search autocomplete) directly to trunk — no branch, no PR, small atomic change', descriptionKey: 'gfv.trunk.direct.0' },
+        { op: 'commit', branch: 'main', label: 'Fix bug', logType: 'COMMIT', description: 'Bug fix committed directly to trunk — corrected off-by-one error in pagination, verified by existing tests', descriptionKey: 'gfv.trunk.direct.1' },
+        { op: 'deploy', branch: 'main', envName: 'production', logType: 'DEPLOY', description: 'CI/CD pipeline automatically deploys trunk to production — every green commit goes live immediately', descriptionKey: 'gfv.trunk.direct.2' },
+        { op: 'commit', branch: 'main', label: 'Add feature B', logType: 'COMMIT', description: 'Another developer commits feature B (email templates) directly to trunk — independent small change', descriptionKey: 'gfv.trunk.direct.3' },
+        { op: 'deploy', branch: 'main', envName: 'production', logType: 'DEPLOY', description: 'Continuous deployment triggers again — trunk deployed to production, both features now live', descriptionKey: 'gfv.trunk.direct.4' }
     ];
 };
 
 GFV.trunk.direct.run = function() {
     GFV.trunk.direct.init();
     GFV.animateFlow(GFV.trunk.direct.steps(), {
-        requestLabel: 'Trunk-Based: Direct to Trunk',
+        requestLabel: GFV._t('gfv.request.trunk.direct', null, 'Trunk-Based: Direct to Trunk'),
         _initFn: GFV.trunk.direct.init
     });
 };
@@ -137,18 +137,18 @@ GFV.trunk['short-lived'].init = function() {
 GFV.trunk['short-lived'].steps = function() {
     var b = GFV.trunk['short-lived']._b;
     return [
-        { op: 'branch', fromBranch: 'main', branch: b, logType: 'BRANCH', label: 'Branch ' + b, description: 'Create short-lived branch ' + b + ' from main — expected to live only a few hours, not days' },
-        { op: 'commit', branch: b, label: 'Quick change', logType: 'COMMIT', description: 'Small, focused change — rename internal API method for clarity, update 3 call sites and their tests' },
-        { op: 'merge', fromBranch: b, toBranch: 'main', label: 'Merge to main', logType: 'MERGE', description: 'Merge ' + b + ' back to trunk within hours — branch lifetime kept under 1 day as per trunk-based rules' },
-        { op: 'delete-branch', branch: b, logType: 'BRANCH', label: 'Delete ' + b, description: 'Delete short-lived branch immediately after merge — no long-lived branches allowed in trunk-based development' },
-        { op: 'deploy', branch: 'main', envName: 'production', logType: 'DEPLOY', description: 'Trunk deployed to production — change is live, continuous deployment handles the rest automatically' }
+        { op: 'branch', fromBranch: 'main', branch: b, logType: 'BRANCH', label: 'Branch ' + b, description: 'Create short-lived branch ' + b + ' from main — expected to live only a few hours, not days', descriptionKey: 'gfv.trunk.short-lived.0' },
+        { op: 'commit', branch: b, label: 'Quick change', logType: 'COMMIT', description: 'Small, focused change — rename internal API method for clarity, update 3 call sites and their tests', descriptionKey: 'gfv.trunk.short-lived.1' },
+        { op: 'merge', fromBranch: b, toBranch: 'main', label: 'Merge to main', logType: 'MERGE', description: 'Merge ' + b + ' back to trunk within hours — branch lifetime kept under 1 day as per trunk-based rules', descriptionKey: 'gfv.trunk.short-lived.2' },
+        { op: 'delete-branch', branch: b, logType: 'BRANCH', label: 'Delete ' + b, description: 'Delete short-lived branch immediately after merge — no long-lived branches allowed in trunk-based development', descriptionKey: 'gfv.trunk.short-lived.3' },
+        { op: 'deploy', branch: 'main', envName: 'production', logType: 'DEPLOY', description: 'Trunk deployed to production — change is live, continuous deployment handles the rest automatically', descriptionKey: 'gfv.trunk.short-lived.4' }
     ];
 };
 
 GFV.trunk['short-lived'].run = function() {
     GFV.trunk['short-lived'].init();
     GFV.animateFlow(GFV.trunk['short-lived'].steps(), {
-        requestLabel: 'Trunk-Based: Short-lived Branch',
+        requestLabel: GFV._t('gfv.request.trunk.branch', null, 'Trunk-Based: Short-lived Branch'),
         _initFn: GFV.trunk['short-lived'].init
     });
 };
@@ -163,20 +163,20 @@ GFV.trunk.flags.init = function() {
 
 GFV.trunk.flags.steps = function() {
     return [
-        { op: 'commit', branch: 'main', label: 'Add flag: dark-mode', logType: 'COMMIT', description: 'Feature flag added to configuration (disabled by default)' },
-        { op: 'commit', branch: 'main', label: 'Implement behind flag', logType: 'COMMIT', description: 'Dark-mode feature code committed, hidden behind flag' },
-        { op: 'deploy', branch: 'main', envName: 'production', logType: 'DEPLOY', description: 'Code deployed — feature invisible to users (flag off)' },
-        { op: 'commit', branch: 'main', label: 'Enable flag 10%', logType: 'COMMIT', description: 'Gradual rollout — flag enabled for 10% of users' },
-        { op: 'commit', branch: 'main', label: 'Enable flag 100%', logType: 'COMMIT', description: 'Full rollout — flag enabled for all users' },
-        { op: 'commit', branch: 'main', label: 'Remove flag code', logType: 'COMMIT', description: 'Flag and conditional logic removed — feature is permanent' },
-        { op: 'deploy', branch: 'main', envName: 'production', logType: 'DEPLOY', description: 'Clean codebase deployed without feature flag overhead' }
+        { op: 'commit', branch: 'main', label: 'Add flag: dark-mode', logType: 'COMMIT', description: 'Feature flag added to configuration (disabled by default)', descriptionKey: 'gfv.trunk.flags.0' },
+        { op: 'commit', branch: 'main', label: 'Implement behind flag', logType: 'COMMIT', description: 'Dark-mode feature code committed, hidden behind flag', descriptionKey: 'gfv.trunk.flags.1' },
+        { op: 'deploy', branch: 'main', envName: 'production', logType: 'DEPLOY', description: 'Code deployed — feature invisible to users (flag off)', descriptionKey: 'gfv.trunk.flags.2' },
+        { op: 'commit', branch: 'main', label: 'Enable flag 10%', logType: 'COMMIT', description: 'Gradual rollout — flag enabled for 10% of users', descriptionKey: 'gfv.trunk.flags.3' },
+        { op: 'commit', branch: 'main', label: 'Enable flag 100%', logType: 'COMMIT', description: 'Full rollout — flag enabled for all users', descriptionKey: 'gfv.trunk.flags.4' },
+        { op: 'commit', branch: 'main', label: 'Remove flag code', logType: 'COMMIT', description: 'Flag and conditional logic removed — feature is permanent', descriptionKey: 'gfv.trunk.flags.5' },
+        { op: 'deploy', branch: 'main', envName: 'production', logType: 'DEPLOY', description: 'Clean codebase deployed without feature flag overhead', descriptionKey: 'gfv.trunk.flags.6' }
     ];
 };
 
 GFV.trunk.flags.run = function() {
     GFV.trunk.flags.init();
     GFV.animateFlow(GFV.trunk.flags.steps(), {
-        requestLabel: 'Trunk-Based: Feature Flags',
+        requestLabel: GFV._t('gfv.request.trunk.flags', null, 'Trunk-Based: Feature Flags'),
         _initFn: GFV.trunk.flags.init
     });
 };

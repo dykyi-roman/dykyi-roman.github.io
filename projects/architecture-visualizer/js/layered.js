@@ -24,25 +24,25 @@ function renderLayered(entryIcon, entryLabel) {
     canvas.innerHTML =
         '<div class="layout-vertical">' +
             '<div class="archv-layer" id="layer-presentation">' +
-                '<div class="archv-layer-name">Presentation Layer</div>' +
+                '<div class="archv-layer-name">' + I18N.t('arch.layer.presentation', null, 'Presentation Layer') + '</div>' +
                 '<div class="archv-components">' +
                     ARCHV.renderComponent('comp-entry', entryLabel, entryIcon, 'Entry point that receives requests, maps input to DTO, and delegates to UseCase') +
                     ARCHV.renderComponent('comp-request-dto', 'Request DTO', '&#x1F4E6;', 'Typed data object mapping raw input into structured request data') +
                     ARCHV.renderComponent('comp-response-dto', 'Response DTO', '&#x1F4E4;', 'Structured output data formatted for the client response') +
                 '</div>' +
             '</div>' +
-            ARCHV.renderArrowConnector('depends on') +
+            ARCHV.renderArrowConnector(I18N.t('arch.arrow.depends_on', null, 'depends on')) +
             '<div class="archv-layer" id="layer-application">' +
-                '<div class="archv-layer-name">Application Layer</div>' +
+                '<div class="archv-layer-name">' + I18N.t('arch.layer.application', null, 'Application Layer') + '</div>' +
                 '<div class="archv-components">' +
                     ARCHV.renderComponent('comp-usecase', 'UseCase', '&#x2699;', 'Application orchestrator that coordinates domain services and persistence') +
                     ARCHV.renderComponent('comp-app-service', 'AppService', '&#x1F527;', 'Application service that orchestrates use case execution and cross-cutting concerns') +
                     ARCHV.renderComponent('comp-command', 'Command', '&#x1F4DD;', 'Immutable data object representing an intent to change state') +
                 '</div>' +
             '</div>' +
-            ARCHV.renderArrowConnector('depends on') +
+            ARCHV.renderArrowConnector(I18N.t('arch.arrow.depends_on', null, 'depends on')) +
             '<div class="archv-layer" id="layer-domain">' +
-                '<div class="archv-layer-name">Domain Layer</div>' +
+                '<div class="archv-layer-name">' + I18N.t('arch.layer.domain', null, 'Domain Layer') + '</div>' +
                 '<div class="archv-components">' +
                     ARCHV.renderComponent('comp-domain-service', 'DomainService', '&#x1F3AF;', 'Stateless domain service coordinating logic across multiple entities') +
                     ARCHV.renderComponent('comp-entity', 'Entity', '&#x1F4CB;', 'Core business object with unique identity and business rules') +
@@ -52,9 +52,9 @@ function renderLayered(entryIcon, entryLabel) {
                     ARCHV.renderComponent('comp-domain-event', 'DomainEvent', '&#x1F514;', 'Record of something significant that happened in the domain') +
                 '</div>' +
             '</div>' +
-            ARCHV.renderArrowConnector('implements') +
+            ARCHV.renderArrowConnector(I18N.t('arch.arrow.implements', null, 'implements')) +
             '<div class="archv-layer" id="layer-infrastructure">' +
-                '<div class="archv-layer-name">Infrastructure Layer</div>' +
+                '<div class="archv-layer-name">' + I18N.t('arch.layer.infrastructure', null, 'Infrastructure Layer') + '</div>' +
                 '<div class="archv-components">' +
                     ARCHV.renderComponent('comp-repo-impl', 'RepositoryImpl', '&#x1F5C4;', 'Concrete persistence implementation of the Repository interface') +
                     ARCHV.renderComponent('comp-db-adapter', 'DatabaseAdapter', '&#x1F4BE;', 'Translates domain operations into database queries') +
@@ -63,8 +63,8 @@ function renderLayered(entryIcon, entryLabel) {
                 '</div>' +
             '</div>' +
             '<div class="archv-flow-legend">' +
-                '<div class="legend-item"><span class="legend-line-sync"></span> Sync</div>' +
-                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.sync', null, 'Sync') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.response', null, 'Response') + '</div>' +
             '</div>' +
         '</div>';
 }
@@ -169,7 +169,7 @@ ARCHV.layered.http = {
     },
     steps: function() {
         return [
-            { elementId: 'comp-entry', label: 'Controller', description: 'HTTP request received', logType: 'REQUEST', layerId: 'layer-presentation' },
+            { elementId: 'comp-entry', label: 'Controller', description: 'POST /api/orders hits Controller — entry point of the topmost Presentation layer', descriptionKey: 'layered.step.http.0', logType: 'REQUEST', layerId: 'layer-presentation' },
             { elementId: 'comp-request-dto', label: 'Request DTO', description: 'Map input to typed DTO', logType: 'LAYER', layerId: 'layer-presentation' },
             { elementId: 'comp-usecase', label: 'UseCase', description: 'Receive DTO, create command', logType: 'LAYER', layerId: 'layer-application' },
             { elementId: 'comp-command', label: 'Command', description: 'CreateOrderCommand created from DTO', logType: 'COMMAND', layerId: 'layer-application' },
@@ -187,7 +187,7 @@ ARCHV.layered.http = {
             { elementId: 'comp-response-dto', label: 'Response DTO', description: 'Build HTTP response body', logType: 'RESPONSE', layerId: 'layer-presentation' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'HTTP POST /api/orders' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('layered.requestLabel.http', null, 'Layered: request flows top-down through Presentation → Application → Domain → Infrastructure') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.layered.http.steps(), ARCHV.layered.http.stepOptions());
     }
@@ -199,7 +199,7 @@ ARCHV.layered.console = {
     },
     steps: function() {
         return [
-            { elementId: 'comp-entry', label: 'ConsoleCommand', description: 'CLI command received', logType: 'REQUEST', layerId: 'layer-presentation' },
+            { elementId: 'comp-entry', label: 'ConsoleCommand', description: 'app:sync-users invoked — CLI handler parses arguments in Presentation layer', descriptionKey: 'layered.step.console.0', logType: 'REQUEST', layerId: 'layer-presentation' },
             { elementId: 'comp-request-dto', label: 'Request DTO', description: 'Parse CLI arguments to DTO', logType: 'LAYER', layerId: 'layer-presentation' },
             { elementId: 'comp-app-service', label: 'AppService', description: 'Orchestrate use case execution', logType: 'LAYER', layerId: 'layer-application' },
             { elementId: 'comp-usecase', label: 'UseCase', description: 'Execute business operation', logType: 'LAYER', layerId: 'layer-application' },
@@ -214,7 +214,7 @@ ARCHV.layered.console = {
             { elementId: 'comp-response-dto', label: 'Response DTO', description: 'Print console output', logType: 'RESPONSE', layerId: 'layer-presentation' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'CLI: app:sync-users' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('layered.requestLabel.console', null, 'Layered: CLI command follows the same top-down layer flow as HTTP') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.layered.console.steps(), ARCHV.layered.console.stepOptions());
     }
@@ -226,7 +226,7 @@ ARCHV.layered.message = {
     },
     steps: function() {
         return [
-            { elementId: 'comp-entry', label: 'MessageConsumer', description: 'Message consumed from queue', logType: 'REQUEST', layerId: 'layer-presentation' },
+            { elementId: 'comp-entry', label: 'MessageConsumer', description: 'order.created message dequeued — async entry into Presentation layer', descriptionKey: 'layered.step.message.0', logType: 'REQUEST', layerId: 'layer-presentation' },
             { elementId: 'comp-request-dto', label: 'Request DTO', description: 'Deserialize message payload', logType: 'LAYER', layerId: 'layer-presentation' },
             { elementId: 'comp-app-service', label: 'AppService', description: 'Handle async operation', logType: 'LAYER', layerId: 'layer-application' },
             { elementId: 'comp-usecase', label: 'UseCase', description: 'Execute business logic', logType: 'LAYER', layerId: 'layer-application' },
@@ -240,7 +240,7 @@ ARCHV.layered.message = {
             { elementId: 'comp-event-dispatcher', label: 'EventDispatcher', description: 'Infrastructure dispatches domain events', logType: 'EVENT', layerId: 'layer-infrastructure' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Message: order.created' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('layered.requestLabel.message', null, 'Layered: async message follows the same top-down layer flow as HTTP and CLI') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.layered.message.steps(), ARCHV.layered.message.stepOptions());
     }

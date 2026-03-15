@@ -24,7 +24,7 @@ function renderCQRS() {
     canvas.innerHTML =
         '<div class="layout-split">' +
             '<div class="archv-split-side" id="side-command">' +
-                '<div class="archv-split-title">Command Side (Write)</div>' +
+                '<div class="archv-split-title">' + I18N.t('cqrs.side.command', null, 'Command Side (Write)') + '</div>' +
                 '<div class="archv-layer" id="layer-cqrs-cmd-entry">' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-cqrs-command', 'Command', '&#x1F4DD;', 'Immutable object representing an intent to change state') +
@@ -56,7 +56,7 @@ function renderCQRS() {
                 '</div>' +
             '</div>' +
             '<div class="archv-split-side" id="side-query">' +
-                '<div class="archv-split-title">Query Side (Read)</div>' +
+                '<div class="archv-split-title">' + I18N.t('cqrs.side.query', null, 'Query Side (Read)') + '</div>' +
                 '<div class="archv-layer" id="layer-cqrs-query">' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-cqrs-query', 'Query', '&#x1F50D;', 'Read-only request for data that does not modify state') +
@@ -100,7 +100,7 @@ function renderCQRS() {
                     '<span class="bridge-label">ReadModel</span>' +
                 '</div>' +
             '</div>' +
-            '<div class="archv-event-bus" id="comp-cqrs-eventbus" data-tooltip="Routes events from write side to projection consumers for read model updates">&#x1F4E1; Event Bus (Projections)<span class="archv-async-badge">async</span></div>' +
+            '<div class="archv-event-bus" id="comp-cqrs-eventbus"' + ARCHV.tooltipAttr('comp-cqrs-eventbus', 'Routes events from write side to projection consumers for read model updates') + '>&#x1F4E1; ' + I18N.t('cqrs.bridge.eventbus', null, 'Event Bus (Projections)') + '<span class="archv-async-badge">' + I18N.t('cqrs.badge.async', null, 'async') + '</span></div>' +
         '</div>';
 }
 
@@ -195,7 +195,7 @@ ARCHV.cqrs.http = {
     init: function() { renderCQRS(); },
     steps: function() {
         return [
-            { elementId: 'comp-cqrs-command', label: 'Command', description: 'CreateOrder command created', logType: 'COMMAND', layerId: 'layer-cqrs-cmd-entry' },
+            { elementId: 'comp-cqrs-command', label: 'Command', description: 'CreateOrderCommand dispatched to write side — explicit command object created', descriptionKey: 'cqrs.step.http.0', logType: 'COMMAND', layerId: 'layer-cqrs-cmd-entry' },
             { elementId: 'comp-cqrs-cmdbus', label: 'CommandBus', description: 'Dispatch to handler', logType: 'COMMAND', layerId: 'layer-cqrs-cmd-bus' },
             { elementId: 'comp-cqrs-cmdhandler', label: 'CommandHandler', description: 'Handle create order', logType: 'LAYER', layerId: 'layer-cqrs-cmd-handler' },
             { elementId: 'comp-cqrs-aggregate', label: 'Aggregate', description: 'Order aggregate applies rules', logType: 'LAYER', layerId: 'layer-cqrs-aggregate' },
@@ -205,7 +205,7 @@ ARCHV.cqrs.http = {
             { elementId: 'comp-cqrs-readdb', label: 'Read DB', description: 'Update read database', logType: 'LAYER', layerId: 'layer-cqrs-readdb' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'HTTP POST /api/orders (write)' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('cqrs.requestLabel.http', null, 'CQRS: write side — commands are explicit objects, never direct state mutations') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.cqrs.http.steps(), ARCHV.cqrs.http.stepOptions());
     }
@@ -215,14 +215,14 @@ ARCHV.cqrs.console = {
     init: function() { renderCQRS(); },
     steps: function() {
         return [
-            { elementId: 'comp-cqrs-query', label: 'Query', description: 'GetOrderDetails query', logType: 'QUERY', layerId: 'layer-cqrs-query' },
+            { elementId: 'comp-cqrs-query', label: 'Query', description: 'GetOrderDetails query dispatched to read side — never touches write model', descriptionKey: 'cqrs.step.console.0', logType: 'QUERY', layerId: 'layer-cqrs-query' },
             { elementId: 'comp-cqrs-querybus', label: 'QueryBus', description: 'Dispatch to handler', logType: 'QUERY', layerId: 'layer-cqrs-qbus' },
             { elementId: 'comp-cqrs-queryhandler', label: 'QueryHandler', description: 'Handle query', logType: 'LAYER', layerId: 'layer-cqrs-qhandler' },
             { elementId: 'comp-cqrs-readmodel', label: 'ReadModel', description: 'Read from optimized model', logType: 'LAYER', layerId: 'layer-cqrs-readmodel' },
             { elementId: 'comp-cqrs-readdb', label: 'Read DB', description: 'Fetch from read database', logType: 'LAYER', layerId: 'layer-cqrs-readdb' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'CLI: order:details --id=42' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('cqrs.requestLabel.console', null, 'CQRS: read side — queries read from optimized denormalized projections') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.cqrs.console.steps(), ARCHV.cqrs.console.stepOptions());
     }
@@ -232,7 +232,7 @@ ARCHV.cqrs.message = {
     init: function() { renderCQRS(); },
     steps: function() {
         return [
-            { elementId: 'comp-cqrs-eventbus', label: 'Event Bus', description: 'PaymentReceived event arrives', logType: 'EVENT' },
+            { elementId: 'comp-cqrs-eventbus', label: 'Event Bus', description: 'PaymentReceived event arrives on the bus — will update both sides', descriptionKey: 'cqrs.step.message.0', logType: 'EVENT' },
             { elementId: 'comp-cqrs-command', label: 'Command', description: 'Create ConfirmOrder command', logType: 'COMMAND', layerId: 'layer-cqrs-cmd-entry' },
             { elementId: 'comp-cqrs-cmdbus', label: 'CommandBus', description: 'Dispatch command', logType: 'COMMAND', layerId: 'layer-cqrs-cmd-bus' },
             { elementId: 'comp-cqrs-cmdhandler', label: 'CommandHandler', description: 'Confirm order', logType: 'LAYER', layerId: 'layer-cqrs-cmd-handler' },
@@ -243,7 +243,7 @@ ARCHV.cqrs.message = {
             { elementId: 'comp-cqrs-readdb', label: 'Read DB', description: 'Sync read database', logType: 'LAYER', layerId: 'layer-cqrs-readdb' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Message: payment.received' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('cqrs.requestLabel.message', null, 'CQRS: event triggers both write-side command and read-side projection update') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.cqrs.message.steps(), ARCHV.cqrs.message.stepOptions());
     }

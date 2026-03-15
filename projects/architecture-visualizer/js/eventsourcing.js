@@ -23,56 +23,56 @@ function renderEventSourcing() {
     var canvas = document.getElementById('archv-canvas');
     canvas.innerHTML =
         '<div class="layout-timeline">' +
-            '<div class="archv-phase-label" id="phase-es-1">Load (replay events)</div>' +
+            '<div class="archv-phase-label" id="phase-es-1">' + I18N.t('eventsourcing.phase.load', null, 'Load (replay events)') + '</div>' +
             '<div class="archv-layer" id="layer-es-command">' +
-                '<div class="archv-layer-name">Command Processing</div>' +
+                '<div class="archv-layer-name">' + I18N.t('eventsourcing.layer.command', null, 'Command Processing') + '</div>' +
                 '<div class="archv-components">' +
                     ARCHV.renderComponent('comp-es-command', 'Command', '&#x1F4DD;', 'Intent to change state, triggers event emission from the aggregate') +
                     ARCHV.renderComponent('comp-es-handler', 'Handler', '&#x2699;', 'Routes command to the appropriate aggregate for processing') +
                     ARCHV.renderComponent('comp-es-aggregate-load', 'Aggregate (Load)', '&#x1F504;', 'Loads aggregate state by replaying events from the Event Store') +
                 '</div>' +
             '</div>' +
-            ARCHV.renderArrowConnector('reads events') +
+            ARCHV.renderArrowConnector(I18N.t('eventsourcing.arrow.reads_events', null, 'reads events')) +
             '<div class="archv-layer" id="layer-es-store">' +
-                '<div class="archv-layer-name">Event Store (Append-Only Source of Truth)</div>' +
+                '<div class="archv-layer-name">' + I18N.t('eventsourcing.layer.store', null, 'Event Store (Append-Only Source of Truth)') + '</div>' +
                 '<div class="archv-timeline-events" id="es-timeline">' +
-                    '<div class="archv-event-card" id="comp-es-evt1" data-tooltip="Immutable event: order was created with initial data"><span class="archv-event-seq">#1</span><span class="archv-event-name">OrderCreated</span></div>' +
+                    '<div class="archv-event-card" id="comp-es-evt1"' + ARCHV.tooltipAttr('comp-es-evt1', 'Immutable event: order was created with initial data') + '><span class="archv-event-seq">#1</span><span class="archv-event-name">OrderCreated</span></div>' +
                     '<span class="archv-timeline-arrow">&#x2192;</span>' +
-                    '<div class="archv-event-card" id="comp-es-evt2" data-tooltip="Immutable event: an item was added to the order"><span class="archv-event-seq">#2</span><span class="archv-event-name">ItemAdded</span></div>' +
+                    '<div class="archv-event-card" id="comp-es-evt2"' + ARCHV.tooltipAttr('comp-es-evt2', 'Immutable event: an item was added to the order') + '><span class="archv-event-seq">#2</span><span class="archv-event-name">ItemAdded</span></div>' +
                     '<span class="archv-timeline-arrow">&#x2192;</span>' +
-                    '<div class="archv-event-card" id="comp-es-evt3" data-tooltip="Immutable event: another item was added to the order"><span class="archv-event-seq">#3</span><span class="archv-event-name">ItemAdded</span></div>' +
+                    '<div class="archv-event-card" id="comp-es-evt3"' + ARCHV.tooltipAttr('comp-es-evt3', 'Immutable event: another item was added to the order') + '><span class="archv-event-seq">#3</span><span class="archv-event-name">ItemAdded</span></div>' +
                     '<span class="archv-timeline-arrow">&#x2192;</span>' +
-                    '<div class="archv-event-card" id="comp-es-evt4" data-tooltip="Immutable event: order was confirmed by the customer"><span class="archv-event-seq">#4</span><span class="archv-event-name">OrderConfirmed</span></div>' +
+                    '<div class="archv-event-card" id="comp-es-evt4"' + ARCHV.tooltipAttr('comp-es-evt4', 'Immutable event: order was confirmed by the customer') + '><span class="archv-event-seq">#4</span><span class="archv-event-name">OrderConfirmed</span></div>' +
                     '<span class="archv-timeline-arrow">&#x2192;</span>' +
-                    '<div class="archv-event-card" id="comp-es-evt5" data-tooltip="Immutable event: payment was received for the order"><span class="archv-event-seq">#5</span><span class="archv-event-name">PaymentReceived</span></div>' +
+                    '<div class="archv-event-card" id="comp-es-evt5"' + ARCHV.tooltipAttr('comp-es-evt5', 'Immutable event: payment was received for the order') + '><span class="archv-event-seq">#5</span><span class="archv-event-name">PaymentReceived</span></div>' +
                     '<span class="archv-timeline-arrow">&#x2192;</span>' +
-                    '<div class="archv-event-card" id="comp-es-new" data-tooltip="Next event to be appended to the stream" style="border-style:dashed;opacity:0.5;"><span class="archv-event-seq">#6</span><span class="archv-event-name">new event</span></div>' +
+                    '<div class="archv-event-card" id="comp-es-new"' + ARCHV.tooltipAttr('comp-es-new', 'Next event to be appended to the stream') + ' style="border-style:dashed;opacity:0.5;"><span class="archv-event-seq">#6</span><span class="archv-event-name">new event</span></div>' +
                 '</div>' +
             '</div>' +
-            '<div class="archv-phase-label" id="phase-es-2">Phase 2 &mdash; Execute (apply command, emit event)</div>' +
+            '<div class="archv-phase-label" id="phase-es-2">' + I18N.t('eventsourcing.phase.execute', null, 'Phase 2 — Execute (apply command, emit event)') + '</div>' +
             '<div class="archv-layer" id="layer-es-execute">' +
-                '<div class="archv-layer-name">Aggregate Decision</div>' +
+                '<div class="archv-layer-name">' + I18N.t('eventsourcing.layer.decision', null, 'Aggregate Decision') + '</div>' +
                 '<div class="archv-components">' +
                     ARCHV.renderComponent('comp-es-aggregate-apply', 'Aggregate (Apply)', '&#x1F4E6;', 'State rebuilt, applies new command and emits a new domain event') +
                 '</div>' +
             '</div>' +
-            ARCHV.renderArrowConnector('appends event (write)') +
-            '<div class="archv-phase-label" id="phase-es-3">Project (async via Event Bus)</div>' +
-            '<div class="archv-event-bus" id="comp-es-eventbus" data-tooltip="Publishes committed events to downstream consumers asynchronously">&#x1F4E1; Event Bus<span class="archv-async-badge">async</span></div>' +
+            ARCHV.renderArrowConnector(I18N.t('eventsourcing.arrow.appends_event', null, 'appends event (write)')) +
+            '<div class="archv-phase-label" id="phase-es-3">' + I18N.t('eventsourcing.phase.project', null, 'Project (async via Event Bus)') + '</div>' +
+            '<div class="archv-event-bus" id="comp-es-eventbus"' + ARCHV.tooltipAttr('comp-es-eventbus', 'Publishes committed events to downstream consumers asynchronously') + '>&#x1F4E1; ' + I18N.t('eventsourcing.eventbus.label', null, 'Event Bus') + '<span class="archv-async-badge">' + I18N.t('cqrs.badge.async', null, 'async') + '</span></div>' +
             '<div class="archv-layer" id="layer-es-projections">' +
-                '<div class="archv-layer-name">Projections (Read Models)</div>' +
+                '<div class="archv-layer-name">' + I18N.t('eventsourcing.layer.projections', null, 'Projections (Read Models)') + '</div>' +
                 '<div class="archv-projections">' +
-                    '<div class="archv-projection" id="comp-es-proj-list" data-tooltip="Read model: flat list of orders optimized for listing and filtering"><span>&#x1F4CB;</span><span>Order List</span></div>' +
-                    '<div class="archv-projection" id="comp-es-proj-detail" data-tooltip="Read model: detailed order view with all items and status history"><span>&#x1F4CA;</span><span>Order Detail</span></div>' +
-                    '<div class="archv-projection" id="comp-es-proj-stats" data-tooltip="Read model: aggregated statistics like revenue, counts, averages"><span>&#x1F4C8;</span><span>Statistics</span></div>' +
-                    '<div class="archv-projection" id="comp-es-proj-search" data-tooltip="Read model: full-text search index for fast order lookup"><span>&#x1F50D;</span><span>Search Index</span></div>' +
+                    '<div class="archv-projection" id="comp-es-proj-list"' + ARCHV.tooltipAttr('comp-es-proj-list', 'Read model: flat list of orders optimized for listing and filtering') + '><span>&#x1F4CB;</span><span>Order List</span></div>' +
+                    '<div class="archv-projection" id="comp-es-proj-detail"' + ARCHV.tooltipAttr('comp-es-proj-detail', 'Read model: detailed order view with all items and status history') + '><span>&#x1F4CA;</span><span>Order Detail</span></div>' +
+                    '<div class="archv-projection" id="comp-es-proj-stats"' + ARCHV.tooltipAttr('comp-es-proj-stats', 'Read model: aggregated statistics like revenue, counts, averages') + '><span>&#x1F4C8;</span><span>Statistics</span></div>' +
+                    '<div class="archv-projection" id="comp-es-proj-search"' + ARCHV.tooltipAttr('comp-es-proj-search', 'Read model: full-text search index for fast order lookup') + '><span>&#x1F50D;</span><span>Search Index</span></div>' +
                 '</div>' +
             '</div>' +
             '<div class="archv-flow-legend">' +
-                '<div class="legend-item"><span class="legend-line-replay"></span> Read (replay)</div>' +
-                '<div class="legend-item"><span class="legend-line-write"></span> Write (append)</div>' +
-                '<div class="legend-item"><span class="legend-line-async"></span> Async</div>' +
-                '<div class="legend-item"><span class="legend-line-sync"></span> Sync</div>' +
+                '<div class="legend-item"><span class="legend-line-replay"></span> ' + I18N.t('arch.legend.read_replay', null, 'Read (replay)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-write"></span> ' + I18N.t('arch.legend.write_append', null, 'Write (append)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> ' + I18N.t('arch.legend.async', null, 'Async') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.response', null, 'Response') + '</div>' +
             '</div>' +
         '</div>';
 }
@@ -166,7 +166,7 @@ ARCHV.eventsourcing.http = {
     init: function() { renderEventSourcing(); },
     steps: function() {
         return [
-            { elementId: 'comp-es-command', label: 'Command', description: 'AddItem command received', logType: 'COMMAND', layerId: 'layer-es-command', phase: 1 },
+            { elementId: 'comp-es-command', label: 'Command', description: 'AddItem command received — aggregate will emit ItemAdded event', descriptionKey: 'eventsourcing.step.http.0', logType: 'COMMAND', layerId: 'layer-es-command', phase: 1 },
             { elementId: 'comp-es-handler', label: 'Handler', description: 'Route to handler', logType: 'LAYER', layerId: 'layer-es-command', phase: 1 },
             { elementId: 'comp-es-aggregate-load', label: 'Aggregate (Load)', description: 'Load from event stream', logType: 'LAYER', layerId: 'layer-es-command', phase: 1 },
             { elementId: 'comp-es-evt1', label: 'Replay #1', description: 'OrderCreated applied', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
@@ -179,7 +179,7 @@ ARCHV.eventsourcing.http = {
             { elementId: 'comp-es-proj-detail', label: 'Order Detail', description: 'Update detail projection', logType: 'ASYNC', layerId: 'layer-es-projections', phase: 3 }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'HTTP POST /api/orders/42/items' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('eventsourcing.requestLabel.http', null, 'Event Sourcing: command produces event appended to immutable stream, not a row update') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.eventsourcing.http.steps(), ARCHV.eventsourcing.http.stepOptions());
     }
@@ -206,7 +206,7 @@ ARCHV.eventsourcing.console = {
     },
     steps: function() {
         return [
-            { elementId: 'comp-es-aggregate-load', label: 'Aggregate (Load)', description: 'Rebuild state from scratch', logType: 'LOAD', layerId: 'layer-es-command', phase: 1 },
+            { elementId: 'comp-es-aggregate-load', label: 'Aggregate (Load)', description: 'Rebuild Order #42 from event stream — no stored state exists', descriptionKey: 'eventsourcing.step.console.0', logType: 'LOAD', layerId: 'layer-es-command', phase: 1 },
             { elementId: 'comp-es-evt1', label: 'Event #1', description: 'Apply OrderCreated', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
             { elementId: 'comp-es-evt2', label: 'Event #2', description: 'Apply ItemAdded', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
             { elementId: 'comp-es-evt3', label: 'Event #3', description: 'Apply ItemAdded', logType: 'REPLAY', layerId: 'layer-es-store', phase: 1 },
@@ -215,7 +215,7 @@ ARCHV.eventsourcing.console = {
             { elementId: 'comp-es-aggregate-apply', label: 'Aggregate (Apply)', description: 'State fully rebuilt: confirmed, paid, 2 items', logType: 'RESPONSE', layerId: 'layer-es-execute', phase: 1 }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Rebuild: Order #42 state' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('eventsourcing.requestLabel.console', null, 'Event Sourcing: state rebuilt by replaying all events in sequence') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.eventsourcing.console.steps(), ARCHV.eventsourcing.console.stepOptions());
     }
@@ -243,7 +243,7 @@ ARCHV.eventsourcing.message = {
     },
     steps: function() {
         return [
-            { elementId: 'comp-es-evt4', label: 'Event #4', description: 'OrderConfirmed event published', logType: 'EVENT', layerId: 'layer-es-store', phase: 3 },
+            { elementId: 'comp-es-evt4', label: 'Event #4', description: 'OrderConfirmed event read from store — projections will transform it', descriptionKey: 'eventsourcing.step.message.0', logType: 'EVENT', layerId: 'layer-es-store', phase: 3 },
             { elementId: 'comp-es-eventbus', label: 'Event Bus', description: 'Route OrderConfirmed to consumers', logType: 'ASYNC', layerId: null, phase: 3 },
             { elementId: 'comp-es-proj-list', label: 'Order List', description: 'Update order status to confirmed', logType: 'ASYNC', layerId: 'layer-es-projections', phase: 3, arrowFromId: 'comp-es-eventbus' },
             { elementId: 'comp-es-proj-detail', label: 'Order Detail', description: 'Add confirmation timestamp', logType: 'ASYNC', layerId: 'layer-es-projections', phase: 3, arrowFromId: 'comp-es-eventbus' },
@@ -253,7 +253,7 @@ ARCHV.eventsourcing.message = {
             { elementId: 'comp-es-proj-search', label: 'Search Index', description: 'Re-index order as paid', logType: 'ASYNC', layerId: 'layer-es-projections', phase: 3, arrowFromId: 'comp-es-eventbus' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Projection rebuild from events' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('eventsourcing.requestLabel.message', null, 'Event Sourcing: projections independently transform events into read-optimized views') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.eventsourcing.message.steps(), ARCHV.eventsourcing.message.stepOptions());
     }

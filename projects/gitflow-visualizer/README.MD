@@ -39,7 +39,13 @@ projects/gitflow-visualizer/
 │   ├── ship-show-ask.js # Ship/Show/Ask
 │   ├── scaled.js        # Scaled GitFlow / SAFe
 │   ├── cherrypick.js    # Cherry-pick Flow
-│   └── app.js           # Config registry, controls, bootstrap
+│   └── app.js           # Config registry, controls, bootstrap, GFV_refresh
+└── i18n/
+    ├── en.json          # English (authoritative — all keys required)
+    ├── ru.json          # Russian
+    ├── de.json          # German
+    ├── es.json          # Spanish
+    └── fr.json          # French
 ```
 
 ### Pattern
@@ -62,16 +68,35 @@ Everything is rendered in SVG:
 - Cherry-picks: dotted arrows
 - Deploys: rocket emoji markers
 
+## Controls
+
+| Control | Description |
+|---------|-------------|
+| **Run** | Start the selected flow animation |
+| **Pause / Resume** | Freeze or resume mid-animation |
+| **Reset** | Clear state, log, and re-initialize current mode |
+| **Step Mode** | Toggle step-by-step execution with Back / Next navigation. Can also be entered from a paused animation |
+| **Speed** | Adjustable: Slow (100–300ms), Normal (300–700ms), Fast (700–1000ms), Ultra (>1000ms). Persisted in `localStorage` |
+
+URL hash encodes the active flow and mode (e.g., `#classic/feature`, `#github/deploy`, `#trunk/flags`), enabling deep links and browser back/forward.
+
+## Internationalization
+
+Translations are loaded via `window.I18N` from two JSON tiers:
+
+- `resources/i18n/ui.{lang}.json` — shared UI strings (buttons, labels, legend)
+- `projects/gitflow-visualizer/i18n/{lang}.json` — flow names, mode descriptions, principles, concepts, trade-offs
+
+Supported languages: **en, ru, fr, de, es**. Language is detected from `?lang=` URL param → `localStorage['i18n-lang']` → `navigator.language`.
+
+All translatable strings in JS use `I18N.t(key, params, fallback)`. DOM elements use `data-i18n`, `data-i18n-title`, `data-i18n-placeholder` attributes. After a language switch, `window.GFV_refresh()` re-translates tabs and re-initializes the current flow/mode.
+
 ## Development
 
 ```bash
 python -m http.server 8000
 # Navigate to http://localhost:8000/projects/gitflow-visualizer/
 ```
-
-## URL Hash Navigation
-
-Supports deep linking: `#classic/feature`, `#github/deploy`, `#trunk/flags`, etc.
 
 ## Author
 

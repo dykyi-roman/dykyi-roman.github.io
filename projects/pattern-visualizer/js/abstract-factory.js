@@ -59,87 +59,87 @@ function renderFurnitureFactory() {
             '<div class="pv-hierarchy-row" style="justify-content: space-between; width: 100%;">' +
                 PV.renderClass('af-modern-factory', 'ModernFurnitureFactory', {
                     methods: ['createChair(): Chair', 'createTable(): Table', 'createSofa(): Sofa'],
-                    tooltip: 'Concrete Factory: creates modern-style furniture'
+                    tooltip: I18N.t('abstract-factory.tooltip.modern-factory', null, 'Concrete Factory: creates modern-style furniture')
                 }) +
                 PV.renderClass('af-factory', 'FurnitureFactory', {
                     stereotype: 'interface',
                     methods: ['createChair(): Chair', 'createTable(): Table', 'createSofa(): Sofa'],
-                    tooltip: 'Abstract Factory: declares creation methods for each product in the family'
+                    tooltip: I18N.t('abstract-factory.tooltip.factory', null, 'Abstract Factory: declares creation methods for each product in the family')
                 }) +
                 PV.renderClass('af-victorian-factory', 'VictorianFurnitureFactory', {
                     methods: ['createChair(): Chair', 'createTable(): Table', 'createSofa(): Sofa'],
-                    tooltip: 'Concrete Factory: creates Victorian-style furniture'
+                    tooltip: I18N.t('abstract-factory.tooltip.victorian-factory', null, 'Concrete Factory: creates Victorian-style furniture')
                 }) +
             '</div>' +
-            PV.renderArrowConnector('creates') +
+            PV.renderArrowConnector(I18N.t('ui.legend.creates', null, 'creates')) +
             /* Abstract Products */
             '<div class="pv-hierarchy-row">' +
                 PV.renderClass('af-chair', 'Chair', {
                     stereotype: 'interface',
                     methods: ['sitOn()'],
-                    tooltip: 'Abstract Product: interface for chair objects'
+                    tooltip: I18N.t('abstract-factory.tooltip.chair', null, 'Abstract Product: interface for chair objects')
                 }) +
                 PV.renderClass('af-table', 'Table', {
                     stereotype: 'interface',
                     methods: ['putOn()'],
-                    tooltip: 'Abstract Product: interface for table objects'
+                    tooltip: I18N.t('abstract-factory.tooltip.table', null, 'Abstract Product: interface for table objects')
                 }) +
                 PV.renderClass('af-sofa', 'Sofa', {
                     stereotype: 'interface',
                     methods: ['lieOn()'],
-                    tooltip: 'Abstract Product: interface for sofa objects'
+                    tooltip: I18N.t('abstract-factory.tooltip.sofa', null, 'Abstract Product: interface for sofa objects')
                 }) +
             '</div>' +
-            PV.renderArrowConnector('implements') +
+            PV.renderArrowConnector(I18N.t('ui.legend.inherit', null, 'implements')) +
             /* Concrete Products — Modern row */
             '<div class="pv-hierarchy-row">' +
                 PV.renderClass('af-modern-chair', 'ModernChair', {
                     methods: ['sitOn()'],
-                    tooltip: 'Concrete Product: modern-style chair'
+                    tooltip: I18N.t('abstract-factory.tooltip.modern-chair', null, 'Concrete Product: modern-style chair')
                 }) +
                 PV.renderClass('af-modern-table', 'ModernTable', {
                     methods: ['putOn()'],
-                    tooltip: 'Concrete Product: modern-style table'
+                    tooltip: I18N.t('abstract-factory.tooltip.modern-table', null, 'Concrete Product: modern-style table')
                 }) +
                 PV.renderClass('af-modern-sofa', 'ModernSofa', {
                     methods: ['lieOn()'],
-                    tooltip: 'Concrete Product: modern-style sofa'
+                    tooltip: I18N.t('abstract-factory.tooltip.modern-sofa', null, 'Concrete Product: modern-style sofa')
                 }) +
             '</div>' +
             /* Concrete Products — Victorian row (offset for checkerboard) */
             '<div class="pv-hierarchy-row" style="padding-left: 200px;">' +
                 PV.renderClass('af-victorian-chair', 'VictorianChair', {
                     methods: ['sitOn()'],
-                    tooltip: 'Concrete Product: Victorian-style chair'
+                    tooltip: I18N.t('abstract-factory.tooltip.victorian-chair', null, 'Concrete Product: Victorian-style chair')
                 }) +
                 PV.renderClass('af-victorian-table', 'VictorianTable', {
                     methods: ['putOn()'],
-                    tooltip: 'Concrete Product: Victorian-style table'
+                    tooltip: I18N.t('abstract-factory.tooltip.victorian-table', null, 'Concrete Product: Victorian-style table')
                 }) +
                 PV.renderClass('af-victorian-sofa', 'VictorianSofa', {
                     methods: ['lieOn()'],
-                    tooltip: 'Concrete Product: Victorian-style sofa'
+                    tooltip: I18N.t('abstract-factory.tooltip.victorian-sofa', null, 'Concrete Product: Victorian-style sofa')
                 }) +
             '</div>' +
             /* Object Instances — Modern row (hidden) */
             '<div class="pv-hierarchy-row">' +
-                PV.renderObject('obj-af-mchair', ':ModernChair', { tooltip: 'Instance of ModernChair' }) +
-                PV.renderObject('obj-af-mtable', ':ModernTable', { tooltip: 'Instance of ModernTable' }) +
-                PV.renderObject('obj-af-msofa', ':ModernSofa', { tooltip: 'Instance of ModernSofa' }) +
+                PV.renderObject('obj-af-mchair', ':ModernChair', { tooltip: I18N.t('abstract-factory.tooltip.obj-mchair', null, 'Instance of ModernChair') }) +
+                PV.renderObject('obj-af-mtable', ':ModernTable', { tooltip: I18N.t('abstract-factory.tooltip.obj-mtable', null, 'Instance of ModernTable') }) +
+                PV.renderObject('obj-af-msofa', ':ModernSofa', { tooltip: I18N.t('abstract-factory.tooltip.obj-msofa', null, 'Instance of ModernSofa') }) +
             '</div>' +
             /* Object Instances — Victorian row (hidden, offset for checkerboard) */
             '<div class="pv-hierarchy-row" style="padding-left: 200px;">' +
-                PV.renderObject('obj-af-vchair', ':VictorianChair', { tooltip: 'Instance of VictorianChair' }) +
-                PV.renderObject('obj-af-vtable', ':VictorianTable', { tooltip: 'Instance of VictorianTable' }) +
-                PV.renderObject('obj-af-vsofa', ':VictorianSofa', { tooltip: 'Instance of VictorianSofa' }) +
+                PV.renderObject('obj-af-vchair', ':VictorianChair', { tooltip: I18N.t('abstract-factory.tooltip.obj-vchair', null, 'Instance of VictorianChair') }) +
+                PV.renderObject('obj-af-vtable', ':VictorianTable', { tooltip: I18N.t('abstract-factory.tooltip.obj-vtable', null, 'Instance of VictorianTable') }) +
+                PV.renderObject('obj-af-vsofa', ':VictorianSofa', { tooltip: I18N.t('abstract-factory.tooltip.obj-vsofa', null, 'Instance of VictorianSofa') }) +
             '</div>' +
             '<div class="pv-flow-legend">' +
-                '<div class="legend-item"><span class="legend-line-sync"></span> Flow</div>' +
-                '<div class="legend-item"><span class="legend-line-create"></span> Create</div>' +
-                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
-                '<div class="legend-item"><span class="legend-line-inherit"></span> Inherit</div>' +
-                '<div class="legend-item"><span style="display:inline-block;width:20px;height:14px;border:2px dashed var(--pv-accent);border-radius:2px;background:var(--pv-accent-bg);"></span> Object</div>' +
-                '<div class="legend-item"><span style="color:#10B981;font-weight:bold;font-size:13px;">✓</span> Property</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('ui.legend.flow', null, 'Flow') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-create"></span> ' + I18N.t('ui.legend.create', null, 'Create') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('ui.legend.response', null, 'Response') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-inherit"></span> ' + I18N.t('ui.legend.inherit', null, 'Inherit') + '</div>' +
+                '<div class="legend-item"><span style="display:inline-block;width:20px;height:14px;border:2px dashed var(--pv-accent);border-radius:2px;background:var(--pv-accent-bg);"></span> ' + I18N.t('ui.legend.object', null, 'Object') + '</div>' +
+                '<div class="legend-item"><span style="color:#10B981;font-weight:bold;font-size:13px;">✓</span> ' + I18N.t('ui.legend.property', null, 'Property') + '</div>' +
             '</div>' +
         '</div>';
 
@@ -161,21 +161,251 @@ PV['abstract-factory'].furniture = {
     },
     steps: function() {
         return [
-            { elementId: 'af-factory', label: 'FurnitureFactory', description: 'Client requests a furniture set', logType: 'REQUEST', badgePosition: 'top' },
-            { elementId: 'af-modern-factory', label: 'ModernFurnitureFactory', description: 'Modern factory selected for this order', logType: 'FLOW' },
-            { elementId: 'af-modern-chair', label: 'createChair()', description: 'Factory calls createChair()', logType: 'FLOW', arrowFromId: 'af-modern-factory' },
-            { elementId: 'obj-af-mchair', label: 'ModernChair', description: 'ModernChair instance created', logType: 'CREATE', spawnId: 'obj-af-mchair', spawnLabel: 'ModernChair', arrowFromId: 'af-modern-chair' },
-            { elementId: 'af-modern-table', label: 'createTable()', description: 'Factory calls createTable()', logType: 'FLOW', arrowFromId: 'af-modern-factory' },
-            { elementId: 'obj-af-mtable', label: 'ModernTable', description: 'ModernTable instance created', logType: 'CREATE', spawnId: 'obj-af-mtable', spawnLabel: 'ModernTable', arrowFromId: 'af-modern-table' },
-            { elementId: 'af-modern-sofa', label: 'createSofa()', description: 'Factory calls createSofa()', logType: 'FLOW', arrowFromId: 'af-modern-factory' },
-            { elementId: 'obj-af-msofa', label: 'ModernSofa', description: 'ModernSofa instance created', logType: 'CREATE', spawnId: 'obj-af-msofa', spawnLabel: 'ModernSofa', arrowFromId: 'af-modern-sofa' },
-            { elementId: 'af-factory', label: 'FurnitureFactory', description: 'All modern products delivered to client', logType: 'RESPONSE', arrowFromId: 'obj-af-msofa' }
+            { elementId: 'af-factory', label: 'FurnitureFactory', description: 'Client requests a furniture set', descriptionKey: 'abstract-factory.step.furniture.0', logType: 'REQUEST', badgePosition: 'top' },
+            { elementId: 'af-modern-factory', label: 'ModernFurnitureFactory', description: 'Modern factory selected for this order', descriptionKey: 'abstract-factory.step.furniture.1', logType: 'FLOW' },
+            { elementId: 'af-modern-chair', label: 'createChair()', description: 'Factory calls createChair()', descriptionKey: 'abstract-factory.step.furniture.2', logType: 'FLOW', arrowFromId: 'af-modern-factory' },
+            { elementId: 'obj-af-mchair', label: 'ModernChair', description: 'ModernChair instance created', descriptionKey: 'abstract-factory.step.furniture.3', logType: 'CREATE', spawnId: 'obj-af-mchair', spawnLabel: 'ModernChair', arrowFromId: 'af-modern-chair' },
+            { elementId: 'af-modern-table', label: 'createTable()', description: 'Factory calls createTable()', descriptionKey: 'abstract-factory.step.furniture.4', logType: 'FLOW', arrowFromId: 'af-modern-factory' },
+            { elementId: 'obj-af-mtable', label: 'ModernTable', description: 'ModernTable instance created', descriptionKey: 'abstract-factory.step.furniture.5', logType: 'CREATE', spawnId: 'obj-af-mtable', spawnLabel: 'ModernTable', arrowFromId: 'af-modern-table' },
+            { elementId: 'af-modern-sofa', label: 'createSofa()', description: 'Factory calls createSofa()', descriptionKey: 'abstract-factory.step.furniture.6', logType: 'FLOW', arrowFromId: 'af-modern-factory' },
+            { elementId: 'obj-af-msofa', label: 'ModernSofa', description: 'ModernSofa instance created', descriptionKey: 'abstract-factory.step.furniture.7', logType: 'CREATE', spawnId: 'obj-af-msofa', spawnLabel: 'ModernSofa', arrowFromId: 'af-modern-sofa' },
+            { elementId: 'af-factory', label: 'FurnitureFactory', description: 'All modern products delivered to client', descriptionKey: 'abstract-factory.step.furniture.8', logType: 'RESPONSE', arrowFromId: 'obj-af-msofa' }
         ];
     },
     stepOptions: function() {
-        return { requestLabel: 'Client requests Modern furniture set' };
+        return { requestLabel: I18N.t('abstract-factory.stepLabel.furniture', null, 'Client requests Modern furniture set') };
     },
     run: function() {
         PV.animateFlow(PV['abstract-factory'].furniture.steps(), PV['abstract-factory'].furniture.stepOptions());
     }
 };
+
+PV['abstract-factory'].codeExamples = {
+    furniture: {
+        php: `<?php
+declare(strict_types=1);
+
+interface Chair  { public function sitOn(): string; }
+interface Table  { public function putOn(): string; }
+interface Sofa   { public function lieOn(): string; }
+
+readonly class ModernChair implements Chair {
+    public function sitOn(): string { return 'Sitting on modern chair'; }
+}
+readonly class ModernTable implements Table {
+    public function putOn(): string { return 'Putting on modern table'; }
+}
+readonly class ModernSofa implements Sofa {
+    public function lieOn(): string { return 'Lying on modern sofa'; }
+}
+
+readonly class VictorianChair implements Chair {
+    public function sitOn(): string { return 'Sitting on Victorian chair'; }
+}
+readonly class VictorianTable implements Table {
+    public function putOn(): string { return 'Putting on Victorian table'; }
+}
+readonly class VictorianSofa implements Sofa {
+    public function lieOn(): string { return 'Lying on Victorian sofa'; }
+}
+
+interface FurnitureFactory
+{
+    public function createChair(): Chair;
+    public function createTable(): Table;
+    public function createSofa(): Sofa;
+}
+
+readonly class ModernFurnitureFactory implements FurnitureFactory
+{
+    public function createChair(): Chair { return new ModernChair(); }
+    public function createTable(): Table { return new ModernTable(); }
+    public function createSofa(): Sofa  { return new ModernSofa(); }
+}
+
+readonly class VictorianFurnitureFactory implements FurnitureFactory
+{
+    public function createChair(): Chair { return new VictorianChair(); }
+    public function createTable(): Table { return new VictorianTable(); }
+    public function createSofa(): Sofa  { return new VictorianSofa(); }
+}
+
+// Client
+$factory = new ModernFurnitureFactory();
+echo $factory->createChair()->sitOn();
+echo $factory->createTable()->putOn();
+echo $factory->createSofa()->lieOn();`,
+
+        go: `package main
+
+import "fmt"
+
+type Chair interface{ SitOn() string }
+type Table interface{ PutOn() string }
+type Sofa interface{ LieOn() string }
+
+type ModernChair struct{}
+func (c ModernChair) SitOn() string { return "Sitting on modern chair" }
+
+type ModernTable struct{}
+func (t ModernTable) PutOn() string { return "Putting on modern table" }
+
+type ModernSofa struct{}
+func (s ModernSofa) LieOn() string { return "Lying on modern sofa" }
+
+type VictorianChair struct{}
+func (c VictorianChair) SitOn() string { return "Sitting on Victorian chair" }
+
+type VictorianTable struct{}
+func (t VictorianTable) PutOn() string { return "Putting on Victorian table" }
+
+type VictorianSofa struct{}
+func (s VictorianSofa) LieOn() string { return "Lying on Victorian sofa" }
+
+type FurnitureFactory interface {
+	CreateChair() Chair
+	CreateTable() Table
+	CreateSofa() Sofa
+}
+
+type ModernFurnitureFactory struct{}
+
+func (f ModernFurnitureFactory) CreateChair() Chair { return ModernChair{} }
+func (f ModernFurnitureFactory) CreateTable() Table { return ModernTable{} }
+func (f ModernFurnitureFactory) CreateSofa() Sofa   { return ModernSofa{} }
+
+type VictorianFurnitureFactory struct{}
+
+func (f VictorianFurnitureFactory) CreateChair() Chair { return VictorianChair{} }
+func (f VictorianFurnitureFactory) CreateTable() Table { return VictorianTable{} }
+func (f VictorianFurnitureFactory) CreateSofa() Sofa   { return VictorianSofa{} }
+
+func main() {
+	var factory FurnitureFactory = ModernFurnitureFactory{}
+	fmt.Println(factory.CreateChair().SitOn())
+	fmt.Println(factory.CreateTable().PutOn())
+	fmt.Println(factory.CreateSofa().LieOn())
+}`,
+
+        python: `from abc import ABC, abstractmethod
+from typing import override
+
+
+class Chair(ABC):
+    @abstractmethod
+    def sit_on(self) -> str: ...
+
+class Table(ABC):
+    @abstractmethod
+    def put_on(self) -> str: ...
+
+class Sofa(ABC):
+    @abstractmethod
+    def lie_on(self) -> str: ...
+
+
+class ModernChair(Chair):
+    @override
+    def sit_on(self) -> str: return "Sitting on modern chair"
+
+class ModernTable(Table):
+    @override
+    def put_on(self) -> str: return "Putting on modern table"
+
+class ModernSofa(Sofa):
+    @override
+    def lie_on(self) -> str: return "Lying on modern sofa"
+
+
+class VictorianChair(Chair):
+    @override
+    def sit_on(self) -> str: return "Sitting on Victorian chair"
+
+class VictorianTable(Table):
+    @override
+    def put_on(self) -> str: return "Putting on Victorian table"
+
+class VictorianSofa(Sofa):
+    @override
+    def lie_on(self) -> str: return "Lying on Victorian sofa"
+
+
+class FurnitureFactory(ABC):
+    @abstractmethod
+    def create_chair(self) -> Chair: ...
+    @abstractmethod
+    def create_table(self) -> Table: ...
+    @abstractmethod
+    def create_sofa(self) -> Sofa: ...
+
+
+class ModernFurnitureFactory(FurnitureFactory):
+    @override
+    def create_chair(self) -> Chair: return ModernChair()
+    @override
+    def create_table(self) -> Table: return ModernTable()
+    @override
+    def create_sofa(self) -> Sofa:  return ModernSofa()
+
+
+class VictorianFurnitureFactory(FurnitureFactory):
+    @override
+    def create_chair(self) -> Chair: return VictorianChair()
+    @override
+    def create_table(self) -> Table: return VictorianTable()
+    @override
+    def create_sofa(self) -> Sofa:  return VictorianSofa()
+
+
+# Client
+factory: FurnitureFactory = ModernFurnitureFactory()
+print(factory.create_chair().sit_on())
+print(factory.create_table().put_on())
+print(factory.create_sofa().lie_on())`,
+
+        rust: `trait Chair { fn sit_on(&self) -> &str; }
+trait Table { fn put_on(&self) -> &str; }
+trait Sofa  { fn lie_on(&self) -> &str; }
+
+struct ModernChair;
+impl Chair for ModernChair { fn sit_on(&self) -> &str { "Sitting on modern chair" } }
+struct ModernTable;
+impl Table for ModernTable { fn put_on(&self) -> &str { "Putting on modern table" } }
+struct ModernSofa;
+impl Sofa for ModernSofa { fn lie_on(&self) -> &str { "Lying on modern sofa" } }
+
+struct VictorianChair;
+impl Chair for VictorianChair { fn sit_on(&self) -> &str { "Sitting on Victorian chair" } }
+struct VictorianTable;
+impl Table for VictorianTable { fn put_on(&self) -> &str { "Putting on Victorian table" } }
+struct VictorianSofa;
+impl Sofa for VictorianSofa { fn lie_on(&self) -> &str { "Lying on Victorian sofa" } }
+
+trait FurnitureFactory {
+    fn create_chair(&self) -> Box<dyn Chair>;
+    fn create_table(&self) -> Box<dyn Table>;
+    fn create_sofa(&self) -> Box<dyn Sofa>;
+}
+
+struct ModernFurnitureFactory;
+impl FurnitureFactory for ModernFurnitureFactory {
+    fn create_chair(&self) -> Box<dyn Chair> { Box::new(ModernChair) }
+    fn create_table(&self) -> Box<dyn Table> { Box::new(ModernTable) }
+    fn create_sofa(&self) -> Box<dyn Sofa>   { Box::new(ModernSofa) }
+}
+
+struct VictorianFurnitureFactory;
+impl FurnitureFactory for VictorianFurnitureFactory {
+    fn create_chair(&self) -> Box<dyn Chair> { Box::new(VictorianChair) }
+    fn create_table(&self) -> Box<dyn Table> { Box::new(VictorianTable) }
+    fn create_sofa(&self) -> Box<dyn Sofa>   { Box::new(VictorianSofa) }
+}
+
+fn main() {
+    let factory: Box<dyn FurnitureFactory> = Box::new(ModernFurnitureFactory);
+    println!("{}", factory.create_chair().sit_on());
+    println!("{}", factory.create_table().put_on());
+    println!("{}", factory.create_sofa().lie_on());
+}`
+    }
+}

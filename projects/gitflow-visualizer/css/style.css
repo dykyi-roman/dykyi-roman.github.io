@@ -1,5 +1,42 @@
 /* ===== GitFlow Visualizer Styles ===== */
 
+/* ===== Language Switcher ===== */
+.lang-switcher {
+    margin-left: auto;
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+
+.lang-btn {
+    width: 28px;
+    height: 24px;
+    border: 1px solid var(--gfv-border, #2a3444);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--gfv-text-light, #8892a4);
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 24px;
+    text-align: center;
+    font-family: inherit;
+}
+
+.lang-btn:hover {
+    background: var(--gfv-accent-light, #1e2248);
+    border-color: var(--gfv-accent, #89b4fa);
+    color: var(--gfv-accent, #89b4fa);
+}
+
+.lang-btn.active {
+    background: var(--gfv-accent, #89b4fa);
+    border-color: var(--gfv-accent, #89b4fa);
+    color: #141922;
+}
+
 :root {
     --gfv-classic-color: #89b4fa;
     --gfv-github-color: #a6e3a1;
@@ -137,7 +174,7 @@
     border-radius: var(--gfv-radius);
     padding: 8px 14px;
     margin-bottom: 12px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 10px;
     transition: none;
 }
@@ -247,9 +284,7 @@
 }
 
 .speed-value {
-    font-size: 11px;
-    color: var(--gfv-text-light);
-    min-width: 36px;
+    display: none;
 }
 
 .stat-item {
@@ -711,9 +746,9 @@
 }
 
 .dep-rules-header {
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
-    color: var(--gfv-text);
+    color: var(--gfv-text-light);
     margin-bottom: 8px;
 }
 
@@ -752,8 +787,9 @@
     justify-content: space-between;
     padding: 8px 14px;
     border-bottom: 1px solid var(--gfv-border);
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 600;
+    color: var(--gfv-text-light);
 }
 
 .event-log-header div {

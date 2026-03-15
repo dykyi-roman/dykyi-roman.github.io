@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Principles - Dykyi Roman | Philosophy & Values</title>
+    <meta name="description" content="Personal principles on willpower, discipline, mindfulness, philosophy, friends, family, health, education, and finance by Dykyi Roman.">
+    <meta name="author" content="Dykyi Roman">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Life Principles - Dykyi Roman">
+    <meta property="og:description" content="Personal principles on willpower, discipline, mindfulness, philosophy, family, health, and finance.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dykyi-roman.github.io/principles.html">
+    <link rel="icon" href="../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/principles.html">
+    <link rel="stylesheet" type="text/css" href="../resources/style.css">
+    <link rel="stylesheet" href="../resources/navigation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<!-- Password Overlay -->
+<div id="password-overlay" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-background, #f5f5f5);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+">
+    <div style="
+        background: var(--color-white, #fff);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+        text-align: center;
+        max-width: 360px;
+        width: 90%;
+    ">
+        <div style="font-size: 48px; margin-bottom: 16px;">🔒</div>
+        <h3 style="margin: 0 0 8px; color: var(--color-heading, #333);">Private Principles</h3>
+        <p style="margin: 0 0 24px; color: var(--color-text-light, #666); font-size: 14px;">Enter password to access</p>
+        <input
+            id="password-input"
+            type="password"
+            placeholder="Password"
+            autocomplete="off"
+            style="
+                width: 100%;
+                padding: 12px 16px;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                font-size: 16px;
+                box-sizing: border-box;
+                outline: none;
+                transition: border-color 0.2s;
+            "
+            onfocus="this.style.borderColor='var(--color-primary, #dc7603)'"
+            onblur="this.style.borderColor='#ddd'"
+        >
+        <p id="password-error" style="color: #e74c3c; font-size: 13px; margin: 8px 0 0; display: none;">Wrong password</p>
+        <button
+            id="password-submit"
+            style="
+                margin-top: 16px;
+                width: 100%;
+                padding: 12px;
+                background: var(--color-primary, #dc7603);
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: opacity 0.2s;
+            "
+            onmouseover="this.style.opacity='0.85'"
+            onmouseout="this.style.opacity='1'"
+        >Open</button>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const HASH = '4a95ca7fed6126c6270b38de5cc7e076c4a505f7e7f370166deb599ba3ec892f';
+        const overlay = document.getElementById('password-overlay');
+        const input = document.getElementById('password-input');
+        const error = document.getElementById('password-error');
+        const btn = document.getElementById('password-submit');
+
+        async function sha256(text) {
+            const data = new TextEncoder().encode(text);
+            const buffer = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(buffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkPassword() {
+            const hash = await sha256(input.value);
+            if (hash === HASH) {
+                overlay.style.display = 'none';
+            } else {
+                error.style.display = 'block';
+                input.style.borderColor = '#e74c3c';
+                input.value = '';
+                input.focus();
+            }
+        }
+
+        btn.addEventListener('click', checkPassword);
+        input.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        input.focus();
+    })();
+</script>
+
+<!-- Side Navigation -->
+<div class="side-nav">
+    <div class="nav-toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="scrollToSection('practice-section')"><i class="fas fa-dumbbell"></i> <span class="nav-text">Practice</span></button>
+        <button class="nav-button" onclick="scrollToSection('mind-values-section')"><i class="fas fa-brain"></i> <span class="nav-text">Mind & Values</span></button>
+        <button class="nav-button" onclick="scrollToSection('people-section')"><i class="fas fa-user-friends"></i> <span class="nav-text">People</span></button>
+        <button class="nav-button" onclick="scrollToSection('family-section')"><i class="fas fa-home"></i> <span class="nav-text">Family</span></button>
+        <button class="nav-button" onclick="scrollToSection('health-section')"><i class="fas fa-heartbeat"></i> <span class="nav-text">Health</span></button>
+        <button class="nav-button" onclick="scrollToSection('growth-section')"><i class="fas fa-seedling"></i> <span class="nav-text">Growth</span></button>
+        <button class="nav-button" onclick="scrollToSection('finance-section')"><i class="fas fa-chart-line"></i> <span class="nav-text">Finance</span></button>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+    <script>
+        fetch('../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">Principles</span>
+    </nav>
+
+    <main id="main-content">
+    <h1 class="visually-hidden">Life Principles</h1>
+    <!--  Practice  -->
+    <div id="practice-section" class="section">
+        <div class="accordion-header">
+            <h3><i class="fas fa-dumbbell"></i> Practice</h3>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+            <div class="sub-accordion-header">
+                <h3>Strengthen Your Willpower</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <p><strong>Сила воли – как мышца, её нужно прокачивать постепенно.</strong></p>
+        <ul>
+            <li><span><strong>Утренний ритуал дисциплины</strong>: Просыпайся рано (например, в 5 утра) и сразу приступай к полезным действиям (зарядка, медитация, чтение).</span></li>
+            <li><span><strong>Холодный душ</strong>: Начинай день с холодного умывания/душа – это тренирует выдержку и закаляет характер.</span></li>
+            <li><span><strong>Медитация (10-30 минут в день)</strong>: учись контролировать ум через осознанность.</span></li>
+            <li><span><strong>Ведение дневника</strong>: Записывай свои цели, успехи и слабости. Анализируй, где сдаёшься, а где проявляешь стойкость.</span></li>
+            <li><span><strong>Цифровой детокс</strong>: Выдели часы без соцсетей и гаджетов. Тренируй концентрацию.</span></li>
+            <li><span><strong>Осознанный отказ от вредного</strong>: Выбери одну слабость (сладости, курение, лень) и откажись от неё на 30 дней.</span></li>
+            <li><span><strong>Пост или интервальное голодание</strong>: Начни с 12-часового голодания, затем 16:8 – это учит контролю над желаниями. При отсутствии медицинских противопоказаний.</span></li>
+            <li><span><strong>Биографии сильных людей</strong>: Ганди, Нельсон Мандела, Брюс Ли – вдохновляйся их стойкостью.</span></li>
+            <li><span><strong>Спортивный вызов</strong>: Каждый день делай на 1 действия больше, чем вчера.</span></li>
+            <li><span><strong>Принцип немедленного действия</strong>: Как только думаешь о действии – делай его, не давая уму саботировать решение.</span></li>
+            <li><span><strong>Осознанные покупки</strong>: Перед покупкой спрашивай: "Действительно ли мне это нужно?"</span></li>
+            <li><span><strong>Прогулки в одиночестве</strong>: Используй время для размышлений и укрепления духа. Ганди.</span></li>
+            <li><span><strong>Практика ретроспективы</strong>: Каждый вечер делай анализ/оценку пройденному дню.</span></li>
+            <li><span><strong>Контроль языка</strong>: Цени молчание, следи за словами, избегай лжи и пустых разговоров.</span></li>
+            <li><span><strong>Минимализм в быту</strong>: Дает возможность ценить качество, а не количество. Это способ навести порядок в мыслях через порядок вокруг.</span></li>
+            <li><span><strong>Публичные обещания</strong>: Расскажи друзьям о своей цели, чтобы было социальное давление.</span></li>
+            <li><span><strong>Практика "Несгибаемого слова"</strong>: Если пообещал себе – выполняй, даже если трудно.</span></li>
+            <li><span><strong>Размышление о смерти (Memento mori)</strong>: Думай о конечности жизни – это мотивирует действовать сейчас, а не откладывать.</span></li>
+            <li><span><strong>Визуализация результатов</strong>: Перед началом сложной задачи мысленно представляй конечную цель в деталях – это укрепляет мотивацию.</span></li>
+            <li><span><strong>Управление стрессом</strong>: Научись распознавать и убирать из своей жизни источники стресса.</span></li>
+            <li><span><strong>Практика осознанного дыхания</strong>: В моменты слабости или импульсивных желаний, сделай 5-10 глубоких осознанных вдохов для восстановления самоконтроля.</span></li>
+        </ul>
+            </div>
+
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>Strengthen Your Discipline</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <p><strong>Дисциплина — это фундамент силы воли, и без неё сложно достигать целей. </strong></p>
+        <ul>
+            <li><span>Не пытайся внедрить всё сразу. Если сбился — не сдавайся, а просто продолжай. Лучше 1% прогресса каждый день, чем рывки с откатами. </span></li>
+            <li><span><strong>Чёткий режим дня</strong>: Фиксируй время подъёма, работы, отдыха и сна. Организм любит предсказуемость.</span></li>
+            <li><span><strong>Планирование накануне</strong>: Каждый вечер пиши главные задачи на завтра. Выполняй их в первую очередь.</span></li>
+            <li><span><strong>Никаких нулей в привычках</strong>: Если решил читать по 10 страниц в день — не пропускай ни дня.</span></li>
+            <li><span><strong>Контроль окружения</strong>: Удали всё, что провоцирует прокрастинацию (люди, игры, токсичные чаты).</span></li>
+            <li><span><strong>"Съешь лягушку" (Марк Твен)</strong>: Делай самое неприятное дело первым с утра.</span></li>
+            <li><span><strong>"Якорные" привычки для полезных действий</strong>: Привязывай новое действие к существующему ритуалу (например, медитация после чистки зубов).</span></li>
+            <li><span><strong>Упрощение целей</strong>: Еж слона по частям. Разбивай большие задачи на микрошаги (не "написать книгу", а "1 абзац в день").</span></li>
+            <li><span><strong>Практика "Стойкий оловянный солдатик"</strong>: Даже если нет настроения — делаешь минимум (например, 1 страница чтения).</span></li>
+            <li><span><strong>Утренняя интенция</strong>: Сформулируй одну конкретную цель на день.</span></li>
+            <li><span><strong>Системный подход к привычкам</strong>: Создавай системы, а не только цели – постепенно выстраивай образ жизни, где полезные действия происходят автоматически.</span></li>
+            <li><span><strong>Метод "5-минутного старта"</strong>: Начинай делать сложное всего на 5 минут – мозг преодолеет начальное сопротивление и часто захочет продолжить.</span></li>
+        </ul>
+            </div>
+
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>Strengthen Your Mindfulness</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <p><strong>Практикуй осознанность здесь и сейчас — будь в моменте!</strong></p>
+        <ul>
+            <li><span><strong>Медитация</strong>: Можно взять любую. Но самое простое — дыхание 2–10 минут в день следи за вдохом и выдохом.</span></li>
+            <li><span><strong>Стоп-практика</strong>: В случайные моменты дня останавливайся и спрашивай: "О чём я сейчас думаю?"</span></li>
+            <li><span><strong>Осознанное питание</strong>: Ешь медленно, чувствуя вкус, текстуру, запах. Без телефона/ТВ.</span></li>
+            <li><span><strong>Сканирование тела</strong>: Закрой глаза и мысленно "пройдись" от макушки до пят, замечая напряжение.</span></li>
+            <li><span><strong>Одно дело за раз</strong>: Чистишь зубы — только чистишь. Идёшь — только идёшь (не отвлекайся в телефон).</span></li>
+            <li><span><strong>Ведение дневника эмоций</strong>: Записывай: "Сейчас я чувствую… потому что…"</span></li>
+            <li><span><strong>Осознанные паузы перед реакцией</strong>: Перед тем как ответить/действовать, сделай 3 глубоких вдоха.</span></li>
+            <li><span><strong>Отслеживание триггеров</strong>: Замечай, что вызывает гнев/тревогу. Просто фиксируй без оценки.</span></li>
+            <li><span><strong>Осознанное слушание</strong>: Когда кто-то говорит — слушай, не формулируя ответ в голове.</span></li>
+            <li><span><strong>Отказ от автопилота</strong>: Меняй привычные маршруты, порядок действий, чтобы "включать" сознание.</span></li>
+            <li><span><strong>Техника RAIN</strong>: для эмоций</span></li>
+            <li><span><strong>Практика благодарности</strong>: каждый день 3 конкретных вещи (+ почему ценишь их)</span></li>
+            <li><span><strong>Практика "здесь и сейчас"</strong>: В любой момент задавай себе вопрос "Где я сейчас?" и возвращай внимание к текущему моменту, а не прошлому или будущему.</span></li>
+            <li><span><strong>Осознанная ходьба</strong>: Во время прогулки направляй все внимание на ощущения в теле, контакт ног с землей, дыхание и окружающие звуки.</span></li>
+            <li><span><strong>Телесно-ориентированные практики</strong>: Йога, тай-чи или цигун развивают глубокую связь между телом и умом.</span></li>
+            <li><span><strong>Полярность мышления</strong>: Замечай, когда мыслишь категориями "всё или ничего", "чёрное или белое" – учись видеть оттенки и нюансы.</span></li>
+            <li><span><strong>Практика безоценочного наблюдения</strong>: Тренируйся наблюдать за мыслями, эмоциями и событиями без навешивания ярлыков "хорошо/плохо".</span></li>
+        </ul>
+            </div>
+
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>Integration of practices</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <p><strong>Объединяй практики силы воли, дисциплины и осознанности в единую систему развития</strong></p>
+        <ul>
+            <li><span><strong>Принцип баланса</strong>: Чередуй напряжение и расслабление, дисциплину и спонтанность – только в балансе возможен устойчивый рост.</span></li>
+            <li><span><strong>Системный подход</strong>: Осознанность усиливает силу воли, сила воли укрепляет дисциплину, дисциплина создает пространство для осознанности – замкни этот круг взаимного усиления.</span></li>
+            <li><span><strong>Индивидуализация</strong>: Подбирай практики под свой темперамент, энергетику и образ жизни – не все техники подходят всем людям.</span></li>
+            <li><span><strong>Постепенное развитие</strong>: Внедряй изменения медленно, по одной практике за раз – эволюция всегда эффективнее революции.</span></li>
+            <li><span><strong>Метапрактики</strong>: Регулярно анализируй свой прогресс, отмечай закономерности и корректируй систему саморазвития – самонаблюдение ведет к самосовершенствованию.</span></li>
+            <li><span><strong>Целостный подход</strong>: Работай одновременно с физическим телом, эмоциями, умом и духом – изменения в одной сфере влияют на все остальные.</span></li>
+            <li><span><strong>Практика невозвращения</strong>: После срыва или ошибки не возвращайся к нулю – продолжай с того места, где остановился.</span></li>
+            <li><span><strong>Позитивное подкрепление</strong>: Награждай себя за успехи небольшими приятными бонусами – мозг лучше реагирует на поощрение, чем на наказание.</span></li>
+            <li><span><strong>Внутренний диалог</strong>: Отслеживай, как говоришь с собой – замени жесткую критику на поддерживающие формулировки.</span></li>
+            <li><span><strong>Ритуализация</strong>: Превращай важные практики в ритуалы – действия с особым смыслом и значимостью запускают глубинные изменения.</span></li>
+        </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--  Mind & Values (Philosophy + Personality + Church)  -->
+    <hr class="custom-hr">
+    <div id="mind-values-section" class="section">
+        <div class="accordion-header">
+            <h3><i class="fas fa-brain"></i> Mind & Values</h3>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+            <div class="sub-accordion-header">
+                <h3>Philosophy</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <ul>
+            <li><span><strong>Важность вещей</strong>: На свете мало вещей важнее, чем стать частью детства твоих детей.</span></li>
+            <li><span><strong>Важность времени</strong>: Хорошо организованное время — это верный признак хорошо организованного ума. Сэр Исаак Питмен</span></li>
+            <li><span><strong>Важность путешествий</strong>: Путешествия это лучшая инвестиция в себя со всех возможных. Впечатления после путешествия не нужны тебе на старости лет, они нужны когда ты молодой чтобы мотивировать тебя и вдохновить тебя в тяжёлые моменты на протяжении всей жизни.</span></li>
+            <li><span><strong>Абсолютная реальность</strong>: Не существует таких вещей, как объективная реальность или «реальный мир». Наше восприятие реальности всегда субъективно и фильтруется через личный опыт. Помни об этом при оценке ситуаций.</span></li>
+            <li><span><strong>Знание и саморазвитие</strong>: Чтение — один из лучших способов расширить кругозор и развить мышление. Тот кто сегодня читает книги, завтра будет управлять теми кто их не читает. Прочитав 100 осознанно выбранных книг ты станешь другим человеком. Мозг формируется тем, что мы потребляем — выбирай качественную информацию, потому что она влияет на мышление, даже если ты не помнишь деталей. Нужно читать сложные книги, смотреть сложные фильмы и слушать сложную музыку, чтобы развиваться.</span></li>
+            <li><span><strong>Мысли определяют реальность</strong>: Человек сначала думает, потом говорит, потом делает. Все это превращается в поступки, поступки определяют характер, а характер определяет жизнь. Красота в глазах смотрящего. Не существует "плохого" понедельника или "плохой" погоды - всё это только в нашей голове. Избавляйся от негативного мышления, оно порождает цепочку негативных событий.</span></li>
+            <li><span><strong>Действие и результаты</strong>: Кто хочет, тот ищет возможности, кто не хочет — ищет причины. Работай, работай, работай - нет результатов, но ты становишься лучше. Продолжай работать - и придет успех! Большой результат завтра состоит из маленьких побед сегодня.</span></li>
+            <li><span><strong>Сила маленьких решений</strong>: Сегодня я пошёл в зал, а ты съел чипсы. Завтра мы проснёмся одинаковыми — никакой разницы не будет. Но если так будет продолжаться целый год, результат станет очевиден. Жизнь меняется не за один день. Она меняется через сотни маленьких решений, которые мы принимаем ежедневно.</span></li>
+            <li><span><strong>Путь к успеху</strong>: Если я делаю работу за 30 минут, все подумают что это везение, потому что обычно она выполняется 3 часа. Но никто не подумает, что я потратил пять лет своей жизни для того чтобы научиться выполнять её за 30 минут.</span></li>
+            <li><span><strong>Опыт и ошибки</strong>: Успех в жизни происходит от правильно принятого решения. Правильно принятое решение происходит из опыта. А опыт происходит из неправильно принятого решения. Поэтому идите, делайте, ошибайтесь, разбивайте носы, меняйте подходы. Рано или поздно вы обречены на успех. Все это при условии анализа ошибок и готовности адаптироваться.</span></li>
+            <li><span><strong>Жизнь одна</strong>: У нас есть две жизни, вторая начинается тогда, когда ты понимаешь что жизнь на самом деле одна. Ты работаешь 8 часов чтобы жить 4. Ты работаешь 5 дней чтобы жить 2. Ты работаешь весь год чтобы взять 1-2 недели отпуска. Ты работаешь всю жизнь чтобы уйти на пенсию в старости. Не делай так!</span></li>
+            <li><span><strong>Время жизни</strong>: У нас при рождении даётся всем определённое время на жизнь. И наша задача — прожить его в кайф, осознанно и достойно.</span></li>
+            <li><span><strong>Уровни мышления</strong>: Разговоры могут касаться людей, событий или идей. Однако обсуждение людей часто уводит в сторону оценок и интерпретаций, которые легко превращаются в поверхностные суждения. Гораздо продуктивнее направлять внимание на события и особенно на идеи — то, что можно анализировать, проверять и развивать. Сосредоточенность на идеях помогает расти и создавать ценность, тогда как обсуждение людей редко приводит к конструктивному результату.</span></li>
+            <li><span><strong>Образование и время</strong>: Учиться должно быть сложно. Все что ты узнаешь в 20 лет остается с тобой на всю жизнь. Все что узнаешь к примеру в 45 помнишь пару лет. Пропустив годы обучения до 25 лет, ты пропустишь очень многое.</span></li>
+            <li><span><strong>Настоящий успех</strong>: Успех — это как беременность: все поздравляют, но никто не знает, сколько раз вам пришлось попытаться, прежде чем это произошло.</span></li>
+            <li><span><strong>Наследие</strong>: Все что мы после себя оставим в этом жизни это ребенок или свой бренд. Все остальное не имеет никакого смысла и ценности.</span></li>
+            <li><span><strong>Жизненные уроки</strong>: В школе нам преподают урок, потом просят пройти тест или испытания. В жизни ты проходишь через испытания, из которых должен вынести урок.</span></li>
+            <li><span><strong>Субъективность информации</strong>: Всегда в любой подаче информации есть объект субъективизма. Если ее подает учитель который 3 месяца не получал з/п это будет одна подача, если миллионер - другая. Это нужно всегда учитывать.</span></li>
+            <hr>
+            <li><span><strong>Непостоянство</strong>: Все проходит, пройдет и это. Радуйся тому, что у тебя есть. Помни, что это может закончиться. Не грусти по поводу того, что какие-то неприятности. Это тоже пройдет.</span></li>
+            <li><span><strong>Принятие других</strong>: Не все люди обязаны быть умными, сильными как мы думаем про себя. Нужно научиться быть снисходительным и даже добрым к ним. Если ты реагируешь на всех - ты не самодостаточен и слаб внутри. Нужно тренироваться. Тогда ты будешь как Будда - принимать все и не обращать внимания на глупости и мелочи.</span></li>
+            <li><span><strong>Контроль реакции</strong>: Мы контролируем только нашу реакцию. Всё остальное — вне нашего контроля. Если друг ведёт себя как дурак — это его путь, его травмы, его детство. Наша задача — сохранить спокойствие, не тратить свою энергию на то, что мы изменить не можем.</span></li>
+            <li><span><strong>Уровни восприятия</strong>: Люди понимают людей только со своего уровня восприятия, и никакие споры не стоят того, чтобы пытаться изменить это. Каждый человек воспринимает мир через призму собственного опыта, знаний и убеждений. Споры часто бесполезны, потому что участники не способны выйти за рамки своего восприятия и принять чужую точку зрения. Настоящее понимание и прогресс происходят, когда люди открываются к диалогу и готовы рассмотреть другие перспективы, вместо того чтобы настаивать на своей правоте.</span></li>
+            <li><span><strong>Ценность труда</strong>: Никогда не продавай дёшево свой труд. Один Рабочий день стоит Один день твоей жизни.</span></li>
+            <li><span><strong>Ценность качества</strong>: Удовольствие от хорошего качества длится дольше, чем радость от дешёвой цены товара.</span></li>
+            <li><span><strong>Остерегайся обобщений</strong>: Мир слишком сложен, чтобы описывать его обобщёнными категориями.</span></li>
+            <li><span><strong>Позитивное мышление</strong>: Не мысли негативно — негативные мысли порождают цепочку негативных событий.</span></li>
+            <li><span><strong>Выбор быть счастливым</strong>: Если я решу быть счастливым — мне ничто не сможет помешать. Если я решу быть несчастным — причин всегда найдётся достаточно: на улице снег, кто-то наступил на ногу, не положили сахар, облили кофе…</span></li>
+            <li><span><strong>Возможности важнее причин</strong>: Не ищи причины — ищи возможности.</span></li>
+            <li><span><strong>Живи сейчас</strong>: Не работай всю жизнь ради пенсии.</span></li>
+            <li><span><strong>Обсуждай идеи, а не людей</strong>: Разговоры о людях поверхностны, обсуждение идей развивает мышление.</span></li>
+            <li><span><strong>Смирение (humility)</strong>: Умей признавать свою неправоту и ограниченность своих знаний. Мудрость начинается там, где заканчивается уверенность в собственной правоте. Сильный человек не боится сказать «я ошибся» или «я не знаю».</span></li>
+            <li><span><strong>Эмпатия как практика</strong>: Не просто понимай чужую точку зрения — активно старайся прочувствовать ситуацию другого человека. Прежде чем судить, спроси себя: «Как бы я поступил на его месте с его опытом и обстоятельствами?»</span></li>
+        </ul>
+            </div>
+
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>Personality</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <ul>
+            <li><span>Не изменять своим ценностям ради чужого одобрения</span></li>
+            <li><span>Не сравнивать себя с другими – единственный достойный ориентир – моя вчерашняя версия</span></li>
+            <li><span>Принимать свои недостатки – они не делают меня хуже, а дают точки для роста</span></li>
+            <li><span>Страх – сигнал, а не преграда – идти навстречу сложностям, а не убегать</span></li>
+            <li><span>Ставить цели и достигать их – не плыть по течению, а управлять своей жизнью</span></li>
+            <li><span>Брать на себя ответственность – не искать виноватых, а решать проблемы</span></li>
+            <li><span>Жить сейчас. Не думать о прошлом</span></li>
+            <li><span>Развивать осознанность – понимать, почему я думаю, чувствую и действую так, а не иначе</span></li>
+            <li><span>Никому не стоит навешивать ярлыки, все люди разные</span></li>
+            <li><span>Слова должны соответствовать делам</span></li>
+            <li><span>Не делить людей на расы</span></li>
+            <li><span>Человек в праве сам выбрать религию или не иметь ее вовсе</span></li>
+            <li><span>Человек в праве сам распоряжаться своим телом: пирсинг, тату.</span></li>
+            <li><span>Человек в праве сам определять свой гендер</span></li>
+            <li><span>Человек в праве сам определять свой образ жизни и питание (например:веганство)</span></li>
+            <li><span>Не делить людей по нации. В каждой стране есть как хорошие так и плохие люди</span></li>
+            <li><span>Молодость проходящее. Ей нужно уметь воспользоваться</span></li>
+            <li><span>Не вмешиваться в чужую жизнь без разрешения</span></li>
+        </ul>
+            </div>
+
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>Church</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <ul>
+            <li><span>Механизм управления массами</span></li>
+            <li><span>Духовное развитие важно вне зависимости от религиозных убеждений</span></li>
+            <li><span>Религия может давать моральные ориентиры, но не должна заменять критическое мышление</span></li>
+            <li><span>Уважение к вере других людей, даже если она отличается от твоей</span></li>
+            <li><span>Поиск внутренней гармонии важнее внешних ритуалов</span></li>
+        </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--  People (Friends + Конфликты и сложные люди)  -->
+    <hr class="custom-hr">
+    <div id="people-section" class="section">
+        <div class="accordion-header">
+            <h3><i class="fas fa-user-friends"></i> People</h3>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+            <div class="sub-accordion-header">
+                <h3>Friends</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <ul>
+            <h4>Основные принципы дружбы</h4>
+            <li><span>Дружба детства имеет особую ценность, но глубокие связи могут возникнуть в любом возрасте, если вкладываться в них</span></li>
+            <li><span>Взаимная помощь и понимание в любой ситуации</span></li>
+            <li><span>Поддержка без условий – друг помогает не ради выгоды, а потому что хочет</span></li>
+            <li><span>Друзей не может быть много. Знакомых должно быть много для формирования социальной сети</span></li>
+            <li><span>Давая деньги, будь готов их не получить обратно. Давай только то, что можешь позволить себе потерять</span></li>
+            <li><span>Честность и открытость – настоящая дружба строится на искренности</span></li>
+            <li><span>Время – главный ресурс – дружба требует регулярного общения и внимания</span></li>
+
+            <h4>Различие между друзьями и знакомыми</h4>
+            <li><span>Друг – тот, кто готов встать среди ночи и помочь; знакомый – тот, кто выразит сочувствие позже</span></li>
+            <li><span>Друг видит тебя настоящего, знакомый – только публичный образ</span></li>
+            <li><span>С другом можно молчать и чувствовать комфорт; со знакомым тишина создает напряжение</span></li>
+            <li><span>Друг останется, когда ты упадешь; знакомый появится, когда ты поднимешься</span></li>
+            <li><span>Друг интересуется тем, что с тобой происходит; знакомый тем, что может от тебя получить</span></li>
+
+            <h4>Распознавание токсичных отношений</h4>
+            <li><span>Токсичный "друг" постоянно критикует, но никогда не поддерживает</span></li>
+            <li><span>Если после общения с человеком ты чувствуешь истощение – это сигнал</span></li>
+            <li><span>Токсичные люди используют манипуляции, чтобы контролировать ситуацию</span></li>
+            <li><span>Настоящий друг радуется твоим успехам; токсичный – принижает их значимость</span></li>
+            <li><span>Если дружба односторонняя – ты всегда даешь, а другой только берет – стоит задуматься</span></li>
+
+            <h4>Построение глубоких и длительных связей</h4>
+            <li><span>Инвестируй в отношения – качественное время, искренний интерес, поддержка</span></li>
+            <li><span>Учись слушать, а не только говорить – глубокая дружба строится на понимании</span></li>
+            <li><span>Уважай границы друга – у каждого есть право на личное пространство</span></li>
+            <li><span>Будь надежным – выполняй обещания и держи слово</span></li>
+            <li><span>Умей признавать ошибки и просить прощения – это укрепляет доверие</span></li>
+            <li><span>Принимай друга целиком – с достоинствами и недостатками</span></li>
+            <li><span>Не путай друзей и знакомых – это разные категории людей с разным уровнем близости</span></li>
+            <li><span>Не терпи токсичные отношения – если после общения чувствуешь истощение, это сигнал</span></li>
+            <li><span>Доверие – фундамент – если оно разрушено, вернуть его очень сложно</span></li>
+            <li><span>Радоваться успеху другого – настоящий друг не завидует, а поддерживает</span></li>
+        </ul>
+            </div>
+
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>Conflicts and difficult people</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <ul>
+            <li><span>Работай над собой ради собственного роста, а не чтобы кому-то что-то доказать</span></li>
+            <li><span>Не дать стать центром интересов</span></li>
+            <li><span>Не тратить энергию на ненависть – злость разрушает меня, а не их</span></li>
+            <li><span>Учиться у оппонентов – они показывают мои слабые места, над которыми стоит работать</span></li>
+            <li><span>Не опускаться до их уровня – отвечать благородно, а не мстить</span></li>
+            <li><span>Контролировать эмоции – опоненты чаще всего питаются моими реакциями</span></li>
+            <li><span>Фокусироваться на своем пути – не отвлекаться на тех, кто мешает</span></li>
+            <li><span>Прощать, но не забывать – извлекать уроки, но не хранить обиду</span></li>
+            <li><span>Различать критику и токсичность – конструктивную критику можно принять, а яд – нет</span></li>
+        </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--  Family (Family + Pleasure)  -->
+    <hr class="custom-hr">
+    <div id="family-section" class="section">
+        <div class="accordion-header">
+            <h3><i class="fas fa-home"></i> Family</h3>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+            <div class="sub-accordion-header">
+                <h3>Family</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <ul>
+            <li><span><strong>Дом</strong> - место уюта, отдыха и расслабления</span></li>
+            <li><span>Поддержка отношения с близкими людьми на расстоянии</span></li>
+            <li><span>Строить отношения только на взаимном доверии </span></li>
+            <li><span>Партнёр — человек, с которым ты строишь жизнь: разделяешь и радости, и трудности, растёшь вместе</span></li>
+            <li><span>Время дороже денег – качественное общение важнее материальных благ</span></li>
+            <li><span>Прощение укрепляет – не накапливать обиды, а решать конфликты с уважением</span></li>
+            <li><span>Каждый член семьи важен – учитывать интересы всех, а не только свои</span></li>
+            <li><span>Традиции объединяют – семейные ритуалы и ценности укрепляют связи</span></li>
+            <li><span>Быть примером – дети учатся не по словам, а по поступкам родителей</span></li>
+            <li><span>Любить без условий – ребенок не должен зарабатывать любовь, она дана ему просто так</span></li>
+            <li><span>Поддерживать, а не контролировать – помогать ребенку становится самостоятельным, а не управлять им</span></li>
+            <li><span>Для детей мы по-настоящему делаем только то, о чём они нас просят. Всё остальное мы делаем скорее для себя — убеждая себя, что это нужно им</span></li>
+            <li><span>Давать право на ошибки – ребенок имеет право учиться на своих промахах</span></li>
+            <li><span>Слушать и слышать – уважать мнение ребенка, даже если оно отличается</span></li>
+            <li><span>Прививать ценности, а не просто правила – объяснять, почему что-то важно, а не просто запрещать</span></li>
+            <li><span>Учить ответственности – помогать осознавать последствия поступков</span></li>
+            <li><span>Радоваться ребенку таким, какой он есть – не пытаться сделать его «удобным» или соответствующим ожиданиям</span></li>
+        </ul>
+            </div>
+
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>Pleasure</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <ul>
+            <li><span>Небольшие победы свои и твоей семьи</span></li>
+            <li><span>Занятия любимым делом</span></li>
+            <li><span>Находить радость в простых вещах – счастье в деталях, а не только в глобальных событиях</span></li>
+            <li><span>Качество важнее количества</span></li>
+            <li><span>Разнообразие делает жизнь ярче – пробовать новое, открывать неизведанное.</span></li>
+        </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--  Health  -->
+    <hr class="custom-hr">
+    <div id="health-section" class="section">
+        <div class="accordion-header">
+            <h3><i class="fas fa-heartbeat"></i> Health</h3>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+            <ul>
+            <li><span>Безопасной дозы алкоголя не существует (WHO). Если употребляешь — осознанно и минимально</span></li>
+            <li><span>Запрет всему что связано с курением</span></li>
+            <li><span>Зубы должны быть здоровы</span></li>
+            <li><span>Фитнес должен быть регулярным</span></li>
+            <li><span>После 30-ти становится все делать сложнее. С возрастом меняются приоритеты в здоровье — восстановление требует больше внимания, но при правильном подходе тело способно на многое в любом возрасте</span></li>
+            <li><span>Здоровье – приоритет – без него невозможно полноценно жить и достигать целей</span></li>
+            <li><span>Питание – топливо для тела – есть осознанно, выбирая полезную еду</span></li>
+            <li><span>Движение – жизнь – регулярно заниматься спортом и поддерживать активность</span></li>
+            <li><span>Сон – важнее продуктивности – без восстановления невозможно быть эффективным</span></li>
+            <li><span>Ментальное здоровье так же важно, как физическое – заботиться о внутреннем состоянии</span></li>
+            <li><span>Профилактика лучше лечения – регулярный чекап организма и забота о себе</span></li>
+            <li><span>Стресс под контролем – не позволять негативным эмоциям разрушать организм</span></li>
+            <li><span>Слушать свое тело – прислушиваться к сигналам организма и реагировать на них</span></li>
+            <li><span>Избегать вредных привычек – не позволять зависимостям управлять мной</span></li>
+            <li><span>Здоровье – это баланс – не перегибать ни в сторону аскетизма, ни в сторону излишеств</span></li>
+        </ul>
+        </div>
+    </div>
+
+    <!--  Growth (Education + Job + Ownership)  -->
+    <hr class="custom-hr">
+    <div id="growth-section" class="section">
+        <div class="accordion-header">
+            <h3><i class="fas fa-seedling"></i> Growth</h3>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+            <div class="sub-accordion-header">
+                <h3>Education</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <ul>
+            <li><span>Много путешествуй. познавай мир, культуру, людей через путешествия</span></li>
+            <li><span>Чтения книг. Образовательная бизнес и художественная литератур</span></li>
+            <li><span>Анализировать и проверять информацию полученную с открытия источников</span></li>
+            <li><span>Непрерывное обучение, оно не заканчивается после университета</span></li>
+            <li><span>Не бойся ошибиться, это лучше чем жалеть о не сделаном поступке</span></li>
+            <li><span>Знания без практики бесполезны – применять изученное в реальной жизни</span></li>
+            <li><span>Диплом не гарантирует успеха. Формальное образование даёт фундамент, но настоящее мастерство приходит через непрерывное самообучение</span></li>
+            <li><span>Лучший учитель – опыт – ошибки и успехи дают самые ценные уроки</span></li>
+            <li><span>Учиться у лучших – окружать себя знающими людьми и перенимать их опыт</span></li>
+            <li><span>Развивать критическое мышление – не принимать информацию без анализа</span></li>
+            <li><span>Читать каждый день – книги – один из лучших источников мудрости</span></li>
+            <li><span>Качество важнее количества – лучше освоить одну тему глубоко, чем поверхностно изучить десять</span></li>
+            <li><span>Знания – это инвестиция – вкладываться в образование так же важно, как в бизнес или здоровье</span></li>
+            <li><span>Обучая других, учусь сам – делиться знаниями, чтобы закрепить их и развиваться дальше</span></li>
+        </ul>
+            </div>
+
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>Job</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <ul>
+            <li><span>Средство получения денег для инвестиции в себя и свои проекты</span></li>
+            <li><span>Должна приносить удовольствие</span></li>
+            <li><span>Идеальная работа та где ты готов работать бесплатно. Профессиональный рост должен совпадать с справедливой компенсацией</span></li>
+            <li><span>Работа должна приносить смысл, а не просто деньги – заниматься тем, что ценно и важно</span></li>
+            <li><span>Развиваться в своей сфере – не стоять на месте, а становится лучше каждый день</span></li>
+            <li><span>Быть профессионалом – делать свою работу качественно, даже если никто не смотрит</span></li>
+            <li><span>Ставить четкие цели – знать, к чему я иду в карьере и бизнесе</span></li>
+            <li><span>Работа не должна отнимать всю жизнь – баланс между работой и личным важен</span></li>
+            <li><span>Дисциплина важнее мотивации – действовать даже тогда, когда нет настроения</span></li>
+            <li><span>Не стой на месте – развивайся каждый день, даже маленький шаг вперёд лучше стагнации</span></li>
+            <li><span>Менторство – передавай знания и опыт другим. Обучая, ты систематизируешь собственное понимание и растёшь как профессионал</span></li>
+            <li><span>Нетворкинг – профессиональные связи это инвестиция в карьеру. Большинство возможностей приходят через людей, а не через объявления</span></li>
+        </ul>
+            </div>
+
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>Ownership</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <ul>
+            <li><span>иерархия потребностей Abraham Maslow</span></li>
+            <li><span>Ответственность – владение чем-либо требует заботы и правильного использования</span></li>
+            <li><span>Нет привязки к вещам. вещи должны служить мне, а не наоборот</span></li>
+            <li><span>Чем меньше ненужного, тем легче жить и фокусироваться на важном</span></li>
+            <li><span>Осознанное потребление – покупать только то, что действительно необходимо</span></li>
+            <li><span>Делиться бесплатно излишками с теми, кому это нужнее</span></li>
+        </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--  Finance  -->
+    <hr class="custom-hr">
+    <div id="finance-section" class="section">
+        <div class="accordion-header">
+            <h3><i class="fas fa-chart-line"></i> Finance</h3>
+            <i class="fas fa-chevron-down accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+            <p><strong>Все деньги в мире зарабатываются тремя путями: Капитал, Бизнес и Труд.</strong></p>
+
+            <!-- Category 1: Capital -->
+            <div class="sub-accordion-header">
+                <h3>💰 Капитал (Деньги делают деньги)</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <p><em>Пассивный доход от инвестирования капитала. Ваши деньги работают на вас.</em></p>
+                <ul>
+                    <li><span><strong>Депозиты и сберегательные счета</strong>: Самый безопасный, но низкодоходный инструмент. Защита от инфляции слабая. Ликвидность высокая. Подходит для резервного фонда (6-12 месяцев расходов).</span></li>
+
+                    <li><span><strong>Акции и фондовый рынок</strong>: Покупка долей компаний. Дивиденды + рост стоимости. Долгосрочная доходность 7-10% годовых. Риск волатильности. Диверсификация через ETF и индексные фонды. Важно: не вкладывать деньги, которые понадобятся в ближайшие 3-5 лет.</span></li>
+
+                    <li><span><strong>Облигации</strong>: Займ государству или корпорации под фиксированный процент. Ниже доходность, чем акции, но выше стабильность. Подходит для консервативных портфелей. Корпоративные облигации рискованнее, но доходнее государственных.</span></li>
+
+                    <li><span><strong>Золото и драгоценные металлы</strong>: Защита от инфляции и кризисов. Не генерирует денежный поток (нет дивидендов). Хранилище ценности на века. Рекомендуется 5-10% портфеля. Физическое золото vs ETF на золото.</span></li>
+
+                    <li><span><strong>Недвижимость (инвестиционная)</strong>: Покупка жилья/коммерции для сдачи в аренду. Пассивный денежный поток + рост стоимости. Требует больших первоначальных вложений. Управление арендаторами, налоги, ремонт. REITs (фонды недвижимости) – альтернатива без головной боли.</span></li>
+
+                    <li><span><strong>Криптовалюты и DeFi</strong>: Высокорискованный класс активов. Bitcoin – цифровое золото. Ethereum – платформа для смарт-контрактов. Стейкинг и фарминг – пассивный доход в крипте. Волатильность огромная. Только свободные деньги, которые можете потерять. Не более 5-10% портфеля.</span></li>
+
+                    <li><span><strong>P2P кредитование</strong>: Займы частным лицам или малому бизнесу под высокий процент (10-20% годовых). Риск дефолта заемщика. Диверсификация по многим займам обязательна. Платформы: Mintos, Lending Club и др.</span></li>
+
+                    <li><span><strong>Венчурные инвестиции (Startups)</strong>: Вложения в стартапы на ранних стадиях. Очень высокий риск (90% стартапов умирают), но потенциал 10x-100x при успехе. Требует экспертизы. Для опытных инвесторов с большим капиталом.</span></li>
+                </ul>
+                <p><strong>Ключевые принципы:</strong></p>
+                <ul>
+                    <li><span>Диверсификация – не храни все яйца в одной корзине</span></li>
+                    <li><span>Долгосрочная перспектива – минимум 5-10 лет</span></li>
+                    <li><span>Регулярное пополнение – используй силу сложного процента</span></li>
+                    <li><span>Ребалансировка портфеля раз в год</span></li>
+                    <li><span>Инвестируй только в то, что понимаешь</span></li>
+                </ul>
+            </div>
+
+            <!-- Category 2: Business -->
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>🏢 Бизнес/Предпринимательство (Создание системы)</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <p><em>Создание системы, которая работает без вашего постоянного участия. Масштабируемость.</em></p>
+                <ul>
+                    <li><span><strong>Производство товаров</strong>: Создание физических продуктов (одежда, электроника, мебель). Требует капитала на оборудование, склады, персонал. Логистика и дистрибуция. Масштабируется при налаженных процессах. Margins зависят от ниши. Amazon FBA как канал сбыта.</span></li>
+
+                    <li><span><strong>Торговля (Купля-продажа)</strong>: Покупка товаров оптом и розничная продажа с наценкой. Онлайн (e-commerce) vs оффлайн магазины. Дропшиппинг – продажа без складских запасов. Арбитраж (покупка в одном месте дешевле, продажа в другом дороже). Требует понимания спроса и предложения.</span></li>
+
+                    <li><span><strong>Недвижимость (Девелопмент/Флиппинг)</strong>: Покупка "убитой" недвижимости, ремонт/улучшение, перепродажа с прибылью. Требует экспертизы в строительстве и оценке. Риск перерасхода бюджета. Изменение назначения земли (сельхоз → коммерческая). Высокая маржа при правильном исполнении.</span></li>
+
+                    <li><span><strong>Общепит (Рестораны, Кафе, Кухня)</strong>: Высокомаржинальный бизнес при правильной локации. Требует постоянного контроля качества. Персонал – главная головная боль. Cloud kitchens (облачные кухни) – новый тренд. Франшиза vs собственный бренд. Высокая конкуренция.</span></li>
+
+                    <li><span><strong>IT-продукты и SaaS</strong>: Программное обеспечение как услуга (подписочная модель). Мобильные приложения, веб-сервисы, плагины. Низкие маргинальные издержки – создаешь один раз, продаешь миллионам. Масштабируемость практически бесконечная. Требует технических навыков или команды. Примеры: Notion, Figma, Canva.</span></li>
+
+                    <li><span><strong>Цифровые продукты и контент</strong>: Онлайн-курсы, электронные книги, шаблоны, музыка, стоковые фото. Создаешь один раз – продаешь бесконечно. Платформы: Udemy, Gumroad, Shutterstock. Пассивный доход после создания. Требует экспертизы и маркетинга.</span></li>
+
+                    <li><span><strong>Интеллектуальная собственность (Патенты, Лицензии)</strong>: Изобретение технологии и продажа прав на использование. Авторские права на музыку, книги, софт. Роялти – процент от продаж. Требует юридической защиты. Долгосрочный пассивный доход.</span></li>
+
+                    <li><span><strong>Медиа и экономика внимания</strong>: Создание контента (YouTube, Telegram, блог) и монетизация аудитории. Рекламные доходы, спонсорства, партнерские программы. Чем больше аудитория, тем выше доход. Требует постоянного создания контента. Личный бренд как актив.</span></li>
+
+                    <li><span><strong>Арбитраж трафика</strong>: Покупка рекламы на одной платформе дешевле, перенаправление на другую дороже. Affiliate маркетинг – процент от продаж по вашей ссылке. Performance-маркетинг. Требует глубокого понимания рекламных платформ (Facebook Ads, Google Ads).</span></li>
+
+                    <li><span><strong>Шеринг и аренда активов</strong>: Прокат транспорта (таксопарк, каршеринг), оборудования (строительные инструменты, камеры). Активы работают на вас 24/7. Требует управления и обслуживания. Airbnb для недвижимости – классический пример.</span></li>
+
+                    <li><span><strong>Посредничество и брокеридж</strong>: Сведение покупателя и продавца за комиссию. Риелторство, агентская деятельность. Дропшиппинг в e-commerce. Marketplace модели (eBay, Etsy). Не нужны большие капитальные вложения. Главное – доступ к клиентской базе или трафику.</span></li>
+                </ul>
+                <p><strong>Ключевые принципы:</strong></p>
+                <ul>
+                    <li><span>Системность – создай процессы, которые работают без тебя</span></li>
+                    <li><span>Автоматизация – используй технологии для масштабирования</span></li>
+                    <li><span>Команда – нанимай людей, которые лучше тебя в своей сфере</span></li>
+                    <li><span>Unit-экономика – считай прибыль с каждого клиента/продукта</span></li>
+                    <li><span>Масштабируемость – выбирай бизнес-модели с потенциалом роста</span></li>
+                </ul>
+            </div>
+
+            <!-- Category 3: Labor -->
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>🛠️ Труд/Экспертиза (Время за деньги)</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <p><em>Обмен вашего времени и экспертизы на деньги. Активный доход.</em></p>
+                <ul>
+                    <li><span><strong>Наемная работа (Employment)</strong>: Фиксированная зарплата за ваше время и навыки. Стабильность и предсказуемость. Социальные гарантии (отпуск, больничный, пенсия). Ограниченный потолок дохода. Зависимость от работодателя. Карьерный рост требует времени.</span></li>
+
+                    <li><span><strong>Фриланс (Freelancing)</strong>: Работа на проектной основе для разных клиентов. Программирование, дизайн, копирайтинг, маркетинг, консалтинг. Гибкость графика и выбора проектов. Нет социальных гарантий. Нужно самому искать клиентов. Доход зависит от количества заказов. Платформы: Upwork, Fiverr, Toptal.</span></li>
+
+                    <li><span><strong>Консалтинг и экспертиза</strong>: Продажа знаний и опыта за высокую ставку. Бизнес-консультирование, стратегия, аудит. Юридические, финансовые, технические услуги. Высокие часовые ставки ($100-$500+/час). Требует глубокой экспертизы и репутации. Личный бренд критически важен.</span></li>
+
+                    <li><span><strong>Профессиональные услуги</strong>: Врачи, адвокаты, архитекторы, бухгалтеры. Требуют лицензирования и сертификации. Долгое обучение (5-10 лет). Высокий доход при наличии клиентской базы. Ограниченность временем – не можешь масштабироваться. Возможность открыть практику/агентство.</span></li>
+
+                    <li><span><strong>Мастера и ремесленники</strong>: Электрики, сантехники, плотники, механики. Ручной труд с высокой квалификацией. Всегда востребованы. Хорошие заработки при опыте. Физически тяжело с возрастом. Возможность создать бригаду/компанию.</span></li>
+
+                    <li><span><strong>Креативные профессии</strong>: Фотографы, видеографы, музыканты, артисты. Зависимость от творческих способностей и вдохновения. Нестабильный доход. Высокая конкуренция. Необходим портфолио и самопродвижение. Можно перейти в масштабируемые форматы (курсы, стоки).</span></li>
+
+                    <li><span><strong>Коучинг и менторство</strong>: Персональные тренировки, карьерный коучинг, life coaching. 1-on-1 сессии или групповые программы. Требует сертификации и результатов клиентов. Ограничено временем, но высокие ставки ($100-$300/час). Можно масштабировать через групповые программы.</span></li>
+
+                    <li><span><strong>Преподавание и образование</strong>: Учителя, преподаватели, тренеры. Стабильная зарплата, но обычно невысокая. Влияние на развитие людей. Можно перейти в онлайн-обучение (запись курсов). Репетиторство – дополнительный заработок.</span></li>
+                </ul>
+                <p><strong>Ключевые принципы:</strong></p>
+                <ul>
+                    <li><span>Повышай экспертизу – чем ты ценнее, тем выше ставка</span></li>
+                    <li><span>Личный бренд – репутация приводит клиентов</span></li>
+                    <li><span>Нетворкинг – большинство заказов через связи</span></li>
+                    <li><span>Стремись к переходу: Труд → Бизнес → Капитал</span></li>
+                    <li><span>Инвестируй доход от труда в активы (капитал и бизнес)</span></li>
+                    <li><span>Соблюдай принцип налоговой эффективности: Неважно, сколько ты заработал, важно, сколько ты сохранил</span></li>
+                </ul>
+            </div>
+
+            <!-- Personal Finance Strategy & Management -->
+            <hr class="custom-hr">
+            <div class="sub-accordion-header">
+                <h3>💡 Стратегия и управление финансами</h3>
+                <i class="fas fa-chevron-down sub-accordion-icon"></i>
+            </div>
+            <div class="sub-accordion-content">
+                <p><strong>Стратегия финансовой независимости:</strong></p>
+                <p><em>Это ориентир, а не правило. У каждого свой путь и свой темп</em></p>
+                <ul>
+                    <li><span><strong>Этап 1 (20-30 лет)</strong>: Развивай экспертизу через Труд. Зарабатывай максимум в своей профессии.</span></li>
+                    <li><span><strong>Этап 2 (30-40 лет)</strong>: Инвестируй заработок в Капитал (акции, недвижимость) и запускай Бизнес-проекты. Создавай пассивные источники дохода.</span></li>
+                    <li><span><strong>Этап 3 (40-50 лет)</strong>: Масштабируй Бизнес и увеличивай долю Капитала. Уменьшай зависимость от активного Труда.</span></li>
+                    <li><span><strong>Этап 4 (50+ лет)</strong>: Живи на пассивный доход от Капитала и Бизнеса. Труд только по желанию (консалтинг, менторство).</span></li>
+                </ul>
+                <p><em>Цель: перейти от "время за деньги" к "деньги работают на тебя".</em></p>
+
+                <h4>💰 Основные принципы управления деньгами</h4>
+                <ul>
+                    <li><span>Деньги нужны, они увеличивают твои возможности. Их нужно инвестировать и откладывать</span></li>
+                    <li><span>Деньги – это энергия – они должны работать на меня и создавать ценность</span></li>
+                    <li><span>Тратить меньше чем зарабатывать. Контроль расходов основа стабильности</span></li>
+                    <li><span>Не экономить на ключевом – здоровье, образование и развитие – самые важные инвестиции</span></li>
+                </ul>
+
+                <h4>📈 Заработок</h4>
+                <ul>
+                    <li><span>Нужно иметь несколько источников дохода</span></li>
+                    <li><span>Работая на кого-то вы реализуете его мечту. Только свой бизнес даёт полную финансовую свободу. Бизнес — потенциально более прибыльный, но рискованный путь.</span></li>
+                    <li><span>Развивай навыки, которые повышают твою ценность на рынке труда</span></li>
+                    <li><span>Автоматизируй процессы зарабатывания – создавай системы, работающие без твоего постоянного участия</span></li>
+                    <li><span>Никогда не работай только за деньги – ищи проекты, которые дают опыт, связи или удовольствие</span></li>
+                </ul>
+
+                <h4>💎 Инвестирование</h4>
+                <ul>
+                    <li><span>Инвестировать, а не хранить – деньги должны создавать новые деньги</span></li>
+                    <li><span>Диверсифицировать свой капитал – не клади все яйца в одну корзину</span></li>
+                    <li><span>Инвестируй в то, что понимаешь – избегай вложений в непонятные инструменты</span></li>
+                    <li><span>Начинай инвестировать как можно раньше – используй силу сложного процента</span></li>
+                    <li><span>Регулярность важнее суммы – лучше инвестировать малые суммы регулярно, чем большие редко</span></li>
+                </ul>
+
+                <h4>🏦 Накопление</h4>
+                <ul>
+                    <li><span>Создавай резервный фонд на 6-12 месяцев жизни – это твоя финансовая подушка безопасности</span></li>
+                    <li><span>Автоматизируй сбережения – настрой автоматические переводы части дохода на сберегательный счет</span></li>
+                    <li><span>Разделяй расходы на разные типы кошельков – используй метод 6 кошельков для контроля финансов</span></li>
+                    <li><span>Накапливай на конкретные цели – это мотивирует и дает ощущение прогресса</span></li>
+                    <li><span>Отделяй "хочу" от "нужно" – научись откладывать желания ради финансовой стабильности</span></li>
+                </ul>
+
+                <h4>💳 Траты</h4>
+                <ul>
+                    <li><span>Ведение бюджета – знай, куда уходят твои деньги</span></li>
+                    <li><span>Правило 24 часа – откладывай крупные покупки минимум на сутки, чтобы избежать импульсивных трат</span></li>
+                    <li><span>Щедрость возвращается – помогай другим и вкладывайся в добрые дела</span></li>
+                    <li><span>Инвестируй в опыт, а не в вещи – впечатления делают нас счастливее, чем материальные приобретения</span></li>
+                </ul>
+
+                <h4>🛡️ Финансовая безопасность</h4>
+                <ul>
+                    <li><span>Защищай личные данные – будь осторожен при операциях в интернете</span></li>
+                    <li><span>Страхуй важные активы – здоровье, жильё, автомобиль</span></li>
+                    <li><span>Не подписывай документы, которые не понимаешь – всегда консультируйся со специалистами</span></li>
+                    <li><span>Избегай кредитов на потребление – занимай только на то, что приносит доход или растет в цене</span></li>
+                    <li><span>Следи за кредитной историей – это влияет на твои финансовые возможности в будущем</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+        <div class="footer-links">
+            <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+            <a href="mailto:mr.dukuy@gmail.com">Email</a>
+        </div>
+    </footer>
+</div>
+
+<script src="../resources/back-to-top.js"></script>
+<script src="../resources/navigation.js"></script>
+<script src="../resources/accordion.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</body>
+</html>

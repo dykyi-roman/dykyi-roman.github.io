@@ -121,17 +121,76 @@ GFV.classic.feature = {
     steps: function() {
         var b = this._b;
         return [
-            { op: 'branch', branch: b, fromBranch: 'develop', label: b, description: 'Create feature branch ' + b + ' from develop to isolate new work from the integration branch', logType: 'BRANCH' },
-            { op: 'commit', branch: b, label: 'Auth UI', description: 'Implement login form UI components — input fields, validation messages, and submit button with responsive layout', logType: 'COMMIT' },
-            { op: 'commit', branch: b, label: 'Auth API', description: 'Wire up authentication API call with JWT token handling, error responses, and session management', logType: 'COMMIT' },
-            { op: 'commit', branch: b, label: 'Tests', description: 'Add unit and integration tests for the login flow — covering valid credentials, invalid input, and API failure scenarios', logType: 'COMMIT' },
-            { op: 'pr', fromBranch: b, toBranch: 'develop', label: 'PR #1', description: 'Open pull request from ' + b + ' to develop — requesting code review before integration', logType: 'PR' },
-            { op: 'merge', fromBranch: b, toBranch: 'develop', label: 'Merge PR', description: 'PR approved and merged — ' + b + ' changes are now integrated into the develop branch', logType: 'MERGE' },
-            { op: 'delete-branch', branch: b, label: 'Cleanup', description: 'Delete ' + b + ' branch — feature is fully merged, keeping the repository clean', logType: 'DELETE' }
+            {
+                op: 'branch',
+                branch: b,
+                fromBranch: 'develop',
+                label: b,
+                description: 'Create feature branch ' + b + ' from develop to isolate new work from the integration branch',
+                descriptionKey: 'gfv.classic.feature.branch',
+                descriptionParams: { branch: b },
+                logType: 'BRANCH'
+            },
+            {
+                op: 'commit',
+                branch: b,
+                label: 'Auth UI',
+                description: 'Implement login form UI components — input fields, validation messages, and submit button with responsive layout',
+                descriptionKey: 'gfv.classic.feature.auth_ui',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'commit',
+                branch: b,
+                label: 'Auth API',
+                description: 'Wire up authentication API call with JWT token handling, error responses, and session management',
+                descriptionKey: 'gfv.classic.feature.auth_api',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'commit',
+                branch: b,
+                label: 'Tests',
+                description: 'Add unit and integration tests for the login flow — covering valid credentials, invalid input, and API failure scenarios',
+                descriptionKey: 'gfv.classic.feature.tests',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'pr',
+                fromBranch: b,
+                toBranch: 'develop',
+                label: 'PR #1',
+                description: 'Open pull request from ' + b + ' to develop — requesting code review before integration',
+                descriptionKey: 'gfv.classic.feature.pr',
+                descriptionParams: { branch: b },
+                logType: 'PR'
+            },
+            {
+                op: 'merge',
+                fromBranch: b,
+                toBranch: 'develop',
+                label: 'Merge PR',
+                description: 'PR approved and merged — ' + b + ' changes are now integrated into the develop branch',
+                descriptionKey: 'gfv.classic.feature.merge',
+                descriptionParams: { branch: b },
+                logType: 'MERGE'
+            },
+            {
+                op: 'delete-branch',
+                branch: b,
+                label: 'Cleanup',
+                description: 'Delete ' + b + ' branch — feature is fully merged, keeping the repository clean',
+                descriptionKey: 'gfv.classic.feature.cleanup',
+                descriptionParams: { branch: b },
+                logType: 'DELETE'
+            }
         ];
     },
     stepOptions: function() {
-        return { requestLabel: 'Feature Flow: ' + this._b, _initFn: GFV.classic.feature.init };
+        return {
+            requestLabel: GFV._t('gfv.request.classic.feature', { branch: this._b }, 'Feature Flow: ' + this._b),
+            _initFn: GFV.classic.feature.init
+        };
     },
     run: function() {
         GFV.classic.feature.init();
@@ -148,21 +207,108 @@ GFV.classic.release = {
         var f1 = 'JIRA-' + (Math.floor(Math.random() * 900) + 100);
         var f2 = 'JIRA-' + (Math.floor(Math.random() * 900) + 100);
         return [
-            { op: 'commit', branch: 'develop', label: f1, description: 'Feature ' + f1 + ' (user profile page) merged to develop after code review and testing', logType: 'COMMIT' },
-            { op: 'commit', branch: 'develop', label: f2, description: 'Feature ' + f2 + ' (notification system) merged to develop — enough features accumulated for a release', logType: 'COMMIT' },
-            { op: 'branch', branch: 'release/1.0', fromBranch: 'develop', label: 'release/1.0', description: 'Cut release/1.0 from develop — freezing feature scope, only stabilization work allowed from here', logType: 'BRANCH' },
-            { op: 'commit', branch: 'release/1.0', label: 'Bump ver', description: 'Bump version number to 1.0 in package.json, update changelog with release notes', logType: 'COMMIT' },
-            { op: 'commit', branch: 'release/1.0', label: 'Fix typo', description: 'Fix documentation typo found during release review — minor copy correction in README', logType: 'COMMIT' },
-            { op: 'commit', branch: 'release/1.0', label: 'Fix bug', description: 'Fix regression found during QA testing — edge case in notification delivery timing', logType: 'COMMIT' },
-            { op: 'merge', fromBranch: 'release/1.0', toBranch: 'main', label: 'Release', description: 'Merge release/1.0 into main — all stabilization complete, release is production-ready', logType: 'MERGE' },
-            { op: 'tag', branch: 'main', tagName: 'v1.0', label: 'v1.0', description: 'Tag v1.0 on main — marking the exact commit that represents the production release', logType: 'TAG' },
-            { op: 'deploy', branch: 'main', envName: 'production', label: 'Deploy', description: 'Deploy v1.0 to production environment — release is now live for all users', logType: 'DEPLOY' },
-            { op: 'merge', fromBranch: 'release/1.0', toBranch: 'develop', label: 'Merge back', description: 'Merge release/1.0 fixes back into develop — ensuring bug fixes are not lost in future development', logType: 'MERGE' },
-            { op: 'delete-branch', branch: 'release/1.0', label: 'Cleanup', description: 'Delete release/1.0 branch — release cycle complete, branch no longer needed', logType: 'DELETE' }
+            {
+                op: 'commit',
+                branch: 'develop',
+                label: f1,
+                description: 'Feature ' + f1 + ' (user profile page) merged to develop after code review and testing',
+                descriptionKey: 'gfv.classic.release.feature1',
+                descriptionParams: { issue: f1 },
+                logType: 'COMMIT'
+            },
+            {
+                op: 'commit',
+                branch: 'develop',
+                label: f2,
+                description: 'Feature ' + f2 + ' (notification system) merged to develop — enough features accumulated for a release',
+                descriptionKey: 'gfv.classic.release.feature2',
+                descriptionParams: { issue: f2 },
+                logType: 'COMMIT'
+            },
+            {
+                op: 'branch',
+                branch: 'release/1.0',
+                fromBranch: 'develop',
+                label: 'release/1.0',
+                description: 'Cut release/1.0 from develop — freezing feature scope, only stabilization work allowed from here',
+                descriptionKey: 'gfv.classic.release.cut',
+                logType: 'BRANCH'
+            },
+            {
+                op: 'commit',
+                branch: 'release/1.0',
+                label: 'Bump ver',
+                description: 'Bump version number to 1.0 in package.json, update changelog with release notes',
+                descriptionKey: 'gfv.classic.release.bump',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'commit',
+                branch: 'release/1.0',
+                label: 'Fix typo',
+                description: 'Fix documentation typo found during release review — minor copy correction in README',
+                descriptionKey: 'gfv.classic.release.typo',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'commit',
+                branch: 'release/1.0',
+                label: 'Fix bug',
+                description: 'Fix regression found during QA testing — edge case in notification delivery timing',
+                descriptionKey: 'gfv.classic.release.bug',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'merge',
+                fromBranch: 'release/1.0',
+                toBranch: 'main',
+                label: 'Release',
+                description: 'Merge release/1.0 into main — all stabilization complete, release is production-ready',
+                descriptionKey: 'gfv.classic.release.merge_main',
+                logType: 'MERGE'
+            },
+            {
+                op: 'tag',
+                branch: 'main',
+                tagName: 'v1.0',
+                label: 'v1.0',
+                description: 'Tag v1.0 on main — marking the exact commit that represents the production release',
+                descriptionKey: 'gfv.classic.release.tag',
+                logType: 'TAG'
+            },
+            {
+                op: 'deploy',
+                branch: 'main',
+                envName: 'production',
+                label: 'Deploy',
+                description: 'Deploy v1.0 to production environment — release is now live for all users',
+                descriptionKey: 'gfv.classic.release.deploy',
+                logType: 'DEPLOY'
+            },
+            {
+                op: 'merge',
+                fromBranch: 'release/1.0',
+                toBranch: 'develop',
+                label: 'Merge back',
+                description: 'Merge release/1.0 fixes back into develop — ensuring bug fixes are not lost in future development',
+                descriptionKey: 'gfv.classic.release.merge_back',
+                logType: 'MERGE'
+            },
+            {
+                op: 'delete-branch',
+                branch: 'release/1.0',
+                label: 'Cleanup',
+                description: 'Delete release/1.0 branch — release cycle complete, branch no longer needed',
+                descriptionKey: 'gfv.classic.release.cleanup',
+                logType: 'DELETE'
+            }
         ];
     },
     stepOptions: function() {
-        return { requestLabel: 'Release Flow: release/1.0', _initFn: GFV.classic.release.init };
+        return {
+            requestLabel: GFV._t('gfv.request.classic.release', null, 'Release Flow: release/1.0'),
+            _initFn: GFV.classic.release.init
+        };
     },
     run: function() {
         GFV.classic.release.init();
@@ -179,19 +325,94 @@ GFV.classic.hotfix = {
     steps: function() {
         var b = this._b;
         return [
-            { op: 'commit', branch: 'develop', label: 'WIP', description: 'Normal development continues on develop — team is working on the next release features', logType: 'COMMIT' },
-            { op: 'branch', branch: b, fromBranch: 'main', label: b, description: 'URGENT: Branch ' + b + ' directly from main — critical payment processing bug reported in production', logType: 'BRANCH' },
-            { op: 'commit', branch: b, label: 'Fix', description: 'Apply critical fix — resolve race condition in payment callback handler causing duplicate charges', logType: 'COMMIT' },
-            { op: 'commit', branch: b, label: 'Test fix', description: 'Add regression test covering the concurrent payment scenario to prevent future recurrence', logType: 'COMMIT' },
-            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'Hotfix', description: 'Merge ' + b + ' into main — fix verified, fast-tracking to production', logType: 'MERGE' },
-            { op: 'merge', fromBranch: b, toBranch: 'develop', label: 'Merge back', description: 'Merge ' + b + ' back into develop — ensuring the fix is included in the next release cycle', logType: 'MERGE' },
-            { op: 'tag', branch: 'main', tagName: 'v1.0.1', label: 'v1.0.1', description: 'Tag v1.0.1 patch release on main — marking the hotfix deployment point', logType: 'TAG' },
-            { op: 'deploy', branch: 'main', envName: 'production', label: 'Deploy', description: 'Deploy hotfix v1.0.1 to production — payment issue resolved for all users', logType: 'DEPLOY' },
-            { op: 'delete-branch', branch: b, label: 'Cleanup', description: 'Delete ' + b + ' branch — hotfix complete, branch served its emergency purpose', logType: 'DELETE' }
+            {
+                op: 'commit',
+                branch: 'develop',
+                label: 'WIP',
+                description: 'Normal development continues on develop — team is working on the next release features',
+                descriptionKey: 'gfv.classic.hotfix.develop_wip',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'branch',
+                branch: b,
+                fromBranch: 'main',
+                label: b,
+                description: 'URGENT: Branch ' + b + ' directly from main — critical payment processing bug reported in production',
+                descriptionKey: 'gfv.classic.hotfix.branch',
+                descriptionParams: { branch: b },
+                logType: 'BRANCH'
+            },
+            {
+                op: 'commit',
+                branch: b,
+                label: 'Fix',
+                description: 'Apply critical fix — resolve race condition in payment callback handler causing duplicate charges',
+                descriptionKey: 'gfv.classic.hotfix.fix',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'commit',
+                branch: b,
+                label: 'Test fix',
+                description: 'Add regression test covering the concurrent payment scenario to prevent future recurrence',
+                descriptionKey: 'gfv.classic.hotfix.test',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'merge',
+                fromBranch: b,
+                toBranch: 'main',
+                label: 'Hotfix',
+                description: 'Merge ' + b + ' into main — fix verified, fast-tracking to production',
+                descriptionKey: 'gfv.classic.hotfix.merge_main',
+                descriptionParams: { branch: b },
+                logType: 'MERGE'
+            },
+            {
+                op: 'merge',
+                fromBranch: b,
+                toBranch: 'develop',
+                label: 'Merge back',
+                description: 'Merge ' + b + ' back into develop — ensuring the fix is included in the next release cycle',
+                descriptionKey: 'gfv.classic.hotfix.merge_back',
+                descriptionParams: { branch: b },
+                logType: 'MERGE'
+            },
+            {
+                op: 'tag',
+                branch: 'main',
+                tagName: 'v1.0.1',
+                label: 'v1.0.1',
+                description: 'Tag v1.0.1 patch release on main — marking the hotfix deployment point',
+                descriptionKey: 'gfv.classic.hotfix.tag',
+                logType: 'TAG'
+            },
+            {
+                op: 'deploy',
+                branch: 'main',
+                envName: 'production',
+                label: 'Deploy',
+                description: 'Deploy hotfix v1.0.1 to production — payment issue resolved for all users',
+                descriptionKey: 'gfv.classic.hotfix.deploy',
+                logType: 'DEPLOY'
+            },
+            {
+                op: 'delete-branch',
+                branch: b,
+                label: 'Cleanup',
+                description: 'Delete ' + b + ' branch — hotfix complete, branch served its emergency purpose',
+                descriptionKey: 'gfv.classic.hotfix.cleanup',
+                descriptionParams: { branch: b },
+                logType: 'DELETE'
+            }
         ];
     },
     stepOptions: function() {
-        return { requestLabel: 'Hotfix Flow: ' + this._b, _initFn: GFV.classic.hotfix.init };
+        return {
+            requestLabel: GFV._t('gfv.request.classic.hotfix', { branch: this._b }, 'Hotfix Flow: ' + this._b),
+            _initFn: GFV.classic.hotfix.init
+        };
     },
     run: function() {
         GFV.classic.hotfix.init();

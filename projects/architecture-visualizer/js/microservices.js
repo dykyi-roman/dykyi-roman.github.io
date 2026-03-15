@@ -26,7 +26,7 @@ function renderMicroservicesDb(name, id) {
 
 function renderMicroservicesDefault(canvas, mode) {
     var isSaga = mode === 'saga' || mode === 'saga-fail';
-    var meshLabel = 'Service Mesh (Istio / Linkerd)';
+    var meshLabel = I18N.t('microservices.mesh.label', null, 'Service Mesh (Istio / Linkerd)');
 
     var servicesHtml =
         '<div class="archv-ms-service-box" id="svc-payment">' +
@@ -78,28 +78,28 @@ function renderMicroservicesDefault(canvas, mode) {
 
     var orchestratorHtml = isSaga
         ? '<div class="archv-ms-orchestrator" id="ms-orchestrator-area">' +
-              ARCHV.renderComponent('comp-ms-orchestrator', 'Saga Orchestrator', '&#x1F3AF;',
+              ARCHV.renderComponent('comp-ms-orchestrator', I18N.t('microservices.saga.label', null, 'Saga Orchestrator'), '&#x1F3AF;',
                   'Central coordinator that manages the saga workflow. Sends commands to services, waits for replies, and triggers compensating transactions on failure.') +
           '</div>'
         : '';
 
     var queueTooltip = isSaga
-        ? 'Kafka / RabbitMQ — used by the Saga Orchestrator to publish completion events (e.g., OrderCompleted). Notification Service consumes these events asynchronously.'
-        : 'Kafka / RabbitMQ — asynchronous message routing. Decouples producers from consumers for reliable event delivery.';
+        ? { key: 'microservices.tooltip.queue_saga', fallback: 'Kafka / RabbitMQ — used by the Saga Orchestrator to publish completion events (e.g., OrderCompleted). Notification Service consumes these events asynchronously.' }
+        : { key: 'microservices.tooltip.queue_async', fallback: 'Kafka / RabbitMQ — asynchronous message routing. Decouples producers from consumers for reliable event delivery.' };
 
     var queueHtml =
         '<div class="archv-ms-queue-area" id="ms-queue-area">' +
             '<div class="archv-ms-queue-box" id="ms-queue-box">' +
-                ARCHV.renderComponent('comp-ms-queue', 'Message Queue', '&#x1F4E1;', queueTooltip) +
+                ARCHV.renderComponent('comp-ms-queue', I18N.t('microservices.queue.label', null, 'Message Queue'), '&#x1F4E1;', queueTooltip) +
             '</div>' +
         '</div>';
 
     var legendHtml =
         '<div class="archv-flow-legend">' +
-            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (HTTP/gRPC)</div>' +
-            '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
-            '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
-            (isSaga ? '<div class="legend-item"><span class="legend-line-compensate"></span> Compensate</div>' : '') +
+            '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.sync_http', null, 'Sync (HTTP/gRPC)') + '</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.response', null, 'Response') + '</div>' +
+            '<div class="legend-item"><span class="legend-line-async"></span> ' + I18N.t('arch.legend.async_event', null, 'Async (Event)') + '</div>' +
+            (isSaga ? '<div class="legend-item"><span class="legend-line-compensate"></span> ' + I18N.t('arch.legend.compensate', null, 'Compensate') + '</div>' : '') +
         '</div>';
 
     canvas.innerHTML =
@@ -157,14 +157,14 @@ function renderMicroservicesAsync(canvas) {
     var queueHtml =
         '<div class="archv-ms-queue-area" id="ms-queue-area">' +
             '<div class="archv-ms-queue-box" id="ms-queue-box">' +
-                ARCHV.renderComponent('comp-ms-queue', 'Message Queue', '&#x1F4E1;', 'Kafka / RabbitMQ — the central hub. All inter-service communication flows through the queue as domain events.') +
+                ARCHV.renderComponent('comp-ms-queue', I18N.t('microservices.queue.label', null, 'Message Queue'), '&#x1F4E1;', { key: 'microservices.tooltip.queue_async', fallback: 'Kafka / RabbitMQ — asynchronous message routing. Decouples producers from consumers for reliable event delivery.' }) +
             '</div>' +
         '</div>';
 
     var legendHtml =
         '<div class="archv-flow-legend">' +
-            '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
-            '<div class="legend-item"><span class="legend-line-sync"></span> DB Write</div>' +
+            '<div class="legend-item"><span class="legend-line-async"></span> ' + I18N.t('arch.legend.async_event', null, 'Async (Event)') + '</div>' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.db_write', null, 'DB Write') + '</div>' +
         '</div>';
 
     canvas.innerHTML =
@@ -321,7 +321,7 @@ ARCHV.microservices.sync = {
     init: function() { renderMicroservices('sync'); },
     steps: function() {
         return [
-            { elementId: 'comp-ms-client', label: 'Client', description: 'HTTP POST /api/orders', logType: 'REQUEST', layerId: 'ms-client-area' },
+            { elementId: 'comp-ms-client', label: 'Client', description: 'POST /api/orders sent to API Gateway — gateway handles auth and routing', descriptionKey: 'microservices.step.sync.0', logType: 'REQUEST', layerId: 'ms-client-area' },
             { elementId: 'comp-ms-gateway', label: 'API Gateway', description: 'Receive request, authenticate via User Service', logType: 'FLOW', layerId: 'ms-gateway-area' },
             { elementId: 'comp-ms-user-svc', label: 'User Service', description: 'Validate JWT token, return user context', logType: 'FLOW', layerId: 'svc-user' },
             { elementId: 'comp-ms-gateway', label: 'API Gateway', description: 'Auth OK, route to Order Service', logType: 'RESPONSE', layerId: 'ms-gateway-area', arrowFromId: 'comp-ms-user-svc' },
@@ -336,7 +336,7 @@ ARCHV.microservices.sync = {
             { elementId: 'comp-ms-client', label: 'Client', description: 'Receive order confirmation', logType: 'RESPONSE', layerId: 'ms-client-area' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'HTTP POST /api/orders (sync)' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('microservices.requestLabel.sync', null, 'Microservices Sync: client → API Gateway → services (no direct calls)') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.microservices.sync.steps(), ARCHV.microservices.sync.stepOptions());
     }
@@ -347,7 +347,7 @@ ARCHV.microservices.async = {
     init: function() { renderMicroservices('async'); },
     steps: function() {
         return [
-            { elementId: 'comp-ms-order-svc', label: 'Order Service', description: 'Order created, publish OrderCreated event', logType: 'EVENT', layerId: 'svc-order' },
+            { elementId: 'comp-ms-order-svc', label: 'Order Service', description: 'Order created locally — OrderCreated event published to Message Queue', descriptionKey: 'microservices.step.async.0', logType: 'EVENT', layerId: 'svc-order' },
             { elementId: 'comp-ms-queue', label: 'Message Queue', description: 'Receive OrderCreated, route to subscribers', logType: 'ASYNC', layerId: 'ms-queue-area' },
             { elementId: 'comp-ms-inventory-svc', label: 'Inventory Service', description: 'Consume OrderCreated, reserve stock', logType: 'EVENT', layerId: 'svc-inventory' },
             { elementId: 'db-ms-inventory', label: 'inventory_db', description: 'Save stock reservation', logType: 'FLOW', layerId: 'svc-inventory', delay: 400 },
@@ -361,7 +361,7 @@ ARCHV.microservices.async = {
             { elementId: 'db-ms-orders', label: 'orders_db', description: 'Update order status', logType: 'FLOW', layerId: 'svc-order', arrowFromId: 'comp-ms-order-svc', parallel: true, delay: 400 }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Event: OrderCreated (async)' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('microservices.requestLabel.async', null, 'Microservices Async: services react to events via Message Queue') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.microservices.async.steps(), ARCHV.microservices.async.stepOptions());
     }
@@ -372,7 +372,7 @@ ARCHV.microservices.saga = {
     init: function() { renderMicroservices('saga'); },
     steps: function() {
         return [
-            { elementId: 'comp-ms-client', label: 'Client', description: 'HTTP POST /api/orders', logType: 'REQUEST', layerId: 'ms-client-area' },
+            { elementId: 'comp-ms-client', label: 'Client', description: 'POST /api/orders — routed to Saga Orchestrator for distributed coordination', descriptionKey: 'microservices.step.saga.0', logType: 'REQUEST', layerId: 'ms-client-area' },
             { elementId: 'comp-ms-gateway', label: 'API Gateway', description: 'Route to Saga Orchestrator', logType: 'REQUEST', layerId: 'ms-gateway-area', arrowFromId: 'comp-ms-client' },
             { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'Initiate order saga', logType: 'COMMAND', layerId: 'ms-orchestrator-area', arrowFromId: 'comp-ms-gateway' },
             { elementId: 'comp-ms-inventory-svc', label: 'Inventory Service', description: 'Step 1: Reserve inventory (local tx)', logType: 'COMMAND', layerId: 'svc-inventory', arrowFromId: 'comp-ms-orchestrator' },
@@ -385,7 +385,7 @@ ARCHV.microservices.saga = {
             { elementId: 'comp-ms-notification-svc', label: 'Notification Service', description: 'Consume event, send notification', logType: 'EVENT', layerId: 'svc-notification', arrowFromId: 'comp-ms-queue' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Saga: Order fulfillment (success)' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('microservices.requestLabel.saga', null, 'Microservices Saga: orchestrator coordinates inventory, payment, confirmation') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.microservices.saga.steps(), ARCHV.microservices.saga.stepOptions());
     }
@@ -396,7 +396,7 @@ ARCHV.microservices['saga-fail'] = {
     init: function() { renderMicroservices('saga-fail'); },
     steps: function() {
         return [
-            { elementId: 'comp-ms-client', label: 'Client', description: 'HTTP POST /api/orders', logType: 'REQUEST', layerId: 'ms-client-area' },
+            { elementId: 'comp-ms-client', label: 'Client', description: 'POST /api/orders — this request will fail at payment step', descriptionKey: 'microservices.step.saga-fail.0', logType: 'REQUEST', layerId: 'ms-client-area' },
             { elementId: 'comp-ms-gateway', label: 'API Gateway', description: 'Route to Saga Orchestrator', logType: 'REQUEST', layerId: 'ms-gateway-area', arrowFromId: 'comp-ms-client' },
             { elementId: 'comp-ms-orchestrator', label: 'Saga Orchestrator', description: 'Initiate order saga', logType: 'COMMAND', layerId: 'ms-orchestrator-area', arrowFromId: 'comp-ms-gateway' },
             { elementId: 'comp-ms-inventory-svc', label: 'Inventory Service', description: 'Step 1: Reserve inventory (local tx) \u2713', logType: 'COMMAND', layerId: 'svc-inventory', arrowFromId: 'comp-ms-orchestrator' },
@@ -409,7 +409,7 @@ ARCHV.microservices['saga-fail'] = {
             { elementId: 'comp-ms-client', label: 'Client', description: 'Order failed \u2014 inventory released, no charge', logType: 'RESPONSE', layerId: 'ms-client-area', arrowFromId: 'comp-ms-gateway' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Saga: Order fulfillment (failure)' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('microservices.requestLabel.saga-fail', null, 'Microservices Saga Failure: payment fails, compensating transactions undo inventory') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.microservices['saga-fail'].steps(), ARCHV.microservices['saga-fail'].stepOptions());
     }

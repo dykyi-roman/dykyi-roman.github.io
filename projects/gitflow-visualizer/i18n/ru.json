@@ -1,0 +1,940 @@
+{
+  "gf.title": "Визуализатор GitFlow",
+  "article-title": "Визуализатор GitFlow",
+
+  "gfv.request.classic.feature": "Фича-поток: {branch}",
+  "gfv.request.classic.release": "Релизный поток: release/1.0",
+  "gfv.request.classic.hotfix": "Хотфикс-поток: {branch}",
+  "gfv.request.environment.promote": "Полный прогон: develop \u2192 qa \u2192 staging \u2192 production",
+  "gfv.request.environment.hotfix": "Продакшен-хотфикс: экстренное исправление в продакшене",
+  "gfv.request.environment.rollback": "Откат: возврат неудачного деплоя в продакшене",
+  "gfv.request.trunk.direct": "Trunk-based: напрямую в trunk",
+  "gfv.request.trunk.branch": "Trunk-based: короткоживущая ветка",
+  "gfv.request.trunk.flags": "Trunk-based: feature flags",
+  "gfv.request.scaled.team": "Поток ветки команды: {branch}",
+  "gfv.request.scaled.program": "Программная интеграция: мультикомандный PI",
+  "gfv.request.scaled.release": "Масштабный релиз: release/PI-1",
+  "gfv.request.ship.ship": "Ship/Show/Ask: Ship (прямой merge)",
+  "gfv.request.ship.show": "Ship/Show/Ask: Show (PR без блокировки)",
+  "gfv.request.ship.ask": "Ship/Show/Ask: Ask (PR + review)",
+  "gfv.request.forking.pr": "Forking workflow: fork + PR",
+  "gfv.request.forking.sync": "Forking workflow: синхронизация форка",
+  "gfv.request.forking.review": "Forking workflow: review мейнтейнера",
+  "gfv.request.cherry.backport": "Cherry-pick поток: backport фикса",
+  "gfv.request.cherry.forward": "Cherry-pick поток: forward port",
+  "gfv.request.cherry.multi": "Cherry-pick поток: несколько версий",
+  "gfv.request.gitlab.feature": "GitLab Flow — фича в main",
+  "gfv.request.gitlab.staging": "GitLab Flow — продвижение в staging",
+  "gfv.request.gitlab.production": "GitLab Flow — продвижение в production",
+  "gfv.request.release.create": "Release branching: создание релиза",
+  "gfv.request.release.patch": "Release branching: патч-релиз",
+  "gfv.request.release.parallel": "Release branching: параллельные релизы",
+  "gfv.request.github.feature": "GitHub Flow: Feature + PR",
+  "gfv.request.github.deploy": "GitHub Flow: деплой из main",
+  "gfv.request.github.hotfix": "GitHub Flow: быстрый фикс",
+  "gfv.request.oneflow.release": "OneFlow — релиз через rebase",
+  "gfv.request.oneflow.hotfix": "OneFlow — хотфикс через cherry-pick",
+  "gfv.request.oneflow.feature": "OneFlow — feature rebase",
+  "gfv.classic.feature.branch": "Создаём фичу-ветку {branch} от develop, изолируя новую работу от интеграционной ветки",
+  "gfv.classic.feature.auth_ui": "Реализуем UI формы логина: поля ввода, сообщения валидации и кнопку с адаптивной версткой",
+  "gfv.classic.feature.auth_api": "Подключаем API аутентификации: JWT, обработку ошибок и управление сессией",
+  "gfv.classic.feature.tests": "Добавляем юнит- и интеграционные тесты для потока логина (валидные и невалидные данные, сбои API)",
+  "gfv.classic.feature.pr": "Открываем pull request из {branch} в develop — запрашиваем code review перед интеграцией",
+  "gfv.classic.feature.merge": "PR одобрен и влит — изменения {branch} теперь в develop",
+  "gfv.classic.feature.cleanup": "Удаляем {branch} — фича смёржена, поддерживаем чистоту репозитория",
+  "gfv.classic.release.feature1": "Фича {issue} (страница профиля) смёржена в develop после review и тестов",
+  "gfv.classic.release.feature2": "Фича {issue} (система уведомлений) попала в develop — фич достаточно для релиза",
+  "gfv.classic.release.cut": "Отрезаем release/1.0 от develop — замораживаем функциональность, только стабилизация",
+  "gfv.classic.release.bump": "Повышаем версию до 1.0, обновляем changelog и зависимости",
+  "gfv.classic.release.typo": "Исправляем опечатку в документации, найденную на релизном ревью",
+  "gfv.classic.release.bug": "Чиним регрессию из QA — пограничный случай доставки уведомлений",
+  "gfv.classic.release.merge_main": "Сливаем release/1.0 в main — стабилизация завершена, релиз готов",
+  "gfv.classic.release.tag": "Ставим тег v1.0 в main — фиксируем продукционный коммит",
+  "gfv.classic.release.deploy": "Деплоим v1.0 в продакшен — релиз доступен всем пользователям",
+  "gfv.classic.release.merge_back": "Мёржим release/1.0 обратно в develop — чтобы фиксы не потерялись",
+  "gfv.classic.release.cleanup": "Удаляем ветку release/1.0 — цикл релиза завершён",
+  "gfv.classic.hotfix.develop_wip": "На develop продолжается обычная работа — команда пилит следующий релиз",
+  "gfv.classic.hotfix.branch": "Срочно создаём {branch} от main — в проде критическая ошибка платежей",
+  "gfv.classic.hotfix.fix": "Вносим критический фикс — устраняем race condition в обработчике платежей",
+  "gfv.classic.hotfix.test": "Добавляем регрессионный тест для конкурентного сценария платежей",
+  "gfv.classic.hotfix.merge_main": "Сливаем {branch} в main — фикс проверен, нужно срочно деплоить",
+  "gfv.classic.hotfix.merge_back": "Возвращаем {branch} в develop — чтобы хотфикс попал в следующий релиз",
+  "gfv.classic.hotfix.tag": "Ставим тег v1.0.1 — отмечаем продукционный хотфикс",
+  "gfv.classic.hotfix.deploy": "Деплоим v1.0.1 — платежная проблема устранена у всех",
+  "gfv.classic.hotfix.cleanup": "Удаляем ветку {branch} — хотфикс завершён, ветка больше не нужна",
+  "ui.log.type.BRANCH": "ВЕТКА",
+  "ui.log.type.COMMIT": "КОММИТ",
+  "ui.log.type.MERGE": "СЛИЯНИЕ",
+  "ui.log.type.DEPLOY": "ДЕПЛОЙ",
+  "ui.log.type.PR": "PR",
+  "ui.log.type.MR": "MR",
+  "ui.log.type.TAG": "ТЕГ",
+  "ui.log.type.DELETE": "УДАЛЕНИЕ",
+  "ui.log.type.REBASE": "REBASE",
+  "ui.log.type.CHERRY_PICK": "CHERRY-PICK",
+  "ui.log.type.CHERRY-PICK": "CHERRY-PICK",
+
+  "classic.name": "Classic GitFlow",
+  "classic.modes.feature.label": "Feature Flow",
+  "classic.modes.feature.desc": "Ветка feature создаётся из develop, работа ведётся изолированно, затем мёржится обратно в develop через pull request. Ветки feature никогда не сливаются напрямую в main.",
+  "classic.modes.release.label": "Release Flow",
+  "classic.modes.release.desc": "Ветка release отрезается от develop для стабилизации. Исправления ошибок вносятся в ветку release, которая затем мёржится в main (с тегом версии) и обратно в develop.",
+  "classic.modes.hotfix.label": "Hotfix Flow",
+  "classic.modes.hotfix.desc": "Ветка hotfix создаётся непосредственно из main для исправления критической ошибки в продакшене. После исправления она мёржится в main (с тегом патча) и в develop.",
+  "classic.details.feature.principles": [
+    "Строгая иерархия веток: main > develop > feature-ветки",
+    "Develop — интеграционная ветка, где сходятся все фичи",
+    "Feature-ветки короткоживущие и изолированные от другой работы",
+    "Слияние в develop происходит через pull request с code review",
+    "Feature-ветки никогда не мёржатся напрямую в main"
+  ],
+  "classic.details.feature.concepts": [
+    { "term": "main", "definition": "Ветка, готовая к продакшену. Получает слияния только из release и hotfix веток. Каждый коммит в main — это релиз." },
+    { "term": "develop", "definition": "Интеграционная ветка для следующего релиза. Все feature-ветки мёржатся сюда. Служит базой для release-веток." },
+    { "term": "feature/*", "definition": "Короткоживущая ветка для изолированной разработки фичи. Создаётся из develop, мёржится обратно в develop по завершении." }
+  ],
+  "classic.details.feature.tradeoffs.pros": [
+    "Чёткая структура с определёнными ролями веток",
+    "Параллельная разработка фич без помех",
+    "Code review обеспечивается через pull request",
+    "Легко отслеживать, что в процессе, а что завершено"
+  ],
+  "classic.details.feature.tradeoffs.cons": [
+    "Может быть сложной для маленьких команд или простых проектов",
+    "Конфликты слияния накапливаются, если feature-ветки живут слишком долго",
+    "Накладные расходы на управление ветками для незначительных изменений"
+  ],
+  "classic.details.feature.tradeoffs.whenToUse": "Команды из нескольких разработчиков, работающих над фичами параллельно, проекты, требующие code review перед интеграцией, и кодовые базы, где важна изоляция незавершённой работы.",
+  "classic.details.release.principles": [
+    "Release-ветки позволяют стабилизировать код, не блокируя работу над новыми фичами в develop",
+    "В release-ветку попадают только исправления ошибок и подготовка к релизу",
+    "Release-ветка мёржится в main для продакшена и обратно в develop для сохранения исправлений",
+    "Теги версий в main отмечают каждый продакшен-релиз",
+    "Новые фичи не добавляются в release-ветку после её создания"
+  ],
+  "classic.details.release.concepts": [
+    { "term": "release/*", "definition": "Ветка стабилизации, отрезанная от develop. Получает только исправления ошибок и обновления версий. Мёржится в main и develop, когда готова." },
+    { "term": "Version Tag", "definition": "Git-тег (например, v1.0), проставленный в main после слияния release. Отмечает конкретный коммит, развёрнутый в продакшене." },
+    { "term": "Merge Back", "definition": "После слияния release в main, release-ветка также мёржится обратно в develop, чтобы исправления не потерялись." }
+  ],
+  "classic.details.release.tradeoffs.pros": [
+    "Develop остаётся открытым для новых фич, пока идёт стабилизация",
+    "Чёткое разделение между разработкой фич и подготовкой к релизу",
+    "История версий отражена через теги в main",
+    "Исправления при стабилизации попадают и в main, и в develop"
+  ],
+  "classic.details.release.tradeoffs.cons": [
+    "Для каждого релиза требуется два слияния (main + develop)",
+    "Возможны конфликты при обратном слиянии в develop",
+    "Дополнительные расходы на управление ветками при частых релизах"
+  ],
+  "classic.details.release.tradeoffs.whenToUse": "Проекты с запланированными циклами релизов, команды, которым нужен период стабилизации перед продакшеном, и системы, где подготовка релиза (обновление версий, changelog) — отдельная фаза.",
+  "classic.details.hotfix.principles": [
+    "Hotfix-ветки создаются непосредственно из main для исправления критических проблем в продакшене",
+    "Hotfix обходит обычный цикл develop-release для скорости",
+    "После исправления hotfix мёржится и в main (с тегом патча), и в develop",
+    "Hotfix-ветки удаляются сразу после слияния",
+    "Только экстренные исправления проходят через hotfix-поток — не плановая работа"
+  ],
+  "classic.details.hotfix.concepts": [
+    { "term": "hotfix/*", "definition": "Экстренная ветка, созданная из main. Содержит только критическое исправление. Мёржится в main и develop, затем удаляется." },
+    { "term": "Patch Tag", "definition": "Тег версии (например, v1.0.1), проставленный в main после слияния hotfix. Указывает на патч-релиз." },
+    { "term": "Dual Merge", "definition": "Hotfix мёржится и в main (для немедленного развёртывания), и в develop (чтобы исправление попало в будущие релизы)." }
+  ],
+  "classic.details.hotfix.tradeoffs.pros": [
+    "Быстрый путь в продакшен для критических исправлений",
+    "Не нарушает текущую работу над фичами или релизами",
+    "Исправление автоматически попадает в develop",
+    "Чёткий аудит через теги патч-версий"
+  ],
+  "classic.details.hotfix.tradeoffs.cons": [
+    "Риск конфликтов при обратном слиянии hotfix в develop",
+    "Может использоваться не по назначению для неэкстренных изменений, подрывая дисциплину процесса",
+    "Требует дисциплины для минимизации объёма hotfix"
+  ],
+  "classic.details.hotfix.tradeoffs.whenToUse": "Критические ошибки в продакшене, которые не могут ждать следующего релизного цикла. Уязвимости безопасности, повреждение данных или сбои сервиса, требующие немедленного патча.",
+
+  "github.name": "GitHub Flow",
+  "github.modes.feature.label": "Feature + PR",
+  "github.modes.feature.desc": "Создаём ветку от main, открываем Pull Request, мёржим и деплоим — стандартный цикл GitHub Flow",
+  "github.modes.deploy.label": "Deploy from Main",
+  "github.modes.deploy.desc": "Слияние в main запускает CI/CD пайплайн — тесты, сборка, автодеплой в продакшен",
+  "github.modes.hotfix.label": "Quick Fix",
+  "github.modes.hotfix.desc": "Создаём короткоживущую ветку исправления, патчим через PR, мёржим и деплоим немедленно",
+  "github.details.feature.principles": [
+    "Всё, что в <code>main</code>, всегда готово к деплою",
+    "Создаём ветку от <code>main</code> для каждой задачи",
+    "Открываем Pull Request для code review перед слиянием",
+    "Деплоим сразу после слияния в <code>main</code>"
+  ],
+  "github.details.feature.concepts": [
+    { "term": "main", "definition": "Единственная долгоживущая ветка, всегда в состоянии, готовом к деплою" },
+    { "term": "Feature branches", "definition": "Короткоживущие ветки, создаваемые из main для каждой задачи" },
+    { "term": "Pull Request", "definition": "Шлюз code review перед слиянием в main" },
+    { "term": "Continuous Deployment", "definition": "Каждое слияние в main автоматически запускает деплой" }
+  ],
+  "github.details.feature.tradeoffs.pros": [
+    "Простой и понятный",
+    "Быстрые итерации с минимальными накладными расходами",
+    "Дружественный к CI/CD — деплой при каждом слиянии",
+    "Поощряет маленькие, частые pull request"
+  ],
+  "github.details.feature.tradeoffs.cons": [
+    "Нет выделенных staging или release веток",
+    "Рискованно для сложных релизов, требующих координации",
+    "Откат зависит от revert-коммитов или повторного деплоя"
+  ],
+  "github.details.feature.tradeoffs.whenToUse": "Небольшие команды, веб-приложения, SaaS-продукты и проекты с continuous deployment, где main всегда должен быть готов к продакшену.",
+  "github.details.deploy.principles": [
+    "Каждое слияние в <code>main</code> запускает автоматический деплой в продакшен",
+    "Нет staging-ветки — CI/CD пайплайн является шлюзом качества",
+    "Тесты, сборка и деплой — автоматизированные шаги пайплайна, а не ручные процессы",
+    "Релизы тегируются после успешного деплоя в продакшен"
+  ],
+  "github.details.deploy.concepts": [
+    { "term": "main", "definition": "Единственная долгоживущая ветка, всегда в состоянии, готовом к деплою" },
+    { "term": "CI/CD Pipeline", "definition": "Автоматизированный шлюз, запускающий тесты, сборку и деплой при каждом слиянии в main" },
+    { "term": "Auto-deploy", "definition": "Развёртывание в продакшен запускается автоматически — без ручного продвижения или staging-ветки" },
+    { "term": "Release tagging", "definition": "Git-теги отмечают конкретные деплои как версионные релизы" }
+  ],
+  "github.details.deploy.tradeoffs.pros": [
+    "Ноль ручных шагов деплоя — полностью автоматизированный пайплайн",
+    "Быстрая обратная связь — код попадает в продакшен за минуты",
+    "Нет дрифта окружений — main всегда равен продакшену",
+    "Простой откат через revert-коммит + автоматический редеплой"
+  ],
+  "github.details.deploy.tradeoffs.cons": [
+    "Требуется надёжный набор тестов — нет подстраховки staging",
+    "Сбои пайплайна блокируют все деплои",
+    "Нужны feature flag для частично готовой работы"
+  ],
+  "github.details.deploy.tradeoffs.whenToUse": "Команды с сильной CI/CD культурой, всесторонними автотестами и приложениями, где каждое слияние должно сразу попадать в продакшен без ручных шлюзов.",
+  "github.details.hotfix.principles": [
+    "Всё, что в <code>main</code>, всегда готово к деплою",
+    "Создаём ветку от <code>main</code> для каждой задачи",
+    "Открываем Pull Request для code review перед слиянием",
+    "Деплоим сразу после слияния в <code>main</code>"
+  ],
+  "github.details.hotfix.concepts": [
+    { "term": "main", "definition": "Единственная долгоживущая ветка, всегда в состоянии, готовом к деплою" },
+    { "term": "Feature branches", "definition": "Короткоживущие ветки, создаваемые из main для каждой задачи" },
+    { "term": "Pull Request", "definition": "Шлюз code review перед слиянием в main" },
+    { "term": "Continuous Deployment", "definition": "Каждое слияние в main автоматически запускает деплой" }
+  ],
+  "github.details.hotfix.tradeoffs.pros": [
+    "Простой и понятный",
+    "Быстрые итерации с минимальными накладными расходами",
+    "Дружественный к CI/CD — деплой при каждом слиянии",
+    "Поощряет маленькие, частые pull request"
+  ],
+  "github.details.hotfix.tradeoffs.cons": [
+    "Нет выделенных staging или release веток",
+    "Рискованно для сложных релизов, требующих координации",
+    "Откат зависит от revert-коммитов или повторного деплоя"
+  ],
+  "github.details.hotfix.tradeoffs.whenToUse": "Небольшие команды, веб-приложения, SaaS-продукты и проекты с continuous deployment, где main всегда должен быть готов к продакшену.",
+
+  "gitlab.name": "GitLab Flow",
+  "gitlab.modes.feature.label": "Feature to Main",
+  "gitlab.modes.feature.desc": "Feature-ветка создаётся из main, разрабатывается, проходит merge request ревью и мёржится обратно. Feature-ветка удаляется после слияния.",
+  "gitlab.modes.staging.label": "Promote to Staging",
+  "gitlab.modes.staging.desc": "Коммиты, накопленные в main, продвигаются в ветку staging-окружения для интеграционного тестирования перед продакшеном.",
+  "gitlab.modes.production.label": "Promote to Production",
+  "gitlab.modes.production.desc": "После валидации на staging, ветка staging продвигается в production-ветку, тегируется и развёртывается в боевое окружение.",
+  "gitlab.details.feature.principles": [
+    "Upstream first — исправления сначала попадают в main, затем продвигаются вниз",
+    "Ветки окружений представляют цели деплоя, а не стадии разработки",
+    "Слияние только вниз: main -> staging -> production"
+  ],
+  "gitlab.details.feature.concepts": [
+    { "term": "main", "definition": "Основная ветка разработки; все фичи мёржатся сюда первыми" },
+    { "term": "staging", "definition": "Ветка предпродакшен-окружения для интеграционного тестирования" },
+    { "term": "production", "definition": "Ветка боевого окружения; представляет то, что развёрнуто для пользователей" },
+    { "term": "Upstream first policy", "definition": "Ошибки исправляются в main и продвигаются вниз — никогда не патчим production напрямую" }
+  ],
+  "gitlab.details.feature.tradeoffs.pros": [
+    "Чёткое отслеживание окружений — каждая ветка зеркалирует цель деплоя",
+    "Простой путь продвижения: main -> staging -> production",
+    "Политика upstream first предотвращает дрифт между окружениями"
+  ],
+  "gitlab.details.feature.tradeoffs.cons": [
+    "Больше долгоживущих веток для сопровождения",
+    "Накладные расходы на слияние при продвижении через несколько окружений",
+    "Ветки окружений могут расходиться, если продвижение откладывается"
+  ],
+  "gitlab.details.feature.tradeoffs.whenToUse": "Команды с несколькими окружениями деплоя (staging, QA, production), которым нужен чёткий, аудируемый путь продвижения с поэтапными развёртываниями.",
+  "gitlab.details.staging.principles": [
+    "Upstream first — исправления сначала попадают в main, затем продвигаются вниз",
+    "Ветки окружений представляют цели деплоя, а не стадии разработки",
+    "Слияние только вниз: main -> staging -> production"
+  ],
+  "gitlab.details.staging.concepts": [
+    { "term": "main", "definition": "Основная ветка разработки; все фичи мёржатся сюда первыми" },
+    { "term": "staging", "definition": "Ветка предпродакшен-окружения для интеграционного тестирования" },
+    { "term": "production", "definition": "Ветка боевого окружения; представляет то, что развёрнуто для пользователей" },
+    { "term": "Upstream first policy", "definition": "Ошибки исправляются в main и продвигаются вниз — никогда не патчим production напрямую" }
+  ],
+  "gitlab.details.staging.tradeoffs.pros": [
+    "Чёткое отслеживание окружений — каждая ветка зеркалирует цель деплоя",
+    "Простой путь продвижения: main -> staging -> production",
+    "Политика upstream first предотвращает дрифт между окружениями"
+  ],
+  "gitlab.details.staging.tradeoffs.cons": [
+    "Больше долгоживущих веток для сопровождения",
+    "Накладные расходы на слияние при продвижении через несколько окружений",
+    "Ветки окружений могут расходиться, если продвижение откладывается"
+  ],
+  "gitlab.details.staging.tradeoffs.whenToUse": "Команды с несколькими окружениями деплоя (staging, QA, production), которым нужен чёткий, аудируемый путь продвижения с поэтапными развёртываниями.",
+  "gitlab.details.production.principles": [
+    "Upstream first — исправления сначала попадают в main, затем продвигаются вниз",
+    "Ветки окружений представляют цели деплоя, а не стадии разработки",
+    "Слияние только вниз: main -> staging -> production"
+  ],
+  "gitlab.details.production.concepts": [
+    { "term": "main", "definition": "Основная ветка разработки; все фичи мёржатся сюда первыми" },
+    { "term": "staging", "definition": "Ветка предпродакшен-окружения для интеграционного тестирования" },
+    { "term": "production", "definition": "Ветка боевого окружения; представляет то, что развёрнуто для пользователей" },
+    { "term": "Upstream first policy", "definition": "Ошибки исправляются в main и продвигаются вниз — никогда не патчим production напрямую" }
+  ],
+  "gitlab.details.production.tradeoffs.pros": [
+    "Чёткое отслеживание окружений — каждая ветка зеркалирует цель деплоя",
+    "Простой путь продвижения: main -> staging -> production",
+    "Политика upstream first предотвращает дрифт между окружениями"
+  ],
+  "gitlab.details.production.tradeoffs.cons": [
+    "Больше долгоживущих веток для сопровождения",
+    "Накладные расходы на слияние при продвижении через несколько окружений",
+    "Ветки окружений могут расходиться, если продвижение откладывается"
+  ],
+  "gitlab.details.production.tradeoffs.whenToUse": "Команды с несколькими окружениями деплоя (staging, QA, production), которым нужен чёткий, аудируемый путь продвижения с поэтапными развёртываниями.",
+
+  "trunk.name": "Trunk-Based Development",
+  "trunk.modes.direct.label": "Direct to Trunk",
+  "trunk.modes.direct.desc": "Все разработчики коммитят напрямую в main. Без веток, без PR — только частые маленькие коммиты с CI на каждый push. Деплой идёт непрерывно из trunk.",
+  "trunk.modes.short-lived.label": "Short-lived Branch",
+  "trunk.modes.short-lived.desc": "Создаётся короткоживущая feature-ветка, работа ведётся несколько часов, затем быстро мёржится обратно в main и удаляется. Время жизни ветки не должно превышать одного дня.",
+  "trunk.modes.flags.label": "Feature Flags",
+  "trunk.modes.flags.desc": "Незавершённые фичи коммитятся напрямую в trunk за feature flag. Флаги управляют постепенным раскатыванием: 0% -> 10% -> 100%. После полного включения код флага удаляется.",
+  "trunk.details.direct.principles": [
+    "Все коммитят напрямую в trunk (main)",
+    "Ветки живут менее одного дня",
+    "Никаких долгоживущих feature-веток",
+    "Feature flag скрывают незавершённую работу"
+  ],
+  "trunk.details.direct.concepts": [
+    { "term": "Trunk", "definition": "Единственный источник истины; весь код проходит через main" },
+    { "term": "Short-lived branches", "definition": "Часы, а не дни; мёржим рано и часто" },
+    { "term": "Feature flags", "definition": "Отделяют деплой от релиза; переключают фичи в рантайме" },
+    { "term": "Continuous Integration", "definition": "Частые коммиты, тесты на каждый push" }
+  ],
+  "trunk.details.direct.tradeoffs.pros": [
+    "Минимум конфликтов слияния благодаря частой интеграции",
+    "Быстрая обратная связь CI — каждый коммит тестируется немедленно",
+    "Простая модель ветвления — легко понять и поддерживать"
+  ],
+  "trunk.details.direct.tradeoffs.cons": [
+    "Требует сильной дисциплины и маленьких, атомарных коммитов",
+    "Feature flag добавляют сложность в кодовую базу и конфигурацию",
+    "Рискованно без всестороннего покрытия тестами и CI пайплайна"
+  ],
+  "trunk.details.direct.tradeoffs.whenToUse": "Опытные команды с сильными CI/CD пайплайнами, высоким доверием и быстрыми автотестами. Применяется в Google, Facebook и других крупномасштабных инженерных организациях.",
+  "trunk.details.short-lived.principles": [
+    "Все коммитят в trunk (main)",
+    "Ветки живут менее одного дня",
+    "Никаких долгоживущих feature-веток",
+    "Feature flag скрывают незавершённую работу"
+  ],
+  "trunk.details.short-lived.concepts": [
+    { "term": "Trunk", "definition": "Единственный источник истины; весь код проходит через main" },
+    { "term": "Short-lived branches", "definition": "Часы, а не дни; мёржим рано и часто" },
+    { "term": "Feature flags", "definition": "Отделяют деплой от релиза; переключают фичи в рантайме" },
+    { "term": "Continuous Integration", "definition": "Частые коммиты, тесты на каждый push" }
+  ],
+  "trunk.details.short-lived.tradeoffs.pros": [
+    "Минимум конфликтов слияния благодаря частой интеграции",
+    "Быстрая обратная связь CI — каждый коммит тестируется немедленно",
+    "Простая модель ветвления — легко понять и поддерживать"
+  ],
+  "trunk.details.short-lived.tradeoffs.cons": [
+    "Требует сильной дисциплины и маленьких, атомарных коммитов",
+    "Feature flag добавляют сложность в кодовую базу и конфигурацию",
+    "Рискованно без всестороннего покрытия тестами и CI пайплайна"
+  ],
+  "trunk.details.short-lived.tradeoffs.whenToUse": "Опытные команды с сильными CI/CD пайплайнами, высоким доверием и быстрыми автотестами. Применяется в Google, Facebook и других крупномасштабных инженерных организациях.",
+  "trunk.details.flags.principles": [
+    "Все коммитят напрямую в trunk (main)",
+    "Ветки живут менее одного дня",
+    "Никаких долгоживущих feature-веток",
+    "Feature flag скрывают незавершённую работу"
+  ],
+  "trunk.details.flags.concepts": [
+    { "term": "Trunk", "definition": "Единственный источник истины; весь код проходит через main" },
+    { "term": "Short-lived branches", "definition": "Часы, а не дни; мёржим рано и часто" },
+    { "term": "Feature flags", "definition": "Отделяют деплой от релиза; переключают фичи в рантайме" },
+    { "term": "Continuous Integration", "definition": "Частые коммиты, тесты на каждый push" }
+  ],
+  "trunk.details.flags.tradeoffs.pros": [
+    "Минимум конфликтов слияния благодаря частой интеграции",
+    "Быстрая обратная связь CI — каждый коммит тестируется немедленно",
+    "Простая модель ветвления — легко понять и поддерживать"
+  ],
+  "trunk.details.flags.tradeoffs.cons": [
+    "Требует сильной дисциплины и маленьких, атомарных коммитов",
+    "Feature flag добавляют сложность в кодовую базу и конфигурацию",
+    "Рискованно без всестороннего покрытия тестами и CI пайплайна"
+  ],
+  "trunk.details.flags.tradeoffs.whenToUse": "Опытные команды с сильными CI/CD пайплайнами, высоким доверием и быстрыми автотестами. Применяется в Google, Facebook и других крупномасштабных инженерных организациях.",
+
+  "oneflow.name": "OneFlow",
+  "oneflow.modes.release.label": "Release via Rebase",
+  "oneflow.modes.release.desc": "Release-ветка создаётся из main, стабилизируется исправлениями, затем ребейзится на main и мёржится через fast-forward для сохранения линейной истории. Release-ветка удаляется после тегирования.",
+  "oneflow.modes.hotfix.label": "Hotfix Cherry-pick",
+  "oneflow.modes.hotfix.desc": "Hotfix коммитится в main и cherry-pick-ится в активную release-ветку. Это позволяет точечный бэкпорт критических исправлений без слияния несвязанных изменений.",
+  "oneflow.modes.feature.label": "Feature Rebase",
+  "oneflow.modes.feature.desc": "Feature-ветка создаётся из main, разрабатывается изолированно, затем ребейзится на main и мёржится через fast-forward. Это сохраняет линейную историю коммитов и избегает merge-коммитов.",
+  "oneflow.details.release.principles": [
+    "Единственная ветка main — единственная долгоживущая ветка",
+    "Нет ветки develop — простота важнее церемоний",
+    "Rebase вместо merge-коммитов — сохраняем линейную историю",
+    "Release-ветки — короткоживущие ветки стабилизации",
+    "Линейная история — главная цель"
+  ],
+  "oneflow.details.release.concepts": [
+    { "term": "main", "definition": "Единственная долгоживущая ветка; всегда готова к деплою" },
+    { "term": "release/*", "definition": "Короткоживущая ветка для стабилизации релиза; ребейзится на main перед fast-forward слиянием" },
+    { "term": "rebase", "definition": "Перенос коммитов поверх другой ветки для сохранения линейной истории" },
+    { "term": "fast-forward merge", "definition": "Перемещает указатель ветки вперёд без merge-коммита — сохраняет линейную историю" }
+  ],
+  "oneflow.details.release.tradeoffs.pros": [
+    "Чистая, линейная история коммитов",
+    "Проще Classic GitFlow — меньше долгоживущих веток",
+    "Меньше веток для управления и понимания"
+  ],
+  "oneflow.details.release.tradeoffs.cons": [
+    "Rebase требует дисциплины и понимания",
+    "Нужен force-push после rebase на общих ветках",
+    "Сложнее для новичков по сравнению с merge-потоками"
+  ],
+  "oneflow.details.release.tradeoffs.whenToUse": "Команды, желающие чистую линейную историю с единственной ветвей для деплоя и дисциплиной для последовательного использования rebase.",
+  "oneflow.details.hotfix.principles": [
+    "Единственная ветка main — единственная долгоживущая ветка",
+    "Hotfix коммитятся в main и cherry-pick-ятся в release-ветки",
+    "Cherry-pick позволяет избирательный бэкпорт без полного слияния",
+    "Release-ветки получают только целевые исправления",
+    "Линейная история — главная цель"
+  ],
+  "oneflow.details.hotfix.concepts": [
+    { "term": "main", "definition": "Единственная долгоживущая ветка; вся новая работа попадает сюда первой" },
+    { "term": "cherry-pick", "definition": "Избирательный бэкпорт отдельных коммитов между ветками без слияния всей истории" },
+    { "term": "release/*", "definition": "Ветка стабилизации, получающая cherry-pick-нутые hotfix из main" },
+    { "term": "version tag", "definition": "Git-тег, отмечающий патч-релиз на release-ветке после hotfix" }
+  ],
+  "oneflow.details.hotfix.tradeoffs.pros": [
+    "Hotfix сначала попадают в main — единственный источник истины",
+    "Cherry-pick избегает затягивания несвязанных изменений в release",
+    "Патч-релизы просты и изолированы"
+  ],
+  "oneflow.details.hotfix.tradeoffs.cons": [
+    "Cherry-pick может вызвать конфликты, если коммиты зависят от других изменений",
+    "Требуется тщательное отслеживание, какие исправления были бэкпортированы",
+    "Ручной процесс cherry-pick плохо масштабируется при множестве release-веток"
+  ],
+  "oneflow.details.hotfix.tradeoffs.whenToUse": "Команды, поддерживающие одну или несколько release-веток, которым нужны целевые hotfix без слияния всей недавней разработки из main.",
+  "oneflow.details.feature.principles": [
+    "Единственная ветка main — единственная долгоживущая ветка",
+    "Нет ветки develop — простота важнее церемоний",
+    "Feature-ветки ребейзятся на main перед fast-forward слиянием",
+    "Rebase вместо merge-коммитов — сохраняем линейную историю",
+    "Линейная история — главная цель"
+  ],
+  "oneflow.details.feature.concepts": [
+    { "term": "main", "definition": "Единственная долгоживущая ветка; всегда готова к деплою" },
+    { "term": "feature/*", "definition": "Короткоживущая ветка для изолированной разработки фичи; ребейзится на main по завершении" },
+    { "term": "rebase", "definition": "Перенос коммитов поверх другой ветки для сохранения линейной истории" },
+    { "term": "fast-forward merge", "definition": "Перемещает указатель ветки вперёд без merge-коммита — сохраняет линейную историю" }
+  ],
+  "oneflow.details.feature.tradeoffs.pros": [
+    "Чистая, линейная история коммитов без merge-коммитов",
+    "Простая ментальная модель — только main и короткоживущие feature-ветки",
+    "Легко делать bisect и ревью истории"
+  ],
+  "oneflow.details.feature.tradeoffs.cons": [
+    "Rebase требует дисциплины и понимания",
+    "Нужен force-push после rebase, если feature-ветка была расшарена",
+    "Сложнее для новичков по сравнению с merge-потоками"
+  ],
+  "oneflow.details.feature.tradeoffs.whenToUse": "Малые и средние команды, ценящие линейную историю коммитов и комфортно работающие с интерактивным rebase.",
+
+  "environment.name": "Environment Branching",
+  "environment.modes.promote.label": "Full Promotion",
+  "environment.modes.promote.desc": "Код продвигается по веткам окружений: develop -> qa -> staging -> production. У каждого окружения своя долгоживущая ветка. Деплой происходит при слиянии в ветку окружения.",
+  "environment.modes.hotfix.label": "Production Hotfix",
+  "environment.modes.hotfix.desc": "Экстренное исправление коммитится напрямую в production-ветку, деплоится немедленно, затем синхронизируется обратно в develop, чтобы будущие продвижения содержали исправление.",
+  "environment.modes.rollback.label": "Rollback",
+  "environment.modes.rollback.desc": "Неудачный деплой в production откатывается revert-коммитом на production-ветке, происходит редеплой предыдущего рабочего состояния, и откат тегируется.",
+  "environment.details.promote.principles": [
+    "У каждого окружения своя долгоживущая ветка",
+    "Код продвигается только вперёд: develop -> qa -> staging -> production",
+    "Все изменения входят через develop — никогда не коммитим напрямую в ветки окружений",
+    "Никогда не мёржим назад (кроме синхронизации hotfix из production в develop)",
+    "Деплой означает слияние в целевую ветку окружения",
+    "Каждое продвижение — аудируемый merge-коммит"
+  ],
+  "environment.details.promote.concepts": [
+    { "term": "develop", "definition": "Ветка активной разработки, куда попадают новые фичи. Начало пайплайна продвижения. Все исправления и изменения должны коммититься сюда первыми." },
+    { "term": "qa", "definition": "Ветка для проверки качества. Получает слияния только из develop — никогда прямые коммиты. Если обнаружена проблема на QA, исправление проходит через develop и повторно продвигается." },
+    { "term": "staging", "definition": "Предпродакшен-окружение. Получает слияния только из qa — никогда прямые коммиты. Изменения конфигурации должны проходить через develop по пайплайну." },
+    { "term": "production", "definition": "Ветка боевого окружения. Получает слияния только из staging (или hotfix-коммиты в экстренных случаях)." },
+    { "term": "Promotion", "definition": "Слияние вперёд из одной ветки окружения в следующую. Механизм продвижения кода к продакшену." }
+  ],
+  "environment.details.promote.tradeoffs.pros": [
+    "Чёткое соответствие между ветками и окружениями",
+    "Полный аудит того, что было развёрнуто и когда",
+    "Каждое окружение может проверяться независимо",
+    "Простая модель деплоя: слияние = деплой"
+  ],
+  "environment.details.promote.tradeoffs.cons": [
+    "Много долгоживущих веток для поддержания",
+    "Сложные слияния по мере расхождения окружений",
+    "Риск дрифта окружений при нечастых продвижениях",
+    "Накладные расходы на управление пайплайном продвижения"
+  ],
+  "environment.details.promote.tradeoffs.whenToUse": "Регулируемые отрасли, организации с несколькими окружениями деплоя, команды, которым нужен комплаенс и аудит каждого продвижения.",
+  "environment.details.hotfix.principles": [
+    "Экстренные исправления идут напрямую в production-ветку",
+    "Hotfix деплоится немедленно после коммита",
+    "Production синхронизируется обратно в develop для распространения исправления",
+    "Синхронизация hotfix — единственное разрешённое обратное слияние",
+    "Теги патчей отмечают каждый hotfix-деплой"
+  ],
+  "environment.details.hotfix.concepts": [
+    { "term": "production", "definition": "Боевая ветка, получающая экстренное исправление напрямую, в обход обычного пайплайна продвижения." },
+    { "term": "develop", "definition": "Получает синхронизирующее слияние из production после hotfix для согласованности будущих продвижений." },
+    { "term": "Hotfix Sync", "definition": "Обратное слияние из production в develop. Единственное исключение из правила 'только вперёд'." }
+  ],
+  "environment.details.hotfix.tradeoffs.pros": [
+    "Самый быстрый путь исправления проблемы в продакшене",
+    "Исправление немедленно отражается в боевой ветке",
+    "Синхронизирующее слияние обеспечивает согласованность develop",
+    "Чёткое версионирование патчей через теги"
+  ],
+  "environment.details.hotfix.tradeoffs.cons": [
+    "Обходит валидацию qa и staging",
+    "Риск внесения регрессий без полного тестирования",
+    "Обратное слияние может вызвать конфликты в develop",
+    "Требует дисциплины для ограничения масштаба реальными экстренными случаями"
+  ],
+  "environment.details.hotfix.tradeoffs.whenToUse": "Критические сбои продакшена, уязвимости безопасности или проблемы целостности данных, которые не могут ждать полного цикла продвижения.",
+  "environment.details.rollback.principles": [
+    "Откат — это revert-коммит на production-ветке, а не сброс ветки",
+    "Неудачный деплой записывается в историю, затем отменяется",
+    "Новый деплой восстанавливает предыдущее рабочее состояние",
+    "Теги отката отмечают точку восстановления",
+    "Без перезаписи истории — аудит сохраняется"
+  ],
+  "environment.details.rollback.concepts": [
+    { "term": "staging", "definition": "Источник неудачного слияния, продвинутого в production." },
+    { "term": "production", "definition": "Боевая ветка, где применяется revert-коммит для отмены неудачного деплоя." },
+    { "term": "Revert Commit", "definition": "Коммит, отменяющий изменения предыдущего слияния. Сохраняет полную историю, восстанавливая прежнее состояние." }
+  ],
+  "environment.details.rollback.tradeoffs.pros": [
+    "Быстрое восстановление без перезаписи истории",
+    "Полный аудит инцидента и отката",
+    "Production-ветка остаётся линейной и чистой",
+    "Легко повторно продвинуть код после устранения проблемы"
+  ],
+  "environment.details.rollback.tradeoffs.cons": [
+    "Revert-коммит добавляет шум в git-лог",
+    "Повторное продвижение того же кода позже требует revert revert",
+    "Не устраняет коренную причину — только восстанавливает состояние",
+    "Ветки staging и qa могут всё ещё содержать проблемный код"
+  ],
+  "environment.details.rollback.tradeoffs.whenToUse": "Неудачные деплои, вызывающие проблемы у пользователей, регрессии производительности, обнаруженные после запуска, или любая ситуация, требующая немедленного отката к известному рабочему состоянию.",
+
+  "release.name": "Release Branching",
+  "release.modes.create.label": "Create Release",
+  "release.modes.create.desc": "Разработка в main, отрезаем release/1.0 для стабилизации, исправляем ошибки, мёржим обратно, тегируем и очищаем. Release-ветка изолирует стабилизацию от текущей разработки фич.",
+  "release.modes.patch.label": "Patch Release",
+  "release.modes.patch.desc": "Начинаем от тегированного релиза, создаём release-ветку для целевого патч-исправления, мёржим обратно в main, тегируем патч-версию и очищаем.",
+  "release.modes.parallel.label": "Parallel Releases",
+  "release.modes.parallel.desc": "Поддержка двух release-веток одновременно из main. Каждый релиз стабилизируется независимо, мёржится и тегируется по собственному расписанию.",
+  "release.details.create.principles": [
+    "Release-ветки изолируют работу по стабилизации от текущей разработки",
+    "<code>main</code> продолжает принимать новые фичи, пока релиз стабилизируется",
+    "Исправления ошибок при стабилизации попадают в release-ветку, а не напрямую в <code>main</code>",
+    "После слияния release-ветка удаляется для чистоты репозитория"
+  ],
+  "release.details.create.concepts": [
+    { "term": "Release branch", "definition": "Ветка, созданная из main для стабилизации конкретной версии перед выпуском. Допускаются только исправления ошибок и коммиты стабилизации." },
+    { "term": "Stabilization", "definition": "Процесс укрепления кандидата на релиз путём исправления ошибок и финального QA без работы над новыми фичами." },
+    { "term": "Version tag", "definition": "Git-тег (например, v1.0), проставленный в main после слияния release-ветки. Отмечает точный коммит, готовый к продакшену." },
+    { "term": "Merge back", "definition": "После релиза release-ветка мёржится в main, чтобы исправления стабилизации попали в будущую разработку." }
+  ],
+  "release.details.create.tradeoffs.pros": [
+    "Изолирует стабилизацию, не блокируя новую разработку в main",
+    "Чёткий жизненный цикл релиза: ветка, стабилизация, тег, удаление",
+    "Легко определить, какие коммиты относятся к конкретному релизу",
+    "Поддерживает стандартный рабочий процесс семантического версионирования"
+  ],
+  "release.details.create.tradeoffs.cons": [
+    "Конфликты слияния возможны при мёрже release обратно в main",
+    "Требуется дисциплина, чтобы не добавлять фичи в release-ветку",
+    "Короткоживущая, но добавляет накладные расходы по сравнению с trunk-based development"
+  ],
+  "release.details.create.tradeoffs.whenToUse": "Проекты с отдельными релизами и фазой стабилизации — мобильные приложения, библиотеки, десктопное ПО и любая команда, которой нужен выделенный период предрелизного тестирования.",
+  "release.details.patch.principles": [
+    "Патчи применяются к release-ветке, созданной от тегированной версии",
+    "Только целевые исправления ошибок попадают в патч — никаких новых фич",
+    "Патч мёржится обратно в main и тегируется новой патч-версией (например, v1.0.1)",
+    "Release-ветка удаляется после мёржа и тегирования патча"
+  ],
+  "release.details.patch.concepts": [
+    { "term": "Patch", "definition": "Исправление ошибки, применённое к существующему релизу после выпуска начальной версии. Приводит к новому тегу патч-версии." },
+    { "term": "Cherry-pick", "definition": "Избирательное применение конкретных коммитов из одной ветки в другую, часто используется для переноса исправлений между release-ветками." },
+    { "term": "Patch tag", "definition": "Тег версии (например, v1.0.1), проставленный после патч-исправления. Следует семантическому версионированию для патч-сегмента." },
+    { "term": "Release branch (patch)", "definition": "Ветка, пересозданная от тега оригинального релиза специально для применения и тестирования патч-исправления в изоляции." }
+  ],
+  "release.details.patch.tradeoffs.pros": [
+    "Целевые исправления без нарушения текущей разработки",
+    "Чёткий аудит того, что изменилось в каждом патче",
+    "Семантическое версионирование упрощает отслеживание патч-релизов",
+    "Минимальный риск — применяется только конкретное исправление"
+  ],
+  "release.details.patch.tradeoffs.cons": [
+    "Требует аккуратного cherry-pick или избирательного слияния",
+    "Старые релизы могут значительно расходиться с текущим main",
+    "Множественные патчи могут создать сложную историю слияний"
+  ],
+  "release.details.patch.tradeoffs.whenToUse": "Любое версионируемое ПО, которому нужно выпускать срочные исправления для уже выпущенных версий — патчи безопасности, критические исправления, обновления для комплаенса.",
+  "release.details.parallel.principles": [
+    "Несколько release-веток могут существовать параллельно для поддержки разных версий",
+    "Каждая release-ветка стабилизируется и выпускается независимо",
+    "Main продолжает принимать новые фичи, пока релизы поддерживаются",
+    "Кросс-слияние между release-ветками запрещено — исправления проходят через main"
+  ],
+  "release.details.parallel.concepts": [
+    { "term": "Parallel releases", "definition": "Несколько release-веток, поддерживаемых одновременно для разных версий, каждая со своим циклом стабилизации и выпуска." },
+    { "term": "Version isolation", "definition": "Каждая release-ветка изолирована от других, гарантируя, что изменения в одной версии не влияют на другую." },
+    { "term": "Independent tagging", "definition": "Каждая release-ветка мёржится и тегируется независимо — v1.0 и v2.0 могут выпускаться по разным расписаниям." },
+    { "term": "Long-term support (LTS)", "definition": "Release-ветка, поддерживаемая для продолжительного обслуживания, получающая только критические исправления, пока разрабатываются новые версии." }
+  ],
+  "release.details.parallel.tradeoffs.pros": [
+    "Поддержка параллельного обслуживания версий для разных клиентов или платформ",
+    "У каждого релиза свой таймлайн стабилизации",
+    "Хорошо подходит для библиотек и фреймворков с несколькими поддерживаемыми версиями",
+    "Чёткое разделение между линиями мажорных версий"
+  ],
+  "release.details.parallel.tradeoffs.cons": [
+    "Повышенная сложность слияний с несколькими долгоживущими ветками",
+    "Риск расхождения веток со временем",
+    "Требуется дисциплина и инструменты для синхронизации релизов с main",
+    "Повышенная нагрузка на команду по обслуживанию"
+  ],
+  "release.details.parallel.tradeoffs.whenToUse": "Библиотеки, фреймворки и корпоративное ПО, которое должно поддерживать несколько мажорных версий одновременно — например, поддержка клиентов на v1.x и v2.x параллельно.",
+
+  "forking.name": "Forking Workflow",
+  "forking.modes.contribute.label": "Fork + PR",
+  "forking.modes.contribute.desc": "Форкаем upstream, синхронизируем origin, создаём feature-ветку, коммитим, открываем PR в upstream, мёржим, синхронизируем обратно, очищаем.",
+  "forking.modes.sync.label": "Sync Fork",
+  "forking.modes.sync.desc": "Upstream продвигается вперёд, пока форк устарел, затем контрибьютор синхронизирует форк с upstream.",
+  "forking.modes.review.label": "Maintainer Review",
+  "forking.modes.review.desc": "Контрибьютор открывает PR из форка, мейнтейнер проводит ревью с комментариями, контрибьютор обновляет, мейнтейнер мёржит, контрибьютор синхронизируется.",
+  "forking.details.contribute.principles": [
+    "Контрибьюторы не имеют прав записи в upstream-репозиторий",
+    "Все изменения предлагаются через форк + Pull Request",
+    "Мейнтейнеры проверяют и мёржат контрибуции в upstream",
+    "Контрибьюторы должны поддерживать свой форк в синхронизации с upstream"
+  ],
+  "forking.details.contribute.concepts": [
+    { "term": "upstream", "definition": "Оригинальный репозиторий, принадлежащий мейнтейнерам проекта" },
+    { "term": "origin", "definition": "Персональный форк контрибьютора (полная копия репозитория)" },
+    { "term": "fork", "definition": "Полная копия репозитория под другим владельцем" },
+    { "term": "Pull Request", "definition": "Кросс-репозиторный merge request из форка в upstream" },
+    { "term": "sync", "definition": "Получение изменений upstream в форк для поддержания актуальности" }
+  ],
+  "forking.details.contribute.tradeoffs.pros": [
+    "Не нужен доступ на запись в upstream-репо",
+    "Безопасно для open-source — контрибьюторы работают изолированно",
+    "Чёткое авторство и принадлежность изменений"
+  ],
+  "forking.details.contribute.tradeoffs.cons": [
+    "Накладные расходы на синхронизацию — форк может устареть",
+    "Узкое место ревью PR для мейнтейнеров",
+    "Более сложный рабочий процесс по сравнению с моделями общего репозитория"
+  ],
+  "forking.details.contribute.tradeoffs.whenToUse": "Open-source проекты, внешние контрибьюторы, среды с недоверенными контрибьюторами, где доступ на запись в upstream должен быть ограничен.",
+  "forking.details.sync.principles": [
+    "Форки необходимо регулярно синхронизировать с upstream, чтобы избежать дрифта",
+    "Используйте git fetch upstream + merge или rebase для включения изменений",
+    "Разрешайте конфликты локально перед push в origin",
+    "Синхронизируйтесь перед началом любой новой feature-ветки"
+  ],
+  "forking.details.sync.concepts": [
+    { "term": "upstream remote", "definition": "Git remote, указывающий на оригинальный репозиторий" },
+    { "term": "fetch", "definition": "Скачивание коммитов из upstream без слияния" },
+    { "term": "merge upstream", "definition": "Интеграция изменений upstream в локальную ветку форка" },
+    { "term": "drift", "definition": "Расхождение между форком и upstream со временем" }
+  ],
+  "forking.details.sync.tradeoffs.pros": [
+    "Поддерживает форк актуальным и уменьшает конфликты слияния",
+    "Гарантирует, что feature-ветки начинаются от последнего состояния upstream",
+    "Предотвращает большие, болезненные слияния в будущем"
+  ],
+  "forking.details.sync.tradeoffs.cons": [
+    "Требует ручных усилий для регулярной синхронизации",
+    "Конфликты слияния могут возникать при синхронизации",
+    "Контрибьюторы должны разбираться в работе с несколькими remote"
+  ],
+  "forking.details.sync.tradeoffs.whenToUse": "При контрибуции в активный upstream-репозиторий, где часто появляются новые коммиты.",
+  "forking.details.review.principles": [
+    "Мейнтейнеры контролируют все изменения через code review перед слиянием",
+    "Контрибьюторы реагируют на замечания, добавляя новые коммиты в PR",
+    "PR — единственная точка входа изменений в upstream",
+    "После слияния контрибьюторы синхронизируют свой форк для актуальности"
+  ],
+  "forking.details.review.concepts": [
+    { "term": "code review", "definition": "Проверка предложенных изменений мейнтейнером перед слиянием" },
+    { "term": "review comments", "definition": "Обратная связь на конкретных строках или PR в целом от рецензентов" },
+    { "term": "PR update", "definition": "Добавление коммитов в открытый PR для устранения замечаний" },
+    { "term": "approval", "definition": "Подтверждение мейнтейнера, что PR готов к слиянию" }
+  ],
+  "forking.details.review.tradeoffs.pros": [
+    "Обеспечивает качество кода через контроль мейнтейнера",
+    "Обмен знаниями между контрибьютором и мейнтейнером",
+    "Обнаружение ошибок и проблем дизайна до попадания в upstream"
+  ],
+  "forking.details.review.tradeoffs.cons": [
+    "Время на ревью может замедлить скорость контрибуций",
+    "Пропускная способность мейнтейнера становится узким местом",
+    "Циклы правок могут быть утомительны для контрибьюторов"
+  ],
+  "forking.details.review.tradeoffs.whenToUse": "Все open-source проекты и любая команда, где шлюзы качества кода и одобрение мейнтейнера требуются перед слиянием.",
+
+  "ship-show-ask.name": "Ship / Show / Ask",
+  "ship-show-ask.modes.ship.label": "Ship (Direct Merge)",
+  "ship-show-ask.modes.ship.desc": "Низкий риск: ветка от main, коммит исправления, прямое слияние (без PR), деплой.",
+  "ship-show-ask.modes.show.label": "Show (PR, No Block)",
+  "ship-show-ask.modes.show.desc": "Средний риск: ветка от main, работа над фичей, открытие неблокирующего PR для видимости, слияние, деплой.",
+  "ship-show-ask.modes.ask.label": "Ask (PR + Review)",
+  "ship-show-ask.modes.ask.desc": "Высокий риск: ветка от main, работа над фичей, открытие блокирующего PR, ответ на ревью, слияние, деплой.",
+  "ship-show-ask.details.ship.principles": [
+    "Низкорисковые, тривиальные изменения мёржатся напрямую в main",
+    "PR не требуется — доверяем суждению разработчика",
+    "Самый быстрый путь в продакшен для безопасных изменений"
+  ],
+  "ship-show-ask.details.ship.concepts": [
+    { "term": "Ship", "definition": "Тривиальные или низкорисковые изменения, мёржащиеся напрямую в main без PR" },
+    { "term": "Direct merge", "definition": "Push или слияние в main без открытия pull request" },
+    { "term": "Trust-based workflow", "definition": "Инженеры сами классифицируют свои изменения; команда доверяет индивидуальному суждению" }
+  ],
+  "ship-show-ask.details.ship.tradeoffs.pros": [
+    "Максимальная скорость доставки — без накладных расходов на ревью для тривиальных изменений",
+    "Уменьшает узкие места и поддерживает высокую скорость",
+    "Наделяет разработчиков автономией"
+  ],
+  "ship-show-ask.details.ship.tradeoffs.cons": [
+    "Нет подстраховки ревью для отгруженных изменений",
+    "Рискованно, если изменение ошибочно классифицировано как низкорисковое",
+    "Менее формальный аудит"
+  ],
+  "ship-show-ask.details.ship.tradeoffs.whenToUse": "Тривиальные изменения вроде исправления опечаток, настройки конфигурации или мелких обновлений документации, где риск поломки минимален.",
+  "ship-show-ask.details.show.principles": [
+    "Среднерисковые изменения открываются как неблокирующий PR для видимости команды",
+    "Слияние происходит без ожидания одобрения ревью",
+    "Команда остаётся информированной, не замедляя доставку"
+  ],
+  "ship-show-ask.details.show.concepts": [
+    { "term": "Show", "definition": "Информационный PR, открытый для видимости; слияние происходит без блокировки на ревью" },
+    { "term": "Non-blocking PR", "definition": "Pull request, служащий уведомлением, а не шлюзом — слияние разрешено без одобрения" },
+    { "term": "Visibility", "definition": "Информирование команды об изменениях без требования формального подтверждения" }
+  ],
+  "ship-show-ask.details.show.tradeoffs.pros": [
+    "Осведомлённость команды без задержек доставки",
+    "Создаёт запись изменений для будущей справки",
+    "Стимулирует обмен знаниями в команде"
+  ],
+  "ship-show-ask.details.show.tradeoffs.cons": [
+    "Ревью могут никогда не состояться, если не приоритизированы",
+    "Проблемы, обнаруженные после слияния, требуют дополнительной работы",
+    "Требует дисциплины для реального ревью 'show' PR"
+  ],
+  "ship-show-ask.details.show.tradeoffs.whenToUse": "Среднерисковые рефакторинги, изменения внутренних модулей или улучшения, где осведомлённость команды ценна, но блокирующее ревью излишне замедлит доставку.",
+  "ship-show-ask.details.ask.principles": [
+    "Высокорисковые или сложные изменения требуют блокирующего PR с ревью",
+    "Слияние разрешено только после явного одобрения рецензентами",
+    "Обеспечивает качество и общее понимание для критических изменений"
+  ],
+  "ship-show-ask.details.ask.concepts": [
+    { "term": "Ask", "definition": "PR с обязательным блокирующим ревью перед слиянием" },
+    { "term": "Blocking review", "definition": "Слияние запрещено, пока один или несколько рецензентов не одобрят изменение" },
+    { "term": "Review feedback", "definition": "Рецензенты могут запросить изменения, которые должны быть устранены перед одобрением" }
+  ],
+  "ship-show-ask.details.ask.tradeoffs.pros": [
+    "Ловит проблемы до попадания в продакшен",
+    "Формирует общее понимание сложных изменений",
+    "Обеспечивает надёжный аудит для критической работы"
+  ],
+  "ship-show-ask.details.ask.tradeoffs.cons": [
+    "Замедление доставки из-за ожидания ревью",
+    "Может стать узким местом, если рецензенты недоступны",
+    "Может отпугивать малые итеративные изменения"
+  ],
+  "ship-show-ask.details.ask.tradeoffs.whenToUse": "Высокорисковые изменения вроде переработки аутентификации, миграций БД, изменений API-контракта или любой работы, способной значительно повлиять на пользователей или стабильность системы.",
+
+  "scaled.name": "Scaled GitFlow",
+  "scaled.modes.team.label": "Team Branch Flow",
+  "scaled.modes.team.desc": "Командная ветка создаётся из develop для изолированной работы команды. Несколько коммитов делаются в командную ветку, затем она мёржится обратно в develop. Develop в конечном итоге мёржится в main и тегируется для релиза.",
+  "scaled.modes.program.label": "Program Integration",
+  "scaled.modes.program.desc": "Несколько командных веток создаются из develop для параллельной работы. Каждая команда мёржится в develop независимо. Когда все команды интегрированы, develop мёржится в main, тегируется и деплоится как программный инкремент.",
+  "scaled.modes.release.label": "Scaled Release",
+  "scaled.modes.release.desc": "Release-ветка (программный инкремент) отрезается от develop для стабилизации. Исправления попадают в release-ветку, которая затем мёржится в main с тегом версии и обратно в develop для сохранения исправлений.",
+  "scaled.details.team.principles": [
+    "Командные ветки обеспечивают изоляцию работы команды без влияния на другие команды",
+    "Интеграция программного инкремента происходит через общую ветку develop",
+    "Релизные поезда координируют доставку нескольких команд по расписанию",
+    "Несколько команд контрибутят в общую ветку develop как точку интеграции"
+  ],
+  "scaled.details.team.concepts": [
+    { "term": "team/*", "definition": "Ветка изоляции командного уровня. Создаётся из develop, используется для работы одной команды в рамках программного инкремента. Мёржится обратно в develop по завершении." },
+    { "term": "Program Increment (PI)", "definition": "Запланированный цикл интеграции (обычно 8-12 недель), когда все команды планируют, разрабатывают и интегрируют работу в общую кодовую базу." },
+    { "term": "Release Train", "definition": "Координированный механизм релиза, выравнивающий несколько команд для доставки с фиксированной каденцией, независимо от завершённости работы отдельных команд." },
+    { "term": "develop", "definition": "Точка интеграции, где сходятся все командные ветки. Служит источником истины для следующего релиза." }
+  ],
+  "scaled.details.team.tradeoffs.pros": [
+    "Масштабируется до крупных организаций с множеством команд",
+    "Изоляция команд предотвращает взаимные помехи",
+    "Координированные релизы обеспечивают предсказуемую доставку",
+    "Чёткие точки интеграции уменьшают сюрпризы в последний момент"
+  ],
+  "scaled.details.team.tradeoffs.cons": [
+    "Высокая сложность управления ветками и координации слияний",
+    "Конфликты слияния нарастают, когда много команд интегрируются одновременно",
+    "Требуется значительный инструментарий и дисциплина процесса"
+  ],
+  "scaled.details.team.tradeoffs.whenToUse": "Крупные предприятия, внедряющие SAFe или масштабируемые agile-фреймворки, организации с 5+ командами, контрибутящими в один продукт, и системы, требующие координированных релизных поездов.",
+  "scaled.details.program.principles": [
+    "Командные ветки обеспечивают изоляцию работы команды без влияния на другие команды",
+    "Интеграция программного инкремента происходит через общую ветку develop",
+    "Релизные поезда координируют доставку нескольких команд по расписанию",
+    "Несколько команд контрибутят в общую ветку develop как точку интеграции"
+  ],
+  "scaled.details.program.concepts": [
+    { "term": "team/*", "definition": "Ветка изоляции командного уровня. Создаётся из develop, используется для работы одной команды в рамках программного инкремента. Мёржится обратно в develop по завершении." },
+    { "term": "Program Increment (PI)", "definition": "Запланированный цикл интеграции (обычно 8-12 недель), когда все команды планируют, разрабатывают и интегрируют работу в общую кодовую базу." },
+    { "term": "Release Train", "definition": "Координированный механизм релиза, выравнивающий несколько команд для доставки с фиксированной каденцией, независимо от завершённости работы отдельных команд." },
+    { "term": "develop", "definition": "Точка интеграции, где сходятся все командные ветки. Служит источником истины для следующего релиза." }
+  ],
+  "scaled.details.program.tradeoffs.pros": [
+    "Масштабируется до крупных организаций с множеством команд",
+    "Изоляция команд предотвращает взаимные помехи",
+    "Координированные релизы обеспечивают предсказуемую доставку",
+    "Чёткие точки интеграции уменьшают сюрпризы в последний момент"
+  ],
+  "scaled.details.program.tradeoffs.cons": [
+    "Высокая сложность управления ветками и координации слияний",
+    "Конфликты слияния нарастают, когда много команд интегрируются одновременно",
+    "Требуется значительный инструментарий и дисциплина процесса"
+  ],
+  "scaled.details.program.tradeoffs.whenToUse": "Крупные предприятия, внедряющие SAFe или масштабируемые agile-фреймворки, организации с 5+ командами, контрибутящими в один продукт, и системы, требующие координированных релизных поездов.",
+  "scaled.details.release.principles": [
+    "Командные ветки обеспечивают изоляцию работы команды без влияния на другие команды",
+    "Интеграция программного инкремента происходит через общую ветку develop",
+    "Релизные поезда координируют доставку нескольких команд по расписанию",
+    "Несколько команд контрибутят в общую ветку develop как точку интеграции"
+  ],
+  "scaled.details.release.concepts": [
+    { "term": "team/*", "definition": "Ветка изоляции командного уровня. Создаётся из develop, используется для работы одной команды в рамках программного инкремента. Мёржится обратно в develop по завершении." },
+    { "term": "Program Increment (PI)", "definition": "Запланированный цикл интеграции (обычно 8-12 недель), когда все команды планируют, разрабатывают и интегрируют работу в общую кодовую базу." },
+    { "term": "Release Train", "definition": "Координированный механизм релиза, выравнивающий несколько команд для доставки с фиксированной каденцией, независимо от завершённости работы отдельных команд." },
+    { "term": "develop", "definition": "Точка интеграции, где сходятся все командные ветки. Служит источником истины для следующего релиза." }
+  ],
+  "scaled.details.release.tradeoffs.pros": [
+    "Масштабируется до крупных организаций с множеством команд",
+    "Изоляция команд предотвращает взаимные помехи",
+    "Координированные релизы обеспечивают предсказуемую доставку",
+    "Чёткие точки интеграции уменьшают сюрпризы в последний момент"
+  ],
+  "scaled.details.release.tradeoffs.cons": [
+    "Высокая сложность управления ветками и координации слияний",
+    "Конфликты слияния нарастают, когда много команд интегрируются одновременно",
+    "Требуется значительный инструментарий и дисциплина процесса"
+  ],
+  "scaled.details.release.tradeoffs.whenToUse": "Крупные предприятия, внедряющие SAFe или масштабируемые agile-фреймворки, организации с 5+ командами, контрибутящими в один продукт, и системы, требующие координированных релизных поездов.",
+
+  "cherrypick.name": "Cherry-pick Flow",
+  "cherrypick.modes.backport.label": "Backport Fix",
+  "cherrypick.modes.backport.desc": "Исправление коммитится в main и cherry-pick-ится в старые release-ветки. Каждый релиз получает патч-тег. Это поддерживает синхронизацию всех поддерживаемых версий без слияния целых веток.",
+  "cherrypick.modes.forward.label": "Forward Port",
+  "cherrypick.modes.forward.desc": "Исправление коммитится в старую release-ветку и cherry-pick-ится вперёд в main. Это гарантирует, что срочные исправления попадут в текущий релиз, сохраняя их и в старой версии.",
+  "cherrypick.modes.multi.label": "Multi-version",
+  "cherrypick.modes.multi.desc": "Исправление безопасности коммитится в main и cherry-pick-ится во все поддерживаемые release-ветки. Каждый релиз тегируется независимо, обеспечивая параллельную поддержку версий.",
+  "cherrypick.details.backport.principles": [
+    "Исправляем один раз в main, cherry-pick-им во все поддерживаемые release-ветки",
+    "Бэкпорт критических исправлений в старые версии, ещё используемые в продакшене",
+    "Поддержка нескольких release-версий независимо",
+    "Каждая release-ветка получает свой патч-тег после cherry-pick"
+  ],
+  "cherrypick.details.backport.concepts": [
+    { "term": "Cherry-pick", "definition": "Применение конкретного коммита из одной ветки в другую без слияния всей истории. Создаёт новый коммит с теми же изменениями." },
+    { "term": "Backport", "definition": "Перенос исправления из новой версии (main) в старую поддерживаемую release-ветку. Гарантирует, что старые версии получат критические патчи." },
+    { "term": "Patch Tag", "definition": "Тег версии (например, v1.0.1), проставленный в release-ветке после cherry-pick-нутого исправления. Отмечает точечный релиз для этой версии." }
+  ],
+  "cherrypick.details.backport.tradeoffs.pros": [
+    "Целевые исправления с минимальным риском для каждого релиза",
+    "Каждая версия остаётся изолированной — непредвиденные изменения не просачиваются",
+    "Чёткая история патчей по каждому релизу через теги",
+    "Исправление создаётся и тестируется один раз в main"
+  ],
+  "cherrypick.details.backport.tradeoffs.cons": [
+    "Легко пропустить cherry-pick в одну из нескольких release-веток",
+    "Cherry-pick-нутые коммиты создают расходящуюся историю между ветками",
+    "Требуется ручное отслеживание, какие исправления попали в какие релизы"
+  ],
+  "cherrypick.details.backport.tradeoffs.whenToUse": "Библиотеки и фреймворки с несколькими поддерживаемыми версиями, LTS-релизы и продукты с разными версиями в продакшене одновременно.",
+  "cherrypick.details.forward.principles": [
+    "Срочные исправления коммитятся напрямую в затронутую release-ветку",
+    "Forward port исправления в main, чтобы оно попало в будущие релизы",
+    "Release-ветка тегируется немедленно для быстрого развёртывания",
+    "Main поддерживается актуальным со всеми продакшен-исправлениями"
+  ],
+  "cherrypick.details.forward.concepts": [
+    { "term": "Forward Port", "definition": "Cherry-pick исправления из старой release-ветки в main или более новую ветку. Гарантирует, что исправление не потеряется в будущих версиях." },
+    { "term": "Release Tag", "definition": "Тег, проставленный в release-ветке после исправления, позволяющий немедленно развернуть патченную версию." },
+    { "term": "Cherry-pick to main", "definition": "Применение коммита исправления из release-ветки в main, чтобы следующая мажорная версия содержала то же исправление." }
+  ],
+  "cherrypick.details.forward.tradeoffs.pros": [
+    "Срочное исправление немедленно попадает в затронутую версию",
+    "Main остаётся синхронизированным с продакшен-исправлениями",
+    "Не нужно ждать полного релизного цикла для исправления старых версий",
+    "Изоляция версий — исправление не подтягивает невыпущенные фичи"
+  ],
+  "cherrypick.details.forward.tradeoffs.cons": [
+    "Риск забыть forward port исправления",
+    "Cherry-pick может конфликтовать с более новым кодом в main",
+    "Расходящаяся история коммитов между release и main"
+  ],
+  "cherrypick.details.forward.tradeoffs.whenToUse": "Когда критическая ошибка обнаружена в развёрнутом релизе и исправление должно быть выпущено немедленно, при этом main не должен регрессировать в будущих релизах.",
+  "cherrypick.details.multi.principles": [
+    "Исправления безопасности делаются один раз в main, распространяются во все поддерживаемые версии",
+    "Cherry-pick в каждую активную release-ветку систематически",
+    "Каждый релиз тегируется независимо после применения исправления",
+    "Ведётся чёткая запись, какие версии получили патч"
+  ],
+  "cherrypick.details.multi.concepts": [
+    { "term": "Multi-version Support", "definition": "Параллельная поддержка нескольких release-веток, каждая из которых получает критические исправления независимо через cherry-pick." },
+    { "term": "Security Fix Propagation", "definition": "Систематический cherry-pick патча безопасности из main во все поддерживаемые release-ветки для закрытия уязвимостей по всем версиям." },
+    { "term": "Release Matrix", "definition": "Набор текущих поддерживаемых release-веток. Каждую необходимо оценить на применимость cherry-pick при поступлении исправления в main." }
+  ],
+  "cherrypick.details.multi.tradeoffs.pros": [
+    "Все поддерживаемые версии патчатся согласованно",
+    "Каждая версия тегируется и готова к независимому деплою",
+    "Минимальный риск — применяется только конкретное исправление",
+    "Чёткий аудит патчей безопасности по версиям"
+  ],
+  "cherrypick.details.multi.tradeoffs.cons": [
+    "Плохо масштабируется при росте числа поддерживаемых версий",
+    "Конфликты cherry-pick возрастают с расхождением версий",
+    "Требуется инструментарий или дисциплина для отслеживания статуса распространения"
+  ],
+  "cherrypick.details.multi.tradeoffs.whenToUse": "Open-source библиотеки с несколькими активными мажорными версиями, корпоративное ПО с контрактными LTS-обязательствами и любая система, где несколько продакшен-версий должны патчиться одновременно."
+}

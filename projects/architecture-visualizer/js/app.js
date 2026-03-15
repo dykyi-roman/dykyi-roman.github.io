@@ -140,7 +140,8 @@
         var config = archConfigs[archId];
         var tabsEl = document.getElementById('mode-tabs');
         tabsEl.innerHTML = config.modes.map(function(m) {
-            return '<button class="mode-tab" data-mode="' + m.id + '" role="tab">' + m.label + '</button>';
+            var label = I18N.t(archId + '.modes.' + m.id + '.label', null, m.label);
+            return '<button class="mode-tab" data-mode="' + m.id + '" role="tab">' + label + '</button>';
         }).join('');
 
         tabsEl.querySelectorAll('.mode-tab').forEach(function(tab) {
@@ -158,7 +159,8 @@
             tab.classList.toggle('active', tab.dataset.mode === modeId);
         });
 
-        document.getElementById('pattern-desc').textContent = modeConfig ? modeConfig.desc : '';
+        var descText = modeConfig ? I18N.t(archId + '.modes.' + modeId + '.desc', null, modeConfig.desc) : '';
+        document.getElementById('pattern-desc').textContent = descText;
 
         updatePatternDetails(archId, modeId);
 
@@ -202,19 +204,23 @@
             return;
         }
 
+        var i18nPrefix = archId + '.details.' + modeId;
+        var principles = I18N.ta(i18nPrefix + '.principles', details.principles);
+        var concepts = I18N.to(i18nPrefix + '.concepts', details.concepts);
+
         var html = '';
-        if (details.principles) {
+        if (principles && principles.length) {
             html += '<div class="pattern-details-section">' +
-                '<div class="pattern-details-section-title">Principles</div>' +
+                '<div class="pattern-details-section-title">' + I18N.t('ui.details.principles', null, 'Principles') + '</div>' +
                 '<ul class="pattern-details-list">' +
-                details.principles.map(function(p) { return '<li>' + p + '</li>'; }).join('') +
+                principles.map(function(p) { return '<li>' + p + '</li>'; }).join('') +
                 '</ul></div>';
         }
-        if (details.concepts) {
+        if (concepts && concepts.length) {
             html += '<div class="pattern-details-section">' +
-                '<div class="pattern-details-section-title">Key Concepts</div>' +
+                '<div class="pattern-details-section-title">' + I18N.t('ui.details.concepts', null, 'Key Concepts') + '</div>' +
                 '<div class="pattern-concepts-grid">' +
-                details.concepts.map(function(c) {
+                concepts.map(function(c) {
                     return '<div class="pattern-concept">' +
                         '<span class="pattern-concept-term">' + c.term + '</span>' +
                         '<span class="pattern-concept-def">' + c.definition + '</span>' +
@@ -229,7 +235,7 @@
         container.style.display = 'block';
 
         var tradeoffs = details.tradeoffs || null;
-        ARCHV.showTradeoffs(tradeoffs);
+        ARCHV.showTradeoffs(tradeoffs, i18nPrefix);
     }
 
     function setupControls() {
@@ -240,7 +246,7 @@
             if (mode && mode.run) {
                 ARCHV.state.paused = false;
                 pauseBtn.disabled = false;
-                pauseBtn.innerHTML = '&#x23F8; Pause';
+                pauseBtn.innerHTML = '&#x23F8; ' + I18N.t('ui.btn.pause', null, 'Pause');
                 mode.run();
             }
         };
@@ -249,19 +255,19 @@
             if (!ARCHV.state.running) return;
             if (ARCHV.state.paused) {
                 ARCHV.resume();
-                pauseBtn.innerHTML = '&#x23F8; Pause';
+                pauseBtn.innerHTML = '&#x23F8; ' + I18N.t('ui.btn.pause', null, 'Pause');
             } else {
                 ARCHV.pause();
-                pauseBtn.innerHTML = '&#x25B6; Resume';
+                pauseBtn.innerHTML = '&#x25B6; ' + I18N.t('ui.btn.resume', null, 'Resume');
             }
         };
 
         document.getElementById('btn-reset').onclick = function() {
             ARCHV.state.paused = false;
             pauseBtn.disabled = true;
-            pauseBtn.innerHTML = '&#x23F8; Pause';
+            pauseBtn.innerHTML = '&#x23F8; ' + I18N.t('ui.btn.pause', null, 'Pause');
             switchArch(ARCHV.state.arch);
-            ARCHV.log('REQUEST', 'State reset');
+            ARCHV.log('REQUEST', I18N.t('ui.log.reset', null, 'State reset'));
         };
 
         document.getElementById('btn-copy-log').onclick = function() {
@@ -276,12 +282,14 @@
         function updateSpeedLabel(val) {
             var v = parseInt(val);
             ARCHV.state.stepDelay = 1300 - v;
-            if (v <= 300) speedValue.textContent = 'Slow';
-            else if (v <= 700) speedValue.textContent = 'Normal';
-            else if (v <= 1000) speedValue.textContent = 'Fast';
-            else speedValue.textContent = 'Ultra';
+            if (v <= 300) speedRange.title = I18N.t('ui.speed.slow', null, 'Slow');
+            else if (v <= 700) speedRange.title = I18N.t('ui.speed.normal', null, 'Normal');
+            else if (v <= 1000) speedRange.title = I18N.t('ui.speed.fast', null, 'Fast');
+            else speedRange.title = I18N.t('ui.speed.ultra', null, 'Ultra');
         }
-        speedRange.oninput = function() { updateSpeedLabel(this.value); };
+        speedRange.oninput = function() { updateSpeedLabel(this.value); I18N.saveSpeed(this.value); };
+        var savedSpeed = I18N.loadSpeed();
+        if (savedSpeed) { speedRange.value = savedSpeed; }
         updateSpeedLabel(speedRange.value);
 
         document.getElementById('pattern-details-toggle').onclick = function() {
@@ -324,15 +332,18 @@
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        setupControls();
-        ARCHV.ensureTooltips();
-        ARCHV._updateStepButtons();
-        var saved = readHash();
-        if (saved) {
-            switchArch(saved.arch, saved.mode);
-        } else {
-            switchArch('mvc');
-        }
+        I18N.onReady(function() {
+            setupControls();
+            ARCHV.ensureTooltips();
+            ARCHV._updateStepButtons();
+            I18N.applyToDOM();
+            var saved = readHash();
+            if (saved) {
+                switchArch(saved.arch, saved.mode);
+            } else {
+                switchArch('mvc');
+            }
+        });
     });
 
     window.addEventListener('hashchange', function() {
@@ -342,50 +353,37 @@
         }
     });
 
+    /* ===== i18n Refresh ===== */
+    window.ARCHV_refresh = function() {
+        switchArch(ARCHV.state.arch, ARCHV.state.mode);
+    };
+
     /* ===== Sticky Global Controls (fixed on scroll) ===== */
     document.addEventListener('DOMContentLoaded', function() {
         var controls = document.getElementById('global-controls');
         var placeholder = document.getElementById('controls-placeholder');
         if (!controls || !placeholder) return;
 
-        var controlsTop = 0;
-        var controlsHeight = 0;
         var marginBottom = 10;
-        var measured = false;
-
-        function measure() {
-            if (!controls.classList.contains('is-fixed')) {
-                controlsTop = controls.offsetTop;
-                controlsHeight = controls.offsetHeight;
-                measured = controlsTop > 0;
-            }
-        }
 
         function onScroll() {
-            if (!measured) { measure(); }
-            if (!measured) return;
-            if (window.scrollY >= controlsTop) {
-                if (!controls.classList.contains('is-fixed')) {
-                    placeholder.style.height = (controlsHeight + marginBottom) + 'px';
-                    placeholder.classList.add('is-active');
-                    controls.classList.add('is-fixed');
-                }
-            } else {
-                if (controls.classList.contains('is-fixed')) {
+            if (controls.classList.contains('is-fixed')) {
+                var phRect = placeholder.getBoundingClientRect();
+                if (phRect.top >= 0) {
                     controls.classList.remove('is-fixed');
                     placeholder.classList.remove('is-active');
                     placeholder.style.height = '0';
                 }
+            } else {
+                var rect = controls.getBoundingClientRect();
+                if (rect.top <= 0) {
+                    placeholder.style.height = (controls.offsetHeight + marginBottom) + 'px';
+                    placeholder.classList.add('is-active');
+                    controls.classList.add('is-fixed');
+                }
             }
         }
 
-        requestAnimationFrame(function() {
-            measure();
-            if (!measured) {
-                setTimeout(measure, 300);
-            }
-        });
         window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', function() { measured = false; measure(); onScroll(); });
     });
 })();

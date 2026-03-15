@@ -30,16 +30,17 @@
     </script>
 
     <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/index.html">Home</a>
+        <a href="/index.html" data-i18n="ui.breadcrumb.home">Home</a>
         <span class="breadcrumb-separator">›</span>
-        <a href="/projects.html">Projects</a>
+        <a href="/pages/projects.html" data-i18n="ui.breadcrumb.projects">Projects</a>
         <span class="breadcrumb-separator">›</span>
-        <span class="breadcrumb-current">Database Index Visualizer</span>
+        <span class="breadcrumb-current" data-i18n="db.title">Database Index Visualizer</span>
+        <div class="lang-switcher" id="lang-switcher"></div>
     </nav>
 
     <div class="article-container dbiv-page">
         <div class="article-header">
-            <h1 class="article-title">Database Index Visualizer</h1>
+            <h1 class="article-title" data-i18n="db.title">Database Index Visualizer</h1>
         </div>
 
         <!-- Database Navigation (Level 1) -->
@@ -65,14 +66,14 @@
         <div class="global-controls-placeholder" id="controls-placeholder"></div>
         <div class="global-controls" id="global-controls">
             <div class="controls-left">
-                <button class="ctrl-btn run-btn" id="btn-run" title="Execute query through index">&#x25B6; Run Query</button>
-                <button class="ctrl-btn burst-btn" id="btn-burst" title="Run 5 queries rapidly">&#x26A1; Burst</button>
-                <button class="ctrl-btn error-btn" id="btn-miss" title="Next query skips index (full scan)">Index Miss</button>
-                <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state">&#x21BA; Reset</button>
+                <button class="ctrl-btn run-btn" id="btn-run" title="Execute query through index" data-i18n-title="db.ui.tooltip.run">&#x25B6; <span data-i18n="ui.btn.run.query">Run Query</span></button>
+                <button class="ctrl-btn burst-btn" id="btn-burst" title="Run 5 queries rapidly" data-i18n-title="db.ui.tooltip.burst">&#x26A1; <span data-i18n="ui.btn.run.burst">Burst</span></button>
+                <button class="ctrl-btn error-btn" id="btn-miss" title="Next query skips index (full scan)" data-i18n-title="db.ui.tooltip.miss"><span data-i18n="ui.index_miss.btn">Index Miss</span></button>
+                <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state" data-i18n-title="db.ui.tooltip.reset">&#x21BA; <span data-i18n="ui.btn.reset">Reset</span></button>
             </div>
             <div class="controls-right">
                 <label class="compare-toggle" id="compare-toggle-wrap">
-                    <span>Compare with Full Scan:</span>
+                    <span data-i18n="ui.compare.toggle">Compare with Full Scan:</span>
                     <input type="checkbox" id="toggle-compare">
                     <span class="toggle-slider"></span>
                 </label>
@@ -81,20 +82,20 @@
 
         <!-- Stats Bar -->
         <div class="stats-bar">
-            <div class="stat-item"><span class="stat-label">Pages Read</span><span class="stat-value" id="stat-pages">0</span></div>
-            <div class="stat-item"><span class="stat-label">Rows Examined</span><span class="stat-value" id="stat-rows">0</span></div>
-            <div class="stat-item"><span class="stat-label">Index Lookups</span><span class="stat-value" id="stat-lookups">0</span></div>
-            <div class="stat-item"><span class="stat-label">Query Time</span><span class="stat-value" id="stat-time">0 ms</span></div>
+            <div class="stat-item"><span class="stat-label" data-i18n="ui.stat.pages_read">Pages Read</span><span class="stat-value" id="stat-pages" data-i18n="db.stats.zero">0</span></div>
+            <div class="stat-item"><span class="stat-label" data-i18n="ui.stat.rows_examined">Rows Examined</span><span class="stat-value" id="stat-rows" data-i18n="db.stats.zero">0</span></div>
+            <div class="stat-item"><span class="stat-label" data-i18n="ui.stat.index_lookups">Index Lookups</span><span class="stat-value" id="stat-lookups" data-i18n="db.stats.zero">0</span></div>
+            <div class="stat-item"><span class="stat-label" data-i18n="ui.stat.query_time">Query Time</span><span class="stat-value" id="stat-time" data-i18n="db.stats.time.zero">0 ms</span></div>
         </div>
 
         <!-- Pattern Description -->
-        <div class="pattern-desc" id="pattern-desc"></div>
+        <div class="pattern-desc" id="pattern-desc" data-i18n="db.pattern.placeholder"></div>
 
         <!-- Principles & Key Concepts (collapsible) -->
         <div class="pattern-details" id="pattern-details" style="display:none">
             <button class="pattern-details-toggle" id="pattern-details-toggle" aria-expanded="false">
                 <span class="pattern-details-toggle-icon">&#x25B6;</span>
-                <span>Principles &amp; Key Concepts</span>
+                <span data-i18n="ui.details.title">Principles &amp; Key Concepts</span>
             </button>
             <div class="pattern-details-body" id="pattern-details-body"></div>
         </div>
@@ -108,7 +109,7 @@
             <div class="viz-col viz-index" id="index-col">
                 <div class="index-header" id="index-header">
                     <span class="index-name" id="index-name">B-Tree Index</span>
-                    <span class="index-status ready" id="index-status">ready</span>
+                    <span class="index-status ready" id="index-status" data-i18n="db.index.status.ready">ready</span>
                 </div>
                 <div class="index-body" id="index-body"></div>
             </div>
@@ -123,11 +124,11 @@
         <!-- Comparison Panel (hidden by default) -->
         <div class="comparison-panel" id="comparison-panel" style="display:none">
             <div class="comparison-side" id="compare-index">
-                <div class="comparison-title">Index Scan</div>
+                <div class="comparison-title" data-i18n="db.comparison.index_scan">Index Scan</div>
                 <div class="comparison-stats" id="compare-index-stats"></div>
             </div>
             <div class="comparison-side" id="compare-full">
-                <div class="comparison-title">Full Table Scan</div>
+                <div class="comparison-title" data-i18n="db.comparison.full_scan">Full Table Scan</div>
                 <div class="comparison-stats" id="compare-full-stats"></div>
             </div>
         </div>
@@ -138,10 +139,10 @@
         <!-- Event Log -->
         <div class="event-log-container">
             <div class="event-log-header">
-                <span>Event Log</span>
+                <span data-i18n="ui.log.header">Event Log</span>
                 <div>
-                    <button class="log-clear-btn" id="btn-copy-log">Copy</button>
-                    <button class="log-clear-btn" id="btn-clear-log">Clear</button>
+                    <button class="log-clear-btn" id="btn-copy-log" data-i18n="ui.btn.copy">Copy</button>
+                    <button class="log-clear-btn" id="btn-clear-log" data-i18n="ui.btn.clear">Clear</button>
                 </div>
             </div>
             <div class="event-log" id="event-log"></div>
@@ -158,6 +159,14 @@
 </div>
 
 <script>document.querySelector('.current-year').textContent = new Date().getFullYear();</script>
+<script src="../../resources/i18n.js"></script>
+<script>
+    I18N._basePath = '../..';
+    I18N.load('db-visualizer', '../..').then(function() {
+        I18N.renderSwitcher('lang-switcher');
+        I18N.applyToDOM();
+    });
+</script>
 <script src="../../resources/back-to-top.js"></script>
 <script src="js/engine.js"></script>
 <script src="js/mysql.js"></script>

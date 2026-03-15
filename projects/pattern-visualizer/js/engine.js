@@ -31,7 +31,7 @@ PV.log = function(type, text) {
 
     var typeSpan = document.createElement('span');
     typeSpan.className = 'log-type ' + type;
-    typeSpan.textContent = type;
+    typeSpan.textContent = (window.I18N && I18N.t) ? I18N.t('ui.log.type.' + type, {}, type) : type;
 
     var textSpan = document.createElement('span');
     textSpan.className = 'log-text';
@@ -62,8 +62,8 @@ PV.copyLog = function() {
     navigator.clipboard.writeText(lines.join('\n')).then(function() {
         var btn = document.getElementById('btn-copy-log');
         if (!btn) return;
-        btn.textContent = 'Copied!';
-        setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+        btn.textContent = I18N.t('ui.btn.copied', null, 'Copied!');
+        setTimeout(function() { btn.textContent = I18N.t('ui.btn.copy', null, 'Copy'); }, 1500);
     });
 };
 
@@ -537,7 +537,7 @@ PV.renderRelation = function(fromId, toId, type) {
 };
 
 /* ===== Trade-offs Rendering ===== */
-PV.showTradeoffs = function(tradeoffs) {
+PV.showTradeoffs = function(tradeoffs, i18nPrefix) {
     var container = document.getElementById('tradeoffs-panel');
     var body = document.getElementById('tradeoffs-body');
     var toggle = document.getElementById('tradeoffs-toggle');
@@ -550,22 +550,26 @@ PV.showTradeoffs = function(tradeoffs) {
         return;
     }
 
+    var pros = i18nPrefix ? I18N.ta(i18nPrefix + '.tradeoffs.pros', tradeoffs.pros || []) : (tradeoffs.pros || []);
+    var cons = i18nPrefix ? I18N.ta(i18nPrefix + '.tradeoffs.cons', tradeoffs.cons || []) : (tradeoffs.cons || []);
+    var whenToUse = i18nPrefix ? I18N.t(i18nPrefix + '.tradeoffs.whenToUse', null, tradeoffs.whenToUse || '') : (tradeoffs.whenToUse || '');
+
     var html = '<div class="tradeoffs-grid">';
-    html += '<div class="tradeoffs-col"><div class="tradeoffs-col-title pros">&#x2705; Pros</div>';
-    (tradeoffs.pros || []).forEach(function(p) {
+    html += '<div class="tradeoffs-col"><div class="tradeoffs-col-title pros">&#x2705; ' + I18N.t('ui.tradeoffs.pros', null, 'Pros') + '</div>';
+    pros.forEach(function(p) {
         html += '<div class="tradeoffs-item pro">' + p + '</div>';
     });
     html += '</div>';
-    html += '<div class="tradeoffs-col"><div class="tradeoffs-col-title cons">&#x274C; Cons</div>';
-    (tradeoffs.cons || []).forEach(function(c) {
+    html += '<div class="tradeoffs-col"><div class="tradeoffs-col-title cons">&#x274C; ' + I18N.t('ui.tradeoffs.cons', null, 'Cons') + '</div>';
+    cons.forEach(function(c) {
         html += '<div class="tradeoffs-item con">' + c + '</div>';
     });
     html += '</div></div>';
 
-    if (tradeoffs.whenToUse) {
+    if (whenToUse) {
         html += '<div class="tradeoffs-when">' +
-            '<div class="tradeoffs-when-title">When to Use</div>' +
-            tradeoffs.whenToUse + '</div>';
+            '<div class="tradeoffs-when-title">' + I18N.t('ui.tradeoffs.when', null, 'When to Use') + '</div>' +
+            whenToUse + '</div>';
     }
 
     body.innerHTML = html;
@@ -575,12 +579,13 @@ PV.showTradeoffs = function(tradeoffs) {
 };
 
 /* ===== Pattern Participants ===== */
-PV.showParticipants = function(participants) {
+PV.showParticipants = function(participants, i18nKey) {
     var body = document.getElementById('dep-rules-body');
     if (!body) return;
 
+    var translated = i18nKey ? I18N.to(i18nKey, participants) : participants;
     var html = '';
-    participants.forEach(function(p) {
+    translated.forEach(function(p) {
         html += '<div class="dep-rule allowed">' +
             '<span class="dep-rule-icon">&#x1F539;</span>' +
             '<span><strong>' + p.name + '</strong> — ' + p.role + '</span>' +
@@ -588,6 +593,84 @@ PV.showParticipants = function(participants) {
     });
 
     body.innerHTML = html;
+};
+
+/* ===== Code Examples ===== */
+PV._currentCodeLang = 'php';
+PV._currentCodeExamples = null;
+
+PV.showCodeExamples = function(codeExamples) {
+    var container = document.getElementById('code-examples-panel');
+    var body = document.getElementById('code-examples-body');
+    var toggle = document.getElementById('code-examples-toggle');
+    if (!container || !body || !toggle) return;
+
+    if (!codeExamples) {
+        container.style.display = 'none';
+        body.classList.remove('expanded');
+        toggle.setAttribute('aria-expanded', 'false');
+        PV._currentCodeExamples = null;
+        return;
+    }
+
+    PV._currentCodeExamples = codeExamples;
+
+    var langs = [
+        { id: 'php', label: 'PHP' },
+        { id: 'go', label: 'Go' },
+        { id: 'python', label: 'Python' },
+        { id: 'rust', label: 'Rust' }
+    ];
+
+    var tabsEl = document.getElementById('code-lang-tabs');
+    tabsEl.innerHTML = langs.map(function(lang) {
+        var cls = 'code-lang-tab' + (lang.id === PV._currentCodeLang ? ' active' : '');
+        return '<button class="' + cls + '" data-lang="' + lang.id + '" role="tab">' + lang.label + '</button>';
+    }).join('');
+
+    tabsEl.querySelectorAll('.code-lang-tab').forEach(function(btn) {
+        btn.onclick = function() {
+            PV._currentCodeLang = btn.dataset.lang;
+            tabsEl.querySelectorAll('.code-lang-tab').forEach(function(b) {
+                b.classList.toggle('active', b.dataset.lang === PV._currentCodeLang);
+            });
+            PV._renderCodeBlock();
+        };
+    });
+
+    body.classList.remove('expanded');
+    toggle.setAttribute('aria-expanded', 'false');
+    container.style.display = 'block';
+    PV._renderCodeBlock();
+};
+
+PV._renderCodeBlock = function() {
+    var codeEl = document.getElementById('code-content');
+    var preEl = document.getElementById('code-pre');
+    if (!codeEl || !preEl || !PV._currentCodeExamples) return;
+
+    var code = PV._currentCodeExamples[PV._currentCodeLang] || '';
+    codeEl.textContent = code;
+
+    var prismLangs = { php: 'php', go: 'go', python: 'python', rust: 'rust' };
+    var langClass = 'language-' + (prismLangs[PV._currentCodeLang] || 'plaintext');
+    codeEl.className = langClass;
+    preEl.className = 'code-pre ' + langClass;
+
+    if (window.Prism) {
+        try { Prism.highlightElement(codeEl); } catch (e) { /* Prism grammar not loaded */ }
+    }
+};
+
+PV.copyCode = function() {
+    var codeEl = document.getElementById('code-content');
+    if (!codeEl) return;
+    navigator.clipboard.writeText(codeEl.textContent).then(function() {
+        var btn = document.getElementById('code-copy-btn');
+        if (!btn) return;
+        btn.textContent = I18N.t('ui.btn.copied', null, 'Copied!');
+        setTimeout(function() { btn.textContent = I18N.t('ui.btn.copy', null, 'Copy'); }, 1500);
+    });
 };
 
 /* ===== Animate Flow ===== */
@@ -628,10 +711,13 @@ PV.animateFlow = async function(steps, options) {
 
         if (el) {
             el.classList.add('pv-active');
-            PV._showStepLabel(el, stepLabel, step.label);
+            var logType = (step.logType || 'FLOW').toUpperCase();
+            var typeLabel = (window.I18N && I18N.t) ? I18N.t('ui.log.type.' + logType, null, logType) : logType;
+            PV._showStepLabel(el, stepLabel, typeLabel + ': ' + step.label);
         }
 
-        PV.log(step.logType || 'FLOW', 'Step ' + stepLabel + ': ' + step.label + (step.description ? ' — ' + step.description : ''));
+        var logDesc = step.descriptionKey ? I18N.t(step.descriptionKey, null, step.description) : (step.description || '');
+        PV.log(step.logType || 'FLOW', I18N.t('ui.log.step', { n: stepLabel }, 'Step ' + stepLabel) + ': ' + step.label + (logDesc ? ' — ' + logDesc : ''));
 
         if (step.spawnId) {
             if (step.logType === 'PROPERTY') {
@@ -670,7 +756,7 @@ PV.animateFlow = async function(steps, options) {
 
     var elapsed = Math.round(performance.now() - startTime);
     if (PV.state.running) {
-        PV.log('RESPONSE', 'R' + reqId + ': Flow completed in ' + elapsed + 'ms (' + steps.length + ' steps, ' + PV.state.objectsCreated + ' objects created)');
+        PV.log('RESPONSE', 'R' + reqId + ': ' + I18N.t('ui.log.flow_completed', { time: elapsed, steps: steps.length }, 'Flow completed in ' + elapsed + 'ms (' + steps.length + ' steps)'));
     }
     PV.state.running = false;
     PV.state.paused = false;
@@ -679,7 +765,7 @@ PV.animateFlow = async function(steps, options) {
     var pauseBtn = document.getElementById('btn-pause');
     if (pauseBtn) {
         pauseBtn.disabled = true;
-        pauseBtn.innerHTML = '&#x23F8; Pause';
+        pauseBtn.innerHTML = '&#x23F8; ' + I18N.t('ui.btn.pause', null, 'Pause');
     }
 };
 
@@ -707,7 +793,7 @@ PV.startStepMode = function(steps, options, resumeFromIndex) {
         }
         PV.state.objectsCreated = spawnCount;
         PV.updateStats();
-        PV.log('FLOW', 'Switched to step mode at step ' + resumeFromIndex);
+        PV.log('FLOW', I18N.t('ui.log.step_mode', { step: resumeFromIndex }, 'Step mode from step ' + resumeFromIndex));
     } else {
         PV.resetStats();
         PV.clearLog();
@@ -720,7 +806,7 @@ PV.startStepMode = function(steps, options, resumeFromIndex) {
 
         var reqId = PV.nextRequestId();
         PV.stepMode._reqId = reqId;
-        PV.log('REQUEST', 'R' + reqId + ': ' + (options && options.requestLabel ? options.requestLabel : 'Step mode started'));
+        PV.log('REQUEST', 'R' + reqId + ': ' + (options && options.requestLabel ? options.requestLabel : I18N.t('ui.log.step_mode_start', null, 'Step mode started')));
     }
     PV._updateStepButtons();
 };
@@ -740,7 +826,7 @@ PV.switchToStepMode = function() {
     var pauseBtn = document.getElementById('btn-pause');
     if (pauseBtn) {
         pauseBtn.disabled = true;
-        pauseBtn.innerHTML = '&#x23F8; Pause';
+        pauseBtn.innerHTML = '&#x23F8; ' + I18N.t('ui.btn.pause', null, 'Pause');
     }
 
     PV.startStepMode(steps, options, currentIndex);
@@ -757,10 +843,13 @@ PV.stepForward = function() {
     if (el) {
         el.classList.remove('pv-visited');
         el.classList.add('pv-active');
-        PV._showStepLabel(el, stepLabel, step.label);
+        var logType = (step.logType || 'FLOW').toUpperCase();
+        var typeLabel = (window.I18N && I18N.t) ? I18N.t('ui.log.type.' + logType, null, logType) : logType;
+        PV._showStepLabel(el, stepLabel, typeLabel + ': ' + step.label);
     }
 
-    PV.log(step.logType || 'FLOW', 'Step ' + stepLabel + ': ' + step.label + (step.description ? ' — ' + step.description : ''));
+    var logDesc = step.descriptionKey ? I18N.t(step.descriptionKey, null, step.description) : (step.description || '');
+    PV.log(step.logType || 'FLOW', I18N.t('ui.log.step', { n: stepLabel }, 'Step ' + stepLabel) + ': ' + step.label + (logDesc ? ' — ' + logDesc : ''));
 
     if (step.spawnId) {
         if (step.logType === 'PROPERTY') {
@@ -789,7 +878,7 @@ PV.stepForward = function() {
     PV.updateStats();
 
     if (sm.index >= sm.steps.length) {
-        PV.log('RESPONSE', 'R' + sm._reqId + ': Flow completed (' + sm.steps.length + ' steps)');
+        PV.log('RESPONSE', 'R' + sm._reqId + ': ' + I18N.t('ui.log.flow_completed_steps', { steps: sm.steps.length }, 'Flow completed (' + sm.steps.length + ' steps)'));
     }
 
     PV._updateStepButtons();
@@ -880,11 +969,11 @@ PV._updateStepButtons = function() {
         btnBack.style.display = '';
         btnFwd.style.display = '';
         btnStep.classList.add('active');
-        btnStep.innerHTML = '&#x23F9; Exit Steps';
+        btnStep.innerHTML = '&#x23F9; ' + I18N.t('ui.btn.exit_steps', null, 'Exit Steps');
     } else {
         btnBack.style.display = 'none';
         btnFwd.style.display = 'none';
         btnStep.classList.remove('active');
-        btnStep.innerHTML = '&#x23ED; Step Mode';
+        btnStep.innerHTML = '&#x23ED; ' + I18N.t('ui.btn.step_mode', null, 'Step Mode');
     }
 };

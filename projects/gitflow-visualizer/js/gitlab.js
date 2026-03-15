@@ -112,18 +112,20 @@
     feature.steps = function() {
         var b = feature._b;
         return [
-            { op: 'branch',        fromBranch: 'main',  branch: b,  label: b,          logType: 'BRANCH',  description: 'Create feature branch ' + b + ' from main — isolating search feature development' },
-            { op: 'commit',        branch: b,           label: 'F1',                    logType: 'COMMIT',  description: 'Implement Elasticsearch search index — define mappings, configure analyzers, add indexing pipeline' },
-            { op: 'commit',        branch: b,           label: 'F2',                    logType: 'COMMIT',  description: 'Add search UI component — autocomplete dropdown, result highlighting, and pagination controls' },
-            { op: 'pr',            fromBranch: b,       toBranch: 'main', label: 'MR !42', logType: 'MR',   description: 'Open Merge Request !42: ' + b + ' → main — requesting review from the backend team' },
-            { op: 'merge',         fromBranch: b,       toBranch: 'main', label: 'Merge MR', logType: 'MERGE', description: 'MR approved and merged — ' + b + ' integrated into main, search feature ready for promotion' },
-            { op: 'delete-branch', branch: b,           label: 'delete',                logType: 'DELETE',  description: 'Delete feature branch ' + b + ' — merged successfully, keeping repository clean' }
+            { op: 'branch',        fromBranch: 'main',  branch: b,  label: b,          logType: 'BRANCH',  description: 'Create feature branch ' + b + ' from main — isolating search feature development', descriptionKey: 'gfv.gitlab.feature.0' },
+            { op: 'commit',        branch: b,           label: 'F1',                    logType: 'COMMIT',  description: 'Implement Elasticsearch search index — define mappings, configure analyzers, add indexing pipeline', descriptionKey: 'gfv.gitlab.feature.1' },
+            { op: 'commit',        branch: b,           label: 'F2',                    logType: 'COMMIT',  description: 'Add search UI component — autocomplete dropdown, result highlighting, and pagination controls', descriptionKey: 'gfv.gitlab.feature.2' },
+            { op: 'pr',            fromBranch: b,       toBranch: 'main', label: 'MR !42', logType: 'MR',   description: 'Open Merge Request !42: ' + b + ' → main — requesting review from the backend team', descriptionKey: 'gfv.gitlab.feature.3' },
+            { op: 'merge',         fromBranch: b,       toBranch: 'main', label: 'Merge MR', logType: 'MERGE', description: 'MR approved and merged — ' + b + ' integrated into main, search feature ready for promotion', descriptionKey: 'gfv.gitlab.feature.4' },
+            { op: 'delete-branch', branch: b,           label: 'delete',                logType: 'DELETE',  description: 'Delete feature branch ' + b + ' — merged successfully, keeping repository clean', descriptionKey: 'gfv.gitlab.feature.5' }
         ];
     };
 
     feature.run = function() {
         feature.init();
-        GFV.animateFlow(feature.steps(), { requestLabel: 'GitLab Flow — Feature to Main' });
+        GFV.animateFlow(feature.steps(), {
+            requestLabel: GFV._t('gfv.request.gitlab.feature', null, 'GitLab Flow — Feature to Main')
+        });
     };
 
     /* ========== staging mode ========== */
@@ -135,18 +137,20 @@
 
     staging.steps = function() {
         return [
-            { op: 'commit', branch: 'main',    label: 'M1',            logType: 'COMMIT', description: 'Feature A (dashboard widgets) merged to main via MR — ready for downstream promotion' },
-            { op: 'commit', branch: 'main',    label: 'M2',            logType: 'COMMIT', description: 'Feature B (export to CSV) merged to main — second feature accumulated for promotion batch' },
-            { op: 'commit', branch: 'main',    label: 'M3',            logType: 'COMMIT', description: 'Bug fix for timezone handling merged to main — resolving reports showing incorrect dates' },
-            { op: 'merge',  fromBranch: 'main', toBranch: 'staging', label: 'Promote', logType: 'MERGE', description: 'Promote main to staging — batch of 3 changes (2 features + 1 fix) pushed to pre-production for testing' },
-            { op: 'deploy', branch: 'staging', envName: 'staging',     logType: 'DEPLOY', description: 'Deploy staging environment — running integration tests and manual QA on the promoted changes' },
-            { op: 'commit', branch: 'main',    label: 'M4',            logType: 'COMMIT', description: 'Development continues on main — new work is independent of the staging promotion' }
+            { op: 'commit', branch: 'main',    label: 'M1',            logType: 'COMMIT', description: 'Feature A (dashboard widgets) merged to main via MR — ready for downstream promotion', descriptionKey: 'gfv.gitlab.staging.0' },
+            { op: 'commit', branch: 'main',    label: 'M2',            logType: 'COMMIT', description: 'Feature B (export to CSV) merged to main — second feature accumulated for promotion batch', descriptionKey: 'gfv.gitlab.staging.1' },
+            { op: 'commit', branch: 'main',    label: 'M3',            logType: 'COMMIT', description: 'Bug fix for timezone handling merged to main — resolving reports showing incorrect dates', descriptionKey: 'gfv.gitlab.staging.2' },
+            { op: 'merge',  fromBranch: 'main', toBranch: 'staging', label: 'Promote', logType: 'MERGE', description: 'Promote main to staging — batch of 3 changes (2 features + 1 fix) pushed to pre-production for testing', descriptionKey: 'gfv.gitlab.staging.3' },
+            { op: 'deploy', branch: 'staging', envName: 'staging',     logType: 'DEPLOY', description: 'Deploy staging environment — running integration tests and manual QA on the promoted changes', descriptionKey: 'gfv.gitlab.staging.4' },
+            { op: 'commit', branch: 'main',    label: 'M4',            logType: 'COMMIT', description: 'Development continues on main — new work is independent of the staging promotion', descriptionKey: 'gfv.gitlab.staging.5' }
         ];
     };
 
     staging.run = function() {
         staging.init();
-        GFV.animateFlow(staging.steps(), { requestLabel: 'GitLab Flow — Promote to Staging' });
+        GFV.animateFlow(staging.steps(), {
+            requestLabel: GFV._t('gfv.request.gitlab.staging', null, 'GitLab Flow — Promote to Staging')
+        });
     };
 
     /* ========== production mode ========== */
@@ -158,19 +162,21 @@
 
     production.steps = function() {
         return [
-            { op: 'commit', branch: 'main',       label: 'M1',            logType: 'COMMIT', description: 'New user onboarding flow merged to main — multi-step wizard with progress tracking' },
-            { op: 'commit', branch: 'main',       label: 'M2',            logType: 'COMMIT', description: 'Email template improvements merged to main — responsive design for mobile clients' },
-            { op: 'merge',  fromBranch: 'main',    toBranch: 'staging',   label: 'Promote',   logType: 'MERGE',  description: 'Promote main to staging — pushing accumulated changes for pre-production validation' },
-            { op: 'deploy', branch: 'staging',     envName: 'staging',    logType: 'DEPLOY',  description: 'Deploy to staging environment — running full test suite and manual QA verification' },
-            { op: 'merge',  fromBranch: 'staging', toBranch: 'production', label: 'Promote',  logType: 'MERGE',  description: 'Promote staging to production — QA passed, changes approved for live deployment' },
-            { op: 'tag',    branch: 'production',  tagName: 'v1.0.0',     logType: 'TAG',     description: 'Tag production release v1.0.0 — official version marker for this deployment' },
-            { op: 'deploy', branch: 'production',  envName: 'production', logType: 'DEPLOY',  description: 'Deploy to production environment — changes are now live for all end users' }
+            { op: 'commit', branch: 'main',       label: 'M1',            logType: 'COMMIT', description: 'New user onboarding flow merged to main — multi-step wizard with progress tracking', descriptionKey: 'gfv.gitlab.production.0' },
+            { op: 'commit', branch: 'main',       label: 'M2',            logType: 'COMMIT', description: 'Email template improvements merged to main — responsive design for mobile clients', descriptionKey: 'gfv.gitlab.production.1' },
+            { op: 'merge',  fromBranch: 'main',    toBranch: 'staging',   label: 'Promote',   logType: 'MERGE',  description: 'Promote main to staging — pushing accumulated changes for pre-production validation', descriptionKey: 'gfv.gitlab.production.2' },
+            { op: 'deploy', branch: 'staging',     envName: 'staging',    logType: 'DEPLOY',  description: 'Deploy to staging environment — running full test suite and manual QA verification', descriptionKey: 'gfv.gitlab.production.3' },
+            { op: 'merge',  fromBranch: 'staging', toBranch: 'production', label: 'Promote',  logType: 'MERGE',  description: 'Promote staging to production — QA passed, changes approved for live deployment', descriptionKey: 'gfv.gitlab.production.4' },
+            { op: 'tag',    branch: 'production',  tagName: 'v1.0.0',     logType: 'TAG',     description: 'Tag production release v1.0.0 — official version marker for this deployment', descriptionKey: 'gfv.gitlab.production.5' },
+            { op: 'deploy', branch: 'production',  envName: 'production', logType: 'DEPLOY',  description: 'Deploy to production environment — changes are now live for all end users', descriptionKey: 'gfv.gitlab.production.6' }
         ];
     };
 
     production.run = function() {
         production.init();
-        GFV.animateFlow(production.steps(), { requestLabel: 'GitLab Flow — Promote to Production' });
+        GFV.animateFlow(production.steps(), {
+            requestLabel: GFV._t('gfv.request.gitlab.production', null, 'GitLab Flow — Promote to Production')
+        });
     };
 
     /* ----- Register on GFV namespace ----- */

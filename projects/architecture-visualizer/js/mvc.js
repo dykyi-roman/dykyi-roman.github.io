@@ -24,24 +24,24 @@ function renderMVC() {
     canvas.innerHTML =
         '<div class="layout-triad">' +
             '<div class="archv-triad-box" id="comp-mvc-view">' +
-                '<div class="archv-triad-label">View</div>' +
-                '<div class="archv-triad-desc">Displays data to user. Observes Model for changes. Sends user actions to Controller.</div>' +
+                '<div class="archv-triad-label">' + I18N.t('mvc.triad.view', null, 'View') + '</div>' +
+                '<div class="archv-triad-desc">' + I18N.t('mvc.triad.view.desc.mvc', null, 'Displays data to user. Observes Model for changes. Sends user actions to Controller.') + '</div>' +
                 '<div class="archv-components archv-components-col">' +
                     ARCHV.renderComponent('comp-mvc-render', 'Renderer', '&#x1F3A8;', 'Observes Model changes and triggers re-rendering of the UI') +
                     ARCHV.renderComponent('comp-mvc-template', 'Template', '&#x1F5A5;', 'HTML template that displays Model data to the user') +
                 '</div>' +
             '</div>' +
             '<div class="archv-triad-box" id="comp-mvc-controller">' +
-                '<div class="archv-triad-label">Controller</div>' +
-                '<div class="archv-triad-desc">Handles user input. Updates Model. Selects View. Does NOT directly update View content.</div>' +
+                '<div class="archv-triad-label">' + I18N.t('mvc.triad.controller', null, 'Controller') + '</div>' +
+                '<div class="archv-triad-desc">' + I18N.t('mvc.triad.controller.desc', null, 'Handles user input. Updates Model. Selects View. Does NOT directly update View content.') + '</div>' +
                 '<div class="archv-components archv-components-col">' +
                     ARCHV.renderComponent('comp-mvc-router', 'Router', '&#x1F6E4;', 'Routes incoming requests to the appropriate Controller action') +
                     ARCHV.renderComponent('comp-mvc-handler', 'InputHandler', '&#x1F3AE;', 'Interprets user input and invokes corresponding Model methods') +
                 '</div>' +
             '</div>' +
             '<div class="archv-triad-box" id="comp-mvc-model">' +
-                '<div class="archv-triad-label">Model</div>' +
-                '<div class="archv-triad-desc">Business logic and data. Notifies observers (View) when state changes. Independent of UI.</div>' +
+                '<div class="archv-triad-label">' + I18N.t('mvc.triad.model', null, 'Model') + '</div>' +
+                '<div class="archv-triad-desc">' + I18N.t('mvc.triad.model.desc.mvc', null, 'Business logic and data. Notifies observers (View) when state changes. Independent of UI.') + '</div>' +
                 '<div class="archv-components archv-components-col">' +
                     ARCHV.renderComponent('comp-mvc-logic', 'Logic', '&#x2699;', 'Business rules and validation logic, independent of UI') +
                     ARCHV.renderComponent('comp-mvc-data', 'Data', '&#x1F4CB;', 'Application state and data storage, notifies observers on change') +
@@ -49,8 +49,8 @@ function renderMVC() {
             '</div>' +
         '</div>' +
         '<div class="archv-flow-legend">' +
-            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Request)</div>' +
-            '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.sync_request', null, 'Sync (Request)') + '</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.response', null, 'Response') + '</div>' +
         '</div>';
 }
 
@@ -59,24 +59,24 @@ function renderMVP() {
     canvas.innerHTML =
         '<div class="layout-triad">' +
             '<div class="archv-triad-box" id="comp-mvp-view">' +
-                '<div class="archv-triad-label">View</div>' +
-                '<div class="archv-triad-desc">Passive view. Delegates ALL input to Presenter. Has no logic. Implements a View interface.</div>' +
+                '<div class="archv-triad-label">' + I18N.t('mvc.triad.view', null, 'View') + '</div>' +
+                '<div class="archv-triad-desc">' + I18N.t('mvc.triad.view.desc.mvp', null, 'Passive view. Delegates ALL input to Presenter. Has no logic. Implements a View interface.') + '</div>' +
                 '<div class="archv-components archv-components-col">' +
                     ARCHV.renderComponent('comp-mvp-ui', 'UI Components', '&#x1F5A5;', 'Passive UI elements with zero logic, only renders what Presenter says') +
                     ARCHV.renderComponent('comp-mvp-iface', 'IView', '&#x1F4DC;', 'Interface contract allowing Presenter to update View without knowing its type') +
                 '</div>' +
             '</div>' +
             '<div class="archv-triad-box" id="comp-mvp-presenter">' +
-                '<div class="archv-triad-label">Presenter</div>' +
-                '<div class="archv-triad-desc">Mediator between View and Model. Contains presentation logic. Explicitly updates View through interface.</div>' +
+                '<div class="archv-triad-label">' + I18N.t('mvc.triad.presenter', null, 'Presenter') + '</div>' +
+                '<div class="archv-triad-desc">' + I18N.t('mvc.triad.presenter.desc', null, 'Mediator between View and Model. Contains presentation logic. Explicitly updates View through interface.') + '</div>' +
                 '<div class="archv-components archv-components-col">' +
                     ARCHV.renderComponent('comp-mvp-preslogic', 'PresenterLogic', '&#x1F527;', 'Contains all presentation logic: reads Model, formats, pushes to View') +
                     ARCHV.renderComponent('comp-mvp-format', 'Formatter', '&#x1F4CA;', 'Transforms raw Model data into display-friendly format') +
                 '</div>' +
             '</div>' +
             '<div class="archv-triad-box" id="comp-mvp-model">' +
-                '<div class="archv-triad-label">Model</div>' +
-                '<div class="archv-triad-desc">Business data and rules. Presenter reads/writes Model. Model has no knowledge of Presenter or View.</div>' +
+                '<div class="archv-triad-label">' + I18N.t('mvc.triad.model', null, 'Model') + '</div>' +
+                '<div class="archv-triad-desc">' + I18N.t('mvc.triad.model.desc.mvp', null, 'Business data and rules. Presenter reads/writes Model. Model has no knowledge of Presenter or View.') + '</div>' +
                 '<div class="archv-components archv-components-col">' +
                     ARCHV.renderComponent('comp-mvp-data', 'Data', '&#x1F4CB;', 'Business data storage, no knowledge of Presenter or View') +
                     ARCHV.renderComponent('comp-mvp-logic', 'Logic', '&#x2699;', 'Business rules and validation, accessed only through Presenter') +
@@ -84,8 +84,8 @@ function renderMVP() {
             '</div>' +
         '</div>' +
         '<div class="archv-flow-legend">' +
-            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Delegate)</div>' +
-            '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.sync_delegate', null, 'Sync (Delegate)') + '</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.response', null, 'Response') + '</div>' +
         '</div>';
 }
 
@@ -94,24 +94,24 @@ function renderMVVM() {
     canvas.innerHTML =
         '<div class="layout-triad">' +
             '<div class="archv-triad-box" id="comp-mvvm-view">' +
-                '<div class="archv-triad-label">View</div>' +
-                '<div class="archv-triad-desc">Binds to ViewModel properties. Two-way data binding keeps UI in sync. Minimal code-behind.</div>' +
+                '<div class="archv-triad-label">' + I18N.t('mvc.triad.view', null, 'View') + '</div>' +
+                '<div class="archv-triad-desc">' + I18N.t('mvc.triad.view.desc.mvvm', null, 'Binds to ViewModel properties. Two-way data binding keeps UI in sync. Minimal code-behind.') + '</div>' +
                 '<div class="archv-components archv-components-col">' +
                     ARCHV.renderComponent('comp-mvvm-binding', 'DataBinding', '&#x1F517;', 'Two-way binding mechanism keeping View and ViewModel in sync') +
                     ARCHV.renderComponent('comp-mvvm-ui', 'UI Layer', '&#x1F5A5;', 'Declarative UI that binds to ViewModel properties, minimal code-behind') +
                 '</div>' +
             '</div>' +
             '<div class="archv-triad-box" id="comp-mvvm-viewmodel">' +
-                '<div class="archv-triad-label">ViewModel</div>' +
-                '<div class="archv-triad-desc">Exposes observable properties and commands. View binds to these. Transforms Model data for display.</div>' +
+                '<div class="archv-triad-label">' + I18N.t('mvc.triad.viewmodel', null, 'ViewModel') + '</div>' +
+                '<div class="archv-triad-desc">' + I18N.t('mvc.triad.viewmodel.desc', null, 'Exposes observable properties and commands. View binds to these. Transforms Model data for display.') + '</div>' +
                 '<div class="archv-components archv-components-col">' +
                     ARCHV.renderComponent('comp-mvvm-observable', 'Observable', '&#x1F440;', 'Properties that notify subscribers when values change, triggering UI updates') +
                     ARCHV.renderComponent('comp-mvvm-commands', 'Commands', '&#x1F4DD;', 'Encapsulate user actions with execute and can-execute logic') +
                 '</div>' +
             '</div>' +
             '<div class="archv-triad-box" id="comp-mvvm-model">' +
-                '<div class="archv-triad-label">Model</div>' +
-                '<div class="archv-triad-desc">Pure data and business logic. ViewModel reads/writes Model. No knowledge of View or ViewModel.</div>' +
+                '<div class="archv-triad-label">' + I18N.t('mvc.triad.model', null, 'Model') + '</div>' +
+                '<div class="archv-triad-desc">' + I18N.t('mvc.triad.model.desc.mvvm', null, 'Pure data and business logic. ViewModel reads/writes Model. No knowledge of View or ViewModel.') + '</div>' +
                 '<div class="archv-components archv-components-col">' +
                     ARCHV.renderComponent('comp-mvvm-data', 'Data', '&#x1F4CB;', 'Pure data layer, no knowledge of View or ViewModel') +
                     ARCHV.renderComponent('comp-mvvm-logic', 'Logic', '&#x2699;', 'Business rules and validation, accessed by ViewModel') +
@@ -119,8 +119,8 @@ function renderMVVM() {
             '</div>' +
         '</div>' +
         '<div class="archv-flow-legend">' +
-            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Binding)</div>' +
-            '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.sync_binding', null, 'Sync (Binding)') + '</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.response', null, 'Response') + '</div>' +
         '</div>';
 }
 
@@ -221,7 +221,7 @@ ARCHV.mvc.mvcMode = {
     init: function() { renderMVC(); },
     steps: function() {
         return [
-            { elementId: 'comp-mvc-router', label: 'Router', description: 'HTTP request received', logType: 'REQUEST' },
+            { elementId: 'comp-mvc-router', label: 'Router', description: 'GET /users/42 routed to UserController — Controller will update Model', descriptionKey: 'mvc.step.mvc.0', logType: 'REQUEST' },
             { elementId: 'comp-mvc-handler', label: 'InputHandler', description: 'Controller handles input', logType: 'FLOW' },
             { elementId: 'comp-mvc-logic', label: 'Model Logic', description: 'Execute business logic', logType: 'LAYER' },
             { elementId: 'comp-mvc-data', label: 'Model Data', description: 'Update state', logType: 'LAYER' },
@@ -229,7 +229,7 @@ ARCHV.mvc.mvcMode = {
             { elementId: 'comp-mvc-template', label: 'Template', description: 'Render HTML with new data', logType: 'RESPONSE' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'MVC: Request → Controller → Model → View' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('mvc.requestLabel.mvc', null, 'MVC: Controller updates Model, View observes Model (never updated by Controller directly)') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.mvc.mvcMode.steps(), ARCHV.mvc.mvcMode.stepOptions());
     }
@@ -239,7 +239,7 @@ ARCHV.mvc.mvpMode = {
     init: function() { renderMVP(); },
     steps: function() {
         return [
-            { elementId: 'comp-mvp-ui', label: 'View UI', description: 'User interacts with passive view', logType: 'REQUEST' },
+            { elementId: 'comp-mvp-ui', label: 'View UI', description: 'User clicks \'Save\' — passive View delegates to Presenter', descriptionKey: 'mvc.step.mvp.0', logType: 'REQUEST' },
             { elementId: 'comp-mvp-iface', label: 'IView', description: 'Delegate to Presenter via interface', logType: 'FLOW' },
             { elementId: 'comp-mvp-preslogic', label: 'Presenter', description: 'Presenter receives user action', logType: 'FLOW' },
             { elementId: 'comp-mvp-logic', label: 'Model Logic', description: 'Presenter calls Model: execute business rules', logType: 'LAYER' },
@@ -251,7 +251,7 @@ ARCHV.mvc.mvpMode = {
             { elementId: 'comp-mvp-ui', label: 'View UI', description: 'Passive view renders update', logType: 'RESPONSE' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'MVP: Presenter-mediated flow' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('mvc.requestLabel.mvp', null, 'MVP: passive View delegates all actions to Presenter via IView interface') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.mvc.mvpMode.steps(), ARCHV.mvc.mvpMode.stepOptions());
     }
@@ -261,7 +261,7 @@ ARCHV.mvc.mvvmMode = {
     init: function() { renderMVVM(); },
     steps: function() {
         return [
-            { elementId: 'comp-mvvm-ui', label: 'View UI', description: 'User types in input field', logType: 'REQUEST' },
+            { elementId: 'comp-mvvm-ui', label: 'View UI', description: 'User types in search field — binding propagates to ViewModel', descriptionKey: 'mvc.step.mvvm.0', logType: 'REQUEST' },
             { elementId: 'comp-mvvm-binding', label: 'DataBinding', description: 'Two-way binding triggers', logType: 'FLOW' },
             { elementId: 'comp-mvvm-observable', label: 'Observable', description: 'ViewModel property updated', logType: 'FLOW' },
             { elementId: 'comp-mvvm-commands', label: 'Command', description: 'Execute save command', logType: 'COMMAND' },
@@ -272,7 +272,7 @@ ARCHV.mvc.mvvmMode = {
             { elementId: 'comp-mvvm-ui', label: 'View UI', description: 'UI auto-updates', logType: 'RESPONSE' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'MVVM: Data binding flow' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('mvc.requestLabel.mvvm', null, 'MVVM: two-way data binding syncs View and ViewModel automatically') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.mvc.mvvmMode.steps(), ARCHV.mvc.mvvmMode.stepOptions());
     }

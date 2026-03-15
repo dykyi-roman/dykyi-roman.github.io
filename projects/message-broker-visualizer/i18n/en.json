@@ -1,0 +1,279 @@
+{
+  "mb.title": "Message Broker Visualizer",
+
+  "rabbitmq.name": "RabbitMQ",
+
+  "rabbitmq.modes.hello.label": "1. Direct Queue",
+  "rabbitmq.modes.hello.desc": "P \u2192 Queue \u2192 C. Producer writes to a named queue, Consumer reads from it. One to one.",
+
+  "rabbitmq.modes.work.label": "2. Round-Robin",
+  "rabbitmq.modes.work.desc": "Queue distributes tasks among workers via round-robin. Each message is processed by exactly one worker. Used for parallel processing of heavy tasks.",
+
+  "rabbitmq.modes.pubsub.label": "3. Pub/Sub",
+  "rabbitmq.modes.pubsub.desc": "Fanout Exchange broadcasts every message to all subscribers simultaneously. Used for logging, cache invalidation, realtime updates.",
+
+  "rabbitmq.modes.routing.label": "4. Routing",
+  "rabbitmq.modes.routing.desc": "Direct Exchange delivers messages only to queues with exact binding key match. Routing key is set by the producer.",
+
+  "rabbitmq.modes.topics.label": "5. Topics",
+  "rabbitmq.modes.topics.desc": "Topic Exchange matches routing key by patterns: * \u2014 exactly one word, # \u2014 any number of words. Flexible event filtering by hierarchy.",
+
+  "rabbitmq.modes.rpc.label": "6. RPC",
+  "rabbitmq.modes.rpc.desc": "RPC over queue: client sends a request with correlation_id and reply_to queue. Server processes and replies. Client waits for response in its temporary queue.",
+
+  "rabbitmq.modes.confirms.label": "7. Confirms",
+  "rabbitmq.modes.confirms.desc": "Publisher Confirms \u2014 broker acknowledges each message write via ACK/NACK. Guarantees at-least-once delivery on the producer side.",
+
+  "rabbitmq.details.hello.principles": [
+    "Simplest messaging pattern: one producer sends directly to a named queue, one consumer reads from it",
+    "Messages are stored in the queue until a consumer is ready to process them (asynchronous decoupling)",
+    "Default exchange (\"\") routes messages to queues by name \u2014 no explicit exchange binding needed",
+    "Messages are removed from the queue once acknowledged by the consumer (at-most-once without ack)",
+    "Queue must be declared before use; both producer and consumer can declare it (idempotent operation)"
+  ],
+  "rabbitmq.details.hello.concepts": [
+    { "term": "Queue", "definition": "FIFO buffer that stores messages until they are consumed. Durable queues survive broker restarts." },
+    { "term": "Default Exchange", "definition": "Nameless exchange (\"\") that routes messages to the queue whose name matches the routing key." },
+    { "term": "Acknowledgment", "definition": "Consumer sends ACK after processing. Without ACK, messages are re-delivered if consumer disconnects." },
+    { "term": "Durable Queue", "definition": "Queue that persists across broker restarts. Combined with persistent messages for full durability." },
+    { "term": "Connection", "definition": "TCP connection to the broker. Channels are lightweight virtual connections multiplexed over one TCP connection." }
+  ],
+
+  "rabbitmq.details.work.principles": [
+    "Work queue distributes tasks among multiple workers via round-robin dispatching",
+    "Each message is delivered to exactly one worker \u2014 competing consumers pattern",
+    "prefetch_count=1 ensures a worker receives the next message only after acknowledging the current one",
+    "Fair dispatch prevents fast workers from being idle while slow workers are overloaded",
+    "Manual acknowledgment ensures messages are requeued if a worker crashes mid-processing"
+  ],
+  "rabbitmq.details.work.concepts": [
+    { "term": "Round-Robin", "definition": "Default dispatch: broker sends messages to consumers in rotation. Does not consider consumer load." },
+    { "term": "Prefetch", "definition": "QoS setting (prefetch_count) limits how many unacknowledged messages a consumer can hold. Key to fair dispatch." },
+    { "term": "Competing Consumers", "definition": "Multiple consumers on the same queue. Each message goes to exactly one consumer. Enables horizontal scaling." },
+    { "term": "Message TTL", "definition": "Time-to-live for messages. Expired messages are dead-lettered or discarded. Set per-queue or per-message." },
+    { "term": "Dead Letter", "definition": "Messages that are rejected, expire, or exceed queue length are routed to a dead-letter exchange for inspection." }
+  ],
+
+  "rabbitmq.details.pubsub.principles": [
+    "Fanout exchange broadcasts every message to all bound queues \u2014 true publish/subscribe pattern",
+    "Each subscriber gets its own queue; messages are copied to every bound queue independently",
+    "Producers don't know which queues exist \u2014 full decoupling between publishers and subscribers",
+    "Temporary (exclusive, auto-delete) queues are typical for subscribers that don't need persistence",
+    "Adding a new subscriber requires no changes to the producer \u2014 just bind a new queue to the exchange"
+  ],
+  "rabbitmq.details.pubsub.concepts": [
+    { "term": "Fanout Exchange", "definition": "Ignores routing keys entirely. Delivers a copy of every message to every bound queue. One-to-many pattern." },
+    { "term": "Binding", "definition": "Link between an exchange and a queue. For fanout exchanges, the binding key is ignored." },
+    { "term": "Exclusive Queue", "definition": "Queue that only one connection can use. Automatically deleted when the connection closes. Ideal for temporary subscribers." },
+    { "term": "Exchange", "definition": "Receives messages from producers and routes them to queues based on type (fanout, direct, topic, headers)." },
+    { "term": "Auto-Delete", "definition": "Queue or exchange that is automatically deleted when the last consumer disconnects." }
+  ],
+
+  "rabbitmq.details.routing.principles": [
+    "Direct exchange routes messages only to queues whose binding key exactly matches the routing key",
+    "Multiple queues can bind to the same exchange with the same routing key \u2014 messages are copied to all of them",
+    "A queue can have multiple bindings with different routing keys to receive messages from several sources",
+    "Routing key is set by the producer at publish time; binding key is set by the consumer at bind time",
+    "Direct exchange enables selective message filtering \u2014 consumers receive only the message types they need"
+  ],
+  "rabbitmq.details.routing.concepts": [
+    { "term": "Direct Exchange", "definition": "Routes messages by exact routing key match. Message goes only to queues bound with the same key." },
+    { "term": "Routing Key", "definition": "String set by the producer on each message. Direct exchange compares it to binding keys for routing decisions." },
+    { "term": "Binding Key", "definition": "String specified when binding a queue to an exchange. Must match the routing key exactly for direct exchanges." },
+    { "term": "Selective Filtering", "definition": "Each consumer binds with specific keys and only receives matching messages. Unlike fanout, not all messages go everywhere." },
+    { "term": "Multiple Bindings", "definition": "A queue can bind multiple times with different keys to the same exchange, receiving messages matching any of them." }
+  ],
+
+  "rabbitmq.details.topics.principles": [
+    "Topic exchange matches routing keys by dot-separated word patterns using * (one word) and # (zero or more words)",
+    "Routing key must be a dot-separated string (e.g., \"order.created.eu\") \u2014 max 255 bytes",
+    "Pattern * substitutes exactly one word; # substitutes zero or more words \u2014 powerful filtering hierarchy",
+    "A topic exchange with \"#\" binding behaves like fanout; with no wildcards, it behaves like direct",
+    "Topic exchanges enable event hierarchies: \"order.*\" gets all order events, \"*.created.*\" gets all creation events"
+  ],
+  "rabbitmq.details.topics.concepts": [
+    { "term": "Topic Exchange", "definition": "Routes messages by pattern matching on dot-separated routing keys. Supports * and # wildcards." },
+    { "term": "* Wildcard", "definition": "Matches exactly one word in the routing key. \"order.*.eu\" matches \"order.created.eu\" but not \"order.eu\"." },
+    { "term": "# Wildcard", "definition": "Matches zero or more words. \"order.#\" matches \"order\", \"order.created\", \"order.created.eu\", etc." },
+    { "term": "Word", "definition": "A segment between dots in the routing key. \"stock.usd.nyse\" has three words: \"stock\", \"usd\", \"nyse\"." },
+    { "term": "Hierarchy", "definition": "Topic keys form a natural hierarchy (domain.event.region) enabling flexible subscription at any level." }
+  ],
+
+  "rabbitmq.details.rpc.principles": [
+    "RPC over messaging: client sends request with reply_to queue and correlation_id, server processes and replies",
+    "Each client creates an exclusive callback queue to receive responses \u2014 one queue per client connection",
+    "correlation_id matches responses to requests, enabling multiple outstanding RPCs on the same callback queue",
+    "Server is stateless \u2014 it simply consumes from the request queue and publishes to the reply_to address",
+    "RPC over messaging adds reliability (retries, persistence) but introduces latency vs direct HTTP calls"
+  ],
+  "rabbitmq.details.rpc.concepts": [
+    { "term": "Correlation ID", "definition": "Unique identifier set on the request message. The server copies it to the response so the client can match request-response pairs." },
+    { "term": "Reply-To Queue", "definition": "Exclusive queue created by the client. Its name is sent in the reply_to property so the server knows where to send the response." },
+    { "term": "Callback Queue", "definition": "Same as reply-to queue. Client listens on this queue for RPC responses. Typically exclusive and auto-delete." },
+    { "term": "Request-Reply", "definition": "Pattern where one party sends a request and waits for a response. Over messaging, this is asynchronous but feels synchronous to the caller." },
+    { "term": "Timeout", "definition": "Client should set a timeout for RPC responses. If the server crashes, the client must handle the missing response gracefully." }
+  ],
+
+  "rabbitmq.details.confirms.principles": [
+    "Publisher confirms: broker acknowledges (ACK/NACK) each message after it is written to disk or delivered",
+    "Without confirms, the producer has no way to know if the broker received and persisted the message",
+    "Messages are confirmed in order; a single ACK with multiple=true can confirm all messages up to that sequence number",
+    "NACK indicates the broker could not handle the message (e.g., disk full, internal error)",
+    "Publisher confirms + consumer ACK + durable queues + persistent messages = end-to-end at-least-once delivery"
+  ],
+  "rabbitmq.details.confirms.concepts": [
+    { "term": "Publisher Confirm", "definition": "Broker sends ACK back to the producer after successfully queuing/persisting a message. Async confirmation." },
+    { "term": "Sequence Number", "definition": "Monotonically increasing number assigned to each published message. Used to track which messages are confirmed." },
+    { "term": "Batch Confirm", "definition": "ACK with multiple=true confirms all messages up to the given sequence number. More efficient than per-message confirms." },
+    { "term": "NACK", "definition": "Negative acknowledgment from broker. Indicates the message was not processed. Producer should retry or handle the failure." },
+    { "term": "At-Least-Once", "definition": "Delivery guarantee: message is delivered at least once (may be duplicated). Achieved with confirms + persistent messages + durable queues." }
+  ],
+
+  "kafka.name": "Apache Kafka",
+
+  "kafka.modes.partitions.label": "Partitions",
+  "kafka.modes.partitions.desc": "Kafka distributes messages across partitions. Strategies: Round-Robin (no key), Key-Based (hash), or Manual. Messages within a partition are strictly ordered.",
+
+  "kafka.modes.consumer-groups.label": "Consumer Groups",
+  "kafka.modes.consumer-groups.desc": "Each partition is consumed by exactly one consumer in a group. Groups are independent. Offset is tracked per-group.",
+
+  "kafka.modes.retention.label": "Retention & Replay",
+  "kafka.modes.retention.desc": "Kafka stores messages in an ordered log. Consumer group reads independently and can seek offset back for replay. Messages are not deleted after reading.",
+
+  "kafka.modes.exactly-once.label": "Exactly-Once",
+  "kafka.modes.exactly-once.desc": "Delivery guarantees: at-most-once (acks=0, may lose), at-least-once (acks=1, may duplicate), exactly-once (idempotent producer, no loss or dups).",
+
+  "kafka.details.partitions.principles": [
+    "A Kafka topic is split into partitions \u2014 each partition is an ordered, immutable log of messages",
+    "Messages within a single partition are strictly ordered; no global ordering guarantee across partitions",
+    "Partition assignment strategies: Round-Robin (no key), Key-Based (hash of key mod partition count), Manual",
+    "Partitions are the unit of parallelism \u2014 more partitions allow more consumers to read in parallel",
+    "Each partition is replicated across brokers (replication factor) for fault tolerance"
+  ],
+  "kafka.details.partitions.concepts": [
+    { "term": "Partition", "definition": "An ordered, append-only log within a topic. Each message gets a sequential offset. Partitions enable parallelism." },
+    { "term": "Offset", "definition": "Sequential position of a message within a partition. Consumers track their position by offset." },
+    { "term": "Key-Based Routing", "definition": "Messages with the same key always go to the same partition (hash(key) mod N). Guarantees per-key ordering." },
+    { "term": "Leader/Follower", "definition": "Each partition has one leader (handles reads/writes) and N-1 followers (replicate data). Leader election on failure." },
+    { "term": "ISR", "definition": "In-Sync Replicas \u2014 followers that are caught up with the leader. Only ISR members can become the new leader." }
+  ],
+
+  "kafka.details.consumer-groups.principles": [
+    "Each partition is consumed by exactly one consumer within a consumer group \u2014 no duplicate processing",
+    "Different consumer groups are independent \u2014 each group processes the full stream independently",
+    "When a consumer joins or leaves, partitions are rebalanced across remaining group members",
+    "If there are more consumers than partitions in a group, excess consumers sit idle",
+    "Consumer group offset tracking enables each group to read at its own pace"
+  ],
+  "kafka.details.consumer-groups.concepts": [
+    { "term": "Consumer Group", "definition": "Named group of consumers that collectively read a topic. Each partition is assigned to exactly one member." },
+    { "term": "Rebalance", "definition": "Partition reassignment triggered when a consumer joins, leaves, or crashes. Causes brief processing pause." },
+    { "term": "Group Coordinator", "definition": "Broker responsible for managing consumer group membership and partition assignment." },
+    { "term": "Committed Offset", "definition": "Last processed offset per partition, stored in __consumer_offsets topic. Enables resume after restart." },
+    { "term": "Lag", "definition": "Difference between the latest message offset and the consumer's committed offset. High lag = consumer falling behind." }
+  ],
+
+  "kafka.details.retention.principles": [
+    "Kafka retains messages based on time (retention.ms) or size (retention.bytes), not consumption status",
+    "Messages are NOT deleted after consumption \u2014 multiple consumer groups can re-read the same data",
+    "Log compaction keeps only the latest value per key, enabling changelog/snapshot patterns",
+    "Consumers can seek to any offset (beginning, end, timestamp, specific offset) for replay or reprocessing",
+    "Retention policy is set per topic \u2014 different topics can have different retention periods"
+  ],
+  "kafka.details.retention.concepts": [
+    { "term": "Retention", "definition": "How long messages are kept. retention.ms=604800000 (7 days) is default. -1 means keep forever." },
+    { "term": "Log Compaction", "definition": "Instead of time-based deletion, keeps only the latest value per key. Like a changelog with deduplication." },
+    { "term": "Segment", "definition": "Partition is split into segment files. Retention and compaction operate on whole segments, not individual messages." },
+    { "term": "Offset Reset", "definition": "What happens when a consumer has no committed offset: auto.offset.reset=earliest (start from beginning) or latest (only new messages)." },
+    { "term": "Replay", "definition": "Consumers can seek to an earlier offset to reprocess messages. Enables fixing bugs and rebuilding state." }
+  ],
+
+  "kafka.details.exactly-once.principles": [
+    "Three delivery guarantees: at-most-once (may lose), at-least-once (may duplicate), exactly-once (no loss, no dups)",
+    "Idempotent producer assigns sequence numbers per partition \u2014 broker deduplicates retried messages",
+    "Transactions enable atomic writes across multiple partitions and topics (all-or-nothing)",
+    "acks=all ensures the leader waits for all ISR replicas to confirm before acknowledging the produce request",
+    "Exactly-once semantics (EOS) combines idempotent producer + transactions + consumer read_committed isolation"
+  ],
+  "kafka.details.exactly-once.concepts": [
+    { "term": "Idempotent Producer", "definition": "Producer assigns sequence numbers. Broker detects and discards duplicate messages from retries. enable.idempotence=true." },
+    { "term": "Producer ID (PID)", "definition": "Unique ID assigned to each producer by the broker. Combined with sequence number for deduplication." },
+    { "term": "Transaction", "definition": "Atomic write across partitions. All messages in a transaction are either all committed or all aborted." },
+    { "term": "acks=all", "definition": "Producer waits for all in-sync replicas to acknowledge. Strongest durability guarantee but higher latency." },
+    { "term": "read_committed", "definition": "Consumer isolation level that only reads committed (non-transactional or committed transactional) messages." }
+  ],
+
+  "redis.name": "Redis",
+
+  "redis.modes.pubsub.label": "Pub/Sub",
+  "redis.modes.pubsub.desc": "Redis Pub/Sub \u2014 fire-and-forget. Messages are not stored. If a subscriber is disconnected at the time of sending, it will not receive the message. Suitable for realtime events without guarantees.",
+
+  "redis.modes.pattern.label": "Pattern Sub",
+  "redis.modes.pattern.desc": "Redis PSUBSCRIBE matches channels by glob patterns: * (any chars), ? (one char), [abc] (one of). Allows subscribing to multiple channels at once.",
+
+  "redis.modes.streams.label": "Streams",
+  "redis.modes.streams.desc": "Redis Streams \u2014 persistent event log with consumer groups. Unlike Pub/Sub, messages are stored and available for re-reading. Supports XACK for at-least-once guarantees.",
+
+  "redis.modes.eventsourcing.label": "Event Sourcing",
+  "redis.modes.eventsourcing.desc": "Event Sourcing: system state is not stored directly \u2014 it is reconstructed by replaying events. Redis Stream stores an immutable log. Rebuild replays the full history.",
+
+  "redis.details.pubsub.principles": [
+    "Redis Pub/Sub is fire-and-forget: messages are NOT stored and NOT persisted to disk",
+    "If a subscriber is disconnected at the moment of publishing, it will never receive that message",
+    "There is no acknowledgment mechanism \u2014 the publisher does not know if anyone received the message",
+    "Messages are delivered to all currently connected subscribers on the channel simultaneously",
+    "Pub/Sub operates outside the key space \u2014 SUBSCRIBE/PUBLISH do not interact with normal Redis keys"
+  ],
+  "redis.details.pubsub.concepts": [
+    { "term": "Channel", "definition": "Named message bus. Publishers send to a channel, subscribers listen on it. No persistence, no history." },
+    { "term": "SUBSCRIBE", "definition": "Blocks the connection and listens for messages on one or more channels. Connection becomes subscribe-only." },
+    { "term": "PUBLISH", "definition": "Sends a message to a channel. Returns the number of subscribers that received it (0 if none)." },
+    { "term": "Fire-and-Forget", "definition": "Messages are immediately dispatched to current subscribers and then discarded. No retry, no storage." },
+    { "term": "Client State", "definition": "A subscribed client enters a special mode \u2014 it can only run SUBSCRIBE, UNSUBSCRIBE, PSUBSCRIBE, PUNSUBSCRIBE, PING, RESET." }
+  ],
+
+  "redis.details.pattern.principles": [
+    "PSUBSCRIBE matches channels using glob-style patterns: * (any chars), ? (one char), [abc] (character class)",
+    "A single pattern subscription can match multiple channels simultaneously without knowing their exact names",
+    "Pattern matching is evaluated on every PUBLISH \u2014 high number of patterns can increase CPU load",
+    "A client can mix regular SUBSCRIBE and PSUBSCRIBE \u2014 it receives messages from both",
+    "If both SUBSCRIBE and PSUBSCRIBE match the same channel, the client receives the message twice"
+  ],
+  "redis.details.pattern.concepts": [
+    { "term": "PSUBSCRIBE", "definition": "Subscribe using a glob pattern. \"chat:*\" matches chat:room1, chat:room2, etc. Checked on every publish." },
+    { "term": "* Glob", "definition": "Matches any sequence of characters. \"events:*\" matches \"events:created\", \"events:deleted\", \"events:foo:bar\"." },
+    { "term": "? Glob", "definition": "Matches exactly one character. \"log?\" matches \"log1\", \"logA\", but not \"log\" or \"log12\"." },
+    { "term": "Pattern Count", "definition": "PUBSUB NUMPAT returns the number of active pattern subscriptions. Many patterns = higher per-publish CPU cost." },
+    { "term": "Dual Delivery", "definition": "If a client subscribes to both \"chat:room1\" (exact) and \"chat:*\" (pattern), it gets the same message twice." }
+  ],
+
+  "redis.details.streams.principles": [
+    "Redis Streams provide a persistent, append-only log with consumer groups \u2014 unlike ephemeral Pub/Sub",
+    "Each entry has a unique auto-generated ID (timestamp-sequence) and one or more field-value pairs",
+    "Consumer groups track per-consumer progress; messages are not re-delivered to other group members",
+    "XACK explicitly acknowledges processing \u2014 unacknowledged messages remain in the Pending Entries List (PEL)",
+    "XCLAIM allows transferring ownership of pending messages from a failed consumer to another"
+  ],
+  "redis.details.streams.concepts": [
+    { "term": "Stream", "definition": "Append-only log data structure. Each entry has ID + field-value pairs. Persisted to disk like any Redis key." },
+    { "term": "Entry ID", "definition": "Format: timestamp-sequence (e.g., 1234567890-0). Auto-generated, monotonically increasing. Used for range queries." },
+    { "term": "Consumer Group", "definition": "Named group that reads from a stream. Each entry is delivered to one consumer in the group. Tracks last-delivered-id." },
+    { "term": "PEL", "definition": "Pending Entries List \u2014 entries delivered to a consumer but not yet XACK'd. Enables at-least-once delivery guarantee." },
+    { "term": "XCLAIM", "definition": "Transfers ownership of a pending entry from one consumer to another. Used to handle consumer failures." }
+  ],
+
+  "redis.details.eventsourcing.principles": [
+    "Event Sourcing: application state is derived by replaying an immutable sequence of events, not stored directly",
+    "Redis Stream serves as the event store \u2014 append-only, ordered, persistent, with consumer group support",
+    "State is rebuilt by reading all events from the stream and applying each event's transformation in order",
+    "Snapshots can be periodically saved to avoid replaying the entire history for state reconstruction",
+    "Events are immutable \u2014 to correct a mistake, append a compensating event rather than modifying history"
+  ],
+  "redis.details.eventsourcing.concepts": [
+    { "term": "Event Store", "definition": "Persistent log of domain events in order. Redis Stream provides this with XADD (write) and XRANGE (read)." },
+    { "term": "State Rebuild", "definition": "Process of replaying all events from the beginning to reconstruct the current application state." },
+    { "term": "Projection", "definition": "A read-optimized view derived from the event stream. Can be rebuilt at any time by replaying events." },
+    { "term": "Compensating Event", "definition": "An event that reverses the effect of a previous event. Events are never deleted or modified \u2014 only appended." },
+    { "term": "Snapshot", "definition": "Periodic capture of current state to avoid replaying the full event history. State = snapshot + events after snapshot." }
+  ]
+}

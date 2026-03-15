@@ -115,12 +115,13 @@ DBIV.postgresql.btree = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.postgresql._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'B-Tree + MVCC';
+        DBIV.setIndexName('db.index.postgresql.btree', 'B-Tree + MVCC');
 
         const tree = DBIV.sampleData.btreeFromField(this.tuples, 'id');
         DBIV.renderBTree(document.getElementById('index-body'), tree);
 
-        let resultsHtml = '<div class="data-page"><div class="data-page-header">Heap Tuples</div>';
+        const heapHeader = I18N.t('db.data_page.heap_tuples', null, 'Heap Tuples');
+        let resultsHtml = `<div class="data-page"><div class="data-page-header">${heapHeader}</div>`;
         this.tuples.forEach(t => {
             const deadClass = t.dead ? 'style="opacity:0.4;text-decoration:line-through;"' : '';
             resultsHtml += `<div class="data-row" id="pgtuple-${t.id}" ${deadClass}>`;
@@ -130,12 +131,16 @@ DBIV.postgresql.btree = {
         });
         resultsHtml += '</div>';
 
+        const mvccTitle = I18N.t('db.pg.btree.mvcc.title', null, 'MVCC Info');
+        const txLabel = I18N.t('db.pg.btree.mvcc.tx', null, 'Current TxID:');
+        const deadLabel = I18N.t('db.pg.btree.mvcc.dead', null, 'Dead tuples:');
+        const hintText = I18N.t('db.pg.btree.mvcc.hint', null, 'Crossed-out rows = dead tuples (need VACUUM)');
         resultsHtml += `<div class="result-card" style="margin-top:6px;">
-            <div class="result-card-header">MVCC Info</div>
+            <div class="result-card-header">${mvccTitle}</div>
             <div style="font-size:10px;font-family:monospace;color:var(--dbiv-text-light);">
-                <div>Current TxID: <span style="color:var(--dbiv-accent)" id="pg-txid">150</span></div>
-                <div>Dead tuples: <span style="color:#f38ba8">${this.tuples.filter(t => t.dead).length}</span></div>
-                <div style="margin-top:4px;font-size:9px;">Crossed-out rows = dead tuples (need VACUUM)</div>
+                <div>${txLabel} <span style="color:var(--dbiv-accent)" id="pg-txid">150</span></div>
+                <div>${deadLabel} <span style="color:#f38ba8">${this.tuples.filter(t => t.dead).length}</span></div>
+                <div style="margin-top:4px;font-size:9px;">${hintText}</div>
             </div>
         </div>`;
         document.getElementById('results-col').innerHTML = resultsHtml;
@@ -155,9 +160,7 @@ DBIV.postgresql.btree = {
         const rangeMatch = query.match(/WHERE\s+id\s+BETWEEN\s+(\d+)\s+AND\s+(\d+)/i);
         const targetId = match ? parseInt(match[1]) : null;
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         if (isMiss) {
             DBIV.log('MISS', `Q${qid}: Index not used - sequential scan`);
@@ -186,8 +189,7 @@ DBIV.postgresql.btree = {
                     { pages: 3, rows: this.tuples.length, time: this.tuples.length * 2 }
                 );
             }
-            statusEl.textContent = 'ready';
-            statusEl.className = 'index-status ready';
+            DBIV.setIndexStatus('ready');
             return;
         }
 
@@ -238,7 +240,9 @@ DBIV.postgresql.btree = {
             });
             DBIV.log('FETCH', `Q${qid}: Leaf scan for range [${low}, ${high}]`);
             DBIV.addStats(1 + path.length, count, path.length, 4);
-            DBIV.log('RESULT', `Q${qid}: ${visible} visible row(s), ${count - visible} dead tuple(s)`);
+            const visibleUnit = DBIV.getUnitLabel('rows', visible);
+            const deadUnit = DBIV.getUnitLabel('tuples', count - visible);
+            DBIV.logMessage('RESULT', 'db.log.pg.visibility', { qid: qid, visible: visible, visibleUnit: visibleUnit, dead: count - visible, deadUnit: deadUnit }, `Q${qid}: ${visible} visible row(s), ${count - visible} dead tuple(s)`);
         } else {
             DBIV.addStats(1 + path.length, 0, path.length, 2);
         }
@@ -251,8 +255,7 @@ DBIV.postgresql.btree = {
             );
         }
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };
 
@@ -266,7 +269,7 @@ DBIV.postgresql.hash = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.postgresql._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'Hash Index (4-page)';
+        DBIV.setIndexName('db.index.postgresql.hash', 'Hash Index (4-page)');
 
         const data = DBIV.sampleData.users;
         const numBuckets = 4;
@@ -311,9 +314,7 @@ DBIV.postgresql.hash = {
         const eqMatch = query.match(/email\s*=\s*"([^"]+)"/i);
         const rangeMatch = query.match(/email\s*>\s*"([^"]+)"/i);
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         if (isMiss && eqMatch) {
             DBIV.log('MISS', `Q${qid}: Index not used - full table scan`);
@@ -377,8 +378,7 @@ DBIV.postgresql.hash = {
             }, 1500);
         }
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };
 
@@ -414,7 +414,7 @@ DBIV.postgresql.gin = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.postgresql._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'GIN (JSONB)';
+        DBIV.setIndexName('db.index.postgresql.gin', 'GIN (JSONB)');
 
         let bodyHtml = '<div class="gin-container">';
         Object.keys(invertedIndex).sort().forEach(token => {
@@ -430,7 +430,8 @@ DBIV.postgresql.gin = {
         bodyHtml += '</div>';
         document.getElementById('index-body').innerHTML = bodyHtml;
 
-        let resultsHtml = '<div class="data-page"><div class="data-page-header">JSONB Documents</div>';
+        const jsonbHeader = I18N.t('db.data_page.jsonb_documents', null, 'JSONB Documents');
+        let resultsHtml = `<div class="data-page"><div class="data-page-header">${jsonbHeader}</div>`;
         this.documents.forEach(doc => {
             resultsHtml += `<div class="data-row" id="gindoc-${doc.id}">`;
             resultsHtml += `<span class="data-row-id">${doc.id}</span>`;
@@ -440,6 +441,7 @@ DBIV.postgresql.gin = {
         resultsHtml += '</div>';
         document.getElementById('results-col').innerHTML = resultsHtml;
 
+        document.getElementById('viz-area').classList.add('viz-area--2col-top');
         document.getElementById('extra-panels').innerHTML = '';
         DBIV.postgresql._setupQueryCard(() => this.run());
     },
@@ -452,9 +454,7 @@ DBIV.postgresql.gin = {
         const isMiss = DBIV.state.simulateError;
         if (isMiss) DBIV.state.simulateError = false;
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         if (isMiss) {
             DBIV.log('MISS', `Q${qid}: Index not used - sequential scan`);
@@ -473,8 +473,7 @@ DBIV.postgresql.gin = {
                     { pages: 2, rows: this.documents.length, time: this.documents.length * 2 }
                 );
             }
-            statusEl.textContent = 'ready';
-            statusEl.className = 'index-status ready';
+            DBIV.setIndexStatus('ready');
             return;
         }
 
@@ -505,7 +504,8 @@ DBIV.postgresql.gin = {
                 });
 
                 DBIV.addStats(1, docIds.length, 1, 2);
-                DBIV.log('RESULT', `Q${qid}: ${docIds.length} document(s) found via GIN`);
+                const ginUnit = DBIV.getUnitLabel('documents', docIds.length);
+                DBIV.logMessage('RESULT', 'db.log.pg.gin_docs', { qid: qid, count: docIds.length, unit: ginUnit }, `Q${qid}: ${docIds.length} document(s) found via GIN`);
 
                 if (DBIV.state.comparisonMode) {
                     DBIV.showComparison(
@@ -524,8 +524,7 @@ DBIV.postgresql.gin = {
             DBIV.addStats(1, 0, 1, 1);
         }
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };
 
@@ -550,7 +549,7 @@ DBIV.postgresql.gist = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.postgresql._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'GiST (R-Tree)';
+        DBIV.setIndexName('db.index.postgresql.gist', 'GiST (R-Tree)');
 
         let bodyHtml = '<div class="gist-container" id="gist-canvas">';
         bodyHtml += '<div class="gist-box level-0" style="left:12%;top:27%;width:41%;height:56%;" id="gist-bb-left"></div>';
@@ -562,7 +561,8 @@ DBIV.postgresql.gist = {
         bodyHtml += '</div>';
         document.getElementById('index-body').innerHTML = bodyHtml;
 
-        let resultsHtml = '<div class="data-page"><div class="data-page-header">Points</div>';
+        const pointsHeader = I18N.t('db.data_page.points', null, 'Points');
+        let resultsHtml = `<div class="data-page"><div class="data-page-header">${pointsHeader}</div>`;
         this.points.forEach(p => {
             resultsHtml += `<div class="data-row" id="gist-row-${p.id}">`;
             resultsHtml += `<span class="data-row-id">${p.label}</span>`;
@@ -592,9 +592,7 @@ DBIV.postgresql.gist = {
         const isMiss = DBIV.state.simulateError;
         if (isMiss) DBIV.state.simulateError = false;
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         if (isMiss) {
             DBIV.log('MISS', `Q${qid}: Index not used - scanning all points`);
@@ -636,8 +634,7 @@ DBIV.postgresql.gist = {
                     if (rowEl) rowEl.classList.remove('matched');
                 });
             }, 2500);
-            statusEl.textContent = 'ready';
-            statusEl.className = 'index-status ready';
+            DBIV.setIndexStatus('ready');
             return;
         }
 
@@ -698,8 +695,7 @@ DBIV.postgresql.gist = {
             });
         }, 2500);
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };
 
@@ -723,9 +719,10 @@ DBIV.postgresql.brin = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.postgresql._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'BRIN (min/max)';
+        DBIV.setIndexName('db.index.postgresql.brin', 'BRIN (min/max)');
 
-        let bodyHtml = '<div style="margin-bottom:8px;font-size:11px;color:var(--dbiv-text-light)">Block Ranges (pages_per_range=100)</div>';
+        const blockLabel = I18N.t('db.pg.brin.block_header', null, 'Block Ranges (pages_per_range=100)');
+        let bodyHtml = `<div style="margin-bottom:8px;font-size:11px;color:var(--dbiv-text-light)">${blockLabel}</div>`;
         bodyHtml += '<div class="block-range">';
         this.blocks.forEach(b => {
             bodyHtml += `<div class="block-cell" id="brin-block-${b.id}">`;
@@ -736,14 +733,20 @@ DBIV.postgresql.brin = {
         bodyHtml += '</div>';
         document.getElementById('index-body').innerHTML = bodyHtml;
 
+        const tableHeader = I18N.t('db.pg.brin.card.title', null, 'Table: events');
+        const totalLabel = I18N.t('db.pg.brin.card.total', { count: 800 }, 'Total rows: 800');
+        const blocksLabel = I18N.t('db.pg.brin.card.blocks', { count: 8 }, 'Blocks: 8');
+        const corrLabel = I18N.t('db.pg.brin.card.correlation', { value: '0.98' }, 'Correlation: 0.98 (well-ordered)');
+        const brinSize = I18N.t('db.pg.brin.card.brin_size', { value: '24 KB' }, 'BRIN index size: <span style="color:#6fcf97">24 KB</span>');
+        const btreeSize = I18N.t('db.pg.brin.card.btree_size', { value: '6.4 MB' }, 'B-Tree index size: <span style="color:#f38ba8">6.4 MB</span>');
         let resultsHtml = `<div class="result-card">
-            <div class="result-card-header">Table: events</div>
+            <div class="result-card-header">${tableHeader}</div>
             <div style="font-size:10px;font-family:monospace;color:var(--dbiv-text-light);">
-                <div>Total rows: 800</div>
-                <div>Blocks: 8</div>
-                <div>Correlation: 0.98 (well-ordered)</div>
-                <div style="margin-top:4px">BRIN index size: <span style="color:#6fcf97">24 KB</span></div>
-                <div>B-Tree index size: <span style="color:#f38ba8">6.4 MB</span></div>
+                <div>${totalLabel}</div>
+                <div>${blocksLabel}</div>
+                <div>${corrLabel}</div>
+                <div style="margin-top:4px">${brinSize}</div>
+                <div>${btreeSize}</div>
             </div>
         </div>`;
         document.getElementById('results-col').innerHTML = resultsHtml;
@@ -774,9 +777,7 @@ DBIV.postgresql.brin = {
         const isMiss = DBIV.state.simulateError;
         if (isMiss) DBIV.state.simulateError = false;
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         if (isMiss) {
             DBIV.log('MISS', `Q${qid}: BRIN index not used - scanning ALL blocks`);
@@ -826,7 +827,6 @@ DBIV.postgresql.brin = {
             });
         }, 2500);
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };

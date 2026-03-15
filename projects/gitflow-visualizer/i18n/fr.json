@@ -1,0 +1,868 @@
+{
+  "gf.title": "Visualiseur GitFlow",
+  "article-title": "Visualiseur GitFlow",
+
+  "classic.name": "Classic GitFlow",
+  "classic.modes.feature.label": "Feature Flow",
+  "classic.modes.feature.desc": "Une branche feature est creee a partir de develop, le travail est effectue de maniere isolee, puis fusionne dans develop via une pull request. Les branches feature ne touchent jamais main directement.",
+  "classic.modes.release.label": "Release Flow",
+  "classic.modes.release.desc": "Une branche release est creee a partir de develop pour la stabilisation. Les corrections de bogues vont dans la branche release, qui est ensuite fusionnee dans main (avec un tag de version) et dans develop.",
+  "classic.modes.hotfix.label": "Hotfix Flow",
+  "classic.modes.hotfix.desc": "Une branche hotfix est creee directement a partir de main pour corriger un bogue critique en production. Apres la correction, elle est fusionnee dans main (avec un tag de patch) et dans develop.",
+  "classic.details.feature.principles": [
+    "Hierarchie stricte des branches : main > develop > branches feature",
+    "Develop est la branche d'integration ou toutes les fonctionnalites convergent",
+    "Les branches feature sont ephemeres et isolees du reste du travail",
+    "Les fusions vers develop se font via des pull requests avec revue de code",
+    "Les branches feature ne fusionnent jamais directement dans main"
+  ],
+  "classic.details.feature.concepts": [
+    { "term": "main", "definition": "Branche prete pour la production. Ne recoit des fusions que des branches release et hotfix. Chaque commit sur main est une livraison." },
+    { "term": "develop", "definition": "Branche d'integration pour la prochaine version. Toutes les branches feature y sont fusionnees. Sert de base aux branches release." },
+    { "term": "feature/*", "definition": "Branche ephemere pour le developpement isole d'une fonctionnalite. Creee a partir de develop, fusionnee dans develop une fois terminee." }
+  ],
+  "classic.details.feature.tradeoffs.pros": [
+    "Structure claire avec des roles de branches bien definis",
+    "Developpement parallele de fonctionnalites sans interference",
+    "Revue de code imposee via les pull requests",
+    "Facile de suivre ce qui est en cours par rapport a ce qui est termine"
+  ],
+  "classic.details.feature.tradeoffs.cons": [
+    "Peut etre complexe pour les petites equipes ou les projets simples",
+    "Les conflits de fusion s'accumulent si les branches feature vivent trop longtemps",
+    "Surcharge de gestion des branches pour des changements mineurs"
+  ],
+  "classic.details.feature.tradeoffs.whenToUse": "Equipes avec plusieurs developpeurs travaillant sur des fonctionnalites en parallele, projets necessitant une revue de code avant l'integration, et bases de code ou l'isolation du travail en cours est importante.",
+  "classic.details.release.principles": [
+    "Les branches release permettent la stabilisation sans bloquer le travail sur de nouvelles fonctionnalites dans develop",
+    "Seules les corrections de bogues et la preparation de version vont dans une branche release",
+    "La branche release fusionne dans main pour la production et dans develop pour preserver les corrections",
+    "Les tags de version sur main marquent chaque livraison en production",
+    "Aucune nouvelle fonctionnalite n'est ajoutee a une branche release apres sa creation"
+  ],
+  "classic.details.release.concepts": [
+    { "term": "release/*", "definition": "Branche de stabilisation creee a partir de develop. Ne recoit que des corrections de bogues et des mises a jour de version. Fusionnee dans main et develop une fois prete." },
+    { "term": "Version Tag", "definition": "Un tag git (ex. v1.0) applique sur main apres une fusion release. Marque le commit exact deploye en production." },
+    { "term": "Merge Back", "definition": "Apres la fusion de la release dans main, la branche release est aussi fusionnee dans develop pour ne pas perdre les corrections." }
+  ],
+  "classic.details.release.tradeoffs.pros": [
+    "Develop reste ouvert aux nouvelles fonctionnalites pendant la stabilisation de la release",
+    "Separation claire entre le travail de fonctionnalites et la preparation de version",
+    "L'historique des versions est explicite via les tags sur main",
+    "Les corrections de bogues pendant la stabilisation se propagent a main et develop"
+  ],
+  "classic.details.release.tradeoffs.cons": [
+    "Deux fusions necessaires pour chaque release (main + develop)",
+    "Conflits de fusion possibles lors de la fusion retour vers develop",
+    "Surcharge de gestion des branches pour des releases frequentes"
+  ],
+  "classic.details.release.tradeoffs.whenToUse": "Projets avec des cycles de release planifies, equipes ayant besoin d'une periode de stabilisation avant la production, et systemes ou la preparation de version (mises a jour de version, changelog) est une phase distincte.",
+  "classic.details.hotfix.principles": [
+    "Les branches hotfix sont creees directement a partir de main pour corriger des problemes critiques en production",
+    "Les hotfixes contournent le cycle normal develop-release pour plus de rapidite",
+    "Apres correction, le hotfix fusionne dans main (avec un tag de patch) et dans develop",
+    "Les branches hotfix sont supprimees immediatement apres la fusion",
+    "Seules les corrections d'urgence passent par le flux hotfix -- pas le travail planifie"
+  ],
+  "classic.details.hotfix.concepts": [
+    { "term": "hotfix/*", "definition": "Branche d'urgence creee a partir de main. Ne contient que la correction critique. Fusionnee dans main et develop, puis supprimee." },
+    { "term": "Patch Tag", "definition": "Un tag de version (ex. v1.0.1) applique sur main apres une fusion hotfix. Indique une version de correctif." },
+    { "term": "Dual Merge", "definition": "Le hotfix fusionne dans main (pour un deploiement immediat) et dans develop (pour que la correction soit incluse dans les futures releases)." }
+  ],
+  "classic.details.hotfix.tradeoffs.pros": [
+    "Chemin rapide vers la production pour les corrections critiques",
+    "Ne perturbe pas le travail en cours sur les fonctionnalites ou les releases",
+    "La correction se propage automatiquement a la branche develop",
+    "Piste d'audit claire avec les tags de version de correctif"
+  ],
+  "classic.details.hotfix.tradeoffs.cons": [
+    "Risque de conflits lors de la fusion retour du hotfix dans develop",
+    "Peut etre detourne pour des changements non urgents, erodant la discipline du processus",
+    "Necessite de la discipline pour garder la portee du hotfix minimale"
+  ],
+  "classic.details.hotfix.tradeoffs.whenToUse": "Bogues critiques en production ne pouvant attendre le prochain cycle de release. Vulnerabilites de securite, problemes de corruption de donnees ou pannes de service necessitant un deploiement de correctif immediat.",
+
+  "github.name": "GitHub Flow",
+  "github.modes.feature.label": "Feature + PR",
+  "github.modes.feature.desc": "Creer une branche depuis main, ouvrir une Pull Request, fusionner et deployer -- le cycle standard du GitHub Flow",
+  "github.modes.deploy.label": "Deploy from Main",
+  "github.modes.deploy.desc": "La fusion dans main declenche le pipeline CI/CD -- les tests s'executent, le build se termine, deploiement automatique en production",
+  "github.modes.hotfix.label": "Quick Fix",
+  "github.modes.hotfix.desc": "Creer une branche de correction ephemere, corriger le probleme via PR, fusionner et deployer immediatement",
+  "github.details.feature.principles": [
+    "Tout ce qui est dans <code>main</code> est toujours deployable",
+    "Creer une branche depuis <code>main</code> pour chaque tache",
+    "Ouvrir une Pull Request pour la revue de code avant la fusion",
+    "Deployer immediatement apres la fusion dans <code>main</code>"
+  ],
+  "github.details.feature.concepts": [
+    { "term": "main", "definition": "Unique branche a longue duree de vie, toujours dans un etat deployable" },
+    { "term": "Feature branches", "definition": "Branches ephemeres creees depuis main pour chaque tache" },
+    { "term": "Pull Request", "definition": "Point de controle de revue de code avant la fusion dans main" },
+    { "term": "Continuous Deployment", "definition": "Chaque fusion dans main declenche un deploiement automatique" }
+  ],
+  "github.details.feature.tradeoffs.pros": [
+    "Simple et facile a comprendre",
+    "Iteration rapide avec un minimum de surcharge",
+    "Compatible CI/CD -- deploiement a chaque fusion",
+    "Encourage les pull requests petites et frequentes"
+  ],
+  "github.details.feature.tradeoffs.cons": [
+    "Pas de branches de staging ou de release dediees",
+    "Risque pour les releases complexes necessitant une coordination",
+    "Le retour en arriere repose sur le revert de commits ou le re-deploiement"
+  ],
+  "github.details.feature.tradeoffs.whenToUse": "Petites equipes, applications web, produits SaaS et projets pratiquant le deploiement continu ou main doit toujours etre pret pour la production.",
+  "github.details.deploy.principles": [
+    "Chaque fusion dans <code>main</code> declenche un deploiement automatique en production",
+    "Pas de branche de staging -- le pipeline CI/CD est le point de controle qualite",
+    "Tests, builds et deploiements sont des etapes automatisees du pipeline, pas des processus manuels",
+    "Taguer les releases apres un deploiement reussi en production"
+  ],
+  "github.details.deploy.concepts": [
+    { "term": "main", "definition": "Unique branche a longue duree de vie, toujours dans un etat deployable" },
+    { "term": "CI/CD Pipeline", "definition": "Point de controle automatise qui execute les tests, builds et deploiements a chaque fusion dans main" },
+    { "term": "Auto-deploy", "definition": "Deploiement en production declenche automatiquement -- pas de promotion manuelle ni de branche de staging" },
+    { "term": "Release tagging", "definition": "Les tags git marquent des deploiements specifiques comme des versions identifiees" }
+  ],
+  "github.details.deploy.tradeoffs.pros": [
+    "Aucune etape de deploiement manuelle -- pipeline entierement automatise",
+    "Boucle de retour rapide -- le code atteint la production en quelques minutes",
+    "Pas de derive de branche d'environnement -- main est toujours la production",
+    "Retour en arriere simple via un commit de revert + re-deploiement automatique"
+  ],
+  "github.details.deploy.tradeoffs.cons": [
+    "Necessite une suite de tests robuste -- pas de filet de securite de staging",
+    "Les echecs du pipeline bloquent tous les deploiements",
+    "Des feature flags sont necessaires pour le travail partiellement termine"
+  ],
+  "github.details.deploy.tradeoffs.whenToUse": "Equipes avec une forte culture CI/CD, des tests automatises complets, et des applications ou chaque fusion doit etre mise en production immediatement sans validation manuelle.",
+  "github.details.hotfix.principles": [
+    "Tout ce qui est dans <code>main</code> est toujours deployable",
+    "Creer une branche depuis <code>main</code> pour chaque tache",
+    "Ouvrir une Pull Request pour la revue de code avant la fusion",
+    "Deployer immediatement apres la fusion dans <code>main</code>"
+  ],
+  "github.details.hotfix.concepts": [
+    { "term": "main", "definition": "Unique branche a longue duree de vie, toujours dans un etat deployable" },
+    { "term": "Feature branches", "definition": "Branches ephemeres creees depuis main pour chaque tache" },
+    { "term": "Pull Request", "definition": "Point de controle de revue de code avant la fusion dans main" },
+    { "term": "Continuous Deployment", "definition": "Chaque fusion dans main declenche un deploiement automatique" }
+  ],
+  "github.details.hotfix.tradeoffs.pros": [
+    "Simple et facile a comprendre",
+    "Iteration rapide avec un minimum de surcharge",
+    "Compatible CI/CD -- deploiement a chaque fusion",
+    "Encourage les pull requests petites et frequentes"
+  ],
+  "github.details.hotfix.tradeoffs.cons": [
+    "Pas de branches de staging ou de release dediees",
+    "Risque pour les releases complexes necessitant une coordination",
+    "Le retour en arriere repose sur le revert de commits ou le re-deploiement"
+  ],
+  "github.details.hotfix.tradeoffs.whenToUse": "Petites equipes, applications web, produits SaaS et projets pratiquant le deploiement continu ou main doit toujours etre pret pour la production.",
+
+  "gitlab.name": "GitLab Flow",
+  "gitlab.modes.feature.label": "Feature to Main",
+  "gitlab.modes.feature.desc": "Une branche feature est creee depuis main, developpee, revue via une merge request, et fusionnee. La branche feature est supprimee apres la fusion.",
+  "gitlab.modes.staging.label": "Promote to Staging",
+  "gitlab.modes.staging.desc": "Les commits accumules sur main sont promus vers la branche d'environnement de staging pour les tests d'integration avant la production.",
+  "gitlab.modes.production.label": "Promote to Production",
+  "gitlab.modes.production.desc": "Apres validation en staging, la branche staging est promue vers la branche production, taguee et deployee en environnement de production.",
+  "gitlab.details.feature.principles": [
+    "Upstream first -- les corrections atterrissent toujours sur main, puis sont promues en aval",
+    "Les branches d'environnement representent des cibles de deploiement, pas des etapes de developpement",
+    "Fusionner uniquement en aval : main \u2192 staging \u2192 production"
+  ],
+  "gitlab.details.feature.concepts": [
+    { "term": "main", "definition": "Branche principale de developpement ; toutes les fonctionnalites y sont fusionnees en premier" },
+    { "term": "staging", "definition": "Branche d'environnement de pre-production pour les tests d'integration" },
+    { "term": "production", "definition": "Branche d'environnement de production ; represente ce qui est deploye aux utilisateurs" },
+    { "term": "Upstream first policy", "definition": "Les bogues sont corriges sur main et promus en aval -- jamais de correctif direct sur production" }
+  ],
+  "gitlab.details.feature.tradeoffs.pros": [
+    "Suivi clair des environnements -- chaque branche correspond a une cible de deploiement",
+    "Chemin de promotion simple : main \u2192 staging \u2192 production",
+    "La politique upstream first empeche la derive entre les environnements"
+  ],
+  "gitlab.details.feature.tradeoffs.cons": [
+    "Plus de branches a longue duree de vie a maintenir",
+    "Surcharge de fusion lors de la promotion a travers plusieurs environnements",
+    "Les branches d'environnement peuvent diverger si la promotion est retardee"
+  ],
+  "gitlab.details.feature.tradeoffs.whenToUse": "Equipes maintenant plusieurs environnements de deploiement (staging, QA, production) et ayant besoin d'un chemin de promotion clair et auditable avec des deploiements progressifs.",
+  "gitlab.details.staging.principles": [
+    "Upstream first -- les corrections atterrissent toujours sur main, puis sont promues en aval",
+    "Les branches d'environnement representent des cibles de deploiement, pas des etapes de developpement",
+    "Fusionner uniquement en aval : main \u2192 staging \u2192 production"
+  ],
+  "gitlab.details.staging.concepts": [
+    { "term": "main", "definition": "Branche principale de developpement ; toutes les fonctionnalites y sont fusionnees en premier" },
+    { "term": "staging", "definition": "Branche d'environnement de pre-production pour les tests d'integration" },
+    { "term": "production", "definition": "Branche d'environnement de production ; represente ce qui est deploye aux utilisateurs" },
+    { "term": "Upstream first policy", "definition": "Les bogues sont corriges sur main et promus en aval -- jamais de correctif direct sur production" }
+  ],
+  "gitlab.details.staging.tradeoffs.pros": [
+    "Suivi clair des environnements -- chaque branche correspond a une cible de deploiement",
+    "Chemin de promotion simple : main \u2192 staging \u2192 production",
+    "La politique upstream first empeche la derive entre les environnements"
+  ],
+  "gitlab.details.staging.tradeoffs.cons": [
+    "Plus de branches a longue duree de vie a maintenir",
+    "Surcharge de fusion lors de la promotion a travers plusieurs environnements",
+    "Les branches d'environnement peuvent diverger si la promotion est retardee"
+  ],
+  "gitlab.details.staging.tradeoffs.whenToUse": "Equipes maintenant plusieurs environnements de deploiement (staging, QA, production) et ayant besoin d'un chemin de promotion clair et auditable avec des deploiements progressifs.",
+  "gitlab.details.production.principles": [
+    "Upstream first -- les corrections atterrissent toujours sur main, puis sont promues en aval",
+    "Les branches d'environnement representent des cibles de deploiement, pas des etapes de developpement",
+    "Fusionner uniquement en aval : main \u2192 staging \u2192 production"
+  ],
+  "gitlab.details.production.concepts": [
+    { "term": "main", "definition": "Branche principale de developpement ; toutes les fonctionnalites y sont fusionnees en premier" },
+    { "term": "staging", "definition": "Branche d'environnement de pre-production pour les tests d'integration" },
+    { "term": "production", "definition": "Branche d'environnement de production ; represente ce qui est deploye aux utilisateurs" },
+    { "term": "Upstream first policy", "definition": "Les bogues sont corriges sur main et promus en aval -- jamais de correctif direct sur production" }
+  ],
+  "gitlab.details.production.tradeoffs.pros": [
+    "Suivi clair des environnements -- chaque branche correspond a une cible de deploiement",
+    "Chemin de promotion simple : main \u2192 staging \u2192 production",
+    "La politique upstream first empeche la derive entre les environnements"
+  ],
+  "gitlab.details.production.tradeoffs.cons": [
+    "Plus de branches a longue duree de vie a maintenir",
+    "Surcharge de fusion lors de la promotion a travers plusieurs environnements",
+    "Les branches d'environnement peuvent diverger si la promotion est retardee"
+  ],
+  "gitlab.details.production.tradeoffs.whenToUse": "Equipes maintenant plusieurs environnements de deploiement (staging, QA, production) et ayant besoin d'un chemin de promotion clair et auditable avec des deploiements progressifs.",
+
+  "trunk.name": "Trunk-Based Development",
+  "trunk.modes.direct.label": "Direct to Trunk",
+  "trunk.modes.direct.desc": "Tous les developpeurs commitent directement sur main. Pas de branches, pas de PRs -- juste des commits frequents et petits avec la CI executee a chaque push. Les deploiements se font en continu depuis le trunk.",
+  "trunk.modes.short-lived.label": "Short-lived Branch",
+  "trunk.modes.short-lived.desc": "Une branche feature ephemere est creee, travaillee pendant quelques heures, fusionnee rapidement dans main et supprimee. La duree de vie de la branche doit rester inferieure a un jour.",
+  "trunk.modes.flags.label": "Feature Flags",
+  "trunk.modes.flags.desc": "Les fonctionnalites incompletes sont commitees directement sur le trunk derriere des feature flags. Les flags controlent le deploiement progressif : 0% \u2192 10% \u2192 100%. Une fois entierement active, le code du flag est supprime.",
+  "trunk.details.direct.principles": [
+    "Tout le monde commite directement sur le trunk (main)",
+    "Les branches vivent moins d'un jour",
+    "Pas de branches feature a longue duree de vie",
+    "Les feature flags masquent le travail incomplet"
+  ],
+  "trunk.details.direct.concepts": [
+    { "term": "Trunk", "definition": "Source de verite unique ; tout le code passe par main" },
+    { "term": "Short-lived branches", "definition": "Des heures, pas des jours ; fusionner tot et souvent" },
+    { "term": "Feature flags", "definition": "Decoupler le deploiement de la livraison ; activer/desactiver les fonctionnalites a l'execution" },
+    { "term": "Continuous Integration", "definition": "Commiter frequemment, executer les tests a chaque push" }
+  ],
+  "trunk.details.direct.tradeoffs.pros": [
+    "Conflits de fusion minimaux grace a l'integration frequente",
+    "Retour CI rapide -- chaque commit est teste immediatement",
+    "Modele de branchement simple -- facile a comprendre et a maintenir"
+  ],
+  "trunk.details.direct.tradeoffs.cons": [
+    "Necessite une forte discipline et des commits petits et atomiques",
+    "Les feature flags ajoutent de la complexite au code et a la configuration",
+    "Risque sans couverture de tests complete et pipeline CI"
+  ],
+  "trunk.details.direct.tradeoffs.whenToUse": "Equipes experimentees avec des pipelines CI/CD solides, une confiance elevee et des tests automatises rapides. Utilise chez Google, Facebook et d'autres grandes organisations d'ingenierie.",
+  "trunk.details.short-lived.principles": [
+    "Tout le monde commite sur le trunk (main)",
+    "Les branches vivent moins d'un jour",
+    "Pas de branches feature a longue duree de vie",
+    "Les feature flags masquent le travail incomplet"
+  ],
+  "trunk.details.short-lived.concepts": [
+    { "term": "Trunk", "definition": "Source de verite unique ; tout le code passe par main" },
+    { "term": "Short-lived branches", "definition": "Des heures, pas des jours ; fusionner tot et souvent" },
+    { "term": "Feature flags", "definition": "Decoupler le deploiement de la livraison ; activer/desactiver les fonctionnalites a l'execution" },
+    { "term": "Continuous Integration", "definition": "Commiter frequemment, executer les tests a chaque push" }
+  ],
+  "trunk.details.short-lived.tradeoffs.pros": [
+    "Conflits de fusion minimaux grace a l'integration frequente",
+    "Retour CI rapide -- chaque commit est teste immediatement",
+    "Modele de branchement simple -- facile a comprendre et a maintenir"
+  ],
+  "trunk.details.short-lived.tradeoffs.cons": [
+    "Necessite une forte discipline et des commits petits et atomiques",
+    "Les feature flags ajoutent de la complexite au code et a la configuration",
+    "Risque sans couverture de tests complete et pipeline CI"
+  ],
+  "trunk.details.short-lived.tradeoffs.whenToUse": "Equipes experimentees avec des pipelines CI/CD solides, une confiance elevee et des tests automatises rapides. Utilise chez Google, Facebook et d'autres grandes organisations d'ingenierie.",
+  "trunk.details.flags.principles": [
+    "Tout le monde commite directement sur le trunk (main)",
+    "Les branches vivent moins d'un jour",
+    "Pas de branches feature a longue duree de vie",
+    "Les feature flags masquent le travail incomplet"
+  ],
+  "trunk.details.flags.concepts": [
+    { "term": "Trunk", "definition": "Source de verite unique ; tout le code passe par main" },
+    { "term": "Short-lived branches", "definition": "Des heures, pas des jours ; fusionner tot et souvent" },
+    { "term": "Feature flags", "definition": "Decoupler le deploiement de la livraison ; activer/desactiver les fonctionnalites a l'execution" },
+    { "term": "Continuous Integration", "definition": "Commiter frequemment, executer les tests a chaque push" }
+  ],
+  "trunk.details.flags.tradeoffs.pros": [
+    "Conflits de fusion minimaux grace a l'integration frequente",
+    "Retour CI rapide -- chaque commit est teste immediatement",
+    "Modele de branchement simple -- facile a comprendre et a maintenir"
+  ],
+  "trunk.details.flags.tradeoffs.cons": [
+    "Necessite une forte discipline et des commits petits et atomiques",
+    "Les feature flags ajoutent de la complexite au code et a la configuration",
+    "Risque sans couverture de tests complete et pipeline CI"
+  ],
+  "trunk.details.flags.tradeoffs.whenToUse": "Equipes experimentees avec des pipelines CI/CD solides, une confiance elevee et des tests automatises rapides. Utilise chez Google, Facebook et d'autres grandes organisations d'ingenierie.",
+
+  "oneflow.name": "OneFlow",
+  "oneflow.modes.release.label": "Release via Rebase",
+  "oneflow.modes.release.desc": "Une branche release est creee depuis main, stabilisee avec des corrections, puis rebasee sur main et fusionnee en fast-forward pour conserver un historique lineaire. La branche release est supprimee apres le tagging.",
+  "oneflow.modes.hotfix.label": "Hotfix Cherry-pick",
+  "oneflow.modes.hotfix.desc": "Un hotfix est commite sur main et cherry-picke vers la branche release active. Cela permet le retro-portage cible de corrections critiques sans fusionner des changements non lies.",
+  "oneflow.modes.feature.label": "Feature Rebase",
+  "oneflow.modes.feature.desc": "Une branche feature est creee depuis main, developpee de maniere isolee, puis rebasee sur main et fusionnee en fast-forward. Cela garde l'historique des commits lineaire et evite les commits de fusion.",
+  "oneflow.details.release.principles": [
+    "Branche main unique -- la seule branche a longue duree de vie",
+    "Pas de branche develop -- la simplicite avant la ceremonie",
+    "Rebase au lieu de commits de fusion -- garder l'historique lineaire",
+    "Les branches release sont des branches de stabilisation ephemeres",
+    "L'historique lineaire est l'objectif principal"
+  ],
+  "oneflow.details.release.concepts": [
+    { "term": "main", "definition": "La seule branche a longue duree de vie ; toujours deployable" },
+    { "term": "release/*", "definition": "Branche ephemere pour la stabilisation de release ; rebasee sur main avant la fusion fast-forward" },
+    { "term": "rebase", "definition": "Rejouer les commits au-dessus d'un autre sommet de branche pour maintenir un historique lineaire" },
+    { "term": "fast-forward merge", "definition": "Avance le pointeur de branche sans commit de fusion -- preserve l'historique lineaire" }
+  ],
+  "oneflow.details.release.tradeoffs.pros": [
+    "Historique de commits propre et lineaire",
+    "Plus simple que le Classic GitFlow -- moins de branches a longue duree de vie",
+    "Moins de branches a gerer et a comprendre"
+  ],
+  "oneflow.details.release.tradeoffs.cons": [
+    "Le rebase necessite de la discipline et de la comprehension",
+    "Le force-push est necessaire apres un rebase sur des branches partagees",
+    "Plus difficile pour les debutants par rapport aux flux bases sur le merge"
+  ],
+  "oneflow.details.release.tradeoffs.whenToUse": "Equipes souhaitant un historique propre et lineaire avec une seule branche deployable et la discipline pour rebaser de maniere coherente.",
+  "oneflow.details.hotfix.principles": [
+    "Branche main unique -- la seule branche a longue duree de vie",
+    "Les hotfixes sont commites sur main et cherry-pickes vers les branches release",
+    "Le cherry-pick permet un retro-portage selectif sans fusions completes",
+    "Les branches release ne recoivent que des corrections ciblees",
+    "L'historique lineaire est l'objectif principal"
+  ],
+  "oneflow.details.hotfix.concepts": [
+    { "term": "main", "definition": "La seule branche a longue duree de vie ; tout nouveau travail y atterrit d'abord" },
+    { "term": "cherry-pick", "definition": "Retro-portage selectif de commits individuels entre branches sans fusionner les historiques entiers" },
+    { "term": "release/*", "definition": "Branche de stabilisation qui recoit les hotfixes cherry-pickes depuis main" },
+    { "term": "version tag", "definition": "Un tag git marquant une version de correctif sur la branche release apres un hotfix" }
+  ],
+  "oneflow.details.hotfix.tradeoffs.pros": [
+    "Les hotfixes atterrissent d'abord sur main -- source de verite unique",
+    "Le cherry-pick evite d'integrer des changements non lies dans la release",
+    "Les versions de correctif sont directes et isolees"
+  ],
+  "oneflow.details.hotfix.tradeoffs.cons": [
+    "Le cherry-pick peut causer des conflits si les commits dependent d'autres changements",
+    "Necessite un suivi attentif des corrections retro-portees",
+    "Le processus manuel de cherry-pick ne passe pas a l'echelle avec de nombreuses branches release"
+  ],
+  "oneflow.details.hotfix.tradeoffs.whenToUse": "Equipes maintenant une ou plusieurs branches release necessitant des hotfixes cibles sans fusionner tout le developpement recent de main.",
+  "oneflow.details.feature.principles": [
+    "Branche main unique -- la seule branche a longue duree de vie",
+    "Pas de branche develop -- la simplicite avant la ceremonie",
+    "Les branches feature sont rebasees sur main avant la fusion fast-forward",
+    "Rebase au lieu de commits de fusion -- garder l'historique lineaire",
+    "L'historique lineaire est l'objectif principal"
+  ],
+  "oneflow.details.feature.concepts": [
+    { "term": "main", "definition": "La seule branche a longue duree de vie ; toujours deployable" },
+    { "term": "feature/*", "definition": "Branche ephemere pour le developpement isole de fonctionnalites ; rebasee sur main une fois terminee" },
+    { "term": "rebase", "definition": "Rejouer les commits au-dessus d'un autre sommet de branche pour maintenir un historique lineaire" },
+    { "term": "fast-forward merge", "definition": "Avance le pointeur de branche sans commit de fusion -- preserve l'historique lineaire" }
+  ],
+  "oneflow.details.feature.tradeoffs.pros": [
+    "Historique de commits propre et lineaire sans commits de fusion",
+    "Modele mental simple -- uniquement main et des branches feature ephemeres",
+    "Facile a bissecter et a revoir l'historique"
+  ],
+  "oneflow.details.feature.tradeoffs.cons": [
+    "Le rebase necessite de la discipline et de la comprehension",
+    "Le force-push est necessaire apres un rebase si la branche feature etait partagee",
+    "Plus difficile pour les debutants par rapport aux flux bases sur le merge"
+  ],
+  "oneflow.details.feature.tradeoffs.whenToUse": "Petites et moyennes equipes qui valorisent un historique de commits lineaire et sont a l'aise avec les workflows de rebase interactif.",
+
+  "environment.name": "Environment Branching",
+  "environment.modes.promote.label": "Full Promotion",
+  "environment.modes.promote.desc": "Le code est promu a travers les branches d'environnement : develop vers qa vers staging vers production. Chaque environnement a sa propre branche a longue duree de vie. Les deploiements se font quand le code est fusionne dans une branche d'environnement.",
+  "environment.modes.hotfix.label": "Production Hotfix",
+  "environment.modes.hotfix.desc": "Une correction d'urgence est commitee directement sur la branche production, deployee immediatement, puis synchronisee vers develop pour que les futures promotions incluent la correction.",
+  "environment.modes.rollback.label": "Rollback",
+  "environment.modes.rollback.desc": "Un deploiement defaillant en production est annule en appliquant un commit de revert sur la branche production, re-deployant l'etat stable precedent, et en taguant le rollback.",
+  "environment.details.promote.principles": [
+    "Chaque environnement a sa propre branche a longue duree de vie",
+    "Le code est promu uniquement vers l'avant : develop \u2192 qa \u2192 staging \u2192 production",
+    "Tous les changements entrent par develop -- jamais de commit direct sur les branches d'environnement",
+    "Jamais de fusion en arriere (sauf la synchronisation hotfix de production vers develop)",
+    "Deployer signifie fusionner dans la branche d'environnement cible",
+    "Chaque promotion est un commit de fusion auditable"
+  ],
+  "environment.details.promote.concepts": [
+    { "term": "develop", "definition": "Branche de developpement actif ou les nouvelles fonctionnalites atterrissent. Point de depart du pipeline de promotion. Toutes les corrections et changements doivent etre commites ici en premier." },
+    { "term": "qa", "definition": "Branche d'assurance qualite. Ne recoit des fusions que de develop -- jamais de commits directs. Si un probleme est trouve en QA, la correction passe par develop et est re-promue." },
+    { "term": "staging", "definition": "Environnement de pre-production. Ne recoit des fusions que de qa -- jamais de commits directs. Les changements de configuration doivent passer par develop a travers le pipeline." },
+    { "term": "production", "definition": "Branche d'environnement de production. Ne recoit des fusions que de staging (ou des commits hotfix en cas d'urgence)." },
+    { "term": "Promotion", "definition": "Fusion vers l'avant d'une branche d'environnement a la suivante. Le mecanisme par lequel le code avance vers la production." }
+  ],
+  "environment.details.promote.tradeoffs.pros": [
+    "Correspondance claire entre les branches et les environnements",
+    "Piste d'audit complete de ce qui a ete deploye et quand",
+    "Chaque environnement peut etre inspecte independamment",
+    "Modele de deploiement simple : fusion = deploiement"
+  ],
+  "environment.details.promote.tradeoffs.cons": [
+    "De nombreuses branches a longue duree de vie a maintenir",
+    "Fusions complexes quand les environnements divergent",
+    "Risque de derive d'environnement si les promotions sont rares",
+    "Surcharge de gestion du pipeline de promotion"
+  ],
+  "environment.details.promote.tradeoffs.whenToUse": "Industries reglementees, organisations avec plusieurs environnements de deploiement, equipes necessitant des pistes d'audit et de conformite pour chaque promotion.",
+  "environment.details.hotfix.principles": [
+    "Les corrections d'urgence vont directement sur la branche production",
+    "Le hotfix est deploye immediatement apres le commit",
+    "La production est synchronisee vers develop pour propager la correction",
+    "La synchronisation hotfix est la seule fusion en arriere autorisee",
+    "Les tags de patch marquent chaque deploiement de hotfix"
+  ],
+  "environment.details.hotfix.concepts": [
+    { "term": "production", "definition": "Branche de production qui recoit la correction d'urgence directement, contournant le pipeline de promotion normal." },
+    { "term": "develop", "definition": "Recoit une fusion de synchronisation depuis production apres le hotfix pour garder les futures promotions coherentes." },
+    { "term": "Hotfix Sync", "definition": "Une fusion en arriere de production vers develop. La seule exception a la regle de promotion vers l'avant uniquement." }
+  ],
+  "environment.details.hotfix.tradeoffs.pros": [
+    "Chemin le plus rapide pour corriger un probleme en production",
+    "La correction est immediatement refletee dans la branche de production",
+    "La fusion de synchronisation maintient develop coherent",
+    "Versionnement clair des correctifs via les tags"
+  ],
+  "environment.details.hotfix.tradeoffs.cons": [
+    "Contourne la validation qa et staging",
+    "Risque d'introduire des regressions sans test complet",
+    "La fusion en arriere peut causer des conflits sur develop",
+    "Necessite de la discipline pour limiter la portee aux vraies urgences"
+  ],
+  "environment.details.hotfix.tradeoffs.whenToUse": "Pannes critiques en production, vulnerabilites de securite ou problemes d'integrite des donnees qui ne peuvent pas attendre un cycle de promotion complet.",
+  "environment.details.rollback.principles": [
+    "Le rollback est un commit de revert sur la branche production, pas un reset de branche",
+    "Le mauvais deploiement est enregistre dans l'historique, puis annule",
+    "Un nouveau deploiement restaure l'etat stable precedent",
+    "Les tags de rollback marquent le point de recuperation",
+    "Pas de reecriture d'historique -- la piste d'audit est preservee"
+  ],
+  "environment.details.rollback.concepts": [
+    { "term": "staging", "definition": "Source de la mauvaise fusion qui a ete promue en production." },
+    { "term": "production", "definition": "Branche de production ou le commit de revert est applique pour annuler le mauvais deploiement." },
+    { "term": "Revert Commit", "definition": "Un commit qui annule les changements d'une fusion precedente. Preserve l'historique complet tout en restaurant l'etat anterieur." }
+  ],
+  "environment.details.rollback.tradeoffs.pros": [
+    "Recuperation rapide sans reecriture d'historique",
+    "Piste d'audit complete de l'incident et du rollback",
+    "La branche production reste lineaire et propre",
+    "Facile de re-promouvoir une fois le probleme corrige"
+  ],
+  "environment.details.rollback.tradeoffs.cons": [
+    "Le commit de revert ajoute du bruit au log git",
+    "Re-promouvoir le meme code plus tard necessite de reverter le revert",
+    "Ne traite pas la cause premiere -- restaure uniquement l'etat",
+    "Les branches staging et qa peuvent encore contenir le mauvais code"
+  ],
+  "environment.details.rollback.tradeoffs.whenToUse": "Deploiements echoues causant des problemes visibles pour les utilisateurs, regressions de performance detectees apres la mise en production, ou toute situation necessitant un retour immediat a un etat stable connu.",
+
+  "release.name": "Release Branching",
+  "release.modes.create.label": "Create Release",
+  "release.modes.create.desc": "Developper sur main, creer une branche release/1.0 pour la stabilisation, corriger les bogues, fusionner, taguer et nettoyer. La branche release isole la stabilisation du travail en cours sur les fonctionnalites.",
+  "release.modes.patch.label": "Patch Release",
+  "release.modes.patch.desc": "Partir d'une version taguee, creer une branche release pour une correction ciblee, fusionner dans main, taguer la version de correctif et nettoyer.",
+  "release.modes.parallel.label": "Parallel Releases",
+  "release.modes.parallel.desc": "Maintenir deux branches release simultanement depuis main. Chaque release se stabilise independamment, fusionne et est taguee selon son propre calendrier.",
+  "release.details.create.principles": [
+    "Les branches release isolent le travail de stabilisation du developpement en cours",
+    "<code>main</code> continue de recevoir de nouvelles fonctionnalites pendant qu'une release se stabilise",
+    "Les corrections de bogues pendant la stabilisation vont dans la branche release, pas directement dans <code>main</code>",
+    "Apres la fusion, la branche release est supprimee pour garder le depot propre"
+  ],
+  "release.details.create.concepts": [
+    { "term": "Release branch", "definition": "Une branche creee depuis main pour stabiliser une version specifique avant la livraison. Seules les corrections de bogues et les commits de stabilisation sont autorises." },
+    { "term": "Stabilization", "definition": "Le processus de renforcement d'un candidat a la release en corrigeant les bogues et en executant l'assurance qualite finale, sans travail sur de nouvelles fonctionnalites." },
+    { "term": "Version tag", "definition": "Un tag git (ex. v1.0) applique sur main apres la fusion de la branche release. Marque le commit exact pret pour la production." },
+    { "term": "Merge back", "definition": "Apres la release, la branche release est fusionnee dans main pour que les corrections de stabilisation soient incluses dans le developpement futur." }
+  ],
+  "release.details.create.tradeoffs.pros": [
+    "Isole la stabilisation sans bloquer le nouveau developpement sur main",
+    "Cycle de vie de release clair : branche, stabilisation, tag, suppression",
+    "Facile d'identifier quels commits appartiennent a une release specifique",
+    "Supporte le workflow standard de versionnement semantique"
+  ],
+  "release.details.create.tradeoffs.cons": [
+    "Des conflits de fusion peuvent survenir lors de la fusion retour de la release dans main",
+    "Necessite de la discipline pour eviter d'ajouter des fonctionnalites a la branche release",
+    "Ephemere mais ajoute une surcharge de branchement par rapport au developpement base sur le trunk"
+  ],
+  "release.details.create.tradeoffs.whenToUse": "Projets livrant des releases distinctes avec une phase de stabilisation -- applications mobiles, bibliotheques, logiciels de bureau, et toute equipe ayant besoin d'une periode dediee de renforcement pre-release.",
+  "release.details.patch.principles": [
+    "Les correctifs sont appliques a une branche release creee depuis la version taguee",
+    "Seules les corrections de bogues ciblees vont dans le patch -- pas de nouvelles fonctionnalites",
+    "Le patch est fusionne dans main et tague avec une nouvelle version de correctif (ex. v1.0.1)",
+    "La branche release est supprimee apres la fusion et le tagging du patch"
+  ],
+  "release.details.patch.concepts": [
+    { "term": "Patch", "definition": "Une correction de bogue appliquee a une release existante apres la livraison de la version initiale. Resulte en un nouveau tag de version de correctif." },
+    { "term": "Cherry-pick", "definition": "Application selective de commits specifiques d'une branche a une autre, souvent utilisee pour porter des corrections entre les branches release." },
+    { "term": "Patch tag", "definition": "Un tag de version (ex. v1.0.1) applique apres une correction de correctif. Suit le versionnement semantique pour le segment de patch." },
+    { "term": "Release branch (patch)", "definition": "Une branche recreeee depuis le tag de la release originale specifiquement pour appliquer et tester une correction de correctif de maniere isolee." }
+  ],
+  "release.details.patch.tradeoffs.pros": [
+    "Corrections ciblees sans perturber le developpement en cours",
+    "Piste d'audit claire de ce qui a change dans chaque patch",
+    "Le versionnement semantique facilite le suivi des releases de correctif",
+    "Risque minimal -- seule la correction specifique est appliquee"
+  ],
+  "release.details.patch.tradeoffs.cons": [
+    "Necessite un cherry-picking ou une fusion selective soigneuse",
+    "Les anciennes releases peuvent diverger significativement du main actuel",
+    "De multiples patches peuvent creer des historiques de fusion complexes"
+  ],
+  "release.details.patch.tradeoffs.whenToUse": "Tout logiciel versionne devant livrer des corrections de bogues urgentes pour des versions deja publiees -- correctifs de securite, corrections de bogues critiques, mises a jour de conformite.",
+  "release.details.parallel.principles": [
+    "Plusieurs branches release peuvent coexister pour un support de versions paralleles",
+    "Chaque branche release se stabilise et livre independamment",
+    "Main continue de recevoir de nouvelles fonctionnalites pendant la maintenance des releases",
+    "La fusion croisee entre branches release n'est pas autorisee -- les corrections passent par main"
+  ],
+  "release.details.parallel.concepts": [
+    { "term": "Parallel releases", "definition": "Plusieurs branches release maintenues simultanement pour differentes versions, chacune avec son propre cycle de stabilisation et de livraison." },
+    { "term": "Version isolation", "definition": "Chaque branche release est isolee des autres, garantissant que les changements dans une version n'affectent pas une autre." },
+    { "term": "Independent tagging", "definition": "Chaque branche release fusionne et est taguee independamment -- v1.0 et v2.0 peuvent etre livrees selon des calendriers differents." },
+    { "term": "Long-term support (LTS)", "definition": "Une branche release maintenue en vie pour une maintenance etendue, ne recevant que des corrections critiques pendant que de nouvelles versions sont developpees." }
+  ],
+  "release.details.parallel.tradeoffs.pros": [
+    "Supporte la maintenance de versions paralleles pour differents clients ou plateformes",
+    "Chaque release a son propre calendrier de stabilisation",
+    "Bien adapte aux bibliotheques et frameworks avec plusieurs versions supportees",
+    "Separation claire entre les lignes de versions majeures"
+  ],
+  "release.details.parallel.tradeoffs.cons": [
+    "Complexite de fusion accrue avec de multiples branches a longue duree de vie",
+    "Risque de branches divergentes au fil du temps",
+    "Necessite de la discipline et des outils pour garder les releases synchronisees avec main",
+    "Charge de maintenance plus elevee pour l'equipe"
+  ],
+  "release.details.parallel.tradeoffs.whenToUse": "Bibliotheques, frameworks et logiciels d'entreprise devant maintenir plusieurs versions majeures simultanement -- par exemple, supporter les clients v1.x et v2.x en parallele.",
+
+  "forking.name": "Forking Workflow",
+  "forking.modes.contribute.label": "Fork + PR",
+  "forking.modes.contribute.desc": "Forker le upstream, synchroniser origin, creer une branche feature, commiter, ouvrir une PR vers upstream, fusionner, synchroniser et nettoyer.",
+  "forking.modes.sync.label": "Sync Fork",
+  "forking.modes.sync.desc": "Le upstream avance tandis que le fork est obsolete, puis le contributeur synchronise son fork avec le upstream.",
+  "forking.modes.review.label": "Maintainer Review",
+  "forking.modes.review.desc": "Le contributeur ouvre une PR depuis le fork, le mainteneur revise avec des commentaires, le contributeur met a jour, le mainteneur fusionne, le contributeur synchronise.",
+  "forking.details.contribute.principles": [
+    "Les contributeurs n'ont pas d'acces en ecriture au depot upstream",
+    "Tous les changements sont proposes via fork + Pull Request",
+    "Les mainteneurs revisent et fusionnent les contributions dans le upstream",
+    "Les contributeurs doivent garder leur fork synchronise avec le upstream"
+  ],
+  "forking.details.contribute.concepts": [
+    { "term": "upstream", "definition": "Le depot original detenu par les mainteneurs du projet" },
+    { "term": "origin", "definition": "Le fork personnel du contributeur (copie complete du depot)" },
+    { "term": "fork", "definition": "Une copie complete d'un depot sous un proprietaire different" },
+    { "term": "Pull Request", "definition": "Une demande de fusion inter-depot du fork vers le upstream" },
+    { "term": "sync", "definition": "Recuperer les changements upstream dans le fork pour rester a jour" }
+  ],
+  "forking.details.contribute.tradeoffs.pros": [
+    "Pas besoin d'acces en ecriture au depot upstream",
+    "Sur pour l'open source -- les contributeurs travaillent de maniere isolee",
+    "Propriete et paternite claires des changements"
+  ],
+  "forking.details.contribute.tradeoffs.cons": [
+    "Surcharge de synchronisation -- le fork peut devenir obsolete",
+    "Goulot d'etranglement de revue des PR pour les mainteneurs",
+    "Workflow plus complexe par rapport aux modeles de depot partage"
+  ],
+  "forking.details.contribute.tradeoffs.whenToUse": "Projets open source, contributeurs externes, environnements avec des contributeurs non fiables ou l'acces en ecriture au upstream doit etre restreint.",
+  "forking.details.sync.principles": [
+    "Les forks doivent etre regulierement synchronises avec le upstream pour eviter la derive",
+    "Utiliser git fetch upstream + merge ou rebase pour incorporer les changements",
+    "Resoudre les conflits localement avant de pousser vers origin",
+    "Synchroniser avant de commencer toute nouvelle branche feature"
+  ],
+  "forking.details.sync.concepts": [
+    { "term": "upstream remote", "definition": "Un remote git pointant vers le depot original" },
+    { "term": "fetch", "definition": "Telecharger les commits du upstream sans les fusionner" },
+    { "term": "merge upstream", "definition": "Integrer les changements upstream dans la branche locale du fork" },
+    { "term": "drift", "definition": "Divergence entre le fork et le upstream au fil du temps" }
+  ],
+  "forking.details.sync.tradeoffs.pros": [
+    "Garde le fork a jour et reduit les conflits de fusion",
+    "Garantit que les branches feature partent du dernier etat upstream",
+    "Empeche les fusions volumineuses et penibles plus tard"
+  ],
+  "forking.details.sync.tradeoffs.cons": [
+    "Necessite un effort manuel pour synchroniser regulierement",
+    "Des conflits de fusion peuvent survenir pendant la synchronisation",
+    "Les contributeurs doivent comprendre les multiples remotes"
+  ],
+  "forking.details.sync.tradeoffs.whenToUse": "A chaque contribution a un depot upstream actif ou de nouveaux commits arrivent frequemment.",
+  "forking.details.review.principles": [
+    "Les mainteneurs filtrent tous les changements via la revue de code avant la fusion",
+    "Les contributeurs traitent les retours de revue en poussant de nouveaux commits sur la PR",
+    "Les PRs sont le point d'entree unique pour les changements dans le upstream",
+    "Apres la fusion, les contributeurs synchronisent leur fork pour rester a jour"
+  ],
+  "forking.details.review.concepts": [
+    { "term": "code review", "definition": "Inspection par le mainteneur des changements proposes avant la fusion" },
+    { "term": "review comments", "definition": "Retours laisses sur des lignes specifiques ou sur l'ensemble de la PR par les relecteurs" },
+    { "term": "PR update", "definition": "Pousser des commits supplementaires sur une PR ouverte pour repondre aux retours" },
+    { "term": "approval", "definition": "Approbation du mainteneur indiquant que la PR est prete a etre fusionnee" }
+  ],
+  "forking.details.review.tradeoffs.pros": [
+    "Assure la qualite du code grace a la supervision du mainteneur",
+    "Partage des connaissances entre le contributeur et le mainteneur",
+    "Detecte les bogues et les problemes de conception avant qu'ils n'atteignent le upstream"
+  ],
+  "forking.details.review.tradeoffs.cons": [
+    "Le delai de revue peut ralentir la velocite des contributions",
+    "La bande passante des mainteneurs devient un goulot d'etranglement",
+    "Les allers-retours peuvent etre frustrants pour les contributeurs"
+  ],
+  "forking.details.review.tradeoffs.whenToUse": "Tous les projets open source et toute equipe ou des portes de qualite de code et l'approbation du mainteneur sont requises avant la fusion.",
+
+  "ship-show-ask.name": "Ship / Show / Ask",
+  "ship-show-ask.modes.ship.label": "Ship (Direct Merge)",
+  "ship-show-ask.modes.ship.desc": "Changement a faible risque : creer une branche depuis main, commiter la correction, fusionner directement (pas de PR), deployer.",
+  "ship-show-ask.modes.show.label": "Show (PR, No Block)",
+  "ship-show-ask.modes.show.desc": "Changement a risque moyen : creer une branche depuis main, travailler sur la fonctionnalite, ouvrir une PR non-bloquante pour la visibilite, fusionner, deployer.",
+  "ship-show-ask.modes.ask.label": "Ask (PR + Review)",
+  "ship-show-ask.modes.ask.desc": "Changement a haut risque : creer une branche depuis main, travailler sur la fonctionnalite, ouvrir une PR bloquante, traiter les retours de revue, fusionner, deployer.",
+  "ship-show-ask.details.ship.principles": [
+    "Les changements a faible risque et triviaux sont fusionnes directement dans main",
+    "Pas de PR requise -- faire confiance au jugement du developpeur",
+    "Chemin le plus rapide vers la production pour les changements surs"
+  ],
+  "ship-show-ask.details.ship.concepts": [
+    { "term": "Ship", "definition": "Changements triviaux ou a faible risque fusionnes directement dans main sans PR" },
+    { "term": "Direct merge", "definition": "Pousser ou fusionner dans main sans ouvrir de pull request" },
+    { "term": "Trust-based workflow", "definition": "Les ingenieurs classifient leurs propres changements ; l'equipe fait confiance au jugement individuel" }
+  ],
+  "ship-show-ask.details.ship.tradeoffs.pros": [
+    "Livraison la plus rapide -- pas de surcharge de revue pour les changements triviaux",
+    "Reduit les goulots d'etranglement et maintient la velocite elevee",
+    "Donne de l'autonomie aux developpeurs"
+  ],
+  "ship-show-ask.details.ship.tradeoffs.cons": [
+    "Pas de filet de securite de revue pour les changements livres",
+    "Risque si un changement est mal classifie comme a faible risque",
+    "Piste d'audit moins formelle"
+  ],
+  "ship-show-ask.details.ship.tradeoffs.whenToUse": "Changements triviaux comme les corrections de fautes de frappe, ajustements de configuration ou mises a jour mineures de documentation ou le risque de casse est negligeable.",
+  "ship-show-ask.details.show.principles": [
+    "Les changements a risque moyen sont ouverts comme PR non-bloquante pour la visibilite de l'equipe",
+    "La fusion se fait sans attendre l'approbation de la revue",
+    "L'equipe reste informee sans ralentir la livraison"
+  ],
+  "ship-show-ask.details.show.concepts": [
+    { "term": "Show", "definition": "PR informationnelle ouverte pour la visibilite ; la fusion se fait sans attendre la revue" },
+    { "term": "Non-blocking PR", "definition": "Une pull request qui sert de notification, pas de porte -- la fusion est autorisee sans approbation" },
+    { "term": "Visibility", "definition": "Garder l'equipe au courant des changements sans necessiter de validation formelle" }
+  ],
+  "ship-show-ask.details.show.tradeoffs.pros": [
+    "Sensibilisation de l'equipe sans delais de livraison",
+    "Cree un historique des changements pour reference future",
+    "Encourage le partage des connaissances au sein de l'equipe"
+  ],
+  "ship-show-ask.details.show.tradeoffs.cons": [
+    "Les revues peuvent ne jamais avoir lieu si elles ne sont pas priorisees",
+    "Les problemes decouverts apres la fusion necessitent un travail de suivi",
+    "Necessite de la discipline pour effectivement relire les PRs 'show'"
+  ],
+  "ship-show-ask.details.show.tradeoffs.whenToUse": "Refactorisations a risque moyen, changements de modules internes ou ameliorations ou la sensibilisation de l'equipe est precieuse mais une revue bloquante ralentirait inutilement la livraison.",
+  "ship-show-ask.details.ask.principles": [
+    "Les changements a haut risque ou complexes necessitent une PR bloquante avec revue",
+    "La fusion est conditionnee a l'approbation explicite des relecteurs",
+    "Assure la qualite et la comprehension partagee pour les changements critiques"
+  ],
+  "ship-show-ask.details.ask.concepts": [
+    { "term": "Ask", "definition": "PR avec une revue bloquante requise avant que le changement puisse etre fusionne" },
+    { "term": "Blocking review", "definition": "La fusion n'est pas autorisee tant qu'un ou plusieurs relecteurs n'ont pas approuve le changement" },
+    { "term": "Review feedback", "definition": "Les relecteurs peuvent demander des modifications qui doivent etre traitees avant l'approbation" }
+  ],
+  "ship-show-ask.details.ask.tradeoffs.pros": [
+    "Detecte les problemes avant qu'ils n'atteignent la production",
+    "Construit une comprehension partagee des changements complexes",
+    "Fournit une piste d'audit solide pour le travail critique"
+  ],
+  "ship-show-ask.details.ask.tradeoffs.cons": [
+    "Livraison plus lente en raison des delais de revue",
+    "Peut devenir un goulot d'etranglement si les relecteurs ne sont pas disponibles",
+    "Peut decourager les petits changements iteratifs"
+  ],
+  "ship-show-ask.details.ask.tradeoffs.whenToUse": "Changements a haut risque comme les reecritures d'authentification, les migrations de base de donnees, les modifications de contrats d'API, ou tout travail pouvant impacter significativement les utilisateurs ou la stabilite du systeme.",
+
+  "scaled.name": "Scaled GitFlow",
+  "scaled.modes.team.label": "Team Branch Flow",
+  "scaled.modes.team.desc": "Une branche d'equipe est creee depuis develop pour le travail isole au niveau de l'equipe. Plusieurs commits sont effectues sur la branche d'equipe, puis elle est fusionnee dans develop. Develop est finalement fusionne dans main et tague pour la release.",
+  "scaled.modes.program.label": "Program Integration",
+  "scaled.modes.program.desc": "Plusieurs branches d'equipe sont creees depuis develop pour le travail parallele des equipes. Chaque equipe fusionne dans develop independamment. Une fois toutes les equipes integrees, develop est fusionne dans main, tague et deploye comme increment de programme.",
+  "scaled.modes.release.label": "Scaled Release",
+  "scaled.modes.release.desc": "Une branche release (increment de programme) est creee depuis develop pour la stabilisation. Les corrections de bogues vont dans la branche release, qui est ensuite fusionnee dans main avec un tag de version et dans develop pour preserver les corrections.",
+  "scaled.details.team.principles": [
+    "Les branches d'equipe fournissent l'isolation pour le travail au niveau de l'equipe sans affecter les autres equipes",
+    "L'integration de l'increment de programme se fait via la branche develop partagee",
+    "Les trains de release coordonnent la livraison entre plusieurs equipes selon un calendrier",
+    "Plusieurs equipes contribuent a une branche develop partagee comme point d'integration"
+  ],
+  "scaled.details.team.concepts": [
+    { "term": "team/*", "definition": "Branche d'isolation au niveau de l'equipe. Creee depuis develop, utilisee pour le travail d'une seule equipe pendant un increment de programme. Fusionnee dans develop une fois terminee." },
+    { "term": "Program Increment (PI)", "definition": "Un cycle d'integration planifie (typiquement 8-12 semaines) ou toutes les equipes planifient, developpent et integrent leur travail dans une base de code partagee." },
+    { "term": "Release Train", "definition": "Un mecanisme de release coordonne qui aligne plusieurs equipes pour livrer selon une cadence fixe, independamment de l'achevement individuel des equipes." },
+    { "term": "develop", "definition": "Le point d'integration ou toutes les branches d'equipe convergent. Sert de source de verite pour la prochaine release." }
+  ],
+  "scaled.details.team.tradeoffs.pros": [
+    "Passe a l'echelle pour les grandes organisations avec de nombreuses equipes",
+    "L'isolation des equipes empeche les interferences inter-equipes",
+    "Les releases coordonnees assurent une livraison previsible",
+    "Des points d'integration clairs reduisent les surprises de derniere minute"
+  ],
+  "scaled.details.team.tradeoffs.cons": [
+    "Haute complexite dans la gestion des branches et la coordination des fusions",
+    "Les conflits de fusion s'aggravent quand de nombreuses equipes integrent simultanement",
+    "Necessite un outillage et une discipline de processus significatifs"
+  ],
+  "scaled.details.team.tradeoffs.whenToUse": "Grandes entreprises adoptant SAFe ou des frameworks agiles a l'echelle, organisations avec plus de 5 equipes contribuant au meme produit, et systemes necessitant des trains de release coordonnes.",
+  "scaled.details.program.principles": [
+    "Les branches d'equipe fournissent l'isolation pour le travail au niveau de l'equipe sans affecter les autres equipes",
+    "L'integration de l'increment de programme se fait via la branche develop partagee",
+    "Les trains de release coordonnent la livraison entre plusieurs equipes selon un calendrier",
+    "Plusieurs equipes contribuent a une branche develop partagee comme point d'integration"
+  ],
+  "scaled.details.program.concepts": [
+    { "term": "team/*", "definition": "Branche d'isolation au niveau de l'equipe. Creee depuis develop, utilisee pour le travail d'une seule equipe pendant un increment de programme. Fusionnee dans develop une fois terminee." },
+    { "term": "Program Increment (PI)", "definition": "Un cycle d'integration planifie (typiquement 8-12 semaines) ou toutes les equipes planifient, developpent et integrent leur travail dans une base de code partagee." },
+    { "term": "Release Train", "definition": "Un mecanisme de release coordonne qui aligne plusieurs equipes pour livrer selon une cadence fixe, independamment de l'achevement individuel des equipes." },
+    { "term": "develop", "definition": "Le point d'integration ou toutes les branches d'equipe convergent. Sert de source de verite pour la prochaine release." }
+  ],
+  "scaled.details.program.tradeoffs.pros": [
+    "Passe a l'echelle pour les grandes organisations avec de nombreuses equipes",
+    "L'isolation des equipes empeche les interferences inter-equipes",
+    "Les releases coordonnees assurent une livraison previsible",
+    "Des points d'integration clairs reduisent les surprises de derniere minute"
+  ],
+  "scaled.details.program.tradeoffs.cons": [
+    "Haute complexite dans la gestion des branches et la coordination des fusions",
+    "Les conflits de fusion s'aggravent quand de nombreuses equipes integrent simultanement",
+    "Necessite un outillage et une discipline de processus significatifs"
+  ],
+  "scaled.details.program.tradeoffs.whenToUse": "Grandes entreprises adoptant SAFe ou des frameworks agiles a l'echelle, organisations avec plus de 5 equipes contribuant au meme produit, et systemes necessitant des trains de release coordonnes.",
+  "scaled.details.release.principles": [
+    "Les branches d'equipe fournissent l'isolation pour le travail au niveau de l'equipe sans affecter les autres equipes",
+    "L'integration de l'increment de programme se fait via la branche develop partagee",
+    "Les trains de release coordonnent la livraison entre plusieurs equipes selon un calendrier",
+    "Plusieurs equipes contribuent a une branche develop partagee comme point d'integration"
+  ],
+  "scaled.details.release.concepts": [
+    { "term": "team/*", "definition": "Branche d'isolation au niveau de l'equipe. Creee depuis develop, utilisee pour le travail d'une seule equipe pendant un increment de programme. Fusionnee dans develop une fois terminee." },
+    { "term": "Program Increment (PI)", "definition": "Un cycle d'integration planifie (typiquement 8-12 semaines) ou toutes les equipes planifient, developpent et integrent leur travail dans une base de code partagee." },
+    { "term": "Release Train", "definition": "Un mecanisme de release coordonne qui aligne plusieurs equipes pour livrer selon une cadence fixe, independamment de l'achevement individuel des equipes." },
+    { "term": "develop", "definition": "Le point d'integration ou toutes les branches d'equipe convergent. Sert de source de verite pour la prochaine release." }
+  ],
+  "scaled.details.release.tradeoffs.pros": [
+    "Passe a l'echelle pour les grandes organisations avec de nombreuses equipes",
+    "L'isolation des equipes empeche les interferences inter-equipes",
+    "Les releases coordonnees assurent une livraison previsible",
+    "Des points d'integration clairs reduisent les surprises de derniere minute"
+  ],
+  "scaled.details.release.tradeoffs.cons": [
+    "Haute complexite dans la gestion des branches et la coordination des fusions",
+    "Les conflits de fusion s'aggravent quand de nombreuses equipes integrent simultanement",
+    "Necessite un outillage et une discipline de processus significatifs"
+  ],
+  "scaled.details.release.tradeoffs.whenToUse": "Grandes entreprises adoptant SAFe ou des frameworks agiles a l'echelle, organisations avec plus de 5 equipes contribuant au meme produit, et systemes necessitant des trains de release coordonnes.",
+
+  "cherrypick.name": "Cherry-pick Flow",
+  "cherrypick.modes.backport.label": "Backport Fix",
+  "cherrypick.modes.backport.desc": "Une correction de bogue est commitee sur main et cherry-pickee vers les anciennes branches release. Chaque release recoit un tag de patch. Cela maintient toutes les versions supportees synchronisees sans fusionner des branches entieres.",
+  "cherrypick.modes.forward.label": "Forward Port",
+  "cherrypick.modes.forward.desc": "Une correction est commitee sur une ancienne branche release et cherry-pickee vers main. Cela garantit que les corrections urgentes arrivent dans la release actuelle tout en preservant la correction dans l'ancienne version.",
+  "cherrypick.modes.multi.label": "Multi-version",
+  "cherrypick.modes.multi.desc": "Une correction de securite est commitee sur main et cherry-pickee vers toutes les branches release supportees. Chaque release est taguee independamment, permettant la maintenance de versions en parallele.",
+  "cherrypick.details.backport.principles": [
+    "Corriger une fois dans main, cherry-picker vers toutes les branches release supportees",
+    "Retro-porter les corrections critiques vers les anciennes versions encore en production",
+    "Maintenir plusieurs versions de release independamment",
+    "Chaque branche release recoit son propre tag de patch apres le cherry-pick"
+  ],
+  "cherrypick.details.backport.concepts": [
+    { "term": "Cherry-pick", "definition": "Appliquer un commit specifique d'une branche a une autre sans fusionner l'historique complet de la branche. Cree un nouveau commit avec les memes changements." },
+    { "term": "Backport", "definition": "Porter une correction d'une version plus recente (main) vers une branche release plus ancienne supportee. Garantit que les anciennes versions recoivent les correctifs critiques." },
+    { "term": "Patch Tag", "definition": "Un tag de version (ex. v1.0.1) applique a une branche release apres une correction cherry-pickee. Marque une version ponctuelle pour cette version." }
+  ],
+  "cherrypick.details.backport.tradeoffs.pros": [
+    "Corrections ciblees avec un risque minimal pour chaque release",
+    "Chaque version reste isolee -- pas de changements non intentionnels qui fuient",
+    "Historique de patch clair par release via les tags",
+    "La correction est ecrite et testee une seule fois sur main"
+  ],
+  "cherrypick.details.backport.tradeoffs.cons": [
+    "Facile de manquer un cherry-pick vers l'une des branches release",
+    "Les commits cherry-pickes creent un historique divergent entre les branches",
+    "Un suivi manuel est necessaire pour savoir quelles corrections ont atteint quelles releases"
+  ],
+  "cherrypick.details.backport.tradeoffs.whenToUse": "Bibliotheques et frameworks avec plusieurs versions supportees, releases de support a long terme (LTS), et produits executant differentes versions en production simultanement.",
+  "cherrypick.details.forward.principles": [
+    "Corriger les problemes urgents directement sur la branche release concernee",
+    "Porter la correction vers main pour qu'elle soit incluse dans les futures releases",
+    "Taguer la branche release immediatement pour un deploiement rapide",
+    "Garder main a jour avec toutes les corrections de production"
+  ],
+  "cherrypick.details.forward.concepts": [
+    { "term": "Forward Port", "definition": "Cherry-picker une correction d'une ancienne branche release vers main ou une branche plus recente. Garantit que la correction n'est pas perdue dans les futures versions." },
+    { "term": "Release Tag", "definition": "Un tag applique a la branche release apres la correction, permettant un deploiement immediat de la version corrigee." },
+    { "term": "Cherry-pick to main", "definition": "Appliquer le commit de correction de la release a main pour que la prochaine version majeure inclue la meme correction." }
+  ],
+  "cherrypick.details.forward.tradeoffs.pros": [
+    "La correction urgente atterrit immediatement sur la version concernee",
+    "Main reste synchronise avec les corrections de production",
+    "Pas besoin d'attendre un cycle de release complet pour corriger les anciennes versions",
+    "Isolation des versions -- la correction n'integre pas de fonctionnalites non publiees"
+  ],
+  "cherrypick.details.forward.tradeoffs.cons": [
+    "Risque d'oublier de porter la correction vers main",
+    "Le cherry-pick peut entrer en conflit avec du code plus recent sur main",
+    "Historique de commits divergent entre la release et main"
+  ],
+  "cherrypick.details.forward.tradeoffs.whenToUse": "Quand un bogue critique est trouve dans une release deployee et que la correction doit etre livree immediatement, tout en s'assurant que main ne regresse pas dans les futures releases.",
+  "cherrypick.details.multi.principles": [
+    "Corriger les problemes de securite une fois sur main, propager a toutes les versions supportees",
+    "Cherry-picker vers chaque branche release active de maniere systematique",
+    "Taguer chaque release independamment apres application de la correction",
+    "Maintenir un suivi clair des versions ayant recu le correctif"
+  ],
+  "cherrypick.details.multi.concepts": [
+    { "term": "Multi-version Support", "definition": "Maintenir plusieurs branches release en parallele, chacune recevant les corrections critiques independamment via cherry-pick." },
+    { "term": "Security Fix Propagation", "definition": "Cherry-picker systematiquement un correctif de securite de main vers toutes les branches release supportees pour combler les vulnerabilites sur toutes les versions." },
+    { "term": "Release Matrix", "definition": "L'ensemble des branches release actuellement supportees. Chacune doit etre evaluee pour l'applicabilite du cherry-pick quand une correction arrive sur main." }
+  ],
+  "cherrypick.details.multi.tradeoffs.pros": [
+    "Toutes les versions supportees corrigees de maniere coherente",
+    "Chaque version taguee et deployable independamment",
+    "Risque minimal -- seule la correction specifique est appliquee",
+    "Piste d'audit claire des correctifs de securite par version"
+  ],
+  "cherrypick.details.multi.tradeoffs.cons": [
+    "Passe mal a l'echelle quand le nombre de versions supportees augmente",
+    "Les conflits de cherry-pick augmentent avec la divergence des versions",
+    "Necessite de l'outillage ou de la discipline pour suivre l'etat de propagation"
+  ],
+  "cherrypick.details.multi.tradeoffs.whenToUse": "Bibliotheques open source avec plusieurs versions majeures actives, logiciels d'entreprise avec des obligations contractuelles de LTS, et tout systeme ou plusieurs versions en production doivent etre corrigees simultanement."
+}

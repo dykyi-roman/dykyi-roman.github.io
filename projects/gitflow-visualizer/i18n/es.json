@@ -1,0 +1,868 @@
+{
+  "gf.title": "Visualizador GitFlow",
+  "article-title": "Visualizador GitFlow",
+
+  "classic.name": "Classic GitFlow",
+  "classic.modes.feature.label": "Feature Flow",
+  "classic.modes.feature.desc": "Se crea una rama feature desde develop, el trabajo se realiza de forma aislada y luego se fusiona de vuelta a develop mediante pull request. Las ramas feature nunca tocan main directamente.",
+  "classic.modes.release.label": "Release Flow",
+  "classic.modes.release.desc": "Se corta una rama release desde develop para estabilizacion. Las correcciones van a la rama release, que luego se fusiona en main (con etiqueta de version) y de vuelta en develop.",
+  "classic.modes.hotfix.label": "Hotfix Flow",
+  "classic.modes.hotfix.desc": "Se crea una rama hotfix directamente desde main para corregir un error critico en produccion. Tras la correccion, se fusiona en main (con etiqueta de parche) y en develop.",
+  "classic.details.feature.principles": [
+    "Jerarquia estricta de ramas: main > develop > ramas feature",
+    "Develop es la rama de integracion donde convergen todas las features",
+    "Las ramas feature son de corta duracion y estan aisladas de otro trabajo",
+    "Las fusiones a develop se realizan mediante pull request con code review",
+    "Las ramas feature nunca se fusionan directamente en main"
+  ],
+  "classic.details.feature.concepts": [
+    { "term": "main", "definition": "Rama lista para produccion. Solo recibe fusiones de ramas release y hotfix. Cada commit en main es un release." },
+    { "term": "develop", "definition": "Rama de integracion para el proximo release. Todas las ramas feature se fusionan aqui. Sirve como base para las ramas release." },
+    { "term": "feature/*", "definition": "Rama de corta duracion para desarrollo aislado de features. Se crea desde develop y se fusiona de vuelta en develop al completarse." }
+  ],
+  "classic.details.feature.tradeoffs.pros": [
+    "Estructura clara con roles de ramas bien definidos",
+    "Desarrollo paralelo de features sin interferencias",
+    "Code review forzado mediante pull requests",
+    "Facil rastrear lo que esta en progreso vs. completado"
+  ],
+  "classic.details.feature.tradeoffs.cons": [
+    "Puede ser complejo para equipos pequenos o proyectos simples",
+    "Los conflictos de fusion se acumulan si las ramas feature viven demasiado tiempo",
+    "Sobrecarga de gestion de ramas para cambios menores"
+  ],
+  "classic.details.feature.tradeoffs.whenToUse": "Equipos con multiples desarrolladores trabajando en features en paralelo, proyectos que requieren code review antes de la integracion y bases de codigo donde la aislacion del trabajo en progreso es importante.",
+  "classic.details.release.principles": [
+    "Las ramas release permiten estabilizacion sin bloquear nuevo trabajo de features en develop",
+    "Solo correcciones de errores y preparacion de release van en una rama release",
+    "La rama release se fusiona en main para produccion y de vuelta en develop para preservar las correcciones",
+    "Las etiquetas de version en main marcan cada release de produccion",
+    "No se agregan nuevas features a una rama release despues de crearla"
+  ],
+  "classic.details.release.concepts": [
+    { "term": "release/*", "definition": "Rama de estabilizacion cortada desde develop. Solo recibe correcciones de errores y actualizaciones de version. Se fusiona en main y develop cuando esta lista." },
+    { "term": "Version Tag", "definition": "Etiqueta git (ej. v1.0) aplicada en main tras una fusion de release. Marca el commit exacto desplegado en produccion." },
+    { "term": "Merge Back", "definition": "Tras fusionar release en main, la rama release tambien se fusiona de vuelta en develop para que las correcciones no se pierdan." }
+  ],
+  "classic.details.release.tradeoffs.pros": [
+    "Develop permanece abierto para nuevas features mientras el release se estabiliza",
+    "Clara separacion entre trabajo de features y preparacion de release",
+    "Historial de versiones explicito mediante etiquetas en main",
+    "Las correcciones durante la estabilizacion se propagan tanto a main como a develop"
+  ],
+  "classic.details.release.tradeoffs.cons": [
+    "Se requieren dos fusiones para cada release (main + develop)",
+    "Posibles conflictos de fusion al fusionar de vuelta en develop",
+    "Sobrecarga adicional de gestion de ramas para releases frecuentes"
+  ],
+  "classic.details.release.tradeoffs.whenToUse": "Proyectos con ciclos de release programados, equipos que necesitan un periodo de estabilizacion antes de produccion y sistemas donde la preparacion del release (actualizacion de version, changelog) es una fase distinta.",
+  "classic.details.hotfix.principles": [
+    "Las ramas hotfix se crean directamente desde main para corregir problemas criticos en produccion",
+    "Los hotfixes evitan el ciclo normal develop-release por velocidad",
+    "Tras la correccion, el hotfix se fusiona tanto en main (con etiqueta de parche) como en develop",
+    "Las ramas hotfix se eliminan inmediatamente despues de fusionarse",
+    "Solo correcciones de emergencia pasan por el flujo hotfix — no trabajo planificado"
+  ],
+  "classic.details.hotfix.concepts": [
+    { "term": "hotfix/*", "definition": "Rama de emergencia creada desde main. Contiene solo la correccion critica. Se fusiona en main y develop, luego se elimina." },
+    { "term": "Patch Tag", "definition": "Etiqueta de version (ej. v1.0.1) aplicada en main tras una fusion de hotfix. Indica un release de parche." },
+    { "term": "Dual Merge", "definition": "El hotfix se fusiona tanto en main (para despliegue inmediato) como en develop (para que la correccion se incluya en futuros releases)." }
+  ],
+  "classic.details.hotfix.tradeoffs.pros": [
+    "Camino rapido a produccion para correcciones criticas",
+    "No interrumpe el trabajo en curso de features o releases",
+    "La correccion se propaga automaticamente a la rama develop",
+    "Trazabilidad clara con etiquetas de version de parche"
+  ],
+  "classic.details.hotfix.tradeoffs.cons": [
+    "Riesgo de conflictos al fusionar el hotfix de vuelta en develop",
+    "Puede abusarse para cambios no urgentes, erosionando la disciplina del proceso",
+    "Requiere disciplina para mantener el alcance del hotfix al minimo"
+  ],
+  "classic.details.hotfix.tradeoffs.whenToUse": "Errores criticos en produccion que no pueden esperar al proximo ciclo de release. Vulnerabilidades de seguridad, corrupcion de datos o caidas del servicio que requieren despliegue inmediato del parche.",
+
+  "github.name": "GitHub Flow",
+  "github.modes.feature.label": "Feature + PR",
+  "github.modes.feature.desc": "Crear rama desde main, abrir Pull Request, fusionar y desplegar — el ciclo estandar de GitHub Flow",
+  "github.modes.deploy.label": "Deploy from Main",
+  "github.modes.deploy.desc": "La fusion en main activa el pipeline CI/CD — se ejecutan tests, se completa el build, auto-despliegue a produccion",
+  "github.modes.hotfix.label": "Quick Fix",
+  "github.modes.hotfix.desc": "Crear rama de correccion de corta duracion, parchear el problema via PR, fusionar y desplegar inmediatamente",
+  "github.details.feature.principles": [
+    "Todo en <code>main</code> siempre es desplegable",
+    "Crear rama desde <code>main</code> para cada tarea",
+    "Abrir Pull Request para code review antes de fusionar",
+    "Desplegar inmediatamente tras fusionar en <code>main</code>"
+  ],
+  "github.details.feature.concepts": [
+    { "term": "main", "definition": "Unica rama de larga duracion, siempre en estado desplegable" },
+    { "term": "Feature branches", "definition": "Ramas de corta duracion creadas desde main para cada tarea" },
+    { "term": "Pull Request", "definition": "Puerta de code review antes de fusionar en main" },
+    { "term": "Continuous Deployment", "definition": "Cada fusion en main activa un despliegue automatico" }
+  ],
+  "github.details.feature.tradeoffs.pros": [
+    "Simple y facil de entender",
+    "Iteracion rapida con minima sobrecarga",
+    "Compatible con CI/CD — despliegue en cada fusion",
+    "Fomenta pull requests pequenos y frecuentes"
+  ],
+  "github.details.feature.tradeoffs.cons": [
+    "Sin ramas dedicadas de staging o release",
+    "Arriesgado para releases complejos que requieren coordinacion",
+    "El rollback depende de revertir commits o redesplegar"
+  ],
+  "github.details.feature.tradeoffs.whenToUse": "Equipos pequenos, aplicaciones web, productos SaaS y proyectos con despliegue continuo donde main siempre debe estar listo para produccion.",
+  "github.details.deploy.principles": [
+    "Cada fusion en <code>main</code> activa un despliegue automatico a produccion",
+    "Sin puerta de rama staging — el pipeline CI/CD es la puerta de calidad",
+    "Tests, builds y despliegues son pasos automatizados del pipeline, no procesos manuales",
+    "Los releases se etiquetan tras un despliegue exitoso a produccion"
+  ],
+  "github.details.deploy.concepts": [
+    { "term": "main", "definition": "Unica rama de larga duracion, siempre en estado desplegable" },
+    { "term": "CI/CD Pipeline", "definition": "Puerta automatizada que ejecuta tests, builds y despliegues en cada fusion a main" },
+    { "term": "Auto-deploy", "definition": "Despliegue a produccion activado automaticamente — sin promocion manual ni rama staging" },
+    { "term": "Release tagging", "definition": "Etiquetas git marcan despliegues especificos como releases versionados" }
+  ],
+  "github.details.deploy.tradeoffs.pros": [
+    "Cero pasos manuales de despliegue — pipeline completamente automatizado",
+    "Ciclo de retroalimentacion rapido — el codigo llega a produccion en minutos",
+    "Sin desfase de entornos — main siempre es produccion",
+    "Rollback simple via commit de reversion + redespliegue automatico"
+  ],
+  "github.details.deploy.tradeoffs.cons": [
+    "Requiere suite de tests robusta — sin red de seguridad de staging",
+    "Fallos del pipeline bloquean todos los despliegues",
+    "Se necesitan feature flags para trabajo parcialmente completado"
+  ],
+  "github.details.deploy.tradeoffs.whenToUse": "Equipos con fuerte cultura CI/CD, tests automatizados completos y aplicaciones donde cada fusion debe ir a produccion inmediatamente sin puertas manuales.",
+  "github.details.hotfix.principles": [
+    "Todo en <code>main</code> siempre es desplegable",
+    "Crear rama desde <code>main</code> para cada tarea",
+    "Abrir Pull Request para code review antes de fusionar",
+    "Desplegar inmediatamente tras fusionar en <code>main</code>"
+  ],
+  "github.details.hotfix.concepts": [
+    { "term": "main", "definition": "Unica rama de larga duracion, siempre en estado desplegable" },
+    { "term": "Feature branches", "definition": "Ramas de corta duracion creadas desde main para cada tarea" },
+    { "term": "Pull Request", "definition": "Puerta de code review antes de fusionar en main" },
+    { "term": "Continuous Deployment", "definition": "Cada fusion en main activa un despliegue automatico" }
+  ],
+  "github.details.hotfix.tradeoffs.pros": [
+    "Simple y facil de entender",
+    "Iteracion rapida con minima sobrecarga",
+    "Compatible con CI/CD — despliegue en cada fusion",
+    "Fomenta pull requests pequenos y frecuentes"
+  ],
+  "github.details.hotfix.tradeoffs.cons": [
+    "Sin ramas dedicadas de staging o release",
+    "Arriesgado para releases complejos que requieren coordinacion",
+    "El rollback depende de revertir commits o redesplegar"
+  ],
+  "github.details.hotfix.tradeoffs.whenToUse": "Equipos pequenos, aplicaciones web, productos SaaS y proyectos con despliegue continuo donde main siempre debe estar listo para produccion.",
+
+  "gitlab.name": "GitLab Flow",
+  "gitlab.modes.feature.label": "Feature to Main",
+  "gitlab.modes.feature.desc": "Se crea una rama feature desde main, se desarrolla, se revisa via merge request y se fusiona de vuelta. La rama feature se elimina tras la fusion.",
+  "gitlab.modes.staging.label": "Promote to Staging",
+  "gitlab.modes.staging.desc": "Los commits acumulados en main se promueven a la rama del entorno staging para pruebas de integracion antes de produccion.",
+  "gitlab.modes.production.label": "Promote to Production",
+  "gitlab.modes.production.desc": "Tras la validacion en staging, la rama staging se promueve a la rama production, se etiqueta y se despliega al entorno en vivo.",
+  "gitlab.details.feature.principles": [
+    "Upstream first — las correcciones siempre aterrizan en main y luego se promueven aguas abajo",
+    "Las ramas de entorno representan objetivos de despliegue, no etapas de desarrollo",
+    "Solo fusionar aguas abajo: main -> staging -> production"
+  ],
+  "gitlab.details.feature.concepts": [
+    { "term": "main", "definition": "Rama primaria de desarrollo; todas las features se fusionan aqui primero" },
+    { "term": "staging", "definition": "Rama de entorno de preproduccion para pruebas de integracion" },
+    { "term": "production", "definition": "Rama de entorno en vivo; representa lo desplegado para los usuarios" },
+    { "term": "Upstream first policy", "definition": "Los errores se corrigen en main y se promueven aguas abajo — nunca parchear production directamente" }
+  ],
+  "gitlab.details.feature.tradeoffs.pros": [
+    "Seguimiento claro de entornos — cada rama refleja un objetivo de despliegue",
+    "Ruta de promocion simple: main -> staging -> production",
+    "La politica upstream first previene desfase entre entornos"
+  ],
+  "gitlab.details.feature.tradeoffs.cons": [
+    "Mas ramas de larga duracion que mantener",
+    "Sobrecarga de fusion al promover a traves de multiples entornos",
+    "Las ramas de entorno pueden divergir si la promocion se retrasa"
+  ],
+  "gitlab.details.feature.tradeoffs.whenToUse": "Equipos con multiples entornos de despliegue (staging, QA, production) que necesitan una ruta de promocion clara y auditable con despliegues escalonados.",
+  "gitlab.details.staging.principles": [
+    "Upstream first — las correcciones siempre aterrizan en main y luego se promueven aguas abajo",
+    "Las ramas de entorno representan objetivos de despliegue, no etapas de desarrollo",
+    "Solo fusionar aguas abajo: main -> staging -> production"
+  ],
+  "gitlab.details.staging.concepts": [
+    { "term": "main", "definition": "Rama primaria de desarrollo; todas las features se fusionan aqui primero" },
+    { "term": "staging", "definition": "Rama de entorno de preproduccion para pruebas de integracion" },
+    { "term": "production", "definition": "Rama de entorno en vivo; representa lo desplegado para los usuarios" },
+    { "term": "Upstream first policy", "definition": "Los errores se corrigen en main y se promueven aguas abajo — nunca parchear production directamente" }
+  ],
+  "gitlab.details.staging.tradeoffs.pros": [
+    "Seguimiento claro de entornos — cada rama refleja un objetivo de despliegue",
+    "Ruta de promocion simple: main -> staging -> production",
+    "La politica upstream first previene desfase entre entornos"
+  ],
+  "gitlab.details.staging.tradeoffs.cons": [
+    "Mas ramas de larga duracion que mantener",
+    "Sobrecarga de fusion al promover a traves de multiples entornos",
+    "Las ramas de entorno pueden divergir si la promocion se retrasa"
+  ],
+  "gitlab.details.staging.tradeoffs.whenToUse": "Equipos con multiples entornos de despliegue (staging, QA, production) que necesitan una ruta de promocion clara y auditable con despliegues escalonados.",
+  "gitlab.details.production.principles": [
+    "Upstream first — las correcciones siempre aterrizan en main y luego se promueven aguas abajo",
+    "Las ramas de entorno representan objetivos de despliegue, no etapas de desarrollo",
+    "Solo fusionar aguas abajo: main -> staging -> production"
+  ],
+  "gitlab.details.production.concepts": [
+    { "term": "main", "definition": "Rama primaria de desarrollo; todas las features se fusionan aqui primero" },
+    { "term": "staging", "definition": "Rama de entorno de preproduccion para pruebas de integracion" },
+    { "term": "production", "definition": "Rama de entorno en vivo; representa lo desplegado para los usuarios" },
+    { "term": "Upstream first policy", "definition": "Los errores se corrigen en main y se promueven aguas abajo — nunca parchear production directamente" }
+  ],
+  "gitlab.details.production.tradeoffs.pros": [
+    "Seguimiento claro de entornos — cada rama refleja un objetivo de despliegue",
+    "Ruta de promocion simple: main -> staging -> production",
+    "La politica upstream first previene desfase entre entornos"
+  ],
+  "gitlab.details.production.tradeoffs.cons": [
+    "Mas ramas de larga duracion que mantener",
+    "Sobrecarga de fusion al promover a traves de multiples entornos",
+    "Las ramas de entorno pueden divergir si la promocion se retrasa"
+  ],
+  "gitlab.details.production.tradeoffs.whenToUse": "Equipos con multiples entornos de despliegue (staging, QA, production) que necesitan una ruta de promocion clara y auditable con despliegues escalonados.",
+
+  "trunk.name": "Trunk-Based Development",
+  "trunk.modes.direct.label": "Direct to Trunk",
+  "trunk.modes.direct.desc": "Todos los desarrolladores hacen commit directamente a main. Sin ramas, sin PRs — solo commits frecuentes y pequenos con CI en cada push. Los despliegues se hacen continuamente desde trunk.",
+  "trunk.modes.short-lived.label": "Short-lived Branch",
+  "trunk.modes.short-lived.desc": "Se crea una rama feature de corta duracion, se trabaja por unas horas, se fusiona rapidamente de vuelta a main y se elimina. La vida de la rama debe ser menor a un dia.",
+  "trunk.modes.flags.label": "Feature Flags",
+  "trunk.modes.flags.desc": "Las features incompletas se hacen commit directamente al trunk detras de feature flags. Los flags controlan el despliegue gradual: 0% -> 10% -> 100%. Una vez completamente habilitado, el codigo del flag se elimina.",
+  "trunk.details.direct.principles": [
+    "Todos hacen commit directamente al trunk (main)",
+    "Las ramas viven menos de un dia",
+    "Sin ramas feature de larga duracion",
+    "Los feature flags ocultan trabajo incompleto"
+  ],
+  "trunk.details.direct.concepts": [
+    { "term": "Trunk", "definition": "Unica fuente de verdad; todo el codigo fluye a traves de main" },
+    { "term": "Short-lived branches", "definition": "Horas, no dias; fusionar temprano y con frecuencia" },
+    { "term": "Feature flags", "definition": "Desacoplan despliegue de release; alternan features en tiempo de ejecucion" },
+    { "term": "Continuous Integration", "definition": "Hacer commit frecuentemente, ejecutar tests en cada push" }
+  ],
+  "trunk.details.direct.tradeoffs.pros": [
+    "Minimos conflictos de fusion gracias a la integracion frecuente",
+    "Retroalimentacion rapida de CI — cada commit se prueba inmediatamente",
+    "Modelo de ramificacion simple — facil de entender y mantener"
+  ],
+  "trunk.details.direct.tradeoffs.cons": [
+    "Requiere fuerte disciplina y commits pequenos y atomicos",
+    "Los feature flags agregan complejidad a la base de codigo y configuracion",
+    "Arriesgado sin cobertura completa de tests y pipeline CI"
+  ],
+  "trunk.details.direct.tradeoffs.whenToUse": "Equipos experimentados con pipelines CI/CD solidos, alta confianza y tests automatizados rapidos. Usado en Google, Facebook y otras organizaciones de ingenieria a gran escala.",
+  "trunk.details.short-lived.principles": [
+    "Todos hacen commit al trunk (main)",
+    "Las ramas viven menos de un dia",
+    "Sin ramas feature de larga duracion",
+    "Los feature flags ocultan trabajo incompleto"
+  ],
+  "trunk.details.short-lived.concepts": [
+    { "term": "Trunk", "definition": "Unica fuente de verdad; todo el codigo fluye a traves de main" },
+    { "term": "Short-lived branches", "definition": "Horas, no dias; fusionar temprano y con frecuencia" },
+    { "term": "Feature flags", "definition": "Desacoplan despliegue de release; alternan features en tiempo de ejecucion" },
+    { "term": "Continuous Integration", "definition": "Hacer commit frecuentemente, ejecutar tests en cada push" }
+  ],
+  "trunk.details.short-lived.tradeoffs.pros": [
+    "Minimos conflictos de fusion gracias a la integracion frecuente",
+    "Retroalimentacion rapida de CI — cada commit se prueba inmediatamente",
+    "Modelo de ramificacion simple — facil de entender y mantener"
+  ],
+  "trunk.details.short-lived.tradeoffs.cons": [
+    "Requiere fuerte disciplina y commits pequenos y atomicos",
+    "Los feature flags agregan complejidad a la base de codigo y configuracion",
+    "Arriesgado sin cobertura completa de tests y pipeline CI"
+  ],
+  "trunk.details.short-lived.tradeoffs.whenToUse": "Equipos experimentados con pipelines CI/CD solidos, alta confianza y tests automatizados rapidos. Usado en Google, Facebook y otras organizaciones de ingenieria a gran escala.",
+  "trunk.details.flags.principles": [
+    "Todos hacen commit directamente al trunk (main)",
+    "Las ramas viven menos de un dia",
+    "Sin ramas feature de larga duracion",
+    "Los feature flags ocultan trabajo incompleto"
+  ],
+  "trunk.details.flags.concepts": [
+    { "term": "Trunk", "definition": "Unica fuente de verdad; todo el codigo fluye a traves de main" },
+    { "term": "Short-lived branches", "definition": "Horas, no dias; fusionar temprano y con frecuencia" },
+    { "term": "Feature flags", "definition": "Desacoplan despliegue de release; alternan features en tiempo de ejecucion" },
+    { "term": "Continuous Integration", "definition": "Hacer commit frecuentemente, ejecutar tests en cada push" }
+  ],
+  "trunk.details.flags.tradeoffs.pros": [
+    "Minimos conflictos de fusion gracias a la integracion frecuente",
+    "Retroalimentacion rapida de CI — cada commit se prueba inmediatamente",
+    "Modelo de ramificacion simple — facil de entender y mantener"
+  ],
+  "trunk.details.flags.tradeoffs.cons": [
+    "Requiere fuerte disciplina y commits pequenos y atomicos",
+    "Los feature flags agregan complejidad a la base de codigo y configuracion",
+    "Arriesgado sin cobertura completa de tests y pipeline CI"
+  ],
+  "trunk.details.flags.tradeoffs.whenToUse": "Equipos experimentados con pipelines CI/CD solidos, alta confianza y tests automatizados rapidos. Usado en Google, Facebook y otras organizaciones de ingenieria a gran escala.",
+
+  "oneflow.name": "OneFlow",
+  "oneflow.modes.release.label": "Release via Rebase",
+  "oneflow.modes.release.desc": "Se crea una rama release desde main, se estabiliza con correcciones, luego se hace rebase sobre main y se fusiona con fast-forward para preservar un historial lineal. La rama release se elimina tras el etiquetado.",
+  "oneflow.modes.hotfix.label": "Hotfix Cherry-pick",
+  "oneflow.modes.hotfix.desc": "Un hotfix se hace commit en main y se cherry-pick a la rama release activa. Esto permite backporting selectivo de correcciones criticas sin fusionar cambios no relacionados.",
+  "oneflow.modes.feature.label": "Feature Rebase",
+  "oneflow.modes.feature.desc": "Se crea una rama feature desde main, se desarrolla de forma aislada, luego se hace rebase sobre main y se fusiona con fast-forward. Esto mantiene el historial de commits lineal y evita merge commits.",
+  "oneflow.details.release.principles": [
+    "Unica rama main — la unica rama de larga duracion",
+    "Sin rama develop — simplicidad sobre ceremonia",
+    "Rebase en lugar de merge commits — mantener historial lineal",
+    "Las ramas release son ramas de estabilizacion de corta duracion",
+    "El historial lineal es el objetivo principal"
+  ],
+  "oneflow.details.release.concepts": [
+    { "term": "main", "definition": "La unica rama de larga duracion; siempre desplegable" },
+    { "term": "release/*", "definition": "Rama de corta duracion para estabilizacion de release; se hace rebase sobre main antes de la fusion fast-forward" },
+    { "term": "rebase", "definition": "Reproducir commits sobre la punta de otra rama para mantener historial lineal" },
+    { "term": "fast-forward merge", "definition": "Mueve el puntero de la rama hacia adelante sin un merge commit — preserva el historial lineal" }
+  ],
+  "oneflow.details.release.tradeoffs.pros": [
+    "Historial de commits limpio y lineal",
+    "Mas simple que Classic GitFlow — menos ramas de larga duracion",
+    "Menos ramas que gestionar y comprender"
+  ],
+  "oneflow.details.release.tradeoffs.cons": [
+    "El rebase requiere disciplina y comprension",
+    "Se necesita force-push tras rebase en ramas compartidas",
+    "Mas dificil para principiantes comparado con flujos basados en merge"
+  ],
+  "oneflow.details.release.tradeoffs.whenToUse": "Equipos que buscan un historial limpio y lineal con una unica rama desplegable y la disciplina para hacer rebase consistentemente.",
+  "oneflow.details.hotfix.principles": [
+    "Unica rama main — la unica rama de larga duracion",
+    "Los hotfixes se hacen commit en main y se cherry-pick a las ramas release",
+    "Cherry-pick permite backporting selectivo sin fusiones completas",
+    "Las ramas release reciben solo correcciones especificas",
+    "El historial lineal es el objetivo principal"
+  ],
+  "oneflow.details.hotfix.concepts": [
+    { "term": "main", "definition": "La unica rama de larga duracion; todo el trabajo nuevo aterriza aqui primero" },
+    { "term": "cherry-pick", "definition": "Backporting selectivo de commits individuales entre ramas sin fusionar historiales completos" },
+    { "term": "release/*", "definition": "Rama de estabilizacion que recibe hotfixes cherry-picked de main" },
+    { "term": "version tag", "definition": "Etiqueta git que marca un release de parche en la rama release tras un hotfix" }
+  ],
+  "oneflow.details.hotfix.tradeoffs.pros": [
+    "Los hotfixes aterrizan primero en main — unica fuente de verdad",
+    "Cherry-pick evita incorporar cambios no relacionados al release",
+    "Los releases de parche son directos y aislados"
+  ],
+  "oneflow.details.hotfix.tradeoffs.cons": [
+    "Cherry-pick puede causar conflictos si los commits dependen de otros cambios",
+    "Requiere seguimiento cuidadoso de que correcciones se han backportado",
+    "El proceso manual de cherry-pick no escala bien con muchas ramas release"
+  ],
+  "oneflow.details.hotfix.tradeoffs.whenToUse": "Equipos que mantienen una o mas ramas release que necesitan hotfixes especificos sin fusionar todo el desarrollo reciente de main.",
+  "oneflow.details.feature.principles": [
+    "Unica rama main — la unica rama de larga duracion",
+    "Sin rama develop — simplicidad sobre ceremonia",
+    "Las ramas feature se hacen rebase sobre main antes de la fusion fast-forward",
+    "Rebase en lugar de merge commits — mantener historial lineal",
+    "El historial lineal es el objetivo principal"
+  ],
+  "oneflow.details.feature.concepts": [
+    { "term": "main", "definition": "La unica rama de larga duracion; siempre desplegable" },
+    { "term": "feature/*", "definition": "Rama de corta duracion para desarrollo aislado de features; se hace rebase sobre main al completarse" },
+    { "term": "rebase", "definition": "Reproducir commits sobre la punta de otra rama para mantener historial lineal" },
+    { "term": "fast-forward merge", "definition": "Mueve el puntero de la rama hacia adelante sin un merge commit — preserva el historial lineal" }
+  ],
+  "oneflow.details.feature.tradeoffs.pros": [
+    "Historial de commits limpio y lineal sin merge commits",
+    "Modelo mental simple — solo main y ramas feature de corta duracion",
+    "Facil hacer bisect y revisar el historial"
+  ],
+  "oneflow.details.feature.tradeoffs.cons": [
+    "El rebase requiere disciplina y comprension",
+    "Se necesita force-push tras rebase si la rama feature fue compartida",
+    "Mas dificil para principiantes comparado con flujos basados en merge"
+  ],
+  "oneflow.details.feature.tradeoffs.whenToUse": "Equipos pequenos a medianos que valoran un historial de commits lineal y se sienten comodos con flujos de trabajo de rebase interactivo.",
+
+  "environment.name": "Environment Branching",
+  "environment.modes.promote.label": "Full Promotion",
+  "environment.modes.promote.desc": "El codigo se promueve a traves de ramas de entorno: develop -> qa -> staging -> production. Cada entorno tiene su propia rama de larga duracion. Los despliegues ocurren al fusionar en una rama de entorno.",
+  "environment.modes.hotfix.label": "Production Hotfix",
+  "environment.modes.hotfix.desc": "Una correccion de emergencia se hace commit directamente en la rama production, se despliega inmediatamente, luego se sincroniza de vuelta a develop para que futuras promociones incluyan la correccion.",
+  "environment.modes.rollback.label": "Rollback",
+  "environment.modes.rollback.desc": "Un despliegue fallido en production se revierte con un commit de reversion en la rama production, se redespliega el estado anterior conocido y se etiqueta el rollback.",
+  "environment.details.promote.principles": [
+    "Cada entorno tiene su propia rama de larga duracion",
+    "El codigo se promueve solo hacia adelante: develop -> qa -> staging -> production",
+    "Todos los cambios entran por develop — nunca hacer commit directamente en ramas de entorno",
+    "Nunca fusionar hacia atras (excepto sincronizacion de hotfix de production a develop)",
+    "Desplegar significa fusionar en la rama de entorno destino",
+    "Cada promocion es un merge commit auditable"
+  ],
+  "environment.details.promote.concepts": [
+    { "term": "develop", "definition": "Rama de desarrollo activo donde aterrizan nuevas features. Punto de inicio del pipeline de promocion. Todas las correcciones y cambios deben hacerse commit aqui primero." },
+    { "term": "qa", "definition": "Rama de aseguramiento de calidad. Solo recibe fusiones de develop — nunca commits directos. Si se encuentra un problema en QA, la correccion pasa por develop y se re-promueve." },
+    { "term": "staging", "definition": "Entorno de preproduccion. Solo recibe fusiones de qa — nunca commits directos. Los cambios de configuracion deben fluir desde develop a traves del pipeline." },
+    { "term": "production", "definition": "Rama del entorno en vivo. Solo recibe fusiones de staging (o commits de hotfix en emergencias)." },
+    { "term": "Promotion", "definition": "Fusion hacia adelante de una rama de entorno a la siguiente. El mecanismo por el cual el codigo avanza hacia produccion." }
+  ],
+  "environment.details.promote.tradeoffs.pros": [
+    "Clara correspondencia entre ramas y entornos",
+    "Trazabilidad completa de que se desplego y cuando",
+    "Cada entorno puede inspeccionarse independientemente",
+    "Modelo de despliegue simple: fusion = despliegue"
+  ],
+  "environment.details.promote.tradeoffs.cons": [
+    "Muchas ramas de larga duracion que mantener",
+    "Fusiones complejas a medida que los entornos divergen",
+    "Riesgo de desfase de entornos si las promociones son infrecuentes",
+    "Sobrecarga de gestion del pipeline de promocion"
+  ],
+  "environment.details.promote.tradeoffs.whenToUse": "Industrias reguladas, organizaciones con multiples entornos de despliegue, equipos que requieren cumplimiento y trazabilidad para cada promocion.",
+  "environment.details.hotfix.principles": [
+    "Las correcciones de emergencia van directamente a la rama production",
+    "El hotfix se despliega inmediatamente tras el commit",
+    "Production se sincroniza de vuelta a develop para propagar la correccion",
+    "La sincronizacion de hotfix es la unica fusion hacia atras permitida",
+    "Las etiquetas de parche marcan cada despliegue de hotfix"
+  ],
+  "environment.details.hotfix.concepts": [
+    { "term": "production", "definition": "Rama en vivo que recibe la correccion de emergencia directamente, evitando el pipeline de promocion normal." },
+    { "term": "develop", "definition": "Recibe una fusion de sincronizacion de production tras el hotfix para mantener consistentes las futuras promociones." },
+    { "term": "Hotfix Sync", "definition": "Fusion hacia atras de production a develop. La unica excepcion a la regla de solo-hacia-adelante." }
+  ],
+  "environment.details.hotfix.tradeoffs.pros": [
+    "Camino mas rapido para corregir un problema en produccion",
+    "La correccion se refleja inmediatamente en la rama en vivo",
+    "La fusion de sincronizacion asegura que develop se mantenga consistente",
+    "Versionado claro de parches mediante etiquetas"
+  ],
+  "environment.details.hotfix.tradeoffs.cons": [
+    "Evita la validacion de qa y staging",
+    "Riesgo de introducir regresiones sin pruebas completas",
+    "La fusion hacia atras puede causar conflictos en develop",
+    "Requiere disciplina para limitar el alcance a emergencias reales"
+  ],
+  "environment.details.hotfix.tradeoffs.whenToUse": "Caidas criticas de produccion, vulnerabilidades de seguridad o problemas de integridad de datos que no pueden esperar un ciclo de promocion completo.",
+  "environment.details.rollback.principles": [
+    "El rollback es un commit de reversion en la rama production, no un reset de rama",
+    "El despliegue fallido se registra en el historial, luego se deshace",
+    "Un nuevo despliegue restaura el estado anterior conocido",
+    "Las etiquetas de rollback marcan el punto de recuperacion",
+    "Sin reescritura de historial — la trazabilidad se preserva"
+  ],
+  "environment.details.rollback.concepts": [
+    { "term": "staging", "definition": "Fuente de la fusion fallida que fue promovida a production." },
+    { "term": "production", "definition": "Rama en vivo donde se aplica el commit de reversion para deshacer el despliegue fallido." },
+    { "term": "Revert Commit", "definition": "Un commit que deshace los cambios de una fusion anterior. Preserva el historial completo mientras restaura el estado previo." }
+  ],
+  "environment.details.rollback.tradeoffs.pros": [
+    "Recuperacion rapida sin reescritura de historial",
+    "Trazabilidad completa del incidente y rollback",
+    "La rama production permanece lineal y limpia",
+    "Facil re-promover una vez que el problema se corrige"
+  ],
+  "environment.details.rollback.tradeoffs.cons": [
+    "El commit de reversion agrega ruido al git log",
+    "Re-promover el mismo codigo mas tarde requiere revertir la reversion",
+    "No aborda la causa raiz — solo restaura el estado",
+    "Las ramas staging y qa pueden seguir conteniendo el codigo problematico"
+  ],
+  "environment.details.rollback.tradeoffs.whenToUse": "Despliegues fallidos que causan problemas a los usuarios, regresiones de rendimiento detectadas tras el lanzamiento, o cualquier situacion que requiera rollback inmediato a un estado conocido.",
+
+  "release.name": "Release Branching",
+  "release.modes.create.label": "Create Release",
+  "release.modes.create.desc": "Desarrollo en main, cortar release/1.0 para estabilizacion, corregir errores, fusionar de vuelta, etiquetar y limpiar. La rama release aisla la estabilizacion del trabajo de features en curso.",
+  "release.modes.patch.label": "Patch Release",
+  "release.modes.patch.desc": "Partir de un release etiquetado, crear rama release para una correccion de parche especifica, fusionar de vuelta en main, etiquetar la version de parche y limpiar.",
+  "release.modes.parallel.label": "Parallel Releases",
+  "release.modes.parallel.desc": "Mantener dos ramas release simultaneamente desde main. Cada release se estabiliza independientemente, se fusiona y etiqueta segun su propio calendario.",
+  "release.details.create.principles": [
+    "Las ramas release aislan el trabajo de estabilizacion del desarrollo en curso",
+    "<code>main</code> continua recibiendo nuevas features mientras un release se estabiliza",
+    "Las correcciones durante la estabilizacion van a la rama release, no directamente a <code>main</code>",
+    "Tras la fusion, la rama release se elimina para mantener limpio el repositorio"
+  ],
+  "release.details.create.concepts": [
+    { "term": "Release branch", "definition": "Rama creada desde main para estabilizar una version especifica antes del envio. Solo se permiten correcciones de errores y commits de estabilizacion." },
+    { "term": "Stabilization", "definition": "El proceso de endurecer un candidato a release mediante correcciones y QA final, sin trabajo de nuevas features." },
+    { "term": "Version tag", "definition": "Etiqueta git (ej. v1.0) aplicada en main tras fusionar la rama release. Marca el commit exacto listo para produccion." },
+    { "term": "Merge back", "definition": "Tras el release, la rama release se fusiona en main para que las correcciones de estabilizacion se incluyan en el desarrollo futuro." }
+  ],
+  "release.details.create.tradeoffs.pros": [
+    "Aisla la estabilizacion sin bloquear nuevo desarrollo en main",
+    "Ciclo de vida del release claro: rama, estabilizar, etiquetar, eliminar",
+    "Facil identificar que commits pertenecen a un release especifico",
+    "Soporta flujo de trabajo estandar de versionado semantico"
+  ],
+  "release.details.create.tradeoffs.cons": [
+    "Pueden ocurrir conflictos de fusion al fusionar release de vuelta en main",
+    "Requiere disciplina para no agregar features a la rama release",
+    "De corta duracion pero agrega sobrecarga de ramificacion comparado con trunk-based development"
+  ],
+  "release.details.create.tradeoffs.whenToUse": "Proyectos que envian releases distintos con una fase de estabilizacion — aplicaciones moviles, bibliotecas, software de escritorio y cualquier equipo que necesite un periodo dedicado de endurecimiento pre-release.",
+  "release.details.patch.principles": [
+    "Los parches se aplican a una rama release creada desde la version etiquetada",
+    "Solo correcciones de errores especificas van al parche — sin nuevas features",
+    "El parche se fusiona de vuelta en main y se etiqueta con una nueva version de parche (ej. v1.0.1)",
+    "La rama release se elimina tras fusionar y etiquetar el parche"
+  ],
+  "release.details.patch.concepts": [
+    { "term": "Patch", "definition": "Correccion de error aplicada a un release existente despues de enviar la version inicial. Resulta en una nueva etiqueta de version de parche." },
+    { "term": "Cherry-pick", "definition": "Aplicar selectivamente commits especificos de una rama a otra, frecuentemente usado para portar correcciones entre ramas release." },
+    { "term": "Patch tag", "definition": "Etiqueta de version (ej. v1.0.1) aplicada tras una correccion de parche. Sigue versionado semantico para el segmento de parche." },
+    { "term": "Release branch (patch)", "definition": "Rama recreada desde la etiqueta del release original especificamente para aplicar y probar una correccion de parche de forma aislada." }
+  ],
+  "release.details.patch.tradeoffs.pros": [
+    "Correcciones especificas sin interrumpir el desarrollo en curso",
+    "Trazabilidad clara de lo que cambio en cada parche",
+    "El versionado semantico facilita el seguimiento de releases de parche",
+    "Riesgo minimo — solo se aplica la correccion especifica"
+  ],
+  "release.details.patch.tradeoffs.cons": [
+    "Requiere cherry-picking cuidadoso o fusion selectiva",
+    "Releases antiguos pueden divergir significativamente del main actual",
+    "Multiples parches pueden crear historiales de fusion complejos"
+  ],
+  "release.details.patch.tradeoffs.whenToUse": "Cualquier software versionado que necesite enviar correcciones urgentes para versiones ya publicadas — parches de seguridad, correcciones criticas, actualizaciones de cumplimiento.",
+  "release.details.parallel.principles": [
+    "Multiples ramas release pueden coexistir para soporte de versiones en paralelo",
+    "Cada rama release se estabiliza y envia independientemente",
+    "Main continua recibiendo nuevas features mientras los releases se mantienen",
+    "No se permite fusion cruzada entre ramas release — las correcciones fluyen a traves de main"
+  ],
+  "release.details.parallel.concepts": [
+    { "term": "Parallel releases", "definition": "Multiples ramas release mantenidas simultaneamente para diferentes versiones, cada una con su propio ciclo de estabilizacion y release." },
+    { "term": "Version isolation", "definition": "Cada rama release esta aislada de las demas, asegurando que los cambios en una version no afecten a otra." },
+    { "term": "Independent tagging", "definition": "Cada rama release se fusiona y etiqueta independientemente — v1.0 y v2.0 pueden enviarse en calendarios diferentes." },
+    { "term": "Long-term support (LTS)", "definition": "Rama release mantenida para mantenimiento extendido, recibiendo solo correcciones criticas mientras se desarrollan versiones mas nuevas." }
+  ],
+  "release.details.parallel.tradeoffs.pros": [
+    "Soporta mantenimiento paralelo de versiones para diferentes clientes o plataformas",
+    "Cada release tiene su propia linea temporal de estabilizacion",
+    "Ideal para bibliotecas y frameworks con multiples versiones soportadas",
+    "Clara separacion entre lineas de versiones mayores"
+  ],
+  "release.details.parallel.tradeoffs.cons": [
+    "Mayor complejidad de fusion con multiples ramas de larga duracion",
+    "Riesgo de divergencia de ramas con el tiempo",
+    "Requiere disciplina y herramientas para mantener releases sincronizados con main",
+    "Mayor carga de mantenimiento para el equipo"
+  ],
+  "release.details.parallel.tradeoffs.whenToUse": "Bibliotecas, frameworks y software empresarial que debe mantener multiples versiones mayores simultaneamente — ej. soporte de clientes en v1.x y v2.x en paralelo.",
+
+  "forking.name": "Forking Workflow",
+  "forking.modes.contribute.label": "Fork + PR",
+  "forking.modes.contribute.desc": "Forkear upstream, sincronizar origin, crear rama feature, hacer commit, abrir PR a upstream, fusionar, sincronizar de vuelta, limpiar.",
+  "forking.modes.sync.label": "Sync Fork",
+  "forking.modes.sync.desc": "Upstream avanza mientras el fork esta desactualizado, luego el contribuidor sincroniza el fork con upstream.",
+  "forking.modes.review.label": "Maintainer Review",
+  "forking.modes.review.desc": "El contribuidor abre PR desde el fork, el maintainer revisa con comentarios, el contribuidor actualiza, el maintainer fusiona, el contribuidor sincroniza.",
+  "forking.details.contribute.principles": [
+    "Los contribuidores no tienen acceso de escritura al repositorio upstream",
+    "Todos los cambios se proponen via fork + Pull Request",
+    "Los maintainers revisan y fusionan contribuciones en upstream",
+    "Los contribuidores deben mantener su fork sincronizado con upstream"
+  ],
+  "forking.details.contribute.concepts": [
+    { "term": "upstream", "definition": "El repositorio original propiedad de los maintainers del proyecto" },
+    { "term": "origin", "definition": "El fork personal del contribuidor (copia completa del repo)" },
+    { "term": "fork", "definition": "Una copia completa de un repositorio bajo un propietario diferente" },
+    { "term": "Pull Request", "definition": "Un merge request entre repositorios del fork a upstream" },
+    { "term": "sync", "definition": "Obtener cambios de upstream en el fork para mantenerse actualizado" }
+  ],
+  "forking.details.contribute.tradeoffs.pros": [
+    "No se necesita acceso de escritura al repo upstream",
+    "Seguro para open-source — los contribuidores trabajan de forma aislada",
+    "Clara propiedad y autoria de los cambios"
+  ],
+  "forking.details.contribute.tradeoffs.cons": [
+    "Sobrecarga de sincronizacion — el fork puede quedar desactualizado",
+    "Cuello de botella en la revision de PR para maintainers",
+    "Flujo de trabajo mas complejo comparado con modelos de repositorio compartido"
+  ],
+  "forking.details.contribute.tradeoffs.whenToUse": "Proyectos open-source, contribuidores externos, entornos con contribuidores no confiables donde el acceso de escritura a upstream debe estar restringido.",
+  "forking.details.sync.principles": [
+    "Los forks deben sincronizarse regularmente con upstream para evitar desfase",
+    "Usar git fetch upstream + merge o rebase para incorporar cambios",
+    "Resolver conflictos localmente antes de hacer push a origin",
+    "Sincronizar antes de iniciar cualquier nueva rama feature"
+  ],
+  "forking.details.sync.concepts": [
+    { "term": "upstream remote", "definition": "Un remote git que apunta al repositorio original" },
+    { "term": "fetch", "definition": "Descargar commits de upstream sin fusionarlos" },
+    { "term": "merge upstream", "definition": "Integrar cambios de upstream en la rama local del fork" },
+    { "term": "drift", "definition": "Divergencia entre el fork y upstream con el tiempo" }
+  ],
+  "forking.details.sync.tradeoffs.pros": [
+    "Mantiene el fork actualizado y reduce conflictos de fusion",
+    "Asegura que las ramas feature partan del ultimo estado de upstream",
+    "Previene fusiones grandes y dolorosas mas adelante"
+  ],
+  "forking.details.sync.tradeoffs.cons": [
+    "Requiere esfuerzo manual para sincronizar regularmente",
+    "Pueden surgir conflictos de fusion durante la sincronizacion",
+    "Los contribuidores deben entender multiples remotes"
+  ],
+  "forking.details.sync.tradeoffs.whenToUse": "Al contribuir a un repositorio upstream activo donde aterrizan nuevos commits con frecuencia.",
+  "forking.details.review.principles": [
+    "Los maintainers controlan todos los cambios via code review antes de fusionar",
+    "Los contribuidores responden a comentarios de revision agregando nuevos commits al PR",
+    "Los PRs son el unico punto de entrada de cambios en upstream",
+    "Tras la fusion, los contribuidores sincronizan su fork para mantenerse actualizados"
+  ],
+  "forking.details.review.concepts": [
+    { "term": "code review", "definition": "Inspeccion de los cambios propuestos por el maintainer antes de fusionar" },
+    { "term": "review comments", "definition": "Retroalimentacion en lineas especificas o en el PR general por los revisores" },
+    { "term": "PR update", "definition": "Agregar commits adicionales a un PR abierto para abordar la retroalimentacion" },
+    { "term": "approval", "definition": "Aprobacion del maintainer indicando que el PR esta listo para fusionar" }
+  ],
+  "forking.details.review.tradeoffs.pros": [
+    "Asegura la calidad del codigo a traves de la supervision del maintainer",
+    "Intercambio de conocimiento entre contribuidor y maintainer",
+    "Detecta errores y problemas de diseno antes de que lleguen a upstream"
+  ],
+  "forking.details.review.tradeoffs.cons": [
+    "El tiempo de revision puede ralentizar la velocidad de contribucion",
+    "El ancho de banda del maintainer se convierte en cuello de botella",
+    "Los ciclos de ida y vuelta pueden ser frustrantes para los contribuidores"
+  ],
+  "forking.details.review.tradeoffs.whenToUse": "Todos los proyectos open-source y cualquier equipo donde se requieran puertas de calidad de codigo y aprobacion del maintainer antes de fusionar.",
+
+  "ship-show-ask.name": "Ship / Show / Ask",
+  "ship-show-ask.modes.ship.label": "Ship (Direct Merge)",
+  "ship-show-ask.modes.ship.desc": "Bajo riesgo: rama desde main, commit de correccion, fusion directa (sin PR), despliegue.",
+  "ship-show-ask.modes.show.label": "Show (PR, No Block)",
+  "ship-show-ask.modes.show.desc": "Riesgo medio: rama desde main, trabajar en feature, abrir PR no bloqueante para visibilidad, fusionar, desplegar.",
+  "ship-show-ask.modes.ask.label": "Ask (PR + Review)",
+  "ship-show-ask.modes.ask.desc": "Alto riesgo: rama desde main, trabajar en feature, abrir PR bloqueante, abordar revision, fusionar, desplegar.",
+  "ship-show-ask.details.ship.principles": [
+    "Cambios triviales de bajo riesgo se fusionan directamente a main",
+    "No se requiere PR — confiar en el juicio del desarrollador",
+    "Camino mas rapido a produccion para cambios seguros"
+  ],
+  "ship-show-ask.details.ship.concepts": [
+    { "term": "Ship", "definition": "Cambios triviales o de bajo riesgo fusionados directamente a main sin PR" },
+    { "term": "Direct merge", "definition": "Push o fusion a main sin abrir un pull request" },
+    { "term": "Trust-based workflow", "definition": "Los ingenieros clasifican sus propios cambios; el equipo confia en el juicio individual" }
+  ],
+  "ship-show-ask.details.ship.tradeoffs.pros": [
+    "Entrega mas rapida — sin sobrecarga de revision para cambios triviales",
+    "Reduce cuellos de botella y mantiene alta la velocidad",
+    "Empodera a los desarrolladores con autonomia"
+  ],
+  "ship-show-ask.details.ship.tradeoffs.cons": [
+    "Sin red de seguridad de revision para cambios enviados",
+    "Arriesgado si un cambio se clasifica erroneamente como de bajo riesgo",
+    "Trazabilidad menos formal"
+  ],
+  "ship-show-ask.details.ship.tradeoffs.whenToUse": "Cambios triviales como correcciones de erratas, ajustes de configuracion o actualizaciones menores de documentacion donde el riesgo de ruptura es insignificante.",
+  "ship-show-ask.details.show.principles": [
+    "Cambios de riesgo medio se abren como PR no bloqueante para visibilidad del equipo",
+    "La fusion procede sin esperar aprobacion de revision",
+    "El equipo se mantiene informado sin ralentizar la entrega"
+  ],
+  "ship-show-ask.details.show.concepts": [
+    { "term": "Show", "definition": "PR informativo abierto para visibilidad; la fusion procede sin bloqueo de revision" },
+    { "term": "Non-blocking PR", "definition": "Pull request que sirve como notificacion, no como puerta — la fusion se permite sin aprobacion" },
+    { "term": "Visibility", "definition": "Mantener al equipo al tanto de los cambios sin requerir aprobacion formal" }
+  ],
+  "ship-show-ask.details.show.tradeoffs.pros": [
+    "Conciencia del equipo sin retrasos en la entrega",
+    "Crea un registro de cambios para referencia futura",
+    "Fomenta el intercambio de conocimiento en el equipo"
+  ],
+  "ship-show-ask.details.show.tradeoffs.cons": [
+    "Las revisiones pueden nunca ocurrir si no se priorizan",
+    "Problemas descubiertos tras la fusion requieren trabajo de seguimiento",
+    "Requiere disciplina para realmente revisar PRs 'show'"
+  ],
+  "ship-show-ask.details.show.tradeoffs.whenToUse": "Refactorizaciones de riesgo medio, cambios en modulos internos o mejoras donde la conciencia del equipo es valiosa pero la revision bloqueante ralentizaria la entrega innecesariamente.",
+  "ship-show-ask.details.ask.principles": [
+    "Cambios de alto riesgo o complejos requieren un PR bloqueante con revision",
+    "La fusion esta condicionada a la aprobacion explicita de revisores",
+    "Asegura calidad y comprension compartida para cambios criticos"
+  ],
+  "ship-show-ask.details.ask.concepts": [
+    { "term": "Ask", "definition": "PR con revision bloqueante requerida antes de fusionar" },
+    { "term": "Blocking review", "definition": "La fusion no se permite hasta que uno o mas revisores aprueben el cambio" },
+    { "term": "Review feedback", "definition": "Los revisores pueden solicitar cambios que deben abordarse antes de la aprobacion" }
+  ],
+  "ship-show-ask.details.ask.tradeoffs.pros": [
+    "Detecta problemas antes de que lleguen a produccion",
+    "Construye comprension compartida de cambios complejos",
+    "Proporciona una fuerte trazabilidad para trabajo critico"
+  ],
+  "ship-show-ask.details.ask.tradeoffs.cons": [
+    "Entrega mas lenta debido a tiempos de espera de revision",
+    "Puede convertirse en cuello de botella si los revisores no estan disponibles",
+    "Puede desalentar cambios iterativos pequenos"
+  ],
+  "ship-show-ask.details.ask.tradeoffs.whenToUse": "Cambios de alto riesgo como reescrituras de autenticacion, migraciones de base de datos, cambios de contrato de API o cualquier trabajo que pueda impactar significativamente a usuarios o estabilidad del sistema.",
+
+  "scaled.name": "Scaled GitFlow",
+  "scaled.modes.team.label": "Team Branch Flow",
+  "scaled.modes.team.desc": "Se crea una rama de equipo desde develop para trabajo aislado del equipo. Multiples commits se hacen en la rama de equipo, luego se fusiona de vuelta en develop. Develop finalmente se fusiona en main y se etiqueta para el release.",
+  "scaled.modes.program.label": "Program Integration",
+  "scaled.modes.program.desc": "Multiples ramas de equipo se crean desde develop para trabajo paralelo. Cada equipo fusiona en develop independientemente. Cuando todos los equipos se han integrado, develop se fusiona en main, se etiqueta y se despliega como incremento de programa.",
+  "scaled.modes.release.label": "Scaled Release",
+  "scaled.modes.release.desc": "Una rama release (incremento de programa) se corta desde develop para estabilizacion. Las correcciones van a la rama release, que luego se fusiona en main con etiqueta de version y de vuelta en develop para preservar las correcciones.",
+  "scaled.details.team.principles": [
+    "Las ramas de equipo proporcionan aislamiento para trabajo a nivel de equipo sin afectar otros equipos",
+    "La integracion del incremento de programa ocurre a traves de la rama develop compartida",
+    "Los trenes de release coordinan la entrega de multiples equipos segun un calendario",
+    "Multiples equipos contribuyen a una rama develop compartida como punto de integracion"
+  ],
+  "scaled.details.team.concepts": [
+    { "term": "team/*", "definition": "Rama de aislamiento a nivel de equipo. Creada desde develop, usada para el trabajo de un solo equipo durante un incremento de programa. Se fusiona de vuelta en develop al completarse." },
+    { "term": "Program Increment (PI)", "definition": "Ciclo de integracion programado (tipicamente 8-12 semanas) donde todos los equipos planifican, desarrollan e integran su trabajo en una base de codigo compartida." },
+    { "term": "Release Train", "definition": "Mecanismo de release coordinado que alinea multiples equipos para entregar con cadencia fija, independientemente de la completitud de equipos individuales." },
+    { "term": "develop", "definition": "Punto de integracion donde convergen todas las ramas de equipo. Sirve como fuente de verdad para el proximo release." }
+  ],
+  "scaled.details.team.tradeoffs.pros": [
+    "Escala a grandes organizaciones con muchos equipos",
+    "El aislamiento de equipos previene interferencias entre equipos",
+    "Releases coordinados aseguran entrega predecible",
+    "Puntos de integracion claros reducen sorpresas de ultimo minuto"
+  ],
+  "scaled.details.team.tradeoffs.cons": [
+    "Alta complejidad en gestion de ramas y coordinacion de fusiones",
+    "Los conflictos de fusion escalan cuando muchos equipos integran simultaneamente",
+    "Requiere herramientas significativas y disciplina de proceso"
+  ],
+  "scaled.details.team.tradeoffs.whenToUse": "Grandes empresas adoptando SAFe o frameworks agile escalados, organizaciones con 5+ equipos contribuyendo al mismo producto y sistemas que requieren trenes de release coordinados.",
+  "scaled.details.program.principles": [
+    "Las ramas de equipo proporcionan aislamiento para trabajo a nivel de equipo sin afectar otros equipos",
+    "La integracion del incremento de programa ocurre a traves de la rama develop compartida",
+    "Los trenes de release coordinan la entrega de multiples equipos segun un calendario",
+    "Multiples equipos contribuyen a una rama develop compartida como punto de integracion"
+  ],
+  "scaled.details.program.concepts": [
+    { "term": "team/*", "definition": "Rama de aislamiento a nivel de equipo. Creada desde develop, usada para el trabajo de un solo equipo durante un incremento de programa. Se fusiona de vuelta en develop al completarse." },
+    { "term": "Program Increment (PI)", "definition": "Ciclo de integracion programado (tipicamente 8-12 semanas) donde todos los equipos planifican, desarrollan e integran su trabajo en una base de codigo compartida." },
+    { "term": "Release Train", "definition": "Mecanismo de release coordinado que alinea multiples equipos para entregar con cadencia fija, independientemente de la completitud de equipos individuales." },
+    { "term": "develop", "definition": "Punto de integracion donde convergen todas las ramas de equipo. Sirve como fuente de verdad para el proximo release." }
+  ],
+  "scaled.details.program.tradeoffs.pros": [
+    "Escala a grandes organizaciones con muchos equipos",
+    "El aislamiento de equipos previene interferencias entre equipos",
+    "Releases coordinados aseguran entrega predecible",
+    "Puntos de integracion claros reducen sorpresas de ultimo minuto"
+  ],
+  "scaled.details.program.tradeoffs.cons": [
+    "Alta complejidad en gestion de ramas y coordinacion de fusiones",
+    "Los conflictos de fusion escalan cuando muchos equipos integran simultaneamente",
+    "Requiere herramientas significativas y disciplina de proceso"
+  ],
+  "scaled.details.program.tradeoffs.whenToUse": "Grandes empresas adoptando SAFe o frameworks agile escalados, organizaciones con 5+ equipos contribuyendo al mismo producto y sistemas que requieren trenes de release coordinados.",
+  "scaled.details.release.principles": [
+    "Las ramas de equipo proporcionan aislamiento para trabajo a nivel de equipo sin afectar otros equipos",
+    "La integracion del incremento de programa ocurre a traves de la rama develop compartida",
+    "Los trenes de release coordinan la entrega de multiples equipos segun un calendario",
+    "Multiples equipos contribuyen a una rama develop compartida como punto de integracion"
+  ],
+  "scaled.details.release.concepts": [
+    { "term": "team/*", "definition": "Rama de aislamiento a nivel de equipo. Creada desde develop, usada para el trabajo de un solo equipo durante un incremento de programa. Se fusiona de vuelta en develop al completarse." },
+    { "term": "Program Increment (PI)", "definition": "Ciclo de integracion programado (tipicamente 8-12 semanas) donde todos los equipos planifican, desarrollan e integran su trabajo en una base de codigo compartida." },
+    { "term": "Release Train", "definition": "Mecanismo de release coordinado que alinea multiples equipos para entregar con cadencia fija, independientemente de la completitud de equipos individuales." },
+    { "term": "develop", "definition": "Punto de integracion donde convergen todas las ramas de equipo. Sirve como fuente de verdad para el proximo release." }
+  ],
+  "scaled.details.release.tradeoffs.pros": [
+    "Escala a grandes organizaciones con muchos equipos",
+    "El aislamiento de equipos previene interferencias entre equipos",
+    "Releases coordinados aseguran entrega predecible",
+    "Puntos de integracion claros reducen sorpresas de ultimo minuto"
+  ],
+  "scaled.details.release.tradeoffs.cons": [
+    "Alta complejidad en gestion de ramas y coordinacion de fusiones",
+    "Los conflictos de fusion escalan cuando muchos equipos integran simultaneamente",
+    "Requiere herramientas significativas y disciplina de proceso"
+  ],
+  "scaled.details.release.tradeoffs.whenToUse": "Grandes empresas adoptando SAFe o frameworks agile escalados, organizaciones con 5+ equipos contribuyendo al mismo producto y sistemas que requieren trenes de release coordinados.",
+
+  "cherrypick.name": "Cherry-pick Flow",
+  "cherrypick.modes.backport.label": "Backport Fix",
+  "cherrypick.modes.backport.desc": "Una correccion se hace commit en main y se cherry-pick a ramas release mas antiguas. Cada release recibe una etiqueta de parche. Esto mantiene todas las versiones soportadas sincronizadas sin fusionar ramas enteras.",
+  "cherrypick.modes.forward.label": "Forward Port",
+  "cherrypick.modes.forward.desc": "Una correccion se hace commit en una rama release mas antigua y se cherry-pick hacia adelante a main. Esto asegura que las correcciones urgentes aterricen en el release actual preservando la correccion en la version mas antigua.",
+  "cherrypick.modes.multi.label": "Multi-version",
+  "cherrypick.modes.multi.desc": "Una correccion de seguridad se hace commit en main y se cherry-pick a todas las ramas release soportadas. Cada release se etiqueta independientemente, habilitando mantenimiento paralelo de versiones.",
+  "cherrypick.details.backport.principles": [
+    "Corregir una vez en main, cherry-pick a todas las ramas release soportadas",
+    "Backportar correcciones criticas a versiones mas antiguas aun en produccion",
+    "Mantener multiples versiones de release independientemente",
+    "Cada rama release recibe su propia etiqueta de parche tras el cherry-pick"
+  ],
+  "cherrypick.details.backport.concepts": [
+    { "term": "Cherry-pick", "definition": "Aplicar un commit especifico de una rama a otra sin fusionar el historial completo de la rama. Crea un nuevo commit con los mismos cambios." },
+    { "term": "Backport", "definition": "Portar una correccion de una version mas nueva (main) a una rama release soportada mas antigua. Asegura que versiones antiguas reciban parches criticos." },
+    { "term": "Patch Tag", "definition": "Etiqueta de version (ej. v1.0.1) aplicada a una rama release tras una correccion cherry-picked. Marca un release puntual para esa version." }
+  ],
+  "cherrypick.details.backport.tradeoffs.pros": [
+    "Correcciones especificas con riesgo minimo para cada release",
+    "Cada version permanece aislada — sin cambios no intencionados filtrándose",
+    "Historial claro de parches por release mediante etiquetas",
+    "La correccion se crea y prueba una vez en main"
+  ],
+  "cherrypick.details.backport.tradeoffs.cons": [
+    "Facil olvidar un cherry-pick a una de las varias ramas release",
+    "Commits cherry-picked crean historial divergente entre ramas",
+    "Se requiere seguimiento manual de que correcciones llegaron a que releases"
+  ],
+  "cherrypick.details.backport.tradeoffs.whenToUse": "Bibliotecas y frameworks con multiples versiones soportadas, releases de soporte a largo plazo (LTS) y productos con diferentes versiones en produccion simultaneamente.",
+  "cherrypick.details.forward.principles": [
+    "Corregir problemas urgentes directamente en la rama release afectada",
+    "Forward port la correccion a main para que se incluya en futuros releases",
+    "Etiquetar la rama release inmediatamente para despliegue rapido",
+    "Mantener main actualizado con todas las correcciones de produccion"
+  ],
+  "cherrypick.details.forward.concepts": [
+    { "term": "Forward Port", "definition": "Cherry-pick de una correccion de una rama release mas antigua a main o una rama mas nueva. Asegura que la correccion no se pierda en futuras versiones." },
+    { "term": "Release Tag", "definition": "Etiqueta aplicada a la rama release tras la correccion, habilitando despliegue inmediato de la version parcheada." },
+    { "term": "Cherry-pick to main", "definition": "Aplicar el commit de correccion del release a main para que la proxima version mayor incluya la misma correccion." }
+  ],
+  "cherrypick.details.forward.tradeoffs.pros": [
+    "La correccion urgente aterriza en la version afectada inmediatamente",
+    "Main permanece sincronizado con correcciones de produccion",
+    "No necesita esperar un ciclo de release completo para corregir versiones antiguas",
+    "Aislamiento de version — la correccion no incorpora features no publicadas"
+  ],
+  "cherrypick.details.forward.tradeoffs.cons": [
+    "Riesgo de olvidar hacer forward port de la correccion",
+    "Cherry-pick puede conflictar con codigo mas nuevo en main",
+    "Historial de commits divergente entre release y main"
+  ],
+  "cherrypick.details.forward.tradeoffs.whenToUse": "Cuando se encuentra un error critico en un release desplegado y la correccion debe enviarse inmediatamente, asegurando tambien que main no regrese en futuros releases.",
+  "cherrypick.details.multi.principles": [
+    "Corregir problemas de seguridad una vez en main, propagar a todas las versiones soportadas",
+    "Cherry-pick a cada rama release activa sistematicamente",
+    "Etiquetar cada release independientemente tras aplicar la correccion",
+    "Mantener registro claro de que versiones recibieron el parche"
+  ],
+  "cherrypick.details.multi.concepts": [
+    { "term": "Multi-version Support", "definition": "Mantener multiples ramas release en paralelo, cada una recibiendo correcciones criticas independientemente via cherry-pick." },
+    { "term": "Security Fix Propagation", "definition": "Cherry-pick sistematico de un parche de seguridad de main a todas las ramas release soportadas para cerrar vulnerabilidades en todas las versiones." },
+    { "term": "Release Matrix", "definition": "El conjunto de ramas release actualmente soportadas. Cada una debe evaluarse para aplicabilidad de cherry-pick cuando una correccion aterriza en main." }
+  ],
+  "cherrypick.details.multi.tradeoffs.pros": [
+    "Todas las versiones soportadas parcheadas consistentemente",
+    "Cada version etiquetada y desplegable independientemente",
+    "Riesgo minimo — solo se aplica la correccion especifica",
+    "Trazabilidad clara de parches de seguridad por version"
+  ],
+  "cherrypick.details.multi.tradeoffs.cons": [
+    "Escala pobremente a medida que crece el numero de versiones soportadas",
+    "Los conflictos de cherry-pick aumentan con la divergencia de versiones",
+    "Requiere herramientas o disciplina para rastrear el estado de propagacion"
+  ],
+  "cherrypick.details.multi.tradeoffs.whenToUse": "Bibliotecas open-source con multiples versiones mayores activas, software empresarial con obligaciones contractuales de LTS y cualquier sistema donde multiples versiones de produccion deben parchearse simultaneamente."
+}

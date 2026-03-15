@@ -23,12 +23,12 @@ function renderFactoryMethodLogistics() {
                 PV.renderClass('fm-logistics', 'Logistics', {
                     stereotype: 'abstract',
                     methods: ['createTransport(): Transport', 'planDelivery()'],
-                    tooltip: 'Abstract creator that declares the factory method createTransport() and uses it inside planDelivery()'
+                    tooltip: I18N.t('factory-method.tooltip.logistics', null, 'Abstract creator that declares the factory method createTransport() and uses it inside planDelivery()')
                 }) +
                 PV.renderClass('fm-transport', 'Transport', {
                     stereotype: 'interface',
                     methods: ['deliver()'],
-                    tooltip: 'Product interface defining the contract all concrete transports must implement'
+                    tooltip: I18N.t('factory-method.tooltip.transport', null, 'Product interface defining the contract all concrete transports must implement')
                 }) +
             '</div>' +
             /* Row 2: Creators with instances (left) | Products (right) */
@@ -37,40 +37,40 @@ function renderFactoryMethodLogistics() {
                 '<div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">' +
                     PV.renderClass('fm-sea-logistics', 'SeaLogistics', {
                         methods: ['createTransport(): Ship'],
-                        tooltip: 'Concrete creator that overrides createTransport() to return a Ship instance'
+                        tooltip: I18N.t('factory-method.tooltip.sea-logistics', null, 'Concrete creator that overrides createTransport() to return a Ship instance')
                     }) +
-                    PV.renderObject('obj-fm-ship', ':Ship', { tooltip: 'Runtime Ship instance created by SeaLogistics' }) +
+                    PV.renderObject('obj-fm-ship', ':Ship', { tooltip: I18N.t('factory-method.tooltip.obj-ship', null, 'Runtime Ship instance created by SeaLogistics') }) +
                 '</div>' +
                 /* RoadLogistics + :Truck */
                 '<div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">' +
                     PV.renderClass('fm-road-logistics', 'RoadLogistics', {
                         methods: ['createTransport(): Truck'],
-                        tooltip: 'Concrete creator that overrides createTransport() to return a Truck instance'
+                        tooltip: I18N.t('factory-method.tooltip.road-logistics', null, 'Concrete creator that overrides createTransport() to return a Truck instance')
                     }) +
-                    PV.renderObject('obj-fm-truck', ':Truck', { tooltip: 'Runtime Truck instance created by RoadLogistics' }) +
+                    PV.renderObject('obj-fm-truck', ':Truck', { tooltip: I18N.t('factory-method.tooltip.obj-truck', null, 'Runtime Truck instance created by RoadLogistics') }) +
                 '</div>' +
                 /* Spacer */
                 '<div style="width: 60px;"></div>' +
                 /* Truck */
                 PV.renderClass('fm-truck', 'Truck', {
                     methods: ['deliver()'],
-                    tooltip: 'Concrete product implementing Transport — delivers goods by road'
+                    tooltip: I18N.t('factory-method.tooltip.truck', null, 'Concrete product implementing Transport — delivers goods by road')
                 }) +
                 /* Ship */
                 PV.renderClass('fm-ship', 'Ship', {
                     methods: ['deliver()'],
-                    tooltip: 'Concrete product implementing Transport — delivers goods by sea'
+                    tooltip: I18N.t('factory-method.tooltip.ship', null, 'Concrete product implementing Transport — delivers goods by sea')
                 }) +
             '</div>' +
             /* Legend */
             '<div class="pv-flow-legend">' +
-                '<div class="legend-item"><span class="legend-line-sync"></span> Flow</div>' +
-                '<div class="legend-item"><span class="legend-line-create"></span> Create</div>' +
-                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
-                '<div class="legend-item"><span class="legend-line-inherit"></span> Inherit</div>' +
-                '<div class="legend-item"><span class="legend-line-depend"></span> Uses</div>' +
-                '<div class="legend-item"><span style="display:inline-block;width:20px;height:14px;border:2px dashed var(--pv-accent);border-radius:2px;background:var(--pv-accent-bg);"></span> Object</div>' +
-                '<div class="legend-item"><span style="color:#10B981;font-weight:bold;font-size:13px;">✓</span> Property</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('ui.legend.flow', null, 'Flow') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-create"></span> ' + I18N.t('ui.legend.create', null, 'Create') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('ui.legend.response', null, 'Response') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-inherit"></span> ' + I18N.t('ui.legend.inherit', null, 'Inherit') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-depend"></span> ' + I18N.t('ui.legend.uses', null, 'Uses') + '</div>' +
+                '<div class="legend-item"><span style="display:inline-block;width:20px;height:14px;border:2px dashed var(--pv-accent);border-radius:2px;background:var(--pv-accent-bg);"></span> ' + I18N.t('ui.legend.object', null, 'Object') + '</div>' +
+                '<div class="legend-item"><span style="color:#10B981;font-weight:bold;font-size:13px;">✓</span> ' + I18N.t('ui.legend.property', null, 'Property') + '</div>' +
             '</div>' +
         '</div>';
 
@@ -124,18 +124,215 @@ PV['factory-method'].logistics = {
     },
     steps: function() {
         return [
-            { elementId: 'fm-logistics', label: 'Client calls planDelivery()', description: 'Client invokes planDelivery() on the abstract Logistics reference', logType: 'REQUEST', badgePosition: 'top' },
-            { elementId: 'fm-logistics', label: 'Logistics.planDelivery()', description: 'planDelivery() internally calls the abstract createTransport() factory method', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },
-            { elementId: 'fm-road-logistics', label: 'RoadLogistics.createTransport()', description: 'Concrete creator overrides createTransport() to instantiate a Truck', logType: 'FLOW', arrowFromId: 'fm-logistics' },
-            { elementId: 'fm-truck', label: 'new Truck()', description: 'Truck constructor is invoked by RoadLogistics', logType: 'CREATE', spawnId: 'obj-fm-truck', spawnLabel: ':Truck', arrowFromId: 'fm-road-logistics' },
-            { elementId: 'obj-fm-truck', label: ':Truck', description: 'Truck instance is returned to planDelivery()', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },
-            { elementId: 'fm-transport', label: 'Transport.deliver()', description: 'planDelivery() calls deliver() on the returned Transport reference', logType: 'FLOW', arrowFromId: 'fm-logistics', badgePosition: 'top' },
-            { elementId: 'obj-fm-truck', label: 'Truck.deliver()', description: 'Concrete Truck executes delivery by road', logType: 'FLOW', arrowFromId: 'fm-transport' },
-            { elementId: 'fm-logistics', label: 'Delivery complete', description: 'planDelivery() finishes — goods delivered by Truck', logType: 'RESPONSE', arrowFromId: 'obj-fm-truck' }
+            { elementId: 'fm-logistics', label: 'Client calls planDelivery()', description: 'Client invokes planDelivery() on the abstract Logistics reference', descriptionKey: 'factory-method.step.logistics.0', logType: 'REQUEST', badgePosition: 'top' },
+            { elementId: 'fm-logistics', label: 'Logistics.planDelivery()', description: 'planDelivery() internally calls the abstract createTransport() factory method', descriptionKey: 'factory-method.step.logistics.1', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },
+            { elementId: 'fm-road-logistics', label: 'RoadLogistics.createTransport()', description: 'Concrete creator overrides createTransport() to instantiate a Truck', descriptionKey: 'factory-method.step.logistics.2', logType: 'FLOW', arrowFromId: 'fm-logistics' },
+            { elementId: 'fm-truck', label: 'new Truck()', description: 'Truck constructor is invoked by RoadLogistics', descriptionKey: 'factory-method.step.logistics.3', logType: 'CREATE', spawnId: 'obj-fm-truck', spawnLabel: ':Truck', arrowFromId: 'fm-road-logistics' },
+            { elementId: 'obj-fm-truck', label: ':Truck', description: 'Truck instance is returned to planDelivery()', descriptionKey: 'factory-method.step.logistics.4', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },
+            { elementId: 'fm-transport', label: 'Transport.deliver()', description: 'planDelivery() calls deliver() on the returned Transport reference', descriptionKey: 'factory-method.step.logistics.5', logType: 'FLOW', arrowFromId: 'fm-logistics', badgePosition: 'top' },
+            { elementId: 'obj-fm-truck', label: 'Truck.deliver()', description: 'Concrete Truck executes delivery by road', descriptionKey: 'factory-method.step.logistics.6', logType: 'FLOW', arrowFromId: 'fm-transport' },
+            { elementId: 'fm-logistics', label: 'Delivery complete', description: 'planDelivery() finishes — goods delivered by Truck', descriptionKey: 'factory-method.step.logistics.7', logType: 'RESPONSE', arrowFromId: 'obj-fm-truck' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Client: logistics.planDelivery()' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('factory-method.stepLabel.logistics', null, 'Plan delivery — subclass selects transport') }; },
     run: function() {
         PV.animateFlow(PV['factory-method'].logistics.steps(), PV['factory-method'].logistics.stepOptions());
     }
 };
+
+PV['factory-method'].codeExamples = {
+    logistics: {
+        php: `<?php
+declare(strict_types=1);
+
+interface Transport
+{
+    public function deliver(): string;
+}
+
+readonly class Truck implements Transport
+{
+    public function deliver(): string
+    {
+        return 'Delivering by road';
+    }
+}
+
+readonly class Ship implements Transport
+{
+    public function deliver(): string
+    {
+        return 'Delivering by sea';
+    }
+}
+
+abstract class Logistics
+{
+    abstract protected function createTransport(): Transport;
+
+    public function planDelivery(): string
+    {
+        $transport = $this->createTransport();
+        return $transport->deliver();
+    }
+}
+
+class RoadLogistics extends Logistics
+{
+    protected function createTransport(): Transport
+    {
+        return new Truck();
+    }
+}
+
+class SeaLogistics extends Logistics
+{
+    protected function createTransport(): Transport
+    {
+        return new Ship();
+    }
+}
+
+// Client
+$logistics = new RoadLogistics();
+echo $logistics->planDelivery();`,
+
+        go: `package main
+
+import "fmt"
+
+type Transport interface {
+	Deliver() string
+}
+
+type Truck struct{}
+
+func (t Truck) Deliver() string { return "Delivering by road" }
+
+type Ship struct{}
+
+func (s Ship) Deliver() string { return "Delivering by sea" }
+
+type Logistics interface {
+	CreateTransport() Transport
+}
+
+func PlanDelivery(l Logistics) string {
+	transport := l.CreateTransport()
+	return transport.Deliver()
+}
+
+type RoadLogistics struct{}
+
+func (r RoadLogistics) CreateTransport() Transport { return Truck{} }
+
+type SeaLogistics struct{}
+
+func (s SeaLogistics) CreateTransport() Transport { return Ship{} }
+
+func main() {
+	var logistics Logistics = RoadLogistics{}
+	fmt.Println(PlanDelivery(logistics))
+}`,
+
+        python: `from abc import ABC, abstractmethod
+from typing import override
+
+
+class Transport(ABC):
+    @abstractmethod
+    def deliver(self) -> str: ...
+
+
+class Truck(Transport):
+    @override
+    def deliver(self) -> str:
+        return "Delivering by road"
+
+
+class Ship(Transport):
+    @override
+    def deliver(self) -> str:
+        return "Delivering by sea"
+
+
+class Logistics(ABC):
+    @abstractmethod
+    def create_transport(self) -> Transport: ...
+
+    def plan_delivery(self) -> str:
+        transport = self.create_transport()
+        return transport.deliver()
+
+
+class RoadLogistics(Logistics):
+    @override
+    def create_transport(self) -> Transport:
+        return Truck()
+
+
+class SeaLogistics(Logistics):
+    @override
+    def create_transport(self) -> Transport:
+        return Ship()
+
+
+# Client
+logistics: Logistics = RoadLogistics()
+print(logistics.plan_delivery())`,
+
+        rust: `use std::fmt;
+
+trait Transport: fmt::Display {
+    fn deliver(&self) -> &str;
+}
+
+struct Truck;
+impl Transport for Truck {
+    fn deliver(&self) -> &str { "Delivering by road" }
+}
+impl fmt::Display for Truck {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.deliver())
+    }
+}
+
+struct Ship;
+impl Transport for Ship {
+    fn deliver(&self) -> &str { "Delivering by sea" }
+}
+impl fmt::Display for Ship {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.deliver())
+    }
+}
+
+trait Logistics {
+    fn create_transport(&self) -> Box<dyn Transport>;
+
+    fn plan_delivery(&self) -> String {
+        let transport = self.create_transport();
+        transport.deliver().to_string()
+    }
+}
+
+struct RoadLogistics;
+impl Logistics for RoadLogistics {
+    fn create_transport(&self) -> Box<dyn Transport> {
+        Box::new(Truck)
+    }
+}
+
+struct SeaLogistics;
+impl Logistics for SeaLogistics {
+    fn create_transport(&self) -> Box<dyn Transport> {
+        Box::new(Ship)
+    }
+}
+
+fn main() {
+    let logistics: Box<dyn Logistics> = Box::new(RoadLogistics);
+    println!("{}", logistics.plan_delivery());
+}`
+    }
+}

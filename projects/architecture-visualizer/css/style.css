@@ -1,5 +1,42 @@
 /* ===== Architecture Visualizer Styles ===== */
 
+/* ===== Language Switcher ===== */
+.lang-switcher {
+    margin-left: auto;
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+
+.lang-btn {
+    width: 28px;
+    height: 24px;
+    border: 1px solid var(--archv-border, #2a3444);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--archv-text-light, #8892a4);
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    line-height: 24px;
+    text-align: center;
+    font-family: inherit;
+}
+
+.lang-btn:hover {
+    background: var(--archv-accent-light, #1e2248);
+    border-color: var(--archv-accent, #6366F1);
+    color: var(--archv-accent, #6366F1);
+}
+
+.lang-btn.active {
+    background: var(--archv-accent, #6366F1);
+    border-color: var(--archv-accent, #6366F1);
+    color: #fff;
+}
+
 :root {
     --layered-color: #6366F1;
     --layered-bg: #161830;
@@ -158,7 +195,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: 8px;
     background: var(--archv-card-bg);
     border: 1px solid var(--archv-border);
@@ -268,10 +305,7 @@
 }
 
 .speed-value {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--archv-text);
-    min-width: 45px;
+    display: none;
 }
 
 .compare-toggle {
@@ -1928,11 +1962,10 @@
 
 .dep-rules-header {
     padding: 8px 12px;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--archv-text);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--archv-text-light);
     border-bottom: 1px solid var(--archv-border);
     background: var(--archv-bg);
 }
@@ -1984,11 +2017,10 @@
     padding: 8px 12px;
     background: var(--archv-bg);
     border-bottom: 1px solid var(--archv-border);
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--archv-text);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: var(--archv-text-light);
 }
 
 .log-clear-btn {

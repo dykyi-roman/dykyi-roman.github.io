@@ -69,8 +69,8 @@ MBV.copyLog = function() {
     navigator.clipboard.writeText(lines.join('\n')).then(function() {
         const btn = document.getElementById('btn-copy-log');
         if (!btn) return;
-        btn.textContent = 'Copied!';
-        setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+        btn.textContent = I18N.t('ui.btn.copied', null, 'Copied!');
+        setTimeout(function() { btn.textContent = I18N.t('ui.btn.copy', null, 'Copy'); }, 1500);
     });
 };
 

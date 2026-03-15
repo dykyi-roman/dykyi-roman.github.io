@@ -99,7 +99,7 @@
         const config = brokerConfigs[brokerId];
         const tabsEl = document.getElementById('mode-tabs');
         tabsEl.innerHTML = config.modes.map(m =>
-            `<button class="mode-tab" data-mode="${m.id}" role="tab">${m.label}</button>`
+            `<button class="mode-tab" data-mode="${m.id}" role="tab">${I18N.t(brokerId + '.modes.' + m.id + '.label', null, m.label)}</button>`
         ).join('');
 
         tabsEl.querySelectorAll('.mode-tab').forEach(tab => {
@@ -122,19 +122,22 @@
             return;
         }
 
+        var prefix = brokerId + '.details.' + modeId;
         var html = '';
         if (details.principles) {
+            var principles = I18N.ta(prefix + '.principles', details.principles);
             html += '<div class="pattern-details-section">' +
-                '<div class="pattern-details-section-title">Principles</div>' +
+                '<div class="pattern-details-section-title">' + I18N.t('ui.details.principles', null, 'Principles') + '</div>' +
                 '<ul class="pattern-details-list">' +
-                details.principles.map(function(p) { return '<li>' + p + '</li>'; }).join('') +
+                principles.map(function(p) { return '<li>' + p + '</li>'; }).join('') +
                 '</ul></div>';
         }
         if (details.concepts) {
+            var concepts = I18N.to(prefix + '.concepts', details.concepts);
             html += '<div class="pattern-details-section">' +
-                '<div class="pattern-details-section-title">Key Concepts</div>' +
+                '<div class="pattern-details-section-title">' + I18N.t('ui.details.concepts', null, 'Key Concepts') + '</div>' +
                 '<div class="pattern-concepts-grid">' +
-                details.concepts.map(function(c) {
+                concepts.map(function(c) {
                     return '<div class="pattern-concept">' +
                         '<span class="pattern-concept-term">' + c.term + '</span>' +
                         '<span class="pattern-concept-def">' + c.definition + '</span>' +
@@ -161,7 +164,7 @@
         });
 
         // Update pattern description
-        document.getElementById('pattern-desc').textContent = modeConfig ? modeConfig.desc : '';
+        document.getElementById('pattern-desc').textContent = modeConfig ? I18N.t(brokerId + '.modes.' + modeId + '.desc', null, modeConfig.desc) : '';
         updatePatternDetails(brokerId, modeId);
 
         // Reset animations
@@ -218,7 +221,7 @@
         document.getElementById('btn-pause').onclick = () => {
             MBV.state.paused = !MBV.state.paused;
             const btn = document.getElementById('btn-pause');
-            btn.textContent = MBV.state.paused ? '\u25B6 Resume' : '\u23F8 Pause';
+            btn.textContent = MBV.state.paused ? I18N.t('ui.btn.resume', null, '\u25B6 Resume') : I18N.t('ui.btn.pause', null, '\u23F8 Pause');
             const statusEl = document.getElementById('broker-status');
             if (MBV.state.paused) {
                 statusEl.textContent = 'paused';
@@ -235,7 +238,7 @@
         // Reset
         document.getElementById('btn-reset').onclick = () => {
             switchBroker(MBV.state.broker);
-            MBV.log('ACK', 'State reset');
+            MBV.log('ACK', I18N.t('ui.log.reset', null, 'State reset'));
         };
 
         // Copy / Clear Log
@@ -267,14 +270,17 @@
 
     // Init
     document.addEventListener('DOMContentLoaded', () => {
-        setupControls();
-        MBV.startThroughputTracker();
-        const saved = readHash();
-        if (saved) {
-            switchBroker(saved.broker, saved.mode);
-        } else {
-            switchBroker('rabbitmq');
-        }
+        I18N.onReady(function() {
+            setupControls();
+            MBV.startThroughputTracker();
+            I18N.applyToDOM();
+            const saved = readHash();
+            if (saved) {
+                switchBroker(saved.broker, saved.mode);
+            } else {
+                switchBroker('rabbitmq');
+            }
+        });
     });
 
     window.addEventListener('hashchange', () => {
@@ -284,50 +290,34 @@
         }
     });
 
+    window.MBV_refresh = function() { switchBroker(MBV.state.broker, MBV.state.mode); };
+
     /* ===== Sticky Global Controls (fixed on scroll) ===== */
     document.addEventListener('DOMContentLoaded', function() {
         var controls = document.getElementById('global-controls');
         var placeholder = document.getElementById('controls-placeholder');
         if (!controls || !placeholder) return;
 
-        var controlsTop = 0;
-        var controlsHeight = 0;
         var marginBottom = 10;
-        var measured = false;
-
-        function measure() {
-            if (!controls.classList.contains('is-fixed')) {
-                controlsTop = controls.offsetTop;
-                controlsHeight = controls.offsetHeight;
-                measured = controlsTop > 0;
-            }
-        }
 
         function onScroll() {
-            if (!measured) { measure(); }
-            if (!measured) return;
-            if (window.scrollY >= controlsTop) {
-                if (!controls.classList.contains('is-fixed')) {
-                    placeholder.style.height = (controlsHeight + marginBottom) + 'px';
-                    placeholder.classList.add('is-active');
-                    controls.classList.add('is-fixed');
-                }
-            } else {
-                if (controls.classList.contains('is-fixed')) {
+            if (controls.classList.contains('is-fixed')) {
+                var phRect = placeholder.getBoundingClientRect();
+                if (phRect.top >= 0) {
                     controls.classList.remove('is-fixed');
                     placeholder.classList.remove('is-active');
                     placeholder.style.height = '0';
                 }
+            } else {
+                var rect = controls.getBoundingClientRect();
+                if (rect.top <= 0) {
+                    placeholder.style.height = (controls.offsetHeight + marginBottom) + 'px';
+                    placeholder.classList.add('is-active');
+                    controls.classList.add('is-fixed');
+                }
             }
         }
 
-        requestAnimationFrame(function() {
-            measure();
-            if (!measured) {
-                setTimeout(measure, 300);
-            }
-        });
         window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', function() { measured = false; measure(); onScroll(); });
     });
 })();

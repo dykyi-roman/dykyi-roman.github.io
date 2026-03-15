@@ -27,9 +27,9 @@ function renderCleanComponent(id, name, icon, angleDeg, ringSize, tooltip) {
     var py = cy + r * Math.sin(rad);
     var leftPct = (px / ringSize * 100).toFixed(1);
     var topPct = (py / ringSize * 100).toFixed(1);
-    return '<span class="archv-component archv-ring-component" id="' + id + '" ' +
-        (tooltip ? 'data-tooltip="' + tooltip.replace(/"/g, '&quot;') + '" ' : '') +
-        'style="left:' + leftPct + '%;top:' + topPct + '%;">' +
+    return '<span class="archv-component archv-ring-component" id="' + id + '"' +
+        ARCHV.tooltipAttr(id, tooltip) +
+        ' style="left:' + leftPct + '%;top:' + topPct + '%;">' +
         (icon ? '<span class="comp-icon">' + icon + '</span>' : '') +
         name + '</span>';
 }
@@ -41,38 +41,38 @@ function renderClean(entryIcon, entryLabel, outputLabel, outputIcon) {
     canvas.innerHTML =
         '<div class="layout-concentric">' +
             '<div class="archv-ring ring-3" id="ring-frameworks">' +
-                '<span class="archv-ring-label">Frameworks & Drivers</span>' +
+                '<span class="archv-ring-label">' + I18N.t('clean.ring.frameworks', null, 'Frameworks &amp; Drivers') + '</span>' +
                 renderCleanComponent('comp-cl-framework', entryLabel, entryIcon, 205, 520, 'Outermost ring: frameworks and drivers are thin glue code, easily replaceable') +
                 renderCleanComponent('comp-cl-db', 'Database', '&#x1F4BE;', 60, 520, 'External storage detail in the outermost ring, accessed only through Gateways') +
                 renderCleanComponent('comp-cl-ui', outLabel, outIcon, 310, 520, 'Output delivery mechanism in the outermost ring, renders ViewModel data') +
             '</div>' +
             '<div class="archv-ring ring-2" id="ring-adapters">' +
-                '<span class="archv-ring-label">Interface Adapters</span>' +
+                '<span class="archv-ring-label">' + I18N.t('clean.ring.adapters', null, 'Interface Adapters') + '</span>' +
                 renderCleanComponent('comp-cl-controller', 'Controller', '&#x1F3AE;', 185, 410, 'Adapter translating input into request DTOs and calling InputBoundary') +
                 renderCleanComponent('comp-cl-presenter', 'Presenter', '&#x1F4CA;', 310, 410, 'Adapter implementing OutputBoundary, converts use case output to ViewModel') +
                 renderCleanComponent('comp-cl-viewmodel', 'ViewModel', '&#x1F4CB;', 345, 410, 'Plain data structure with display-ready data, no business logic') +
                 renderCleanComponent('comp-cl-gateway', 'Gateway', '&#x1F6AA;', 95, 410, 'Adapter implementing repository interfaces for data access operations') +
             '</div>' +
             '<div class="archv-ring ring-1" id="ring-usecases">' +
-                '<span class="archv-ring-label">Use Cases</span>' +
+                '<span class="archv-ring-label">' + I18N.t('clean.ring.usecases', null, 'Use Cases') + '</span>' +
                 renderCleanComponent('comp-cl-input-boundary', 'InputBoundary (I)', '&#x1F6E1;', 150, 290, 'Interface for incoming requests. Controllers call this to invoke use cases.') +
                 renderCleanComponent('comp-cl-usecase', 'UseCase', '&#x2699;', 90, 290, 'Application-specific business logic orchestrator at the center') +
                 renderCleanComponent('comp-cl-output-boundary', 'OutputBoundary (I)', '&#x1F4E4;', 10, 290, 'Interface for outgoing results. UseCase calls this to pass data outward.') +
             '</div>' +
             '<div class="archv-ring ring-0" id="ring-entities">' +
-                '<span class="archv-ring-label">Entities</span>' +
-                '<span class="archv-component archv-ring-component" id="comp-cl-entity" ' +
-                    'data-tooltip="Enterprise-wide business rules at the innermost core, independent of everything" ' +
-                    'style="left:50%;top:45%;">' +
+                '<span class="archv-ring-label">' + I18N.t('clean.ring.entities', null, 'Entities') + '</span>' +
+                '<span class="archv-component archv-ring-component" id="comp-cl-entity"' +
+                    ARCHV.tooltipAttr('comp-cl-entity', 'Enterprise-wide business rules at the innermost core, independent of everything') +
+                    ' style="left:50%;top:45%;">' +
                     '<span class="comp-icon">&#x1F4CB;</span>Entity</span>' +
             '</div>' +
             '<span class="archv-dep-direction" style="position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:10px;color:#8892a4;letter-spacing:0.5px;white-space:nowrap;">' +
-                '&#x27A1; Dependencies point INWARD &#x2B05;' +
+                '&#x27A1; ' + I18N.t('clean.dep_direction', null, 'Dependencies point INWARD') + ' &#x2B05;' +
             '</span>' +
         '</div>' +
         '<div class="archv-flow-legend" style="margin-top: 30px;">' +
-            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Inward)</div>' +
-            '<div class="legend-item"><span class="legend-line-response"></span> Response (Outward)</div>' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.sync_inward', null, 'Sync (Inward)') + '</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.response_outward', null, 'Response (Outward)') + '</div>' +
         '</div>';
 }
 
@@ -175,7 +175,7 @@ ARCHV.clean.http = {
     init: function() { renderClean('&#x1F310;', 'HTTP Server'); },
     steps: function() {
         return [
-            { elementId: 'comp-cl-framework', label: 'HTTP Server', description: 'Request enters framework layer', logType: 'REQUEST', layerId: 'ring-frameworks' },
+            { elementId: 'comp-cl-framework', label: 'HTTP Server', description: 'GET /api/users/1 arrives at outermost ring — framework is a replaceable detail', descriptionKey: 'clean.step.http.0', logType: 'REQUEST', layerId: 'ring-frameworks' },
             { elementId: 'comp-cl-controller', label: 'Controller', description: 'Parse input, create Request DTO', logType: 'LAYER', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-input-boundary', label: 'InputBoundary', description: 'Cross boundary via interface (Controller → UseCase)', logType: 'LAYER', layerId: 'ring-usecases' },
             { elementId: 'comp-cl-usecase', label: 'UseCase', description: 'Execute application logic', logType: 'LAYER', layerId: 'ring-usecases' },
@@ -189,7 +189,7 @@ ARCHV.clean.http = {
             { elementId: 'comp-cl-ui', label: 'Web/UI', description: 'Render ViewModel response', logType: 'RESPONSE', layerId: 'ring-frameworks' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'HTTP GET /api/users/1' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('clean.requestLabel.http', null, 'Clean: request traverses rings inward — Frameworks → Adapters → Use Cases → Entities') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.clean.http.steps(), ARCHV.clean.http.stepOptions());
     }
@@ -199,7 +199,7 @@ ARCHV.clean.console = {
     init: function() { renderClean('&#x1F4BB;', 'CLI Framework', 'Console', '&#x1F4BB;'); },
     steps: function() {
         return [
-            { elementId: 'comp-cl-framework', label: 'CLI Framework', description: 'Console command received', logType: 'REQUEST', layerId: 'ring-frameworks' },
+            { elementId: 'comp-cl-framework', label: 'CLI Framework', description: 'migrate:run enters CLI framework — outermost ring, interchangeable detail', descriptionKey: 'clean.step.console.0', logType: 'REQUEST', layerId: 'ring-frameworks' },
             { elementId: 'comp-cl-controller', label: 'Controller', description: 'Parse CLI arguments', logType: 'LAYER', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-input-boundary', label: 'InputBoundary', description: 'Cross boundary via interface', logType: 'LAYER', layerId: 'ring-usecases' },
             { elementId: 'comp-cl-usecase', label: 'UseCase', description: 'Execute use case logic', logType: 'LAYER', layerId: 'ring-usecases' },
@@ -213,7 +213,7 @@ ARCHV.clean.console = {
             { elementId: 'comp-cl-ui', label: 'Console', description: 'Print output to console', logType: 'RESPONSE', layerId: 'ring-frameworks' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'CLI: migrate:run' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('clean.requestLabel.console', null, 'Clean: CLI enters outermost ring — same Use Cases and Entities serve any delivery mechanism') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.clean.console.steps(), ARCHV.clean.console.stepOptions());
     }
@@ -223,7 +223,7 @@ ARCHV.clean.message = {
     init: function() { renderClean('&#x1F4E9;', 'Queue Driver', 'Queue ACK', '&#x2705;'); },
     steps: function() {
         return [
-            { elementId: 'comp-cl-framework', label: 'Queue Driver', description: 'Message from queue', logType: 'REQUEST', layerId: 'ring-frameworks' },
+            { elementId: 'comp-cl-framework', label: 'Queue Driver', description: 'user.registered message consumed — queue driver in outermost ring', descriptionKey: 'clean.step.message.0', logType: 'REQUEST', layerId: 'ring-frameworks' },
             { elementId: 'comp-cl-controller', label: 'Controller', description: 'Deserialize message payload', logType: 'LAYER', layerId: 'ring-adapters' },
             { elementId: 'comp-cl-input-boundary', label: 'InputBoundary', description: 'Cross boundary via interface', logType: 'LAYER', layerId: 'ring-usecases' },
             { elementId: 'comp-cl-usecase', label: 'UseCase', description: 'Handle async task', logType: 'LAYER', layerId: 'ring-usecases' },
@@ -237,7 +237,7 @@ ARCHV.clean.message = {
             { elementId: 'comp-cl-ui', label: 'Queue ACK', description: 'Acknowledge message to broker', logType: 'RESPONSE', layerId: 'ring-frameworks' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Message: user.registered' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('clean.requestLabel.message', null, 'Clean: message consumed at outermost ring — queue driver is a framework detail') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.clean.message.steps(), ARCHV.clean.message.stepOptions());
     }

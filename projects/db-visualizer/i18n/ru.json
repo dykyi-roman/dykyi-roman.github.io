@@ -1,0 +1,493 @@
+{
+  "db.title": "Визуализатор индексов БД",
+  "db.pattern.placeholder": "Выберите режим, чтобы увидеть описание индекса.",
+  "db.ui.tooltip.run": "Выполнить запрос через индекс",
+  "db.ui.tooltip.burst": "Запустить 5 запросов подряд",
+  "db.ui.tooltip.miss": "Следующий запрос пропустит индекс (полный скан)",
+  "db.ui.tooltip.reset": "Сбросить всё состояние",
+  "db.stats.zero": "0",
+  "db.stats.time.zero": "0 мс",
+  "db.stats.time.value": "{value} мс",
+  "db.index.status.ready": "готов",
+  "db.index.status.scanning": "поиск",
+  "db.index.status.miss": "промах",
+  "db.comparison.index_scan": "Сканирование по индексу",
+  "db.comparison.full_scan": "Полный скан таблицы",
+  "db.log.miss.next_query": "Следующий запрос обойдет индекс (полный скан таблицы)",
+  "db.query_card.query": "Запрос",
+  "db.query_card.command": "Команда",
+  "db.query_card.execute": "Выполнить",
+  "db.data_page.page": "Страница {number}",
+  "db.data_page.documents": "Документы",
+  "db.data_page.heap_tuples": "Кортежи heap",
+  "db.data_page.jsonb_documents": "Документы JSONB",
+  "db.data_page.points": "Точки",
+  "db.data_page.redis.members": "Участники ZSET",
+  "db.data_page.redis.hash_users": "HASH user:*",
+
+  "db.terms": {
+    "elemmatch": "$elemMatch",
+    "access_type": "Тип доступа",
+    "adaptive_hash": "Адаптивный хеш",
+    "array_expansion": "Расширение массива",
+    "bgsave_guard": "Защита BGSAVE",
+    "bitmap_page": "Битовая страница",
+    "block_range": "Диапазон блоков",
+    "boolean_mode": "Булев режим",
+    "bounding_box": "Ограничивающий прямоугольник",
+    "bucket": "Корзина",
+    "bucket_page": "Страница корзины",
+    "clustered_index": "Кластерный индекс",
+    "collection_scan": "Сканирование коллекции",
+    "collision": "Коллизия",
+    "composite_key": "Составной ключ",
+    "compound_multikey": "Составной multikey",
+    "consistent_fn": "Функция consistent",
+    "correlation": "Корреляция",
+    "cost_estimate": "Оценка стоимости",
+    "covered_query": "Покрывающий запрос",
+    "covering_index": "Покрывающий индекс",
+    "esr_rule": "Правило ESR",
+    "entry_tree": "Дерево записей",
+    "fan_out": "Фан-аут",
+    "fast_update": "Fast Update",
+    "hot_update": "HOT-обновление",
+    "hash_function": "Хеш-функция",
+    "heap_tid": "Heap TID",
+    "index_bounds": "Границы индекса",
+    "index_scan": "Сканирование индекса",
+    "index_selection": "Выбор индекса",
+    "index_size": "Размер индекса",
+    "index_skip_scan": "Сканирование Index Skip",
+    "inverted_index": "Инвертированный индекс",
+    "knn_search": "Поиск KNN",
+    "leftmost_prefix": "Левый префикс",
+    "level": "Уровень",
+    "load_factor": "Коэффициент загрузки",
+    "lossy_scan": "Неточное сканирование",
+    "mvcc": "MVCC",
+    "manual_index": "Ручной индекс",
+    "meta_page": "Мета-страница",
+    "multikey_flag": "Флаг multikey",
+    "o_1_lookup": "Поиск O(1)",
+    "overflow_page": "Страница переполнения",
+    "page_block": "Страница / блок",
+    "page_split": "Расщепление страницы",
+    "penalty": "Penalty",
+    "picksplit": "Picksplit",
+    "posting_list": "Список постингов",
+    "posting_tree": "Дерево постингов",
+    "prefix_rule": "Правило префикса",
+    "progressive_rehash": "Постепенное перехеширование",
+    "r_tree": "R-Tree",
+    "recordid": "RecordId",
+    "redisearch": "RediSearch",
+    "revmap": "Revmap",
+    "score": "Счёт",
+    "selectivity": "Селективность",
+    "skip_list": "Skip list",
+    "sort_direction": "Направление сортировки",
+    "sparse_index": "Разреженный индекс",
+    "split": "Сплит",
+    "stemming": "Стемминг",
+    "stopwords": "Стоп-слова",
+    "summary_tuple": "Сводный кортеж",
+    "tf_idf": "TF-IDF",
+    "term_weight": "Вес термина",
+    "text_score": "Текстовый балл",
+    "using_filesort": "Using filesort",
+    "using_index": "Using index",
+    "vacuum": "VACUUM",
+    "visibility_map": "Карта видимости",
+    "wildcard_text": "Текстовый wildcard",
+    "zadd": "ZADD",
+    "zrangebylex": "ZRANGEBYLEX",
+    "zrangebyscore": "ZRANGEBYSCORE",
+    "ziplist_encoding": "Ziplist",
+    "ht_0_ht_1": "ht[0] / ht[1]"
+  },
+
+  "db.index.mysql.btree": "B+Tree (id)",
+  "db.index.mysql.hash": "Хеш-индекс (email)",
+  "db.index.mysql.composite": "Составной (city, age, name)",
+  "db.index.mysql.fulltext": "Полнотекстовый (инверт.)",
+  "db.index.mysql.explain": "EXPLAIN-анализатор",
+  "db.index.postgresql.btree": "B-Tree + MVCC",
+  "db.index.postgresql.hash": "Hash Index (4 страницы)",
+  "db.index.postgresql.gin": "GIN (JSONB)",
+  "db.index.postgresql.gist": "GiST (R-Tree)",
+  "db.index.postgresql.brin": "BRIN (min/max)",
+  "db.index.mongodb.single": "B-Tree (age)",
+  "db.index.mongodb.compound": "Составной (city, age)",
+  "db.index.mongodb.multikey": "Multikey (tags)",
+  "db.index.mongodb.text": "Text Index (bio)",
+  "db.index.redis.zset": "Skip List (ZSET)",
+  "db.index.redis.hash": "Hash (rehashing)",
+  "db.index.redis.secondary": "Вторичные индексы",
+
+  "db.mysql.explain.step.parser.title": "Парсер",
+  "db.mysql.explain.step.parser.detail": "Ожидаем запрос...",
+  "db.mysql.explain.step.optimizer.title": "Оптимизатор",
+  "db.mysql.explain.step.optimizer.detail": "Анализ стоимости",
+  "db.mysql.explain.step.index.title": "Выбор индекса",
+  "db.mysql.explain.step.index.detail": "Выбор метода доступа",
+  "db.mysql.explain.step.exec.title": "Выполнение",
+  "db.mysql.explain.step.exec.detail": "Запуск плана",
+  "db.mysql.explain.output.header": "Результат EXPLAIN",
+  "db.mysql.explain.output.placeholder": "Выполните запрос, чтобы увидеть план.",
+  "db.mysql.explain.step.parser.parsing": "Разбор: {sample}...",
+  "db.mysql.explain.step.optimizer.running": "Оценка стоимости: {cost} | тип: {type}",
+  "db.mysql.explain.step.index.chosen": "ключ: {key} | возможные: {possible}",
+  "db.mysql.explain.step.exec.info": "строк={rows}, extra=\"{extra}\"",
+
+  "db.mysql.composite.panel.title": "Правило крайнего левого префикса:",
+  "db.mysql.composite.panel.desc": "INDEX(city, age, name) поддерживает: <span style=\"color:#6fcf97\">(city)</span>, <span style=\"color:#6fcf97\">(city, age)</span>, <span style=\"color:#6fcf97\">(city, age, name)</span>. <span style=\"color:#f38ba8\">НЕ (age)</span>, <span style=\"color:#f38ba8\">НЕ (age, name)</span>, <span style=\"color:#f38ba8\">НЕ (name)</span>.",
+  "db.mongodb.compound.panel.title": "Правило префикса:",
+  "db.mongodb.compound.panel.desc": "Индекс {city:1, age:1} поддерживает: <span style=\"color:#6fcf97\">{city}</span>, <span style=\"color:#6fcf97\">{city, age}</span>, <span style=\"color:#6fcf97\">{city}.sort({age})</span>. <span style=\"color:#f38ba8\">НЕ {age} отдельно</span>.",
+  "db.redis.secondary.panel.title": "Паттерн:",
+  "db.redis.secondary.panel.desc": "Основные данные в HASH (user:*). ZSET-индексы: score=значение поля, member=user:id. Запрос: ZRANGEBYSCORE \u2192 получить id \u2192 HGETALL.",
+
+  "db.pg.btree.mvcc.title": "Информация MVCC",
+  "db.pg.btree.mvcc.tx": "Текущий TxID:",
+  "db.pg.btree.mvcc.dead": "Мёртвых кортежей:",
+  "db.pg.btree.mvcc.hint": "Зачёркнутые строки = мёртвые кортежи (нужен VACUUM)",
+  "db.pg.brin.block_header": "Диапазоны блоков (pages_per_range=100)",
+  "db.pg.brin.card.title": "Таблица: events",
+  "db.pg.brin.card.total": "Всего строк: {count}",
+  "db.pg.brin.card.blocks": "Блоков: {count}",
+  "db.pg.brin.card.correlation": "Корреляция: {value} (упорядочено)",
+  "db.pg.brin.card.brin_size": "Размер BRIN: <span style=\"color:#6fcf97\">{value}</span>",
+  "db.pg.brin.card.btree_size": "Размер B-Tree: <span style=\"color:#f38ba8\">{value}</span>",
+
+  "db.redis.hash.rehash.title": "Статус перехеширования",
+  "db.redis.hash.rehash.ht0": "ht[0] корзин: {count}",
+  "db.redis.hash.rehash.ht1": "ht[1] корзин: {count}",
+  "db.redis.hash.rehash.index": "Индекс перехеша:",
+  "db.redis.hash.rehash.load": "Коэффициент загрузки:",
+  "db.redis.hash.rehash.inactive": "нет",
+  "db.redis.hash.rehash.complete": "готово",
+
+  "db.log.units.rows.one": "строка",
+  "db.log.units.rows.few": "строки",
+  "db.log.units.rows.many": "строк",
+  "db.log.units.rows.other": "строки",
+  "db.log.units.documents.one": "документ",
+  "db.log.units.documents.few": "документа",
+  "db.log.units.documents.many": "документов",
+  "db.log.units.documents.other": "документа",
+  "db.log.units.members.one": "участник",
+  "db.log.units.members.few": "участника",
+  "db.log.units.members.many": "участников",
+  "db.log.units.members.other": "участника",
+  "db.log.units.tuples.one": "кортеж",
+  "db.log.units.tuples.few": "кортежа",
+  "db.log.units.tuples.many": "кортежей",
+  "db.log.units.tuples.other": "кортежа",
+
+  "db.log.rows.returned": "Q{qid}: возвращено {count} {unit}",
+  "db.log.rows.returned_index": "Q{qid}: {count} {unit} возвращено через индекс",
+  "db.log.docs.seq_scan": "Q{qid}: найдено {count} {unit} при последовательном сканировании",
+  "db.log.docs.matched": "Q{qid}: совпало {count} {unit}",
+  "db.log.mysql.hash.bucket_found": "Q{qid}: найдено в корзине {bucket}, возвращено {count} {unit}",
+  "db.log.mongodb.collscan": "Q{qid}: {count} {unit} через COLLSCAN",
+  "db.log.mongodb.ixscan": "Q{qid}: {count} {unit} через IXSCAN",
+  "db.log.mongodb.text_ranked": "Q{qid}: {count} {unit} совпало, отсортировано по TF-IDF",
+  "db.log.redis.linear_scan": "Q{qid}: линейный скан — найдено {count} {unit}, проверено {total}",
+  "db.log.redis.range_score": "Q{qid}: {count} {unit} в диапазоне [{low}, {high}]",
+  "db.log.redis.range_rank": "Q{qid}: {count} {unit} на позициях [{start}, {stop}]",
+  "db.log.pg.gin_docs": "Q{qid}: найдено {count} {unit} через GIN",
+  "db.log.pg.visibility": "Q{qid}: видимых {visible} {visibleUnit}, мёртвых {dead} {deadUnit}",
+
+  "mysql.name": "MySQL",
+  "mysql.modes.btree.label": "B-Tree Index",
+  "mysql.modes.btree.desc": "Обход B+Tree: root → internal nodes → leaf → data page. Индекс сужает поиск с O(n) до O(log n). Сравните с Full Table Scan, чтобы увидеть разницу.",
+  "mysql.modes.btree.principles": [
+    "B+Tree хранит все данные в листовых узлах; внутренние узлы содержат только ключи и указатели для навигации",
+    "Дерево остаётся сбалансированным после каждого INSERT/DELETE благодаря расщеплению и слиянию страниц, гарантируя O(log n) поиск",
+    "Листовые узлы связаны двусвязным списком, обеспечивая эффективное сканирование диапазонов без возврата назад",
+    "InnoDB организует строки по первичному ключу (clustered index); вторичные индексы хранят значения PK, а не указатели на строки",
+    "Размер страницы (по умолчанию 16 КБ) определяет fan-out: больше fan-out = меньше уровней = меньше чтений с диска"
+  ],
+  "mysql.modes.btree.concepts": [
+    { "term": "Page / Block", "definition": "Минимальная единица ввода-вывода (16 КБ в InnoDB). Каждый узел дерева занимает одну страницу. Меньше прочитанных страниц = быстрее запрос." },
+    { "term": "Fan-out", "definition": "Количество дочерних указателей во внутреннем узле. Высокий fan-out сохраняет дерево неглубоким (3–4 уровня для миллиардов строк)." },
+    { "term": "Clustered Index", "definition": "Таблица InnoDB — это и есть B+Tree, упорядоченное по первичному ключу. Данные строк находятся в листовых страницах. Только один на таблицу." },
+    { "term": "Covering Index", "definition": "Индекс, содержащий все столбцы, необходимые запросу. Позволяет избежать обращения к clustered index (без «bookmark lookup»)." },
+    { "term": "Page Split", "definition": "Когда листовая страница заполнена и нужно вставить новый ключ, страница расщепляется на две. Со временем вызывает фрагментацию." }
+  ],
+
+  "mysql.modes.hash.label": "Hash Index",
+  "mysql.modes.hash.desc": "Хеш-функция отображает ключ в корзину для поиска за O(1). Поддерживает только запросы на равенство (=). Запросы диапазонов (>, <, BETWEEN) не могут использовать hash-индексы.",
+  "mysql.modes.hash.principles": [
+    "Hash-индекс отображает ключ через хеш-функцию непосредственно в корзину для O(1) поиска по равенству в среднем случае",
+    "Поддерживает только предикаты равенства (=, IN); не может использоваться для запросов диапазонов, ORDER BY или частичного совпадения",
+    "Хеш-коллизии разрешаются цепочкой записей в одной корзине",
+    "В MySQL только движок MEMORY поддерживает явные hash-индексы; InnoDB использует adaptive hash index внутренне",
+    "Adaptive Hash Index (AHI) в InnoDB создаётся автоматически для горячих страниц — не управляется вручную"
+  ],
+  "mysql.modes.hash.concepts": [
+    { "term": "Hash Function", "definition": "Отображает произвольный ключ в фиксированный номер корзины. Хорошие функции равномерно распределяют ключи по корзинам." },
+    { "term": "Bucket", "definition": "Слот в хеш-таблице. Содержит одну или несколько записей (через цепочку), имеющих одинаковое хеш-значение." },
+    { "term": "Collision", "definition": "Два разных ключа хешируются в одну корзину. Разрешается цепочкой или открытой адресацией." },
+    { "term": "Adaptive Hash", "definition": "InnoDB автоматически строит хеш-индекс в памяти для часто используемых листовых страниц B-Tree. Прозрачно для пользователя." },
+    { "term": "O(1) Lookup", "definition": "Доступ за константное время независимо от размера таблицы — главное преимущество hash-индексов для точечных запросов." }
+  ],
+
+  "mysql.modes.composite.label": "Composite Index",
+  "mysql.modes.composite.desc": "Многостолбцовый индекс следует правилу крайнего левого префикса. INDEX(a, b, c) может использоваться для запросов по (a), (a,b) или (a,b,c), но НЕ по (b,c) отдельно.",
+  "mysql.modes.composite.principles": [
+    "Составной индекс INDEX(a, b, c) следует правилу крайнего левого префикса: применим для (a), (a,b) или (a,b,c), но НЕ для (b,c) отдельно",
+    "Порядок столбцов важен: размещайте столбцы с высокой селективностью и предикатами равенства первыми для лучшей фильтрации",
+    "Предикат диапазона на столбце N блокирует использование индекса для столбцов N+1, N+2 и т.д.",
+    "Составные индексы могут удовлетворять ORDER BY, если порядок сортировки совпадает с порядком столбцов индекса",
+    "Правило ESR (Equality, Sort, Range) определяет оптимальный порядок столбцов в составных индексах"
+  ],
+  "mysql.modes.composite.concepts": [
+    { "term": "Leftmost Prefix", "definition": "Индекс (a,b,c) может обслуживать запросы по (a), (a,b), (a,b,c), но не по (b), (c) или (b,c). Должен начинаться слева." },
+    { "term": "Selectivity", "definition": "Отношение уникальных значений к общему числу строк. Высокая селективность (много уникальных значений) означает лучшую фильтрацию." },
+    { "term": "Index Skip Scan", "definition": "Оптимизация MySQL 8.0+: позволяет использовать составной индекс, даже когда ведущий столбец пропущен, если он имеет мало уникальных значений." },
+    { "term": "ESR Rule", "definition": "Сначала столбцы Equality, затем Sort, затем Range — оптимальный порядок для проектирования составных индексов." },
+    { "term": "Covering Index", "definition": "Составной индекс, включающий все столбцы, на которые ссылается запрос, устраняя необходимость обращения к таблице." }
+  ],
+
+  "mysql.modes.fulltext.label": "Full-Text Index",
+  "mysql.modes.fulltext.desc": "Инвертированный индекс: текст разбивается на слова, каждое слово отображается в список идентификаторов документов (posting list). Поддерживает запросы MATCH...AGAINST.",
+  "mysql.modes.fulltext.principles": [
+    "Полнотекстовый индекс создаёт инвертированный индекс: каждое слово отображается в posting list — список документов, где оно встречается",
+    "Текст токенизируется парсером, затем фильтруется (удаляются стоп-слова, применяется минимальная длина слова)",
+    "Поддерживает три режима поиска: Natural Language (ранжирование по релевантности), Boolean (операторы +, -, *) и Query Expansion",
+    "Полнотекстовый индекс InnoDB использует вспомогательные таблицы с FTS_DOC_ID для отслеживания документов",
+    "Полнотекстовый поиск вычисляет оценки релевантности на основе TF-IDF (Term Frequency — Inverse Document Frequency)"
+  ],
+  "mysql.modes.fulltext.concepts": [
+    { "term": "Inverted Index", "definition": "Отображает каждое уникальное слово в список документов, содержащих его. Основная структура данных полнотекстового поиска." },
+    { "term": "Posting List", "definition": "Для каждого слова хранит список идентификаторов документов (и позиций), где это слово встречается." },
+    { "term": "Stopwords", "definition": "Общеупотребительные слова (the, is, at), исключённые из индексации, так как встречаются в слишком многих документах." },
+    { "term": "TF-IDF", "definition": "Term Frequency × Inverse Document Frequency. Слова, частые в документе, но редкие в целом, получают более высокую релевантность." },
+    { "term": "Boolean Mode", "definition": "Позволяет использовать операторы: + (обязательно включить), - (обязательно исключить), * (подстановка), \"\" (точная фраза) для точного управления поиском." }
+  ],
+
+  "mysql.modes.explain.label": "EXPLAIN Plan",
+  "mysql.modes.explain.desc": "Query → Parser → Optimizer → Index Selection → Access Method. EXPLAIN показывает, как MySQL планирует выполнить ваш запрос, включая оценки стоимости.",
+  "mysql.modes.explain.principles": [
+    "EXPLAIN показывает план выполнения, выбранный оптимизатором — какие индексы, порядок соединений и методы доступа будут использованы",
+    "Оптимизатор оценивает несколько планов и выбирает с наименьшей расчётной стоимостью (на основе статистики)",
+    "Ключевые столбцы для проверки: type (метод доступа), key (выбранный индекс), rows (оценочное число строк), Extra (дополнительная информация)",
+    "Типы доступа от лучшего к худшему: system > const > eq_ref > ref > range > index > ALL",
+    "EXPLAIN ANALYZE (MySQL 8.0.18+) реально выполняет запрос и показывает фактическое vs оценочное количество строк"
+  ],
+  "mysql.modes.explain.concepts": [
+    { "term": "Access Type", "definition": "Как MySQL обращается к таблице: ALL (полное сканирование), index (полное сканирование индекса), range (диапазон по индексу), ref (поиск по индексу), const (одна строка)." },
+    { "term": "Cost Estimate", "definition": "Оптимизатор назначает стоимость каждому плану на основе I/O и CPU. Меньшая стоимость = предпочтительный план. Основано на статистике таблицы." },
+    { "term": "Index Selection", "definition": "Оптимизатор выбирает индекс, отфильтровывающий наибольшее число строк. Может выбрать полное сканирование, если селективность индекса низкая." },
+    { "term": "Using filesort", "definition": "Появляется в Extra, когда MySQL сортирует результаты вне индекса. Часто указывает на отсутствующий или несоответствующий индекс." },
+    { "term": "Using index", "definition": "Появляется в Extra, когда запрос полностью удовлетворяется из индекса (covering index) — без обращения к данным таблицы." }
+  ],
+
+  "postgresql.name": "PostgreSQL",
+  "postgresql.modes.btree.label": "B-Tree",
+  "postgresql.modes.btree.desc": "B-Tree PostgreSQL с видимостью MVCC. Каждый кортеж имеет xmin/xmax (идентификаторы транзакций). Мёртвые кортежи от старых транзакций остаются до VACUUM.",
+  "postgresql.modes.btree.principles": [
+    "B-Tree PostgreSQL хранит heap TID (идентификаторы кортежей) в листовых узлах, а не сами данные строк",
+    "MVCC означает, что каждый кортеж несёт xmin/xmax (идентификаторы транзакций) — видимость проверяется при чтении, а не при записи",
+    "Мёртвые кортежи (от UPDATE/DELETE) остаются в страницах индекса, пока VACUUM их не удалит",
+    "HOT (Heap-Only Tuple) обновления избегают модификации индекса, когда индексированные столбцы не изменяются",
+    "Дедупликация (v13+) сжимает дублирующиеся ключевые записи в листовых страницах, значительно уменьшая размер индекса"
+  ],
+  "postgresql.modes.btree.concepts": [
+    { "term": "Heap TID", "definition": "Tuple Identifier (номер блока + смещение). Указывает из листовой записи индекса на реальную строку в heap-таблице." },
+    { "term": "MVCC", "definition": "Multi-Version Concurrency Control. Читатели никогда не блокируют писателей. Каждая транзакция видит согласованный снимок данных." },
+    { "term": "VACUUM", "definition": "Освобождает пространство от мёртвых кортежей. Без него таблицы и индексы разрастаются. Autovacuum запускается периодически." },
+    { "term": "Visibility Map", "definition": "Битовая карта, отслеживающая, какие heap-страницы содержат только видимые для всех кортежи. Позволяет index-only scan пропускать обращения к heap." },
+    { "term": "HOT Update", "definition": "Обновление Heap-Only Tuple. Когда индексированный столбец не изменяется, новый кортеж размещается на той же странице — обновление индекса не требуется." }
+  ],
+
+  "postgresql.modes.hash.label": "Hash Index",
+  "postgresql.modes.hash.desc": "Hash-индекс PostgreSQL использует 4-страничную структуру: мета-страница, страницы корзин, страницы переполнения, битовые страницы. O(1) поиск только по равенству.",
+  "postgresql.modes.hash.principles": [
+    "Hash-индекс PostgreSQL использует 4-страничную структуру: мета-страница, основные корзины, страницы переполнения и битовые страницы",
+    "Поддерживает только сравнения на равенство (=); не может выполнять диапазоны, сортировку или многостолбцовые операции",
+    "Начиная с PostgreSQL 10, hash-индексы записываются в WAL и устойчивы к сбоям (ранее это было не так)",
+    "Количество корзин удваивается при превышении порога нагрузки — расщепление выполняется инкрементально",
+    "Hash-индексы меньше B-Tree для простых поисков по равенству на больших текстовых столбцах"
+  ],
+  "postgresql.modes.hash.concepts": [
+    { "term": "Meta Page", "definition": "Страница 0 hash-индекса. Хранит количество корзин, high mask, low mask и другую управляющую информацию." },
+    { "term": "Bucket Page", "definition": "Основное хранилище hash-записей. Каждая корзина содержит кортежи, чьё хеш-значение отображается в номер этой корзины." },
+    { "term": "Overflow Page", "definition": "Присоединяется к корзине, когда в ней заканчивается место. Образует связный список от основной страницы корзины." },
+    { "term": "Bitmap Page", "definition": "Отслеживает, какие страницы переполнения в данный момент используются. Обеспечивает эффективное выделение и освобождение." },
+    { "term": "Split", "definition": "Когда коэффициент нагрузки превышает порог, одна корзина разделяется на две. Кортежи перехешируются в новую корзину." }
+  ],
+
+  "postgresql.modes.gin.label": "GIN Index",
+  "postgresql.modes.gin.desc": "Generalized Inverted Index для JSONB, массивов и полнотекстового поиска. Отображает каждый ключ/элемент в posting list из heap TID.",
+  "postgresql.modes.gin.principles": [
+    "GIN (Generalized Inverted Index) отображает каждый элемент/ключ в отсортированный список heap TID (posting list)",
+    "Идеален для многозначных типов данных: массивы, JSONB, tsvector (полнотекстовый поиск), hstore",
+    "Дерево записей — это B-Tree ключей; каждый ключ указывает на posting tree или сжатый posting list",
+    "Pending list + fastupdate: новые записи накапливаются в pending list и объединяются с основным индексом позже",
+    "GIN поддерживает пересечение и объединение posting list для многоключевых запросов (AND/OR)"
+  ],
+  "postgresql.modes.gin.concepts": [
+    { "term": "Entry Tree", "definition": "B-Tree извлечённых ключей (слов, элементов массива, путей JSONB). Каждый лист указывает на posting list или posting tree." },
+    { "term": "Posting List", "definition": "Отсортированный массив heap TID для данного ключа. Хранится inline в листе записи, если достаточно мал." },
+    { "term": "Posting Tree", "definition": "Когда posting list становится слишком большим, он превращается в отдельный B-Tree из TID для эффективного поиска и обновления." },
+    { "term": "Fast Update", "definition": "Новые кортежи попадают в pending list (неотсортированный). Периодически объединяются с основной структурой GIN при VACUUM или заполнении списка." },
+    { "term": "Consistent fn", "definition": "Функция класса операторов, проверяющая, удовлетворяет ли данный ключ запросу. Используется при сканировании индекса для фильтрации результатов." }
+  ],
+
+  "postgresql.modes.gist.label": "GiST Index",
+  "postgresql.modes.gist.desc": "Generalized Search Tree для геометрических и интервальных данных. Использует ограничивающие рамки в древовидной структуре. Поддерживает contains, overlaps, nearest-neighbor.",
+  "postgresql.modes.gist.principles": [
+    "GiST (Generalized Search Tree) — это сбалансированное дерево, где каждая запись представляет ограничивающую область (предикат)",
+    "Поддерживает запросы ближайшего соседа, включения, пересечения и перекрытия для геометрических/интервальных данных",
+    "Внутренние узлы хранят ограничивающие рамки, охватывающие все дочерние записи — поиск отсекает ветви, не пересекающиеся с запросом",
+    "Расширяемый: пользовательские типы данных могут определять свои методы consistent, union, penalty и picksplit",
+    "GiST-индексы поддерживают ограничения исключения (например, запрет пересекающихся временных интервалов в таблице расписаний)"
+  ],
+  "postgresql.modes.gist.concepts": [
+    { "term": "Bounding Box", "definition": "Минимальная охватывающая область для набора записей. Внутренние узлы используют ограничивающие рамки для определения, какие поддеревья обыскивать." },
+    { "term": "R-Tree", "definition": "Наиболее распространённая специализация GiST. Хранит пространственные данные с прямоугольными ограничивающими рамками для 2D-точек и полигонов." },
+    { "term": "Penalty", "definition": "Функция, оценивающая стоимость вставки записи в поддерево. GiST выбирает поддерево с наименьшим штрафом." },
+    { "term": "Picksplit", "definition": "Определяет, как разделить переполненную страницу на две группы. Хорошие разбиения минимизируют перекрытие ограничивающих рамок." },
+    { "term": "KNN Search", "definition": "Запрос K ближайших соседей. GiST обходит дерево по приоритету расстояния, возвращая ближайшие элементы первыми." }
+  ],
+
+  "postgresql.modes.brin.label": "BRIN Index",
+  "postgresql.modes.brin.desc": "Block Range Index хранит min/max на диапазон блоков. Крайне компактный индекс, лучше всего подходит для естественно упорядоченных (коррелированных) данных, таких как временные метки.",
+  "postgresql.modes.brin.principles": [
+    "BRIN хранит сводные данные (min/max) для диапазонов физических блоков таблицы — крайне компактный индекс",
+    "Лучше всего работает, когда данные на диске естественно упорядочены (коррелированы): временные метки, serial ID, append-only таблицы",
+    "Параметр pages_per_range управляет гранулярностью: меньше = точнее, но больше индекс",
+    "BRIN не может указать точные строки — он определяет диапазоны-кандидаты, которые необходимо перепроверить",
+    "Для некоррелированных данных BRIN бесполезен, так как каждый диапазон будет содержать полный спектр значений"
+  ],
+  "postgresql.modes.brin.concepts": [
+    { "term": "Block Range", "definition": "Группа последовательных heap-страниц (по умолчанию: 128). BRIN хранит одну сводную запись на диапазон." },
+    { "term": "Summary Tuple", "definition": "Хранит min_value и max_value для всех кортежей в диапазоне блоков. Используется для определения, может ли диапазон содержать совпадения." },
+    { "term": "Correlation", "definition": "Статистическая мера соответствия физического порядка строк логическому порядку значений. BRIN нуждается в высокой корреляции для эффективности." },
+    { "term": "Revmap", "definition": "Структура обратного отображения, связывающая номер диапазона блоков с его сводным кортежем. Обеспечивает быстрый поиск range-to-summary." },
+    { "term": "Lossy Scan", "definition": "BRIN определяет диапазоны-кандидаты, но не может подтвердить совпадения. Исполнитель должен перепроверить реальные строки в подходящих диапазонах." }
+  ],
+
+  "mongodb.name": "MongoDB",
+  "mongodb.modes.single.label": "Single Field",
+  "mongodb.modes.single.desc": "B-Tree индекс по одному полю документа. Поддерживает запросы на равенство, диапазоны и сортировку. MongoDB автоматически создаёт индекс по _id.",
+  "mongodb.modes.single.principles": [
+    "MongoDB использует B-Tree индексы по отдельным полям документов для эффективных запросов на равенство, диапазоны и сортировку",
+    "Каждая коллекция автоматически имеет уникальный индекс по полю _id — его нельзя удалить",
+    "Записи индекса хранят значение поля и указатель на расположение документа на диске (RecordId)",
+    "Запросы, совпадающие с порядком индекса, могут избежать сортировки в памяти (индекс обеспечивает естественный порядок)",
+    "Sparse-индексы пропускают документы, в которых отсутствует индексируемое поле, экономя пространство и улучшая селективность"
+  ],
+  "mongodb.modes.single.concepts": [
+    { "term": "RecordId", "definition": "Внутренний указатель документа. Лист индекса хранит значение поля + RecordId для нахождения документа на диске." },
+    { "term": "Selectivity", "definition": "Сколько уникальных значений существует относительно общего числа документов. Высокая селективность = лучшая производительность индекса." },
+    { "term": "Sparse Index", "definition": "Индексирует только документы, содержащие индексируемое поле. Полезен для необязательных полей для уменьшения размера индекса." },
+    { "term": "Index Scan", "definition": "Запрос читает из индекса по порядку. Если запросу нужны только индексированные поля, он становится covered query (без извлечения документа)." },
+    { "term": "Collection Scan", "definition": "Полное сканирование всех документов при отсутствии подходящего индекса. Отображается как COLLSCAN в выводе explain." }
+  ],
+
+  "mongodb.modes.compound.label": "Compound Index",
+  "mongodb.modes.compound.desc": "Составной многоключевой индекс с правилом префикса и оптимизацией сортировки. Индекс {a:1, b:1, c:1} поддерживает запросы по (a), (a,b), (a,b,c).",
+  "mongodb.modes.compound.principles": [
+    "Составной индекс {a:1, b:1, c:1} поддерживает префиксные запросы: (a), (a,b), (a,b,c), но НЕ (b,c) отдельно",
+    "Правило ESR (Equality, Sort, Range) определяет оптимальный порядок полей в составных индексах",
+    "Направление сортировки в индексе имеет значение: {a:1, b:-1} может обслуживать sort({a:1, b:-1}), но НЕ sort({a:1, b:1})",
+    "Составной индекс может удовлетворять запросы и сортировку одновременно, если порядок и направления полей совпадают",
+    "Index intersection (использование нескольких одиночных индексов) обычно медленнее, чем хорошо спроектированный составной индекс"
+  ],
+  "mongodb.modes.compound.concepts": [
+    { "term": "Prefix Rule", "definition": "Только крайние левые поля составного индекса могут быть использованы. {a,b,c} поддерживает запросы по (a), (a,b), (a,b,c)." },
+    { "term": "ESR Rule", "definition": "Размещайте поля Equality первыми, затем Sort, затем Range для оптимальной производительности составного индекса." },
+    { "term": "Sort Direction", "definition": "Индекс {a:1, b:-1} сортирует a по возрастанию, b по убыванию. Индекс может обслуживать точное или полностью обратное направление." },
+    { "term": "Index Bounds", "definition": "Диапазон ключей индекса для сканирования. Более узкие границы = меньше проверяемых ключей = быстрее запрос." },
+    { "term": "Covered Query", "definition": "Запрос, проекция которого включает только индексированные поля. MongoDB возвращает результаты прямо из индекса без извлечения документов." }
+  ],
+
+  "mongodb.modes.multikey.label": "Multikey Index",
+  "mongodb.modes.multikey.desc": "Когда индексируемое поле содержит массив, MongoDB создаёт отдельные записи индекса для каждого элемента. Один документ → несколько записей индекса.",
+  "mongodb.modes.multikey.principles": [
+    "Когда индексируемое поле содержит массив, MongoDB создаёт отдельные записи индекса для каждого элемента массива",
+    "Один документ с N элементами массива создаёт N записей индекса — индекс может быть значительно больше коллекции",
+    "Составной индекс может иметь не более одного поля-массива (multikey); два поля-массива в одном составном индексе запрещены",
+    "Multikey-индексы не могут использоваться как ключи шардирования и имеют ограничения на covered queries",
+    "MongoDB отслеживает, какие поля являются multikey, в метаданных индекса для корректировки планирования запросов"
+  ],
+  "mongodb.modes.multikey.concepts": [
+    { "term": "Array Expansion", "definition": "Каждый элемент поля-массива получает свою запись в индексе. Документ с tags:[a,b,c] создаёт 3 записи индекса." },
+    { "term": "Multikey Flag", "definition": "Метаданные индекса, указывающие, какие поля являются multikey. Влияет на решения планировщика запросов и расчёт границ индекса." },
+    { "term": "Compound Multikey", "definition": "Составной индекс, в котором одно поле является массивом. Не более одного поля может быть multikey — два поля-массива запрещены." },
+    { "term": "$elemMatch", "definition": "Оператор запроса для сопоставления элементов массива. С multikey-индексами гарантирует, что условия применяются к одному и тому же элементу массива." },
+    { "term": "Index Size", "definition": "Multikey-индексы могут значительно превышать размер коллекции из-за расширения запись-на-элемент. Отслеживайте с помощью collStats." }
+  ],
+
+  "mongodb.modes.text.label": "Text Index",
+  "mongodb.modes.text.desc": "Текстовый индекс со стеммингом, удалением стоп-слов и оценкой TF-IDF. Поддерживает запросы $text с $search, $language, $caseSensitive.",
+  "mongodb.modes.text.principles": [
+    "Текстовый индекс токенизирует строковые поля в основы слов, удаляет стоп-слова и строит инвертированный индекс терминов",
+    "Каждый документ получает оценку релевантности на основе TF-IDF (Term Frequency — Inverse Document Frequency)",
+    "Коллекция может иметь не более одного текстового индекса, но он может охватывать несколько строковых полей с разными весами",
+    "Текстовый поиск поддерживает языковой стемминг (например, «running» соответствует «run») и списки стоп-слов",
+    "Оператор запроса $text с $meta: \"textScore\" возвращает и сортирует результаты по оценке релевантности"
+  ],
+  "mongodb.modes.text.concepts": [
+    { "term": "Stemming", "definition": "Приведение слов к корневой форме: «running» → «run», «better» → «good». Применяются языковые правила." },
+    { "term": "Stopwords", "definition": "Общеупотребительные слова, исключённые из индексации (the, and, is). Языковые списки. Можно настроить для каждого индекса." },
+    { "term": "Term Weight", "definition": "Каждое поле в составном текстовом индексе может иметь вес (по умолчанию 1). Больший вес увеличивает влияние этого поля на оценку релевантности." },
+    { "term": "Text Score", "definition": "Оценка релевантности на основе TF-IDF. Доступ через $meta: \"textScore\" в проекции. Выше оценка = лучшее совпадение." },
+    { "term": "Wildcard Text", "definition": "Текстовый индекс $** охватывает все строковые поля документа. Полезен для коллекций с динамической или неизвестной схемой." }
+  ],
+
+  "redis.name": "Redis",
+  "redis.modes.zset.label": "Sorted Set (ZSET)",
+  "redis.modes.zset.desc": "Skip list + hash-таблица. ZADD вставляет со счётом, ZRANGE возвращает по рангу, ZRANGEBYSCORE — по диапазону счёта. O(log n) вставка/поиск.",
+  "redis.modes.zset.principles": [
+    "Sorted Set объединяет skip list (для упорядоченного доступа) с hash-таблицей (для O(1) поиска по элементу)",
+    "Skip list обеспечивает O(log n) вставку, удаление и операции диапазона с вероятностной балансировкой",
+    "Каждый элемент имеет уникальное имя (member) и числовой счёт с плавающей точкой, используемый для упорядочивания",
+    "Элементы с одинаковым счётом сортируются лексикографически по имени",
+    "ZRANGEBYSCORE и ZRANGEBYLEX обеспечивают эффективные запросы диапазонов по счёту и именам элементов соответственно"
+  ],
+  "redis.modes.zset.concepts": [
+    { "term": "Skip List", "definition": "Вероятностная структура данных с несколькими уровнями связных списков. Верхние уровни перескакивают через элементы для ускоренного обхода — как экспресс-полоса." },
+    { "term": "Score", "definition": "Значение с плавающей точкой (double), определяющее порядок элементов. Несколько элементов могут иметь одинаковый счёт." },
+    { "term": "Level", "definition": "Каждый узел skip list имеет случайную высоту (1–32). Верхние уровни содержат меньше узлов, обеспечивая O(log n) поиск." },
+    { "term": "ZADD", "definition": "Добавляет элемент со счётом. Если элемент существует, обновляет счёт. O(log n) из-за перепозиционирования в skip list." },
+    { "term": "Ziplist Encoding", "definition": "Для небольших sorted set (<128 элементов, <64 байт на запись) Redis использует компактный ziplist вместо skip list." }
+  ],
+
+  "redis.modes.hash-index.label": "Hash (Rehashing)",
+  "redis.modes.hash-index.desc": "Прогрессивное перехеширование: Redis использует две hash-таблицы. При изменении размера записи мигрируют корзина за корзиной из ht[0] в ht[1] при каждой операции.",
+  "redis.modes.hash-index.principles": [
+    "Hash-таблицы Redis используют прогрессивное (инкрементальное) перехеширование — миграция происходит постепенно, а не сразу",
+    "Две hash-таблицы (ht[0] и ht[1]) сосуществуют во время перехеширования; каждая операция мигрирует одну корзину",
+    "Перехеширование запускается, когда коэффициент нагрузки превышает 1 (или 5 во время BGSAVE) или падает ниже 0.1",
+    "MurmurHash2 используется как хеш-функция для хорошего распределения и производительности",
+    "Hash-таблицы растут удвоением и уменьшаются делением пополам количества корзин"
+  ],
+  "redis.modes.hash-index.concepts": [
+    { "term": "Progressive Rehash", "definition": "Вместо перехеширования всех ключей сразу (что заблокировало бы систему), Redis мигрирует одну корзину за операцию до завершения." },
+    { "term": "Load Factor", "definition": "Отношение используемых записей к числу корзин. Перехеширование начинается при превышении порога (1 в обычном режиме, 5 во время BGSAVE)." },
+    { "term": "ht[0] / ht[1]", "definition": "Во время перехеширования ht[0] — старая таблица, ht[1] — новая (большая/меньшая). Поиск проверяет обе." },
+    { "term": "Bucket", "definition": "Каждый слот hash-таблицы — это корзина, которая может содержать цепочку записей с одинаковым хеш-значением." },
+    { "term": "BGSAVE Guard", "definition": "Во время фонового сохранения Redis откладывает перехеширование (порог повышается до 5), чтобы избежать увеличения памяти при copy-on-write." }
+  ],
+
+  "redis.modes.secondary.label": "Secondary Index",
+  "redis.modes.secondary.desc": "Redis не имеет встроенных вторичных индексов. Паттерн: используйте Sorted Set как индексы — ZRANGEBYSCORE для числовых диапазонов, ZRANGEBYLEX для строковых префиксов.",
+  "redis.modes.secondary.principles": [
+    "Redis не имеет встроенных вторичных индексов — их нужно реализовывать с помощью Sorted Set или Set как ручных индексов",
+    "Паттерн: ZADD index:field score member для создания числового индекса; ZRANGEBYSCORE для запроса",
+    "Для поиска по строковому префиксу используйте ZRANGEBYLEX с лексикографическим Sorted Set (все счета = 0)",
+    "Код приложения отвечает за синхронизацию вторичных индексов с основными данными (автоматических обновлений нет)",
+    "Модуль RediSearch предоставляет автоматическое вторичное индексирование с полнотекстовым поиском"
+  ],
+  "redis.modes.secondary.concepts": [
+    { "term": "Manual Index", "definition": "Sorted Set или Set, поддерживаемый кодом приложения наряду с основными данными. Должен обновляться при каждой записи." },
+    { "term": "ZRANGEBYSCORE", "definition": "Запрашивает Sorted Set по диапазону счёта. Используется для реализации числовых запросов диапазонов по вторичным индексам." },
+    { "term": "ZRANGEBYLEX", "definition": "Запрашивает Sorted Set лексикографически (все счета должны быть равны). Позволяет выполнять поиск по строковым префиксам и диапазонам." },
+    { "term": "Composite Key", "definition": "Паттерн: кодирование нескольких полей в имени элемента (например, «NYC:Alice») для многополевых вторичных поисков." },
+    { "term": "RediSearch", "definition": "Модуль Redis, обеспечивающий вторичное индексирование в реальном времени, полнотекстовый поиск, агрегацию и автодополнение из коробки." }
+  ]
+}

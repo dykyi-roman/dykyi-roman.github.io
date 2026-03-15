@@ -25,6 +25,14 @@ GFV.state = {
     _flowOptions: null
 };
 
+GFV._t = function(key, params, fallback) {
+    return (window.I18N && I18N.t) ? I18N.t(key, params, fallback) : (fallback !== undefined ? fallback : '');
+};
+
+GFV._stepPrefix = function(n) {
+    return GFV._t('ui.log.step', { n: n }, 'Step ' + n);
+};
+
 /* ===== Graph State (tracks SVG positions) ===== */
 GFV.graph = {
     branches: {},
@@ -53,7 +61,8 @@ GFV.log = function(type, text) {
 
     var typeSpan = document.createElement('span');
     typeSpan.className = 'log-type ' + type;
-    typeSpan.textContent = type;
+    var typeKey = (type || '').toUpperCase();
+    typeSpan.textContent = GFV._t('ui.log.type.' + typeKey, null, typeKey);
 
     var textSpan = document.createElement('span');
     textSpan.className = 'log-text';
@@ -84,8 +93,8 @@ GFV.copyLog = function() {
     navigator.clipboard.writeText(lines.join('\n')).then(function() {
         var btn = document.getElementById('btn-copy-log');
         if (!btn) return;
-        btn.textContent = 'Copied!';
-        setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+        btn.textContent = I18N.t('ui.btn.copied', null, 'Copied!');
+        setTimeout(function() { btn.textContent = I18N.t('ui.btn.copy', null, 'Copy'); }, 1500);
     });
 };
 
@@ -971,7 +980,7 @@ GFV.animateFlow = async function(steps, options) {
     GFV.state._flowOptions = options;
 
     var opts = options || {};
-    GFV.log('REQUEST', opts.requestLabel || 'Flow started');
+    GFV.log('REQUEST', opts.requestLabel || GFV._t('ui.log.request_start', null, 'Flow started'));
 
     var startTime = performance.now();
 
@@ -983,7 +992,11 @@ GFV.animateFlow = async function(steps, options) {
         step._stepNum = i + 1;
         GFV._executeStep(step);
         var stepLabel = step.label || step.tagName || step.envName || step.branch || '';
-        GFV.log(step.logType || 'FLOW', 'Step ' + (i + 1) + ': ' + stepLabel + (step.description ? ' — ' + step.description : ''));
+        var logDesc = step.descriptionKey
+            ? GFV._t(step.descriptionKey, step.descriptionParams || null, step.description || '')
+            : (step.description || '');
+        var stepPrefix = GFV._stepPrefix(i + 1);
+        GFV.log(step.logType || 'FLOW', stepPrefix + ': ' + stepLabel + (logDesc ? ' — ' + logDesc : ''));
 
         var delay = step.delay !== undefined ? step.delay : GFV.state.stepDelay;
         await GFV.sleep(delay);
@@ -991,7 +1004,7 @@ GFV.animateFlow = async function(steps, options) {
 
     var elapsed = Math.round(performance.now() - startTime);
     if (GFV.state.running) {
-        GFV.log('RESPONSE', 'Flow completed in ' + elapsed + 'ms (' + steps.length + ' steps)');
+        GFV.log('RESPONSE', GFV._t('ui.log.flow_completed', { time: elapsed, steps: steps.length }, 'Flow completed in ' + elapsed + 'ms (' + steps.length + ' steps)'));
     }
 
     GFV.state.running = false;
@@ -1002,7 +1015,7 @@ GFV.animateFlow = async function(steps, options) {
     var pauseBtn = document.getElementById('btn-pause');
     if (pauseBtn) {
         pauseBtn.disabled = true;
-        pauseBtn.innerHTML = '&#x23F8; Pause';
+        pauseBtn.innerHTML = '&#x23F8; ' + I18N.t('ui.btn.pause', null, 'Pause');
     }
 };
 
@@ -1095,7 +1108,7 @@ GFV._executeStep = function(step) {
 };
 
 /* ===== Trade-offs ===== */
-GFV.showTradeoffs = function(tradeoffs) {
+GFV.showTradeoffs = function(tradeoffs, i18nPrefix) {
     var container = document.getElementById('tradeoffs-panel');
     var body = document.getElementById('tradeoffs-body');
     var toggle = document.getElementById('tradeoffs-toggle');
@@ -1108,22 +1121,26 @@ GFV.showTradeoffs = function(tradeoffs) {
         return;
     }
 
+    var pros = i18nPrefix ? I18N.ta(i18nPrefix + '.tradeoffs.pros', tradeoffs.pros || []) : (tradeoffs.pros || []);
+    var cons = i18nPrefix ? I18N.ta(i18nPrefix + '.tradeoffs.cons', tradeoffs.cons || []) : (tradeoffs.cons || []);
+    var whenToUse = i18nPrefix ? I18N.t(i18nPrefix + '.tradeoffs.whenToUse', null, tradeoffs.whenToUse || '') : (tradeoffs.whenToUse || '');
+
     var html = '<div class="tradeoffs-grid">';
-    html += '<div class="tradeoffs-col"><div class="tradeoffs-col-title pros">&#x2705; Pros</div>';
-    (tradeoffs.pros || []).forEach(function(p) {
+    html += '<div class="tradeoffs-col"><div class="tradeoffs-col-title pros">&#x2705; ' + I18N.t('ui.tradeoffs.pros', null, 'Pros') + '</div>';
+    pros.forEach(function(p) {
         html += '<div class="tradeoffs-item pro">' + p + '</div>';
     });
     html += '</div>';
-    html += '<div class="tradeoffs-col"><div class="tradeoffs-col-title cons">&#x274C; Cons</div>';
-    (tradeoffs.cons || []).forEach(function(c) {
+    html += '<div class="tradeoffs-col"><div class="tradeoffs-col-title cons">&#x274C; ' + I18N.t('ui.tradeoffs.cons', null, 'Cons') + '</div>';
+    cons.forEach(function(c) {
         html += '<div class="tradeoffs-item con">' + c + '</div>';
     });
     html += '</div></div>';
 
-    if (tradeoffs.whenToUse) {
+    if (whenToUse) {
         html += '<div class="tradeoffs-when">' +
-            '<div class="tradeoffs-when-title">When to Use</div>' +
-            tradeoffs.whenToUse + '</div>';
+            '<div class="tradeoffs-when-title">' + I18N.t('ui.tradeoffs.when', null, 'When to Use') + '</div>' +
+            whenToUse + '</div>';
     }
 
     body.innerHTML = html;
@@ -1209,7 +1226,7 @@ GFV.startStepMode = function(steps, options, resumeFromIndex) {
         GFV.stepMode.index = resumeFromIndex;
         GFV.stepMode.options = options || {};
         GFV.stepMode._snapshots = [GFV._takeSnapshot()];
-        GFV.log('FLOW', 'Switched to step mode at step ' + resumeFromIndex);
+        GFV.log('FLOW', GFV._t('ui.log.step_mode', { step: resumeFromIndex }, 'Switched to step mode at step ' + resumeFromIndex));
     } else {
         GFV.resetStats();
         GFV.clearLog();
@@ -1218,7 +1235,8 @@ GFV.startStepMode = function(steps, options, resumeFromIndex) {
         GFV.stepMode.index = 0;
         GFV.stepMode.options = options || {};
         GFV.stepMode._snapshots = [GFV._takeSnapshot()];
-        GFV.log('REQUEST', (options && options.requestLabel ? options.requestLabel : 'Step mode started'));
+        var stepStartLabel = (options && options.requestLabel) ? options.requestLabel : GFV._t('ui.log.step_mode_start', null, 'Step mode started');
+        GFV.log('REQUEST', stepStartLabel);
     }
     GFV._updateStepButtons();
 };
@@ -1239,7 +1257,7 @@ GFV.switchToStepMode = function() {
     var pauseBtn = document.getElementById('btn-pause');
     if (pauseBtn) {
         pauseBtn.disabled = true;
-        pauseBtn.innerHTML = '&#x23F8; Pause';
+        pauseBtn.innerHTML = '&#x23F8; ' + I18N.t('ui.btn.pause', null, 'Pause');
     }
 
     GFV.startStepMode(steps, options, currentIndex);
@@ -1255,13 +1273,17 @@ GFV.stepForward = function() {
     step._stepNum = sm.index + 1;
     GFV._executeStep(step);
     var smLabel = step.label || step.tagName || step.envName || step.branch || '';
-    GFV.log(step.logType || 'FLOW', 'Step ' + (sm.index + 1) + ': ' + smLabel + (step.description ? ' — ' + step.description : ''));
+    var smDesc = step.descriptionKey
+        ? GFV._t(step.descriptionKey, step.descriptionParams || null, step.description || '')
+        : (step.description || '');
+    var smPrefix = GFV._stepPrefix(sm.index + 1);
+    GFV.log(step.logType || 'FLOW', smPrefix + ': ' + smLabel + (smDesc ? ' — ' + smDesc : ''));
 
     sm.index++;
     GFV.state.stepIndex = sm.index;
 
     if (sm.index >= sm.steps.length) {
-        GFV.log('RESPONSE', 'Flow completed (' + sm.steps.length + ' steps)');
+        GFV.log('RESPONSE', GFV._t('ui.log.flow_completed_steps', { steps: sm.steps.length }, 'Flow completed (' + sm.steps.length + ' steps)'));
     }
 
     GFV._updateStepButtons();
@@ -1303,11 +1325,11 @@ GFV._updateStepButtons = function() {
         btnBack.style.display = '';
         btnFwd.style.display = '';
         btnStep.classList.add('active');
-        btnStep.innerHTML = '&#x23F9; Exit Steps';
+        btnStep.innerHTML = '&#x23F9; ' + I18N.t('ui.btn.exit_steps', null, 'Exit Steps');
     } else {
         btnBack.style.display = 'none';
         btnFwd.style.display = 'none';
         btnStep.classList.remove('active');
-        btnStep.innerHTML = '&#x23ED; Step Mode';
+        btnStep.innerHTML = '&#x23ED; ' + I18N.t('ui.btn.step_mode', null, 'Step Mode');
     }
 };

@@ -1,0 +1,296 @@
+{
+  "db.title": "Visualiseur d'Index de BD",
+
+  "mysql.name": "MySQL",
+  "mysql.modes.btree.label": "B-Tree Index",
+  "mysql.modes.btree.desc": "Parcours B+Tree : root -> noeuds internes -> feuille -> page de donnees. L'index reduit la recherche de O(n) a O(log n). Comparez avec le Full Table Scan pour voir la difference.",
+  "mysql.modes.btree.principles": [
+    "Le B+Tree conserve toutes les donnees dans les noeuds feuilles ; les noeuds internes ne stockent que les cles et les pointeurs de navigation",
+    "L'arbre reste equilibre apres chaque INSERT/DELETE grace aux scissions et fusions de pages, garantissant des recherches en O(log n)",
+    "Les noeuds feuilles sont relies par une liste doublement chainee, permettant des parcours de plages efficaces sans retour en arriere",
+    "InnoDB regroupe les lignes par cle primaire (clustered index) ; les index secondaires stockent les valeurs PK, pas les pointeurs de lignes",
+    "La taille de page (16 Ko par defaut) determine le fan-out : plus le fan-out est eleve = moins de niveaux = moins de lectures disque"
+  ],
+  "mysql.modes.btree.concepts": [
+    { "term": "Page / Block", "definition": "Plus petite unite d'E/S (16 Ko dans InnoDB). Chaque noeud de l'arbre occupe une page. Moins de pages lues = requete plus rapide." },
+    { "term": "Fan-out", "definition": "Nombre de pointeurs enfants par noeud interne. Un fan-out eleve maintient l'arbre peu profond (3-4 niveaux pour des milliards de lignes)." },
+    { "term": "Clustered Index", "definition": "La table InnoDB EST le B+Tree ordonne par cle primaire. Les donnees des lignes resident dans les pages feuilles. Un seul par table." },
+    { "term": "Covering Index", "definition": "Index contenant toutes les colonnes necessaires a une requete. Evite de revenir au clustered index (pas de 'bookmark lookup')." },
+    { "term": "Page Split", "definition": "Lorsqu'une page feuille est pleine et qu'une nouvelle cle doit etre inseree, la page se scinde en deux. Cause de la fragmentation au fil du temps." }
+  ],
+
+  "mysql.modes.hash.label": "Hash Index",
+  "mysql.modes.hash.desc": "La fonction de hachage associe une cle a un compartiment pour une recherche en O(1). Ne supporte que les requetes d'egalite (=). Les requetes de plage (>, <, BETWEEN) ne peuvent pas utiliser les index hash.",
+  "mysql.modes.hash.principles": [
+    "L'index hash associe une cle via une fonction de hachage directement a un compartiment pour des recherches d'egalite en O(1) en moyenne",
+    "Ne supporte que les predicats d'egalite (=, IN) ; ne peut pas etre utilise pour les requetes de plage, ORDER BY ou les correspondances partielles",
+    "Les collisions de hachage sont resolues par chainage des entrees dans le meme compartiment",
+    "Dans MySQL, seul le moteur MEMORY supporte les index hash explicites ; InnoDB utilise l'adaptive hash index en interne",
+    "L'Adaptive Hash Index (AHI) dans InnoDB est construit automatiquement pour les pages frequemment accedees -- pas controle manuellement"
+  ],
+  "mysql.modes.hash.concepts": [
+    { "term": "Hash Function", "definition": "Associe une cle arbitraire a un numero de compartiment de taille fixe. Les bonnes fonctions distribuent les cles uniformement entre les compartiments." },
+    { "term": "Bucket", "definition": "Un emplacement dans la table de hachage. Contient une ou plusieurs entrees (par chainage) partageant la meme valeur de hachage." },
+    { "term": "Collision", "definition": "Deux cles differentes produisent le meme hachage vers le meme compartiment. Resolu par chainage ou adressage ouvert." },
+    { "term": "Adaptive Hash", "definition": "InnoDB construit automatiquement un index hash en memoire pour les pages feuilles B-Tree frequemment accedees. Transparent pour l'utilisateur." },
+    { "term": "O(1) Lookup", "definition": "Acces en temps constant independamment de la taille de la table -- l'avantage principal des index hash pour les requetes ponctuelles." }
+  ],
+
+  "mysql.modes.composite.label": "Composite Index",
+  "mysql.modes.composite.desc": "L'index multi-colonnes suit la regle du prefixe le plus a gauche. INDEX(a, b, c) peut etre utilise pour les requetes sur (a), (a,b) ou (a,b,c), mais PAS sur (b,c) seul.",
+  "mysql.modes.composite.principles": [
+    "L'index composite INDEX(a, b, c) suit la regle du prefixe le plus a gauche : utilisable pour (a), (a,b) ou (a,b,c) mais PAS pour (b,c) seul",
+    "L'ordre des colonnes compte : placez les colonnes a haute selectivite et les predicats d'egalite en premier pour un meilleur filtrage",
+    "Un predicat de plage sur la colonne N empeche l'utilisation de l'index pour les colonnes N+1, N+2, etc.",
+    "Les index composites peuvent satisfaire ORDER BY si l'ordre de tri correspond a l'ordre des colonnes de l'index",
+    "La regle ESR (Equality, Sort, Range) guide l'ordonnancement optimal des colonnes dans les index composites"
+  ],
+  "mysql.modes.composite.concepts": [
+    { "term": "Leftmost Prefix", "definition": "L'index (a,b,c) peut satisfaire les requetes sur (a), (a,b), (a,b,c), mais pas sur (b), (c) ou (b,c). Doit commencer par la gauche." },
+    { "term": "Selectivity", "definition": "Ratio de valeurs distinctes par rapport au nombre total de lignes. Haute selectivite (beaucoup de valeurs uniques) signifie un meilleur pouvoir de filtrage." },
+    { "term": "Index Skip Scan", "definition": "Optimisation MySQL 8.0+ : permet d'utiliser un index composite meme lorsque la colonne de tete est omise, si elle a peu de valeurs distinctes." },
+    { "term": "ESR Rule", "definition": "Colonnes Equality d'abord, puis Sort, puis Range -- l'ordre optimal pour la conception d'index composites." },
+    { "term": "Covering Index", "definition": "Un index composite incluant toutes les colonnes referencees par la requete, eliminant le besoin de consultations de table." }
+  ],
+
+  "mysql.modes.fulltext.label": "Full-Text Index",
+  "mysql.modes.fulltext.desc": "Index inverse : le texte est tokenise en mots, chaque mot pointe vers une posting list d'identifiants de documents. Supporte les requetes MATCH...AGAINST.",
+  "mysql.modes.fulltext.principles": [
+    "L'index plein texte cree un index inverse : chaque mot pointe vers une posting list des identifiants de documents ou il apparait",
+    "Le texte est tokenise par l'analyseur, puis filtre (mots vides supprimes, longueur minimale de mot appliquee)",
+    "Supporte trois modes de recherche : Natural Language (classement par pertinence), Boolean (operateurs +, -, *) et Query Expansion",
+    "L'index plein texte InnoDB utilise une conception de table auxiliaire avec FTS_DOC_ID pour le suivi des documents",
+    "La recherche plein texte calcule les scores de pertinence bases sur TF-IDF (Term Frequency - Inverse Document Frequency)"
+  ],
+  "mysql.modes.fulltext.concepts": [
+    { "term": "Inverted Index", "definition": "Associe chaque mot unique a la liste des documents le contenant. La structure de donnees fondamentale de la recherche plein texte." },
+    { "term": "Posting List", "definition": "Pour chaque mot, stocke la liste des identifiants de documents (et positions) ou ce mot apparait." },
+    { "term": "Stopwords", "definition": "Mots courants (the, is, at) exclus de l'indexation car ils apparaissent dans trop de documents pour etre utiles." },
+    { "term": "TF-IDF", "definition": "Term Frequency * Inverse Document Frequency. Les mots frequents dans un document mais rares globalement obtiennent une pertinence plus elevee." },
+    { "term": "Boolean Mode", "definition": "Permet les operateurs : + (doit inclure), - (doit exclure), * (joker), \"\" (expression exacte) pour un controle precis de la recherche." }
+  ],
+
+  "mysql.modes.explain.label": "EXPLAIN Plan",
+  "mysql.modes.explain.desc": "Query -> Parser -> Optimizer -> Index Selection -> Access Method. EXPLAIN montre comment MySQL prevoit d'executer votre requete, y compris les estimations de cout.",
+  "mysql.modes.explain.principles": [
+    "EXPLAIN montre le plan d'execution choisi par l'optimiseur -- quels index, ordre de jointure et methodes d'acces seront utilises",
+    "L'optimiseur evalue plusieurs plans et choisit celui avec le cout estime le plus bas (base sur les statistiques)",
+    "Colonnes cles a verifier : type (methode d'acces), key (index choisi), rows (lignes estimees a examiner), Extra (informations supplementaires)",
+    "Types d'acces du meilleur au pire : system > const > eq_ref > ref > range > index > ALL",
+    "EXPLAIN ANALYZE (MySQL 8.0.18+) execute reellement la requete et montre le nombre de lignes reel vs estime"
+  ],
+  "mysql.modes.explain.concepts": [
+    { "term": "Access Type", "definition": "Comment MySQL accede a la table : ALL (scan complet), index (scan d'index complet), range (plage d'index), ref (recherche d'index), const (ligne unique)." },
+    { "term": "Cost Estimate", "definition": "L'optimiseur attribue un cout a chaque plan base sur les E/S et le CPU. Cout plus bas = plan prefere. Base sur les statistiques de table." },
+    { "term": "Index Selection", "definition": "L'optimiseur choisit l'index qui filtre le plus de lignes. Peut choisir un scan complet si la selectivite de l'index est faible." },
+    { "term": "Using filesort", "definition": "Apparait dans Extra lorsque MySQL doit trier les resultats en dehors de l'index. Indique souvent un index manquant ou inadapte." },
+    { "term": "Using index", "definition": "Apparait dans Extra lorsque la requete est satisfaite entierement depuis l'index (covering index) -- aucun acces aux donnees de table necessaire." }
+  ],
+
+  "postgresql.name": "PostgreSQL",
+  "postgresql.modes.btree.label": "B-Tree",
+  "postgresql.modes.btree.desc": "B-Tree PostgreSQL avec visibilite MVCC. Chaque tuple possede des identifiants de transaction xmin/xmax. Les tuples morts des anciennes transactions restent jusqu'au VACUUM.",
+  "postgresql.modes.btree.principles": [
+    "Le B-Tree PostgreSQL stocke les heap TID (identifiants de tuple) dans les noeuds feuilles, pas les donnees de ligne reelles",
+    "MVCC signifie que chaque tuple porte des identifiants de transaction xmin/xmax -- la visibilite est verifiee a la lecture, pas a l'ecriture",
+    "Les tuples morts (provenant d'UPDATE/DELETE) restent dans les pages d'index jusqu'a ce que VACUUM les supprime",
+    "Les mises a jour HOT (Heap-Only Tuple) evitent la modification de l'index lorsque les colonnes indexees ne changent pas",
+    "La deduplication (v13+) compresse les entrees de cles dupliquees dans les pages feuilles, reduisant significativement la taille de l'index"
+  ],
+  "postgresql.modes.btree.concepts": [
+    { "term": "Heap TID", "definition": "Tuple Identifier (numero de bloc + decalage). Pointe depuis une entree feuille d'index vers la ligne reelle dans la table heap." },
+    { "term": "MVCC", "definition": "Multi-Version Concurrency Control. Les lecteurs ne bloquent jamais les ecrivains. Chaque transaction voit un instantane coherent des donnees." },
+    { "term": "VACUUM", "definition": "Recupere l'espace des tuples morts. Sans lui, les tables et index gonflent. Autovacuum s'execute periodiquement." },
+    { "term": "Visibility Map", "definition": "Bitmap indiquant quelles pages heap ne contiennent que des tuples visibles par tous. Permet aux index-only scans d'eviter les consultations heap." },
+    { "term": "HOT Update", "definition": "Mise a jour Heap-Only Tuple. Lorsqu'aucune colonne indexee ne change, le nouveau tuple est place sur la meme page -- aucune mise a jour d'index necessaire." }
+  ],
+
+  "postgresql.modes.hash.label": "Hash Index",
+  "postgresql.modes.hash.desc": "L'index hash PostgreSQL utilise une structure a 4 pages : meta page, pages de compartiments, pages de debordement, pages bitmap. Recherche O(1) pour l'egalite uniquement.",
+  "postgresql.modes.hash.principles": [
+    "L'index hash PostgreSQL utilise une structure a 4 pages : meta page, compartiments principaux, pages de debordement et pages bitmap",
+    "Ne supporte que les comparaisons d'egalite (=) ; ne peut pas effectuer de plages, tri ou operations multi-colonnes",
+    "Depuis PostgreSQL 10, les index hash sont journalises WAL et resistants aux pannes (auparavant ils ne l'etaient pas)",
+    "Le nombre de compartiments double lorsque le facteur de charge depasse le seuil -- la scission est effectuee incrementalement",
+    "Les index hash sont plus petits que les B-Trees pour les recherches d'egalite simples sur de grandes colonnes texte"
+  ],
+  "postgresql.modes.hash.concepts": [
+    { "term": "Meta Page", "definition": "Page 0 de l'index hash. Stocke le nombre de compartiments, le high mask, le low mask et d'autres informations de controle." },
+    { "term": "Bucket Page", "definition": "Stockage principal des entrees hash. Chaque compartiment contient les tuples dont la valeur de hachage correspond a ce numero de compartiment." },
+    { "term": "Overflow Page", "definition": "Chainee a un compartiment lorsqu'il manque d'espace. Forme une liste chainee depuis la page de compartiment principale." },
+    { "term": "Bitmap Page", "definition": "Suit quelles pages de debordement sont actuellement utilisees. Permet une allocation et desallocation efficaces." },
+    { "term": "Split", "definition": "Lorsque le facteur de charge depasse le seuil, un compartiment est scinde en deux. Les tuples sont rehaches vers le nouveau compartiment." }
+  ],
+
+  "postgresql.modes.gin.label": "GIN Index",
+  "postgresql.modes.gin.desc": "Generalized Inverted Index pour JSONB, tableaux et recherche plein texte. Associe chaque cle/element a une posting list de heap TID.",
+  "postgresql.modes.gin.principles": [
+    "GIN (Generalized Inverted Index) associe chaque element/cle a une liste triee de heap TID (posting list)",
+    "Ideal pour les types de donnees multi-valeurs : tableaux, JSONB, tsvector (recherche plein texte), hstore",
+    "L'arbre d'entrees est un B-Tree de cles ; chaque cle pointe vers un posting tree ou une posting list compressee",
+    "Pending list + fastupdate : les nouvelles entrees sont mises en lot dans une pending list et fusionnees dans l'index principal ulterieurement",
+    "GIN supporte l'intersection et l'union des posting lists pour les requetes multi-cles (AND/OR)"
+  ],
+  "postgresql.modes.gin.concepts": [
+    { "term": "Entry Tree", "definition": "B-Tree de cles extraites (mots, elements de tableau, chemins JSONB). Chaque feuille pointe vers une posting list ou un posting tree." },
+    { "term": "Posting List", "definition": "Tableau trie de heap TID pour une cle donnee. Stocke en ligne dans la feuille d'entree si suffisamment petit." },
+    { "term": "Posting Tree", "definition": "Lorsqu'une posting list devient trop grande, elle devient un B-Tree separe de TID pour une recherche et mise a jour efficaces." },
+    { "term": "Fast Update", "definition": "Les nouveaux tuples vont dans une pending list (non triee). Periodiquement fusionnes dans la structure GIN principale lors du VACUUM ou lorsque la liste est pleine." },
+    { "term": "Consistent fn", "definition": "Fonction de classe d'operateurs qui verifie si une cle donnee satisfait la requete. Utilisee lors du scan d'index pour filtrer les resultats." }
+  ],
+
+  "postgresql.modes.gist.label": "GiST Index",
+  "postgresql.modes.gist.desc": "Generalized Search Tree pour les donnees geometriques et de plage. Utilise des boites englobantes dans une structure arborescente. Supporte contains, overlaps, nearest-neighbor.",
+  "postgresql.modes.gist.principles": [
+    "GiST (Generalized Search Tree) est un arbre equilibre ou chaque entree represente une region englobante (predicat)",
+    "Supporte les requetes de plus proche voisin, d'inclusion, de chevauchement et d'intersection sur les donnees geometriques/de plage",
+    "Les noeuds internes stockent des boites englobantes qui englobent toutes les entrees enfants -- la recherche elague les branches qui ne chevauchent pas la requete",
+    "Extensible : les types de donnees personnalises peuvent definir leurs propres methodes consistent, union, penalty et picksplit",
+    "Les index GiST supportent les contraintes d'exclusion (par exemple, pas de plages horaires chevauchantes dans une table de planification)"
+  ],
+  "postgresql.modes.gist.concepts": [
+    { "term": "Bounding Box", "definition": "Region englobante minimale pour un ensemble d'entrees. Les noeuds internes utilisent les boites englobantes pour decider quels sous-arbres explorer." },
+    { "term": "R-Tree", "definition": "La specialisation GiST la plus courante. Stocke des donnees spatiales avec des boites englobantes rectangulaires pour les points 2D et polygones." },
+    { "term": "Penalty", "definition": "Fonction estimant le cout d'insertion d'une entree dans un sous-arbre. GiST choisit le sous-arbre avec la penalite la plus basse." },
+    { "term": "Picksplit", "definition": "Determine comment scinder une page pleine en deux groupes. Les bonnes scissions minimisent le chevauchement des boites englobantes." },
+    { "term": "KNN Search", "definition": "Requete K plus proches voisins. GiST parcourt l'arbre par priorite de distance, retournant les elements les plus proches en premier." }
+  ],
+
+  "postgresql.modes.brin.label": "BRIN Index",
+  "postgresql.modes.brin.desc": "Block Range Index stocke min/max par plage de blocs. Index extremement compact, ideal pour les donnees naturellement ordonnees (correlees) comme les horodatages.",
+  "postgresql.modes.brin.principles": [
+    "BRIN stocke des donnees resumees (min/max) pour des plages de blocs physiques de table -- index extremement compact",
+    "Fonctionne le mieux lorsque les donnees sont naturellement ordonnees sur le disque (correlees) : horodatages, ID sequentiels, tables append-only",
+    "Le parametre pages_per_range controle la granularite : plus petit = plus precis mais index plus grand",
+    "BRIN ne peut pas identifier les lignes exactes -- il identifie les plages de blocs candidates qui doivent etre reverifiees",
+    "Pour les donnees non correlees, BRIN est inutile car chaque plage contiendra le spectre complet des valeurs"
+  ],
+  "postgresql.modes.brin.concepts": [
+    { "term": "Block Range", "definition": "Groupe de pages heap consecutives (par defaut : 128). BRIN stocke une entree resumee par plage." },
+    { "term": "Summary Tuple", "definition": "Stocke min_value et max_value pour tous les tuples dans la plage de blocs. Utilise pour determiner si la plage peut contenir des correspondances." },
+    { "term": "Correlation", "definition": "Mesure statistique de la correspondance entre l'ordre physique des lignes et l'ordre logique des valeurs. BRIN necessite une correlation elevee pour etre efficace." },
+    { "term": "Revmap", "definition": "Structure de correspondance inverse qui associe un numero de plage de blocs a son tuple resume. Permet une recherche rapide plage-vers-resume." },
+    { "term": "Lossy Scan", "definition": "BRIN identifie les plages candidates mais ne peut pas confirmer les correspondances. L'executeur doit reverifier les lignes reelles dans les plages correspondantes." }
+  ],
+
+  "mongodb.name": "MongoDB",
+  "mongodb.modes.single.label": "Single Field",
+  "mongodb.modes.single.desc": "Index B-Tree sur un seul champ de document. Supporte les requetes d'egalite, de plage et de tri. MongoDB cree automatiquement un index sur _id.",
+  "mongodb.modes.single.principles": [
+    "MongoDB utilise des index B-Tree sur les champs individuels de documents pour des requetes efficaces d'egalite, de plage et de tri",
+    "Chaque collection possede automatiquement un index unique sur le champ _id -- celui-ci ne peut pas etre supprime",
+    "Les entrees d'index stockent la valeur du champ et un pointeur vers l'emplacement du document sur le disque (RecordId)",
+    "Les requetes correspondant a l'ordre de l'index peuvent eviter un tri en memoire (l'index fournit un ordre naturel)",
+    "Les index sparse ignorent les documents ou le champ indexe est absent, economisant de l'espace et ameliorant la selectivite"
+  ],
+  "mongodb.modes.single.concepts": [
+    { "term": "RecordId", "definition": "Localisateur interne de document. La feuille de l'index stocke la valeur du champ + RecordId pour trouver le document sur le disque." },
+    { "term": "Selectivity", "definition": "Combien de valeurs distinctes existent par rapport au nombre total de documents. Haute selectivite = meilleures performances d'index." },
+    { "term": "Sparse Index", "definition": "N'indexe que les documents contenant le champ indexe. Utile pour les champs optionnels afin de reduire la taille de l'index." },
+    { "term": "Index Scan", "definition": "La requete lit l'index dans l'ordre. Si la requete ne necessite que les champs indexes, elle devient une covered query (pas de recuperation de document)." },
+    { "term": "Collection Scan", "definition": "Scan complet de chaque document lorsqu'aucun index adapte n'existe. Affiche comme COLLSCAN dans la sortie explain." }
+  ],
+
+  "mongodb.modes.compound.label": "Compound Index",
+  "mongodb.modes.compound.desc": "Index compose multi-cles avec regle de prefixe et optimisation du tri. L'index {a:1, b:1, c:1} supporte les requetes sur (a), (a,b), (a,b,c).",
+  "mongodb.modes.compound.principles": [
+    "L'index compose {a:1, b:1, c:1} supporte les requetes prefixees : (a), (a,b), (a,b,c), mais PAS (b,c) seul",
+    "La regle ESR (Equality, Sort, Range) determine l'ordre optimal des champs dans les index composes",
+    "La direction de tri dans l'index compte : {a:1, b:-1} peut servir sort({a:1, b:-1}) mais PAS sort({a:1, b:1})",
+    "Un index compose peut satisfaire requetes et tris simultanement si l'ordre et les directions des champs concordent",
+    "L'intersection d'index (utilisation de plusieurs index a champ unique) est generalement plus lente qu'un index compose bien concu"
+  ],
+  "mongodb.modes.compound.concepts": [
+    { "term": "Prefix Rule", "definition": "Seuls les champs les plus a gauche d'un index compose peuvent etre utilises. {a,b,c} supporte les requetes sur (a), (a,b), (a,b,c)." },
+    { "term": "ESR Rule", "definition": "Placez les champs Equality d'abord, puis Sort, puis Range pour des performances optimales de l'index compose." },
+    { "term": "Sort Direction", "definition": "L'index {a:1, b:-1} trie a en ascendant, b en descendant. L'index peut servir la direction exacte ou completement inversee." },
+    { "term": "Index Bounds", "definition": "La plage de cles d'index a scanner. Des bornes plus serrees = moins de cles examinees = requete plus rapide." },
+    { "term": "Covered Query", "definition": "Requete dont la projection n'inclut que des champs indexes. MongoDB retourne les resultats directement depuis l'index sans recuperer les documents." }
+  ],
+
+  "mongodb.modes.multikey.label": "Multikey Index",
+  "mongodb.modes.multikey.desc": "Lorsque le champ indexe contient un tableau, MongoDB cree des entrees d'index separees pour chaque element. Un document -> plusieurs entrees d'index.",
+  "mongodb.modes.multikey.principles": [
+    "Lorsqu'un champ indexe contient un tableau, MongoDB cree des entrees d'index separees pour chaque element du tableau",
+    "Un document avec N elements de tableau produit N entrees d'index -- l'index peut etre significativement plus grand que la collection",
+    "Un index compose peut avoir au maximum un champ tableau (multikey) ; deux champs tableau dans le meme index compose ne sont pas autorises",
+    "Les index multikey ne peuvent pas etre utilises comme cles de sharding et ont des restrictions sur les covered queries",
+    "MongoDB suit quels champs sont multikey dans les metadonnees de l'index pour ajuster la planification des requetes"
+  ],
+  "mongodb.modes.multikey.concepts": [
+    { "term": "Array Expansion", "definition": "Chaque element du champ tableau obtient sa propre entree d'index. Un document avec tags:[a,b,c] cree 3 entrees d'index." },
+    { "term": "Multikey Flag", "definition": "Metadonnees d'index marquant quels champs sont multikey. Affecte les decisions du planificateur de requetes et le calcul des bornes d'index." },
+    { "term": "Compound Multikey", "definition": "Index compose ou un champ est un tableau. Au maximum un champ peut etre multikey -- deux champs tableau sont interdits." },
+    { "term": "$elemMatch", "definition": "Operateur de requete pour la correspondance d'elements de tableau. Avec les index multikey, garantit que les conditions s'appliquent au meme element du tableau." },
+    { "term": "Index Size", "definition": "Les index multikey peuvent devenir beaucoup plus grands que la collection en raison de l'expansion entree-par-element. Surveillez avec collStats." }
+  ],
+
+  "mongodb.modes.text.label": "Text Index",
+  "mongodb.modes.text.desc": "Index textuel avec racinisation, suppression des mots vides et scoring TF-IDF. Supporte les requetes $text avec $search, $language, $caseSensitive.",
+  "mongodb.modes.text.principles": [
+    "L'index textuel tokenise les champs chaine en racines, supprime les mots vides et construit un index inverse des termes",
+    "Chaque document recoit un score de pertinence base sur la frequence des termes et la frequence inverse des documents (TF-IDF)",
+    "Une collection peut avoir au maximum un index textuel, mais il peut couvrir plusieurs champs chaine avec des poids differents",
+    "La recherche textuelle supporte la racinisation specifique a la langue (par exemple, 'running' correspond a 'run') et les listes de mots vides",
+    "L'operateur de requete $text avec $meta: \"textScore\" retourne et trie les resultats par score de pertinence"
+  ],
+  "mongodb.modes.text.concepts": [
+    { "term": "Stemming", "definition": "Reduit les mots a leur forme racine : 'running' -> 'run', 'better' -> 'good'. Des regles specifiques a la langue sont appliquees." },
+    { "term": "Stopwords", "definition": "Mots courants exclus de l'indexation (the, and, is). Listes specifiques a la langue. Personnalisables par index." },
+    { "term": "Term Weight", "definition": "Chaque champ dans un index textuel compose peut avoir un poids (defaut 1). Un poids plus eleve augmente l'impact de ce champ sur le score de pertinence." },
+    { "term": "Text Score", "definition": "Score de pertinence base sur TF-IDF. Acces via $meta: \"textScore\" dans la projection. Score plus eleve = meilleure correspondance." },
+    { "term": "Wildcard Text", "definition": "L'index textuel $** couvre tous les champs chaine du document. Utile pour les collections avec un schema dynamique ou inconnu." }
+  ],
+
+  "redis.name": "Redis",
+  "redis.modes.zset.label": "Sorted Set (ZSET)",
+  "redis.modes.zset.desc": "Skip list + table de hachage. ZADD insere avec un score, ZRANGE retourne par rang, ZRANGEBYSCORE par plage de scores. Insertion/recherche en O(log n).",
+  "redis.modes.zset.principles": [
+    "Le Sorted Set combine une skip list (pour l'acces ordonne) avec une table de hachage (pour la recherche en O(1) par membre)",
+    "La skip list fournit des operations d'insertion, suppression et plage en O(log n) avec equilibrage probabiliste",
+    "Chaque element a un nom de membre unique et un score en virgule flottante utilise pour l'ordonnancement",
+    "Les elements avec des scores egaux sont tries lexicographiquement par nom de membre",
+    "ZRANGEBYSCORE et ZRANGEBYLEX permettent des requetes de plage efficaces sur les scores et les noms de membres respectivement"
+  ],
+  "redis.modes.zset.concepts": [
+    { "term": "Skip List", "definition": "Structure de donnees probabiliste avec plusieurs niveaux de listes chainees. Les niveaux superieurs sautent des elements pour un parcours plus rapide -- comme une voie express." },
+    { "term": "Score", "definition": "Valeur en virgule flottante (double) qui determine l'ordonnancement des elements. Plusieurs membres peuvent partager le meme score." },
+    { "term": "Level", "definition": "Chaque noeud de la skip list a une hauteur aleatoire (1-32). Les niveaux superieurs contiennent moins de noeuds, permettant une recherche en O(log n)." },
+    { "term": "ZADD", "definition": "Ajoute un membre avec un score. Si le membre existe, met a jour le score. O(log n) en raison du repositionnement dans la skip list." },
+    { "term": "Ziplist Encoding", "definition": "Pour les petits sorted sets (<128 elements, <64 octets par entree), Redis utilise un ziplist compact au lieu d'une skip list." }
+  ],
+
+  "redis.modes.hash-index.label": "Hash (Rehashing)",
+  "redis.modes.hash-index.desc": "Rehachage progressif : Redis utilise deux tables de hachage. Pendant le redimensionnement, les entrees migrent compartiment par compartiment de ht[0] vers ht[1] a chaque operation.",
+  "redis.modes.hash-index.principles": [
+    "Les tables de hachage Redis utilisent le rehachage progressif (incremental) -- la migration se fait graduellement, pas tout d'un coup",
+    "Deux tables de hachage (ht[0] et ht[1]) coexistent pendant le rehachage ; chaque operation migre un compartiment",
+    "Le rehachage se declenche lorsque le facteur de charge depasse 1 (ou 5 pendant BGSAVE) ou descend sous 0.1",
+    "MurmurHash2 est utilise comme fonction de hachage pour une bonne distribution et performance",
+    "Les tables de hachage grandissent en doublant et retrecissent en divisant par deux le nombre de compartiments"
+  ],
+  "redis.modes.hash-index.concepts": [
+    { "term": "Progressive Rehash", "definition": "Au lieu de rehacher toutes les cles d'un coup (ce qui bloquerait), Redis migre un compartiment par operation jusqu'a completion." },
+    { "term": "Load Factor", "definition": "Ratio des entrees utilisees par rapport au nombre de compartiments. Le rehachage commence lorsque cela depasse le seuil (1 normalement, 5 pendant BGSAVE)." },
+    { "term": "ht[0] / ht[1]", "definition": "Pendant le rehachage, ht[0] est l'ancienne table, ht[1] est la nouvelle (plus grande/plus petite). Les recherches verifient les deux." },
+    { "term": "Bucket", "definition": "Chaque emplacement de la table de hachage est un compartiment pouvant contenir une chaine d'entrees avec la meme valeur de hachage." },
+    { "term": "BGSAVE Guard", "definition": "Pendant la sauvegarde en arriere-plan, Redis retarde le rehachage (le seuil monte a 5) pour eviter l'amplification memoire du copy-on-write." }
+  ],
+
+  "redis.modes.secondary.label": "Secondary Index",
+  "redis.modes.secondary.desc": "Redis n'a pas d'index secondaires integres. Pattern : utilisez les Sorted Sets comme index -- ZRANGEBYSCORE pour les plages numeriques, ZRANGEBYLEX pour les prefixes de chaines.",
+  "redis.modes.secondary.principles": [
+    "Redis n'a pas d'index secondaires integres -- ils doivent etre implementes en utilisant des Sorted Sets ou Sets comme index manuels",
+    "Pattern : ZADD index:field score member pour creer un index numerique ; ZRANGEBYSCORE pour l'interroger",
+    "Pour la recherche par prefixe de chaine, utilisez ZRANGEBYLEX avec un Sorted Set lexicographique (tous les scores = 0)",
+    "Le code applicatif est responsable de la synchronisation des index secondaires avec les donnees primaires (pas de mises a jour automatiques)",
+    "Le module RediSearch fournit une indexation secondaire automatique avec des capacites de recherche plein texte"
+  ],
+  "redis.modes.secondary.concepts": [
+    { "term": "Manual Index", "definition": "Un Sorted Set ou Set maintenu par le code applicatif a cote des donnees primaires. Doit etre mis a jour a chaque ecriture." },
+    { "term": "ZRANGEBYSCORE", "definition": "Interroge un Sorted Set par plage de scores. Utilise pour implementer des requetes de plage numerique sur les index secondaires." },
+    { "term": "ZRANGEBYLEX", "definition": "Interroge un Sorted Set lexicographiquement (tous les scores doivent etre egaux). Permet les recherches par prefixe et plage de chaines." },
+    { "term": "Composite Key", "definition": "Pattern : encoder plusieurs champs dans le nom du membre (par exemple, 'NYC:Alice') pour des recherches secondaires multi-champs." },
+    { "term": "RediSearch", "definition": "Module Redis fournissant une indexation secondaire en temps reel, recherche plein texte, agregation et auto-completion prets a l'emploi." }
+  ]
+}

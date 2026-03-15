@@ -1,0 +1,1058 @@
+{
+  "arch.title": "Visualizador de Arquitecturas",
+
+  "mvc.name": "MVC / MVP / MVVM",
+  "mvc.modes.mvc.label": "MVC",
+  "mvc.modes.mvc.desc": "Model-View-Controller: el Controller recibe la entrada del usuario, actualiza el Model, y la View observa los cambios del Model. El Controller NO actualiza la View directamente — la View obtiene los datos del Model.",
+  "mvc.modes.mvp.label": "MVP",
+  "mvc.modes.mvp.desc": "Model-View-Presenter: el Presenter actúa como mediador. La View delega toda la entrada del usuario al Presenter. El Presenter actualiza el Model y actualiza explícitamente la View. La View es pasiva (sin lógica).",
+  "mvc.modes.mvvm.label": "MVVM",
+  "mvc.modes.mvvm.desc": "Model-View-ViewModel: el ViewModel expone datos y comandos mediante data binding. La View se vincula a las propiedades del ViewModel. Cuando el ViewModel cambia, la View se actualiza automáticamente. El binding bidireccional los mantiene sincronizados.",
+  "mvc.details.mvc.principles": [
+    "Separación de responsabilidades: cada componente tiene una única responsabilidad",
+    "Patrón Observer: la View se suscribe a los cambios del Model, no es notificada por el Controller",
+    "El Controller nunca actualiza la View directamente — solo selecciona la View y actualiza el Model",
+    "El Model es completamente independiente de la UI (sin referencias a View o Controller)",
+    "Múltiples Views pueden observar el mismo Model simultáneamente"
+  ],
+  "mvc.details.mvc.concepts": [
+    { "term": "Model", "definition": "Encapsula los datos de la aplicación y las reglas de negocio. Notifica a los observadores cuando cambia el estado." },
+    { "term": "View", "definition": "Renderiza los datos del Model al usuario. Observa el Model para detectar cambios. Reenvía la entrada del usuario al Controller." },
+    { "term": "Controller", "definition": "Interpreta la entrada del usuario, invoca métodos del Model y selecciona la View apropiada." },
+    { "term": "Observer", "definition": "Patrón de diseño donde el Model mantiene una lista de dependientes (Views) y les notifica los cambios de estado." }
+  ],
+  "mvc.details.mvc.tradeoffs.pros": [
+    "Simple e intuitivo — fácil de entender e implementar",
+    "Ampliamente soportado por frameworks web (Rails, Django, Spring MVC, Laravel)",
+    "Buena opción para aplicaciones orientadas a UI con clara separación datos-presentación",
+    "Extenso ecosistema de herramientas, tutoriales y soporte de la comunidad"
+  ],
+  "mvc.details.mvc.tradeoffs.cons": [
+    "Controllers sobrecargados — la lógica de negocio tiende a acumularse en los controllers",
+    "Ambigüedad del Model — \"Model\" puede significar objeto de dominio, DTO o fila de base de datos",
+    "No escala bien para dominios complejos con muchas reglas interrelacionadas",
+    "El acoplamiento View-Model a través del patrón Observer puede crear dependencias ocultas"
+  ],
+  "mvc.details.mvc.tradeoffs.whenToUse": "Ideal para aplicaciones web de complejidad pequeña a mediana, desarrollo orientado a frameworks y equipos que necesitan un patrón arquitectónico bien conocido y de baja fricción.",
+  "mvc.details.mvp.principles": [
+    "Passive View: la View no contiene lógica de presentación, solo renderizado de UI",
+    "El Presenter es el único mediador entre View y Model",
+    "La View se comunica con el Presenter a través de una interfaz bien definida (IView)",
+    "El Presenter actualiza explícitamente la View — sin patrón Observer, sin data binding",
+    "Alta testabilidad: el Presenter puede ser probado unitariamente con un mock de la interfaz View"
+  ],
+  "mvc.details.mvp.concepts": [
+    { "term": "Passive View", "definition": "Patrón de View donde la View no tiene lógica y delega todas las decisiones al Presenter." },
+    { "term": "Presenter", "definition": "Contiene toda la lógica de presentación. Lee el Model, formatea los datos y envía actualizaciones explícitamente a la View." },
+    { "term": "IView Interface", "definition": "Contrato que la View implementa, permitiendo al Presenter actualizar la UI sin conocer la View concreta." },
+    { "term": "Supervising Controller", "definition": "Variante de MVP donde la View maneja el data binding simple, y el Presenter solo maneja la lógica compleja." }
+  ],
+  "mvc.details.mvp.tradeoffs.pros": [
+    "Altamente testable — el Presenter puede ser probado unitariamente con un mock de la interfaz View",
+    "Passive View elimina errores de lógica en la UI",
+    "Clara separación de la lógica de presentación y la visualización",
+    "Muy adecuado para aplicaciones de escritorio y móviles"
+  ],
+  "mvc.details.mvp.tradeoffs.cons": [
+    "Más código repetitivo — cada View necesita una interfaz y un Presenter",
+    "El Presenter puede sobrecargarse con demasiada lógica de presentación",
+    "El mapeo uno a uno View-Presenter puede ser rígido",
+    "Menor soporte de frameworks comparado con MVC"
+  ],
+  "mvc.details.mvp.tradeoffs.whenToUse": "Ideal para aplicaciones que requieren alta testabilidad de la lógica de presentación, apps de escritorio/móviles con interacciones de UI complejas y equipos que desean control explícito sobre las actualizaciones de la View.",
+  "mvc.details.mvvm.principles": [
+    "Data Binding bidireccional: View y ViewModel se mantienen sincronizados automáticamente",
+    "El ViewModel no tiene referencia directa a la View — se comunica solo a través de bindings",
+    "Patrón Command: las acciones del usuario se vinculan a comandos del ViewModel, no a manejadores de eventos",
+    "El ViewModel transforma los datos del Model a un formato amigable para la View (lógica de presentación)",
+    "UI declarativa: la View declara los bindings en el markup, no con código imperativo"
+  ],
+  "mvc.details.mvvm.concepts": [
+    { "term": "Data Binding", "definition": "Mecanismo que conecta las propiedades de la View con las propiedades del ViewModel, sincronizando los cambios en ambas direcciones." },
+    { "term": "ViewModel", "definition": "Abstracción de la View que expone propiedades observables y comandos. Actúa como contexto de datos." },
+    { "term": "Observable", "definition": "Propiedad que notifica a los suscriptores (bindings) cuando su valor cambia, disparando actualizaciones de UI." },
+    { "term": "Command", "definition": "Objeto que encapsula una acción y su lógica de \"puede ejecutarse\", vinculado a elementos de UI como botones." }
+  ],
+  "mvc.details.mvvm.tradeoffs.pros": [
+    "UI declarativa con sincronización automática mediante data binding",
+    "El ViewModel es altamente testable sin dependencia de framework de UI",
+    "Reduce el código repetitivo comparado con MVP — sin llamadas explícitas de actualización de View",
+    "Excelente soporte de frameworks (WPF, SwiftUI, Vue.js, Angular)"
+  ],
+  "mvc.details.mvvm.tradeoffs.cons": [
+    "El data binding puede ser difícil de depurar cuando algo falla",
+    "Fugas de memoria por suscripciones olvidadas a observables",
+    "Sobrecarga de wrappers observables por cada propiedad",
+    "El binding bidireccional puede crear actualizaciones en cascada inesperadas"
+  ],
+  "mvc.details.mvvm.tradeoffs.whenToUse": "Ideal para aplicaciones de cliente enriquecidas con UIs reactivas, frameworks que soportan data binding de forma nativa y escenarios donde la gestión del estado de UI es una preocupación principal.",
+
+  "layered.name": "Arquitectura en Capas",
+  "layered.modes.http.label": "HTTP Request",
+  "layered.modes.http.desc": "La solicitud HTTP entra a través del Controller en la capa de Presentación. El Controller pasa el Request DTO al UseCase. El UseCase crea un Command, delega al AppService y servicios de dominio. Después de la persistencia, el UseCase despacha eventos de dominio a través de la interfaz EventDispatcher (Dominio), resuelta en la implementación de Infraestructura.",
+  "layered.modes.console.label": "Console Command",
+  "layered.modes.console.desc": "El comando de consola entra a través del manejador CLI, delega al AppService que orquesta el UseCase directamente (sin CommandBus). La Infraestructura maneja la persistencia. Las dependencias siempre apuntan hacia adentro.",
+  "layered.modes.message.label": "Message Consumer",
+  "layered.modes.message.desc": "Un mensaje asíncrono entra a través de un consumidor de mensajes, el AppService maneja la orquestación, el UseCase ejecuta la lógica de dominio. Después de la persistencia, el UseCase despacha eventos de dominio a través de la interfaz EventDispatcher en la capa de Dominio.",
+  "layered.details.http.principles": [
+    "Dependencia estricta de arriba hacia abajo: cada capa depende solo de la capa directamente inferior",
+    "Separación de responsabilidades: Presentación maneja E/S, Aplicación orquesta, Dominio posee las reglas, Infraestructura persiste",
+    "La capa de Dominio es independiente: sin referencias a frameworks, bases de datos o transporte",
+    "Inversión de dependencias: el Dominio define interfaces (Repository, EventDispatcher), la Infraestructura las implementa",
+    "Cada capa puede ser reemplazada independientemente sin afectar a las demás"
+  ],
+  "layered.details.http.concepts": [
+    { "term": "Controller", "definition": "Punto de entrada en la capa de Presentación. Recibe la solicitud HTTP, mapea la entrada a un DTO, delega al UseCase y retorna la Response." },
+    { "term": "UseCase", "definition": "Orquestador de la capa de Aplicación. Recibe un DTO, crea un Command y coordina los servicios de dominio y la persistencia." },
+    { "term": "Command", "definition": "Objeto de datos inmutable que representa una intención de cambiar estado. Creado por el UseCase a partir del DTO entrante." },
+    { "term": "DomainEvent", "definition": "Registro de algo que ocurrió en el dominio. Despachado después de la persistencia a través de la interfaz EventDispatcher." },
+    { "term": "Repository (I)", "definition": "Interfaz definida en la capa de Dominio. Abstrae la persistencia para que la lógica de dominio nunca dependa de los detalles de almacenamiento." }
+  ],
+  "layered.details.http.tradeoffs.pros": [
+    "Simple y bien comprendida — la mayoría de los desarrolladores conocen la arquitectura en capas",
+    "Clara separación de responsabilidades entre presentación, aplicación, dominio e infraestructura",
+    "Fácil de aprender e incorporar nuevos miembros al equipo",
+    "Buen soporte de herramientas y frameworks en múltiples lenguajes"
+  ],
+  "layered.details.http.tradeoffs.cons": [
+    "Acoplamiento estrecho entre capas — los cambios frecuentemente se propagan a través de múltiples capas",
+    "No escala bien para dominios complejos con muchas preocupaciones transversales",
+    "La lógica de negocio puede filtrarse hacia controllers o repositories con el tiempo",
+    "Tendencia a convertirse en una \"gran bola de lodo\" sin disciplina"
+  ],
+  "layered.details.http.tradeoffs.whenToUse": "Ideal para aplicaciones simples, sistemas con muchas operaciones CRUD, equipos pequeños y proyectos de aprendizaje donde la sobrecarga de arquitecturas más sofisticadas no está justificada.",
+  "layered.details.console.principles": [
+    "Dependencia estricta de arriba hacia abajo: cada capa depende solo de la capa directamente inferior",
+    "Separación de responsabilidades: Presentación maneja E/S, Aplicación orquesta, Dominio posee las reglas, Infraestructura persiste",
+    "La capa de Dominio es independiente: sin referencias a frameworks, bases de datos o transporte",
+    "Consola y HTTP comparten las mismas capas de Aplicación y Dominio — solo difiere la Presentación",
+    "Los Value Objects imponen restricciones de negocio en el límite del dominio, no en la capa de UI"
+  ],
+  "layered.details.console.concepts": [
+    { "term": "ConsoleCommand", "definition": "Punto de entrada de la capa de Presentación para CLI. Analiza los argumentos, construye el DTO y delega al AppService." },
+    { "term": "AppService", "definition": "Servicio de la capa de Aplicación que orquesta la ejecución del UseCase y preocupaciones transversales." },
+    { "term": "ValueObject", "definition": "Objeto de dominio inmutable definido por sus atributos. Encapsula la validación y la lógica de igualdad." },
+    { "term": "CacheAdapter", "definition": "Componente de Infraestructura que implementa el caché. Las capas de Dominio y Aplicación nunca lo referencian directamente." }
+  ],
+  "layered.details.console.tradeoffs.pros": [
+    "Simple y bien comprendida — la mayoría de los desarrolladores conocen la arquitectura en capas",
+    "Clara separación de responsabilidades entre presentación, aplicación, dominio e infraestructura",
+    "Fácil de aprender e incorporar nuevos miembros al equipo",
+    "Buen soporte de herramientas y frameworks en múltiples lenguajes"
+  ],
+  "layered.details.console.tradeoffs.cons": [
+    "Acoplamiento estrecho entre capas — los cambios frecuentemente se propagan a través de múltiples capas",
+    "No escala bien para dominios complejos con muchas preocupaciones transversales",
+    "La lógica de negocio puede filtrarse hacia controllers o repositories con el tiempo",
+    "Tendencia a convertirse en una \"gran bola de lodo\" sin disciplina"
+  ],
+  "layered.details.console.tradeoffs.whenToUse": "Ideal para aplicaciones simples, sistemas con muchas operaciones CRUD, equipos pequeños y proyectos de aprendizaje donde la sobrecarga de arquitecturas más sofisticadas no está justificada.",
+  "layered.details.message.principles": [
+    "Dependencia estricta de arriba hacia abajo: cada capa depende solo de la capa directamente inferior",
+    "Separación de responsabilidades: Presentación maneja E/S, Aplicación orquesta, Dominio posee las reglas, Infraestructura persiste",
+    "La capa de Dominio es independiente: sin referencias a frameworks, bases de datos o transporte",
+    "Los puntos de entrada asíncronos siguen el mismo flujo en capas que los síncronos",
+    "Los eventos de dominio se despachan a través de una interfaz definida en la capa de Dominio, resuelta en Infraestructura"
+  ],
+  "layered.details.message.concepts": [
+    { "term": "MessageConsumer", "definition": "Manejador de la capa de Presentación para mensajes asíncronos. Deserializa el payload en un DTO y delega al AppService." },
+    { "term": "DomainService", "definition": "Servicio sin estado en la capa de Dominio que coordina lógica que abarca múltiples Entities o Value Objects." },
+    { "term": "EventDispatcher (I)", "definition": "Interfaz en la capa de Dominio para publicar eventos de dominio. La Infraestructura proporciona la implementación concreta." },
+    { "term": "EventDispatcher", "definition": "Implementación de Infraestructura que entrega eventos de dominio a los suscriptores (cola, bus o manejadores en proceso)." }
+  ],
+  "layered.details.message.tradeoffs.pros": [
+    "Simple y bien comprendida — la mayoría de los desarrolladores conocen la arquitectura en capas",
+    "Clara separación de responsabilidades entre presentación, aplicación, dominio e infraestructura",
+    "Fácil de aprender e incorporar nuevos miembros al equipo",
+    "Buen soporte de herramientas y frameworks en múltiples lenguajes"
+  ],
+  "layered.details.message.tradeoffs.cons": [
+    "Acoplamiento estrecho entre capas — los cambios frecuentemente se propagan a través de múltiples capas",
+    "No escala bien para dominios complejos con muchas preocupaciones transversales",
+    "La lógica de negocio puede filtrarse hacia controllers o repositories con el tiempo",
+    "Tendencia a convertirse en una \"gran bola de lodo\" sin disciplina"
+  ],
+  "layered.details.message.tradeoffs.whenToUse": "Ideal para aplicaciones simples, sistemas con muchas operaciones CRUD, equipos pequeños y proyectos de aprendizaje donde la sobrecarga de arquitecturas más sofisticadas no está justificada.",
+
+  "clean.name": "Arquitectura Limpia",
+  "clean.modes.http.label": "HTTP Request",
+  "clean.modes.http.desc": "La solicitud fluye hacia adentro a través de anillos concéntricos: Frameworks y Drivers → Adaptadores de Interfaz → Casos de Uso → Entidades. La respuesta fluye de vuelta hacia afuera a través de OutputBoundary y Presenter. Las dependencias siempre apuntan hacia adentro — la Regla de Dependencia es el principio fundamental.",
+  "clean.modes.console.label": "Console Command",
+  "clean.modes.console.desc": "El comando de consola entra a través del anillo más externo (Frameworks) y fluye hacia adentro a través de adaptadores, InputBoundary y casos de uso hasta las entidades. La misma Regla de Dependencia aplica — las capas internas nunca referencian las capas externas.",
+  "clean.modes.message.label": "Message Consumer",
+  "clean.modes.message.desc": "Un mensaje asíncrono llega al anillo de Frameworks, fluye a través de los Adaptadores de Interfaz e InputBoundary hacia los Casos de Uso y Entidades. La salida retorna vía OutputBoundary y Presenter a través de los anillos externos.",
+  "clean.details.http.principles": [
+    "La Regla de Dependencia: las dependencias del código fuente deben apuntar solo hacia adentro — los anillos internos nunca referencian los externos",
+    "Las Entidades encapsulan reglas de negocio a nivel empresarial, independientes de cualquier aplicación o framework",
+    "Los Casos de Uso contienen reglas de negocio específicas de la aplicación y orquestan el flujo de datos desde y hacia las Entidades",
+    "Los Adaptadores de Interfaz convierten datos entre el formato usado por Casos de Uso/Entidades y el formato necesario por agentes externos (BD, Web, UI)",
+    "Frameworks y Drivers son el anillo más externo — se mantienen lo más delgados posible y sirven como código de conexión",
+    "Los límites se cruzan mediante interfaces (InputBoundary, OutputBoundary) para que las capas internas permanezcan desacopladas de las externas"
+  ],
+  "clean.details.http.concepts": [
+    { "term": "InputBoundary", "definition": "Interfaz definida en el anillo de Casos de Uso. Los Controllers llaman a esta interfaz para invocar un caso de uso, asegurando que la capa de adaptador nunca se filtre hacia la lógica de negocio." },
+    { "term": "OutputBoundary", "definition": "Interfaz definida en el anillo de Casos de Uso. El UseCase la llama para pasar resultados hacia afuera, de modo que nunca dependa del Presenter o detalles de UI." },
+    { "term": "Presenter", "definition": "Adaptador de Interfaz que implementa OutputBoundary. Convierte la salida del caso de uso en un ViewModel adecuado para la capa de vista." },
+    { "term": "Gateway", "definition": "Adaptador de Interfaz que implementa las interfaces de repositorio definidas por los Casos de Uso. Traduce entre objetos de dominio y operaciones de base de datos." },
+    { "term": "ViewModel", "definition": "Estructura de datos plana creada por el Presenter. Contiene solo datos listos para mostrar — sin lógica de negocio, sin dependencias de framework." }
+  ],
+  "clean.details.http.tradeoffs.pros": [
+    "Altamente testable — la lógica de negocio está aislada de frameworks e infraestructura",
+    "Independiente del framework — cambia de framework sin tocar el dominio o los casos de uso",
+    "Centrada en el dominio — entidades y casos de uso están en el centro, no la infraestructura",
+    "Las reglas de dependencia claras facilitan el razonamiento sobre los límites del código"
+  ],
+  "clean.details.http.tradeoffs.cons": [
+    "Más código y abstracciones (boundaries, presenters, gateways) que arquitecturas más simples",
+    "Sobrecarga de mapeo entre capas (DTOs, ViewModels, objetos de dominio)",
+    "Puede sentirse sobreingeniería para aplicaciones CRUD simples",
+    "Curva de aprendizaje más pronunciada para desarrolladores no familiarizados con el patrón"
+  ],
+  "clean.details.http.tradeoffs.whenToUse": "Ideal para proyectos de larga duración donde la independencia del framework importa, dominios complejos que requieren pruebas exhaustivas y sistemas donde se espera que el mecanismo de entrega o la infraestructura cambien con el tiempo.",
+  "clean.details.console.principles": [
+    "La Regla de Dependencia: las dependencias del código fuente deben apuntar solo hacia adentro — los anillos internos nunca referencian los externos",
+    "Consola y HTTP comparten los mismos Casos de Uso y Entidades — solo difieren los anillos externos",
+    "El framework CLI es un detalle en el anillo más externo, fácilmente reemplazable sin tocar la lógica de negocio",
+    "InputBoundary asegura que el Controller (adaptador) nunca se acople a la implementación concreta del UseCase",
+    "OutputBoundary permite al UseCase retornar resultados sin saber si la salida va a una terminal, página web o archivo"
+  ],
+  "clean.details.console.concepts": [
+    { "term": "CLI Framework", "definition": "Componente del anillo más externo (Frameworks y Drivers). Proporciona análisis de argumentos, enrutamiento de comandos y E/S — tratado como un detalle reemplazable." },
+    { "term": "Controller", "definition": "Adaptador de Interfaz que traduce argumentos CLI en un request DTO y llama a InputBoundary. Desacopla el framework de la lógica de aplicación." },
+    { "term": "UseCase", "definition": "Orquestador de reglas de negocio específicas de la aplicación. Recibe entrada vía InputBoundary, interactúa con Entidades y retorna resultados vía OutputBoundary." },
+    { "term": "Entity", "definition": "Objeto de negocio a nivel empresarial en el núcleo. Contiene reglas de negocio críticas que son las menos propensas a cambiar cuando algo externo cambia." }
+  ],
+  "clean.details.console.tradeoffs.pros": [
+    "Altamente testable — la lógica de negocio está aislada de frameworks e infraestructura",
+    "Independiente del framework — cambia de framework sin tocar el dominio o los casos de uso",
+    "Centrada en el dominio — entidades y casos de uso están en el centro, no la infraestructura",
+    "Las reglas de dependencia claras facilitan el razonamiento sobre los límites del código"
+  ],
+  "clean.details.console.tradeoffs.cons": [
+    "Más código y abstracciones (boundaries, presenters, gateways) que arquitecturas más simples",
+    "Sobrecarga de mapeo entre capas (DTOs, ViewModels, objetos de dominio)",
+    "Puede sentirse sobreingeniería para aplicaciones CRUD simples",
+    "Curva de aprendizaje más pronunciada para desarrolladores no familiarizados con el patrón"
+  ],
+  "clean.details.console.tradeoffs.whenToUse": "Ideal para proyectos de larga duración donde la independencia del framework importa, dominios complejos que requieren pruebas exhaustivas y sistemas donde se espera que el mecanismo de entrega o la infraestructura cambien con el tiempo.",
+  "clean.details.message.principles": [
+    "La Regla de Dependencia: las dependencias del código fuente deben apuntar solo hacia adentro — los anillos internos nunca referencian los externos",
+    "El procesamiento de mensajes asíncronos sigue la misma estructura de anillos que las solicitudes síncronas — el transporte es un detalle",
+    "El Queue Driver es un detalle de framework en el anillo más externo, intercambiable sin modificar la lógica de negocio",
+    "Los Boundaries (InputBoundary, OutputBoundary) aseguran que la infraestructura de mensajería nunca se filtre hacia los Casos de Uso o Entidades",
+    "Las Entidades permanecen puras independientemente de si son invocadas por HTTP, CLI o mensaje — ese es el poder de la Regla de Dependencia"
+  ],
+  "clean.details.message.concepts": [
+    { "term": "Queue Driver", "definition": "Componente del anillo más externo que recibe mensajes de un broker (RabbitMQ, Kafka, SQS). Un detalle de framework, fácilmente intercambiable." },
+    { "term": "InputBoundary", "definition": "Interfaz en el anillo de Casos de Uso. El Controller de mensajes llama a esta para activar la lógica del caso de uso, manteniendo desacoplado el queue driver." },
+    { "term": "OutputBoundary", "definition": "Interfaz en el anillo de Casos de Uso. El UseCase envía resultados hacia afuera a través de este boundary — el Presenter decide cómo formatear el acuse de recibo." },
+    { "term": "Presenter", "definition": "Adaptador de Interfaz que formatea la salida del caso de uso en un acuse de recibo o payload de evento, sin que el UseCase conozca el mecanismo de entrega." }
+  ],
+  "clean.details.message.tradeoffs.pros": [
+    "Altamente testable — la lógica de negocio está aislada de frameworks e infraestructura",
+    "Independiente del framework — cambia de framework sin tocar el dominio o los casos de uso",
+    "Centrada en el dominio — entidades y casos de uso están en el centro, no la infraestructura",
+    "Las reglas de dependencia claras facilitan el razonamiento sobre los límites del código"
+  ],
+  "clean.details.message.tradeoffs.cons": [
+    "Más código y abstracciones (boundaries, presenters, gateways) que arquitecturas más simples",
+    "Sobrecarga de mapeo entre capas (DTOs, ViewModels, objetos de dominio)",
+    "Puede sentirse sobreingeniería para aplicaciones CRUD simples",
+    "Curva de aprendizaje más pronunciada para desarrolladores no familiarizados con el patrón"
+  ],
+  "clean.details.message.tradeoffs.whenToUse": "Ideal para proyectos de larga duración donde la independencia del framework importa, dominios complejos que requieren pruebas exhaustivas y sistemas donde se espera que el mecanismo de entrega o la infraestructura cambien con el tiempo.",
+
+  "hexagonal.name": "Hexagonal (Puertos y Adaptadores)",
+  "hexagonal.modes.http.label": "HTTP Request",
+  "hexagonal.modes.http.desc": "El adaptador HTTP (driving) recibe la solicitud, llama al puerto de entrada, el dominio procesa la lógica, el puerto de salida delega al adaptador driven (base de datos). Los puertos definen la interfaz, los adaptadores la implementan.",
+  "hexagonal.modes.console.label": "Console Command",
+  "hexagonal.modes.console.desc": "El adaptador CLI (driving) activa el mismo puerto de entrada. El núcleo del dominio es completamente agnóstico a si fue activado por HTTP, CLI o mensaje.",
+  "hexagonal.modes.message.label": "Message Consumer",
+  "hexagonal.modes.message.desc": "El adaptador de mensajes (driving) consume de la cola. El núcleo hexagonal procesa de forma idéntica — solo difiere el adaptador driving.",
+  "hexagonal.details.http.principles": [
+    "Los puertos definen interfaces; los adaptadores las implementan",
+    "El núcleo del dominio no tiene conocimiento alguno de la infraestructura",
+    "Los adaptadores driving llaman a los puertos de entrada; los adaptadores driven implementan los puertos de salida",
+    "Simétrica: el lado izquierdo (driving) refleja el lado derecho (driven)"
+  ],
+  "hexagonal.details.http.concepts": [
+    { "term": "Port", "definition": "Una interfaz que define cómo la aplicación se comunica con el mundo exterior." },
+    { "term": "Adapter", "definition": "Una implementación concreta de un puerto para una tecnología específica (HTTP, CLI, BD)." },
+    { "term": "UseCase", "definition": "Componente de la capa de aplicación que implementa el Input Port y orquesta objetos de dominio para cumplir un escenario de negocio." },
+    { "term": "Driving", "definition": "Adaptadores primarios/del lado izquierdo que inician la interacción con la aplicación." },
+    { "term": "Driven", "definition": "Adaptadores secundarios/del lado derecho que la aplicación usa para interactuar con sistemas externos." }
+  ],
+  "hexagonal.details.http.tradeoffs.pros": [
+    "Núcleo de dominio agnóstico a la tecnología",
+    "Fácil intercambiar adaptadores (ej., cambiar BD sin tocar el dominio)",
+    "Naturalmente testable — mockear puertos para pruebas unitarias",
+    "Clara separación entre lógica de negocio e infraestructura"
+  ],
+  "hexagonal.details.http.tradeoffs.cons": [
+    "Más interfaces y clases que arquitecturas más simples",
+    "Puede ser excesivo para aplicaciones con muchas operaciones CRUD",
+    "El mapeo entre DTOs de puertos y objetos de dominio añade código repetitivo"
+  ],
+  "hexagonal.details.http.tradeoffs.whenToUse": "Ideal para aplicaciones con lógica de negocio compleja que debe permanecer independiente de los mecanismos de entrega e infraestructura. Ideal cuando necesitas soportar múltiples puntos de entrada (HTTP, CLI, cola) o planeas cambiar componentes de infraestructura.",
+  "hexagonal.details.console.principles": [
+    "Mismo núcleo de dominio, diferente adaptador driving",
+    "El adaptador CLI transforma la entrada del terminal en llamadas a puertos",
+    "El dominio es completamente agnóstico al origen del disparador"
+  ],
+  "hexagonal.details.console.concepts": [
+    { "term": "CLI Adapter", "definition": "Un adaptador driving que convierte argumentos de línea de comandos en llamadas a métodos de puertos." },
+    { "term": "Symmetry", "definition": "Cualquier adaptador driving puede activar el mismo caso de uso — el hexágono no cambia." }
+  ],
+  "hexagonal.details.console.tradeoffs.pros": [
+    "Demuestra que el dominio es verdaderamente agnóstico a la infraestructura",
+    "Permite procesamiento por lotes y tareas cron vía CLI",
+    "Las mismas reglas de negocio se aplican independientemente del punto de entrada"
+  ],
+  "hexagonal.details.console.tradeoffs.cons": [
+    "Cada nuevo punto de entrada requiere una nueva implementación de adaptador",
+    "La lógica de validación de entrada puede necesitar duplicación entre adaptadores"
+  ],
+  "hexagonal.details.console.tradeoffs.whenToUse": "Cuando tu aplicación necesita múltiples puntos de entrada (web, CLI, consumidor de cola) que comparten la misma lógica de negocio.",
+  "hexagonal.details.message.principles": [
+    "El consumidor de mensajes es simplemente otro adaptador driving",
+    "Procesamiento asíncrono con las mismas garantías de dominio",
+    "La salida puede publicar a una cola vía adaptador driven"
+  ],
+  "hexagonal.details.message.concepts": [
+    { "term": "Message Adapter", "definition": "Un adaptador driving que deserializa mensajes de la cola y llama a los puertos de entrada." },
+    { "term": "Queue Adapter", "definition": "Un adaptador driven que publica eventos/mensajes a una cola externa." }
+  ],
+  "hexagonal.details.message.tradeoffs.pros": [
+    "Permite procesamiento asíncrono y orientado a eventos",
+    "Desacopla servicios mediante colas de mensajes",
+    "La misma lógica de dominio para flujos síncronos y asíncronos"
+  ],
+  "hexagonal.details.message.tradeoffs.cons": [
+    "La serialización/deserialización de mensajes añade complejidad",
+    "El manejo de errores y reintentos necesita un diseño cuidadoso",
+    "Desafíos de consistencia eventual"
+  ],
+  "hexagonal.details.message.tradeoffs.whenToUse": "Cuando necesitas procesamiento asíncrono, comunicación orientada a eventos entre servicios o deseas desacoplar productores de consumidores.",
+
+  "cqrs.name": "CQRS",
+  "cqrs.modes.http.label": "HTTP (Command)",
+  "cqrs.modes.http.desc": "La solicitud HTTP de escritura entra al lado de Command: Command -> CommandBus -> CommandHandler -> Aggregate -> EventStore. Los eventos se proyectan al Read Model. El lado de Query sirve lecturas desde modelos de lectura optimizados.",
+  "cqrs.modes.console.label": "Console (Query)",
+  "cqrs.modes.console.desc": "La consulta de consola pasa por el lado de Query: Query -> QueryBus -> QueryHandler -> ReadModel -> Base de datos. Los modelos de lectura están optimizados para patrones de consulta específicos.",
+  "cqrs.modes.message.label": "Message (Event)",
+  "cqrs.modes.message.desc": "Un evento de dominio es consumido y activa tanto un Command en el lado de escritura como una actualización de proyección en el lado de lectura. Muestra cómo CQRS maneja la consistencia eventual.",
+  "cqrs.details.http.principles": [
+    "El lado de Command maneja todas las escrituras a través de CommandBus y CommandHandlers",
+    "Los eventos son el puente entre los lados de escritura y lectura",
+    "Los modelos de lectura son proyecciones eventualmente consistentes de los eventos del lado de escritura",
+    "El modelo de escritura está optimizado para reglas de negocio; el modelo de lectura está optimizado para consultas"
+  ],
+  "cqrs.details.http.concepts": [
+    { "term": "Command", "definition": "Un objeto inmutable que representa una intención de cambiar estado. Despachado vía CommandBus al handler apropiado." },
+    { "term": "CommandHandler", "definition": "Procesa un comando específico, carga el aggregate, ejecuta la lógica de dominio y almacena los eventos resultantes." },
+    { "term": "EventStore", "definition": "Almacenamiento de solo adición para eventos de dominio. La fuente de verdad del lado de escritura." },
+    { "term": "ReadModel", "definition": "Una proyección desnormalizada optimizada para patrones de consulta específicos, reconstruida a partir de eventos." }
+  ],
+  "cqrs.details.http.tradeoffs.pros": [
+    "Escalado independiente de lecturas y escrituras",
+    "Modelos de lectura optimizados para patrones de consulta específicos",
+    "Encaje natural con arquitecturas orientadas a eventos",
+    "Clara separación entre responsabilidades de comando y consulta"
+  ],
+  "cqrs.details.http.tradeoffs.cons": [
+    "Mayor complejidad del sistema y más componentes en movimiento",
+    "Consistencia eventual entre modelos de escritura y lectura",
+    "Duplicación de datos entre modelos de lectura",
+    "Más infraestructura que gestionar (bus de eventos, proyecciones, múltiples bases de datos)"
+  ],
+  "cqrs.details.http.tradeoffs.whenToUse": "Ideal para sistemas con alta proporción de lecturas/escrituras, cuando los modelos de lectura y escritura tienen formas fundamentalmente diferentes o cuando patrones de consulta complejos demandan vistas desnormalizadas.",
+  "cqrs.details.console.principles": [
+    "El lado de Query sirve lecturas desde modelos optimizados y desnormalizados",
+    "El QueryBus enruta consultas a handlers especializados",
+    "Los modelos de lectura pueden reconstruirse completamente desde el flujo de eventos",
+    "Diferentes modelos de lectura pueden servir diferentes patrones de consulta desde los mismos eventos"
+  ],
+  "cqrs.details.console.concepts": [
+    { "term": "Query", "definition": "Una solicitud de datos que no modifica estado. Enrutada vía QueryBus al handler apropiado." },
+    { "term": "QueryHandler", "definition": "Lee del modelo de lectura optimizado y retorna un resultado. Nunca modifica el estado del lado de escritura." },
+    { "term": "QueryBus", "definition": "Despacha consultas al handler correcto. Habilita middleware (caché, logging, autorización)." }
+  ],
+  "cqrs.details.console.tradeoffs.pros": [
+    "Escalado independiente de lecturas y escrituras",
+    "Modelos de lectura optimizados para patrones de consulta específicos",
+    "Encaje natural con arquitecturas orientadas a eventos",
+    "Clara separación entre responsabilidades de comando y consulta"
+  ],
+  "cqrs.details.console.tradeoffs.cons": [
+    "Mayor complejidad del sistema y más componentes en movimiento",
+    "Consistencia eventual entre modelos de escritura y lectura",
+    "Duplicación de datos entre modelos de lectura",
+    "Más infraestructura que gestionar (bus de eventos, proyecciones, múltiples bases de datos)"
+  ],
+  "cqrs.details.console.tradeoffs.whenToUse": "Ideal para sistemas con alta proporción de lecturas/escrituras, cuando los modelos de lectura y escritura tienen formas fundamentalmente diferentes o cuando patrones de consulta complejos demandan vistas desnormalizadas.",
+  "cqrs.details.message.principles": [
+    "Los eventos de sistemas externos pueden activar comandos en el lado de escritura",
+    "Las actualizaciones de proyección ocurren de forma asíncrona después de almacenar los eventos",
+    "La consistencia eventual se adopta como un compromiso de diseño para la escalabilidad",
+    "El bus de eventos desacopla a los productores de eventos de los consumidores de proyecciones"
+  ],
+  "cqrs.details.message.concepts": [
+    { "term": "Projection", "definition": "El proceso de transformar eventos en estado del modelo de lectura. Puede ser reproducido para reconstruir modelos de lectura." },
+    { "term": "Eventual Consistency", "definition": "Los modelos de lectura pueden retrasarse respecto al modelo de escritura. El sistema garantiza convergencia, no consistencia inmediata." }
+  ],
+  "cqrs.details.message.tradeoffs.pros": [
+    "Escalado independiente de lecturas y escrituras",
+    "Modelos de lectura optimizados para patrones de consulta específicos",
+    "Encaje natural con arquitecturas orientadas a eventos",
+    "Clara separación entre responsabilidades de comando y consulta"
+  ],
+  "cqrs.details.message.tradeoffs.cons": [
+    "Mayor complejidad del sistema y más componentes en movimiento",
+    "Consistencia eventual entre modelos de escritura y lectura",
+    "Duplicación de datos entre modelos de lectura",
+    "Más infraestructura que gestionar (bus de eventos, proyecciones, múltiples bases de datos)"
+  ],
+  "cqrs.details.message.tradeoffs.whenToUse": "Ideal para sistemas con alta proporción de lecturas/escrituras, cuando los modelos de lectura y escritura tienen formas fundamentalmente diferentes o cuando patrones de consulta complejos demandan vistas desnormalizadas.",
+
+  "eventsourcing.name": "Event Sourcing",
+  "eventsourcing.modes.http.label": "HTTP Request",
+  "eventsourcing.modes.http.desc": "El comando llega vía HTTP. En lugar de actualizar el estado directamente, el aggregate emite eventos de dominio. Los eventos se almacenan en el Event Store como la única fuente de verdad. El estado se reconstruye reproduciendo los eventos.",
+  "eventsourcing.modes.console.label": "Reconstruir Estado",
+  "eventsourcing.modes.console.desc": "Demuestra la reconstrucción de estado: todos los eventos del Event Store se reproducen en orden para reconstruir el estado actual del aggregate. Esta es la ventaja principal de Event Sourcing.",
+  "eventsourcing.modes.message.label": "Actualización de Proyección",
+  "eventsourcing.modes.message.desc": "Los eventos del Event Store se proyectan en vistas optimizadas para lectura (proyecciones). Cada proyección puede construir una representación diferente del mismo flujo de eventos.",
+  "eventsourcing.details.http.principles": [
+    "Los eventos son la única fuente de verdad — el estado se deriva, nunca se almacena directamente",
+    "Los Aggregates se cargan reproduciendo su flujo de eventos",
+    "Los nuevos cambios de estado producen nuevos eventos añadidos al almacén",
+    "Las proyecciones transforman eventos en modelos de lectura optimizados para consultas"
+  ],
+  "eventsourcing.details.http.concepts": [
+    { "term": "Event Store", "definition": "Un log de solo adición de eventos de dominio. La fuente autoritativa de verdad para todos los cambios de estado." },
+    { "term": "Event Replay", "definition": "El proceso de reconstruir el estado del aggregate aplicando secuencialmente todos los eventos del flujo." },
+    { "term": "Aggregate", "definition": "Un objeto de dominio cuyo estado se reconstruye a partir de eventos en lugar de cargarse desde una fila mutable en una base de datos." }
+  ],
+  "eventsourcing.details.http.tradeoffs.pros": [
+    "Pista de auditoría completa — cada cambio de estado se registra como un evento inmutable",
+    "Viaje en el tiempo y reproducción — reconstruye el estado en cualquier punto del historial",
+    "Orientado a eventos por naturaleza — los sistemas downstream reaccionan a los eventos",
+    "Sin pérdida de datos — los eventos son de solo adición, nada se sobrescribe"
+  ],
+  "eventsourcing.details.http.tradeoffs.cons": [
+    "Complejidad de consultas — no se puede simplemente hacer SELECT del estado actual de una tabla",
+    "La evolución del esquema es difícil — cambiar la estructura de eventos afecta la reproducción",
+    "Crecimiento de almacenamiento — los flujos de eventos crecen indefinidamente sin snapshotting",
+    "Curva de aprendizaje pronunciada — fundamentalmente diferente del modelo mental CRUD"
+  ],
+  "eventsourcing.details.http.tradeoffs.whenToUse": "Ideal para dominios que requieren una pista de auditoría completa, la capacidad de reproducir o proyectar eventos y sistemas financieros o de cumplimiento donde la pérdida de datos es inaceptable.",
+  "eventsourcing.details.console.principles": [
+    "El estado nunca se almacena — siempre se reconstruye a partir de eventos",
+    "La reproducción aplica eventos en orden para reconstruir el estado del aggregate",
+    "Los snapshots pueden optimizar la reproducción para flujos de eventos largos",
+    "El flujo de eventos es la única fuente de verdad"
+  ],
+  "eventsourcing.details.console.concepts": [
+    { "term": "State Reconstruction", "definition": "Reconstruir el estado actual de un aggregate reproduciendo todos sus eventos desde el principio." },
+    { "term": "Snapshot", "definition": "Un punto de control periódico del estado del aggregate para evitar reproducir todo el flujo de eventos en cada carga." }
+  ],
+  "eventsourcing.details.console.tradeoffs.pros": [
+    "Pista de auditoría completa — cada cambio de estado se registra como un evento inmutable",
+    "Viaje en el tiempo y reproducción — reconstruye el estado en cualquier punto del historial",
+    "Orientado a eventos por naturaleza — los sistemas downstream reaccionan a los eventos",
+    "Sin pérdida de datos — los eventos son de solo adición, nada se sobrescribe"
+  ],
+  "eventsourcing.details.console.tradeoffs.cons": [
+    "Complejidad de consultas — no se puede simplemente hacer SELECT del estado actual de una tabla",
+    "La evolución del esquema es difícil — cambiar la estructura de eventos afecta la reproducción",
+    "Crecimiento de almacenamiento — los flujos de eventos crecen indefinidamente sin snapshotting",
+    "Curva de aprendizaje pronunciada — fundamentalmente diferente del modelo mental CRUD"
+  ],
+  "eventsourcing.details.console.tradeoffs.whenToUse": "Ideal para dominios que requieren una pista de auditoría completa, la capacidad de reproducir o proyectar eventos y sistemas financieros o de cumplimiento donde la pérdida de datos es inaceptable.",
+  "eventsourcing.details.message.principles": [
+    "Las proyecciones construyen diferentes representaciones de lectura del mismo flujo de eventos",
+    "Cada proyección puede enfocarse en un patrón de consulta o vista específica",
+    "Las proyecciones son desechables — pueden eliminarse y reconstruirse a partir de eventos",
+    "Múltiples proyecciones pueden procesar los mismos eventos independientemente"
+  ],
+  "eventsourcing.details.message.concepts": [
+    { "term": "Projection", "definition": "Un proceso que lee eventos y construye una vista optimizada para lectura (lista, detalle, estadísticas, índice de búsqueda)." },
+    { "term": "Read Model", "definition": "Una estructura de datos desnormalizada construida por una proyección, optimizada para un patrón de consulta específico." }
+  ],
+  "eventsourcing.details.message.tradeoffs.pros": [
+    "Pista de auditoría completa — cada cambio de estado se registra como un evento inmutable",
+    "Viaje en el tiempo y reproducción — reconstruye el estado en cualquier punto del historial",
+    "Orientado a eventos por naturaleza — los sistemas downstream reaccionan a los eventos",
+    "Sin pérdida de datos — los eventos son de solo adición, nada se sobrescribe"
+  ],
+  "eventsourcing.details.message.tradeoffs.cons": [
+    "Complejidad de consultas — no se puede simplemente hacer SELECT del estado actual de una tabla",
+    "La evolución del esquema es difícil — cambiar la estructura de eventos afecta la reproducción",
+    "Crecimiento de almacenamiento — los flujos de eventos crecen indefinidamente sin snapshotting",
+    "Curva de aprendizaje pronunciada — fundamentalmente diferente del modelo mental CRUD"
+  ],
+  "eventsourcing.details.message.tradeoffs.whenToUse": "Ideal para dominios que requieren una pista de auditoría completa, la capacidad de reproducir o proyectar eventos y sistemas financieros o de cumplimiento donde la pérdida de datos es inaceptable.",
+
+  "eda.name": "Arquitectura Orientada a Eventos",
+  "eda.modes.http.label": "HTTP (Publish)",
+  "eda.modes.http.desc": "La solicitud HTTP activa una acción que publica un evento de dominio en el Event Bus. Múltiples consumidores reaccionan independientemente. Sin acoplamiento directo entre productor y consumidores.",
+  "eda.modes.choreography.label": "Choreography",
+  "eda.modes.choreography.desc": "Los servicios reaccionan a eventos independientemente sin coordinación central. Cada servicio escucha los eventos que le interesan y publica nuevos eventos. El flujo emerge de las reacciones individuales de cada servicio.",
+  "eda.modes.orchestration.label": "Orchestration (Saga)",
+  "eda.modes.orchestration.desc": "Un orquestador Saga coordina la transacción distribuida. Envía comandos a los servicios y reacciona a sus respuestas, gestionando el flujo de trabajo general y la compensación en caso de fallo.",
+  "eda.details.http.principles": [
+    "Los productores publican eventos sin conocimiento de los consumidores",
+    "Los consumidores reaccionan independientemente a los eventos a los que se suscriben",
+    "El Event Bus desacopla completamente a productores de consumidores",
+    "Múltiples consumidores pueden procesar el mismo evento para diferentes propósitos"
+  ],
+  "eda.details.http.concepts": [
+    { "term": "Event Bus", "definition": "Una infraestructura de mensajería que enruta eventos de productores a consumidores interesados sin acoplamiento directo." },
+    { "term": "Producer", "definition": "Un servicio que publica eventos de dominio cuando ocurre algo significativo en su dominio." },
+    { "term": "Consumer", "definition": "Un servicio que se suscribe a eventos y reacciona independientemente, sin que el productor lo sepa." }
+  ],
+  "eda.details.http.tradeoffs.pros": [
+    "Bajo acoplamiento — productores y consumidores son completamente independientes",
+    "Escalabilidad — añade consumidores sin modificar productores",
+    "Resiliencia — el fallo de un consumidor no afecta a los demás",
+    "Encaje natural para flujos de trabajo asíncronos e integraciones"
+  ],
+  "eda.details.http.tradeoffs.cons": [
+    "Consistencia eventual — sin garantía inmediata de que todos los consumidores hayan procesado",
+    "Depurar flujos de eventos distribuidos es significativamente más difícil",
+    "Desafíos de ordenamiento de mensajes entre particiones y consumidores",
+    "Más difícil razonar sobre el comportamiento general del sistema"
+  ],
+  "eda.details.http.tradeoffs.whenToUse": "Ideal cuando múltiples consumidores independientes necesitan reaccionar a los mismos eventos, para flujos de trabajo asíncronos y al integrar sistemas o microservicios débilmente acoplados.",
+  "eda.details.choreography.principles": [
+    "Sin coordinador central — cada servicio reacciona y publica independientemente",
+    "El flujo general emerge de las reacciones individuales de cada servicio",
+    "Cada servicio es dueño de su decisión de reaccionar o no",
+    "Nuevos servicios pueden unirse al flujo suscribiéndose a eventos existentes"
+  ],
+  "eda.details.choreography.concepts": [
+    { "term": "Choreography", "definition": "Un patrón de coordinación donde los servicios reaccionan a eventos independientemente, sin un orquestador central controlando el flujo." },
+    { "term": "Event Chain", "definition": "Una secuencia de eventos donde la reacción de un servicio activa eventos que otros servicios procesan, formando un flujo de trabajo implícito." }
+  ],
+  "eda.details.choreography.tradeoffs.pros": [
+    "Bajo acoplamiento — productores y consumidores son completamente independientes",
+    "Escalabilidad — añade consumidores sin modificar productores",
+    "Resiliencia — el fallo de un consumidor no afecta a los demás",
+    "Encaje natural para flujos de trabajo asíncronos e integraciones"
+  ],
+  "eda.details.choreography.tradeoffs.cons": [
+    "Consistencia eventual — sin garantía inmediata de que todos los consumidores hayan procesado",
+    "Depurar flujos de eventos distribuidos es significativamente más difícil",
+    "Desafíos de ordenamiento de mensajes entre particiones y consumidores",
+    "Más difícil razonar sobre el comportamiento general del sistema"
+  ],
+  "eda.details.choreography.tradeoffs.whenToUse": "Ideal cuando múltiples consumidores independientes necesitan reaccionar a los mismos eventos, para flujos de trabajo asíncronos y al integrar sistemas o microservicios débilmente acoplados.",
+  "eda.details.orchestration.principles": [
+    "El orquestador Saga gestiona el ciclo de vida de la transacción distribuida",
+    "Cada paso envía un comando y espera un evento de respuesta",
+    "La lógica de compensación maneja los fallos en cualquier paso",
+    "El orquestador es el único lugar para entender el flujo de trabajo completo"
+  ],
+  "eda.details.orchestration.concepts": [
+    { "term": "Saga", "definition": "Un patrón para gestionar transacciones distribuidas coordinando una secuencia de transacciones locales con acciones compensatorias para el rollback." },
+    { "term": "Orchestrator", "definition": "Un coordinador central que envía comandos a los servicios y reacciona a sus eventos de respuesta, gestionando el flujo de trabajo general." },
+    { "term": "Compensation", "definition": "Una acción de rollback ejecutada cuando un paso de la saga falla, deshaciendo los efectos de los pasos completados previamente." }
+  ],
+  "eda.details.orchestration.tradeoffs.pros": [
+    "Bajo acoplamiento — productores y consumidores son completamente independientes",
+    "Escalabilidad — añade consumidores sin modificar productores",
+    "Resiliencia — el fallo de un consumidor no afecta a los demás",
+    "Encaje natural para flujos de trabajo asíncronos e integraciones"
+  ],
+  "eda.details.orchestration.tradeoffs.cons": [
+    "Consistencia eventual — sin garantía inmediata de que todos los consumidores hayan procesado",
+    "Depurar flujos de eventos distribuidos es significativamente más difícil",
+    "Desafíos de ordenamiento de mensajes entre particiones y consumidores",
+    "Más difícil razonar sobre el comportamiento general del sistema"
+  ],
+  "eda.details.orchestration.tradeoffs.whenToUse": "Ideal cuando múltiples consumidores independientes necesitan reaccionar a los mismos eventos, para flujos de trabajo asíncronos y al integrar sistemas o microservicios débilmente acoplados.",
+
+  "microservices.name": "Arquitectura de Microservicios",
+  "microservices.modes.sync.label": "Sync (REST/gRPC)",
+  "microservices.modes.sync.desc": "El flujo de solicitud síncrona pasa a través del API Gateway hacia los servicios individuales. El gateway autentica, enruta y agrega respuestas. Los servicios se comunican vía REST o gRPC a través del gateway — nunca directamente.",
+  "microservices.modes.async.label": "Async (Events)",
+  "microservices.modes.async.desc": "Comunicación orientada a eventos entre servicios mediante una cola de mensajes. Los servicios publican eventos de dominio después de cambios de estado. Otros servicios consumen los eventos relevantes y reaccionan independientemente. Sin llamadas directas entre servicios.",
+  "microservices.modes.saga.label": "Saga \u2713",
+  "microservices.modes.saga.desc": "Transacción distribuida exitosa coordinada por un Saga Orchestrator. Cada paso es una transacción local ejecutada secuencialmente. Todos los pasos se completan exitosamente y el pedido se cumple.",
+  "microservices.modes.saga-fail.label": "Saga \u2717",
+  "microservices.modes.saga-fail.desc": "Saga fallida con transacciones compensatorias ejecutadas en orden inverso. El pago falla después de reservar el inventario, activando compensaciones para restaurar la consistencia.",
+  "microservices.details.sync.principles": [
+    "El API Gateway es el único punto de entrada — los clientes nunca llaman a los servicios directamente",
+    "Cada servicio es dueño de su almacén de datos (patrón Database per Service)",
+    "El Service Mesh es una capa de infraestructura (sidecar proxies), no un servicio separado",
+    "Toda la comunicación entre servicios pasa por el gateway — sin llamadas directas entre servicios",
+    "El Order Service orquesta el flujo de trabajo: llama a Inventory, luego a Payment y luego responde",
+    "Usa timeouts, reintentos y circuit breakers para manejar fallos de forma elegante"
+  ],
+  "microservices.details.sync.concepts": [
+    { "term": "API Gateway", "definition": "Proxy inverso que enruta solicitudes a los servicios apropiados, maneja autenticación, limitación de tasa y agregación de respuestas." },
+    { "term": "Service Mesh", "definition": "Capa de infraestructura (ej., Istio, Linkerd) — sidecar proxies en cada servicio gestionando descubrimiento, balanceo de carga, TLS y observabilidad. No es un nodo separado en la cadena de llamadas." },
+    { "term": "Database per Service", "definition": "Cada microservicio es dueño de su base de datos privada. Sin compartir bases de datos directamente entre servicios." },
+    { "term": "Circuit Breaker", "definition": "Patrón que previene fallos en cascada detectando fallos y cortocircuitando las llamadas a servicios no saludables." }
+  ],
+  "microservices.details.sync.tradeoffs.pros": [
+    "Modelo simple de solicitud-respuesta, fácil de entender y depurar",
+    "Consistencia fuerte dentro de una cadena de solicitud única",
+    "Herramientas e infraestructura HTTP/gRPC familiares",
+    "Manejo de errores directo con códigos de estado"
+  ],
+  "microservices.details.sync.tradeoffs.cons": [
+    "Acoplamiento temporal — el llamante está bloqueado hasta que todos los servicios downstream respondan",
+    "Fallos en cascada si un servicio es lento o no está disponible",
+    "Mayor latencia con cada salto en la cadena de llamadas",
+    "Acoplamiento estrecho a través de contratos de API"
+  ],
+  "microservices.details.sync.tradeoffs.whenToUse": "Ideal para consultas y operaciones que necesitan respuestas inmediatas y consistentes. Usar cuando el cliente espera un resultado síncrono y la cadena de llamadas es corta (2-3 saltos máximo).",
+  "microservices.details.async.principles": [
+    "Los servicios se comunican vía eventos a través de una cola de mensajes — sin llamadas directas",
+    "La cola de mensajes (Kafka/RabbitMQ) asegura entrega confiable y desacopla productores de consumidores",
+    "El Notification Service es un consumidor puro de eventos — nunca es llamado síncronamente",
+    "Cada servicio reacciona independientemente a los eventos que le interesan",
+    "Consistencia eventual — el estado converge con el tiempo, no inmediatamente",
+    "Los eventos son hechos inmutables que describen lo que ocurrió, no comandos"
+  ],
+  "microservices.details.async.concepts": [
+    { "term": "Domain Event", "definition": "Un registro inmutable de algo que ocurrió en un servicio (ej., OrderCreated, PaymentProcessed)." },
+    { "term": "Message Queue", "definition": "Infraestructura (ej., Kafka, RabbitMQ) que enruta eventos de productores a consumidores interesados de forma asíncrona." },
+    { "term": "Eventual Consistency", "definition": "Los datos entre servicios se volverán consistentes con el tiempo a medida que los eventos se procesan, pero pueden ser temporalmente inconsistentes." },
+    { "term": "Idempotency", "definition": "Los consumidores deben manejar eventos duplicados de forma segura. Procesar el mismo evento dos veces debe producir el mismo resultado." }
+  ],
+  "microservices.details.async.tradeoffs.pros": [
+    "Bajo acoplamiento — los servicios son completamente independientes",
+    "Alta resiliencia — los fallos en un servicio no se propagan en cascada",
+    "Mejor escalabilidad — los servicios procesan eventos a su propio ritmo",
+    "Pista de auditoría natural a partir de flujos de eventos"
+  ],
+  "microservices.details.async.tradeoffs.cons": [
+    "La consistencia eventual hace más difícil razonar sobre el estado",
+    "Depurar flujos de eventos distribuidos es desafiante",
+    "El ordenamiento de mensajes y el manejo de duplicados añaden complejidad",
+    "Sin respuesta inmediata al llamante"
+  ],
+  "microservices.details.async.tradeoffs.whenToUse": "Ideal para flujos de trabajo donde los servicios pueden reaccionar independientemente y no se requiere consistencia inmediata. Ideal para sistemas de alto rendimiento con velocidades de procesamiento variables.",
+  "microservices.details.saga.principles": [
+    "Las transacciones distribuidas se dividen en una secuencia de transacciones locales",
+    "Cada paso tiene una transacción compensatoria para deshacer sus efectos en caso de fallo",
+    "El Saga Orchestrator coordina la secuencia y maneja los fallos",
+    "Sin bloqueos distribuidos — cada servicio confirma localmente",
+    "Las compensaciones deben ser idempotentes y seguras para reintentar"
+  ],
+  "microservices.details.saga.concepts": [
+    { "term": "Saga Orchestrator", "definition": "Coordinador central que gestiona el flujo de trabajo de la saga: envía comandos, espera respuestas y activa compensaciones en caso de fallo." },
+    { "term": "Compensating Transaction", "definition": "Una operación que semánticamente deshace una transacción previamente confirmada (ej., reembolsar pago, liberar inventario)." },
+    { "term": "Local Transaction", "definition": "Cada servicio confirma los cambios en su propia base de datos independientemente, sin una transacción distribuida global." },
+    { "term": "Saga Step", "definition": "Una transacción local individual en la secuencia de la saga. Cada paso tiene una acción de compensación correspondiente." }
+  ],
+  "microservices.details.saga.tradeoffs.pros": [
+    "Mantiene la consistencia de datos entre servicios sin bloqueos distribuidos",
+    "Visibilidad clara del flujo de trabajo a través del orquestador",
+    "Cada servicio permanece autónomo con transacciones locales",
+    "El manejo de fallos es explícito y bien definido"
+  ],
+  "microservices.details.saga.tradeoffs.cons": [
+    "Complejo de implementar — cada paso necesita una acción compensatoria",
+    "Consistencia eventual durante la ejecución de la saga",
+    "El orquestador puede convertirse en un punto único de fallo",
+    "Depurar sagas fallidas a través de múltiples servicios es difícil"
+  ],
+  "microservices.details.saga.tradeoffs.whenToUse": "Ideal para operaciones de negocio que abarcan múltiples servicios y requieren consistencia de datos (ej., cumplimiento de pedidos, reservas). Usar cuando el two-phase commit no es viable.",
+  "microservices.details.saga-fail.principles": [
+    "Las transacciones compensatorias deshacen los pasos confirmados en orden inverso",
+    "Cada compensación debe ser idempotente — segura para reintentar en caso de fallo",
+    "El orquestador rastrea qué pasos tuvieron éxito para saber qué compensar",
+    "Las compensaciones son inversas semánticas, no rollbacks (ej., reembolso vs. deshacer pago)",
+    "El sistema permanece en un estado consistente después de que todas las compensaciones se completen"
+  ],
+  "microservices.details.saga-fail.concepts": [
+    { "term": "Compensating Transaction", "definition": "Una operación que semánticamente deshace una transacción local previamente confirmada (ej., liberar inventario, cancelar pago)." },
+    { "term": "Backward Recovery", "definition": "El proceso de ejecutar transacciones compensatorias en orden inverso a los pasos originales de la saga para restaurar la consistencia." },
+    { "term": "Saga Log", "definition": "Un registro persistente del progreso de la saga. Rastrea qué pasos se completaron y qué compensaciones son necesarias en caso de fallo." },
+    { "term": "Semantic Undo", "definition": "A diferencia del rollback de base de datos, las compensaciones crean nuevas transacciones que revierten el efecto de negocio (ej., un reembolso crea un nuevo crédito, no una eliminación)." }
+  ],
+  "microservices.details.saga-fail.tradeoffs.pros": [
+    "Garantiza consistencia eventual incluso en fallos parciales",
+    "Cada servicio permanece autónomo — sin bloqueos distribuidos",
+    "El manejo de fallos es explícito y auditable vía log de saga",
+    "Las compensaciones pueden incluir lógica de negocio (notificaciones, alertas)"
+  ],
+  "microservices.details.saga-fail.tradeoffs.cons": [
+    "Cada paso debe tener una compensación bien definida — duplica el esfuerzo de implementación",
+    "Las propias compensaciones pueden fallar, requiriendo lógica de reintento",
+    "La inconsistencia intermedia es visible durante la ejecución de compensaciones",
+    "Complejo probar todos los escenarios de fallo y compensación"
+  ],
+  "microservices.details.saga-fail.tradeoffs.whenToUse": "Esencial cuando las transacciones distribuidas pueden fallar en cualquier paso y necesitas recuperación automatizada. Diseña las compensaciones desde el inicio — implementarlas retroactivamente es extremadamente difícil.",
+
+  "ddd.name": "Diseño Orientado al Dominio",
+  "ddd.modes.http.label": "HTTP Request",
+  "ddd.modes.http.desc": "La solicitud HTTP entra al Bounded Context a través de la capa de Presentación (Controller). El UseCase orquesta la lógica de dominio y persiste el Aggregate vía Repository. Los Domain Events se propagan entre contextos a través del EventBus.",
+  "ddd.modes.console.label": "Console",
+  "ddd.modes.console.desc": "El comando de consola activa un caso de uso dentro de un Bounded Context. La lógica de dominio permanece aislada dentro del límite del contexto, comunicándose con otros contextos vía Domain Events.",
+  "ddd.modes.message.label": "Message",
+  "ddd.modes.message.desc": "Un Domain Event de otro Bounded Context llega a través de la Anti-Corruption Layer, se traduce y se procesa dentro del contexto local. Esto demuestra el mapeo de contextos.",
+  "ddd.modes.context-map.label": "Context Map",
+  "ddd.modes.context-map.desc": "Vista panorámica de todos los Bounded Contexts y sus relaciones estratégicas: ACL, Shared Kernel, Customer-Supplier, Conformist. Antes de escribir código, define cómo se relacionan los contextos entre sí.",
+  "ddd.modes.open-host.label": "Open Host",
+  "ddd.modes.open-host.desc": "Un contexto publica una API formal (Open Host Service) con Published Language (OpenAPI/Protobuf). Múltiples contextos downstream consumen el mismo contrato estandarizado en lugar de traducciones punto a punto.",
+  "ddd.modes.saga.label": "Saga \u2713",
+  "ddd.modes.saga.desc": "El Saga/Process Manager coordina un proceso de negocio que abarca múltiples Bounded Contexts. Cada contexto es dueño de su transacción local; la Saga orquesta el flujo general. Todos los pasos tienen éxito: Order -> Payment -> Shipment -> COMPLETED.",
+  "ddd.modes.saga-fail.label": "Saga \u2717",
+  "ddd.modes.saga-fail.desc": "El pago falla después de confirmar la Order. El Saga Orchestrator activa transacciones compensatorias en orden inverso: CancelOrder deshace el paso confirmado. La máquina de estados llega a COMPENSATED en lugar de COMPLETED.",
+  "ddd.modes.domain-events.label": "Domain Events",
+  "ddd.modes.domain-events.desc": "Un Domain Event se propaga a través del Event Bus a múltiples contextos. Cada consumidor traduce el evento a través de su propia ACL/Translator a su Ubiquitous Language local, demostrando la consistencia eventual.",
+  "ddd.details.http.principles": [
+    "Los Bounded Contexts definen límites claros de propiedad para los modelos de dominio",
+    "El Ubiquitous Language asegura que desarrolladores y expertos del dominio compartan el mismo vocabulario",
+    "La Anti-Corruption Layer protege los límites del contexto de la contaminación de modelos externos",
+    "Los Aggregates imponen consistencia transaccional dentro de un límite"
+  ],
+  "ddd.details.http.concepts": [
+    { "term": "Bounded Context", "definition": "Un límite dentro del cual un modelo de dominio particular está definido y es aplicable. Cada contexto tiene su propio Ubiquitous Language." },
+    { "term": "Aggregate", "definition": "Un conjunto de objetos de dominio tratados como una unidad para cambios de datos. Tiene una entidad raíz que controla el acceso." },
+    { "term": "Anti-Corruption Layer", "definition": "Una capa de traducción que aísla un Bounded Context de modelos externos, evitando que conceptos foráneos se filtren." },
+    { "term": "Domain Event", "definition": "Un registro de algo significativo que ocurrió en el dominio. Usado para la comunicación entre contextos." }
+  ],
+  "ddd.details.http.tradeoffs.pros": [
+    "Modelos de dominio ricos que reflejan fielmente la realidad del negocio",
+    "El Ubiquitous Language une la comunicación entre desarrolladores y expertos del dominio",
+    "Los Bounded Contexts permiten autonomía del equipo y despliegue independiente",
+    "La lógica de dominio compleja está bien organizada dentro de aggregates y servicios"
+  ],
+  "ddd.details.http.tradeoffs.cons": [
+    "Curva de aprendizaje pronunciada — requiere comprensión profunda de patrones estratégicos y tácticos",
+    "Excesivo para aplicaciones CRUD simples con poca lógica de negocio",
+    "Esfuerzo significativo de modelado inicial antes de escribir código",
+    "El diseño de los límites del Aggregate es notoriamente difícil de acertar"
+  ],
+  "ddd.details.http.tradeoffs.whenToUse": "Ideal para dominios de negocio complejos con muchas reglas, múltiples equipos trabajando en diferentes subdominios y requisitos en evolución donde el costo de malinterpretar el dominio es alto.",
+  "ddd.details.console.principles": [
+    "Consola y HTTP comparten el mismo modelo de dominio dentro de un Bounded Context",
+    "Los Domain Services coordinan lógica que abarca múltiples aggregates",
+    "Los eventos propagan cambios de estado sin acoplar contextos directamente",
+    "La capa de aplicación orquesta casos de uso sin contener reglas de negocio"
+  ],
+  "ddd.details.console.concepts": [
+    { "term": "Domain Service", "definition": "Un servicio sin estado que encapsula lógica de dominio que no pertenece naturalmente a una sola Entity o Value Object." },
+    { "term": "Application Service", "definition": "Orquesta la ejecución de casos de uso, coordina objetos de dominio, pero no contiene lógica de negocio en sí mismo." }
+  ],
+  "ddd.details.console.tradeoffs.pros": [
+    "Modelos de dominio ricos que reflejan fielmente la realidad del negocio",
+    "El Ubiquitous Language une la comunicación entre desarrolladores y expertos del dominio",
+    "Los Bounded Contexts permiten autonomía del equipo y despliegue independiente",
+    "La lógica de dominio compleja está bien organizada dentro de aggregates y servicios"
+  ],
+  "ddd.details.console.tradeoffs.cons": [
+    "Curva de aprendizaje pronunciada — requiere comprensión profunda de patrones estratégicos y tácticos",
+    "Excesivo para aplicaciones CRUD simples con poca lógica de negocio",
+    "Esfuerzo significativo de modelado inicial antes de escribir código",
+    "El diseño de los límites del Aggregate es notoriamente difícil de acertar"
+  ],
+  "ddd.details.console.tradeoffs.whenToUse": "Ideal para dominios de negocio complejos con muchas reglas, múltiples equipos trabajando en diferentes subdominios y requisitos en evolución donde el costo de malinterpretar el dominio es alto.",
+  "ddd.details.message.principles": [
+    "El Context Mapping define las relaciones entre Bounded Contexts",
+    "La ACL traduce eventos externos al lenguaje de dominio local",
+    "Los Domain Events son el mecanismo principal para la comunicación entre contextos",
+    "Cada contexto mantiene la integridad de su propio modelo"
+  ],
+  "ddd.details.message.concepts": [
+    { "term": "Context Map", "definition": "Una representación visual y conceptual de cómo se relacionan los Bounded Contexts entre sí (Shared Kernel, Customer-Supplier, Conformist, ACL)." },
+    { "term": "Event-Driven Integration", "definition": "Los contextos se comunican asincrónicamente a través de eventos de dominio en lugar de llamadas API directas, reduciendo el acoplamiento." }
+  ],
+  "ddd.details.message.tradeoffs.pros": [
+    "Modelos de dominio ricos que reflejan fielmente la realidad del negocio",
+    "El Ubiquitous Language une la comunicación entre desarrolladores y expertos del dominio",
+    "Los Bounded Contexts permiten autonomía del equipo y despliegue independiente",
+    "La lógica de dominio compleja está bien organizada dentro de aggregates y servicios"
+  ],
+  "ddd.details.message.tradeoffs.cons": [
+    "Curva de aprendizaje pronunciada — requiere comprensión profunda de patrones estratégicos y tácticos",
+    "Excesivo para aplicaciones CRUD simples con poca lógica de negocio",
+    "Esfuerzo significativo de modelado inicial antes de escribir código",
+    "El diseño de los límites del Aggregate es notoriamente difícil de acertar"
+  ],
+  "ddd.details.message.tradeoffs.whenToUse": "Ideal para dominios de negocio complejos con muchas reglas, múltiples equipos trabajando en diferentes subdominios y requisitos en evolución donde el costo de malinterpretar el dominio es alto.",
+  "ddd.details.context-map.principles": [
+    "El Context Map es el primer artefacto estratégico — dibújalo antes de escribir código",
+    "Cada tipo de relación implica una estrategia de integración y dinámica de equipo diferente",
+    "La asimetría de poder entre equipos determina el tipo de relación (upstream/downstream)",
+    "Las relaciones evolucionan con el tiempo a medida que los equipos y dominios cambian"
+  ],
+  "ddd.details.context-map.concepts": [
+    { "term": "Anti-Corruption Layer (ACL)", "definition": "El contexto downstream construye una capa de traducción para protegerse de los cambios del modelo upstream. Máximo aislamiento, mayor costo de desarrollo." },
+    { "term": "Shared Kernel", "definition": "Dos contextos comparten un subconjunto del modelo de dominio (código/esquema). Los cambios requieren acuerdo de ambos equipos. Acoplamiento estrecho pero reduce la duplicación." },
+    { "term": "Customer-Supplier", "definition": "El upstream (proveedor) provee lo que el downstream (cliente) necesita. El cliente puede negociar requisitos. Interfaz formal con versionado." },
+    { "term": "Conformist", "definition": "El contexto downstream acepta el modelo upstream tal cual sin traducción. La integración más simple pero sin protección contra cambios upstream." },
+    { "term": "Context Map", "definition": "Una representación visual de todos los Bounded Contexts en el sistema y las relaciones entre ellos. El punto de partida para DDD estratégico." }
+  ],
+  "ddd.details.context-map.tradeoffs.pros": [
+    "Ofrece una vista panorámica de toda la arquitectura del sistema",
+    "Hace explícitas las relaciones de equipo y dinámicas de poder",
+    "Guía las decisiones de estrategia de integración antes de codificar",
+    "Ayuda a identificar acoplamientos problemáticos tempranamente"
+  ],
+  "ddd.details.context-map.tradeoffs.cons": [
+    "Requiere comprensión a nivel organizacional de los límites del dominio",
+    "Las relaciones pueden ser subjetivas y debatibles",
+    "El mapa debe mantenerse a medida que el sistema evoluciona",
+    "No captura el comportamiento en tiempo de ejecución ni el flujo de datos"
+  ],
+  "ddd.details.context-map.tradeoffs.whenToUse": "Esencial para cualquier sistema multi-equipo y multi-contexto. Dibuja el Context Map primero al iniciar un nuevo proyecto o al incorporarte a uno existente.",
+  "ddd.details.open-host.principles": [
+    "El Open Host Service proporciona una API formal única para todos los consumidores",
+    "El Published Language define un esquema compartido (OpenAPI, Protobuf, Avro)",
+    "El contexto upstream es dueño y versiona el contrato independientemente",
+    "Los consumidores están desacoplados del modelo de dominio interno del proveedor"
+  ],
+  "ddd.details.open-host.concepts": [
+    { "term": "Open Host Service (OHS)", "definition": "Una API pública bien definida que un Bounded Context expone para su consumo. A diferencia de integraciones punto a punto, OHS sirve a todos los consumidores uniformemente." },
+    { "term": "Published Language", "definition": "Un formato de datos compartido (JSON Schema, Protobuf, Avro) que define el contrato. Es la \"lingua franca\" entre contextos." },
+    { "term": "Contract-First Design", "definition": "El esquema de la API se diseña antes de la implementación. Los consumidores pueden iniciar el trabajo de integración en paralelo con el desarrollo del proveedor." }
+  ],
+  "ddd.details.open-host.tradeoffs.pros": [
+    "Un solo contrato sirve a múltiples consumidores — reduce el esfuerzo de integración",
+    "El Published Language proporciona documentación clara y versionado",
+    "Los consumidores están aislados de los cambios del modelo interno",
+    "Permite desarrollo paralelo entre equipos"
+  ],
+  "ddd.details.open-host.tradeoffs.cons": [
+    "La evolución del contrato requiere una estrategia de versionado cuidadosa",
+    "Una API única para todos puede no ser óptima para cada consumidor",
+    "El equipo upstream asume el costo de mantener la API pública",
+    "Los cambios de esquema pueden tener impacto generalizado en el downstream"
+  ],
+  "ddd.details.open-host.tradeoffs.whenToUse": "Cuando un contexto tiene 3+ consumidores y deseas evitar construir integraciones personalizadas para cada uno. Enfoque estándar para servicios de plataforma/core.",
+  "ddd.details.saga.principles": [
+    "Cada Bounded Context es dueño de su transacción local — sin transacciones distribuidas",
+    "El Saga Orchestrator coordina el flujo de trabajo general enviando comandos",
+    "Cada paso produce un evento que la Saga escucha para transiciones de estado",
+    "Se definen acciones de compensación para cada paso para manejar fallos"
+  ],
+  "ddd.details.saga.concepts": [
+    { "term": "Saga Orchestrator", "definition": "Un gestor de procesos con estado que coordina un proceso de negocio multi-paso. Envía comandos a los contextos y reacciona a sus eventos." },
+    { "term": "Compensating Transaction", "definition": "La operación inversa para un paso previamente completado. Se usa para mantener la consistencia cuando un paso posterior falla (ej., reembolsar pago si el envío falla)." },
+    { "term": "Saga State", "definition": "El orquestador rastrea su progreso a través del flujo de trabajo (ej., ORDER_CONFIRMED -> PAYMENT_COMPLETED -> SHIPMENT_CREATED)." },
+    { "term": "Eventual Consistency", "definition": "El sistema alcanza un estado consistente eventualmente, no inmediatamente. Cada transacción local se confirma independientemente." }
+  ],
+  "ddd.details.saga.tradeoffs.pros": [
+    "Evita transacciones distribuidas (2PC) que no escalan",
+    "Cada contexto permanece autónomo con su propia base de datos",
+    "Lógica de compensación clara para el manejo de fallos",
+    "El orquestador proporciona un punto único de visibilidad del flujo de trabajo"
+  ],
+  "ddd.details.saga.tradeoffs.cons": [
+    "Complejo de implementar — requiere un diseño cuidadoso de máquina de estados",
+    "La lógica de compensación puede ser tan compleja como el camino feliz",
+    "Depurar flujos de trabajo distribuidos es desafiante",
+    "La consistencia eventual requiere patrones de UI/UX (ej., \"procesando...\")"
+  ],
+  "ddd.details.saga.tradeoffs.whenToUse": "Cuando un proceso de negocio abarca 3+ Bounded Contexts y necesitas consistencia sin transacciones distribuidas. Común en e-commerce, reservas y sistemas financieros.",
+  "ddd.details.saga-fail.principles": [
+    "Las transacciones compensatorias deshacen los pasos confirmados en orden inverso",
+    "Cada compensación debe ser idempotente — segura para reintentar en caso de fallo",
+    "El orquestador rastrea qué pasos tuvieron éxito para saber qué compensar",
+    "Las compensaciones son inversas semánticas, no rollbacks de base de datos (ej., CancelOrder vs. undo)",
+    "El sistema alcanza el estado COMPENSATED — consistente, no roto"
+  ],
+  "ddd.details.saga-fail.concepts": [
+    { "term": "Compensating Transaction", "definition": "Una operación que semánticamente deshace una transacción local previamente confirmada. CancelOrder revierte CreateOrder, pero es un nuevo comando, no un rollback." },
+    { "term": "Backward Recovery", "definition": "Ejecutar transacciones compensatorias en orden inverso a los pasos originales de la saga. Solo los pasos confirmados necesitan compensación." },
+    { "term": "Saga State Machine", "definition": "Los estados incluyen COMPENSATING y COMPENSATED además de los estados del camino feliz. El orquestador transiciona a COMPENSATING ante cualquier fallo de paso." },
+    { "term": "Semantic Undo", "definition": "A diferencia del rollback de base de datos, la compensación crea nuevos eventos de dominio (OrderCancelled) a los que otros contextos pueden reaccionar." }
+  ],
+  "ddd.details.saga-fail.tradeoffs.pros": [
+    "Garantiza consistencia eventual incluso en fallos parciales",
+    "Cada contexto permanece autónomo — sin bloqueos distribuidos necesarios",
+    "El manejo de fallos es explícito y auditable vía máquina de estados de la saga",
+    "Las compensaciones producen eventos de dominio que otros contextos pueden consumir"
+  ],
+  "ddd.details.saga-fail.tradeoffs.cons": [
+    "Cada paso debe tener una compensación bien definida — duplica el esfuerzo de implementación",
+    "Las propias compensaciones pueden fallar, requiriendo estrategias de reintento y dead-letter",
+    "La inconsistencia intermedia es visible durante la ejecución de compensaciones",
+    "La complejidad de la máquina de estados crece con cada paso añadido a la saga"
+  ],
+  "ddd.details.saga-fail.tradeoffs.whenToUse": "Esencial cuando las transacciones distribuidas pueden fallar en cualquier paso. Diseña las compensaciones desde el inicio — implementarlas retroactivamente en una saga existente es extremadamente difícil.",
+  "ddd.details.domain-events.principles": [
+    "Los Domain Events representan hechos — algo que ya ocurrió",
+    "Cada consumidor interpreta el evento en su propio Ubiquitous Language vía ACL",
+    "El Event Bus desacopla al productor de los consumidores — el productor no sabe quién escucha",
+    "La consistencia eventual es el resultado natural de la integración orientada a eventos"
+  ],
+  "ddd.details.domain-events.concepts": [
+    { "term": "Domain Event", "definition": "Un registro inmutable de una ocurrencia de negocio significativa (ej., OrderPlaced). Nombrado en tiempo pasado usando el lenguaje del dominio." },
+    { "term": "ACL / Translator", "definition": "Cada consumidor traduce el evento entrante a su concepto de dominio local. OrderPlaced se convierte en PaymentRequired en el contexto de Payment." },
+    { "term": "Event Bus", "definition": "Infraestructura que enruta eventos de productores a consumidores. Puede ser RabbitMQ, Kafka o cualquier message broker." },
+    { "term": "Ubiquitous Language", "definition": "El mismo hecho del mundo real significa cosas diferentes en diferentes contextos. La ACL une estas diferencias de lenguaje." }
+  ],
+  "ddd.details.domain-events.tradeoffs.pros": [
+    "Máximo desacoplamiento — el productor no conoce a sus consumidores",
+    "Nuevos consumidores pueden suscribirse sin cambiar al productor",
+    "Cada contexto mantiene la integridad de su propio modelo a través de la ACL",
+    "Encaje natural para microservicios y sistemas distribuidos"
+  ],
+  "ddd.details.domain-events.tradeoffs.cons": [
+    "La consistencia eventual requiere manejo cuidadoso en las UIs",
+    "El ordenamiento de eventos y la idempotencia deben gestionarse explícitamente",
+    "Depurar cadenas de eventos entre contextos es difícil",
+    "La evolución del esquema de eventos necesita una estrategia de versionado"
+  ],
+  "ddd.details.domain-events.tradeoffs.whenToUse": "Cuando un solo hecho de negocio activa reacciones en múltiples contextos. El patrón predilecto para comunicación entre contextos en DDD. Preferir sobre llamadas síncronas para bajo acoplamiento.",
+
+  "layered.requestLabel.http": "Layered: la solicitud fluye top-down a través de Presentation → Application → Domain → Infrastructure",
+  "layered.requestLabel.console": "Layered: el comando CLI sigue el mismo flujo descendente que HTTP",
+  "layered.requestLabel.message": "Layered: el mensaje asíncrono sigue el mismo flujo descendente que HTTP y CLI",
+  "layered.step.http.0": "POST /api/orders llega al Controller — punto de entrada de la capa Presentation",
+  "layered.step.console.0": "app:sync-users invocado — el handler CLI parsea argumentos en la capa Presentation",
+  "layered.step.message.0": "Mensaje order.created extraído — entrada asíncrona en la capa Presentation",
+
+  "clean.requestLabel.http": "Clean: la solicitud atraviesa los anillos hacia adentro — Frameworks → Adapters → Use Cases → Entities",
+  "clean.requestLabel.console": "Clean: CLI entra en el anillo exterior — los mismos Use Cases y Entities sirven cualquier mecanismo de entrega",
+  "clean.requestLabel.message": "Clean: mensaje consumido en el anillo exterior — el driver de cola es un detalle del framework",
+  "clean.step.http.0": "GET /api/users/1 llega al anillo exterior — el framework es un detalle reemplazable",
+  "clean.step.console.0": "migrate:run entra en el framework CLI — anillo exterior, detalle intercambiable",
+  "clean.step.message.0": "Mensaje user.registered consumido — driver de cola en el anillo exterior",
+
+  "hexagonal.requestLabel.http": "Hexagonal: el driving adapter traduce HTTP en llamada al puerto del dominio",
+  "hexagonal.requestLabel.console": "Hexagonal: el adapter CLI usa el mismo input port que HTTP",
+  "hexagonal.requestLabel.message": "Hexagonal: el adapter de mensajes llama al mismo input port que HTTP y CLI",
+  "hexagonal.step.http.0": "PUT /api/products/42 llega al adapter HTTP — traduce a llamada al input port",
+  "hexagonal.step.console.0": "product:import invocado — el adapter CLI convierte argumentos en llamada al input port",
+  "hexagonal.step.message.0": "inventory.updated consumido — el adapter de mensajes deserializa y llama al input port",
+
+  "ddd.requestLabel.http": "DDD: la solicitud entra en el Order Bounded Context — aislado de Payment y Shipping",
+  "ddd.requestLabel.console": "DDD: CLI activa use case del Bounded Context — la lógica de dominio permanece aislada",
+  "ddd.requestLabel.message": "DDD: evento del contexto Payment traducido via Anti-Corruption Layer",
+  "ddd.requestLabel.open-host": "DDD: evento del agregado publicado a través del Open Host Service a contextos descendentes",
+  "ddd.requestLabel.saga": "DDD Saga: el orquestador coordina Order, Payment, Shipping como transacciones locales",
+  "ddd.requestLabel.saga-fail": "DDD Saga: el fallo activa transacciones compensatorias en orden inverso",
+  "ddd.requestLabel.domain-events": "DDD: el evento de dominio se distribuye a todos los bounded contexts suscritos",
+  "ddd.step.http.0": "POST /api/orders entra en el Order Context — la frontera del contexto aísla este dominio",
+  "ddd.step.console.0": "order:recalculate entra en el contexto — mismo use case que HTTP, tras la frontera",
+  "ddd.step.message.0": "Evento payment.completed llega — ACL traducirá al lenguaje del contexto Order",
+  "ddd.step.open-host.0": "El use case PlaceOrder inicia — el agregado emitirá evento para Open Host Service",
+  "ddd.step.saga.0": "OrderSaga se inicializa — estado ORDER_PENDING, el orquestador comienza coordinación",
+  "ddd.step.saga-fail.0": "OrderSaga se inicializa — estado ORDER_PENDING, la compensación deshará en caso de fallo",
+  "ddd.step.domain-events.0": "PlaceOrder recibe el comando CreateOrder — el agregado emitirá evento OrderPlaced",
+
+  "cqrs.requestLabel.http": "CQRS: lado de escritura — los comandos son objetos explícitos, nunca mutaciones directas de estado",
+  "cqrs.requestLabel.console": "CQRS: lado de lectura — las queries leen desde proyecciones desnormalizadas optimizadas",
+  "cqrs.requestLabel.message": "CQRS: el evento activa tanto un comando en el lado de escritura como una actualización de proyección en el lado de lectura",
+  "cqrs.step.http.0": "CreateOrderCommand enviado al lado de escritura — objeto comando explícito creado",
+  "cqrs.step.console.0": "Query GetOrderDetails enviada al lado de lectura — nunca toca el modelo de escritura",
+  "cqrs.step.message.0": "Evento PaymentReceived llega al bus — actualizará ambos lados",
+
+  "eda.requestLabel.http": "EDA: el servicio publica evento en lugar de llamar directamente a los servicios downstream",
+  "eda.requestLabel.choreography": "EDA Coreografía: sin coordinador — los servicios reaccionan y emiten eventos independientemente",
+  "eda.requestLabel.orchestration": "EDA Orquestación: el coordinador central envía comandos y rastrea la finalización",
+  "eda.step.http.0": "POST /api/orders crea un pedido — publica evento para consumidores interesados",
+  "eda.step.choreography.0": "Evento OrderCreated emitido — cada servicio reaccionará independientemente",
+  "eda.step.orchestration.0": "Pedido creado — el Saga Orchestrator toma el control del workflow",
+
+  "eventsourcing.requestLabel.http": "Event Sourcing: el comando produce un evento añadido al flujo inmutable, no una actualización de fila",
+  "eventsourcing.requestLabel.console": "Event Sourcing: el estado se reconstruye reproduciendo todos los eventos en secuencia",
+  "eventsourcing.requestLabel.message": "Event Sourcing: las proyecciones transforman eventos independientemente en vistas optimizadas para lectura",
+  "eventsourcing.step.http.0": "Comando AddItem recibido — el agregado emitirá evento ItemAdded",
+  "eventsourcing.step.console.0": "Reconstruir Order #42 desde el flujo de eventos — no existe estado almacenado",
+  "eventsourcing.step.message.0": "Evento OrderConfirmed leído del store — las proyecciones lo transformarán",
+
+  "microservices.requestLabel.sync": "Microservices Sync: cliente → API Gateway → servicios (sin llamadas directas)",
+  "microservices.requestLabel.async": "Microservices Async: los servicios reaccionan a eventos via Message Queue",
+  "microservices.requestLabel.saga": "Microservices Saga: el orquestador coordina inventory, payment, confirmación",
+  "microservices.requestLabel.saga-fail": "Microservices Saga Failure: el pago falla, transacciones compensatorias deshacen inventory",
+  "microservices.step.sync.0": "POST /api/orders enviado al API Gateway — el gateway gestiona auth y enrutamiento",
+  "microservices.step.async.0": "Pedido creado localmente — evento OrderCreated publicado en la Message Queue",
+  "microservices.step.saga.0": "POST /api/orders — enrutado al Saga Orchestrator para coordinación distribuida",
+  "microservices.step.saga-fail.0": "POST /api/orders — esta solicitud fallará en el paso de pago",
+
+  "mvc.requestLabel.mvc": "MVC: el Controller actualiza el Model, la View observa el Model (nunca actualizada por el Controller directamente)",
+  "mvc.requestLabel.mvp": "MVP: la View pasiva delega todas las acciones al Presenter via interfaz IView",
+  "mvc.requestLabel.mvvm": "MVVM: el data binding bidireccional sincroniza View y ViewModel automáticamente",
+  "mvc.step.mvc.0": "GET /users/42 enrutado a UserController — el Controller actualizará el Model",
+  "mvc.step.mvp.0": "El usuario hace clic en 'Save' — la View pasiva delega al Presenter",
+  "mvc.step.mvvm.0": "El usuario escribe en el campo de búsqueda — el binding propaga al ViewModel",
+
+  "arch.btn.run.tooltip": "Enviar solicitud a traves de la arquitectura",
+  "arch.legend.sync": "Sincrono",
+  "arch.legend.sync_request": "Sincrono (Solicitud)",
+  "arch.legend.sync_delegate": "Sincrono (Delegacion)",
+  "arch.legend.sync_binding": "Sincrono (Enlace)",
+  "arch.legend.sync_layer": "Sincrono (Llamada de capa)",
+  "arch.legend.sync_inward": "Sincrono (Hacia adentro)",
+  "arch.legend.sync_port": "Sincrono (Llamada de puerto)",
+  "arch.legend.sync_http": "Sincrono (HTTP/gRPC)",
+  "arch.legend.response": "Respuesta",
+  "arch.legend.response_outward": "Respuesta (Hacia afuera)",
+  "arch.legend.async": "Asincrono",
+  "arch.legend.async_event": "Asincrono (Evento)",
+  "arch.legend.async_queue": "Asincrono (Cola)",
+  "arch.legend.event_domain": "Evento (Dominio)",
+  "arch.legend.read_replay": "Lectura (reproduccion)",
+  "arch.legend.write_append": "Escritura (agregar)",
+  "arch.legend.db_write": "Escritura en BD",
+  "arch.legend.compensate": "Compensacion",
+  "arch.legend.command": "Comando",
+  "arch.layer.presentation": "Capa de presentacion",
+  "arch.layer.application": "Capa de aplicacion",
+  "arch.layer.domain": "Capa de dominio",
+  "arch.layer.infrastructure": "Capa de infraestructura",
+  "arch.layer.presentation_short": "Presentacion",
+  "arch.layer.application_short": "Aplicacion",
+  "arch.layer.domain_short": "Dominio",
+  "arch.layer.infrastructure_short": "Infraestructura",
+  "arch.arrow.depends_on": "depende de",
+  "arch.arrow.implements": "implementa",
+  "mvc.triad.view": "Vista",
+  "mvc.triad.controller": "Controlador",
+  "mvc.triad.model": "Modelo",
+  "mvc.triad.presenter": "Presentador",
+  "mvc.triad.viewmodel": "ViewModel",
+  "mvc.triad.view.desc.mvc": "Muestra datos al usuario. Observa cambios del Modelo. Envia acciones al Controlador.",
+  "mvc.triad.controller.desc": "Maneja la entrada del usuario. Actualiza el Modelo. Selecciona la Vista. NO actualiza directamente la Vista.",
+  "mvc.triad.model.desc.mvc": "Logica de negocio y datos. Notifica observadores (Vista) cuando cambia el estado. Independiente de la UI.",
+  "mvc.triad.view.desc.mvp": "Vista pasiva. Delega TODA la entrada al Presentador. Sin logica. Implementa la interfaz View.",
+  "mvc.triad.presenter.desc": "Mediador entre Vista y Modelo. Contiene logica de presentacion. Actualiza la Vista via interfaz.",
+  "mvc.triad.model.desc.mvp": "Datos y reglas de negocio. El Presentador lee/escribe el Modelo. El Modelo desconoce al Presentador y la Vista.",
+  "mvc.triad.view.desc.mvvm": "Se enlaza a propiedades del ViewModel. El enlace bidireccional sincroniza la UI. Codigo minimo.",
+  "mvc.triad.viewmodel.desc": "Expone propiedades observables y comandos. La Vista se enlaza a ellos. Transforma datos del Modelo.",
+  "mvc.triad.model.desc.mvvm": "Datos puros y logica de negocio. ViewModel lee/escribe el Modelo. Desconoce la Vista y el ViewModel.",
+  "clean.ring.frameworks": "Frameworks y controladores",
+  "clean.ring.adapters": "Adaptadores de interfaz",
+  "clean.ring.usecases": "Casos de uso",
+  "clean.ring.entities": "Entidades",
+  "clean.dep_direction": "Las dependencias apuntan HACIA ADENTRO",
+  "hexagonal.side.driving": "Conductores (Izquierda)",
+  "hexagonal.side.driven": "Conducidos (Derecha)",
+  "hexagonal.core.label": "Nucleo del dominio",
+  "cqrs.side.command": "Lado de comandos (Escritura)",
+  "cqrs.side.query": "Lado de consultas (Lectura)",
+  "cqrs.bridge.eventbus": "Bus de eventos (Proyecciones)",
+  "cqrs.badge.async": "async",
+  "eventsourcing.layer.command": "Procesamiento de comandos",
+  "eventsourcing.layer.store": "Almacen de eventos (Fuente de verdad)",
+  "eventsourcing.layer.decision": "Decision del agregado",
+  "eventsourcing.layer.projections": "Proyecciones (Modelos de lectura)",
+  "eventsourcing.phase.load": "Carga (reproduccion de eventos)",
+  "eventsourcing.phase.execute": "Fase 2 — Ejecutar (aplicar comando, emitir evento)",
+  "eventsourcing.phase.project": "Proyectar (async via bus de eventos)",
+  "eventsourcing.eventbus.label": "Bus de eventos",
+  "eventsourcing.arrow.reads_events": "lee eventos",
+  "eventsourcing.arrow.appends_event": "agrega evento (escritura)",
+  "eda.label.producers": "Productores",
+  "eda.label.consumers": "Consumidores",
+  "eda.saga.label": "Orquestador Saga",
+  "eda.eventbus.label": "Bus de eventos / Broker de mensajes",
+  "microservices.mesh.label": "Service Mesh (Istio / Linkerd)",
+  "microservices.saga.label": "Orquestador Saga",
+  "microservices.queue.label": "Cola de mensajes",
+  "ddd.context.order": "Contexto de pedidos",
+  "ddd.context.payment": "Contexto de pagos",
+  "ddd.context.order_core": "Contexto de pedidos (Nucleo)",
+  "ddd.context.crm": "Contexto CRM",
+  "ddd.context.inventory": "Contexto de inventario",
+  "ddd.context.shipping": "Contexto de envios",
+  "ddd.acl.label": "Capa anticorrupcion"
+}

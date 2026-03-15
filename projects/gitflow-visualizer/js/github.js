@@ -119,19 +119,74 @@ GFV.github.feature = {
     steps: function() {
         var b = this._b;
         return [
-            { op: 'branch', branch: b, fromBranch: 'main', label: 'branch', description: 'Create ' + b + ' from main — starting isolated work on user authentication feature', logType: 'BRANCH' },
-            { op: 'commit', branch: b, label: 'auth-1', description: 'Add login form with email/password fields, client-side validation, and accessible error messages', logType: 'COMMIT' },
-            { op: 'commit', branch: b, label: 'auth-2', description: 'Add server-side validation logic — sanitize inputs, verify credentials against the user store, return JWT token', logType: 'COMMIT' },
-            { op: 'pr', fromBranch: b, toBranch: 'main', label: 'PR #1', description: 'Open Pull Request: ' + b + ' → main — requesting team review before merging to the deployable branch', logType: 'PR' },
-            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'merge', description: 'PR approved and merged into main — CI pipeline passes, feature is now part of the deployable codebase', logType: 'MERGE' },
-            { op: 'deploy', branch: 'main', envName: 'production', description: 'Automatically deploy main to production — every merge triggers a deploy in GitHub Flow', logType: 'DEPLOY' },
-            { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' branch — feature shipped, branch no longer needed', logType: 'BRANCH' }
+            {
+                op: 'branch',
+                branch: b,
+                fromBranch: 'main',
+                label: 'branch',
+                description: 'Create ' + b + ' from main — starting isolated work on user authentication feature',
+                descriptionKey: 'gfv.github.feature.branch',
+                descriptionParams: { branch: b },
+                logType: 'BRANCH'
+            },
+            {
+                op: 'commit',
+                branch: b,
+                label: 'auth-1',
+                description: 'Add login form with email/password fields, client-side validation, and accessible error messages',
+                descriptionKey: 'gfv.github.feature.auth_ui',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'commit',
+                branch: b,
+                label: 'auth-2',
+                description: 'Add server-side validation logic — sanitize inputs, verify credentials against the user store, return JWT token',
+                descriptionKey: 'gfv.github.feature.auth_api',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'pr',
+                fromBranch: b,
+                toBranch: 'main',
+                label: 'PR #1',
+                description: 'Open Pull Request: ' + b + ' → main — requesting team review before merging to the deployable branch',
+                descriptionKey: 'gfv.github.feature.pr',
+                descriptionParams: { branch: b },
+                logType: 'PR'
+            },
+            {
+                op: 'merge',
+                fromBranch: b,
+                toBranch: 'main',
+                label: 'merge',
+                description: 'PR approved and merged into main — CI pipeline passes, feature is now part of the deployable codebase',
+                descriptionKey: 'gfv.github.feature.merge',
+                logType: 'MERGE'
+            },
+            {
+                op: 'deploy',
+                branch: 'main',
+                envName: 'production',
+                description: 'Automatically deploy main to production — every merge triggers a deploy in GitHub Flow',
+                descriptionKey: 'gfv.github.feature.deploy',
+                logType: 'DEPLOY'
+            },
+            {
+                op: 'delete-branch',
+                branch: b,
+                label: 'cleanup',
+                description: 'Delete ' + b + ' branch — feature shipped, branch no longer needed',
+                descriptionKey: 'gfv.github.feature.cleanup',
+                descriptionParams: { branch: b },
+                logType: 'BRANCH'
+            }
         ];
     },
 
     stepOptions: function() {
         return {
-            requestLabel: 'GitHub Flow: Feature + PR',
+            requestLabel: GFV._t('gfv.request.github.feature', null, 'GitHub Flow: Feature + PR'),
             _initFn: GFV.github.feature.init
         };
     },
@@ -155,19 +210,74 @@ GFV.github.deploy = {
     steps: function() {
         var b = this._b;
         return [
-            { op: 'branch', branch: b, fromBranch: 'main', label: 'branch', description: 'Create ' + b + ' from main — starting work on new search feature', logType: 'BRANCH' },
-            { op: 'commit', branch: b, label: 'search-1', description: 'Implement search API endpoint with Elasticsearch integration and pagination support', logType: 'COMMIT' },
-            { op: 'pr', fromBranch: b, toBranch: 'main', label: 'PR #3', description: 'Open Pull Request: ' + b + ' → main — CI runs automated tests on the PR branch', logType: 'PR' },
-            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'merge', description: 'PR approved and merged — CI/CD pipeline triggers automatically on main', logType: 'MERGE' },
-            { op: 'deploy', branch: 'main', envName: 'production', description: 'Auto-deploy main to production — every merge to main goes live immediately, no staging gate', logType: 'DEPLOY' },
-            { op: 'tag', branch: 'main', tagName: 'v1.0.0', description: 'Tag release v1.0.0 — marking the deployment as a versioned release', logType: 'TAG' },
-            { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' — feature deployed, branch no longer needed', logType: 'BRANCH' }
+            {
+                op: 'branch',
+                branch: b,
+                fromBranch: 'main',
+                label: 'branch',
+                description: 'Create ' + b + ' from main — starting work on new search feature',
+                descriptionKey: 'gfv.github.deploy.branch',
+                descriptionParams: { branch: b },
+                logType: 'BRANCH'
+            },
+            {
+                op: 'commit',
+                branch: b,
+                label: 'search-1',
+                description: 'Implement search API endpoint with Elasticsearch integration and pagination support',
+                descriptionKey: 'gfv.github.deploy.search_api',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'pr',
+                fromBranch: b,
+                toBranch: 'main',
+                label: 'PR #3',
+                description: 'Open Pull Request: ' + b + ' → main — CI runs automated tests on the PR branch',
+                descriptionKey: 'gfv.github.deploy.pr',
+                descriptionParams: { branch: b },
+                logType: 'PR'
+            },
+            {
+                op: 'merge',
+                fromBranch: b,
+                toBranch: 'main',
+                label: 'merge',
+                description: 'PR approved and merged — CI/CD pipeline triggers automatically on main',
+                descriptionKey: 'gfv.github.deploy.merge',
+                logType: 'MERGE'
+            },
+            {
+                op: 'deploy',
+                branch: 'main',
+                envName: 'production',
+                description: 'Auto-deploy main to production — every merge to main goes live immediately, no staging gate',
+                descriptionKey: 'gfv.github.deploy.autodeploy',
+                logType: 'DEPLOY'
+            },
+            {
+                op: 'tag',
+                branch: 'main',
+                tagName: 'v1.0.0',
+                description: 'Tag release v1.0.0 — marking the deployment as a versioned release',
+                descriptionKey: 'gfv.github.deploy.tag',
+                logType: 'TAG'
+            },
+            {
+                op: 'delete-branch',
+                branch: b,
+                label: 'cleanup',
+                description: 'Delete ' + b + ' — feature deployed, branch no longer needed',
+                descriptionKey: 'gfv.github.deploy.cleanup',
+                descriptionParams: { branch: b },
+                logType: 'BRANCH'
+            }
         ];
     },
 
     stepOptions: function() {
         return {
-            requestLabel: 'GitHub Flow: Deploy from Main',
+            requestLabel: GFV._t('gfv.request.github.deploy', null, 'GitHub Flow: Deploy from Main'),
             _initFn: GFV.github.deploy.init
         };
     },
@@ -191,18 +301,66 @@ GFV.github.hotfix = {
     steps: function() {
         var b = this._b;
         return [
-            { op: 'branch', branch: b, fromBranch: 'main', label: 'branch', description: 'Create ' + b + ' from main — small fix, but still using a branch for traceability', logType: 'BRANCH' },
-            { op: 'commit', branch: b, label: 'fix-1', description: 'Fix broken pricing link on the landing page — incorrect href causing 404 for potential customers', logType: 'COMMIT' },
-            { op: 'pr', fromBranch: b, toBranch: 'main', label: 'PR #2', description: 'Open PR: ' + b + ' → main — quick review requested for the one-line URL fix', logType: 'PR' },
-            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'merge', description: 'PR merged into main — fix verified, CI green, ready for immediate deployment', logType: 'MERGE' },
-            { op: 'deploy', branch: 'main', envName: 'production', description: 'Deploy main to production — landing page fix is now live, broken link resolved', logType: 'DEPLOY' },
-            { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' branch — fix shipped, cleaning up to keep repo tidy', logType: 'BRANCH' }
+            {
+                op: 'branch',
+                branch: b,
+                fromBranch: 'main',
+                label: 'branch',
+                description: 'Create ' + b + ' from main — small fix, but still using a branch for traceability',
+                descriptionKey: 'gfv.github.hotfix.branch',
+                descriptionParams: { branch: b },
+                logType: 'BRANCH'
+            },
+            {
+                op: 'commit',
+                branch: b,
+                label: 'fix-1',
+                description: 'Fix broken pricing link on the landing page — incorrect href causing 404 for potential customers',
+                descriptionKey: 'gfv.github.hotfix.fix',
+                logType: 'COMMIT'
+            },
+            {
+                op: 'pr',
+                fromBranch: b,
+                toBranch: 'main',
+                label: 'PR #2',
+                description: 'Open PR: ' + b + ' → main — quick review requested for the one-line URL fix',
+                descriptionKey: 'gfv.github.hotfix.pr',
+                descriptionParams: { branch: b },
+                logType: 'PR'
+            },
+            {
+                op: 'merge',
+                fromBranch: b,
+                toBranch: 'main',
+                label: 'merge',
+                description: 'PR merged into main — fix verified, CI green, ready for immediate deployment',
+                descriptionKey: 'gfv.github.hotfix.merge',
+                logType: 'MERGE'
+            },
+            {
+                op: 'deploy',
+                branch: 'main',
+                envName: 'production',
+                description: 'Deploy main to production — landing page fix is now live, broken link resolved',
+                descriptionKey: 'gfv.github.hotfix.deploy',
+                logType: 'DEPLOY'
+            },
+            {
+                op: 'delete-branch',
+                branch: b,
+                label: 'cleanup',
+                description: 'Delete ' + b + ' branch — fix shipped, cleaning up to keep repo tidy',
+                descriptionKey: 'gfv.github.hotfix.cleanup',
+                descriptionParams: { branch: b },
+                logType: 'BRANCH'
+            }
         ];
     },
 
     stepOptions: function() {
         return {
-            requestLabel: 'GitHub Flow: Quick Fix',
+            requestLabel: GFV._t('gfv.request.github.hotfix', null, 'GitHub Flow: Quick Fix'),
             _initFn: GFV.github.hotfix.init
         };
     },

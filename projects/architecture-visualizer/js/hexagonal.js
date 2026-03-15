@@ -27,25 +27,25 @@ function renderHexagonal(activeAdapter) {
     canvas.innerHTML =
         '<div class="layout-hexagonal">' +
             '<div class="archv-hex-side" id="side-driving">' +
-                '<div class="archv-hex-side-label">Driving (Left)</div>' +
+                '<div class="archv-hex-side-label">' + I18N.t('hexagonal.side.driving', null, 'Driving (Left)') + '</div>' +
                 ARCHV.renderComponent('comp-hex-http', 'HTTP Adapter', '&#x1F310;', 'Receives HTTP requests and translates them into port calls') +
                 ARCHV.renderComponent('comp-hex-cli', 'CLI Adapter', '&#x1F4BB;', 'Converts CLI commands into port method invocations') +
                 ARCHV.renderComponent('comp-hex-msg', 'Message Adapter', '&#x1F4E9;', 'Consumes messages from queue and calls input ports') +
             '</div>' +
             '<div class="archv-hex-core" id="hex-core">' +
                 '<div class="archv-hex-core-inner">' +
-                    '<div class="archv-hex-core-label">Domain Core</div>' +
+                    '<div class="archv-hex-core-label">' + I18N.t('hexagonal.core.label', null, 'Domain Core') + '</div>' +
                     ARCHV.renderComponent('comp-hex-usecase', 'UseCase', '&#x1F4E6;', 'Application layer: orchestrates the use case, calls domain services and entities') +
                     '<div class="archv-hex-ports-row">' +
-                        '<div class="archv-port" id="comp-hex-input-port" data-tooltip="Interface for incoming requests. Driving adapters depend on this port.">Input Port (I)</div>' +
+                        '<div class="archv-port" id="comp-hex-input-port"' + ARCHV.tooltipAttr('comp-hex-input-port', 'Interface for incoming requests. Driving adapters depend on this port.') + '>Input Port (I)</div>' +
                         ARCHV.renderComponent('comp-hex-service', 'DomainService', '&#x1F3AF;', 'Domain logic coordination. Depends on: Entity, Output Port (I)') +
-                        '<div class="archv-port" id="comp-hex-output-port" data-tooltip="Interface for outgoing operations. Driven adapters implement this port.">Output Port (I)</div>' +
+                        '<div class="archv-port" id="comp-hex-output-port"' + ARCHV.tooltipAttr('comp-hex-output-port', 'Interface for outgoing operations. Driven adapters implement this port.') + '>Output Port (I)</div>' +
                     '</div>' +
                     ARCHV.renderComponent('comp-hex-entity', 'Entity', '&#x1F4CB;', 'Core business object with identity and business rules') +
                 '</div>' +
             '</div>' +
             '<div class="archv-hex-side" id="side-driven">' +
-                '<div class="archv-hex-side-label">Driven (Right)</div>' +
+                '<div class="archv-hex-side-label">' + I18N.t('hexagonal.side.driven', null, 'Driven (Right)') + '</div>' +
                 ARCHV.renderComponent('comp-hex-queue', 'Queue Adapter', '&#x1F4E8;', 'Implements output port for publishing messages to queue') +
                 ARCHV.renderComponent('comp-hex-db', 'DB Adapter', '&#x1F4BE;', 'Implements output port for database persistence') +
                 ARCHV.renderComponent('comp-hex-cache', 'Cache Adapter', '&#x26A1;', 'Implements output port for cache read/write operations') +
@@ -54,8 +54,8 @@ function renderHexagonal(activeAdapter) {
             '</div>' +
         '</div>' +
         '<div class="archv-flow-legend">' +
-            '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Port call)</div>' +
-            '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+            '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.sync_port', null, 'Sync (Port call)') + '</div>' +
+            '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.response', null, 'Response') + '</div>' +
         '</div>';
 }
 
@@ -142,7 +142,7 @@ ARCHV.hexagonal.http = {
     init: function() { renderHexagonal('http'); },
     steps: function() {
         return [
-            { elementId: 'comp-hex-http', label: 'HTTP Adapter', description: 'Driving adapter receives HTTP request', logType: 'REQUEST', layerId: 'side-driving' },
+            { elementId: 'comp-hex-http', label: 'HTTP Adapter', description: 'PUT /api/products/42 hits HTTP adapter — translates to input port call', descriptionKey: 'hexagonal.step.http.0', logType: 'REQUEST', layerId: 'side-driving' },
             { elementId: 'comp-hex-input-port', label: 'Input Port (I)', description: 'Call input port interface', logType: 'FLOW', layerId: 'hex-core' },
             { elementId: 'comp-hex-usecase', label: 'UseCase', description: 'Execute application use case', logType: 'LAYER', layerId: 'hex-core' },
             { elementId: 'comp-hex-service', label: 'DomainService', description: 'Execute domain logic', logType: 'LAYER', layerId: 'hex-core' },
@@ -157,9 +157,9 @@ ARCHV.hexagonal.http = {
             { elementId: 'comp-hex-http', label: 'HTTP Adapter', description: 'Send HTTP response', logType: 'RESPONSE', layerId: 'side-driving' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'HTTP PUT /api/products/42' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('hexagonal.requestLabel.http', null, 'Hexagonal: driving adapter translates HTTP into domain port call') }; },
     run: function() {
-        ARCHV.animateFlow(ARCHV.hexagonal.http.steps(), { requestLabel: 'HTTP PUT /api/products/42' });
+        ARCHV.animateFlow(ARCHV.hexagonal.http.steps(), ARCHV.hexagonal.http.stepOptions());
     }
 };
 
@@ -167,7 +167,7 @@ ARCHV.hexagonal.console = {
     init: function() { renderHexagonal('cli'); },
     steps: function() {
         return [
-            { elementId: 'comp-hex-cli', label: 'CLI Adapter', description: 'CLI command received', logType: 'REQUEST', layerId: 'side-driving' },
+            { elementId: 'comp-hex-cli', label: 'CLI Adapter', description: 'product:import invoked — CLI adapter converts arguments into input port call', descriptionKey: 'hexagonal.step.console.0', logType: 'REQUEST', layerId: 'side-driving' },
             { elementId: 'comp-hex-input-port', label: 'Input Port (I)', description: 'Call input port', logType: 'FLOW', layerId: 'hex-core' },
             { elementId: 'comp-hex-usecase', label: 'UseCase', description: 'Execute use case', logType: 'LAYER', layerId: 'hex-core' },
             { elementId: 'comp-hex-service', label: 'DomainService', description: 'Domain logic', logType: 'LAYER', layerId: 'hex-core' },
@@ -181,9 +181,9 @@ ARCHV.hexagonal.console = {
             { elementId: 'comp-hex-cli', label: 'CLI Adapter', description: 'Print CLI output', logType: 'RESPONSE', layerId: 'side-driving' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'CLI: product:import' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('hexagonal.requestLabel.console', null, 'Hexagonal: CLI adapter uses the same input port as HTTP') }; },
     run: function() {
-        ARCHV.animateFlow(ARCHV.hexagonal.console.steps(), { requestLabel: 'CLI: product:import' });
+        ARCHV.animateFlow(ARCHV.hexagonal.console.steps(), ARCHV.hexagonal.console.stepOptions());
     }
 };
 
@@ -191,7 +191,7 @@ ARCHV.hexagonal.message = {
     init: function() { renderHexagonal('msg'); },
     steps: function() {
         return [
-            { elementId: 'comp-hex-msg', label: 'Message Adapter', description: 'Message consumed from queue', logType: 'REQUEST', layerId: 'side-driving' },
+            { elementId: 'comp-hex-msg', label: 'Message Adapter', description: 'inventory.updated consumed — message adapter deserializes and calls input port', descriptionKey: 'hexagonal.step.message.0', logType: 'REQUEST', layerId: 'side-driving' },
             { elementId: 'comp-hex-input-port', label: 'Input Port (I)', description: 'Call input port', logType: 'FLOW', layerId: 'hex-core' },
             { elementId: 'comp-hex-usecase', label: 'UseCase', description: 'Execute use case', logType: 'LAYER', layerId: 'hex-core' },
             { elementId: 'comp-hex-service', label: 'DomainService', description: 'Process domain logic', logType: 'LAYER', layerId: 'hex-core' },
@@ -206,8 +206,8 @@ ARCHV.hexagonal.message = {
             { elementId: 'comp-hex-msg', label: 'Message Adapter', description: 'Acknowledge message', logType: 'RESPONSE', layerId: 'side-driving' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Message: inventory.updated' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('hexagonal.requestLabel.message', null, 'Hexagonal: message adapter calls the same input port as HTTP and CLI') }; },
     run: function() {
-        ARCHV.animateFlow(ARCHV.hexagonal.message.steps(), { requestLabel: 'Message: inventory.updated' });
+        ARCHV.animateFlow(ARCHV.hexagonal.message.steps(), ARCHV.hexagonal.message.stepOptions());
     }
 };

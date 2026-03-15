@@ -87,8 +87,7 @@
 
         const config = dbConfigs[dbId];
         document.getElementById('index-name').textContent = config.name;
-        document.getElementById('index-status').textContent = 'ready';
-        document.getElementById('index-status').className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
 
         DBIV.clearAnimations();
         DBIV.clearLog();
@@ -96,6 +95,7 @@
         DBIV.hideComparison();
 
         renderModeTabs(dbId);
+        document.getElementById('pattern-desc').textContent = I18N.t('db.pattern.placeholder', null, 'Select a mode to explore this index.');
         switchMode(dbId, modeId || config.modes[0].id);
     }
 
@@ -103,7 +103,7 @@
         const config = dbConfigs[dbId];
         const tabsEl = document.getElementById('mode-tabs');
         tabsEl.innerHTML = config.modes.map(m =>
-            `<button class="mode-tab" data-mode="${m.id}" role="tab">${m.label}</button>`
+            `<button class="mode-tab" data-mode="${m.id}" role="tab">${I18N.t(dbId + '.modes.' + m.id + '.label', null, m.label)}</button>`
         ).join('');
 
         tabsEl.querySelectorAll('.mode-tab').forEach(tab => {
@@ -126,21 +126,25 @@
             return;
         }
 
+        var prefix = dbId + '.modes.' + modeId;
         var html = '';
         if (details.principles) {
+            var principles = I18N.ta(prefix + '.principles', details.principles);
             html += '<div class="pattern-details-section">' +
-                '<div class="pattern-details-section-title">Principles</div>' +
+                '<div class="pattern-details-section-title">' + I18N.t('ui.details.principles', null, 'Principles') + '</div>' +
                 '<ul class="pattern-details-list">' +
-                details.principles.map(function(p) { return '<li>' + p + '</li>'; }).join('') +
+                principles.map(function(p) { return '<li>' + p + '</li>'; }).join('') +
                 '</ul></div>';
         }
         if (details.concepts) {
+            var concepts = I18N.to(prefix + '.concepts', details.concepts);
             html += '<div class="pattern-details-section">' +
-                '<div class="pattern-details-section-title">Key Concepts</div>' +
+                '<div class="pattern-details-section-title">' + I18N.t('ui.details.concepts', null, 'Key Concepts') + '</div>' +
                 '<div class="pattern-concepts-grid">' +
-                details.concepts.map(function(c) {
+                concepts.map(function(c) {
+                    var termText = DBIV.translateConceptTerm(c.term);
                     return '<div class="pattern-concept">' +
-                        '<span class="pattern-concept-term">' + c.term + '</span>' +
+                        '<span class="pattern-concept-term">' + termText + '</span>' +
                         '<span class="pattern-concept-def">' + c.definition + '</span>' +
                         '</div>';
                 }).join('') +
@@ -164,7 +168,7 @@
             tab.classList.toggle('active', tab.dataset.mode === modeId);
         });
 
-        document.getElementById('pattern-desc').textContent = modeConfig ? modeConfig.desc : '';
+        document.getElementById('pattern-desc').textContent = modeConfig ? I18N.t(dbId + '.modes.' + modeId + '.desc', null, modeConfig.desc) : '';
         updatePatternDetails(dbId, modeId);
 
         DBIV.clearAnimations();
@@ -172,6 +176,7 @@
         DBIV.clearLog();
         DBIV.hideComparison();
 
+        document.getElementById('viz-area').classList.remove('viz-area--2col', 'viz-area--2col-top');
         config.initMode(modeId);
     }
 
@@ -214,20 +219,15 @@
         // Index Miss
         document.getElementById('btn-miss').onclick = () => {
             DBIV.state.simulateError = true;
-            DBIV.log('MISS', 'Next query will bypass index (full table scan)');
-            const statusEl = document.getElementById('index-status');
-            statusEl.textContent = 'miss';
-            statusEl.className = 'index-status miss';
-            setTimeout(() => {
-                statusEl.textContent = 'ready';
-                statusEl.className = 'index-status ready';
-            }, 2000);
+            DBIV.log('MISS', I18N.t('db.log.miss.next_query', null, 'Next query will bypass index (full table scan)'));
+            DBIV.setIndexStatus('miss');
+            setTimeout(() => DBIV.setIndexStatus('ready'), 2000);
         };
 
         // Reset
         document.getElementById('btn-reset').onclick = () => {
             switchDb(DBIV.state.db);
-            DBIV.log('QUERY', 'State reset');
+            DBIV.log('QUERY', I18N.t('ui.log.reset', null, 'State reset'));
         };
 
         // Copy / Clear Log
@@ -258,14 +258,19 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        setupControls();
-        const saved = readHash();
-        if (saved) {
-            switchDb(saved.db, saved.mode);
-        } else {
-            switchDb('mysql');
-        }
+        I18N.onReady(function() {
+            setupControls();
+            I18N.applyToDOM();
+            const saved = readHash();
+            if (saved) {
+                switchDb(saved.db, saved.mode);
+            } else {
+                switchDb('mysql');
+            }
+        });
     });
+
+    window.DBIV_refresh = function() { switchDb(DBIV.state.db, DBIV.state.mode); };
 
     window.addEventListener('hashchange', () => {
         const saved = readHash();
@@ -280,44 +285,26 @@
         var placeholder = document.getElementById('controls-placeholder');
         if (!controls || !placeholder) return;
 
-        var controlsTop = 0;
-        var controlsHeight = 0;
         var marginBottom = 10;
-        var measured = false;
-
-        function measure() {
-            if (!controls.classList.contains('is-fixed')) {
-                controlsTop = controls.offsetTop;
-                controlsHeight = controls.offsetHeight;
-                measured = controlsTop > 0;
-            }
-        }
 
         function onScroll() {
-            if (!measured) { measure(); }
-            if (!measured) return;
-            if (window.scrollY >= controlsTop) {
-                if (!controls.classList.contains('is-fixed')) {
-                    placeholder.style.height = (controlsHeight + marginBottom) + 'px';
-                    placeholder.classList.add('is-active');
-                    controls.classList.add('is-fixed');
-                }
-            } else {
-                if (controls.classList.contains('is-fixed')) {
+            if (controls.classList.contains('is-fixed')) {
+                var phRect = placeholder.getBoundingClientRect();
+                if (phRect.top >= 0) {
                     controls.classList.remove('is-fixed');
                     placeholder.classList.remove('is-active');
                     placeholder.style.height = '0';
                 }
+            } else {
+                var rect = controls.getBoundingClientRect();
+                if (rect.top <= 0) {
+                    placeholder.style.height = (controls.offsetHeight + marginBottom) + 'px';
+                    placeholder.classList.add('is-active');
+                    controls.classList.add('is-fixed');
+                }
             }
         }
 
-        requestAnimationFrame(function() {
-            measure();
-            if (!measured) {
-                setTimeout(measure, 300);
-            }
-        });
         window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', function() { measured = false; measure(); onScroll(); });
     });
 })();

@@ -1,0 +1,493 @@
+{
+  "db.title": "Database Index Visualizer",
+  "db.pattern.placeholder": "Select a mode to explore this index.",
+  "db.ui.tooltip.run": "Execute query through index",
+  "db.ui.tooltip.burst": "Run 5 queries rapidly",
+  "db.ui.tooltip.miss": "Next query skips index (full scan)",
+  "db.ui.tooltip.reset": "Reset all state",
+  "db.stats.zero": "0",
+  "db.stats.time.zero": "0 ms",
+  "db.stats.time.value": "{value} ms",
+  "db.index.status.ready": "ready",
+  "db.index.status.scanning": "scanning",
+  "db.index.status.miss": "index miss",
+  "db.comparison.index_scan": "Index Scan",
+  "db.comparison.full_scan": "Full Table Scan",
+  "db.log.miss.next_query": "Next query will bypass index (full table scan)",
+  "db.query_card.query": "Query",
+  "db.query_card.command": "Command",
+  "db.query_card.execute": "Execute",
+  "db.data_page.page": "Page {number}",
+  "db.data_page.documents": "Documents",
+  "db.data_page.heap_tuples": "Heap Tuples",
+  "db.data_page.jsonb_documents": "JSONB Documents",
+  "db.data_page.points": "Points",
+  "db.data_page.redis.members": "ZSET Members",
+  "db.data_page.redis.hash_users": "HASH user:*",
+
+  "db.terms": {
+    "elemmatch": "$elemMatch",
+    "access_type": "Access Type",
+    "adaptive_hash": "Adaptive Hash",
+    "array_expansion": "Array Expansion",
+    "bgsave_guard": "BGSAVE Guard",
+    "bitmap_page": "Bitmap Page",
+    "block_range": "Block Range",
+    "boolean_mode": "Boolean Mode",
+    "bounding_box": "Bounding Box",
+    "bucket": "Bucket",
+    "bucket_page": "Bucket Page",
+    "clustered_index": "Clustered Index",
+    "collection_scan": "Collection Scan",
+    "collision": "Collision",
+    "composite_key": "Composite Key",
+    "compound_multikey": "Compound Multikey",
+    "consistent_fn": "Consistent fn",
+    "correlation": "Correlation",
+    "cost_estimate": "Cost Estimate",
+    "covered_query": "Covered Query",
+    "covering_index": "Covering Index",
+    "esr_rule": "ESR Rule",
+    "entry_tree": "Entry Tree",
+    "fan_out": "Fan-out",
+    "fast_update": "Fast Update",
+    "hot_update": "HOT Update",
+    "hash_function": "Hash Function",
+    "heap_tid": "Heap TID",
+    "index_bounds": "Index Bounds",
+    "index_scan": "Index Scan",
+    "index_selection": "Index Selection",
+    "index_size": "Index Size",
+    "index_skip_scan": "Index Skip Scan",
+    "inverted_index": "Inverted Index",
+    "knn_search": "KNN Search",
+    "leftmost_prefix": "Leftmost Prefix",
+    "level": "Level",
+    "load_factor": "Load Factor",
+    "lossy_scan": "Lossy Scan",
+    "mvcc": "MVCC",
+    "manual_index": "Manual Index",
+    "meta_page": "Meta Page",
+    "multikey_flag": "Multikey Flag",
+    "o_1_lookup": "O(1) Lookup",
+    "overflow_page": "Overflow Page",
+    "page_block": "Page / Block",
+    "page_split": "Page Split",
+    "penalty": "Penalty",
+    "picksplit": "Picksplit",
+    "posting_list": "Posting List",
+    "posting_tree": "Posting Tree",
+    "prefix_rule": "Prefix Rule",
+    "progressive_rehash": "Progressive Rehash",
+    "r_tree": "R-Tree",
+    "recordid": "RecordId",
+    "redisearch": "RediSearch",
+    "revmap": "Revmap",
+    "score": "Score",
+    "selectivity": "Selectivity",
+    "skip_list": "Skip List",
+    "sort_direction": "Sort Direction",
+    "sparse_index": "Sparse Index",
+    "split": "Split",
+    "stemming": "Stemming",
+    "stopwords": "Stopwords",
+    "summary_tuple": "Summary Tuple",
+    "tf_idf": "TF-IDF",
+    "term_weight": "Term Weight",
+    "text_score": "Text Score",
+    "using_filesort": "Using filesort",
+    "using_index": "Using index",
+    "vacuum": "VACUUM",
+    "visibility_map": "Visibility Map",
+    "wildcard_text": "Wildcard Text",
+    "zadd": "ZADD",
+    "zrangebylex": "ZRANGEBYLEX",
+    "zrangebyscore": "ZRANGEBYSCORE",
+    "ziplist_encoding": "Ziplist Encoding",
+    "ht_0_ht_1": "ht[0] / ht[1]"
+  },
+
+  "db.index.mysql.btree": "B+Tree (id)",
+  "db.index.mysql.hash": "Hash Index (email)",
+  "db.index.mysql.composite": "Composite (city, age, name)",
+  "db.index.mysql.fulltext": "Full-Text (inverted)",
+  "db.index.mysql.explain": "EXPLAIN Analyzer",
+  "db.index.postgresql.btree": "B-Tree + MVCC",
+  "db.index.postgresql.hash": "Hash Index (4-page)",
+  "db.index.postgresql.gin": "GIN (JSONB)",
+  "db.index.postgresql.gist": "GiST (R-Tree)",
+  "db.index.postgresql.brin": "BRIN (min/max)",
+  "db.index.mongodb.single": "B-Tree (age)",
+  "db.index.mongodb.compound": "Compound (city, age)",
+  "db.index.mongodb.multikey": "Multikey (tags)",
+  "db.index.mongodb.text": "Text Index (bio)",
+  "db.index.redis.zset": "Skip List (ZSET)",
+  "db.index.redis.hash": "Hash (rehashing)",
+  "db.index.redis.secondary": "Secondary Indexes",
+
+  "db.mysql.explain.step.parser.title": "Parser",
+  "db.mysql.explain.step.parser.detail": "Waiting for query...",
+  "db.mysql.explain.step.optimizer.title": "Optimizer",
+  "db.mysql.explain.step.optimizer.detail": "Cost-based analysis",
+  "db.mysql.explain.step.index.title": "Index Selection",
+  "db.mysql.explain.step.index.detail": "Choose access method",
+  "db.mysql.explain.step.exec.title": "Execution",
+  "db.mysql.explain.step.exec.detail": "Execute plan",
+  "db.mysql.explain.output.header": "EXPLAIN Output",
+  "db.mysql.explain.output.placeholder": "Run a query to see the EXPLAIN plan.",
+  "db.mysql.explain.step.parser.parsing": "Parsing: {sample}...",
+  "db.mysql.explain.step.optimizer.running": "Cost estimate: {cost} | type: {type}",
+  "db.mysql.explain.step.index.chosen": "key: {key} | possible: {possible}",
+  "db.mysql.explain.step.exec.info": "rows={rows}, extra=\"{extra}\"",
+
+  "db.mysql.composite.panel.title": "Leftmost Prefix Rule:",
+  "db.mysql.composite.panel.desc": "INDEX(city, age, name) supports: <span style=\"color:#6fcf97\">(city)</span>, <span style=\"color:#6fcf97\">(city, age)</span>, <span style=\"color:#6fcf97\">(city, age, name)</span>. <span style=\"color:#f38ba8\">NOT (age)</span>, <span style=\"color:#f38ba8\">NOT (age, name)</span>, <span style=\"color:#f38ba8\">NOT (name)</span>.",
+  "db.mongodb.compound.panel.title": "Prefix Rule:",
+  "db.mongodb.compound.panel.desc": "Index {city:1, age:1} supports: <span style=\"color:#6fcf97\">{city}</span>, <span style=\"color:#6fcf97\">{city, age}</span>, <span style=\"color:#6fcf97\">{city}.sort({age})</span>. <span style=\"color:#f38ba8\">NOT {age} alone</span>.",
+  "db.redis.secondary.panel.title": "Pattern:",
+  "db.redis.secondary.panel.desc": "Store primary data in HASH (user:*). Create ZSET indexes with score=field_value, member=user:id. Query via ZRANGEBYSCORE \u2192 get user IDs \u2192 HGETALL for each.",
+
+  "db.pg.btree.mvcc.title": "MVCC Info",
+  "db.pg.btree.mvcc.tx": "Current TxID:",
+  "db.pg.btree.mvcc.dead": "Dead tuples:",
+  "db.pg.btree.mvcc.hint": "Crossed-out rows = dead tuples (need VACUUM)",
+  "db.pg.brin.block_header": "Block Ranges (pages_per_range=100)",
+  "db.pg.brin.card.title": "Table: events",
+  "db.pg.brin.card.total": "Total rows: {count}",
+  "db.pg.brin.card.blocks": "Blocks: {count}",
+  "db.pg.brin.card.correlation": "Correlation: {value} (well-ordered)",
+  "db.pg.brin.card.brin_size": "BRIN index size: <span style=\"color:#6fcf97\">{value}</span>",
+  "db.pg.brin.card.btree_size": "B-Tree index size: <span style=\"color:#f38ba8\">{value}</span>",
+
+  "db.redis.hash.rehash.title": "Rehash Status",
+  "db.redis.hash.rehash.ht0": "ht[0] buckets: {count}",
+  "db.redis.hash.rehash.ht1": "ht[1] buckets: {count}",
+  "db.redis.hash.rehash.index": "Rehash index:",
+  "db.redis.hash.rehash.load": "Load factor:",
+  "db.redis.hash.rehash.inactive": "inactive",
+  "db.redis.hash.rehash.complete": "complete",
+
+  "db.log.units.rows.one": "row",
+  "db.log.units.rows.few": "rows",
+  "db.log.units.rows.many": "rows",
+  "db.log.units.rows.other": "rows",
+  "db.log.units.documents.one": "document",
+  "db.log.units.documents.few": "documents",
+  "db.log.units.documents.many": "documents",
+  "db.log.units.documents.other": "documents",
+  "db.log.units.members.one": "member",
+  "db.log.units.members.few": "members",
+  "db.log.units.members.many": "members",
+  "db.log.units.members.other": "members",
+  "db.log.units.tuples.one": "tuple",
+  "db.log.units.tuples.few": "tuples",
+  "db.log.units.tuples.many": "tuples",
+  "db.log.units.tuples.other": "tuples",
+
+  "db.log.rows.returned": "Q{qid}: {count} {unit} returned",
+  "db.log.rows.returned_index": "Q{qid}: {count} {unit} returned using index",
+  "db.log.docs.seq_scan": "Q{qid}: {count} {unit} found via sequential scan",
+  "db.log.docs.matched": "Q{qid}: {count} {unit} matched",
+  "db.log.mysql.hash.bucket_found": "Q{qid}: Found in bucket {bucket}, {count} {unit} returned",
+  "db.log.mongodb.collscan": "Q{qid}: {count} {unit} via COLLSCAN",
+  "db.log.mongodb.ixscan": "Q{qid}: {count} {unit} via IXSCAN",
+  "db.log.mongodb.text_ranked": "Q{qid}: {count} {unit} matched, ranked by TF-IDF score",
+  "db.log.redis.linear_scan": "Q{qid}: Linear scan - {count} {unit} found, {total} examined",
+  "db.log.redis.range_score": "Q{qid}: {count} {unit} in range [{low}, {high}]",
+  "db.log.redis.range_rank": "Q{qid}: {count} {unit} at ranks [{start}, {stop}]",
+  "db.log.pg.gin_docs": "Q{qid}: {count} {unit} found via GIN",
+  "db.log.pg.visibility": "Q{qid}: {visible} {visibleUnit} visible, {dead} {deadUnit} dead",
+
+  "mysql.name": "MySQL",
+  "mysql.modes.btree.label": "B-Tree Index",
+  "mysql.modes.btree.desc": "B+Tree traversal: root \u2192 internal nodes \u2192 leaf \u2192 data page. Index narrows search from O(n) to O(log n). Compare with Full Table Scan to see the difference.",
+  "mysql.modes.btree.principles": [
+    "B+Tree keeps all data in leaf nodes; internal nodes store only keys and pointers for navigation",
+    "Tree stays balanced after every INSERT/DELETE via page splits and merges, guaranteeing O(log n) lookups",
+    "Leaf nodes are linked in a doubly-linked list, enabling efficient range scans without backtracking",
+    "InnoDB clusters rows by primary key (clustered index); secondary indexes store PK values, not row pointers",
+    "Page size (16 KB default) determines fan-out: higher fan-out = fewer levels = fewer disk reads"
+  ],
+  "mysql.modes.btree.concepts": [
+    { "term": "Page / Block", "definition": "Smallest I/O unit (16 KB in InnoDB). Each tree node occupies one page. Fewer pages read = faster query." },
+    { "term": "Fan-out", "definition": "Number of child pointers per internal node. High fan-out keeps tree shallow (3-4 levels for billions of rows)." },
+    { "term": "Clustered Index", "definition": "InnoDB table IS the B+Tree ordered by primary key. Row data lives in leaf pages. Only one per table." },
+    { "term": "Covering Index", "definition": "Index that contains all columns needed by a query. Avoids going back to the clustered index (no \"bookmark lookup\")." },
+    { "term": "Page Split", "definition": "When a leaf page is full and a new key must be inserted, the page splits in two. Causes fragmentation over time." }
+  ],
+
+  "mysql.modes.hash.label": "Hash Index",
+  "mysql.modes.hash.desc": "Hash function maps key to bucket for O(1) lookup. Only supports equality queries (=). Range queries (>, <, BETWEEN) cannot use hash indexes.",
+  "mysql.modes.hash.principles": [
+    "Hash index maps key through a hash function directly to a bucket for O(1) average-case equality lookups",
+    "Only supports equality predicates (=, IN); cannot be used for range queries, ORDER BY, or partial matches",
+    "Hash collisions are resolved by chaining entries within the same bucket",
+    "In MySQL, only the MEMORY engine supports explicit hash indexes; InnoDB uses adaptive hash index internally",
+    "Adaptive Hash Index (AHI) in InnoDB is built automatically for hot pages \u2014 not manually controlled"
+  ],
+  "mysql.modes.hash.concepts": [
+    { "term": "Hash Function", "definition": "Maps an arbitrary key to a fixed-size bucket number. Good functions distribute keys uniformly across buckets." },
+    { "term": "Bucket", "definition": "A slot in the hash table. Contains one or more entries (via chaining) that share the same hash value." },
+    { "term": "Collision", "definition": "Two different keys hash to the same bucket. Resolved by chaining or open addressing." },
+    { "term": "Adaptive Hash", "definition": "InnoDB automatically builds an in-memory hash index for frequently accessed B-Tree leaf pages. Transparent to the user." },
+    { "term": "O(1) Lookup", "definition": "Constant-time access regardless of table size \u2014 the key advantage of hash indexes for point queries." }
+  ],
+
+  "mysql.modes.composite.label": "Composite Index",
+  "mysql.modes.composite.desc": "Multi-column index follows the leftmost prefix rule. INDEX(a, b, c) can be used for queries on (a), (a,b), or (a,b,c), but NOT (b,c) alone.",
+  "mysql.modes.composite.principles": [
+    "Composite index INDEX(a, b, c) follows the leftmost prefix rule: usable for (a), (a,b), or (a,b,c) but NOT (b,c) alone",
+    "Column order matters: place high-selectivity columns and equality predicates first for best filtering",
+    "A range predicate on column N stops the index from being used for columns N+1, N+2, etc.",
+    "Composite indexes can satisfy ORDER BY if the sort order matches the index column order",
+    "The ESR rule (Equality, Sort, Range) guides optimal column ordering in composite indexes"
+  ],
+  "mysql.modes.composite.concepts": [
+    { "term": "Leftmost Prefix", "definition": "Index (a,b,c) can satisfy queries on (a), (a,b), (a,b,c), but not (b), (c), or (b,c). Must start from the left." },
+    { "term": "Selectivity", "definition": "Ratio of distinct values to total rows. High selectivity (many unique values) means better filtering power." },
+    { "term": "Index Skip Scan", "definition": "MySQL 8.0+ optimization: can use a composite index even when the leading column is skipped, if it has few distinct values." },
+    { "term": "ESR Rule", "definition": "Equality columns first, then Sort columns, then Range columns \u2014 the optimal order for composite index design." },
+    { "term": "Covering Index", "definition": "A composite index that includes all columns referenced by the query, eliminating the need for table lookups." }
+  ],
+
+  "mysql.modes.fulltext.label": "Full-Text Index",
+  "mysql.modes.fulltext.desc": "Inverted index: text is tokenized into words, each word maps to a posting list of document IDs. Supports MATCH...AGAINST queries.",
+  "mysql.modes.fulltext.principles": [
+    "Full-text index creates an inverted index: each word maps to a posting list of document IDs where it appears",
+    "Text is tokenized by the parser, then filtered (stopwords removed, minimum word length applied)",
+    "Supports three search modes: Natural Language (relevance ranking), Boolean (operators +, -, *), and Query Expansion",
+    "InnoDB full-text uses an auxiliary table design with FTS_DOC_ID for document tracking",
+    "Full-text search calculates relevance scores based on TF-IDF (Term Frequency - Inverse Document Frequency)"
+  ],
+  "mysql.modes.fulltext.concepts": [
+    { "term": "Inverted Index", "definition": "Maps each unique word to the list of documents containing it. The core data structure behind full-text search." },
+    { "term": "Posting List", "definition": "For each word, stores the list of document IDs (and positions) where that word occurs." },
+    { "term": "Stopwords", "definition": "Common words (the, is, at) excluded from indexing because they appear in too many documents to be useful." },
+    { "term": "TF-IDF", "definition": "Term Frequency * Inverse Document Frequency. Words that are common in a doc but rare overall get higher relevance." },
+    { "term": "Boolean Mode", "definition": "Allows operators: + (must include), - (must exclude), * (wildcard), \"\" (exact phrase) for precise search control." }
+  ],
+
+  "mysql.modes.explain.label": "EXPLAIN Plan",
+  "mysql.modes.explain.desc": "Query \u2192 Parser \u2192 Optimizer \u2192 Index Selection \u2192 Access Method. EXPLAIN shows how MySQL plans to execute your query, including cost estimates.",
+  "mysql.modes.explain.principles": [
+    "EXPLAIN shows the execution plan the optimizer chose \u2014 which indexes, join order, and access methods will be used",
+    "The optimizer evaluates multiple plans and picks the one with lowest estimated cost (based on statistics)",
+    "Key columns to check: type (access method), key (chosen index), rows (estimated rows to examine), Extra (additional info)",
+    "Access types from best to worst: system > const > eq_ref > ref > range > index > ALL",
+    "EXPLAIN ANALYZE (MySQL 8.0.18+) actually executes the query and shows real vs estimated row counts"
+  ],
+  "mysql.modes.explain.concepts": [
+    { "term": "Access Type", "definition": "How MySQL accesses the table: ALL (full scan), index (full index scan), range (index range), ref (index lookup), const (single row)." },
+    { "term": "Cost Estimate", "definition": "Optimizer assigns a cost to each plan based on I/O and CPU. Lower cost = preferred plan. Based on table statistics." },
+    { "term": "Index Selection", "definition": "Optimizer picks the index that filters the most rows. May choose full scan if index selectivity is poor." },
+    { "term": "Using filesort", "definition": "Appears in Extra when MySQL must sort results outside the index. Often indicates a missing or mismatched index." },
+    { "term": "Using index", "definition": "Appears in Extra when the query is satisfied entirely from the index (covering index) \u2014 no table data access needed." }
+  ],
+
+  "postgresql.name": "PostgreSQL",
+  "postgresql.modes.btree.label": "B-Tree",
+  "postgresql.modes.btree.desc": "PostgreSQL B-Tree with MVCC visibility. Each tuple has xmin/xmax transaction IDs. Dead tuples from old transactions remain until VACUUM.",
+  "postgresql.modes.btree.principles": [
+    "PostgreSQL B-Tree stores heap TIDs (tuple identifiers) in leaf nodes, not the actual row data",
+    "MVCC means each tuple carries xmin/xmax transaction IDs \u2014 visibility is checked at read time, not write time",
+    "Dead tuples (from UPDATE/DELETE) remain in index pages until VACUUM removes them",
+    "HOT (Heap-Only Tuple) updates avoid index modification when indexed columns are unchanged",
+    "Deduplication (v13+) compresses duplicate key entries in leaf pages, reducing index size significantly"
+  ],
+  "postgresql.modes.btree.concepts": [
+    { "term": "Heap TID", "definition": "Tuple Identifier (block number + offset). Points from an index leaf entry to the actual row in the heap table." },
+    { "term": "MVCC", "definition": "Multi-Version Concurrency Control. Readers never block writers. Each transaction sees a consistent snapshot of data." },
+    { "term": "VACUUM", "definition": "Reclaims space from dead tuples. Without it, tables and indexes bloat. Autovacuum runs periodically." },
+    { "term": "Visibility Map", "definition": "Bitmap tracking which heap pages have only visible-to-all tuples. Enables index-only scans to skip heap lookups." },
+    { "term": "HOT Update", "definition": "Heap-Only Tuple update. When no indexed column changes, the new tuple is placed on the same page \u2014 no index update needed." }
+  ],
+
+  "postgresql.modes.hash.label": "Hash Index",
+  "postgresql.modes.hash.desc": "PostgreSQL Hash Index uses a 4-page structure: meta page, bucket pages, overflow pages, bitmap pages. O(1) lookup for equality only.",
+  "postgresql.modes.hash.principles": [
+    "PostgreSQL hash index uses a 4-page structure: meta page, primary buckets, overflow pages, and bitmap pages",
+    "Supports only equality comparisons (=); cannot do range, sorting, or multicolumn operations",
+    "Since PostgreSQL 10, hash indexes are WAL-logged and crash-safe (previously they were not)",
+    "Bucket count doubles when load factor exceeds threshold \u2014 split is done incrementally",
+    "Hash indexes are smaller than B-Trees for simple equality-only lookups on large text columns"
+  ],
+  "postgresql.modes.hash.concepts": [
+    { "term": "Meta Page", "definition": "Page 0 of the hash index. Stores bucket count, high mask, low mask, and other control information." },
+    { "term": "Bucket Page", "definition": "Primary storage for hash entries. Each bucket holds tuples whose hash value maps to that bucket number." },
+    { "term": "Overflow Page", "definition": "Chained to a bucket when it runs out of space. Forms a linked list from the primary bucket page." },
+    { "term": "Bitmap Page", "definition": "Tracks which overflow pages are currently in use. Enables efficient allocation and deallocation." },
+    { "term": "Split", "definition": "When load factor exceeds threshold, one bucket is split into two. Tuples are rehashed to the new bucket." }
+  ],
+
+  "postgresql.modes.gin.label": "GIN Index",
+  "postgresql.modes.gin.desc": "Generalized Inverted Index for JSONB, arrays, and full-text search. Maps each key/element to a posting list of heap TIDs.",
+  "postgresql.modes.gin.principles": [
+    "GIN (Generalized Inverted Index) maps each element/key to a sorted list of heap TIDs (posting list)",
+    "Ideal for multi-valued data types: arrays, JSONB, tsvector (full-text search), hstore",
+    "The entry tree is a B-Tree of keys; each key points to a posting tree or compressed posting list",
+    "Pending list + fastupdate: new entries are batched in a pending list and merged into the main index later",
+    "GIN supports intersection and union of posting lists for multi-key queries (AND/OR)"
+  ],
+  "postgresql.modes.gin.concepts": [
+    { "term": "Entry Tree", "definition": "B-Tree of extracted keys (words, array elements, JSONB paths). Each leaf points to a posting list or posting tree." },
+    { "term": "Posting List", "definition": "Sorted array of heap TIDs for a given key. Stored inline in the entry leaf if small enough." },
+    { "term": "Posting Tree", "definition": "When a posting list grows too large, it becomes a separate B-Tree of TIDs for efficient lookup and update." },
+    { "term": "Fast Update", "definition": "New tuples go to a pending list (unsorted). Periodically merged into the main GIN structure during VACUUM or when list is full." },
+    { "term": "Consistent fn", "definition": "Operator-class function that checks whether a given key satisfies the query. Used during index scan to filter results." }
+  ],
+
+  "postgresql.modes.gist.label": "GiST Index",
+  "postgresql.modes.gist.desc": "Generalized Search Tree for geometric and range data. Uses bounding boxes in a tree structure. Supports contains, overlaps, nearest-neighbor.",
+  "postgresql.modes.gist.principles": [
+    "GiST (Generalized Search Tree) is a balanced tree where each entry represents a bounding region (predicate)",
+    "Supports nearest-neighbor, containment, overlap, and intersection queries on geometric/range data",
+    "Internal nodes store bounding boxes that encompass all child entries \u2014 search prunes branches that don't overlap the query",
+    "Extensible: custom data types can define their own consistent, union, penalty, and picksplit methods",
+    "GiST indexes support exclusion constraints (e.g., no overlapping time ranges in a scheduling table)"
+  ],
+  "postgresql.modes.gist.concepts": [
+    { "term": "Bounding Box", "definition": "Minimum enclosing region for a set of entries. Internal nodes use bounding boxes to decide which subtrees to search." },
+    { "term": "R-Tree", "definition": "The most common GiST specialization. Stores spatial data with rectangular bounding boxes for 2D points and polygons." },
+    { "term": "Penalty", "definition": "Function that estimates the cost of inserting an entry into a subtree. GiST picks the subtree with lowest penalty." },
+    { "term": "Picksplit", "definition": "Determines how to split an overfull page into two groups. Good splits minimize bounding box overlap." },
+    { "term": "KNN Search", "definition": "K-Nearest-Neighbor query. GiST traverses the tree by distance priority, returning closest items first." }
+  ],
+
+  "postgresql.modes.brin.label": "BRIN Index",
+  "postgresql.modes.brin.desc": "Block Range Index stores min/max per block range. Extremely small index, best for naturally ordered (correlated) data like timestamps.",
+  "postgresql.modes.brin.principles": [
+    "BRIN stores summary data (min/max) for ranges of physical table blocks \u2014 extremely small index",
+    "Works best when data is naturally ordered on disk (correlated): timestamps, serial IDs, append-only tables",
+    "pages_per_range parameter controls granularity: smaller = more precise but larger index",
+    "BRIN cannot pinpoint exact rows \u2014 it identifies candidate block ranges that must be rechecked",
+    "For uncorrelated data, BRIN is useless because every range will contain the full value spectrum"
+  ],
+  "postgresql.modes.brin.concepts": [
+    { "term": "Block Range", "definition": "Group of consecutive heap pages (default: 128). BRIN stores one summary entry per range." },
+    { "term": "Summary Tuple", "definition": "Stores min_value and max_value for all tuples in the block range. Used to decide if the range might contain matches." },
+    { "term": "Correlation", "definition": "Statistical measure of how well physical row order matches logical value order. BRIN needs high correlation to be effective." },
+    { "term": "Revmap", "definition": "Reverse mapping structure that maps a block range number to its summary tuple. Enables fast range-to-summary lookup." },
+    { "term": "Lossy Scan", "definition": "BRIN identifies candidate ranges but cannot confirm matches. The executor must recheck actual rows in matching ranges." }
+  ],
+
+  "mongodb.name": "MongoDB",
+  "mongodb.modes.single.label": "Single Field",
+  "mongodb.modes.single.desc": "B-Tree index on a single document field. Supports equality, range, and sort queries. MongoDB automatically creates an index on _id.",
+  "mongodb.modes.single.principles": [
+    "MongoDB uses B-Tree indexes on individual document fields for efficient equality, range, and sort queries",
+    "Every collection automatically has a unique index on the _id field \u2014 this cannot be dropped",
+    "Index entries store the field value and a pointer to the document location on disk (RecordId)",
+    "Queries that match the index order can avoid an in-memory sort (index provides natural ordering)",
+    "Sparse indexes skip documents where the indexed field is missing, saving space and improving selectivity"
+  ],
+  "mongodb.modes.single.concepts": [
+    { "term": "RecordId", "definition": "Internal document locator. The index leaf stores field value + RecordId to find the document on disk." },
+    { "term": "Selectivity", "definition": "How many distinct values exist relative to total documents. High selectivity = better index performance." },
+    { "term": "Sparse Index", "definition": "Only indexes documents that contain the indexed field. Useful for optional fields to reduce index size." },
+    { "term": "Index Scan", "definition": "Query reads from the index in order. If the query needs only indexed fields, it becomes a covered query (no document fetch)." },
+    { "term": "Collection Scan", "definition": "Full scan of every document when no suitable index exists. Shown as COLLSCAN in explain output." }
+  ],
+
+  "mongodb.modes.compound.label": "Compound Index",
+  "mongodb.modes.compound.desc": "Multi-key compound index with prefix rule and sort optimization. Index {a:1, b:1, c:1} supports queries on (a), (a,b), (a,b,c).",
+  "mongodb.modes.compound.principles": [
+    "Compound index {a:1, b:1, c:1} supports prefix queries: (a), (a,b), (a,b,c), but NOT (b,c) alone",
+    "The ESR rule (Equality, Sort, Range) determines optimal field order in compound indexes",
+    "Sort direction in the index matters: {a:1, b:-1} can serve sort({a:1, b:-1}) but NOT sort({a:1, b:1})",
+    "A compound index can satisfy queries and sorts simultaneously if field order and directions align",
+    "Index intersection (using multiple single-field indexes) is generally slower than a well-designed compound index"
+  ],
+  "mongodb.modes.compound.concepts": [
+    { "term": "Prefix Rule", "definition": "Only the leftmost fields of a compound index can be used. {a,b,c} supports queries on (a), (a,b), (a,b,c)." },
+    { "term": "ESR Rule", "definition": "Place Equality fields first, then Sort fields, then Range fields for optimal compound index performance." },
+    { "term": "Sort Direction", "definition": "Index {a:1, b:-1} sorts a ascending, b descending. The index can serve the exact or fully reversed direction." },
+    { "term": "Index Bounds", "definition": "The range of index keys to scan. Tighter bounds = fewer keys examined = faster query." },
+    { "term": "Covered Query", "definition": "Query whose projection only includes indexed fields. MongoDB returns results directly from the index without fetching documents." }
+  ],
+
+  "mongodb.modes.multikey.label": "Multikey Index",
+  "mongodb.modes.multikey.desc": "When indexed field contains an array, MongoDB creates separate index entries for each element. One document \u2192 multiple index entries.",
+  "mongodb.modes.multikey.principles": [
+    "When an indexed field contains an array, MongoDB creates separate index entries for each array element",
+    "One document with N array elements produces N index entries \u2014 the index can be significantly larger than the collection",
+    "A compound index can have at most one array field (multikey); two array fields in the same compound index are not allowed",
+    "Multikey indexes cannot be used as shard keys and have restrictions on covered queries",
+    "MongoDB tracks which fields are multikey in the index metadata to adjust query planning"
+  ],
+  "mongodb.modes.multikey.concepts": [
+    { "term": "Array Expansion", "definition": "Each element of the array field gets its own index entry. A document with tags:[a,b,c] creates 3 index entries." },
+    { "term": "Multikey Flag", "definition": "Index metadata marking which fields are multikey. Affects query planner decisions and index bounds calculation." },
+    { "term": "Compound Multikey", "definition": "Compound index where one field is an array. At most one field can be multikey \u2014 two array fields is prohibited." },
+    { "term": "$elemMatch", "definition": "Query operator for matching array elements. With multikey indexes, ensures conditions are applied to the same array element." },
+    { "term": "Index Size", "definition": "Multikey indexes can grow much larger than the collection due to entry-per-element expansion. Monitor with collStats." }
+  ],
+
+  "mongodb.modes.text.label": "Text Index",
+  "mongodb.modes.text.desc": "Text index with stemming, stop word removal, and TF-IDF scoring. Supports $text queries with $search, $language, $caseSensitive.",
+  "mongodb.modes.text.principles": [
+    "Text index tokenizes string fields into stems, removes stopwords, and builds an inverted index of terms",
+    "Each document gets a relevance score based on term frequency and inverse document frequency (TF-IDF)",
+    "A collection can have at most one text index, but it can cover multiple string fields with different weights",
+    "Text search supports language-specific stemming (e.g., \"running\" matches \"run\") and stopword lists",
+    "The $text query operator with $meta: \"textScore\" returns and sorts results by relevance score"
+  ],
+  "mongodb.modes.text.concepts": [
+    { "term": "Stemming", "definition": "Reduces words to their root form: \"running\" -> \"run\", \"better\" -> \"good\". Language-specific rules are applied." },
+    { "term": "Stopwords", "definition": "Common words excluded from indexing (the, and, is). Language-specific lists. Can be customized per index." },
+    { "term": "Term Weight", "definition": "Each field in a compound text index can have a weight (default 1). Higher weight increases that field's impact on relevance scoring." },
+    { "term": "Text Score", "definition": "TF-IDF based relevance score. Access via $meta: \"textScore\" in projection. Higher score = better match." },
+    { "term": "Wildcard Text", "definition": "$** text index covers all string fields in the document. Useful for collections with dynamic or unknown schema." }
+  ],
+
+  "redis.name": "Redis",
+  "redis.modes.zset.label": "Sorted Set (ZSET)",
+  "redis.modes.zset.desc": "Skip list + hash table. ZADD inserts with score, ZRANGE returns by rank, ZRANGEBYSCORE by score range. O(log n) insert/lookup.",
+  "redis.modes.zset.principles": [
+    "Sorted Set combines a skip list (for ordered access) with a hash table (for O(1) member lookup)",
+    "Skip list provides O(log n) insert, delete, and range operations with probabilistic balancing",
+    "Each element has a unique member name and a floating-point score used for ordering",
+    "Elements with equal scores are sorted lexicographically by member name",
+    "ZRANGEBYSCORE and ZRANGEBYLEX enable efficient range queries on scores and member names respectively"
+  ],
+  "redis.modes.zset.concepts": [
+    { "term": "Skip List", "definition": "Probabilistic data structure with multiple levels of linked lists. Higher levels skip over elements for faster traversal \u2014 like an express lane." },
+    { "term": "Score", "definition": "Floating-point value (double) that determines element ordering. Multiple members can share the same score." },
+    { "term": "Level", "definition": "Each skip list node has a random height (1-32). Higher levels contain fewer nodes, enabling O(log n) search." },
+    { "term": "ZADD", "definition": "Adds member with score. If member exists, updates the score. O(log n) due to skip list repositioning." },
+    { "term": "Ziplist Encoding", "definition": "For small sorted sets (<128 elements, <64 bytes per entry), Redis uses a compact ziplist instead of a skip list." }
+  ],
+
+  "redis.modes.hash-index.label": "Hash (Rehashing)",
+  "redis.modes.hash-index.desc": "Progressive rehashing: Redis uses two hash tables. During resize, entries migrate bucket-by-bucket from ht[0] to ht[1] on each operation.",
+  "redis.modes.hash-index.principles": [
+    "Redis hash tables use progressive (incremental) rehashing \u2014 migration happens gradually, not all at once",
+    "Two hash tables (ht[0] and ht[1]) coexist during rehashing; every operation migrates one bucket",
+    "Rehashing triggers when load factor exceeds 1 (or 5 during BGSAVE) or drops below 0.1",
+    "MurmurHash2 is used as the hash function for good distribution and performance",
+    "Hash tables grow by doubling and shrink by halving the bucket count"
+  ],
+  "redis.modes.hash-index.concepts": [
+    { "term": "Progressive Rehash", "definition": "Instead of rehashing all keys at once (which would block), Redis migrates one bucket per operation until complete." },
+    { "term": "Load Factor", "definition": "Ratio of used entries to bucket count. Rehashing starts when this exceeds the threshold (1 normally, 5 during BGSAVE)." },
+    { "term": "ht[0] / ht[1]", "definition": "During rehashing, ht[0] is the old table, ht[1] is the new (larger/smaller) table. Lookups check both." },
+    { "term": "Bucket", "definition": "Each hash table slot is a bucket that can hold a chain of entries with the same hash value." },
+    { "term": "BGSAVE Guard", "definition": "During background save, Redis delays rehashing (threshold rises to 5) to avoid copy-on-write memory amplification." }
+  ],
+
+  "redis.modes.secondary.label": "Secondary Index",
+  "redis.modes.secondary.desc": "Redis has no built-in secondary indexes. Pattern: use Sorted Sets as indexes \u2014 ZRANGEBYSCORE for numeric ranges, ZRANGEBYLEX for string prefixes.",
+  "redis.modes.secondary.principles": [
+    "Redis has no built-in secondary indexes \u2014 they must be implemented using Sorted Sets or Sets as manual indexes",
+    "Pattern: ZADD index:field score member to create a numeric index; ZRANGEBYSCORE to query it",
+    "For string prefix search, use ZRANGEBYLEX with a lexicographic Sorted Set (all scores = 0)",
+    "Application code is responsible for keeping secondary indexes in sync with primary data (no automatic updates)",
+    "RediSearch module provides automatic secondary indexing with full-text search capabilities"
+  ],
+  "redis.modes.secondary.concepts": [
+    { "term": "Manual Index", "definition": "A Sorted Set or Set maintained by application code alongside the primary data. Must be updated on every write." },
+    { "term": "ZRANGEBYSCORE", "definition": "Queries a Sorted Set by score range. Used to implement numeric range queries on secondary indexes." },
+    { "term": "ZRANGEBYLEX", "definition": "Queries a Sorted Set lexicographically (all scores must be equal). Enables string prefix and range searches." },
+    { "term": "Composite Key", "definition": "Pattern: encode multiple fields into the member name (e.g., \"NYC:Alice\") for multi-field secondary lookups." },
+    { "term": "RediSearch", "definition": "Redis module providing real-time secondary indexing, full-text search, aggregation, and auto-complete out of the box." }
+  ]
+}

@@ -95,18 +95,20 @@ DBIV.mysql.details = {
 
 /* ===== Shared Query Card Builder ===== */
 DBIV.mysql._queryCard = function(query, presets) {
+    const headerLabel = I18N.t('db.query_card.query', null, 'Query');
+    const runLabel = I18N.t('ui.btn.run.query', null, 'Run Query');
     return `
     <div class="query-card" id="query-card">
         <span class="port port-right" id="port-query"></span>
         <div class="query-card-header">
             <span class="query-card-icon">&#x1F50D;</span>
-            <span class="query-card-name">Query</span>
+            <span class="query-card-name">${headerLabel}</span>
         </div>
         <textarea class="query-input" id="query-input">${query}</textarea>
         <div class="preset-buttons">
             ${presets.map(p => `<button class="preset-btn" data-query="${p.replace(/"/g, '&quot;')}">${p.length > 30 ? p.slice(0, 30) + '...' : p}</button>`).join('')}
         </div>
-        <button class="card-send-btn" id="btn-run-query">Run Query</button>
+        <button class="card-send-btn" id="btn-run-query">${runLabel}</button>
     </div>`;
 };
 
@@ -131,7 +133,7 @@ DBIV.mysql.btree = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.mysql._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'B+Tree (id)';
+        DBIV.setIndexName('db.index.mysql.btree', 'B+Tree (id)');
 
         const tree = DBIV.sampleData.btreeFromField(data, 'id');
         DBIV.renderBTree(document.getElementById('index-body'), tree);
@@ -155,9 +157,7 @@ DBIV.mysql.btree = {
         const rangeMatch = query.match(/WHERE\s+id\s+BETWEEN\s+(\d+)\s+AND\s+(\d+)/i);
         const targetId = match ? parseInt(match[1]) : null;
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         if (isMiss) {
             DBIV.log('MISS', `Q${qid}: Index not used - full table scan`);
@@ -205,7 +205,8 @@ DBIV.mysql.btree = {
                 const resultCol = document.getElementById('results-col');
                 await DBIV.animateDot(indexBody, resultCol, { label: `id=${targetId}`, duration: 300 });
                 DBIV.log('FETCH', `Q${qid}: Data page read for id=${targetId}`);
-                DBIV.log('RESULT', `Q${qid}: 1 row returned`);
+                const rowUnit = DBIV.getUnitLabel('rows', 1);
+                DBIV.logMessage('RESULT', 'db.log.rows.returned', { qid: qid, count: 1, unit: rowUnit }, `Q${qid}: 1 row returned`);
             } else if (rangeMatch) {
                 const low = parseInt(rangeMatch[1]);
                 const high = parseInt(rangeMatch[2]);
@@ -220,7 +221,8 @@ DBIV.mysql.btree = {
                     }
                 });
                 DBIV.log('FETCH', `Q${qid}: Leaf scan for range [${low}, ${high}]`);
-                DBIV.log('RESULT', `Q${qid}: ${count} rows returned`);
+                const rowUnitRange = DBIV.getUnitLabel('rows', count);
+                DBIV.logMessage('RESULT', 'db.log.rows.returned', { qid: qid, count: count, unit: rowUnitRange }, `Q${qid}: ${count} rows returned`);
             }
 
             const elapsed = Math.round(performance.now() - startTime);
@@ -234,8 +236,7 @@ DBIV.mysql.btree = {
             }
         }
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };
 
@@ -261,7 +262,7 @@ DBIV.mysql.hash = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.mysql._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'Hash Index (email)';
+        DBIV.setIndexName('db.index.mysql.hash', 'Hash Index (email)');
 
         let bodyHtml = '<div class="hash-container">';
         bodyHtml += '<div class="hash-function" id="hash-fn">hash(key) mod 4</div>';
@@ -294,9 +295,7 @@ DBIV.mysql.hash = {
         const eqMatch = query.match(/email\s*=\s*"([^"]+)"/i);
         const rangeMatch = query.match(/email\s*>\s*"([^"]+)"/i);
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         if (isMiss && eqMatch) {
             DBIV.log('MISS', `Q${qid}: Index not used - full table scan`);
@@ -362,7 +361,8 @@ DBIV.mysql.hash = {
                     });
                 }
                 DBIV.addStats(1, 1, 1, 1);
-                DBIV.log('RESULT', `Q${qid}: Found in bucket ${bucketIdx}, 1 row returned`);
+                const rowUnitBucket = DBIV.getUnitLabel('rows', 1);
+                DBIV.logMessage('RESULT', 'db.log.mysql.hash.bucket_found', { qid: qid, bucket: bucketIdx, count: 1, unit: rowUnitBucket }, `Q${qid}: Found in bucket ${bucketIdx}, 1 row returned`);
             } else {
                 DBIV.addStats(1, 0, 1, 1);
                 DBIV.log('RESULT', `Q${qid}: Not found in bucket ${bucketIdx}`);
@@ -380,8 +380,7 @@ DBIV.mysql.hash = {
             }, 1500);
         }
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };
 
@@ -396,7 +395,7 @@ DBIV.mysql.composite = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.mysql._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'Composite (city, age, name)';
+        DBIV.setIndexName('db.index.mysql.composite', 'Composite (city, age, name)');
 
         const data = [...DBIV.sampleData.users].sort((a, b) =>
             a.city.localeCompare(b.city) || a.age - b.age || a.name.localeCompare(b.name)
@@ -417,11 +416,13 @@ DBIV.mysql.composite = {
         const pages = DBIV.sampleData.toPages(data, 4);
         DBIV.renderDataPages(document.getElementById('results-col'), pages);
 
+        const prefixTitle = I18N.t('db.mysql.composite.panel.title', null, 'Leftmost Prefix Rule:');
+        const prefixDesc = I18N.t('db.mysql.composite.panel.desc', null,
+            'INDEX(city, age, name) supports: <span style="color:#6fcf97">(city)</span>, <span style="color:#6fcf97">(city, age)</span>, <span style="color:#6fcf97">(city, age, name)</span>. <span style="color:#f38ba8">NOT (age)</span>, <span style="color:#f38ba8">NOT (age, name)</span>, <span style="color:#f38ba8">NOT (name)</span>.');
         document.getElementById('extra-panels').innerHTML = `
         <div style="padding:8px 12px;background:var(--dbiv-card-bg);border:1px solid var(--dbiv-border);border-radius:6px;font-size:12px;color:var(--dbiv-text-light);">
-            <strong style="color:var(--dbiv-text)">Leftmost Prefix Rule:</strong>
-            INDEX(city, age, name) supports: <span style="color:#6fcf97">(city)</span>, <span style="color:#6fcf97">(city, age)</span>, <span style="color:#6fcf97">(city, age, name)</span>.
-            <span style="color:#f38ba8">NOT (age)</span>, <span style="color:#f38ba8">NOT (age, name)</span>, <span style="color:#f38ba8">NOT (name)</span>.
+            <strong style="color:var(--dbiv-text)">${prefixTitle}</strong>
+            ${prefixDesc}
         </div>`;
 
         DBIV.mysql._setupQueryCard(() => this.run());
@@ -438,9 +439,7 @@ DBIV.mysql.composite = {
         const ageMatch = query.match(/age\s*=\s*(\d+)/i);
         const nameMatch = query.match(/name\s*=\s*"([^"]+)"/i);
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         const prefixCols = [];
         if (cityMatch) prefixCols.push('city');
@@ -523,7 +522,8 @@ DBIV.mysql.composite = {
             });
 
             DBIV.addStats(1 + path.length, results.length, path.length, 2);
-            DBIV.log('RESULT', `Q${qid}: ${results.length} row(s) returned using index`);
+            const rowUnitIdx = DBIV.getUnitLabel('rows', results.length);
+            DBIV.logMessage('RESULT', 'db.log.rows.returned_index', { qid: qid, count: results.length, unit: rowUnitIdx }, `Q${qid}: ${results.length} row(s) returned using index`);
 
             if (DBIV.state.comparisonMode) {
                 const rows = document.querySelectorAll('.data-row');
@@ -534,8 +534,7 @@ DBIV.mysql.composite = {
             }
         }
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };
 
@@ -575,7 +574,7 @@ DBIV.mysql.fulltext = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.mysql._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'Full-Text (inverted)';
+        DBIV.setIndexName('db.index.mysql.fulltext', 'Full-Text (inverted)');
 
         let bodyHtml = '<div class="gin-container">';
         const sortedTokens = Object.keys(this.invertedIndex).sort().slice(0, 12);
@@ -592,7 +591,8 @@ DBIV.mysql.fulltext = {
         bodyHtml += '</div>';
         document.getElementById('index-body').innerHTML = bodyHtml;
 
-        let resultsHtml = '<div class="data-page"><div class="data-page-header">Documents</div>';
+        const docsHeader = I18N.t('db.data_page.documents', null, 'Documents');
+        let resultsHtml = `<div class="data-page"><div class="data-page-header">${docsHeader}</div>`;
         this.documents.forEach(doc => {
             resultsHtml += `<div class="data-row" id="ftdoc-${doc.id}">`;
             resultsHtml += `<span class="data-row-id">${doc.id}</span>`;
@@ -620,9 +620,7 @@ DBIV.mysql.fulltext = {
         }
 
         const searchTerms = match[1].toLowerCase().split(/\s+/);
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         if (isMiss) {
             DBIV.log('MISS', `Q${qid}: Index not used - sequential document scan`);
@@ -641,15 +639,15 @@ DBIV.mysql.fulltext = {
                 if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 1500); }
             });
             DBIV.addStats(1, this.documents.length, 0, this.documents.length * 3);
-            DBIV.log('RESULT', `Q${qid}: ${matched.length} doc(s) found via sequential scan`);
+            const docUnitSeq = DBIV.getUnitLabel('documents', matched.length);
+            DBIV.logMessage('RESULT', 'db.log.docs.seq_scan', { qid: qid, count: matched.length, unit: docUnitSeq }, `Q${qid}: ${matched.length} doc(s) found via sequential scan`);
             if (DBIV.state.comparisonMode) {
                 DBIV.showComparison(
                     { pages: 1, rows: this.documents.length, time: this.documents.length * 3 },
                     { pages: 1, rows: this.documents.length, time: this.documents.length * 3 }
                 );
             }
-            statusEl.textContent = 'ready';
-            statusEl.className = 'index-status ready';
+            DBIV.setIndexStatus('ready');
             return;
         }
 
@@ -681,7 +679,8 @@ DBIV.mysql.fulltext = {
         });
 
         DBIV.addStats(searchTerms.length, matchedDocIds.size, searchTerms.length, 3);
-        DBIV.log('RESULT', `Q${qid}: ${matchedDocIds.size} document(s) matched`);
+        const docUnitMatch = DBIV.getUnitLabel('documents', matchedDocIds.size);
+        DBIV.logMessage('RESULT', 'db.log.docs.matched', { qid: qid, count: matchedDocIds.size, unit: docUnitMatch }, `Q${qid}: ${matchedDocIds.size} document(s) matched`);
 
         if (DBIV.state.comparisonMode) {
             DBIV.showComparison(
@@ -695,8 +694,7 @@ DBIV.mysql.fulltext = {
             document.querySelectorAll('.gin-doc-ref').forEach(e => e.classList.remove('matched'));
         }, 2000);
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };
 
@@ -711,52 +709,66 @@ DBIV.mysql.explain = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.mysql._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'EXPLAIN Analyzer';
+        DBIV.setIndexName('db.index.mysql.explain', 'EXPLAIN Analyzer');
+
+        const explainStrings = {
+            parserTitle: I18N.t('db.mysql.explain.step.parser.title', null, 'Parser'),
+            parserDetail: I18N.t('db.mysql.explain.step.parser.detail', null, 'Waiting for query...'),
+            optimizerTitle: I18N.t('db.mysql.explain.step.optimizer.title', null, 'Optimizer'),
+            optimizerDetail: I18N.t('db.mysql.explain.step.optimizer.detail', null, 'Cost-based analysis'),
+            indexTitle: I18N.t('db.mysql.explain.step.index.title', null, 'Index Selection'),
+            indexDetail: I18N.t('db.mysql.explain.step.index.detail', null, 'Choose access method'),
+            execTitle: I18N.t('db.mysql.explain.step.exec.title', null, 'Execution'),
+            execDetail: I18N.t('db.mysql.explain.step.exec.detail', null, 'Execute plan'),
+            outputHeader: I18N.t('db.mysql.explain.output.header', null, 'EXPLAIN Output'),
+            outputPlaceholder: I18N.t('db.mysql.explain.output.placeholder', null, 'Run a query to see the EXPLAIN plan.')
+        };
 
         document.getElementById('index-body').innerHTML = `
         <div class="explain-flow" id="explain-flow">
             <div class="explain-step" id="exp-parse">
                 <span class="explain-step-icon">&#x1F4DD;</span>
                 <div class="explain-step-content">
-                    <div class="explain-step-title">Parser</div>
-                    <div class="explain-step-detail" id="exp-parse-detail">Waiting for query...</div>
+                    <div class="explain-step-title">${explainStrings.parserTitle}</div>
+                    <div class="explain-step-detail" id="exp-parse-detail">${explainStrings.parserDetail}</div>
                 </div>
             </div>
             <div class="explain-arrow">\u25BC</div>
             <div class="explain-step" id="exp-optimize">
                 <span class="explain-step-icon">&#x2699;</span>
                 <div class="explain-step-content">
-                    <div class="explain-step-title">Optimizer</div>
-                    <div class="explain-step-detail" id="exp-optimize-detail">Cost-based analysis</div>
+                    <div class="explain-step-title">${explainStrings.optimizerTitle}</div>
+                    <div class="explain-step-detail" id="exp-optimize-detail">${explainStrings.optimizerDetail}</div>
                 </div>
             </div>
             <div class="explain-arrow">\u25BC</div>
             <div class="explain-step" id="exp-index">
                 <span class="explain-step-icon">&#x1F50D;</span>
                 <div class="explain-step-content">
-                    <div class="explain-step-title">Index Selection</div>
-                    <div class="explain-step-detail" id="exp-index-detail">Choose access method</div>
+                    <div class="explain-step-title">${explainStrings.indexTitle}</div>
+                    <div class="explain-step-detail" id="exp-index-detail">${explainStrings.indexDetail}</div>
                 </div>
             </div>
             <div class="explain-arrow">\u25BC</div>
             <div class="explain-step" id="exp-exec">
                 <span class="explain-step-icon">&#x1F3C3;</span>
                 <div class="explain-step-content">
-                    <div class="explain-step-title">Execution</div>
-                    <div class="explain-step-detail" id="exp-exec-detail">Execute plan</div>
+                    <div class="explain-step-title">${explainStrings.execTitle}</div>
+                    <div class="explain-step-detail" id="exp-exec-detail">${explainStrings.execDetail}</div>
                 </div>
             </div>
         </div>`;
 
         let resultsHtml = `
         <div class="result-card" id="explain-result">
-            <div class="result-card-header">EXPLAIN Output</div>
+            <div class="result-card-header">${explainStrings.outputHeader}</div>
             <div id="explain-output" style="font-size:10px;font-family:monospace;color:var(--dbiv-text-light);">
-                Run a query to see the EXPLAIN plan.
+                ${explainStrings.outputPlaceholder}
             </div>
         </div>`;
         document.getElementById('results-col').innerHTML = resultsHtml;
 
+        document.getElementById('viz-area').classList.add('viz-area--2col');
         document.getElementById('extra-panels').innerHTML = '';
         DBIV.mysql._setupQueryCard(() => this.run());
     },
@@ -771,13 +783,11 @@ DBIV.mysql.explain = {
             document.getElementById(id).classList.remove('active', 'completed');
         });
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         // Step 1: Parse
         document.getElementById('exp-parse').classList.add('active');
-        document.getElementById('exp-parse-detail').textContent = `Parsing: ${query.slice(0, 40)}...`;
+        document.getElementById('exp-parse-detail').textContent = I18N.t('db.mysql.explain.step.parser.parsing', { sample: query.slice(0, 40) }, `Parsing: ${query.slice(0, 40)}...`);
         DBIV.log('EXPLAIN', `Q${qid}: Parsing SQL statement`);
         await DBIV.sleep(500);
         document.getElementById('exp-parse').classList.remove('active');
@@ -804,7 +814,7 @@ DBIV.mysql.explain = {
         }
 
         const cost = accessType === 'const' ? 1.0 : accessType === 'ref' ? 2.3 : accessType === 'range' ? 8.5 : 24.0;
-        document.getElementById('exp-optimize-detail').textContent = `Cost estimate: ${cost} | type: ${accessType}`;
+        document.getElementById('exp-optimize-detail').textContent = I18N.t('db.mysql.explain.step.optimizer.running', { cost: cost, type: accessType }, `Cost estimate: ${cost} | type: ${accessType}`);
         DBIV.log('EXPLAIN', `Q${qid}: Optimizer cost=${cost}, type=${accessType}`);
         await DBIV.sleep(600);
         document.getElementById('exp-optimize').classList.remove('active');
@@ -812,7 +822,7 @@ DBIV.mysql.explain = {
 
         // Step 3: Index Selection
         document.getElementById('exp-index').classList.add('active');
-        document.getElementById('exp-index-detail').textContent = `key: ${key} | possible: ${possibleKeys}`;
+        document.getElementById('exp-index-detail').textContent = I18N.t('db.mysql.explain.step.index.chosen', { key: key, possible: possibleKeys }, `key: ${key} | possible: ${possibleKeys}`);
         DBIV.log('EXPLAIN', `Q${qid}: Selected key=${key}, possible_keys=${possibleKeys}`);
         await DBIV.sleep(500);
         document.getElementById('exp-index').classList.remove('active');
@@ -820,7 +830,7 @@ DBIV.mysql.explain = {
 
         // Step 4: Execution
         document.getElementById('exp-exec').classList.add('active');
-        document.getElementById('exp-exec-detail').textContent = `rows=${rows}, extra="${extra}"`;
+        document.getElementById('exp-exec-detail').textContent = I18N.t('db.mysql.explain.step.exec.info', { rows: rows, extra: extra }, `rows=${rows}, extra="${extra}"`);
         DBIV.log('EXPLAIN', `Q${qid}: Execution rows=${rows}, ${extra}`);
         await DBIV.sleep(400);
         document.getElementById('exp-exec').classList.remove('active');
@@ -845,7 +855,6 @@ DBIV.mysql.explain = {
         DBIV.addStats(accessType === 'ALL' ? 3 : 1, rows, key !== 'NULL' ? 1 : 0, Math.round(cost));
         DBIV.log('RESULT', `Q${qid}: EXPLAIN complete`);
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };

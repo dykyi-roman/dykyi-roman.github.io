@@ -109,18 +109,18 @@ GFV['ship-show-ask'].ship = {
     steps: function() {
         var b = this._b;
         return [
-            { op: 'branch', branch: b, fromBranch: 'main', label: 'branch', description: 'Create ' + b + ' from main — even trivial changes get a branch for clean git history', logType: 'BRANCH' },
-            { op: 'commit', branch: b, label: 'fix-typo', description: 'Fix typo in README — corrected "authentification" to "authentication" in the API section', logType: 'COMMIT' },
-            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'merge', description: 'Merge directly to main without opening a PR — developer judges this as zero-risk, no review needed', logType: 'MERGE' },
-            { op: 'badge', branch: 'main', label: 'SHIP', color: '#a6e3a1', logType: 'FLOW', description: 'Categorized as SHIP — trivial documentation fix, fastest path to production with no ceremony' },
-            { op: 'deploy', branch: 'main', envName: 'production', description: 'Deploy main to production — typo fix is live, no review overhead for a one-word change', logType: 'DEPLOY' },
-            { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' branch — shipped directly, keeping the repository clean', logType: 'BRANCH' }
+            { op: 'branch', branch: b, fromBranch: 'main', label: 'branch', description: 'Create ' + b + ' from main — even trivial changes get a branch for clean git history', descriptionKey: 'gfv.ship-show-ask.ship.0', logType: 'BRANCH' },
+            { op: 'commit', branch: b, label: 'fix-typo', description: 'Fix typo in README — corrected "authentification" to "authentication" in the API section', descriptionKey: 'gfv.ship-show-ask.ship.1', logType: 'COMMIT' },
+            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'merge', description: 'Merge directly to main without opening a PR — developer judges this as zero-risk, no review needed', descriptionKey: 'gfv.ship-show-ask.ship.2', logType: 'MERGE' },
+            { op: 'badge', branch: 'main', label: 'SHIP', color: '#a6e3a1', logType: 'FLOW', description: 'Categorized as SHIP — trivial documentation fix, fastest path to production with no ceremony', descriptionKey: 'gfv.ship-show-ask.ship.3' },
+            { op: 'deploy', branch: 'main', envName: 'production', description: 'Deploy main to production — typo fix is live, no review overhead for a one-word change', descriptionKey: 'gfv.ship-show-ask.ship.4', logType: 'DEPLOY' },
+            { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' branch — shipped directly, keeping the repository clean', descriptionKey: 'gfv.ship-show-ask.ship.5', logType: 'BRANCH' }
         ];
     },
 
     stepOptions: function() {
         return {
-            requestLabel: 'Ship/Show/Ask: Ship (Direct Merge)',
+            requestLabel: GFV._t('gfv.request.ship.ship', null, 'Ship/Show/Ask: Ship (Direct Merge)'),
             _initFn: GFV['ship-show-ask'].ship.init
         };
     },
@@ -144,20 +144,20 @@ GFV['ship-show-ask'].show = {
     steps: function() {
         var b = this._b;
         return [
-            { op: 'branch', branch: b, fromBranch: 'main', label: 'branch', description: 'Create ' + b + ' from main — starting a medium-risk refactoring task', logType: 'BRANCH' },
-            { op: 'commit', branch: b, label: 'refactor-1', description: 'Extract date formatting logic into a shared DateHelper module — reducing duplication across 5 controllers', logType: 'COMMIT' },
-            { op: 'commit', branch: b, label: 'refactor-2', description: 'Update all imports to use the new DateHelper module and adjust unit tests for the extracted logic', logType: 'COMMIT' },
-            { op: 'pr', fromBranch: b, toBranch: 'main', label: 'PR #1', description: 'Open non-blocking PR for team visibility — teammates can see the refactoring, but merge is not gated on approval', logType: 'PR' },
-            { op: 'badge', branch: b, label: 'SHOW', color: '#f9e2af', logType: 'FLOW', description: 'Categorized as SHOW — internal refactoring with tests, team should be aware but no blocking review needed' },
-            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'merge', description: 'Merge to main without waiting for review — developer is confident in the change, team can review async', logType: 'MERGE' },
-            { op: 'deploy', branch: 'main', envName: 'production', description: 'Deploy main to production — refactored date handling is now live, team notified via the open PR', logType: 'DEPLOY' },
-            { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' branch — refactoring shipped, PR remains as documentation of the change', logType: 'BRANCH' }
+            { op: 'branch', branch: b, fromBranch: 'main', label: 'branch', description: 'Create ' + b + ' from main — starting a medium-risk refactoring task', descriptionKey: 'gfv.ship-show-ask.show.0', logType: 'BRANCH' },
+            { op: 'commit', branch: b, label: 'refactor-1', description: 'Extract date formatting logic into a shared DateHelper module — reducing duplication across 5 controllers', descriptionKey: 'gfv.ship-show-ask.show.1', logType: 'COMMIT' },
+            { op: 'commit', branch: b, label: 'refactor-2', description: 'Update all imports to use the new DateHelper module and adjust unit tests for the extracted logic', descriptionKey: 'gfv.ship-show-ask.show.2', logType: 'COMMIT' },
+            { op: 'pr', fromBranch: b, toBranch: 'main', label: 'PR #1', description: 'Open non-blocking PR for team visibility — teammates can see the refactoring, but merge is not gated on approval', descriptionKey: 'gfv.ship-show-ask.show.3', logType: 'PR' },
+            { op: 'badge', branch: b, label: 'SHOW', color: '#f9e2af', logType: 'FLOW', description: 'Categorized as SHOW — internal refactoring with tests, team should be aware but no blocking review needed', descriptionKey: 'gfv.ship-show-ask.show.4' },
+            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'merge', description: 'Merge to main without waiting for review — developer is confident in the change, team can review async', descriptionKey: 'gfv.ship-show-ask.show.5', logType: 'MERGE' },
+            { op: 'deploy', branch: 'main', envName: 'production', description: 'Deploy main to production — refactored date handling is now live, team notified via the open PR', descriptionKey: 'gfv.ship-show-ask.show.6', logType: 'DEPLOY' },
+            { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' branch — refactoring shipped, PR remains as documentation of the change', descriptionKey: 'gfv.ship-show-ask.show.7', logType: 'BRANCH' }
         ];
     },
 
     stepOptions: function() {
         return {
-            requestLabel: 'Ship/Show/Ask: Show (PR, No Block)',
+            requestLabel: GFV._t('gfv.request.ship.show', null, 'Ship/Show/Ask: Show (PR, No Block)'),
             _initFn: GFV['ship-show-ask'].show.init
         };
     },
@@ -181,21 +181,21 @@ GFV['ship-show-ask'].ask = {
     steps: function() {
         var b = this._b;
         return [
-            { op: 'branch', branch: b, fromBranch: 'main', label: 'branch', description: 'Create ' + b + ' from main — starting a high-risk authentication rewrite that requires team review', logType: 'BRANCH' },
-            { op: 'commit', branch: b, label: 'auth-1', description: 'Rewrite authentication module — replacing custom JWT handling with industry-standard OAuth2 library', logType: 'COMMIT' },
-            { op: 'commit', branch: b, label: 'auth-2', description: 'Add OAuth2 provider support for Google, GitHub, and Microsoft — including token refresh and session management', logType: 'COMMIT' },
-            { op: 'pr', fromBranch: b, toBranch: 'main', label: 'PR #2', description: 'Open blocking PR — security-critical change requires explicit approval from at least 2 reviewers before merge', logType: 'PR' },
-            { op: 'badge', branch: b, label: 'ASK', color: '#f38ba8', logType: 'FLOW', description: 'Categorized as ASK — authentication touches every user session, blocking review is mandatory' },
-            { op: 'commit', branch: b, label: 'review-fix', description: 'Address review feedback — add PKCE for public clients, fix token expiry edge case, improve error logging', logType: 'COMMIT' },
-            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'merge', description: 'Merge to main after 2 approvals received — security team and backend lead both signed off', logType: 'MERGE' },
-            { op: 'deploy', branch: 'main', envName: 'production', description: 'Deploy main to production — new OAuth2 authentication is now live for all users', logType: 'DEPLOY' },
-            { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' branch — high-risk change safely shipped after thorough review process', logType: 'BRANCH' }
+            { op: 'branch', branch: b, fromBranch: 'main', label: 'branch', description: 'Create ' + b + ' from main — starting a high-risk authentication rewrite that requires team review', descriptionKey: 'gfv.ship-show-ask.ask.0', logType: 'BRANCH' },
+            { op: 'commit', branch: b, label: 'auth-1', description: 'Rewrite authentication module — replacing custom JWT handling with industry-standard OAuth2 library', descriptionKey: 'gfv.ship-show-ask.ask.1', logType: 'COMMIT' },
+            { op: 'commit', branch: b, label: 'auth-2', description: 'Add OAuth2 provider support for Google, GitHub, and Microsoft — including token refresh and session management', descriptionKey: 'gfv.ship-show-ask.ask.2', logType: 'COMMIT' },
+            { op: 'pr', fromBranch: b, toBranch: 'main', label: 'PR #2', description: 'Open blocking PR — security-critical change requires explicit approval from at least 2 reviewers before merge', descriptionKey: 'gfv.ship-show-ask.ask.3', logType: 'PR' },
+            { op: 'badge', branch: b, label: 'ASK', color: '#f38ba8', logType: 'FLOW', description: 'Categorized as ASK — authentication touches every user session, blocking review is mandatory', descriptionKey: 'gfv.ship-show-ask.ask.4' },
+            { op: 'commit', branch: b, label: 'review-fix', description: 'Address review feedback — add PKCE for public clients, fix token expiry edge case, improve error logging', descriptionKey: 'gfv.ship-show-ask.ask.5', logType: 'COMMIT' },
+            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'merge', description: 'Merge to main after 2 approvals received — security team and backend lead both signed off', descriptionKey: 'gfv.ship-show-ask.ask.6', logType: 'MERGE' },
+            { op: 'deploy', branch: 'main', envName: 'production', description: 'Deploy main to production — new OAuth2 authentication is now live for all users', descriptionKey: 'gfv.ship-show-ask.ask.7', logType: 'DEPLOY' },
+            { op: 'delete-branch', branch: b, label: 'cleanup', description: 'Delete ' + b + ' branch — high-risk change safely shipped after thorough review process', descriptionKey: 'gfv.ship-show-ask.ask.8', logType: 'BRANCH' }
         ];
     },
 
     stepOptions: function() {
         return {
-            requestLabel: 'Ship/Show/Ask: Ask (PR + Review)',
+            requestLabel: GFV._t('gfv.request.ship.ask', null, 'Ship/Show/Ask: Ask (PR + Review)'),
             _initFn: GFV['ship-show-ask'].ask.init
         };
     },

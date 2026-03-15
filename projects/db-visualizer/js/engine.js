@@ -35,7 +35,7 @@ DBIV.flushDeliveryQueue = async function() {
 };
 
 /* ===== Event Log ===== */
-DBIV.log = function(type, text) {
+DBIV.log = function(type, payload) {
     const logEl = document.getElementById('event-log');
     if (!logEl) return;
     const now = new Date();
@@ -49,17 +49,30 @@ DBIV.log = function(type, text) {
 
     const typeSpan = document.createElement('span');
     typeSpan.className = 'log-type ' + type;
-    typeSpan.textContent = type;
+    typeSpan.textContent = I18N.t('ui.log.type.' + type, null, type);
 
     const textSpan = document.createElement('span');
     textSpan.className = 'log-text';
-    textSpan.textContent = text;
+    let message;
+    if (payload && typeof payload === 'object') {
+        const key = payload.key || '';
+        const params = payload.params || {};
+        const fallback = payload.fallback !== undefined ? payload.fallback : key;
+        message = key ? I18N.t(key, params, fallback) : (fallback || '');
+    } else {
+        message = payload;
+    }
+    textSpan.textContent = message;
 
     entry.appendChild(timeSpan);
     entry.appendChild(typeSpan);
     entry.appendChild(textSpan);
     logEl.appendChild(entry);
     logEl.scrollTop = logEl.scrollHeight;
+};
+
+DBIV.logMessage = function(type, key, params, fallback) {
+    DBIV.log(type, { key: key, params: params, fallback: fallback });
 };
 
 DBIV.clearLog = function() {
@@ -80,8 +93,8 @@ DBIV.copyLog = function() {
     navigator.clipboard.writeText(lines.join('\n')).then(function() {
         const btn = document.getElementById('btn-copy-log');
         if (!btn) return;
-        btn.textContent = 'Copied!';
-        setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+        btn.textContent = I18N.t('ui.btn.copied', null, 'Copied!');
+        setTimeout(function() { btn.textContent = I18N.t('ui.btn.copy', null, 'Copy'); }, 1500);
     });
 };
 
@@ -91,7 +104,7 @@ DBIV.updateStats = function() {
     document.getElementById('stat-pages').textContent = s.pagesRead;
     document.getElementById('stat-rows').textContent = s.rowsExamined;
     document.getElementById('stat-lookups').textContent = s.indexLookups;
-    document.getElementById('stat-time').textContent = s.queryTime + ' ms';
+    document.getElementById('stat-time').textContent = DBIV.formatQueryTime(s.queryTime);
 };
 
 DBIV.resetStats = function() {
@@ -111,6 +124,53 @@ DBIV.addStats = function(pages, rows, lookups, time) {
     DBIV.state.indexLookups += lookups;
     DBIV.state.queryTime += time;
     DBIV.updateStats();
+};
+
+DBIV.formatQueryTime = function(value) {
+    return I18N && typeof I18N.t === 'function'
+        ? I18N.t('db.stats.time.value', { value: value }, value + ' ms')
+        : value + ' ms';
+};
+
+DBIV.setIndexStatus = function(state) {
+    const el = document.getElementById('index-status');
+    if (!el) return;
+    el.className = 'index-status ' + state;
+    el.textContent = I18N.t('db.index.status.' + state, null, state);
+};
+
+DBIV.setIndexName = function(key, fallback) {
+    const el = document.getElementById('index-name');
+    if (!el) return;
+    el.textContent = I18N.t(key, null, fallback);
+};
+
+DBIV._pluralForm = function(lang, count) {
+    if (lang === 'ru') {
+        if (count % 10 === 1 && count % 100 !== 11) return 'one';
+        if ([2,3,4].includes(count % 10) && ![12,13,14].includes(count % 100)) return 'few';
+        return 'many';
+    }
+    return count === 1 ? 'one' : 'other';
+};
+
+DBIV.getUnitLabel = function(unitKey, count) {
+    const lang = (window.I18N && I18N.lang) ? I18N.lang : 'en';
+    const form = DBIV._pluralForm(lang, Math.abs(count));
+    const key = 'db.log.units.' + unitKey + '.' + form;
+    const fallback = count === 1 ? unitKey.slice(0, -1) : unitKey;
+    return I18N.t(key, { count: count }, fallback);
+};
+
+DBIV._termSlug = function(term) {
+    return term ? term.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '') : '';
+};
+
+DBIV.translateConceptTerm = function(term) {
+    if (!term) return '';
+    const slug = DBIV._termSlug(term);
+    if (!slug) return term;
+    return I18N.t('db.terms.' + slug, null, term);
 };
 
 /* ===== Animation Engine ===== */
@@ -317,7 +377,8 @@ DBIV.renderDataPages = function(container, pages) {
     let offset = 0;
     pages.forEach((page, pi) => {
         html += `<div class="data-page" id="dpage-${pi}">`;
-        html += `<div class="data-page-header">Page ${pi + 1}</div>`;
+        const pageLabel = I18N.t('db.data_page.page', { number: pi + 1 }, `Page ${pi + 1}`);
+        html += `<div class="data-page-header">${pageLabel}</div>`;
         page.rows.forEach((row, ri) => {
             const globalIdx = offset + ri;
             html += `<div class="data-row" id="drow-${globalIdx}">`;
@@ -336,15 +397,20 @@ DBIV.showComparison = function(indexStats, fullScanStats) {
     const panel = document.getElementById('comparison-panel');
     panel.style.display = 'flex';
 
+    const labelPages = I18N.t('ui.stat.pages_read', null, 'Pages Read');
+    const labelRows = I18N.t('ui.stat.rows_examined', null, 'Rows Examined');
+    const labelTime = I18N.t('ui.stat.query_time', null, 'Query Time');
+    const formatTime = (value) => I18N.t('db.stats.time.value', { value: value }, value + ' ms');
+
     document.getElementById('compare-index-stats').innerHTML =
-        `<div class="comparison-stat-row"><span>Pages Read</span><span class="${indexStats.pages <= fullScanStats.pages ? 'comparison-faster' : 'comparison-slower'}">${indexStats.pages}</span></div>` +
-        `<div class="comparison-stat-row"><span>Rows Examined</span><span class="${indexStats.rows <= fullScanStats.rows ? 'comparison-faster' : 'comparison-slower'}">${indexStats.rows}</span></div>` +
-        `<div class="comparison-stat-row"><span>Time</span><span class="${indexStats.time <= fullScanStats.time ? 'comparison-faster' : 'comparison-slower'}">${indexStats.time} ms</span></div>`;
+        `<div class="comparison-stat-row"><span>${labelPages}</span><span class="${indexStats.pages <= fullScanStats.pages ? 'comparison-faster' : 'comparison-slower'}">${indexStats.pages}</span></div>` +
+        `<div class="comparison-stat-row"><span>${labelRows}</span><span class="${indexStats.rows <= fullScanStats.rows ? 'comparison-faster' : 'comparison-slower'}">${indexStats.rows}</span></div>` +
+        `<div class="comparison-stat-row"><span>${labelTime}</span><span class="${indexStats.time <= fullScanStats.time ? 'comparison-faster' : 'comparison-slower'}">${formatTime(indexStats.time)}</span></div>`;
 
     document.getElementById('compare-full-stats').innerHTML =
-        `<div class="comparison-stat-row"><span>Pages Read</span><span class="${fullScanStats.pages <= indexStats.pages ? 'comparison-faster' : 'comparison-slower'}">${fullScanStats.pages}</span></div>` +
-        `<div class="comparison-stat-row"><span>Rows Examined</span><span class="${fullScanStats.rows <= indexStats.rows ? 'comparison-faster' : 'comparison-slower'}">${fullScanStats.rows}</span></div>` +
-        `<div class="comparison-stat-row"><span>Time</span><span class="${fullScanStats.time <= indexStats.time ? 'comparison-faster' : 'comparison-slower'}">${fullScanStats.time} ms</span></div>`;
+        `<div class="comparison-stat-row"><span>${labelPages}</span><span class="${fullScanStats.pages <= indexStats.pages ? 'comparison-faster' : 'comparison-slower'}">${fullScanStats.pages}</span></div>` +
+        `<div class="comparison-stat-row"><span>${labelRows}</span><span class="${fullScanStats.rows <= indexStats.rows ? 'comparison-faster' : 'comparison-slower'}">${fullScanStats.rows}</span></div>` +
+        `<div class="comparison-stat-row"><span>${labelTime}</span><span class="${fullScanStats.time <= indexStats.time ? 'comparison-faster' : 'comparison-slower'}">${formatTime(fullScanStats.time)}</span></div>`;
 };
 
 DBIV.hideComparison = function() {

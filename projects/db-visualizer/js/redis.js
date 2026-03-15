@@ -60,18 +60,20 @@ DBIV.redis.details = {
 };
 
 DBIV.redis._queryCard = function(query, presets) {
+    const headerLabel = I18N.t('db.query_card.command', null, 'Command');
+    const runLabel = I18N.t('db.query_card.execute', null, 'Execute');
     return `
     <div class="query-card" id="query-card">
         <span class="port port-right" id="port-query"></span>
         <div class="query-card-header">
             <span class="query-card-icon">&#x26A1;</span>
-            <span class="query-card-name">Command</span>
+            <span class="query-card-name">${headerLabel}</span>
         </div>
         <textarea class="query-input" id="query-input">${query}</textarea>
         <div class="preset-buttons">
             ${presets.map(p => `<button class="preset-btn" data-query="${p.replace(/"/g, '&quot;')}">${p.length > 30 ? p.slice(0, 30) + '...' : p}</button>`).join('')}
         </div>
-        <button class="card-send-btn" id="btn-run-query">Execute</button>
+        <button class="card-send-btn" id="btn-run-query">${runLabel}</button>
     </div>`;
 };
 
@@ -98,14 +100,15 @@ DBIV.redis.zset = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.redis._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'Skip List (ZSET)';
+        DBIV.setIndexName('db.index.redis.zset', 'Skip List (ZSET)');
 
         DBIV.renderSkipList(document.getElementById('index-body'), {
             maxLevel: 4,
             nodes: this.members,
         });
 
-        let resultsHtml = '<div class="data-page"><div class="data-page-header">ZSET Members</div>';
+        const membersHeader = I18N.t('db.data_page.redis.members', null, 'ZSET Members');
+        let resultsHtml = `<div class="data-page"><div class="data-page-header">${membersHeader}</div>`;
         this.members.forEach((m, i) => {
             resultsHtml += `<div class="data-row" id="zrow-${m.member}">`;
             resultsHtml += `<span class="data-row-id">#${i}</span>`;
@@ -127,9 +130,7 @@ DBIV.redis.zset = {
         const isMiss = DBIV.state.simulateError;
         if (isMiss) DBIV.state.simulateError = false;
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         const scoreRangeMatch = query.match(/ZRANGEBYSCORE\s+\S+\s+(\d+)\s+(\d+)/i);
         const rankRangeMatch = query.match(/ZRANGE\s+\S+\s+(\d+)\s+(\d+)/i);
@@ -156,7 +157,8 @@ DBIV.redis.zset = {
                 if (row) { row.classList.add('matched'); setTimeout(() => row.classList.remove('matched'), 1500); }
             });
             DBIV.addStats(1, this.members.length, 0, this.members.length);
-            DBIV.log('RESULT', `Q${qid}: Linear scan - ${matched.length} member(s) found, ${this.members.length} examined`);
+            const memberUnit = DBIV.getUnitLabel('members', matched.length);
+            DBIV.logMessage('RESULT', 'db.log.redis.linear_scan', { qid: qid, count: matched.length, unit: memberUnit, total: this.members.length }, `Q${qid}: Linear scan - ${matched.length} member(s) found, ${this.members.length} examined`);
             if (DBIV.state.comparisonMode) {
                 DBIV.showComparison(
                     { pages: 1, rows: this.members.length, time: this.members.length },
@@ -204,7 +206,8 @@ DBIV.redis.zset = {
             });
 
             DBIV.addStats(1, matched.length, 4, 1);
-            DBIV.log('RESULT', `Q${qid}: ${matched.length} member(s) in range [${low}, ${high}]`);
+            const memberUnitRange = DBIV.getUnitLabel('members', matched.length);
+            DBIV.logMessage('RESULT', 'db.log.redis.range_score', { qid: qid, count: matched.length, unit: memberUnitRange, low: low, high: high }, `Q${qid}: ${matched.length} member(s) in range [${low}, ${high}]`);
 
             if (DBIV.state.comparisonMode) {
                 DBIV.showComparison(
@@ -235,7 +238,8 @@ DBIV.redis.zset = {
             }
 
             DBIV.addStats(1, slice.length, 1, 1);
-            DBIV.log('RESULT', `Q${qid}: ${slice.length} member(s) at ranks [${start}, ${stop}]`);
+            const memberUnitRank = DBIV.getUnitLabel('members', slice.length);
+            DBIV.logMessage('RESULT', 'db.log.redis.range_rank', { qid: qid, count: slice.length, unit: memberUnitRank, start: start, stop: stop }, `Q${qid}: ${slice.length} member(s) at ranks [${start}, ${stop}]`);
 
             if (DBIV.state.comparisonMode) {
                 DBIV.showComparison(
@@ -275,7 +279,8 @@ DBIV.redis.zset = {
                 nodes: this.members,
             });
 
-            let resultsHtml = '<div class="data-page"><div class="data-page-header">ZSET Members</div>';
+            const updatedHeader = I18N.t('db.data_page.redis.members', null, 'ZSET Members');
+            let resultsHtml = `<div class="data-page"><div class="data-page-header">${updatedHeader}</div>`;
             this.members.forEach((m, i) => {
                 resultsHtml += `<div class="data-row" id="zrow-${m.member}">`;
                 resultsHtml += `<span class="data-row-id">#${i}</span>`;
@@ -292,8 +297,7 @@ DBIV.redis.zset = {
             DBIV.log('RESULT', `Q${qid}: Inserted "${member}" at score ${score}, level ${newLevel}`);
         }
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };
 
@@ -333,18 +337,24 @@ DBIV.redis.hashIndex = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.redis._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'Hash (rehashing)';
+        DBIV.setIndexName('db.index.redis.hash', 'Hash (rehashing)');
 
         this._render();
 
+        const rehashTitle = I18N.t('db.redis.hash.rehash.title', null, 'Rehash Status');
+        const ht0Label = I18N.t('db.redis.hash.rehash.ht0', { count: this.numBuckets0 }, `ht[0] buckets: ${this.numBuckets0}`);
+        const ht1Label = I18N.t('db.redis.hash.rehash.ht1', { count: this.numBuckets1 }, `ht[1] buckets: ${this.numBuckets1}`);
+        const idxLabel = I18N.t('db.redis.hash.rehash.index', null, 'Rehash index:');
+        const loadLabel = I18N.t('db.redis.hash.rehash.load', null, 'Load factor:');
+        const inactiveLabel = I18N.t('db.redis.hash.rehash.inactive', null, 'inactive');
         document.getElementById('results-col').innerHTML = `
         <div class="result-card">
-            <div class="result-card-header">Rehash Status</div>
+            <div class="result-card-header">${rehashTitle}</div>
             <div id="rehash-info" style="font-size:10px;font-family:monospace;color:var(--dbiv-text-light);">
-                <div>ht[0] buckets: ${this.numBuckets0}</div>
-                <div>ht[1] buckets: ${this.numBuckets1}</div>
-                <div>Rehash index: <span id="rehash-idx">inactive</span></div>
-                <div>Load factor: <span id="load-factor">${(this._entries.length / this.numBuckets0).toFixed(2)}</span></div>
+                <div>${ht0Label}</div>
+                <div>${ht1Label}</div>
+                <div>${idxLabel} <span id="rehash-idx">${inactiveLabel}</span></div>
+                <div>${loadLabel} <span id="load-factor">${(this._entries.length / this.numBuckets0).toFixed(2)}</span></div>
             </div>
         </div>`;
 
@@ -390,9 +400,7 @@ DBIV.redis.hashIndex = {
         const isMiss = DBIV.state.simulateError;
         if (isMiss) DBIV.state.simulateError = false;
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         const hgetMatch = query.match(/HGET\s+(\S+)/i);
         const hsetMatch = query.match(/HSET\s+(\S+)\s+(\S+)/i);
@@ -445,7 +453,7 @@ DBIV.redis.hashIndex = {
                 this.numBuckets1 = this.numBuckets1 * 2;
                 this.rehashIdx = -1;
                 this._render();
-                document.getElementById('rehash-idx').textContent = 'complete';
+                document.getElementById('rehash-idx').textContent = I18N.t('db.redis.hash.rehash.complete', null, 'complete');
                 DBIV.log('RESULT', `Q${qid}: Rehash complete, new size: ${this.numBuckets0} buckets`);
             }
 
@@ -506,8 +514,7 @@ DBIV.redis.hashIndex = {
             DBIV.log('RESULT', `Q${qid}: OK`);
         }
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };
 
@@ -533,7 +540,7 @@ DBIV.redis.secondary = {
         ];
 
         document.getElementById('query-col').innerHTML = DBIV.redis._queryCard(presets[0], presets);
-        document.getElementById('index-name').textContent = 'Secondary Indexes';
+        DBIV.setIndexName('db.index.redis.secondary', 'Secondary Indexes');
 
         const sortedByAge = [...this.users].sort((a, b) => a.age - b.age);
         const sortedBySalary = [...this.users].sort((a, b) => a.salary - b.salary);
@@ -561,7 +568,8 @@ DBIV.redis.secondary = {
         bodyHtml += '</div>';
         document.getElementById('index-body').innerHTML = bodyHtml;
 
-        let resultsHtml = '<div class="data-page"><div class="data-page-header">HASH user:*</div>';
+        const hashHeader = I18N.t('db.data_page.redis.hash_users', null, 'HASH user:*');
+        let resultsHtml = `<div class="data-page"><div class="data-page-header">${hashHeader}</div>`;
         this.users.forEach(u => {
             resultsHtml += `<div class="data-row" id="suser-${u.id}">`;
             resultsHtml += `<span class="data-row-id">${u.id}</span>`;
@@ -571,11 +579,13 @@ DBIV.redis.secondary = {
         resultsHtml += '</div>';
         document.getElementById('results-col').innerHTML = resultsHtml;
 
+        const secondaryTitle = I18N.t('db.redis.secondary.panel.title', null, 'Pattern:');
+        const secondaryDesc = I18N.t('db.redis.secondary.panel.desc', null,
+            'Store primary data in HASH (user:*). Create ZSET indexes with score=field_value, member=user:id. Query via ZRANGEBYSCORE \u2192 get user IDs \u2192 HGETALL for each.');
         document.getElementById('extra-panels').innerHTML = `
         <div style="padding:8px 12px;background:var(--dbiv-card-bg);border:1px solid var(--dbiv-border);border-radius:6px;font-size:12px;color:var(--dbiv-text-light);">
-            <strong style="color:var(--dbiv-text)">Pattern:</strong>
-            Store primary data in HASH (user:*). Create ZSET indexes with score=field_value, member=user:id.
-            Query via ZRANGEBYSCORE \u2192 get user IDs \u2192 HGETALL for each.
+            <strong style="color:var(--dbiv-text)">${secondaryTitle}</strong>
+            ${secondaryDesc}
         </div>`;
 
         DBIV.redis._setupQueryCard(() => this.run());
@@ -588,9 +598,7 @@ DBIV.redis.secondary = {
         if (isMiss) DBIV.state.simulateError = false;
         DBIV.log('QUERY', `Q${qid}: ${query}`);
 
-        const statusEl = document.getElementById('index-status');
-        statusEl.textContent = 'scanning';
-        statusEl.className = 'index-status scanning';
+        DBIV.setIndexStatus('scanning');
 
         if (isMiss) {
             DBIV.log('MISS', `Q${qid}: Secondary index not used - SCAN all keys`);
@@ -608,8 +616,7 @@ DBIV.redis.secondary = {
                     { pages: 1, rows: this.users.length, time: this.users.length }
                 );
             }
-            statusEl.textContent = 'ready';
-            statusEl.className = 'index-status ready';
+            DBIV.setIndexStatus('ready');
             return;
         }
 
@@ -681,7 +688,6 @@ DBIV.redis.secondary = {
             document.querySelectorAll('.hash-bucket').forEach(b => b.classList.remove('targeted'));
         }, 1500);
 
-        statusEl.textContent = 'ready';
-        statusEl.className = 'index-status ready';
+        DBIV.setIndexStatus('ready');
     }
 };

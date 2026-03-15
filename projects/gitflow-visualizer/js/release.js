@@ -114,20 +114,20 @@ GFV.release.create = {
 
     steps: function() {
         return [
-            { op: 'commit', branch: 'main', label: 'feat-1', description: 'User dashboard feature merged to main — includes widgets, charts, and real-time notifications', logType: 'COMMIT' },
-            { op: 'commit', branch: 'main', label: 'feat-2', description: 'API rate limiting feature merged to main — enough features accumulated, time to prepare a release', logType: 'COMMIT' },
-            { op: 'branch', branch: 'release/1.0', fromBranch: 'main', label: 'branch', description: 'Create release/1.0 from main — entering feature freeze, only bug fixes and stabilization from here', logType: 'BRANCH' },
-            { op: 'commit', branch: 'release/1.0', label: 'stabilize', description: 'Stabilize release candidate — update dependencies, run performance benchmarks, verify database migrations', logType: 'COMMIT' },
-            { op: 'commit', branch: 'release/1.0', label: 'fix', description: 'Fix edge case found during QA — dashboard widget crashes when user has no historical data', logType: 'COMMIT' },
-            { op: 'merge', fromBranch: 'release/1.0', toBranch: 'main', label: 'merge', description: 'Merge release/1.0 back into main — stabilization fixes are now part of the mainline codebase', logType: 'MERGE' },
-            { op: 'tag', branch: 'main', tagName: 'v1.0', description: 'Tag release v1.0 on main — this exact commit is the official production-ready release', logType: 'TAG' },
-            { op: 'delete-branch', branch: 'release/1.0', label: 'cleanup', description: 'Delete release/1.0 branch — release shipped, branch served its stabilization purpose', logType: 'BRANCH' }
+            { op: 'commit', branch: 'main', label: 'feat-1', description: 'User dashboard feature merged to main — includes widgets, charts, and real-time notifications', descriptionKey: 'gfv.release.create.0', logType: 'COMMIT' },
+            { op: 'commit', branch: 'main', label: 'feat-2', description: 'API rate limiting feature merged to main — enough features accumulated, time to prepare a release', descriptionKey: 'gfv.release.create.1', logType: 'COMMIT' },
+            { op: 'branch', branch: 'release/1.0', fromBranch: 'main', label: 'branch', description: 'Create release/1.0 from main — entering feature freeze, only bug fixes and stabilization from here', descriptionKey: 'gfv.release.create.2', logType: 'BRANCH' },
+            { op: 'commit', branch: 'release/1.0', label: 'stabilize', description: 'Stabilize release candidate — update dependencies, run performance benchmarks, verify database migrations', descriptionKey: 'gfv.release.create.3', logType: 'COMMIT' },
+            { op: 'commit', branch: 'release/1.0', label: 'fix', description: 'Fix edge case found during QA — dashboard widget crashes when user has no historical data', descriptionKey: 'gfv.release.create.4', logType: 'COMMIT' },
+            { op: 'merge', fromBranch: 'release/1.0', toBranch: 'main', label: 'merge', description: 'Merge release/1.0 back into main — stabilization fixes are now part of the mainline codebase', descriptionKey: 'gfv.release.create.5', logType: 'MERGE' },
+            { op: 'tag', branch: 'main', tagName: 'v1.0', description: 'Tag release v1.0 on main — this exact commit is the official production-ready release', descriptionKey: 'gfv.release.create.6', logType: 'TAG' },
+            { op: 'delete-branch', branch: 'release/1.0', label: 'cleanup', description: 'Delete release/1.0 branch — release shipped, branch served its stabilization purpose', descriptionKey: 'gfv.release.create.7', logType: 'BRANCH' }
         ];
     },
 
     stepOptions: function() {
         return {
-            requestLabel: 'Release Branching: Create Release',
+            requestLabel: GFV._t('gfv.request.release.create', null, 'Release Branching: Create Release'),
             _initFn: GFV.release.create.init
         };
     },
@@ -149,19 +149,19 @@ GFV.release.patch = {
 
     steps: function() {
         return [
-            { op: 'commit', branch: 'main', label: 'v1.0', description: 'Main is at v1.0 — this version has been running in production, but a bug was reported by customers', logType: 'COMMIT' },
-            { op: 'tag', branch: 'main', tagName: 'v1.0', description: 'Existing tag v1.0 marks the release point — we will branch from here to apply a targeted patch', logType: 'TAG' },
-            { op: 'branch', branch: 'release/1.0', fromBranch: 'main', label: 'branch', description: 'Create release/1.0 from the v1.0 tag — isolating the patch work from any new development on main', logType: 'BRANCH' },
-            { op: 'commit', branch: 'release/1.0', label: 'patch-fix', description: 'Apply targeted patch fix — correct currency rounding error causing incorrect invoice totals for EUR transactions', logType: 'COMMIT' },
-            { op: 'merge', fromBranch: 'release/1.0', toBranch: 'main', label: 'merge', description: 'Merge patch back into main — ensuring the fix is included in all future releases', logType: 'MERGE' },
-            { op: 'tag', branch: 'main', tagName: 'v1.0.1', description: 'Tag patch release v1.0.1 — semantic versioning patch increment for the targeted fix', logType: 'TAG' },
-            { op: 'delete-branch', branch: 'release/1.0', label: 'cleanup', description: 'Delete release/1.0 branch — patch delivered, branch no longer needed', logType: 'BRANCH' }
+            { op: 'commit', branch: 'main', label: 'v1.0', description: 'Main is at v1.0 — this version has been running in production, but a bug was reported by customers', descriptionKey: 'gfv.release.patch.0', logType: 'COMMIT' },
+            { op: 'tag', branch: 'main', tagName: 'v1.0', description: 'Existing tag v1.0 marks the release point — we will branch from here to apply a targeted patch', descriptionKey: 'gfv.release.patch.1', logType: 'TAG' },
+            { op: 'branch', branch: 'release/1.0', fromBranch: 'main', label: 'branch', description: 'Create release/1.0 from the v1.0 tag — isolating the patch work from any new development on main', descriptionKey: 'gfv.release.patch.2', logType: 'BRANCH' },
+            { op: 'commit', branch: 'release/1.0', label: 'patch-fix', description: 'Apply targeted patch fix — correct currency rounding error causing incorrect invoice totals for EUR transactions', descriptionKey: 'gfv.release.patch.3', logType: 'COMMIT' },
+            { op: 'merge', fromBranch: 'release/1.0', toBranch: 'main', label: 'merge', description: 'Merge patch back into main — ensuring the fix is included in all future releases', descriptionKey: 'gfv.release.patch.4', logType: 'MERGE' },
+            { op: 'tag', branch: 'main', tagName: 'v1.0.1', description: 'Tag patch release v1.0.1 — semantic versioning patch increment for the targeted fix', descriptionKey: 'gfv.release.patch.5', logType: 'TAG' },
+            { op: 'delete-branch', branch: 'release/1.0', label: 'cleanup', description: 'Delete release/1.0 branch — patch delivered, branch no longer needed', descriptionKey: 'gfv.release.patch.6', logType: 'BRANCH' }
         ];
     },
 
     stepOptions: function() {
         return {
-            requestLabel: 'Release Branching: Patch Release',
+            requestLabel: GFV._t('gfv.request.release.patch', null, 'Release Branching: Patch Release'),
             _initFn: GFV.release.patch.init
         };
     },
@@ -183,23 +183,23 @@ GFV.release.parallel = {
 
     steps: function() {
         return [
-            { op: 'commit', branch: 'main', label: 'feat-1', description: 'Core API refactoring committed to main — laying groundwork for both v1.0 and v2.0 releases', logType: 'COMMIT' },
-            { op: 'commit', branch: 'main', label: 'feat-2', description: 'Authentication module committed to main — shared across both upcoming release versions', logType: 'COMMIT' },
-            { op: 'branch', branch: 'release/1.0', fromBranch: 'main', label: 'branch', description: 'Create release/1.0 from main — v1.0 enters stabilization while v2.0 features continue on main', logType: 'BRANCH' },
-            { op: 'commit', branch: 'release/1.0', label: 'stabilize', description: 'Stabilize release/1.0 — fix flaky tests, update documentation, finalize configuration defaults', logType: 'COMMIT' },
-            { op: 'commit', branch: 'main', label: 'feat-3', description: 'Advanced analytics feature committed to main — this is v2.0-only functionality, not part of v1.0', logType: 'COMMIT' },
-            { op: 'branch', branch: 'release/2.0', fromBranch: 'main', label: 'branch', description: 'Create release/2.0 from main — now two releases stabilize in parallel on independent schedules', logType: 'BRANCH' },
-            { op: 'commit', branch: 'release/2.0', label: 'stabilize', description: 'Stabilize release/2.0 — performance tuning for analytics queries, load testing under production data volume', logType: 'COMMIT' },
-            { op: 'merge', fromBranch: 'release/1.0', toBranch: 'main', label: 'merge', description: 'Merge release/1.0 into main — v1.0 stabilization fixes are now part of the mainline', logType: 'MERGE' },
-            { op: 'tag', branch: 'main', tagName: 'v1.0', description: 'Tag release v1.0 — first version shipped to customers on the standard tier', logType: 'TAG' },
-            { op: 'merge', fromBranch: 'release/2.0', toBranch: 'main', label: 'merge', description: 'Merge release/2.0 into main — may require conflict resolution if v1.0 stabilization touched the same files. Resolve, then v2.0 is ready for enterprise customers', logType: 'MERGE' },
-            { op: 'tag', branch: 'main', tagName: 'v2.0', description: 'Tag release v2.0 — premium version with analytics shipped to enterprise tier', logType: 'TAG' }
+            { op: 'commit', branch: 'main', label: 'feat-1', description: 'Core API refactoring committed to main — laying groundwork for both v1.0 and v2.0 releases', descriptionKey: 'gfv.release.parallel.0', logType: 'COMMIT' },
+            { op: 'commit', branch: 'main', label: 'feat-2', description: 'Authentication module committed to main — shared across both upcoming release versions', descriptionKey: 'gfv.release.parallel.1', logType: 'COMMIT' },
+            { op: 'branch', branch: 'release/1.0', fromBranch: 'main', label: 'branch', description: 'Create release/1.0 from main — v1.0 enters stabilization while v2.0 features continue on main', descriptionKey: 'gfv.release.parallel.2', logType: 'BRANCH' },
+            { op: 'commit', branch: 'release/1.0', label: 'stabilize', description: 'Stabilize release/1.0 — fix flaky tests, update documentation, finalize configuration defaults', descriptionKey: 'gfv.release.parallel.3', logType: 'COMMIT' },
+            { op: 'commit', branch: 'main', label: 'feat-3', description: 'Advanced analytics feature committed to main — this is v2.0-only functionality, not part of v1.0', descriptionKey: 'gfv.release.parallel.4', logType: 'COMMIT' },
+            { op: 'branch', branch: 'release/2.0', fromBranch: 'main', label: 'branch', description: 'Create release/2.0 from main — now two releases stabilize in parallel on independent schedules', descriptionKey: 'gfv.release.parallel.5', logType: 'BRANCH' },
+            { op: 'commit', branch: 'release/2.0', label: 'stabilize', description: 'Stabilize release/2.0 — performance tuning for analytics queries, load testing under production data volume', descriptionKey: 'gfv.release.parallel.6', logType: 'COMMIT' },
+            { op: 'merge', fromBranch: 'release/1.0', toBranch: 'main', label: 'merge', description: 'Merge release/1.0 into main — v1.0 stabilization fixes are now part of the mainline', descriptionKey: 'gfv.release.parallel.7', logType: 'MERGE' },
+            { op: 'tag', branch: 'main', tagName: 'v1.0', description: 'Tag release v1.0 — first version shipped to customers on the standard tier', descriptionKey: 'gfv.release.parallel.8', logType: 'TAG' },
+            { op: 'merge', fromBranch: 'release/2.0', toBranch: 'main', label: 'merge', description: 'Merge release/2.0 into main — may require conflict resolution if v1.0 stabilization touched the same files. Resolve, then v2.0 is ready for enterprise customers', descriptionKey: 'gfv.release.parallel.9', logType: 'MERGE' },
+            { op: 'tag', branch: 'main', tagName: 'v2.0', description: 'Tag release v2.0 — premium version with analytics shipped to enterprise tier', descriptionKey: 'gfv.release.parallel.10', logType: 'TAG' }
         ];
     },
 
     stepOptions: function() {
         return {
-            requestLabel: 'Release Branching: Parallel Releases',
+            requestLabel: GFV._t('gfv.request.release.parallel', null, 'Release Branching: Parallel Releases'),
             _initFn: GFV.release.parallel.init
         };
     },

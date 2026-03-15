@@ -117,20 +117,22 @@ GFV.oneflow.release = {
 
     steps: function() {
         return [
-            { op: 'branch',        fromBranch: 'main',    branch: 'release/1.0',     logType: 'BRANCH',  description: 'Create release/1.0 branch from main — entering stabilization phase for the upcoming release' },
-            { op: 'commit',        branch: 'release/1.0', label: 'fix: typo',        logType: 'COMMIT',  description: 'Fix typo in API documentation on release branch — minor correction found during final review' },
-            { op: 'commit',        branch: 'release/1.0', label: 'docs: changelog',  logType: 'COMMIT',  description: 'Update CHANGELOG.md with v1.0 release notes — documenting all features and fixes included' },
-            { op: 'commit',        branch: 'main',        label: 'feat: new',        logType: 'COMMIT',  description: 'Meanwhile, new feature work lands on main — development does not stop during release stabilization' },
-            { op: 'rebase',        fromBranch: 'release/1.0', toBranch: 'main', count: 2, logType: 'REBASE', description: 'Rebase release/1.0 onto main — replay release commits on top of latest main to maintain linear history' },
-            { op: 'merge',         fromBranch: 'release/1.0', toBranch: 'main', label: 'ff-merge', logType: 'MERGE', description: 'Fast-forward merge release/1.0 into main — no merge commit created, history stays perfectly linear' },
-            { op: 'tag',           branch: 'main',        tagName: 'v1.0',           logType: 'TAG',     description: 'Tag v1.0 on main — marking the exact production-ready commit for this release' },
-            { op: 'delete-branch', branch: 'release/1.0',                            logType: 'DELETE',  description: 'Delete release/1.0 branch — release finalized, only main remains as the long-lived branch' }
+            { op: 'branch',        fromBranch: 'main',    branch: 'release/1.0',     logType: 'BRANCH',  description: 'Create release/1.0 branch from main — entering stabilization phase for the upcoming release', descriptionKey: 'gfv.oneflow.release.0' },
+            { op: 'commit',        branch: 'release/1.0', label: 'fix: typo',        logType: 'COMMIT',  description: 'Fix typo in API documentation on release branch — minor correction found during final review', descriptionKey: 'gfv.oneflow.release.1' },
+            { op: 'commit',        branch: 'release/1.0', label: 'docs: changelog',  logType: 'COMMIT',  description: 'Update CHANGELOG.md with v1.0 release notes — documenting all features and fixes included', descriptionKey: 'gfv.oneflow.release.2' },
+            { op: 'commit',        branch: 'main',        label: 'feat: new',        logType: 'COMMIT',  description: 'Meanwhile, new feature work lands on main — development does not stop during release stabilization', descriptionKey: 'gfv.oneflow.release.3' },
+            { op: 'rebase',        fromBranch: 'release/1.0', toBranch: 'main', count: 2, logType: 'REBASE', description: 'Rebase release/1.0 onto main — replay release commits on top of latest main to maintain linear history', descriptionKey: 'gfv.oneflow.release.4' },
+            { op: 'merge',         fromBranch: 'release/1.0', toBranch: 'main', label: 'ff-merge', logType: 'MERGE', description: 'Fast-forward merge release/1.0 into main — no merge commit created, history stays perfectly linear', descriptionKey: 'gfv.oneflow.release.5' },
+            { op: 'tag',           branch: 'main',        tagName: 'v1.0',           logType: 'TAG',     description: 'Tag v1.0 on main — marking the exact production-ready commit for this release', descriptionKey: 'gfv.oneflow.release.6' },
+            { op: 'delete-branch', branch: 'release/1.0',                            logType: 'DELETE',  description: 'Delete release/1.0 branch — release finalized, only main remains as the long-lived branch', descriptionKey: 'gfv.oneflow.release.7' }
         ];
     },
 
     run: function() {
         this.init();
-        GFV.animateFlow(this.steps(), { requestLabel: 'OneFlow — Release via Rebase' });
+        GFV.animateFlow(this.steps(), {
+            requestLabel: GFV._t('gfv.request.oneflow.release', null, 'OneFlow — Release via Rebase')
+        });
     }
 };
 
@@ -143,19 +145,21 @@ GFV.oneflow.hotfix = {
 
     steps: function() {
         return [
-            { op: 'tag',         branch: 'main',        tagName: 'v1.0',        logType: 'TAG',         description: 'Tag v1.0 on main — marking the initial production release point' },
-            { op: 'branch',      fromBranch: 'main',    branch: 'release/1.0',  logType: 'BRANCH',      description: 'Create release/1.0 from main at the v1.0 tag — this branch will receive targeted hotfixes only' },
-            { op: 'commit',      branch: 'main',        label: 'feat: next',    logType: 'COMMIT',      description: 'New feature development continues on main — unrelated to the released v1.0 version' },
-            { op: 'commit',      branch: 'main',        label: 'fix: hotfix',   logType: 'COMMIT',      description: 'Critical hotfix committed on main first — fixing a null pointer exception in the payment module' },
-            { op: 'cherry-pick', fromBranch: 'main',    toBranch: 'release/1.0', label: 'hotfix', logType: 'CHERRY_PICK', description: 'Cherry-pick the hotfix commit from main to release/1.0 — backporting only the specific fix, not other new work' },
-            { op: 'tag',         branch: 'release/1.0', tagName: 'v1.0.1',      logType: 'TAG',         description: 'Tag v1.0.1 on the release branch — patch version for customers running the v1.0 line' },
-            { op: 'merge',       fromBranch: 'release/1.0', toBranch: 'main', label: 'sync', logType: 'MERGE', description: 'Merge release/1.0 back to main — synchronizing to ensure no fixes are lost in future releases' }
+            { op: 'tag',         branch: 'main',        tagName: 'v1.0',        logType: 'TAG',         description: 'Tag v1.0 on main — marking the initial production release point', descriptionKey: 'gfv.oneflow.hotfix.0' },
+            { op: 'branch',      fromBranch: 'main',    branch: 'release/1.0',  logType: 'BRANCH',      description: 'Create release/1.0 from main at the v1.0 tag — this branch will receive targeted hotfixes only', descriptionKey: 'gfv.oneflow.hotfix.1' },
+            { op: 'commit',      branch: 'main',        label: 'feat: next',    logType: 'COMMIT',      description: 'New feature development continues on main — unrelated to the released v1.0 version', descriptionKey: 'gfv.oneflow.hotfix.2' },
+            { op: 'commit',      branch: 'main',        label: 'fix: hotfix',   logType: 'COMMIT',      description: 'Critical hotfix committed on main first — fixing a null pointer exception in the payment module', descriptionKey: 'gfv.oneflow.hotfix.3' },
+            { op: 'cherry-pick', fromBranch: 'main',    toBranch: 'release/1.0', label: 'hotfix', logType: 'CHERRY_PICK', description: 'Cherry-pick the hotfix commit from main to release/1.0 — backporting only the specific fix, not other new work', descriptionKey: 'gfv.oneflow.hotfix.4' },
+            { op: 'tag',         branch: 'release/1.0', tagName: 'v1.0.1',      logType: 'TAG',         description: 'Tag v1.0.1 on the release branch — patch version for customers running the v1.0 line', descriptionKey: 'gfv.oneflow.hotfix.5' },
+            { op: 'merge',       fromBranch: 'release/1.0', toBranch: 'main', label: 'sync', logType: 'MERGE', description: 'Merge release/1.0 back to main — synchronizing to ensure no fixes are lost in future releases', descriptionKey: 'gfv.oneflow.hotfix.6' }
         ];
     },
 
     run: function() {
         this.init();
-        GFV.animateFlow(this.steps(), { requestLabel: 'OneFlow — Hotfix Cherry-pick' });
+        GFV.animateFlow(this.steps(), {
+            requestLabel: GFV._t('gfv.request.oneflow.hotfix', null, 'OneFlow — Hotfix Cherry-pick')
+        });
     }
 };
 
@@ -169,17 +173,19 @@ GFV.oneflow.feature = {
     steps: function() {
         var b = this._b;
         return [
-            { op: 'branch', fromBranch: 'main', branch: b, logType: 'BRANCH', description: 'Create ' + b + ' from main — starting isolated feature development' },
-            { op: 'commit', branch: b, label: 'feat: endpoint', logType: 'COMMIT', description: 'Add REST API endpoint for user preferences — GET/PUT /api/v1/users/{id}/preferences' },
-            { op: 'commit', branch: b, label: 'test: api', logType: 'COMMIT', description: 'Add API tests covering validation, authorization, and edge cases for the preferences endpoint' },
-            { op: 'commit', branch: 'main', label: 'feat: other', logType: 'COMMIT', description: 'Meanwhile, another developer\'s work lands on main — main has moved ahead since we branched' },
-            { op: 'rebase', fromBranch: b, toBranch: 'main', count: 2, logType: 'REBASE', description: 'Rebase ' + b + ' onto latest main — replaying our 2 commits on top of the updated main tip' },
-            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'ff-merge', logType: 'MERGE', description: 'Fast-forward merge ' + b + ' into main — no merge commit needed thanks to the rebase' },
-            { op: 'delete-branch', branch: b, logType: 'DELETE', description: 'Delete ' + b + ' branch — feature integrated, keeping a clean linear history on main' }
+            { op: 'branch', fromBranch: 'main', branch: b, logType: 'BRANCH', description: 'Create ' + b + ' from main — starting isolated feature development', descriptionKey: 'gfv.oneflow.feature.0' },
+            { op: 'commit', branch: b, label: 'feat: endpoint', logType: 'COMMIT', description: 'Add REST API endpoint for user preferences — GET/PUT /api/v1/users/{id}/preferences', descriptionKey: 'gfv.oneflow.feature.1' },
+            { op: 'commit', branch: b, label: 'test: api', logType: 'COMMIT', description: 'Add API tests covering validation, authorization, and edge cases for the preferences endpoint', descriptionKey: 'gfv.oneflow.feature.2' },
+            { op: 'commit', branch: 'main', label: 'feat: other', logType: 'COMMIT', description: 'Meanwhile, another developer\'s work lands on main — main has moved ahead since we branched', descriptionKey: 'gfv.oneflow.feature.3' },
+            { op: 'rebase', fromBranch: b, toBranch: 'main', count: 2, logType: 'REBASE', description: 'Rebase ' + b + ' onto latest main — replaying our 2 commits on top of the updated main tip', descriptionKey: 'gfv.oneflow.feature.4' },
+            { op: 'merge', fromBranch: b, toBranch: 'main', label: 'ff-merge', logType: 'MERGE', description: 'Fast-forward merge ' + b + ' into main — no merge commit needed thanks to the rebase', descriptionKey: 'gfv.oneflow.feature.5' },
+            { op: 'delete-branch', branch: b, logType: 'DELETE', description: 'Delete ' + b + ' branch — feature integrated, keeping a clean linear history on main', descriptionKey: 'gfv.oneflow.feature.6' }
         ];
     },
     run: function() {
         this.init();
-        GFV.animateFlow(this.steps(), { requestLabel: 'OneFlow — Feature Rebase' });
+        GFV.animateFlow(this.steps(), {
+            requestLabel: GFV._t('gfv.request.oneflow.feature', null, 'OneFlow — Feature Rebase')
+        });
     }
 };

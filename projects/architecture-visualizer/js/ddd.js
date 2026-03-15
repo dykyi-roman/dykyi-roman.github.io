@@ -43,9 +43,9 @@ function renderDDD(opts) {
     canvas.innerHTML =
         '<div class="layout-vertical">' +
             '<div class="archv-bounded-context" id="ctx-order">' +
-                '<span class="archv-context-label">Order Context</span>' +
+                '<span class="archv-context-label">' + I18N.t('ddd.context.order', null, 'Order Context') + '</span>' +
                 '<div class="archv-layer" id="layer-ddd-presentation">' +
-                    '<div class="archv-layer-name">Presentation</div>' +
+                    '<div class="archv-layer-name">' + I18N.t('arch.layer.presentation_short', null, 'Presentation') + '</div>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-ddd-controller', 'Controller', '&#x1F310;', 'Presentation entry point receiving requests into the Bounded Context') +
                         ARCHV.renderComponent('comp-ddd-dto', 'DTO', '&#x1F4E6;', 'Data Transfer Object for cross-layer communication') +
@@ -53,14 +53,14 @@ function renderDDD(opts) {
                 '</div>' +
                 ARCHV.renderArrowConnector() +
                 '<div class="archv-layer" id="layer-ddd-application">' +
-                    '<div class="archv-layer-name">Application</div>' +
+                    '<div class="archv-layer-name">' + I18N.t('arch.layer.application_short', null, 'Application') + '</div>' +
                     '<div class="archv-components">' +
                         appComponents +
                     '</div>' +
                 '</div>' +
                 ARCHV.renderArrowConnector() +
                 '<div class="archv-layer" id="layer-ddd-domain">' +
-                    '<div class="archv-layer-name">Domain</div>' +
+                    '<div class="archv-layer-name">' + I18N.t('arch.layer.domain_short', null, 'Domain') + '</div>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-ddd-aggregate', 'Aggregate', '&#x1F4E6;', 'Cluster of domain objects treated as a transactional consistency boundary') +
                         ARCHV.renderComponent('comp-ddd-entity', 'Entity', '&#x1F4CB;', 'Domain object with unique identity and lifecycle') +
@@ -73,16 +73,16 @@ function renderDDD(opts) {
                 '</div>' +
                 ARCHV.renderArrowConnector() +
                 '<div class="archv-layer" id="layer-ddd-infra">' +
-                    '<div class="archv-layer-name">Infrastructure</div>' +
+                    '<div class="archv-layer-name">' + I18N.t('arch.layer.infrastructure_short', null, 'Infrastructure') + '</div>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-ddd-repo', 'Repository', '&#x1F5C4;', 'Persistence abstraction for storing and retrieving aggregates') +
                         ARCHV.renderComponent('comp-ddd-eventbus', 'EventBus', '&#x1F4E8;', 'Infrastructure for publishing domain events across contexts') +
                     '</div>' +
                 '</div>' +
             '</div>' +
-            '<div class="archv-acl" id="comp-ddd-acl" data-tooltip="Translation layer protecting context boundaries from foreign model concepts">&#x1F6E1; Anti-Corruption Layer</div>' +
+            '<div class="archv-acl" id="comp-ddd-acl"' + ARCHV.tooltipAttr('comp-ddd-acl', 'Translation layer protecting context boundaries from foreign model concepts') + '>&#x1F6E1; ' + I18N.t('ddd.acl.label', null, 'Anti-Corruption Layer') + '</div>' +
             '<div class="archv-bounded-context" id="ctx-payment">' +
-                '<span class="archv-context-label">Payment Context</span>' +
+                '<span class="archv-context-label">' + I18N.t('ddd.context.payment', null, 'Payment Context') + '</span>' +
                 '<div class="archv-layer" id="layer-ddd-pay">' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-ddd-pay-handler', 'EventHandler', '&#x1F4E5;', 'Receives and processes domain events from other Bounded Contexts') +
@@ -92,9 +92,9 @@ function renderDDD(opts) {
                 '</div>' +
             '</div>' +
             '<div class="archv-flow-legend">' +
-                '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Layer call)</div>' +
-                '<div class="legend-item"><span class="legend-line-async"></span> Event (Domain)</div>' +
-                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.sync_layer', null, 'Sync (Layer call)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> ' + I18N.t('arch.legend.event_domain', null, 'Event (Domain)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.response', null, 'Response') + '</div>' +
             '</div>' +
         '</div>';
 }
@@ -105,35 +105,35 @@ function renderDDDContextMap() {
         '<div class="context-map-wrapper">' +
             '<div class="layout-context-map">' +
                 '<div class="archv-bounded-context ctx-left" id="ctx-cm-crm">' +
-                    '<span class="archv-context-label">CRM Context</span>' +
+                    '<span class="archv-context-label">' + I18N.t('ddd.context.crm', null, 'CRM Context') + '</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-cm-crm-customer', 'Customer', '&#x1F464;', 'Customer entity in CRM context') +
                         ARCHV.renderComponent('comp-cm-crm-segment', 'Segment', '&#x1F3AF;', 'Customer segmentation logic') +
                     '</div>' +
                 '</div>' +
                 '<div class="archv-bounded-context ctx-core" id="ctx-cm-order">' +
-                    '<span class="archv-context-label">Order Context (Core)</span>' +
+                    '<span class="archv-context-label">' + I18N.t('ddd.context.order_core', null, 'Order Context (Core)') + '</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-cm-order-agg', 'Order', '&#x1F4E6;', 'Order aggregate — the core domain') +
                         ARCHV.renderComponent('comp-cm-order-event', 'OrderPlaced', '&#x1F514;', 'Domain event signaling order creation') +
                     '</div>' +
                 '</div>' +
                 '<div class="archv-bounded-context ctx-right" id="ctx-cm-payment">' +
-                    '<span class="archv-context-label">Payment Context</span>' +
+                    '<span class="archv-context-label">' + I18N.t('ddd.context.payment', null, 'Payment Context') + '</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-cm-pay-service', 'PaymentService', '&#x1F4B3;', 'Payment processing service') +
                         ARCHV.renderComponent('comp-cm-pay-acl', 'ACL', '&#x1F6E1;', 'Anti-Corruption Layer translating Order concepts') +
                     '</div>' +
                 '</div>' +
                 '<div class="archv-bounded-context ctx-bottom-left" id="ctx-cm-inventory">' +
-                    '<span class="archv-context-label">Inventory Context</span>' +
+                    '<span class="archv-context-label">' + I18N.t('ddd.context.inventory', null, 'Inventory Context') + '</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-cm-inv-stock', 'Stock', '&#x1F4E6;', 'Stock management aggregate') +
                         ARCHV.renderComponent('comp-cm-inv-shared', 'ProductId (SK)', '&#x1F91D;', 'Shared Kernel value object') +
                     '</div>' +
                 '</div>' +
                 '<div class="archv-bounded-context ctx-bottom-right" id="ctx-cm-shipping">' +
-                    '<span class="archv-context-label">Shipping Context</span>' +
+                    '<span class="archv-context-label">' + I18N.t('ddd.context.shipping', null, 'Shipping Context') + '</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-cm-ship-delivery', 'Delivery', '&#x1F69A;', 'Delivery aggregate in Shipping context') +
                         ARCHV.renderComponent('comp-cm-ship-tracking', 'Tracking', '&#x1F4CD;', 'Shipment tracking service') +
@@ -141,16 +141,16 @@ function renderDDDContextMap() {
                 '</div>' +
             '</div>' +
             '<div class="archv-ctx-relationships" id="ctx-cm-relationships">' +
-                '<span class="archv-ctx-relationship rel-acl" id="rel-acl" data-tooltip="Payment protects itself from Order model changes via ACL">&#x1F6E1; ACL: Order &#x2192; Payment</span>' +
-                '<span class="archv-ctx-relationship rel-shared-kernel" id="rel-shared-kernel" data-tooltip="ProductId jointly owned by Order and Inventory teams">&#x1F91D; Shared Kernel: Order &#x2194; Inventory</span>' +
-                '<span class="archv-ctx-relationship rel-customer-supplier" id="rel-customer-supplier" data-tooltip="Order (downstream) negotiates API with Shipping (upstream)">&#x1F4E6; Customer-Supplier: Order &#x2193; &#x2192; Shipping &#x2191;</span>' +
-                '<span class="archv-ctx-relationship rel-conformist" id="rel-conformist" data-tooltip="CRM conforms to Order model without any translation">&#x1F4CB; Conformist: Order &#x2192; CRM</span>' +
+                '<span class="archv-ctx-relationship rel-acl" id="rel-acl"' + ARCHV.tooltipAttr('rel-acl', 'Payment protects itself from Order model changes via ACL') + '>&#x1F6E1; ACL: Order &#x2192; Payment</span>' +
+                '<span class="archv-ctx-relationship rel-shared-kernel" id="rel-shared-kernel"' + ARCHV.tooltipAttr('rel-shared-kernel', 'ProductId jointly owned by Order and Inventory teams') + '>&#x1F91D; Shared Kernel: Order &#x2194; Inventory</span>' +
+                '<span class="archv-ctx-relationship rel-customer-supplier" id="rel-customer-supplier"' + ARCHV.tooltipAttr('rel-customer-supplier', 'Order (downstream) negotiates API with Shipping (upstream)') + '>&#x1F4E6; Customer-Supplier: Order &#x2193; &#x2192; Shipping &#x2191;</span>' +
+                '<span class="archv-ctx-relationship rel-conformist" id="rel-conformist"' + ARCHV.tooltipAttr('rel-conformist', 'CRM conforms to Order model without any translation') + '>&#x1F4CB; Conformist: Order &#x2192; CRM</span>' +
             '</div>' +
             '<div class="archv-flow-legend">' +
-                '<div class="legend-item"><span class="legend-line-sync"></span> ACL (Order &#x2192; Payment)</div>' +
-                '<div class="legend-item"><span class="legend-line-async"></span> Shared Kernel (Order &#x2194; Inventory)</div>' +
-                '<div class="legend-item"><span class="legend-line-write"></span> Customer-Supplier (Order &#x2192; Shipping)</div>' +
-                '<div class="legend-item"><span class="legend-line-response"></span> Conformist (Order &#x2192; CRM)</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.acl_order_payment', null, 'ACL (Order &#x2192; Payment)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> ' + I18N.t('arch.legend.shared_kernel_order_inventory', null, 'Shared Kernel (Order &#x2194; Inventory)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-write"></span> ' + I18N.t('arch.legend.customer_supplier_order_shipping', null, 'Customer-Supplier (Order &#x2192; Shipping)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.conformist_order_crm', null, 'Conformist (Order &#x2192; CRM)') + '</div>' +
             '</div>' +
         '</div>';
 }
@@ -160,16 +160,16 @@ function renderDDDOpenHost() {
     canvas.innerHTML =
         '<div class="layout-ddd-ohs">' +
             '<div class="archv-bounded-context" id="ctx-ohs-order">' +
-                '<span class="archv-context-label">Order Context (Upstream)</span>' +
+                '<span class="archv-context-label">' + I18N.t('ddd.context.order_upstream', null, 'Order Context (Upstream)') + '</span>' +
                 '<div class="archv-layer" id="layer-ohs-app">' +
-                    '<div class="archv-layer-name">Application</div>' +
+                    '<div class="archv-layer-name">' + I18N.t('arch.layer.application_short', null, 'Application') + '</div>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-ohs-usecase', 'PlaceOrder', '&#x2699;', 'Use case orchestrating order creation') +
                     '</div>' +
                 '</div>' +
                 ARCHV.renderArrowConnector() +
                 '<div class="archv-layer" id="layer-ohs-domain">' +
-                    '<div class="archv-layer-name">Domain</div>' +
+                    '<div class="archv-layer-name">' + I18N.t('arch.layer.domain_short', null, 'Domain') + '</div>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-ohs-aggregate', 'Order', '&#x1F4E6;', 'Order aggregate root') +
                         ARCHV.renderComponent('comp-ohs-event', 'OrderPlaced', '&#x1F514;', 'Domain event raised when order is placed') +
@@ -177,13 +177,13 @@ function renderDDDOpenHost() {
                 '</div>' +
                 ARCHV.renderArrowConnector() +
                 '<div class="archv-layer" id="layer-ohs-infra">' +
-                    '<div class="archv-layer-name">Infrastructure</div>' +
+                    '<div class="archv-layer-name">' + I18N.t('arch.layer.infrastructure_short', null, 'Infrastructure') + '</div>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-ohs-publisher', 'EventPublisher', '&#x1F4E8;', 'Infrastructure adapter publishing events through OHS contract') +
                     '</div>' +
                 '</div>' +
             '</div>' +
-            '<div class="archv-ohs" id="comp-ohs-service" data-tooltip="Open Host Service exposes a formal API with Published Language (OpenAPI/Protobuf schema)">&#x1F310; Open Host Service / Published Language (OpenAPI Schema)</div>' +
+            '<div class="archv-ohs" id="comp-ohs-service"' + ARCHV.tooltipAttr('comp-ohs-service', 'Open Host Service exposes a formal API with Published Language (OpenAPI/Protobuf schema)') + '>&#x1F310; Open Host Service / Published Language (OpenAPI Schema)</div>' +
             '<div class="archv-consumers">' +
                 '<div class="archv-consumer" id="comp-ohs-payment">' +
                     '<span class="comp-icon">&#x1F4B3;</span> Payment' +
@@ -199,9 +199,9 @@ function renderDDDOpenHost() {
                 '</div>' +
             '</div>' +
             '<div class="archv-flow-legend">' +
-                '<div class="legend-item"><span class="legend-line-sync"></span> Sync (Layer call)</div>' +
-                '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
-                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.sync_layer', null, 'Sync (Layer call)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> ' + I18N.t('arch.legend.async_event', null, 'Async (Event)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.response', null, 'Response') + '</div>' +
             '</div>' +
         '</div>';
 }
@@ -210,38 +210,38 @@ function renderDDDSaga() {
     var canvas = document.getElementById('archv-canvas');
     canvas.innerHTML =
         '<div class="layout-ddd-saga">' +
-            '<div class="archv-saga-box" id="comp-saga-orchestrator" data-tooltip="Saga Orchestrator coordinates the cross-context business process and manages compensating actions">' +
-                '&#x1F3AF; Saga Orchestrator' +
+            '<div class="archv-saga-box" id="comp-saga-orchestrator"' + ARCHV.tooltipAttr('comp-saga-orchestrator', 'Saga Orchestrator coordinates the cross-context business process and manages compensating actions') + '>' +
+                '&#x1F3AF; ' + I18N.t('microservices.saga.label', null, 'Saga Orchestrator') +
                 '<div style="font-size:10px;color:var(--archv-text-light);margin-top:2px" id="comp-saga-state">State: IDLE</div>' +
             '</div>' +
             '<div class="archv-saga-contexts">' +
                 '<div class="archv-bounded-context" id="ctx-saga-order">' +
-                    '<span class="archv-context-label">Order Context</span>' +
+                    '<span class="archv-context-label">' + I18N.t('ddd.context.order', null, 'Order Context') + '</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-saga-order-cmd', 'CreateOrder', '&#x2699;', 'Command to create order') +
                         ARCHV.renderComponent('comp-saga-order-event', 'OrderConfirmed', '&#x1F514;', 'Event confirming order creation') +
                     '</div>' +
                 '</div>' +
                 '<div class="archv-bounded-context" id="ctx-saga-payment">' +
-                    '<span class="archv-context-label">Payment Context</span>' +
+                    '<span class="archv-context-label">' + I18N.t('ddd.context.payment', null, 'Payment Context') + '</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-saga-pay-cmd', 'ProcessPayment', '&#x1F4B3;', 'Command to process payment') +
                         ARCHV.renderComponent('comp-saga-pay-event', 'PaymentCompleted', '&#x1F514;', 'Event confirming payment') +
                     '</div>' +
                 '</div>' +
                 '<div class="archv-bounded-context" id="ctx-saga-shipping">' +
-                    '<span class="archv-context-label">Shipping Context</span>' +
+                    '<span class="archv-context-label">' + I18N.t('ddd.context.shipping', null, 'Shipping Context') + '</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-saga-ship-cmd', 'CreateShipment', '&#x1F69A;', 'Command to create shipment') +
                         ARCHV.renderComponent('comp-saga-ship-event', 'ShipmentCreated', '&#x1F514;', 'Event confirming shipment creation') +
                     '</div>' +
                 '</div>' +
             '</div>' +
-            '<div class="archv-event-bus" id="comp-saga-eventbus" data-tooltip="Event Bus carries commands from Saga to contexts and events back to Saga">&#x1F4E8; Event Bus</div>' +
+            '<div class="archv-event-bus" id="comp-saga-eventbus"' + ARCHV.tooltipAttr('comp-saga-eventbus', 'Event Bus carries commands from Saga to contexts and events back to Saga') + '>&#x1F4E8; Event Bus</div>' +
             '<div class="archv-flow-legend">' +
-                '<div class="legend-item"><span class="legend-line-sync"></span> Command</div>' +
-                '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
-                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.command', null, 'Command') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> ' + I18N.t('arch.legend.async_event', null, 'Async (Event)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.response', null, 'Response') + '</div>' +
             '</div>' +
         '</div>';
 }
@@ -250,13 +250,13 @@ function renderDDDSagaFail() {
     var canvas = document.getElementById('archv-canvas');
     canvas.innerHTML =
         '<div class="layout-ddd-saga">' +
-            '<div class="archv-saga-box" id="comp-sagaf-orchestrator" data-tooltip="Saga Orchestrator detects failure and triggers compensating transactions in reverse order">' +
-                '&#x1F3AF; Saga Orchestrator' +
+            '<div class="archv-saga-box" id="comp-sagaf-orchestrator"' + ARCHV.tooltipAttr('comp-sagaf-orchestrator', 'Saga Orchestrator detects failure and triggers compensating transactions in reverse order') + '>' +
+                '&#x1F3AF; ' + I18N.t('microservices.saga.label', null, 'Saga Orchestrator') +
                 '<div style="font-size:10px;color:var(--archv-text-light);margin-top:2px" id="comp-sagaf-state">State: IDLE</div>' +
             '</div>' +
             '<div class="archv-saga-contexts">' +
                 '<div class="archv-bounded-context" id="ctx-sagaf-order">' +
-                    '<span class="archv-context-label">Order Context</span>' +
+                    '<span class="archv-context-label">' + I18N.t('ddd.context.order', null, 'Order Context') + '</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-sagaf-order-cmd', 'CreateOrder', '&#x2699;', 'Command to create order') +
                         ARCHV.renderComponent('comp-sagaf-order-event', 'OrderConfirmed', '&#x1F514;', 'Event confirming order creation') +
@@ -265,24 +265,24 @@ function renderDDDSagaFail() {
                     '</div>' +
                 '</div>' +
                 '<div class="archv-bounded-context" id="ctx-sagaf-payment">' +
-                    '<span class="archv-context-label">Payment Context</span>' +
+                    '<span class="archv-context-label">' + I18N.t('ddd.context.payment', null, 'Payment Context') + '</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-sagaf-pay-cmd', 'ProcessPayment', '&#x1F4B3;', 'Command to process payment') +
                         ARCHV.renderComponent('comp-sagaf-pay-fail', 'PaymentFailed', '&#x1F6A8;', 'Payment rejected — insufficient funds') +
                     '</div>' +
                 '</div>' +
                 '<div class="archv-bounded-context" id="ctx-sagaf-shipping">' +
-                    '<span class="archv-context-label">Shipping Context</span>' +
+                    '<span class="archv-context-label">' + I18N.t('ddd.context.shipping', null, 'Shipping Context') + '</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-sagaf-ship-cmd', 'CreateShipment', '&#x1F69A;', 'Command to create shipment (never reached)') +
                     '</div>' +
                 '</div>' +
             '</div>' +
-            '<div class="archv-event-bus" id="comp-sagaf-eventbus" data-tooltip="Event Bus carries commands and events between Saga and contexts">&#x1F4E8; Event Bus</div>' +
+            '<div class="archv-event-bus" id="comp-sagaf-eventbus"' + ARCHV.tooltipAttr('comp-sagaf-eventbus', 'Event Bus carries commands and events between Saga and contexts') + '>&#x1F4E8; Event Bus</div>' +
             '<div class="archv-flow-legend">' +
-                '<div class="legend-item"><span class="legend-line-sync"></span> Command</div>' +
-                '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
-                '<div class="legend-item"><span class="legend-line-compensate"></span> Compensate</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.command', null, 'Command') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> ' + I18N.t('arch.legend.async_event', null, 'Async (Event)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-compensate"></span> ' + I18N.t('arch.legend.compensate', null, 'Compensate') + '</div>' +
             '</div>' +
         '</div>';
 }
@@ -292,7 +292,7 @@ function renderDDDDomainEvents() {
     canvas.innerHTML =
         '<div class="layout-ddd-events">' +
             '<div class="archv-bounded-context" id="ctx-de-order">' +
-                '<span class="archv-context-label">Order Context (Producer)</span>' +
+                '<span class="archv-context-label">' + I18N.t('ddd.context.order_producer', null, 'Order Context (Producer)') + '</span>' +
                 '<div class="archv-layer" id="layer-de-app"><span class="archv-layer-label">Application</span>' +
                     '<div class="archv-components">' +
                         ARCHV.renderComponent('comp-de-usecase', 'PlaceOrder', '&#x2699;', 'Application UseCase orchestrates order placement') +
@@ -310,33 +310,33 @@ function renderDDDDomainEvents() {
                     '</div>' +
                 '</div>' +
             '</div>' +
-            '<div class="archv-event-bus" id="comp-de-eventbus" data-tooltip="Event Bus distributes domain events to all subscribed contexts">&#x1F4E8; Event Bus &mdash; OrderPlaced</div>' +
+            '<div class="archv-event-bus" id="comp-de-eventbus"' + ARCHV.tooltipAttr('comp-de-eventbus', 'Event Bus distributes domain events to all subscribed contexts') + '>&#x1F4E8; Event Bus &mdash; OrderPlaced</div>' +
             '<div class="archv-consumers">' +
                 '<div class="archv-consumer" id="comp-de-payment">' +
                     '<span class="comp-icon">&#x1F4B3;</span> Payment' +
-                    '<div class="archv-translator" id="comp-de-pay-acl" data-tooltip="ACL translates OrderPlaced into PaymentRequired">&#x1F6E1; ACL</div>' +
+                    '<div class="archv-translator" id="comp-de-pay-acl"' + ARCHV.tooltipAttr('comp-de-pay-acl', 'ACL translates OrderPlaced into PaymentRequired') + '>&#x1F6E1; ACL</div>' +
                     '<div class="archv-local-event" id="comp-de-pay-local">&#x2192; PaymentRequired</div>' +
                 '</div>' +
                 '<div class="archv-consumer" id="comp-de-inventory">' +
                     '<span class="comp-icon">&#x1F4E6;</span> Inventory' +
-                    '<div class="archv-translator" id="comp-de-inv-acl" data-tooltip="ACL translates OrderPlaced into StockReservationNeeded">&#x1F6E1; ACL</div>' +
+                    '<div class="archv-translator" id="comp-de-inv-acl"' + ARCHV.tooltipAttr('comp-de-inv-acl', 'ACL translates OrderPlaced into StockReservationNeeded') + '>&#x1F6E1; ACL</div>' +
                     '<div class="archv-local-event" id="comp-de-inv-local">&#x2192; StockReservationNeeded</div>' +
                 '</div>' +
                 '<div class="archv-consumer" id="comp-de-notification">' +
                     '<span class="comp-icon">&#x1F4E7;</span> Notification' +
-                    '<div class="archv-translator" id="comp-de-notif-acl" data-tooltip="ACL translates OrderPlaced into OrderConfirmationEmail">&#x1F6E1; ACL</div>' +
+                    '<div class="archv-translator" id="comp-de-notif-acl"' + ARCHV.tooltipAttr('comp-de-notif-acl', 'ACL translates OrderPlaced into OrderConfirmationEmail') + '>&#x1F6E1; ACL</div>' +
                     '<div class="archv-local-event" id="comp-de-notif-local">&#x2192; OrderConfirmationEmail</div>' +
                 '</div>' +
                 '<div class="archv-consumer" id="comp-de-analytics">' +
                     '<span class="comp-icon">&#x1F4CA;</span> Analytics' +
-                    '<div class="archv-translator" id="comp-de-analytics-acl" data-tooltip="ACL translates OrderPlaced into SaleRecorded">&#x1F6E1; ACL</div>' +
+                    '<div class="archv-translator" id="comp-de-analytics-acl"' + ARCHV.tooltipAttr('comp-de-analytics-acl', 'ACL translates OrderPlaced into SaleRecorded') + '>&#x1F6E1; ACL</div>' +
                     '<div class="archv-local-event" id="comp-de-analytics-local">&#x2192; SaleRecorded</div>' +
                 '</div>' +
             '</div>' +
             '<div class="archv-flow-legend">' +
-                '<div class="legend-item"><span class="legend-line-sync"></span> Sync</div>' +
-                '<div class="legend-item"><span class="legend-line-async"></span> Async (Event)</div>' +
-                '<div class="legend-item"><span class="legend-line-response"></span> Response</div>' +
+                '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('arch.legend.sync', null, 'Sync') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-async"></span> ' + I18N.t('arch.legend.async_event', null, 'Async (Event)') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('arch.legend.response', null, 'Response') + '</div>' +
             '</div>' +
         '</div>';
 }
@@ -577,7 +577,7 @@ ARCHV.ddd.http = {
     init: function() { renderDDD({ showAppService: false }); },
     steps: function() {
         return [
-            { elementId: 'comp-ddd-controller', label: 'Controller', description: 'HTTP request enters Order Context', logType: 'REQUEST', layerId: 'layer-ddd-presentation' },
+            { elementId: 'comp-ddd-controller', label: 'Controller', description: 'POST /api/orders enters Order Context — context boundary isolates this domain', descriptionKey: 'ddd.step.http.0', logType: 'REQUEST', layerId: 'layer-ddd-presentation' },
             { elementId: 'comp-ddd-dto', label: 'DTO', description: 'Map to CreateOrderCommand DTO', logType: 'LAYER', layerId: 'layer-ddd-presentation' },
             { elementId: 'comp-ddd-usecase', label: 'UseCase', description: 'CreateOrder use case orchestrates flow', logType: 'COMMAND', layerId: 'layer-ddd-application' },
             { elementId: 'comp-ddd-spec', label: 'Specification', description: 'Check order spec rules', logType: 'LAYER', layerId: 'layer-ddd-domain' },
@@ -594,7 +594,7 @@ ARCHV.ddd.http = {
             { elementId: 'comp-ddd-pay-entity', label: 'Payment', description: 'Create Payment entity', logType: 'LAYER', layerId: 'layer-ddd-pay' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'HTTP POST /api/orders' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('ddd.requestLabel.http', null, 'DDD: request enters Order Bounded Context — isolated from Payment and Shipping') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.ddd.http.steps(), ARCHV.ddd.http.stepOptions());
     }
@@ -604,7 +604,7 @@ ARCHV.ddd.console = {
     init: function() { renderDDD({ showUseCase: false }); },
     steps: function() {
         return [
-            { elementId: 'comp-ddd-controller', label: 'Controller', description: 'CLI command enters context', logType: 'REQUEST', layerId: 'layer-ddd-presentation' },
+            { elementId: 'comp-ddd-controller', label: 'Controller', description: 'order:recalculate enters context — same use case as HTTP, behind context boundary', descriptionKey: 'ddd.step.console.0', logType: 'REQUEST', layerId: 'layer-ddd-presentation' },
             { elementId: 'comp-ddd-dto', label: 'DTO', description: 'Parse arguments', logType: 'LAYER', layerId: 'layer-ddd-presentation' },
             { elementId: 'comp-ddd-appservice', label: 'AppService', description: 'Coordinate operation', logType: 'LAYER', layerId: 'layer-ddd-application' },
             { elementId: 'comp-ddd-domservice', label: 'DomainService', description: 'Complex domain logic', logType: 'LAYER', layerId: 'layer-ddd-domain' },
@@ -615,7 +615,7 @@ ARCHV.ddd.console = {
             { elementId: 'comp-ddd-eventbus', label: 'EventBus', description: 'Dispatch domain events after persist', logType: 'EVENT', layerId: 'layer-ddd-infra' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'CLI: order:recalculate' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('ddd.requestLabel.console', null, 'DDD: CLI triggers Bounded Context use case — domain logic stays isolated') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.ddd.console.steps(), ARCHV.ddd.console.stepOptions());
     }
@@ -625,7 +625,7 @@ ARCHV.ddd.message = {
     init: function() { renderDDD({ showAppService: false }); },
     steps: function() {
         return [
-            { elementId: 'comp-ddd-pay-handler', label: 'EventHandler', description: 'External event received', logType: 'REQUEST', layerId: 'layer-ddd-pay' },
+            { elementId: 'comp-ddd-pay-handler', label: 'EventHandler', description: 'payment.completed event arrives — ACL will translate to Order Context language', descriptionKey: 'ddd.step.message.0', logType: 'REQUEST', layerId: 'layer-ddd-pay' },
             { elementId: 'comp-ddd-acl', label: 'ACL', description: 'Translate to local language', logType: 'FLOW' },
             { elementId: 'comp-ddd-usecase', label: 'UseCase', description: 'Handle translated event', logType: 'LAYER', layerId: 'layer-ddd-application' },
             { elementId: 'comp-ddd-aggregate', label: 'Aggregate', description: 'Update Order status', logType: 'LAYER', layerId: 'layer-ddd-domain' },
@@ -637,7 +637,7 @@ ARCHV.ddd.message = {
             { elementId: 'comp-ddd-eventbus', label: 'EventBus', description: 'Publish OrderPaid', logType: 'EVENT', layerId: 'layer-ddd-infra' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Message: payment.completed' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('ddd.requestLabel.message', null, 'DDD: event from Payment Context translated via Anti-Corruption Layer') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.ddd.message.steps(), ARCHV.ddd.message.stepOptions());
     }
@@ -685,7 +685,7 @@ ARCHV.ddd['open-host'] = {
     init: function() { renderDDDOpenHost(); },
     steps: function() {
         return [
-            { elementId: 'comp-ohs-usecase', label: 'PlaceOrder', description: 'Use case orchestrates order creation', logType: 'COMMAND', layerId: 'layer-ohs-app' },
+            { elementId: 'comp-ohs-usecase', label: 'PlaceOrder', description: 'PlaceOrder use case starts — aggregate will raise event for Open Host Service', descriptionKey: 'ddd.step.open-host.0', logType: 'COMMAND', layerId: 'layer-ohs-app' },
             { elementId: 'comp-ohs-aggregate', label: 'Order', description: 'Aggregate processes command and raises event', logType: 'REQUEST', layerId: 'layer-ohs-domain' },
             { elementId: 'comp-ohs-event', label: 'OrderPlaced', description: 'Domain event raised by aggregate', logType: 'EVENT', layerId: 'layer-ohs-domain' },
             { elementId: 'comp-ohs-publisher', label: 'EventPublisher', description: 'Infrastructure adapter publishes event through OHS', logType: 'EVENT', layerId: 'layer-ohs-infra' },
@@ -698,7 +698,7 @@ ARCHV.ddd['open-host'] = {
             { elementId: 'comp-ohs-analytics', label: 'Analytics', description: 'Translates to SaleRecorded in local language', logType: 'LAYER', parallel: true, arrowFromId: 'comp-ohs-service', arrowFromOffset: 0.15, arrowToOffset: -0.2 }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'OHS: Order.place() → Published Language' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('ddd.requestLabel.open-host', null, 'DDD: aggregate event published through Open Host Service to downstream contexts') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.ddd['open-host'].steps(), ARCHV.ddd['open-host'].stepOptions());
     }
@@ -709,7 +709,7 @@ ARCHV.ddd.saga = {
     init: function() { renderDDDSaga(); },
     steps: function() {
         return [
-            { elementId: 'comp-saga-orchestrator', label: 'Saga', description: 'Saga starts: state → ORDER_PENDING', logType: 'REQUEST' },
+            { elementId: 'comp-saga-orchestrator', label: 'Saga', description: 'OrderSaga initializes — state ORDER_PENDING, orchestrator begins coordination', descriptionKey: 'ddd.step.saga.0', logType: 'REQUEST' },
             { elementId: 'comp-saga-order-cmd', label: 'CreateOrder', description: 'Saga sends CreateOrder command', logType: 'COMMAND', arrowFromId: 'comp-saga-orchestrator', arrowFromOffset: -0.2 },
             { elementId: 'comp-saga-order-event', label: 'OrderConfirmed', description: 'Order context confirms: OrderConfirmed event', logType: 'EVENT' },
             { elementId: 'comp-saga-eventbus', label: 'EventBus', description: 'Event routed through bus to Saga', logType: 'ASYNC' },
@@ -723,7 +723,7 @@ ARCHV.ddd.saga = {
             { elementId: 'comp-saga-orchestrator', label: 'Saga', description: 'Saga state → COMPLETED. All steps successful.', logType: 'RESPONSE', arrowFromId: 'comp-saga-ship-event' }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Saga: PlaceOrder workflow' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('ddd.requestLabel.saga', null, 'DDD Saga: orchestrator coordinates Order, Payment, Shipping as local transactions') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.ddd.saga.steps(), ARCHV.ddd.saga.stepOptions());
     }
@@ -734,7 +734,7 @@ ARCHV.ddd['saga-fail'] = {
     init: function() { renderDDDSagaFail(); },
     steps: function() {
         return [
-            { elementId: 'comp-sagaf-orchestrator', label: 'Saga', description: 'Saga starts: state → ORDER_PENDING', logType: 'REQUEST' },
+            { elementId: 'comp-sagaf-orchestrator', label: 'Saga', description: 'OrderSaga initializes — state ORDER_PENDING, compensation will undo on failure', descriptionKey: 'ddd.step.saga-fail.0', logType: 'REQUEST' },
             { elementId: 'comp-sagaf-order-cmd', label: 'CreateOrder', description: 'Saga sends CreateOrder command', logType: 'COMMAND', arrowFromId: 'comp-sagaf-orchestrator', arrowFromOffset: -0.2 },
             { elementId: 'comp-sagaf-order-event', label: 'OrderConfirmed', description: 'Order context confirms: OrderConfirmed event ✓', logType: 'EVENT' },
             { elementId: 'comp-sagaf-eventbus', label: 'EventBus', description: 'Event routed through bus to Saga', logType: 'ASYNC' },
@@ -749,7 +749,7 @@ ARCHV.ddd['saga-fail'] = {
             { elementId: 'comp-sagaf-orchestrator', label: 'Saga', description: 'Saga state → COMPENSATED. All compensations done.', logType: 'ERROR', arrowFromId: 'comp-sagaf-eventbus', arrowFromOffset: 0.45, arrowToOffset: 0.4 }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Saga: PlaceOrder workflow (failure)' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('ddd.requestLabel.saga-fail', null, 'DDD Saga: failure triggers compensating transactions in reverse order') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.ddd['saga-fail'].steps(), ARCHV.ddd['saga-fail'].stepOptions());
     }
@@ -760,7 +760,7 @@ ARCHV.ddd['domain-events'] = {
     init: function() { renderDDDDomainEvents(); },
     steps: function() {
         return [
-            { elementId: 'comp-de-usecase', label: 'PlaceOrder', description: 'UseCase receives command and delegates to aggregate', logType: 'REQUEST', layerId: 'layer-de-app' },
+            { elementId: 'comp-de-usecase', label: 'PlaceOrder', description: 'PlaceOrder receives CreateOrder command — aggregate will raise OrderPlaced event', descriptionKey: 'ddd.step.domain-events.0', logType: 'REQUEST', layerId: 'layer-de-app' },
             { elementId: 'comp-de-place', label: 'Order.place()', description: 'Aggregate method creates order and raises domain event', logType: 'COMMAND', layerId: 'layer-de-domain' },
             { elementId: 'comp-de-event', label: 'OrderPlaced', description: 'Domain event raised: OrderPlaced', logType: 'EVENT', layerId: 'layer-de-domain' },
             { elementId: 'comp-de-publisher', label: 'EventPublisher', description: 'Infrastructure adapter publishes event to external bus', logType: 'EVENT', layerId: 'layer-de-infra' },
@@ -772,7 +772,7 @@ ARCHV.ddd['domain-events'] = {
             { elementId: 'comp-de-eventbus', label: 'EventBus', description: 'Fan-out complete — each consumer processes asynchronously', logType: 'RESPONSE', noArrowFromPrev: true }
         ];
     },
-    stepOptions: function() { return { requestLabel: 'Event: OrderPlaced propagation' }; },
+    stepOptions: function() { return { requestLabel: I18N.t('ddd.requestLabel.domain-events', null, 'DDD: domain event fans out to all subscribing bounded contexts') }; },
     run: function() {
         ARCHV.animateFlow(ARCHV.ddd['domain-events'].steps(), ARCHV.ddd['domain-events'].stepOptions());
     }

@@ -1,0 +1,450 @@
+{
+  "pv.title": "Visualiseur de Patrons de Conception",
+
+  "simple-factory.name": "Simple Factory",
+  "simple-factory.modes.transport.label": "Transport",
+  "simple-factory.modes.transport.desc": "Une TransportFactory cree des vehicules de livraison selon un parametre de type. Le client demande un objet Transport sans savoir s'il obtient un Truck, Ship ou Plane. La factory encapsule toute la logique d'instanciation derriere une seule methode create().",
+  "simple-factory.details.transport.principles": [
+    "Encapsuler la creation d'objets : le client n'utilise jamais le mot-cle new pour les produits concrets",
+    "Programmer vers une interface (Transport), pas une implementation (Truck, Ship, Plane)",
+    "Responsabilite unique : la factory detient toute la logique d'instanciation en un seul endroit",
+    "Ouvert a l'extension : ajouter un nouveau type de transport ne necessite que la modification de la factory",
+    "Couplage faible : le client depend de l'abstraction, pas des classes concretes"
+  ],
+  "simple-factory.details.transport.concepts": [
+    { "term": "Simple Factory", "definition": "Une classe avec une seule methode de creation qui retourne differents types d'objets selon un parametre. Pas un patron GoF a proprement parler, mais un idiome largement utilise qui simplifie la creation d'objets." },
+    { "term": "Product Interface", "definition": "Le type commun (Transport) que tous les produits concrets implementent. Le client code contre cette interface, permettant le polymorphisme." },
+    { "term": "Parameterized Creation", "definition": "La methode factory accepte une chaine de type ou un enum et utilise une logique conditionnelle (switch/if) pour decider quelle classe concrete instancier." },
+    { "term": "Concrete Product", "definition": "Une implementation specifique (Truck, Ship, Plane) de l'interface produit. La factory est le seul endroit qui reference directement ces classes." }
+  ],
+  "simple-factory.details.transport.tradeoffs.pros": [
+    "Centralise la logique de creation -- un seul endroit pour ajouter ou modifier les types de produits",
+    "Le code client reste propre et decouple des classes concretes",
+    "Facile a comprendre -- plus simple que Factory Method ou Abstract Factory",
+    "Reduit la duplication du code d'instanciation dans la base de code"
+  ],
+  "simple-factory.details.transport.tradeoffs.cons": [
+    "Viole le principe ouvert/ferme -- l'ajout de nouveaux types necessite la modification de la methode factory",
+    "La factory peut devenir un gros bloc switch/if a mesure que les types de produits augmentent",
+    "Point de defaillance unique -- toute la creation passe par une seule classe",
+    "Pas aussi flexible que le patron Factory Method pour l'extensibilite via l'heritage"
+  ],
+  "simple-factory.details.transport.tradeoffs.whenToUse": "Ideal quand vous avez un ensemble petit et stable de types de produits, que la logique de creation est directe, et que vous voulez cacher les details d'instanciation au client sans la surcharge d'une hierarchie complete de Factory Method ou Abstract Factory.",
+
+  "static-factory.name": "Static Factory",
+  "static-factory.modes.number.label": "Number",
+  "static-factory.modes.number.desc": "Number.of(value) inspecte l'entree et retourne un Integer, Float ou BigDecimal. Les petits entiers sont mis en cache en interne, donc les appels repetes pour la meme valeur retournent la meme instance -- une optimisation de type flyweight qui evite les allocations redondantes.",
+  "static-factory.details.number.principles": [
+    "Constructeurs nommes : Number.of(value) est plus expressif que new Number(value) -- le nom de la methode communique l'intention",
+    "Mise en cache et flyweight : les petits entiers sont mis en cache en interne, donc of(42) appele deux fois retourne la meme instance",
+    "Selection de sous-type : la factory inspecte l'entree et retourne Integer, Float ou BigDecimal sans que l'appelant le sache",
+    "Encapsulation de la logique de creation : la decision de quelle sous-classe instancier est cachee derriere la methode statique",
+    "Pas de constructeurs publics : les clients ne peuvent pas contourner la factory, garantissant que toutes les instances passent par le chemin de creation controle"
+  ],
+  "static-factory.details.number.concepts": [
+    { "term": "Static Factory Method", "definition": "Une methode statique sur une classe qui retourne une instance de cette classe (ou d'une sous-classe). Contrairement aux constructeurs, les methodes static factory ont des noms, peuvent retourner des instances en cache et peuvent retourner des sous-types." },
+    { "term": "Flyweight Caching", "definition": "Les petites valeurs entieres sont mises en cache dans une Map interne. Quand of(42) est appele a nouveau, le Integer(42) en cache est retourne au lieu de creer un nouvel objet -- similaire au patron Flyweight." },
+    { "term": "Type Inference", "definition": "La factory inspecte la valeur a l'execution pour determiner le type concret : les valeurs int deviennent Integer, les virgules flottantes deviennent Float, et les valeurs tres grandes ou precises deviennent BigDecimal." },
+    { "term": "valueOf() Convention", "definition": "Une convention de nommage courante (issue de Java) ou valueOf() convertit un primitif en son type wrapper. Number.of() delegue a valueOf() pour les entrees entieres." }
+  ],
+  "static-factory.details.number.tradeoffs.pros": [
+    "Nommage descriptif : Number.of(42) et Number.zero() sont auto-documentants, contrairement a new Number(42)",
+    "Mise en cache des instances : les valeurs frequemment utilisees sont partagees, reduisant l'allocation memoire et la pression du GC",
+    "Peut retourner des sous-types : of() retourne Integer, Float ou BigDecimal -- les constructeurs ne peuvent pas faire cela",
+    "Encapsule la logique de creation : ajouter un nouveau type numerique ne necessite aucun changement cote client"
+  ],
+  "static-factory.details.number.tradeoffs.cons": [
+    "Pas decouvrables via le mot-cle new : les developpeurs doivent savoir que les noms de methodes statiques existent",
+    "Impossible de sous-classer une classe qui ne fournit que des methodes static factory (pas de constructeur public a appeler via super)",
+    "La gestion du cache ajoute de la complexite : invalidation du cache, fuites memoire et securite des threads doivent etre considerees",
+    "Plus difficile a identifier dans la documentation : les methodes statiques se confondent avec les autres methodes utilitaires"
+  ],
+  "static-factory.details.number.tradeoffs.whenToUse": "Ideal pour les types valeur ou la mise en cache des instances ameliore les performances (petits entiers, valeurs de type enum), quand le type de retour doit varier selon l'entree, ou quand des methodes de construction nommees ameliorent la lisibilite de l'API.",
+
+  "factory-method.name": "Factory Method",
+  "factory-method.modes.logistics.label": "Logistics",
+  "factory-method.modes.logistics.desc": "Application de logistique ou chaque type de transport a sa propre sous-classe createur implementant createTransport(). La classe parente Logistics definit planDelivery() qui appelle le createTransport() abstrait -- chaque sous-classe decide quel Transport instancier.",
+  "factory-method.details.logistics.principles": [
+    "La classe Creator declare une methode factory que les sous-classes surchargent pour produire differents Products",
+    "Le code client travaille avec les types abstraits Creator et Product -- ne depend jamais des classes concretes",
+    "Principe ouvert/ferme : les nouveaux types de transport sont ajoutes en creant de nouvelles sous-classes de createur sans modifier le code existant",
+    "Responsabilite unique : chaque Concrete Creator est responsable d'exactement un type de produit",
+    "planDelivery() dans le Creator s'appuie sur la methode factory -- le patron Template Method coopere avec Factory Method"
+  ],
+  "factory-method.details.logistics.concepts": [
+    { "term": "Factory Method", "definition": "Une methode abstraite declaree dans le Creator qui retourne un Product. Chaque Concrete Creator fournit sa propre implementation." },
+    { "term": "Creator", "definition": "Classe abstraite contenant la methode factory et la logique metier (planDelivery) qui depend du produit retourne par la methode factory." },
+    { "term": "Concrete Creator", "definition": "Sous-classe de Creator qui surcharge la methode factory pour retourner un Concrete Product specifique (ex. RoadLogistics retourne Truck)." },
+    { "term": "Product", "definition": "Interface ou classe abstraite qui declare les operations que tous les produits concrets doivent implementer (ex. deliver())." }
+  ],
+  "factory-method.details.logistics.tradeoffs.pros": [
+    "Elimine le couplage fort entre le Creator et les Concrete Products",
+    "Principe ouvert/ferme -- etendre sans modifier le code existant",
+    "Responsabilite unique -- chaque createur gere un seul type de produit",
+    "Supporte le principe d'inversion des dependances -- le code de haut niveau depend des abstractions"
+  ],
+  "factory-method.details.logistics.tradeoffs.cons": [
+    "Necessite une hierarchie de classes parallele (un createur par produit), augmentant le nombre de classes",
+    "Plus d'indirection que la construction directe -- plus difficile de tracer quel objet est cree",
+    "Excessif si la famille de produits est petite et peu susceptible de grandir",
+    "Sous-classer uniquement pour la creation d'objets peut sembler lourd"
+  ],
+  "factory-method.details.logistics.tradeoffs.whenToUse": "A utiliser quand le type exact d'objet a creer est determine par les sous-classes, quand vous voulez fournir un point d'extension, ou quand une classe delegue la responsabilite d'instanciation a l'une de ses sous-classes auxiliaires.",
+
+  "abstract-factory.name": "Abstract Factory",
+  "abstract-factory.modes.furniture.label": "Furniture",
+  "abstract-factory.modes.furniture.desc": "Magasin de meubles : chaque style (Modern, Victorian) cree des Chair, Table et Sofa assortis.",
+  "abstract-factory.details.furniture.principles": [
+    "Programmer vers des interfaces : le code client ne depend que des abstractions FurnitureFactory, Chair, Table et Sofa",
+    "Les familles de produits garantissent la coherence : ModernFurnitureFactory produit toujours des produits modernes assortis",
+    "Principe ouvert/ferme : de nouveaux styles de meubles (ex. ArtDeco) peuvent etre ajoutes sans modifier le code existant",
+    "Responsabilite unique : chaque factory concrete encapsule la logique de creation pour une famille de produits",
+    "Inversion des dependances : le client de haut niveau depend des abstractions, pas des classes de produits concretes"
+  ],
+  "abstract-factory.details.furniture.concepts": [
+    { "term": "Product Family", "definition": "Un ensemble de produits lies (Chair + Table + Sofa) concus pour fonctionner ensemble dans un style specifique." },
+    { "term": "Abstract Factory", "definition": "Interface declarant les methodes de creation pour chaque type de produit, garantissant que chaque famille produit un ensemble complet." },
+    { "term": "Concrete Factory", "definition": "Implemente les methodes de creation pour produire des produits d'une variante specifique (Modern, Victorian)." },
+    { "term": "Variant Consistency", "definition": "Chaque factory garantit que tous les objets produits appartiennent a la meme famille, empechant les combinaisons disparates." },
+    { "term": "Client Isolation", "definition": "Le client recoit une factory via le constructeur/la configuration et ne reference jamais directement les classes de produits concretes." }
+  ],
+  "abstract-factory.details.furniture.tradeoffs.pros": [
+    "Garantit la coherence de la famille de produits -- tous les objets d'une factory sont assortis en style",
+    "Isole le client des classes concretes -- facile de permuter des familles entieres",
+    "Suit le principe ouvert/ferme -- l'ajout de nouvelles familles ne necessite aucun changement au code existant",
+    "Centralise la logique de creation -- chaque factory est la source de verite unique pour sa variante"
+  ],
+  "abstract-factory.details.furniture.tradeoffs.cons": [
+    "Ajouter un nouveau type de produit (ex. Lamp) necessite de modifier toutes les interfaces et implementations de factory",
+    "Augmente significativement le nombre de classes -- chaque famille multiplie le nombre de classes",
+    "Peut etre sur-ingenierie pour des scenarios simples avec peu de types de produits",
+    "Les interfaces de factory deviennent rigides -- difficile d'evoluer sans casser les familles existantes"
+  ],
+  "abstract-factory.details.furniture.tradeoffs.whenToUse": "Quand votre systeme doit creer des familles d'objets lies qui doivent etre utilises ensemble, et que vous voulez imposer la coherence entre les variantes de produits sans coupler le code client aux classes concretes.",
+
+  "builder.name": "Builder",
+  "builder.modes.house.label": "House",
+  "builder.modes.house.desc": "Construction etape par etape d'une maison : fondation, murs, toit, interieur -- le Director orchestre la sequence.",
+  "builder.details.house.principles": [
+    "Separer l'algorithme de construction (Director) de la representation de l'objet (Builder)",
+    "Le Director definit l'ordre des etapes de construction ; le Builder sait comment executer chaque etape",
+    "Differents builders produisent differentes representations en utilisant le meme processus de construction",
+    "Le Product est assemble incrementalement -- chaque etape ajoute un composant",
+    "Le client recupere le produit fini du builder, pas du director"
+  ],
+  "builder.details.house.concepts": [
+    { "term": "Director", "definition": "Orchestre la sequence de construction. Appelle les methodes du builder dans un ordre fixe mais est decouple des details concrets du produit." },
+    { "term": "HouseBuilder", "definition": "Interface declarant les etapes de construction : buildFoundation(), buildWalls(), buildRoof(), buildInterior(). Chaque builder concret les implemente." },
+    { "term": "WoodenHouseBuilder", "definition": "Builder concret qui construit une maison en bois avec fondation en rondins, murs en bois, toit en bardeaux et interieur rustique." },
+    { "term": "StoneHouseBuilder", "definition": "Builder concret qui construit une maison en pierre avec fondation en beton, murs en pierre, toit en tuiles et interieur moderne." },
+    { "term": "House", "definition": "Objet produit dont les proprietes sont definies une par une pendant la construction. Recupere via getResult() une fois toutes les etapes terminees." }
+  ],
+  "builder.details.house.tradeoffs.pros": [
+    "Le meme processus de construction cree differentes representations (maison en bois vs. en pierre)",
+    "Le code de construction est isole de la representation -- facile d'ajouter de nouveaux types de builders",
+    "Controle fin du processus de construction etape par etape",
+    "Le produit est toujours dans un etat valide une fois la construction terminee"
+  ],
+  "builder.details.house.tradeoffs.cons": [
+    "La complexite globale augmente -- necessite Director, interface Builder, builders concrets et Product",
+    "Excessif pour des objets simples qui peuvent etre construits en une seule etape",
+    "Le nombre de classes croit avec chaque nouvelle variante de produit"
+  ],
+  "builder.details.house.tradeoffs.whenToUse": "A utiliser quand la construction implique plusieurs etapes qui doivent suivre un ordre specifique, quand le meme processus doit creer differentes representations, ou quand vous voulez eviter un constructeur avec de nombreux parametres.",
+
+  "prototype.name": "Prototype",
+  "prototype.modes.shapes.label": "Shapes",
+  "prototype.modes.shapes.desc": "Cloner des formes geometriques (Circle, Rectangle, Triangle) sans dependre de leurs classes concretes. Le client appelle clone() sur un objet forme existant, et une copie profonde apparait a cote de l'original -- completement independante et prete a etre modifiee.",
+  "prototype.details.shapes.principles": [
+    "Cloner des objets sans couplage a leurs classes concretes -- le client ne connait que l'interface Prototype",
+    "Eviter l'initialisation couteuse : le clonage contourne la logique complexe du constructeur et la configuration couteuse des ressources",
+    "Programmer vers une interface (Shape.clone()), pas une implementation (new Circle(...))",
+    "Chaque prototype est autonome : il sait comment se copier lui-meme, preservant l'encapsulation",
+    "Principe ouvert/ferme : ajouter de nouveaux types de formes sans modifier le code de clonage client"
+  ],
+  "prototype.details.shapes.concepts": [
+    { "term": "Prototype Interface", "definition": "Declare la methode clone() que tous les prototypes concrets doivent implementer. Le client appelle clone() sans connaitre le type concret." },
+    { "term": "Deep Copy", "definition": "clone() produit un objet completement independant -- modifier le clone n'affecte pas l'original, et vice versa." },
+    { "term": "Concrete Prototype", "definition": "Une classe (Circle, Rectangle, Triangle) qui implemente clone() en copiant tout son etat interne dans une nouvelle instance." },
+    { "term": "Prototype Registry", "definition": "Un catalogue optionnel de prototypes pre-construits que les clients peuvent rechercher par cle et cloner a la demande, evitant les references directes aux classes." }
+  ],
+  "prototype.details.shapes.tradeoffs.pros": [
+    "Elimine le besoin de hierarchies de classes complexes de factories",
+    "Cloner des objets complexes est plus rapide que de les creer a partir de zero",
+    "Le code client est entierement decouple des classes concretes",
+    "Ajouter de nouveaux prototypes ne necessite aucun changement au code existant"
+  ],
+  "prototype.details.shapes.tradeoffs.cons": [
+    "La copie profonde d'objets complexes avec des references circulaires peut etre delicate",
+    "Chaque prototype concret doit implementer correctement son propre clone()",
+    "Les objets clones ne partagent aucune identite -- peut necessiter un suivi attentif",
+    "Certains langages rendent la copie profonde plus difficile que d'autres (ex. pieges de la copie superficielle)"
+  ],
+  "prototype.details.shapes.tradeoffs.whenToUse": "Ideal quand la creation d'objets est couteuse (initialisation complexe, lectures en base de donnees, appels reseau) et que vous avez un ensemble d'objets pre-configures pouvant servir de modeles pour de nouvelles instances.",
+
+  "singleton.name": "Singleton",
+  "singleton.modes.database.label": "Database",
+  "singleton.modes.database.desc": "Un Singleton DatabaseConnection garantit qu'une seule instance de connexion existe. Plusieurs clients appellent getInstance() -- le premier appel cree la connexion, les appels suivants retournent la meme instance. Tous les clients partagent un seul objet de connexion.",
+  "singleton.details.database.principles": [
+    "Garantir qu'une classe n'a qu'une seule instance -- le constructeur est prive, getInstance() est l'unique point d'entree",
+    "Initialisation paresseuse : l'instance n'est creee que lors de la premiere demande, pas au demarrage de l'application",
+    "Securite des threads : dans les environnements concurrents, getInstance() doit gerer les conditions de course (double-checked locking, volatile, enum ou bloc synchronized)",
+    "Risque d'etat global : bien que le Singleton fournisse un acces controle, l'etat mutable partage peut entrainer des effets de bord inattendus dans tout le systeme",
+    "Tension avec la responsabilite unique : la classe gere a la fois sa logique metier (query, connect) et son propre cycle de vie (creation et stockage de l'instance)"
+  ],
+  "singleton.details.database.concepts": [
+    { "term": "Lazy Initialization", "definition": "L'instance n'est creee qu'au premier appel a getInstance(), economisant des ressources si le singleton n'est jamais utilise pendant le cycle de vie de l'application." },
+    { "term": "Double-Checked Locking", "definition": "Une optimisation de securite des threads : verifier si l'instance est null sans synchronisation d'abord, puis synchroniser uniquement pour le bloc de creation -- evite la surcharge du verrou a chaque appel." },
+    { "term": "Registry of Singletons", "definition": "Un patron ou plusieurs classes singleton s'enregistrent dans un registre central, permettant la recherche par nom ou type -- utile quand plusieurs classes a instance controlee coexistent." },
+    { "term": "Private Constructor", "definition": "Le constructeur est rendu prive pour empecher l'instanciation externe. Seule la methode statique getInstance() peut creer l'objet, imposant la garantie d'instance unique." }
+  ],
+  "singleton.details.database.tradeoffs.pros": [
+    "Garantit exactement une instance -- empeche les conflits de ressources (ex. plusieurs connexions DB en competition pour le meme port)",
+    "Acces global sans variables globales -- plus propre que des champs statiques eparpilles dans le code",
+    "L'initialisation paresseuse economise des ressources quand l'instance n'est pas toujours necessaire",
+    "Facile a implementer dans la plupart des langages avec un minimum de code repetitif"
+  ],
+  "singleton.details.database.tradeoffs.cons": [
+    "Viole le principe de responsabilite unique -- la classe gere son propre cycle de vie et sa logique metier",
+    "Rend les tests unitaires plus difficiles -- difficile de mocker ou remplacer le singleton dans les environnements de test",
+    "Introduit des dependances cachees -- toute classe peut appeler getInstance() sans declarer la dependance dans son constructeur ou interface",
+    "La securite des threads ajoute de la complexite et une surcharge potentielle de performance dans les environnements concurrents"
+  ],
+  "singleton.details.database.tradeoffs.whenToUse": "A utiliser quand exactement une instance d'une classe est necessaire a l'echelle du systeme (ex. pool de connexions base de donnees, interface materielle), et que vous voulez un acces controle et paresseux a cette instance.",
+
+  "pool.name": "Object Pool",
+  "pool.modes.connections.label": "Database",
+  "pool.modes.connections.desc": "Un ConnectionPool gere un ensemble fixe de connexions base de donnees reutilisables. Les clients appellent acquire() pour obtenir une connexion et release() pour la retourner. Les connexions se deplacent entre les pools 'Available' et 'In Use' sans etre creees ou detruites a chaque fois.",
+  "pool.details.connections.principles": [
+    "Reutilisation plutot que recreation : acquerir une connexion du pool est des ordres de grandeur moins couteux qu'ouvrir une nouvelle negociation TCP/base de donnees",
+    "Ressources bornees : maxSize limite le nombre de connexions concurrentes, empechant l'epuisement des ressources sur le serveur de base de donnees",
+    "Gestion du cycle de vie : le pool gere la creation, la validation (isValid) et la destruction des connexions -- les clients se contentent d'acquerir et liberer",
+    "Equite : quand toutes les connexions sont en cours d'utilisation, les nouveaux appels a acquire() bloquent ou echouent rapidement, empechant des temps d'attente illimites",
+    "Transparence : les clients utilisent un objet Connection de la meme maniere, qu'il soit fraichement cree ou recycle du pool"
+  ],
+  "pool.details.connections.concepts": [
+    { "term": "Resource Pool", "definition": "Un conteneur qui detient des objets pre-crees (connexions) et les prete a la demande. Evite le cout de creation et destruction d'objets a chaque utilisation." },
+    { "term": "Lazy vs Eager Init", "definition": "Eager : toutes les connexions creees au demarrage. Lazy : connexions creees au premier acquire() jusqu'a maxSize. Compromis entre temps de demarrage et latence de la premiere requete." },
+    { "term": "Max Pool Size", "definition": "Limite superieure du nombre d'objets dans le pool. Empeche l'epuisement des ressources et garantit que le systeme opere dans ses capacites." },
+    { "term": "Health Check", "definition": "Avant de retourner une connexion du pool, isValid() verifie qu'elle est encore active. Les connexions obsoletes sont ecartees et remplacees." }
+  ],
+  "pool.details.connections.tradeoffs.pros": [
+    "Reduit drastiquement la surcharge de creation de connexions -- la reutilisation amortit le cout",
+    "L'utilisation bornee des ressources empeche la surcharge du serveur de base de donnees",
+    "La gestion centralisee du cycle de vie simplifie le traitement des erreurs et le nettoyage",
+    "Les clients sont decouples de la logique de creation de connexions"
+  ],
+  "pool.details.connections.tradeoffs.cons": [
+    "Le dimensionnement du pool necessite des tests de charge -- trop petit cause de la contention, trop grand gaspille des ressources",
+    "Les connexions non liberees (fuites) peuvent epuiser silencieusement le pool",
+    "Complexite ajoutee : gestion des delais, politiques d'eviction, verifications de sante",
+    "Les connexions obsoletes ou cassees doivent etre detectees et remplacees"
+  ],
+  "pool.details.connections.tradeoffs.whenToUse": "A utiliser quand la creation d'objets est couteuse (connexions base de donnees, sockets reseau, ressources lourdes) et que les memes objets peuvent etre reutilises en toute securite par plusieurs clients.",
+
+  "simple-factory.tooltip.factory": "Classe factory qui encapsule la logique de creation d'objets selon un parametre de type",
+  "simple-factory.tooltip.transport": "Interface commune pour tous les types de transport retournes par la factory",
+  "simple-factory.tooltip.truck": "Produit concret : livre le fret par la route",
+  "simple-factory.tooltip.ship": "Produit concret : livre le fret par la mer",
+  "simple-factory.tooltip.plane": "Produit concret : livre le fret par les airs",
+  "simple-factory.tooltip.obj-truck": "Instance de Truck creee par la factory a l'execution",
+  "simple-factory.tooltip.obj-ship": "Instance de Ship creee par la factory a l'execution",
+  "simple-factory.tooltip.obj-plane": "Instance de Plane creee par la factory a l'execution",
+  "simple-factory.step.transport.0": "Le client appelle factory.create(\"truck\")",
+  "simple-factory.step.transport.1": "La factory recoit type=\"truck\"",
+  "simple-factory.step.transport.2": "La factory selectionne la classe Truck selon le type",
+  "simple-factory.step.transport.3": "new Truck() cree",
+  "simple-factory.step.transport.4": "Truck retourne en tant qu'interface Transport",
+  "simple-factory.step.transport.5": "La factory retourne le Transport au client",
+  "simple-factory.step.transport.6": "Le client appelle deliver() sur l'objet retourne",
+  "simple-factory.step.transport.7": "Livraison terminee avec succes",
+  "simple-factory.stepLabel.transport": "Creer un transport via Simple Factory",
+  "simple-factory.depRules": [
+    { "name": "Factory", "role": "Cree des objets sans exposer la logique de creation au client" },
+    { "name": "Product (Interface)", "role": "Interface commune pour tous les objets que la factory peut creer" },
+    { "name": "Concrete Products", "role": "Implementations specifiques retournees par la factory" },
+    { "name": "Client", "role": "Utilise la factory pour obtenir des objets, sans connaitre les classes concretes" }
+  ],
+
+  "static-factory.tooltip.number": "Classe static factory avec des methodes de creation nommees -- inspecte le type d'entree et delegue au constructeur de la sous-classe appropriee",
+  "static-factory.tooltip.cache": "Cache interne stockant les instances Integer precedemment creees, indexees par leur valeur int",
+  "static-factory.tooltip.integer": "Produit concret pour les valeurs entieres -- les instances peuvent etre mises en cache pour les petites valeurs",
+  "static-factory.tooltip.float": "Produit concret pour les valeurs a virgule flottante -- jamais mis en cache, toujours une nouvelle instance",
+  "static-factory.tooltip.bigdecimal": "Produit concret pour les valeurs decimales a precision arbitraire",
+  "static-factory.tooltip.obj-int1": "Premiere instance Integer(42) -- creee et mise en cache",
+  "static-factory.tooltip.obj-int2": "Deuxieme demande pour 42 -- meme instance en cache retournee",
+  "static-factory.tooltip.obj-float1": "Instance Float -- creee a neuf, non mise en cache",
+  "static-factory.step.number.0": "Le client appelle Number.of(42)",
+  "static-factory.step.number.1": "int detecte -- delegation a valueOf(42)",
+  "static-factory.step.number.2": "Cache miss pour la cle 42",
+  "static-factory.step.number.3": "new Integer(42) -- instanciation du produit concret",
+  "static-factory.step.number.4": "Mis en cache : 42 -> Integer(42)",
+  "static-factory.step.number.5": "Retourne Integer(42) en tant que Number au client",
+  "static-factory.step.number.6": "Le client appelle Number.of(42) a nouveau",
+  "static-factory.step.number.7": "Cache HIT pour la cle 42",
+  "static-factory.step.number.8": "Retourne Integer(42) depuis le cache -- meme instance, pas d'allocation",
+  "static-factory.step.number.9": "Le client appelle Number.of(3.14)",
+  "static-factory.step.number.10": "float detecte -- pas de mise en cache pour les floats",
+  "static-factory.step.number.11": "new Float(3.14) -- instanciation du produit concret",
+  "static-factory.step.number.12": "Retourne Float(3.14) en tant que Number au client",
+  "static-factory.stepLabel.number": "Creer des nombres via methodes statiques avec mise en cache",
+  "static-factory.depRules": [
+    { "name": "Static Factory", "role": "Fournit des methodes statiques nommees pour creer des instances, ameliorant la lisibilite par rapport aux constructeurs" },
+    { "name": "Product", "role": "Objets crees et optionnellement mis en cache par les methodes static factory" },
+    { "name": "Cache", "role": "Stockage interne permettant la reutilisation des instances pour des entrees equivalentes" }
+  ],
+
+  "factory-method.tooltip.logistics": "Createur abstrait qui declare la methode factory createTransport() et l'utilise dans planDelivery()",
+  "factory-method.tooltip.transport": "Interface produit definissant le contrat que tous les transports concrets doivent implementer",
+  "factory-method.tooltip.sea-logistics": "Createur concret qui surcharge createTransport() pour retourner une instance de Ship",
+  "factory-method.tooltip.road-logistics": "Createur concret qui surcharge createTransport() pour retourner une instance de Truck",
+  "factory-method.tooltip.obj-ship": "Instance Ship creee par SeaLogistics a l'execution",
+  "factory-method.tooltip.obj-truck": "Instance Truck creee par RoadLogistics a l'execution",
+  "factory-method.tooltip.truck": "Produit concret implementant Transport -- livre les marchandises par la route",
+  "factory-method.tooltip.ship": "Produit concret implementant Transport -- livre les marchandises par la mer",
+  "factory-method.step.logistics.0": "Le client invoque planDelivery() sur la reference abstraite Logistics",
+  "factory-method.step.logistics.1": "planDelivery() appelle en interne la methode factory abstraite createTransport()",
+  "factory-method.step.logistics.2": "Le createur concret surcharge createTransport() pour instancier un Truck",
+  "factory-method.step.logistics.3": "Le constructeur de Truck est invoque par RoadLogistics",
+  "factory-method.step.logistics.4": "L'instance Truck est retournee a planDelivery()",
+  "factory-method.step.logistics.5": "planDelivery() appelle deliver() sur la reference Transport retournee",
+  "factory-method.step.logistics.6": "Le Truck concret execute la livraison par la route",
+  "factory-method.step.logistics.7": "planDelivery() termine -- marchandises livrees par Truck",
+  "factory-method.stepLabel.logistics": "Planifier la livraison -- la sous-classe choisit le transport",
+  "factory-method.depRules": [
+    { "name": "Creator (Abstract)", "role": "Declare la methode factory retournant un Product ; peut fournir une implementation par defaut" },
+    { "name": "Concrete Creator", "role": "Surcharge la methode factory pour retourner un type de Product specifique" },
+    { "name": "Product (Interface)", "role": "Interface commune pour tous les objets crees par la methode factory" },
+    { "name": "Concrete Product", "role": "Implemente l'interface Product" }
+  ],
+
+  "abstract-factory.tooltip.modern-factory": "Concrete Factory : cree des meubles de style moderne",
+  "abstract-factory.tooltip.factory": "Abstract Factory : declare les methodes de creation pour chaque produit de la famille",
+  "abstract-factory.tooltip.victorian-factory": "Concrete Factory : cree des meubles de style victorien",
+  "abstract-factory.tooltip.chair": "Abstract Product : interface pour les objets chaise",
+  "abstract-factory.tooltip.table": "Abstract Product : interface pour les objets table",
+  "abstract-factory.tooltip.sofa": "Abstract Product : interface pour les objets canape",
+  "abstract-factory.tooltip.modern-chair": "Concrete Product : chaise de style moderne",
+  "abstract-factory.tooltip.modern-table": "Concrete Product : table de style moderne",
+  "abstract-factory.tooltip.modern-sofa": "Concrete Product : canape de style moderne",
+  "abstract-factory.tooltip.victorian-chair": "Concrete Product : chaise de style victorien",
+  "abstract-factory.tooltip.victorian-table": "Concrete Product : table de style victorien",
+  "abstract-factory.tooltip.victorian-sofa": "Concrete Product : canape de style victorien",
+  "abstract-factory.tooltip.obj-mchair": "Instance de ModernChair",
+  "abstract-factory.tooltip.obj-mtable": "Instance de ModernTable",
+  "abstract-factory.tooltip.obj-msofa": "Instance de ModernSofa",
+  "abstract-factory.tooltip.obj-vchair": "Instance de VictorianChair",
+  "abstract-factory.tooltip.obj-vtable": "Instance de VictorianTable",
+  "abstract-factory.tooltip.obj-vsofa": "Instance de VictorianSofa",
+  "abstract-factory.step.furniture.0": "Le client demande un ensemble de meubles",
+  "abstract-factory.step.furniture.1": "La factory Modern est selectionnee pour cette commande",
+  "abstract-factory.step.furniture.2": "La factory appelle createChair()",
+  "abstract-factory.step.furniture.3": "Instance ModernChair creee",
+  "abstract-factory.step.furniture.4": "La factory appelle createTable()",
+  "abstract-factory.step.furniture.5": "Instance ModernTable creee",
+  "abstract-factory.step.furniture.6": "La factory appelle createSofa()",
+  "abstract-factory.step.furniture.7": "Instance ModernSofa creee",
+  "abstract-factory.step.furniture.8": "Tous les produits modernes livres au client",
+  "abstract-factory.stepLabel.furniture": "Le client demande un ensemble de meubles Modern",
+  "abstract-factory.depRules": [
+    { "name": "Abstract Factory", "role": "Declare les methodes de creation pour chaque produit de la famille" },
+    { "name": "Concrete Factory", "role": "Implemente les methodes de creation pour une famille/variante de produits specifique" },
+    { "name": "Abstract Product", "role": "Interface pour un type de produit" },
+    { "name": "Concrete Product", "role": "Implemente le produit abstrait pour une variante specifique" },
+    { "name": "Client", "role": "Utilise les factories et les produits uniquement via les interfaces abstraites" }
+  ],
+
+  "builder.tooltip.director": "Orchestre la sequence de construction en appelant les methodes du builder dans l'ordre",
+  "builder.tooltip.house-builder": "Interface builder abstraite declarant toutes les etapes de construction",
+  "builder.tooltip.house": "Produit assemble etape par etape -- chaque propriete est definie pendant la construction",
+  "builder.tooltip.wooden-builder": "Construit une maison en bois avec fondation en rondins, murs en bois, toit en bardeaux",
+  "builder.tooltip.stone-builder": "Construit une maison en pierre avec fondation en beton, murs en pierre, toit en tuiles",
+  "builder.step.house.0": "Le Director commence la construction en appelant les methodes du builder dans l'ordre",
+  "builder.step.house.1": "Le Builder pose la fondation -- pilotis en rondins pour la maison en bois",
+  "builder.step.house.2": "La propriete \"foundation\" du produit est maintenant initialisee",
+  "builder.step.house.3": "Le Builder erige les murs -- ossature bois avec isolation",
+  "builder.step.house.4": "La propriete \"walls\" du produit est maintenant initialisee",
+  "builder.step.house.5": "Le Builder installe le toit -- bardeaux en bois",
+  "builder.step.house.6": "La propriete \"roof\" du produit est maintenant initialisee",
+  "builder.step.house.7": "Le Builder termine l'interieur -- lambris en bois rustique",
+  "builder.step.house.8": "La propriete \"interior\" du produit est maintenant initialisee",
+  "builder.step.house.9": "Le Builder retourne la House entierement construite au Director",
+  "builder.step.house.10": "House entierement assemblee retournee au client",
+  "builder.stepLabel.house": "Construire une maison en bois etape par etape",
+  "builder.depRules": [
+    { "name": "Director", "role": "Construit un objet en utilisant l'interface Builder dans un ordre specifique" },
+    { "name": "Builder (Interface)", "role": "Declare les methodes de construction etape par etape" },
+    { "name": "Concrete Builder", "role": "Implemente les etapes de construction et suit le produit en cours de fabrication" },
+    { "name": "Product", "role": "L'objet complexe construit etape par etape" }
+  ],
+
+  "prototype.tooltip.shape": "Interface Prototype declarant clone() -- toutes les formes concretes l'implementent pour produire des copies d'elles-memes",
+  "prototype.tooltip.circle": "Prototype concret qui peut se cloner lui-meme, produisant une copie profonde avec le meme rayon et la meme couleur",
+  "prototype.tooltip.rectangle": "Prototype concret qui se clone avec toutes les donnees de dimensions et de couleur",
+  "prototype.tooltip.triangle": "Prototype concret qui produit une copie independante via clone()",
+  "prototype.tooltip.obj-circle-orig": "Instance prototype Circle originale -- la source pour le clonage",
+  "prototype.tooltip.obj-rect-orig": "Instance prototype Rectangle originale",
+  "prototype.tooltip.obj-circle-clone": "Copie profonde de Circle -- independante de l'original",
+  "prototype.tooltip.obj-rect-clone": "Copie profonde de Rectangle -- independante de l'original",
+  "prototype.step.shapes.0": "Le client a une reference vers l'objet Circle original",
+  "prototype.step.shapes.1": "Le client appelle clone() via l'interface Prototype",
+  "prototype.step.shapes.2": "Circle implemente clone() -- copie le rayon et la couleur dans une nouvelle instance",
+  "prototype.step.shapes.3": "Copie profonde de Circle creee -- independante de l'original",
+  "prototype.step.shapes.4": "Modifier clone.color n'affecte pas l'original",
+  "prototype.step.shapes.5": "Le client a maintenant besoin d'une copie de Rectangle",
+  "prototype.step.shapes.6": "Le client appelle clone() sur Rectangle via l'interface Prototype",
+  "prototype.step.shapes.7": "Rectangle copie la largeur, la hauteur et la couleur dans une nouvelle instance",
+  "prototype.step.shapes.8": "Copie profonde de Rectangle creee -- entierement independante",
+  "prototype.step.shapes.9": "Les deux clones existent independamment -- patron termine",
+  "prototype.stepLabel.shapes": "Cloner des formes via l'interface Prototype",
+  "prototype.depRules": [
+    { "name": "Prototype (Interface)", "role": "Declare la methode clone()" },
+    { "name": "Concrete Prototype", "role": "Implemente clone() en creant une copie de lui-meme" },
+    { "name": "Client", "role": "Cree de nouveaux objets en demandant aux prototypes de se cloner" }
+  ],
+
+  "singleton.tooltip.client1": "Premier client -- appelle getInstance() ce qui declenche la creation de l'instance",
+  "singleton.tooltip.client2": "Deuxieme client -- appelle getInstance() et recoit la meme instance",
+  "singleton.tooltip.client3": "Troisieme client -- appelle getInstance() et recoit encore la meme instance",
+  "singleton.tooltip.singleton": "Classe Singleton -- stocke sa propre instance unique dans un champ statique et fournit un acces global via getInstance()",
+  "singleton.tooltip.obj-instance": "L'instance unique partagee -- creee au premier appel a getInstance()",
+  "singleton.step.database.0": "Le Client 1 a besoin d'une connexion base de donnees -- appelle DatabaseConnection.getInstance()",
+  "singleton.step.database.1": "Le Singleton verifie le champ statique instance",
+  "singleton.step.database.2": "instance == null ? Oui -- premier appel, creation d'une nouvelle instance necessaire",
+  "singleton.step.database.3": "new DatabaseConnection() -- constructeur prive appele, instance singleton stockee dans le champ statique",
+  "singleton.step.database.4": "Le Client 1 recoit l'instance singleton DatabaseConnection",
+  "singleton.step.database.5": "Le Client 2 a besoin d'une connexion base de donnees -- appelle DatabaseConnection.getInstance()",
+  "singleton.step.database.6": "Le Singleton verifie a nouveau le champ statique instance",
+  "singleton.step.database.7": "instance == null ? Non -- l'instance existe deja, reutilisation",
+  "singleton.step.database.8": "Le Client 2 recoit exactement le meme objet DatabaseConnection -- aucune nouvelle instance creee",
+  "singleton.step.database.9": "Le Client 3 a besoin d'une connexion base de donnees -- appelle DatabaseConnection.getInstance()",
+  "singleton.step.database.10": "Le Singleton verifie une fois de plus le champ statique instance",
+  "singleton.step.database.11": "instance == null ? Non -- toujours la meme instance",
+  "singleton.step.database.12": "Le Client 3 recoit le meme DatabaseConnection -- les trois clients partagent une seule instance",
+  "singleton.stepLabel.database": "Trois clients partagent une seule connexion BD",
+  "singleton.depRules": [
+    { "name": "Singleton", "role": "Stocke sa propre instance unique ; fournit un acces global via la methode statique getInstance()" },
+    { "name": "Client", "role": "Accede au singleton exclusivement via getInstance(), jamais via le constructeur" }
+  ],
+
+  "pool.tooltip.pool": "Gere un pool de taille fixe d'objets Connection reutilisables -- acquire() en prete un, release() le reprend",
+  "pool.tooltip.idle-conn": "Connexion inactive prete a etre acquise par un client",
+  "pool.tooltip.active-conn": "Connexion en cours d'execution d'une requete pour un client",
+  "pool.tooltip.connection": "Un objet de connexion base de donnees reutilisable -- cree une fois, recycle de nombreuses fois via le pool",
+  "pool.step.connections.0": "Le client appelle acquire() sur le ConnectionPool",
+  "pool.step.connections.1": "Disponibles : 4, recherche d'une connexion inactive...",
+  "pool.step.connections.2": "Conn #1 passe de Available a In Use",
+  "pool.step.connections.3": "Connexion #1 maintenant active dans le pool In Use",
+  "pool.step.connections.4": "Le client execute une requete SQL via Conn #1",
+  "pool.step.connections.5": "Le client appelle release() pour Conn #1",
+  "pool.step.connections.6": "Conn #1 retournee au pool Available -- prete a etre reutilisee",
+  "pool.step.connections.7": "Un autre client appelle acquire()",
+  "pool.step.connections.8": "Conn #2 passe de Available a In Use",
+  "pool.step.connections.9": "Connexion #2 maintenant active dans le pool In Use",
+  "pool.stepLabel.connections": "Acquerir et liberer des connexions du pool",
+  "pool.depRules": [
+    { "name": "Object Pool", "role": "Gere une collection d'objets reutilisables, gerant les operations d'acquisition et de liberation" },
+    { "name": "Reusable Object", "role": "Objet couteux a creer qui est mis en pool et recycle au lieu d'etre detruit" },
+    { "name": "Client", "role": "Acquiert des objets du pool, les utilise, et les libere une fois termine" }
+  ]
+}

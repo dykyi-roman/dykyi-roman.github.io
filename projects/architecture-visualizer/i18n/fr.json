@@ -1,0 +1,1058 @@
+{
+  "arch.title": "Visualiseur d'Architectures",
+
+  "mvc.name": "MVC / MVP / MVVM",
+  "mvc.modes.mvc.label": "MVC",
+  "mvc.modes.mvc.desc": "Model-View-Controller : le Controller recoit les entrees utilisateur, met a jour le Model, et la View observe les changements du Model. Le Controller ne met PAS a jour la View directement -- la View extrait les donnees du Model.",
+  "mvc.modes.mvp.label": "MVP",
+  "mvc.modes.mvp.desc": "Model-View-Presenter : le Presenter agit comme mediateur. La View delegue toutes les entrees utilisateur au Presenter. Le Presenter met a jour le Model et met explicitement a jour la View. La View est passive (aucune logique).",
+  "mvc.modes.mvvm.label": "MVVM",
+  "mvc.modes.mvvm.desc": "Model-View-ViewModel : le ViewModel expose les donnees et les commandes via le data binding. La View se lie aux proprietes du ViewModel. Quand le ViewModel change, la View se met a jour automatiquement. Le binding bidirectionnel les maintient synchronises.",
+  "mvc.details.mvc.principles": [
+    "Separation des responsabilites : chaque composant a une responsabilite unique",
+    "Patron Observer : la View s'abonne aux changements du Model, pas poussee par le Controller",
+    "Le Controller ne met jamais a jour la View directement -- il selectionne la View et met a jour le Model",
+    "Le Model est completement independant de l'UI (aucune reference a la View ou au Controller)",
+    "Plusieurs Views peuvent observer le meme Model simultanement"
+  ],
+  "mvc.details.mvc.concepts": [
+    { "term": "Model", "definition": "Encapsule les donnees applicatives et les regles metier. Notifie les observateurs lors des changements d'etat." },
+    { "term": "View", "definition": "Affiche les donnees du Model a l'utilisateur. Observe le Model pour les changements. Transmet les entrees utilisateur au Controller." },
+    { "term": "Controller", "definition": "Interprete les entrees utilisateur, invoque les methodes du Model, selectionne la View appropriee." },
+    { "term": "Observer", "definition": "Patron de conception ou le Model maintient une liste de dependants (Views) et les notifie des changements d'etat." }
+  ],
+  "mvc.details.mvc.tradeoffs.pros": [
+    "Simple et intuitif -- facile a comprendre et a implementer",
+    "Largement supporte par les frameworks web (Rails, Django, Spring MVC, Laravel)",
+    "Bien adapte aux applications orientees UI avec une separation claire donnees/affichage",
+    "Vaste ecosysteme d'outils, de tutoriels et de support communautaire"
+  ],
+  "mvc.details.mvc.tradeoffs.cons": [
+    "Controleurs surdimensionnes -- la logique metier a tendance a s'accumuler dans les controleurs",
+    "Ambiguite du Model -- 'Model' peut signifier objet domaine, DTO ou ligne de base de donnees",
+    "Ne passe pas bien a l'echelle pour les domaines complexes avec de nombreuses regles interconnectees",
+    "Le couplage View-Model via le patron Observer peut creer des dependances cachees"
+  ],
+  "mvc.details.mvc.tradeoffs.whenToUse": "Ideal pour les applications web de complexite petite a moyenne, le developpement base sur des frameworks, et les equipes ayant besoin d'un patron d'architecture bien connu et a faible friction.",
+  "mvc.details.mvp.principles": [
+    "Passive View : la View ne contient aucune logique de presentation, uniquement le rendu UI",
+    "Le Presenter est le seul mediateur entre la View et le Model",
+    "La View communique avec le Presenter via une interface bien definie (IView)",
+    "Le Presenter met explicitement a jour la View -- pas de patron Observer, pas de data binding",
+    "Haute testabilite : le Presenter peut etre teste unitairement avec un mock de l'interface View"
+  ],
+  "mvc.details.mvp.concepts": [
+    { "term": "Passive View", "definition": "Patron de View ou la View n'a aucune logique et delegue toutes les decisions au Presenter." },
+    { "term": "Presenter", "definition": "Contient toute la logique de presentation. Lit le Model, formate les donnees et pousse explicitement les mises a jour vers la View." },
+    { "term": "IView Interface", "definition": "Contrat que la View implemente, permettant au Presenter de mettre a jour l'UI sans connaitre la View concrete." },
+    { "term": "Supervising Controller", "definition": "Variante de MVP ou la View gere le data binding simple, et le Presenter gere uniquement la logique complexe." }
+  ],
+  "mvc.details.mvp.tradeoffs.pros": [
+    "Hautement testable -- le Presenter peut etre teste unitairement avec un mock de l'interface View",
+    "La Passive View elimine les bugs de logique UI",
+    "Separation claire entre la logique de presentation et l'affichage",
+    "Bien adapte aux applications desktop et mobiles"
+  ],
+  "mvc.details.mvp.tradeoffs.cons": [
+    "Plus de code repetitif -- chaque View necessite une interface et un Presenter",
+    "Le Presenter peut devenir surdimensionne avec trop de logique de presentation",
+    "Le mapping un-pour-un View-Presenter peut etre rigide",
+    "Moins de support framework par rapport a MVC"
+  ],
+  "mvc.details.mvp.tradeoffs.whenToUse": "Ideal pour les applications necessitant une haute testabilite de la logique de presentation, les applications desktop/mobiles avec des interactions UI complexes, et les equipes voulant un controle explicite sur les mises a jour de la View.",
+  "mvc.details.mvvm.principles": [
+    "Data Binding bidirectionnel : la View et le ViewModel restent synchronises automatiquement",
+    "Le ViewModel n'a aucune reference directe a la View -- communique uniquement via les bindings",
+    "Patron Command : les actions utilisateur sont liees aux commandes du ViewModel, pas aux gestionnaires d'evenements",
+    "Le ViewModel transforme les donnees du Model en format adapte a la View (logique de presentation)",
+    "UI declarative : la View declare les bindings dans le markup, pas en code imperatif"
+  ],
+  "mvc.details.mvvm.concepts": [
+    { "term": "Data Binding", "definition": "Mecanisme qui connecte les proprietes de la View aux proprietes du ViewModel, synchronisant les changements dans les deux directions." },
+    { "term": "ViewModel", "definition": "Abstraction de la View qui expose des proprietes observables et des commandes. Agit comme contexte de donnees." },
+    { "term": "Observable", "definition": "Propriete qui notifie les abonnes (bindings) lorsque sa valeur change, declenchant les mises a jour de l'UI." },
+    { "term": "Command", "definition": "Objet qui encapsule une action et sa logique 'peut executer', lie aux elements UI comme les boutons." }
+  ],
+  "mvc.details.mvvm.tradeoffs.pros": [
+    "UI declarative avec synchronisation automatique via le data binding",
+    "Le ViewModel est hautement testable sans aucune dependance au framework UI",
+    "Reduit le code repetitif par rapport a MVP -- pas d'appels explicites de mise a jour de la View",
+    "Excellent support framework (WPF, SwiftUI, Vue.js, Angular)"
+  ],
+  "mvc.details.mvvm.tradeoffs.cons": [
+    "Le data binding peut etre difficile a deboguer quand les choses tournent mal",
+    "Fuites memoire dues aux abonnements oublies aux observables",
+    "Surcout des wrappers observables pour chaque propriete",
+    "Le binding bidirectionnel peut creer des mises a jour en cascade inattendues"
+  ],
+  "mvc.details.mvvm.tradeoffs.whenToUse": "Ideal pour les applications client riches avec des UIs reactives, les frameworks supportant nativement le data binding, et les scenarios ou la gestion de l'etat UI est une preoccupation principale.",
+
+  "layered.name": "Architecture en couches",
+  "layered.modes.http.label": "HTTP Request",
+  "layered.modes.http.desc": "La requete HTTP entre par le Controller dans la couche Presentation. Le Controller passe le Request DTO au UseCase. Le UseCase cree une Command, delegue au AppService et aux services de domaine. Apres la persistance, le UseCase dispatche les evenements de domaine via l'interface EventDispatcher (Domain), resolue vers l'implementation dans Infrastructure.",
+  "layered.modes.console.label": "Console Command",
+  "layered.modes.console.desc": "La commande console entre par le gestionnaire CLI, delegue au AppService qui orchestre le UseCase directement (pas de CommandBus). L'Infrastructure gere la persistance. Les dependances pointent toujours vers l'interieur.",
+  "layered.modes.message.label": "Message Consumer",
+  "layered.modes.message.desc": "Le message asynchrone entre par un consommateur de messages, le AppService gere l'orchestration, le UseCase execute la logique de domaine. Apres la persistance, le UseCase dispatche les evenements de domaine via l'interface EventDispatcher dans la couche Domain.",
+  "layered.details.http.principles": [
+    "Dependance stricte descendante : chaque couche depend uniquement de la couche directement en dessous",
+    "Separation des responsabilites : Presentation gere les E/S, Application orchestre, Domain possede les regles, Infrastructure persiste",
+    "La couche Domain est independante : aucune reference aux frameworks, bases de donnees ou transports",
+    "Inversion de dependance : le Domain definit les interfaces (Repository, EventDispatcher), l'Infrastructure les implemente",
+    "Chaque couche peut etre remplacee independamment sans affecter les autres"
+  ],
+  "layered.details.http.concepts": [
+    { "term": "Controller", "definition": "Point d'entree dans la couche Presentation. Recoit la requete HTTP, mappe les entrees vers un DTO, delegue au UseCase, retourne la Response." },
+    { "term": "UseCase", "definition": "Orchestrateur de la couche Application. Recoit un DTO, cree une Command, coordonne les services de domaine et la persistance." },
+    { "term": "Command", "definition": "Objet de donnees immutable representant une intention de changer l'etat. Cree par le UseCase a partir du DTO entrant." },
+    { "term": "DomainEvent", "definition": "Enregistrement de quelque chose qui s'est produit dans le domaine. Dispatche apres la persistance via l'interface EventDispatcher." },
+    { "term": "Repository (I)", "definition": "Interface definie dans la couche Domain. Abstrait la persistance pour que la logique de domaine ne depende jamais des details de stockage." }
+  ],
+  "layered.details.http.tradeoffs.pros": [
+    "Simple et bien compris -- la plupart des developpeurs connaissent l'architecture en couches",
+    "Separation claire des responsabilites entre presentation, application, domaine et infrastructure",
+    "Facile a apprendre et a integrer les nouveaux membres de l'equipe",
+    "Bon outillage et support framework dans tous les langages"
+  ],
+  "layered.details.http.tradeoffs.cons": [
+    "Couplage fort entre les couches -- les changements se propagent souvent a travers plusieurs couches",
+    "Ne passe pas bien a l'echelle pour les domaines complexes avec de nombreuses preoccupations transversales",
+    "La logique metier peut fuir dans les controleurs ou les repositories au fil du temps",
+    "Tendance a la 'boule de boue' sans discipline"
+  ],
+  "layered.details.http.tradeoffs.whenToUse": "Ideal pour les applications simples, les systemes CRUD, les petites equipes et les projets d'apprentissage ou la complexite d'architectures plus sophistiquees n'est pas justifiee.",
+  "layered.details.console.principles": [
+    "Dependance stricte descendante : chaque couche depend uniquement de la couche directement en dessous",
+    "Separation des responsabilites : Presentation gere les E/S, Application orchestre, Domain possede les regles, Infrastructure persiste",
+    "La couche Domain est independante : aucune reference aux frameworks, bases de donnees ou transports",
+    "Console et HTTP partagent les memes couches Application et Domain -- seule la Presentation differe",
+    "Les Value Objects appliquent les contraintes metier a la frontiere du domaine, pas dans la couche UI"
+  ],
+  "layered.details.console.concepts": [
+    { "term": "ConsoleCommand", "definition": "Point d'entree de la couche Presentation pour le CLI. Parse les arguments, construit le DTO, delegue au AppService." },
+    { "term": "AppService", "definition": "Service de la couche Application qui orchestre l'execution des UseCase et les preoccupations transversales." },
+    { "term": "ValueObject", "definition": "Objet de domaine immutable defini par ses attributs. Encapsule la validation et la logique d'egalite." },
+    { "term": "CacheAdapter", "definition": "Composant d'Infrastructure qui implemente la mise en cache. Les couches Domain et Application ne le referencent jamais directement." }
+  ],
+  "layered.details.console.tradeoffs.pros": [
+    "Simple et bien compris -- la plupart des developpeurs connaissent l'architecture en couches",
+    "Separation claire des responsabilites entre presentation, application, domaine et infrastructure",
+    "Facile a apprendre et a integrer les nouveaux membres de l'equipe",
+    "Bon outillage et support framework dans tous les langages"
+  ],
+  "layered.details.console.tradeoffs.cons": [
+    "Couplage fort entre les couches -- les changements se propagent souvent a travers plusieurs couches",
+    "Ne passe pas bien a l'echelle pour les domaines complexes avec de nombreuses preoccupations transversales",
+    "La logique metier peut fuir dans les controleurs ou les repositories au fil du temps",
+    "Tendance a la 'boule de boue' sans discipline"
+  ],
+  "layered.details.console.tradeoffs.whenToUse": "Ideal pour les applications simples, les systemes CRUD, les petites equipes et les projets d'apprentissage ou la complexite d'architectures plus sophistiquees n'est pas justifiee.",
+  "layered.details.message.principles": [
+    "Dependance stricte descendante : chaque couche depend uniquement de la couche directement en dessous",
+    "Separation des responsabilites : Presentation gere les E/S, Application orchestre, Domain possede les regles, Infrastructure persiste",
+    "La couche Domain est independante : aucune reference aux frameworks, bases de donnees ou transports",
+    "Les points d'entree asynchrones suivent le meme flux en couches que les synchrones",
+    "Les evenements de domaine sont dispatches via une interface definie dans la couche Domain, resolue dans Infrastructure"
+  ],
+  "layered.details.message.concepts": [
+    { "term": "MessageConsumer", "definition": "Gestionnaire de la couche Presentation pour les messages asynchrones. Deserialise la charge utile en DTO et delegue au AppService." },
+    { "term": "DomainService", "definition": "Service sans etat dans la couche Domain qui coordonne la logique couvrant plusieurs Entities ou Value Objects." },
+    { "term": "EventDispatcher (I)", "definition": "Interface dans la couche Domain pour publier les evenements de domaine. L'Infrastructure fournit l'implementation concrete." },
+    { "term": "EventDispatcher", "definition": "Implementation Infrastructure qui delivre les evenements de domaine aux abonnes (file d'attente, bus ou gestionnaires en processus)." }
+  ],
+  "layered.details.message.tradeoffs.pros": [
+    "Simple et bien compris -- la plupart des developpeurs connaissent l'architecture en couches",
+    "Separation claire des responsabilites entre presentation, application, domaine et infrastructure",
+    "Facile a apprendre et a integrer les nouveaux membres de l'equipe",
+    "Bon outillage et support framework dans tous les langages"
+  ],
+  "layered.details.message.tradeoffs.cons": [
+    "Couplage fort entre les couches -- les changements se propagent souvent a travers plusieurs couches",
+    "Ne passe pas bien a l'echelle pour les domaines complexes avec de nombreuses preoccupations transversales",
+    "La logique metier peut fuir dans les controleurs ou les repositories au fil du temps",
+    "Tendance a la 'boule de boue' sans discipline"
+  ],
+  "layered.details.message.tradeoffs.whenToUse": "Ideal pour les applications simples, les systemes CRUD, les petites equipes et les projets d'apprentissage ou la complexite d'architectures plus sophistiquees n'est pas justifiee.",
+
+  "clean.name": "Clean Architecture",
+  "clean.modes.http.label": "HTTP Request",
+  "clean.modes.http.desc": "La requete traverse les anneaux concentriques vers l'interieur : Frameworks & Drivers -> Interface Adapters -> Use Cases -> Entities. La reponse revient vers l'exterieur via OutputBoundary et Presenter. Les dependances pointent toujours vers l'interieur -- la Regle de Dependance est le principe fondamental.",
+  "clean.modes.console.label": "Console Command",
+  "clean.modes.console.desc": "La commande console entre par l'anneau le plus externe (Frameworks) et traverse vers l'interieur via les adapters, InputBoundary, et les use cases jusqu'aux entities. La meme Regle de Dependance s'applique -- les couches internes ne referencent jamais les couches externes.",
+  "clean.modes.message.label": "Message Consumer",
+  "clean.modes.message.desc": "Le message asynchrone arrive a l'anneau Frameworks, traverse les Interface Adapters et InputBoundary vers les Use Cases et Entities. La sortie revient via OutputBoundary et Presenter a travers les anneaux externes.",
+  "clean.details.http.principles": [
+    "La Regle de Dependance : les dependances du code source doivent pointer uniquement vers l'interieur -- les anneaux internes ne referencent jamais les anneaux externes",
+    "Les Entities encapsulent les regles metier a l'echelle de l'entreprise, independamment de toute application ou framework",
+    "Les Use Cases contiennent les regles metier specifiques a l'application et orchestrent le flux de donnees vers et depuis les Entities",
+    "Les Interface Adapters convertissent les donnees entre le format utilise par les Use Cases/Entities et le format necessaire aux agents externes (BD, Web, UI)",
+    "Frameworks & Drivers est l'anneau le plus externe -- ils sont gardes aussi fins que possible et servent de code de liaison",
+    "Les frontieres sont traversees via des interfaces (InputBoundary, OutputBoundary) pour que les couches internes restent decouplees des couches externes"
+  ],
+  "clean.details.http.concepts": [
+    { "term": "InputBoundary", "definition": "Interface definie dans l'anneau Use Cases. Les Controllers appellent cette interface pour invoquer un use case, garantissant que la couche adapter ne fuit jamais dans la logique metier." },
+    { "term": "OutputBoundary", "definition": "Interface definie dans l'anneau Use Cases. Le UseCase l'appelle pour transmettre les resultats vers l'exterieur, sans jamais dependre du Presenter ou des details de l'UI." },
+    { "term": "Presenter", "definition": "Interface Adapter qui implemente OutputBoundary. Convertit la sortie du use case en ViewModel adapte a la couche d'affichage." },
+    { "term": "Gateway", "definition": "Interface Adapter implementant les interfaces de repository definies par les Use Cases. Traduit entre objets de domaine et operations de base de donnees." },
+    { "term": "ViewModel", "definition": "Structure de donnees simple creee par le Presenter. Ne contient que des donnees pretes a l'affichage -- aucune logique metier, aucune dependance framework." }
+  ],
+  "clean.details.http.tradeoffs.pros": [
+    "Hautement testable -- la logique metier est isolee des frameworks et de l'infrastructure",
+    "Independant du framework -- changez de framework sans toucher au domaine ou aux use cases",
+    "Centre sur le domaine -- les entities et use cases sont au centre, pas l'infrastructure",
+    "Des regles de dependance claires facilitent le raisonnement sur les frontieres du code"
+  ],
+  "clean.details.http.tradeoffs.cons": [
+    "Plus de code et d'abstractions (boundaries, presenters, gateways) que les architectures plus simples",
+    "Surcout de mapping entre les couches (DTOs, ViewModels, objets de domaine)",
+    "Peut sembler sur-ingenierie pour les applications CRUD simples",
+    "Courbe d'apprentissage plus raide pour les developpeurs non familiers avec le patron"
+  ],
+  "clean.details.http.tradeoffs.whenToUse": "Ideal pour les projets a longue duree de vie ou l'independance du framework compte, les domaines complexes necessitant des tests approfondis, et les systemes ou le mecanisme de livraison ou l'infrastructure est susceptible de changer.",
+  "clean.details.console.principles": [
+    "La Regle de Dependance : les dependances du code source doivent pointer uniquement vers l'interieur -- les anneaux internes ne referencent jamais les anneaux externes",
+    "Console et HTTP partagent les memes Use Cases et Entities -- seuls les anneaux externes different",
+    "Le framework CLI est un detail dans l'anneau le plus externe, facilement remplacable sans toucher a la logique metier",
+    "InputBoundary garantit que le Controller (adapter) ne se couple jamais a l'implementation concrete du UseCase",
+    "OutputBoundary permet au UseCase de retourner des resultats sans savoir si la sortie va vers un terminal, une page web ou un fichier"
+  ],
+  "clean.details.console.concepts": [
+    { "term": "CLI Framework", "definition": "Composant de l'anneau le plus externe (Frameworks & Drivers). Fournit le parsing des arguments, le routage des commandes et les E/S -- traite comme un detail remplacable." },
+    { "term": "Controller", "definition": "Interface Adapter qui traduit les arguments CLI en request DTO et appelle InputBoundary. Decouple le framework de la logique applicative." },
+    { "term": "UseCase", "definition": "Orchestrateur de regles metier specifiques a l'application. Recoit les entrees via InputBoundary, interagit avec les Entities et retourne les resultats via OutputBoundary." },
+    { "term": "Entity", "definition": "Objet metier a l'echelle de l'entreprise au coeur du systeme. Contient les regles metier critiques les moins susceptibles de changer quand quelque chose d'externe change." }
+  ],
+  "clean.details.console.tradeoffs.pros": [
+    "Hautement testable -- la logique metier est isolee des frameworks et de l'infrastructure",
+    "Independant du framework -- changez de framework sans toucher au domaine ou aux use cases",
+    "Centre sur le domaine -- les entities et use cases sont au centre, pas l'infrastructure",
+    "Des regles de dependance claires facilitent le raisonnement sur les frontieres du code"
+  ],
+  "clean.details.console.tradeoffs.cons": [
+    "Plus de code et d'abstractions (boundaries, presenters, gateways) que les architectures plus simples",
+    "Surcout de mapping entre les couches (DTOs, ViewModels, objets de domaine)",
+    "Peut sembler sur-ingenierie pour les applications CRUD simples",
+    "Courbe d'apprentissage plus raide pour les developpeurs non familiers avec le patron"
+  ],
+  "clean.details.console.tradeoffs.whenToUse": "Ideal pour les projets a longue duree de vie ou l'independance du framework compte, les domaines complexes necessitant des tests approfondis, et les systemes ou le mecanisme de livraison ou l'infrastructure est susceptible de changer.",
+  "clean.details.message.principles": [
+    "La Regle de Dependance : les dependances du code source doivent pointer uniquement vers l'interieur -- les anneaux internes ne referencent jamais les anneaux externes",
+    "Le traitement de messages asynchrones suit la meme structure en anneaux que les requetes synchrones -- le transport est un detail",
+    "Le Queue Driver est un detail framework dans l'anneau le plus externe, interchangeable sans modifier la logique metier",
+    "Les Boundaries (InputBoundary, OutputBoundary) garantissent que l'infrastructure de messagerie ne fuit jamais dans les Use Cases ou Entities",
+    "Les Entities restent pures que l'invocation provienne de HTTP, CLI ou message -- c'est la puissance de la Regle de Dependance"
+  ],
+  "clean.details.message.concepts": [
+    { "term": "Queue Driver", "definition": "Composant de l'anneau le plus externe qui recoit les messages d'un broker (RabbitMQ, Kafka, SQS). Un detail framework, facilement remplacable." },
+    { "term": "InputBoundary", "definition": "Interface dans l'anneau Use Cases. Le Controller de message l'appelle pour declencher la logique du use case, gardant le queue driver decouple." },
+    { "term": "OutputBoundary", "definition": "Interface dans l'anneau Use Cases. Le UseCase pousse les resultats vers l'exterieur via cette frontiere -- le Presenter decide comment formater l'acquittement." },
+    { "term": "Presenter", "definition": "Interface Adapter qui formate la sortie du use case en acquittement ou charge utile d'evenement, sans que le UseCase connaisse le mecanisme de livraison." }
+  ],
+  "clean.details.message.tradeoffs.pros": [
+    "Hautement testable -- la logique metier est isolee des frameworks et de l'infrastructure",
+    "Independant du framework -- changez de framework sans toucher au domaine ou aux use cases",
+    "Centre sur le domaine -- les entities et use cases sont au centre, pas l'infrastructure",
+    "Des regles de dependance claires facilitent le raisonnement sur les frontieres du code"
+  ],
+  "clean.details.message.tradeoffs.cons": [
+    "Plus de code et d'abstractions (boundaries, presenters, gateways) que les architectures plus simples",
+    "Surcout de mapping entre les couches (DTOs, ViewModels, objets de domaine)",
+    "Peut sembler sur-ingenierie pour les applications CRUD simples",
+    "Courbe d'apprentissage plus raide pour les developpeurs non familiers avec le patron"
+  ],
+  "clean.details.message.tradeoffs.whenToUse": "Ideal pour les projets a longue duree de vie ou l'independance du framework compte, les domaines complexes necessitant des tests approfondis, et les systemes ou le mecanisme de livraison ou l'infrastructure est susceptible de changer.",
+
+  "hexagonal.name": "Hexagonale (Ports & Adapters)",
+  "hexagonal.modes.http.label": "HTTP Request",
+  "hexagonal.modes.http.desc": "L'adapter HTTP (driving) recoit la requete, appelle le port d'entree, le domaine traite la logique, le port de sortie delegue a l'adapter driven (base de donnees). Les ports definissent l'interface, les adapters l'implementent.",
+  "hexagonal.modes.console.label": "Console Command",
+  "hexagonal.modes.console.desc": "L'adapter CLI (driving) declenche le meme port d'entree. Le coeur du domaine est completement agnostique quant a la source du declenchement : HTTP, CLI ou message.",
+  "hexagonal.modes.message.label": "Message Consumer",
+  "hexagonal.modes.message.desc": "L'adapter de message (driving) consomme depuis la file d'attente. Le coeur hexagonal traite de maniere identique -- seul l'adapter driving differe.",
+  "hexagonal.details.http.principles": [
+    "Les ports definissent les interfaces ; les adapters les implementent",
+    "Le coeur du domaine n'a aucune connaissance de l'infrastructure",
+    "Les adapters driving appellent les ports d'entree ; les adapters driven implementent les ports de sortie",
+    "Symetrique : le cote gauche (driving) reflete le cote droit (driven)"
+  ],
+  "hexagonal.details.http.concepts": [
+    { "term": "Port", "definition": "Une interface qui definit comment l'application communique avec le monde exterieur." },
+    { "term": "Adapter", "definition": "Une implementation concrete d'un port pour une technologie specifique (HTTP, CLI, BD)." },
+    { "term": "UseCase", "definition": "Composant de la couche Application qui implemente le Port d'entree et orchestre les objets de domaine pour realiser un scenario metier." },
+    { "term": "Driving", "definition": "Adapters primaires/cote gauche qui initient l'interaction avec l'application." },
+    { "term": "Driven", "definition": "Adapters secondaires/cote droit que l'application utilise pour interagir avec les systemes externes." }
+  ],
+  "hexagonal.details.http.tradeoffs.pros": [
+    "Coeur du domaine agnostique de la technologie",
+    "Facile de remplacer les adapters (ex. changer de BD sans toucher au domaine)",
+    "Naturellement testable -- mocker les ports pour les tests unitaires",
+    "Separation claire entre la logique metier et l'infrastructure"
+  ],
+  "hexagonal.details.http.tradeoffs.cons": [
+    "Plus d'interfaces et de classes que les architectures plus simples",
+    "Peut etre excessif pour les applications principalement CRUD",
+    "Le mapping entre DTOs de port et objets de domaine ajoute du code repetitif"
+  ],
+  "hexagonal.details.http.tradeoffs.whenToUse": "Ideal pour les applications avec une logique metier complexe devant rester independante des mecanismes de livraison et de l'infrastructure. Parfait quand vous devez supporter plusieurs points d'entree (HTTP, CLI, file d'attente) ou prevoyez de changer les composants d'infrastructure.",
+  "hexagonal.details.console.principles": [
+    "Meme coeur de domaine, adapter driving different",
+    "L'adapter CLI transforme les entrees terminal en appels de port",
+    "Le domaine est completement agnostique de la source de declenchement"
+  ],
+  "hexagonal.details.console.concepts": [
+    { "term": "CLI Adapter", "definition": "Un adapter driving qui convertit les arguments de ligne de commande en appels de methodes de port." },
+    { "term": "Symetrie", "definition": "N'importe quel adapter driving peut declencher le meme use case -- l'hexagone ne change pas." }
+  ],
+  "hexagonal.details.console.tradeoffs.pros": [
+    "Prouve que le domaine est vraiment agnostique de l'infrastructure",
+    "Permet le traitement par lots et les taches cron via CLI",
+    "Les memes regles metier sont appliquees quel que soit le point d'entree"
+  ],
+  "hexagonal.details.console.tradeoffs.cons": [
+    "Chaque nouveau point d'entree necessite une nouvelle implementation d'adapter",
+    "La logique de validation des entrees peut necessiter une duplication entre les adapters"
+  ],
+  "hexagonal.details.console.tradeoffs.whenToUse": "Quand votre application a besoin de plusieurs points d'entree (web, CLI, consommateur de file d'attente) partageant la meme logique metier.",
+  "hexagonal.details.message.principles": [
+    "Le consommateur de messages est simplement un autre adapter driving",
+    "Traitement asynchrone avec les memes garanties de domaine",
+    "La sortie peut publier vers une file d'attente via un adapter driven"
+  ],
+  "hexagonal.details.message.concepts": [
+    { "term": "Message Adapter", "definition": "Un adapter driving qui deserialise les messages de la file d'attente et appelle les ports d'entree." },
+    { "term": "Queue Adapter", "definition": "Un adapter driven qui publie des evenements/messages vers une file d'attente externe." }
+  ],
+  "hexagonal.details.message.tradeoffs.pros": [
+    "Permet le traitement asynchrone et evenementiel",
+    "Decouple les services via les files de messages",
+    "Meme logique de domaine pour les flux synchrones et asynchrones"
+  ],
+  "hexagonal.details.message.tradeoffs.cons": [
+    "La serialisation/deserialisation des messages ajoute de la complexite",
+    "La gestion des erreurs et les tentatives de reprise necessitent une conception soigneuse",
+    "Defis de coherence eventuelle"
+  ],
+  "hexagonal.details.message.tradeoffs.whenToUse": "Quand vous avez besoin de traitement asynchrone, de communication evenementielle entre services, ou de decoupler les producteurs des consommateurs.",
+
+  "cqrs.name": "CQRS",
+  "cqrs.modes.http.label": "HTTP (Command)",
+  "cqrs.modes.http.desc": "La requete d'ecriture HTTP entre cote Command : Command -> CommandBus -> CommandHandler -> Aggregate -> EventStore. Les evenements sont projetes vers le Read Model. Le cote Query sert les lectures depuis des modeles de lecture optimises.",
+  "cqrs.modes.console.label": "Console (Query)",
+  "cqrs.modes.console.desc": "La requete console passe par le cote Query : Query -> QueryBus -> QueryHandler -> ReadModel -> Database. Les modeles de lecture sont optimises pour des schemas de requete specifiques.",
+  "cqrs.modes.message.label": "Message (Event)",
+  "cqrs.modes.message.desc": "L'evenement de domaine est consomme et declenche a la fois une Command cote ecriture et une mise a jour de projection cote lecture. Montre comment CQRS gere la coherence eventuelle.",
+  "cqrs.details.http.principles": [
+    "Le cote Command gere toutes les ecritures via CommandBus et CommandHandlers",
+    "Les evenements sont le pont entre les cotes ecriture et lecture",
+    "Les modeles de lecture sont des projections a coherence eventuelle des evenements cote ecriture",
+    "Le modele d'ecriture est optimise pour les regles metier ; le modele de lecture est optimise pour les requetes"
+  ],
+  "cqrs.details.http.concepts": [
+    { "term": "Command", "definition": "Un objet immutable representant une intention de changer l'etat. Dispatche via CommandBus vers le handler approprie." },
+    { "term": "CommandHandler", "definition": "Traite une commande specifique, charge l'aggregate, execute la logique de domaine et stocke les evenements resultants." },
+    { "term": "EventStore", "definition": "Stockage en ajout seul pour les evenements de domaine. La source de verite pour le cote ecriture." },
+    { "term": "ReadModel", "definition": "Une projection denormalisee optimisee pour des schemas de requete specifiques, reconstruite a partir des evenements." }
+  ],
+  "cqrs.details.http.tradeoffs.pros": [
+    "Mise a l'echelle independante des lectures et des ecritures",
+    "Modeles de lecture optimises pour des schemas de requete specifiques",
+    "Adaptation naturelle aux architectures evenementielles",
+    "Separation claire entre les responsabilites de commande et de requete"
+  ],
+  "cqrs.details.http.tradeoffs.cons": [
+    "Complexite systeme accrue et plus de parties mobiles",
+    "Coherence eventuelle entre les modeles d'ecriture et de lecture",
+    "Duplication des donnees entre les modeles de lecture",
+    "Plus d'infrastructure a gerer (bus d'evenements, projections, bases de donnees multiples)"
+  ],
+  "cqrs.details.http.tradeoffs.whenToUse": "Ideal pour les systemes a fort ratio lecture/ecriture, quand les modeles de lecture et d'ecriture ont des formes fondamentalement differentes, ou quand des schemas de requete complexes exigent des vues denormalisees.",
+  "cqrs.details.console.principles": [
+    "Le cote Query sert les lectures depuis des modeles denormalises et optimises",
+    "Le QueryBus route les requetes vers des handlers specialises",
+    "Les modeles de lecture peuvent etre entierement reconstruits a partir du flux d'evenements",
+    "Differents modeles de lecture peuvent servir differents schemas de requete a partir des memes evenements"
+  ],
+  "cqrs.details.console.concepts": [
+    { "term": "Query", "definition": "Une demande de donnees qui ne modifie pas l'etat. Routee via QueryBus vers le handler approprie." },
+    { "term": "QueryHandler", "definition": "Lit depuis le modele de lecture optimise et retourne un resultat. Ne modifie jamais l'etat cote ecriture." },
+    { "term": "QueryBus", "definition": "Dispatche les requetes vers le handler correct. Permet les middlewares (cache, journalisation, autorisation)." }
+  ],
+  "cqrs.details.console.tradeoffs.pros": [
+    "Mise a l'echelle independante des lectures et des ecritures",
+    "Modeles de lecture optimises pour des schemas de requete specifiques",
+    "Adaptation naturelle aux architectures evenementielles",
+    "Separation claire entre les responsabilites de commande et de requete"
+  ],
+  "cqrs.details.console.tradeoffs.cons": [
+    "Complexite systeme accrue et plus de parties mobiles",
+    "Coherence eventuelle entre les modeles d'ecriture et de lecture",
+    "Duplication des donnees entre les modeles de lecture",
+    "Plus d'infrastructure a gerer (bus d'evenements, projections, bases de donnees multiples)"
+  ],
+  "cqrs.details.console.tradeoffs.whenToUse": "Ideal pour les systemes a fort ratio lecture/ecriture, quand les modeles de lecture et d'ecriture ont des formes fondamentalement differentes, ou quand des schemas de requete complexes exigent des vues denormalisees.",
+  "cqrs.details.message.principles": [
+    "Les evenements de systemes externes peuvent declencher des commandes cote ecriture",
+    "Les mises a jour de projection se font de maniere asynchrone apres le stockage des evenements",
+    "La coherence eventuelle est acceptee comme compromis de conception pour la scalabilite",
+    "Le bus d'evenements decouple les producteurs d'evenements des consommateurs de projections"
+  ],
+  "cqrs.details.message.concepts": [
+    { "term": "Projection", "definition": "Le processus de transformation des evenements en etat de modele de lecture. Peut etre rejoue pour reconstruire les modeles de lecture." },
+    { "term": "Coherence eventuelle", "definition": "Les modeles de lecture peuvent avoir du retard sur le modele d'ecriture. Le systeme garantit la convergence, pas la coherence immediate." }
+  ],
+  "cqrs.details.message.tradeoffs.pros": [
+    "Mise a l'echelle independante des lectures et des ecritures",
+    "Modeles de lecture optimises pour des schemas de requete specifiques",
+    "Adaptation naturelle aux architectures evenementielles",
+    "Separation claire entre les responsabilites de commande et de requete"
+  ],
+  "cqrs.details.message.tradeoffs.cons": [
+    "Complexite systeme accrue et plus de parties mobiles",
+    "Coherence eventuelle entre les modeles d'ecriture et de lecture",
+    "Duplication des donnees entre les modeles de lecture",
+    "Plus d'infrastructure a gerer (bus d'evenements, projections, bases de donnees multiples)"
+  ],
+  "cqrs.details.message.tradeoffs.whenToUse": "Ideal pour les systemes a fort ratio lecture/ecriture, quand les modeles de lecture et d'ecriture ont des formes fondamentalement differentes, ou quand des schemas de requete complexes exigent des vues denormalisees.",
+
+  "eventsourcing.name": "Event Sourcing",
+  "eventsourcing.modes.http.label": "HTTP Request",
+  "eventsourcing.modes.http.desc": "La commande arrive via HTTP. Au lieu de mettre a jour l'etat directement, l'aggregate emet des evenements de domaine. Les evenements sont stockes dans l'Event Store comme source de verite unique. L'etat est reconstruit en rejouant les evenements.",
+  "eventsourcing.modes.console.label": "Rebuild State",
+  "eventsourcing.modes.console.desc": "Demontre la reconstruction d'etat : tous les evenements de l'Event Store sont rejoues dans l'ordre pour reconstruire l'etat actuel de l'aggregate. C'est l'avantage principal de l'Event Sourcing.",
+  "eventsourcing.modes.message.label": "Projection Update",
+  "eventsourcing.modes.message.desc": "Les evenements de l'Event Store sont projetes dans des vues optimisees pour la lecture (projections). Chaque projection peut construire une representation differente du meme flux d'evenements.",
+  "eventsourcing.details.http.principles": [
+    "Les evenements sont la source de verite unique -- l'etat est derive, jamais stocke directement",
+    "Les aggregates sont charges en rejouant leur flux d'evenements",
+    "Les nouveaux changements d'etat produisent de nouveaux evenements ajoutes au store",
+    "Les projections transforment les evenements en modeles de lecture optimises pour les requetes"
+  ],
+  "eventsourcing.details.http.concepts": [
+    { "term": "Event Store", "definition": "Un journal en ajout seul d'evenements de domaine. La source de verite faisant autorite pour tous les changements d'etat." },
+    { "term": "Event Replay", "definition": "Le processus de reconstruction de l'etat de l'aggregate en appliquant sequentiellement tous les evenements du flux." },
+    { "term": "Aggregate", "definition": "Un objet de domaine dont l'etat est reconstruit a partir des evenements plutot que charge depuis une ligne mutable en base de donnees." }
+  ],
+  "eventsourcing.details.http.tradeoffs.pros": [
+    "Piste d'audit complete -- chaque changement d'etat est enregistre comme un evenement immutable",
+    "Voyage dans le temps et rejeu -- reconstruire l'etat a n'importe quel moment de l'historique",
+    "Evenementiel par nature -- les systemes en aval reagissent aux evenements",
+    "Aucune perte de donnees -- les evenements sont en ajout seul, rien n'est ecrase"
+  ],
+  "eventsourcing.details.http.tradeoffs.cons": [
+    "Complexite de requetage -- impossible de simplement SELECT l'etat actuel depuis une table",
+    "L'evolution du schema est difficile -- changer la structure des evenements affecte le rejeu",
+    "Croissance du stockage -- les flux d'evenements croissent indefiniment sans snapshotting",
+    "Courbe d'apprentissage raide -- fondamentalement different du modele mental CRUD"
+  ],
+  "eventsourcing.details.http.tradeoffs.whenToUse": "Ideal pour les domaines necessitant une piste d'audit complete, la capacite de rejouer ou projeter des evenements, et les systemes financiers ou de conformite ou la perte de donnees est inacceptable.",
+  "eventsourcing.details.console.principles": [
+    "L'etat n'est jamais stocke -- il est toujours reconstruit a partir des evenements",
+    "Le rejeu applique les evenements dans l'ordre pour reconstruire l'etat de l'aggregate",
+    "Les snapshots peuvent optimiser le rejeu pour les longs flux d'evenements",
+    "Le flux d'evenements est la source de verite unique"
+  ],
+  "eventsourcing.details.console.concepts": [
+    { "term": "Reconstruction d'etat", "definition": "Reconstruction de l'etat actuel d'un aggregate en rejouant tous ses evenements depuis le debut." },
+    { "term": "Snapshot", "definition": "Un point de controle periodique de l'etat de l'aggregate pour eviter de rejouer l'ensemble du flux d'evenements a chaque chargement." }
+  ],
+  "eventsourcing.details.console.tradeoffs.pros": [
+    "Piste d'audit complete -- chaque changement d'etat est enregistre comme un evenement immutable",
+    "Voyage dans le temps et rejeu -- reconstruire l'etat a n'importe quel moment de l'historique",
+    "Evenementiel par nature -- les systemes en aval reagissent aux evenements",
+    "Aucune perte de donnees -- les evenements sont en ajout seul, rien n'est ecrase"
+  ],
+  "eventsourcing.details.console.tradeoffs.cons": [
+    "Complexite de requetage -- impossible de simplement SELECT l'etat actuel depuis une table",
+    "L'evolution du schema est difficile -- changer la structure des evenements affecte le rejeu",
+    "Croissance du stockage -- les flux d'evenements croissent indefiniment sans snapshotting",
+    "Courbe d'apprentissage raide -- fondamentalement different du modele mental CRUD"
+  ],
+  "eventsourcing.details.console.tradeoffs.whenToUse": "Ideal pour les domaines necessitant une piste d'audit complete, la capacite de rejouer ou projeter des evenements, et les systemes financiers ou de conformite ou la perte de donnees est inacceptable.",
+  "eventsourcing.details.message.principles": [
+    "Les projections construisent differentes representations de lecture a partir du meme flux d'evenements",
+    "Chaque projection peut se concentrer sur un schema de requete ou une vue specifique",
+    "Les projections sont jetables -- elles peuvent etre supprimees et reconstruites a partir des evenements",
+    "Plusieurs projections peuvent traiter les memes evenements independamment"
+  ],
+  "eventsourcing.details.message.concepts": [
+    { "term": "Projection", "definition": "Un processus qui lit les evenements et construit une vue optimisee pour la lecture (liste, detail, statistiques, index de recherche)." },
+    { "term": "Read Model", "definition": "Une structure de donnees denormalisee construite par une projection, optimisee pour un schema de requete specifique." }
+  ],
+  "eventsourcing.details.message.tradeoffs.pros": [
+    "Piste d'audit complete -- chaque changement d'etat est enregistre comme un evenement immutable",
+    "Voyage dans le temps et rejeu -- reconstruire l'etat a n'importe quel moment de l'historique",
+    "Evenementiel par nature -- les systemes en aval reagissent aux evenements",
+    "Aucune perte de donnees -- les evenements sont en ajout seul, rien n'est ecrase"
+  ],
+  "eventsourcing.details.message.tradeoffs.cons": [
+    "Complexite de requetage -- impossible de simplement SELECT l'etat actuel depuis une table",
+    "L'evolution du schema est difficile -- changer la structure des evenements affecte le rejeu",
+    "Croissance du stockage -- les flux d'evenements croissent indefiniment sans snapshotting",
+    "Courbe d'apprentissage raide -- fondamentalement different du modele mental CRUD"
+  ],
+  "eventsourcing.details.message.tradeoffs.whenToUse": "Ideal pour les domaines necessitant une piste d'audit complete, la capacite de rejouer ou projeter des evenements, et les systemes financiers ou de conformite ou la perte de donnees est inacceptable.",
+
+  "eda.name": "Architecture evenementielle",
+  "eda.modes.http.label": "HTTP (Publish)",
+  "eda.modes.http.desc": "La requete HTTP declenche une action qui publie un evenement de domaine sur le bus d'evenements. Plusieurs consommateurs reagissent independamment. Aucun couplage direct entre producteur et consommateurs.",
+  "eda.modes.choreography.label": "Choreography",
+  "eda.modes.choreography.desc": "Les services reagissent aux evenements independamment sans coordination centrale. Chaque service ecoute les evenements qui le concernent et publie de nouveaux evenements. Le flux emerge des reactions individuelles des services.",
+  "eda.modes.orchestration.label": "Orchestration (Saga)",
+  "eda.modes.orchestration.desc": "Un orchestrateur Saga coordonne la transaction distribuee. Il envoie des commandes aux services et reagit a leurs reponses, gerant le workflow global et la compensation en cas d'echec.",
+  "eda.details.http.principles": [
+    "Les producteurs publient des evenements sans connaissance des consommateurs",
+    "Les consommateurs reagissent independamment aux evenements auxquels ils s'abonnent",
+    "Le bus d'evenements decouple completement les producteurs des consommateurs",
+    "Plusieurs consommateurs peuvent traiter le meme evenement a des fins differentes"
+  ],
+  "eda.details.http.concepts": [
+    { "term": "Event Bus", "definition": "Une infrastructure de messagerie qui route les evenements des producteurs vers les consommateurs interesses sans couplage direct." },
+    { "term": "Producer", "definition": "Un service qui publie des evenements de domaine quand quelque chose de significatif se produit dans son domaine." },
+    { "term": "Consumer", "definition": "Un service qui s'abonne aux evenements et reagit independamment, sans que le producteur le sache." }
+  ],
+  "eda.details.http.tradeoffs.pros": [
+    "Couplage lache -- producteurs et consommateurs sont completement independants",
+    "Scalabilite -- ajoutez des consommateurs sans modifier les producteurs",
+    "Resilience -- la defaillance d'un consommateur n'affecte pas les autres",
+    "Adaptation naturelle aux workflows asynchrones et aux integrations"
+  ],
+  "eda.details.http.tradeoffs.cons": [
+    "Coherence eventuelle -- aucune garantie immediate que tous les consommateurs ont traite",
+    "Le debogage des flux d'evenements distribues est significativement plus difficile",
+    "Defis d'ordonnancement des messages entre partitions et consommateurs",
+    "Plus difficile de raisonner sur le comportement global du systeme"
+  ],
+  "eda.details.http.tradeoffs.whenToUse": "Ideal quand plusieurs consommateurs independants doivent reagir aux memes evenements, pour les workflows asynchrones, et lors de l'integration de systemes ou microservices faiblement couples.",
+  "eda.details.choreography.principles": [
+    "Pas de coordinateur central -- chaque service reagit et publie independamment",
+    "Le flux global emerge des reactions individuelles des services",
+    "Chaque service possede sa propre decision de reagir ou non",
+    "De nouveaux services peuvent rejoindre le flux en s'abonnant aux evenements existants"
+  ],
+  "eda.details.choreography.concepts": [
+    { "term": "Choreography", "definition": "Un patron de coordination ou les services reagissent aux evenements independamment, sans orchestrateur central controlant le flux." },
+    { "term": "Chaine d'evenements", "definition": "Une sequence d'evenements ou la reaction d'un service declenche des evenements auxquels d'autres services reagissent, formant un workflow implicite." }
+  ],
+  "eda.details.choreography.tradeoffs.pros": [
+    "Couplage lache -- producteurs et consommateurs sont completement independants",
+    "Scalabilite -- ajoutez des consommateurs sans modifier les producteurs",
+    "Resilience -- la defaillance d'un consommateur n'affecte pas les autres",
+    "Adaptation naturelle aux workflows asynchrones et aux integrations"
+  ],
+  "eda.details.choreography.tradeoffs.cons": [
+    "Coherence eventuelle -- aucune garantie immediate que tous les consommateurs ont traite",
+    "Le debogage des flux d'evenements distribues est significativement plus difficile",
+    "Defis d'ordonnancement des messages entre partitions et consommateurs",
+    "Plus difficile de raisonner sur le comportement global du systeme"
+  ],
+  "eda.details.choreography.tradeoffs.whenToUse": "Ideal quand plusieurs consommateurs independants doivent reagir aux memes evenements, pour les workflows asynchrones, et lors de l'integration de systemes ou microservices faiblement couples.",
+  "eda.details.orchestration.principles": [
+    "L'orchestrateur Saga gere le cycle de vie de la transaction distribuee",
+    "Chaque etape envoie une commande et attend un evenement de reponse",
+    "La logique de compensation gere les echecs a n'importe quelle etape",
+    "L'orchestrateur est le seul endroit pour comprendre le workflow complet"
+  ],
+  "eda.details.orchestration.concepts": [
+    { "term": "Saga", "definition": "Un patron pour gerer les transactions distribuees en coordonnant une sequence de transactions locales avec des actions compensatoires pour le rollback." },
+    { "term": "Orchestrator", "definition": "Un coordinateur central qui envoie des commandes aux services et reagit a leurs evenements de reponse, gerant le workflow global." },
+    { "term": "Compensation", "definition": "Une action de rollback executee lorsqu'une etape de la saga echoue, annulant les effets des etapes precedemment completees." }
+  ],
+  "eda.details.orchestration.tradeoffs.pros": [
+    "Couplage lache -- producteurs et consommateurs sont completement independants",
+    "Scalabilite -- ajoutez des consommateurs sans modifier les producteurs",
+    "Resilience -- la defaillance d'un consommateur n'affecte pas les autres",
+    "Adaptation naturelle aux workflows asynchrones et aux integrations"
+  ],
+  "eda.details.orchestration.tradeoffs.cons": [
+    "Coherence eventuelle -- aucune garantie immediate que tous les consommateurs ont traite",
+    "Le debogage des flux d'evenements distribues est significativement plus difficile",
+    "Defis d'ordonnancement des messages entre partitions et consommateurs",
+    "Plus difficile de raisonner sur le comportement global du systeme"
+  ],
+  "eda.details.orchestration.tradeoffs.whenToUse": "Ideal quand plusieurs consommateurs independants doivent reagir aux memes evenements, pour les workflows asynchrones, et lors de l'integration de systemes ou microservices faiblement couples.",
+
+  "microservices.name": "Architecture Microservices",
+  "microservices.modes.sync.label": "Sync (REST/gRPC)",
+  "microservices.modes.sync.desc": "Le flux de requete synchrone passe par l'API Gateway vers les services individuels. Le gateway authentifie, route et agregue les reponses. Les services communiquent via REST ou gRPC a travers le gateway -- jamais directement.",
+  "microservices.modes.async.label": "Async (Events)",
+  "microservices.modes.async.desc": "Communication evenementielle entre services via une file de messages. Les services publient des evenements de domaine apres les changements d'etat. Les autres services consomment les evenements pertinents et reagissent independamment. Pas d'appels directs entre services.",
+  "microservices.modes.saga.label": "Saga \u2713",
+  "microservices.modes.saga.desc": "Transaction distribuee reussie coordonnee par un orchestrateur Saga. Chaque etape est une transaction locale commitee sequentiellement. Toutes les etapes se completent avec succes et la commande est honoree.",
+  "microservices.modes.saga-fail.label": "Saga \u2717",
+  "microservices.modes.saga-fail.desc": "Saga echouee avec des transactions compensatoires executees dans l'ordre inverse. Le paiement echoue apres la reservation de l'inventaire, declenchant les compensations pour restaurer la coherence.",
+  "microservices.details.sync.principles": [
+    "L'API Gateway est le point d'entree unique -- les clients n'appellent jamais les services directement",
+    "Chaque service possede son propre stockage de donnees (patron Database per Service)",
+    "Le Service Mesh est une couche d'infrastructure (proxies sidecar), pas un service separe",
+    "Toute communication inter-services passe par le gateway -- pas d'appels directs entre services",
+    "Le Order Service orchestre le workflow : appelle Inventory, puis Payment, puis repond",
+    "Utilisez des timeouts, des tentatives de reprise et des circuit breakers pour gerer les defaillances avec grace"
+  ],
+  "microservices.details.sync.concepts": [
+    { "term": "API Gateway", "definition": "Proxy inverse qui route les requetes vers les services appropries, gere l'authentification, la limitation de debit et l'agregation des reponses." },
+    { "term": "Service Mesh", "definition": "Couche d'infrastructure (ex. Istio, Linkerd) -- proxies sidecar a chaque service gerant la decouverte, l'equilibrage de charge, le TLS et l'observabilite. Pas un noeud separe dans la chaine d'appels." },
+    { "term": "Database per Service", "definition": "Chaque microservice possede sa propre base de donnees privee. Aucun partage direct de base de donnees entre services." },
+    { "term": "Circuit Breaker", "definition": "Patron qui previent les defaillances en cascade en detectant les echecs et en court-circuitant les appels vers les services defaillants." }
+  ],
+  "microservices.details.sync.tradeoffs.pros": [
+    "Modele requete-reponse simple, facile a comprendre et deboguer",
+    "Coherence forte au sein d'une seule chaine de requetes",
+    "Outillage HTTP/gRPC familier et infrastructure eprouvee",
+    "Gestion des erreurs directe avec les codes de statut"
+  ],
+  "microservices.details.sync.tradeoffs.cons": [
+    "Couplage temporel -- l'appelant est bloque jusqu'a ce que tous les services en aval repondent",
+    "Defaillances en cascade si un service est lent ou indisponible",
+    "Latence accrue a chaque saut dans la chaine d'appels",
+    "Couplage fort via les contrats d'API"
+  ],
+  "microservices.details.sync.tradeoffs.whenToUse": "Ideal pour les requetes et operations necessitant des reponses immediates et coherentes. A utiliser quand le client attend un resultat synchrone et que la chaine d'appels est courte (2-3 sauts maximum).",
+  "microservices.details.async.principles": [
+    "Les services communiquent via des evenements a travers une file de messages -- pas d'appels directs",
+    "La file de messages (Kafka/RabbitMQ) assure la livraison fiable et decouple les producteurs des consommateurs",
+    "Le Notification Service est un pur consommateur d'evenements -- jamais appele de maniere synchrone",
+    "Chaque service reagit independamment aux evenements qui le concernent",
+    "Coherence eventuelle -- l'etat converge avec le temps, pas immediatement",
+    "Les evenements sont des faits immutables decrivant ce qui s'est passe, pas des commandes"
+  ],
+  "microservices.details.async.concepts": [
+    { "term": "Domain Event", "definition": "Un enregistrement immutable de quelque chose qui s'est produit dans un service (ex. OrderCreated, PaymentProcessed)." },
+    { "term": "Message Queue", "definition": "Infrastructure (ex. Kafka, RabbitMQ) qui route les evenements des producteurs vers les consommateurs interesses de maniere asynchrone." },
+    { "term": "Coherence eventuelle", "definition": "Les donnees entre les services deviendront coherentes avec le temps a mesure que les evenements sont traites, mais peuvent etre temporairement incoherentes." },
+    { "term": "Idempotence", "definition": "Les consommateurs doivent gerer les evenements dupliques en toute securite. Traiter le meme evenement deux fois doit produire le meme resultat." }
+  ],
+  "microservices.details.async.tradeoffs.pros": [
+    "Couplage lache -- les services sont entierement independants",
+    "Haute resilience -- les defaillances d'un service ne se propagent pas en cascade",
+    "Meilleure scalabilite -- les services traitent les evenements a leur propre rythme",
+    "Piste d'audit naturelle a partir des flux d'evenements"
+  ],
+  "microservices.details.async.tradeoffs.cons": [
+    "La coherence eventuelle rend le raisonnement sur l'etat plus difficile",
+    "Le debogage des flux d'evenements distribues est un defi",
+    "L'ordonnancement des messages et la gestion des doublons ajoutent de la complexite",
+    "Pas de reponse immediate a l'appelant"
+  ],
+  "microservices.details.async.tradeoffs.whenToUse": "Ideal pour les workflows ou les services peuvent reagir independamment et ou la coherence immediate n'est pas requise. Parfait pour les systemes a haut debit avec des vitesses de traitement variables.",
+  "microservices.details.saga.principles": [
+    "Les transactions distribuees sont decomposees en une sequence de transactions locales",
+    "Chaque etape a une transaction compensatoire pour annuler ses effets en cas d'echec",
+    "L'orchestrateur Saga coordonne la sequence et gere les echecs",
+    "Pas de verrous distribues -- chaque service commite localement",
+    "Les compensations doivent etre idempotentes et sures a la reprise"
+  ],
+  "microservices.details.saga.concepts": [
+    { "term": "Saga Orchestrator", "definition": "Coordinateur central qui gere le workflow de la saga : envoie des commandes, attend les reponses, declenche les compensations en cas d'echec." },
+    { "term": "Transaction compensatoire", "definition": "Une operation qui annule semantiquement une transaction precedemment commitee (ex. rembourser le paiement, liberer l'inventaire)." },
+    { "term": "Transaction locale", "definition": "Chaque service commite les changements dans sa propre base de donnees independamment, sans transaction distribuee globale." },
+    { "term": "Etape Saga", "definition": "Une seule transaction locale dans la sequence de la saga. Chaque etape a une action de compensation correspondante." }
+  ],
+  "microservices.details.saga.tradeoffs.pros": [
+    "Maintient la coherence des donnees entre les services sans verrous distribues",
+    "Visibilite claire du workflow via l'orchestrateur",
+    "Chaque service reste autonome avec des transactions locales",
+    "La gestion des echecs est explicite et bien definie"
+  ],
+  "microservices.details.saga.tradeoffs.cons": [
+    "Complexe a implementer -- chaque etape necessite une action compensatoire",
+    "Coherence eventuelle pendant l'execution de la saga",
+    "L'orchestrateur peut devenir un point de defaillance unique",
+    "Le debogage des sagas echouees a travers plusieurs services est difficile"
+  ],
+  "microservices.details.saga.tradeoffs.whenToUse": "Ideal pour les operations metier couvrant plusieurs services et necessitant une coherence des donnees (ex. traitement de commandes, reservations). A utiliser quand le two-phase commit n'est pas faisable.",
+  "microservices.details.saga-fail.principles": [
+    "Les transactions compensatoires annulent les etapes commitees dans l'ordre inverse",
+    "Chaque compensation doit etre idempotente -- sure a la reprise en cas d'echec",
+    "L'orchestrateur suit les etapes qui ont reussi pour savoir quoi compenser",
+    "Les compensations sont des inverses semantiques, pas des rollbacks (ex. remboursement vs. annulation de paiement)",
+    "Le systeme reste dans un etat coherent apres que toutes les compensations sont terminees"
+  ],
+  "microservices.details.saga-fail.concepts": [
+    { "term": "Transaction compensatoire", "definition": "Une operation qui annule semantiquement une transaction locale precedemment commitee (ex. liberer l'inventaire, annuler le paiement)." },
+    { "term": "Recuperation arriere", "definition": "Le processus d'execution des transactions compensatoires dans l'ordre inverse des etapes originales de la saga pour restaurer la coherence." },
+    { "term": "Journal Saga", "definition": "Un enregistrement persistant de la progression de la saga. Suit les etapes completees et les compensations necessaires en cas d'echec." },
+    { "term": "Annulation semantique", "definition": "Contrairement au rollback de base de donnees, les compensations creent de nouvelles transactions qui inversent l'effet metier (ex. un remboursement cree un nouveau credit, pas une suppression)." }
+  ],
+  "microservices.details.saga-fail.tradeoffs.pros": [
+    "Garantit la coherence eventuelle meme en cas de defaillances partielles",
+    "Chaque service reste autonome -- pas de verrous distribues",
+    "La gestion des echecs est explicite et auditable via le journal de saga",
+    "Les compensations peuvent inclure de la logique metier (notifications, alertes)"
+  ],
+  "microservices.details.saga-fail.tradeoffs.cons": [
+    "Chaque etape doit avoir une compensation bien definie -- double l'effort d'implementation",
+    "Les compensations elles-memes peuvent echouer, necessitant une logique de reprise",
+    "L'incoherence intermediaire est visible pendant l'execution de la compensation",
+    "Complexe de tester tous les scenarios d'echec et de compensation"
+  ],
+  "microservices.details.saga-fail.tradeoffs.whenToUse": "Essentiel quand les transactions distribuees peuvent echouer a n'importe quelle etape et que vous avez besoin d'une recuperation automatisee. Concevez les compensations des le depart -- les ajouter retroactivement est extremement difficile.",
+
+  "ddd.name": "Domain-Driven Design",
+  "ddd.modes.http.label": "HTTP Request",
+  "ddd.modes.http.desc": "La requete HTTP entre dans le Bounded Context via la couche Presentation (Controller). Le UseCase orchestre la logique de domaine et persiste l'Aggregate via le Repository. Les Domain Events se propagent entre les contextes via l'EventBus.",
+  "ddd.modes.console.label": "Console",
+  "ddd.modes.console.desc": "La commande console declenche un use case au sein d'un Bounded Context. La logique de domaine reste isolee a l'interieur de la frontiere du contexte, communiquant avec les autres contextes via des Domain Events.",
+  "ddd.modes.message.label": "Message",
+  "ddd.modes.message.desc": "Un Domain Event d'un autre Bounded Context arrive a travers l'Anti-Corruption Layer, est traduit et traite dans le contexte local. Cela demontre le context mapping.",
+  "ddd.modes.context-map.label": "Context Map",
+  "ddd.modes.context-map.desc": "Vue d'ensemble de tous les Bounded Contexts et de leurs relations strategiques : ACL, Shared Kernel, Customer-Supplier, Conformist. Avant d'ecrire du code, definissez comment les contextes sont lies entre eux.",
+  "ddd.modes.open-host.label": "Open Host",
+  "ddd.modes.open-host.desc": "Un contexte publie une API formelle (Open Host Service) avec un Published Language (OpenAPI/Protobuf). Plusieurs contextes en aval consomment le meme contrat standardise au lieu de traductions point a point.",
+  "ddd.modes.saga.label": "Saga \u2713",
+  "ddd.modes.saga.desc": "Le Saga/Process Manager coordonne un processus metier couvrant plusieurs Bounded Contexts. Chaque contexte possede sa transaction locale ; la Saga orchestre le workflow global. Toutes les etapes reussissent : Order -> Payment -> Shipment -> COMPLETED.",
+  "ddd.modes.saga-fail.label": "Saga \u2717",
+  "ddd.modes.saga-fail.desc": "Le paiement echoue apres que la commande est confirmee. L'orchestrateur Saga declenche les transactions compensatoires dans l'ordre inverse : CancelOrder annule l'etape commitee. La machine a etats atteint COMPENSATED au lieu de COMPLETED.",
+  "ddd.modes.domain-events.label": "Domain Events",
+  "ddd.modes.domain-events.desc": "Un Domain Event se propage a travers le bus d'evenements vers plusieurs contextes. Chaque consommateur traduit l'evenement via son propre ACL/Translator dans son Ubiquitous Language local, demontrant la coherence eventuelle.",
+  "ddd.details.http.principles": [
+    "Les Bounded Contexts definissent des frontieres de propriete claires pour les modeles de domaine",
+    "Le Ubiquitous Language assure que les developpeurs et les experts du domaine partagent le meme vocabulaire",
+    "L'Anti-Corruption Layer protege les frontieres de contexte contre la pollution de modeles externes",
+    "Les Aggregates garantissent la coherence transactionnelle au sein d'une frontiere"
+  ],
+  "ddd.details.http.concepts": [
+    { "term": "Bounded Context", "definition": "Une frontiere au sein de laquelle un modele de domaine particulier est defini et applicable. Chaque contexte a son propre Ubiquitous Language." },
+    { "term": "Aggregate", "definition": "Un cluster d'objets de domaine traites comme une unite pour les changements de donnees. Possede une entite racine qui controle l'acces." },
+    { "term": "Anti-Corruption Layer", "definition": "Une couche de traduction qui isole un Bounded Context des modeles externes, empechant les concepts etrangers de fuir a l'interieur." },
+    { "term": "Domain Event", "definition": "Un enregistrement de quelque chose de significatif qui s'est produit dans le domaine. Utilise pour la communication inter-contextes." }
+  ],
+  "ddd.details.http.tradeoffs.pros": [
+    "Des modeles de domaine riches qui refletent fidelement la realite metier",
+    "Le Ubiquitous Language fait le pont de communication entre developpeurs et experts du domaine",
+    "Les Bounded Contexts permettent l'autonomie des equipes et le deploiement independant",
+    "La logique de domaine complexe est bien organisee au sein des aggregates et services"
+  ],
+  "ddd.details.http.tradeoffs.cons": [
+    "Courbe d'apprentissage raide -- necessite une comprehension profonde des patrons strategiques et tactiques",
+    "Excessif pour les applications CRUD simples avec peu de logique metier",
+    "Effort de modelisation initial significatif avant d'ecrire du code",
+    "La conception des frontieres d'Aggregate est notoirement difficile a realiser correctement"
+  ],
+  "ddd.details.http.tradeoffs.whenToUse": "Ideal pour les domaines metier complexes avec de nombreuses regles, plusieurs equipes travaillant sur differents sous-domaines, et des exigences evolutives ou le cout d'une incomprehension du domaine est eleve.",
+  "ddd.details.console.principles": [
+    "Console et HTTP partagent le meme modele de domaine au sein d'un Bounded Context",
+    "Les Domain Services coordonnent la logique couvrant plusieurs aggregates",
+    "Les evenements propagent les changements d'etat sans coupler directement les contextes",
+    "La couche Application orchestre les use cases sans contenir de regles metier"
+  ],
+  "ddd.details.console.concepts": [
+    { "term": "Domain Service", "definition": "Un service sans etat qui encapsule la logique de domaine n'appartenant naturellement a aucune Entity ou Value Object unique." },
+    { "term": "Application Service", "definition": "Orchestre l'execution des use cases, coordonne les objets de domaine, mais ne contient aucune logique metier en soi." }
+  ],
+  "ddd.details.console.tradeoffs.pros": [
+    "Des modeles de domaine riches qui refletent fidelement la realite metier",
+    "Le Ubiquitous Language fait le pont de communication entre developpeurs et experts du domaine",
+    "Les Bounded Contexts permettent l'autonomie des equipes et le deploiement independant",
+    "La logique de domaine complexe est bien organisee au sein des aggregates et services"
+  ],
+  "ddd.details.console.tradeoffs.cons": [
+    "Courbe d'apprentissage raide -- necessite une comprehension profonde des patrons strategiques et tactiques",
+    "Excessif pour les applications CRUD simples avec peu de logique metier",
+    "Effort de modelisation initial significatif avant d'ecrire du code",
+    "La conception des frontieres d'Aggregate est notoirement difficile a realiser correctement"
+  ],
+  "ddd.details.console.tradeoffs.whenToUse": "Ideal pour les domaines metier complexes avec de nombreuses regles, plusieurs equipes travaillant sur differents sous-domaines, et des exigences evolutives ou le cout d'une incomprehension du domaine est eleve.",
+  "ddd.details.message.principles": [
+    "Le Context Mapping definit les relations entre les Bounded Contexts",
+    "L'ACL traduit les evenements externes dans le langage de domaine local",
+    "Les Domain Events sont le mecanisme principal de communication inter-contextes",
+    "Chaque contexte maintient l'integrite de son propre modele"
+  ],
+  "ddd.details.message.concepts": [
+    { "term": "Context Map", "definition": "Une representation visuelle et conceptuelle de la facon dont les Bounded Contexts sont lies entre eux (Shared Kernel, Customer-Supplier, Conformist, ACL)." },
+    { "term": "Integration evenementielle", "definition": "Les contextes communiquent de maniere asynchrone via des evenements de domaine plutot que par des appels d'API directs, reduisant le couplage." }
+  ],
+  "ddd.details.message.tradeoffs.pros": [
+    "Des modeles de domaine riches qui refletent fidelement la realite metier",
+    "Le Ubiquitous Language fait le pont de communication entre developpeurs et experts du domaine",
+    "Les Bounded Contexts permettent l'autonomie des equipes et le deploiement independant",
+    "La logique de domaine complexe est bien organisee au sein des aggregates et services"
+  ],
+  "ddd.details.message.tradeoffs.cons": [
+    "Courbe d'apprentissage raide -- necessite une comprehension profonde des patrons strategiques et tactiques",
+    "Excessif pour les applications CRUD simples avec peu de logique metier",
+    "Effort de modelisation initial significatif avant d'ecrire du code",
+    "La conception des frontieres d'Aggregate est notoirement difficile a realiser correctement"
+  ],
+  "ddd.details.message.tradeoffs.whenToUse": "Ideal pour les domaines metier complexes avec de nombreuses regles, plusieurs equipes travaillant sur differents sous-domaines, et des exigences evolutives ou le cout d'une incomprehension du domaine est eleve.",
+  "ddd.details.context-map.principles": [
+    "Le Context Map est le premier artefact strategique -- dessinez-le avant d'ecrire du code",
+    "Chaque type de relation implique une strategie d'integration et une dynamique d'equipe differentes",
+    "L'asymetrie de pouvoir entre les equipes determine le type de relation (upstream/downstream)",
+    "Les relations evoluent avec le temps a mesure que les equipes et les domaines changent"
+  ],
+  "ddd.details.context-map.concepts": [
+    { "term": "Anti-Corruption Layer (ACL)", "definition": "Le contexte en aval construit une couche de traduction pour se proteger des changements de modele en amont. Isolation maximale, cout de developpement le plus eleve." },
+    { "term": "Shared Kernel", "definition": "Deux contextes partagent un sous-ensemble du modele de domaine (code/schema). Les changements necessitent l'accord des deux equipes. Couplage fort mais reduit la duplication." },
+    { "term": "Customer-Supplier", "definition": "L'amont (fournisseur) fournit ce dont l'aval (client) a besoin. Le client peut negocier les exigences. Interface formelle avec versionnement." },
+    { "term": "Conformist", "definition": "Le contexte en aval accepte le modele en amont tel quel sans traduction. Integration la plus simple mais aucune protection contre les changements en amont." },
+    { "term": "Context Map", "definition": "Une representation visuelle de tous les Bounded Contexts du systeme et des relations entre eux. Le point de depart du DDD strategique." }
+  ],
+  "ddd.details.context-map.tradeoffs.pros": [
+    "Donne une vue d'ensemble de l'architecture complete du systeme",
+    "Rend explicites les relations entre equipes et les dynamiques de pouvoir",
+    "Guide les decisions de strategie d'integration avant le codage",
+    "Aide a identifier les couplages problematiques tot"
+  ],
+  "ddd.details.context-map.tradeoffs.cons": [
+    "Necessite une comprehension a l'echelle de l'organisation des frontieres de domaine",
+    "Les relations peuvent etre subjectives et debattables",
+    "La carte doit etre maintenue a mesure que le systeme evolue",
+    "Ne capture pas le comportement a l'execution ou les flux de donnees"
+  ],
+  "ddd.details.context-map.tradeoffs.whenToUse": "Essentiel pour tout systeme multi-equipes et multi-contextes. Dessinez le Context Map en premier lors du demarrage d'un nouveau projet ou de l'integration dans un projet existant.",
+  "ddd.details.open-host.principles": [
+    "L'Open Host Service fournit une API formelle unique pour tous les consommateurs",
+    "Le Published Language definit un schema partage (OpenAPI, Protobuf, Avro)",
+    "Le contexte en amont possede et versionne le contrat independamment",
+    "Les consommateurs sont decouples du modele de domaine interne du fournisseur"
+  ],
+  "ddd.details.open-host.concepts": [
+    { "term": "Open Host Service (OHS)", "definition": "Une API publique bien definie qu'un Bounded Context expose a la consommation. Contrairement aux integrations point a point, l'OHS sert tous les consommateurs uniformement." },
+    { "term": "Published Language", "definition": "Un format de donnees partage (JSON Schema, Protobuf, Avro) qui definit le contrat. C'est la 'lingua franca' entre les contextes." },
+    { "term": "Contract-First Design", "definition": "Le schema de l'API est concu avant l'implementation. Les consommateurs peuvent commencer le travail d'integration en parallele avec le developpement du fournisseur." }
+  ],
+  "ddd.details.open-host.tradeoffs.pros": [
+    "Un seul contrat sert plusieurs consommateurs -- reduit l'effort d'integration",
+    "Le Published Language fournit une documentation et un versionnement clairs",
+    "Les consommateurs sont isoles des changements de modele internes",
+    "Permet le developpement parallele entre les equipes"
+  ],
+  "ddd.details.open-host.tradeoffs.cons": [
+    "L'evolution du contrat necessite une strategie de versionnement soigneuse",
+    "Une API unique peut ne pas convenir optimalement a chaque consommateur",
+    "L'equipe en amont supporte le cout de maintenance de l'API publique",
+    "Les changements de schema peuvent avoir un impact etendu en aval"
+  ],
+  "ddd.details.open-host.tradeoffs.whenToUse": "Quand un contexte a 3+ consommateurs et que vous voulez eviter de construire des integrations personnalisees pour chacun. Approche standard pour les services plateforme/coeur.",
+  "ddd.details.saga.principles": [
+    "Chaque Bounded Context possede sa transaction locale -- pas de transactions distribuees",
+    "L'orchestrateur Saga coordonne le workflow global en envoyant des commandes",
+    "Chaque etape produit un evenement que la Saga ecoute pour les transitions d'etat",
+    "Des actions de compensation sont definies pour chaque etape afin de gerer les echecs"
+  ],
+  "ddd.details.saga.concepts": [
+    { "term": "Saga Orchestrator", "definition": "Un gestionnaire de processus avec etat qui coordonne un processus metier multi-etapes. Il envoie des commandes aux contextes et reagit a leurs evenements." },
+    { "term": "Transaction compensatoire", "definition": "L'operation inverse pour une etape precedemment completee. Utilisee pour maintenir la coherence quand une etape ulterieure echoue (ex. rembourser le paiement si l'expedition echoue)." },
+    { "term": "Etat Saga", "definition": "L'orchestrateur suit sa progression a travers le workflow (ex. ORDER_CONFIRMED -> PAYMENT_COMPLETED -> SHIPMENT_CREATED)." },
+    { "term": "Coherence eventuelle", "definition": "Le systeme atteint un etat coherent eventuellement, pas immediatement. Chaque transaction locale est commitee independamment." }
+  ],
+  "ddd.details.saga.tradeoffs.pros": [
+    "Evite les transactions distribuees (2PC) qui ne passent pas a l'echelle",
+    "Chaque contexte reste autonome avec sa propre base de donnees",
+    "Logique de compensation claire pour la gestion des echecs",
+    "L'orchestrateur fournit un point unique de visibilite du workflow"
+  ],
+  "ddd.details.saga.tradeoffs.cons": [
+    "Complexe a implementer -- necessite une conception soigneuse de la machine a etats",
+    "La logique de compensation peut etre aussi complexe que le chemin nominal",
+    "Le debogage des workflows distribues est un defi",
+    "La coherence eventuelle necessite des patrons UI/UX (ex. 'en cours de traitement...')"
+  ],
+  "ddd.details.saga.tradeoffs.whenToUse": "Quand un processus metier couvre 3+ Bounded Contexts et que vous avez besoin de coherence sans transactions distribuees. Courant dans les systemes e-commerce, de reservation et financiers.",
+  "ddd.details.saga-fail.principles": [
+    "Les transactions compensatoires annulent les etapes commitees dans l'ordre inverse",
+    "Chaque compensation doit etre idempotente -- sure a la reprise en cas d'echec",
+    "L'orchestrateur suit les etapes qui ont reussi pour savoir quoi compenser",
+    "Les compensations sont des inverses semantiques, pas des rollbacks de base de donnees (ex. CancelOrder vs. undo)",
+    "Le systeme atteint l'etat COMPENSATED -- coherent, pas casse"
+  ],
+  "ddd.details.saga-fail.concepts": [
+    { "term": "Transaction compensatoire", "definition": "Une operation qui annule semantiquement une transaction locale precedemment commitee. CancelOrder inverse CreateOrder, mais c'est une nouvelle commande, pas un rollback." },
+    { "term": "Recuperation arriere", "definition": "Execution des transactions compensatoires dans l'ordre inverse des etapes originales de la saga. Seules les etapes commitees necessitent une compensation." },
+    { "term": "Machine a etats Saga", "definition": "Les etats incluent COMPENSATING et COMPENSATED en plus des etats du chemin nominal. L'orchestrateur passe a COMPENSATING en cas d'echec d'une etape." },
+    { "term": "Annulation semantique", "definition": "Contrairement au rollback de base de donnees, la compensation cree de nouveaux evenements de domaine (OrderCancelled) auxquels d'autres contextes peuvent reagir." }
+  ],
+  "ddd.details.saga-fail.tradeoffs.pros": [
+    "Garantit la coherence eventuelle meme en cas de defaillances partielles",
+    "Chaque contexte reste autonome -- pas de verrous distribues necessaires",
+    "La gestion des echecs est explicite et auditable via la machine a etats de la saga",
+    "Les compensations produisent des evenements de domaine que d'autres contextes peuvent consommer"
+  ],
+  "ddd.details.saga-fail.tradeoffs.cons": [
+    "Chaque etape doit avoir une compensation bien definie -- double l'effort d'implementation",
+    "Les compensations elles-memes peuvent echouer, necessitant des strategies de reprise et de dead-letter",
+    "L'incoherence intermediaire est visible pendant l'execution de la compensation",
+    "La complexite de la machine a etats croit avec chaque etape ajoutee a la saga"
+  ],
+  "ddd.details.saga-fail.tradeoffs.whenToUse": "Essentiel quand les transactions distribuees peuvent echouer a n'importe quelle etape. Concevez les compensations des le depart -- les ajouter retroactivement a une saga existante est extremement difficile.",
+  "ddd.details.domain-events.principles": [
+    "Les Domain Events representent des faits -- quelque chose qui s'est deja produit",
+    "Chaque consommateur interprete l'evenement dans son propre Ubiquitous Language via l'ACL",
+    "Le bus d'evenements decouple le producteur des consommateurs -- le producteur ne sait pas qui ecoute",
+    "La coherence eventuelle est le resultat naturel de l'integration evenementielle"
+  ],
+  "ddd.details.domain-events.concepts": [
+    { "term": "Domain Event", "definition": "Un enregistrement immutable d'un evenement metier significatif (ex. OrderPlaced). Nomme au passe en utilisant le langage du domaine." },
+    { "term": "ACL / Translator", "definition": "Chaque consommateur traduit l'evenement entrant dans son concept de domaine local. OrderPlaced devient PaymentRequired dans le contexte Payment." },
+    { "term": "Event Bus", "definition": "Infrastructure qui route les evenements des producteurs vers les consommateurs. Peut etre RabbitMQ, Kafka ou tout autre broker de messages." },
+    { "term": "Ubiquitous Language", "definition": "Le meme fait du monde reel signifie des choses differentes dans des contextes differents. L'ACL fait le pont entre ces differences de langage." }
+  ],
+  "ddd.details.domain-events.tradeoffs.pros": [
+    "Decouplage maximum -- le producteur ne connait pas ses consommateurs",
+    "De nouveaux consommateurs peuvent s'abonner sans modifier le producteur",
+    "Chaque contexte maintient l'integrite de son propre modele via l'ACL",
+    "Adaptation naturelle aux microservices et systemes distribues"
+  ],
+  "ddd.details.domain-events.tradeoffs.cons": [
+    "La coherence eventuelle necessite une gestion soigneuse dans les UIs",
+    "L'ordonnancement des evenements et l'idempotence doivent etre geres explicitement",
+    "Le debogage des chaines d'evenements entre contextes est difficile",
+    "L'evolution du schema d'evenements necessite une strategie de versionnement"
+  ],
+  "ddd.details.domain-events.tradeoffs.whenToUse": "Quand un seul fait metier declenche des reactions dans plusieurs contextes. Le patron de reference pour la communication inter-contextes en DDD. A preferer aux appels synchrones pour un couplage lache.",
+
+  "layered.requestLabel.http": "Layered : la requête descend à travers Presentation → Application → Domain → Infrastructure",
+  "layered.requestLabel.console": "Layered : la commande CLI suit le même flux descendant que HTTP",
+  "layered.requestLabel.message": "Layered : le message asynchrone suit le même flux descendant que HTTP et CLI",
+  "layered.step.http.0": "POST /api/orders atteint le Controller — point d'entrée de la couche Presentation",
+  "layered.step.console.0": "app:sync-users invoquée — le handler CLI analyse les arguments dans la couche Presentation",
+  "layered.step.message.0": "Message order.created retiré — entrée asynchrone dans la couche Presentation",
+
+  "clean.requestLabel.http": "Clean : la requête traverse les anneaux vers l'intérieur — Frameworks → Adapters → Use Cases → Entities",
+  "clean.requestLabel.console": "Clean : CLI entre dans l'anneau externe — les mêmes Use Cases et Entities servent tout mécanisme de livraison",
+  "clean.requestLabel.message": "Clean : message consommé à l'anneau externe — le driver de file est un détail framework",
+  "clean.step.http.0": "GET /api/users/1 arrive à l'anneau externe — le framework est un détail remplaçable",
+  "clean.step.console.0": "migrate:run entre dans le framework CLI — anneau externe, détail interchangeable",
+  "clean.step.message.0": "Message user.registered consommé — driver de file dans l'anneau externe",
+
+  "hexagonal.requestLabel.http": "Hexagonal : le driving adapter traduit HTTP en appel de port domaine",
+  "hexagonal.requestLabel.console": "Hexagonal : l'adapter CLI utilise le même input port que HTTP",
+  "hexagonal.requestLabel.message": "Hexagonal : l'adapter message appelle le même input port que HTTP et CLI",
+  "hexagonal.step.http.0": "PUT /api/products/42 atteint l'adapter HTTP — traduit en appel d'input port",
+  "hexagonal.step.console.0": "product:import invoquée — l'adapter CLI convertit les arguments en appel d'input port",
+  "hexagonal.step.message.0": "inventory.updated consommé — l'adapter message désérialise et appelle l'input port",
+
+  "ddd.requestLabel.http": "DDD : la requête entre dans le Order Bounded Context — isolé de Payment et Shipping",
+  "ddd.requestLabel.console": "DDD : CLI déclenche un use case du Bounded Context — la logique domaine reste isolée",
+  "ddd.requestLabel.message": "DDD : événement du contexte Payment traduit via l'Anti-Corruption Layer",
+  "ddd.requestLabel.open-host": "DDD : événement de l'agrégat publié via Open Host Service vers les contextes en aval",
+  "ddd.requestLabel.saga": "DDD Saga : l'orchestrateur coordonne Order, Payment, Shipping comme transactions locales",
+  "ddd.requestLabel.saga-fail": "DDD Saga : l'échec déclenche des transactions compensatoires en ordre inverse",
+  "ddd.requestLabel.domain-events": "DDD : l'événement domaine se diffuse à tous les bounded contexts abonnés",
+  "ddd.step.http.0": "POST /api/orders entre dans le Order Context — la frontière du contexte isole ce domaine",
+  "ddd.step.console.0": "order:recalculate entre dans le contexte — même use case que HTTP, derrière la frontière",
+  "ddd.step.message.0": "Événement payment.completed arrive — l'ACL traduira dans le langage du contexte Order",
+  "ddd.step.open-host.0": "Le use case PlaceOrder démarre — l'agrégat lèvera un événement pour l'Open Host Service",
+  "ddd.step.saga.0": "OrderSaga s'initialise — état ORDER_PENDING, l'orchestrateur commence la coordination",
+  "ddd.step.saga-fail.0": "OrderSaga s'initialise — état ORDER_PENDING, la compensation annulera en cas d'échec",
+  "ddd.step.domain-events.0": "PlaceOrder reçoit la commande CreateOrder — l'agrégat lèvera l'événement OrderPlaced",
+
+  "cqrs.requestLabel.http": "CQRS : côté écriture — les commandes sont des objets explicites, jamais des mutations directes",
+  "cqrs.requestLabel.console": "CQRS : côté lecture — les requêtes lisent depuis des projections dénormalisées optimisées",
+  "cqrs.requestLabel.message": "CQRS : l'événement déclenche à la fois une commande côté écriture et une mise à jour de projection côté lecture",
+  "cqrs.step.http.0": "CreateOrderCommand envoyée côté écriture — objet commande explicite créé",
+  "cqrs.step.console.0": "Requête GetOrderDetails envoyée côté lecture — ne touche jamais le modèle d'écriture",
+  "cqrs.step.message.0": "Événement PaymentReceived arrive sur le bus — mettra à jour les deux côtés",
+
+  "eda.requestLabel.http": "EDA : le service publie un événement au lieu d'appeler directement les services en aval",
+  "eda.requestLabel.choreography": "EDA Chorégraphie : pas de coordinateur — les services réagissent et émettent des événements indépendamment",
+  "eda.requestLabel.orchestration": "EDA Orchestration : le coordinateur central envoie des commandes et suit l'achèvement",
+  "eda.step.http.0": "POST /api/orders crée une commande — publie un événement pour les consommateurs intéressés",
+  "eda.step.choreography.0": "Événement OrderCreated émis — chaque service réagira indépendamment",
+  "eda.step.orchestration.0": "Commande créée — le Saga Orchestrator prend le contrôle du workflow",
+
+  "eventsourcing.requestLabel.http": "Event Sourcing : la commande produit un événement ajouté au flux immuable, pas une mise à jour de ligne",
+  "eventsourcing.requestLabel.console": "Event Sourcing : l'état est reconstruit en rejouant tous les événements en séquence",
+  "eventsourcing.requestLabel.message": "Event Sourcing : les projections transforment indépendamment les événements en vues optimisées pour la lecture",
+  "eventsourcing.step.http.0": "Commande AddItem reçue — l'agrégat émettra un événement ItemAdded",
+  "eventsourcing.step.console.0": "Reconstruction de Order #42 depuis le flux d'événements — aucun état stocké n'existe",
+  "eventsourcing.step.message.0": "Événement OrderConfirmed lu depuis le store — les projections le transformeront",
+
+  "microservices.requestLabel.sync": "Microservices Sync : client → API Gateway → services (pas d'appels directs)",
+  "microservices.requestLabel.async": "Microservices Async : les services réagissent aux événements via Message Queue",
+  "microservices.requestLabel.saga": "Microservices Saga : l'orchestrateur coordonne inventory, payment, confirmation",
+  "microservices.requestLabel.saga-fail": "Microservices Saga Failure : le paiement échoue, les transactions compensatoires annulent l'inventaire",
+  "microservices.step.sync.0": "POST /api/orders envoyé à l'API Gateway — la passerelle gère l'auth et le routage",
+  "microservices.step.async.0": "Commande créée localement — événement OrderCreated publié dans la Message Queue",
+  "microservices.step.saga.0": "POST /api/orders — routé vers le Saga Orchestrator pour coordination distribuée",
+  "microservices.step.saga-fail.0": "POST /api/orders — cette requête échouera à l'étape du paiement",
+
+  "mvc.requestLabel.mvc": "MVC : le Controller met à jour le Model, la View observe le Model (jamais mise à jour par le Controller directement)",
+  "mvc.requestLabel.mvp": "MVP : la View passive délègue toutes les actions au Presenter via l'interface IView",
+  "mvc.requestLabel.mvvm": "MVVM : le data binding bidirectionnel synchronise View et ViewModel automatiquement",
+  "mvc.step.mvc.0": "GET /users/42 routé vers UserController — le Controller mettra à jour le Model",
+  "mvc.step.mvp.0": "L'utilisateur clique sur 'Save' — la View passive délègue au Presenter",
+  "mvc.step.mvvm.0": "L'utilisateur tape dans le champ de recherche — le binding propage vers le ViewModel",
+
+  "arch.btn.run.tooltip": "Envoyer une requete a travers l'architecture",
+  "arch.legend.sync": "Synchrone",
+  "arch.legend.sync_request": "Synchrone (Requete)",
+  "arch.legend.sync_delegate": "Synchrone (Delegation)",
+  "arch.legend.sync_binding": "Synchrone (Liaison)",
+  "arch.legend.sync_layer": "Synchrone (Appel de couche)",
+  "arch.legend.sync_inward": "Synchrone (Vers l'interieur)",
+  "arch.legend.sync_port": "Synchrone (Appel de port)",
+  "arch.legend.sync_http": "Synchrone (HTTP/gRPC)",
+  "arch.legend.response": "Reponse",
+  "arch.legend.response_outward": "Reponse (Vers l'exterieur)",
+  "arch.legend.async": "Asynchrone",
+  "arch.legend.async_event": "Asynchrone (Evenement)",
+  "arch.legend.async_queue": "Asynchrone (File d'attente)",
+  "arch.legend.event_domain": "Evenement (Domaine)",
+  "arch.legend.read_replay": "Lecture (rejeu)",
+  "arch.legend.write_append": "Ecriture (ajout)",
+  "arch.legend.db_write": "Ecriture BD",
+  "arch.legend.compensate": "Compensation",
+  "arch.legend.command": "Commande",
+  "arch.layer.presentation": "Couche de presentation",
+  "arch.layer.application": "Couche applicative",
+  "arch.layer.domain": "Couche domaine",
+  "arch.layer.infrastructure": "Couche d'infrastructure",
+  "arch.layer.presentation_short": "Presentation",
+  "arch.layer.application_short": "Application",
+  "arch.layer.domain_short": "Domaine",
+  "arch.layer.infrastructure_short": "Infrastructure",
+  "arch.arrow.depends_on": "depend de",
+  "arch.arrow.implements": "implemente",
+  "mvc.triad.view": "Vue",
+  "mvc.triad.controller": "Controleur",
+  "mvc.triad.model": "Modele",
+  "mvc.triad.presenter": "Presentateur",
+  "mvc.triad.viewmodel": "ViewModel",
+  "mvc.triad.view.desc.mvc": "Affiche les donnees. Observe les changements du Modele. Transmet les actions au Controleur.",
+  "mvc.triad.controller.desc": "Gere les entrees utilisateur. Met a jour le Modele. Selectionne la Vue. Ne met PAS a jour la Vue directement.",
+  "mvc.triad.model.desc.mvc": "Logique metier et donnees. Notifie les observateurs (Vue) lors des changements. Independant de l'interface.",
+  "mvc.triad.view.desc.mvp": "Vue passive. Delegue TOUTES les entrees au Presentateur. Aucune logique. Implemente l'interface View.",
+  "mvc.triad.presenter.desc": "Mediateur entre Vue et Modele. Contient la logique de presentation. Met a jour la Vue via l'interface.",
+  "mvc.triad.model.desc.mvp": "Donnees et regles metier. Le Presentateur lit/ecrit le Modele. Le Modele ignore le Presentateur et la Vue.",
+  "mvc.triad.view.desc.mvvm": "Liee aux proprietes du ViewModel. La liaison bidirectionnelle synchronise l'interface. Code minimal.",
+  "mvc.triad.viewmodel.desc": "Expose des proprietes observables et des commandes. La Vue s'y lie. Transforme les donnees du Modele.",
+  "mvc.triad.model.desc.mvvm": "Donnees et logique metier pures. Le ViewModel lit/ecrit le Modele. Ignore la Vue et le ViewModel.",
+  "clean.ring.frameworks": "Frameworks et pilotes",
+  "clean.ring.adapters": "Adaptateurs d'interface",
+  "clean.ring.usecases": "Cas d'utilisation",
+  "clean.ring.entities": "Entites",
+  "clean.dep_direction": "Les dependances pointent vers L'INTERIEUR",
+  "hexagonal.side.driving": "Pilotant (Gauche)",
+  "hexagonal.side.driven": "Pilote (Droite)",
+  "hexagonal.core.label": "Noyau du domaine",
+  "cqrs.side.command": "Cote commande (Ecriture)",
+  "cqrs.side.query": "Cote requete (Lecture)",
+  "cqrs.bridge.eventbus": "Bus d'evenements (Projections)",
+  "cqrs.badge.async": "async",
+  "eventsourcing.layer.command": "Traitement des commandes",
+  "eventsourcing.layer.store": "Magasin d'evenements (Source de verite)",
+  "eventsourcing.layer.decision": "Decision de l'agregat",
+  "eventsourcing.layer.projections": "Projections (Modeles de lecture)",
+  "eventsourcing.phase.load": "Chargement (rejeu des evenements)",
+  "eventsourcing.phase.execute": "Phase 2 — Execution (commande, evenement)",
+  "eventsourcing.phase.project": "Projection (async via bus)",
+  "eventsourcing.eventbus.label": "Bus d'evenements",
+  "eventsourcing.arrow.reads_events": "lit les evenements",
+  "eventsourcing.arrow.appends_event": "ajoute un evenement (ecriture)",
+  "eda.label.producers": "Producteurs",
+  "eda.label.consumers": "Consommateurs",
+  "eda.saga.label": "Orchestrateur Saga",
+  "eda.eventbus.label": "Bus d'evenements / Courtier de messages",
+  "microservices.mesh.label": "Service Mesh (Istio / Linkerd)",
+  "microservices.saga.label": "Orchestrateur Saga",
+  "microservices.queue.label": "File de messages",
+  "ddd.context.order": "Contexte des commandes",
+  "ddd.context.payment": "Contexte des paiements",
+  "ddd.context.order_core": "Contexte des commandes (Noyau)",
+  "ddd.context.crm": "Contexte CRM",
+  "ddd.context.inventory": "Contexte d'inventaire",
+  "ddd.context.shipping": "Contexte d'expedition",
+  "ddd.acl.label": "Couche anti-corruption"
+}

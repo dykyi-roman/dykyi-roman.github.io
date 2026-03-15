@@ -1,0 +1,279 @@
+{
+  "mb.title": "Visualiseur de Brokers de Messages",
+
+  "rabbitmq.name": "RabbitMQ",
+
+  "rabbitmq.modes.hello.label": "1. Direct Queue",
+  "rabbitmq.modes.hello.desc": "P -> Queue -> C. Le producteur ecrit dans une file nommee, le Consumer lit depuis celle-ci. Un a un.",
+
+  "rabbitmq.modes.work.label": "2. Round-Robin",
+  "rabbitmq.modes.work.desc": "La file distribue les taches entre les workers en round-robin. Chaque message est traite par exactement un worker. Utilise pour le traitement parallele des taches lourdes.",
+
+  "rabbitmq.modes.pubsub.label": "3. Pub/Sub",
+  "rabbitmq.modes.pubsub.desc": "Le Fanout Exchange diffuse chaque message a tous les abonnes simultanement. Utilise pour la journalisation, l'invalidation de cache, les mises a jour en temps reel.",
+
+  "rabbitmq.modes.routing.label": "4. Routing",
+  "rabbitmq.modes.routing.desc": "Le Direct Exchange livre les messages uniquement aux files dont la binding key correspond exactement. La routing key est definie par le producteur.",
+
+  "rabbitmq.modes.topics.label": "5. Topics",
+  "rabbitmq.modes.topics.desc": "Le Topic Exchange fait correspondre la routing key par patterns : * -- exactement un mot, # -- n'importe quel nombre de mots. Filtrage flexible des evenements par hierarchie.",
+
+  "rabbitmq.modes.rpc.label": "6. RPC",
+  "rabbitmq.modes.rpc.desc": "RPC via file : le client envoie une requete avec correlation_id et la file reply_to. Le serveur traite et repond. Le client attend la reponse dans sa file temporaire.",
+
+  "rabbitmq.modes.confirms.label": "7. Confirms",
+  "rabbitmq.modes.confirms.desc": "Publisher Confirms -- le broker acquitte l'ecriture de chaque message via ACK/NACK. Garantit la livraison at-least-once cote producteur.",
+
+  "rabbitmq.details.hello.principles": [
+    "Le pattern de messagerie le plus simple : un producteur envoie directement a une file nommee, un consumer lit depuis celle-ci",
+    "Les messages sont stockes dans la file jusqu'a ce qu'un consumer soit pret a les traiter (decouplage asynchrone)",
+    "Le default exchange (\"\") route les messages vers les files par nom -- aucune liaison explicite a l'exchange necessaire",
+    "Les messages sont supprimes de la file une fois acquittes par le consumer (at-most-once sans acquittement)",
+    "La file doit etre declaree avant utilisation ; le producteur et le consumer peuvent la declarer (operation idempotente)"
+  ],
+  "rabbitmq.details.hello.concepts": [
+    { "term": "Queue", "definition": "Tampon FIFO qui stocke les messages jusqu'a leur consommation. Les files durables survivent aux redemarrages du broker." },
+    { "term": "Default Exchange", "definition": "Exchange sans nom (\"\") qui route les messages vers la file dont le nom correspond a la routing key." },
+    { "term": "Acknowledgment", "definition": "Le consumer envoie un ACK apres traitement. Sans ACK, les messages sont relivres si le consumer se deconnecte." },
+    { "term": "Durable Queue", "definition": "File qui persiste a travers les redemarrages du broker. Combinee avec les messages persistants pour une durabilite complete." },
+    { "term": "Connection", "definition": "Connexion TCP au broker. Les channels sont des connexions virtuelles legeres multiplexees sur une seule connexion TCP." }
+  ],
+
+  "rabbitmq.details.work.principles": [
+    "La work queue distribue les taches entre plusieurs workers via dispatching round-robin",
+    "Chaque message est livre a exactement un worker -- pattern des competing consumers",
+    "prefetch_count=1 garantit qu'un worker recoit le message suivant seulement apres avoir acquitte le message en cours",
+    "Le dispatch equitable empeche les workers rapides d'etre inactifs tandis que les workers lents sont surcharges",
+    "L'acquittement manuel garantit que les messages sont remis en file si un worker tombe en panne pendant le traitement"
+  ],
+  "rabbitmq.details.work.concepts": [
+    { "term": "Round-Robin", "definition": "Dispatch par defaut : le broker envoie les messages aux consumers en rotation. Ne tient pas compte de la charge du consumer." },
+    { "term": "Prefetch", "definition": "Parametre QoS (prefetch_count) limitant le nombre de messages non acquittes qu'un consumer peut detenir. Cle du dispatch equitable." },
+    { "term": "Competing Consumers", "definition": "Plusieurs consumers sur la meme file. Chaque message va a exactement un consumer. Permet la mise a l'echelle horizontale." },
+    { "term": "Message TTL", "definition": "Duree de vie des messages. Les messages expires sont dead-lettered ou supprimes. Defini par file ou par message." },
+    { "term": "Dead Letter", "definition": "Les messages rejetes, expires ou depassant la longueur de file sont routes vers un dead-letter exchange pour inspection." }
+  ],
+
+  "rabbitmq.details.pubsub.principles": [
+    "Le fanout exchange diffuse chaque message a toutes les files liees -- veritable pattern publish/subscribe",
+    "Chaque abonne obtient sa propre file ; les messages sont copies dans chaque file liee independamment",
+    "Les producteurs ne savent pas quelles files existent -- decouplage total entre editeurs et abonnes",
+    "Les files temporaires (exclusive, auto-delete) sont typiques pour les abonnes n'ayant pas besoin de persistance",
+    "Ajouter un nouvel abonne ne necessite aucun changement cote producteur -- il suffit de lier une nouvelle file a l'exchange"
+  ],
+  "rabbitmq.details.pubsub.concepts": [
+    { "term": "Fanout Exchange", "definition": "Ignore completement les routing keys. Livre une copie de chaque message a chaque file liee. Pattern un-vers-plusieurs." },
+    { "term": "Binding", "definition": "Lien entre un exchange et une file. Pour les fanout exchanges, la binding key est ignoree." },
+    { "term": "Exclusive Queue", "definition": "File qu'une seule connexion peut utiliser. Automatiquement supprimee lorsque la connexion se ferme. Ideale pour les abonnes temporaires." },
+    { "term": "Exchange", "definition": "Recoit les messages des producteurs et les route vers les files selon le type (fanout, direct, topic, headers)." },
+    { "term": "Auto-Delete", "definition": "File ou exchange automatiquement supprime lorsque le dernier consumer se deconnecte." }
+  ],
+
+  "rabbitmq.details.routing.principles": [
+    "Le direct exchange route les messages uniquement vers les files dont la binding key correspond exactement a la routing key",
+    "Plusieurs files peuvent etre liees au meme exchange avec la meme routing key -- les messages sont copies dans toutes",
+    "Une file peut avoir plusieurs liaisons avec differentes routing keys pour recevoir des messages de plusieurs sources",
+    "La routing key est definie par le producteur a la publication ; la binding key est definie par le consumer a la liaison",
+    "Le direct exchange permet le filtrage selectif des messages -- les consumers recoivent uniquement les types de messages dont ils ont besoin"
+  ],
+  "rabbitmq.details.routing.concepts": [
+    { "term": "Direct Exchange", "definition": "Route les messages par correspondance exacte de routing key. Le message ne va qu'aux files liees avec la meme cle." },
+    { "term": "Routing Key", "definition": "Chaine definie par le producteur sur chaque message. Le direct exchange la compare aux binding keys pour les decisions de routage." },
+    { "term": "Binding Key", "definition": "Chaine specifiee lors de la liaison d'une file a un exchange. Doit correspondre exactement a la routing key pour les direct exchanges." },
+    { "term": "Selective Filtering", "definition": "Chaque consumer se lie avec des cles specifiques et ne recoit que les messages correspondants. Contrairement au fanout, tous les messages ne vont pas partout." },
+    { "term": "Multiple Bindings", "definition": "Une file peut se lier plusieurs fois avec differentes cles au meme exchange, recevant les messages correspondant a n'importe laquelle." }
+  ],
+
+  "rabbitmq.details.topics.principles": [
+    "Le topic exchange fait correspondre les routing keys par patterns de mots separes par des points utilisant * (un mot) et # (zero ou plusieurs mots)",
+    "La routing key doit etre une chaine separee par des points (par exemple, \"order.created.eu\") -- maximum 255 octets",
+    "Le pattern * substitue exactement un mot ; # substitue zero ou plusieurs mots -- hierarchie de filtrage puissante",
+    "Un topic exchange avec une liaison \"#\" se comporte comme un fanout ; sans jokers, il se comporte comme un direct",
+    "Les topic exchanges permettent des hierarchies d'evenements : \"order.*\" recoit tous les evenements de commande, \"*.created.*\" recoit tous les evenements de creation"
+  ],
+  "rabbitmq.details.topics.concepts": [
+    { "term": "Topic Exchange", "definition": "Route les messages par correspondance de patterns sur les routing keys separees par des points. Supporte les jokers * et #." },
+    { "term": "* Wildcard", "definition": "Correspond a exactement un mot dans la routing key. \"order.*.eu\" correspond a \"order.created.eu\" mais pas a \"order.eu\"." },
+    { "term": "# Wildcard", "definition": "Correspond a zero ou plusieurs mots. \"order.#\" correspond a \"order\", \"order.created\", \"order.created.eu\", etc." },
+    { "term": "Word", "definition": "Un segment entre les points dans la routing key. \"stock.usd.nyse\" a trois mots : \"stock\", \"usd\", \"nyse\"." },
+    { "term": "Hierarchy", "definition": "Les cles topic forment une hierarchie naturelle (domain.event.region) permettant un abonnement flexible a n'importe quel niveau." }
+  ],
+
+  "rabbitmq.details.rpc.principles": [
+    "RPC via messagerie : le client envoie une requete avec la file reply_to et le correlation_id, le serveur traite et repond",
+    "Chaque client cree une callback queue exclusive pour recevoir les reponses -- une file par connexion client",
+    "Le correlation_id associe les reponses aux requetes, permettant plusieurs RPC en cours sur la meme callback queue",
+    "Le serveur est sans etat -- il consomme simplement de la file de requetes et publie a l'adresse reply_to",
+    "Le RPC via messagerie ajoute de la fiabilite (tentatives, persistance) mais introduit de la latence par rapport aux appels HTTP directs"
+  ],
+  "rabbitmq.details.rpc.concepts": [
+    { "term": "Correlation ID", "definition": "Identifiant unique defini sur le message de requete. Le serveur le copie dans la reponse pour que le client puisse associer les paires requete-reponse." },
+    { "term": "Reply-To Queue", "definition": "File exclusive creee par le client. Son nom est envoye dans la propriete reply_to pour que le serveur sache ou envoyer la reponse." },
+    { "term": "Callback Queue", "definition": "Identique a la reply-to queue. Le client ecoute cette file pour les reponses RPC. Typiquement exclusive et auto-delete." },
+    { "term": "Request-Reply", "definition": "Pattern ou une partie envoie une requete et attend une reponse. Via messagerie, c'est asynchrone mais semble synchrone pour l'appelant." },
+    { "term": "Timeout", "definition": "Le client devrait definir un delai d'attente pour les reponses RPC. Si le serveur tombe, le client doit gerer l'absence de reponse gracieusement." }
+  ],
+
+  "rabbitmq.details.confirms.principles": [
+    "Publisher confirms : le broker acquitte (ACK/NACK) chaque message apres son ecriture sur disque ou sa livraison",
+    "Sans confirms, le producteur n'a aucun moyen de savoir si le broker a recu et persiste le message",
+    "Les messages sont confirmes dans l'ordre ; un seul ACK avec multiple=true peut confirmer tous les messages jusqu'a ce numero de sequence",
+    "NACK indique que le broker n'a pas pu traiter le message (par exemple, disque plein, erreur interne)",
+    "Publisher confirms + consumer ACK + files durables + messages persistants = livraison at-least-once de bout en bout"
+  ],
+  "rabbitmq.details.confirms.concepts": [
+    { "term": "Publisher Confirm", "definition": "Le broker envoie un ACK au producteur apres avoir mis en file/persiste le message avec succes. Confirmation asynchrone." },
+    { "term": "Sequence Number", "definition": "Numero croissant de maniere monotone attribue a chaque message publie. Utilise pour suivre quels messages sont confirmes." },
+    { "term": "Batch Confirm", "definition": "ACK avec multiple=true confirme tous les messages jusqu'au numero de sequence donne. Plus efficace que les confirmations par message." },
+    { "term": "NACK", "definition": "Acquittement negatif du broker. Indique que le message n'a pas ete traite. Le producteur devrait reessayer ou gerer l'echec." },
+    { "term": "At-Least-Once", "definition": "Garantie de livraison : le message est livre au moins une fois (peut etre duplique). Obtenu avec confirms + messages persistants + files durables." }
+  ],
+
+  "kafka.name": "Apache Kafka",
+
+  "kafka.modes.partitions.label": "Partitions",
+  "kafka.modes.partitions.desc": "Kafka distribue les messages a travers les partitions. Strategies : Round-Robin (sans cle), Key-Based (hachage), ou Manual. Les messages au sein d'une partition sont strictement ordonnes.",
+
+  "kafka.modes.consumer-groups.label": "Consumer Groups",
+  "kafka.modes.consumer-groups.desc": "Chaque partition est consommee par exactement un consumer dans un groupe. Les groupes sont independants. L'offset est suivi par groupe.",
+
+  "kafka.modes.retention.label": "Retention & Replay",
+  "kafka.modes.retention.desc": "Kafka stocke les messages dans un journal ordonne. Le consumer group lit independamment et peut revenir en arriere dans l'offset pour rejouer. Les messages ne sont pas supprimes apres lecture.",
+
+  "kafka.modes.exactly-once.label": "Exactly-Once",
+  "kafka.modes.exactly-once.desc": "Garanties de livraison : at-most-once (acks=0, perte possible), at-least-once (acks=1, doublons possibles), exactly-once (producteur idempotent, ni perte ni doublon).",
+
+  "kafka.details.partitions.principles": [
+    "Un topic Kafka est divise en partitions -- chaque partition est un journal ordonne et immuable de messages",
+    "Les messages au sein d'une meme partition sont strictement ordonnes ; aucune garantie d'ordre global entre partitions",
+    "Strategies d'affectation des partitions : Round-Robin (sans cle), Key-Based (hachage de la cle modulo nombre de partitions), Manual",
+    "Les partitions sont l'unite de parallelisme -- plus de partitions permettent a plus de consumers de lire en parallele",
+    "Chaque partition est repliquee entre les brokers (facteur de replication) pour la tolerance aux pannes"
+  ],
+  "kafka.details.partitions.concepts": [
+    { "term": "Partition", "definition": "Journal ordonne en mode append-only au sein d'un topic. Chaque message recoit un offset sequentiel. Les partitions permettent le parallelisme." },
+    { "term": "Offset", "definition": "Position sequentielle d'un message au sein d'une partition. Les consumers suivent leur position par offset." },
+    { "term": "Key-Based Routing", "definition": "Les messages avec la meme cle vont toujours dans la meme partition (hash(key) mod N). Garantit l'ordre par cle." },
+    { "term": "Leader/Follower", "definition": "Chaque partition a un leader (gere lectures/ecritures) et N-1 followers (repliquent les donnees). Election du leader en cas de panne." },
+    { "term": "ISR", "definition": "In-Sync Replicas -- les followers synchronises avec le leader. Seuls les membres ISR peuvent devenir le nouveau leader." }
+  ],
+
+  "kafka.details.consumer-groups.principles": [
+    "Chaque partition est consommee par exactement un consumer au sein d'un consumer group -- pas de traitement en double",
+    "Les differents consumer groups sont independants -- chaque groupe traite le flux complet independamment",
+    "Lorsqu'un consumer rejoint ou quitte, les partitions sont reequilibrees entre les membres restants du groupe",
+    "S'il y a plus de consumers que de partitions dans un groupe, les consumers excedentaires restent inactifs",
+    "Le suivi des offsets du consumer group permet a chaque groupe de lire a son propre rythme"
+  ],
+  "kafka.details.consumer-groups.concepts": [
+    { "term": "Consumer Group", "definition": "Groupe nomme de consumers lisant collectivement un topic. Chaque partition est affectee a exactement un membre." },
+    { "term": "Rebalance", "definition": "Reassignation des partitions declenchee lorsqu'un consumer rejoint, quitte ou tombe en panne. Cause une breve pause de traitement." },
+    { "term": "Group Coordinator", "definition": "Broker responsable de la gestion de l'adhesion au consumer group et de l'affectation des partitions." },
+    { "term": "Committed Offset", "definition": "Dernier offset traite par partition, stocke dans le topic __consumer_offsets. Permet la reprise apres redemarrage." },
+    { "term": "Lag", "definition": "Difference entre l'offset du dernier message et l'offset commite du consumer. Un lag eleve = le consumer prend du retard." }
+  ],
+
+  "kafka.details.retention.principles": [
+    "Kafka conserve les messages en fonction du temps (retention.ms) ou de la taille (retention.bytes), pas du statut de consommation",
+    "Les messages ne sont PAS supprimes apres consommation -- plusieurs consumer groups peuvent relire les memes donnees",
+    "Le log compaction ne conserve que la derniere valeur par cle, permettant les patterns changelog/snapshot",
+    "Les consumers peuvent se positionner a n'importe quel offset (debut, fin, horodatage, offset specifique) pour le rejeu ou le retraitement",
+    "La politique de retention est definie par topic -- differents topics peuvent avoir des periodes de retention differentes"
+  ],
+  "kafka.details.retention.concepts": [
+    { "term": "Retention", "definition": "Combien de temps les messages sont conserves. retention.ms=604800000 (7 jours) par defaut. -1 signifie conserver indefiniment." },
+    { "term": "Log Compaction", "definition": "Au lieu de la suppression basee sur le temps, ne conserve que la derniere valeur par cle. Comme un changelog avec deduplication." },
+    { "term": "Segment", "definition": "La partition est divisee en fichiers segments. La retention et la compaction operent sur des segments entiers, pas sur des messages individuels." },
+    { "term": "Offset Reset", "definition": "Ce qui se passe quand un consumer n'a pas d'offset commite : auto.offset.reset=earliest (depuis le debut) ou latest (uniquement les nouveaux messages)." },
+    { "term": "Replay", "definition": "Les consumers peuvent se positionner a un offset anterieur pour retraiter les messages. Permet de corriger des bugs et de reconstruire l'etat." }
+  ],
+
+  "kafka.details.exactly-once.principles": [
+    "Trois garanties de livraison : at-most-once (perte possible), at-least-once (doublons possibles), exactly-once (ni perte, ni doublon)",
+    "Le producteur idempotent attribue des numeros de sequence par partition -- le broker deduplique les messages retentes",
+    "Les transactions permettent des ecritures atomiques a travers plusieurs partitions et topics (tout ou rien)",
+    "acks=all garantit que le leader attend la confirmation de toutes les repliques ISR avant d'acquitter la requete de production",
+    "La semantique exactly-once (EOS) combine producteur idempotent + transactions + isolation read_committed du consumer"
+  ],
+  "kafka.details.exactly-once.concepts": [
+    { "term": "Idempotent Producer", "definition": "Le producteur attribue des numeros de sequence. Le broker detecte et rejette les messages dupliques des tentatives. enable.idempotence=true." },
+    { "term": "Producer ID (PID)", "definition": "ID unique attribue a chaque producteur par le broker. Combine avec le numero de sequence pour la deduplication." },
+    { "term": "Transaction", "definition": "Ecriture atomique a travers les partitions. Tous les messages d'une transaction sont soit tous commites, soit tous annules." },
+    { "term": "acks=all", "definition": "Le producteur attend l'acquittement de toutes les repliques synchronisees. Garantie de durabilite la plus forte mais latence plus elevee." },
+    { "term": "read_committed", "definition": "Niveau d'isolation du consumer qui ne lit que les messages commites (non-transactionnels ou transactionnels commites)." }
+  ],
+
+  "redis.name": "Redis",
+
+  "redis.modes.pubsub.label": "Pub/Sub",
+  "redis.modes.pubsub.desc": "Redis Pub/Sub -- fire-and-forget. Les messages ne sont pas stockes. Si un abonne est deconnecte au moment de l'envoi, il ne recevra pas le message. Adapte aux evenements temps reel sans garanties.",
+
+  "redis.modes.pattern.label": "Pattern Sub",
+  "redis.modes.pattern.desc": "Redis PSUBSCRIBE fait correspondre les canaux par patterns glob : * (tout caractere), ? (un caractere), [abc] (l'un des). Permet de s'abonner a plusieurs canaux a la fois.",
+
+  "redis.modes.streams.label": "Streams",
+  "redis.modes.streams.desc": "Redis Streams -- journal d'evenements persistant avec consumer groups. Contrairement au Pub/Sub, les messages sont stockes et disponibles pour relecture. Supporte XACK pour les garanties at-least-once.",
+
+  "redis.modes.eventsourcing.label": "Event Sourcing",
+  "redis.modes.eventsourcing.desc": "Event Sourcing : l'etat du systeme n'est pas stocke directement -- il est reconstruit en rejouant les evenements. Redis Stream stocke un journal immuable. La reconstruction rejoue l'historique complet.",
+
+  "redis.details.pubsub.principles": [
+    "Redis Pub/Sub est fire-and-forget : les messages ne sont PAS stockes et ne sont PAS persistes sur disque",
+    "Si un abonne est deconnecte au moment de la publication, il ne recevra jamais ce message",
+    "Il n'y a pas de mecanisme d'acquittement -- l'editeur ne sait pas si quelqu'un a recu le message",
+    "Les messages sont livres a tous les abonnes actuellement connectes au canal simultanement",
+    "Pub/Sub opere en dehors de l'espace de cles -- SUBSCRIBE/PUBLISH n'interagissent pas avec les cles Redis normales"
+  ],
+  "redis.details.pubsub.concepts": [
+    { "term": "Channel", "definition": "Bus de messages nomme. Les editeurs envoient a un canal, les abonnes l'ecoutent. Pas de persistance, pas d'historique." },
+    { "term": "SUBSCRIBE", "definition": "Bloque la connexion et ecoute les messages sur un ou plusieurs canaux. La connexion passe en mode abonnement uniquement." },
+    { "term": "PUBLISH", "definition": "Envoie un message a un canal. Retourne le nombre d'abonnes qui l'ont recu (0 si aucun)." },
+    { "term": "Fire-and-Forget", "definition": "Les messages sont immediatement dispatches aux abonnes actuels puis rejetes. Pas de tentative, pas de stockage." },
+    { "term": "Client State", "definition": "Un client abonne entre dans un mode special -- il ne peut executer que SUBSCRIBE, UNSUBSCRIBE, PSUBSCRIBE, PUNSUBSCRIBE, PING, RESET." }
+  ],
+
+  "redis.details.pattern.principles": [
+    "PSUBSCRIBE fait correspondre les canaux en utilisant des patterns de style glob : * (tout caractere), ? (un caractere), [abc] (classe de caracteres)",
+    "Un seul abonnement par pattern peut correspondre a plusieurs canaux simultanement sans connaitre leurs noms exacts",
+    "La correspondance de patterns est evaluee a chaque PUBLISH -- un grand nombre de patterns peut augmenter la charge CPU",
+    "Un client peut combiner SUBSCRIBE classique et PSUBSCRIBE -- il recoit les messages des deux",
+    "Si a la fois SUBSCRIBE et PSUBSCRIBE correspondent au meme canal, le client recoit le message deux fois"
+  ],
+  "redis.details.pattern.concepts": [
+    { "term": "PSUBSCRIBE", "definition": "Abonnement par pattern glob. \"chat:*\" correspond a chat:room1, chat:room2, etc. Verifie a chaque publication." },
+    { "term": "* Glob", "definition": "Correspond a toute sequence de caracteres. \"events:*\" correspond a \"events:created\", \"events:deleted\", \"events:foo:bar\"." },
+    { "term": "? Glob", "definition": "Correspond a exactement un caractere. \"log?\" correspond a \"log1\", \"logA\", mais pas a \"log\" ni \"log12\"." },
+    { "term": "Pattern Count", "definition": "PUBSUB NUMPAT retourne le nombre d'abonnements par pattern actifs. Beaucoup de patterns = cout CPU plus eleve par publication." },
+    { "term": "Dual Delivery", "definition": "Si un client est abonne a la fois a \"chat:room1\" (exact) et \"chat:*\" (pattern), il recoit le meme message deux fois." }
+  ],
+
+  "redis.details.streams.principles": [
+    "Redis Streams fournit un journal persistant en mode append-only avec consumer groups -- contrairement au Pub/Sub ephemere",
+    "Chaque entree a un ID unique auto-genere (timestamp-sequence) et une ou plusieurs paires champ-valeur",
+    "Les consumer groups suivent la progression par consumer ; les messages ne sont pas relivres aux autres membres du groupe",
+    "XACK acquitte explicitement le traitement -- les messages non acquittes restent dans la Pending Entries List (PEL)",
+    "XCLAIM permet de transferer la propriete de messages en attente d'un consumer defaillant a un autre"
+  ],
+  "redis.details.streams.concepts": [
+    { "term": "Stream", "definition": "Structure de donnees en journal append-only. Chaque entree a un ID + paires champ-valeur. Persiste sur disque comme toute cle Redis." },
+    { "term": "Entry ID", "definition": "Format : timestamp-sequence (par exemple, 1234567890-0). Auto-genere, croissant de maniere monotone. Utilise pour les requetes de plage." },
+    { "term": "Consumer Group", "definition": "Groupe nomme qui lit depuis un stream. Chaque entree est livree a un consumer dans le groupe. Suit le last-delivered-id." },
+    { "term": "PEL", "definition": "Pending Entries List -- entrees livrees a un consumer mais pas encore acquittees via XACK. Permet la garantie de livraison at-least-once." },
+    { "term": "XCLAIM", "definition": "Transfere la propriete d'une entree en attente d'un consumer a un autre. Utilise pour gerer les defaillances de consumers." }
+  ],
+
+  "redis.details.eventsourcing.principles": [
+    "Event Sourcing : l'etat de l'application est derive en rejouant une sequence immuable d'evenements, pas stocke directement",
+    "Redis Stream sert de magasin d'evenements -- append-only, ordonne, persistant, avec support des consumer groups",
+    "L'etat est reconstruit en lisant tous les evenements du stream et en appliquant la transformation de chaque evenement dans l'ordre",
+    "Des snapshots peuvent etre periodiquement sauvegardes pour eviter de rejouer l'historique complet pour la reconstruction de l'etat",
+    "Les evenements sont immuables -- pour corriger une erreur, ajoutez un evenement compensatoire plutot que de modifier l'historique"
+  ],
+  "redis.details.eventsourcing.concepts": [
+    { "term": "Event Store", "definition": "Journal persistant des evenements du domaine dans l'ordre. Redis Stream fournit cela avec XADD (ecriture) et XRANGE (lecture)." },
+    { "term": "State Rebuild", "definition": "Processus de rejeu de tous les evenements depuis le debut pour reconstruire l'etat actuel de l'application." },
+    { "term": "Projection", "definition": "Vue optimisee pour la lecture derivee du flux d'evenements. Peut etre reconstruite a tout moment en rejouant les evenements." },
+    { "term": "Compensating Event", "definition": "Un evenement qui inverse l'effet d'un evenement precedent. Les evenements ne sont jamais supprimes ou modifies -- seulement ajoutes." },
+    { "term": "Snapshot", "definition": "Capture periodique de l'etat actuel pour eviter de rejouer l'historique complet des evenements. Etat = snapshot + evenements apres le snapshot." }
+  ]
+}

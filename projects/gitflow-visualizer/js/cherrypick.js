@@ -112,19 +112,22 @@ GFV.cherrypick.backport = {
     },
     steps: function() {
         return [
-            { op: 'commit', branch: 'main', label: 'v3.0-dev', description: 'Active development on main targeting v3.0 — new features being built for the next major release', logType: 'COMMIT' },
-            { op: 'commit', branch: 'release/2.0', label: 'v2.0', description: 'Release/2.0 is in production — enterprise customers are running this version', logType: 'COMMIT' },
-            { op: 'commit', branch: 'release/1.0', label: 'v1.0', description: 'Release/1.0 is still supported — legacy customers on LTS contracts depend on this version', logType: 'COMMIT' },
-            { op: 'commit', branch: 'main', label: 'Bug fix', description: 'Fix critical memory leak in the connection pool — affects all versions, fixed on main first', logType: 'COMMIT' },
-            { op: 'cherry-pick', fromBranch: 'main', toBranch: 'release/2.0', label: 'Bug fix', description: 'Cherry-pick the connection pool fix from main to release/2.0 — backporting to currently deployed version', logType: 'CHERRY-PICK' },
-            { op: 'cherry-pick', fromBranch: 'main', toBranch: 'release/1.0', label: 'Bug fix', description: 'Cherry-pick the same fix to release/1.0 — LTS customers also need the memory leak resolved', logType: 'CHERRY-PICK' },
-            { op: 'tag', branch: 'release/2.0', tagName: 'v2.0.1', description: 'Tag patch release v2.0.1 on release/2.0 — enterprise customers can now upgrade to the patched version', logType: 'TAG' },
-            { op: 'tag', branch: 'release/1.0', tagName: 'v1.0.1', description: 'Tag patch release v1.0.1 on release/1.0 — LTS customers receive the fix without upgrading major version', logType: 'TAG' },
-            { op: 'commit', branch: 'main', label: 'Continue', description: 'Development resumes on main — the fix is already integrated here, no additional action needed', logType: 'COMMIT' }
+            { op: 'commit', branch: 'main', label: 'v3.0-dev', description: 'Active development on main targeting v3.0 — new features being built for the next major release', descriptionKey: 'gfv.cherrypick.backport.0', logType: 'COMMIT' },
+            { op: 'commit', branch: 'release/2.0', label: 'v2.0', description: 'Release/2.0 is in production — enterprise customers are running this version', descriptionKey: 'gfv.cherrypick.backport.1', logType: 'COMMIT' },
+            { op: 'commit', branch: 'release/1.0', label: 'v1.0', description: 'Release/1.0 is still supported — legacy customers on LTS contracts depend on this version', descriptionKey: 'gfv.cherrypick.backport.2', logType: 'COMMIT' },
+            { op: 'commit', branch: 'main', label: 'Bug fix', description: 'Fix critical memory leak in the connection pool — affects all versions, fixed on main first', descriptionKey: 'gfv.cherrypick.backport.3', logType: 'COMMIT' },
+            { op: 'cherry-pick', fromBranch: 'main', toBranch: 'release/2.0', label: 'Bug fix', description: 'Cherry-pick the connection pool fix from main to release/2.0 — backporting to currently deployed version', descriptionKey: 'gfv.cherrypick.backport.4', logType: 'CHERRY-PICK' },
+            { op: 'cherry-pick', fromBranch: 'main', toBranch: 'release/1.0', label: 'Bug fix', description: 'Cherry-pick the same fix to release/1.0 — LTS customers also need the memory leak resolved', descriptionKey: 'gfv.cherrypick.backport.5', logType: 'CHERRY-PICK' },
+            { op: 'tag', branch: 'release/2.0', tagName: 'v2.0.1', description: 'Tag patch release v2.0.1 on release/2.0 — enterprise customers can now upgrade to the patched version', descriptionKey: 'gfv.cherrypick.backport.6', logType: 'TAG' },
+            { op: 'tag', branch: 'release/1.0', tagName: 'v1.0.1', description: 'Tag patch release v1.0.1 on release/1.0 — LTS customers receive the fix without upgrading major version', descriptionKey: 'gfv.cherrypick.backport.7', logType: 'TAG' },
+            { op: 'commit', branch: 'main', label: 'Continue', description: 'Development resumes on main — the fix is already integrated here, no additional action needed', descriptionKey: 'gfv.cherrypick.backport.8', logType: 'COMMIT' }
         ];
     },
     stepOptions: function() {
-        return { requestLabel: 'Cherry-pick Flow: Backport Fix', _initFn: GFV.cherrypick.backport.init };
+        return {
+            requestLabel: GFV._t('gfv.request.cherry.backport', null, 'Cherry-pick Flow: Backport Fix'),
+            _initFn: GFV.cherrypick.backport.init
+        };
     },
     run: function() {
         GFV.cherrypick.backport.init();
@@ -139,17 +142,20 @@ GFV.cherrypick.forward = {
     },
     steps: function() {
         return [
-            { op: 'commit', branch: 'main', label: 'v3.0-dev', description: 'Active v3.0 development on main — new microservices architecture being implemented', logType: 'COMMIT' },
-            { op: 'commit', branch: 'release/2.0', label: 'v2.0', description: 'Release/2.0 is running in production — serving live customer traffic', logType: 'COMMIT' },
-            { op: 'commit', branch: 'release/2.0', label: 'Fix', description: 'URGENT: Fix authentication bypass vulnerability discovered in production — patched directly on release/2.0 for fastest response', logType: 'COMMIT' },
-            { op: 'tag', branch: 'release/2.0', tagName: 'v2.0.1', description: 'Tag patch release v2.0.1 — security fix immediately available for production deployment', logType: 'TAG' },
-            { op: 'cherry-pick', fromBranch: 'release/2.0', toBranch: 'main', label: 'Fix', description: 'Forward-port: cherry-pick the security fix from release/2.0 to main — ensuring v3.0 is not vulnerable', logType: 'CHERRY-PICK' },
-            { op: 'commit', branch: 'main', label: 'Continue', description: 'Development resumes on main with the security fix included — no regression in the v3.0 codebase', logType: 'COMMIT' },
-            { op: 'tag', branch: 'main', tagName: 'v3.0', description: 'Tag next major release v3.0 — includes the forward-ported security fix plus all new v3.0 features', logType: 'TAG' }
+            { op: 'commit', branch: 'main', label: 'v3.0-dev', description: 'Active v3.0 development on main — new microservices architecture being implemented', descriptionKey: 'gfv.cherrypick.forward.0', logType: 'COMMIT' },
+            { op: 'commit', branch: 'release/2.0', label: 'v2.0', description: 'Release/2.0 is running in production — serving live customer traffic', descriptionKey: 'gfv.cherrypick.forward.1', logType: 'COMMIT' },
+            { op: 'commit', branch: 'release/2.0', label: 'Fix', description: 'URGENT: Fix authentication bypass vulnerability discovered in production — patched directly on release/2.0 for fastest response', descriptionKey: 'gfv.cherrypick.forward.2', logType: 'COMMIT' },
+            { op: 'tag', branch: 'release/2.0', tagName: 'v2.0.1', description: 'Tag patch release v2.0.1 — security fix immediately available for production deployment', descriptionKey: 'gfv.cherrypick.forward.3', logType: 'TAG' },
+            { op: 'cherry-pick', fromBranch: 'release/2.0', toBranch: 'main', label: 'Fix', description: 'Forward-port: cherry-pick the security fix from release/2.0 to main — ensuring v3.0 is not vulnerable', descriptionKey: 'gfv.cherrypick.forward.4', logType: 'CHERRY-PICK' },
+            { op: 'commit', branch: 'main', label: 'Continue', description: 'Development resumes on main with the security fix included — no regression in the v3.0 codebase', descriptionKey: 'gfv.cherrypick.forward.5', logType: 'COMMIT' },
+            { op: 'tag', branch: 'main', tagName: 'v3.0', description: 'Tag next major release v3.0 — includes the forward-ported security fix plus all new v3.0 features', descriptionKey: 'gfv.cherrypick.forward.6', logType: 'TAG' }
         ];
     },
     stepOptions: function() {
-        return { requestLabel: 'Cherry-pick Flow: Forward Port', _initFn: GFV.cherrypick.forward.init };
+        return {
+            requestLabel: GFV._t('gfv.request.cherry.forward', null, 'Cherry-pick Flow: Forward Port'),
+            _initFn: GFV.cherrypick.forward.init
+        };
     },
     run: function() {
         GFV.cherrypick.forward.init();
@@ -164,22 +170,25 @@ GFV.cherrypick.multi = {
     },
     steps: function() {
         return [
-            { op: 'commit', branch: 'main', label: 'v4.0-dev', description: 'Active v4.0 development on main — next-generation platform features in progress', logType: 'COMMIT' },
-            { op: 'commit', branch: 'release/2.0', label: 'v2.0', description: 'Release/2.0 is in production for standard-tier customers — actively supported', logType: 'COMMIT' },
-            { op: 'commit', branch: 'release/1.0', label: 'v1.0', description: 'Release/1.0 is in LTS mode — critical patches only, legacy customers still on contract', logType: 'COMMIT' },
-            { op: 'branch', branch: 'release/3.0', fromBranch: 'main', label: 'release/3.0', description: 'Branch release/3.0 from main — preparing the latest major version for enterprise customers', logType: 'BRANCH' },
-            { op: 'commit', branch: 'main', label: 'Security fix', description: 'CRITICAL: Fix XSS vulnerability in user-generated content renderer — affects ALL supported versions', logType: 'COMMIT' },
-            { op: 'cherry-pick', fromBranch: 'main', toBranch: 'release/3.0', label: 'Security fix', description: 'Cherry-pick XSS fix to release/3.0 — patching the newest supported version first', logType: 'CHERRY-PICK' },
-            { op: 'cherry-pick', fromBranch: 'main', toBranch: 'release/2.0', label: 'Security fix', description: 'Cherry-pick XSS fix to release/2.0 — standard-tier customers need the security patch', logType: 'CHERRY-PICK' },
-            { op: 'cherry-pick', fromBranch: 'main', toBranch: 'release/1.0', label: 'Security fix', description: 'Cherry-pick XSS fix to release/1.0 — even LTS versions must receive critical security patches', logType: 'CHERRY-PICK' },
-            { op: 'tag', branch: 'release/3.0', tagName: 'v3.0.1', description: 'Tag v3.0.1 — enterprise customers can upgrade to the patched version immediately', logType: 'TAG' },
-            { op: 'tag', branch: 'release/2.0', tagName: 'v2.0.1', description: 'Tag v2.0.1 — standard-tier patch release with the XSS vulnerability resolved', logType: 'TAG' },
-            { op: 'tag', branch: 'release/1.0', tagName: 'v1.0.1', description: 'Tag v1.0.1 — LTS patch release, maintaining security compliance for legacy deployments', logType: 'TAG' },
-            { op: 'commit', branch: 'main', label: 'Continue', description: 'Development resumes on main — all 3 supported versions are now patched against the vulnerability', logType: 'COMMIT' }
+            { op: 'commit', branch: 'main', label: 'v4.0-dev', description: 'Active v4.0 development on main — next-generation platform features in progress', descriptionKey: 'gfv.cherrypick.multi.0', logType: 'COMMIT' },
+            { op: 'commit', branch: 'release/2.0', label: 'v2.0', description: 'Release/2.0 is in production for standard-tier customers — actively supported', descriptionKey: 'gfv.cherrypick.multi.1', logType: 'COMMIT' },
+            { op: 'commit', branch: 'release/1.0', label: 'v1.0', description: 'Release/1.0 is in LTS mode — critical patches only, legacy customers still on contract', descriptionKey: 'gfv.cherrypick.multi.2', logType: 'COMMIT' },
+            { op: 'branch', branch: 'release/3.0', fromBranch: 'main', label: 'release/3.0', description: 'Branch release/3.0 from main — preparing the latest major version for enterprise customers', descriptionKey: 'gfv.cherrypick.multi.3', logType: 'BRANCH' },
+            { op: 'commit', branch: 'main', label: 'Security fix', description: 'CRITICAL: Fix XSS vulnerability in user-generated content renderer — affects ALL supported versions', descriptionKey: 'gfv.cherrypick.multi.4', logType: 'COMMIT' },
+            { op: 'cherry-pick', fromBranch: 'main', toBranch: 'release/3.0', label: 'Security fix', description: 'Cherry-pick XSS fix to release/3.0 — patching the newest supported version first', descriptionKey: 'gfv.cherrypick.multi.5', logType: 'CHERRY-PICK' },
+            { op: 'cherry-pick', fromBranch: 'main', toBranch: 'release/2.0', label: 'Security fix', description: 'Cherry-pick XSS fix to release/2.0 — standard-tier customers need the security patch', descriptionKey: 'gfv.cherrypick.multi.6', logType: 'CHERRY-PICK' },
+            { op: 'cherry-pick', fromBranch: 'main', toBranch: 'release/1.0', label: 'Security fix', description: 'Cherry-pick XSS fix to release/1.0 — even LTS versions must receive critical security patches', descriptionKey: 'gfv.cherrypick.multi.7', logType: 'CHERRY-PICK' },
+            { op: 'tag', branch: 'release/3.0', tagName: 'v3.0.1', description: 'Tag v3.0.1 — enterprise customers can upgrade to the patched version immediately', descriptionKey: 'gfv.cherrypick.multi.8', logType: 'TAG' },
+            { op: 'tag', branch: 'release/2.0', tagName: 'v2.0.1', description: 'Tag v2.0.1 — standard-tier patch release with the XSS vulnerability resolved', descriptionKey: 'gfv.cherrypick.multi.9', logType: 'TAG' },
+            { op: 'tag', branch: 'release/1.0', tagName: 'v1.0.1', description: 'Tag v1.0.1 — LTS patch release, maintaining security compliance for legacy deployments', descriptionKey: 'gfv.cherrypick.multi.10', logType: 'TAG' },
+            { op: 'commit', branch: 'main', label: 'Continue', description: 'Development resumes on main — all 3 supported versions are now patched against the vulnerability', descriptionKey: 'gfv.cherrypick.multi.11', logType: 'COMMIT' }
         ];
     },
     stepOptions: function() {
-        return { requestLabel: 'Cherry-pick Flow: Multi-version', _initFn: GFV.cherrypick.multi.init };
+        return {
+            requestLabel: GFV._t('gfv.request.cherry.multi', null, 'Cherry-pick Flow: Multi-version'),
+            _initFn: GFV.cherrypick.multi.init
+        };
     },
     run: function() {
         GFV.cherrypick.multi.init();

@@ -30,16 +30,17 @@
     </script>
 
     <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/index.html">Home</a>
+        <a href="/index.html" data-i18n="ui.breadcrumb.home">Home</a>
         <span class="breadcrumb-separator">&rsaquo;</span>
-        <a href="/projects.html">Projects</a>
+        <a href="/pages/projects.html" data-i18n="ui.breadcrumb.projects">Projects</a>
         <span class="breadcrumb-separator">&rsaquo;</span>
-        <span class="breadcrumb-current">GitFlow Visualizer</span>
+        <span class="breadcrumb-current" data-i18n="gf.title">GitFlow Visualizer</span>
+        <div class="lang-switcher" id="lang-switcher"></div>
     </nav>
 
     <div class="article-container gfv-page">
         <div class="article-header">
-            <h1 class="article-title">GitFlow Visualizer</h1>
+            <h1 class="article-title" data-i18n="article-title">GitFlow Visualizer</h1>
         </div>
 
         <!-- Flow Navigation (Level 1) -->
@@ -64,21 +65,21 @@
         <div class="global-controls-placeholder" id="controls-placeholder"></div>
         <div class="global-controls" id="global-controls">
             <div class="controls-left">
-                <button class="ctrl-btn run-btn" id="btn-run" title="Run git flow animation">&#x25B6; Run Flow</button>
-                <button class="ctrl-btn pause-btn" id="btn-pause" title="Pause / Resume animation" disabled>&#x23F8; Pause</button>
-                <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state">&#x21BA; Reset</button>
-                <button class="step-btn" id="btn-step-mode" title="Toggle step-by-step mode">&#x23ED; Step Mode</button>
-                <button class="step-btn" id="btn-step-back" title="Step back" style="display:none" disabled>&#x23EE; Back</button>
-                <button class="step-btn" id="btn-step-fwd" title="Step forward" style="display:none" disabled>&#x23ED; Next</button>
-                <label class="speed-label" for="speed-range">Speed:</label>
+                <button class="ctrl-btn run-btn" id="btn-run" title="Run git flow animation">&#x25B6; <span data-i18n="ui.btn.run.animate">Animate Flow</span></button>
+                <button class="ctrl-btn pause-btn" id="btn-pause" title="Pause / Resume animation" disabled>&#x23F8; <span data-i18n="ui.btn.pause">Pause</span></button>
+                <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state">&#x21BA; <span data-i18n="ui.btn.reset">Reset</span></button>
+                <button class="step-btn" id="btn-step-mode" title="Toggle step-by-step mode">&#x23ED; <span data-i18n="ui.btn.step_mode">Step Mode</span></button>
+                <button class="step-btn" id="btn-step-back" title="Step back" style="display:none" disabled>&#x23EE;</button>
+                <button class="step-btn" id="btn-step-fwd" title="Step forward" style="display:none" disabled>&#x23ED;</button>
+                <label class="speed-label" for="speed-range" data-i18n="ui.speed.label">Speed:</label>
                 <input type="range" class="speed-range" id="speed-range" min="100" max="1200" value="600" step="50">
                 <span class="speed-value" id="speed-value">Normal</span>
             </div>
             <div class="controls-right">
-                <div class="stat-item"><span class="stat-label">Branches</span><span class="stat-value" id="stat-branches">0</span></div>
-                <div class="stat-item"><span class="stat-label">Commits</span><span class="stat-value" id="stat-commits">0</span></div>
-                <div class="stat-item"><span class="stat-label">Merges</span><span class="stat-value" id="stat-merges">0</span></div>
-                <div class="stat-item"><span class="stat-label">PRs</span><span class="stat-value" id="stat-prs">0</span></div>
+                <div class="stat-item"><span class="stat-label" data-i18n="ui.stat.branches">Branches</span><span class="stat-value" id="stat-branches">0</span></div>
+                <div class="stat-item"><span class="stat-label" data-i18n="ui.stat.commits">Commits</span><span class="stat-value" id="stat-commits">0</span></div>
+                <div class="stat-item"><span class="stat-label" data-i18n="ui.stat.merges">Merges</span><span class="stat-value" id="stat-merges">0</span></div>
+                <div class="stat-item"><span class="stat-label" data-i18n="ui.stat.prs">PRs</span><span class="stat-value" id="stat-prs">0</span></div>
             </div>
         </div>
 
@@ -89,7 +90,7 @@
         <div class="pattern-details" id="pattern-details" style="display:none">
             <button class="pattern-details-toggle" id="pattern-details-toggle" aria-expanded="false">
                 <span class="pattern-details-toggle-icon">&#x25B6;</span>
-                <span>Principles &amp; Key Concepts</span>
+                <span data-i18n="ui.details.title">Principles &amp; Key Concepts</span>
             </button>
             <div class="pattern-details-body" id="pattern-details-body"></div>
         </div>
@@ -149,24 +150,24 @@
         <div class="pattern-tradeoffs" id="tradeoffs-panel" style="display:none">
             <button class="pattern-tradeoffs-toggle" id="tradeoffs-toggle" aria-expanded="false">
                 <span class="pattern-tradeoffs-toggle-icon">&#x25B6;</span>
-                <span>Trade-offs: Pros, Cons &amp; When to Use</span>
+                <span data-i18n="ui.tradeoffs.title">Trade-offs: Pros, Cons &amp; When to Use</span>
             </button>
             <div class="pattern-tradeoffs-body" id="tradeoffs-body"></div>
         </div>
 
         <!-- Branch Rules Panel -->
         <div class="dep-rules-panel" id="branch-rules-panel">
-            <div class="dep-rules-header">Branch Rules</div>
+            <div class="dep-rules-header" data-i18n="ui.branch_rules.title">Branch Rules</div>
             <div class="dep-rules-body" id="branch-rules-body"></div>
         </div>
 
         <!-- Event Log -->
         <div class="event-log-container">
             <div class="event-log-header">
-                <span>Event Log</span>
+                <span data-i18n="ui.log.header">Event Log</span>
                 <div>
-                    <button class="log-clear-btn" id="btn-copy-log">Copy</button>
-                    <button class="log-clear-btn" id="btn-clear-log">Clear</button>
+                    <button class="log-clear-btn" id="btn-copy-log" data-i18n="ui.btn.copy">Copy</button>
+                    <button class="log-clear-btn" id="btn-clear-log" data-i18n="ui.btn.clear">Clear</button>
                 </div>
             </div>
             <div class="event-log" id="event-log"></div>
@@ -183,6 +184,14 @@
 </div>
 
 <script>document.querySelector('.current-year').textContent = new Date().getFullYear();</script>
+<script src="../../resources/i18n.js"></script>
+<script>
+    I18N._basePath = '../..';
+    I18N.load('gitflow-visualizer', '../..').then(function() {
+        I18N.renderSwitcher('lang-switcher');
+        I18N.applyToDOM();
+    });
+</script>
 <script src="../../resources/back-to-top.js"></script>
 <script src="js/engine.js"></script>
 <script src="js/classic.js"></script>
