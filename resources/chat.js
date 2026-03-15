@@ -9,6 +9,8 @@
         'You are a helpful AI assistant. Answer concisely and clearly.';
 
     var MAX_HISTORY = 20;
+    var DEFAULT_API_KEY = 'pk_V31Fl9xQNB4XDaaK';
+    var API_NEW  = 'https://gen.pollinations.ai/v1/chat/completions';
     var API_BASE = 'https://text.pollinations.ai/';
 
     var state = {
