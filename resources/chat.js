@@ -262,7 +262,7 @@
         var params = new URLSearchParams({
             key: getApiKey(),
             model: 'openai',
-            system: getSystemPrompt(),
+            system: getShortSystemPrompt(),
             reasoning_effort: 'none',
             seed: Math.floor(Math.random() * 9999) + 1
         });
@@ -280,16 +280,22 @@
     }
 
     function buildPrompt(messages) {
-        if (messages.length === 1) { return messages[0].content; }
-        return messages.map(function (m) {
+        var recent = messages.slice(-4);
+        if (recent.length === 1) { return recent[0].content; }
+        return recent.map(function (m) {
             return (m.role === 'user' ? 'User' : 'Assistant') + ': ' + m.content;
         }).join('\n\n');
+    }
+
+    function getShortSystemPrompt() {
+        var prompt = getSystemPrompt();
+        return prompt.length > 500 ? prompt.slice(0, 497) + '...' : prompt;
     }
 
     function callWithLegacyApi(messages) {
         var params = new URLSearchParams({
             model: 'openai',
-            system: getSystemPrompt(),
+            system: getShortSystemPrompt(),
             seed: Math.floor(Math.random() * 9999) + 1
         });
         var url = API_BASE + encodeURIComponent(buildPrompt(messages)) + '?' + params.toString();
