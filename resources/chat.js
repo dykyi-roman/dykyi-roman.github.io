@@ -9,7 +9,7 @@
         'You are a helpful AI assistant. Answer concisely and clearly.';
 
     var MAX_HISTORY = 20;
-    var API_URL = 'https://text.pollinations.ai/openai';
+    var API_BASE = 'https://text.pollinations.ai/';
 
     var state = {
         isOpen: false,
@@ -252,43 +252,55 @@
     }
 
     /* ── API ──────────────────────────────────────────────────────── */
+    function buildPrompt(messages) {
+        if (messages.length === 1) { return messages[0].content; }
+        return messages.map(function (m) {
+            return (m.role === 'user' ? 'User' : 'Assistant') + ': ' + m.content;
+        }).join('\n\n');
+    }
+
+    function extractText(raw) {
+        var trimmed = raw.trim();
+        if (trimmed.charAt(0) === '{') {
+            try {
+                var obj = JSON.parse(trimmed);
+                if (obj.choices && obj.choices[0] && obj.choices[0].message) {
+                    return (obj.choices[0].message.content || obj.choices[0].message.reasoning_content || '').trim();
+                }
+                if (obj.content) { return obj.content.trim(); }
+                if (obj.reasoning_content) { return obj.reasoning_content.trim(); }
+            } catch (e) { /* plain text */ }
+        }
+        return trimmed;
+    }
+
     function callPollinationsAI(messages) {
         var controller = new AbortController();
         var timeoutId = setTimeout(function () { controller.abort(); }, 30000);
 
-        return fetch(API_URL, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            signal: controller.signal,
-            body: JSON.stringify({
-                model: 'mistral',
-                messages: [{ role: 'system', content: getSystemPrompt() }].concat(messages),
-                max_tokens: 800,
-                temperature: 0.7
-            })
-        })
-        .then(function (r) {
-            clearTimeout(timeoutId);
-            if (!r.ok) { throw new Error('HTTP ' + r.status); }
-            return r.json();
-        })
-        .then(function (d) {
-            var content = d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
-            if (!content || !content.trim()) {
-                throw new Error('Empty response from AI service.');
-            }
-            return content.trim();
-        })
-        .catch(function (err) {
-            clearTimeout(timeoutId);
-            if (err.name === 'AbortError') {
-                throw new Error('Request timed out. Please try again.');
-            }
-            if (err.message === 'Failed to fetch') {
-                throw new Error('Cannot connect to AI service. Check your internet connection or try again later.');
-            }
-            throw err;
+        var params = new URLSearchParams({
+            model: 'mistral',
+            system: getSystemPrompt(),
+            seed: Math.floor(Math.random() * 9999) + 1
         });
+        var url = API_BASE + encodeURIComponent(buildPrompt(messages)) + '?' + params.toString();
+
+        return fetch(url, { signal: controller.signal })
+            .then(function (r) {
+                clearTimeout(timeoutId);
+                if (!r.ok) { throw new Error('HTTP ' + r.status); }
+                return r.text();
+            })
+            .then(function (text) {
+                if (!text || !text.trim()) { throw new Error('Empty response from AI service.'); }
+                return extractText(text);
+            })
+            .catch(function (err) {
+                clearTimeout(timeoutId);
+                if (err.name === 'AbortError') { throw new Error('Request timed out. Please try again.'); }
+                if (err.message === 'Failed to fetch') { throw new Error('Cannot connect to AI service.'); }
+                throw err;
+            });
     }
 
     /* ── Send ─────────────────────────────────────────────────────── */
