@@ -252,6 +252,37 @@
     }
 
     /* ── API ──────────────────────────────────────────────────────── */
+    function getApiKey() {
+        return (window.CHAT_API_KEY || DEFAULT_API_KEY).trim();
+    }
+
+    function callWithNewApi(messages) {
+        var apiKey = getApiKey();
+        var headers = { 'Content-Type': 'application/json' };
+        if (apiKey) { headers['Authorization'] = 'Bearer ' + apiKey; }
+
+        return fetch(API_NEW, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify({
+                model: 'openai',
+                messages: [{ role: 'system', content: getSystemPrompt() }].concat(messages),
+                max_tokens: 800,
+                temperature: 0.7,
+                reasoning_effort: 'none'
+            })
+        })
+        .then(function (r) {
+            if (!r.ok) { throw new Error('HTTP ' + r.status); }
+            return r.json();
+        })
+        .then(function (d) {
+            var content = d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+            if (!content || !content.trim()) { throw new Error('Empty response.'); }
+            return content.trim();
+        });
+    }
+
     function buildPrompt(messages) {
         if (messages.length === 1) { return messages[0].content; }
         return messages.map(function (m) {
@@ -259,48 +290,50 @@
         }).join('\n\n');
     }
 
-    function extractText(raw) {
-        var trimmed = raw.trim();
-        if (trimmed.charAt(0) === '{') {
-            try {
-                var obj = JSON.parse(trimmed);
-                if (obj.choices && obj.choices[0] && obj.choices[0].message) {
-                    return (obj.choices[0].message.content || obj.choices[0].message.reasoning_content || '').trim();
+    function callWithLegacyApi(messages) {
+        var params = new URLSearchParams({
+            model: 'openai',
+            system: getSystemPrompt(),
+            seed: Math.floor(Math.random() * 9999) + 1
+        });
+        var url = API_BASE + encodeURIComponent(buildPrompt(messages)) + '?' + params.toString();
+
+        return fetch(url)
+            .then(function (r) {
+                if (!r.ok) { throw new Error('HTTP ' + r.status); }
+                return r.text();
+            })
+            .then(function (text) {
+                if (!text || !text.trim()) { throw new Error('Empty response.'); }
+                var trimmed = text.trim();
+                if (trimmed.charAt(0) === '{') {
+                    try {
+                        var obj = JSON.parse(trimmed);
+                        if (obj.choices && obj.choices[0] && obj.choices[0].message) {
+                            return (obj.choices[0].message.content || obj.choices[0].message.reasoning_content || '').trim();
+                        }
+                        if (obj.content) { return obj.content.trim(); }
+                        if (obj.reasoning_content) { return obj.reasoning_content.trim(); }
+                    } catch (e) { /* plain text */ }
                 }
-                if (obj.content) { return obj.content.trim(); }
-                if (obj.reasoning_content) { return obj.reasoning_content.trim(); }
-            } catch (e) { /* plain text */ }
-        }
-        return trimmed;
+                return trimmed;
+            });
     }
 
     function callPollinationsAI(messages) {
         var controller = new AbortController();
         var timeoutId = setTimeout(function () { controller.abort(); }, 30000);
 
-        var params = new URLSearchParams({
-            model: 'mistral',
-            system: getSystemPrompt(),
-            seed: Math.floor(Math.random() * 9999) + 1
-        });
-        var url = API_BASE + encodeURIComponent(buildPrompt(messages)) + '?' + params.toString();
+        var call = getApiKey() ? callWithNewApi(messages) : callWithLegacyApi(messages);
 
-        return fetch(url, { signal: controller.signal })
-            .then(function (r) {
-                clearTimeout(timeoutId);
-                if (!r.ok) { throw new Error('HTTP ' + r.status); }
-                return r.text();
-            })
-            .then(function (text) {
-                if (!text || !text.trim()) { throw new Error('Empty response from AI service.'); }
-                return extractText(text);
-            })
+        return call
             .catch(function (err) {
                 clearTimeout(timeoutId);
                 if (err.name === 'AbortError') { throw new Error('Request timed out. Please try again.'); }
                 if (err.message === 'Failed to fetch') { throw new Error('Cannot connect to AI service.'); }
                 throw err;
-            });
+            })
+            .finally(function () { clearTimeout(timeoutId); });
     }
 
     /* ── Send ─────────────────────────────────────────────────────── */
