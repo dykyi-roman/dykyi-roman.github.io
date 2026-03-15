@@ -10,7 +10,7 @@
 
     var MAX_HISTORY = 20;
     var DEFAULT_API_KEY = 'pk_QsDSYhTwBGyquGmi';
-    var API_NEW  = 'https://gen.pollinations.ai/v1/chat/completions';
+    var API_NEW  = 'https://gen.pollinations.ai/text/';
     var API_BASE = 'https://text.pollinations.ai/';
 
     var state = {
@@ -259,30 +259,24 @@
     }
 
     function callWithNewApi(messages) {
-        var apiKey = getApiKey();
-        var headers = { 'Content-Type': 'application/json' };
-        if (apiKey) { headers['Authorization'] = 'Bearer ' + apiKey; }
-
-        return fetch(API_NEW, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({
-                model: 'openai',
-                messages: [{ role: 'system', content: getSystemPrompt() }].concat(messages),
-                max_tokens: 800,
-                temperature: 0.7,
-                reasoning_effort: 'none'
-            })
-        })
-        .then(function (r) {
-            if (!r.ok) { throw new Error('HTTP ' + r.status); }
-            return r.json();
-        })
-        .then(function (d) {
-            var content = d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
-            if (!content || !content.trim()) { throw new Error('Empty response.'); }
-            return content.trim();
+        var params = new URLSearchParams({
+            key: getApiKey(),
+            model: 'openai',
+            system: getSystemPrompt(),
+            reasoning_effort: 'none',
+            seed: Math.floor(Math.random() * 9999) + 1
         });
+        var url = API_NEW + encodeURIComponent(buildPrompt(messages)) + '?' + params.toString();
+
+        return fetch(url)
+            .then(function (r) {
+                if (!r.ok) { throw new Error('HTTP ' + r.status); }
+                return r.text();
+            })
+            .then(function (text) {
+                if (!text || !text.trim()) { throw new Error('Empty response.'); }
+                return text.trim();
+            });
     }
 
     function buildPrompt(messages) {
