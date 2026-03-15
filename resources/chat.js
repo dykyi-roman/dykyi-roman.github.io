@@ -9,7 +9,7 @@
         'You are a helpful AI assistant. Answer concisely and clearly.';
 
     var MAX_HISTORY = 20;
-    var DEFAULT_API_KEY = 'pk_V31Fl9xQNB4XDaaK';
+    var DEFAULT_API_KEY = 'pk_QsDSYhTwBGyquGmi';
     var API_NEW  = 'https://gen.pollinations.ai/v1/chat/completions';
     var API_BASE = 'https://text.pollinations.ai/';
 
@@ -323,19 +323,19 @@
     }
 
     function callPollinationsAI(messages) {
-        var controller = new AbortController();
-        var timeoutId = setTimeout(function () { controller.abort(); }, 30000);
+        var timeoutId = setTimeout(function () {}, 30000); // kept for clearTimeout calls
 
-        var call = getApiKey() ? callWithNewApi(messages) : callWithLegacyApi(messages);
-
-        return call
+        return callWithNewApi(messages)
+            .catch(function () {
+                // new API failed (402, 401, network) — fall back to legacy
+                return callWithLegacyApi(messages);
+            })
             .catch(function (err) {
                 clearTimeout(timeoutId);
                 if (err.name === 'AbortError') { throw new Error('Request timed out. Please try again.'); }
                 if (err.message === 'Failed to fetch') { throw new Error('Cannot connect to AI service.'); }
                 throw err;
-            })
-            .finally(function () { clearTimeout(timeoutId); });
+            });
     }
 
     /* ── Send ─────────────────────────────────────────────────────── */
