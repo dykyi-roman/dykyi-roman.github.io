@@ -1183,6 +1183,12 @@ a.about-card-link {
     visibility: visible;
 }
 
+/* Raise back-to-top on pages with chat widget */
+body.has-chat .back-to-top {
+    bottom: 88px;
+    transition: bottom 0.3s ease;
+}
+
 .back-to-top:hover {
     background-color: var(--color-primary-hover);
 }

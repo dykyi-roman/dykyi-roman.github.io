@@ -63,10 +63,10 @@
         <div class="global-controls-placeholder" id="controls-placeholder"></div>
         <div class="global-controls" id="global-controls">
             <div class="controls-left">
-                <button class="ctrl-btn burst-btn" id="btn-burst" title="Send 5 messages rapidly">&#x26A1; <span data-i18n="ui.btn.run.burst">Burst</span></button>
-                <button class="ctrl-btn error-btn" id="btn-error" title="Next message gets NACK"><span data-i18n="ui.simulate_error">Simulate Error</span></button>
-                <button class="ctrl-btn pause-btn" id="btn-pause" title="Pause/Resume simulation">&#x23F8; <span data-i18n="ui.btn.pause">Pause</span></button>
-                <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset all state">&#x21BA; <span data-i18n="ui.btn.reset">Reset</span></button>
+                <button class="ctrl-btn burst-btn" id="btn-burst" data-i18n="[title]ui.tooltip.burst" title="Send 5 messages rapidly">&#x26A1; <span data-i18n="ui.btn.run.burst">Burst</span></button>
+                <button class="ctrl-btn error-btn" id="btn-error" data-i18n="[title]ui.tooltip.error" title="Next message gets NACK"><span data-i18n="ui.simulate_error">Simulate Error</span></button>
+                <button class="ctrl-btn pause-btn" id="btn-pause" data-i18n="[title]ui.tooltip.pause" title="Pause/Resume simulation">&#x23F8; <span data-i18n="ui.btn.pause">Pause</span></button>
+                <button class="ctrl-btn reset-btn" id="btn-reset" data-i18n="[title]ui.tooltip.reset" title="Reset all state">&#x21BA; <span data-i18n="ui.btn.reset">Reset</span></button>
             </div>
             <div class="controls-right">
                 <label class="confirm-toggle" id="confirm-toggle-wrap">
@@ -167,5 +167,8 @@
 <script src="js/kafka.js"></script>
 <script src="js/redis.js"></script>
 <script src="js/app.js"></script>
+<script>window.CHAT_SYSTEM_PROMPT = 'AI assistant для визуализатора брокеров сообщений (RabbitMQ, Apache Kafka, Redis Pub/Sub). Объясняй паттерны обмена сообщениями, гарантии доставки, отказоустойчивость.';</script>
+<link rel="stylesheet" href="../../resources/chat.css">
+<script src="../../resources/chat.js"></script>
 </body>
 </html>
