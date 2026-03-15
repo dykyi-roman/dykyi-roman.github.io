@@ -1,5 +1,15 @@
 {
   "mb.title": "Message-Broker-Visualisierer",
+  "article-title": "Message-Broker-Visualisierer",
+
+  "mb.broker.rabbitmq": "RabbitMQ",
+  "mb.broker.kafka": "Apache Kafka",
+  "mb.broker.redis": "Redis Pub/Sub",
+
+  "ui.tooltip.burst": "5 Nachrichten schnell senden",
+  "ui.tooltip.error": "Nächste Nachricht erhält NACK",
+  "ui.tooltip.pause": "Simulation pausieren/fortsetzen",
+  "ui.tooltip.reset": "Alle Zustände zurücksetzen",
 
   "rabbitmq.name": "RabbitMQ",
 
