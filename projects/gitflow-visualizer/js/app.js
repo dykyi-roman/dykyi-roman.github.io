@@ -377,6 +377,7 @@
     /* ===== i18n Refresh ===== */
     window.GFV_refresh = function() {
         switchFlow(GFV.state.flow, GFV.state.mode);
+        GFV._updateStepButtons();
     };
 
     /* ===== Sticky Global Controls ===== */

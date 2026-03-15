@@ -1091,7 +1091,10 @@ GFV._executeStep = function(step) {
             }
             var br = g.branches[targetBranch];
             if (br) {
-                GFV._addStepNumber(svg, br.headX, br.y, step._stepNum, step.description || '');
+                var translatedDesc = step.descriptionKey
+                    ? GFV._t(step.descriptionKey, step.descriptionParams || null, step.description || '')
+                    : (step.description || '');
+                GFV._addStepNumber(svg, br.headX, br.y, step._stepNum, translatedDesc);
             }
         }
     }
