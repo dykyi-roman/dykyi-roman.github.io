@@ -3,76 +3,28 @@
 MBV.redis = {};
 
 MBV.redis.modes = [
-    { id: 'pubsub', label: 'Pub/Sub', desc: 'Redis Pub/Sub \u2014 fire-and-forget. Messages are not stored. If a subscriber is disconnected at the time of sending, it will not receive the message. Suitable for realtime events without guarantees.' },
-    { id: 'pattern', label: 'Pattern Sub', desc: 'Redis PSUBSCRIBE matches channels by glob patterns: * (any chars), ? (one char), [abc] (one of). Allows subscribing to multiple channels at once.' },
-    { id: 'streams', label: 'Streams', desc: 'Redis Streams \u2014 persistent event log with consumer groups. Unlike Pub/Sub, messages are stored and available for re-reading. Supports XACK for at-least-once guarantees.' },
-    { id: 'eventsourcing', label: 'Event Sourcing', desc: 'Event Sourcing: system state is not stored directly \u2014 it is reconstructed by replaying events. Redis Stream stores an immutable log. Rebuild replays the full history.' },
+    { id: 'pubsub', label: MBV.t('redis.modes.pubsub.label'), desc: MBV.t('redis.modes.pubsub.desc') },
+    { id: 'pattern', label: MBV.t('redis.modes.pattern.label'), desc: MBV.t('redis.modes.pattern.desc') },
+    { id: 'streams', label: MBV.t('redis.modes.streams.label'), desc: MBV.t('redis.modes.streams.desc') },
+    { id: 'eventsourcing', label: MBV.t('redis.modes.es.label'), desc: MBV.t('redis.modes.es.desc') },
 ];
 
 MBV.redis.details = {
     pubsub: {
-        principles: [
-            'Redis Pub/Sub is fire-and-forget: messages are NOT stored and NOT persisted to disk',
-            'If a subscriber is disconnected at the moment of publishing, it will never receive that message',
-            'There is no acknowledgment mechanism — the publisher does not know if anyone received the message',
-            'Messages are delivered to all currently connected subscribers on the channel simultaneously',
-            'Pub/Sub operates outside the key space — SUBSCRIBE/PUBLISH do not interact with normal Redis keys'
-        ],
-        concepts: [
-            { term: 'Channel', definition: 'Named message bus. Publishers send to a channel, subscribers listen on it. No persistence, no history.' },
-            { term: 'SUBSCRIBE', definition: 'Blocks the connection and listens for messages on one or more channels. Connection becomes subscribe-only.' },
-            { term: 'PUBLISH', definition: 'Sends a message to a channel. Returns the number of subscribers that received it (0 if none).' },
-            { term: 'Fire-and-Forget', definition: 'Messages are immediately dispatched to current subscribers and then discarded. No retry, no storage.' },
-            { term: 'Client State', definition: 'A subscribed client enters a special mode — it can only run SUBSCRIBE, UNSUBSCRIBE, PSUBSCRIBE, PUNSUBSCRIBE, PING, RESET.' }
-        ]
+        principles: MBV.t('redis.details.pubsub.principles'),
+        concepts: MBV.t('redis.details.pubsub.concepts')
     },
     pattern: {
-        principles: [
-            'PSUBSCRIBE matches channels using glob-style patterns: * (any chars), ? (one char), [abc] (character class)',
-            'A single pattern subscription can match multiple channels simultaneously without knowing their exact names',
-            'Pattern matching is evaluated on every PUBLISH — high number of patterns can increase CPU load',
-            'A client can mix regular SUBSCRIBE and PSUBSCRIBE — it receives messages from both',
-            'If both SUBSCRIBE and PSUBSCRIBE match the same channel, the client receives the message twice'
-        ],
-        concepts: [
-            { term: 'PSUBSCRIBE', definition: 'Subscribe using a glob pattern. "chat:*" matches chat:room1, chat:room2, etc. Checked on every publish.' },
-            { term: '* Glob', definition: 'Matches any sequence of characters. "events:*" matches "events:created", "events:deleted", "events:foo:bar".' },
-            { term: '? Glob', definition: 'Matches exactly one character. "log?" matches "log1", "logA", but not "log" or "log12".' },
-            { term: 'Pattern Count', definition: 'PUBSUB NUMPAT returns the number of active pattern subscriptions. Many patterns = higher per-publish CPU cost.' },
-            { term: 'Dual Delivery', definition: 'If a client subscribes to both "chat:room1" (exact) and "chat:*" (pattern), it gets the same message twice.' }
-        ]
+        principles: MBV.t('redis.details.pattern.principles'),
+        concepts: MBV.t('redis.details.pattern.concepts')
     },
     streams: {
-        principles: [
-            'Redis Streams provide a persistent, append-only log with consumer groups — unlike ephemeral Pub/Sub',
-            'Each entry has a unique auto-generated ID (timestamp-sequence) and one or more field-value pairs',
-            'Consumer groups track per-consumer progress; messages are not re-delivered to other group members',
-            'XACK explicitly acknowledges processing — unacknowledged messages remain in the Pending Entries List (PEL)',
-            'XCLAIM allows transferring ownership of pending messages from a failed consumer to another'
-        ],
-        concepts: [
-            { term: 'Stream', definition: 'Append-only log data structure. Each entry has ID + field-value pairs. Persisted to disk like any Redis key.' },
-            { term: 'Entry ID', definition: 'Format: timestamp-sequence (e.g., 1234567890-0). Auto-generated, monotonically increasing. Used for range queries.' },
-            { term: 'Consumer Group', definition: 'Named group that reads from a stream. Each entry is delivered to one consumer in the group. Tracks last-delivered-id.' },
-            { term: 'PEL', definition: 'Pending Entries List — entries delivered to a consumer but not yet XACK\'d. Enables at-least-once delivery guarantee.' },
-            { term: 'XCLAIM', definition: 'Transfers ownership of a pending entry from one consumer to another. Used to handle consumer failures.' }
-        ]
+        principles: MBV.t('redis.details.streams.principles'),
+        concepts: MBV.t('redis.details.streams.concepts')
     },
     eventsourcing: {
-        principles: [
-            'Event Sourcing: application state is derived by replaying an immutable sequence of events, not stored directly',
-            'Redis Stream serves as the event store — append-only, ordered, persistent, with consumer group support',
-            'State is rebuilt by reading all events from the stream and applying each event\'s transformation in order',
-            'Snapshots can be periodically saved to avoid replaying the entire history for state reconstruction',
-            'Events are immutable — to correct a mistake, append a compensating event rather than modifying history'
-        ],
-        concepts: [
-            { term: 'Event Store', definition: 'Persistent log of domain events in order. Redis Stream provides this with XADD (write) and XRANGE (read).' },
-            { term: 'State Rebuild', definition: 'Process of replaying all events from the beginning to reconstruct the current application state.' },
-            { term: 'Projection', definition: 'A read-optimized view derived from the event stream. Can be rebuilt at any time by replaying events.' },
-            { term: 'Compensating Event', definition: 'An event that reverses the effect of a previous event. Events are never deleted or modified — only appended.' },
-            { term: 'Snapshot', definition: 'Periodic capture of current state to avoid replaying the full event history. State = snapshot + events after snapshot.' }
-        ]
+        principles: MBV.t('redis.details.eventsourcing.principles'),
+        concepts: MBV.t('redis.details.eventsourcing.concepts')
     }
 };
 
@@ -113,7 +65,7 @@ MBV.redis.pubsub = {
                     </select>
                 </div>
                 <button class="card-send-btn" id="send-${pId}">PUBLISH</button>
-                <div class="card-stats">Sent: <span id="sent-${pId}">0</span></div>
+                <div class="card-stats">${MBV.t('kafka.ui.sent')}: <span id="sent-${pId}">0</span></div>
             </div>`;
         });
         document.getElementById('producers-col').innerHTML = prodHtml;
@@ -126,7 +78,7 @@ MBV.redis.pubsub = {
             <div class="channel-row" id="channel-${ch.replace(/[^a-z0-9]/gi,'_')}">
                 <span class="port port-left" id="ch-${ch.replace(/[^a-z0-9]/gi,'_')}-port-l"></span>
                 <span class="channel-name">${ch}</span>
-                <span class="channel-subs-count" id="chcount-${ch.replace(/[^a-z0-9]/gi,'_')}">${subsCount} subs</span>
+                <span class="channel-subs-count" id="chcount-${ch.replace(/[^a-z0-9]/gi,'_')}">${subsCount} ${MBV.t('redis.ui.subs')}</span>
                 <span class="port port-right" id="ch-${ch.replace(/[^a-z0-9]/gi,'_')}-port-r"></span>
             </div>`;
         });
@@ -141,7 +93,7 @@ MBV.redis.pubsub = {
                 <div class="card-header">
                     <span class="card-icon">${s.icon}</span>
                     <span class="card-name">${s.name}</span>
-                    <button class="toggle-connect-btn ${s.connected ? '' : 'disconnected'}" id="toggle-${s.id}">${s.connected ? 'Disconnect' : 'Connect'}</button>
+                    <button class="toggle-connect-btn ${s.connected ? '' : 'disconnected'}" id="toggle-${s.id}">${s.connected ? MBV.t('ui.btn.disconnect') : MBV.t('ui.btn.connect')}</button>
                 </div>
                 <div class="card-meta">SUBSCRIBE <span class="key-label">${s.channel}</span></div>
                 <div class="card-stats">Received: <span id="count-${s.id}">0</span></div>
@@ -159,7 +111,7 @@ MBV.redis.pubsub = {
                 const btn = document.getElementById('toggle-' + s.id);
                 card.classList.toggle('disconnected', !s.connected);
                 btn.classList.toggle('disconnected', !s.connected);
-                btn.textContent = s.connected ? 'Disconnect' : 'Connect';
+                btn.textContent = s.connected ? MBV.t('ui.btn.disconnect') : MBV.t('ui.btn.connect');
                 this._updateChannelCounts();
             };
         });
@@ -174,7 +126,7 @@ MBV.redis.pubsub = {
         MBV.redis.state.channels.forEach(ch => {
             const subsCount = this.subs.filter(s => s.channel === ch && s.connected).length;
             const el = document.getElementById('chcount-' + ch.replace(/[^a-z0-9]/gi, '_'));
-            if (el) el.textContent = subsCount + ' subs';
+            if (el) el.textContent = subsCount + ' ' + MBV.t('redis.ui.subs');
         });
     },
 
@@ -188,7 +140,7 @@ MBV.redis.pubsub = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-' + prodId);
         sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `msg_id=${id} PUBLISH "${channel}"`);
+        MBV.log('SEND', MBV.t('redis.log.publish', { id: id, channel: channel }));
         MBV.updateStats();
 
         const prodPort = document.getElementById('port-' + prodId);
@@ -201,7 +153,7 @@ MBV.redis.pubsub = {
         const activeSubs = this.subs.filter(s => s.channel === channel && s.connected);
 
         if (activeSubs.length === 0) {
-            MBV.log('ERROR', `msg_id=${id} no subscribers on "${channel}" \u2014 message lost \uD83D\uDDD1`);
+            MBV.log('ERROR', MBV.t('redis.log.no_subs', { id: id, channel: channel }));
             return;
         }
 
@@ -223,14 +175,14 @@ MBV.redis.pubsub = {
                     const card = document.getElementById('card-' + s.id);
                     MBV.flashCard(card, 'red');
                     MBV.addBadge(card, `CRASH #${id}`, 'nack');
-                    MBV.log('ERROR', `msg_id=${id} \u2192 ${s.name} CRASHED \u2014 message lost (no retry in Pub/Sub)`);
+                    MBV.log('ERROR', MBV.t('redis.log.crash', { id: id, worker: s.name }));
                     MBV.updateStats();
                 } else {
                     s.received++;
                     MBV.state.delivered++;
                     const countEl = document.getElementById('count-' + s.id);
                     if (countEl) countEl.textContent = s.received;
-                    MBV.log('RECV', `msg_id=${id} \u2192 ${s.name} (${channel})`);
+                    MBV.log('RECV', MBV.t('redis.log.recv', { id: id, worker: s.name, channel: channel }));
                     MBV.updateStats();
                 }
             });
@@ -275,7 +227,7 @@ MBV.redis.pattern = {
                     </div>
                 </div>
                 <button class="card-send-btn" id="send-${pId}">PUBLISH</button>
-                <div class="card-stats">Sent: <span id="sent-${pId}">0</span></div>
+                <div class="card-stats">${MBV.t('kafka.ui.sent')}: <span id="sent-${pId}">0</span></div>
             </div>`;
         });
         document.getElementById('producers-col').innerHTML = prodHtml;
@@ -301,7 +253,7 @@ MBV.redis.pattern = {
                 <div class="card-header">
                     <span class="card-icon">${s.icon}</span>
                     <span class="card-name">${s.name}</span>
-                    <button class="toggle-connect-btn ${s.connected ? '' : 'disconnected'}" id="toggle-${s.id}">${s.connected ? 'Disconnect' : 'Connect'}</button>
+                    <button class="toggle-connect-btn ${s.connected ? '' : 'disconnected'}" id="toggle-${s.id}">${s.connected ? MBV.t('ui.btn.disconnect') : MBV.t('ui.btn.connect')}</button>
                 </div>
                 <div class="mode-switch" style="margin-bottom:4px">
                     <button class="mode-switch-btn ${s.mode === 'subscribe' ? 'active' : ''}" data-sub="${s.id}" data-mode="subscribe">SUBSCRIBE</button>
@@ -364,7 +316,7 @@ MBV.redis.pattern = {
                 const btn = document.getElementById('toggle-' + s.id);
                 card.classList.toggle('disconnected', !s.connected);
                 btn.classList.toggle('disconnected', !s.connected);
-                btn.textContent = s.connected ? 'Disconnect' : 'Connect';
+                btn.textContent = s.connected ? MBV.t('ui.btn.disconnect') : MBV.t('ui.btn.connect');
             };
         });
 
@@ -391,7 +343,7 @@ MBV.redis.pattern = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-' + prodId);
         sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `msg_id=${id} PUBLISH "${channel}"`);
+        MBV.log('SEND', MBV.t('redis.log.publish', { id: id, channel: channel }));
         MBV.updateStats();
 
         const prodPort = document.getElementById('port-' + prodId);
@@ -427,12 +379,12 @@ MBV.redis.pattern = {
                 setTimeout(() => tag.classList.remove('matched'), 1000);
             }
             if (s.mode === 'psubscribe') {
-                MBV.log('PMATCH', `"${channel}" \u2192 pattern "${s.pattern}" matched ${s.name}`);
+                MBV.log('PMATCH', MBV.t('redis.log.pmatch', { channel: channel, pattern: s.pattern, worker: s.name }));
             }
         });
 
         if (matched.length === 0) {
-            MBV.log('ERROR', `msg_id=${id} no matching subscribers for "${channel}"`);
+            MBV.log('ERROR', MBV.t('redis.log.no_subs', { id: id, channel: channel }));
             return;
         }
 
@@ -454,7 +406,7 @@ MBV.redis.pattern = {
                     const card = document.getElementById('card-' + s.id);
                     MBV.flashCard(card, 'red');
                     MBV.addBadge(card, `CRASH #${id}`, 'nack');
-                    MBV.log('ERROR', `msg_id=${id} \u2192 ${s.name} CRASHED \u2014 message lost`);
+                    MBV.log('ERROR', MBV.t('redis.log.crash', { id: id, worker: s.name }));
                     MBV.updateStats();
                     return;
                 }
@@ -462,7 +414,7 @@ MBV.redis.pattern = {
                 MBV.state.delivered++;
                 const countEl = document.getElementById('count-' + s.id);
                 if (countEl) countEl.textContent = s.received;
-                MBV.log('RECV', `msg_id=${id} \u2192 ${s.name}`);
+                MBV.log('RECV', MBV.t('redis.log.recv', { id: id, worker: s.name, channel: channel }));
                 MBV.updateStats();
             });
             await Promise.all(promises);
@@ -574,7 +526,7 @@ MBV.redis.streams = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-stream-prod');
         sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `XADD events ${entryId} msg_id=${id}`);
+        MBV.log('SEND', MBV.t('redis.log.xadd', { entryId: entryId, id: id }));
         MBV.updateStats();
 
         const entry = { id: entryId, data: `msg#${id}`, msgId: id, pending: true, seqIdx: streamId - 1 };
@@ -617,7 +569,7 @@ MBV.redis.streams = {
                     g.pending[cId].push(entryId);
                     const pendEl = document.getElementById('pending-' + cId);
                     if (pendEl) pendEl.textContent = g.pending[cId].length;
-                    MBV.log('ERROR', `XREADGROUP ${g.name}/${cId} FAILED \u2014 ${entryId} stays in PEL`);
+                    MBV.log('ERROR', MBV.t('redis.log.xread_fail', { group: g.name, consumer: cId, entryId: entryId }));
                     MBV.updateStats();
                     continue;
                 }
@@ -629,7 +581,7 @@ MBV.redis.streams = {
                 if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
                 const pendEl = document.getElementById('pending-' + cId);
                 if (pendEl) pendEl.textContent = g.pending[cId].length;
-                MBV.log('RECV', `XREADGROUP ${g.name}/${cId} \u2192 ${entryId}`);
+                MBV.log('RECV', MBV.t('redis.log.xread_recv', { group: g.name, consumer: cId, entryId: entryId }));
                 MBV.updateStats();
             }
         };
@@ -647,7 +599,7 @@ MBV.redis.streams = {
                 const acked = g.pending[consumerId].shift();
                 const pendEl = document.getElementById('pending-' + consumerId);
                 pendEl.textContent = g.pending[consumerId].length;
-                MBV.log('ACK', `XACK ${g.name}/${consumerId} ${acked}`);
+                MBV.log('ACK', MBV.t('redis.log.xack', { group: g.name, consumer: consumerId, entryId: acked }));
 
                 // Un-highlight entry
                 const seEl = document.getElementById('se-' + acked);
@@ -659,7 +611,7 @@ MBV.redis.streams = {
     async replay(groupId) {
         const g = this.groups.find(gr => gr.id === groupId);
         if (!g) return;
-        MBV.log('SEEK', `XREAD from 0 for ${g.name}`);
+        MBV.log('SEEK', MBV.t('redis.log.xread_zero', { group: g.name }));
 
         const entries = MBV.redis.state.streamEntries;
         for (const entry of entries) {
@@ -678,7 +630,7 @@ MBV.redis.streams = {
             countEl.textContent = parseInt(countEl.textContent) + 1;
             MBV.updateStats();
         }
-        MBV.log('SEEK', `${g.name} replay complete`);
+        MBV.log('SEEK', MBV.t('kafka.log.replay_complete', { group: g.name }));
     }
 };
 
@@ -723,7 +675,7 @@ MBV.redis.eventsourcing = {
             <div class="card-stats">Processed: <span id="count-es-cons">0</span></div>
         </div>
         <div class="state-view" id="state-view">
-            <h4>Current State</h4>
+            <h4>${MBV.t('redis.ui.current_state')}</h4>
             <div class="state-entries" id="state-entries">
                 <div class="state-entry"><span>orders</span><span id="sv-orders">0</span></div>
                 <div class="state-entry"><span>total_amount</span><span id="sv-total">$0</span></div>
@@ -733,7 +685,7 @@ MBV.redis.eventsourcing = {
         </div>`;
 
         document.getElementById('extra-panels').innerHTML = `
-            <button class="rebuild-btn" id="btn-rebuild">Rebuild State</button>`;
+            <button class="rebuild-btn" id="btn-rebuild">${MBV.t('redis.ui.rebuild')}</button>`;
 
         document.getElementById('send-es-prod').onclick = () => this.send();
         document.getElementById('btn-rebuild').onclick = () => this.rebuildState();
@@ -800,7 +752,7 @@ MBV.redis.eventsourcing = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-es-prod');
         sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `XADD events ${entryId} type=${eventType}`);
+        MBV.log('SEND', MBV.t('redis.log.es_emit', { entryId: entryId, type: eventType }));
         MBV.updateStats();
 
         const eventData = eventType === 'order.created' ? { amount: Math.floor(50 + Math.random() * 200) } : {};
@@ -828,7 +780,7 @@ MBV.redis.eventsourcing = {
                 const card = document.getElementById('card-es-cons');
                 MBV.flashCard(card, 'red');
                 MBV.addBadge(card, `FAIL ${eventType}`, 'nack');
-                MBV.log('ERROR', `Event ${eventType} written to stream but NOT applied to state`);
+                MBV.log('ERROR', MBV.t('redis.log.es_fail', { type: eventType }));
                 MBV.updateStats();
                 return;
             }
@@ -839,7 +791,7 @@ MBV.redis.eventsourcing = {
             MBV.updateStats();
 
             this._applyEvent(eventType, entry.eventData);
-            MBV.log('RECV', `Event ${eventType} applied to state`);
+            MBV.log('RECV', MBV.t('redis.log.es_apply', { type: eventType }));
         };
 
         if (MBV.state.paused) {
@@ -853,7 +805,7 @@ MBV.redis.eventsourcing = {
         // Reset state
         MBV.redis.state.esState = { orders: 0, totalAmount: 0, lastEvent: 'none', activeOrders: [] };
         this._renderState();
-        MBV.log('SEEK', 'Rebuilding state from event log...');
+        MBV.log('SEEK', MBV.t('redis.log.es_rebuild'));
 
         for (const entry of this.eventLog) {
             await MBV.sleep(400);
@@ -866,6 +818,6 @@ MBV.redis.eventsourcing = {
             }
         }
 
-        MBV.log('SEEK', `State rebuilt from ${this.eventLog.length} events`);
+        MBV.log('SEEK', MBV.t('redis.log.es_rebuild_done', { count: this.eventLog.length }));
     }
 };

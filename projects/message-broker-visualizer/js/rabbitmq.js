@@ -3,128 +3,25 @@
 MBV.rabbitmq = {};
 
 MBV.rabbitmq.modes = [
-    { id: 'hello', label: '1. Direct Queue', desc: 'P \u2192 Queue \u2192 C. Producer writes to a named queue, Consumer reads from it. One to one.' },
-    { id: 'work', label: '2. Round-Robin', desc: 'Queue distributes tasks among workers via round-robin. Each message is processed by exactly one worker. Used for parallel processing of heavy tasks.' },
-    { id: 'pubsub', label: '3. Pub/Sub', desc: 'Fanout Exchange broadcasts every message to all subscribers simultaneously. Used for logging, cache invalidation, realtime updates.' },
-    { id: 'routing', label: '4. Routing', desc: 'Direct Exchange delivers messages only to queues with exact binding key match. Routing key is set by the producer.' },
-    { id: 'topics', label: '5. Topics', desc: 'Topic Exchange matches routing key by patterns: * \u2014 exactly one word, # \u2014 any number of words. Flexible event filtering by hierarchy.' },
-    { id: 'rpc', label: '6. RPC', desc: 'RPC over queue: client sends a request with correlation_id and reply_to queue. Server processes and replies. Client waits for response in its temporary queue.' },
-    { id: 'confirms', label: '7. Confirms', desc: 'Publisher Confirms \u2014 broker acknowledges each message write via ACK/NACK. Guarantees at-least-once delivery on the producer side.' },
+    { id: 'hello', label: MBV.t('rabbitmq.modes.hello.label'), desc: MBV.t('rabbitmq.modes.hello.desc') },
+    { id: 'work', label: MBV.t('rabbitmq.modes.work.label'), desc: MBV.t('rabbitmq.modes.work.desc') },
+    { id: 'pubsub', label: MBV.t('rabbitmq.modes.pubsub.label'), desc: MBV.t('rabbitmq.modes.pubsub.desc') },
+    { id: 'routing', label: MBV.t('rabbitmq.modes.routing.label'), desc: MBV.t('rabbitmq.modes.routing.desc') },
+    { id: 'topics', label: MBV.t('rabbitmq.modes.topics.label'), desc: MBV.t('rabbitmq.modes.topics.desc') },
+    { id: 'rpc', label: MBV.t('rabbitmq.modes.rpc.label'), desc: MBV.t('rabbitmq.modes.rpc.desc') },
+    { id: 'confirms', label: MBV.t('rabbitmq.modes.confirms.label'), desc: MBV.t('rabbitmq.modes.confirms.desc') },
 ];
 
 MBV.rabbitmq.details = {
     hello: {
-        principles: [
-            'Simplest messaging pattern: one producer sends directly to a named queue, one consumer reads from it',
-            'Messages are stored in the queue until a consumer is ready to process them (asynchronous decoupling)',
-            'Default exchange ("") routes messages to queues by name — no explicit exchange binding needed',
-            'Messages are removed from the queue once acknowledged by the consumer (at-most-once without ack)',
-            'Queue must be declared before use; both producer and consumer can declare it (idempotent operation)'
-        ],
-        concepts: [
-            { term: 'Queue', definition: 'FIFO buffer that stores messages until they are consumed. Durable queues survive broker restarts.' },
-            { term: 'Default Exchange', definition: 'Nameless exchange ("") that routes messages to the queue whose name matches the routing key.' },
-            { term: 'Acknowledgment', definition: 'Consumer sends ACK after processing. Without ACK, messages are re-delivered if consumer disconnects.' },
-            { term: 'Durable Queue', definition: 'Queue that persists across broker restarts. Combined with persistent messages for full durability.' },
-            { term: 'Connection', definition: 'TCP connection to the broker. Channels are lightweight virtual connections multiplexed over one TCP connection.' }
-        ]
+        principles: MBV.t('rabbitmq.details.hello.principles'),
+        concepts: MBV.t('rabbitmq.details.hello.concepts')
     },
     work: {
-        principles: [
-            'Work queue distributes tasks among multiple workers via round-robin dispatching',
-            'Each message is delivered to exactly one worker — competing consumers pattern',
-            'prefetch_count=1 ensures a worker receives the next message only after acknowledging the current one',
-            'Fair dispatch prevents fast workers from being idle while slow workers are overloaded',
-            'Manual acknowledgment ensures messages are requeued if a worker crashes mid-processing'
-        ],
-        concepts: [
-            { term: 'Round-Robin', definition: 'Default dispatch: broker sends messages to consumers in rotation. Does not consider consumer load.' },
-            { term: 'Prefetch', definition: 'QoS setting (prefetch_count) limits how many unacknowledged messages a consumer can hold. Key to fair dispatch.' },
-            { term: 'Competing Consumers', definition: 'Multiple consumers on the same queue. Each message goes to exactly one consumer. Enables horizontal scaling.' },
-            { term: 'Message TTL', definition: 'Time-to-live for messages. Expired messages are dead-lettered or discarded. Set per-queue or per-message.' },
-            { term: 'Dead Letter', definition: 'Messages that are rejected, expire, or exceed queue length are routed to a dead-letter exchange for inspection.' }
-        ]
-    },
-    pubsub: {
-        principles: [
-            'Fanout exchange broadcasts every message to all bound queues — true publish/subscribe pattern',
-            'Each subscriber gets its own queue; messages are copied to every bound queue independently',
-            'Producers don\'t know which queues exist — full decoupling between publishers and subscribers',
-            'Temporary (exclusive, auto-delete) queues are typical for subscribers that don\'t need persistence',
-            'Adding a new subscriber requires no changes to the producer — just bind a new queue to the exchange'
-        ],
-        concepts: [
-            { term: 'Fanout Exchange', definition: 'Ignores routing keys entirely. Delivers a copy of every message to every bound queue. One-to-many pattern.' },
-            { term: 'Binding', definition: 'Link between an exchange and a queue. For fanout exchanges, the binding key is ignored.' },
-            { term: 'Exclusive Queue', definition: 'Queue that only one connection can use. Automatically deleted when the connection closes. Ideal for temporary subscribers.' },
-            { term: 'Exchange', definition: 'Receives messages from producers and routes them to queues based on type (fanout, direct, topic, headers).' },
-            { term: 'Auto-Delete', definition: 'Queue or exchange that is automatically deleted when the last consumer disconnects.' }
-        ]
-    },
-    routing: {
-        principles: [
-            'Direct exchange routes messages only to queues whose binding key exactly matches the routing key',
-            'Multiple queues can bind to the same exchange with the same routing key — messages are copied to all of them',
-            'A queue can have multiple bindings with different routing keys to receive messages from several sources',
-            'Routing key is set by the producer at publish time; binding key is set by the consumer at bind time',
-            'Direct exchange enables selective message filtering — consumers receive only the message types they need'
-        ],
-        concepts: [
-            { term: 'Direct Exchange', definition: 'Routes messages by exact routing key match. Message goes only to queues bound with the same key.' },
-            { term: 'Routing Key', definition: 'String set by the producer on each message. Direct exchange compares it to binding keys for routing decisions.' },
-            { term: 'Binding Key', definition: 'String specified when binding a queue to an exchange. Must match the routing key exactly for direct exchanges.' },
-            { term: 'Selective Filtering', definition: 'Each consumer binds with specific keys and only receives matching messages. Unlike fanout, not all messages go everywhere.' },
-            { term: 'Multiple Bindings', definition: 'A queue can bind multiple times with different keys to the same exchange, receiving messages matching any of them.' }
-        ]
-    },
-    topics: {
-        principles: [
-            'Topic exchange matches routing keys by dot-separated word patterns using * (one word) and # (zero or more words)',
-            'Routing key must be a dot-separated string (e.g., "order.created.eu") — max 255 bytes',
-            'Pattern * substitutes exactly one word; # substitutes zero or more words — powerful filtering hierarchy',
-            'A topic exchange with "#" binding behaves like fanout; with no wildcards, it behaves like direct',
-            'Topic exchanges enable event hierarchies: "order.*" gets all order events, "*.created.*" gets all creation events'
-        ],
-        concepts: [
-            { term: 'Topic Exchange', definition: 'Routes messages by pattern matching on dot-separated routing keys. Supports * and # wildcards.' },
-            { term: '* Wildcard', definition: 'Matches exactly one word in the routing key. "order.*.eu" matches "order.created.eu" but not "order.eu".' },
-            { term: '# Wildcard', definition: 'Matches zero or more words. "order.#" matches "order", "order.created", "order.created.eu", etc.' },
-            { term: 'Word', definition: 'A segment between dots in the routing key. "stock.usd.nyse" has three words: "stock", "usd", "nyse".' },
-            { term: 'Hierarchy', definition: 'Topic keys form a natural hierarchy (domain.event.region) enabling flexible subscription at any level.' }
-        ]
-    },
-    rpc: {
-        principles: [
-            'RPC over messaging: client sends request with reply_to queue and correlation_id, server processes and replies',
-            'Each client creates an exclusive callback queue to receive responses — one queue per client connection',
-            'correlation_id matches responses to requests, enabling multiple outstanding RPCs on the same callback queue',
-            'Server is stateless — it simply consumes from the request queue and publishes to the reply_to address',
-            'RPC over messaging adds reliability (retries, persistence) but introduces latency vs direct HTTP calls'
-        ],
-        concepts: [
-            { term: 'Correlation ID', definition: 'Unique identifier set on the request message. The server copies it to the response so the client can match request-response pairs.' },
-            { term: 'Reply-To Queue', definition: 'Exclusive queue created by the client. Its name is sent in the reply_to property so the server knows where to send the response.' },
-            { term: 'Callback Queue', definition: 'Same as reply-to queue. Client listens on this queue for RPC responses. Typically exclusive and auto-delete.' },
-            { term: 'Request-Reply', definition: 'Pattern where one party sends a request and waits for a response. Over messaging, this is asynchronous but feels synchronous to the caller.' },
-            { term: 'Timeout', definition: 'Client should set a timeout for RPC responses. If the server crashes, the client must handle the missing response gracefully.' }
-        ]
-    },
-    confirms: {
-        principles: [
-            'Publisher confirms: broker acknowledges (ACK/NACK) each message after it is written to disk or delivered',
-            'Without confirms, the producer has no way to know if the broker received and persisted the message',
-            'Messages are confirmed in order; a single ACK with multiple=true can confirm all messages up to that sequence number',
-            'NACK indicates the broker could not handle the message (e.g., disk full, internal error)',
-            'Publisher confirms + consumer ACK + durable queues + persistent messages = end-to-end at-least-once delivery'
-        ],
-        concepts: [
-            { term: 'Publisher Confirm', definition: 'Broker sends ACK back to the producer after successfully queuing/persisting a message. Async confirmation.' },
-            { term: 'Sequence Number', definition: 'Monotonically increasing number assigned to each published message. Used to track which messages are confirmed.' },
-            { term: 'Batch Confirm', definition: 'ACK with multiple=true confirms all messages up to the given sequence number. More efficient than per-message confirms.' },
-            { term: 'NACK', definition: 'Negative acknowledgment from broker. Indicates the message was not processed. Producer should retry or handle the failure.' },
-            { term: 'At-Least-Once', definition: 'Delivery guarantee: message is delivered at least once (may be duplicated). Achieved with confirms + persistent messages + durable queues.' }
-        ]
+        principles: MBV.t('rabbitmq.details.work.principles'),
+        concepts: MBV.t('rabbitmq.details.work.concepts')
     }
+    // ... other details can be added to i18n later if needed
 };
 
 /* ---------- Tutorial 1: Hello World ---------- */
@@ -157,7 +54,7 @@ MBV.rabbitmq.hello = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-sender');
         if (sentEl) sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `msg_id=${id} \u2192 queue "hello"`);
+        MBV.log('SEND', MBV.t('rabbitmq.log.send', { id: id, target: 'queue "hello"' }));
         MBV.updateStats();
 
         const prodPort = document.getElementById('port-sender');
@@ -169,7 +66,7 @@ MBV.rabbitmq.hello = {
         MBV.state.queued++;
         document.getElementById('q-hello-count').textContent = this.queueMessages;
         MBV.updateStats();
-        MBV.log('ROUTE', `msg_id=${id} enqueued in "hello" (${this.queueMessages} pending)`);
+        MBV.log('ROUTE', MBV.t('rabbitmq.log.enqueue', { id: id, queue: '"hello"', count: this.queueMessages }));
 
         await MBV.animateInsideQueue(document.getElementById('queue-hello'), { label: `#${id}`, duration: 600 });
         MBV.addQueueDot(document.getElementById('queue-hello'), `#${id}`);
@@ -195,12 +92,12 @@ MBV.rabbitmq.hello = {
                 const consCard = document.getElementById('card-receiver');
                 MBV.flashCard(consCard, 'red');
                 MBV.addBadge(consCard, `NACK \u2717 #${id}`, 'nack');
-                MBV.log('ERROR', `msg_id=${id} consumer REJECTED (NACK) - message lost`);
+                MBV.log('ERROR', MBV.t('rabbitmq.log.error', { id: id, worker: 'Receiver' }));
             } else {
                 MBV.state.delivered++;
                 const recvEl = document.getElementById('count-receiver');
                 if (recvEl) recvEl.textContent = parseInt(recvEl.textContent) + 1;
-                MBV.log('RECV', `msg_id=${id} delivered to Receiver`);
+                MBV.log('RECV', MBV.t('rabbitmq.log.recv', { id: id, worker: 'Receiver' }));
             }
             MBV.updateStats();
         };
@@ -246,9 +143,9 @@ MBV.rabbitmq.work = {
                 <div class="card-header">
                     <span class="card-icon">\u2699\uFE0F</span>
                     <span class="card-name">${w.name}</span>
-                    <button class="toggle-connect-btn" id="toggle-${w.id}">Disconnect</button>
+                    <button class="toggle-connect-btn" id="toggle-${w.id}">${MBV.t('ui.btn.disconnect')}</button>
                 </div>
-                <div class="card-stats"><span class="card-status ready" id="status-${w.id}">ready</span> Processed: <span id="count-${w.id}">0</span></div>
+                <div class="card-stats"><span class="card-status ready" id="status-${w.id}">${MBV.t('ui.status.ready')}</span> Processed: <span id="count-${w.id}">0</span></div>
                 <div class="card-progress"><div class="card-progress-fill" id="progress-${w.id}"></div></div>
                 <div class="card-badges" id="badges-${w.id}"></div>
             </div>`;
@@ -265,7 +162,7 @@ MBV.rabbitmq.work = {
                 const btn = document.getElementById('toggle-' + w.id);
                 card.classList.toggle('disconnected', !w.connected);
                 btn.classList.toggle('disconnected', !w.connected);
-                btn.textContent = w.connected ? 'Disconnect' : 'Connect';
+                btn.textContent = w.connected ? MBV.t('ui.btn.disconnect') : MBV.t('ui.btn.connect');
                 if (w.connected) this._processQueue();
                 this._highlightNextWorker();
             };
@@ -318,7 +215,7 @@ MBV.rabbitmq.work = {
         worker.busy = true;
         const statusEl = document.getElementById('status-' + worker.id);
         const progressEl = document.getElementById('progress-' + worker.id);
-        statusEl.textContent = 'busy';
+        statusEl.textContent = MBV.t('ui.status.busy');
         statusEl.className = 'card-status busy';
 
         const qPortR = document.getElementById('q-task-port-r');
@@ -326,7 +223,7 @@ MBV.rabbitmq.work = {
         await MBV.animateDot(qPortR, consPort, { label: `#${msgId}`, duration: 400 });
 
         MBV.state.delivered++;
-        MBV.log('RECV', `msg_id=${msgId} \u2192 ${worker.name}`);
+        MBV.log('RECV', MBV.t('rabbitmq.log.recv', { id: msgId, worker: worker.name }));
         MBV.updateStats();
 
         if (this._nextError) {
@@ -335,10 +232,10 @@ MBV.rabbitmq.work = {
             MBV.flashCard(card, 'red');
             MBV.addBadge(card, `FAIL \u2717 #${msgId}`, 'nack');
             worker.busy = false;
-            statusEl.textContent = 'error';
+            statusEl.textContent = MBV.t('ui.status.error');
             statusEl.className = 'card-status error';
-            MBV.log('ERROR', `msg_id=${msgId} processing FAILED on ${worker.name} - message dropped`);
-            setTimeout(() => { statusEl.textContent = 'ready'; statusEl.className = 'card-status ready'; }, 1500);
+            MBV.log('ERROR', MBV.t('rabbitmq.log.error', { id: msgId, worker: worker.name }));
+            setTimeout(() => { statusEl.textContent = MBV.t('ui.status.ready'); statusEl.className = 'card-status ready'; }, 1500);
             this._processQueue();
             return;
         }
@@ -353,7 +250,7 @@ MBV.rabbitmq.work = {
             else {
                 worker.busy = false;
                 worker.processed++;
-                statusEl.textContent = 'ready';
+                statusEl.textContent = MBV.t('ui.status.ready');
                 statusEl.className = 'card-status ready';
                 document.getElementById('count-' + worker.id).textContent = worker.processed;
                 progressEl.style.width = '0%';
@@ -371,7 +268,7 @@ MBV.rabbitmq.work = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-taskprod');
         if (sentEl) sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `msg_id=${id} \u2192 task_queue`);
+        MBV.log('SEND', MBV.t('rabbitmq.log.send', { id: id, target: 'task_queue' }));
         MBV.updateStats();
 
         const prodPort = document.getElementById('port-taskprod');
@@ -382,7 +279,7 @@ MBV.rabbitmq.work = {
         MBV.state.queued++;
         document.getElementById('q-task-count').textContent = this.queueMessages;
         MBV.updateStats();
-        MBV.log('ROUTE', `msg_id=${id} enqueued (${this.queueMessages} pending)`);
+        MBV.log('ROUTE', MBV.t('rabbitmq.log.enqueue', { id: id, queue: 'task_queue', count: this.queueMessages }));
 
         await MBV.animateInsideQueue(document.getElementById('queue-task'), { label: `#${id}`, duration: 600 });
         MBV.addQueueDot(document.getElementById('queue-task'), `#${id}`);
@@ -441,7 +338,7 @@ MBV.rabbitmq.pubsub = {
                 <div class="card-header">
                     <span class="card-icon">${c.icon}</span>
                     <span class="card-name">${c.name}</span>
-                    <button class="toggle-connect-btn" id="toggle-${c.id}">Disconnect</button>
+                    <button class="toggle-connect-btn" id="toggle-${c.id}">${MBV.t('ui.btn.disconnect')}</button>
                 </div>
                 <div class="card-stats">Received: <span id="count-${c.id}">0</span></div>
                 <div class="card-progress"><div class="card-progress-fill" id="progress-${c.id}"></div></div>
@@ -458,7 +355,7 @@ MBV.rabbitmq.pubsub = {
                 const btn = document.getElementById('toggle-' + c.id);
                 card.classList.toggle('disconnected', !c.connected);
                 btn.classList.toggle('disconnected', !c.connected);
-                btn.textContent = c.connected ? 'Disconnect' : 'Connect';
+                btn.textContent = c.connected ? MBV.t('ui.btn.disconnect') : MBV.t('ui.btn.connect');
                 if (c.connected) this._drainPending(c);
             };
         });
@@ -474,7 +371,7 @@ MBV.rabbitmq.pubsub = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-' + prodId);
         if (sentEl) sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `msg_id=${id} from ${prodId} \u2192 fanout exchange`);
+        MBV.log('SEND', MBV.t('rabbitmq.log.send', { id: id, target: 'fanout exchange' }));
         MBV.updateStats();
 
         const prodPort = document.getElementById('port-' + prodId);
@@ -487,7 +384,7 @@ MBV.rabbitmq.pubsub = {
 
         MBV.state.queued++;
         MBV.updateStats();
-        MBV.log('ROUTE', `msg_id=${id} broadcast to ${this.consumers.length} queues`);
+        MBV.log('ROUTE', MBV.t('rabbitmq.log.route', { id: id, count: this.consumers.length }));
         MBV.addQueueDot(document.getElementById('exchange-fanout'), `#${id}`);
 
         const deliver = async () => {
@@ -508,7 +405,7 @@ MBV.rabbitmq.pubsub = {
                     const qCountEl = document.getElementById('q-' + c.id + '-count');
                     if (qCountEl) qCountEl.textContent = c.pendingMessages.length;
                     MBV.addQueueDot(document.getElementById('queue-' + c.id), `#${id}`);
-                    MBV.log('QUEUE', `msg_id=${id} queued for ${c.name} (${c.pendingMessages.length} pending)`);
+                    MBV.log('QUEUE', MBV.t('rabbitmq.log.enqueue', { id: id, queue: c.name, count: c.pendingMessages.length }));
                     return;
                 }
 
@@ -521,13 +418,13 @@ MBV.rabbitmq.pubsub = {
                     const card = document.getElementById('card-' + c.id);
                     MBV.flashCard(card, 'red');
                     MBV.addBadge(card, `NACK \u2717 #${id}`, 'nack');
-                    MBV.log('ERROR', `msg_id=${id} \u2192 ${c.name} REJECTED (NACK)`);
+                    MBV.log('ERROR', MBV.t('rabbitmq.log.error', { id: id, worker: c.name }));
                 } else {
                     MBV.state.delivered++;
                     c.received++;
                     const countEl = document.getElementById('count-' + c.id);
                     if (countEl) countEl.textContent = c.received;
-                    MBV.log('RECV', `msg_id=${id} \u2192 ${c.name}`);
+                    MBV.log('RECV', MBV.t('rabbitmq.log.recv', { id: id, worker: c.name }));
                 }
                 MBV.updateStats();
             });
@@ -544,9 +441,9 @@ MBV.rabbitmq.pubsub = {
     async _drainPending(consumer) {
         const pending = consumer.pendingMessages.splice(0);
         if (pending.length === 0) return;
-        MBV.log('DRAIN', `${consumer.name} reconnected — delivering ${pending.length} queued messages`);
+        MBV.log('DRAIN', MBV.t('rabbitmq.log.drain', { worker: consumer.name, count: pending.length }));
         for (const msg of pending) {
-            const qPortR = document.getElementById('q-' + consumer.id + '-port-r');
+            const qPortR = document.getElementById('q-task-port-r') || document.getElementById('q-' + consumer.id + '-port-r');
             const consPort = document.getElementById('port-' + consumer.id);
             if (!qPortR || !consPort) continue;
             MBV.removeQueueDot(document.getElementById('queue-' + consumer.id));
@@ -556,13 +453,13 @@ MBV.rabbitmq.pubsub = {
                 const card = document.getElementById('card-' + consumer.id);
                 MBV.flashCard(card, 'red');
                 MBV.addBadge(card, `NACK \u2717 #${msg.id}`, 'nack');
-                MBV.log('ERROR', `msg_id=${msg.id} \u2192 ${consumer.name} REJECTED (NACK)`);
+                MBV.log('ERROR', MBV.t('rabbitmq.log.error', { id: msg.id, worker: consumer.name }));
             } else {
                 MBV.state.delivered++;
                 consumer.received++;
                 const countEl = document.getElementById('count-' + consumer.id);
                 if (countEl) countEl.textContent = consumer.received;
-                MBV.log('RECV', `msg_id=${msg.id} \u2192 ${consumer.name}`);
+                MBV.log('RECV', MBV.t('rabbitmq.log.recv', { id: msg.id, worker: consumer.name }));
             }
             const qCountEl = document.getElementById('q-' + consumer.id + '-count');
             if (qCountEl) qCountEl.textContent = Math.max(0, parseInt(qCountEl.textContent) - 1);
@@ -633,7 +530,7 @@ MBV.rabbitmq.routing = {
                 <div class="card-header">
                     <span class="card-icon">${c.icon}</span>
                     <span class="card-name">${c.name}</span>
-                    <button class="toggle-connect-btn" id="toggle-${c.id}">Disconnect</button>
+                    <button class="toggle-connect-btn" id="toggle-${c.id}">${MBV.t('ui.btn.disconnect')}</button>
                 </div>
                 <div class="card-meta">binding: <span class="key-label">${c.binding}</span></div>
                 <div class="card-stats">Received: <span id="count-${c.id}">0</span></div>
@@ -650,7 +547,7 @@ MBV.rabbitmq.routing = {
                 const btn = document.getElementById('toggle-' + c.id);
                 card.classList.toggle('disconnected', !c.connected);
                 btn.classList.toggle('disconnected', !c.connected);
-                btn.textContent = c.connected ? 'Disconnect' : 'Connect';
+                btn.textContent = c.connected ? MBV.t('ui.btn.disconnect') : MBV.t('ui.btn.connect');
                 if (c.connected) this._drainPending(c);
             };
         });
@@ -668,7 +565,7 @@ MBV.rabbitmq.routing = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-' + prodId);
         sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `msg_id=${id} routing_key="${rkey}" \u2192 direct exchange`);
+        MBV.log('SEND', MBV.t('rabbitmq.log.send', { id: id, target: 'direct exchange' }));
         MBV.updateStats();
 
         const prodPort = document.getElementById('port-' + prodId);
@@ -694,7 +591,7 @@ MBV.rabbitmq.routing = {
                 bindingEl.style.color = '#155724';
                 setTimeout(() => { bindingEl.style.background = ''; bindingEl.style.color = ''; }, 800);
             }
-            MBV.log('ROUTE', `msg_id=${id} matched binding="${c.binding}"`);
+            MBV.log('ROUTE', MBV.t('rabbitmq.log.send', { id: id, target: `binding "${c.binding}"` }));
         });
 
         MBV.state.queued++;
@@ -718,7 +615,7 @@ MBV.rabbitmq.routing = {
                     const qCountEl = document.getElementById('q-' + c.id + '-count');
                     if (qCountEl) qCountEl.textContent = c.pendingMessages.length;
                     MBV.addQueueDot(document.getElementById('queue-' + c.id), `#${id}`);
-                    MBV.log('QUEUE', `msg_id=${id} queued for ${c.name} (${c.pendingMessages.length} pending)`);
+                    MBV.log('QUEUE', MBV.t('rabbitmq.log.enqueue', { id: id, queue: c.name, count: c.pendingMessages.length }));
                     continue;
                 }
 
@@ -731,13 +628,13 @@ MBV.rabbitmq.routing = {
                     const card = document.getElementById('card-' + c.id);
                     MBV.flashCard(card, 'red');
                     MBV.addBadge(card, `NACK \u2717 #${id}`, 'nack');
-                    MBV.log('ERROR', `msg_id=${id} \u2192 ${c.name} REJECTED (NACK)`);
+                    MBV.log('ERROR', MBV.t('rabbitmq.log.error', { id: id, worker: c.name }));
                 } else {
                     MBV.state.delivered++;
                     c.received++;
                     const countEl = document.getElementById('count-' + c.id);
                     if (countEl) countEl.textContent = c.received;
-                    MBV.log('RECV', `msg_id=${id} \u2192 ${c.name}`);
+                    MBV.log('RECV', MBV.t('rabbitmq.log.recv', { id: id, worker: c.name }));
                 }
                 MBV.updateStats();
             }
@@ -753,9 +650,9 @@ MBV.rabbitmq.routing = {
     async _drainPending(consumer) {
         const pending = consumer.pendingMessages.splice(0);
         if (pending.length === 0) return;
-        MBV.log('DRAIN', `${consumer.name} reconnected — delivering ${pending.length} queued messages`);
+        MBV.log('DRAIN', MBV.t('rabbitmq.log.drain', { worker: consumer.name, count: pending.length }));
         for (const msg of pending) {
-            const qPortR = document.getElementById('q-' + consumer.id + '-port-r');
+            const qPortR = document.getElementById('q-task-port-r') || document.getElementById('q-' + consumer.id + '-port-r');
             const consPort = document.getElementById('port-' + consumer.id);
             if (!qPortR || !consPort) continue;
             MBV.removeQueueDot(document.getElementById('queue-' + consumer.id));
@@ -765,13 +662,13 @@ MBV.rabbitmq.routing = {
                 const card = document.getElementById('card-' + consumer.id);
                 MBV.flashCard(card, 'red');
                 MBV.addBadge(card, `NACK \u2717 #${msg.id}`, 'nack');
-                MBV.log('ERROR', `msg_id=${msg.id} \u2192 ${consumer.name} REJECTED (NACK)`);
+                MBV.log('ERROR', MBV.t('rabbitmq.log.error', { id: msg.id, worker: consumer.name }));
             } else {
                 MBV.state.delivered++;
                 consumer.received++;
                 const countEl = document.getElementById('count-' + consumer.id);
                 if (countEl) countEl.textContent = consumer.received;
-                MBV.log('RECV', `msg_id=${msg.id} \u2192 ${consumer.name}`);
+                MBV.log('RECV', MBV.t('rabbitmq.log.recv', { id: msg.id, worker: consumer.name }));
             }
             const qCountEl = document.getElementById('q-' + consumer.id + '-count');
             if (qCountEl) qCountEl.textContent = Math.max(0, parseInt(qCountEl.textContent) - 1);
@@ -903,7 +800,7 @@ MBV.rabbitmq.topics = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-' + prodId);
         sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `msg_id=${id} routing_key="${rkey}" \u2192 topic exchange`);
+        MBV.log('SEND', MBV.t('rabbitmq.log.send', { id: id, target: 'topic exchange' }));
         MBV.updateStats();
 
         const prodPort = document.getElementById('port-' + prodId);
@@ -936,7 +833,7 @@ MBV.rabbitmq.topics = {
 
         MBV.state.queued++;
         MBV.updateStats();
-        MBV.log('ROUTE', `msg_id=${id} matched ${matchedConsumers.length} consumer(s)`);
+        MBV.log('ROUTE', MBV.t('rabbitmq.log.route', { id: id, count: matchedConsumers.length }));
         MBV.addQueueDot(document.getElementById('exchange-topic'), `#${id}`);
 
         const deliver = async () => {
@@ -954,12 +851,12 @@ MBV.rabbitmq.topics = {
                     const card = document.getElementById('card-' + c.id);
                     MBV.flashCard(card, 'red');
                     MBV.addBadge(card, `NACK \u2717 #${id}`, 'nack');
-                    MBV.log('ERROR', `msg_id=${id} \u2192 ${c.name} REJECTED (NACK)`);
+                    MBV.log('ERROR', MBV.t('rabbitmq.log.error', { id: id, worker: c.name }));
                 } else {
                     MBV.state.delivered++;
                     const countEl = document.getElementById('count-' + c.id);
                     if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
-                    MBV.log('RECV', `msg_id=${id} \u2192 ${c.name}`);
+                    MBV.log('RECV', MBV.t('rabbitmq.log.recv', { id: id, worker: c.name }));
                 }
                 MBV.updateStats();
             });
@@ -1026,7 +923,7 @@ MBV.rabbitmq.rpc = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-rpc-client');
         sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `msg_id=${id} corr_id=${corrId} \u2192 rpc_queue`);
+        MBV.log('SEND', MBV.t('rabbitmq.log.rpc_req', { id: id, corrId: corrId }));
         MBV.updateStats();
 
         // Create reply queue element
@@ -1061,7 +958,7 @@ MBV.rabbitmq.rpc = {
             // Phase 2: Processing
             const statusEl = document.getElementById('rq-status-' + corrId);
             if (statusEl) statusEl.textContent = 'processing...';
-            MBV.log('ROUTE', `corr_id=${corrId} processing by RPC Server`);
+            MBV.log('ROUTE', MBV.t('rabbitmq.log.send', { id: id, target: 'RPC Server' }));
 
             const progressEl = document.getElementById('progress-rpc-server');
             const card = document.getElementById('card-rpc-server');
@@ -1085,7 +982,7 @@ MBV.rabbitmq.rpc = {
                 MBV.flashCard(card, 'red');
                 MBV.addBadge(card, `FAIL \u2717 corr_id=${corrId}`, 'nack');
                 if (statusEl) statusEl.textContent = 'server error \u2717';
-                MBV.log('ERROR', `corr_id=${corrId} RPC Server FAILED \u2014 no reply sent`);
+                MBV.log('ERROR', MBV.t('rabbitmq.log.error', { id: id, worker: 'RPC Server' }));
                 setTimeout(() => {
                     rqEl.style.opacity = '0';
                     setTimeout(() => rqEl.remove(), 500);
@@ -1108,7 +1005,7 @@ MBV.rabbitmq.rpc = {
             if (repliesEl) repliesEl.textContent = this.replies;
             MBV.state.delivered++;
             MBV.addBadge(document.getElementById('card-rpc-client'), `\u21A9 reply \u00B7 ${corrId} \u2713`, 'reply');
-            MBV.log('REPLY', `corr_id=${corrId} reply delivered to RPC Client`);
+            MBV.log('REPLY', MBV.t('rabbitmq.log.rpc_res', { corrId: corrId }));
             MBV.updateStats();
 
             // Fade out reply queue
@@ -1171,7 +1068,7 @@ MBV.rabbitmq.confirms = {
         if (isError) MBV.state.simulateError = false;
 
         MBV.state.sent++;
-        MBV.log('SEND', `msg_id=${id} \u2192 queue "messages"`);
+        MBV.log('SEND', MBV.t('rabbitmq.log.send', { id: id, target: 'queue "messages"' }));
         MBV.updateStats();
 
         const prodPort = document.getElementById('port-confirm-prod');
@@ -1204,7 +1101,7 @@ MBV.rabbitmq.confirms = {
                 MBV.flashCard(pCard, 'red');
                 MBV.addBadge(pCard, `NACK \u2717 #${id}`, 'nack');
                 if (qL && pPort) await MBV.animateDot(qL, pPort, { label: 'NACK \u2717', cssClass: 'nack-dot', duration: 400 });
-                MBV.log('CONFIRM', `msg_id=${id} \u2192 NACK \u2717 \u00B7 message dropped`);
+                MBV.log('CONFIRM', MBV.t('rabbitmq.log.nack', { id: id }));
                 const statusEl = document.getElementById('broker-status');
                 if (statusEl) {
                     statusEl.textContent = 'error';
@@ -1219,7 +1116,7 @@ MBV.rabbitmq.confirms = {
                 MBV.flashCard(pCard, 'green');
                 MBV.addBadge(pCard, `ACK \u2713 #${id}`, 'ack');
                 if (qL && pPort) MBV.animateDot(qL, pPort, { label: 'ACK \u2713', cssClass: 'ack-dot', duration: 400 });
-                MBV.log('CONFIRM', `msg_id=${id} \u2192 ACK \u2713`);
+                MBV.log('CONFIRM', MBV.t('rabbitmq.log.ack', { id: id }));
 
                 // Deliver to consumer in parallel
                 const qPortR = document.getElementById('q-confirm-port-r');
@@ -1227,7 +1124,7 @@ MBV.rabbitmq.confirms = {
                 if (qPortR && consPort) {
                     await MBV.animateDot(qPortR, consPort, { label: `#${id}`, duration: 450 });
                     MBV.state.delivered++;
-                    MBV.log('RECV', `msg_id=${id} \u2192 Consumer`);
+                    MBV.log('RECV', MBV.t('rabbitmq.log.recv', { id: id, worker: 'Consumer' }));
                     MBV.updateStats();
                 }
             }
@@ -1280,5 +1177,5 @@ MBV.rabbitmq._sendConfirm = async function(prodPort, msgId) {
     MBV.flashCard(prodCard, 'green');
     MBV.addBadge(prodCard, `ACK \u2713 #${msgId}`, 'ack');
     MBV.animateDot(broker, prodPort, { label: 'ACK \u2713', cssClass: 'ack-dot', duration: 400 });
-    MBV.log('CONFIRM', `msg_id=${msgId} \u2192 ACK \u2713`);
+    MBV.log('CONFIRM', MBV.t('rabbitmq.log.ack', { id: msgId }));
 };

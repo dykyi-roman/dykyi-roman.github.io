@@ -78,8 +78,9 @@
         // Update broker header
         const config = brokerConfigs[brokerId];
         document.getElementById('broker-name').textContent = config.name;
-        document.getElementById('broker-status').textContent = 'live';
+        document.getElementById('broker-status').textContent = I18N.t('ui.status.live', null, 'live');
         document.getElementById('broker-status').className = 'broker-status live';
+        document.getElementById('broker-status').setAttribute('data-i18n', 'ui.status.live');
 
         // Confirm toggle visibility
         const confirmWrap = document.getElementById('confirm-toggle-wrap');
@@ -207,13 +208,15 @@
         // Simulate Error
         document.getElementById('btn-error').onclick = () => {
             MBV.state.simulateError = true;
-            MBV.log('ERROR', 'Next message will trigger broker error (NACK)');
+            MBV.log('ERROR', I18N.t('ui.log.error_nack', null, 'Next message will trigger broker error (NACK)'));
             const statusEl = document.getElementById('broker-status');
-            statusEl.textContent = 'error';
+            statusEl.textContent = I18N.t('ui.status.error', null, 'error');
             statusEl.className = 'broker-status error';
+            statusEl.setAttribute('data-i18n', 'ui.status.error');
             setTimeout(() => {
-                statusEl.textContent = 'live';
+                statusEl.textContent = I18N.t('ui.status.live', null, 'live');
                 statusEl.className = 'broker-status live';
+                statusEl.setAttribute('data-i18n', 'ui.status.live');
             }, 2000);
         };
 
@@ -224,13 +227,15 @@
             btn.textContent = MBV.state.paused ? I18N.t('ui.btn.resume', null, '\u25B6 Resume') : I18N.t('ui.btn.pause', null, '\u23F8 Pause');
             const statusEl = document.getElementById('broker-status');
             if (MBV.state.paused) {
-                statusEl.textContent = 'paused';
+                statusEl.textContent = I18N.t('ui.status.paused', null, 'paused');
                 statusEl.className = 'broker-status paused';
-                MBV.log('ERROR', 'Broker paused \u2014 consumers stopped');
+                statusEl.setAttribute('data-i18n', 'ui.status.paused');
+                MBV.log('ERROR', I18N.t('ui.log.paused', null, 'Broker paused \u2014 consumers stopped'));
             } else {
-                statusEl.textContent = 'live';
+                statusEl.textContent = I18N.t('ui.status.live', null, 'live');
                 statusEl.className = 'broker-status live';
-                MBV.log('ACK', 'Broker resumed \u2014 delivering queued messages');
+                statusEl.setAttribute('data-i18n', 'ui.status.live');
+                MBV.log('ACK', I18N.t('ui.log.resumed', null, 'Broker resumed \u2014 delivering queued messages'));
                 MBV.flushDeliveryQueue();
             }
         };
@@ -248,7 +253,8 @@
         // Publisher Confirms toggle
         document.getElementById('toggle-confirms').onchange = (e) => {
             MBV.state.confirmsEnabled = e.target.checked;
-            MBV.log(e.target.checked ? 'CONFIRM' : 'ACK', `Publisher Confirms: ${e.target.checked ? 'ON' : 'OFF'}`);
+            const statusStr = e.target.checked ? I18N.t('ui.log.confirms_on', null, 'Publisher Confirms: ON') : I18N.t('ui.log.confirms_off', null, 'Publisher Confirms: OFF');
+            MBV.log(e.target.checked ? 'CONFIRM' : 'ACK', statusStr);
         };
 
         // Pattern details toggle

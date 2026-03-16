@@ -5,7 +5,7 @@
 
     var I18N = {
         lang: 'en',
-        supported: ['en', 'ru', 'fr', 'de', 'es'],
+        supported: ['en', 'es', 'fr', 'de', 'ru'],
         _translations: {},
         _fallback: {},
         _loaded: false,
@@ -165,7 +165,7 @@
             var container = document.getElementById(containerId);
             if (!container) return;
 
-            var langLabels = { en: 'EN', ru: 'RU', fr: 'FR', de: 'DE', es: 'ES' };
+            var langLabels = { en: 'EN', es: 'ES', fr: 'FR', de: 'DE', ru: 'RU'};
             var html = '';
             I18N.supported.forEach(function(lang) {
                 var cls = 'lang-btn' + (lang === I18N.lang ? ' active' : '');

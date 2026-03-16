@@ -254,6 +254,13 @@
     }
 
     /* ── API ──────────────────────────────────────────────────────── */
+    function stripAd(text) {
+        return text
+            .replace(/\s*---+\s*\*\*Support Pollinations[\s\S]*$/i, '')
+            .replace(/\s*🌸[\s\S]*$/i, '')
+            .trim();
+    }
+
     function getApiKey() {
         return (window.CHAT_API_KEY || DEFAULT_API_KEY).trim();
     }
@@ -320,6 +327,7 @@
                 // new API failed (402, 401, network) — fall back to legacy
                 return callWithLegacyApi(messages);
             })
+            .then(function (text) { return stripAd(text); })
             .catch(function (err) {
                 clearTimeout(timeoutId);
                 if (err.name === 'AbortError') { throw new Error('Request timed out. Please try again.'); }

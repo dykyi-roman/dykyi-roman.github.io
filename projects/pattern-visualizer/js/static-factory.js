@@ -150,14 +150,14 @@ abstract class Number
     {
         return match (true) {
             is_int($value)   => self::valueOf($value),
-            is_float($value) => new Float_($value),
+            is_float($value) => new Float($value),
             default          => new BigDecimal((string) $value),
         };
     }
 
-    public static function valueOf(int $value): Integer_
+    public static function valueOf(int $value): Integer
     {
-        return self::$cache[$value] ??= new Integer_($value);
+        return self::$cache[$value] ??= new Integer($value);
     }
 
     public static function zero(): static
@@ -166,13 +166,13 @@ abstract class Number
     }
 }
 
-readonly class Integer_ extends Number
+readonly class Integer extends Number
 {
     public function __construct(public int $value) {}
     public function intValue(): int { return $this->value; }
 }
 
-readonly class Float_ extends Number
+readonly class Float extends Number
 {
     public function __construct(public float $value) {}
     public function floatValue(): float { return $this->value; }
@@ -188,9 +188,9 @@ readonly class BigDecimal extends Number
 }
 
 // Client
-$a = Number::of(42);        // Integer_ (created & cached)
-$b = Number::of(42);        // Integer_ (same cached instance)
-$c = Number::of(3.14);      // Float_ (new instance)
+$a = Number::of(42);        // Integer (created & cached)
+$b = Number::of(42);        // Integer (same cached instance)
+$c = Number::of(3.14);      // Float (new instance)
 var_dump($a === $b);         // true`,
 
         go: `package main

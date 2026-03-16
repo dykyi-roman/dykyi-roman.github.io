@@ -11,7 +11,65 @@
   "ui.tooltip.pause": "Пауза/Продолжение симуляции",
   "ui.tooltip.reset": "Сбросить все состояния",
 
+  "ui.breadcrumb.home": "Главная",
+  "ui.breadcrumb.projects": "Проекты",
+  "ui.btn.run.burst": "Серия",
+  "ui.simulate_error": "Эмуляция ошибки",
+  "ui.btn.pause": "Пауза",
+  "ui.btn.resume": "Продолжить",
+  "ui.btn.reset": "Сброс",
+  "ui.publisher_confirms": "Подтверждения издателя:",
+  "ui.stat.sent": "Отправлено",
+  "ui.stat.delivered": "Доставлено",
+  "ui.stat.in_queue": "В очереди",
+  "ui.stat.msg_sec": "сообщ/сек",
+  "ui.details.title": "Принципы и ключевые понятия",
+  "ui.details.principles": "Принципы",
+  "ui.details.concepts": "Ключевые понятия",
+  "ui.log.header": "Лог событий",
+  "ui.btn.copy": "Копировать",
+  "ui.btn.clear": "Очистить",
+  "ui.btn.copied": "Скопировано!",
+  "ui.producers": "Продюсеры",
+  "ui.consumers": "Потребители",
+  "ui.status.live": "в сети",
+  "ui.status.paused": "пауза",
+  "ui.status.error": "ошибка",
+  "ui.log.error_nack": "Следующее сообщение вызовет ошибку брокера (NACK)",
+  "ui.log.paused": "Брокер приостановлен — потребители остановлены",
+  "ui.log.resumed": "Брокер возобновил работу — доставка сообщений из очереди",
+  "ui.log.reset": "Состояние сброшено",
+  "ui.log.confirms_on": "Подтверждения издателя: ВКЛ",
+  "ui.log.confirms_off": "Подтверждения издателя: ВЫКЛ",
+  "ui.log.type.SEND": "ОТПРАВКА",
+  "ui.log.type.ROUTE": "МАРШРУТ",
+  "ui.log.type.RECV": "ПРИЕМ",
+  "ui.log.type.ERROR": "ОШИБКА",
+  "ui.log.type.DRAIN": "DRAIN",
+  "ui.log.type.REPLY": "ОТВЕТ",
+  "ui.log.type.CONFIRM": "ПОДТВЕРЖДЕНИЕ",
+  "ui.log.type.ACK": "ACK",
+  "ui.log.type.SEEK": "SEEK",
+  "ui.log.type.PMATCH": "PMATCH",
+  "ui.log.type.QUEUE": "ОЧЕРЕДЬ",
+
+  "ui.btn.connect": "Подключить",
+  "ui.btn.disconnect": "Отключить",
+  "ui.status.ready": "готов",
+  "ui.status.busy": "занят",
+
   "rabbitmq.name": "RabbitMQ",
+  "rabbitmq.log.send": "msg_id={id} → {target}",
+  "rabbitmq.log.enqueue": "msg_id={id} в очереди {queue} ({count} ожидают)",
+  "rabbitmq.log.route": "msg_id={id} маршрутизировано в {count} очередей",
+  "rabbitmq.log.recv": "msg_id={id} → {worker}",
+  "rabbitmq.log.error": "msg_id={id} ОШИБКА на {worker} — сообщение потеряно",
+  "rabbitmq.log.ack": "msg_id={id} → ACK (подтверждено)",
+  "rabbitmq.log.nack": "msg_id={id} → NACK (сбой)",
+  "rabbitmq.log.drain": "{worker} переподключен — доставка {count} сообщений",
+  "rabbitmq.log.rpc_req": "msg_id={id} corr_id={corrId} → rpc_queue",
+  "rabbitmq.log.rpc_res": "corr_id={corrId} ответ доставлен клиенту",
+
   "rabbitmq.modes.hello.label": "1. Direct Queue",
   "rabbitmq.modes.hello.desc": "P → Queue → C. Продюсер пишет в именованную очередь, Consumer читает из неё. Один к одному.",
   "rabbitmq.modes.work.label": "2. Round-Robin",
@@ -30,20 +88,20 @@
   "rabbitmq.details.hello.principles": [
     "Простейший паттерн обмена сообщениями: один продюсер отправляет напрямую в именованную очередь, один consumer читает из неё",
     "Сообщения хранятся в очереди до тех пор, пока consumer не будет готов их обработать (асинхронная развязка)",
-    "Default exchange ("") маршрутизирует сообщения в очереди по имени — явная привязка к exchange не требуется",
+    "Default exchange (\"\") маршрутизирует сообщения в очереди по имени — явная привязка к exchange не требуется",
     "Сообщения удаляются из очереди после подтверждения consumer'ом (at-most-once без ACK)",
     "Очередь должна быть объявлена перед использованием; и продюсер, и consumer могут её объявить (идемпотентная операция)"
   ],
   "rabbitmq.details.hello.concepts": [
     { "term": "Queue", "definition": "FIFO-буфер, хранящий сообщения до их потребления. Durable-очереди переживают перезапуски брокера." },
-    { "term": "Default Exchange", "definition": "Безымянный exchange (""), маршрутизирующий сообщения в очередь, имя которой совпадает с routing key." },
+    { "term": "Default Exchange", "definition": "Безымянный exchange (\"\"), маршрутизирующий сообщения в очередь, имя которой совпадает с routing key." },
     { "term": "Acknowledgment", "definition": "Consumer отправляет ACK после обработки. Без ACK сообщения повторно доставляются при отключении consumer'а." },
     { "term": "Durable Queue", "definition": "Очередь, сохраняющаяся при перезапусках брокера. В сочетании с persistent-сообщениями обеспечивает полную надёжность." },
     { "term": "Connection", "definition": "TCP-соединение с брокером. Channel'ы — это легковесные виртуальные соединения, мультиплексированные поверх одного TCP-соединения." }
   ],
   "rabbitmq.details.work.principles": [
     "Work queue распределяет задачи между несколькими воркерами по round-robin",
-    "Каждое сообщение доставляется ровно одному воркеру — паттерн competing consumers",
+    "Каждее сообщение доставляется ровно одному воркеру — паттерн competing consumers",
     "prefetch_count=1 гарантирует, что воркер получит следующее сообщение только после подтверждения текущего",
     "Справедливое распределение предотвращает простой быстрых воркеров при перегрузке медленных",
     "Ручное подтверждение гарантирует повторную постановку сообщений в очередь при сбое воркера"
@@ -55,13 +113,190 @@
     { "term": "Message TTL", "definition": "Время жизни сообщений. Просроченные сообщения попадают в dead-letter или отбрасываются. Задаётся для очереди или сообщения." },
     { "term": "Dead Letter", "definition": "Сообщения, которые отклонены, просрочены или превысили лимит очереди, отправляются в dead-letter exchange для анализа." }
   ],
-  "mb.rabbitmq.hello.log_send": "msg_id={id} → очередь "hello"",
-  "mb.rabbitmq.hello.log_enqueue": "msg_id={id} поставлено в очередь "hello" ({count} в ожидании)",
-  "mb.rabbitmq.hello.log_reject": "msg_id={id} отклонено получателем (NACK) - сообщение потеряно",
-  "mb.rabbitmq.hello.log_receive": "msg_id={id} доставлено Получателю",
 
-  "mb.rabbitmq.work.log_send": "msg_id={id} → task_queue",
-  "mb.rabbitmq.work.log_enqueue": "msg_id={id} поставлено в очередь ({count} в ожидании)",
-  "mb.rabbitmq.work.log_receive": "msg_id={id} → {workerName}",
-  "mb.rabbitmq.work.log_fail": "msg_id={id} обработка СБОЙ на {workerName} - сообщение отброшено",
+  "kafka.name": "Apache Kafka",
+  "kafka.modes.partitions.label": "Партиции",
+  "kafka.modes.partitions.desc": "Kafka распределяет сообщения по партициям. Стратегии: Round-Robin (без ключа), Key-Based (по хэшу ключа) или Manual. Внутри партиции порядок строго соблюдается.",
+  "kafka.modes.groups.label": "Группы потребителей",
+  "kafka.modes.groups.desc": "Каждую партицию читает ровно один consumer в группе. Группы независимы. Оффсет (offset) отслеживается для каждой группы отдельно.",
+  "kafka.modes.retention.label": "Retention и Replay",
+  "kafka.modes.retention.desc": "Kafka хранит сообщения в логе. Группы читают данные независимо и могут сбрасывать оффсет назад для повторного чтения (replay). Сообщения не удаляются сразу после прочтения.",
+  "kafka.modes.exactly.label": "Exactly-Once",
+  "kafka.modes.exactly.desc": "Гарантии доставки: at-most-once (acks=0, возможны потери), at-least-once (acks=1, возможны дубли), exactly-once (идемпотентный продюсер, без потерь и дублей).",
+
+  "kafka.details.partitions.principles": [
+    "Топик Kafka разделен на партиции — каждая является упорядоченным неизменяемым логом сообщений",
+    "Сообщения внутри одной партиции строго упорядочены; глобального порядка между партициями нет",
+    "Стратегии назначения: Round-Robin (без ключа), Key-Based (хэш ключа % N), Manual (явное указание)",
+    "Партиции — единица параллелизма: больше партиций позволяют большему числу consumer'ов читать одновременно",
+    "Каждая партиция реплицируется между брокерами (replication factor) для отказоустойчивости"
+  ],
+  "kafka.details.partitions.concepts": [
+    { "term": "Partition", "definition": "Упорядоченный append-only лог. Каждое сообщение получает последовательный номер — оффсет." },
+    { "term": "Offset", "definition": "Порядковый номер сообщения в партиции. Consumer'ы используют его для отслеживания своей позиции." },
+    { "term": "Key-Based Routing", "definition": "Сообщения с одинаковым ключом всегда попадают в одну партицию. Гарантирует порядок событий по ключу." },
+    { "term": "Leader/Follower", "definition": "У каждой партиции есть один лидер (чтение/запись) и N-1 фолловеров (репликация)." },
+    { "term": "ISR", "definition": "In-Sync Replicas — фолловеры, которые не отстают от лидера. Только они могут стать новым лидером при сбое." }
+  ],
+
+  "kafka.log.send": "msg_id={id} {label} → топик events",
+  "kafka.log.route": "msg_id={id} → P{part} оффсет={offset}",
+  "kafka.log.recv": "msg_id={id} P{part}:{offset} доставлено",
+  "kafka.log.error_fail": "msg_id={id} P{part}:{offset} СБОЙ consumer'а — оффсет не зафиксирован",
+  "kafka.log.rebalance": "[REBALANCE] Партиции {group} перераспределены",
+  "kafka.log.recv_group": "msg_id={id} → {group}/{consumer}",
+  "kafka.log.error_group": "msg_id={id} → {group}/{consumer} СБОЙ — оффсет не зафиксирован, lag растет",
+  "kafka.log.seek": "{group} сброс всех партиций на оффсет {offset}",
+  "kafka.log.replay_complete": "{group} повторное чтение (replay) завершено",
+  "kafka.log.rejected": "msg_id={id} брокер ОТКЛОНИЛ запись — сообщение не зафиксировано",
+  "kafka.log.lost": "msg_id={id} ПОТЕРЯНО (acks=0, без подтверждения)",
+  "kafka.log.ack_eo": "msg_id={id} {label} доставка exactly-once",
+  "kafka.log.dup": "msg_id={id} ДУБЛИКАТ (повторная доставка)",
+
+  "kafka.ui.strategy": "Стратегия",
+  "kafka.ui.partitions": "Партиции",
+  "kafka.ui.replication": "Репликация",
+  "kafka.ui.rebalance": "Ребаланс",
+  "kafka.ui.replay": "Повтор с оффсета",
+  "kafka.ui.retention": "Retention",
+  "kafka.ui.sent": "Отправлено",
+  "kafka.ui.lost": "Потеряно",
+  "kafka.ui.dups": "Дубли",
+
+  "redis.name": "Redis",
+  "redis.modes.pubsub.label": "Pub/Sub",
+  "redis.modes.pubsub.desc": "Redis Pub/Sub — fire-and-forget. Сообщения не хранятся. Если подписчик отключен в момент отправки, он не получит сообщение. Подходит для real-time событий без гарантий.",
+  "redis.modes.pattern.label": "Pattern Sub",
+  "redis.modes.pattern.desc": "Redis PSUBSCRIBE сопоставляет каналы по шаблонам (glob): * (любые символы), ? (один символ). Позволяет подписываться на группу каналов сразу.",
+  "redis.modes.streams.label": "Streams",
+  "redis.modes.streams.desc": "Redis Streams — персистентный лог событий с группами потребителей. Сообщения хранятся и доступны для повторного чтения. Поддерживает XACK для гарантий доставки.",
+  "redis.modes.es.label": "Event Sourcing",
+  "redis.modes.es.desc": "Состояние системы не хранится напрямую, а восстанавливается путем проигрывания событий. Redis Stream выступает в роли неизменяемого хранилища событий.",
+
+  "redis.log.publish": "msg_id={id} PUBLISH в канал \"{channel}\"",
+  "redis.log.no_subs": "msg_id={id} нет подписчиков на \"{channel}\" — сообщение потеряно 🗑️",
+  "redis.log.recv": "msg_id={id} → {worker} ({channel})",
+  "redis.log.crash": "msg_id={id} → {worker} СБОЙ — сообщение потеряно (в Pub/Sub нет повторов)",
+  "redis.log.pmatch": "\"{channel}\" → шаблон \"{pattern}\" совпал для {worker}",
+  "redis.log.xadd": "XADD events {entryId} msg_id={id}",
+  "redis.log.xread_fail": "XREADGROUP {group}/{consumer} СБОЙ — {entryId} остается в PEL",
+  "redis.log.xread_recv": "XREADGROUP {group}/{consumer} → {entryId}",
+  "redis.log.xack": "XACK {group}/{consumer} {entryId}",
+  "redis.log.xread_zero": "XREAD с начала (0) для {group}",
+  "redis.log.es_emit": "XADD events {entryId} тип={type}",
+  "redis.log.es_fail": "Событие {type} записано, но НЕ применено к состоянию",
+  "redis.log.es_apply": "Событие {type} применено к состоянию",
+  "redis.log.es_rebuild": "Восстановление состояния из лога событий...",
+  "redis.log.es_rebuild_done": "Состояние восстановлено из {count} событий",
+
+  "redis.ui.subs": "подписчиков",
+  "redis.ui.rebuild": "Восстановить состояние",
+  "redis.ui.current_state": "Текущее состояние",
+
+  "mb.rabbitmq.hello.log_send": "msg_id={id} → очередь \"hello\"",
+
+  "kafka.details.consumer-groups.principles": [
+    "Каждую партицию читает ровно один consumer в группе — дублирования обработки нет",
+    "Разные группы независимы — каждая обрабатывает весь поток самостоятельно",
+    "При добавлении или выходе consumer'а партиции перераспределяются между оставшимися участниками",
+    "Если consumer'ов в группе больше, чем партиций, лишние consumer'ы простаивают",
+    "Отслеживание оффсета для каждой группы позволяет каждой читать в своём темпе"
+  ],
+  "kafka.details.consumer-groups.concepts": [
+    { "term": "Consumer Group", "definition": "Именованная группа consumer'ов, совместно читающих топик. Каждая партиция назначена ровно одному участнику." },
+    { "term": "Rebalance", "definition": "Переназначение партиций при подключении, отключении или сбое consumer'а. Вызывает кратковременную паузу обработки." },
+    { "term": "Group Coordinator", "definition": "Брокер, отвечающий за управление членством в группе и назначение партиций." },
+    { "term": "Committed Offset", "definition": "Последний обработанный оффсет на партицию, хранящийся в топике __consumer_offsets. Позволяет продолжить после перезапуска." },
+    { "term": "Lag", "definition": "Разница между последним оффсетом и зафиксированным оффсетом consumer'а. Высокий lag означает отставание." }
+  ],
+
+  "kafka.details.retention.principles": [
+    "Kafka хранит сообщения по времени (retention.ms) или объёму (retention.bytes), а не по факту потребления",
+    "Сообщения НЕ удаляются после прочтения — несколько групп могут повторно читать одни данные",
+    "Компактирование лога хранит только последнее значение для каждого ключа — паттерн changelog/snapshot",
+    "Consumer'ы могут перемещаться на любой оффсет (начало, конец, метка времени) для повторного чтения",
+    "Политика хранения задаётся для каждого топика — разные топики могут иметь разные периоды хранения"
+  ],
+  "kafka.details.retention.concepts": [
+    { "term": "Retention", "definition": "Срок хранения сообщений. По умолчанию retention.ms=604800000 (7 дней). -1 означает хранить вечно." },
+    { "term": "Log Compaction", "definition": "Вместо удаления по времени хранит только последнее значение для каждого ключа. Аналог changelog с дедупликацией." },
+    { "term": "Segment", "definition": "Партиция разбита на файлы-сегменты. Политики хранения и компактирования применяются к сегментам целиком." },
+    { "term": "Offset Reset", "definition": "Поведение при отсутствии оффсета: auto.offset.reset=earliest (читать с начала) или latest (только новые сообщения)." },
+    { "term": "Replay", "definition": "Consumer может перейти на более ранний оффсет для повторной обработки. Позволяет исправлять ошибки и пересобирать состояние." }
+  ],
+
+  "kafka.details.exactly-once.principles": [
+    "Три гарантии доставки: at-most-once (возможны потери), at-least-once (возможны дубли), exactly-once (нет потерь и дублей)",
+    "Идемпотентный продюсер присваивает порядковые номера — брокер дедуплицирует повторные отправки",
+    "Транзакции обеспечивают атомарную запись в несколько партиций и топиков (всё или ничего)",
+    "acks=all гарантирует, что лидер ждёт подтверждения от всех реплик ISR перед ответом продюсеру",
+    "Exactly-once семантика (EOS) = идемпотентный продюсер + транзакции + изоляция read_committed"
+  ],
+  "kafka.details.exactly-once.concepts": [
+    { "term": "Idempotent Producer", "definition": "Продюсер присваивает порядковые номера. Брокер обнаруживает и отбрасывает дубликаты при повторных отправках. enable.idempotence=true." },
+    { "term": "Producer ID (PID)", "definition": "Уникальный ID продюсера, присвоенный брокером. Вместе с порядковым номером используется для дедупликации." },
+    { "term": "Transaction", "definition": "Атомарная запись в несколько партиций. Все сообщения в транзакции либо все зафиксированы, либо все отменены." },
+    { "term": "acks=all", "definition": "Продюсер ждёт подтверждения от всех реплик ISR. Максимальная надёжность, но более высокая задержка." },
+    { "term": "read_committed", "definition": "Уровень изоляции consumer'а: читаются только зафиксированные сообщения (нетранзакционные или завершённые транзакции)." }
+  ],
+
+  "redis.details.pubsub.principles": [
+    "Redis Pub/Sub работает по принципу fire-and-forget: сообщения НЕ хранятся и не сохраняются на диск",
+    "Если subscriber отключён в момент публикации, он никогда не получит это сообщение",
+    "Нет механизма подтверждения — publisher не знает, получил ли кто-нибудь сообщение",
+    "Сообщения одновременно доставляются всем подключённым subscriber'ам канала",
+    "Pub/Sub работает вне ключевого пространства — SUBSCRIBE/PUBLISH не взаимодействуют с обычными ключами Redis"
+  ],
+  "redis.details.pubsub.concepts": [
+    { "term": "Channel", "definition": "Именованная шина сообщений. Publisher'ы отправляют в канал, subscriber'ы слушают его. Нет персистентности и истории." },
+    { "term": "SUBSCRIBE", "definition": "Блокирует соединение и ожидает сообщений. Соединение переходит в режим только подписки." },
+    { "term": "PUBLISH", "definition": "Отправляет сообщение в канал. Возвращает количество subscriber'ов, получивших его." },
+    { "term": "Fire-and-Forget", "definition": "Сообщения немедленно доставляются текущим subscriber'ам, затем отбрасываются. Нет повторов, нет хранения." },
+    { "term": "Client State", "definition": "Подписанный клиент может выполнять только SUBSCRIBE, UNSUBSCRIBE, PSUBSCRIBE, PUNSUBSCRIBE, PING, RESET." }
+  ],
+
+  "redis.details.pattern.principles": [
+    "PSUBSCRIBE сопоставляет каналы по glob-шаблонам: * (любые символы), ? (один символ), [abc] (класс символов)",
+    "Одна подписка по шаблону может охватывать несколько каналов без указания их точных имён",
+    "Сопоставление шаблонов происходит при каждом PUBLISH — большое количество шаблонов увеличивает нагрузку на CPU",
+    "Клиент может совмещать SUBSCRIBE и PSUBSCRIBE — он получает сообщения из обоих источников",
+    "Если канал совпадает и с SUBSCRIBE, и с PSUBSCRIBE, клиент получает сообщение дважды"
+  ],
+  "redis.details.pattern.concepts": [
+    { "term": "PSUBSCRIBE", "definition": "Подписка по glob-шаблону. \"chat:*\" совпадает с chat:room1, chat:room2 и т.д. Проверяется при каждой публикации." },
+    { "term": "* Glob", "definition": "Совпадает с любой последовательностью символов. \"events:*\" совпадает с events:created, events:deleted." },
+    { "term": "? Glob", "definition": "Совпадает ровно с одним символом. \"log?\" совпадает с log1, logA, но не с log или log12." },
+    { "term": "Pattern Count", "definition": "PUBSUB NUMPAT возвращает количество активных подписок по шаблонам. Много шаблонов = больше нагрузки на CPU." },
+    { "term": "Dual Delivery", "definition": "Если клиент подписан на \"chat:room1\" и \"chat:*\", одно и то же сообщение он получает дважды." }
+  ],
+
+  "redis.details.streams.principles": [
+    "Redis Streams предоставляет персистентный append-only лог с группами потребителей — в отличие от эфемерного Pub/Sub",
+    "Каждая запись имеет уникальный автогенерируемый ID (timestamp-порядковый_номер) и пары поле-значение",
+    "Группы потребителей отслеживают прогресс каждого consumer'а; сообщения не повторно доставляются другим участникам",
+    "XACK явно подтверждает обработку — неподтверждённые сообщения остаются в Pending Entries List (PEL)",
+    "XCLAIM позволяет передать владение pending-сообщениями от упавшего consumer'а к другому"
+  ],
+  "redis.details.streams.concepts": [
+    { "term": "Stream", "definition": "Структура данных append-only лога. Каждая запись имеет ID + пары поле-значение. Сохраняется на диск как обычный ключ Redis." },
+    { "term": "Entry ID", "definition": "Формат: timestamp-порядковый_номер (например, 1234567890-0). Автогенерируемый, монотонно возрастающий." },
+    { "term": "Consumer Group", "definition": "Именованная группа, читающая из потока. Каждая запись доставляется одному consumer'у группы." },
+    { "term": "PEL", "definition": "Pending Entries List — записи, доставленные consumer'у, но не подтверждённые XACK. Обеспечивает гарантию at-least-once." },
+    { "term": "XCLAIM", "definition": "Передаёт владение pending-записью от одного consumer'а другому. Используется при сбоях consumer'а." }
+  ],
+
+  "redis.details.eventsourcing.principles": [
+    "Event Sourcing: состояние приложения производится воспроизведением неизменяемой последовательности событий, а не хранится напрямую",
+    "Redis Stream служит хранилищем событий — append-only, упорядоченный, персистентный, с поддержкой групп потребителей",
+    "Состояние пересобирается чтением всех событий из потока и применением трансформации каждого события по порядку",
+    "Снапшоты позволяют периодически сохранять состояние, чтобы не воспроизводить всю историю",
+    "События неизменяемы — для исправления ошибки добавляется компенсирующее событие, а не изменяется история"
+  ],
+  "redis.details.eventsourcing.concepts": [
+    { "term": "Event Store", "definition": "Персистентный лог доменных событий по порядку. Redis Stream предоставляет это через XADD (запись) и XRANGE (чтение)." },
+    { "term": "State Rebuild", "definition": "Процесс воспроизведения всех событий с начала для восстановления текущего состояния приложения." },
+    { "term": "Projection", "definition": "Оптимизированное для чтения представление, производное из потока событий. Может быть пересобрано в любой момент." },
+    { "term": "Compensating Event", "definition": "Событие, отменяющее эффект предыдущего. События никогда не удаляются — только добавляются." },
+    { "term": "Snapshot", "definition": "Периодический снимок текущего состояния. Состояние = снапшот + события после него." }
+  ]
 }

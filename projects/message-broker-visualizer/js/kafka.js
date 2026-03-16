@@ -3,76 +3,28 @@
 MBV.kafka = {};
 
 MBV.kafka.modes = [
-    { id: 'partitions', label: 'Partitions', desc: 'Kafka distributes messages across partitions. Strategies: Round-Robin (no key), Key-Based (hash), or Manual. Messages within a partition are strictly ordered.' },
-    { id: 'consumer-groups', label: 'Consumer Groups', desc: 'Each partition is consumed by exactly one consumer in a group. Groups are independent. Offset is tracked per-group.' },
-    { id: 'retention', label: 'Retention & Replay', desc: 'Kafka stores messages in an ordered log. Consumer group reads independently and can seek offset back for replay. Messages are not deleted after reading.' },
-    { id: 'exactly-once', label: 'Exactly-Once', desc: 'Delivery guarantees: at-most-once (acks=0, may lose), at-least-once (acks=1, may duplicate), exactly-once (idempotent producer, no loss or dups).' },
+    { id: 'partitions', label: MBV.t('kafka.modes.partitions.label'), desc: MBV.t('kafka.modes.partitions.desc') },
+    { id: 'consumer-groups', label: MBV.t('kafka.modes.groups.label'), desc: MBV.t('kafka.modes.groups.desc') },
+    { id: 'retention', label: MBV.t('kafka.modes.retention.label'), desc: MBV.t('kafka.modes.retention.desc') },
+    { id: 'exactly-once', label: MBV.t('kafka.modes.exactly.label'), desc: MBV.t('kafka.modes.exactly.desc') },
 ];
 
 MBV.kafka.details = {
     partitions: {
-        principles: [
-            'A Kafka topic is split into partitions — each partition is an ordered, immutable log of messages',
-            'Messages within a single partition are strictly ordered; no global ordering guarantee across partitions',
-            'Partition assignment strategies: Round-Robin (no key), Key-Based (hash of key mod partition count), Manual',
-            'Partitions are the unit of parallelism — more partitions allow more consumers to read in parallel',
-            'Each partition is replicated across brokers (replication factor) for fault tolerance'
-        ],
-        concepts: [
-            { term: 'Partition', definition: 'An ordered, append-only log within a topic. Each message gets a sequential offset. Partitions enable parallelism.' },
-            { term: 'Offset', definition: 'Sequential position of a message within a partition. Consumers track their position by offset.' },
-            { term: 'Key-Based Routing', definition: 'Messages with the same key always go to the same partition (hash(key) mod N). Guarantees per-key ordering.' },
-            { term: 'Leader/Follower', definition: 'Each partition has one leader (handles reads/writes) and N-1 followers (replicate data). Leader election on failure.' },
-            { term: 'ISR', definition: 'In-Sync Replicas — followers that are caught up with the leader. Only ISR members can become the new leader.' }
-        ]
+        principles: MBV.t('kafka.details.partitions.principles'),
+        concepts: MBV.t('kafka.details.partitions.concepts')
     },
     'consumer-groups': {
-        principles: [
-            'Each partition is consumed by exactly one consumer within a consumer group — no duplicate processing',
-            'Different consumer groups are independent — each group processes the full stream independently',
-            'When a consumer joins or leaves, partitions are rebalanced across remaining group members',
-            'If there are more consumers than partitions in a group, excess consumers sit idle',
-            'Consumer group offset tracking enables each group to read at its own pace'
-        ],
-        concepts: [
-            { term: 'Consumer Group', definition: 'Named group of consumers that collectively read a topic. Each partition is assigned to exactly one member.' },
-            { term: 'Rebalance', definition: 'Partition reassignment triggered when a consumer joins, leaves, or crashes. Causes brief processing pause.' },
-            { term: 'Group Coordinator', definition: 'Broker responsible for managing consumer group membership and partition assignment.' },
-            { term: 'Committed Offset', definition: 'Last processed offset per partition, stored in __consumer_offsets topic. Enables resume after restart.' },
-            { term: 'Lag', definition: 'Difference between the latest message offset and the consumer\'s committed offset. High lag = consumer falling behind.' }
-        ]
+        principles: MBV.t('kafka.details.groups.principles'),
+        concepts: MBV.t('kafka.details.groups.concepts')
     },
     retention: {
-        principles: [
-            'Kafka retains messages based on time (retention.ms) or size (retention.bytes), not consumption status',
-            'Messages are NOT deleted after consumption — multiple consumer groups can re-read the same data',
-            'Log compaction keeps only the latest value per key, enabling changelog/snapshot patterns',
-            'Consumers can seek to any offset (beginning, end, timestamp, specific offset) for replay or reprocessing',
-            'Retention policy is set per topic — different topics can have different retention periods'
-        ],
-        concepts: [
-            { term: 'Retention', definition: 'How long messages are kept. retention.ms=604800000 (7 days) is default. -1 means keep forever.' },
-            { term: 'Log Compaction', definition: 'Instead of time-based deletion, keeps only the latest value per key. Like a changelog with deduplication.' },
-            { term: 'Segment', definition: 'Partition is split into segment files. Retention and compaction operate on whole segments, not individual messages.' },
-            { term: 'Offset Reset', definition: 'What happens when a consumer has no committed offset: auto.offset.reset=earliest (start from beginning) or latest (only new messages).' },
-            { term: 'Replay', definition: 'Consumers can seek to an earlier offset to reprocess messages. Enables fixing bugs and rebuilding state.' }
-        ]
+        principles: MBV.t('kafka.details.retention.principles'),
+        concepts: MBV.t('kafka.details.retention.concepts')
     },
     'exactly-once': {
-        principles: [
-            'Three delivery guarantees: at-most-once (may lose), at-least-once (may duplicate), exactly-once (no loss, no dups)',
-            'Idempotent producer assigns sequence numbers per partition — broker deduplicates retried messages',
-            'Transactions enable atomic writes across multiple partitions and topics (all-or-nothing)',
-            'acks=all ensures the leader waits for all ISR replicas to confirm before acknowledging the produce request',
-            'Exactly-once semantics (EOS) combines idempotent producer + transactions + consumer read_committed isolation'
-        ],
-        concepts: [
-            { term: 'Idempotent Producer', definition: 'Producer assigns sequence numbers. Broker detects and discards duplicate messages from retries. enable.idempotence=true.' },
-            { term: 'Producer ID (PID)', definition: 'Unique ID assigned to each producer by the broker. Combined with sequence number for deduplication.' },
-            { term: 'Transaction', definition: 'Atomic write across partitions. All messages in a transaction are either all committed or all aborted.' },
-            { term: 'acks=all', definition: 'Producer waits for all in-sync replicas to acknowledge. Strongest durability guarantee but higher latency.' },
-            { term: 'read_committed', definition: 'Consumer isolation level that only reads committed (non-transactional or committed transactional) messages.' }
-        ]
+        principles: MBV.t('kafka.details.exactly.principles'),
+        concepts: MBV.t('kafka.details.exactly.concepts')
     }
 };
 
@@ -173,7 +125,7 @@ MBV.kafka.partitions = {
                     </select>
                 </div>
                 <button class="card-send-btn" id="send-${pId}">Send</button>
-                <div class="card-stats">Sent: <span id="sent-${pId}">0</span></div>
+                <div class="card-stats">${MBV.t('kafka.ui.sent')}: <span id="sent-${pId}">0</span></div>
             </div>`;
         });
         document.getElementById('producers-col').innerHTML = prodHtml;
@@ -181,8 +133,8 @@ MBV.kafka.partitions = {
         // Settings
         document.getElementById('extra-panels').innerHTML = `
         <div class="kafka-settings">
-            <label>Partitions: <select id="kafka-num-parts">${[1,2,3,4].map(n => `<option value="${n}" ${n === s.numPartitions ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
-            <label>Replication: <select id="kafka-repl">${[1,2,3].map(n => `<option value="${n}" ${n === s.replicationFactor ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
+            <label>${MBV.t('kafka.ui.partitions')}: <select id="kafka-num-parts">${[1,2,3,4].map(n => `<option value="${n}" ${n === s.numPartitions ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
+            <label>${MBV.t('kafka.ui.replication')}: <select id="kafka-repl">${[1,2,3].map(n => `<option value="${n}" ${n === s.replicationFactor ? 'selected' : ''}>${n}</option>`).join('')}</select></label>
         </div>`;
 
         document.getElementById('kafka-num-parts').onchange = (e) => {
@@ -255,7 +207,7 @@ MBV.kafka.partitions = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-' + prodId);
         sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `msg_id=${id} ${keyLabel} \u2192 topic events`);
+        MBV.log('SEND', MBV.t('kafka.log.send', { id: id, label: keyLabel }));
         MBV.updateStats();
 
         const prodPort = document.getElementById('port-' + prodId);
@@ -265,7 +217,7 @@ MBV.kafka.partitions = {
         const offset = MBV.kafka._addToPartition(partIdx, id, keyLabel);
         MBV.state.queued++;
         MBV.updateStats();
-        MBV.log('ROUTE', `msg_id=${id} \u2192 P${partIdx} offset=${offset}`);
+        MBV.log('ROUTE', MBV.t('kafka.log.route', { id: id, part: partIdx, offset: offset }));
 
         await MBV.animateInsideQueue(document.getElementById('partition-' + partIdx), { label: `P${partIdx}:${offset}`, duration: 550 });
 
@@ -280,13 +232,13 @@ MBV.kafka.partitions = {
                     const card = document.getElementById('card-kafka-cons');
                     MBV.flashCard(card, 'red');
                     MBV.addBadge(card, `FAIL P${partIdx}:${offset}`, 'nack');
-                    MBV.log('ERROR', `msg_id=${id} P${partIdx}:${offset} consumer FAILED \u2014 offset not advanced`);
+                    MBV.log('ERROR', MBV.t('kafka.log.error_fail', { id: id, part: partIdx, offset: offset }));
                     MBV.updateStats();
                 } else {
                     MBV.state.delivered++;
                     const countEl = document.getElementById('count-kafka-cons');
                     if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
-                    MBV.log('RECV', `msg_id=${id} P${partIdx}:${offset} delivered`);
+                    MBV.log('RECV', MBV.t('kafka.log.recv', { id: id, part: partIdx, offset: offset }));
                     MBV.updateStats();
                 }
             }
@@ -334,7 +286,7 @@ MBV.kafka.consumerGroups = {
             consumersHtml += `<div class="consumer-group" style="border-color:${g.color}">
                 <div class="consumer-group-header">
                     <span>${g.name}</span>
-                    <button class="rebalance-btn" data-group="${g.id}">Rebalance</button>
+                    <button class="rebalance-btn" data-group="${g.id}">${MBV.t('kafka.ui.rebalance')}</button>
                 </div>`;
             g.consumers.forEach((cId, ci) => {
                 const assigned = Object.entries(g.assignment).filter(([, v]) => v === ci).map(([k]) => 'P' + k).join(', ') || 'none';
@@ -396,7 +348,7 @@ MBV.kafka.consumerGroups = {
             g.assignment[pi] = i % g.consumers.length;
         });
 
-        MBV.log('ROUTE', `[REBALANCE] ${g.name} partitions reassigned`);
+        MBV.log('ROUTE', MBV.t('kafka.log.rebalance', { group: g.name }));
 
         // Update labels
         setTimeout(() => {
@@ -420,7 +372,7 @@ MBV.kafka.consumerGroups = {
         MBV.state.sent++;
         const sentEl = document.getElementById('sent-kgp-prod');
         sentEl.textContent = parseInt(sentEl.textContent) + 1;
-        MBV.log('SEND', `msg_id=${id} \u2192 P${partIdx}`);
+        MBV.log('SEND', MBV.t('kafka.log.send', { id: id, label: `\u2192 P${partIdx}` }));
         MBV.updateStats();
 
         const prodPort = document.getElementById('port-kgp-prod');
@@ -430,7 +382,7 @@ MBV.kafka.consumerGroups = {
         const offset = MBV.kafka._addToPartition(partIdx, id, '');
         MBV.state.queued++;
         MBV.updateStats();
-        MBV.log('ROUTE', `msg_id=${id} \u2192 P${partIdx} offset=${offset}`);
+        MBV.log('ROUTE', MBV.t('kafka.log.route', { id: id, part: partIdx, offset: offset }));
 
         const failGroupIdx = isError ? Math.floor(Math.random() * this.groups.length) : -1;
 
@@ -455,7 +407,7 @@ MBV.kafka.consumerGroups = {
                     const card = document.getElementById('card-' + cId);
                     MBV.flashCard(card, 'red');
                     MBV.addBadge(card, `FAIL P${partIdx}:${offset}`, 'nack');
-                    MBV.log('ERROR', `msg_id=${id} \u2192 ${g.name}/${cId} FAILED \u2014 offset not advanced, lag increases`);
+                    MBV.log('ERROR', MBV.t('kafka.log.error_group', { id: id, group: g.name, consumer: cId }));
                     MBV.updateStats();
                     continue;
                 }
@@ -464,7 +416,7 @@ MBV.kafka.consumerGroups = {
                 MBV.state.delivered++;
                 const countEl = document.getElementById('count-' + cId);
                 if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
-                MBV.log('RECV', `msg_id=${id} \u2192 ${g.name}/${cId}`);
+                MBV.log('RECV', MBV.t('kafka.log.recv_group', { id: id, group: g.name, consumer: cId }));
                 MBV.updateStats();
             }
             MBV.kafka._renderGroupOffsets();
@@ -522,7 +474,7 @@ MBV.kafka.retention = {
             consumersHtml += `<div class="consumer-group" style="border-color:${g.color}">
                 <div class="consumer-group-header">
                     <span>${g.name}</span>
-                    <button class="replay-btn" data-group="${g.id}">\u23EE Replay from offset</button>
+                    <button class="replay-btn" data-group="${g.id}">\u23EE ${MBV.t('kafka.ui.replay')}</button>
                 </div>`;
             g.consumers.forEach(cId => {
                 consumersHtml += `
@@ -542,9 +494,9 @@ MBV.kafka.retention = {
         document.getElementById('extra-panels').innerHTML = `
         <div class="kafka-settings">
             <div class="retention-controls">
-                <button class="retention-btn" id="ret-decrease">- Retention</button>
+                <button class="retention-btn" id="ret-decrease">- ${MBV.t('kafka.ui.retention')}</button>
                 <span id="ret-size">${MBV.kafka.state.retentionSize}</span>
-                <button class="retention-btn" id="ret-increase">+ Retention</button>
+                <button class="retention-btn" id="ret-increase">+ ${MBV.t('kafka.ui.retention')}</button>
             </div>
         </div>`;
 
@@ -591,7 +543,7 @@ MBV.kafka.retention = {
         const offset = MBV.kafka._addToPartition(partIdx, id, '');
         MBV.state.queued++;
         MBV.updateStats();
-        MBV.log('ROUTE', `msg_id=${id} \u2192 P${partIdx} offset=${offset}`);
+        MBV.log('ROUTE', MBV.t('kafka.log.route', { id: id, part: partIdx, offset: offset }));
 
         const failGroupIdx = isError ? Math.floor(Math.random() * s.groups.length) : -1;
 
@@ -611,7 +563,7 @@ MBV.kafka.retention = {
                     const card = document.getElementById('card-' + cId);
                     MBV.flashCard(card, 'red');
                     MBV.addBadge(card, `FAIL P${partIdx}:${offset}`, 'nack');
-                    MBV.log('ERROR', `msg_id=${id} ${g.name}/${cId} FAILED \u2014 offset not committed`);
+                    MBV.log('ERROR', MBV.t('kafka.log.error_group', { id: id, group: g.name, consumer: cId }));
                     MBV.updateStats();
                     continue;
                 }
@@ -643,7 +595,7 @@ MBV.kafka.retention = {
         for (let i = 0; i < s.numPartitions; i++) {
             g.offsets[i] = targetOffset;
         }
-        MBV.log('SEEK', `${g.name} seeking all partitions to offset ${targetOffset}`);
+        MBV.log('SEEK', MBV.t('kafka.log.seek', { group: g.name, offset: targetOffset }));
 
         // Replay messages from that offset
         for (let pi = 0; pi < s.numPartitions; pi++) {
@@ -666,7 +618,7 @@ MBV.kafka.retention = {
             }
         }
         MBV.kafka._renderGroupOffsets();
-        MBV.log('SEEK', `${g.name} replay complete`);
+        MBV.log('SEEK', MBV.t('kafka.log.replay_complete', { group: g.name }));
     }
 };
 
@@ -690,7 +642,7 @@ MBV.kafka.exactlyOnce = {
                 <button class="mode-switch-btn" data-delivery="exactly-once">Exactly-Once</button>
             </div>
             <button class="card-send-btn" id="send-eo-prod">Send</button>
-            <div class="card-stats">Sent: <span id="sent-eo-prod">0</span> | Lost: <span id="lost-eo-prod">0</span> | Dups: <span id="dups-eo-prod">0</span></div>
+            <div class="card-stats">${MBV.t('kafka.ui.sent')}: <span id="sent-eo-prod">0</span> | ${MBV.t('kafka.ui.lost')}: <span id="lost-eo-prod">0</span> | ${MBV.t('kafka.ui.dups')}: <span id="dups-eo-prod">0</span></div>
         </div>`;
 
         MBV.kafka._renderBrokerBody();
@@ -750,14 +702,14 @@ MBV.kafka.exactlyOnce = {
             const card = document.getElementById('card-eo-prod');
             MBV.flashCard(card, 'red');
             MBV.addBadge(card, `REJECTED #${id}`, 'nack');
-            MBV.log('ERROR', `msg_id=${id} broker REJECTED write \u2014 message NOT committed`);
+            MBV.log('ERROR', MBV.t('kafka.log.rejected', { id: id }));
             return;
         }
 
         if (lost) {
             const lostEl = document.getElementById('lost-eo-prod');
             if (lostEl) lostEl.textContent = parseInt(lostEl.textContent) + 1;
-            MBV.log('ERROR', `msg_id=${id} LOST (acks=0, no confirmation)`);
+            MBV.log('ERROR', MBV.t('kafka.log.lost', { id: id }));
             return;
         }
 
@@ -781,13 +733,13 @@ MBV.kafka.exactlyOnce = {
             MBV.state.delivered++;
 
             if (deliveryMode === 'exactly-once') {
-                MBV.log('ACK', `msg_id=${id} ${seqLabel} exactly-once delivery`);
+                MBV.log('ACK', MBV.t('kafka.log.ack_eo', { id: id, label: seqLabel }));
             }
 
             if (dup) {
                 const dupsEl = document.getElementById('dups-eo-prod');
                 if (dupsEl) dupsEl.textContent = parseInt(dupsEl.textContent) + 1;
-                MBV.log('ROUTE', `msg_id=${id} DUPLICATE (retry delivered twice)`);
+                MBV.log('ROUTE', MBV.t('kafka.log.dup', { id: id }));
                 await MBV.sleep(300);
                 await MBV.animateDot(pRow, consPort, { label: `#${id} dup`, color: '#e67e22', duration: 350 });
                 MBV.state.delivered++;
@@ -795,7 +747,7 @@ MBV.kafka.exactlyOnce = {
 
             const countEl = document.getElementById('count-eo-cons');
             if (countEl) countEl.textContent = parseInt(countEl.textContent) + 1;
-            MBV.log('RECV', `msg_id=${id} delivered to consumer`);
+            MBV.log('RECV', MBV.t('kafka.log.recv', { id: id, part: partIdx, offset: '?' })); // Offset might be lost in simple exactly-once visual
             MBV.updateStats();
         };
 

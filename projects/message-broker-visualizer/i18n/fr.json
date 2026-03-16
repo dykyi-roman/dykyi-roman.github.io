@@ -7,9 +7,52 @@
   "mb.broker.redis": "Redis Pub/Sub",
 
   "ui.tooltip.burst": "Envoyer 5 messages rapidement",
-  "ui.tooltip.error": "Le message suivant reçoit NACK",
-  "ui.tooltip.pause": "Pause/Reprendre la simulation",
-  "ui.tooltip.reset": "Réinitialiser tous les états",
+  "ui.tooltip.error": "Le prochain message reçoit NACK",
+  "ui.tooltip.pause": "Pause/Reprise de la simulation",
+  "ui.tooltip.reset": "Réinitialiser tout l'état",
+
+  "ui.breadcrumb.home": "Accueil",
+  "ui.breadcrumb.projects": "Projets",
+  "ui.btn.run.burst": "Rafale",
+  "ui.simulate_error": "Simuler une erreur",
+  "ui.btn.pause": "Pause",
+  "ui.btn.resume": "Reprendre",
+  "ui.btn.reset": "Réinitialiser",
+  "ui.publisher_confirms": "Confirmations de l'éditeur :",
+  "ui.stat.sent": "Envoyés",
+  "ui.stat.delivered": "Livrés",
+  "ui.stat.in_queue": "En file d'attente",
+  "ui.stat.msg_sec": "msg/sec",
+  "ui.details.title": "Principes et concepts clés",
+  "ui.details.principles": "Principes",
+  "ui.details.concepts": "Concepts clés",
+  "ui.log.header": "Journal d'événements",
+  "ui.btn.copy": "Copier",
+  "ui.btn.clear": "Effacer",
+  "ui.btn.copied": "Copié !",
+  "ui.producers": "Producteurs",
+  "ui.consumers": "Consommateurs",
+  "ui.status.live": "en direct",
+  "ui.status.paused": "en pause",
+  "ui.status.error": "erreur",
+  "ui.log.error_nack": "Le prochain message déclenchera une erreur du broker (NACK)",
+  "ui.log.paused": "Broker en pause — consommateurs arrêtés",
+  "ui.log.resumed": "Broker repris — livraison des messages en file d'attente",
+  "ui.log.reset": "État réinitialisé",
+  "ui.log.confirms_on": "Confirmations de l'éditeur : ACTIVÉ",
+  "ui.log.confirms_off": "Confirmations de l'éditeur : DÉSACTIVÉ",
+
+  "ui.log.type.SEND": "ENVOYER",
+  "ui.log.type.ROUTE": "ROUTE",
+  "ui.log.type.RECV": "REÇEVOIR",
+  "ui.log.type.ERROR": "ERREUR",
+  "ui.log.type.DRAIN": "DRAIN",
+  "ui.log.type.REPLY": "RÉPONSE",
+  "ui.log.type.CONFIRM": "CONFIRMER",
+  "ui.log.type.ACK": "ACK",
+  "ui.log.type.SEEK": "SEEK",
+  "ui.log.type.PMATCH": "PMATCH",
+  "ui.log.type.QUEUE": "FILE",
 
   "rabbitmq.name": "RabbitMQ",
 
@@ -98,7 +141,7 @@
     "Le topic exchange fait correspondre les routing keys par patterns de mots separes par des points utilisant * (un mot) et # (zero ou plusieurs mots)",
     "La routing key doit etre une chaine separee par des points (par exemple, \"order.created.eu\") -- maximum 255 octets",
     "Le pattern * substitue exactement un mot ; # substitue zero ou plusieurs mots -- hierarchie de filtrage puissante",
-    "Un topic exchange avec une liaison \"#\" se comporte comme un fanout ; sans jokers, il se comporte comme un direct",
+    "Un topic exchange with une liaison \"#\" se comporte comme un fanout ; sans jokers, il se comporte comme un direct",
     "Les topic exchanges permettent des hierarchies d'evenements : \"order.*\" recoit tous les evenements de commande, \"*.created.*\" recoit tous les evenements de creation"
   ],
   "rabbitmq.details.topics.concepts": [
@@ -127,14 +170,14 @@
   "rabbitmq.details.confirms.principles": [
     "Publisher confirms : le broker acquitte (ACK/NACK) chaque message apres son ecriture sur disque ou sa livraison",
     "Sans confirms, le producteur n'a aucun moyen de savoir si le broker a recu et persiste le message",
-    "Les messages sont confirmes dans l'ordre ; un seul ACK avec multiple=true peut confirmer tous les messages jusqu'a ce numero de sequence",
+    "Les messages sont confirmes dans l'ordre ; un seul ACK with multiple=true peut confirmer tous les messages jusqu'a ce numero de sequence",
     "NACK indique que le broker n'a pas pu traiter le message (par exemple, disque plein, erreur interne)",
     "Publisher confirms + consumer ACK + files durables + messages persistants = livraison at-least-once de bout en bout"
   ],
   "rabbitmq.details.confirms.concepts": [
     { "term": "Publisher Confirm", "definition": "Le broker envoie un ACK au producteur apres avoir mis en file/persiste le message avec succes. Confirmation asynchrone." },
     { "term": "Sequence Number", "definition": "Numero croissant de maniere monotone attribue a chaque message publie. Utilise pour suivre quels messages sont confirmes." },
-    { "term": "Batch Confirm", "definition": "ACK avec multiple=true confirme tous les messages jusqu'au numero de sequence donne. Plus efficace que les confirmations par message." },
+    { "term": "Batch Confirm", "definition": "ACK with multiple=true confirme tous les messages jusqu'au numero de sequence donne. Plus efficace que les confirmations par message." },
     { "term": "NACK", "definition": "Acquittement negatif du broker. Indique que le message n'a pas ete traite. Le producteur devrait reessayer ou gerer l'echec." },
     { "term": "At-Least-Once", "definition": "Garantie de livraison : le message est livre au moins une fois (peut etre duplique). Obtenu avec confirms + messages persistants + files durables." }
   ],
@@ -151,7 +194,7 @@
   "kafka.modes.retention.desc": "Kafka stocke les messages dans un journal ordonne. Le consumer group lit independamment et peut revenir en arriere dans l'offset pour rejouer. Les messages ne sont pas supprimes apres lecture.",
 
   "kafka.modes.exactly-once.label": "Exactly-Once",
-  "kafka.modes.exactly-once.desc": "Garanties de livraison : at-most-once (acks=0, perte possible), at-least-once (acks=1, doublons possibles), exactly-once (producteur idempotent, ni perte ni doublon).",
+  "kafka.modes.exactly-once.desc": "Garanties de livraison : at-most-once (perte possible), at-least-once (doublons possibles), exactly-once (producteur idempotent, ni perte ni doublon).",
 
   "kafka.details.partitions.principles": [
     "Un topic Kafka est divise en partitions -- chaque partition est un journal ordonne et immuable de messages",
@@ -165,7 +208,7 @@
     { "term": "Offset", "definition": "Position sequentielle d'un message au sein d'une partition. Les consumers suivent leur position par offset." },
     { "term": "Key-Based Routing", "definition": "Les messages avec la meme cle vont toujours dans la meme partition (hash(key) mod N). Garantit l'ordre par cle." },
     { "term": "Leader/Follower", "definition": "Chaque partition a un leader (gere lectures/ecritures) et N-1 followers (repliquent les donnees). Election du leader en cas de panne." },
-    { "term": "ISR", "definition": "In-Sync Replicas -- les followers synchronises avec le leader. Seuls les membres ISR peuvent devenir le nouveau leader." }
+    { "term": "ISR", "definition": "In-Sync Replicas -- les followers synchronises with le leader. Seuls les membres ISR peuvent devenir le nouveau leader." }
   ],
 
   "kafka.details.consumer-groups.principles": [
@@ -192,8 +235,8 @@
   ],
   "kafka.details.retention.concepts": [
     { "term": "Retention", "definition": "Combien de temps les messages sont conserves. retention.ms=604800000 (7 jours) par defaut. -1 signifie conserver indefiniment." },
-    { "term": "Log Compaction", "definition": "Au lieu de la suppression basee sur le temps, ne conserve que la derniere valeur par cle. Comme un changelog avec deduplication." },
-    { "term": "Segment", "definition": "La partition est divisee en fichiers segments. La retention et la compaction operent sur des segments entiers, pas sur des messages individuels." },
+    { "term": "Log Compaction", "definition": "Au lieu de la suppression basee sur le temps, ne conserve que la derniere valeur par cle. Comme un changelog with deduplication." },
+    { "term": "Segment", "definition": "La particion est divisee en fichiers segments. La retention et la compaction operent sur des segments entiers, pas sur des messages individuels." },
     { "term": "Offset Reset", "definition": "Ce qui se passe quand un consumer n'a pas d'offset commite : auto.offset.reset=earliest (depuis le debut) ou latest (uniquement les nouveaux messages)." },
     { "term": "Replay", "definition": "Les consumers peuvent se positionner a un offset anterieur pour retraiter les messages. Permet de corriger des bugs et de reconstruire l'etat." }
   ],
@@ -207,7 +250,7 @@
   ],
   "kafka.details.exactly-once.concepts": [
     { "term": "Idempotent Producer", "definition": "Le producteur attribue des numeros de sequence. Le broker detecte et rejette les messages dupliques des tentatives. enable.idempotence=true." },
-    { "term": "Producer ID (PID)", "definition": "ID unique attribue a chaque producteur par le broker. Combine avec le numero de sequence pour la deduplication." },
+    { "term": "Producer ID (PID)", "definition": "ID unique attribue a chaque producteur par le broker. Combine with le numero de sequence pour la deduplication." },
     { "term": "Transaction", "definition": "Ecriture atomique a travers les partitions. Tous les messages d'une transaction sont soit tous commites, soit tous annules." },
     { "term": "acks=all", "definition": "Le producteur attend l'acquittement de toutes les repliques synchronisees. Garantie de durabilite la plus forte mais latence plus elevee." },
     { "term": "read_committed", "definition": "Niveau d'isolation du consumer qui ne lit que les messages commites (non-transactionnels ou transactionnels commites)." }
@@ -232,7 +275,7 @@
     "Si un abonne est deconnecte au moment de la publication, il ne recevra jamais ce message",
     "Il n'y a pas de mecanisme d'acquittement -- l'editeur ne sait pas si quelqu'un a recu le message",
     "Les messages sont livres a tous les abonnes actuellement connectes au canal simultanement",
-    "Pub/Sub opere en dehors de l'espace de cles -- SUBSCRIBE/PUBLISH n'interagissent pas avec les cles Redis normales"
+    "Pub/Sub opere en dehors de l'espace de cles -- SUBSCRIBE/PUBLISH n'interagissent pas with les cles Redis normales"
   ],
   "redis.details.pubsub.concepts": [
     { "term": "Channel", "definition": "Bus de messages nomme. Les editeurs envoient a un canal, les abonnes l'ecoutent. Pas de persistance, pas d'historique." },
@@ -258,14 +301,14 @@
   ],
 
   "redis.details.streams.principles": [
-    "Redis Streams fournit un journal persistant en mode append-only avec consumer groups -- contrairement au Pub/Sub ephemere",
+    "Redis Streams fournit un journal persistant en mode append-only with consumer groups -- contrairement au Pub/Sub ephemere",
     "Chaque entree a un ID unique auto-genere (timestamp-sequence) et une ou plusieurs paires champ-valeur",
     "Les consumer groups suivent la progression par consumer ; les messages ne sont pas relivres aux autres membres du groupe",
     "XACK acquitte explicitement le traitement -- les messages non acquittes restent dans la Pending Entries List (PEL)",
     "XCLAIM permet de transferer la propriete de messages en attente d'un consumer defaillant a un autre"
   ],
   "redis.details.streams.concepts": [
-    { "term": "Stream", "definition": "Structure de donnees en journal append-only. Chaque entree a un ID + paires champ-valeur. Persiste sur disque comme toute cle Redis." },
+    { "term": "Stream", "definition": "Structure de donnees en journal append-only. Chaque entree a un ID + paires champ-valeur. Se persiste sur disque comme toute cle Redis." },
     { "term": "Entry ID", "definition": "Format : timestamp-sequence (par exemple, 1234567890-0). Auto-genere, croissant de maniere monotone. Utilise pour les requetes de plage." },
     { "term": "Consumer Group", "definition": "Groupe nomme qui lit depuis un stream. Chaque entree est livree a un consumer dans le groupe. Suit le last-delivered-id." },
     { "term": "PEL", "definition": "Pending Entries List -- entrees livrees a un consumer mais pas encore acquittees via XACK. Permet la garantie de livraison at-least-once." },
@@ -274,7 +317,7 @@
 
   "redis.details.eventsourcing.principles": [
     "Event Sourcing : l'etat de l'application est derive en rejouant une sequence immuable d'evenements, pas stocke directement",
-    "Redis Stream sert de magasin d'evenements -- append-only, ordonne, persistant, avec support des consumer groups",
+    "Redis Stream sert de magasin d'evenements -- append-only, ordonne, persistant, with support des consumer groups",
     "L'etat est reconstruit en lisant tous les evenements du stream et en appliquant la transformation de chaque evenement dans l'ordre",
     "Des snapshots peuvent etre periodiquement sauvegardes pour eviter de rejouer l'historique complet pour la reconstruction de l'etat",
     "Les evenements sont immuables -- pour corriger une erreur, ajoutez un evenement compensatoire plutot que de modifier l'historique"

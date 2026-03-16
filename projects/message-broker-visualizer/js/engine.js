@@ -3,6 +3,13 @@
 const MBV = window.MBV || {};
 window.MBV = MBV;
 
+MBV.t = function(key, params) {
+    if (window.I18N && typeof I18N.t === 'function') {
+        return I18N.t(key, params, key);
+    }
+    return key;
+};
+
 MBV.state = {
     broker: 'rabbitmq',
     mode: null,
@@ -46,10 +53,12 @@ MBV.log = function(type, text) {
     const ts = now.toTimeString().slice(0, 8) + '.' + String(now.getMilliseconds()).padStart(3, '0');
     const entry = document.createElement('div');
     entry.className = 'log-entry';
-    entry.innerHTML = `<span class="log-time">${ts}</span><span class="log-type ${type}">${type}</span><span class="log-text">${text}</span>`;
+    const typeLabel = (window.I18N && typeof I18N.t === 'function') ? I18N.t('ui.log.type.' + type, null, type) : type;
+    entry.innerHTML = `<span class="log-time">${ts}</span><span class="log-type ${type}">${typeLabel}</span><span class="log-text">${text}</span>`;
     logEl.appendChild(entry);
     logEl.scrollTop = logEl.scrollHeight;
 };
+
 
 MBV.clearLog = function() {
     const logEl = document.getElementById('event-log');

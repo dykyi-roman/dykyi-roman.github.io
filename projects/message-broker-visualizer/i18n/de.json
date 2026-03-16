@@ -11,6 +11,49 @@
   "ui.tooltip.pause": "Simulation pausieren/fortsetzen",
   "ui.tooltip.reset": "Alle Zustände zurücksetzen",
 
+  "ui.breadcrumb.home": "Startseite",
+  "ui.breadcrumb.projects": "Projekte",
+  "ui.btn.run.burst": "Serie",
+  "ui.simulate_error": "Fehler simulieren",
+  "ui.btn.pause": "Pause",
+  "ui.btn.resume": "Fortsetzen",
+  "ui.btn.reset": "Zurücksetzen",
+  "ui.publisher_confirms": "Publisher Confirms:",
+  "ui.stat.sent": "Gesendet",
+  "ui.stat.delivered": "Geliefert",
+  "ui.stat.in_queue": "In Warteschlange",
+  "ui.stat.msg_sec": "Nachr./Sek.",
+  "ui.details.title": "Prinzipien & Schlüsselkonzepte",
+  "ui.details.principles": "Prinzipien",
+  "ui.details.concepts": "Schlüsselkonzepte",
+  "ui.log.header": "Ereignisprotokoll",
+  "ui.btn.copy": "Kopieren",
+  "ui.btn.clear": "Löschen",
+  "ui.btn.copied": "Kopiert!",
+  "ui.producers": "Produzenten",
+  "ui.consumers": "Konsumenten",
+  "ui.status.live": "live",
+  "ui.status.paused": "pausiert",
+  "ui.status.error": "fehler",
+  "ui.log.error_nack": "Nächste Nachricht löst Broker-Fehler aus (NACK)",
+  "ui.log.paused": "Broker pausiert — Konsumenten gestoppt",
+  "ui.log.resumed": "Broker fortgesetzt — Nachrichten aus Warteschlange werden geliefert",
+  "ui.log.reset": "Zustand zurückgesetzt",
+  "ui.log.confirms_on": "Publisher Confirms: AN",
+  "ui.log.confirms_off": "Publisher Confirms: AUS",
+
+  "ui.log.type.SEND": "SENDEN",
+  "ui.log.type.ROUTE": "ROUTE",
+  "ui.log.type.RECV": "EMPFANG",
+  "ui.log.type.ERROR": "FEHLER",
+  "ui.log.type.DRAIN": "DRAIN",
+  "ui.log.type.REPLY": "ANTWORT",
+  "ui.log.type.CONFIRM": "BESTÄTIGEN",
+  "ui.log.type.ACK": "ACK",
+  "ui.log.type.SEEK": "SEEK",
+  "ui.log.type.PMATCH": "PMATCH",
+  "ui.log.type.QUEUE": "WARTESCHLANGE",
+
   "rabbitmq.name": "RabbitMQ",
 
   "rabbitmq.modes.hello.label": "1. Direct Queue",
@@ -20,7 +63,7 @@
   "rabbitmq.modes.work.desc": "Die Queue verteilt Aufgaben per Round-Robin an Worker. Jede Nachricht wird von genau einem Worker verarbeitet. Wird für die parallele Verarbeitung aufwändiger Aufgaben verwendet.",
 
   "rabbitmq.modes.pubsub.label": "3. Pub/Sub",
-  "rabbitmq.modes.pubsub.desc": "Fanout Exchange sendet jede Nachricht gleichzeitig an alle Abonnenten. Wird für Logging, Cache-Invalidierung und Echtzeit-Updates verwendet.",
+  "rabbitmq.modes.pubsub.desc": "Fanout Exchange sendет jede Nachricht gleichzeitig an alle Abonnenten. Wird für Logging, Cache-Invalidierung und Echtzeit-Updates verwendet.",
 
   "rabbitmq.modes.routing.label": "4. Routing",
   "rabbitmq.modes.routing.desc": "Direct Exchange liefert Nachrichten nur an Queues mit exakter Binding-Key-Übereinstimmung. Der Routing Key wird vom Producer festgelegt.",
@@ -59,7 +102,7 @@
   "rabbitmq.details.work.concepts": [
     { "term": "Round-Robin", "definition": "Standard-Verteilung: Der Broker sendet Nachrichten reihum an Consumer. Berücksichtigt nicht die Auslastung des Consumers." },
     { "term": "Prefetch", "definition": "QoS-Einstellung (prefetch_count), die begrenzt, wie viele unbestätigte Nachrichten ein Consumer halten kann. Schlüssel zur fairen Verteilung." },
-    { "term": "Competing Consumers", "definition": "Mehrere Consumer auf derselben Queue. Jede Nachricht geht an genau einen Consumer. Ermöglicht horizontale Skalierung." },
+    { "term": "Competing Consumers", "definition": "Mehrere Consumer auf derselben Queue. Jede Nachricht geht an genau einen Consumer. Ermöglicht horizontale Skalerung." },
     { "term": "Message TTL", "definition": "Lebensdauer von Nachrichten. Abgelaufene Nachrichten werden an Dead Letter weitergeleitet oder verworfen. Pro Queue oder pro Nachricht einstellbar." },
     { "term": "Dead Letter", "definition": "Nachrichten, die abgelehnt werden, ablaufen oder die Queue-Länge überschreiten, werden an einen Dead-Letter-Exchange zur Überprüfung weitergeleitet." }
   ],
@@ -184,7 +227,7 @@
   ],
 
   "kafka.details.retention.principles": [
-    "Kafka speichert Nachrichten basierend auf Zeit (retention.ms) oder Größe (retention.bytes), nicht auf Konsumstatus",
+    "Kafka хранит сообщения basierend auf Zeit (retention.ms) oder Größe (retention.bytes), nicht auf Konsumstatus",
     "Nachrichten werden NICHT nach dem Konsumieren gelöscht — mehrere Consumer Groups können dieselben Daten erneut lesen",
     "Log Compaction behält nur den neuesten Wert pro Key bei und ermöglicht Changelog-/Snapshot-Muster",
     "Consumer können zu jedem Offset springen (Anfang, Ende, Zeitstempel, bestimmter Offset) zur Wiedergabe oder Neuverarbeitung",
@@ -208,7 +251,7 @@
   "kafka.details.exactly-once.concepts": [
     { "term": "Idempotent Producer", "definition": "Der Producer weist Sequenznummern zu. Der Broker erkennt und verwirft doppelte Nachrichten bei Wiederholungen. enable.idempotence=true." },
     { "term": "Producer ID (PID)", "definition": "Eindeutige ID, die jedem Producer vom Broker zugewiesen wird. In Kombination mit der Sequenznummer zur Deduplizierung verwendet." },
-    { "term": "Transaction", "definition": "Atomarer Schreibvorgang über Partitions. Alle Nachrichten in einer Transaktion werden entweder alle committed oder alle abgebrochen." },
+    { "term": "Transaction", "definition": "Atomarer Schreibvорgang über Partitions. Alle Nachrichten in einer Transaktion werden entweder alle committed oder alle abgebrochen." },
     { "term": "acks=all", "definition": "Der Producer wartet auf die Bestätigung aller synchronen Replikas. Stärkste Dauerhaftigkeitsgarantie, aber höhere Latenz." },
     { "term": "read_committed", "definition": "Consumer-Isolationsstufe, die nur committete (nicht-transaktionale oder committete transaktionale) Nachrichten liest." }
   ],
