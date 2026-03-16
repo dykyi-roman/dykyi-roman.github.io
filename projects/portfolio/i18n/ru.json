@@ -1,0 +1,17 @@
+{
+    "projects.title": "Проекты - Роман Дыкий | Блог о разработке ПО",
+    "projects.meta.description": "Проекты для удовольствия Романа Дыкого.",
+    "projects.breadcrumb": "Проекты",
+    "projects.visualizers.title": "Визуализаторы",
+    "projects.visualizers.desc": "<strong>Визуальное обучение</strong> — Эти интерактивные инструменты предназначены для упрощения и визуализации сложных концепций разработки ПО, от паттернов архитектуры до механики баз данных. Исследуйте, как все работает изнутри! Есть предложения? Откройте <a href=\"https://github.com/dykyi-roman/dykyi-roman.github.io/issues\" target=\"_blank\" rel=\"noopener noreferrer\">issue</a> или отправьте <a href=\"https://github.com/dykyi-roman/dykyi-roman.github.io/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">pull request</a>.",
+    "projects.visualizers.arch": "Визуализатор архитектуры",
+    "projects.visualizers.pattern": "Визуализатор паттернов проектирования",
+    "projects.visualizers.message": "Визуализатор брокеров сообщений",
+    "projects.visualizers.db": "Визуализатор индексов баз данных",
+    "projects.visualizers.gitflow": "Визуализатор GitFlow",
+    "projects.experiments.title": "Эксперименты",
+    "projects.experiments.desc": "<strong>Только для фана</strong> — Здесь вы найдете подборку проектов, которые я создаю для удовольствия и экспериментов. Чтобы увидеть больше проектов, посетите мой <a href=\"https://github.com/dykyi-roman\" target=\"_blank\" rel=\"noopener noreferrer\">GitHub</a>. Нашли баг или есть идея? Откройте <a href=\"https://github.com/dykyi-roman/dykyi-roman.github.io/issues\" target=\"_blank\" rel=\"noopener noreferrer\">issue</a> или отправьте <a href=\"https://github.com/dykyi-roman/dykyi-roman.github.io/pulls\" target=\"_blank\" rel=\"noopener noreferrer\">pull request</a>.",
+    "projects.experiments.office": "OfficeAI",
+    "projects.experiments.crossword": "Кроссворд",
+    "projects.experiments.uuid": "UUID в картинку"
+}

@@ -3,17 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects - Dykyi Roman | Software Engineering Blog</title>
-    <meta name="description" content="Projects for fun Dykyi Roman.">
+    <title data-i18n="projects.title">Projects - Dykyi Roman | Software Engineering Blog</title>
+    <meta name="description" content="Projects for fun Dykyi Roman." data-i18n-content="projects.meta.description">
     <meta name="author" content="Dykyi Roman">
     <!-- Open Graph -->
-    <meta property="og:title" content="Projects - Dykyi Roman">
-    <meta property="og:description" content="Technical projects on PHP, DDD, Clean Architecture, CQRS, and software engineering best practices.">
+    <meta property="og:title" content="Projects - Dykyi Roman" data-i18n-content="projects.title">
+    <meta property="og:description" content="Technical projects on PHP, DDD, Clean Architecture, CQRS, and software engineering best practices." data-i18n-content="projects.meta.description">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dykyi-roman.github.io/projects.html">
     <link rel="icon" href="../icon.ico" type="image/x-icon">
     <link rel="canonical" href="https://dykyi-roman.github.io/projects.html">
     <link rel="stylesheet" type="text/css" href="../resources/style.css">
+    <link rel="stylesheet" href="../resources/navigation.css">
+    <style>
+        .lang-switcher {
+            margin-left: auto;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            width: 32px;
+            height: 26px;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            background: var(--color-white);
+            color: var(--color-text-light);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            padding: 0;
+            line-height: 26px;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        .lang-btn:hover {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: #fff;
+        }
+
+        .lang-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -29,18 +67,19 @@
     </script>
 
         <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="/index.html">Home</a>
+        <a href="/index.html" data-i18n="ui.breadcrumb.home">Home</a>
         <span class="breadcrumb-separator">›</span>
-        <span class="breadcrumb-current">Projects</span>
+        <span class="breadcrumb-current" data-i18n="ui.breadcrumb.projects">Projects</span>
+        <div class="lang-switcher" id="lang-switcher"></div>
     </nav>
 
     <main id="main-content">
     <!--  Projects  -->
     <div class="section">
-        <h1>Visualizers</h1>
+        <h1 data-i18n="projects.visualizers.title">Visualizers</h1>
 
         <div class="info-notice">
-            <p><strong>Visual Learning</strong> — These interactive tools are designed to simplify and visualize complex software engineering concepts, from architecture patterns to database mechanics. Explore how things work under the hood! Have a suggestion? Open an <a href="https://github.com/dykyi-roman/dykyi-roman.github.io/issues" target="_blank" rel="noopener noreferrer">issue</a> or submit a <a href="https://github.com/dykyi-roman/dykyi-roman.github.io/pulls" target="_blank" rel="noopener noreferrer">pull request</a>.</p>
+            <p data-i18n="projects.visualizers.desc" data-i18n-html="true"><strong>Visual Learning</strong> — These interactive tools are designed to simplify and visualize complex software engineering concepts, from architecture patterns to database mechanics. Explore how things work under the hood! Have a suggestion? Open an <a href="https://github.com/dykyi-roman/dykyi-roman.github.io/issues" target="_blank" rel="noopener noreferrer">issue</a> or submit a <a href="https://github.com/dykyi-roman/dykyi-roman.github.io/pulls" target="_blank" rel="noopener noreferrer">pull request</a>.</p>
         </div>
 
         <ul class="articles-ring">
@@ -48,7 +87,7 @@
                 <a href="../projects/architecture-visualizer">
                     <div class="article-card">
                         <img src="../projects/architecture-visualizer/img.svg" alt="Architecture Visualizer" class="article-thumb">
-                        <span class="article-title">Architecture Visualizer</span>
+                        <span class="article-title" data-i18n="projects.visualizers.arch">Architecture Visualizer</span>
                     </div>
                 </a>
             </li>
@@ -57,7 +96,7 @@
                 <a href="../projects/pattern-visualizer">
                     <div class="article-card">
                         <img src="../projects/pattern-visualizer/img.svg" alt="Design Pattern Visualizer" class="article-thumb">
-                        <span class="article-title">Design Pattern Visualizer</span>
+                        <span class="article-title" data-i18n="projects.visualizers.pattern">Design Pattern Visualizer</span>
                     </div>
                 </a>
             </li>
@@ -66,7 +105,7 @@
                 <a href="../projects/message-broker-visualizer">
                     <div class="article-card">
                         <img src="../projects/message-broker-visualizer/img.png" alt="message-broker-visualizer" class="article-thumb">
-                        <span class="article-title">Message Broker Visualizer</span>
+                        <span class="article-title" data-i18n="projects.visualizers.message">Message Broker Visualizer</span>
                     </div>
                 </a>
             </li>
@@ -75,7 +114,7 @@
                 <a href="../projects/db-visualizer">
                     <div class="article-card">
                         <img src="../projects/db-visualizer/img.svg" alt="Database Index Visualizer" class="article-thumb">
-                        <span class="article-title">Database Index Visualizer</span>
+                        <span class="article-title" data-i18n="projects.visualizers.db">Database Index Visualizer</span>
                     </div>
                 </a>
             </li>
@@ -84,7 +123,7 @@
                 <a href="../projects/gitflow-visualizer">
                     <div class="article-card">
                         <img src="../projects/gitflow-visualizer/img.svg" alt="GitFlow Visualizer" class="article-thumb">
-                        <span class="article-title">GitFlow Visualizer</span>
+                        <span class="article-title" data-i18n="projects.visualizers.gitflow">GitFlow Visualizer</span>
                     </div>
                 </a>
             </li>
@@ -92,10 +131,10 @@
 
         <hr style="margin: var(--spacing-lg) 0; border: none; border-top: 1px solid var(--color-text-light); opacity: 0.3;">
 
-        <h1>Experiments</h1>
+        <h1 data-i18n="projects.experiments.title">Experiments</h1>
 
         <div class="info-notice">
-            <p><strong>Fun Projects Only</strong> — Here you'll find only a selection of projects I create for fun and experimentation. To see more projects, visit my <a href="https://github.com/dykyi-roman" target="_blank" rel="noopener noreferrer">GitHub</a>. Found a bug or have an idea? Open an <a href="https://github.com/dykyi-roman/dykyi-roman.github.io/issues" target="_blank" rel="noopener noreferrer">issue</a> or submit a <a href="https://github.com/dykyi-roman/dykyi-roman.github.io/pulls" target="_blank" rel="noopener noreferrer">pull request</a>.</p>
+            <p data-i18n="projects.experiments.desc" data-i18n-html="true"><strong>Fun Projects Only</strong> — Here you'll find only a selection of projects I create for fun and experimentation. To see more projects, visit my <a href="https://github.com/dykyi-roman" target="_blank" rel="noopener noreferrer">GitHub</a>. Found a bug or have an idea? Open an <a href="https://github.com/dykyi-roman/dykyi-roman.github.io/issues" target="_blank" rel="noopener noreferrer">issue</a> or submit a <a href="https://github.com/dykyi-roman/dykyi-roman.github.io/pulls" target="_blank" rel="noopener noreferrer">pull request</a>.</p>
         </div>
 
         <ul class="articles-ring">
@@ -103,7 +142,7 @@
                 <a href="../projects/office-ai/index.html">
                     <div class="article-card">
                         <img src="../projects/office-ai/office-ai.png" alt="OfficeAI" class="article-thumb">
-                        <span class="article-title">OfficeAI</span>
+                        <span class="article-title" data-i18n="projects.experiments.office">OfficeAI</span>
                     </div>
                 </a>
             </li>
@@ -112,7 +151,7 @@
                 <a href="../projects/crossword">
                     <div class="article-card">
                         <img src="../projects/crossword/crossword.svg" alt="Crossword Puzzle" class="article-thumb">
-                        <span class="article-title">Crossword Puzzle</span>
+                        <span class="article-title" data-i18n="projects.experiments.crossword">Crossword Puzzle</span>
                     </div>
                 </a>
             </li>
@@ -121,7 +160,7 @@
                 <a href="../projects/uuid-to-picture/index.html">
                     <div class="article-card">
                         <img src="../projects/uuid-to-picture/uuid-to-picture.png" alt="UUUID to picture" class="article-thumb">
-                        <span class="article-title">UUID to picture</span>
+                        <span class="article-title" data-i18n="projects.experiments.uuid">UUID to picture</span>
                     </div>
                 </a>
             </li>
@@ -142,6 +181,23 @@
 <script src="../resources/back-to-top.js"></script>
 <script>
     document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+<script src="../resources/i18n.js"></script>
+<script>
+    I18N._basePath = '..';
+    I18N.load('portfolio', '..').then(function() {
+        I18N.renderSwitcher('lang-switcher');
+        I18N.applyToDOM();
+        
+        // Custom handling for title and meta tags if needed
+        const titleKey = document.querySelector('title').getAttribute('data-i18n');
+        if (titleKey) document.title = I18N.t(titleKey);
+        
+        document.querySelectorAll('[data-i18n-content]').forEach(el => {
+            const key = el.getAttribute('data-i18n-content');
+            el.setAttribute('content', I18N.t(key));
+        });
+    });
 </script>
 <script>window.CHAT_SYSTEM_PROMPT = 'AI assistant на странице проектов портфолио Романа Дыкого. Здесь интерактивные визуализаторы: архитектурные паттерны, индексы БД, Git-стратегии, брокеры сообщений, GoF паттерны. Отвечай на вопросы о каждом проекте и общие вопросы по software engineering.';</script>
 <link rel="stylesheet" href="../resources/chat.css">
