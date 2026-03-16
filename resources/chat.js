@@ -264,9 +264,8 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 messages: messages.slice(-6),
-                model: 'openai',
+                model: 'openai-fast',
                 system: getSystemPrompt(),
-                reasoning_effort: 'none',
                 seed: Math.floor(Math.random() * 9999) + 1,
                 key: getApiKey()
             })
@@ -287,7 +286,7 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 messages: messages.slice(-6),
-                model: 'openai',
+                model: 'openai-fast',
                 system: getSystemPrompt(),
                 seed: Math.floor(Math.random() * 9999) + 1
             })
