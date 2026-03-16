@@ -20,12 +20,39 @@
   <rect x="30" y="150" width="150" height="30" rx="4" fill="none" stroke="#6366F1" stroke-width="1.5" opacity="0.3"/>
   <text x="105" y="170" text-anchor="middle" fill="#6366F1" font-size="10" font-family="system-ui">Infrastructure</text>
 
+  <!-- Animated data flow through layers -->
+  <circle r="3" fill="#6366F1" opacity="0.9">
+    <animateMotion dur="3s" repeatCount="indefinite" path="M105,45 L105,85 L105,125 L105,165"/>
+  </circle>
+  <!-- Reverse flow dot -->
+  <circle r="2.5" fill="#818cf8" opacity="0.6">
+    <animateMotion dur="3s" repeatCount="indefinite" begin="1.5s" path="M105,165 L105,125 L105,85 L105,45"/>
+  </circle>
+
+  <!-- Flow arrows with pulse -->
+  <line x1="105" y1="60" x2="105" y2="70" stroke="#6366F1" stroke-width="1" opacity="0.5"/>
+  <line x1="105" y1="100" x2="105" y2="110" stroke="#6366F1" stroke-width="1" opacity="0.5"/>
+  <line x1="105" y1="140" x2="105" y2="150" stroke="#6366F1" stroke-width="1" opacity="0.5"/>
+
   <!-- Concentric circles (Clean) -->
   <circle cx="300" cy="100" r="55" fill="none" stroke="#8B5CF6" stroke-width="1" opacity="0.3"/>
   <circle cx="300" cy="100" r="40" fill="none" stroke="#8B5CF6" stroke-width="1" opacity="0.5"/>
   <circle cx="300" cy="100" r="25" fill="none" stroke="#8B5CF6" stroke-width="1.5" opacity="0.7"/>
   <circle cx="300" cy="100" r="12" fill="#8B5CF6" opacity="0.2" stroke="#8B5CF6" stroke-width="1.5"/>
   <text x="300" y="104" text-anchor="middle" fill="#8B5CF6" font-size="7" font-family="system-ui">Core</text>
+
+  <!-- Pulsing rings for Clean Architecture -->
+  <circle cx="300" cy="100" r="55" fill="none" stroke="#8B5CF6" stroke-width="1" opacity="0">
+    <animate attributeName="r" values="12;55" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.7;0" dur="3s" repeatCount="indefinite"/>
+    <animate attributeName="stroke-width" values="2;0.5" dur="3s" repeatCount="indefinite"/>
+  </circle>
+
+  <!-- Core pulse -->
+  <circle cx="300" cy="100" r="12" fill="#8B5CF6" opacity="0">
+    <animate attributeName="r" values="10;14;10" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.3;0.1;0.3" dur="2s" repeatCount="indefinite"/>
+  </circle>
 
   <!-- Hexagon -->
   <polygon points="80,230 120,210 160,230 160,260 120,280 80,260" fill="none" stroke="#06B6D4" stroke-width="1.5" opacity="0.7"/>
@@ -37,16 +64,41 @@
   <rect x="40" y="255" width="30" height="14" rx="2" fill="none" stroke="#06B6D4" stroke-width="1" opacity="0.4"/>
   <rect x="170" y="255" width="30" height="14" rx="2" fill="none" stroke="#06B6D4" stroke-width="1" opacity="0.4"/>
 
+  <!-- Animated adapter data flow -->
+  <circle r="2.5" fill="#06B6D4" opacity="0.8">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M55,232 L80,240 L120,245"/>
+  </circle>
+  <circle r="2.5" fill="#06B6D4" opacity="0.8">
+    <animateMotion dur="2s" repeatCount="indefinite" begin="1s" path="M120,245 L160,240 L185,232"/>
+  </circle>
+  <circle r="2.5" fill="#06B6D4" opacity="0.8">
+    <animateMotion dur="2.2s" repeatCount="indefinite" begin="0.5s" path="M55,262 L80,255 L120,250"/>
+  </circle>
+
+  <!-- Hex border pulse -->
+  <polygon points="80,230 120,210 160,230 160,260 120,280 80,260" fill="none" stroke="#06B6D4" stroke-width="2" opacity="0">
+    <animate attributeName="opacity" values="0;0.5;0" dur="3s" repeatCount="indefinite"/>
+  </polygon>
+
   <!-- CQRS split -->
   <rect x="230" y="190" width="70" height="90" rx="4" fill="none" stroke="#10B981" stroke-width="1" opacity="0.5"/>
   <text x="265" y="205" text-anchor="middle" fill="#10B981" font-size="8" font-family="system-ui">Command</text>
   <rect x="310" y="190" width="70" height="90" rx="4" fill="none" stroke="#10B981" stroke-width="1" opacity="0.5"/>
   <text x="345" y="205" text-anchor="middle" fill="#10B981" font-size="8" font-family="system-ui">Query</text>
 
-  <!-- Flow arrows -->
-  <line x1="105" y1="60" x2="105" y2="70" stroke="#6366F1" stroke-width="1" opacity="0.5"/>
-  <line x1="105" y1="100" x2="105" y2="110" stroke="#6366F1" stroke-width="1" opacity="0.5"/>
-  <line x1="105" y1="140" x2="105" y2="150" stroke="#6366F1" stroke-width="1" opacity="0.5"/>
+  <!-- CQRS animated write flow -->
+  <circle r="2.5" fill="#10B981" opacity="0.8">
+    <animateMotion dur="2s" repeatCount="indefinite" path="M265,210 L265,275"/>
+  </circle>
+  <!-- CQRS animated read flow -->
+  <circle r="2.5" fill="#34d399" opacity="0.8">
+    <animateMotion dur="2.2s" repeatCount="indefinite" begin="0.5s" path="M345,275 L345,210"/>
+  </circle>
+
+  <!-- CQRS separator pulse -->
+  <line x1="300" y1="195" x2="300" y2="275" stroke="#10B981" stroke-width="1" opacity="0">
+    <animate attributeName="opacity" values="0;0.4;0" dur="2.5s" repeatCount="indefinite"/>
+  </line>
 
   <!-- Title -->
   <text x="200" y="296" text-anchor="middle" fill="#8892a4" font-size="9" font-family="system-ui" opacity="0.6">Architecture Visualizer</text>

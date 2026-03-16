@@ -3,80 +3,73 @@
 (function() {
     'use strict';
 
-    var patternConfigs = {
-        'simple-factory': {
-            name: 'Simple Factory',
-            modes: PV['simple-factory'].modes,
-            initMode: function(modeId) {
-                var p = PV['simple-factory'];
-                if (p[modeId]) p[modeId].init();
-            },
-            depRules: PV['simple-factory'].depRules
-        },
-        'static-factory': {
-            name: 'Static Factory',
-            modes: PV['static-factory'].modes,
-            initMode: function(modeId) {
-                var p = PV['static-factory'];
-                if (p[modeId]) p[modeId].init();
-            },
-            depRules: PV['static-factory'].depRules
-        },
-        'factory-method': {
-            name: 'Factory Method',
-            modes: PV['factory-method'].modes,
-            initMode: function(modeId) {
-                var p = PV['factory-method'];
-                if (p[modeId]) p[modeId].init();
-            },
-            depRules: PV['factory-method'].depRules
-        },
-        'abstract-factory': {
-            name: 'Abstract Factory',
-            modes: PV['abstract-factory'].modes,
-            initMode: function(modeId) {
-                var p = PV['abstract-factory'];
-                if (p[modeId]) p[modeId].init();
-            },
-            depRules: PV['abstract-factory'].depRules
-        },
-        'builder': {
-            name: 'Builder',
-            modes: PV['builder'].modes,
-            initMode: function(modeId) {
-                var p = PV['builder'];
-                if (p[modeId]) p[modeId].init();
-            },
-            depRules: PV['builder'].depRules
-        },
-        'prototype': {
-            name: 'Prototype',
-            modes: PV['prototype'].modes,
-            initMode: function(modeId) {
-                var p = PV['prototype'];
-                if (p[modeId]) p[modeId].init();
-            },
-            depRules: PV['prototype'].depRules
-        },
-        'singleton': {
-            name: 'Singleton',
-            modes: PV['singleton'].modes,
-            initMode: function(modeId) {
-                var p = PV['singleton'];
-                if (p[modeId]) p[modeId].init();
-            },
-            depRules: PV['singleton'].depRules
-        },
-        'pool': {
-            name: 'Object Pool',
-            modes: PV['pool'].modes,
-            initMode: function(modeId) {
-                var p = PV['pool'];
-                if (p[modeId]) p[modeId].init();
-            },
-            depRules: PV['pool'].depRules
-        }
+    var categoryPatterns = {
+        creational: ['simple-factory', 'static-factory', 'factory-method', 'abstract-factory', 'builder', 'prototype', 'singleton', 'pool'],
+        structural: ['adapter', 'bridge', 'composite', 'decorator', 'facade', 'flyweight', 'proxy']
     };
+
+    var activeCategory = 'creational';
+
+    var patternNames = {
+        'simple-factory': 'Simple Factory', 'static-factory': 'Static Factory',
+        'factory-method': 'Factory Method', 'abstract-factory': 'Abstract Factory',
+        'builder': 'Builder', 'prototype': 'Prototype', 'singleton': 'Singleton', 'pool': 'Object Pool',
+        'adapter': 'Adapter', 'bridge': 'Bridge', 'composite': 'Composite', 'decorator': 'Decorator',
+        'facade': 'Facade', 'flyweight': 'Flyweight', 'proxy': 'Proxy'
+    };
+
+    function buildPatternConfig(id) {
+        return {
+            name: patternNames[id] || id,
+            modes: PV[id].modes,
+            initMode: function(modeId) {
+                var p = PV[id];
+                if (p[modeId]) p[modeId].init();
+            },
+            depRules: PV[id].depRules
+        };
+    }
+
+    var patternConfigs = {};
+    Object.keys(categoryPatterns).forEach(function(cat) {
+        categoryPatterns[cat].forEach(function(id) {
+            if (PV[id]) patternConfigs[id] = buildPatternConfig(id);
+        });
+    });
+
+    function getCategoryForPattern(patternId) {
+        var cats = Object.keys(categoryPatterns);
+        for (var i = 0; i < cats.length; i++) {
+            if (categoryPatterns[cats[i]].indexOf(patternId) !== -1) return cats[i];
+        }
+        return 'creational';
+    }
+
+    function switchCategory(category) {
+        activeCategory = category;
+
+        document.querySelectorAll('.pv-category').forEach(function(btn) {
+            var isCurrent = btn.dataset.category === category;
+            btn.classList.toggle('active', isCurrent);
+            btn.setAttribute('aria-selected', isCurrent);
+        });
+
+        var patterns = categoryPatterns[category] || [];
+        var nav = document.getElementById('pv-nav');
+        nav.innerHTML = patterns.map(function(id, idx) {
+            var cls = 'pv-tab' + (idx === 0 ? ' active' : '');
+            return '<button class="' + cls + '" data-pattern="' + id + '" role="tab" aria-selected="' + (idx === 0) + '" data-i18n="' + id + '.name">' +
+                I18N.t(id + '.name', null, patternConfigs[id] ? patternConfigs[id].name : id) + '</button>';
+        }).join('');
+
+        nav.querySelectorAll('.pv-tab').forEach(function(tab) {
+            tab.onclick = function() { switchPattern(tab.dataset.pattern); };
+        });
+
+        if (patterns.length > 0 && patternConfigs[patterns[0]]) {
+            switchPattern(patterns[0]);
+        }
+    }
 
     function updateHash(patternId, modeId) {
         history.replaceState(null, '', '#' + patternId + '/' + modeId);
@@ -318,8 +311,10 @@
         document.getElementById('btn-step-fwd').onclick = function() { PV.stepForward(); };
         document.getElementById('btn-step-back').onclick = function() { PV.stepBack(); };
 
-        document.querySelectorAll('.pv-tab').forEach(function(tab) {
-            tab.onclick = function() { switchPattern(tab.dataset.pattern); };
+        /* Category buttons */
+        document.querySelectorAll('.pv-category').forEach(function(btn) {
+            if (btn.disabled) return;
+            btn.onclick = function() { switchCategory(btn.dataset.category); };
         });
     }
 
@@ -331,6 +326,24 @@
             I18N.applyToDOM();
             var saved = readHash();
             if (saved) {
+                var cat = getCategoryForPattern(saved.pattern);
+                if (cat !== activeCategory) {
+                    activeCategory = cat;
+                    document.querySelectorAll('.pv-category').forEach(function(btn) {
+                        var isCurrent = btn.dataset.category === cat;
+                        btn.classList.toggle('active', isCurrent);
+                        btn.setAttribute('aria-selected', isCurrent);
+                    });
+                    var patterns = categoryPatterns[cat] || [];
+                    var nav = document.getElementById('pv-nav');
+                    nav.innerHTML = patterns.map(function(id) {
+                        return '<button class="pv-tab" data-pattern="' + id + '" role="tab" aria-selected="false" data-i18n="' + id + '.name">' +
+                            I18N.t(id + '.name', null, patternConfigs[id] ? patternConfigs[id].name : id) + '</button>';
+                    }).join('');
+                    nav.querySelectorAll('.pv-tab').forEach(function(tab) {
+                        tab.onclick = function() { switchPattern(tab.dataset.pattern); };
+                    });
+                }
                 switchPattern(saved.pattern, saved.mode);
             } else {
                 switchPattern('simple-factory');
@@ -341,12 +354,34 @@
     window.addEventListener('hashchange', function() {
         var saved = readHash();
         if (saved && (saved.pattern !== PV.state.pattern || saved.mode !== PV.state.mode)) {
+            var cat = getCategoryForPattern(saved.pattern);
+            if (cat !== activeCategory) {
+                activeCategory = cat;
+                document.querySelectorAll('.pv-category').forEach(function(btn) {
+                    var isCurrent = btn.dataset.category === cat;
+                    btn.classList.toggle('active', isCurrent);
+                    btn.setAttribute('aria-selected', isCurrent);
+                });
+                var patterns = categoryPatterns[cat] || [];
+                var nav = document.getElementById('pv-nav');
+                nav.innerHTML = patterns.map(function(id) {
+                    return '<button class="pv-tab" data-pattern="' + id + '" role="tab" aria-selected="false" data-i18n="' + id + '.name">' +
+                        I18N.t(id + '.name', null, patternConfigs[id] ? patternConfigs[id].name : id) + '</button>';
+                }).join('');
+                nav.querySelectorAll('.pv-tab').forEach(function(tab) {
+                    tab.onclick = function() { switchPattern(tab.dataset.pattern); };
+                });
+            }
             switchPattern(saved.pattern, saved.mode);
         }
     });
 
     /* ===== i18n Refresh ===== */
     window.PV_refresh = function() {
+        /* Re-translate category buttons */
+        document.querySelectorAll('.pv-category[data-i18n]').forEach(function(btn) {
+            btn.textContent = I18N.t(btn.getAttribute('data-i18n'), null, btn.textContent);
+        });
         /* Re-translate pattern tabs */
         document.querySelectorAll('.pv-tab[data-i18n]').forEach(function(tab) {
             tab.textContent = I18N.t(tab.getAttribute('data-i18n'), null, tab.textContent);

@@ -119,7 +119,14 @@ PV.setAccentColors = function(patternId) {
         'prototype':        { accent: '#10B981', bg: '#0d1f18', light: '#153024' },
         'singleton':        { accent: '#EC4899', bg: '#1f0d1a', light: '#301524' },
         'pool':             { accent: '#F97316', bg: '#1f150d', light: '#302015' },
-        'static-factory':   { accent: '#84CC16', bg: '#1a1f0d', light: '#283015' }
+        'static-factory':   { accent: '#84CC16', bg: '#1a1f0d', light: '#283015' },
+        'adapter':          { accent: '#06B6D4', bg: '#0d1a20', light: '#152a35' },
+        'bridge':           { accent: '#A855F7', bg: '#1a0d2a', light: '#241540' },
+        'composite':        { accent: '#22C55E', bg: '#0d1f12', light: '#15301c' },
+        'decorator':        { accent: '#EF4444', bg: '#1f0d0d', light: '#301515' },
+        'facade':           { accent: '#FBBF24', bg: '#1f1b0d', light: '#302b15' },
+        'flyweight':        { accent: '#14B8A6', bg: '#0d1f1c', light: '#15302c' },
+        'proxy':            { accent: '#F472B6', bg: '#1f0d18', light: '#301524' }
     };
     var t = themes[patternId] || themes['simple-factory'];
     root.setProperty('--pv-accent', t.accent);

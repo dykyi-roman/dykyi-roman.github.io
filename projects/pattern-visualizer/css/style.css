@@ -62,6 +62,27 @@
     --static-factory-color: #84CC16;
     --static-factory-bg: #1a1f0d;
     --static-factory-light: #283015;
+    --adapter-color: #06B6D4;
+    --adapter-bg: #0d1a20;
+    --adapter-light: #152a35;
+    --bridge-color: #A855F7;
+    --bridge-bg: #1a0d2a;
+    --bridge-light: #241540;
+    --composite-color: #22C55E;
+    --composite-bg: #0d1f12;
+    --composite-light: #15301c;
+    --decorator-color: #EF4444;
+    --decorator-bg: #1f0d0d;
+    --decorator-light: #301515;
+    --facade-color: #FBBF24;
+    --facade-bg: #1f1b0d;
+    --facade-light: #302b15;
+    --flyweight-color: #14B8A6;
+    --flyweight-bg: #0d1f1c;
+    --flyweight-light: #15302c;
+    --proxy-color: #F472B6;
+    --proxy-bg: #1f0d18;
+    --proxy-light: #301524;
 
     --pv-bg: #141922;
     --pv-card-bg: #1a2030;
@@ -223,6 +244,48 @@
     background: var(--static-factory-bg);
     border-color: var(--static-factory-color);
     color: var(--static-factory-color);
+}
+
+.pv-tab.active[data-pattern="adapter"] {
+    background: var(--adapter-bg);
+    border-color: var(--adapter-color);
+    color: var(--adapter-color);
+}
+
+.pv-tab.active[data-pattern="bridge"] {
+    background: var(--bridge-bg);
+    border-color: var(--bridge-color);
+    color: var(--bridge-color);
+}
+
+.pv-tab.active[data-pattern="composite"] {
+    background: var(--composite-bg);
+    border-color: var(--composite-color);
+    color: var(--composite-color);
+}
+
+.pv-tab.active[data-pattern="decorator"] {
+    background: var(--decorator-bg);
+    border-color: var(--decorator-color);
+    color: var(--decorator-color);
+}
+
+.pv-tab.active[data-pattern="facade"] {
+    background: var(--facade-bg);
+    border-color: var(--facade-color);
+    color: var(--facade-color);
+}
+
+.pv-tab.active[data-pattern="flyweight"] {
+    background: var(--flyweight-bg);
+    border-color: var(--flyweight-color);
+    color: var(--flyweight-color);
+}
+
+.pv-tab.active[data-pattern="proxy"] {
+    background: var(--proxy-bg);
+    border-color: var(--proxy-color);
+    color: var(--proxy-color);
 }
 
 /* ===== Mode Tabs ===== */
@@ -1134,10 +1197,12 @@
 }
 
 .code-pre,
-.code-pre code {
-    font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Monaco', monospace;
-    font-size: 7.5px;
-    line-height: 1.35;
+.code-pre code,
+.code-pre[class*="language-"],
+.code-pre code[class*="language-"] {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', 'Monaco', monospace !important;
+    font-size: 12px !important;
+    line-height: 1.3 !important;
 }
 
 /* Prism token colors (Tomorrow Night palette, embedded for reliability) */

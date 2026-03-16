@@ -447,5 +447,382 @@
     { "name": "Object Pool", "role": "Gere une collection d'objets reutilisables, gerant les operations d'acquisition et de liberation" },
     { "name": "Reusable Object", "role": "Objet couteux a creer qui est mis en pool et recycle au lieu d'etre detruit" },
     { "name": "Client", "role": "Acquiert des objets du pool, les utilise, et les libere une fois termine" }
+  ],
+
+  "adapter.name": "Adapter",
+  "adapter.modes.payment.label": "Payment Gateway",
+  "adapter.modes.payment.desc": "StripeAdapter adapte l'API Stripe a l'interface PaymentProcessor. Le client appelle pay(amount) sur le processeur sans connaitre le service de paiement sous-jacent. L'adaptateur traduit l'appel en la methode createCharge() specifique a Stripe.",
+  "adapter.details.payment.principles": [
+    "Convertir l'interface d'une classe en une autre interface attendue par les clients",
+    "Responsabilite unique : l'adaptateur ne gere que la traduction d'interface, pas la logique metier",
+    "Principe ouvert/ferme : de nouveaux adaptateurs peuvent etre ajoutes sans modifier le code client existant",
+    "Programmer vers une interface (PaymentProcessor), pas une implementation (StripeAPI)",
+    "Composition plutot qu'heritage : l'adaptateur objet enveloppe l'adapte plutot que de l'etendre"
+  ],
+  "adapter.details.payment.concepts": [
+    { "term": "Target Interface", "definition": "L'interface attendue par le client (PaymentProcessor). Toutes les interactions passent par cette abstraction, maintenant le client decouple des services concrets." },
+    { "term": "Adapter", "definition": "Une classe (StripeAdapter) qui implemente l'interface Target et traduit les appels vers l'Adaptee. Elle comble le fosse entre des interfaces incompatibles." },
+    { "term": "Adaptee", "definition": "La classe existante (StripeAPI) avec une interface incompatible. Elle possede la fonctionnalite dont le client a besoin mais ne peut pas etre utilisee directement." },
+    { "term": "Object Adapter vs Class Adapter", "definition": "L'adaptateur objet utilise la composition (enveloppe l'adapte) ; l'adaptateur de classe utilise l'heritage multiple. L'adaptateur objet est plus flexible et prefere dans la plupart des langages." }
+  ],
+  "adapter.details.payment.tradeoffs.pros": [
+    "Permet l'integration d'interfaces incompatibles sans modifier le code existant",
+    "Responsabilite unique \u2014 la conversion d'interface est isolee dans la classe adaptateur",
+    "Principe ouvert/ferme \u2014 nouveaux adaptateurs ajoutes sans modifier le client ou l'adapte",
+    "Favorise la reutilisation de fonctionnalites existantes par enveloppement"
+  ],
+  "adapter.details.payment.tradeoffs.cons": [
+    "Ajoute une couche supplementaire d'indirection, augmentant la complexite",
+    "Plusieurs adaptateurs pour le meme adapte peuvent entrainer de la duplication de code",
+    "Peut masquer des differences d'interface importantes qui devraient etre traitees au niveau de la conception",
+    "Surcharge de performance due a la delegation a travers la couche adaptateur"
+  ],
+  "adapter.details.payment.tradeoffs.whenToUse": "A utiliser quand vous devez integrer une classe avec une interface incompatible dans votre systeme, envelopper du code existant ou tiers derriere une interface stable, ou fournir une API unifiee sur plusieurs services avec des interfaces differentes.",
+  "adapter.tooltip.client": "Client qui utilise l'interface PaymentProcessor pour traiter les paiements",
+  "adapter.tooltip.target": "Interface cible definissant le contrat pay(amount) attendu par le client",
+  "adapter.tooltip.adapter": "Adaptateur convertissant les appels PaymentProcessor en appels StripeAPI",
+  "adapter.tooltip.adaptee": "API Stripe existante avec une interface incompatible createCharge()",
+  "adapter.tooltip.obj-adapter": "Instance d'execution de StripeAdapter",
+  "adapter.tooltip.obj-adaptee": "Instance d'execution de StripeAPI utilisee par l'adaptateur",
+  "adapter.step.payment.0": "Le client appelle processor.pay(100)",
+  "adapter.step.payment.1": "PaymentProcessor redirige vers StripeAdapter",
+  "adapter.step.payment.2": "StripeAdapter.pay(100) recu",
+  "adapter.step.payment.3": "Traduction : cents = amount * 100",
+  "adapter.step.payment.4": "Appel stripeApi.createCharge(10000, \"usd\")",
+  "adapter.step.payment.5": "StripeAPI traite le debit",
+  "adapter.step.payment.6": "StripeAPI retourne l'ID de debit \"ch_1234\"",
+  "adapter.step.payment.7": "StripeAdapter retourne true au Client",
+  "adapter.stepLabel.payment": "Adapter le paiement via le patron Adapter",
+  "adapter.depRules": [
+    { "name": "Target (PaymentProcessor)", "role": "Definit l'interface attendue par le client" },
+    { "name": "Adapter (StripeAdapter)", "role": "Convertit l'interface Target vers l'interface de l'Adaptee" },
+    { "name": "Adaptee (StripeAPI)", "role": "Classe existante avec une interface incompatible" },
+    { "name": "Client", "role": "Utilise l'interface Target pour interagir avec l'Adaptee a travers l'Adapter" }
+  ],
+
+  "facade.name": "Facade",
+  "facade.modes.theater.label": "Home Theater",
+  "facade.modes.theater.desc": "HomeTheaterFacade simplifie la gestion d'un systeme de cinema maison complexe. Au lieu d'appeler des methodes sur DVDPlayer, Amplifier, Projector et Lights individuellement, le client appelle watchMovie() sur la facade, qui orchestre tous les sous-systemes dans le bon ordre.",
+  "facade.details.theater.principles": [
+    "Fournir une interface unifiee et simplifiee a un ensemble d'interfaces d'un sous-systeme",
+    "Minimiser les communications et les dependances entre les sous-systemes et les clients",
+    "La facade delegue le travail aux objets du sous-systeme \u2014 elle ne les remplace pas",
+    "Les clients peuvent toujours acceder directement aux classes du sous-systeme s'ils ont besoin d'un controle fin",
+    "Principe de moindre connaissance (Loi de Demeter) : le client ne parle qu'a la facade"
+  ],
+  "facade.details.theater.concepts": [
+    { "term": "Facade", "definition": "Une classe (HomeTheaterFacade) fournissant une interface simple a un sous-systeme complexe. Elle sait a quelles classes du sous-systeme deleguer." },
+    { "term": "Subsystem Classes", "definition": "Classes complexes (DVDPlayer, Amplifier, Projector, Lights) qui effectuent le travail reel. Elles ne connaissent pas la facade." },
+    { "term": "Simplified Interface", "definition": "La facade expose des operations de haut niveau (watchMovie, endMovie) qui orchestrent de multiples appels au sous-systeme dans le bon ordre." },
+    { "term": "Decoupling", "definition": "Le client ne depend que de la facade, pas des details internes du sous-systeme. Les changements du sous-systeme sont absorbes par la facade." }
+  ],
+  "facade.details.theater.tradeoffs.pros": [
+    "Simplifie l'utilisation d'un sous-systeme complexe avec une API propre et de haut niveau",
+    "Decouple les clients des details d'implementation du sous-systeme",
+    "Reduit le nombre d'objets avec lesquels les clients doivent interagir",
+    "Favorise l'architecture en couches et le Principe de moindre connaissance"
+  ],
+  "facade.details.theater.tradeoffs.cons": [
+    "Peut devenir un objet-dieu si trop de responsabilites sont ajoutees",
+    "Peut limiter l'acces aux fonctionnalites avancees du sous-systeme",
+    "Ajoute une couche d'abstraction supplementaire qui n'est pas toujours necessaire",
+    "Les changements dans les interfaces du sous-systeme necessitent toujours des mises a jour de la facade"
+  ],
+  "facade.details.theater.tradeoffs.whenToUse": "A utiliser quand vous voulez fournir une interface simple a un sous-systeme complexe, quand il y a beaucoup de dependances entre les clients et les classes d'implementation, ou quand vous voulez organiser vos sous-systemes en couches.",
+  "facade.tooltip.client": "Client qui utilise la facade pour controler le cinema maison",
+  "facade.tooltip.facade": "Facade fournissant les operations de haut niveau watchMovie() et endMovie()",
+  "facade.tooltip.dvd": "Sous-systeme DVDPlayer \u2014 gere la lecture de disque",
+  "facade.tooltip.amp": "Sous-systeme Amplifier \u2014 gere le volume audio et l'alimentation",
+  "facade.tooltip.proj": "Sous-systeme Projector \u2014 gere l'affichage video",
+  "facade.tooltip.lights": "Sous-systeme Lights \u2014 controle l'eclairage de la piece",
+  "facade.step.theater.0": "Le client appelle facade.watchMovie(\"Inception\")",
+  "facade.step.theater.1": "La facade commence l'orchestration",
+  "facade.step.theater.2": "lights.dim(30)",
+  "facade.step.theater.3": "projector.on()",
+  "facade.step.theater.4": "projector.setInput(\"DVD\")",
+  "facade.step.theater.5": "amplifier.on()",
+  "facade.step.theater.6": "amplifier.setVolume(8)",
+  "facade.step.theater.7": "dvdPlayer.on()",
+  "facade.step.theater.8": "dvdPlayer.play(\"Inception\")",
+  "facade.step.theater.9": "Le film \"Inception\" est maintenant en lecture",
+  "facade.stepLabel.theater": "Regarder un film via la Facade Home Theater",
+  "facade.depRules": [
+    { "name": "Facade (HomeTheaterFacade)", "role": "Fournit une interface simplifiee au sous-systeme" },
+    { "name": "Subsystem (DVDPlayer, Amplifier, Projector, Lights)", "role": "Classes complexes du sous-systeme qui effectuent le travail reel" },
+    { "name": "Client", "role": "Utilise la Facade au lieu d'appeler directement les classes du sous-systeme" }
+  ],
+
+  "proxy.name": "Proxy",
+  "proxy.modes.caching.label": "Database Caching",
+  "proxy.modes.caching.desc": "CachingProxy intercepte les requetes SQL et met en cache les resultats. En cas de cache miss, il delegue a RealDatabase et stocke le resultat. En cas de cache hit, il retourne le resultat en cache sans toucher la base de donnees \u2014 ameliorant les performances pour les requetes repetees.",
+  "proxy.details.caching.principles": [
+    "Fournir un substitut ou un espace reserv\u00e9 pour un autre objet afin d'en controler l'acces",
+    "Le proxy et le sujet reel implementent la meme interface \u2014 ils sont interchangeables",
+    "Le proxy peut ajouter un comportement (mise en cache, controle d'acces, journalisation) sans modifier le sujet reel",
+    "Initialisation paresseuse : reporter la creation d'objets couteux jusqu'a ce qu'ils soient reellement necessaires",
+    "Transparent pour le client \u2014 le client ne sait pas s'il parle a un proxy ou a l'objet reel"
+  ],
+  "proxy.details.caching.concepts": [
+    { "term": "Virtual Proxy", "definition": "Retarde la creation d'objets couteux jusqu'a ce qu'ils soient necessaires. Cree l'objet reel au premier acces et le met en cache pour les utilisations suivantes." },
+    { "term": "Protection Proxy", "definition": "Controle l'acces a l'objet reel en fonction des permissions. Verifie les identifiants avant de deleguer la requete." },
+    { "term": "Caching Proxy", "definition": "Stocke les resultats d'operations couteuses et retourne les donnees en cache pour des requetes identiques, evitant les calculs ou appels reseau repetes." },
+    { "term": "Smart Reference", "definition": "Effectue des actions supplementaires lors de l'acces a l'objet reel, comme le comptage de references, la journalisation ou le verrouillage de thread." }
+  ],
+  "proxy.details.caching.tradeoffs.pros": [
+    "Controle l'acces sans que les clients en soient conscients",
+    "Le proxy de mise en cache ameliore considerablement les performances pour les operations repetees",
+    "Suit le Principe ouvert/ferme \u2014 ajoute un comportement sans modifier l'objet reel",
+    "Peut gerer le cycle de vie de l'objet de service reel"
+  ],
+  "proxy.details.caching.tradeoffs.cons": [
+    "Ajoute une couche supplementaire d'indirection, augmentant la complexite",
+    "Le temps de reponse peut augmenter en raison de la surcharge de traitement du proxy",
+    "L'invalidation du cache est difficile \u2014 les donnees obsoletes peuvent causer des bugs subtils",
+    "Le proxy doit rester synchronise avec l'interface du sujet reel"
+  ],
+  "proxy.details.caching.tradeoffs.whenToUse": "A utiliser quand vous avez besoin d'une initialisation paresseuse (proxy virtuel), d'un controle d'acces (proxy de protection), de mise en cache d'operations couteuses, de journalisation, ou quand l'objet reel est distant et que vous voulez un representant local.",
+  "proxy.tooltip.client": "Client qui envoie des requetes SQL a travers le proxy",
+  "proxy.tooltip.subject": "Interface Subject declarant le contrat query()",
+  "proxy.tooltip.proxy": "CachingProxy qui intercepte les requetes et met en cache les resultats",
+  "proxy.tooltip.real": "RealDatabase qui execute les requetes SQL reelles",
+  "proxy.tooltip.obj-cache": "Cache en memoire stockant les resultats des requetes",
+  "proxy.tooltip.obj-result": "ResultSet retourne par la requete en base de donnees",
+  "proxy.step.caching.0": "Le client appelle proxy.query(\"SELECT * FROM users\")",
+  "proxy.step.caching.1": "CachingProxy recoit la requete",
+  "proxy.step.caching.2": "Verification du cache \u2014 MISS",
+  "proxy.step.caching.3": "Delegation a realDb.query()",
+  "proxy.step.caching.4": "RealDatabase execute la requete SQL",
+  "proxy.step.caching.5": "ResultSet cree avec les resultats de la requete",
+  "proxy.step.caching.6": "Stockage du resultat dans le cache",
+  "proxy.step.caching.7": "Retour du ResultSet au client",
+  "proxy.step.caching.8": "Le client envoie la meme requete a nouveau",
+  "proxy.step.caching.9": "CachingProxy recoit la requete",
+  "proxy.step.caching.10": "Verification du cache \u2014 HIT",
+  "proxy.step.caching.11": "ResultSet en cache retourne (pas d'appel BD)",
+  "proxy.stepLabel.caching": "Requete en base de donnees avec Caching Proxy",
+  "proxy.depRules": [
+    { "name": "Subject (DatabaseQuery)", "role": "Interface pour le service reel et le proxy" },
+    { "name": "RealSubject (RealDatabase)", "role": "Le service reel qui effectue les operations couteuses" },
+    { "name": "Proxy (CachingProxy)", "role": "Controle l'acces au RealSubject et ajoute le comportement de mise en cache" },
+    { "name": "Client", "role": "Travaille avec l'interface Subject, sans connaitre le proxy" }
+  ],
+
+  "decorator.name": "Decorator",
+  "decorator.modes.coffee.label": "Coffee Shop",
+  "decorator.modes.coffee.desc": "MilkDecorator et SugarDecorator enveloppent un SimpleCoffee pour ajouter un comportement dynamiquement. Chaque decorateur implemente l'interface Beverage et delegue a l'objet enveloppe, ajoutant son propre cout et sa description. Les decorateurs peuvent etre empiles dans n'importe quel ordre.",
+  "decorator.details.coffee.principles": [
+    "Attacher des responsabilites supplementaires a un objet dynamiquement \u2014 une alternative flexible au sous-classement",
+    "Les decorateurs implementent la meme interface que le composant qu'ils enveloppent",
+    "Chaque decorateur ajoute une seule responsabilite et delegue le reste a l'objet enveloppe",
+    "Principe ouvert/ferme : de nouveaux comportements ajoutes en creant de nouveaux decorateurs, sans modifier les classes existantes",
+    "Composition plutot qu'heritage : le comportement est compose a l'execution en empilant les decorateurs"
+  ],
+  "decorator.details.coffee.concepts": [
+    { "term": "Component", "definition": "Interface (Beverage) definissant les operations qui peuvent etre etendues dynamiquement. Les composants concrets et les decorateurs l'implementent." },
+    { "term": "Decorator", "definition": "Classe abstraite enveloppant une reference Component. Transmet les requetes a l'objet enveloppe et peut ajouter un comportement avant ou apres." },
+    { "term": "Wrapping", "definition": "Chaque decorateur detient une reference vers le composant suivant dans la chaine. L'appel a cost() se propage a travers la chaine, accumulant les resultats." },
+    { "term": "Recursive Composition", "definition": "Les decorateurs peuvent envelopper d'autres decorateurs, formant une chaine. Le client interagit avec le decorateur le plus externe, sans connaitre la chaine interne." }
+  ],
+  "decorator.details.coffee.tradeoffs.pros": [
+    "Ajoute des responsabilites dynamiquement sans modifier le code existant",
+    "Plusieurs decorateurs peuvent etre combines dans n'importe quel ordre pour un comportement flexible",
+    "Responsabilite unique \u2014 chaque decorateur gere une seule preoccupation",
+    "Meilleure alternative a une explosion de classes due au sous-classement de chaque combinaison"
+  ],
+  "decorator.details.coffee.tradeoffs.cons": [
+    "De nombreux petits objets peuvent rendre le debogage plus difficile",
+    "L'ordre d'enveloppement est important \u2014 peut entrainer des bugs subtils",
+    "Retirer un decorateur specifique du milieu d'une chaine est complexe",
+    "La conception initiale necessite une planification soigneuse des interfaces"
+  ],
+  "decorator.details.coffee.tradeoffs.whenToUse": "A utiliser quand vous devez ajouter des responsabilites a des objets dynamiquement et de maniere transparente, quand l'extension par sous-classement est impraticable en raison d'un grand nombre de combinaisons, ou quand vous voulez ajouter et retirer des comportements a l'execution.",
+  "decorator.tooltip.component": "Interface Beverage \u2014 definit cost() et description() pour toutes les boissons",
+  "decorator.tooltip.concrete": "SimpleCoffee \u2014 boisson de base avec un cout de 1,00 $",
+  "decorator.tooltip.decorator": "BeverageDecorator \u2014 enveloppeur abstrait detenant une reference Beverage",
+  "decorator.tooltip.milk": "MilkDecorator \u2014 ajoute 0,50 $ au cout",
+  "decorator.tooltip.sugar": "SugarDecorator \u2014 ajoute 0,25 $ au cout",
+  "decorator.tooltip.obj-coffee": "Instance :SimpleCoffee a l'execution (1,00 $)",
+  "decorator.tooltip.obj-sugar": "Instance :SugarDecorator a l'execution enveloppant SimpleCoffee",
+  "decorator.tooltip.obj-milk": "Instance :MilkDecorator a l'execution enveloppant SugarDecorator",
+  "decorator.step.coffee.0": "Creation de SimpleCoffee (1,00 $)",
+  "decorator.step.coffee.1": ":SimpleCoffee cree",
+  "decorator.step.coffee.2": "Enveloppement avec SugarDecorator",
+  "decorator.step.coffee.3": ":SugarDecorator enveloppant :SimpleCoffee",
+  "decorator.step.coffee.4": "Enveloppement avec MilkDecorator",
+  "decorator.step.coffee.5": ":MilkDecorator enveloppant :SugarDecorator",
+  "decorator.step.coffee.6": "Le client appelle decorated.cost()",
+  "decorator.step.coffee.7": "MilkDecorator.cost() = 0,50 $ + wrappee.cost()",
+  "decorator.step.coffee.8": "SugarDecorator.cost() = 0,25 $ + wrappee.cost()",
+  "decorator.step.coffee.9": "Total = 1,75 $ (1,00 $ + 0,25 $ + 0,50 $)",
+  "decorator.stepLabel.coffee": "Construire un cafe decore avec le patron Decorator",
+  "decorator.depRules": [
+    { "name": "Component (Beverage)", "role": "Interface pour les objets auxquels des responsabilites peuvent etre ajoutees dynamiquement" },
+    { "name": "ConcreteComponent (SimpleCoffee)", "role": "L'objet de base qui peut etre decore" },
+    { "name": "Decorator (BeverageDecorator)", "role": "Classe abstraite enveloppant un Component, transmettant les requetes" },
+    { "name": "ConcreteDecorators (Milk, Sugar)", "role": "Ajoutent des responsabilites specifiques au composant" }
+  ],
+
+  "bridge.name": "Bridge",
+  "bridge.modes.remote.label": "Remote Control",
+  "bridge.modes.remote.desc": "RemoteControl (abstraction) est separe de Device (implementation). AdvancedRemote etend l'abstraction, tandis que TV et Radio fournissent des implementations concretes. Le pont permet aux deux hierarchies de varier independamment.",
+  "bridge.details.remote.principles": [
+    "Decoupler une abstraction de son implementation afin que les deux puissent varier independamment",
+    "Preferer la composition a l'heritage \u2014 l'abstraction detient une reference vers l'implementation",
+    "Deux dimensions orthogonales de changement : hierarchie d'abstraction et hierarchie d'implementation",
+    "Les clients travaillent avec l'abstraction et ne connaissent pas les details d'implementation",
+    "Principe ouvert/ferme : de nouvelles abstractions et implementations peuvent etre ajoutees independamment"
+  ],
+  "bridge.details.remote.concepts": [
+    { "term": "Abstraction", "definition": "La couche de controle de haut niveau (RemoteControl) qui delegue le travail a l'implementation. Elle definit l'interface de controle utilisee par les clients." },
+    { "term": "Implementor", "definition": "Interface (Device) definissant les operations de bas niveau. Les implementeurs concrets (TV, Radio) fournissent un comportement specifique a la plateforme." },
+    { "term": "Bridge", "definition": "La relation de composition entre Abstraction et Implementor. L'abstraction detient une reference vers l'implementation, formant un pont." },
+    { "term": "Orthogonal Hierarchies", "definition": "Deux hierarchies de classes independantes qui peuvent etre etendues sans s'affecter mutuellement : telecommandes (basique, avancee) et appareils (TV, radio)." }
+  ],
+  "bridge.details.remote.tradeoffs.pros": [
+    "Les deux hierarchies peuvent etre etendues independamment sans modification",
+    "L'implementation peut etre changee a l'execution",
+    "Le code specifique a la plateforme est isole dans les classes d'implementeurs",
+    "Reduit l'explosion de classes de m\u00d7n combinaisons a m+n"
+  ],
+  "bridge.details.remote.tradeoffs.cons": [
+    "Complexite accrue due a la couche d'abstraction supplementaire",
+    "Necessite une identification prealable des dimensions orthogonales",
+    "Excessif pour des scenarios simples avec une seule implementation",
+    "Plus d'indirection peut rendre le debogage plus difficile"
+  ],
+  "bridge.details.remote.tradeoffs.whenToUse": "A utiliser quand vous voulez eviter une liaison permanente entre l'abstraction et l'implementation, quand l'abstraction et l'implementation doivent etre extensibles par sous-classement, ou quand les changements d'implementation ne doivent pas impacter les clients.",
+  "bridge.tooltip.abstraction": "RemoteControl \u2014 detient une reference Device et delegue les operations",
+  "bridge.tooltip.refined": "AdvancedRemote \u2014 etend RemoteControl avec la fonctionnalite mute()",
+  "bridge.tooltip.impl": "Interface Device \u2014 definit les operations de bas niveau pour tous les appareils",
+  "bridge.tooltip.tv": "TV \u2014 implementeur concret pour la television",
+  "bridge.tooltip.radio": "Radio \u2014 implementeur concret pour la radio",
+  "bridge.tooltip.obj-remote": "Instance :AdvancedRemote a l'execution",
+  "bridge.tooltip.obj-tv": "Instance :TV a l'execution connectee via le pont",
+  "bridge.step.remote.0": "Creation d'AdvancedRemote avec TV",
+  "bridge.step.remote.1": ":AdvancedRemote cree",
+  "bridge.step.remote.2": ":TV cree comme implementation",
+  "bridge.step.remote.3": "remote.togglePower()",
+  "bridge.step.remote.4": "Delegation a device.enable()",
+  "bridge.step.remote.5": "TV.enable() \u2014 la TV est maintenant ALLUMEE",
+  "bridge.step.remote.6": "remote.mute() appelle device.setVolume(0)",
+  "bridge.step.remote.7": "Volume TV = 0",
+  "bridge.stepLabel.remote": "Controler un appareil via le patron Bridge",
+  "bridge.depRules": [
+    { "name": "Abstraction (RemoteControl)", "role": "Definit l'interface de controle et detient une reference vers un Device" },
+    { "name": "RefinedAbstraction (AdvancedRemote)", "role": "Etend l'abstraction avec des operations supplementaires" },
+    { "name": "Implementor (Device)", "role": "Interface pour les classes d'implementation" },
+    { "name": "ConcreteImplementor (TV, Radio)", "role": "Fournissent des implementations concretes de l'interface Device" }
+  ],
+
+  "composite.name": "Composite",
+  "composite.modes.filesystem.label": "File System",
+  "composite.modes.filesystem.desc": "Directory et File implementent tous deux FileSystemItem. Les repertoires peuvent contenir des fichiers et des sous-repertoires, formant un arbre. getSize() est appele recursivement \u2014 les feuilles retournent leur taille, les composites additionnent leurs enfants. Le client traite les fichiers individuels et les repertoires de maniere uniforme.",
+  "composite.details.filesystem.principles": [
+    "Composer des objets en structures arborescentes pour representer des hierarchies partie-tout",
+    "Permettre aux clients de traiter les objets individuels et les compositions de maniere uniforme",
+    "Composition recursive : les composites contiennent des composants, qui peuvent eux-memes etre des composites",
+    "Interface unique pour les operations sur les feuilles et les composites",
+    "Principe ouvert/ferme : de nouveaux types de composants peuvent etre ajoutes sans changer le code existant"
+  ],
+  "composite.details.filesystem.concepts": [
+    { "term": "Component", "definition": "Interface (FileSystemItem) declarant les operations communes aux objets feuille et composite. Permet un traitement uniforme." },
+    { "term": "Leaf", "definition": "Un objet File sans enfants. Implemente les operations directement (retourne sa propre taille)." },
+    { "term": "Composite", "definition": "Un Directory qui stocke des composants enfants. Delegue les operations aux enfants et agrege les resultats (additionne les tailles)." },
+    { "term": "Uniform Interface", "definition": "Le client appelle getSize() sur n'importe quel FileSystemItem sans savoir s'il s'agit d'un File ou d'un Directory. Le patron composite rend le parcours d'arbre transparent." }
+  ],
+  "composite.details.filesystem.tradeoffs.pros": [
+    "Traitement uniforme des objets individuels et des compositions",
+    "Facile d'ajouter de nouveaux types de composants \u2014 il suffit d'implementer l'interface Component",
+    "Simplifie le code client qui travaille avec des structures arborescentes complexes",
+    "Les operations recursives sont naturelles et propres"
+  ],
+  "composite.details.filesystem.tradeoffs.cons": [
+    "Peut rendre la conception trop generale \u2014 difficile de restreindre quels composants peuvent etre enfants",
+    "La securite de type est reduite \u2014 le client peut essayer d'ajouter des enfants a une feuille",
+    "Le parcours de grands arbres peut etre couteux sans optimisation",
+    "L'interface uniforme peut forcer les classes feuille a implementer des methodes non pertinentes"
+  ],
+  "composite.details.filesystem.tradeoffs.whenToUse": "A utiliser quand vous voulez representer des hierarchies partie-tout d'objets, quand vous voulez que les clients traitent les objets individuels et les compositions de maniere uniforme, ou quand la structure peut etre representee sous forme d'arbre.",
+  "composite.tooltip.component": "Interface FileSystemItem \u2014 getSize() et getName() pour les fichiers et repertoires",
+  "composite.tooltip.leaf": "File \u2014 noeud feuille avec nom et taille, pas d'enfants",
+  "composite.tooltip.composite": "Directory \u2014 noeud composite contenant des enfants, delegue getSize()",
+  "composite.tooltip.obj-root": "Repertoire /root \u2014 composite de niveau superieur",
+  "composite.tooltip.obj-docs": "Sous-repertoire /root/docs",
+  "composite.tooltip.obj-photo": "photo.jpg \u2014 2048 octets",
+  "composite.tooltip.obj-readme": "readme.txt \u2014 1024 octets",
+  "composite.tooltip.obj-notes": "notes.txt \u2014 512 octets",
+  "composite.step.filesystem.0": "Le client appelle root.getSize()",
+  "composite.step.filesystem.1": "/root itere sur les enfants",
+  "composite.step.filesystem.2": "Enfant \u2192 /root/docs (Directory)",
+  "composite.step.filesystem.3": "/root/docs itere sur les enfants",
+  "composite.step.filesystem.4": "readme.txt retourne taille=1024",
+  "composite.step.filesystem.5": "notes.txt retourne taille=512",
+  "composite.step.filesystem.6": "/root/docs = 1536 octets",
+  "composite.step.filesystem.7": "photo.jpg retourne taille=2048",
+  "composite.step.filesystem.8": "/root = 1536 + 2048 = 3584",
+  "composite.step.filesystem.9": "Taille totale = 3584 octets retournee",
+  "composite.stepLabel.filesystem": "Calculer la taille du systeme de fichiers via Composite",
+  "composite.depRules": [
+    { "name": "Component (FileSystemItem)", "role": "Interface commune pour les feuilles et les composites" },
+    { "name": "Leaf (File)", "role": "N'a pas d'enfants ; implemente les operations directement" },
+    { "name": "Composite (Directory)", "role": "Stocke les composants enfants et leur delegue les operations" },
+    { "name": "Client", "role": "Travaille avec tous les elements via l'interface Component" }
+  ],
+
+  "flyweight.name": "Flyweight",
+  "flyweight.modes.forest.label": "Forest Rendering",
+  "flyweight.modes.forest.desc": "TreeFactory partage des objets TreeType (etat intrinseque : nom, couleur, texture) entre de nombreuses instances Tree (etat extrinseque : coordonnees x, y). Quand la factory recoit une demande pour un type existant, elle retourne l'objet en cache au lieu d'en creer un nouveau \u2014 reduisant drastiquement l'utilisation memoire.",
+  "flyweight.details.forest.principles": [
+    "Partager l'etat commun (intrinseque) entre plusieurs objets pour reduire la consommation memoire",
+    "Separer l'etat intrinseque (partage, immuable) de l'etat extrinseque (unique, dependant du contexte)",
+    "Utiliser une factory pour gerer les instances flyweight et assurer le partage",
+    "Les objets flyweight doivent etre immuables \u2014 leur etat intrinseque ne change jamais apres la creation",
+    "Echanger le calcul contre la memoire : l'etat extrinseque est recalcule ou passe en parametre plutot que stocke"
+  ],
+  "flyweight.details.forest.concepts": [
+    { "term": "Intrinsic State", "definition": "Donnees partagees stockees a l'interieur du flyweight (TreeType : nom, couleur, texture). Immuables et independantes du contexte \u2014 identiques pour tous les arbres de ce type." },
+    { "term": "Extrinsic State", "definition": "Donnees specifiques au contexte stockees en dehors du flyweight (Tree : coordonnees x, y). Uniques a chaque contexte d'utilisation et passees au flyweight quand necessaire." },
+    { "term": "Flyweight Factory", "definition": "Cree et met en cache les objets flyweight (TreeFactory). Retourne les instances existantes pour les demandes repetees, assurant un partage maximal." },
+    { "term": "Immutability", "definition": "Les objets flyweight doivent etre immuables pour etre partages en toute securite. Tout etat mutable doit etre extrinseque et gere par le client ou le contexte." }
+  ],
+  "flyweight.details.forest.tradeoffs.pros": [
+    "Reduit considerablement l'utilisation memoire quand de nombreux objets partagent un etat commun",
+    "La factory flyweight assure la deduplication de l'etat partage",
+    "Les objets partages immuables sont intrinsequement thread-safe",
+    "La separation etat intrinseque/extrinseque clarifie le modele de donnees"
+  ],
+  "flyweight.details.forest.tradeoffs.cons": [
+    "Complexite accrue du code due au fractionnement de l'etat en intrinseque et extrinseque",
+    "Surcharge CPU due au recalcul ou au passage de l'etat extrinseque a chaque utilisation",
+    "Le debogage est plus difficile quand de nombreux objets referencent le meme flyweight",
+    "Pas benefique quand les objets ont peu d'etat partage"
+  ],
+  "flyweight.details.forest.tradeoffs.whenToUse": "A utiliser quand une application cree un grand nombre d'objets similaires consommant beaucoup de memoire, quand la majeure partie de l'etat de l'objet peut etre rendue extrinseque, et quand l'application ne depend pas de l'identite des objets.",
+  "flyweight.tooltip.client": "Client qui plante des arbres en utilisant la factory",
+  "flyweight.tooltip.factory": "TreeFactory \u2014 met en cache et reutilise les objets flyweight TreeType",
+  "flyweight.tooltip.flyweight": "TreeType \u2014 etat intrinseque partage (nom, couleur, texture)",
+  "flyweight.tooltip.obj-oak-type": "Instance flyweight TreeType Oak en cache",
+  "flyweight.tooltip.obj-pine-type": "Instance flyweight TreeType Pine en cache",
+  "flyweight.tooltip.obj-tree1": "Tree a (10,20) referencant le TreeType Oak",
+  "flyweight.tooltip.obj-tree2": "Tree a (50,70) reutilisant le meme TreeType Oak",
+  "flyweight.tooltip.obj-tree3": "Tree a (30,40) referencant le TreeType Pine",
+  "flyweight.step.forest.0": "Le client a besoin d'un arbre \"Oak\" a (10,20)",
+  "flyweight.step.forest.1": "factory.getTreeType(\"Oak\", \"green\", \"oak.png\")",
+  "flyweight.step.forest.2": "Verification du cache \u2014 MISS",
+  "flyweight.step.forest.3": "TreeType(\"Oak\") cree et mis en cache",
+  "flyweight.step.forest.4": "Tree(10, 20, oakType) cree",
+  "flyweight.step.forest.5": ":Tree(10,20) plante avec succes",
+  "flyweight.step.forest.6": "Le client a besoin de \"Oak\" a (50,70)",
+  "flyweight.step.forest.7": "factory.getTreeType(\"Oak\"...)",
+  "flyweight.step.forest.8": "Verification du cache \u2014 HIT (meme objet reutilise)",
+  "flyweight.step.forest.9": "Meme TreeType retourne depuis le cache",
+  "flyweight.step.forest.10": "Tree(50, 70, oakType) reutilise le flyweight",
+  "flyweight.step.forest.11": ":Tree(50,70) plante \u2014 TreeType partage",
+  "flyweight.stepLabel.forest": "Rendre une foret avec des objets Flyweight partages",
+  "flyweight.depRules": [
+    { "name": "Flyweight (TreeType)", "role": "Stocke l'etat intrinseque (partage) qui peut etre reutilise a travers les contextes" },
+    { "name": "FlyweightFactory (TreeFactory)", "role": "Cree et gere les objets flyweight, assurant le partage" },
+    { "name": "Context (Tree)", "role": "Stocke l'etat extrinseque (unique) et reference un flyweight" },
+    { "name": "Client", "role": "Maintient les references aux flyweights et calcule/stocke l'etat extrinseque" }
   ]
 }
