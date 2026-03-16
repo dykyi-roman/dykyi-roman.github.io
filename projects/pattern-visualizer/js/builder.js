@@ -41,7 +41,9 @@ PV['builder'].details = {
             cons: [
                 'Overall complexity increases — requires Director, Builder interface, concrete builders, and Product',
                 'Overkill for simple objects that can be constructed in a single step',
-                'The number of classes grows with each new product variant'
+                'The number of classes grows with each new product variant',
+                'Director adds unnecessary abstraction when the construction sequence is trivial or never varies',
+                'Director adds unnecessary abstraction when the construction sequence is trivial or never varies'
             ],
             whenToUse: 'Use when construction involves multiple steps that must follow a specific order, when the same process should create different representations, or when you want to avoid a constructor with many parameters.'
         }

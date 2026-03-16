@@ -8,7 +8,7 @@
     "Encapsulate object creation: the client never uses the new keyword for concrete products",
     "Program to an interface (Transport), not an implementation (Truck, Ship, Plane)",
     "Single Responsibility: factory owns all instantiation logic in one place",
-    "Open for extension: adding a new transport type requires only modifying the factory",
+    "Easy to extend: adding a new transport type only requires modifying the factory class",
     "Loose coupling: client depends on the abstraction, not on concrete classes"
   ],
   "simple-factory.details.transport.concepts": [
@@ -148,7 +148,8 @@
   "builder.details.house.tradeoffs.cons": [
     "Overall complexity increases \u2014 requires Director, Builder interface, concrete builders, and Product",
     "Overkill for simple objects that can be constructed in a single step",
-    "The number of classes grows with each new product variant"
+    "The number of classes grows with each new product variant",
+    "Director adds unnecessary abstraction when the construction sequence is trivial or never varies"
   ],
   "builder.details.house.tradeoffs.whenToUse": "Use when construction involves multiple steps that must follow a specific order, when the same process should create different representations, or when you want to avoid a constructor with many parameters.",
 
@@ -210,7 +211,7 @@
     "Introduces hidden dependencies \u2014 any class can call getInstance() without declaring the dependency in its constructor or interface",
     "Thread safety adds complexity and potential performance overhead in concurrent environments"
   ],
-  "singleton.details.database.tradeoffs.whenToUse": "Use when exactly one instance of a class is needed system-wide (e.g., database connection pool, hardware interface), and you want controlled, lazy access to that instance.",
+  "singleton.details.database.tradeoffs.whenToUse": "Use when exactly one instance of a class is needed system-wide (e.g., configuration manager, logging service, hardware driver interface), and you want controlled, lazy access to that instance.",
 
   "pool.name": "Object Pool",
   "pool.modes.connections.label": "Database",

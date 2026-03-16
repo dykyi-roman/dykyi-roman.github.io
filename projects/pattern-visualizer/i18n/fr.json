@@ -8,7 +8,7 @@
     "Encapsuler la creation d'objets : le client n'utilise jamais le mot-cle new pour les produits concrets",
     "Programmer vers une interface (Transport), pas une implementation (Truck, Ship, Plane)",
     "Responsabilite unique : la factory detient toute la logique d'instanciation en un seul endroit",
-    "Ouvert a l'extension : ajouter un nouveau type de transport ne necessite que la modification de la factory",
+    "Facile a etendre : ajouter un nouveau type de transport ne necessite que la modification de la classe factory",
     "Couplage faible : le client depend de l'abstraction, pas des classes concretes"
   ],
   "simple-factory.details.transport.concepts": [
@@ -148,7 +148,8 @@
   "builder.details.house.tradeoffs.cons": [
     "La complexite globale augmente -- necessite Director, interface Builder, builders concrets et Product",
     "Excessif pour des objets simples qui peuvent etre construits en une seule etape",
-    "Le nombre de classes croit avec chaque nouvelle variante de produit"
+    "Le nombre de classes croit avec chaque nouvelle variante de produit",
+    "Le Director ajoute une abstraction inutile quand la sequence de construction est triviale ou ne varie jamais"
   ],
   "builder.details.house.tradeoffs.whenToUse": "A utiliser quand la construction implique plusieurs etapes qui doivent suivre un ordre specifique, quand le meme processus doit creer differentes representations, ou quand vous voulez eviter un constructeur avec de nombreux parametres.",
 
@@ -210,7 +211,7 @@
     "Introduit des dependances cachees -- toute classe peut appeler getInstance() sans declarer la dependance dans son constructeur ou interface",
     "La securite des threads ajoute de la complexite et une surcharge potentielle de performance dans les environnements concurrents"
   ],
-  "singleton.details.database.tradeoffs.whenToUse": "A utiliser quand exactement une instance d'une classe est necessaire a l'echelle du systeme (ex. pool de connexions base de donnees, interface materielle), et que vous voulez un acces controle et paresseux a cette instance.",
+  "singleton.details.database.tradeoffs.whenToUse": "A utiliser quand exactement une instance d'une classe est necessaire a l'echelle du systeme (ex. gestionnaire de configuration, service de journalisation, interface de pilote materiel), et que vous voulez un acces controle et paresseux a cette instance.",
 
   "pool.name": "Object Pool",
   "pool.modes.connections.label": "Database",

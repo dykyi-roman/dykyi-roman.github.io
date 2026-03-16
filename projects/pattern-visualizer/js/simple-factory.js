@@ -75,7 +75,7 @@ PV['simple-factory'].details = {
             'Encapsulate object creation: the client never uses the new keyword for concrete products',
             'Program to an interface (Transport), not an implementation (Truck, Ship, Plane)',
             'Single Responsibility: factory owns all instantiation logic in one place',
-            'Open for extension: adding a new transport type requires only modifying the factory',
+            'Easy to extend: adding a new transport type only requires modifying the factory class',
             'Loose coupling: client depends on the abstraction, not on concrete classes'
         ],
         concepts: [

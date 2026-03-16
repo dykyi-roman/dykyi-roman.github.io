@@ -8,7 +8,7 @@
     "Kapseln Sie die Objekterstellung: Der Client verwendet niemals das Schluesselwort new fuer konkrete Produkte",
     "Programmieren Sie gegen eine Schnittstelle (Transport), nicht gegen eine Implementierung (Truck, Ship, Plane)",
     "Single Responsibility: Die Fabrik buendelt die gesamte Instanziierungslogik an einem Ort",
-    "Offen fuer Erweiterung: Das Hinzufuegen eines neuen Transporttyps erfordert nur die Aenderung der Fabrik",
+    "Leicht erweiterbar: Das Hinzufuegen eines neuen Transporttyps erfordert nur die Aenderung der Fabrikklasse",
     "Lose Kopplung: Der Client haengt von der Abstraktion ab, nicht von konkreten Klassen"
   ],
   "simple-factory.details.transport.concepts": [
@@ -148,7 +148,8 @@
   "builder.details.house.tradeoffs.cons": [
     "Die Gesamtkomplexitaet steigt -- erfordert Director, Builder-Schnittstelle, konkrete Builder und Produkt",
     "Ueberdimensioniert fuer einfache Objekte, die in einem Schritt erstellt werden koennen",
-    "Die Anzahl der Klassen waechst mit jeder neuen Produktvariante"
+    "Die Anzahl der Klassen waechst mit jeder neuen Produktvariante",
+    "Der Director fuegt unnoetige Abstraktion hinzu, wenn die Konstruktionssequenz trivial ist oder sich nie aendert"
   ],
   "builder.details.house.tradeoffs.whenToUse": "Verwenden Sie es, wenn die Konstruktion mehrere Schritte umfasst, die einer bestimmten Reihenfolge folgen muessen, wenn derselbe Prozess verschiedene Darstellungen erzeugen soll, oder wenn Sie einen Konstruktor mit vielen Parametern vermeiden moechten.",
 
@@ -210,7 +211,7 @@
     "Fuehrt versteckte Abhaengigkeiten ein -- jede Klasse kann getInstance() aufrufen, ohne die Abhaengigkeit im Konstruktor oder der Schnittstelle zu deklarieren",
     "Thread-Sicherheit fuegt Komplexitaet und potentiellen Performance-Overhead in nebenlaeufigen Umgebungen hinzu"
   ],
-  "singleton.details.database.tradeoffs.whenToUse": "Verwenden Sie es, wenn systemweit genau eine Instanz einer Klasse benoetigt wird (z.B. Datenbankverbindungspool, Hardware-Schnittstelle) und Sie kontrollierten, verzoegerten Zugriff auf diese Instanz wuenschen.",
+  "singleton.details.database.tradeoffs.whenToUse": "Verwenden Sie es, wenn systemweit genau eine Instanz einer Klasse benoetigt wird (z.B. Konfigurationsmanager, Logging-Dienst, Hardware-Treiber-Schnittstelle) und Sie kontrollierten, verzoegerten Zugriff auf diese Instanz wuenschen.",
 
   "pool.name": "Object Pool",
   "pool.modes.connections.label": "Database",

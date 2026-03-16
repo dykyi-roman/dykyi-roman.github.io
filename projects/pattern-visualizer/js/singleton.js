@@ -86,7 +86,7 @@ PV['singleton'].details = {
                 'Introduces hidden dependencies — any class can call getInstance() without declaring the dependency in its constructor or interface',
                 'Thread safety adds complexity and potential performance overhead in concurrent environments'
             ],
-            whenToUse: 'Use when exactly one instance of a class is needed system-wide (e.g., database connection pool, hardware interface), and you want controlled, lazy access to that instance.'
+            whenToUse: 'Use when exactly one instance of a class is needed system-wide (e.g., configuration manager, logging service, hardware driver interface), and you want controlled, lazy access to that instance.'
         }
     }
 };

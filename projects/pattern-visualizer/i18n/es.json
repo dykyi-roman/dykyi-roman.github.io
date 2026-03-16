@@ -8,7 +8,7 @@
     "Encapsular la creacion de objetos: el cliente nunca usa la palabra clave new para productos concretos",
     "Programar contra una interfaz (Transport), no una implementacion (Truck, Ship, Plane)",
     "Responsabilidad unica: la factory centraliza toda la logica de instanciacion en un solo lugar",
-    "Abierto a extension: agregar un nuevo tipo de transporte solo requiere modificar la factory",
+    "Facil de extender: agregar un nuevo tipo de transporte solo requiere modificar la clase factory",
     "Acoplamiento debil: el cliente depende de la abstraccion, no de clases concretas"
   ],
   "simple-factory.details.transport.concepts": [
@@ -148,7 +148,8 @@
   "builder.details.house.tradeoffs.cons": [
     "La complejidad general aumenta — requiere Director, interfaz Builder, concrete builders y Product",
     "Excesivo para objetos simples que pueden construirse en un solo paso",
-    "El numero de clases crece con cada nueva variante de producto"
+    "El numero de clases crece con cada nueva variante de producto",
+    "El Director agrega abstraccion innecesaria cuando la secuencia de construccion es trivial o nunca varia"
   ],
   "builder.details.house.tradeoffs.whenToUse": "Usar cuando la construccion involucra multiples pasos que deben seguir un orden especifico, cuando el mismo proceso debe crear diferentes representaciones, o cuando quieres evitar un constructor con muchos parametros.",
 
@@ -210,7 +211,7 @@
     "Introduce dependencias ocultas — cualquier clase puede llamar a getInstance() sin declarar la dependencia en su constructor o interfaz",
     "La seguridad de hilos agrega complejidad y potencial sobrecarga de rendimiento en entornos concurrentes"
   ],
-  "singleton.details.database.tradeoffs.whenToUse": "Usar cuando se necesita exactamente una instancia de una clase en todo el sistema (ej. pool de conexiones de base de datos, interfaz de hardware), y se quiere acceso controlado y perezoso a esa instancia.",
+  "singleton.details.database.tradeoffs.whenToUse": "Usar cuando se necesita exactamente una instancia de una clase en todo el sistema (ej. gestor de configuracion, servicio de logging, interfaz de controlador de hardware), y se quiere acceso controlado y perezoso a esa instancia.",
 
   "pool.name": "Object Pool",
   "pool.modes.connections.label": "Database",
