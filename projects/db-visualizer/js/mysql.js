@@ -220,7 +220,7 @@ DBIV.mysql.btree = {
                         count++;
                     }
                 });
-                DBIV.log('FETCH', `Q${qid}: Leaf scan for range [${low}, ${high}]`);
+                DBIV.log('FETCH', `Q${qid}: Leaf scan for range [${low}, ${high}] — ${count} entries across linked leaf nodes`);
                 const rowUnitRange = DBIV.getUnitLabel('rows', count);
                 DBIV.logMessage('RESULT', 'db.log.rows.returned', { qid: qid, count: count, unit: rowUnitRange }, `Q${qid}: ${count} rows returned`);
             }

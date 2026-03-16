@@ -128,8 +128,8 @@ DBIV.addStats = function(pages, rows, lookups, time) {
 
 DBIV.formatQueryTime = function(value) {
     return I18N && typeof I18N.t === 'function'
-        ? I18N.t('db.stats.time.value', { value: value }, value + ' ms')
-        : value + ' ms';
+        ? '~' + I18N.t('db.stats.time.value', { value: value }, value + ' ms')
+        : '~' + value + ' ms';
 };
 
 DBIV.setIndexStatus = function(state) {
@@ -345,6 +345,25 @@ DBIV.renderBTree = function(container, treeData) {
 
     html += '</div>';
     container.innerHTML = html;
+
+    /* Add leaf-level linked list arrows between leaf nodes */
+    const lastLevel = treeData.levels.length - 1;
+    if (lastLevel > 0) {
+        const leafNodes = container.querySelectorAll(`.tree-level[data-level="${lastLevel}"] .tree-node`);
+        if (leafNodes.length > 1) {
+            const arrowContainer = document.createElement('div');
+            arrowContainer.style.cssText = 'display:flex;justify-content:center;gap:8px;margin-top:-12px;padding-bottom:4px;';
+            for (let i = 0; i < leafNodes.length - 1; i++) {
+                const arrow = document.createElement('span');
+                arrow.style.cssText = 'font-size:10px;color:var(--dbiv-accent);font-weight:700;letter-spacing:-1px;';
+                arrow.textContent = '\u2194';
+                arrow.title = 'Doubly-linked leaf nodes';
+                arrowContainer.appendChild(arrow);
+            }
+            const treeContainer = container.querySelector('.tree-container');
+            if (treeContainer) treeContainer.appendChild(arrowContainer);
+        }
+    }
 };
 
 /* ===== Skip List Renderer ===== */
@@ -402,7 +421,10 @@ DBIV.showComparison = function(indexStats, fullScanStats) {
     const labelTime = I18N.t('ui.stat.query_time', null, 'Query Time');
     const formatTime = (value) => I18N.t('db.stats.time.value', { value: value }, value + ' ms');
 
+    const isSame = indexStats.pages === fullScanStats.pages && indexStats.rows === fullScanStats.rows && indexStats.time === fullScanStats.time;
+
     document.getElementById('compare-index-stats').innerHTML =
+        (isSame ? '<div class="comparison-miss-note" style="font-size:10px;color:#f38ba8;text-align:center;margin-bottom:4px;font-style:italic;">Index miss \u2192 fallback to full scan</div>' : '') +
         `<div class="comparison-stat-row"><span>${labelPages}</span><span class="${indexStats.pages <= fullScanStats.pages ? 'comparison-faster' : 'comparison-slower'}">${indexStats.pages}</span></div>` +
         `<div class="comparison-stat-row"><span>${labelRows}</span><span class="${indexStats.rows <= fullScanStats.rows ? 'comparison-faster' : 'comparison-slower'}">${indexStats.rows}</span></div>` +
         `<div class="comparison-stat-row"><span>${labelTime}</span><span class="${indexStats.time <= fullScanStats.time ? 'comparison-faster' : 'comparison-slower'}">${formatTime(indexStats.time)}</span></div>`;

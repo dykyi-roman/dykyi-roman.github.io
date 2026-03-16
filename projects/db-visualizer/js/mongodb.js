@@ -67,7 +67,7 @@ DBIV.mongodb.details = {
             'The $text query operator with $meta: "textScore" returns and sorts results by relevance score'
         ],
         concepts: [
-            { term: 'Stemming', definition: 'Reduces words to their root form: "running" -> "run", "better" -> "good". Language-specific rules are applied.' },
+            { term: 'Stemming', definition: 'Reduces words to their root form: "running" -> "run", "connections" -> "connect". Language-specific rules are applied.' },
             { term: 'Stopwords', definition: 'Common words excluded from indexing (the, and, is). Language-specific lists. Can be customized per index.' },
             { term: 'Term Weight', definition: 'Each field in a compound text index can have a weight (default 1). Higher weight increases that field\'s impact on relevance scoring.' },
             { term: 'Text Score', definition: 'TF-IDF based relevance score. Access via $meta: "textScore" in projection. Higher score = better match.' },

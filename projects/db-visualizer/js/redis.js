@@ -22,7 +22,7 @@ DBIV.redis.details = {
             { term: 'Score', definition: 'Floating-point value (double) that determines element ordering. Multiple members can share the same score.' },
             { term: 'Level', definition: 'Each skip list node has a random height (1-32). Higher levels contain fewer nodes, enabling O(log n) search.' },
             { term: 'ZADD', definition: 'Adds member with score. If member exists, updates the score. O(log n) due to skip list repositioning.' },
-            { term: 'Ziplist Encoding', definition: 'For small sorted sets (<128 elements, <64 bytes per entry), Redis uses a compact ziplist instead of a skip list.' }
+            { term: 'Ziplist/Listpack Encoding', definition: 'For small sorted sets (<128 elements, <64 bytes per entry), Redis uses a compact ziplist (listpack since Redis 7.0) instead of a skip list.' }
         ]
     },
     'hash-index': {
@@ -30,7 +30,7 @@ DBIV.redis.details = {
             'Redis hash tables use progressive (incremental) rehashing — migration happens gradually, not all at once',
             'Two hash tables (ht[0] and ht[1]) coexist during rehashing; every operation migrates one bucket',
             'Rehashing triggers when load factor exceeds 1 (or 5 during BGSAVE) or drops below 0.1',
-            'MurmurHash2 is used as the hash function for good distribution and performance',
+            'SipHash is used as the hash function since Redis 4.0 (previously MurmurHash2) for distribution and hash-flooding protection',
             'Hash tables grow by doubling and shrink by halving the bucket count'
         ],
         concepts: [
@@ -271,6 +271,7 @@ DBIV.redis.zset = {
 
             let newLevel = 1;
             while (Math.random() < 0.25 && newLevel < 4) newLevel++;
+            DBIV.log('LOOKUP', `Q${qid}: Random level for "${member}": ${newLevel} (p=0.25)`);
             this.members.push({ member, score, level: newLevel });
             this.members.sort((a, b) => a.score - b.score);
 

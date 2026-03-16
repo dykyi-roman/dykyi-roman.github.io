@@ -235,7 +235,7 @@
     "Der $text-Abfrageoperator mit $meta: 'textScore' liefert und sortiert Ergebnisse nach Relevanz-Score"
   ],
   "mongodb.modes.text.concepts": [
-    { "term": "Stemming", "definition": "Reduziert Woerter auf ihre Stammform: 'running' -> 'run', 'better' -> 'good'. Sprachspezifische Regeln werden angewendet." },
+    { "term": "Stemming", "definition": "Reduziert Woerter auf ihre Stammform: 'running' -> 'run', 'connections' -> 'connect'. Sprachspezifische Regeln werden angewendet." },
     { "term": "Stopwords", "definition": "Haeufige Woerter, die von der Indizierung ausgeschlossen werden (the, and, is). Sprachspezifische Listen. Koennen pro Index angepasst werden." },
     { "term": "Term Weight", "definition": "Jedes Feld in einem zusammengesetzten Textindex kann ein Gewicht haben (Standard 1). Hoeheres Gewicht erhoeht den Einfluss dieses Felds auf die Relevanzbewertung." },
     { "term": "Text Score", "definition": "TF-IDF-basierter Relevanz-Score. Zugriff ueber $meta: 'textScore' in der Projektion. Hoeherer Score = besserer Treffer." },
@@ -257,7 +257,7 @@
     { "term": "Score", "definition": "Gleitkommawert (double), der die Element-Sortierung bestimmt. Mehrere Member koennen denselben Score teilen." },
     { "term": "Level", "definition": "Jeder Skip-List-Knoten hat eine zufaellige Hoehe (1-32). Hoehere Ebenen enthalten weniger Knoten und ermoeglichen O(log n) Suche." },
     { "term": "ZADD", "definition": "Fuegt Member mit Score hinzu. Wenn Member existiert, wird der Score aktualisiert. O(log n) durch Skip-List-Neupositionierung." },
-    { "term": "Ziplist Encoding", "definition": "Fuer kleine Sorted Sets (<128 Elemente, <64 Bytes pro Eintrag) verwendet Redis eine kompakte Ziplist anstelle einer Skip List." }
+    { "term": "Ziplist/Listpack Encoding", "definition": "Fuer kleine Sorted Sets (<128 Elemente, <64 Bytes pro Eintrag) verwendet Redis eine kompakte Ziplist (Listpack seit Redis 7.0) anstelle einer Skip List." }
   ],
 
   "redis.modes.hash-index.label": "Hash (Rehashing)",
@@ -266,7 +266,7 @@
     "Redis Hash-Tabellen verwenden progressives (inkrementelles) Rehashing — Migration erfolgt schrittweise, nicht auf einmal",
     "Zwei Hash-Tabellen (ht[0] und ht[1]) koexistieren waehrend des Rehashings; jede Operation migriert einen Bucket",
     "Rehashing wird ausgeloest, wenn der Ladefaktor 1 ueberschreitet (oder 5 waehrend BGSAVE) oder unter 0.1 faellt",
-    "MurmurHash2 wird als Hash-Funktion fuer gute Verteilung und Leistung verwendet",
+    "SipHash wird seit Redis 4.0 als Hash-Funktion verwendet (zuvor MurmurHash2) fuer Verteilung und Hash-Flooding-Schutz",
     "Hash-Tabellen wachsen durch Verdopplung und schrumpfen durch Halbierung der Bucket-Anzahl"
   ],
   "redis.modes.hash-index.concepts": [

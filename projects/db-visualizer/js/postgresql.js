@@ -238,7 +238,8 @@ DBIV.postgresql.btree = {
                     }
                 }
             });
-            DBIV.log('FETCH', `Q${qid}: Leaf scan for range [${low}, ${high}]`);
+            const leafPages = Math.ceil(count / 4);
+            DBIV.log('FETCH', `Q${qid}: Leaf scan across ${leafPages} page(s) for range [${low}, ${high}]`);
             DBIV.addStats(1 + path.length, count, path.length, 4);
             const visibleUnit = DBIV.getUnitLabel('rows', visible);
             const deadUnit = DBIV.getUnitLabel('tuples', count - visible);
