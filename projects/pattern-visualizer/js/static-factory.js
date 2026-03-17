@@ -59,7 +59,7 @@ function renderStaticFactoryNumber() {
                 '<div class="legend-item"><span class="legend-line-create"></span> ' + I18N.t('ui.legend.creates_new', null, 'Creates new') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('ui.legend.returns_cached', null, 'Returns (cached)') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-inherit"></span> ' + I18N.t('ui.legend.inherit', null, 'Inherit') + '</div>' +
-                '<div class="legend-item"><span class="legend-line-compose legend-line-compose-diamond"></span> ' + I18N.t('ui.legend.compose', null, 'Compose') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-compose"></span> ' + I18N.t('ui.legend.compose', null, 'Compose') + '</div>' +
                 '<div class="legend-item"><span style="display:inline-block;width:20px;height:14px;border:2px dashed var(--pv-accent);border-radius:2px;background:var(--pv-accent-bg);"></span> ' + I18N.t('ui.legend.object', null, 'Object') + '</div>' +
                 '<div class="legend-item"><span style="color:#10B981;font-weight:bold;font-size:13px;">✓</span> ' + I18N.t('ui.legend.property', null, 'Property') + '</div>' +
             '</div>' +

@@ -53,16 +53,17 @@ function renderDecoratorCoffee() {
                     tooltip: I18N.t('decorator.tooltip.sugar', null, 'ConcreteDecorator — adds sugar ($0.25) and delegates to wrappee')
                 }) +
             '</div>' +
-            /* Row 4: Chain of runtime objects */
-            '<div class="pv-hierarchy-row" style="gap: 60px; margin-top: 30px;">' +
-                '<div style="font-size:11px;color:var(--pv-text-light);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;align-self:center;margin-right:10px;">' + I18N.t('ui.label.chain', null, 'Decorator Chain') + '</div>' +
+            /* Row 4: Chain label */
+            '<div style="margin-top: 50px; font-size:11px;color:var(--pv-text-light);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;text-align:center;">' + I18N.t('ui.label.chain', null, 'Decorator Chain') + '</div>' +
+            /* Row 5: Runtime objects */
+            '<div class="pv-hierarchy-row" style="gap: 60px; margin-top: 10px;">' +
                 PV.renderObject('obj-coffee', ':SimpleCoffee', { tooltip: I18N.t('decorator.tooltip.obj-coffee', null, 'Runtime base coffee object — $1.00') }) +
                 '<span style="font-size:18px;color:var(--pv-text-light);align-self:center;">&rarr;</span>' +
                 PV.renderObject('obj-sugar', ':SugarDecorator', { tooltip: I18N.t('decorator.tooltip.obj-sugar', null, 'Wraps SimpleCoffee — adds $0.25') }) +
                 '<span style="font-size:18px;color:var(--pv-text-light);align-self:center;">&rarr;</span>' +
                 PV.renderObject('obj-milk', ':MilkDecorator', { tooltip: I18N.t('decorator.tooltip.obj-milk', null, 'Wraps SugarDecorator — adds $0.50, total $1.75') }) +
             '</div>' +
-            '<div class="pv-flow-legend">' +
+            '<div class="pv-flow-legend" style="margin-top: 10px;">' +
                 '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('ui.legend.flow', null, 'Flow') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-create"></span> ' + I18N.t('ui.legend.create', null, 'Create') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('ui.legend.response', null, 'Response') + '</div>' +

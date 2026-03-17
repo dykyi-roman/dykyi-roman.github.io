@@ -968,7 +968,12 @@
 .pv-relation-compose {
     stroke: #555e6e;
     stroke-width: 1.5;
-    stroke-dasharray: 6 4;
+    fill: none;
+}
+
+.pv-relation-aggregate {
+    stroke: #555e6e;
+    stroke-width: 1.5;
     fill: none;
 }
 
@@ -1455,23 +1460,43 @@
 }
 
 .pv-flow-legend .legend-line-compose {
-    width: 24px;
-    border-top: 1.5px dashed #555e6e;
-}
-
-.pv-flow-legend .legend-line-compose-diamond {
+    width: 20px;
+    height: 0;
+    border-top: 1.5px solid #555e6e;
     position: relative;
-    margin-left: 8px;
+    margin-left: 10px;
+    margin-right: 2px;
 }
 
-.pv-flow-legend .legend-line-compose-diamond::before {
+.pv-flow-legend .legend-line-compose::before {
     content: '';
     position: absolute;
-    left: -8px;
+    left: -10px;
     top: -5px;
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     background: #555e6e;
+    transform: rotate(45deg);
+}
+
+.pv-flow-legend .legend-line-aggregate {
+    width: 20px;
+    height: 0;
+    border-top: 1.5px solid #555e6e;
+    position: relative;
+    margin-left: 10px;
+    margin-right: 2px;
+}
+
+.pv-flow-legend .legend-line-aggregate::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: -5px;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid #555e6e;
+    background: transparent;
     transform: rotate(45deg);
 }
 

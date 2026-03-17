@@ -45,11 +45,11 @@ function renderFlyweightForest() {
                 }) +
             '</div>' +
             /* Row 4: Tree objects referencing TreeType objects */
-            '<div class="pv-hierarchy-row" style="gap: 30px; margin-top: 20px; flex-wrap: wrap; justify-content: center;">' +
+            '<div class="pv-hierarchy-row" style="gap: 40px; margin-top: 20px; flex-wrap: wrap; justify-content: center;">' +
                 PV.renderObject('obj-oak-type', ':TreeType("Oak")', { tooltip: I18N.t('flyweight.tooltip.obj-oak-type', null, 'Shared flyweight for Oak trees — cached and reused by all Oak Tree instances') }) +
-                PV.renderObject('obj-tree1', 'Tree(10,20)', { tooltip: I18N.t('flyweight.tooltip.obj-tree1', null, 'Tree at (10,20) referencing the shared OakType flyweight') }) +
-                PV.renderObject('obj-tree2', 'Tree(50,70)', { tooltip: I18N.t('flyweight.tooltip.obj-tree2', null, 'Tree at (50,70) reusing the same OakType flyweight — no new TreeType created') }) +
-                PV.renderObject('obj-pine-type', ':TreeType("Pine")', { tooltip: I18N.t('flyweight.tooltip.obj-pine-type', null, 'Shared flyweight for Pine trees — a separate cached type') }) +
+                '<div style="margin-left: 30px;">' + PV.renderObject('obj-tree1', 'Tree(10,20)', { tooltip: I18N.t('flyweight.tooltip.obj-tree1', null, 'Tree at (10,20) referencing the shared OakType flyweight') }) + '</div>' +
+                '<div style="margin-left: 30px;">' + PV.renderObject('obj-tree2', 'Tree(50,70)', { tooltip: I18N.t('flyweight.tooltip.obj-tree2', null, 'Tree at (50,70) reusing the same OakType flyweight — no new TreeType created') }) + '</div>' +
+                '<div style="margin-left: 40px;">' + PV.renderObject('obj-pine-type', ':TreeType("Pine")', { tooltip: I18N.t('flyweight.tooltip.obj-pine-type', null, 'Shared flyweight for Pine trees — a separate cached type') }) + '</div>' +
                 PV.renderObject('obj-tree3', 'Tree(30,40)', { tooltip: I18N.t('flyweight.tooltip.obj-tree3', null, 'Tree at (30,40) referencing the shared PineType flyweight') }) +
             '</div>' +
             /* Flow Legend */
@@ -58,7 +58,7 @@ function renderFlyweightForest() {
                 '<div class="legend-item"><span class="legend-line-create"></span> ' + I18N.t('ui.legend.create', null, 'Create') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('ui.legend.response', null, 'Response') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-depend"></span> ' + I18N.t('ui.legend.uses', null, 'Uses') + '</div>' +
-                '<div class="legend-item"><span class="legend-line-compose legend-line-compose-diamond"></span> ' + I18N.t('ui.legend.compose', null, 'Compose') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-compose"></span> ' + I18N.t('ui.legend.compose', null, 'Compose') + '</div>' +
                 '<div class="legend-item"><span style="display:inline-block;width:20px;height:14px;border:2px dashed var(--pv-accent);border-radius:2px;background:var(--pv-accent-bg);"></span> ' + I18N.t('ui.legend.object', null, 'Object') + '</div>' +
                 '<div class="legend-item"><span style="color:#10B981;font-weight:bold;font-size:13px;">&#x2713;</span> ' + I18N.t('ui.legend.property', null, 'Property') + '</div>' +
             '</div>' +
@@ -114,15 +114,15 @@ PV['flyweight'].forest = {
     steps: function() {
         return [
             { elementId: 'cls-fw-client', label: 'Client', description: 'Client needs tree "Oak" at (10,20)', descriptionKey: 'flyweight.step.forest.0', logType: 'REQUEST' },
-            { elementId: 'cls-fw-factory', label: 'TreeFactory', description: 'factory.getTreeType("Oak", "green", "oak.png")', descriptionKey: 'flyweight.step.forest.1', logType: 'FLOW' },
-            { elementId: 'cls-fw-factory', label: 'TreeFactory', description: 'Check cache — MISS', descriptionKey: 'flyweight.step.forest.2', logType: 'CACHE', noArrowFromPrev: true, badgePosition: 'right' },
-            { elementId: 'obj-oak-type', label: 'TreeType("Oak")', description: 'TreeType("Oak") created & cached', descriptionKey: 'flyweight.step.forest.3', logType: 'CREATE', spawnId: 'obj-oak-type' },
+            { elementId: 'cls-fw-factory', label: 'TreeFactory', description: 'factory.getTreeType("Oak", "green", "oak.png")', descriptionKey: 'flyweight.step.forest.1', logType: 'FLOW', arrowFromOffset: {x: -0.2}, arrowToOffset: {x: -0.2} },
+            { elementId: 'cls-fw-factory', label: 'TreeFactory', description: 'Check cache — MISS', descriptionKey: 'flyweight.step.forest.2', logType: 'CACHE', noArrowFromPrev: true, badgePosition: 'left' },
+            { elementId: 'obj-oak-type', label: 'TreeType("Oak")', description: 'TreeType("Oak") created & cached', descriptionKey: 'flyweight.step.forest.3', logType: 'CREATE', spawnId: 'obj-oak-type', arrowFromOffset: {x: -0.35}, arrowToOffset: {x: -0.2} },
             { elementId: 'obj-tree1', label: 'Tree(10,20)', description: 'Tree(10, 20, oakType) created', descriptionKey: 'flyweight.step.forest.4', logType: 'CREATE', spawnId: 'obj-tree1', arrowFromId: 'obj-oak-type' },
             { elementId: 'cls-fw-client', label: 'Client', description: 'Tree(10,20) planted successfully', descriptionKey: 'flyweight.step.forest.5', logType: 'RESPONSE', arrowFromId: 'obj-tree1' },
             { elementId: 'cls-fw-client', label: 'Client', description: 'Client needs "Oak" at (50,70)', descriptionKey: 'flyweight.step.forest.6', logType: 'REQUEST', noArrowFromPrev: true, badgePosition: 'top' },
-            { elementId: 'cls-fw-factory', label: 'TreeFactory', description: 'factory.getTreeType("Oak"...)', descriptionKey: 'flyweight.step.forest.7', logType: 'FLOW' },
+            { elementId: 'cls-fw-factory', label: 'TreeFactory', description: 'factory.getTreeType("Oak"...)', descriptionKey: 'flyweight.step.forest.7', logType: 'FLOW', arrowFromOffset: {x: 0.2}, arrowToOffset: {x: 0.2} },
             { elementId: 'cls-fw-factory', label: 'TreeFactory', description: 'Check cache — HIT (same object reused)', descriptionKey: 'flyweight.step.forest.8', logType: 'CACHE', noArrowFromPrev: true, badgePosition: 'right' },
-            { elementId: 'obj-oak-type', label: 'TreeType("Oak")', description: 'Same TreeType returned from cache', descriptionKey: 'flyweight.step.forest.9', logType: 'RESPONSE', arrowFromId: 'cls-fw-factory' },
+            { elementId: 'obj-oak-type', label: 'TreeType("Oak")', description: 'Same TreeType returned from cache', descriptionKey: 'flyweight.step.forest.9', logType: 'RESPONSE', arrowFromId: 'cls-fw-factory', arrowFromOffset: {x: 0.35}, arrowToOffset: {x: 0.2} },
             { elementId: 'obj-tree2', label: 'Tree(50,70)', description: 'Tree(50, 70, oakType) reuses flyweight', descriptionKey: 'flyweight.step.forest.10', logType: 'CREATE', spawnId: 'obj-tree2', arrowFromId: 'obj-oak-type' },
             { elementId: 'cls-fw-client', label: 'Client', description: 'Tree(50,70) planted — shared TreeType', descriptionKey: 'flyweight.step.forest.11', logType: 'RESPONSE', arrowFromId: 'obj-tree2' }
         ];

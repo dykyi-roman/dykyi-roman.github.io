@@ -35,7 +35,8 @@ function renderFacadeTheater() {
                 }) +
             '</div>' +
             /* Row 3: Subsystem classes */
-            '<div class="pv-hierarchy-row" style="gap: 30px; margin-top: 30px;">' +
+            '<style>.pv-subsystem-row .pv-class-box { min-width: 110px; }</style>' +
+            '<div class="pv-hierarchy-row pv-subsystem-row" style="gap: 60px; margin-top: 30px;">' +
                 PV.renderClass('cls-fc-dvd', 'DVDPlayer', {
                     methods: ['on()', 'play(title)', 'stop()', 'off()'],
                     tooltip: I18N.t('facade.tooltip.dvd', null, 'Subsystem class responsible for DVD playback')
@@ -56,7 +57,7 @@ function renderFacadeTheater() {
             '<div class="pv-flow-legend">' +
                 '<div class="legend-item"><span class="legend-line-sync"></span> ' + I18N.t('ui.legend.flow', null, 'Flow') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('ui.legend.response', null, 'Response') + '</div>' +
-                '<div class="legend-item"><span class="legend-line-compose legend-line-compose-diamond"></span> ' + I18N.t('ui.legend.compose', null, 'Compose') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-compose"></span> ' + I18N.t('ui.legend.compose', null, 'Compose') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-depend"></span> ' + I18N.t('ui.legend.uses', null, 'Uses') + '</div>' +
             '</div>' +
         '</div>';
@@ -115,12 +116,12 @@ PV['facade'].theater = {
         return [
             { elementId: 'cls-fc-client', label: 'Client', description: 'Client calls facade.watchMovie("Inception")', descriptionKey: 'facade.step.theater.0', logType: 'REQUEST' },
             { elementId: 'cls-fc-facade', label: 'HomeTheaterFacade', description: 'Facade begins orchestration', descriptionKey: 'facade.step.theater.1', logType: 'FLOW' },
-            { elementId: 'cls-fc-lights', label: 'Lights', description: 'lights.dim(30)', descriptionKey: 'facade.step.theater.2', logType: 'FLOW' },
-            { elementId: 'cls-fc-proj', label: 'Projector', description: 'projector.on()', descriptionKey: 'facade.step.theater.3', logType: 'FLOW' },
+            { elementId: 'cls-fc-lights', label: 'Lights', description: 'lights.dim(30)', descriptionKey: 'facade.step.theater.2', logType: 'FLOW', arrowFromId: 'cls-fc-facade' },
+            { elementId: 'cls-fc-proj', label: 'Projector', description: 'projector.on()', descriptionKey: 'facade.step.theater.3', logType: 'FLOW', arrowFromId: 'cls-fc-facade' },
             { elementId: 'cls-fc-proj', label: 'Projector', description: 'projector.setInput("DVD")', descriptionKey: 'facade.step.theater.4', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },
-            { elementId: 'cls-fc-amp', label: 'Amplifier', description: 'amplifier.on()', descriptionKey: 'facade.step.theater.5', logType: 'FLOW' },
+            { elementId: 'cls-fc-amp', label: 'Amplifier', description: 'amplifier.on()', descriptionKey: 'facade.step.theater.5', logType: 'FLOW', arrowFromId: 'cls-fc-facade' },
             { elementId: 'cls-fc-amp', label: 'Amplifier', description: 'amplifier.setVolume(8)', descriptionKey: 'facade.step.theater.6', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },
-            { elementId: 'cls-fc-dvd', label: 'DVDPlayer', description: 'dvdPlayer.on()', descriptionKey: 'facade.step.theater.7', logType: 'FLOW' },
+            { elementId: 'cls-fc-dvd', label: 'DVDPlayer', description: 'dvdPlayer.on()', descriptionKey: 'facade.step.theater.7', logType: 'FLOW', arrowFromId: 'cls-fc-facade' },
             { elementId: 'cls-fc-dvd', label: 'DVDPlayer', description: 'dvdPlayer.play("Inception")', descriptionKey: 'facade.step.theater.8', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },
             { elementId: 'cls-fc-client', label: 'Client', description: 'Movie "Inception" is now playing', descriptionKey: 'facade.step.theater.9', logType: 'RESPONSE', arrowFromId: 'cls-fc-facade' }
         ];

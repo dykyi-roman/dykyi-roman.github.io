@@ -42,18 +42,18 @@ function renderCompositeFilesystem() {
                 }) +
             '</div>' +
             /* Row 3: Object tree */
-            '<div style="display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 30px;">' +
+            '<div style="display: flex; flex-direction: column; align-items: center; gap: 40px; margin-top: 40px;">' +
                 /* Level 1: /root */
                 '<div class="pv-hierarchy-row" style="justify-content: center;">' +
                     PV.renderObject('obj-root', '/root :Directory', { visible: true, tooltip: I18N.t('composite.tooltip.obj-root', null, 'Root directory \u2014 composite that contains /docs and photo.jpg') }) +
                 '</div>' +
                 /* Level 2: /root/docs + photo.jpg */
-                '<div class="pv-hierarchy-row" style="gap: 80px; justify-content: center;">' +
+                '<div class="pv-hierarchy-row" style="gap: 140px; justify-content: center;">' +
                     PV.renderObject('obj-docs', '/root/docs :Directory', { visible: true, tooltip: I18N.t('composite.tooltip.obj-docs', null, 'Sub-directory \u2014 composite containing readme.txt and notes.txt') }) +
                     PV.renderObject('obj-photo', 'photo.jpg :File (2048B)', { visible: true, tooltip: I18N.t('composite.tooltip.obj-photo', null, 'Leaf file \u2014 photo.jpg with size 2048 bytes') }) +
                 '</div>' +
                 /* Level 3: readme.txt + notes.txt */
-                '<div class="pv-hierarchy-row" style="gap: 80px; justify-content: center;">' +
+                '<div class="pv-hierarchy-row" style="gap: 140px; justify-content: center;">' +
                     PV.renderObject('obj-readme', 'readme.txt :File (1024B)', { visible: true, tooltip: I18N.t('composite.tooltip.obj-readme', null, 'Leaf file \u2014 readme.txt with size 1024 bytes') }) +
                     PV.renderObject('obj-notes', 'notes.txt :File (512B)', { visible: true, tooltip: I18N.t('composite.tooltip.obj-notes', null, 'Leaf file \u2014 notes.txt with size 512 bytes') }) +
                 '</div>' +
@@ -70,8 +70,7 @@ function renderCompositeFilesystem() {
 
     setTimeout(function() {
         PV.renderRelation('cls-cp-leaf', 'cls-cp-component', 'inherit');
-        PV.renderRelation('cls-cp-composite', 'cls-cp-component', 'inherit');
-        PV.renderRelation('cls-cp-composite', 'cls-cp-component', 'compose');
+        PV.renderRelation('cls-cp-composite', 'cls-cp-component', 'inherit-compose');
     }, 50);
 }
 
@@ -118,7 +117,10 @@ PV['composite'].filesystem = {
     },
     steps: function() {
         return [
-            { elementId: 'obj-root', label: '/root', description: 'Client calls root.getSize()', descriptionKey: 'composite.step.filesystem.0', logType: 'REQUEST', spawnId: 'obj-root' },
+            { elementId: 'cls-cp-component', label: 'FileSystemItem', description: 'Component interface defines getSize() + getName() contract', descriptionKey: 'composite.step.filesystem.cls0', logType: 'REQUEST', spawnId: 'cls-cp-component', noArrowFromPrev: true, badgePosition: 'top' },
+            { elementId: 'cls-cp-composite', label: 'Directory', description: 'Composite: total=0, for each child: total += child.getSize()', descriptionKey: 'composite.step.filesystem.cls1', logType: 'FLOW', spawnId: 'cls-cp-composite', noArrowFromPrev: true, badgePosition: 'top' },
+            { elementId: 'cls-cp-leaf', label: 'File', description: 'Leaf: returns this.size directly, no children', descriptionKey: 'composite.step.filesystem.cls2', logType: 'FLOW', spawnId: 'cls-cp-leaf', noArrowFromPrev: true, badgePosition: 'top' },
+            { elementId: 'obj-root', label: '/root', description: 'Client calls root.getSize()', descriptionKey: 'composite.step.filesystem.0', logType: 'REQUEST', spawnId: 'obj-root', noArrowFromPrev: true, badgePosition: 'top' },
             { elementId: 'obj-root', label: '/root', description: '/root iterates children', descriptionKey: 'composite.step.filesystem.1', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },
             { elementId: 'obj-docs', label: '/root/docs', description: 'Child \u2192 /root/docs (Directory)', descriptionKey: 'composite.step.filesystem.2', logType: 'FLOW', spawnId: 'obj-docs' },
             { elementId: 'obj-docs', label: '/root/docs', description: '/root/docs iterates children', descriptionKey: 'composite.step.filesystem.3', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },

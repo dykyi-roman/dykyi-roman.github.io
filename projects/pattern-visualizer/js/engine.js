@@ -139,7 +139,7 @@ PV.clearAnimations = function(keepRelations) {
     var svg = document.getElementById('pv-svg-layer');
     if (svg) {
         if (keepRelations) {
-            var relations = svg.querySelectorAll('.pv-relation-inherit, .pv-relation-compose, .pv-relation-depend');
+            var relations = svg.querySelectorAll('.pv-relation-inherit, .pv-relation-compose, .pv-relation-aggregate, .pv-relation-depend');
             var preserved = [];
             relations.forEach(function(r) { preserved.push(r); });
             svg.innerHTML = '';
@@ -324,6 +324,22 @@ PV._ensureArrowMarker = function(svg) {
     composeMarker.appendChild(composePoly);
     defs.appendChild(composeMarker);
 
+    /* Aggregation (empty diamond — filled with background so line doesn't show through) */
+    var aggregateMarker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    aggregateMarker.setAttribute('id', 'pv-aggregate');
+    aggregateMarker.setAttribute('markerWidth', '12');
+    aggregateMarker.setAttribute('markerHeight', '8');
+    aggregateMarker.setAttribute('refX', '0');
+    aggregateMarker.setAttribute('refY', '4');
+    aggregateMarker.setAttribute('orient', 'auto');
+    var aggregatePoly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    aggregatePoly.setAttribute('points', '0 4, 6 0, 12 4, 6 8');
+    aggregatePoly.setAttribute('fill', '#141922');
+    aggregatePoly.setAttribute('stroke', '#555e6e');
+    aggregatePoly.setAttribute('stroke-width', '1.5');
+    aggregateMarker.appendChild(aggregatePoly);
+    defs.appendChild(aggregateMarker);
+
     /* Dependency (open arrow) */
     var depMarker = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
     depMarker.setAttribute('id', 'pv-depend');
@@ -501,7 +517,7 @@ PV._drawArrow = function(fromEl, toEl, flowType, stepNum, sourceOffset, targetOf
 };
 
 /* ===== Draw Static UML Relation ===== */
-PV.renderRelation = function(fromId, toId, type) {
+PV.renderRelation = function(fromId, toId, type, offset) {
     var svg = document.getElementById('pv-svg-layer');
     if (!svg) return;
     PV._ensureArrowMarker(svg);
@@ -523,6 +539,20 @@ PV.renderRelation = function(fromId, toId, type) {
     var from = PV._edgePoint(fromRect, areaRect, cx2, cy2, 2);
     var to = PV._edgePoint(toRect, areaRect, cx1, cy1, 2);
 
+    if (offset) {
+        var dx = to.x - from.x;
+        var dy = to.y - from.y;
+        var len = Math.sqrt(dx * dx + dy * dy);
+        if (len > 0) {
+            var px = -dy / len;
+            var py = dx / len;
+            from.x += px * offset;
+            from.y += py * offset;
+            to.x += px * offset;
+            to.y += py * offset;
+        }
+    }
+
     var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
     line.setAttribute('x1', from.x);
     line.setAttribute('y1', from.y);
@@ -535,6 +565,13 @@ PV.renderRelation = function(fromId, toId, type) {
     } else if (type === 'compose') {
         line.setAttribute('class', 'pv-relation-compose');
         line.setAttribute('marker-start', 'url(#pv-compose)');
+    } else if (type === 'inherit-compose') {
+        line.setAttribute('class', 'pv-relation-compose');
+        line.setAttribute('marker-start', 'url(#pv-compose)');
+        line.setAttribute('marker-end', 'url(#pv-inherit)');
+    } else if (type === 'aggregate') {
+        line.setAttribute('class', 'pv-relation-aggregate');
+        line.setAttribute('marker-start', 'url(#pv-aggregate)');
     } else if (type === 'depend') {
         line.setAttribute('class', 'pv-relation-depend');
         line.setAttribute('marker-end', 'url(#pv-depend)');
@@ -916,7 +953,7 @@ PV.stepBack = function() {
     /* Redraw from scratch up to current index */
     var svg = document.getElementById('pv-svg-layer');
     if (svg) {
-        var relations = svg.querySelectorAll('.pv-relation-inherit, .pv-relation-compose, .pv-relation-depend');
+        var relations = svg.querySelectorAll('.pv-relation-inherit, .pv-relation-compose, .pv-relation-aggregate, .pv-relation-depend');
         var preserved = [];
         relations.forEach(function(r) { preserved.push(r); });
         svg.innerHTML = '';

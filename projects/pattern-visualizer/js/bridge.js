@@ -98,7 +98,7 @@ function renderBridgeRemote() {
                 '<div class="legend-item"><span class="legend-line-create"></span> ' + I18N.t('ui.legend.create', null, 'Create') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('ui.legend.response', null, 'Response') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-inherit"></span> ' + I18N.t('ui.legend.inherit', null, 'Inherit') + '</div>' +
-                '<div class="legend-item"><span class="legend-line-compose"></span> ' + I18N.t('ui.legend.compose', null, 'Compose') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-aggregate"></span> ' + I18N.t('ui.legend.aggregate', null, 'Aggregate') + '</div>' +
                 '<div class="legend-item"><span style="display:inline-block;width:20px;height:14px;border:2px dashed var(--pv-accent);border-radius:2px;background:var(--pv-accent-bg);"></span> ' + I18N.t('ui.legend.object', null, 'Object') + '</div>' +
             '</div>' +
         '</div>';
@@ -107,7 +107,7 @@ function renderBridgeRemote() {
         PV.renderRelation('cls-br-refined', 'cls-br-abstraction', 'inherit');
         PV.renderRelation('cls-br-tv', 'cls-br-impl', 'inherit');
         PV.renderRelation('cls-br-radio', 'cls-br-impl', 'inherit');
-        PV.renderRelation('cls-br-abstraction', 'cls-br-impl', 'compose');
+        PV.renderRelation('cls-br-abstraction', 'cls-br-impl', 'aggregate');
     }, 100);
 }
 

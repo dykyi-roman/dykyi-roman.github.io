@@ -58,7 +58,7 @@ function renderAdapterPayment() {
                 '<div class="legend-item"><span class="legend-line-create"></span> ' + I18N.t('ui.legend.create', null, 'Create') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('ui.legend.response', null, 'Response') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-inherit"></span> ' + I18N.t('ui.legend.inherit', null, 'Inherit') + '</div>' +
-                '<div class="legend-item"><span class="legend-line-compose"></span> ' + I18N.t('ui.legend.compose', null, 'Compose') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-aggregate"></span> ' + I18N.t('ui.legend.aggregate', null, 'Aggregate') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-depend"></span> ' + I18N.t('ui.legend.uses', null, 'Uses') + '</div>' +
                 '<div class="legend-item"><span style="display:inline-block;width:20px;height:14px;border:2px dashed var(--pv-accent);border-radius:2px;background:var(--pv-accent-bg);"></span> ' + I18N.t('ui.legend.object', null, 'Object') + '</div>' +
             '</div>' +
@@ -66,7 +66,7 @@ function renderAdapterPayment() {
 
     setTimeout(function() {
         PV.renderRelation('cls-ad-adapter', 'cls-ad-target', 'inherit');
-        PV.renderRelation('cls-ad-adapter', 'cls-ad-adaptee', 'compose');
+        PV.renderRelation('cls-ad-adapter', 'cls-ad-adaptee', 'aggregate');
         PV.renderRelation('cls-ad-client', 'cls-ad-target', 'depend');
     }, 50);
 }
@@ -115,7 +115,7 @@ PV['adapter'].payment = {
     steps: function() {
         return [
             { elementId: 'cls-ad-client', label: 'Client', description: 'Client calls processor.pay(100)', descriptionKey: 'adapter.step.payment.0', logType: 'REQUEST' },
-            { elementId: 'cls-ad-target', label: 'PaymentProcessor', description: 'PaymentProcessor dispatches to StripeAdapter', descriptionKey: 'adapter.step.payment.1', logType: 'FLOW' },
+            { elementId: 'cls-ad-target', label: 'PaymentProcessor', description: 'Polymorphic call: PaymentProcessor resolves to StripeAdapter', descriptionKey: 'adapter.step.payment.1', logType: 'FLOW' },
             { elementId: 'cls-ad-adapter', label: 'StripeAdapter', description: 'StripeAdapter.pay(100) received', descriptionKey: 'adapter.step.payment.2', logType: 'FLOW' },
             { elementId: 'cls-ad-adapter', label: 'StripeAdapter', description: 'Translate: cents = amount * 100', descriptionKey: 'adapter.step.payment.3', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },
             { elementId: 'cls-ad-adaptee', label: 'StripeAPI', description: 'Call stripeApi.createCharge(10000, "usd")', descriptionKey: 'adapter.step.payment.4', logType: 'FLOW' },

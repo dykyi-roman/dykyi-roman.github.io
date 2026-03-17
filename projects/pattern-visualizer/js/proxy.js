@@ -37,7 +37,7 @@ function renderProxyCaching() {
             '</div>' +
             PV.renderArrowConnector(I18N.t('ui.legend.inherit', null, 'implements')) +
             /* Row 3: CachingProxy + RealDatabase */
-            '<div class="pv-hierarchy-row" style="gap: 60px;">' +
+            '<div class="pv-hierarchy-row" style="gap: 100px;">' +
                 PV.renderClass('cls-px-proxy', 'CachingProxy', {
                     fields: ['cache: Map', 'realDb: RealDatabase'],
                     methods: ['query(sql): ResultSet'],
@@ -58,7 +58,7 @@ function renderProxyCaching() {
                 '<div class="legend-item"><span class="legend-line-create"></span> ' + I18N.t('ui.legend.create', null, 'Create') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-response"></span> ' + I18N.t('ui.legend.response', null, 'Response') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-inherit"></span> ' + I18N.t('ui.legend.inherit', null, 'Inherit') + '</div>' +
-                '<div class="legend-item"><span class="legend-line-compose legend-line-compose-diamond"></span> ' + I18N.t('ui.legend.compose', null, 'Compose') + '</div>' +
+                '<div class="legend-item"><span class="legend-line-compose"></span> ' + I18N.t('ui.legend.compose', null, 'Compose') + '</div>' +
                 '<div class="legend-item"><span class="legend-line-depend"></span> ' + I18N.t('ui.legend.uses', null, 'Uses') + '</div>' +
                 '<div class="legend-item"><span style="display:inline-block;width:20px;height:14px;border:2px dashed var(--pv-accent);border-radius:2px;background:var(--pv-accent-bg);"></span> ' + I18N.t('ui.legend.object', null, 'Object') + '</div>' +
             '</div>' +
@@ -127,7 +127,9 @@ PV['proxy'].caching = {
                 label: 'CachingProxy',
                 description: 'CachingProxy receives query',
                 descriptionKey: 'proxy.step.caching.1',
-                logType: 'FLOW'
+                logType: 'FLOW',
+                arrowFromOffset: {x: -0.35},
+                arrowToOffset: {x: -0.35}
             },
             {
                 elementId: 'obj-cache',
@@ -135,7 +137,9 @@ PV['proxy'].caching = {
                 description: 'Check cache — MISS',
                 descriptionKey: 'proxy.step.caching.2',
                 logType: 'CACHE',
-                spawnId: 'obj-cache'
+                spawnId: 'obj-cache',
+                arrowFromOffset: {x: -0.35},
+                arrowToOffset: {x: -0.35}
             },
             {
                 elementId: 'cls-px-real',
@@ -192,7 +196,9 @@ PV['proxy'].caching = {
                 label: 'CachingProxy',
                 description: 'CachingProxy receives query',
                 descriptionKey: 'proxy.step.caching.9',
-                logType: 'FLOW'
+                logType: 'FLOW',
+                arrowFromOffset: {x: 0.35},
+                arrowToOffset: {x: 0.35}
             },
             {
                 elementId: 'obj-cache',
@@ -200,7 +206,9 @@ PV['proxy'].caching = {
                 description: 'Check cache — HIT',
                 descriptionKey: 'proxy.step.caching.10',
                 logType: 'CACHE',
-                arrowFromId: 'cls-px-proxy'
+                arrowFromId: 'cls-px-proxy',
+                arrowFromOffset: {x: 0.35},
+                arrowToOffset: {x: 0.35}
             },
             {
                 elementId: 'cls-px-client',
