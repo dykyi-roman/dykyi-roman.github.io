@@ -126,7 +126,17 @@ PV.setAccentColors = function(patternId) {
         'decorator':        { accent: '#EF4444', bg: '#1f0d0d', light: '#301515' },
         'facade':           { accent: '#FBBF24', bg: '#1f1b0d', light: '#302b15' },
         'flyweight':        { accent: '#14B8A6', bg: '#0d1f1c', light: '#15302c' },
-        'proxy':            { accent: '#F472B6', bg: '#1f0d18', light: '#301524' }
+        'proxy':            { accent: '#F472B6', bg: '#1f0d18', light: '#301524' },
+        'observer':         { accent: '#2DD4BF', bg: '#0d1f1d', light: '#15302e' },
+        'strategy':         { accent: '#FACC15', bg: '#1f1c0d', light: '#302c15' },
+        'command':          { accent: '#FB923C', bg: '#1f160d', light: '#302215' },
+        'state':            { accent: '#818CF8', bg: '#14142a', light: '#1e1e44' },
+        'chain-of-responsibility': { accent: '#38BDF8', bg: '#0d1a2a', light: '#152a40' },
+        'iterator':         { accent: '#A3E635', bg: '#181f0d', light: '#283015' },
+        'mediator':         { accent: '#C084FC', bg: '#1a0d30', light: '#241548' },
+        'memento':          { accent: '#FDA4AF', bg: '#1f0d12', light: '#30151c' },
+        'template-method':  { accent: '#FB7185', bg: '#1f0d14', light: '#30151e' },
+        'visitor':          { accent: '#34D399', bg: '#0d1f16', light: '#153026' }
     };
     var t = themes[patternId] || themes['simple-factory'];
     root.setProperty('--pv-accent', t.accent);
@@ -401,6 +411,15 @@ PV._drawStepBadge = function(el, stepNum, position) {
     } else if (position === 'top') {
         x = elRect.left - areaRect.left + elRect.width / 2;
         y = elRect.top - areaRect.top - 14;
+    } else if (position === 'bottom') {
+        x = elRect.left - areaRect.left + elRect.width / 2;
+        y = elRect.top - areaRect.top + elRect.height + 14;
+    } else if (position === 'bottom-left') {
+        x = elRect.left - areaRect.left + elRect.width * 0.25;
+        y = elRect.top - areaRect.top + elRect.height + 14;
+    } else if (position === 'bottom-right') {
+        x = elRect.left - areaRect.left + elRect.width * 0.75;
+        y = elRect.top - areaRect.top + elRect.height + 14;
     } else if (position === 'right') {
         x = elRect.left - areaRect.left + elRect.width + 14;
         y = elRect.top - areaRect.top + elRect.height / 2;

@@ -1,6 +1,5 @@
 {
   "pv.title": "Design-Pattern-Visualisierer",
-
   "simple-factory.name": "Simple Factory",
   "simple-factory.modes.transport.label": "Transport",
   "simple-factory.modes.transport.desc": "Eine TransportFactory erstellt Lieferfahrzeuge basierend auf einem Typparameter. Der Client fordert ein Transport-Objekt an, ohne zu wissen, ob er einen Truck, ein Ship oder ein Plane erhaelt. Die Fabrik kapselt die gesamte Instanziierungslogik hinter einer einzigen create()-Methode.",
@@ -12,10 +11,22 @@
     "Lose Kopplung: Der Client haengt von der Abstraktion ab, nicht von konkreten Klassen"
   ],
   "simple-factory.details.transport.concepts": [
-    { "term": "Simple Factory", "definition": "Eine Klasse mit einer einzigen Erstellungsmethode, die verschiedene Objekttypen basierend auf einem Parameter zurueckgibt. Kein GoF-Pattern im eigentlichen Sinne, aber ein weit verbreitetes Idiom, das die Objekterstellung vereinfacht." },
-    { "term": "Product Interface", "definition": "Der gemeinsame Typ (Transport), den alle konkreten Produkte implementieren. Der Client programmiert gegen diese Schnittstelle und ermoeglicht so Polymorphismus." },
-    { "term": "Parameterized Creation", "definition": "Die Fabrikmethode akzeptiert einen Typstring oder eine Aufzaehlung und verwendet bedingte Logik (switch/if), um zu entscheiden, welche konkrete Klasse instanziiert wird." },
-    { "term": "Concrete Product", "definition": "Eine spezifische Implementierung (Truck, Ship, Plane) der Produktschnittstelle. Die Fabrik ist der einzige Ort, der diese Klassen direkt referenziert." }
+    {
+      "term": "Simple Factory",
+      "definition": "Eine Klasse mit einer einzigen Erstellungsmethode, die verschiedene Objekttypen basierend auf einem Parameter zurueckgibt. Kein GoF-Pattern im eigentlichen Sinne, aber ein weit verbreitetes Idiom, das die Objekterstellung vereinfacht."
+    },
+    {
+      "term": "Product Interface",
+      "definition": "Der gemeinsame Typ (Transport), den alle konkreten Produkte implementieren. Der Client programmiert gegen diese Schnittstelle und ermoeglicht so Polymorphismus."
+    },
+    {
+      "term": "Parameterized Creation",
+      "definition": "Die Fabrikmethode akzeptiert einen Typstring oder eine Aufzaehlung und verwendet bedingte Logik (switch/if), um zu entscheiden, welche konkrete Klasse instanziiert wird."
+    },
+    {
+      "term": "Concrete Product",
+      "definition": "Eine spezifische Implementierung (Truck, Ship, Plane) der Produktschnittstelle. Die Fabrik ist der einzige Ort, der diese Klassen direkt referenziert."
+    }
   ],
   "simple-factory.details.transport.tradeoffs.pros": [
     "Zentralisiert die Erstellungslogik -- ein einziger Ort zum Hinzufuegen oder Aendern von Produkttypen",
@@ -30,7 +41,6 @@
     "Nicht so flexibel wie das Factory-Method-Pattern fuer Erweiterbarkeit durch Vererbung"
   ],
   "simple-factory.details.transport.tradeoffs.whenToUse": "Am besten geeignet, wenn die Menge der Produkttypen klein und stabil ist, die Erstellungslogik einfach ist und Sie die Instanziierungsdetails vor dem Client verbergen moechten, ohne den Overhead einer vollstaendigen Factory-Method- oder Abstract-Factory-Hierarchie.",
-
   "static-factory.name": "Static Factory",
   "static-factory.modes.number.label": "Number",
   "static-factory.modes.number.desc": "Number.of(value) untersucht die Eingabe und gibt ein Integer, Float oder BigDecimal zurueck. Kleine Ganzzahlen werden intern zwischengespeichert, sodass wiederholte Aufrufe fuer denselben Wert dieselbe Instanz zurueckgeben -- eine Flyweight-aehnliche Optimierung, die redundante Speicherzuweisungen vermeidet.",
@@ -42,10 +52,22 @@
     "Keine oeffentlichen Konstruktoren: Clients koennen die Fabrik nicht umgehen, wodurch alle Instanzen den kontrollierten Erstellungspfad durchlaufen"
   ],
   "static-factory.details.number.concepts": [
-    { "term": "Static Factory Method", "definition": "Eine statische Methode einer Klasse, die eine Instanz dieser Klasse (oder einer Unterklasse) zurueckgibt. Im Gegensatz zu Konstruktoren haben statische Fabrikmethoden Namen, koennen zwischengespeicherte Instanzen zurueckgeben und Untertypen liefern." },
-    { "term": "Flyweight Caching", "definition": "Kleine Ganzzahlwerte werden in einer internen Map zwischengespeichert. Wenn of(42) erneut aufgerufen wird, wird das zwischengespeicherte Integer(42) zurueckgegeben, anstatt ein neues Objekt zu erstellen -- aehnlich dem Flyweight-Pattern." },
-    { "term": "Type Inference", "definition": "Die Fabrik untersucht den Laufzeitwert, um den konkreten Typ zu bestimmen: Ganzzahlwerte werden zu Integer, Gleitkommazahlen zu Float und sehr grosse oder praezise Werte zu BigDecimal." },
-    { "term": "valueOf() Convention", "definition": "Eine gaengige Namenskonvention (aus Java), bei der valueOf() einen Primitiv in seinen Wrapper-Typ konvertiert. Number.of() delegiert an valueOf() fuer ganzzahlige Eingaben." }
+    {
+      "term": "Static Factory Method",
+      "definition": "Eine statische Methode einer Klasse, die eine Instanz dieser Klasse (oder einer Unterklasse) zurueckgibt. Im Gegensatz zu Konstruktoren haben statische Fabrikmethoden Namen, koennen zwischengespeicherte Instanzen zurueckgeben und Untertypen liefern."
+    },
+    {
+      "term": "Flyweight Caching",
+      "definition": "Kleine Ganzzahlwerte werden in einer internen Map zwischengespeichert. Wenn of(42) erneut aufgerufen wird, wird das zwischengespeicherte Integer(42) zurueckgegeben, anstatt ein neues Objekt zu erstellen -- aehnlich dem Flyweight-Pattern."
+    },
+    {
+      "term": "Type Inference",
+      "definition": "Die Fabrik untersucht den Laufzeitwert, um den konkreten Typ zu bestimmen: Ganzzahlwerte werden zu Integer, Gleitkommazahlen zu Float und sehr grosse oder praezise Werte zu BigDecimal."
+    },
+    {
+      "term": "valueOf() Convention",
+      "definition": "Eine gaengige Namenskonvention (aus Java), bei der valueOf() einen Primitiv in seinen Wrapper-Typ konvertiert. Number.of() delegiert an valueOf() fuer ganzzahlige Eingaben."
+    }
   ],
   "static-factory.details.number.tradeoffs.pros": [
     "Beschreibende Benennung: Number.of(42) und Number.zero() sind selbstdokumentierend, im Gegensatz zu new Number(42)",
@@ -60,7 +82,6 @@
     "Schwerer in der Dokumentation zu finden: Statische Methoden vermischen sich mit anderen Hilfsmethoden"
   ],
   "static-factory.details.number.tradeoffs.whenToUse": "Ideal fuer Werttypen, bei denen Instanz-Caching die Performance verbessert (kleine Ganzzahlen, Enum-aehnliche Werte), wenn der Rueckgabetyp je nach Eingabe variieren soll, oder wenn benannte Erstellungsmethoden die API-Lesbarkeit verbessern.",
-
   "factory-method.name": "Factory Method",
   "factory-method.modes.logistics.label": "Logistics",
   "factory-method.modes.logistics.desc": "Logistik-Anwendung, bei der jeder Transporttyp eine eigene Creator-Unterklasse hat, die createTransport() implementiert. Die uebergeordnete Logistics-Klasse definiert planDelivery(), das die abstrakte createTransport()-Methode aufruft -- jede Unterklasse entscheidet, welches Transport-Objekt instanziiert wird.",
@@ -72,10 +93,22 @@
     "planDelivery() im Creator stuetzt sich auf die Fabrikmethode -- das Template-Method-Pattern kooperiert mit der Factory Method"
   ],
   "factory-method.details.logistics.concepts": [
-    { "term": "Factory Method", "definition": "Eine abstrakte Methode, die im Creator deklariert ist und ein Product zurueckgibt. Jeder konkrete Creator liefert seine eigene Implementierung." },
-    { "term": "Creator", "definition": "Abstrakte Klasse, die die Fabrikmethode und die Geschaeftslogik (planDelivery) enthaelt, die vom Produkt der Fabrikmethode abhaengt." },
-    { "term": "Concrete Creator", "definition": "Unterklasse von Creator, die die Fabrikmethode ueberschreibt, um ein bestimmtes konkretes Produkt zurueckzugeben (z.B. RoadLogistics gibt Truck zurueck)." },
-    { "term": "Product", "definition": "Schnittstelle oder abstrakte Klasse, die die Operationen deklariert, die alle konkreten Produkte implementieren muessen (z.B. deliver())." }
+    {
+      "term": "Factory Method",
+      "definition": "Eine abstrakte Methode, die im Creator deklariert ist und ein Product zurueckgibt. Jeder konkrete Creator liefert seine eigene Implementierung."
+    },
+    {
+      "term": "Creator",
+      "definition": "Abstrakte Klasse, die die Fabrikmethode und die Geschaeftslogik (planDelivery) enthaelt, die vom Produkt der Fabrikmethode abhaengt."
+    },
+    {
+      "term": "Concrete Creator",
+      "definition": "Unterklasse von Creator, die die Fabrikmethode ueberschreibt, um ein bestimmtes konkretes Produkt zurueckzugeben (z.B. RoadLogistics gibt Truck zurueck)."
+    },
+    {
+      "term": "Product",
+      "definition": "Schnittstelle oder abstrakte Klasse, die die Operationen deklariert, die alle konkreten Produkte implementieren muessen (z.B. deliver())."
+    }
   ],
   "factory-method.details.logistics.tradeoffs.pros": [
     "Beseitigt enge Kopplung zwischen Creator und konkreten Produkten",
@@ -90,7 +123,6 @@
     "Unterklassenbildung nur zur Objekterstellung kann sich schwergewichtig anfuehlen"
   ],
   "factory-method.details.logistics.tradeoffs.whenToUse": "Verwenden Sie es, wenn der genaue Typ des zu erstellenden Objekts von Unterklassen bestimmt wird, wenn Sie einen Erweiterungspunkt bereitstellen moechten, oder wenn eine Klasse die Instanziierungsverantwortung an eine von mehreren Hilfsunterklassen delegiert.",
-
   "abstract-factory.name": "Abstract Factory",
   "abstract-factory.modes.furniture.label": "Furniture",
   "abstract-factory.modes.furniture.desc": "Moebelgeschaeft: Jeder Stil (Modern, Victorian) erstellt passende Chair, Table und Sofa.",
@@ -102,11 +134,26 @@
     "Dependency Inversion: Der High-Level-Client haengt von Abstraktionen ab, nicht von konkreten Produktklassen"
   ],
   "abstract-factory.details.furniture.concepts": [
-    { "term": "Product Family", "definition": "Ein Satz verwandter Produkte (Chair + Table + Sofa), die fuer die Zusammenarbeit in einem bestimmten Stil entworfen wurden." },
-    { "term": "Abstract Factory", "definition": "Schnittstelle, die Erstellungsmethoden fuer jeden Produkttyp deklariert und sicherstellt, dass jede Familie einen vollstaendigen Satz produziert." },
-    { "term": "Concrete Factory", "definition": "Implementiert Erstellungsmethoden zur Produktion von Produkten einer bestimmten Variante (Modern, Victorian)." },
-    { "term": "Variant Consistency", "definition": "Jede Fabrik garantiert, dass alle produzierten Objekte zur selben Familie gehoeren und verhindert so nicht zusammenpassende Kombinationen." },
-    { "term": "Client Isolation", "definition": "Der Client erhaelt eine Fabrik ueber den Konstruktor oder die Konfiguration und referenziert niemals direkt konkrete Produktklassen." }
+    {
+      "term": "Product Family",
+      "definition": "Ein Satz verwandter Produkte (Chair + Table + Sofa), die fuer die Zusammenarbeit in einem bestimmten Stil entworfen wurden."
+    },
+    {
+      "term": "Abstract Factory",
+      "definition": "Schnittstelle, die Erstellungsmethoden fuer jeden Produkttyp deklariert und sicherstellt, dass jede Familie einen vollstaendigen Satz produziert."
+    },
+    {
+      "term": "Concrete Factory",
+      "definition": "Implementiert Erstellungsmethoden zur Produktion von Produkten einer bestimmten Variante (Modern, Victorian)."
+    },
+    {
+      "term": "Variant Consistency",
+      "definition": "Jede Fabrik garantiert, dass alle produzierten Objekte zur selben Familie gehoeren und verhindert so nicht zusammenpassende Kombinationen."
+    },
+    {
+      "term": "Client Isolation",
+      "definition": "Der Client erhaelt eine Fabrik ueber den Konstruktor oder die Konfiguration und referenziert niemals direkt konkrete Produktklassen."
+    }
   ],
   "abstract-factory.details.furniture.tradeoffs.pros": [
     "Garantiert Konsistenz der Produktfamilie -- alle Objekte einer Fabrik passen stilistisch zusammen",
@@ -121,7 +168,6 @@
     "Fabrikschnittstellen werden starr -- schwer weiterzuentwickeln, ohne bestehende Familien zu beeintraechtigen"
   ],
   "abstract-factory.details.furniture.tradeoffs.whenToUse": "Wenn Ihr System Familien verwandter Objekte erstellen muss, die zusammen verwendet werden sollen, und Sie Konsistenz zwischen Produktvarianten sicherstellen moechten, ohne den Client-Code an konkrete Klassen zu koppeln.",
-
   "builder.name": "Builder",
   "builder.modes.house.label": "House",
   "builder.modes.house.desc": "Schrittweiser Hausbau: Fundament, Waende, Dach, Innenausstattung -- der Director orchestriert die Reihenfolge.",
@@ -133,11 +179,26 @@
     "Der Client holt das fertige Produkt vom Builder, nicht vom Director"
   ],
   "builder.details.house.concepts": [
-    { "term": "Director", "definition": "Orchestriert die Konstruktionssequenz. Ruft Builder-Methoden in fester Reihenfolge auf, ist aber von konkreten Produktdetails entkoppelt." },
-    { "term": "HouseBuilder", "definition": "Schnittstelle, die Konstruktionsschritte deklariert: buildFoundation(), buildWalls(), buildRoof(), buildInterior(). Jeder konkrete Builder implementiert diese." },
-    { "term": "WoodenHouseBuilder", "definition": "Konkreter Builder, der ein Holzhaus mit Balkenfundament, Holzwaenden, Schindeldach und rustikaler Innenausstattung baut." },
-    { "term": "StoneHouseBuilder", "definition": "Konkreter Builder, der ein Steinhaus mit Betonfundament, Steinwaenden, Ziegeldach und moderner Innenausstattung baut." },
-    { "term": "House", "definition": "Produktobjekt, dessen Eigenschaften waehrend der Konstruktion einzeln gesetzt werden. Wird nach Abschluss aller Schritte ueber getResult() abgerufen." }
+    {
+      "term": "Director",
+      "definition": "Orchestriert die Konstruktionssequenz. Ruft Builder-Methoden in fester Reihenfolge auf, ist aber von konkreten Produktdetails entkoppelt."
+    },
+    {
+      "term": "HouseBuilder",
+      "definition": "Schnittstelle, die Konstruktionsschritte deklariert: buildFoundation(), buildWalls(), buildRoof(), buildInterior(). Jeder konkrete Builder implementiert diese."
+    },
+    {
+      "term": "WoodenHouseBuilder",
+      "definition": "Konkreter Builder, der ein Holzhaus mit Balkenfundament, Holzwaenden, Schindeldach und rustikaler Innenausstattung baut."
+    },
+    {
+      "term": "StoneHouseBuilder",
+      "definition": "Konkreter Builder, der ein Steinhaus mit Betonfundament, Steinwaenden, Ziegeldach und moderner Innenausstattung baut."
+    },
+    {
+      "term": "House",
+      "definition": "Produktobjekt, dessen Eigenschaften waehrend der Konstruktion einzeln gesetzt werden. Wird nach Abschluss aller Schritte ueber getResult() abgerufen."
+    }
   ],
   "builder.details.house.tradeoffs.pros": [
     "Derselbe Konstruktionsprozess erzeugt verschiedene Darstellungen (Holz- vs. Steinhaus)",
@@ -152,7 +213,6 @@
     "Der Director fuegt unnoetige Abstraktion hinzu, wenn die Konstruktionssequenz trivial ist oder sich nie aendert"
   ],
   "builder.details.house.tradeoffs.whenToUse": "Verwenden Sie es, wenn die Konstruktion mehrere Schritte umfasst, die einer bestimmten Reihenfolge folgen muessen, wenn derselbe Prozess verschiedene Darstellungen erzeugen soll, oder wenn Sie einen Konstruktor mit vielen Parametern vermeiden moechten.",
-
   "prototype.name": "Prototype",
   "prototype.modes.shapes.label": "Shapes",
   "prototype.modes.shapes.desc": "Klonen geometrischer Formen (Circle, Rectangle, Triangle), ohne von deren konkreten Klassen abzuhaengen. Der Client ruft clone() auf einem bestehenden Formobjekt auf, und eine tiefe Kopie entsteht neben dem Original -- vollstaendig unabhaengig und bereit zur Veraenderung.",
@@ -164,10 +224,22 @@
     "Open/Closed-Prinzip: Das Hinzufuegen neuer Formtypen erfordert keine Aenderung des Client-Klonierungscodes"
   ],
   "prototype.details.shapes.concepts": [
-    { "term": "Prototype Interface", "definition": "Deklariert die clone()-Methode, die alle konkreten Prototypen implementieren muessen. Der Client ruft clone() auf, ohne den konkreten Typ zu kennen." },
-    { "term": "Deep Copy", "definition": "clone() erzeugt ein vollstaendig unabhaengiges Objekt -- Aenderungen am Klon beeinflussen das Original nicht und umgekehrt." },
-    { "term": "Concrete Prototype", "definition": "Eine Klasse (Circle, Rectangle, Triangle), die clone() implementiert, indem sie ihren gesamten internen Zustand in eine neue Instanz kopiert." },
-    { "term": "Prototype Registry", "definition": "Ein optionaler Katalog vorgefertigter Prototypen, die Clients nach Schluessel nachschlagen und bei Bedarf klonen koennen, ohne direkte Klassenreferenzen." }
+    {
+      "term": "Prototype Interface",
+      "definition": "Deklariert die clone()-Methode, die alle konkreten Prototypen implementieren muessen. Der Client ruft clone() auf, ohne den konkreten Typ zu kennen."
+    },
+    {
+      "term": "Deep Copy",
+      "definition": "clone() erzeugt ein vollstaendig unabhaengiges Objekt -- Aenderungen am Klon beeinflussen das Original nicht und umgekehrt."
+    },
+    {
+      "term": "Concrete Prototype",
+      "definition": "Eine Klasse (Circle, Rectangle, Triangle), die clone() implementiert, indem sie ihren gesamten internen Zustand in eine neue Instanz kopiert."
+    },
+    {
+      "term": "Prototype Registry",
+      "definition": "Ein optionaler Katalog vorgefertigter Prototypen, die Clients nach Schluessel nachschlagen und bei Bedarf klonen koennen, ohne direkte Klassenreferenzen."
+    }
   ],
   "prototype.details.shapes.tradeoffs.pros": [
     "Eliminiert die Notwendigkeit komplexer Fabrik-Klassenhierarchien",
@@ -182,7 +254,6 @@
     "Einige Sprachen erschweren das tiefe Kopieren (z.B. Fallstricke bei flachen Kopien)"
   ],
   "prototype.details.shapes.tradeoffs.whenToUse": "Am besten geeignet, wenn die Objekterstellung teuer ist (komplexe Initialisierung, Datenbanklesevorgaenge, Netzwerkaufrufe) und Sie einen Satz vorkonfigurierter Objekte haben, die als Vorlagen fuer neue Instanzen dienen koennen.",
-
   "singleton.name": "Singleton",
   "singleton.modes.database.label": "Database",
   "singleton.modes.database.desc": "Ein DatabaseConnection-Singleton stellt sicher, dass nur eine Verbindungsinstanz existiert. Mehrere Clients rufen getInstance() auf -- der erste Aufruf erstellt die Verbindung, nachfolgende Aufrufe geben dieselbe Instanz zurueck. Alle Clients teilen sich ein einziges Verbindungsobjekt.",
@@ -194,10 +265,22 @@
     "Spannung mit Single Responsibility: Die Klasse verwaltet sowohl ihre Geschaeftslogik (query, connect) als auch ihren eigenen Lebenszyklus (Instanzerstellung und -speicherung)"
   ],
   "singleton.details.database.concepts": [
-    { "term": "Lazy Initialization", "definition": "Die Instanz wird erst beim ersten Aufruf von getInstance() erstellt, was Ressourcen spart, wenn der Singleton waehrend des Anwendungslebenszyklus nie verwendet wird." },
-    { "term": "Double-Checked Locking", "definition": "Eine Thread-Sicherheits-Optimierung: Zuerst wird ohne Synchronisation geprueft, ob die Instanz null ist, dann wird nur der Erstellungsblock synchronisiert -- vermeidet Lock-Overhead bei jedem Aufruf." },
-    { "term": "Registry of Singletons", "definition": "Ein Pattern, bei dem sich mehrere Singleton-Klassen in einer zentralen Registry registrieren und nach Name oder Typ nachgeschlagen werden koennen -- nuetzlich, wenn mehrere Klassen mit kontrollierter Instanzanzahl koexistieren." },
-    { "term": "Private Constructor", "definition": "Der Konstruktor wird privat gemacht, um externe Instanziierung zu verhindern. Nur die statische getInstance()-Methode kann das Objekt erstellen und erzwingt so die Einzelinstanz-Garantie." }
+    {
+      "term": "Lazy Initialization",
+      "definition": "Die Instanz wird erst beim ersten Aufruf von getInstance() erstellt, was Ressourcen spart, wenn der Singleton waehrend des Anwendungslebenszyklus nie verwendet wird."
+    },
+    {
+      "term": "Double-Checked Locking",
+      "definition": "Eine Thread-Sicherheits-Optimierung: Zuerst wird ohne Synchronisation geprueft, ob die Instanz null ist, dann wird nur der Erstellungsblock synchronisiert -- vermeidet Lock-Overhead bei jedem Aufruf."
+    },
+    {
+      "term": "Registry of Singletons",
+      "definition": "Ein Pattern, bei dem sich mehrere Singleton-Klassen in einer zentralen Registry registrieren und nach Name oder Typ nachgeschlagen werden koennen -- nuetzlich, wenn mehrere Klassen mit kontrollierter Instanzanzahl koexistieren."
+    },
+    {
+      "term": "Private Constructor",
+      "definition": "Der Konstruktor wird privat gemacht, um externe Instanziierung zu verhindern. Nur die statische getInstance()-Methode kann das Objekt erstellen und erzwingt so die Einzelinstanz-Garantie."
+    }
   ],
   "singleton.details.database.tradeoffs.pros": [
     "Garantiert genau eine Instanz -- verhindert Ressourcenkonflikte (z.B. mehrere DB-Verbindungen, die um denselben Port konkurrieren)",
@@ -212,7 +295,6 @@
     "Thread-Sicherheit fuegt Komplexitaet und potentiellen Performance-Overhead in nebenlaeufigen Umgebungen hinzu"
   ],
   "singleton.details.database.tradeoffs.whenToUse": "Verwenden Sie es, wenn systemweit genau eine Instanz einer Klasse benoetigt wird (z.B. Konfigurationsmanager, Logging-Dienst, Hardware-Treiber-Schnittstelle) und Sie kontrollierten, verzoegerten Zugriff auf diese Instanz wuenschen.",
-
   "pool.name": "Object Pool",
   "pool.modes.connections.label": "Database",
   "pool.modes.connections.desc": "Ein ConnectionPool verwaltet einen festen Satz wiederverwendbarer Datenbankverbindungen. Clients rufen acquire() auf, um eine Verbindung zu erhalten, und release(), um sie zurueckzugeben. Verbindungen bewegen sich zwischen den Pools 'Verfuegbar' und 'In Verwendung', ohne jedes Mal erstellt oder zerstoert zu werden.",
@@ -224,10 +306,22 @@
     "Transparenz: Clients verwenden ein Connection-Objekt auf die gleiche Weise, egal ob es frisch erstellt oder aus dem Pool recycelt wurde"
   ],
   "pool.details.connections.concepts": [
-    { "term": "Resource Pool", "definition": "Ein Container, der vorab erstellte Objekte (Verbindungen) haelt und sie bei Bedarf ausleiht. Vermeidet die Kosten des Erstellens und Zerstoerens von Objekten bei jeder Verwendung." },
-    { "term": "Lazy vs Eager Init", "definition": "Eager: Alle Verbindungen werden beim Start erstellt. Lazy: Verbindungen werden beim ersten acquire() bis maxSize erstellt. Abwaegung zwischen Startzeit und Latenz der ersten Anfrage." },
-    { "term": "Max Pool Size", "definition": "Obergrenze fuer die Anzahl der Objekte im Pool. Verhindert Ressourcenerschoepfung und stellt sicher, dass das System innerhalb seiner Kapazitaet arbeitet." },
-    { "term": "Health Check", "definition": "Bevor eine Verbindung aus dem Pool zurueckgegeben wird, ueberprueft isValid(), ob sie noch aktiv ist. Veraltete Verbindungen werden verworfen und ersetzt." }
+    {
+      "term": "Resource Pool",
+      "definition": "Ein Container, der vorab erstellte Objekte (Verbindungen) haelt und sie bei Bedarf ausleiht. Vermeidet die Kosten des Erstellens und Zerstoerens von Objekten bei jeder Verwendung."
+    },
+    {
+      "term": "Lazy vs Eager Init",
+      "definition": "Eager: Alle Verbindungen werden beim Start erstellt. Lazy: Verbindungen werden beim ersten acquire() bis maxSize erstellt. Abwaegung zwischen Startzeit und Latenz der ersten Anfrage."
+    },
+    {
+      "term": "Max Pool Size",
+      "definition": "Obergrenze fuer die Anzahl der Objekte im Pool. Verhindert Ressourcenerschoepfung und stellt sicher, dass das System innerhalb seiner Kapazitaet arbeitet."
+    },
+    {
+      "term": "Health Check",
+      "definition": "Bevor eine Verbindung aus dem Pool zurueckgegeben wird, ueberprueft isValid(), ob sie noch aktiv ist. Veraltete Verbindungen werden verworfen und ersetzt."
+    }
   ],
   "pool.details.connections.tradeoffs.pros": [
     "Reduziert den Overhead der Verbindungserstellung drastisch -- Wiederverwendung amortisiert die Kosten",
@@ -242,7 +336,6 @@
     "Veraltete oder defekte Verbindungen muessen erkannt und ersetzt werden"
   ],
   "pool.details.connections.tradeoffs.whenToUse": "Verwenden Sie es, wenn die Objekterstellung teuer ist (Datenbankverbindungen, Netzwerk-Sockets, schwergewichtige Ressourcen) und dieselben Objekte sicher von mehreren Clients wiederverwendet werden koennen.",
-
   "simple-factory.tooltip.factory": "Fabrikklasse, die die Objekterstellungslogik basierend auf einem Typparameter kapselt",
   "simple-factory.tooltip.transport": "Gemeinsame Schnittstelle fuer alle Transporttypen, die von der Fabrik zurueckgegeben werden",
   "simple-factory.tooltip.truck": "Konkretes Produkt: liefert Fracht auf dem Landweg",
@@ -261,12 +354,23 @@
   "simple-factory.step.transport.7": "Lieferung erfolgreich abgeschlossen",
   "simple-factory.stepLabel.transport": "Transport erstellen via Simple Factory",
   "simple-factory.depRules": [
-    { "name": "Factory", "role": "Erstellt Objekte, ohne die Erstellungslogik dem Client offenzulegen" },
-    { "name": "Product (Interface)", "role": "Gemeinsame Schnittstelle fuer alle Objekte, die die Fabrik erstellen kann" },
-    { "name": "Concrete Products", "role": "Spezifische Implementierungen, die von der Fabrik zurueckgegeben werden" },
-    { "name": "Client", "role": "Nutzt die Fabrik, um Objekte zu erhalten, ohne konkrete Klassen zu kennen" }
+    {
+      "name": "Factory",
+      "role": "Erstellt Objekte, ohne die Erstellungslogik dem Client offenzulegen"
+    },
+    {
+      "name": "Product (Interface)",
+      "role": "Gemeinsame Schnittstelle fuer alle Objekte, die die Fabrik erstellen kann"
+    },
+    {
+      "name": "Concrete Products",
+      "role": "Spezifische Implementierungen, die von der Fabrik zurueckgegeben werden"
+    },
+    {
+      "name": "Client",
+      "role": "Nutzt die Fabrik, um Objekte zu erhalten, ohne konkrete Klassen zu kennen"
+    }
   ],
-
   "static-factory.tooltip.number": "Statische Fabrikklasse mit benannten Erstellungsmethoden -- untersucht den Eingabetyp und delegiert an den passenden Unterklassen-Konstruktor",
   "static-factory.tooltip.cache": "Interner Cache, der zuvor erstellte Integer-Instanzen nach ihrem int-Wert speichert",
   "static-factory.tooltip.integer": "Konkretes Produkt fuer Ganzzahlwerte -- Instanzen koennen fuer kleine Werte zwischengespeichert werden",
@@ -290,11 +394,19 @@
   "static-factory.step.number.12": "Float(3.14) als Number an den Client zurueckgegeben",
   "static-factory.stepLabel.number": "Zahlen erstellen via statische Methoden mit Caching",
   "static-factory.depRules": [
-    { "name": "Static Factory", "role": "Bietet benannte statische Methoden zur Instanzerstellung, was die Lesbarkeit gegenueber Konstruktoren verbessert" },
-    { "name": "Product", "role": "Objekte, die von den statischen Fabrikmethoden erstellt und optional zwischengespeichert werden" },
-    { "name": "Cache", "role": "Interner Speicher, der die Wiederverwendung von Instanzen fuer aequivalente Eingaben ermoeglicht" }
+    {
+      "name": "Static Factory",
+      "role": "Bietet benannte statische Methoden zur Instanzerstellung, was die Lesbarkeit gegenueber Konstruktoren verbessert"
+    },
+    {
+      "name": "Product",
+      "role": "Objekte, die von den statischen Fabrikmethoden erstellt und optional zwischengespeichert werden"
+    },
+    {
+      "name": "Cache",
+      "role": "Interner Speicher, der die Wiederverwendung von Instanzen fuer aequivalente Eingaben ermoeglicht"
+    }
   ],
-
   "factory-method.tooltip.logistics": "Abstrakter Creator, der die Fabrikmethode createTransport() deklariert und innerhalb von planDelivery() verwendet",
   "factory-method.tooltip.transport": "Produktschnittstelle, die den Vertrag definiert, den alle konkreten Transporte implementieren muessen",
   "factory-method.tooltip.sea-logistics": "Konkreter Creator, der createTransport() ueberschreibt, um eine Ship-Instanz zurueckzugeben",
@@ -313,12 +425,23 @@
   "factory-method.step.logistics.7": "planDelivery() abgeschlossen -- Waren per Truck geliefert",
   "factory-method.stepLabel.logistics": "Lieferung planen -- Unterklasse waehlt Transport",
   "factory-method.depRules": [
-    { "name": "Creator (Abstract)", "role": "Deklariert die Fabrikmethode, die ein Product zurueckgibt; kann eine Standardimplementierung bereitstellen" },
-    { "name": "Concrete Creator", "role": "Ueberschreibt die Fabrikmethode, um einen bestimmten Product-Typ zurueckzugeben" },
-    { "name": "Product (Interface)", "role": "Gemeinsame Schnittstelle fuer alle Objekte, die die Fabrikmethode erstellt" },
-    { "name": "Concrete Product", "role": "Implementiert die Product-Schnittstelle" }
+    {
+      "name": "Creator (Abstract)",
+      "role": "Deklariert die Fabrikmethode, die ein Product zurueckgibt; kann eine Standardimplementierung bereitstellen"
+    },
+    {
+      "name": "Concrete Creator",
+      "role": "Ueberschreibt die Fabrikmethode, um einen bestimmten Product-Typ zurueckzugeben"
+    },
+    {
+      "name": "Product (Interface)",
+      "role": "Gemeinsame Schnittstelle fuer alle Objekte, die die Fabrikmethode erstellt"
+    },
+    {
+      "name": "Concrete Product",
+      "role": "Implementiert die Product-Schnittstelle"
+    }
   ],
-
   "abstract-factory.tooltip.modern-factory": "Konkrete Fabrik: erstellt Moebel im modernen Stil",
   "abstract-factory.tooltip.factory": "Abstrakte Fabrik: deklariert Erstellungsmethoden fuer jedes Produkt der Familie",
   "abstract-factory.tooltip.victorian-factory": "Konkrete Fabrik: erstellt Moebel im viktorianischen Stil",
@@ -348,13 +471,27 @@
   "abstract-factory.step.furniture.8": "Alle modernen Produkte an den Client geliefert",
   "abstract-factory.stepLabel.furniture": "Client fordert modernes Moebel-Set an",
   "abstract-factory.depRules": [
-    { "name": "Abstract Factory", "role": "Deklariert Erstellungsmethoden fuer jedes Produkt der Familie" },
-    { "name": "Concrete Factory", "role": "Implementiert Erstellungsmethoden fuer eine bestimmte Produktfamilie/Variante" },
-    { "name": "Abstract Product", "role": "Schnittstelle fuer einen Produkttyp" },
-    { "name": "Concrete Product", "role": "Implementiert das abstrakte Produkt fuer eine bestimmte Variante" },
-    { "name": "Client", "role": "Nutzt Fabriken und Produkte ausschliesslich ueber abstrakte Schnittstellen" }
+    {
+      "name": "Abstract Factory",
+      "role": "Deklariert Erstellungsmethoden fuer jedes Produkt der Familie"
+    },
+    {
+      "name": "Concrete Factory",
+      "role": "Implementiert Erstellungsmethoden fuer eine bestimmte Produktfamilie/Variante"
+    },
+    {
+      "name": "Abstract Product",
+      "role": "Schnittstelle fuer einen Produkttyp"
+    },
+    {
+      "name": "Concrete Product",
+      "role": "Implementiert das abstrakte Produkt fuer eine bestimmte Variante"
+    },
+    {
+      "name": "Client",
+      "role": "Nutzt Fabriken und Produkte ausschliesslich ueber abstrakte Schnittstellen"
+    }
   ],
-
   "builder.tooltip.director": "Orchestriert die Konstruktionssequenz, indem er Builder-Methoden in der richtigen Reihenfolge aufruft",
   "builder.tooltip.house-builder": "Abstrakte Builder-Schnittstelle, die alle Konstruktionsschritte deklariert",
   "builder.tooltip.house": "Produkt, das Schritt fuer Schritt zusammengebaut wird -- jede Eigenschaft wird waehrend der Konstruktion gesetzt",
@@ -373,12 +510,23 @@
   "builder.step.house.10": "Vollstaendig zusammengebautes House an den Client zurueckgegeben",
   "builder.stepLabel.house": "Ein Holzhaus Schritt fuer Schritt bauen",
   "builder.depRules": [
-    { "name": "Director", "role": "Konstruiert ein Objekt ueber die Builder-Schnittstelle in einer bestimmten Reihenfolge" },
-    { "name": "Builder (Interface)", "role": "Deklariert schrittweise Konstruktionsmethoden" },
-    { "name": "Concrete Builder", "role": "Implementiert die Konstruktionsschritte und verfolgt das zu bauende Produkt" },
-    { "name": "Product", "role": "Das komplexe Objekt, das Schritt fuer Schritt konstruiert wird" }
+    {
+      "name": "Director",
+      "role": "Konstruiert ein Objekt ueber die Builder-Schnittstelle in einer bestimmten Reihenfolge"
+    },
+    {
+      "name": "Builder (Interface)",
+      "role": "Deklariert schrittweise Konstruktionsmethoden"
+    },
+    {
+      "name": "Concrete Builder",
+      "role": "Implementiert die Konstruktionsschritte und verfolgt das zu bauende Produkt"
+    },
+    {
+      "name": "Product",
+      "role": "Das komplexe Objekt, das Schritt fuer Schritt konstruiert wird"
+    }
   ],
-
   "prototype.tooltip.shape": "Prototype-Schnittstelle, die clone() deklariert -- alle konkreten Formen implementieren dies, um Kopien von sich selbst zu erzeugen",
   "prototype.tooltip.circle": "Konkreter Prototyp, der sich selbst klonen kann und eine tiefe Kopie mit demselben Radius und derselben Farbe erzeugt",
   "prototype.tooltip.rectangle": "Konkreter Prototyp, der sich selbst mit allen Abmessungs- und Farbdaten klont",
@@ -399,11 +547,19 @@
   "prototype.step.shapes.9": "Beide Klone existieren unabhaengig -- Pattern abgeschlossen",
   "prototype.stepLabel.shapes": "Formen klonen ueber die Prototype-Schnittstelle",
   "prototype.depRules": [
-    { "name": "Prototype (Interface)", "role": "Deklariert die clone()-Methode" },
-    { "name": "Concrete Prototype", "role": "Implementiert clone() und erstellt eine Kopie von sich selbst" },
-    { "name": "Client", "role": "Erstellt neue Objekte, indem er Prototypen bittet, sich selbst zu klonen" }
+    {
+      "name": "Prototype (Interface)",
+      "role": "Deklariert die clone()-Methode"
+    },
+    {
+      "name": "Concrete Prototype",
+      "role": "Implementiert clone() und erstellt eine Kopie von sich selbst"
+    },
+    {
+      "name": "Client",
+      "role": "Erstellt neue Objekte, indem er Prototypen bittet, sich selbst zu klonen"
+    }
   ],
-
   "singleton.tooltip.client1": "Erster Client -- ruft getInstance() auf, was die Instanzerstellung ausloest",
   "singleton.tooltip.client2": "Zweiter Client -- ruft getInstance() auf und erhaelt dieselbe Instanz",
   "singleton.tooltip.client3": "Dritter Client -- ruft getInstance() auf und erhaelt erneut dieselbe Instanz",
@@ -424,10 +580,15 @@
   "singleton.step.database.12": "Client 3 erhaelt dieselbe DatabaseConnection -- alle drei Clients teilen eine Instanz",
   "singleton.stepLabel.database": "Drei Clients teilen eine DB-Verbindung",
   "singleton.depRules": [
-    { "name": "Singleton", "role": "Speichert seine eigene eindeutige Instanz; bietet globalen Zugriff ueber statisches getInstance()" },
-    { "name": "Client", "role": "Greift auf den Singleton ausschliesslich ueber getInstance() zu, niemals ueber den Konstruktor" }
+    {
+      "name": "Singleton",
+      "role": "Speichert seine eigene eindeutige Instanz; bietet globalen Zugriff ueber statisches getInstance()"
+    },
+    {
+      "name": "Client",
+      "role": "Greift auf den Singleton ausschliesslich ueber getInstance() zu, niemals ueber den Konstruktor"
+    }
   ],
-
   "pool.tooltip.pool": "Verwaltet einen Pool fester Groesse mit wiederverwendbaren Connection-Objekten -- acquire() leiht eines aus, release() nimmt es zurueck",
   "pool.tooltip.idle-conn": "Ruhende Verbindung, bereit zur Uebernahme durch einen Client",
   "pool.tooltip.active-conn": "Verbindung, die gerade eine Abfrage fuer einen Client ausfuehrt",
@@ -444,11 +605,19 @@
   "pool.step.connections.9": "Verbindung #2 ist jetzt aktiv im Pool 'In Verwendung'",
   "pool.stepLabel.connections": "Verbindungen aus dem Pool abrufen und freigeben",
   "pool.depRules": [
-    { "name": "Object Pool", "role": "Verwaltet eine Sammlung wiederverwendbarer Objekte und behandelt Acquire- und Release-Operationen" },
-    { "name": "Reusable Object", "role": "Teuer zu erstellendes Objekt, das gepoolt und recycelt wird, anstatt zerstoert zu werden" },
-    { "name": "Client", "role": "Ruft Objekte aus dem Pool ab, nutzt sie und gibt sie nach Verwendung zurueck" }
+    {
+      "name": "Object Pool",
+      "role": "Verwaltet eine Sammlung wiederverwendbarer Objekte und behandelt Acquire- und Release-Operationen"
+    },
+    {
+      "name": "Reusable Object",
+      "role": "Teuer zu erstellendes Objekt, das gepoolt und recycelt wird, anstatt zerstoert zu werden"
+    },
+    {
+      "name": "Client",
+      "role": "Ruft Objekte aus dem Pool ab, nutzt sie und gibt sie nach Verwendung zurueck"
+    }
   ],
-
   "adapter.name": "Adapter",
   "adapter.modes.payment.label": "Payment Gateway",
   "adapter.modes.payment.desc": "StripeAdapter passt die StripeAPI an die PaymentProcessor-Schnittstelle an. Der Client ruft pay(amount) auf dem Prozessor auf, ohne den zugrunde liegenden Zahlungsdienst zu kennen. Der Adapter uebersetzt den Aufruf in die Stripe-spezifische createCharge()-Methode.",
@@ -460,15 +629,27 @@
     "Komposition vor Vererbung: Der Objekt-Adapter umschliesst den Adaptee, anstatt ihn zu erweitern"
   ],
   "adapter.details.payment.concepts": [
-    { "term": "Target Interface", "definition": "Die Schnittstelle, die der Client erwartet (PaymentProcessor). Alle Interaktionen laufen ueber diese Abstraktion, wodurch der Client von konkreten Diensten entkoppelt bleibt." },
-    { "term": "Adapter", "definition": "Eine Klasse (StripeAdapter), die die Zielschnittstelle implementiert und Aufrufe an den Adaptee uebersetzt. Sie ueberbrueckt die Luecke zwischen inkompatiblen Schnittstellen." },
-    { "term": "Adaptee", "definition": "Die bestehende Klasse (StripeAPI) mit einer inkompatiblen Schnittstelle. Sie hat die Funktionalitaet, die der Client benoetigt, kann aber nicht direkt verwendet werden." },
-    { "term": "Object Adapter vs Class Adapter", "definition": "Der Objekt-Adapter verwendet Komposition (umschliesst den Adaptee); der Klassen-Adapter verwendet Mehrfachvererbung. Der Objekt-Adapter ist flexibler und wird in den meisten Sprachen bevorzugt." }
+    {
+      "term": "Target Interface",
+      "definition": "Die Schnittstelle, die der Client erwartet (PaymentProcessor). Alle Interaktionen laufen ueber diese Abstraktion, wodurch der Client von konkreten Diensten entkoppelt bleibt."
+    },
+    {
+      "term": "Adapter",
+      "definition": "Eine Klasse (StripeAdapter), die die Zielschnittstelle implementiert und Aufrufe an den Adaptee uebersetzt. Sie ueberbrueckt die Luecke zwischen inkompatiblen Schnittstellen."
+    },
+    {
+      "term": "Adaptee",
+      "definition": "Die bestehende Klasse (StripeAPI) mit einer inkompatiblen Schnittstelle. Sie hat die Funktionalitaet, die der Client benoetigt, kann aber nicht direkt verwendet werden."
+    },
+    {
+      "term": "Object Adapter vs Class Adapter",
+      "definition": "Der Objekt-Adapter verwendet Komposition (umschliesst den Adaptee); der Klassen-Adapter verwendet Mehrfachvererbung. Der Objekt-Adapter ist flexibler und wird in den meisten Sprachen bevorzugt."
+    }
   ],
   "adapter.details.payment.tradeoffs.pros": [
     "Ermoeglicht die Integration inkompatibler Schnittstellen, ohne bestehenden Code zu aendern",
-    "Single Responsibility \u2014 Schnittstellenkonvertierung ist in der Adapter-Klasse isoliert",
-    "Open/Closed-Prinzip \u2014 neue Adapter werden hinzugefuegt, ohne Client oder Adaptee zu aendern",
+    "Single Responsibility — Schnittstellenkonvertierung ist in der Adapter-Klasse isoliert",
+    "Open/Closed-Prinzip — neue Adapter werden hinzugefuegt, ohne Client oder Adaptee zu aendern",
     "Foerdert die Wiederverwendung bestehender Funktionalitaet durch Wrapping"
   ],
   "adapter.details.payment.tradeoffs.cons": [
@@ -494,27 +675,50 @@
   "adapter.step.payment.7": "StripeAdapter gibt true an den Client zurueck",
   "adapter.stepLabel.payment": "Zahlung ueber Adapter-Pattern anpassen",
   "adapter.depRules": [
-    { "name": "Target (PaymentProcessor)", "role": "Definiert die Schnittstelle, die der Client erwartet" },
-    { "name": "Adapter (StripeAdapter)", "role": "Konvertiert die Zielschnittstelle in die Adaptee-Schnittstelle" },
-    { "name": "Adaptee (StripeAPI)", "role": "Bestehende Klasse mit einer inkompatiblen Schnittstelle" },
-    { "name": "Client", "role": "Verwendet die Zielschnittstelle, um ueber den Adapter mit dem Adaptee zu interagieren" }
+    {
+      "name": "Target (PaymentProcessor)",
+      "role": "Definiert die Schnittstelle, die der Client erwartet"
+    },
+    {
+      "name": "Adapter (StripeAdapter)",
+      "role": "Konvertiert die Zielschnittstelle in die Adaptee-Schnittstelle"
+    },
+    {
+      "name": "Adaptee (StripeAPI)",
+      "role": "Bestehende Klasse mit einer inkompatiblen Schnittstelle"
+    },
+    {
+      "name": "Client",
+      "role": "Verwendet die Zielschnittstelle, um ueber den Adapter mit dem Adaptee zu interagieren"
+    }
   ],
-
   "facade.name": "Facade",
   "facade.modes.theater.label": "Home Theater",
   "facade.modes.theater.desc": "HomeTheaterFacade vereinfacht die Verwaltung eines komplexen Heimkinosystems. Anstatt Methoden auf DVDPlayer, Amplifier, Projector und Lights einzeln aufzurufen, ruft der Client watchMovie() auf der Fassade auf, die alle Subsysteme in der richtigen Reihenfolge orchestriert.",
   "facade.details.theater.principles": [
     "Bieten Sie eine einheitliche, vereinfachte Schnittstelle zu einer Reihe von Schnittstellen in einem Subsystem",
     "Minimieren Sie Kommunikation und Abhaengigkeiten zwischen Subsystemen und Clients",
-    "Die Fassade delegiert Arbeit an Subsystem-Objekte \u2014 sie ersetzt sie nicht",
+    "Die Fassade delegiert Arbeit an Subsystem-Objekte — sie ersetzt sie nicht",
     "Clients koennen weiterhin direkt auf Subsystemklassen zugreifen, wenn sie feinkoernige Kontrolle benoetigen",
     "Prinzip des geringsten Wissens (Gesetz von Demeter): Der Client kommuniziert nur mit der Fassade"
   ],
   "facade.details.theater.concepts": [
-    { "term": "Facade", "definition": "Eine Klasse (HomeTheaterFacade), die eine einfache Schnittstelle zu einem komplexen Subsystem bietet. Sie weiss, an welche Subsystemklassen sie delegieren muss." },
-    { "term": "Subsystem Classes", "definition": "Komplexe Klassen (DVDPlayer, Amplifier, Projector, Lights), die die eigentliche Arbeit erledigen. Sie wissen nichts von der Fassade." },
-    { "term": "Simplified Interface", "definition": "Die Fassade stellt High-Level-Operationen (watchMovie, endMovie) bereit, die mehrere Subsystemaufrufe in der richtigen Reihenfolge orchestrieren." },
-    { "term": "Decoupling", "definition": "Der Client haengt nur von der Fassade ab, nicht von Subsystem-Interna. Subsystem-Aenderungen werden von der Fassade absorbiert." }
+    {
+      "term": "Facade",
+      "definition": "Eine Klasse (HomeTheaterFacade), die eine einfache Schnittstelle zu einem komplexen Subsystem bietet. Sie weiss, an welche Subsystemklassen sie delegieren muss."
+    },
+    {
+      "term": "Subsystem Classes",
+      "definition": "Komplexe Klassen (DVDPlayer, Amplifier, Projector, Lights), die die eigentliche Arbeit erledigen. Sie wissen nichts von der Fassade."
+    },
+    {
+      "term": "Simplified Interface",
+      "definition": "Die Fassade stellt High-Level-Operationen (watchMovie, endMovie) bereit, die mehrere Subsystemaufrufe in der richtigen Reihenfolge orchestrieren."
+    },
+    {
+      "term": "Decoupling",
+      "definition": "Der Client haengt nur von der Fassade ab, nicht von Subsystem-Interna. Subsystem-Aenderungen werden von der Fassade absorbiert."
+    }
   ],
   "facade.details.theater.tradeoffs.pros": [
     "Vereinfacht die Nutzung komplexer Subsysteme mit einer sauberen, uebergeordneten API",
@@ -531,10 +735,10 @@
   "facade.details.theater.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie eine einfache Schnittstelle zu einem komplexen Subsystem bereitstellen moechten, wenn es viele Abhaengigkeiten zwischen Clients und den Implementierungsklassen gibt, oder wenn Sie Ihre Subsysteme schichten moechten.",
   "facade.tooltip.client": "Client, der die Fassade zur Steuerung des Heimkinos verwendet",
   "facade.tooltip.facade": "Fassade, die watchMovie()- und endMovie()-High-Level-Operationen bereitstellt",
-  "facade.tooltip.dvd": "DVDPlayer-Subsystem \u2014 verwaltet die Disc-Wiedergabe",
-  "facade.tooltip.amp": "Amplifier-Subsystem \u2014 verwaltet Audiolautstaerke und Stromversorgung",
-  "facade.tooltip.proj": "Projector-Subsystem \u2014 verwaltet die Videoanzeige",
-  "facade.tooltip.lights": "Lights-Subsystem \u2014 steuert die Raumbeleuchtung",
+  "facade.tooltip.dvd": "DVDPlayer-Subsystem — verwaltet die Disc-Wiedergabe",
+  "facade.tooltip.amp": "Amplifier-Subsystem — verwaltet Audiolautstaerke und Stromversorgung",
+  "facade.tooltip.proj": "Projector-Subsystem — verwaltet die Videoanzeige",
+  "facade.tooltip.lights": "Lights-Subsystem — steuert die Raumbeleuchtung",
   "facade.step.theater.0": "Client ruft facade.watchMovie(\"Inception\") auf",
   "facade.step.theater.1": "Fassade beginnt die Orchestrierung",
   "facade.step.theater.2": "lights.dim(30)",
@@ -547,37 +751,57 @@
   "facade.step.theater.9": "Film \"Inception\" wird jetzt abgespielt",
   "facade.stepLabel.theater": "Film ansehen ueber Home-Theater-Fassade",
   "facade.depRules": [
-    { "name": "Facade (HomeTheaterFacade)", "role": "Bietet eine vereinfachte Schnittstelle zum Subsystem" },
-    { "name": "Subsystem (DVDPlayer, Amplifier, Projector, Lights)", "role": "Komplexe Subsystemklassen, die die eigentliche Arbeit erledigen" },
-    { "name": "Client", "role": "Verwendet die Fassade anstelle direkter Aufrufe an Subsystemklassen" }
+    {
+      "name": "Facade (HomeTheaterFacade)",
+      "role": "Bietet eine vereinfachte Schnittstelle zum Subsystem"
+    },
+    {
+      "name": "Subsystem (DVDPlayer, Amplifier, Projector, Lights)",
+      "role": "Komplexe Subsystemklassen, die die eigentliche Arbeit erledigen"
+    },
+    {
+      "name": "Client",
+      "role": "Verwendet die Fassade anstelle direkter Aufrufe an Subsystemklassen"
+    }
   ],
-
   "proxy.name": "Proxy",
   "proxy.modes.caching.label": "Database Caching",
-  "proxy.modes.caching.desc": "CachingProxy faengt SQL-Abfragen ab und speichert Ergebnisse im Cache. Bei einem Cache-Miss delegiert er an RealDatabase und speichert das Ergebnis. Bei einem Cache-Hit gibt er das zwischengespeicherte Ergebnis zurueck, ohne die Datenbank zu beruehren \u2014 was die Leistung fuer wiederholte Abfragen verbessert.",
+  "proxy.modes.caching.desc": "CachingProxy faengt SQL-Abfragen ab und speichert Ergebnisse im Cache. Bei einem Cache-Miss delegiert er an RealDatabase und speichert das Ergebnis. Bei einem Cache-Hit gibt er das zwischengespeicherte Ergebnis zurueck, ohne die Datenbank zu beruehren — was die Leistung fuer wiederholte Abfragen verbessert.",
   "proxy.details.caching.principles": [
     "Stellen Sie einen Stellvertreter oder Platzhalter fuer ein anderes Objekt bereit, um den Zugriff darauf zu kontrollieren",
-    "Proxy und reales Subjekt implementieren dieselbe Schnittstelle \u2014 sie sind austauschbar",
+    "Proxy und reales Subjekt implementieren dieselbe Schnittstelle — sie sind austauschbar",
     "Der Proxy kann Verhalten (Caching, Zugriffskontrolle, Logging) hinzufuegen, ohne das reale Subjekt zu aendern",
     "Lazy Initialization: Verschieben Sie die Erstellung teurer Objekte, bis sie tatsaechlich benoetigt werden",
-    "Transparent fuer den Client \u2014 der Client weiss nicht, ob er mit einem Proxy oder dem realen Objekt kommuniziert"
+    "Transparent fuer den Client — der Client weiss nicht, ob er mit einem Proxy oder dem realen Objekt kommuniziert"
   ],
   "proxy.details.caching.concepts": [
-    { "term": "Virtual Proxy", "definition": "Verzoegert die Erstellung teurer Objekte, bis sie benoetigt werden. Erstellt das reale Objekt beim ersten Zugriff und speichert es fuer nachfolgende Verwendung." },
-    { "term": "Protection Proxy", "definition": "Kontrolliert den Zugriff auf das reale Objekt basierend auf Berechtigungen. Prueft Anmeldedaten, bevor die Anfrage weitergeleitet wird." },
-    { "term": "Caching Proxy", "definition": "Speichert Ergebnisse teurer Operationen und gibt zwischengespeicherte Daten fuer identische Anfragen zurueck, wodurch wiederholte Berechnungen oder Netzwerkaufrufe vermieden werden." },
-    { "term": "Smart Reference", "definition": "Fuehrt zusaetzliche Aktionen aus, wenn auf das reale Objekt zugegriffen wird, wie Referenzzaehlung, Logging oder Thread-Sperrung." }
+    {
+      "term": "Virtual Proxy",
+      "definition": "Verzoegert die Erstellung teurer Objekte, bis sie benoetigt werden. Erstellt das reale Objekt beim ersten Zugriff und speichert es fuer nachfolgende Verwendung."
+    },
+    {
+      "term": "Protection Proxy",
+      "definition": "Kontrolliert den Zugriff auf das reale Objekt basierend auf Berechtigungen. Prueft Anmeldedaten, bevor die Anfrage weitergeleitet wird."
+    },
+    {
+      "term": "Caching Proxy",
+      "definition": "Speichert Ergebnisse teurer Operationen und gibt zwischengespeicherte Daten fuer identische Anfragen zurueck, wodurch wiederholte Berechnungen oder Netzwerkaufrufe vermieden werden."
+    },
+    {
+      "term": "Smart Reference",
+      "definition": "Fuehrt zusaetzliche Aktionen aus, wenn auf das reale Objekt zugegriffen wird, wie Referenzzaehlung, Logging oder Thread-Sperrung."
+    }
   ],
   "proxy.details.caching.tradeoffs.pros": [
     "Kontrolliert den Zugriff, ohne dass Clients davon wissen",
     "Caching-Proxy verbessert die Leistung fuer wiederholte Operationen drastisch",
-    "Folgt dem Open/Closed-Prinzip \u2014 Verhalten hinzufuegen, ohne das reale Objekt zu aendern",
+    "Folgt dem Open/Closed-Prinzip — Verhalten hinzufuegen, ohne das reale Objekt zu aendern",
     "Kann den Lebenszyklus des realen Dienstobjekts verwalten"
   ],
   "proxy.details.caching.tradeoffs.cons": [
     "Fuegt eine zusaetzliche Indirektionsschicht hinzu und erhoeht die Komplexitaet",
     "Die Antwortzeit kann durch den Proxy-Verarbeitungs-Overhead steigen",
-    "Cache-Invalidierung ist schwierig \u2014 veraltete Daten koennen subtile Fehler verursachen",
+    "Cache-Invalidierung ist schwierig — veraltete Daten koennen subtile Fehler verursachen",
     "Der Proxy muss mit der Schnittstelle des realen Subjekts synchron gehalten werden"
   ],
   "proxy.details.caching.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie Lazy Initialization (virtueller Proxy), Zugriffskontrolle (Schutz-Proxy), Caching teurer Operationen, Logging benoetigen, oder wenn das reale Objekt entfernt ist und Sie einen lokalen Stellvertreter wuenschen.",
@@ -589,7 +813,7 @@
   "proxy.tooltip.obj-result": "ResultSet, das von der Datenbankabfrage zurueckgegeben wird",
   "proxy.step.caching.0": "Client ruft proxy.query(\"SELECT * FROM users\") auf",
   "proxy.step.caching.1": "CachingProxy empfaengt Abfrage",
-  "proxy.step.caching.2": "Cache pruefen \u2014 MISS",
+  "proxy.step.caching.2": "Cache pruefen — MISS",
   "proxy.step.caching.3": "Delegierung an realDb.query()",
   "proxy.step.caching.4": "RealDatabase fuehrt SQL-Abfrage aus",
   "proxy.step.caching.5": "ResultSet mit Abfrageergebnissen erstellt",
@@ -597,50 +821,73 @@
   "proxy.step.caching.7": "ResultSet an den Client zurueckgeben",
   "proxy.step.caching.8": "Client sendet dieselbe Abfrage erneut",
   "proxy.step.caching.9": "CachingProxy empfaengt Abfrage",
-  "proxy.step.caching.10": "Cache pruefen \u2014 HIT",
+  "proxy.step.caching.10": "Cache pruefen — HIT",
   "proxy.step.caching.11": "Zwischengespeichertes ResultSet zurueckgegeben (kein DB-Aufruf)",
   "proxy.stepLabel.caching": "Datenbankabfrage mit Caching-Proxy",
   "proxy.depRules": [
-    { "name": "Subject (DatabaseQuery)", "role": "Schnittstelle fuer sowohl den realen Dienst als auch den Proxy" },
-    { "name": "RealSubject (RealDatabase)", "role": "Der tatsaechliche Dienst, der teure Operationen ausfuehrt" },
-    { "name": "Proxy (CachingProxy)", "role": "Kontrolliert den Zugriff auf das RealSubject und fuegt Caching-Verhalten hinzu" },
-    { "name": "Client", "role": "Arbeitet mit der Subject-Schnittstelle, ohne vom Proxy zu wissen" }
+    {
+      "name": "Subject (DatabaseQuery)",
+      "role": "Schnittstelle fuer sowohl den realen Dienst als auch den Proxy"
+    },
+    {
+      "name": "RealSubject (RealDatabase)",
+      "role": "Der tatsaechliche Dienst, der teure Operationen ausfuehrt"
+    },
+    {
+      "name": "Proxy (CachingProxy)",
+      "role": "Kontrolliert den Zugriff auf das RealSubject und fuegt Caching-Verhalten hinzu"
+    },
+    {
+      "name": "Client",
+      "role": "Arbeitet mit der Subject-Schnittstelle, ohne vom Proxy zu wissen"
+    }
   ],
-
   "decorator.name": "Decorator",
   "decorator.modes.coffee.label": "Coffee Shop",
   "decorator.modes.coffee.desc": "MilkDecorator und SugarDecorator umschliessen einen SimpleCoffee, um dynamisch Verhalten hinzuzufuegen. Jeder Decorator implementiert die Beverage-Schnittstelle und delegiert an das umschlossene Objekt, wobei er seine eigenen Kosten und Beschreibung hinzufuegt. Decorators koennen in beliebiger Reihenfolge gestapelt werden.",
   "decorator.details.coffee.principles": [
-    "Fuegen Sie einem Objekt dynamisch zusaetzliche Verantwortlichkeiten hinzu \u2014 eine flexible Alternative zur Unterklassenbildung",
+    "Fuegen Sie einem Objekt dynamisch zusaetzliche Verantwortlichkeiten hinzu — eine flexible Alternative zur Unterklassenbildung",
     "Decorators implementieren dieselbe Schnittstelle wie die Komponente, die sie umschliessen",
     "Jeder Decorator fuegt eine Verantwortlichkeit hinzu und delegiert den Rest an das umschlossene Objekt",
     "Open/Closed-Prinzip: Neues Verhalten wird durch Erstellen neuer Decorators hinzugefuegt, nicht durch Aendern bestehender Klassen",
     "Komposition vor Vererbung: Verhalten wird zur Laufzeit durch Stapeln von Decorators zusammengesetzt"
   ],
   "decorator.details.coffee.concepts": [
-    { "term": "Component", "definition": "Schnittstelle (Beverage), die Operationen definiert, die dynamisch erweitert werden koennen. Sowohl konkrete Komponenten als auch Decorators implementieren diese." },
-    { "term": "Decorator", "definition": "Abstrakte Klasse, die eine Component-Referenz umschliesst. Leitet Anfragen an das umschlossene Objekt weiter und kann Verhalten vorher oder nachher hinzufuegen." },
-    { "term": "Wrapping", "definition": "Jeder Decorator haelt eine Referenz auf die naechste Komponente in der Kette. Der Aufruf von cost() propagiert durch die Kette und akkumuliert Ergebnisse." },
-    { "term": "Recursive Composition", "definition": "Decorators koennen andere Decorators umschliessen und eine Kette bilden. Der Client interagiert mit dem aeussersten Decorator, ohne die innere Kette zu kennen." }
+    {
+      "term": "Component",
+      "definition": "Schnittstelle (Beverage), die Operationen definiert, die dynamisch erweitert werden koennen. Sowohl konkrete Komponenten als auch Decorators implementieren diese."
+    },
+    {
+      "term": "Decorator",
+      "definition": "Abstrakte Klasse, die eine Component-Referenz umschliesst. Leitet Anfragen an das umschlossene Objekt weiter und kann Verhalten vorher oder nachher hinzufuegen."
+    },
+    {
+      "term": "Wrapping",
+      "definition": "Jeder Decorator haelt eine Referenz auf die naechste Komponente in der Kette. Der Aufruf von cost() propagiert durch die Kette und akkumuliert Ergebnisse."
+    },
+    {
+      "term": "Recursive Composition",
+      "definition": "Decorators koennen andere Decorators umschliessen und eine Kette bilden. Der Client interagiert mit dem aeussersten Decorator, ohne die innere Kette zu kennen."
+    }
   ],
   "decorator.details.coffee.tradeoffs.pros": [
     "Verantwortlichkeiten dynamisch hinzufuegen, ohne bestehenden Code zu aendern",
     "Mehrere Decorators koennen in beliebiger Reihenfolge fuer flexibles Verhalten kombiniert werden",
-    "Single Responsibility \u2014 jeder Decorator behandelt ein Anliegen",
+    "Single Responsibility — jeder Decorator behandelt ein Anliegen",
     "Bessere Alternative zu einer Klassenexplosion durch Unterklassenbildung fuer jede Kombination"
   ],
   "decorator.details.coffee.tradeoffs.cons": [
     "Viele kleine Objekte koennen das Debugging erschweren",
-    "Die Reihenfolge des Wrappings ist wichtig \u2014 kann zu subtilen Fehlern fuehren",
+    "Die Reihenfolge des Wrappings ist wichtig — kann zu subtilen Fehlern fuehren",
     "Das Entfernen eines bestimmten Decorators aus der Mitte einer Kette ist komplex",
     "Das anfaengliche Design erfordert sorgfaeltige Schnittstellenplanung"
   ],
   "decorator.details.coffee.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie Objekten dynamisch und transparent Verantwortlichkeiten hinzufuegen muessen, wenn Erweiterung durch Unterklassenbildung aufgrund einer grossen Anzahl von Kombinationen unpraktisch ist, oder wenn Sie Verhalten zur Laufzeit hinzufuegen und entfernen moechten.",
-  "decorator.tooltip.component": "Beverage-Schnittstelle \u2014 definiert cost() und description() fuer alle Getraenke",
-  "decorator.tooltip.concrete": "SimpleCoffee \u2014 Basisgetraenk mit $1,00 Kosten",
-  "decorator.tooltip.decorator": "BeverageDecorator \u2014 abstrakter Wrapper mit einer Beverage-Referenz",
-  "decorator.tooltip.milk": "MilkDecorator \u2014 fuegt $0,50 zu den Kosten hinzu",
-  "decorator.tooltip.sugar": "SugarDecorator \u2014 fuegt $0,25 zu den Kosten hinzu",
+  "decorator.tooltip.component": "Beverage-Schnittstelle — definiert cost() und description() fuer alle Getraenke",
+  "decorator.tooltip.concrete": "SimpleCoffee — Basisgetraenk mit $1,00 Kosten",
+  "decorator.tooltip.decorator": "BeverageDecorator — abstrakter Wrapper mit einer Beverage-Referenz",
+  "decorator.tooltip.milk": "MilkDecorator — fuegt $0,50 zu den Kosten hinzu",
+  "decorator.tooltip.sugar": "SugarDecorator — fuegt $0,25 zu den Kosten hinzu",
   "decorator.tooltip.obj-coffee": "Laufzeitinstanz :SimpleCoffee ($1,00)",
   "decorator.tooltip.obj-sugar": "Laufzeitinstanz :SugarDecorator, der SimpleCoffee umschliesst",
   "decorator.tooltip.obj-milk": "Laufzeitinstanz :MilkDecorator, der SugarDecorator umschliesst",
@@ -656,33 +903,56 @@
   "decorator.step.coffee.9": "Gesamt = $1,75 ($1,00 + $0,25 + $0,50)",
   "decorator.stepLabel.coffee": "Dekorierten Kaffee mit Decorator-Pattern bauen",
   "decorator.depRules": [
-    { "name": "Component (Beverage)", "role": "Schnittstelle fuer Objekte, denen dynamisch Verantwortlichkeiten hinzugefuegt werden koennen" },
-    { "name": "ConcreteComponent (SimpleCoffee)", "role": "Das Basisobjekt, das dekoriert werden kann" },
-    { "name": "Decorator (BeverageDecorator)", "role": "Abstrakte Klasse, die eine Komponente umschliesst und Anfragen weiterleitet" },
-    { "name": "ConcreteDecorators (Milk, Sugar)", "role": "Fuegen der Komponente spezifische Verantwortlichkeiten hinzu" }
+    {
+      "name": "Component (Beverage)",
+      "role": "Schnittstelle fuer Objekte, denen dynamisch Verantwortlichkeiten hinzugefuegt werden koennen"
+    },
+    {
+      "name": "ConcreteComponent (SimpleCoffee)",
+      "role": "Das Basisobjekt, das dekoriert werden kann"
+    },
+    {
+      "name": "Decorator (BeverageDecorator)",
+      "role": "Abstrakte Klasse, die eine Komponente umschliesst und Anfragen weiterleitet"
+    },
+    {
+      "name": "ConcreteDecorators (Milk, Sugar)",
+      "role": "Fuegen der Komponente spezifische Verantwortlichkeiten hinzu"
+    }
   ],
-
   "bridge.name": "Bridge",
   "bridge.modes.remote.label": "Remote Control",
   "bridge.modes.remote.desc": "RemoteControl (Abstraktion) ist von Device (Implementierung) getrennt. AdvancedRemote erweitert die Abstraktion, waehrend TV und Radio konkrete Implementierungen bereitstellen. Die Bruecke ermoeglicht es beiden Hierarchien, sich unabhaengig voneinander zu aendern.",
   "bridge.details.remote.principles": [
     "Entkoppeln Sie eine Abstraktion von ihrer Implementierung, damit beide sich unabhaengig aendern koennen",
-    "Bevorzugen Sie Komposition vor Vererbung \u2014 die Abstraktion haelt eine Referenz auf die Implementierung",
+    "Bevorzugen Sie Komposition vor Vererbung — die Abstraktion haelt eine Referenz auf die Implementierung",
     "Zwei orthogonale Dimensionen der Aenderung: Abstraktionshierarchie und Implementierungshierarchie",
     "Clients arbeiten mit der Abstraktion und kennen die Implementierungsdetails nicht",
     "Open/Closed-Prinzip: Neue Abstraktionen und Implementierungen koennen unabhaengig hinzugefuegt werden"
   ],
   "bridge.details.remote.concepts": [
-    { "term": "Abstraction", "definition": "Die uebergeordnete Steuerungsschicht (RemoteControl), die Arbeit an die Implementierung delegiert. Sie definiert die Steuerschnittstelle, die von Clients verwendet wird." },
-    { "term": "Implementor", "definition": "Schnittstelle (Device), die Low-Level-Operationen definiert. Konkrete Implementierer (TV, Radio) bieten plattformspezifisches Verhalten." },
-    { "term": "Bridge", "definition": "Die Kompositionsbeziehung zwischen Abstraktion und Implementierer. Die Abstraktion haelt eine Referenz auf die Implementierung und bildet eine Bruecke." },
-    { "term": "Orthogonal Hierarchies", "definition": "Zwei unabhaengige Klassenhierarchien, die ohne gegenseitige Beeinflussung erweitert werden koennen: Fernbedienungen (einfach, erweitert) und Geraete (TV, Radio)." }
+    {
+      "term": "Abstraction",
+      "definition": "Die uebergeordnete Steuerungsschicht (RemoteControl), die Arbeit an die Implementierung delegiert. Sie definiert die Steuerschnittstelle, die von Clients verwendet wird."
+    },
+    {
+      "term": "Implementor",
+      "definition": "Schnittstelle (Device), die Low-Level-Operationen definiert. Konkrete Implementierer (TV, Radio) bieten plattformspezifisches Verhalten."
+    },
+    {
+      "term": "Bridge",
+      "definition": "Die Kompositionsbeziehung zwischen Abstraktion und Implementierer. Die Abstraktion haelt eine Referenz auf die Implementierung und bildet eine Bruecke."
+    },
+    {
+      "term": "Orthogonal Hierarchies",
+      "definition": "Zwei unabhaengige Klassenhierarchien, die ohne gegenseitige Beeinflussung erweitert werden koennen: Fernbedienungen (einfach, erweitert) und Geraete (TV, Radio)."
+    }
   ],
   "bridge.details.remote.tradeoffs.pros": [
     "Beide Hierarchien koennen unabhaengig und ohne Aenderungen erweitert werden",
     "Die Implementierung kann zur Laufzeit gewechselt werden",
     "Plattformspezifischer Code ist in Implementierer-Klassen isoliert",
-    "Reduziert die Klassenexplosion von m\u00d7n-Kombinationen auf m+n"
+    "Reduziert die Klassenexplosion von m×n-Kombinationen auf m+n"
   ],
   "bridge.details.remote.tradeoffs.cons": [
     "Erhoehte Komplexitaet durch die zusaetzliche Abstraktionsschicht",
@@ -691,11 +961,11 @@
     "Mehr Indirektion kann das Debugging erschweren"
   ],
   "bridge.details.remote.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie eine permanente Bindung zwischen Abstraktion und Implementierung vermeiden moechten, wenn sowohl Abstraktion als auch Implementierung durch Unterklassenbildung erweiterbar sein sollen, oder wenn Aenderungen in der Implementierung keine Auswirkungen auf Clients haben sollen.",
-  "bridge.tooltip.abstraction": "RemoteControl \u2014 haelt eine Device-Referenz und delegiert Operationen",
-  "bridge.tooltip.refined": "AdvancedRemote \u2014 erweitert RemoteControl um mute()-Funktionalitaet",
-  "bridge.tooltip.impl": "Device-Schnittstelle \u2014 definiert Low-Level-Operationen fuer alle Geraete",
-  "bridge.tooltip.tv": "TV \u2014 konkreter Implementierer fuer Fernsehen",
-  "bridge.tooltip.radio": "Radio \u2014 konkreter Implementierer fuer Radio",
+  "bridge.tooltip.abstraction": "RemoteControl — haelt eine Device-Referenz und delegiert Operationen",
+  "bridge.tooltip.refined": "AdvancedRemote — erweitert RemoteControl um mute()-Funktionalitaet",
+  "bridge.tooltip.impl": "Device-Schnittstelle — definiert Low-Level-Operationen fuer alle Geraete",
+  "bridge.tooltip.tv": "TV — konkreter Implementierer fuer Fernsehen",
+  "bridge.tooltip.radio": "Radio — konkreter Implementierer fuer Radio",
   "bridge.tooltip.obj-remote": "Laufzeitinstanz :AdvancedRemote",
   "bridge.tooltip.obj-tv": "Laufzeitinstanz :TV, verbunden ueber die Bruecke",
   "bridge.step.remote.0": "AdvancedRemote mit TV erstellen",
@@ -703,20 +973,31 @@
   "bridge.step.remote.2": ":TV als Implementierung erstellt",
   "bridge.step.remote.3": "remote.togglePower()",
   "bridge.step.remote.4": "Delegiert an device.enable()",
-  "bridge.step.remote.5": "TV.enable() \u2014 TV ist jetzt AN",
+  "bridge.step.remote.5": "TV.enable() — TV ist jetzt AN",
   "bridge.step.remote.6": "remote.mute() ruft device.setVolume(0) auf",
   "bridge.step.remote.7": "TV-Lautstaerke = 0",
   "bridge.stepLabel.remote": "Geraet ueber Bridge-Pattern steuern",
   "bridge.depRules": [
-    { "name": "Abstraction (RemoteControl)", "role": "Definiert die Steuerschnittstelle und haelt eine Referenz auf ein Device" },
-    { "name": "RefinedAbstraction (AdvancedRemote)", "role": "Erweitert die Abstraktion um zusaetzliche Operationen" },
-    { "name": "Implementor (Device)", "role": "Schnittstelle fuer Implementierungsklassen" },
-    { "name": "ConcreteImplementor (TV, Radio)", "role": "Bieten konkrete Implementierungen der Device-Schnittstelle" }
+    {
+      "name": "Abstraction (RemoteControl)",
+      "role": "Definiert die Steuerschnittstelle und haelt eine Referenz auf ein Device"
+    },
+    {
+      "name": "RefinedAbstraction (AdvancedRemote)",
+      "role": "Erweitert die Abstraktion um zusaetzliche Operationen"
+    },
+    {
+      "name": "Implementor (Device)",
+      "role": "Schnittstelle fuer Implementierungsklassen"
+    },
+    {
+      "name": "ConcreteImplementor (TV, Radio)",
+      "role": "Bieten konkrete Implementierungen der Device-Schnittstelle"
+    }
   ],
-
   "composite.name": "Composite",
   "composite.modes.filesystem.label": "File System",
-  "composite.modes.filesystem.desc": "Directory und File implementieren beide FileSystemItem. Verzeichnisse koennen Dateien und Unterverzeichnisse enthalten und bilden einen Baum. getSize() wird rekursiv aufgerufen \u2014 Blaetter geben ihre Groesse zurueck, Komposite summieren ihre Kinder. Der Client behandelt einzelne Dateien und Verzeichnisse einheitlich.",
+  "composite.modes.filesystem.desc": "Directory und File implementieren beide FileSystemItem. Verzeichnisse koennen Dateien und Unterverzeichnisse enthalten und bilden einen Baum. getSize() wird rekursiv aufgerufen — Blaetter geben ihre Groesse zurueck, Komposite summieren ihre Kinder. Der Client behandelt einzelne Dateien und Verzeichnisse einheitlich.",
   "composite.details.filesystem.principles": [
     "Setzen Sie Objekte zu Baumstrukturen zusammen, um Teil-Ganzes-Hierarchien darzustellen",
     "Ermoeglicht Clients, einzelne Objekte und Kompositionen einheitlich zu behandeln",
@@ -725,38 +1006,50 @@
     "Open/Closed-Prinzip: Neue Komponententypen koennen hinzugefuegt werden, ohne bestehenden Code zu aendern"
   ],
   "composite.details.filesystem.concepts": [
-    { "term": "Component", "definition": "Schnittstelle (FileSystemItem), die Operationen deklariert, die sowohl fuer Blatt- als auch fuer Komposit-Objekte gelten. Ermoeglicht einheitliche Behandlung." },
-    { "term": "Leaf", "definition": "Ein File-Objekt ohne Kinder. Implementiert Operationen direkt (gibt seine eigene Groesse zurueck)." },
-    { "term": "Composite", "definition": "Ein Directory, das Kind-Komponenten speichert. Delegiert Operationen an Kinder und aggregiert Ergebnisse (summiert Groessen)." },
-    { "term": "Uniform Interface", "definition": "Der Client ruft getSize() auf jedem FileSystemItem auf, ohne zu wissen, ob es eine Datei oder ein Verzeichnis ist. Das Composite-Pattern macht die Baumdurchquerung transparent." }
+    {
+      "term": "Component",
+      "definition": "Schnittstelle (FileSystemItem), die Operationen deklariert, die sowohl fuer Blatt- als auch fuer Komposit-Objekte gelten. Ermoeglicht einheitliche Behandlung."
+    },
+    {
+      "term": "Leaf",
+      "definition": "Ein File-Objekt ohne Kinder. Implementiert Operationen direkt (gibt seine eigene Groesse zurueck)."
+    },
+    {
+      "term": "Composite",
+      "definition": "Ein Directory, das Kind-Komponenten speichert. Delegiert Operationen an Kinder und aggregiert Ergebnisse (summiert Groessen)."
+    },
+    {
+      "term": "Uniform Interface",
+      "definition": "Der Client ruft getSize() auf jedem FileSystemItem auf, ohne zu wissen, ob es eine Datei oder ein Verzeichnis ist. Das Composite-Pattern macht die Baumdurchquerung transparent."
+    }
   ],
   "composite.details.filesystem.tradeoffs.pros": [
     "Einheitliche Behandlung einzelner Objekte und Kompositionen",
-    "Einfach neue Komponententypen hinzuzufuegen \u2014 einfach die Component-Schnittstelle implementieren",
+    "Einfach neue Komponententypen hinzuzufuegen — einfach die Component-Schnittstelle implementieren",
     "Vereinfacht Client-Code, der mit komplexen Baumstrukturen arbeitet",
     "Rekursive Operationen sind natuerlich und sauber"
   ],
   "composite.details.filesystem.tradeoffs.cons": [
-    "Kann das Design zu allgemein machen \u2014 schwer einzuschraenken, welche Komponenten Kinder sein koennen",
-    "Typsicherheit ist reduziert \u2014 Client koennte versuchen, einem Blatt Kinder hinzuzufuegen",
+    "Kann das Design zu allgemein machen — schwer einzuschraenken, welche Komponenten Kinder sein koennen",
+    "Typsicherheit ist reduziert — Client koennte versuchen, einem Blatt Kinder hinzuzufuegen",
     "Durchquerung grosser Baeume kann ohne Optimierung teuer sein",
     "Die einheitliche Schnittstelle kann Blattklassen zwingen, irrelevante Methoden zu implementieren"
   ],
   "composite.details.filesystem.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie Teil-Ganzes-Hierarchien von Objekten darstellen moechten, wenn Clients einzelne Objekte und Kompositionen einheitlich behandeln sollen, oder wenn die Struktur als Baum dargestellt werden kann.",
-  "composite.tooltip.component": "FileSystemItem-Schnittstelle \u2014 getSize() und getName() fuer Dateien und Verzeichnisse",
-  "composite.tooltip.leaf": "File \u2014 Blattknoten mit Name und Groesse, keine Kinder",
-  "composite.tooltip.composite": "Directory \u2014 Komposit-Knoten mit Kindern, delegiert getSize()",
-  "composite.tooltip.obj-root": "/root-Verzeichnis \u2014 Komposit der obersten Ebene",
+  "composite.tooltip.component": "FileSystemItem-Schnittstelle — getSize() und getName() fuer Dateien und Verzeichnisse",
+  "composite.tooltip.leaf": "File — Blattknoten mit Name und Groesse, keine Kinder",
+  "composite.tooltip.composite": "Directory — Komposit-Knoten mit Kindern, delegiert getSize()",
+  "composite.tooltip.obj-root": "/root-Verzeichnis — Komposit der obersten Ebene",
   "composite.tooltip.obj-docs": "/root/docs-Unterverzeichnis",
-  "composite.tooltip.obj-photo": "photo.jpg \u2014 2048 Bytes",
-  "composite.tooltip.obj-readme": "readme.txt \u2014 1024 Bytes",
-  "composite.tooltip.obj-notes": "notes.txt \u2014 512 Bytes",
+  "composite.tooltip.obj-photo": "photo.jpg — 2048 Bytes",
+  "composite.tooltip.obj-readme": "readme.txt — 1024 Bytes",
+  "composite.tooltip.obj-notes": "notes.txt — 512 Bytes",
   "composite.step.filesystem.cls0": "Komponentenschnittstelle: Vertrag getSize() + getName()",
   "composite.step.filesystem.cls1": "Composite: total=0, fuer jedes Kind: total += child.getSize()",
   "composite.step.filesystem.cls2": "Blatt: gibt this.size direkt zurueck, keine Kinder",
   "composite.step.filesystem.0": "Client ruft root.getSize() auf",
   "composite.step.filesystem.1": "/root iteriert ueber Kinder",
-  "composite.step.filesystem.2": "Kind \u2192 /root/docs (Directory)",
+  "composite.step.filesystem.2": "Kind → /root/docs (Directory)",
   "composite.step.filesystem.3": "/root/docs iteriert ueber Kinder",
   "composite.step.filesystem.4": "readme.txt gibt Groesse=1024 zurueck",
   "composite.step.filesystem.5": "notes.txt gibt Groesse=512 zurueck",
@@ -766,27 +1059,50 @@
   "composite.step.filesystem.9": "Gesamtgroesse = 3584 Bytes zurueckgegeben",
   "composite.stepLabel.filesystem": "Dateisystemgroesse ueber Composite berechnen",
   "composite.depRules": [
-    { "name": "Component (FileSystemItem)", "role": "Gemeinsame Schnittstelle fuer sowohl Blaetter als auch Komposite" },
-    { "name": "Leaf (File)", "role": "Hat keine Kinder; implementiert Operationen direkt" },
-    { "name": "Composite (Directory)", "role": "Speichert Kind-Komponenten und delegiert Operationen an sie" },
-    { "name": "Client", "role": "Arbeitet mit allen Elementen ueber die Component-Schnittstelle" }
+    {
+      "name": "Component (FileSystemItem)",
+      "role": "Gemeinsame Schnittstelle fuer sowohl Blaetter als auch Komposite"
+    },
+    {
+      "name": "Leaf (File)",
+      "role": "Hat keine Kinder; implementiert Operationen direkt"
+    },
+    {
+      "name": "Composite (Directory)",
+      "role": "Speichert Kind-Komponenten und delegiert Operationen an sie"
+    },
+    {
+      "name": "Client",
+      "role": "Arbeitet mit allen Elementen ueber die Component-Schnittstelle"
+    }
   ],
-
   "flyweight.name": "Flyweight",
   "flyweight.modes.forest.label": "Forest Rendering",
-  "flyweight.modes.forest.desc": "TreeFactory teilt TreeType-Objekte (intrinsischer Zustand: Name, Farbe, Textur) ueber viele Tree-Instanzen (extrinsischer Zustand: x, y-Koordinaten). Wenn die Fabrik eine Anfrage fuer einen bestehenden Typ erhaelt, gibt sie das zwischengespeicherte Objekt zurueck, anstatt ein neues zu erstellen \u2014 was den Speicherverbrauch drastisch reduziert.",
+  "flyweight.modes.forest.desc": "TreeFactory teilt TreeType-Objekte (intrinsischer Zustand: Name, Farbe, Textur) ueber viele Tree-Instanzen (extrinsischer Zustand: x, y-Koordinaten). Wenn die Fabrik eine Anfrage fuer einen bestehenden Typ erhaelt, gibt sie das zwischengespeicherte Objekt zurueck, anstatt ein neues zu erstellen — was den Speicherverbrauch drastisch reduziert.",
   "flyweight.details.forest.principles": [
     "Teilen Sie gemeinsamen Zustand (intrinsisch) ueber mehrere Objekte, um den Speicherverbrauch zu reduzieren",
     "Trennen Sie intrinsischen Zustand (geteilt, unveraenderlich) von extrinsischem Zustand (einzigartig, kontextabhaengig)",
     "Verwenden Sie eine Fabrik zur Verwaltung von Flyweight-Instanzen und zur Sicherstellung der gemeinsamen Nutzung",
-    "Flyweight-Objekte muessen unveraenderlich sein \u2014 ihr intrinsischer Zustand aendert sich nach der Erstellung nie",
+    "Flyweight-Objekte muessen unveraenderlich sein — ihr intrinsischer Zustand aendert sich nach der Erstellung nie",
     "Tauschen Sie Rechenleistung gegen Speicher: Extrinsischer Zustand wird neu berechnet oder uebergeben, anstatt gespeichert zu werden"
   ],
   "flyweight.details.forest.concepts": [
-    { "term": "Intrinsic State", "definition": "Geteilte Daten, die im Flyweight gespeichert sind (TreeType: Name, Farbe, Textur). Unveraenderlich und kontextunabhaengig \u2014 gleich fuer alle Baeume dieses Typs." },
-    { "term": "Extrinsic State", "definition": "Kontextspezifische Daten, die ausserhalb des Flyweight gespeichert sind (Tree: x, y-Koordinaten). Einzigartig fuer jeden Nutzungskontext und werden dem Flyweight bei Bedarf uebergeben." },
-    { "term": "Flyweight Factory", "definition": "Erstellt und speichert Flyweight-Objekte (TreeFactory). Gibt bestehende Instanzen fuer wiederholte Anfragen zurueck und stellt maximale gemeinsame Nutzung sicher." },
-    { "term": "Immutability", "definition": "Flyweight-Objekte muessen unveraenderlich sein, um sicher geteilt werden zu koennen. Jeder veraenderliche Zustand muss extrinsisch sein und vom Client oder Kontext verwaltet werden." }
+    {
+      "term": "Intrinsic State",
+      "definition": "Geteilte Daten, die im Flyweight gespeichert sind (TreeType: Name, Farbe, Textur). Unveraenderlich und kontextunabhaengig — gleich fuer alle Baeume dieses Typs."
+    },
+    {
+      "term": "Extrinsic State",
+      "definition": "Kontextspezifische Daten, die ausserhalb des Flyweight gespeichert sind (Tree: x, y-Koordinaten). Einzigartig fuer jeden Nutzungskontext und werden dem Flyweight bei Bedarf uebergeben."
+    },
+    {
+      "term": "Flyweight Factory",
+      "definition": "Erstellt und speichert Flyweight-Objekte (TreeFactory). Gibt bestehende Instanzen fuer wiederholte Anfragen zurueck und stellt maximale gemeinsame Nutzung sicher."
+    },
+    {
+      "term": "Immutability",
+      "definition": "Flyweight-Objekte muessen unveraenderlich sein, um sicher geteilt werden zu koennen. Jeder veraenderliche Zustand muss extrinsisch sein und vom Client oder Kontext verwaltet werden."
+    }
   ],
   "flyweight.details.forest.tradeoffs.pros": [
     "Reduziert den Speicherverbrauch drastisch, wenn viele Objekte gemeinsamen Zustand teilen",
@@ -802,8 +1118,8 @@
   ],
   "flyweight.details.forest.tradeoffs.whenToUse": "Verwenden Sie es, wenn eine Anwendung eine grosse Anzahl aehnlicher Objekte erstellt, die erheblich Speicher verbrauchen, wenn der groesste Teil des Objektzustands extrinsisch gemacht werden kann und wenn die Anwendung nicht von der Objektidentitaet abhaengt.",
   "flyweight.tooltip.client": "Client, der Baeume mit der Fabrik pflanzt",
-  "flyweight.tooltip.factory": "TreeFactory \u2014 speichert und wiederverwendet TreeType-Flyweight-Objekte",
-  "flyweight.tooltip.flyweight": "TreeType \u2014 geteilter intrinsischer Zustand (Name, Farbe, Textur)",
+  "flyweight.tooltip.factory": "TreeFactory — speichert und wiederverwendet TreeType-Flyweight-Objekte",
+  "flyweight.tooltip.flyweight": "TreeType — geteilter intrinsischer Zustand (Name, Farbe, Textur)",
   "flyweight.tooltip.obj-oak-type": "Zwischengespeicherte Oak-TreeType-Flyweight-Instanz",
   "flyweight.tooltip.obj-pine-type": "Zwischengespeicherte Pine-TreeType-Flyweight-Instanz",
   "flyweight.tooltip.obj-tree1": "Baum bei (10,20), der Oak-TreeType referenziert",
@@ -811,21 +1127,823 @@
   "flyweight.tooltip.obj-tree3": "Baum bei (30,40), der Pine-TreeType referenziert",
   "flyweight.step.forest.0": "Client benoetigt Baum \"Oak\" bei (10,20)",
   "flyweight.step.forest.1": "factory.getTreeType(\"Oak\", \"green\", \"oak.png\")",
-  "flyweight.step.forest.2": "Cache pruefen \u2014 MISS",
+  "flyweight.step.forest.2": "Cache pruefen — MISS",
   "flyweight.step.forest.3": "TreeType(\"Oak\") erstellt und zwischengespeichert",
   "flyweight.step.forest.4": "Tree(10, 20, oakType) erstellt",
   "flyweight.step.forest.5": ":Tree(10,20) erfolgreich gepflanzt",
   "flyweight.step.forest.6": "Client benoetigt \"Oak\" bei (50,70)",
   "flyweight.step.forest.7": "factory.getTreeType(\"Oak\"...)",
-  "flyweight.step.forest.8": "Cache pruefen \u2014 HIT (dasselbe Objekt wiederverwendet)",
+  "flyweight.step.forest.8": "Cache pruefen — HIT (dasselbe Objekt wiederverwendet)",
   "flyweight.step.forest.9": "Derselbe TreeType aus dem Cache zurueckgegeben",
   "flyweight.step.forest.10": "Tree(50, 70, oakType) verwendet Flyweight wieder",
-  "flyweight.step.forest.11": ":Tree(50,70) gepflanzt \u2014 geteilter TreeType",
+  "flyweight.step.forest.11": ":Tree(50,70) gepflanzt — geteilter TreeType",
   "flyweight.stepLabel.forest": "Wald mit geteilten Flyweight-Objekten rendern",
   "flyweight.depRules": [
-    { "name": "Flyweight (TreeType)", "role": "Speichert intrinsischen (geteilten) Zustand, der ueber Kontexte hinweg wiederverwendet werden kann" },
-    { "name": "FlyweightFactory (TreeFactory)", "role": "Erstellt und verwaltet Flyweight-Objekte und stellt die gemeinsame Nutzung sicher" },
-    { "name": "Context (Tree)", "role": "Speichert extrinsischen (einzigartigen) Zustand und referenziert ein Flyweight" },
-    { "name": "Client", "role": "Verwaltet Referenzen auf Flyweights und berechnet/speichert extrinsischen Zustand" }
+    {
+      "name": "Flyweight (TreeType)",
+      "role": "Speichert intrinsischen (geteilten) Zustand, der ueber Kontexte hinweg wiederverwendet werden kann"
+    },
+    {
+      "name": "FlyweightFactory (TreeFactory)",
+      "role": "Erstellt und verwaltet Flyweight-Objekte und stellt die gemeinsame Nutzung sicher"
+    },
+    {
+      "name": "Context (Tree)",
+      "role": "Speichert extrinsischen (einzigartigen) Zustand und referenziert ein Flyweight"
+    },
+    {
+      "name": "Client",
+      "role": "Verwaltet Referenzen auf Flyweights und berechnet/speichert extrinsischen Zustand"
+    }
+  ],
+  "observer.name": "Observer",
+  "observer.modes.events.label": "Ereignisse",
+  "observer.modes.events.desc": "Ein EventManager (Subjekt) verwaltet eine Liste von Beobachtern und benachrichtigt sie automatisch, wenn ein Ereignis eintritt. EmailNotifier, LoggingObserver und SlackNotifier implementieren alle die Observer-Schnittstelle und reagieren unabhaengig voneinander auf dasselbe Ereignis.",
+  "observer.details.events.principles": [
+    "Lose Kopplung: Das Subjekt weiss nur, dass Beobachter eine Schnittstelle implementieren, nicht deren konkrete Typen",
+    "Open/Closed-Prinzip: Neue Beobachter koennen hinzugefuegt werden, ohne das Subjekt zu aendern",
+    "Eins-zu-viele-Abhaengigkeit: Ein Ereignis loest gleichzeitig Aktualisierungen in vielen Beobachtern aus",
+    "Ereignisgesteuertes Design: Komponenten reagieren auf Ereignisse, anstatt nach Aenderungen zu pollen",
+    "Single Responsibility: Jeder Beobachter behandelt seine eigene Reaktionslogik unabhaengig"
+  ],
+  "observer.details.events.concepts": [
+    {
+      "term": "Subject",
+      "definition": "Das beobachtete Objekt (EventManager). Es verwaltet eine Abonnentenliste und stellt subscribe/unsubscribe/notify-Methoden bereit."
+    },
+    {
+      "term": "Observer",
+      "definition": "Eine Schnittstelle, die die Methode update(event, data) deklariert. Alle konkreten Beobachter implementieren diese Schnittstelle, um Benachrichtigungen zu empfangen."
+    },
+    {
+      "term": "Event",
+      "definition": "Ein benanntes Ereignis (z.B. 'order.placed'), das eine Benachrichtigung ausloest. Beobachter abonnieren bestimmte Ereignistypen."
+    },
+    {
+      "term": "Push vs Pull",
+      "definition": "Im Push-Modell sendet das Subjekt Daten mit der Benachrichtigung. Im Pull-Modell fragen Beobachter das Subjekt nach Daten, nachdem sie benachrichtigt wurden."
+    }
+  ],
+  "observer.details.events.tradeoffs.pros": [
+    "Entkoppelt Ereignisproduzenten von Konsumenten — sie entwickeln sich unabhaengig weiter",
+    "Einfaches Hinzufuegen neuer Beobachter, ohne bestehenden Code zu aendern",
+    "Unterstuetzt Broadcast-Kommunikation — ein Ereignis erreicht viele Listener",
+    "Ermoeglicht reaktive Architekturen und ereignisgesteuerte Systeme"
+  ],
+  "observer.details.events.tradeoffs.cons": [
+    "Beobachter werden in undefinierter Reihenfolge benachrichtigt — kann subtile Fehler verursachen",
+    "Speicherlecks, wenn Beobachter nicht ordnungsgemaess abgemeldet werden",
+    "Kaskadierende Aktualisierungen koennen bei vielen Beobachtern zu Leistungsproblemen fuehren",
+    "Debugging ist schwieriger — den Ereignisfluss durch mehrere Beobachter zu verfolgen ist komplex"
+  ],
+  "observer.details.events.tradeoffs.whenToUse": "Verwenden Sie es, wenn Aenderungen an einem Objekt die Aktualisierung anderer erfordern und Sie nicht wissen, wie viele Objekte sich aendern muessen. Verbreitet in Ereignissystemen, UI-Frameworks, Message Brokern und Pub/Sub-Architekturen.",
+  "observer.tooltip.subject": "EventManager verwaltet eine Zuordnung von Ereignisnamen zu Beobachterlisten und sendet Benachrichtigungen",
+  "observer.tooltip.observer": "Observer-Schnittstelle — alle konkreten Beobachter muessen update(event, data) implementieren",
+  "observer.tooltip.email": "EmailNotifier sendet Bestaetigungsmails, wenn Ereignisse eintreten",
+  "observer.tooltip.logging": "LoggingObserver schreibt Ereignisdetails in eine Protokolldatei",
+  "observer.tooltip.slack": "SlackNotifier postet Ereignisbenachrichtigungen in einen Slack-Kanal",
+  "observer.tooltip.obj-email": "Laufzeitinstanz von EmailNotifier, die das Ereignis verarbeitet",
+  "observer.tooltip.obj-logging": "Laufzeitinstanz von LoggingObserver, die ins Protokoll schreibt",
+  "observer.tooltip.obj-slack": "Laufzeitinstanz von SlackNotifier, die auf Slack postet",
+  "observer.step.events.0": "Benutzer loest Ereignis \"order.placed\" aus",
+  "observer.step.events.1": "EventManager sucht Abonnenten fuer \"order.placed\"",
+  "observer.step.events.2": "Benachrichtige EmailNotifier.update()",
+  "observer.step.events.3": "EmailNotifier sendet Bestaetigungsmail",
+  "observer.step.events.4": "Benachrichtige LoggingObserver.update()",
+  "observer.step.events.5": "LoggingObserver schreibt in Protokolldatei",
+  "observer.step.events.6": "Benachrichtige SlackNotifier.update()",
+  "observer.step.events.7": "SlackNotifier postet in #orders-Kanal",
+  "observer.stepLabel.events": "Ereignis ueber Beobachter-Muster broadcasten",
+  "observer.depRules": [
+    {
+      "name": "EventManager (Subject)",
+      "role": "Verwaltet Abonnentenliste und sendet Ereignisse an alle registrierten Beobachter"
+    },
+    {
+      "name": "Observer (Schnittstelle)",
+      "role": "Definiert den update(event, data)-Vertrag fuer den Empfang von Benachrichtigungen"
+    },
+    {
+      "name": "EmailNotifier",
+      "role": "Sendet E-Mail-Benachrichtigungen bei Ereignissen"
+    },
+    {
+      "name": "LoggingObserver",
+      "role": "Protokolliert Ereignisdetails in einer Datei zur Ueberpruefung"
+    },
+    {
+      "name": "SlackNotifier",
+      "role": "Postet Ereignisbenachrichtigungen in einen Slack-Kanal"
+    }
+  ],
+  "strategy.name": "Strategy",
+  "strategy.modes.navigation.label": "Navigation",
+  "strategy.modes.navigation.desc": "Ein Navigator (Kontext) haelt eine Referenz auf eine RouteStrategy und delegiert die Routenberechnung an diese. Der Client kann Strategien zur Laufzeit austauschen — DrivingStrategy, WalkingStrategy oder TransitStrategy — ohne den Navigator-Code zu aendern.",
+  "strategy.details.navigation.principles": [
+    "Algorithmen kapseln: Jede Strategie kapselt einen bestimmten Routenberechnungsalgorithmus",
+    "Open/Closed-Prinzip: Neue Strategien koennen hinzugefuegt werden, ohne den Kontext zu aendern",
+    "Komposition ueber Vererbung: Der Kontext delegiert an ein Strategieobjekt, anstatt Unterklassen zu verwenden",
+    "Kontextdelegation: Der Navigator delegiert die Routenerstellung an die aktuelle Strategie",
+    "Laufzeitflexibilitaet: Strategien koennen zur Laufzeit ausgetauscht werden, um das Verhalten dynamisch zu aendern"
+  ],
+  "strategy.details.navigation.concepts": [
+    {
+      "term": "Context",
+      "definition": "Die Navigator-Klasse, die eine Referenz auf eine Strategie haelt und die Algorithmusausfuehrung an diese delegiert."
+    },
+    {
+      "term": "Strategy",
+      "definition": "Die RouteStrategy-Schnittstelle, die die Methode buildRoute() deklariert. Alle konkreten Strategien implementieren diese Schnittstelle."
+    },
+    {
+      "term": "Concrete Strategy",
+      "definition": "Eine bestimmte Algorithmusimplementierung (DrivingStrategy, WalkingStrategy, TransitStrategy), die zur Laufzeit ausgetauscht werden kann."
+    },
+    {
+      "term": "Client",
+      "definition": "Konfiguriert den Kontext mit einer bestimmten Strategie und kann diese jederzeit aendern."
+    }
+  ],
+  "strategy.details.navigation.tradeoffs.pros": [
+    "Eliminiert bedingte Anweisungen fuer die Algorithmusauswahl",
+    "Algorithmen koennen zur Laufzeit ausgetauscht werden, ohne den Kontextcode zu aendern",
+    "Jede Strategie ist unabhaengig testbar und wartbar",
+    "Neue Strategien koennen hinzugefuegt werden, ohne bestehenden Code zu aendern"
+  ],
+  "strategy.details.navigation.tradeoffs.cons": [
+    "Clients muessen die verschiedenen Strategien kennen, um die passende auszuwaehlen",
+    "Erhoeht die Anzahl der Klassen im System",
+    "Kommunikationsaufwand zwischen Kontext und Strategie fuer gemeinsame Daten",
+    "Uebertrieben fuer eine kleine, feste Menge von Algorithmen, die sich selten aendern"
+  ],
+  "strategy.details.navigation.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie mehrere Algorithmen fuer eine bestimmte Aufgabe haben und zur Laufzeit zwischen ihnen wechseln moechten, wenn Sie bedingte Logik zur Auswahl verschiedener Verhaltensweisen haben, oder wenn Sie Algorithmus-Implementierungsdetails vom verwendenden Code isolieren moechten.",
+  "strategy.tooltip.client": "Client konfiguriert den Navigator mit einer gewaehlten Strategie",
+  "strategy.tooltip.context": "Navigator haelt eine Strategiereferenz und delegiert die Routenerstellung daran",
+  "strategy.tooltip.strategy": "RouteStrategy-Schnittstelle — alle konkreten Strategien muessen buildRoute() implementieren",
+  "strategy.tooltip.driving": "DrivingStrategy berechnet die schnellste Autoroute",
+  "strategy.tooltip.walking": "WalkingStrategy berechnet fussgaengerfreundliche Gehroute",
+  "strategy.tooltip.transit": "TransitStrategy berechnet oeffentliche Verkehrsroute mit Umstiegen",
+  "strategy.tooltip.obj-driving": "Laufzeitinstanz von DrivingStrategy mit berechneter Route",
+  "strategy.tooltip.obj-walking": "Laufzeitinstanz von WalkingStrategy mit berechneter Route",
+  "strategy.tooltip.obj-transit": "Laufzeitinstanz von TransitStrategy mit berechneter Route",
+  "strategy.step.navigation.0": "Client setzt DrivingStrategy auf Navigator",
+  "strategy.step.navigation.1": "Navigator.buildRoute(\"A\", \"B\") aufgerufen",
+  "strategy.step.navigation.2": "Delegiert an strategy.buildRoute()",
+  "strategy.step.navigation.3": "DrivingStrategy berechnet schnellste Strassenroute",
+  "strategy.step.navigation.4": "Gibt Route mit 15km, 20min zurueck",
+  "strategy.step.navigation.5": "Client wechselt zu WalkingStrategy",
+  "strategy.step.navigation.6": "WalkingStrategy: 2km Fussweg, 25min",
+  "strategy.stepLabel.navigation": "Route ueber Strategie-Muster navigieren",
+  "strategy.depRules": [
+    {
+      "name": "Navigator (Context)",
+      "role": "Haelt Referenz auf aktuelle Strategie und delegiert Routenerstellung"
+    },
+    {
+      "name": "RouteStrategy (Schnittstelle)",
+      "role": "Deklariert den buildRoute(origin, destination)-Vertrag"
+    },
+    {
+      "name": "DrivingStrategy",
+      "role": "Berechnet die schnellste Autoroute"
+    },
+    {
+      "name": "WalkingStrategy",
+      "role": "Berechnet Fussgaengergehroute"
+    },
+    {
+      "name": "TransitStrategy",
+      "role": "Berechnet oeffentliche Verkehrsroute mit Umstiegen"
+    },
+    {
+      "name": "Client",
+      "role": "Konfiguriert Navigator mit einer gewaehlten Strategie"
+    }
+  ],
+  "command.name": "Command",
+  "command.modes.remote.label": "Fernbedienung",
+  "command.modes.remote.desc": "Eine RemoteControl (Aufrufer) speichert ein Command-Objekt und fuehrt es auf Knopfdruck aus. TurnOnCommand und TurnOffCommand kapseln Light-Operationen und unterstuetzen Undo. Der Aufrufer ist vollstaendig vom Empfaenger entkoppelt.",
+  "command.details.remote.principles": [
+    "Anfragen als Objekte kapseln: Jeder Befehl verpackt eine bestimmte Aktion mit ihren Parametern",
+    "Aufrufer vom Empfaenger entkoppeln: RemoteControl kennt Light nicht direkt",
+    "Befehlshistorie ermoeglicht Undo/Redo: Ausgefuehrte Befehle werden zur Umkehrung gespeichert",
+    "Single Responsibility: Jede Befehlsklasse behandelt eine bestimmte Operation",
+    "Open/Closed-Prinzip: Neue Befehle koennen hinzugefuegt werden, ohne Aufrufer oder Empfaenger zu aendern"
+  ],
+  "command.details.remote.concepts": [
+    {
+      "term": "Command",
+      "definition": "Eine Schnittstelle, die execute()- und undo()-Methoden deklariert. Jeder konkrete Befehl kapselt eine Aktion und ihren Empfaenger."
+    },
+    {
+      "term": "Invoker",
+      "definition": "Die RemoteControl, die Befehle speichert und ausloest, ohne zu wissen, was sie tun oder wer sie behandelt."
+    },
+    {
+      "term": "Receiver",
+      "definition": "Das Light-Objekt, das weiss, wie die eigentliche Arbeit ausgefuehrt wird (turnOn, turnOff)."
+    },
+    {
+      "term": "Undo/Redo",
+      "definition": "Im Verlaufsstapel gespeicherte Befehle koennen rueckgaengig gemacht werden, indem ihre undo()-Methode in umgekehrter Reihenfolge aufgerufen wird."
+    }
+  ],
+  "command.details.remote.tradeoffs.pros": [
+    "Entkoppelt das Objekt, das die Operation aufruft, von dem, das sie ausfuehrt",
+    "Befehle koennen in Warteschlangen gestellt, protokolliert, geplant und rueckgaengig gemacht werden",
+    "Unterstuetzt Makrobefehle — zusammengesetzte Befehle, die mehrere Aktionen ausfuehren",
+    "Einfaches Hinzufuegen neuer Befehle, ohne bestehenden Code zu aendern"
+  ],
+  "command.details.remote.tradeoffs.cons": [
+    "Erhoeht die Anzahl der Klassen — eine Klasse pro Befehl",
+    "Kann uebertrieben sein fuer einfache Operationen ohne Undo-Anforderungen",
+    "Undo kann komplex sein, wenn Befehle Seiteneffekte auf externe Systeme haben",
+    "Befehlsparameter muessen serialisierbar sein, wenn Befehle persistiert werden"
+  ],
+  "command.details.remote.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie Objekte mit Operationen parametrisieren, Operationen in Warteschlangen stellen oder fuer spaetere Ausfuehrung planen, Undo/Redo-Funktionalitaet implementieren oder ein System um High-Level-Operationen strukturieren moechten, die aus primitiven aufgebaut sind.",
+  "command.tooltip.invoker": "RemoteControl speichert und fuehrt Befehle aus, verwaltet Undo-Historie",
+  "command.tooltip.command": "Command-Schnittstelle — deklariert execute()- und undo()-Methoden",
+  "command.tooltip.on": "TurnOnCommand kapselt Light.turnOn() und dessen Undo",
+  "command.tooltip.off": "TurnOffCommand kapselt Light.turnOff() und dessen Undo",
+  "command.tooltip.receiver": "Light ist der Empfaenger, der die eigentlichen Ein/Aus-Operationen ausfuehrt",
+  "command.tooltip.obj-on": "Laufzeitinstanz von TurnOnCommand im Verlaufsstapel",
+  "command.tooltip.obj-off": "Laufzeitinstanz von TurnOffCommand nach Undo",
+  "command.tooltip.obj-light": "Laufzeitinstanz von Light mit aktuellem Zustand",
+  "command.step.remote.0": "TurnOnCommand auf Fernbedienung setzen",
+  "command.step.remote.1": "pressButton() → command.execute()",
+  "command.step.remote.2": "TurnOnCommand.execute() aufgerufen",
+  "command.step.remote.3": "Light.turnOn() → isOn = true",
+  "command.step.remote.4": "Licht ist jetzt AN",
+  "command.step.remote.5": "TurnOnCommand in Verlaufsstapel schieben",
+  "command.step.remote.6": "pressUndo() → command.undo()",
+  "command.step.remote.7": "Undo: Light.turnOff() → isOn = false",
+  "command.stepLabel.remote": "Ausfuehren und Rueckgaengigmachen ueber Befehl-Muster",
+  "command.depRules": [
+    {
+      "name": "RemoteControl (Invoker)",
+      "role": "Speichert und fuehrt Befehle aus, verwaltet Undo-Historie"
+    },
+    {
+      "name": "Command (Schnittstelle)",
+      "role": "Deklariert execute()- und undo()-Methoden"
+    },
+    {
+      "name": "TurnOnCommand",
+      "role": "Kapselt das Einschalten eines Geraets"
+    },
+    {
+      "name": "TurnOffCommand",
+      "role": "Kapselt das Ausschalten eines Geraets"
+    },
+    {
+      "name": "Light (Receiver)",
+      "role": "Das eigentliche Geraet, das gesteuert wird"
+    }
+  ],
+  "state.name": "State",
+  "state.modes.order.label": "Bestelllebenszyklus",
+  "state.modes.order.desc": "Eine Order (Kontext) delegiert Verhalten an ihren aktuellen OrderState. Waehrend die Bestellung durch Draft → Paid → Shipped → Delivered fortschreitet, bestimmt jeder Zustand, welche Uebergaenge gueltig sind, und behandelt sie unterschiedlich.",
+  "state.details.order.principles": [
+    "Zustandskapselung: Jeder Zustand ist eine separate Klasse mit eigenem Verhalten",
+    "Eliminiert Bedingungen: Keine switch/if-Ketten — Polymorphie behandelt zustandsspezifische Logik",
+    "Open/Closed-Prinzip: Neue Zustaende koennen hinzugefuegt werden, ohne bestehende zu aendern",
+    "Single Responsibility: Jede Zustandsklasse behandelt nur ihre eigenen Uebergaenge",
+    "Explizite Uebergaenge: Zustandsaenderungen sind klar und nachvollziehbar durch setState()-Aufrufe"
+  ],
+  "state.details.order.concepts": [
+    {
+      "term": "Context",
+      "definition": "Die Order-Klasse, die eine Referenz auf den aktuellen Zustand haelt und Verhalten an diesen delegiert."
+    },
+    {
+      "term": "State",
+      "definition": "Die OrderState-Schnittstelle, die Methoden fuer alle moeglichen Aktionen (pay, ship, deliver) deklariert."
+    },
+    {
+      "term": "Concrete State",
+      "definition": "Eine bestimmte Zustandsimplementierung (DraftState, PaidState usw.), die Uebergaenge von diesem Zustand behandelt."
+    },
+    {
+      "term": "Transition",
+      "definition": "Ein Zustandswechsel, der durch einen Methodenaufruf ausgeloest wird. Jeder Zustand bestimmt, welche Uebergaenge gueltig sind."
+    }
+  ],
+  "state.details.order.tradeoffs.pros": [
+    "Organisiert zustandsspezifischen Code in separaten Klassen",
+    "Macht Zustandsuebergaenge explizit und leicht nachvollziehbar",
+    "Eliminiert komplexe bedingte Logik fuer zustandsabhaengiges Verhalten",
+    "Neue Zustaende koennen hinzugefuegt werden, ohne bestehende Zustandsklassen zu aendern"
+  ],
+  "state.details.order.tradeoffs.cons": [
+    "Kann uebertrieben sein fuer Objekte mit wenigen einfachen Zustaenden",
+    "Erhoeht die Anzahl der Klassen im System",
+    "Zustandsuebergaenge koennen schwer nachvollziehbar sein, wenn sie ueber Klassen verteilt sind",
+    "Gemeinsame Daten zwischen Zustaenden erfordern sorgfaeltiges Design"
+  ],
+  "state.details.order.tradeoffs.whenToUse": "Verwenden Sie es, wenn das Verhalten eines Objekts von seinem Zustand abhaengt und sich zur Laufzeit aendert, wenn Operationen grosse bedingte Anweisungen basierend auf dem Zustand haben, oder wenn Sie eine endliche Zustandsmaschine mit klaren Uebergaengen modellieren moechten.",
+  "state.tooltip.context": "Order verwaltet aktuellen Zustand und delegiert pay/ship/deliver-Aufrufe an diesen",
+  "state.tooltip.state": "OrderState-Schnittstelle — deklariert pay(), ship(), deliver() fuer alle Zustaende",
+  "state.tooltip.draft": "DraftState: Anfangszustand, nur pay() ist gueltig",
+  "state.tooltip.paid": "PaidState: Zahlung eingegangen, nur ship() ist gueltig",
+  "state.tooltip.shipped": "ShippedState: Unterwegs, nur deliver() ist gueltig",
+  "state.tooltip.delivered": "DeliveredState: Endzustand, keine Uebergaenge erlaubt",
+  "state.tooltip.obj-draft": "DraftState-Laufzeitinstanz — anfaenglicher Bestellzustand",
+  "state.tooltip.obj-paid": "PaidState-Laufzeitinstanz nach Zahlung",
+  "state.tooltip.obj-shipped": "ShippedState-Laufzeitinstanz nach Versand",
+  "state.tooltip.obj-delivered": "DeliveredState-Laufzeitinstanz — Bestellung abgeschlossen",
+  "state.step.order.0": "Neue Bestellung im DraftState erstellt",
+  "state.step.order.1": "Aktueller Zustand: Draft",
+  "state.step.order.2": "DraftState: order.pay() → Uebergang zu PaidState",
+  "state.step.order.3": "Zustand auf PaidState geaendert",
+  "state.step.order.4": "PaidState: order.ship() → Uebergang zu ShippedState",
+  "state.step.order.5": "Zustand auf ShippedState geaendert",
+  "state.step.order.6": "ShippedState: order.deliver() → Uebergang zu DeliveredState",
+  "state.step.order.7": "DeliveredState: Bestellung abgeschlossen, keine weiteren Uebergaenge",
+  "state.stepLabel.order": "Bestelllebenszyklus ueber Zustand-Muster",
+  "state.depRules": [
+    {
+      "name": "Order (Context)",
+      "role": "Verwaltet aktuellen Zustand und delegiert Verhalten"
+    },
+    {
+      "name": "OrderState (Schnittstelle)",
+      "role": "Deklariert pay(), ship(), deliver()-Methoden"
+    },
+    {
+      "name": "DraftState",
+      "role": "Anfangszustand, kann zu Paid uebergehen"
+    },
+    {
+      "name": "PaidState",
+      "role": "Zahlung eingegangen, kann zu Shipped uebergehen"
+    },
+    {
+      "name": "ShippedState",
+      "role": "Unterwegs, kann zu Delivered uebergehen"
+    },
+    {
+      "name": "DeliveredState",
+      "role": "Endzustand, keine weiteren Uebergaenge"
+    }
+  ],
+  "chain-of-responsibility.name": "Chain of Responsibility",
+  "chain-of-responsibility.modes.middleware.label": "Middleware",
+  "chain-of-responsibility.modes.middleware.desc": "Eine HTTP-Anfrage durchlaeuft eine Kette von Handlern: AuthHandler validiert das Token, ValidationHandler prueft den Anfragekoerper und ThrottleHandler erzwingt Ratenbegrenzungen. Jeder Handler verarbeitet die Anfrage entweder oder gibt sie an den naechsten Handler in der Kette weiter.",
+  "chain-of-responsibility.details.middleware.principles": [
+    "Sender vom Empfaenger entkoppeln: Der Client weiss nicht, welcher Handler die Anfrage verarbeiten wird",
+    "Kette von Handlern: Jeder Handler entscheidet, ob er die Anfrage verarbeitet oder weitergibt",
+    "Single Responsibility: Jeder Handler konzentriert sich auf ein bestimmtes Anliegen",
+    "Open/Closed-Prinzip: Neue Handler koennen zur Kette hinzugefuegt werden, ohne bestehende zu aendern",
+    "Flexible Reihenfolge: Handler koennen zur Laufzeit umgeordnet, hinzugefuegt oder entfernt werden"
+  ],
+  "chain-of-responsibility.details.middleware.concepts": [
+    {
+      "term": "Handler",
+      "definition": "Eine Schnittstelle, die handle(request) und setNext(handler) deklariert. Jeder Handler verarbeitet die Anfrage entweder oder delegiert an den naechsten."
+    },
+    {
+      "term": "Concrete Handler",
+      "definition": "Ein bestimmter Handler (AuthHandler, ValidationHandler, ThrottleHandler), der seine eigene Prueflogik implementiert."
+    },
+    {
+      "term": "Chain",
+      "definition": "Eine verkettete Liste von Handlern, wobei jeder Handler eine Referenz auf den naechsten haelt. Die Anfrage fliesst durch, bis sie behandelt wird."
+    },
+    {
+      "term": "Client",
+      "definition": "Baut die Kette auf und sendet Anfragen an den ersten Handler. Weiss nicht, welcher Handler die Anfrage letztendlich verarbeiten wird."
+    }
+  ],
+  "chain-of-responsibility.details.middleware.tradeoffs.pros": [
+    "Entkoppelt Anfragensender von Empfaengern — foerdert lose Kopplung",
+    "Handler koennen dynamisch hinzugefuegt, entfernt oder umgeordnet werden",
+    "Jeder Handler hat eine einzige Verantwortung — leicht zu testen und zu warten",
+    "Folgt dem Open/Closed-Prinzip — neue Handler beeinflussen bestehende nicht"
+  ],
+  "chain-of-responsibility.details.middleware.tradeoffs.cons": [
+    "Keine Garantie, dass die Anfrage behandelt wird — sie kann durch die Kette fallen",
+    "Debugging kann schwierig sein, wenn verfolgt werden muss, welcher Handler eine Anfrage verarbeitet hat",
+    "Leistungsaufwand, wenn die Kette lang ist und die meisten Handler nur durchreichen",
+    "Zirkulaere Referenzen in der Kette koennen Endlosschleifen verursachen"
+  ],
+  "chain-of-responsibility.details.middleware.tradeoffs.whenToUse": "Verwenden Sie es, wenn mehrere Objekte eine Anfrage behandeln koennen und der Handler nicht im Voraus bekannt ist, wenn Sie eine Anfrage an eines von mehreren Objekten senden moechten, ohne den Empfaenger explizit anzugeben, oder in Middleware-Pipelines, Ereignisverarbeitung und Protokollierungs-Frameworks.",
+  "chain-of-responsibility.tooltip.client": "Client sendet HTTP-Anfrage an die Handler-Kette",
+  "chain-of-responsibility.tooltip.handler": "Handler-Schnittstelle — deklariert handle()- und setNext()-Methoden",
+  "chain-of-responsibility.tooltip.auth": "AuthHandler validiert JWT-Token bei eingehenden Anfragen",
+  "chain-of-responsibility.tooltip.valid": "ValidationHandler validiert den Anfragekoerper gegen ein Schema",
+  "chain-of-responsibility.tooltip.throttle": "ThrottleHandler erzwingt Ratenbegrenzung pro Client-IP",
+  "chain-of-responsibility.tooltip.obj-auth": "AuthHandler bestanden — Token ist gueltig",
+  "chain-of-responsibility.tooltip.obj-valid": "ValidationHandler bestanden — Anfragekoerper ist gueltig",
+  "chain-of-responsibility.tooltip.obj-throttle": "ThrottleHandler bestanden — Ratenlimit nicht ueberschritten",
+  "chain-of-responsibility.tooltip.obj-response": "Alle Handler bestanden — 200 OK Antwort zurueckgegeben",
+  "chain-of-responsibility.step.middleware.0": "Client sendet HTTP-Anfrage",
+  "chain-of-responsibility.step.middleware.1": "Anfrage tritt in Middleware-Kette ein",
+  "chain-of-responsibility.step.middleware.2": "AuthHandler prueft JWT-Token",
+  "chain-of-responsibility.step.middleware.3": "Token gueltig → an naechsten Handler weiterreichen",
+  "chain-of-responsibility.step.middleware.4": "ValidationHandler validiert Anfragekoerper",
+  "chain-of-responsibility.step.middleware.5": "Validierung bestanden → an naechsten Handler weiterreichen",
+  "chain-of-responsibility.step.middleware.6": "ThrottleHandler prueft Ratenlimit",
+  "chain-of-responsibility.step.middleware.7": "Alle Handler bestanden → 200 OK zurueckgeben",
+  "chain-of-responsibility.stepLabel.middleware": "Anfrage ueber Zustaendigkeitsketten-Muster verarbeiten",
+  "chain-of-responsibility.depRules": [
+    {
+      "name": "Handler (Schnittstelle)",
+      "role": "Deklariert handle(request)- und setNext(handler)-Methoden"
+    },
+    {
+      "name": "AuthHandler",
+      "role": "Validiert Authentifizierungstoken"
+    },
+    {
+      "name": "ValidationHandler",
+      "role": "Validiert Anfragedaten gegen Regeln"
+    },
+    {
+      "name": "ThrottleHandler",
+      "role": "Erzwingt Ratenbegrenzung pro Client"
+    },
+    {
+      "name": "Client",
+      "role": "Sendet Anfragen durch die Handler-Kette"
+    }
+  ],
+  "iterator.name": "Iterator",
+  "iterator.modes.playlist.label": "Wiedergabeliste",
+  "iterator.modes.playlist.desc": "Eine Playlist (Aggregat) erzeugt einen PlaylistIterator, der ihre Song-Sammlung sequenziell durchlaeuft. Der Client verwendet hasNext()/next() zum Iterieren, ohne die interne Speicherstruktur der Wiedergabeliste zu kennen.",
+  "iterator.details.playlist.principles": [
+    "Durchlauf kapseln: Der Iterator verbirgt die interne Struktur der Sammlung",
+    "Single Responsibility: Die Sammlung verwaltet die Speicherung, der Iterator verwaltet den Durchlauf",
+    "Einheitliche Schnittstelle: Alle Iteratoren teilen hasNext()/next() unabhaengig von der zugrunde liegenden Sammlung",
+    "Open/Closed-Prinzip: Neue Iteratortypen koennen hinzugefuegt werden, ohne die Sammlung zu aendern",
+    "Mehrere Durchlaeufe: Verschiedene Iteratoren koennen dieselbe Sammlung gleichzeitig durchlaufen"
+  ],
+  "iterator.details.playlist.concepts": [
+    {
+      "term": "Aggregate",
+      "definition": "Die Playlist-Sammlung, die Songs speichert und eine createIterator()-Fabrikmethode bereitstellt."
+    },
+    {
+      "term": "Iterator",
+      "definition": "Eine Schnittstelle, die hasNext()- und next()-Methoden fuer sequenziellen Zugriff auf Elemente deklariert."
+    },
+    {
+      "term": "Concrete Iterator",
+      "definition": "PlaylistIterator, der den Durchlaufzustand (aktueller Index) verwaltet und weiss, wie auf Playlist-Elemente zugegriffen wird."
+    },
+    {
+      "term": "Element",
+      "definition": "Ein Song-Objekt, das in der Sammlung gespeichert und sequenziell ueber den Iterator abgerufen wird."
+    }
+  ],
+  "iterator.details.playlist.tradeoffs.pros": [
+    "Verbirgt die interne Struktur von Sammlungen vor Clients",
+    "Unterstuetzt mehrere gleichzeitige Durchlaeufe derselben Sammlung",
+    "Bietet eine einheitliche Schnittstelle zum Durchlaufen verschiedener Sammlungstypen",
+    "Vereinfacht die Sammlungsschnittstelle durch Auslagern des Durchlaufs in eine eigene Klasse"
+  ],
+  "iterator.details.playlist.tradeoffs.cons": [
+    "Uebertrieben fuer einfache Sammlungen, die leicht mit einer Schleife durchlaufen werden koennen",
+    "Kann weniger effizient sein als direkter Zugriff bei Sammlungen mit wahlfreiem Zugriff",
+    "Iteratorzustand kann veralten, wenn die Sammlung waehrend der Iteration geaendert wird",
+    "Fuegt zusaetzliche Klassen fuer jeden Sammlungstyp hinzu"
+  ],
+  "iterator.details.playlist.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie auf die Elemente einer Sammlung zugreifen moechten, ohne ihre interne Struktur offenzulegen, wenn Sie mehrere Durchlaufalgorithmen ueber eine Sammlung unterstuetzen muessen, oder wenn Sie eine einheitliche Schnittstelle zum Durchlaufen verschiedener Sammlungstypen wuenschen.",
+  "iterator.tooltip.playlist": "Playlist speichert Songs und erzeugt Iteratoren zum Durchlaufen",
+  "iterator.tooltip.iterator": "Iterator-Schnittstelle — deklariert hasNext()- und next()-Methoden",
+  "iterator.tooltip.concrete": "PlaylistIterator verfolgt die Position und gibt Songs sequenziell zurueck",
+  "iterator.tooltip.obj-song1": "Song: Bohemian Rhapsody — erstes Element",
+  "iterator.tooltip.obj-song2": "Song: Imagine — zweites Element",
+  "iterator.tooltip.obj-song3": "Song: Hotel California — drittes Element",
+  "iterator.tooltip.obj-iter": "PlaylistIterator-Instanz nach Abschluss des Durchlaufs",
+  "iterator.step.playlist.0": "Client ruft playlist.createIterator() auf",
+  "iterator.step.playlist.1": "Gibt PlaylistIterator-Instanz zurueck",
+  "iterator.step.playlist.2": "hasNext() → true (index=0)",
+  "iterator.step.playlist.3": "next() → Song: Bohemian Rhapsody",
+  "iterator.step.playlist.4": "hasNext() → true (index=1)",
+  "iterator.step.playlist.5": "next() → Song: Imagine",
+  "iterator.step.playlist.6": "next() → Song: Hotel California",
+  "iterator.step.playlist.7": "hasNext() → false, Iteration abgeschlossen",
+  "iterator.stepLabel.playlist": "Wiedergabeliste ueber Iterator-Muster durchlaufen",
+  "iterator.depRules": [
+    {
+      "name": "Playlist (Aggregate)",
+      "role": "Sammlung von Songs, die Iteratoren erzeugt"
+    },
+    {
+      "name": "Iterator (Schnittstelle)",
+      "role": "Definiert hasNext()- und next()-Durchlaufvertrag"
+    },
+    {
+      "name": "PlaylistIterator",
+      "role": "Konkreter Iterator ueber Playlist-Songs"
+    },
+    {
+      "name": "Song",
+      "role": "Element, das durchlaufen wird"
+    }
+  ],
+  "mediator.name": "Mediator",
+  "mediator.modes.chatroom.label": "Chatraum",
+  "mediator.modes.chatroom.desc": "Ein ChatRoom (Vermittler) koordiniert die Kommunikation zwischen User-Objekten. Anstatt dass Benutzer direkt aufeinander verweisen, senden sie Nachrichten ueber den ChatRoom, der an alle Teilnehmer ausser dem Absender broadcastet.",
+  "mediator.details.chatroom.principles": [
+    "Zentralisierte Kommunikation: Alle Kommunikation zwischen Objekten laeuft ueber den Vermittler",
+    "Lose Kopplung: Kollegen kennen nur die Vermittlerschnittstelle, nicht einander",
+    "Single Responsibility: Der Vermittler behandelt die Koordination, Kollegen behandeln ihre eigene Logik",
+    "Vereinfachte Protokolle: Viele-zu-viele-Beziehungen werden zu Eins-zu-viele ueber den Vermittler",
+    "Open/Closed-Prinzip: Neue Kollegentypen koennen hinzugefuegt werden, ohne bestehende zu aendern"
+  ],
+  "mediator.details.chatroom.concepts": [
+    {
+      "term": "Mediator",
+      "definition": "Eine Schnittstelle, die sendMessage() zum Weiterleiten von Nachrichten zwischen Kollegen deklariert."
+    },
+    {
+      "term": "Concrete Mediator",
+      "definition": "ChatRoom implementiert die Vermittlerschnittstelle und kennt alle registrierten Benutzer zum Weiterleiten von Nachrichten."
+    },
+    {
+      "term": "Colleague",
+      "definition": "User-Objekte, die ueber den Vermittler kommunizieren, anstatt direkt miteinander."
+    },
+    {
+      "term": "Message",
+      "definition": "Daten, die von einem Kollegen an andere gesendet und ueber den Vermittler weitergeleitet werden."
+    }
+  ],
+  "mediator.details.chatroom.tradeoffs.pros": [
+    "Reduziert die Kopplung — Komponenten kommunizieren ueber einen einzigen Vermittler",
+    "Zentralisiert komplexe Kommunikationslogik an einem Ort",
+    "Komponenten koennen unabhaengig vom Vermittler wiederverwendet werden",
+    "Vereinfacht Objektprotokolle von Viele-zu-viele zu Eins-zu-viele"
+  ],
+  "mediator.details.chatroom.tradeoffs.cons": [
+    "Der Vermittler kann zum God Object werden, wenn zu viel Logik sich ansammelt",
+    "Einzelner Ausfallpunkt — wenn der Vermittler ausfaellt, stoppt alle Kommunikation",
+    "Kann schwerer zu verstehen sein, wenn alle Kommunikation indirekt laeuft",
+    "Leistungsengpass, wenn alle Nachrichten ueber ein Objekt geleitet werden"
+  ],
+  "mediator.details.chatroom.tradeoffs.whenToUse": "Verwenden Sie es, wenn eine Gruppe von Objekten auf komplexe, aber wohldefinierte Weise kommuniziert, wenn die Wiederverwendung eines Objekts schwierig ist, weil es viele andere Objekte referenziert, oder wenn Sie Verhalten, das zwischen mehreren Klassen verteilt ist, anpassen moechten, ohne viele Unterklassen zu erstellen.",
+  "mediator.tooltip.mediator": "Vermittlerschnittstelle — deklariert sendMessage() zum Weiterleiten von Nachrichten",
+  "mediator.tooltip.chatroom": "ChatRoom verwaltet Benutzer und broadcastet Nachrichten an alle ausser dem Absender",
+  "mediator.tooltip.user": "User kommuniziert ueber den Vermittler, nicht direkt mit anderen Benutzern",
+  "mediator.tooltip.obj-alice": "Alice — eine Benutzerin im Chatraum",
+  "mediator.tooltip.obj-bob": "Bob — ein Benutzer im Chatraum",
+  "mediator.tooltip.obj-charlie": "Charlie — ein Benutzer im Chatraum",
+  "mediator.step.chatroom.0": "Benutzer treten dem Chatraum bei",
+  "mediator.step.chatroom.1": "Alice tritt dem ChatRoom bei",
+  "mediator.step.chatroom.2": "Bob tritt dem ChatRoom bei",
+  "mediator.step.chatroom.3": "Charlie tritt dem ChatRoom bei",
+  "mediator.step.chatroom.4": "Alice ruft send(\"Hallo zusammen!\") auf",
+  "mediator.step.chatroom.5": "ChatRoom broadcastet an alle ausser dem Absender",
+  "mediator.step.chatroom.6": "Bob.receive(\"Hallo zusammen!\", Alice)",
+  "mediator.step.chatroom.7": "Charlie.receive(\"Hallo zusammen!\", Alice)",
+  "mediator.stepLabel.chatroom": "Chatraum-Kommunikation ueber Vermittler-Muster",
+  "mediator.depRules": [
+    {
+      "name": "Mediator (Schnittstelle)",
+      "role": "Definiert sendMessage(message, sender)-Vertrag"
+    },
+    {
+      "name": "ChatRoom",
+      "role": "Konkreter Vermittler, der Nachrichten zwischen Benutzern weiterleitet"
+    },
+    {
+      "name": "User",
+      "role": "Kollege, der ueber den Vermittler kommuniziert"
+    }
+  ],
+  "memento.name": "Memento",
+  "memento.modes.editor.label": "Texteditor",
+  "memento.modes.editor.desc": "Ein Editor (Erzeuger) erstellt EditorState-Schnappschuesse (Mementos), die in einer History (Aufbewahrer) gespeichert werden. Der Editor kann Text eingeben, Schnappschuesse speichern und fruehere Zustaende fuer die Undo-Funktionalitaet wiederherstellen.",
+  "memento.details.editor.principles": [
+    "Kapselung bewahrt: Das Memento speichert den Zustand, ohne die Interna des Erzeugers offenzulegen",
+    "Single Responsibility: Der Erzeuger verwaltet den Zustand, der Aufbewahrer verwaltet die Historie",
+    "Unveraenderliche Schnappschuesse: Memento-Objekte sind nach der Erstellung unveraenderlich und gewaehrleisten Integritaet",
+    "Trennung der Anliegen: Die Undo-Logik liegt im Aufbewahrer, nicht im Erzeuger",
+    "Zustandsexternalisierung: Der Zustand des Erzeugers wird externalisiert, ohne die Kapselung zu verletzen"
+  ],
+  "memento.details.editor.concepts": [
+    {
+      "term": "Originator",
+      "definition": "Der Editor, der Mementos mit Schnappschuessen seines aktuellen Zustands erstellt und aus ihnen wiederherstellen kann."
+    },
+    {
+      "term": "Memento",
+      "definition": "EditorState — ein unveraenderlicher Schnappschuss des Editorinhalts zu einem bestimmten Zeitpunkt."
+    },
+    {
+      "term": "Caretaker",
+      "definition": "History — speichert und verwaltet einen Stapel von Mementos, ohne deren Inhalt zu untersuchen oder zu aendern."
+    },
+    {
+      "term": "Snapshot",
+      "definition": "Eine eingefrorene Kopie des Erzeugerzustands, die spaeter zur Wiederherstellung des Erzeugers verwendet werden kann."
+    }
+  ],
+  "memento.details.editor.tradeoffs.pros": [
+    "Bietet Undo/Redo, ohne Implementierungsdetails offenzulegen",
+    "Bewahrt die Kapselung — nur der Erzeuger greift auf seinen eigenen Zustand zu",
+    "Vereinfacht den Erzeuger, indem die Historienverwaltung an den Aufbewahrer ausgelagert wird",
+    "Schnappschuesse koennen fuer Persistenz oder Netzwerkuebertragung serialisiert werden"
+  ],
+  "memento.details.editor.tradeoffs.cons": [
+    "Kann erheblichen Speicher verbrauchen, wenn Mementos gross sind oder haeufig erstellt werden",
+    "Der Aufbewahrer muss den Memento-Lebenszyklus verwalten, um Speicherlecks zu vermeiden",
+    "In einigen Sprachen erfordert die Sicherstellung der Memento-Unveraenderlichkeit zusaetzlichen Aufwand",
+    "Haeufige Schnappschuesse komplexer Objekte koennen die Leistung beeintraechtigen"
+  ],
+  "memento.details.editor.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie Undo/Redo-Funktionalitaet benoetigen, wenn Sie den Objektzustand speichern und wiederherstellen muessen, ohne die Kapselung zu verletzen, oder wenn direkter Zugriff auf den Zustand eines Objekts Implementierungsdetails offenlegen wuerde.",
+  "memento.tooltip.editor": "Editor (Erzeuger) erstellt und stellt aus Zustandsschnappschuessen wieder her",
+  "memento.tooltip.memento": "EditorState speichert einen unveraenderlichen Schnappschuss des Editorinhalts",
+  "memento.tooltip.history": "History (Aufbewahrer) verwaltet einen Stapel gespeicherter Zustaende",
+  "memento.tooltip.obj-state1": "Schnappschuss des Editorinhalts: \"Hello\"",
+  "memento.tooltip.obj-state2": "Schnappschuss des Editorinhalts: \"Hello World\"",
+  "memento.tooltip.obj-state3": "Wiederhergestellter Schnappschuss: \"Hello\"",
+  "memento.tooltip.obj-editor": "Editor-Instanz nach Wiederherstellungsoperation",
+  "memento.step.editor.0": "Editor: type(\"Hello\")",
+  "memento.step.editor.1": "Editor.save() → EditorState(\"Hello\") erstellen",
+  "memento.step.editor.2": "EditorState in History schieben",
+  "memento.step.editor.3": "Editor: type(\" World\") → content = \"Hello World\"",
+  "memento.step.editor.4": "Save() → \"Hello World\" in History schieben",
+  "memento.step.editor.5": "Undo angefordert → History.pop()",
+  "memento.step.editor.6": "Editor.restore(state) → content = \"Hello\"",
+  "memento.step.editor.7": "Editor auf \"Hello\" wiederhergestellt",
+  "memento.stepLabel.editor": "Speichern und Wiederherstellen ueber Memento-Muster",
+  "memento.depRules": [
+    {
+      "name": "Editor (Originator)",
+      "role": "Erstellt und stellt aus Zustandsschnappschuessen wieder her"
+    },
+    {
+      "name": "EditorState (Memento)",
+      "role": "Unveraenderlicher Schnappschuss des Editorinhalts"
+    },
+    {
+      "name": "History (Caretaker)",
+      "role": "Speichert und verwaltet den Memento-Stapel"
+    }
+  ],
+  "template-method.name": "Template Method",
+  "template-method.modes.mining.label": "Data Mining",
+  "template-method.modes.mining.desc": "Eine abstrakte Klasse DataMiner definiert eine mine()-Schablonenmethode mit einem festen Algorithmusgeruest: openFile → extractData → parseData → analyze → sendReport. Unterklassen (CSVMiner, JSONMiner, XMLMiner) ueberschreiben die variablen Schritte, waehrend die invarianten Schritte in der Basisklasse verbleiben.",
+  "template-method.details.mining.principles": [
+    "Algorithmusgeruest definieren: Die Schablonenmethode skizziert die Schritte, Unterklassen fuellen die Details aus",
+    "Hollywood-Prinzip: 'Rufen Sie uns nicht an, wir rufen Sie an' — die Basisklasse ruft Unterklassenmethoden auf",
+    "Code-Wiederverwendung: Gemeinsame Schritte (analyze, sendReport) liegen in der Basisklasse, nicht dupliziert",
+    "Open/Closed-Prinzip: Neue Miner koennen durch Unterklassenbildung hinzugefuegt werden, ohne die Vorlage zu aendern",
+    "Umkehrung der Kontrolle: Die Basisklasse steuert den Algorithmusfluss, Unterklassen passen Schritte an"
+  ],
+  "template-method.details.mining.concepts": [
+    {
+      "term": "Template Method",
+      "definition": "Die mine()-Methode, die das Algorithmusgeruest definiert. Sie ruft abstrakte und konkrete Methoden in einer bestimmten Reihenfolge auf."
+    },
+    {
+      "term": "Abstract Class",
+      "definition": "DataMiner deklariert die Schablonenmethode und abstrakte Schritte (openFile, extractData, parseData), die Unterklassen implementieren muessen."
+    },
+    {
+      "term": "Concrete Class",
+      "definition": "CSVMiner, JSONMiner, XMLMiner — jede ueberschreibt die abstrakten Schritte fuer ihr spezifisches Dateiformat."
+    },
+    {
+      "term": "Hook Method",
+      "definition": "Optionale Methoden mit Standardimplementierung, die Unterklassen fuer zusaetzliche Anpassungspunkte ueberschreiben koennen."
+    }
+  ],
+  "template-method.details.mining.tradeoffs.pros": [
+    "Eliminiert Code-Duplizierung — gemeinsame Logik bleibt in der Basisklasse",
+    "Bietet eine klare Algorithmusstruktur, die leicht zu verstehen ist",
+    "Unterklassen passen nur die variablen Teile an — weniger Code zu schreiben",
+    "Erzwingt eine konsistente Algorithmusstruktur ueber alle Varianten hinweg"
+  ],
+  "template-method.details.mining.tradeoffs.cons": [
+    "Erfordert Vererbung — begrenzt die Flexibilitaet im Vergleich zu kompositionsbasierten Mustern",
+    "Mehr Schritte in der Vorlage bedeuten mehr zu ueberschreibende Methoden",
+    "Verletzt das Liskov-Substitutionsprinzip, wenn Unterklassen Basisklassenschritte unterdruecken",
+    "Kann schwer wartbar sein, wenn die Vorlage viele optionale Hook-Methoden hat"
+  ],
+  "template-method.details.mining.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie mehrere Klassen mit aehnlichen Algorithmen haben, die sich nur in bestimmten Schritten unterscheiden, wenn Sie Unterklassen bestimmte Schritte eines Algorithmus erweitern lassen moechten, ohne dessen Struktur zu aendern, oder wenn Sie die den Unterklassen verfuegbaren Erweiterungspunkte kontrollieren moechten.",
+  "template-method.tooltip.abstract": "DataMiner definiert mine()-Vorlage mit abstrakten Schritten, die Unterklassen ueberschreiben",
+  "template-method.tooltip.csv": "CSVMiner ueberschreibt openFile/extractData/parseData fuer CSV-Dateien",
+  "template-method.tooltip.json": "JSONMiner ueberschreibt openFile/extractData/parseData fuer JSON-Dateien",
+  "template-method.tooltip.xml": "XMLMiner ueberschreibt openFile/extractData/parseData fuer XML-Dateien",
+  "template-method.tooltip.obj-csv": "Laufzeit-CSVMiner-Instanz nach Mining-Pipeline",
+  "template-method.tooltip.obj-json": "Laufzeit-JSONMiner-Instanz — gleiche Vorlage, anderes Format",
+  "template-method.tooltip.obj-xml": "Laufzeit-XMLMiner-Instanz — gleiche Vorlage, anderes Format",
+  "template-method.step.mining.0": "mine()-Schablonenmethode auf CSVMiner aufrufen",
+  "template-method.step.mining.1": "Schritt 1: openFile(\"data.csv\")",
+  "template-method.step.mining.2": "Schritt 2: extractData() → rohe CSV-Zeilen",
+  "template-method.step.mining.3": "Schritt 3: parseData() → strukturierte Datensaetze",
+  "template-method.step.mining.4": "Schritt 4: analyze() — gemeinsame Logik in Basisklasse",
+  "template-method.step.mining.5": "Schritt 5: sendReport() — gemeinsame Logik in Basisklasse",
+  "template-method.step.mining.6": "Mining-Pipeline fuer CSV abgeschlossen",
+  "template-method.step.mining.7": "Gleiche Vorlage funktioniert fuer JSON/XML-Miner",
+  "template-method.stepLabel.mining": "Data-Mining-Pipeline ueber Schablonenmethode",
+  "template-method.depRules": [
+    {
+      "name": "DataMiner (Abstract Class)",
+      "role": "Definiert mine()-Schablonenmethode mit Algorithmusgeruest"
+    },
+    {
+      "name": "CSVMiner",
+      "role": "Ueberschreibt Schritte fuer CSV-Dateiverarbeitung"
+    },
+    {
+      "name": "JSONMiner",
+      "role": "Ueberschreibt Schritte fuer JSON-Dateiverarbeitung"
+    },
+    {
+      "name": "XMLMiner",
+      "role": "Ueberschreibt Schritte fuer XML-Dateiverarbeitung"
+    }
+  ],
+  "visitor.name": "Visitor",
+  "visitor.modes.export.label": "Form-Export",
+  "visitor.modes.export.desc": "Ein XMLExportVisitor und JSONExportVisitor durchlaufen eine Sammlung von Formen (Circle, Rectangle) mittels Double Dispatch. Die accept(visitor)-Methode jeder Form ruft die entsprechende visit-Methode auf, sodass neue Exportformate hinzugefuegt werden koennen, ohne die Formklassen zu aendern.",
+  "visitor.details.export.principles": [
+    "Double Dispatch: accept() ruft die typspezifische Methode des Besuchers auf und ermoeglicht Polymorphie auf beiden Seiten",
+    "Open/Closed-Prinzip: Neue Operationen (Besucher) koennen hinzugefuegt werden, ohne Elementklassen zu aendern",
+    "Single Responsibility: Jeder Besucher kapselt eine Operation ueber alle Elementtypen hinweg",
+    "Trennung der Anliegen: Algorithmen sind von den Objekten getrennt, auf denen sie operieren",
+    "Akkumulation: Besucher koennen Zustand sammeln, waehrend sie die Objektstruktur durchlaufen"
+  ],
+  "visitor.details.export.concepts": [
+    {
+      "term": "Visitor",
+      "definition": "Eine Schnittstelle, die visit-Methoden fuer jeden Elementtyp deklariert (visitCircle, visitRectangle). Jeder konkrete Besucher implementiert eine bestimmte Operation."
+    },
+    {
+      "term": "Element",
+      "definition": "Shape-Schnittstelle mit accept(visitor)-Methode. Jedes konkrete Element ruft die entsprechende visit-Methode auf dem Besucher auf."
+    },
+    {
+      "term": "Double Dispatch",
+      "definition": "Zwei polymorphe Aufrufe: zuerst auf dem Element (accept), dann auf dem Besucher (visitX). Dies waehlt die korrekte Methode basierend auf beiden Typen aus."
+    },
+    {
+      "term": "Object Structure",
+      "definition": "Eine Sammlung von Elementen (Formen), die durchlaufen werden kann. Der Besucher wird nacheinander auf jedes Element angewendet."
+    }
+  ],
+  "visitor.details.export.tradeoffs.pros": [
+    "Einfaches Hinzufuegen neuer Operationen — einfach eine neue Besucherklasse erstellen",
+    "Zusammengehoerige Operationen sind in einem Besucher gruppiert, nicht ueber Elementklassen verstreut",
+    "Besucher koennen Zustand ansammeln, waehrend sie die Objektstruktur durchlaufen",
+    "Folgt Single Responsibility — jeder Besucher behandelt ein Anliegen"
+  ],
+  "visitor.details.export.tradeoffs.cons": [
+    "Das Hinzufuegen neuer Elementtypen erfordert die Aktualisierung aller Besucher",
+    "Besucher koennen die Kapselung brechen, wenn sie Zugriff auf Elementinterna benoetigen",
+    "Double Dispatch kann verwirrend und schwer zu debuggen sein",
+    "Nicht geeignet, wenn sich Elementklassen haeufig aendern"
+  ],
+  "visitor.details.export.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie viele unterschiedliche Operationen auf Objekten einer Struktur ausfuehren muessen und deren Klassen nicht verunreinigen moechten, wenn sich die Objektstruktur selten aendert, aber haeufig neue Operationen hinzukommen, oder wenn Sie Zustand ueber eine komplexe Objektstruktur ansammeln moechten.",
+  "visitor.tooltip.visitor": "Visitor-Schnittstelle — deklariert visitCircle()- und visitRectangle()-Methoden",
+  "visitor.tooltip.shape": "Shape-Schnittstelle — deklariert accept(visitor) fuer Double Dispatch",
+  "visitor.tooltip.xml": "XMLExportVisitor exportiert Formen im XML-Format",
+  "visitor.tooltip.json": "JSONExportVisitor exportiert Formen im JSON-Format",
+  "visitor.tooltip.circle": "Circle-Form mit Radius, implementiert accept(visitor)",
+  "visitor.tooltip.rect": "Rectangle-Form mit Breite und Hoehe, implementiert accept(visitor)",
+  "visitor.tooltip.obj-xml": "Laufzeit-XMLExportVisitor-Instanz, die Formen verarbeitet",
+  "visitor.tooltip.obj-json": "Laufzeit-JSONExportVisitor-Instanz — gleicher Durchlauf, andere Ausgabe",
+  "visitor.tooltip.obj-circle": "Circle-Instanz nach Export",
+  "visitor.tooltip.obj-rect": "Rectangle-Instanz nach Export",
+  "visitor.step.export.0": "XMLExportVisitor erstellen",
+  "visitor.step.export.1": "XMLExportVisitor instanziiert",
+  "visitor.step.export.2": "circle.accept(xmlVisitor)",
+  "visitor.step.export.3": "visitCircle(circle) → \"<circle r=5/>\"",
+  "visitor.step.export.4": "rectangle.accept(xmlVisitor)",
+  "visitor.step.export.5": "visitRectangle(rect) → \"<rect w=10 h=5/>\"",
+  "visitor.step.export.6": "Circle im XML-Format exportiert",
+  "visitor.step.export.7": "Rectangle im XML-Format exportiert",
+  "visitor.step.export.8": "Besucher wechseln: JSONExportVisitor funktioniert gleich",
+  "visitor.step.export.9": "Alle Formen exportiert — kein Formcode geaendert",
+  "visitor.stepLabel.export": "Formen ueber Besucher-Muster exportieren",
+  "visitor.depRules": [
+    {
+      "name": "Visitor (Schnittstelle)",
+      "role": "Deklariert visit-Methoden fuer jeden Formtyp"
+    },
+    {
+      "name": "XMLExportVisitor",
+      "role": "Exportiert Formen im XML-Format"
+    },
+    {
+      "name": "JSONExportVisitor",
+      "role": "Exportiert Formen im JSON-Format"
+    },
+    {
+      "name": "Shape (Schnittstelle)",
+      "role": "Deklariert accept(visitor) fuer Double Dispatch"
+    },
+    {
+      "name": "Circle",
+      "role": "Konkrete Form mit Radius"
+    },
+    {
+      "name": "Rectangle",
+      "role": "Konkrete Form mit Breite und Hoehe"
+    }
   ]
 }

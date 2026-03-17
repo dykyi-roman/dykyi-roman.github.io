@@ -5,7 +5,8 @@
 
     var categoryPatterns = {
         creational: ['simple-factory', 'static-factory', 'factory-method', 'abstract-factory', 'builder', 'prototype', 'singleton', 'pool'],
-        structural: ['adapter', 'bridge', 'composite', 'decorator', 'facade', 'flyweight', 'proxy']
+        structural: ['adapter', 'bridge', 'composite', 'decorator', 'facade', 'flyweight', 'proxy'],
+        behavioral: ['observer', 'strategy', 'command', 'state', 'chain-of-responsibility', 'iterator', 'mediator', 'memento', 'template-method', 'visitor']
     };
 
     var activeCategory = 'creational';
@@ -15,7 +16,10 @@
         'factory-method': 'Factory Method', 'abstract-factory': 'Abstract Factory',
         'builder': 'Builder', 'prototype': 'Prototype', 'singleton': 'Singleton', 'pool': 'Object Pool',
         'adapter': 'Adapter', 'bridge': 'Bridge', 'composite': 'Composite', 'decorator': 'Decorator',
-        'facade': 'Facade', 'flyweight': 'Flyweight', 'proxy': 'Proxy'
+        'facade': 'Facade', 'flyweight': 'Flyweight', 'proxy': 'Proxy',
+        'observer': 'Observer', 'strategy': 'Strategy', 'command': 'Command', 'state': 'State',
+        'chain-of-responsibility': 'Chain of Responsibility', 'iterator': 'Iterator', 'mediator': 'Mediator',
+        'memento': 'Memento', 'template-method': 'Template Method', 'visitor': 'Visitor'
     };
 
     function buildPatternConfig(id) {

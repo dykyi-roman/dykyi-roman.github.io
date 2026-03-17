@@ -83,6 +83,36 @@
     --proxy-color: #F472B6;
     --proxy-bg: #1f0d18;
     --proxy-light: #301524;
+    --observer-color: #2DD4BF;
+    --observer-bg: #0d1f1d;
+    --observer-light: #15302e;
+    --strategy-color: #FACC15;
+    --strategy-bg: #1f1c0d;
+    --strategy-light: #302c15;
+    --command-color: #FB923C;
+    --command-bg: #1f160d;
+    --command-light: #302215;
+    --state-color: #818CF8;
+    --state-bg: #14142a;
+    --state-light: #1e1e44;
+    --chain-of-responsibility-color: #38BDF8;
+    --chain-of-responsibility-bg: #0d1a2a;
+    --chain-of-responsibility-light: #152a40;
+    --iterator-color: #A3E635;
+    --iterator-bg: #181f0d;
+    --iterator-light: #283015;
+    --mediator-color: #C084FC;
+    --mediator-bg: #1a0d30;
+    --mediator-light: #241548;
+    --memento-color: #FDA4AF;
+    --memento-bg: #1f0d12;
+    --memento-light: #30151c;
+    --template-method-color: #FB7185;
+    --template-method-bg: #1f0d14;
+    --template-method-light: #30151e;
+    --visitor-color: #34D399;
+    --visitor-bg: #0d1f16;
+    --visitor-light: #153026;
 
     --pv-bg: #141922;
     --pv-card-bg: #1a2030;
@@ -286,6 +316,66 @@
     background: var(--proxy-bg);
     border-color: var(--proxy-color);
     color: var(--proxy-color);
+}
+
+.pv-tab.active[data-pattern="observer"] {
+    background: var(--observer-bg);
+    border-color: var(--observer-color);
+    color: var(--observer-color);
+}
+
+.pv-tab.active[data-pattern="strategy"] {
+    background: var(--strategy-bg);
+    border-color: var(--strategy-color);
+    color: var(--strategy-color);
+}
+
+.pv-tab.active[data-pattern="command"] {
+    background: var(--command-bg);
+    border-color: var(--command-color);
+    color: var(--command-color);
+}
+
+.pv-tab.active[data-pattern="state"] {
+    background: var(--state-bg);
+    border-color: var(--state-color);
+    color: var(--state-color);
+}
+
+.pv-tab.active[data-pattern="chain-of-responsibility"] {
+    background: var(--chain-of-responsibility-bg);
+    border-color: var(--chain-of-responsibility-color);
+    color: var(--chain-of-responsibility-color);
+}
+
+.pv-tab.active[data-pattern="iterator"] {
+    background: var(--iterator-bg);
+    border-color: var(--iterator-color);
+    color: var(--iterator-color);
+}
+
+.pv-tab.active[data-pattern="mediator"] {
+    background: var(--mediator-bg);
+    border-color: var(--mediator-color);
+    color: var(--mediator-color);
+}
+
+.pv-tab.active[data-pattern="memento"] {
+    background: var(--memento-bg);
+    border-color: var(--memento-color);
+    color: var(--memento-color);
+}
+
+.pv-tab.active[data-pattern="template-method"] {
+    background: var(--template-method-bg);
+    border-color: var(--template-method-color);
+    color: var(--template-method-color);
+}
+
+.pv-tab.active[data-pattern="visitor"] {
+    background: var(--visitor-bg);
+    border-color: var(--visitor-color);
+    color: var(--visitor-color);
 }
 
 /* ===== Mode Tabs ===== */

@@ -827,5 +827,544 @@
     { "name": "FlyweightFactory (TreeFactory)", "role": "Creates and manages flyweight objects, ensuring sharing" },
     { "name": "Context (Tree)", "role": "Stores extrinsic (unique) state and references a flyweight" },
     { "name": "Client", "role": "Maintains references to flyweights and computes/stores extrinsic state" }
+  ],
+
+  "observer.name": "Observer",
+  "observer.modes.events.label": "Events",
+  "observer.modes.events.desc": "An EventManager (subject) maintains a list of observers and notifies them automatically when an event occurs. EmailNotifier, LoggingObserver, and SlackNotifier all implement the Observer interface and react independently to the same event.",
+  "observer.details.events.principles": [
+    "Loose coupling: the subject knows only that observers implement an interface, not their concrete types",
+    "Open/Closed Principle: new observers can be added without modifying the subject",
+    "One-to-many dependency: one event triggers updates in many observers simultaneously",
+    "Event-driven design: components react to events rather than polling for changes",
+    "Single Responsibility: each observer handles its own reaction logic independently"
+  ],
+  "observer.details.events.concepts": [
+    { "term": "Subject", "definition": "The object being observed (EventManager). It maintains a subscriber list and provides subscribe/unsubscribe/notify methods." },
+    { "term": "Observer", "definition": "An interface declaring the update(event, data) method. All concrete observers implement this interface to receive notifications." },
+    { "term": "Event", "definition": "A named occurrence (e.g., 'order.placed') that triggers notification. Observers subscribe to specific event types." },
+    { "term": "Push vs Pull", "definition": "In push model, the subject sends data with the notification. In pull model, observers query the subject for data after being notified." }
+  ],
+  "observer.details.events.tradeoffs.pros": [
+    "Decouples event producers from consumers \u2014 they evolve independently",
+    "Easy to add new observers without touching existing code",
+    "Supports broadcast communication \u2014 one event reaches many listeners",
+    "Enables reactive architectures and event-driven systems"
+  ],
+  "observer.details.events.tradeoffs.cons": [
+    "Observers are notified in undefined order \u2014 can cause subtle bugs",
+    "Memory leaks if observers are not properly unsubscribed",
+    "Cascade updates can lead to performance issues with many observers",
+    "Debugging is harder \u2014 tracing event flow through multiple observers is complex"
+  ],
+  "observer.details.events.tradeoffs.whenToUse": "Use when changes to one object require updating others, and you don't know how many objects need to change. Common in event systems, UI frameworks, message brokers, and pub/sub architectures.",
+  "observer.tooltip.subject": "EventManager maintains a map of event names to observer lists and broadcasts notifications",
+  "observer.tooltip.observer": "Observer interface \u2014 all concrete observers must implement update(event, data)",
+  "observer.tooltip.email": "EmailNotifier sends confirmation emails when events occur",
+  "observer.tooltip.logging": "LoggingObserver writes event details to a log file",
+  "observer.tooltip.slack": "SlackNotifier posts event notifications to a Slack channel",
+  "observer.tooltip.obj-email": "Runtime instance of EmailNotifier processing the event",
+  "observer.tooltip.obj-logging": "Runtime instance of LoggingObserver writing to log",
+  "observer.tooltip.obj-slack": "Runtime instance of SlackNotifier posting to Slack",
+  "observer.step.events.0": "User triggers \"order.placed\" event",
+  "observer.step.events.1": "EventManager looks up subscribers for \"order.placed\"",
+  "observer.step.events.2": "Notify EmailNotifier.update()",
+  "observer.step.events.3": "EmailNotifier sends confirmation email",
+  "observer.step.events.4": "Notify LoggingObserver.update()",
+  "observer.step.events.5": "LoggingObserver writes to log file",
+  "observer.step.events.6": "Notify SlackNotifier.update()",
+  "observer.step.events.7": "SlackNotifier posts to #orders channel",
+  "observer.stepLabel.events": "Broadcast event via Observer pattern",
+  "observer.depRules": [
+    { "name": "EventManager (Subject)", "role": "Manages subscriber list and broadcasts events to all registered observers" },
+    { "name": "Observer (interface)", "role": "Defines the update(event, data) contract for receiving notifications" },
+    { "name": "EmailNotifier", "role": "Sends email notifications when events occur" },
+    { "name": "LoggingObserver", "role": "Logs event details to a file for auditing" },
+    { "name": "SlackNotifier", "role": "Posts event notifications to a Slack channel" }
+  ],
+
+  "strategy.name": "Strategy",
+  "strategy.modes.navigation.label": "Navigation",
+  "strategy.modes.navigation.desc": "A Navigator (context) holds a reference to a RouteStrategy and delegates route calculation to it. The client can swap strategies at runtime \u2014 DrivingStrategy, WalkingStrategy, or TransitStrategy \u2014 without changing the Navigator code.",
+  "strategy.details.navigation.principles": [
+    "Encapsulate algorithms: each strategy encapsulates a specific route calculation algorithm",
+    "Open/Closed Principle: new strategies can be added without modifying the context",
+    "Composition over inheritance: the context delegates to a strategy object rather than using subclasses",
+    "Context delegation: the Navigator delegates route building to the current strategy",
+    "Runtime flexibility: strategies can be swapped at runtime to change behavior dynamically"
+  ],
+  "strategy.details.navigation.concepts": [
+    { "term": "Context", "definition": "The Navigator class that maintains a reference to a strategy and delegates algorithm execution to it." },
+    { "term": "Strategy", "definition": "The RouteStrategy interface declaring the buildRoute() method. All concrete strategies implement this interface." },
+    { "term": "Concrete Strategy", "definition": "A specific algorithm implementation (DrivingStrategy, WalkingStrategy, TransitStrategy) that can be swapped at runtime." },
+    { "term": "Client", "definition": "Configures the context with a specific strategy and can change it at any time." }
+  ],
+  "strategy.details.navigation.tradeoffs.pros": [
+    "Eliminates conditional statements for algorithm selection",
+    "Algorithms can be swapped at runtime without modifying context code",
+    "Each strategy is independently testable and maintainable",
+    "New strategies can be added without touching existing code"
+  ],
+  "strategy.details.navigation.tradeoffs.cons": [
+    "Clients must be aware of different strategies to select the appropriate one",
+    "Increases the number of classes in the system",
+    "Communication overhead between context and strategy for shared data",
+    "Overkill for a small, fixed set of algorithms that rarely change"
+  ],
+  "strategy.details.navigation.tradeoffs.whenToUse": "Use when you have multiple algorithms for a specific task and want to switch between them at runtime, when you have conditional logic selecting different behaviors, or when you want to isolate algorithm implementation details from the code that uses them.",
+  "strategy.tooltip.client": "Client configures the Navigator with a chosen strategy",
+  "strategy.tooltip.context": "Navigator holds a strategy reference and delegates route building to it",
+  "strategy.tooltip.strategy": "RouteStrategy interface \u2014 all concrete strategies must implement buildRoute()",
+  "strategy.tooltip.driving": "DrivingStrategy calculates the fastest driving route",
+  "strategy.tooltip.walking": "WalkingStrategy calculates pedestrian-friendly walking route",
+  "strategy.tooltip.transit": "TransitStrategy calculates public transit route with transfers",
+  "strategy.tooltip.obj-driving": "Runtime instance of DrivingStrategy with computed route",
+  "strategy.tooltip.obj-walking": "Runtime instance of WalkingStrategy with computed route",
+  "strategy.tooltip.obj-transit": "Runtime instance of TransitStrategy with computed route",
+  "strategy.step.navigation.0": "Client sets DrivingStrategy on Navigator",
+  "strategy.step.navigation.1": "Navigator.buildRoute(\"A\", \"B\") called",
+  "strategy.step.navigation.2": "Delegates to strategy.buildRoute()",
+  "strategy.step.navigation.3": "DrivingStrategy calculates fastest road route",
+  "strategy.step.navigation.4": "Returns Route with 15km, 20min ETA",
+  "strategy.step.navigation.5": "Client swaps to WalkingStrategy",
+  "strategy.step.navigation.6": "WalkingStrategy: 2km walk, 25min ETA",
+  "strategy.stepLabel.navigation": "Navigate route via Strategy pattern",
+  "strategy.depRules": [
+    { "name": "Navigator (Context)", "role": "Maintains reference to current strategy and delegates route building" },
+    { "name": "RouteStrategy (interface)", "role": "Declares buildRoute(origin, destination) contract" },
+    { "name": "DrivingStrategy", "role": "Calculates the fastest driving route" },
+    { "name": "WalkingStrategy", "role": "Calculates pedestrian walking route" },
+    { "name": "TransitStrategy", "role": "Calculates public transit route with transfers" },
+    { "name": "Client", "role": "Configures Navigator with a chosen strategy" }
+  ],
+
+  "command.name": "Command",
+  "command.modes.remote.label": "Remote Control",
+  "command.modes.remote.desc": "A RemoteControl (invoker) stores a Command object and executes it on button press. TurnOnCommand and TurnOffCommand encapsulate Light operations and support undo. The invoker is completely decoupled from the receiver.",
+  "command.details.remote.principles": [
+    "Encapsulate requests as objects: each command wraps a specific action with its parameters",
+    "Decouple invoker from receiver: RemoteControl doesn't know about Light directly",
+    "Command history enables undo/redo: executed commands are stored for reversal",
+    "Single Responsibility: each command class handles one specific operation",
+    "Open/Closed Principle: new commands can be added without modifying invoker or receiver"
+  ],
+  "command.details.remote.concepts": [
+    { "term": "Command", "definition": "An interface declaring execute() and undo() methods. Each concrete command encapsulates an action and its receiver." },
+    { "term": "Invoker", "definition": "The RemoteControl that stores and triggers commands without knowing what they do or who handles them." },
+    { "term": "Receiver", "definition": "The Light object that knows how to perform the actual work (turnOn, turnOff)." },
+    { "term": "Undo/Redo", "definition": "Commands stored in a history stack can be undone by calling their undo() method in reverse order." }
+  ],
+  "command.details.remote.tradeoffs.pros": [
+    "Decouples the object that invokes the operation from the one that performs it",
+    "Commands can be queued, logged, scheduled, and undone",
+    "Supports macro commands \u2014 composite commands executing multiple actions",
+    "Easy to add new commands without changing existing code"
+  ],
+  "command.details.remote.tradeoffs.cons": [
+    "Increases the number of classes \u2014 one class per command",
+    "Can be overkill for simple operations without undo requirements",
+    "Undo can be complex when commands have side effects on external systems",
+    "Command parameters must be serializable if commands are persisted"
+  ],
+  "command.details.remote.tradeoffs.whenToUse": "Use when you want to parameterize objects with operations, queue or schedule operations for later execution, implement undo/redo functionality, or structure a system around high-level operations built from primitive ones.",
+  "command.tooltip.invoker": "RemoteControl stores and executes commands, maintains undo history",
+  "command.tooltip.command": "Command interface \u2014 declares execute() and undo() methods",
+  "command.tooltip.on": "TurnOnCommand encapsulates Light.turnOn() and its undo",
+  "command.tooltip.off": "TurnOffCommand encapsulates Light.turnOff() and its undo",
+  "command.tooltip.receiver": "Light is the receiver that performs the actual on/off operations",
+  "command.tooltip.obj-on": "Runtime instance of TurnOnCommand in the history stack",
+  "command.tooltip.obj-off": "Runtime instance of TurnOffCommand after undo",
+  "command.tooltip.obj-light": "Runtime instance of Light with current state",
+  "command.step.remote.0": "Set TurnOnCommand on remote",
+  "command.step.remote.1": "pressButton() \u2192 command.execute()",
+  "command.step.remote.2": "TurnOnCommand.execute() called",
+  "command.step.remote.3": "Light.turnOn() \u2192 isOn = true",
+  "command.step.remote.4": "Light is now ON",
+  "command.step.remote.5": "Push TurnOnCommand to history stack",
+  "command.step.remote.6": "pressUndo() \u2192 command.undo()",
+  "command.step.remote.7": "Undo: Light.turnOff() \u2192 isOn = false",
+  "command.stepLabel.remote": "Execute and undo via Command pattern",
+  "command.depRules": [
+    { "name": "RemoteControl (Invoker)", "role": "Stores and executes commands, maintains undo history" },
+    { "name": "Command (interface)", "role": "Declares execute() and undo() methods" },
+    { "name": "TurnOnCommand", "role": "Encapsulates turning a device on" },
+    { "name": "TurnOffCommand", "role": "Encapsulates turning a device off" },
+    { "name": "Light (Receiver)", "role": "The actual device being controlled" }
+  ],
+
+  "state.name": "State",
+  "state.modes.order.label": "Order Lifecycle",
+  "state.modes.order.desc": "An Order (context) delegates behavior to its current OrderState. As the order progresses through Draft \u2192 Paid \u2192 Shipped \u2192 Delivered, each state determines which transitions are valid and handles them differently.",
+  "state.details.order.principles": [
+    "State encapsulation: each state is a separate class with its own behavior",
+    "Eliminates conditionals: no switch/if chains \u2014 polymorphism handles state-specific logic",
+    "Open/Closed Principle: new states can be added without modifying existing ones",
+    "Single Responsibility: each state class handles only its own transitions",
+    "Explicit transitions: state changes are clear and traceable through setState() calls"
+  ],
+  "state.details.order.concepts": [
+    { "term": "Context", "definition": "The Order class that maintains a reference to the current state and delegates behavior to it." },
+    { "term": "State", "definition": "The OrderState interface declaring methods for all possible actions (pay, ship, deliver)." },
+    { "term": "Concrete State", "definition": "A specific state implementation (DraftState, PaidState, etc.) that handles transitions from that state." },
+    { "term": "Transition", "definition": "A state change triggered by a method call. Each state determines which transitions are valid." }
+  ],
+  "state.details.order.tradeoffs.pros": [
+    "Organizes state-specific code into separate classes",
+    "Makes state transitions explicit and easy to trace",
+    "Eliminates complex conditional logic for state-dependent behavior",
+    "New states can be added without changing existing state classes"
+  ],
+  "state.details.order.tradeoffs.cons": [
+    "Can be overkill for objects with few simple states",
+    "Increases the number of classes in the system",
+    "State transitions can be hard to track when distributed across classes",
+    "Shared data between states requires careful design"
+  ],
+  "state.details.order.tradeoffs.whenToUse": "Use when an object's behavior depends on its state and changes at runtime, when operations have large conditional statements based on state, or when you want to model a finite state machine with clear transitions.",
+  "state.tooltip.context": "Order maintains current state and delegates pay/ship/deliver calls to it",
+  "state.tooltip.state": "OrderState interface \u2014 declares pay(), ship(), deliver() for all states",
+  "state.tooltip.draft": "DraftState: initial state, only pay() is valid",
+  "state.tooltip.paid": "PaidState: payment received, only ship() is valid",
+  "state.tooltip.shipped": "ShippedState: in transit, only deliver() is valid",
+  "state.tooltip.delivered": "DeliveredState: final state, no transitions allowed",
+  "state.tooltip.obj-draft": "Runtime DraftState instance \u2014 initial order state",
+  "state.tooltip.obj-paid": "Runtime PaidState instance after payment",
+  "state.tooltip.obj-shipped": "Runtime ShippedState instance after shipping",
+  "state.tooltip.obj-delivered": "Runtime DeliveredState instance \u2014 order complete",
+  "state.step.order.0": "New order created in DraftState",
+  "state.step.order.1": "Current state: Draft",
+  "state.step.order.2": "DraftState: order.pay() \u2192 transition to PaidState",
+  "state.step.order.3": "State changed to PaidState",
+  "state.step.order.4": "PaidState: order.ship() \u2192 transition to ShippedState",
+  "state.step.order.5": "State changed to ShippedState",
+  "state.step.order.6": "ShippedState: order.deliver() \u2192 transition to DeliveredState",
+  "state.step.order.7": "DeliveredState: order complete, no more transitions",
+  "state.stepLabel.order": "Order lifecycle via State pattern",
+  "state.depRules": [
+    { "name": "Order (Context)", "role": "Maintains current state and delegates behavior" },
+    { "name": "OrderState (interface)", "role": "Declares pay(), ship(), deliver() methods" },
+    { "name": "DraftState", "role": "Initial state, can transition to Paid" },
+    { "name": "PaidState", "role": "Payment received, can transition to Shipped" },
+    { "name": "ShippedState", "role": "In transit, can transition to Delivered" },
+    { "name": "DeliveredState", "role": "Final state, no further transitions" }
+  ],
+
+  "chain-of-responsibility.name": "Chain of Responsibility",
+  "chain-of-responsibility.modes.middleware.label": "Middleware",
+  "chain-of-responsibility.modes.middleware.desc": "An HTTP request passes through a chain of handlers: AuthHandler validates the token, ValidationHandler checks the request body, and ThrottleHandler enforces rate limits. Each handler either processes the request or passes it to the next handler in the chain.",
+  "chain-of-responsibility.details.middleware.principles": [
+    "Decouple sender from receiver: the client doesn't know which handler will process the request",
+    "Chain of handlers: each handler decides to process the request or pass it along",
+    "Single Responsibility: each handler focuses on one specific concern",
+    "Open/Closed Principle: new handlers can be added to the chain without modifying existing ones",
+    "Flexible ordering: handlers can be rearranged, added, or removed at runtime"
+  ],
+  "chain-of-responsibility.details.middleware.concepts": [
+    { "term": "Handler", "definition": "An interface declaring handle(request) and setNext(handler). Each handler either processes the request or delegates to the next." },
+    { "term": "Concrete Handler", "definition": "A specific handler (AuthHandler, ValidationHandler, ThrottleHandler) that implements its own check logic." },
+    { "term": "Chain", "definition": "A linked list of handlers where each handler holds a reference to the next. The request flows through until handled." },
+    { "term": "Client", "definition": "Assembles the chain and sends requests to the first handler. Doesn't know which handler will ultimately process the request." }
+  ],
+  "chain-of-responsibility.details.middleware.tradeoffs.pros": [
+    "Decouples request senders from receivers \u2014 promotes loose coupling",
+    "Handlers can be dynamically added, removed, or reordered",
+    "Each handler has a single responsibility \u2014 easy to test and maintain",
+    "Follows Open/Closed Principle \u2014 new handlers don't affect existing ones"
+  ],
+  "chain-of-responsibility.details.middleware.tradeoffs.cons": [
+    "No guarantee that the request will be handled \u2014 it can fall through the chain",
+    "Debugging can be difficult when tracking which handler processed a request",
+    "Performance overhead if the chain is long and most handlers just pass through",
+    "Circular references in the chain can cause infinite loops"
+  ],
+  "chain-of-responsibility.details.middleware.tradeoffs.whenToUse": "Use when multiple objects can handle a request and the handler isn't known in advance, when you want to issue a request to one of several objects without specifying the receiver explicitly, or in middleware pipelines, event processing, and logging frameworks.",
+  "chain-of-responsibility.tooltip.client": "Client sends HTTP request to the handler chain",
+  "chain-of-responsibility.tooltip.handler": "Handler interface \u2014 declares handle() and setNext() methods",
+  "chain-of-responsibility.tooltip.auth": "AuthHandler validates JWT tokens on incoming requests",
+  "chain-of-responsibility.tooltip.valid": "ValidationHandler validates request body against schema",
+  "chain-of-responsibility.tooltip.throttle": "ThrottleHandler enforces rate limiting per client IP",
+  "chain-of-responsibility.tooltip.obj-auth": "AuthHandler passed \u2014 token is valid",
+  "chain-of-responsibility.tooltip.obj-valid": "ValidationHandler passed \u2014 request body is valid",
+  "chain-of-responsibility.tooltip.obj-throttle": "ThrottleHandler passed \u2014 rate limit not exceeded",
+  "chain-of-responsibility.tooltip.obj-response": "All handlers passed \u2014 200 OK response returned",
+  "chain-of-responsibility.step.middleware.0": "Client sends HTTP request",
+  "chain-of-responsibility.step.middleware.1": "Request enters middleware chain",
+  "chain-of-responsibility.step.middleware.2": "AuthHandler checks JWT token",
+  "chain-of-responsibility.step.middleware.3": "Token valid \u2192 pass to next handler",
+  "chain-of-responsibility.step.middleware.4": "ValidationHandler validates request body",
+  "chain-of-responsibility.step.middleware.5": "Validation passed \u2192 pass to next handler",
+  "chain-of-responsibility.step.middleware.6": "ThrottleHandler checks rate limit",
+  "chain-of-responsibility.step.middleware.7": "All handlers passed \u2192 return 200 OK",
+  "chain-of-responsibility.stepLabel.middleware": "Process request via Chain of Responsibility",
+  "chain-of-responsibility.depRules": [
+    { "name": "Handler (interface)", "role": "Declares handle(request) and setNext(handler) methods" },
+    { "name": "AuthHandler", "role": "Validates authentication tokens" },
+    { "name": "ValidationHandler", "role": "Validates request data against rules" },
+    { "name": "ThrottleHandler", "role": "Enforces rate limiting per client" },
+    { "name": "Client", "role": "Sends request through the handler chain" }
+  ],
+
+  "iterator.name": "Iterator",
+  "iterator.modes.playlist.label": "Playlist",
+  "iterator.modes.playlist.desc": "A Playlist (aggregate) creates a PlaylistIterator that traverses its Song collection sequentially. The client uses hasNext()/next() to iterate without knowing the internal storage structure of the playlist.",
+  "iterator.details.playlist.principles": [
+    "Encapsulate traversal: the iterator hides the internal structure of the collection",
+    "Single Responsibility: the collection manages storage, the iterator manages traversal",
+    "Uniform interface: all iterators share hasNext()/next() regardless of the underlying collection",
+    "Open/Closed Principle: new iterator types can be added without modifying the collection",
+    "Multiple traversals: different iterators can traverse the same collection simultaneously"
+  ],
+  "iterator.details.playlist.concepts": [
+    { "term": "Aggregate", "definition": "The Playlist collection that stores songs and provides a createIterator() factory method." },
+    { "term": "Iterator", "definition": "An interface declaring hasNext() and next() methods for sequential access to elements." },
+    { "term": "Concrete Iterator", "definition": "PlaylistIterator that maintains traversal state (current index) and knows how to access Playlist elements." },
+    { "term": "Element", "definition": "A Song object stored in the collection, accessed sequentially through the iterator." }
+  ],
+  "iterator.details.playlist.tradeoffs.pros": [
+    "Hides the internal structure of collections from clients",
+    "Supports multiple simultaneous traversals of the same collection",
+    "Provides a uniform interface for traversing different collection types",
+    "Simplifies the collection interface by extracting traversal into its own class"
+  ],
+  "iterator.details.playlist.tradeoffs.cons": [
+    "Overkill for simple collections that are easily traversed with a loop",
+    "Can be less efficient than direct access for random-access collections",
+    "Iterator state can become stale if the collection is modified during iteration",
+    "Adds extra classes for each collection type"
+  ],
+  "iterator.details.playlist.tradeoffs.whenToUse": "Use when you want to access a collection's elements without exposing its internal structure, when you need to support multiple traversal algorithms over a collection, or when you want a uniform interface for traversing different collection types.",
+  "iterator.tooltip.playlist": "Playlist stores songs and creates iterators for traversal",
+  "iterator.tooltip.iterator": "Iterator interface \u2014 declares hasNext() and next() methods",
+  "iterator.tooltip.concrete": "PlaylistIterator tracks position and returns songs sequentially",
+  "iterator.tooltip.obj-song1": "Song: Bohemian Rhapsody \u2014 first element",
+  "iterator.tooltip.obj-song2": "Song: Imagine \u2014 second element",
+  "iterator.tooltip.obj-song3": "Song: Hotel California \u2014 third element",
+  "iterator.tooltip.obj-iter": "PlaylistIterator instance after completing traversal",
+  "iterator.step.playlist.0": "Client calls playlist.createIterator()",
+  "iterator.step.playlist.1": "Returns PlaylistIterator instance",
+  "iterator.step.playlist.2": "hasNext() \u2192 true (index=0)",
+  "iterator.step.playlist.3": "next() \u2192 Song: Bohemian Rhapsody",
+  "iterator.step.playlist.4": "hasNext() \u2192 true (index=1)",
+  "iterator.step.playlist.5": "next() \u2192 Song: Imagine",
+  "iterator.step.playlist.6": "next() \u2192 Song: Hotel California",
+  "iterator.step.playlist.7": "hasNext() \u2192 false, iteration complete",
+  "iterator.stepLabel.playlist": "Traverse playlist via Iterator pattern",
+  "iterator.depRules": [
+    { "name": "Playlist (Aggregate)", "role": "Collection of songs that creates iterators" },
+    { "name": "Iterator (interface)", "role": "Defines hasNext() and next() traversal contract" },
+    { "name": "PlaylistIterator", "role": "Concrete iterator over Playlist songs" },
+    { "name": "Song", "role": "Element being iterated over" }
+  ],
+
+  "mediator.name": "Mediator",
+  "mediator.modes.chatroom.label": "Chat Room",
+  "mediator.modes.chatroom.desc": "A ChatRoom (mediator) coordinates communication between User objects. Instead of users referencing each other directly, they send messages through the ChatRoom, which broadcasts to all participants except the sender.",
+  "mediator.details.chatroom.principles": [
+    "Centralized communication: all inter-object communication goes through the mediator",
+    "Loose coupling: colleagues know only the mediator interface, not each other",
+    "Single Responsibility: the mediator handles coordination, colleagues handle their own logic",
+    "Simplified protocols: many-to-many relationships become one-to-many via the mediator",
+    "Open/Closed Principle: new colleague types can be added without changing existing ones"
+  ],
+  "mediator.details.chatroom.concepts": [
+    { "term": "Mediator", "definition": "An interface declaring sendMessage() for routing messages between colleagues." },
+    { "term": "Concrete Mediator", "definition": "ChatRoom implements the mediator interface and knows all registered users to route messages." },
+    { "term": "Colleague", "definition": "User objects that communicate through the mediator rather than directly with each other." },
+    { "term": "Message", "definition": "Data sent from one colleague to others, routed through the mediator." }
+  ],
+  "mediator.details.chatroom.tradeoffs.pros": [
+    "Reduces coupling \u2014 components communicate through a single mediator",
+    "Centralizes complex communication logic in one place",
+    "Components can be reused independently of the mediator",
+    "Simplifies object protocols from many-to-many to one-to-many"
+  ],
+  "mediator.details.chatroom.tradeoffs.cons": [
+    "Mediator can become a God Object if too much logic accumulates",
+    "Single point of failure \u2014 if the mediator fails, all communication stops",
+    "Can be harder to understand the flow when all communication is indirect",
+    "Performance bottleneck if all messages route through one object"
+  ],
+  "mediator.details.chatroom.tradeoffs.whenToUse": "Use when a set of objects communicate in complex but well-defined ways, when reusing an object is difficult because it references many other objects, or when you want to customize behavior distributed between several classes without creating many subclasses.",
+  "mediator.tooltip.mediator": "Mediator interface \u2014 declares sendMessage() for routing messages",
+  "mediator.tooltip.chatroom": "ChatRoom manages users and broadcasts messages to all except sender",
+  "mediator.tooltip.user": "User communicates through the mediator, not directly with other users",
+  "mediator.tooltip.obj-alice": "Alice \u2014 a user in the chat room",
+  "mediator.tooltip.obj-bob": "Bob \u2014 a user in the chat room",
+  "mediator.tooltip.obj-charlie": "Charlie \u2014 a user in the chat room",
+  "mediator.step.chatroom.0": "Users join the chat room",
+  "mediator.step.chatroom.1": "Alice joins ChatRoom",
+  "mediator.step.chatroom.2": "Bob joins ChatRoom",
+  "mediator.step.chatroom.3": "Charlie joins ChatRoom",
+  "mediator.step.chatroom.4": "Alice calls send(\"Hello everyone!\")",
+  "mediator.step.chatroom.5": "ChatRoom broadcasts to all except sender",
+  "mediator.step.chatroom.6": "Bob.receive(\"Hello everyone!\", Alice)",
+  "mediator.step.chatroom.7": "Charlie.receive(\"Hello everyone!\", Alice)",
+  "mediator.stepLabel.chatroom": "Chat room communication via Mediator pattern",
+  "mediator.depRules": [
+    { "name": "Mediator (interface)", "role": "Defines sendMessage(message, sender) contract" },
+    { "name": "ChatRoom", "role": "Concrete mediator that routes messages between users" },
+    { "name": "User", "role": "Colleague that communicates via the mediator" }
+  ],
+
+  "memento.name": "Memento",
+  "memento.modes.editor.label": "Text Editor",
+  "memento.modes.editor.desc": "An Editor (originator) creates EditorState snapshots (mementos) that are stored in a History (caretaker). The editor can type text, save snapshots, and restore previous states for undo functionality.",
+  "memento.details.editor.principles": [
+    "Encapsulation preserved: the memento stores state without exposing the originator's internals",
+    "Single Responsibility: the originator manages state, the caretaker manages history",
+    "Immutable snapshots: memento objects are immutable once created, ensuring integrity",
+    "Separation of concerns: undo logic is in the caretaker, not the originator",
+    "State externalization: the originator's state is externalized without violating encapsulation"
+  ],
+  "memento.details.editor.concepts": [
+    { "term": "Originator", "definition": "The Editor that creates mementos containing snapshots of its current state and can restore from them." },
+    { "term": "Memento", "definition": "EditorState \u2014 an immutable snapshot of the editor's content at a specific point in time." },
+    { "term": "Caretaker", "definition": "History \u2014 stores and manages a stack of mementos without examining or modifying their contents." },
+    { "term": "Snapshot", "definition": "A frozen copy of the originator's state that can be used to restore the originator later." }
+  ],
+  "memento.details.editor.tradeoffs.pros": [
+    "Provides undo/redo without exposing implementation details",
+    "Preserves encapsulation \u2014 only the originator accesses its own state",
+    "Simplifies the originator by offloading history management to the caretaker",
+    "Snapshots can be serialized for persistence or network transfer"
+  ],
+  "memento.details.editor.tradeoffs.cons": [
+    "Can consume significant memory if mementos are large or created frequently",
+    "Caretaker must manage memento lifecycle to avoid memory leaks",
+    "In some languages, ensuring memento immutability requires extra effort",
+    "Frequent snapshots of complex objects can impact performance"
+  ],
+  "memento.details.editor.tradeoffs.whenToUse": "Use when you need to provide undo/redo functionality, when you need to save and restore object state without violating encapsulation, or when direct access to an object's state would expose implementation details.",
+  "memento.tooltip.editor": "Editor (originator) creates and restores from state snapshots",
+  "memento.tooltip.memento": "EditorState stores an immutable snapshot of editor content",
+  "memento.tooltip.history": "History (caretaker) maintains a stack of saved states",
+  "memento.tooltip.obj-state1": "Snapshot of editor content: \"Hello\"",
+  "memento.tooltip.obj-state2": "Snapshot of editor content: \"Hello World\"",
+  "memento.tooltip.obj-state3": "Restored snapshot: \"Hello\"",
+  "memento.tooltip.obj-editor": "Editor instance after restore operation",
+  "memento.step.editor.0": "Editor: type(\"Hello\")",
+  "memento.step.editor.1": "Editor.save() \u2192 create EditorState(\"Hello\")",
+  "memento.step.editor.2": "Push EditorState to History",
+  "memento.step.editor.3": "Editor: type(\" World\") \u2192 content = \"Hello World\"",
+  "memento.step.editor.4": "Save() \u2192 push \"Hello World\" to History",
+  "memento.step.editor.5": "Undo requested \u2192 History.pop()",
+  "memento.step.editor.6": "Editor.restore(state) \u2192 content = \"Hello\"",
+  "memento.step.editor.7": "Editor restored to \"Hello\"",
+  "memento.stepLabel.editor": "Save and restore via Memento pattern",
+  "memento.depRules": [
+    { "name": "Editor (Originator)", "role": "Creates and restores from state snapshots" },
+    { "name": "EditorState (Memento)", "role": "Immutable snapshot of editor content" },
+    { "name": "History (Caretaker)", "role": "Stores and manages the memento stack" }
+  ],
+
+  "template-method.name": "Template Method",
+  "template-method.modes.mining.label": "Data Mining",
+  "template-method.modes.mining.desc": "A DataMiner abstract class defines a mine() template method with a fixed algorithm skeleton: openFile \u2192 extractData \u2192 parseData \u2192 analyze \u2192 sendReport. Subclasses (CSVMiner, JSONMiner, XMLMiner) override the variable steps while the invariant steps remain in the base class.",
+  "template-method.details.mining.principles": [
+    "Define algorithm skeleton: the template method outlines the steps, subclasses fill in the details",
+    "Hollywood Principle: 'Don't call us, we'll call you' \u2014 the base class calls subclass methods",
+    "Code reuse: common steps (analyze, sendReport) live in the base class, not duplicated",
+    "Open/Closed Principle: new miners can be added by subclassing without changing the template",
+    "Inversion of Control: the base class controls the algorithm flow, subclasses customize steps"
+  ],
+  "template-method.details.mining.concepts": [
+    { "term": "Template Method", "definition": "The mine() method that defines the algorithm skeleton. It calls abstract and concrete methods in a specific order." },
+    { "term": "Abstract Class", "definition": "DataMiner declares the template method and abstract steps (openFile, extractData, parseData) that subclasses must implement." },
+    { "term": "Concrete Class", "definition": "CSVMiner, JSONMiner, XMLMiner \u2014 each overrides the abstract steps to handle their specific file format." },
+    { "term": "Hook Method", "definition": "Optional methods with default implementation that subclasses can override for additional customization points." }
+  ],
+  "template-method.details.mining.tradeoffs.pros": [
+    "Eliminates code duplication \u2014 common logic stays in the base class",
+    "Provides a clear algorithm structure that's easy to understand",
+    "Subclasses customize only the parts that vary \u2014 less code to write",
+    "Enforces consistent algorithm structure across all variants"
+  ],
+  "template-method.details.mining.tradeoffs.cons": [
+    "Requires inheritance \u2014 limits flexibility compared to composition-based patterns",
+    "More steps in the template mean more methods to override",
+    "Violates Liskov Substitution if subclasses suppress base class steps",
+    "Can be hard to maintain when the template has many optional hook methods"
+  ],
+  "template-method.details.mining.tradeoffs.whenToUse": "Use when you have several classes with similar algorithms that differ only in certain steps, when you want to let subclasses extend specific steps of an algorithm without changing its structure, or when you want to control the extension points available to subclasses.",
+  "template-method.tooltip.abstract": "DataMiner defines mine() template with abstract steps for subclasses to override",
+  "template-method.tooltip.csv": "CSVMiner overrides openFile/extractData/parseData for CSV files",
+  "template-method.tooltip.json": "JSONMiner overrides openFile/extractData/parseData for JSON files",
+  "template-method.tooltip.xml": "XMLMiner overrides openFile/extractData/parseData for XML files",
+  "template-method.tooltip.obj-csv": "Runtime CSVMiner instance after mining pipeline",
+  "template-method.tooltip.obj-json": "Runtime JSONMiner instance \u2014 same template, different format",
+  "template-method.tooltip.obj-xml": "Runtime XMLMiner instance \u2014 same template, different format",
+  "template-method.step.mining.0": "Call mine() template method on CSVMiner",
+  "template-method.step.mining.1": "Step 1: openFile(\"data.csv\")",
+  "template-method.step.mining.2": "Step 2: extractData() \u2192 raw CSV rows",
+  "template-method.step.mining.3": "Step 3: parseData() \u2192 structured records",
+  "template-method.step.mining.4": "Step 4: analyze() \u2014 common logic in base class",
+  "template-method.step.mining.5": "Step 5: sendReport() \u2014 common logic in base class",
+  "template-method.step.mining.6": "Mining pipeline complete for CSV",
+  "template-method.step.mining.7": "Same template works for JSON/XML miners",
+  "template-method.stepLabel.mining": "Data mining pipeline via Template Method",
+  "template-method.depRules": [
+    { "name": "DataMiner (Abstract Class)", "role": "Defines mine() template method with algorithm skeleton" },
+    { "name": "CSVMiner", "role": "Overrides steps for CSV file processing" },
+    { "name": "JSONMiner", "role": "Overrides steps for JSON file processing" },
+    { "name": "XMLMiner", "role": "Overrides steps for XML file processing" }
+  ],
+
+  "visitor.name": "Visitor",
+  "visitor.modes.export.label": "Shape Export",
+  "visitor.modes.export.desc": "An XMLExportVisitor and JSONExportVisitor traverse a collection of shapes (Circle, Rectangle) via double dispatch. Each shape's accept(visitor) method calls the appropriate visit method, allowing new export formats to be added without modifying shape classes.",
+  "visitor.details.export.principles": [
+    "Double dispatch: accept() calls the visitor's type-specific method, enabling polymorphism on both sides",
+    "Open/Closed Principle: new operations (visitors) can be added without modifying element classes",
+    "Single Responsibility: each visitor encapsulates one operation across all element types",
+    "Separation of concerns: algorithms are separated from the objects they operate on",
+    "Accumulation: visitors can gather state as they traverse the object structure"
+  ],
+  "visitor.details.export.concepts": [
+    { "term": "Visitor", "definition": "An interface declaring visit methods for each element type (visitCircle, visitRectangle). Each concrete visitor implements a specific operation." },
+    { "term": "Element", "definition": "Shape interface with accept(visitor) method. Each concrete element calls the appropriate visit method on the visitor." },
+    { "term": "Double Dispatch", "definition": "Two polymorphic calls: first on the element (accept), then on the visitor (visitX). This selects the correct method based on both types." },
+    { "term": "Object Structure", "definition": "A collection of elements (shapes) that can be traversed. The visitor is applied to each element in turn." }
+  ],
+  "visitor.details.export.tradeoffs.pros": [
+    "Easy to add new operations \u2014 just create a new visitor class",
+    "Related operations are grouped in one visitor, not scattered across element classes",
+    "Visitors can accumulate state while traversing the object structure",
+    "Follows Single Responsibility \u2014 each visitor handles one concern"
+  ],
+  "visitor.details.export.tradeoffs.cons": [
+    "Adding new element types requires updating all visitors",
+    "Visitors may break encapsulation if they need access to element internals",
+    "Double dispatch can be confusing and hard to debug",
+    "Not suitable when element classes change frequently"
+  ],
+  "visitor.details.export.tradeoffs.whenToUse": "Use when you need to perform many unrelated operations on objects in a structure and want to avoid polluting their classes, when the object structure rarely changes but new operations are added frequently, or when you want to accumulate state across a complex object structure.",
+  "visitor.tooltip.visitor": "Visitor interface \u2014 declares visitCircle() and visitRectangle() methods",
+  "visitor.tooltip.shape": "Shape interface \u2014 declares accept(visitor) for double dispatch",
+  "visitor.tooltip.xml": "XMLExportVisitor exports shapes to XML format",
+  "visitor.tooltip.json": "JSONExportVisitor exports shapes to JSON format",
+  "visitor.tooltip.circle": "Circle shape with radius, implements accept(visitor)",
+  "visitor.tooltip.rect": "Rectangle shape with width and height, implements accept(visitor)",
+  "visitor.tooltip.obj-xml": "Runtime XMLExportVisitor instance processing shapes",
+  "visitor.tooltip.obj-json": "Runtime JSONExportVisitor instance \u2014 same traversal, different output",
+  "visitor.tooltip.obj-circle": "Circle instance after export",
+  "visitor.tooltip.obj-rect": "Rectangle instance after export",
+  "visitor.step.export.0": "Create XMLExportVisitor",
+  "visitor.step.export.1": "XMLExportVisitor instantiated",
+  "visitor.step.export.2": "circle.accept(xmlVisitor)",
+  "visitor.step.export.3": "visitCircle(circle) \u2192 \"<circle r=5/>\"",
+  "visitor.step.export.4": "rectangle.accept(xmlVisitor)",
+  "visitor.step.export.5": "visitRectangle(rect) \u2192 \"<rect w=10 h=5/>\"",
+  "visitor.step.export.6": "Circle exported to XML",
+  "visitor.step.export.7": "Rectangle exported to XML",
+  "visitor.step.export.8": "Swap visitor: JSONExportVisitor works the same way",
+  "visitor.step.export.9": "All shapes exported \u2014 no shape code changed",
+  "visitor.stepLabel.export": "Export shapes via Visitor pattern",
+  "visitor.depRules": [
+    { "name": "Visitor (interface)", "role": "Declares visit methods for each shape type" },
+    { "name": "XMLExportVisitor", "role": "Exports shapes to XML format" },
+    { "name": "JSONExportVisitor", "role": "Exports shapes to JSON format" },
+    { "name": "Shape (interface)", "role": "Declares accept(visitor) for double dispatch" },
+    { "name": "Circle", "role": "Concrete shape with radius" },
+    { "name": "Rectangle", "role": "Concrete shape with width and height" }
   ]
 }

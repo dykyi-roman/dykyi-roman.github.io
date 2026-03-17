@@ -1,6 +1,5 @@
 {
   "pv.title": "Visualiseur de Patrons de Conception",
-
   "simple-factory.name": "Simple Factory",
   "simple-factory.modes.transport.label": "Transport",
   "simple-factory.modes.transport.desc": "Une TransportFactory cree des vehicules de livraison selon un parametre de type. Le client demande un objet Transport sans savoir s'il obtient un Truck, Ship ou Plane. La factory encapsule toute la logique d'instanciation derriere une seule methode create().",
@@ -12,10 +11,22 @@
     "Couplage faible : le client depend de l'abstraction, pas des classes concretes"
   ],
   "simple-factory.details.transport.concepts": [
-    { "term": "Simple Factory", "definition": "Une classe avec une seule methode de creation qui retourne differents types d'objets selon un parametre. Pas un patron GoF a proprement parler, mais un idiome largement utilise qui simplifie la creation d'objets." },
-    { "term": "Product Interface", "definition": "Le type commun (Transport) que tous les produits concrets implementent. Le client code contre cette interface, permettant le polymorphisme." },
-    { "term": "Parameterized Creation", "definition": "La methode factory accepte une chaine de type ou un enum et utilise une logique conditionnelle (switch/if) pour decider quelle classe concrete instancier." },
-    { "term": "Concrete Product", "definition": "Une implementation specifique (Truck, Ship, Plane) de l'interface produit. La factory est le seul endroit qui reference directement ces classes." }
+    {
+      "term": "Simple Factory",
+      "definition": "Une classe avec une seule methode de creation qui retourne differents types d'objets selon un parametre. Pas un patron GoF a proprement parler, mais un idiome largement utilise qui simplifie la creation d'objets."
+    },
+    {
+      "term": "Product Interface",
+      "definition": "Le type commun (Transport) que tous les produits concrets implementent. Le client code contre cette interface, permettant le polymorphisme."
+    },
+    {
+      "term": "Parameterized Creation",
+      "definition": "La methode factory accepte une chaine de type ou un enum et utilise une logique conditionnelle (switch/if) pour decider quelle classe concrete instancier."
+    },
+    {
+      "term": "Concrete Product",
+      "definition": "Une implementation specifique (Truck, Ship, Plane) de l'interface produit. La factory est le seul endroit qui reference directement ces classes."
+    }
   ],
   "simple-factory.details.transport.tradeoffs.pros": [
     "Centralise la logique de creation -- un seul endroit pour ajouter ou modifier les types de produits",
@@ -30,7 +41,6 @@
     "Pas aussi flexible que le patron Factory Method pour l'extensibilite via l'heritage"
   ],
   "simple-factory.details.transport.tradeoffs.whenToUse": "Ideal quand vous avez un ensemble petit et stable de types de produits, que la logique de creation est directe, et que vous voulez cacher les details d'instanciation au client sans la surcharge d'une hierarchie complete de Factory Method ou Abstract Factory.",
-
   "static-factory.name": "Static Factory",
   "static-factory.modes.number.label": "Number",
   "static-factory.modes.number.desc": "Number.of(value) inspecte l'entree et retourne un Integer, Float ou BigDecimal. Les petits entiers sont mis en cache en interne, donc les appels repetes pour la meme valeur retournent la meme instance -- une optimisation de type flyweight qui evite les allocations redondantes.",
@@ -42,10 +52,22 @@
     "Pas de constructeurs publics : les clients ne peuvent pas contourner la factory, garantissant que toutes les instances passent par le chemin de creation controle"
   ],
   "static-factory.details.number.concepts": [
-    { "term": "Static Factory Method", "definition": "Une methode statique sur une classe qui retourne une instance de cette classe (ou d'une sous-classe). Contrairement aux constructeurs, les methodes static factory ont des noms, peuvent retourner des instances en cache et peuvent retourner des sous-types." },
-    { "term": "Flyweight Caching", "definition": "Les petites valeurs entieres sont mises en cache dans une Map interne. Quand of(42) est appele a nouveau, le Integer(42) en cache est retourne au lieu de creer un nouvel objet -- similaire au patron Flyweight." },
-    { "term": "Type Inference", "definition": "La factory inspecte la valeur a l'execution pour determiner le type concret : les valeurs int deviennent Integer, les virgules flottantes deviennent Float, et les valeurs tres grandes ou precises deviennent BigDecimal." },
-    { "term": "valueOf() Convention", "definition": "Une convention de nommage courante (issue de Java) ou valueOf() convertit un primitif en son type wrapper. Number.of() delegue a valueOf() pour les entrees entieres." }
+    {
+      "term": "Static Factory Method",
+      "definition": "Une methode statique sur une classe qui retourne une instance de cette classe (ou d'une sous-classe). Contrairement aux constructeurs, les methodes static factory ont des noms, peuvent retourner des instances en cache et peuvent retourner des sous-types."
+    },
+    {
+      "term": "Flyweight Caching",
+      "definition": "Les petites valeurs entieres sont mises en cache dans une Map interne. Quand of(42) est appele a nouveau, le Integer(42) en cache est retourne au lieu de creer un nouvel objet -- similaire au patron Flyweight."
+    },
+    {
+      "term": "Type Inference",
+      "definition": "La factory inspecte la valeur a l'execution pour determiner le type concret : les valeurs int deviennent Integer, les virgules flottantes deviennent Float, et les valeurs tres grandes ou precises deviennent BigDecimal."
+    },
+    {
+      "term": "valueOf() Convention",
+      "definition": "Une convention de nommage courante (issue de Java) ou valueOf() convertit un primitif en son type wrapper. Number.of() delegue a valueOf() pour les entrees entieres."
+    }
   ],
   "static-factory.details.number.tradeoffs.pros": [
     "Nommage descriptif : Number.of(42) et Number.zero() sont auto-documentants, contrairement a new Number(42)",
@@ -60,7 +82,6 @@
     "Plus difficile a identifier dans la documentation : les methodes statiques se confondent avec les autres methodes utilitaires"
   ],
   "static-factory.details.number.tradeoffs.whenToUse": "Ideal pour les types valeur ou la mise en cache des instances ameliore les performances (petits entiers, valeurs de type enum), quand le type de retour doit varier selon l'entree, ou quand des methodes de construction nommees ameliorent la lisibilite de l'API.",
-
   "factory-method.name": "Factory Method",
   "factory-method.modes.logistics.label": "Logistics",
   "factory-method.modes.logistics.desc": "Application de logistique ou chaque type de transport a sa propre sous-classe createur implementant createTransport(). La classe parente Logistics definit planDelivery() qui appelle le createTransport() abstrait -- chaque sous-classe decide quel Transport instancier.",
@@ -72,10 +93,22 @@
     "planDelivery() dans le Creator s'appuie sur la methode factory -- le patron Template Method coopere avec Factory Method"
   ],
   "factory-method.details.logistics.concepts": [
-    { "term": "Factory Method", "definition": "Une methode abstraite declaree dans le Creator qui retourne un Product. Chaque Concrete Creator fournit sa propre implementation." },
-    { "term": "Creator", "definition": "Classe abstraite contenant la methode factory et la logique metier (planDelivery) qui depend du produit retourne par la methode factory." },
-    { "term": "Concrete Creator", "definition": "Sous-classe de Creator qui surcharge la methode factory pour retourner un Concrete Product specifique (ex. RoadLogistics retourne Truck)." },
-    { "term": "Product", "definition": "Interface ou classe abstraite qui declare les operations que tous les produits concrets doivent implementer (ex. deliver())." }
+    {
+      "term": "Factory Method",
+      "definition": "Une methode abstraite declaree dans le Creator qui retourne un Product. Chaque Concrete Creator fournit sa propre implementation."
+    },
+    {
+      "term": "Creator",
+      "definition": "Classe abstraite contenant la methode factory et la logique metier (planDelivery) qui depend du produit retourne par la methode factory."
+    },
+    {
+      "term": "Concrete Creator",
+      "definition": "Sous-classe de Creator qui surcharge la methode factory pour retourner un Concrete Product specifique (ex. RoadLogistics retourne Truck)."
+    },
+    {
+      "term": "Product",
+      "definition": "Interface ou classe abstraite qui declare les operations que tous les produits concrets doivent implementer (ex. deliver())."
+    }
   ],
   "factory-method.details.logistics.tradeoffs.pros": [
     "Elimine le couplage fort entre le Creator et les Concrete Products",
@@ -90,7 +123,6 @@
     "Sous-classer uniquement pour la creation d'objets peut sembler lourd"
   ],
   "factory-method.details.logistics.tradeoffs.whenToUse": "A utiliser quand le type exact d'objet a creer est determine par les sous-classes, quand vous voulez fournir un point d'extension, ou quand une classe delegue la responsabilite d'instanciation a l'une de ses sous-classes auxiliaires.",
-
   "abstract-factory.name": "Abstract Factory",
   "abstract-factory.modes.furniture.label": "Furniture",
   "abstract-factory.modes.furniture.desc": "Magasin de meubles : chaque style (Modern, Victorian) cree des Chair, Table et Sofa assortis.",
@@ -102,11 +134,26 @@
     "Inversion des dependances : le client de haut niveau depend des abstractions, pas des classes de produits concretes"
   ],
   "abstract-factory.details.furniture.concepts": [
-    { "term": "Product Family", "definition": "Un ensemble de produits lies (Chair + Table + Sofa) concus pour fonctionner ensemble dans un style specifique." },
-    { "term": "Abstract Factory", "definition": "Interface declarant les methodes de creation pour chaque type de produit, garantissant que chaque famille produit un ensemble complet." },
-    { "term": "Concrete Factory", "definition": "Implemente les methodes de creation pour produire des produits d'une variante specifique (Modern, Victorian)." },
-    { "term": "Variant Consistency", "definition": "Chaque factory garantit que tous les objets produits appartiennent a la meme famille, empechant les combinaisons disparates." },
-    { "term": "Client Isolation", "definition": "Le client recoit une factory via le constructeur/la configuration et ne reference jamais directement les classes de produits concretes." }
+    {
+      "term": "Product Family",
+      "definition": "Un ensemble de produits lies (Chair + Table + Sofa) concus pour fonctionner ensemble dans un style specifique."
+    },
+    {
+      "term": "Abstract Factory",
+      "definition": "Interface declarant les methodes de creation pour chaque type de produit, garantissant que chaque famille produit un ensemble complet."
+    },
+    {
+      "term": "Concrete Factory",
+      "definition": "Implemente les methodes de creation pour produire des produits d'une variante specifique (Modern, Victorian)."
+    },
+    {
+      "term": "Variant Consistency",
+      "definition": "Chaque factory garantit que tous les objets produits appartiennent a la meme famille, empechant les combinaisons disparates."
+    },
+    {
+      "term": "Client Isolation",
+      "definition": "Le client recoit une factory via le constructeur/la configuration et ne reference jamais directement les classes de produits concretes."
+    }
   ],
   "abstract-factory.details.furniture.tradeoffs.pros": [
     "Garantit la coherence de la famille de produits -- tous les objets d'une factory sont assortis en style",
@@ -121,7 +168,6 @@
     "Les interfaces de factory deviennent rigides -- difficile d'evoluer sans casser les familles existantes"
   ],
   "abstract-factory.details.furniture.tradeoffs.whenToUse": "Quand votre systeme doit creer des familles d'objets lies qui doivent etre utilises ensemble, et que vous voulez imposer la coherence entre les variantes de produits sans coupler le code client aux classes concretes.",
-
   "builder.name": "Builder",
   "builder.modes.house.label": "House",
   "builder.modes.house.desc": "Construction etape par etape d'une maison : fondation, murs, toit, interieur -- le Director orchestre la sequence.",
@@ -133,11 +179,26 @@
     "Le client recupere le produit fini du builder, pas du director"
   ],
   "builder.details.house.concepts": [
-    { "term": "Director", "definition": "Orchestre la sequence de construction. Appelle les methodes du builder dans un ordre fixe mais est decouple des details concrets du produit." },
-    { "term": "HouseBuilder", "definition": "Interface declarant les etapes de construction : buildFoundation(), buildWalls(), buildRoof(), buildInterior(). Chaque builder concret les implemente." },
-    { "term": "WoodenHouseBuilder", "definition": "Builder concret qui construit une maison en bois avec fondation en rondins, murs en bois, toit en bardeaux et interieur rustique." },
-    { "term": "StoneHouseBuilder", "definition": "Builder concret qui construit une maison en pierre avec fondation en beton, murs en pierre, toit en tuiles et interieur moderne." },
-    { "term": "House", "definition": "Objet produit dont les proprietes sont definies une par une pendant la construction. Recupere via getResult() une fois toutes les etapes terminees." }
+    {
+      "term": "Director",
+      "definition": "Orchestre la sequence de construction. Appelle les methodes du builder dans un ordre fixe mais est decouple des details concrets du produit."
+    },
+    {
+      "term": "HouseBuilder",
+      "definition": "Interface declarant les etapes de construction : buildFoundation(), buildWalls(), buildRoof(), buildInterior(). Chaque builder concret les implemente."
+    },
+    {
+      "term": "WoodenHouseBuilder",
+      "definition": "Builder concret qui construit une maison en bois avec fondation en rondins, murs en bois, toit en bardeaux et interieur rustique."
+    },
+    {
+      "term": "StoneHouseBuilder",
+      "definition": "Builder concret qui construit une maison en pierre avec fondation en beton, murs en pierre, toit en tuiles et interieur moderne."
+    },
+    {
+      "term": "House",
+      "definition": "Objet produit dont les proprietes sont definies une par une pendant la construction. Recupere via getResult() une fois toutes les etapes terminees."
+    }
   ],
   "builder.details.house.tradeoffs.pros": [
     "Le meme processus de construction cree differentes representations (maison en bois vs. en pierre)",
@@ -152,7 +213,6 @@
     "Le Director ajoute une abstraction inutile quand la sequence de construction est triviale ou ne varie jamais"
   ],
   "builder.details.house.tradeoffs.whenToUse": "A utiliser quand la construction implique plusieurs etapes qui doivent suivre un ordre specifique, quand le meme processus doit creer differentes representations, ou quand vous voulez eviter un constructeur avec de nombreux parametres.",
-
   "prototype.name": "Prototype",
   "prototype.modes.shapes.label": "Shapes",
   "prototype.modes.shapes.desc": "Cloner des formes geometriques (Circle, Rectangle, Triangle) sans dependre de leurs classes concretes. Le client appelle clone() sur un objet forme existant, et une copie profonde apparait a cote de l'original -- completement independante et prete a etre modifiee.",
@@ -164,10 +224,22 @@
     "Principe ouvert/ferme : ajouter de nouveaux types de formes sans modifier le code de clonage client"
   ],
   "prototype.details.shapes.concepts": [
-    { "term": "Prototype Interface", "definition": "Declare la methode clone() que tous les prototypes concrets doivent implementer. Le client appelle clone() sans connaitre le type concret." },
-    { "term": "Deep Copy", "definition": "clone() produit un objet completement independant -- modifier le clone n'affecte pas l'original, et vice versa." },
-    { "term": "Concrete Prototype", "definition": "Une classe (Circle, Rectangle, Triangle) qui implemente clone() en copiant tout son etat interne dans une nouvelle instance." },
-    { "term": "Prototype Registry", "definition": "Un catalogue optionnel de prototypes pre-construits que les clients peuvent rechercher par cle et cloner a la demande, evitant les references directes aux classes." }
+    {
+      "term": "Prototype Interface",
+      "definition": "Declare la methode clone() que tous les prototypes concrets doivent implementer. Le client appelle clone() sans connaitre le type concret."
+    },
+    {
+      "term": "Deep Copy",
+      "definition": "clone() produit un objet completement independant -- modifier le clone n'affecte pas l'original, et vice versa."
+    },
+    {
+      "term": "Concrete Prototype",
+      "definition": "Une classe (Circle, Rectangle, Triangle) qui implemente clone() en copiant tout son etat interne dans une nouvelle instance."
+    },
+    {
+      "term": "Prototype Registry",
+      "definition": "Un catalogue optionnel de prototypes pre-construits que les clients peuvent rechercher par cle et cloner a la demande, evitant les references directes aux classes."
+    }
   ],
   "prototype.details.shapes.tradeoffs.pros": [
     "Elimine le besoin de hierarchies de classes complexes de factories",
@@ -182,7 +254,6 @@
     "Certains langages rendent la copie profonde plus difficile que d'autres (ex. pieges de la copie superficielle)"
   ],
   "prototype.details.shapes.tradeoffs.whenToUse": "Ideal quand la creation d'objets est couteuse (initialisation complexe, lectures en base de donnees, appels reseau) et que vous avez un ensemble d'objets pre-configures pouvant servir de modeles pour de nouvelles instances.",
-
   "singleton.name": "Singleton",
   "singleton.modes.database.label": "Database",
   "singleton.modes.database.desc": "Un Singleton DatabaseConnection garantit qu'une seule instance de connexion existe. Plusieurs clients appellent getInstance() -- le premier appel cree la connexion, les appels suivants retournent la meme instance. Tous les clients partagent un seul objet de connexion.",
@@ -194,10 +265,22 @@
     "Tension avec la responsabilite unique : la classe gere a la fois sa logique metier (query, connect) et son propre cycle de vie (creation et stockage de l'instance)"
   ],
   "singleton.details.database.concepts": [
-    { "term": "Lazy Initialization", "definition": "L'instance n'est creee qu'au premier appel a getInstance(), economisant des ressources si le singleton n'est jamais utilise pendant le cycle de vie de l'application." },
-    { "term": "Double-Checked Locking", "definition": "Une optimisation de securite des threads : verifier si l'instance est null sans synchronisation d'abord, puis synchroniser uniquement pour le bloc de creation -- evite la surcharge du verrou a chaque appel." },
-    { "term": "Registry of Singletons", "definition": "Un patron ou plusieurs classes singleton s'enregistrent dans un registre central, permettant la recherche par nom ou type -- utile quand plusieurs classes a instance controlee coexistent." },
-    { "term": "Private Constructor", "definition": "Le constructeur est rendu prive pour empecher l'instanciation externe. Seule la methode statique getInstance() peut creer l'objet, imposant la garantie d'instance unique." }
+    {
+      "term": "Lazy Initialization",
+      "definition": "L'instance n'est creee qu'au premier appel a getInstance(), economisant des ressources si le singleton n'est jamais utilise pendant le cycle de vie de l'application."
+    },
+    {
+      "term": "Double-Checked Locking",
+      "definition": "Une optimisation de securite des threads : verifier si l'instance est null sans synchronisation d'abord, puis synchroniser uniquement pour le bloc de creation -- evite la surcharge du verrou a chaque appel."
+    },
+    {
+      "term": "Registry of Singletons",
+      "definition": "Un patron ou plusieurs classes singleton s'enregistrent dans un registre central, permettant la recherche par nom ou type -- utile quand plusieurs classes a instance controlee coexistent."
+    },
+    {
+      "term": "Private Constructor",
+      "definition": "Le constructeur est rendu prive pour empecher l'instanciation externe. Seule la methode statique getInstance() peut creer l'objet, imposant la garantie d'instance unique."
+    }
   ],
   "singleton.details.database.tradeoffs.pros": [
     "Garantit exactement une instance -- empeche les conflits de ressources (ex. plusieurs connexions DB en competition pour le meme port)",
@@ -212,7 +295,6 @@
     "La securite des threads ajoute de la complexite et une surcharge potentielle de performance dans les environnements concurrents"
   ],
   "singleton.details.database.tradeoffs.whenToUse": "A utiliser quand exactement une instance d'une classe est necessaire a l'echelle du systeme (ex. gestionnaire de configuration, service de journalisation, interface de pilote materiel), et que vous voulez un acces controle et paresseux a cette instance.",
-
   "pool.name": "Object Pool",
   "pool.modes.connections.label": "Database",
   "pool.modes.connections.desc": "Un ConnectionPool gere un ensemble fixe de connexions base de donnees reutilisables. Les clients appellent acquire() pour obtenir une connexion et release() pour la retourner. Les connexions se deplacent entre les pools 'Available' et 'In Use' sans etre creees ou detruites a chaque fois.",
@@ -224,10 +306,22 @@
     "Transparence : les clients utilisent un objet Connection de la meme maniere, qu'il soit fraichement cree ou recycle du pool"
   ],
   "pool.details.connections.concepts": [
-    { "term": "Resource Pool", "definition": "Un conteneur qui detient des objets pre-crees (connexions) et les prete a la demande. Evite le cout de creation et destruction d'objets a chaque utilisation." },
-    { "term": "Lazy vs Eager Init", "definition": "Eager : toutes les connexions creees au demarrage. Lazy : connexions creees au premier acquire() jusqu'a maxSize. Compromis entre temps de demarrage et latence de la premiere requete." },
-    { "term": "Max Pool Size", "definition": "Limite superieure du nombre d'objets dans le pool. Empeche l'epuisement des ressources et garantit que le systeme opere dans ses capacites." },
-    { "term": "Health Check", "definition": "Avant de retourner une connexion du pool, isValid() verifie qu'elle est encore active. Les connexions obsoletes sont ecartees et remplacees." }
+    {
+      "term": "Resource Pool",
+      "definition": "Un conteneur qui detient des objets pre-crees (connexions) et les prete a la demande. Evite le cout de creation et destruction d'objets a chaque utilisation."
+    },
+    {
+      "term": "Lazy vs Eager Init",
+      "definition": "Eager : toutes les connexions creees au demarrage. Lazy : connexions creees au premier acquire() jusqu'a maxSize. Compromis entre temps de demarrage et latence de la premiere requete."
+    },
+    {
+      "term": "Max Pool Size",
+      "definition": "Limite superieure du nombre d'objets dans le pool. Empeche l'epuisement des ressources et garantit que le systeme opere dans ses capacites."
+    },
+    {
+      "term": "Health Check",
+      "definition": "Avant de retourner une connexion du pool, isValid() verifie qu'elle est encore active. Les connexions obsoletes sont ecartees et remplacees."
+    }
   ],
   "pool.details.connections.tradeoffs.pros": [
     "Reduit drastiquement la surcharge de creation de connexions -- la reutilisation amortit le cout",
@@ -242,7 +336,6 @@
     "Les connexions obsoletes ou cassees doivent etre detectees et remplacees"
   ],
   "pool.details.connections.tradeoffs.whenToUse": "A utiliser quand la creation d'objets est couteuse (connexions base de donnees, sockets reseau, ressources lourdes) et que les memes objets peuvent etre reutilises en toute securite par plusieurs clients.",
-
   "simple-factory.tooltip.factory": "Classe factory qui encapsule la logique de creation d'objets selon un parametre de type",
   "simple-factory.tooltip.transport": "Interface commune pour tous les types de transport retournes par la factory",
   "simple-factory.tooltip.truck": "Produit concret : livre le fret par la route",
@@ -261,12 +354,23 @@
   "simple-factory.step.transport.7": "Livraison terminee avec succes",
   "simple-factory.stepLabel.transport": "Creer un transport via Simple Factory",
   "simple-factory.depRules": [
-    { "name": "Factory", "role": "Cree des objets sans exposer la logique de creation au client" },
-    { "name": "Product (Interface)", "role": "Interface commune pour tous les objets que la factory peut creer" },
-    { "name": "Concrete Products", "role": "Implementations specifiques retournees par la factory" },
-    { "name": "Client", "role": "Utilise la factory pour obtenir des objets, sans connaitre les classes concretes" }
+    {
+      "name": "Factory",
+      "role": "Cree des objets sans exposer la logique de creation au client"
+    },
+    {
+      "name": "Product (Interface)",
+      "role": "Interface commune pour tous les objets que la factory peut creer"
+    },
+    {
+      "name": "Concrete Products",
+      "role": "Implementations specifiques retournees par la factory"
+    },
+    {
+      "name": "Client",
+      "role": "Utilise la factory pour obtenir des objets, sans connaitre les classes concretes"
+    }
   ],
-
   "static-factory.tooltip.number": "Classe static factory avec des methodes de creation nommees -- inspecte le type d'entree et delegue au constructeur de la sous-classe appropriee",
   "static-factory.tooltip.cache": "Cache interne stockant les instances Integer precedemment creees, indexees par leur valeur int",
   "static-factory.tooltip.integer": "Produit concret pour les valeurs entieres -- les instances peuvent etre mises en cache pour les petites valeurs",
@@ -290,11 +394,19 @@
   "static-factory.step.number.12": "Retourne Float(3.14) en tant que Number au client",
   "static-factory.stepLabel.number": "Creer des nombres via methodes statiques avec mise en cache",
   "static-factory.depRules": [
-    { "name": "Static Factory", "role": "Fournit des methodes statiques nommees pour creer des instances, ameliorant la lisibilite par rapport aux constructeurs" },
-    { "name": "Product", "role": "Objets crees et optionnellement mis en cache par les methodes static factory" },
-    { "name": "Cache", "role": "Stockage interne permettant la reutilisation des instances pour des entrees equivalentes" }
+    {
+      "name": "Static Factory",
+      "role": "Fournit des methodes statiques nommees pour creer des instances, ameliorant la lisibilite par rapport aux constructeurs"
+    },
+    {
+      "name": "Product",
+      "role": "Objets crees et optionnellement mis en cache par les methodes static factory"
+    },
+    {
+      "name": "Cache",
+      "role": "Stockage interne permettant la reutilisation des instances pour des entrees equivalentes"
+    }
   ],
-
   "factory-method.tooltip.logistics": "Createur abstrait qui declare la methode factory createTransport() et l'utilise dans planDelivery()",
   "factory-method.tooltip.transport": "Interface produit definissant le contrat que tous les transports concrets doivent implementer",
   "factory-method.tooltip.sea-logistics": "Createur concret qui surcharge createTransport() pour retourner une instance de Ship",
@@ -313,12 +425,23 @@
   "factory-method.step.logistics.7": "planDelivery() termine -- marchandises livrees par Truck",
   "factory-method.stepLabel.logistics": "Planifier la livraison -- la sous-classe choisit le transport",
   "factory-method.depRules": [
-    { "name": "Creator (Abstract)", "role": "Declare la methode factory retournant un Product ; peut fournir une implementation par defaut" },
-    { "name": "Concrete Creator", "role": "Surcharge la methode factory pour retourner un type de Product specifique" },
-    { "name": "Product (Interface)", "role": "Interface commune pour tous les objets crees par la methode factory" },
-    { "name": "Concrete Product", "role": "Implemente l'interface Product" }
+    {
+      "name": "Creator (Abstract)",
+      "role": "Declare la methode factory retournant un Product ; peut fournir une implementation par defaut"
+    },
+    {
+      "name": "Concrete Creator",
+      "role": "Surcharge la methode factory pour retourner un type de Product specifique"
+    },
+    {
+      "name": "Product (Interface)",
+      "role": "Interface commune pour tous les objets crees par la methode factory"
+    },
+    {
+      "name": "Concrete Product",
+      "role": "Implemente l'interface Product"
+    }
   ],
-
   "abstract-factory.tooltip.modern-factory": "Concrete Factory : cree des meubles de style moderne",
   "abstract-factory.tooltip.factory": "Abstract Factory : declare les methodes de creation pour chaque produit de la famille",
   "abstract-factory.tooltip.victorian-factory": "Concrete Factory : cree des meubles de style victorien",
@@ -348,13 +471,27 @@
   "abstract-factory.step.furniture.8": "Tous les produits modernes livres au client",
   "abstract-factory.stepLabel.furniture": "Le client demande un ensemble de meubles Modern",
   "abstract-factory.depRules": [
-    { "name": "Abstract Factory", "role": "Declare les methodes de creation pour chaque produit de la famille" },
-    { "name": "Concrete Factory", "role": "Implemente les methodes de creation pour une famille/variante de produits specifique" },
-    { "name": "Abstract Product", "role": "Interface pour un type de produit" },
-    { "name": "Concrete Product", "role": "Implemente le produit abstrait pour une variante specifique" },
-    { "name": "Client", "role": "Utilise les factories et les produits uniquement via les interfaces abstraites" }
+    {
+      "name": "Abstract Factory",
+      "role": "Declare les methodes de creation pour chaque produit de la famille"
+    },
+    {
+      "name": "Concrete Factory",
+      "role": "Implemente les methodes de creation pour une famille/variante de produits specifique"
+    },
+    {
+      "name": "Abstract Product",
+      "role": "Interface pour un type de produit"
+    },
+    {
+      "name": "Concrete Product",
+      "role": "Implemente le produit abstrait pour une variante specifique"
+    },
+    {
+      "name": "Client",
+      "role": "Utilise les factories et les produits uniquement via les interfaces abstraites"
+    }
   ],
-
   "builder.tooltip.director": "Orchestre la sequence de construction en appelant les methodes du builder dans l'ordre",
   "builder.tooltip.house-builder": "Interface builder abstraite declarant toutes les etapes de construction",
   "builder.tooltip.house": "Produit assemble etape par etape -- chaque propriete est definie pendant la construction",
@@ -373,12 +510,23 @@
   "builder.step.house.10": "House entierement assemblee retournee au client",
   "builder.stepLabel.house": "Construire une maison en bois etape par etape",
   "builder.depRules": [
-    { "name": "Director", "role": "Construit un objet en utilisant l'interface Builder dans un ordre specifique" },
-    { "name": "Builder (Interface)", "role": "Declare les methodes de construction etape par etape" },
-    { "name": "Concrete Builder", "role": "Implemente les etapes de construction et suit le produit en cours de fabrication" },
-    { "name": "Product", "role": "L'objet complexe construit etape par etape" }
+    {
+      "name": "Director",
+      "role": "Construit un objet en utilisant l'interface Builder dans un ordre specifique"
+    },
+    {
+      "name": "Builder (Interface)",
+      "role": "Declare les methodes de construction etape par etape"
+    },
+    {
+      "name": "Concrete Builder",
+      "role": "Implemente les etapes de construction et suit le produit en cours de fabrication"
+    },
+    {
+      "name": "Product",
+      "role": "L'objet complexe construit etape par etape"
+    }
   ],
-
   "prototype.tooltip.shape": "Interface Prototype declarant clone() -- toutes les formes concretes l'implementent pour produire des copies d'elles-memes",
   "prototype.tooltip.circle": "Prototype concret qui peut se cloner lui-meme, produisant une copie profonde avec le meme rayon et la meme couleur",
   "prototype.tooltip.rectangle": "Prototype concret qui se clone avec toutes les donnees de dimensions et de couleur",
@@ -399,11 +547,19 @@
   "prototype.step.shapes.9": "Les deux clones existent independamment -- patron termine",
   "prototype.stepLabel.shapes": "Cloner des formes via l'interface Prototype",
   "prototype.depRules": [
-    { "name": "Prototype (Interface)", "role": "Declare la methode clone()" },
-    { "name": "Concrete Prototype", "role": "Implemente clone() en creant une copie de lui-meme" },
-    { "name": "Client", "role": "Cree de nouveaux objets en demandant aux prototypes de se cloner" }
+    {
+      "name": "Prototype (Interface)",
+      "role": "Declare la methode clone()"
+    },
+    {
+      "name": "Concrete Prototype",
+      "role": "Implemente clone() en creant une copie de lui-meme"
+    },
+    {
+      "name": "Client",
+      "role": "Cree de nouveaux objets en demandant aux prototypes de se cloner"
+    }
   ],
-
   "singleton.tooltip.client1": "Premier client -- appelle getInstance() ce qui declenche la creation de l'instance",
   "singleton.tooltip.client2": "Deuxieme client -- appelle getInstance() et recoit la meme instance",
   "singleton.tooltip.client3": "Troisieme client -- appelle getInstance() et recoit encore la meme instance",
@@ -424,10 +580,15 @@
   "singleton.step.database.12": "Le Client 3 recoit le meme DatabaseConnection -- les trois clients partagent une seule instance",
   "singleton.stepLabel.database": "Trois clients partagent une seule connexion BD",
   "singleton.depRules": [
-    { "name": "Singleton", "role": "Stocke sa propre instance unique ; fournit un acces global via la methode statique getInstance()" },
-    { "name": "Client", "role": "Accede au singleton exclusivement via getInstance(), jamais via le constructeur" }
+    {
+      "name": "Singleton",
+      "role": "Stocke sa propre instance unique ; fournit un acces global via la methode statique getInstance()"
+    },
+    {
+      "name": "Client",
+      "role": "Accede au singleton exclusivement via getInstance(), jamais via le constructeur"
+    }
   ],
-
   "pool.tooltip.pool": "Gere un pool de taille fixe d'objets Connection reutilisables -- acquire() en prete un, release() le reprend",
   "pool.tooltip.idle-conn": "Connexion inactive prete a etre acquise par un client",
   "pool.tooltip.active-conn": "Connexion en cours d'execution d'une requete pour un client",
@@ -444,11 +605,19 @@
   "pool.step.connections.9": "Connexion #2 maintenant active dans le pool In Use",
   "pool.stepLabel.connections": "Acquerir et liberer des connexions du pool",
   "pool.depRules": [
-    { "name": "Object Pool", "role": "Gere une collection d'objets reutilisables, gerant les operations d'acquisition et de liberation" },
-    { "name": "Reusable Object", "role": "Objet couteux a creer qui est mis en pool et recycle au lieu d'etre detruit" },
-    { "name": "Client", "role": "Acquiert des objets du pool, les utilise, et les libere une fois termine" }
+    {
+      "name": "Object Pool",
+      "role": "Gere une collection d'objets reutilisables, gerant les operations d'acquisition et de liberation"
+    },
+    {
+      "name": "Reusable Object",
+      "role": "Objet couteux a creer qui est mis en pool et recycle au lieu d'etre detruit"
+    },
+    {
+      "name": "Client",
+      "role": "Acquiert des objets du pool, les utilise, et les libere une fois termine"
+    }
   ],
-
   "adapter.name": "Adapter",
   "adapter.modes.payment.label": "Payment Gateway",
   "adapter.modes.payment.desc": "StripeAdapter adapte l'API Stripe a l'interface PaymentProcessor. Le client appelle pay(amount) sur le processeur sans connaitre le service de paiement sous-jacent. L'adaptateur traduit l'appel en la methode createCharge() specifique a Stripe.",
@@ -460,15 +629,27 @@
     "Composition plutot qu'heritage : l'adaptateur objet enveloppe l'adapte plutot que de l'etendre"
   ],
   "adapter.details.payment.concepts": [
-    { "term": "Target Interface", "definition": "L'interface attendue par le client (PaymentProcessor). Toutes les interactions passent par cette abstraction, maintenant le client decouple des services concrets." },
-    { "term": "Adapter", "definition": "Une classe (StripeAdapter) qui implemente l'interface Target et traduit les appels vers l'Adaptee. Elle comble le fosse entre des interfaces incompatibles." },
-    { "term": "Adaptee", "definition": "La classe existante (StripeAPI) avec une interface incompatible. Elle possede la fonctionnalite dont le client a besoin mais ne peut pas etre utilisee directement." },
-    { "term": "Object Adapter vs Class Adapter", "definition": "L'adaptateur objet utilise la composition (enveloppe l'adapte) ; l'adaptateur de classe utilise l'heritage multiple. L'adaptateur objet est plus flexible et prefere dans la plupart des langages." }
+    {
+      "term": "Target Interface",
+      "definition": "L'interface attendue par le client (PaymentProcessor). Toutes les interactions passent par cette abstraction, maintenant le client decouple des services concrets."
+    },
+    {
+      "term": "Adapter",
+      "definition": "Une classe (StripeAdapter) qui implemente l'interface Target et traduit les appels vers l'Adaptee. Elle comble le fosse entre des interfaces incompatibles."
+    },
+    {
+      "term": "Adaptee",
+      "definition": "La classe existante (StripeAPI) avec une interface incompatible. Elle possede la fonctionnalite dont le client a besoin mais ne peut pas etre utilisee directement."
+    },
+    {
+      "term": "Object Adapter vs Class Adapter",
+      "definition": "L'adaptateur objet utilise la composition (enveloppe l'adapte) ; l'adaptateur de classe utilise l'heritage multiple. L'adaptateur objet est plus flexible et prefere dans la plupart des langages."
+    }
   ],
   "adapter.details.payment.tradeoffs.pros": [
     "Permet l'integration d'interfaces incompatibles sans modifier le code existant",
-    "Responsabilite unique \u2014 la conversion d'interface est isolee dans la classe adaptateur",
-    "Principe ouvert/ferme \u2014 nouveaux adaptateurs ajoutes sans modifier le client ou l'adapte",
+    "Responsabilite unique — la conversion d'interface est isolee dans la classe adaptateur",
+    "Principe ouvert/ferme — nouveaux adaptateurs ajoutes sans modifier le client ou l'adapte",
     "Favorise la reutilisation de fonctionnalites existantes par enveloppement"
   ],
   "adapter.details.payment.tradeoffs.cons": [
@@ -494,27 +675,50 @@
   "adapter.step.payment.7": "StripeAdapter retourne true au Client",
   "adapter.stepLabel.payment": "Adapter le paiement via le patron Adapter",
   "adapter.depRules": [
-    { "name": "Target (PaymentProcessor)", "role": "Definit l'interface attendue par le client" },
-    { "name": "Adapter (StripeAdapter)", "role": "Convertit l'interface Target vers l'interface de l'Adaptee" },
-    { "name": "Adaptee (StripeAPI)", "role": "Classe existante avec une interface incompatible" },
-    { "name": "Client", "role": "Utilise l'interface Target pour interagir avec l'Adaptee a travers l'Adapter" }
+    {
+      "name": "Target (PaymentProcessor)",
+      "role": "Definit l'interface attendue par le client"
+    },
+    {
+      "name": "Adapter (StripeAdapter)",
+      "role": "Convertit l'interface Target vers l'interface de l'Adaptee"
+    },
+    {
+      "name": "Adaptee (StripeAPI)",
+      "role": "Classe existante avec une interface incompatible"
+    },
+    {
+      "name": "Client",
+      "role": "Utilise l'interface Target pour interagir avec l'Adaptee a travers l'Adapter"
+    }
   ],
-
   "facade.name": "Facade",
   "facade.modes.theater.label": "Home Theater",
   "facade.modes.theater.desc": "HomeTheaterFacade simplifie la gestion d'un systeme de cinema maison complexe. Au lieu d'appeler des methodes sur DVDPlayer, Amplifier, Projector et Lights individuellement, le client appelle watchMovie() sur la facade, qui orchestre tous les sous-systemes dans le bon ordre.",
   "facade.details.theater.principles": [
     "Fournir une interface unifiee et simplifiee a un ensemble d'interfaces d'un sous-systeme",
     "Minimiser les communications et les dependances entre les sous-systemes et les clients",
-    "La facade delegue le travail aux objets du sous-systeme \u2014 elle ne les remplace pas",
+    "La facade delegue le travail aux objets du sous-systeme — elle ne les remplace pas",
     "Les clients peuvent toujours acceder directement aux classes du sous-systeme s'ils ont besoin d'un controle fin",
     "Principe de moindre connaissance (Loi de Demeter) : le client ne parle qu'a la facade"
   ],
   "facade.details.theater.concepts": [
-    { "term": "Facade", "definition": "Une classe (HomeTheaterFacade) fournissant une interface simple a un sous-systeme complexe. Elle sait a quelles classes du sous-systeme deleguer." },
-    { "term": "Subsystem Classes", "definition": "Classes complexes (DVDPlayer, Amplifier, Projector, Lights) qui effectuent le travail reel. Elles ne connaissent pas la facade." },
-    { "term": "Simplified Interface", "definition": "La facade expose des operations de haut niveau (watchMovie, endMovie) qui orchestrent de multiples appels au sous-systeme dans le bon ordre." },
-    { "term": "Decoupling", "definition": "Le client ne depend que de la facade, pas des details internes du sous-systeme. Les changements du sous-systeme sont absorbes par la facade." }
+    {
+      "term": "Facade",
+      "definition": "Une classe (HomeTheaterFacade) fournissant une interface simple a un sous-systeme complexe. Elle sait a quelles classes du sous-systeme deleguer."
+    },
+    {
+      "term": "Subsystem Classes",
+      "definition": "Classes complexes (DVDPlayer, Amplifier, Projector, Lights) qui effectuent le travail reel. Elles ne connaissent pas la facade."
+    },
+    {
+      "term": "Simplified Interface",
+      "definition": "La facade expose des operations de haut niveau (watchMovie, endMovie) qui orchestrent de multiples appels au sous-systeme dans le bon ordre."
+    },
+    {
+      "term": "Decoupling",
+      "definition": "Le client ne depend que de la facade, pas des details internes du sous-systeme. Les changements du sous-systeme sont absorbes par la facade."
+    }
   ],
   "facade.details.theater.tradeoffs.pros": [
     "Simplifie l'utilisation d'un sous-systeme complexe avec une API propre et de haut niveau",
@@ -531,10 +735,10 @@
   "facade.details.theater.tradeoffs.whenToUse": "A utiliser quand vous voulez fournir une interface simple a un sous-systeme complexe, quand il y a beaucoup de dependances entre les clients et les classes d'implementation, ou quand vous voulez organiser vos sous-systemes en couches.",
   "facade.tooltip.client": "Client qui utilise la facade pour controler le cinema maison",
   "facade.tooltip.facade": "Facade fournissant les operations de haut niveau watchMovie() et endMovie()",
-  "facade.tooltip.dvd": "Sous-systeme DVDPlayer \u2014 gere la lecture de disque",
-  "facade.tooltip.amp": "Sous-systeme Amplifier \u2014 gere le volume audio et l'alimentation",
-  "facade.tooltip.proj": "Sous-systeme Projector \u2014 gere l'affichage video",
-  "facade.tooltip.lights": "Sous-systeme Lights \u2014 controle l'eclairage de la piece",
+  "facade.tooltip.dvd": "Sous-systeme DVDPlayer — gere la lecture de disque",
+  "facade.tooltip.amp": "Sous-systeme Amplifier — gere le volume audio et l'alimentation",
+  "facade.tooltip.proj": "Sous-systeme Projector — gere l'affichage video",
+  "facade.tooltip.lights": "Sous-systeme Lights — controle l'eclairage de la piece",
   "facade.step.theater.0": "Le client appelle facade.watchMovie(\"Inception\")",
   "facade.step.theater.1": "La facade commence l'orchestration",
   "facade.step.theater.2": "lights.dim(30)",
@@ -547,37 +751,57 @@
   "facade.step.theater.9": "Le film \"Inception\" est maintenant en lecture",
   "facade.stepLabel.theater": "Regarder un film via la Facade Home Theater",
   "facade.depRules": [
-    { "name": "Facade (HomeTheaterFacade)", "role": "Fournit une interface simplifiee au sous-systeme" },
-    { "name": "Subsystem (DVDPlayer, Amplifier, Projector, Lights)", "role": "Classes complexes du sous-systeme qui effectuent le travail reel" },
-    { "name": "Client", "role": "Utilise la Facade au lieu d'appeler directement les classes du sous-systeme" }
+    {
+      "name": "Facade (HomeTheaterFacade)",
+      "role": "Fournit une interface simplifiee au sous-systeme"
+    },
+    {
+      "name": "Subsystem (DVDPlayer, Amplifier, Projector, Lights)",
+      "role": "Classes complexes du sous-systeme qui effectuent le travail reel"
+    },
+    {
+      "name": "Client",
+      "role": "Utilise la Facade au lieu d'appeler directement les classes du sous-systeme"
+    }
   ],
-
   "proxy.name": "Proxy",
   "proxy.modes.caching.label": "Database Caching",
-  "proxy.modes.caching.desc": "CachingProxy intercepte les requetes SQL et met en cache les resultats. En cas de cache miss, il delegue a RealDatabase et stocke le resultat. En cas de cache hit, il retourne le resultat en cache sans toucher la base de donnees \u2014 ameliorant les performances pour les requetes repetees.",
+  "proxy.modes.caching.desc": "CachingProxy intercepte les requetes SQL et met en cache les resultats. En cas de cache miss, il delegue a RealDatabase et stocke le resultat. En cas de cache hit, il retourne le resultat en cache sans toucher la base de donnees — ameliorant les performances pour les requetes repetees.",
   "proxy.details.caching.principles": [
-    "Fournir un substitut ou un espace reserv\u00e9 pour un autre objet afin d'en controler l'acces",
-    "Le proxy et le sujet reel implementent la meme interface \u2014 ils sont interchangeables",
+    "Fournir un substitut ou un espace reservé pour un autre objet afin d'en controler l'acces",
+    "Le proxy et le sujet reel implementent la meme interface — ils sont interchangeables",
     "Le proxy peut ajouter un comportement (mise en cache, controle d'acces, journalisation) sans modifier le sujet reel",
     "Initialisation paresseuse : reporter la creation d'objets couteux jusqu'a ce qu'ils soient reellement necessaires",
-    "Transparent pour le client \u2014 le client ne sait pas s'il parle a un proxy ou a l'objet reel"
+    "Transparent pour le client — le client ne sait pas s'il parle a un proxy ou a l'objet reel"
   ],
   "proxy.details.caching.concepts": [
-    { "term": "Virtual Proxy", "definition": "Retarde la creation d'objets couteux jusqu'a ce qu'ils soient necessaires. Cree l'objet reel au premier acces et le met en cache pour les utilisations suivantes." },
-    { "term": "Protection Proxy", "definition": "Controle l'acces a l'objet reel en fonction des permissions. Verifie les identifiants avant de deleguer la requete." },
-    { "term": "Caching Proxy", "definition": "Stocke les resultats d'operations couteuses et retourne les donnees en cache pour des requetes identiques, evitant les calculs ou appels reseau repetes." },
-    { "term": "Smart Reference", "definition": "Effectue des actions supplementaires lors de l'acces a l'objet reel, comme le comptage de references, la journalisation ou le verrouillage de thread." }
+    {
+      "term": "Virtual Proxy",
+      "definition": "Retarde la creation d'objets couteux jusqu'a ce qu'ils soient necessaires. Cree l'objet reel au premier acces et le met en cache pour les utilisations suivantes."
+    },
+    {
+      "term": "Protection Proxy",
+      "definition": "Controle l'acces a l'objet reel en fonction des permissions. Verifie les identifiants avant de deleguer la requete."
+    },
+    {
+      "term": "Caching Proxy",
+      "definition": "Stocke les resultats d'operations couteuses et retourne les donnees en cache pour des requetes identiques, evitant les calculs ou appels reseau repetes."
+    },
+    {
+      "term": "Smart Reference",
+      "definition": "Effectue des actions supplementaires lors de l'acces a l'objet reel, comme le comptage de references, la journalisation ou le verrouillage de thread."
+    }
   ],
   "proxy.details.caching.tradeoffs.pros": [
     "Controle l'acces sans que les clients en soient conscients",
     "Le proxy de mise en cache ameliore considerablement les performances pour les operations repetees",
-    "Suit le Principe ouvert/ferme \u2014 ajoute un comportement sans modifier l'objet reel",
+    "Suit le Principe ouvert/ferme — ajoute un comportement sans modifier l'objet reel",
     "Peut gerer le cycle de vie de l'objet de service reel"
   ],
   "proxy.details.caching.tradeoffs.cons": [
     "Ajoute une couche supplementaire d'indirection, augmentant la complexite",
     "Le temps de reponse peut augmenter en raison de la surcharge de traitement du proxy",
-    "L'invalidation du cache est difficile \u2014 les donnees obsoletes peuvent causer des bugs subtils",
+    "L'invalidation du cache est difficile — les donnees obsoletes peuvent causer des bugs subtils",
     "Le proxy doit rester synchronise avec l'interface du sujet reel"
   ],
   "proxy.details.caching.tradeoffs.whenToUse": "A utiliser quand vous avez besoin d'une initialisation paresseuse (proxy virtuel), d'un controle d'acces (proxy de protection), de mise en cache d'operations couteuses, de journalisation, ou quand l'objet reel est distant et que vous voulez un representant local.",
@@ -589,7 +813,7 @@
   "proxy.tooltip.obj-result": "ResultSet retourne par la requete en base de donnees",
   "proxy.step.caching.0": "Le client appelle proxy.query(\"SELECT * FROM users\")",
   "proxy.step.caching.1": "CachingProxy recoit la requete",
-  "proxy.step.caching.2": "Verification du cache \u2014 MISS",
+  "proxy.step.caching.2": "Verification du cache — MISS",
   "proxy.step.caching.3": "Delegation a realDb.query()",
   "proxy.step.caching.4": "RealDatabase execute la requete SQL",
   "proxy.step.caching.5": "ResultSet cree avec les resultats de la requete",
@@ -597,50 +821,73 @@
   "proxy.step.caching.7": "Retour du ResultSet au client",
   "proxy.step.caching.8": "Le client envoie la meme requete a nouveau",
   "proxy.step.caching.9": "CachingProxy recoit la requete",
-  "proxy.step.caching.10": "Verification du cache \u2014 HIT",
+  "proxy.step.caching.10": "Verification du cache — HIT",
   "proxy.step.caching.11": "ResultSet en cache retourne (pas d'appel BD)",
   "proxy.stepLabel.caching": "Requete en base de donnees avec Caching Proxy",
   "proxy.depRules": [
-    { "name": "Subject (DatabaseQuery)", "role": "Interface pour le service reel et le proxy" },
-    { "name": "RealSubject (RealDatabase)", "role": "Le service reel qui effectue les operations couteuses" },
-    { "name": "Proxy (CachingProxy)", "role": "Controle l'acces au RealSubject et ajoute le comportement de mise en cache" },
-    { "name": "Client", "role": "Travaille avec l'interface Subject, sans connaitre le proxy" }
+    {
+      "name": "Subject (DatabaseQuery)",
+      "role": "Interface pour le service reel et le proxy"
+    },
+    {
+      "name": "RealSubject (RealDatabase)",
+      "role": "Le service reel qui effectue les operations couteuses"
+    },
+    {
+      "name": "Proxy (CachingProxy)",
+      "role": "Controle l'acces au RealSubject et ajoute le comportement de mise en cache"
+    },
+    {
+      "name": "Client",
+      "role": "Travaille avec l'interface Subject, sans connaitre le proxy"
+    }
   ],
-
   "decorator.name": "Decorator",
   "decorator.modes.coffee.label": "Coffee Shop",
   "decorator.modes.coffee.desc": "MilkDecorator et SugarDecorator enveloppent un SimpleCoffee pour ajouter un comportement dynamiquement. Chaque decorateur implemente l'interface Beverage et delegue a l'objet enveloppe, ajoutant son propre cout et sa description. Les decorateurs peuvent etre empiles dans n'importe quel ordre.",
   "decorator.details.coffee.principles": [
-    "Attacher des responsabilites supplementaires a un objet dynamiquement \u2014 une alternative flexible au sous-classement",
+    "Attacher des responsabilites supplementaires a un objet dynamiquement — une alternative flexible au sous-classement",
     "Les decorateurs implementent la meme interface que le composant qu'ils enveloppent",
     "Chaque decorateur ajoute une seule responsabilite et delegue le reste a l'objet enveloppe",
     "Principe ouvert/ferme : de nouveaux comportements ajoutes en creant de nouveaux decorateurs, sans modifier les classes existantes",
     "Composition plutot qu'heritage : le comportement est compose a l'execution en empilant les decorateurs"
   ],
   "decorator.details.coffee.concepts": [
-    { "term": "Component", "definition": "Interface (Beverage) definissant les operations qui peuvent etre etendues dynamiquement. Les composants concrets et les decorateurs l'implementent." },
-    { "term": "Decorator", "definition": "Classe abstraite enveloppant une reference Component. Transmet les requetes a l'objet enveloppe et peut ajouter un comportement avant ou apres." },
-    { "term": "Wrapping", "definition": "Chaque decorateur detient une reference vers le composant suivant dans la chaine. L'appel a cost() se propage a travers la chaine, accumulant les resultats." },
-    { "term": "Recursive Composition", "definition": "Les decorateurs peuvent envelopper d'autres decorateurs, formant une chaine. Le client interagit avec le decorateur le plus externe, sans connaitre la chaine interne." }
+    {
+      "term": "Component",
+      "definition": "Interface (Beverage) definissant les operations qui peuvent etre etendues dynamiquement. Les composants concrets et les decorateurs l'implementent."
+    },
+    {
+      "term": "Decorator",
+      "definition": "Classe abstraite enveloppant une reference Component. Transmet les requetes a l'objet enveloppe et peut ajouter un comportement avant ou apres."
+    },
+    {
+      "term": "Wrapping",
+      "definition": "Chaque decorateur detient une reference vers le composant suivant dans la chaine. L'appel a cost() se propage a travers la chaine, accumulant les resultats."
+    },
+    {
+      "term": "Recursive Composition",
+      "definition": "Les decorateurs peuvent envelopper d'autres decorateurs, formant une chaine. Le client interagit avec le decorateur le plus externe, sans connaitre la chaine interne."
+    }
   ],
   "decorator.details.coffee.tradeoffs.pros": [
     "Ajoute des responsabilites dynamiquement sans modifier le code existant",
     "Plusieurs decorateurs peuvent etre combines dans n'importe quel ordre pour un comportement flexible",
-    "Responsabilite unique \u2014 chaque decorateur gere une seule preoccupation",
+    "Responsabilite unique — chaque decorateur gere une seule preoccupation",
     "Meilleure alternative a une explosion de classes due au sous-classement de chaque combinaison"
   ],
   "decorator.details.coffee.tradeoffs.cons": [
     "De nombreux petits objets peuvent rendre le debogage plus difficile",
-    "L'ordre d'enveloppement est important \u2014 peut entrainer des bugs subtils",
+    "L'ordre d'enveloppement est important — peut entrainer des bugs subtils",
     "Retirer un decorateur specifique du milieu d'une chaine est complexe",
     "La conception initiale necessite une planification soigneuse des interfaces"
   ],
   "decorator.details.coffee.tradeoffs.whenToUse": "A utiliser quand vous devez ajouter des responsabilites a des objets dynamiquement et de maniere transparente, quand l'extension par sous-classement est impraticable en raison d'un grand nombre de combinaisons, ou quand vous voulez ajouter et retirer des comportements a l'execution.",
-  "decorator.tooltip.component": "Interface Beverage \u2014 definit cost() et description() pour toutes les boissons",
-  "decorator.tooltip.concrete": "SimpleCoffee \u2014 boisson de base avec un cout de 1,00 $",
-  "decorator.tooltip.decorator": "BeverageDecorator \u2014 enveloppeur abstrait detenant une reference Beverage",
-  "decorator.tooltip.milk": "MilkDecorator \u2014 ajoute 0,50 $ au cout",
-  "decorator.tooltip.sugar": "SugarDecorator \u2014 ajoute 0,25 $ au cout",
+  "decorator.tooltip.component": "Interface Beverage — definit cost() et description() pour toutes les boissons",
+  "decorator.tooltip.concrete": "SimpleCoffee — boisson de base avec un cout de 1,00 $",
+  "decorator.tooltip.decorator": "BeverageDecorator — enveloppeur abstrait detenant une reference Beverage",
+  "decorator.tooltip.milk": "MilkDecorator — ajoute 0,50 $ au cout",
+  "decorator.tooltip.sugar": "SugarDecorator — ajoute 0,25 $ au cout",
   "decorator.tooltip.obj-coffee": "Instance :SimpleCoffee a l'execution (1,00 $)",
   "decorator.tooltip.obj-sugar": "Instance :SugarDecorator a l'execution enveloppant SimpleCoffee",
   "decorator.tooltip.obj-milk": "Instance :MilkDecorator a l'execution enveloppant SugarDecorator",
@@ -656,33 +903,56 @@
   "decorator.step.coffee.9": "Total = 1,75 $ (1,00 $ + 0,25 $ + 0,50 $)",
   "decorator.stepLabel.coffee": "Construire un cafe decore avec le patron Decorator",
   "decorator.depRules": [
-    { "name": "Component (Beverage)", "role": "Interface pour les objets auxquels des responsabilites peuvent etre ajoutees dynamiquement" },
-    { "name": "ConcreteComponent (SimpleCoffee)", "role": "L'objet de base qui peut etre decore" },
-    { "name": "Decorator (BeverageDecorator)", "role": "Classe abstraite enveloppant un Component, transmettant les requetes" },
-    { "name": "ConcreteDecorators (Milk, Sugar)", "role": "Ajoutent des responsabilites specifiques au composant" }
+    {
+      "name": "Component (Beverage)",
+      "role": "Interface pour les objets auxquels des responsabilites peuvent etre ajoutees dynamiquement"
+    },
+    {
+      "name": "ConcreteComponent (SimpleCoffee)",
+      "role": "L'objet de base qui peut etre decore"
+    },
+    {
+      "name": "Decorator (BeverageDecorator)",
+      "role": "Classe abstraite enveloppant un Component, transmettant les requetes"
+    },
+    {
+      "name": "ConcreteDecorators (Milk, Sugar)",
+      "role": "Ajoutent des responsabilites specifiques au composant"
+    }
   ],
-
   "bridge.name": "Bridge",
   "bridge.modes.remote.label": "Remote Control",
   "bridge.modes.remote.desc": "RemoteControl (abstraction) est separe de Device (implementation). AdvancedRemote etend l'abstraction, tandis que TV et Radio fournissent des implementations concretes. Le pont permet aux deux hierarchies de varier independamment.",
   "bridge.details.remote.principles": [
     "Decoupler une abstraction de son implementation afin que les deux puissent varier independamment",
-    "Preferer la composition a l'heritage \u2014 l'abstraction detient une reference vers l'implementation",
+    "Preferer la composition a l'heritage — l'abstraction detient une reference vers l'implementation",
     "Deux dimensions orthogonales de changement : hierarchie d'abstraction et hierarchie d'implementation",
     "Les clients travaillent avec l'abstraction et ne connaissent pas les details d'implementation",
     "Principe ouvert/ferme : de nouvelles abstractions et implementations peuvent etre ajoutees independamment"
   ],
   "bridge.details.remote.concepts": [
-    { "term": "Abstraction", "definition": "La couche de controle de haut niveau (RemoteControl) qui delegue le travail a l'implementation. Elle definit l'interface de controle utilisee par les clients." },
-    { "term": "Implementor", "definition": "Interface (Device) definissant les operations de bas niveau. Les implementeurs concrets (TV, Radio) fournissent un comportement specifique a la plateforme." },
-    { "term": "Bridge", "definition": "La relation de composition entre Abstraction et Implementor. L'abstraction detient une reference vers l'implementation, formant un pont." },
-    { "term": "Orthogonal Hierarchies", "definition": "Deux hierarchies de classes independantes qui peuvent etre etendues sans s'affecter mutuellement : telecommandes (basique, avancee) et appareils (TV, radio)." }
+    {
+      "term": "Abstraction",
+      "definition": "La couche de controle de haut niveau (RemoteControl) qui delegue le travail a l'implementation. Elle definit l'interface de controle utilisee par les clients."
+    },
+    {
+      "term": "Implementor",
+      "definition": "Interface (Device) definissant les operations de bas niveau. Les implementeurs concrets (TV, Radio) fournissent un comportement specifique a la plateforme."
+    },
+    {
+      "term": "Bridge",
+      "definition": "La relation de composition entre Abstraction et Implementor. L'abstraction detient une reference vers l'implementation, formant un pont."
+    },
+    {
+      "term": "Orthogonal Hierarchies",
+      "definition": "Deux hierarchies de classes independantes qui peuvent etre etendues sans s'affecter mutuellement : telecommandes (basique, avancee) et appareils (TV, radio)."
+    }
   ],
   "bridge.details.remote.tradeoffs.pros": [
     "Les deux hierarchies peuvent etre etendues independamment sans modification",
     "L'implementation peut etre changee a l'execution",
     "Le code specifique a la plateforme est isole dans les classes d'implementeurs",
-    "Reduit l'explosion de classes de m\u00d7n combinaisons a m+n"
+    "Reduit l'explosion de classes de m×n combinaisons a m+n"
   ],
   "bridge.details.remote.tradeoffs.cons": [
     "Complexite accrue due a la couche d'abstraction supplementaire",
@@ -691,11 +961,11 @@
     "Plus d'indirection peut rendre le debogage plus difficile"
   ],
   "bridge.details.remote.tradeoffs.whenToUse": "A utiliser quand vous voulez eviter une liaison permanente entre l'abstraction et l'implementation, quand l'abstraction et l'implementation doivent etre extensibles par sous-classement, ou quand les changements d'implementation ne doivent pas impacter les clients.",
-  "bridge.tooltip.abstraction": "RemoteControl \u2014 detient une reference Device et delegue les operations",
-  "bridge.tooltip.refined": "AdvancedRemote \u2014 etend RemoteControl avec la fonctionnalite mute()",
-  "bridge.tooltip.impl": "Interface Device \u2014 definit les operations de bas niveau pour tous les appareils",
-  "bridge.tooltip.tv": "TV \u2014 implementeur concret pour la television",
-  "bridge.tooltip.radio": "Radio \u2014 implementeur concret pour la radio",
+  "bridge.tooltip.abstraction": "RemoteControl — detient une reference Device et delegue les operations",
+  "bridge.tooltip.refined": "AdvancedRemote — etend RemoteControl avec la fonctionnalite mute()",
+  "bridge.tooltip.impl": "Interface Device — definit les operations de bas niveau pour tous les appareils",
+  "bridge.tooltip.tv": "TV — implementeur concret pour la television",
+  "bridge.tooltip.radio": "Radio — implementeur concret pour la radio",
   "bridge.tooltip.obj-remote": "Instance :AdvancedRemote a l'execution",
   "bridge.tooltip.obj-tv": "Instance :TV a l'execution connectee via le pont",
   "bridge.step.remote.0": "Creation d'AdvancedRemote avec TV",
@@ -703,20 +973,31 @@
   "bridge.step.remote.2": ":TV cree comme implementation",
   "bridge.step.remote.3": "remote.togglePower()",
   "bridge.step.remote.4": "Delegation a device.enable()",
-  "bridge.step.remote.5": "TV.enable() \u2014 la TV est maintenant ALLUMEE",
+  "bridge.step.remote.5": "TV.enable() — la TV est maintenant ALLUMEE",
   "bridge.step.remote.6": "remote.mute() appelle device.setVolume(0)",
   "bridge.step.remote.7": "Volume TV = 0",
   "bridge.stepLabel.remote": "Controler un appareil via le patron Bridge",
   "bridge.depRules": [
-    { "name": "Abstraction (RemoteControl)", "role": "Definit l'interface de controle et detient une reference vers un Device" },
-    { "name": "RefinedAbstraction (AdvancedRemote)", "role": "Etend l'abstraction avec des operations supplementaires" },
-    { "name": "Implementor (Device)", "role": "Interface pour les classes d'implementation" },
-    { "name": "ConcreteImplementor (TV, Radio)", "role": "Fournissent des implementations concretes de l'interface Device" }
+    {
+      "name": "Abstraction (RemoteControl)",
+      "role": "Definit l'interface de controle et detient une reference vers un Device"
+    },
+    {
+      "name": "RefinedAbstraction (AdvancedRemote)",
+      "role": "Etend l'abstraction avec des operations supplementaires"
+    },
+    {
+      "name": "Implementor (Device)",
+      "role": "Interface pour les classes d'implementation"
+    },
+    {
+      "name": "ConcreteImplementor (TV, Radio)",
+      "role": "Fournissent des implementations concretes de l'interface Device"
+    }
   ],
-
   "composite.name": "Composite",
   "composite.modes.filesystem.label": "File System",
-  "composite.modes.filesystem.desc": "Directory et File implementent tous deux FileSystemItem. Les repertoires peuvent contenir des fichiers et des sous-repertoires, formant un arbre. getSize() est appele recursivement \u2014 les feuilles retournent leur taille, les composites additionnent leurs enfants. Le client traite les fichiers individuels et les repertoires de maniere uniforme.",
+  "composite.modes.filesystem.desc": "Directory et File implementent tous deux FileSystemItem. Les repertoires peuvent contenir des fichiers et des sous-repertoires, formant un arbre. getSize() est appele recursivement — les feuilles retournent leur taille, les composites additionnent leurs enfants. Le client traite les fichiers individuels et les repertoires de maniere uniforme.",
   "composite.details.filesystem.principles": [
     "Composer des objets en structures arborescentes pour representer des hierarchies partie-tout",
     "Permettre aux clients de traiter les objets individuels et les compositions de maniere uniforme",
@@ -725,38 +1006,50 @@
     "Principe ouvert/ferme : de nouveaux types de composants peuvent etre ajoutes sans changer le code existant"
   ],
   "composite.details.filesystem.concepts": [
-    { "term": "Component", "definition": "Interface (FileSystemItem) declarant les operations communes aux objets feuille et composite. Permet un traitement uniforme." },
-    { "term": "Leaf", "definition": "Un objet File sans enfants. Implemente les operations directement (retourne sa propre taille)." },
-    { "term": "Composite", "definition": "Un Directory qui stocke des composants enfants. Delegue les operations aux enfants et agrege les resultats (additionne les tailles)." },
-    { "term": "Uniform Interface", "definition": "Le client appelle getSize() sur n'importe quel FileSystemItem sans savoir s'il s'agit d'un File ou d'un Directory. Le patron composite rend le parcours d'arbre transparent." }
+    {
+      "term": "Component",
+      "definition": "Interface (FileSystemItem) declarant les operations communes aux objets feuille et composite. Permet un traitement uniforme."
+    },
+    {
+      "term": "Leaf",
+      "definition": "Un objet File sans enfants. Implemente les operations directement (retourne sa propre taille)."
+    },
+    {
+      "term": "Composite",
+      "definition": "Un Directory qui stocke des composants enfants. Delegue les operations aux enfants et agrege les resultats (additionne les tailles)."
+    },
+    {
+      "term": "Uniform Interface",
+      "definition": "Le client appelle getSize() sur n'importe quel FileSystemItem sans savoir s'il s'agit d'un File ou d'un Directory. Le patron composite rend le parcours d'arbre transparent."
+    }
   ],
   "composite.details.filesystem.tradeoffs.pros": [
     "Traitement uniforme des objets individuels et des compositions",
-    "Facile d'ajouter de nouveaux types de composants \u2014 il suffit d'implementer l'interface Component",
+    "Facile d'ajouter de nouveaux types de composants — il suffit d'implementer l'interface Component",
     "Simplifie le code client qui travaille avec des structures arborescentes complexes",
     "Les operations recursives sont naturelles et propres"
   ],
   "composite.details.filesystem.tradeoffs.cons": [
-    "Peut rendre la conception trop generale \u2014 difficile de restreindre quels composants peuvent etre enfants",
-    "La securite de type est reduite \u2014 le client peut essayer d'ajouter des enfants a une feuille",
+    "Peut rendre la conception trop generale — difficile de restreindre quels composants peuvent etre enfants",
+    "La securite de type est reduite — le client peut essayer d'ajouter des enfants a une feuille",
     "Le parcours de grands arbres peut etre couteux sans optimisation",
     "L'interface uniforme peut forcer les classes feuille a implementer des methodes non pertinentes"
   ],
   "composite.details.filesystem.tradeoffs.whenToUse": "A utiliser quand vous voulez representer des hierarchies partie-tout d'objets, quand vous voulez que les clients traitent les objets individuels et les compositions de maniere uniforme, ou quand la structure peut etre representee sous forme d'arbre.",
-  "composite.tooltip.component": "Interface FileSystemItem \u2014 getSize() et getName() pour les fichiers et repertoires",
-  "composite.tooltip.leaf": "File \u2014 noeud feuille avec nom et taille, pas d'enfants",
-  "composite.tooltip.composite": "Directory \u2014 noeud composite contenant des enfants, delegue getSize()",
-  "composite.tooltip.obj-root": "Repertoire /root \u2014 composite de niveau superieur",
+  "composite.tooltip.component": "Interface FileSystemItem — getSize() et getName() pour les fichiers et repertoires",
+  "composite.tooltip.leaf": "File — noeud feuille avec nom et taille, pas d'enfants",
+  "composite.tooltip.composite": "Directory — noeud composite contenant des enfants, delegue getSize()",
+  "composite.tooltip.obj-root": "Repertoire /root — composite de niveau superieur",
   "composite.tooltip.obj-docs": "Sous-repertoire /root/docs",
-  "composite.tooltip.obj-photo": "photo.jpg \u2014 2048 octets",
-  "composite.tooltip.obj-readme": "readme.txt \u2014 1024 octets",
-  "composite.tooltip.obj-notes": "notes.txt \u2014 512 octets",
+  "composite.tooltip.obj-photo": "photo.jpg — 2048 octets",
+  "composite.tooltip.obj-readme": "readme.txt — 1024 octets",
+  "composite.tooltip.obj-notes": "notes.txt — 512 octets",
   "composite.step.filesystem.cls0": "Interface composant : contrat getSize() + getName()",
   "composite.step.filesystem.cls1": "Composite : total=0, pour chaque enfant : total += child.getSize()",
   "composite.step.filesystem.cls2": "Feuille : retourne this.size directement, sans enfants",
   "composite.step.filesystem.0": "Le client appelle root.getSize()",
   "composite.step.filesystem.1": "/root itere sur les enfants",
-  "composite.step.filesystem.2": "Enfant \u2192 /root/docs (Directory)",
+  "composite.step.filesystem.2": "Enfant → /root/docs (Directory)",
   "composite.step.filesystem.3": "/root/docs itere sur les enfants",
   "composite.step.filesystem.4": "readme.txt retourne taille=1024",
   "composite.step.filesystem.5": "notes.txt retourne taille=512",
@@ -766,27 +1059,50 @@
   "composite.step.filesystem.9": "Taille totale = 3584 octets retournee",
   "composite.stepLabel.filesystem": "Calculer la taille du systeme de fichiers via Composite",
   "composite.depRules": [
-    { "name": "Component (FileSystemItem)", "role": "Interface commune pour les feuilles et les composites" },
-    { "name": "Leaf (File)", "role": "N'a pas d'enfants ; implemente les operations directement" },
-    { "name": "Composite (Directory)", "role": "Stocke les composants enfants et leur delegue les operations" },
-    { "name": "Client", "role": "Travaille avec tous les elements via l'interface Component" }
+    {
+      "name": "Component (FileSystemItem)",
+      "role": "Interface commune pour les feuilles et les composites"
+    },
+    {
+      "name": "Leaf (File)",
+      "role": "N'a pas d'enfants ; implemente les operations directement"
+    },
+    {
+      "name": "Composite (Directory)",
+      "role": "Stocke les composants enfants et leur delegue les operations"
+    },
+    {
+      "name": "Client",
+      "role": "Travaille avec tous les elements via l'interface Component"
+    }
   ],
-
   "flyweight.name": "Flyweight",
   "flyweight.modes.forest.label": "Forest Rendering",
-  "flyweight.modes.forest.desc": "TreeFactory partage des objets TreeType (etat intrinseque : nom, couleur, texture) entre de nombreuses instances Tree (etat extrinseque : coordonnees x, y). Quand la factory recoit une demande pour un type existant, elle retourne l'objet en cache au lieu d'en creer un nouveau \u2014 reduisant drastiquement l'utilisation memoire.",
+  "flyweight.modes.forest.desc": "TreeFactory partage des objets TreeType (etat intrinseque : nom, couleur, texture) entre de nombreuses instances Tree (etat extrinseque : coordonnees x, y). Quand la factory recoit une demande pour un type existant, elle retourne l'objet en cache au lieu d'en creer un nouveau — reduisant drastiquement l'utilisation memoire.",
   "flyweight.details.forest.principles": [
     "Partager l'etat commun (intrinseque) entre plusieurs objets pour reduire la consommation memoire",
     "Separer l'etat intrinseque (partage, immuable) de l'etat extrinseque (unique, dependant du contexte)",
     "Utiliser une factory pour gerer les instances flyweight et assurer le partage",
-    "Les objets flyweight doivent etre immuables \u2014 leur etat intrinseque ne change jamais apres la creation",
+    "Les objets flyweight doivent etre immuables — leur etat intrinseque ne change jamais apres la creation",
     "Echanger le calcul contre la memoire : l'etat extrinseque est recalcule ou passe en parametre plutot que stocke"
   ],
   "flyweight.details.forest.concepts": [
-    { "term": "Intrinsic State", "definition": "Donnees partagees stockees a l'interieur du flyweight (TreeType : nom, couleur, texture). Immuables et independantes du contexte \u2014 identiques pour tous les arbres de ce type." },
-    { "term": "Extrinsic State", "definition": "Donnees specifiques au contexte stockees en dehors du flyweight (Tree : coordonnees x, y). Uniques a chaque contexte d'utilisation et passees au flyweight quand necessaire." },
-    { "term": "Flyweight Factory", "definition": "Cree et met en cache les objets flyweight (TreeFactory). Retourne les instances existantes pour les demandes repetees, assurant un partage maximal." },
-    { "term": "Immutability", "definition": "Les objets flyweight doivent etre immuables pour etre partages en toute securite. Tout etat mutable doit etre extrinseque et gere par le client ou le contexte." }
+    {
+      "term": "Intrinsic State",
+      "definition": "Donnees partagees stockees a l'interieur du flyweight (TreeType : nom, couleur, texture). Immuables et independantes du contexte — identiques pour tous les arbres de ce type."
+    },
+    {
+      "term": "Extrinsic State",
+      "definition": "Donnees specifiques au contexte stockees en dehors du flyweight (Tree : coordonnees x, y). Uniques a chaque contexte d'utilisation et passees au flyweight quand necessaire."
+    },
+    {
+      "term": "Flyweight Factory",
+      "definition": "Cree et met en cache les objets flyweight (TreeFactory). Retourne les instances existantes pour les demandes repetees, assurant un partage maximal."
+    },
+    {
+      "term": "Immutability",
+      "definition": "Les objets flyweight doivent etre immuables pour etre partages en toute securite. Tout etat mutable doit etre extrinseque et gere par le client ou le contexte."
+    }
   ],
   "flyweight.details.forest.tradeoffs.pros": [
     "Reduit considerablement l'utilisation memoire quand de nombreux objets partagent un etat commun",
@@ -802,8 +1118,8 @@
   ],
   "flyweight.details.forest.tradeoffs.whenToUse": "A utiliser quand une application cree un grand nombre d'objets similaires consommant beaucoup de memoire, quand la majeure partie de l'etat de l'objet peut etre rendue extrinseque, et quand l'application ne depend pas de l'identite des objets.",
   "flyweight.tooltip.client": "Client qui plante des arbres en utilisant la factory",
-  "flyweight.tooltip.factory": "TreeFactory \u2014 met en cache et reutilise les objets flyweight TreeType",
-  "flyweight.tooltip.flyweight": "TreeType \u2014 etat intrinseque partage (nom, couleur, texture)",
+  "flyweight.tooltip.factory": "TreeFactory — met en cache et reutilise les objets flyweight TreeType",
+  "flyweight.tooltip.flyweight": "TreeType — etat intrinseque partage (nom, couleur, texture)",
   "flyweight.tooltip.obj-oak-type": "Instance flyweight TreeType Oak en cache",
   "flyweight.tooltip.obj-pine-type": "Instance flyweight TreeType Pine en cache",
   "flyweight.tooltip.obj-tree1": "Tree a (10,20) referencant le TreeType Oak",
@@ -811,21 +1127,823 @@
   "flyweight.tooltip.obj-tree3": "Tree a (30,40) referencant le TreeType Pine",
   "flyweight.step.forest.0": "Le client a besoin d'un arbre \"Oak\" a (10,20)",
   "flyweight.step.forest.1": "factory.getTreeType(\"Oak\", \"green\", \"oak.png\")",
-  "flyweight.step.forest.2": "Verification du cache \u2014 MISS",
+  "flyweight.step.forest.2": "Verification du cache — MISS",
   "flyweight.step.forest.3": "TreeType(\"Oak\") cree et mis en cache",
   "flyweight.step.forest.4": "Tree(10, 20, oakType) cree",
   "flyweight.step.forest.5": ":Tree(10,20) plante avec succes",
   "flyweight.step.forest.6": "Le client a besoin de \"Oak\" a (50,70)",
   "flyweight.step.forest.7": "factory.getTreeType(\"Oak\"...)",
-  "flyweight.step.forest.8": "Verification du cache \u2014 HIT (meme objet reutilise)",
+  "flyweight.step.forest.8": "Verification du cache — HIT (meme objet reutilise)",
   "flyweight.step.forest.9": "Meme TreeType retourne depuis le cache",
   "flyweight.step.forest.10": "Tree(50, 70, oakType) reutilise le flyweight",
-  "flyweight.step.forest.11": ":Tree(50,70) plante \u2014 TreeType partage",
+  "flyweight.step.forest.11": ":Tree(50,70) plante — TreeType partage",
   "flyweight.stepLabel.forest": "Rendre une foret avec des objets Flyweight partages",
   "flyweight.depRules": [
-    { "name": "Flyweight (TreeType)", "role": "Stocke l'etat intrinseque (partage) qui peut etre reutilise a travers les contextes" },
-    { "name": "FlyweightFactory (TreeFactory)", "role": "Cree et gere les objets flyweight, assurant le partage" },
-    { "name": "Context (Tree)", "role": "Stocke l'etat extrinseque (unique) et reference un flyweight" },
-    { "name": "Client", "role": "Maintient les references aux flyweights et calcule/stocke l'etat extrinseque" }
+    {
+      "name": "Flyweight (TreeType)",
+      "role": "Stocke l'etat intrinseque (partage) qui peut etre reutilise a travers les contextes"
+    },
+    {
+      "name": "FlyweightFactory (TreeFactory)",
+      "role": "Cree et gere les objets flyweight, assurant le partage"
+    },
+    {
+      "name": "Context (Tree)",
+      "role": "Stocke l'etat extrinseque (unique) et reference un flyweight"
+    },
+    {
+      "name": "Client",
+      "role": "Maintient les references aux flyweights et calcule/stocke l'etat extrinseque"
+    }
+  ],
+  "observer.name": "Observer",
+  "observer.modes.events.label": "Evenements",
+  "observer.modes.events.desc": "Un EventManager (sujet) maintient une liste d'observateurs et les notifie automatiquement lorsqu'un evenement survient. EmailNotifier, LoggingObserver et SlackNotifier implementent tous l'interface Observer et reagissent independamment au meme evenement.",
+  "observer.details.events.principles": [
+    "Couplage faible : le sujet sait uniquement que les observateurs implementent une interface, pas leurs types concrets",
+    "Principe ouvert/ferme : de nouveaux observateurs peuvent etre ajoutes sans modifier le sujet",
+    "Dependance un-a-plusieurs : un seul evenement declenche des mises a jour dans plusieurs observateurs simultanement",
+    "Conception evenementielle : les composants reagissent aux evenements plutot que de les interroger",
+    "Responsabilite unique : chaque observateur gere sa propre logique de reaction independamment"
+  ],
+  "observer.details.events.concepts": [
+    {
+      "term": "Subject",
+      "definition": "L'objet observe (EventManager). Il maintient une liste d'abonnes et fournit des methodes subscribe/unsubscribe/notify."
+    },
+    {
+      "term": "Observer",
+      "definition": "Une interface declarant la methode update(event, data). Tous les observateurs concrets implementent cette interface pour recevoir les notifications."
+    },
+    {
+      "term": "Event",
+      "definition": "Une occurrence nommee (ex. 'order.placed') qui declenche la notification. Les observateurs s'abonnent a des types d'evenements specifiques."
+    },
+    {
+      "term": "Push vs Pull",
+      "definition": "En mode push, le sujet envoie les donnees avec la notification. En mode pull, les observateurs interrogent le sujet pour obtenir les donnees apres notification."
+    }
+  ],
+  "observer.details.events.tradeoffs.pros": [
+    "Decouple les producteurs d'evenements des consommateurs — ils evoluent independamment",
+    "Facile d'ajouter de nouveaux observateurs sans toucher au code existant",
+    "Supporte la communication par diffusion — un evenement atteint de nombreux ecouteurs",
+    "Permet des architectures reactives et des systemes pilotes par evenements"
+  ],
+  "observer.details.events.tradeoffs.cons": [
+    "Les observateurs sont notifies dans un ordre indefini — peut causer des bugs subtils",
+    "Fuites de memoire si les observateurs ne sont pas correctement desabonnes",
+    "Les mises a jour en cascade peuvent entrainer des problemes de performance avec de nombreux observateurs",
+    "Le debogage est plus difficile — tracer le flux d'evenements a travers plusieurs observateurs est complexe"
+  ],
+  "observer.details.events.tradeoffs.whenToUse": "A utiliser quand les modifications d'un objet necessitent la mise a jour d'autres objets dont le nombre est inconnu. Courant dans les systemes d'evenements, les frameworks d'interface utilisateur, les courtiers de messages et les architectures pub/sub.",
+  "observer.tooltip.subject": "EventManager maintient une table d'evenements vers des listes d'observateurs et diffuse les notifications",
+  "observer.tooltip.observer": "Interface Observer — tous les observateurs concrets doivent implementer update(event, data)",
+  "observer.tooltip.email": "EmailNotifier envoie des emails de confirmation lorsque des evenements surviennent",
+  "observer.tooltip.logging": "LoggingObserver ecrit les details de l'evenement dans un fichier de log",
+  "observer.tooltip.slack": "SlackNotifier publie les notifications d'evenements sur un canal Slack",
+  "observer.tooltip.obj-email": "Instance d'execution d'EmailNotifier traitant l'evenement",
+  "observer.tooltip.obj-logging": "Instance d'execution de LoggingObserver ecrivant dans le log",
+  "observer.tooltip.obj-slack": "Instance d'execution de SlackNotifier publiant sur Slack",
+  "observer.step.events.0": "L'utilisateur declenche l'evenement \"order.placed\"",
+  "observer.step.events.1": "EventManager recherche les abonnes de \"order.placed\"",
+  "observer.step.events.2": "Notifier EmailNotifier.update()",
+  "observer.step.events.3": "EmailNotifier envoie un email de confirmation",
+  "observer.step.events.4": "Notifier LoggingObserver.update()",
+  "observer.step.events.5": "LoggingObserver ecrit dans le fichier de log",
+  "observer.step.events.6": "Notifier SlackNotifier.update()",
+  "observer.step.events.7": "SlackNotifier publie sur le canal #orders",
+  "observer.stepLabel.events": "Diffuser un evenement via le patron Observateur",
+  "observer.depRules": [
+    {
+      "name": "EventManager (Subject)",
+      "role": "Gere la liste des abonnes et diffuse les evenements a tous les observateurs enregistres"
+    },
+    {
+      "name": "Observer (interface)",
+      "role": "Definit le contrat update(event, data) pour recevoir les notifications"
+    },
+    {
+      "name": "EmailNotifier",
+      "role": "Envoie des notifications par email lorsque des evenements surviennent"
+    },
+    {
+      "name": "LoggingObserver",
+      "role": "Journalise les details des evenements dans un fichier pour l'audit"
+    },
+    {
+      "name": "SlackNotifier",
+      "role": "Publie les notifications d'evenements sur un canal Slack"
+    }
+  ],
+  "strategy.name": "Strategy",
+  "strategy.modes.navigation.label": "Navigation",
+  "strategy.modes.navigation.desc": "Un Navigator (contexte) detient une reference vers une RouteStrategy et delegue le calcul d'itineraire a celle-ci. Le client peut echanger les strategies a l'execution — DrivingStrategy, WalkingStrategy ou TransitStrategy — sans modifier le code du Navigator.",
+  "strategy.details.navigation.principles": [
+    "Encapsuler les algorithmes : chaque strategie encapsule un algorithme specifique de calcul d'itineraire",
+    "Principe ouvert/ferme : de nouvelles strategies peuvent etre ajoutees sans modifier le contexte",
+    "Composition plutot qu'heritage : le contexte delegue a un objet strategie plutot que d'utiliser des sous-classes",
+    "Delegation du contexte : le Navigator delegue la construction de l'itineraire a la strategie courante",
+    "Flexibilite a l'execution : les strategies peuvent etre echangees a l'execution pour changer le comportement dynamiquement"
+  ],
+  "strategy.details.navigation.concepts": [
+    {
+      "term": "Context",
+      "definition": "La classe Navigator qui maintient une reference vers une strategie et delegue l'execution de l'algorithme a celle-ci."
+    },
+    {
+      "term": "Strategy",
+      "definition": "L'interface RouteStrategy declarant la methode buildRoute(). Toutes les strategies concretes implementent cette interface."
+    },
+    {
+      "term": "Concrete Strategy",
+      "definition": "Une implementation specifique d'algorithme (DrivingStrategy, WalkingStrategy, TransitStrategy) interchangeable a l'execution."
+    },
+    {
+      "term": "Client",
+      "definition": "Configure le contexte avec une strategie specifique et peut la changer a tout moment."
+    }
+  ],
+  "strategy.details.navigation.tradeoffs.pros": [
+    "Elimine les instructions conditionnelles pour la selection d'algorithme",
+    "Les algorithmes peuvent etre echanges a l'execution sans modifier le code du contexte",
+    "Chaque strategie est testable et maintenable independamment",
+    "De nouvelles strategies peuvent etre ajoutees sans toucher au code existant"
+  ],
+  "strategy.details.navigation.tradeoffs.cons": [
+    "Les clients doivent connaitre les differentes strategies pour selectionner la plus appropriee",
+    "Augmente le nombre de classes dans le systeme",
+    "Surcharge de communication entre le contexte et la strategie pour les donnees partagees",
+    "Surdimensionne pour un petit ensemble fixe d'algorithmes qui changent rarement"
+  ],
+  "strategy.details.navigation.tradeoffs.whenToUse": "A utiliser quand vous avez plusieurs algorithmes pour une tache specifique et souhaitez basculer entre eux a l'execution, quand vous avez une logique conditionnelle selectionnant differents comportements, ou quand vous voulez isoler les details d'implementation de l'algorithme du code qui l'utilise.",
+  "strategy.tooltip.client": "Le client configure le Navigator avec une strategie choisie",
+  "strategy.tooltip.context": "Navigator detient une reference de strategie et delegue la construction d'itineraire",
+  "strategy.tooltip.strategy": "Interface RouteStrategy — toutes les strategies concretes doivent implementer buildRoute()",
+  "strategy.tooltip.driving": "DrivingStrategy calcule l'itineraire routier le plus rapide",
+  "strategy.tooltip.walking": "WalkingStrategy calcule un itineraire pieton adapte",
+  "strategy.tooltip.transit": "TransitStrategy calcule l'itineraire en transports en commun avec correspondances",
+  "strategy.tooltip.obj-driving": "Instance d'execution de DrivingStrategy avec l'itineraire calcule",
+  "strategy.tooltip.obj-walking": "Instance d'execution de WalkingStrategy avec l'itineraire calcule",
+  "strategy.tooltip.obj-transit": "Instance d'execution de TransitStrategy avec l'itineraire calcule",
+  "strategy.step.navigation.0": "Le client definit DrivingStrategy sur Navigator",
+  "strategy.step.navigation.1": "Navigator.buildRoute(\"A\", \"B\") appele",
+  "strategy.step.navigation.2": "Delegation a strategy.buildRoute()",
+  "strategy.step.navigation.3": "DrivingStrategy calcule l'itineraire routier le plus rapide",
+  "strategy.step.navigation.4": "Retourne un itineraire de 15km, ETA 20min",
+  "strategy.step.navigation.5": "Le client bascule vers WalkingStrategy",
+  "strategy.step.navigation.6": "WalkingStrategy : marche de 2km, ETA 25min",
+  "strategy.stepLabel.navigation": "Naviguer un itineraire via le patron Strategie",
+  "strategy.depRules": [
+    {
+      "name": "Navigator (Context)",
+      "role": "Maintient la reference vers la strategie courante et delegue la construction d'itineraire"
+    },
+    {
+      "name": "RouteStrategy (interface)",
+      "role": "Declare le contrat buildRoute(origin, destination)"
+    },
+    {
+      "name": "DrivingStrategy",
+      "role": "Calcule l'itineraire routier le plus rapide"
+    },
+    {
+      "name": "WalkingStrategy",
+      "role": "Calcule l'itineraire pieton"
+    },
+    {
+      "name": "TransitStrategy",
+      "role": "Calcule l'itineraire en transports en commun avec correspondances"
+    },
+    {
+      "name": "Client",
+      "role": "Configure le Navigator avec une strategie choisie"
+    }
+  ],
+  "command.name": "Command",
+  "command.modes.remote.label": "Telecommande",
+  "command.modes.remote.desc": "Un RemoteControl (invocateur) stocke un objet Command et l'execute a l'appui d'un bouton. TurnOnCommand et TurnOffCommand encapsulent les operations de Light et supportent l'annulation. L'invocateur est completement decouple du recepteur.",
+  "command.details.remote.principles": [
+    "Encapsuler les requetes en objets : chaque commande enveloppe une action specifique avec ses parametres",
+    "Decoupler l'invocateur du recepteur : RemoteControl ne connait pas Light directement",
+    "L'historique des commandes permet l'annulation/restauration : les commandes executees sont stockees pour inversion",
+    "Responsabilite unique : chaque classe de commande gere une seule operation specifique",
+    "Principe ouvert/ferme : de nouvelles commandes peuvent etre ajoutees sans modifier l'invocateur ou le recepteur"
+  ],
+  "command.details.remote.concepts": [
+    {
+      "term": "Command",
+      "definition": "Une interface declarant les methodes execute() et undo(). Chaque commande concrete encapsule une action et son recepteur."
+    },
+    {
+      "term": "Invoker",
+      "definition": "Le RemoteControl qui stocke et declenche les commandes sans savoir ce qu'elles font ni qui les traite."
+    },
+    {
+      "term": "Receiver",
+      "definition": "L'objet Light qui sait comment effectuer le travail reel (turnOn, turnOff)."
+    },
+    {
+      "term": "Undo/Redo",
+      "definition": "Les commandes stockees dans une pile d'historique peuvent etre annulees en appelant leur methode undo() dans l'ordre inverse."
+    }
+  ],
+  "command.details.remote.tradeoffs.pros": [
+    "Decouple l'objet qui invoque l'operation de celui qui l'execute",
+    "Les commandes peuvent etre mises en file, journalisees, planifiees et annulees",
+    "Supporte les macro-commandes — commandes composites executant plusieurs actions",
+    "Facile d'ajouter de nouvelles commandes sans changer le code existant"
+  ],
+  "command.details.remote.tradeoffs.cons": [
+    "Augmente le nombre de classes — une classe par commande",
+    "Peut etre surdimensionne pour des operations simples sans besoin d'annulation",
+    "L'annulation peut etre complexe quand les commandes ont des effets de bord sur des systemes externes",
+    "Les parametres des commandes doivent etre serialisables si les commandes sont persistees"
+  ],
+  "command.details.remote.tradeoffs.whenToUse": "A utiliser quand vous souhaitez parametrer des objets avec des operations, mettre en file ou planifier des operations pour une execution ulterieure, implementer la fonctionnalite d'annulation/restauration, ou structurer un systeme autour d'operations de haut niveau construites a partir de primitives.",
+  "command.tooltip.invoker": "RemoteControl stocke et execute les commandes, maintient l'historique d'annulation",
+  "command.tooltip.command": "Interface Command — declare les methodes execute() et undo()",
+  "command.tooltip.on": "TurnOnCommand encapsule Light.turnOn() et son annulation",
+  "command.tooltip.off": "TurnOffCommand encapsule Light.turnOff() et son annulation",
+  "command.tooltip.receiver": "Light est le recepteur qui effectue les operations reelles d'allumage/extinction",
+  "command.tooltip.obj-on": "Instance d'execution de TurnOnCommand dans la pile d'historique",
+  "command.tooltip.obj-off": "Instance d'execution de TurnOffCommand apres annulation",
+  "command.tooltip.obj-light": "Instance d'execution de Light avec l'etat courant",
+  "command.step.remote.0": "Definir TurnOnCommand sur la telecommande",
+  "command.step.remote.1": "pressButton() → command.execute()",
+  "command.step.remote.2": "TurnOnCommand.execute() appele",
+  "command.step.remote.3": "Light.turnOn() → isOn = true",
+  "command.step.remote.4": "La lumiere est maintenant ALLUMEE",
+  "command.step.remote.5": "Empiler TurnOnCommand dans la pile d'historique",
+  "command.step.remote.6": "pressUndo() → command.undo()",
+  "command.step.remote.7": "Annulation : Light.turnOff() → isOn = false",
+  "command.stepLabel.remote": "Executer et annuler via le patron Commande",
+  "command.depRules": [
+    {
+      "name": "RemoteControl (Invoker)",
+      "role": "Stocke et execute les commandes, maintient l'historique d'annulation"
+    },
+    {
+      "name": "Command (interface)",
+      "role": "Declare les methodes execute() et undo()"
+    },
+    {
+      "name": "TurnOnCommand",
+      "role": "Encapsule l'allumage d'un appareil"
+    },
+    {
+      "name": "TurnOffCommand",
+      "role": "Encapsule l'extinction d'un appareil"
+    },
+    {
+      "name": "Light (Receiver)",
+      "role": "L'appareil reel controle"
+    }
+  ],
+  "state.name": "State",
+  "state.modes.order.label": "Cycle de vie de commande",
+  "state.modes.order.desc": "Un Order (contexte) delegue le comportement a son OrderState courant. A mesure que la commande progresse de Draft → Paid → Shipped → Delivered, chaque etat determine quelles transitions sont valides et les gere differemment.",
+  "state.details.order.principles": [
+    "Encapsulation de l'etat : chaque etat est une classe separee avec son propre comportement",
+    "Elimination des conditionnelles : pas de chaines switch/if — le polymorphisme gere la logique specifique a l'etat",
+    "Principe ouvert/ferme : de nouveaux etats peuvent etre ajoutes sans modifier ceux existants",
+    "Responsabilite unique : chaque classe d'etat gere uniquement ses propres transitions",
+    "Transitions explicites : les changements d'etat sont clairs et tracables via les appels setState()"
+  ],
+  "state.details.order.concepts": [
+    {
+      "term": "Context",
+      "definition": "La classe Order qui maintient une reference vers l'etat courant et delegue le comportement a celui-ci."
+    },
+    {
+      "term": "State",
+      "definition": "L'interface OrderState declarant les methodes pour toutes les actions possibles (pay, ship, deliver)."
+    },
+    {
+      "term": "Concrete State",
+      "definition": "Une implementation specifique d'etat (DraftState, PaidState, etc.) qui gere les transitions depuis cet etat."
+    },
+    {
+      "term": "Transition",
+      "definition": "Un changement d'etat declenche par un appel de methode. Chaque etat determine quelles transitions sont valides."
+    }
+  ],
+  "state.details.order.tradeoffs.pros": [
+    "Organise le code specifique a l'etat dans des classes separees",
+    "Rend les transitions d'etat explicites et faciles a tracer",
+    "Elimine la logique conditionnelle complexe pour le comportement dependant de l'etat",
+    "De nouveaux etats peuvent etre ajoutes sans changer les classes d'etat existantes"
+  ],
+  "state.details.order.tradeoffs.cons": [
+    "Peut etre surdimensionne pour des objets avec peu d'etats simples",
+    "Augmente le nombre de classes dans le systeme",
+    "Les transitions d'etat peuvent etre difficiles a suivre quand elles sont reparties entre les classes",
+    "Les donnees partagees entre les etats necessitent une conception soignee"
+  ],
+  "state.details.order.tradeoffs.whenToUse": "A utiliser quand le comportement d'un objet depend de son etat et change a l'execution, quand les operations ont de grandes instructions conditionnelles basees sur l'etat, ou quand vous souhaitez modeliser une machine a etats finis avec des transitions claires.",
+  "state.tooltip.context": "Order maintient l'etat courant et delegue les appels pay/ship/deliver a celui-ci",
+  "state.tooltip.state": "Interface OrderState — declare pay(), ship(), deliver() pour tous les etats",
+  "state.tooltip.draft": "DraftState : etat initial, seul pay() est valide",
+  "state.tooltip.paid": "PaidState : paiement recu, seul ship() est valide",
+  "state.tooltip.shipped": "ShippedState : en transit, seul deliver() est valide",
+  "state.tooltip.delivered": "DeliveredState : etat final, aucune transition autorisee",
+  "state.tooltip.obj-draft": "Instance DraftState a l'execution — etat initial de la commande",
+  "state.tooltip.obj-paid": "Instance PaidState a l'execution apres paiement",
+  "state.tooltip.obj-shipped": "Instance ShippedState a l'execution apres expedition",
+  "state.tooltip.obj-delivered": "Instance DeliveredState a l'execution — commande terminee",
+  "state.step.order.0": "Nouvelle commande creee en DraftState",
+  "state.step.order.1": "Etat courant : Draft",
+  "state.step.order.2": "DraftState : order.pay() → transition vers PaidState",
+  "state.step.order.3": "Etat change vers PaidState",
+  "state.step.order.4": "PaidState : order.ship() → transition vers ShippedState",
+  "state.step.order.5": "Etat change vers ShippedState",
+  "state.step.order.6": "ShippedState : order.deliver() → transition vers DeliveredState",
+  "state.step.order.7": "DeliveredState : commande terminee, plus de transitions",
+  "state.stepLabel.order": "Cycle de vie de commande via le patron Etat",
+  "state.depRules": [
+    {
+      "name": "Order (Context)",
+      "role": "Maintient l'etat courant et delegue le comportement"
+    },
+    {
+      "name": "OrderState (interface)",
+      "role": "Declare les methodes pay(), ship(), deliver()"
+    },
+    {
+      "name": "DraftState",
+      "role": "Etat initial, peut transiter vers Paid"
+    },
+    {
+      "name": "PaidState",
+      "role": "Paiement recu, peut transiter vers Shipped"
+    },
+    {
+      "name": "ShippedState",
+      "role": "En transit, peut transiter vers Delivered"
+    },
+    {
+      "name": "DeliveredState",
+      "role": "Etat final, aucune transition ulterieure"
+    }
+  ],
+  "chain-of-responsibility.name": "Chain of Responsibility",
+  "chain-of-responsibility.modes.middleware.label": "Middleware",
+  "chain-of-responsibility.modes.middleware.desc": "Une requete HTTP traverse une chaine de gestionnaires : AuthHandler valide le jeton, ValidationHandler verifie le corps de la requete et ThrottleHandler applique les limites de debit. Chaque gestionnaire traite la requete ou la transmet au suivant dans la chaine.",
+  "chain-of-responsibility.details.middleware.principles": [
+    "Decoupler l'emetteur du recepteur : le client ne sait pas quel gestionnaire traitera la requete",
+    "Chaine de gestionnaires : chaque gestionnaire decide de traiter la requete ou de la transmettre",
+    "Responsabilite unique : chaque gestionnaire se concentre sur une seule preoccupation specifique",
+    "Principe ouvert/ferme : de nouveaux gestionnaires peuvent etre ajoutes a la chaine sans modifier les existants",
+    "Ordre flexible : les gestionnaires peuvent etre reorganises, ajoutes ou supprimes a l'execution"
+  ],
+  "chain-of-responsibility.details.middleware.concepts": [
+    {
+      "term": "Handler",
+      "definition": "Une interface declarant handle(request) et setNext(handler). Chaque gestionnaire traite la requete ou la delegue au suivant."
+    },
+    {
+      "term": "Concrete Handler",
+      "definition": "Un gestionnaire specifique (AuthHandler, ValidationHandler, ThrottleHandler) qui implemente sa propre logique de verification."
+    },
+    {
+      "term": "Chain",
+      "definition": "Une liste chainee de gestionnaires ou chacun detient une reference vers le suivant. La requete circule jusqu'a etre traitee."
+    },
+    {
+      "term": "Client",
+      "definition": "Assemble la chaine et envoie les requetes au premier gestionnaire. Ne sait pas quel gestionnaire traitera finalement la requete."
+    }
+  ],
+  "chain-of-responsibility.details.middleware.tradeoffs.pros": [
+    "Decouple les emetteurs de requetes des recepteurs — favorise le couplage faible",
+    "Les gestionnaires peuvent etre dynamiquement ajoutes, supprimes ou reordonnes",
+    "Chaque gestionnaire a une seule responsabilite — facile a tester et maintenir",
+    "Respecte le principe ouvert/ferme — les nouveaux gestionnaires n'affectent pas les existants"
+  ],
+  "chain-of-responsibility.details.middleware.tradeoffs.cons": [
+    "Aucune garantie que la requete sera traitee — elle peut traverser toute la chaine",
+    "Le debogage peut etre difficile pour determiner quel gestionnaire a traite une requete",
+    "Surcharge de performance si la chaine est longue et que la plupart des gestionnaires ne font que transmettre",
+    "Les references circulaires dans la chaine peuvent causer des boucles infinies"
+  ],
+  "chain-of-responsibility.details.middleware.tradeoffs.whenToUse": "A utiliser quand plusieurs objets peuvent traiter une requete et que le gestionnaire n'est pas connu a l'avance, quand vous voulez envoyer une requete a l'un de plusieurs objets sans specifier explicitement le recepteur, ou dans les pipelines middleware, le traitement d'evenements et les frameworks de journalisation.",
+  "chain-of-responsibility.tooltip.client": "Le client envoie une requete HTTP a la chaine de gestionnaires",
+  "chain-of-responsibility.tooltip.handler": "Interface Handler — declare les methodes handle() et setNext()",
+  "chain-of-responsibility.tooltip.auth": "AuthHandler valide les jetons JWT sur les requetes entrantes",
+  "chain-of-responsibility.tooltip.valid": "ValidationHandler valide le corps de la requete selon le schema",
+  "chain-of-responsibility.tooltip.throttle": "ThrottleHandler applique la limitation de debit par adresse IP client",
+  "chain-of-responsibility.tooltip.obj-auth": "AuthHandler valide — le jeton est valide",
+  "chain-of-responsibility.tooltip.obj-valid": "ValidationHandler valide — le corps de la requete est valide",
+  "chain-of-responsibility.tooltip.obj-throttle": "ThrottleHandler valide — limite de debit non depassee",
+  "chain-of-responsibility.tooltip.obj-response": "Tous les gestionnaires valides — reponse 200 OK retournee",
+  "chain-of-responsibility.step.middleware.0": "Le client envoie une requete HTTP",
+  "chain-of-responsibility.step.middleware.1": "La requete entre dans la chaine middleware",
+  "chain-of-responsibility.step.middleware.2": "AuthHandler verifie le jeton JWT",
+  "chain-of-responsibility.step.middleware.3": "Jeton valide → passer au gestionnaire suivant",
+  "chain-of-responsibility.step.middleware.4": "ValidationHandler valide le corps de la requete",
+  "chain-of-responsibility.step.middleware.5": "Validation reussie → passer au gestionnaire suivant",
+  "chain-of-responsibility.step.middleware.6": "ThrottleHandler verifie la limite de debit",
+  "chain-of-responsibility.step.middleware.7": "Tous les gestionnaires valides → retourner 200 OK",
+  "chain-of-responsibility.stepLabel.middleware": "Traiter une requete via la Chaine de responsabilite",
+  "chain-of-responsibility.depRules": [
+    {
+      "name": "Handler (interface)",
+      "role": "Declare les methodes handle(request) et setNext(handler)"
+    },
+    {
+      "name": "AuthHandler",
+      "role": "Valide les jetons d'authentification"
+    },
+    {
+      "name": "ValidationHandler",
+      "role": "Valide les donnees de la requete selon les regles"
+    },
+    {
+      "name": "ThrottleHandler",
+      "role": "Applique la limitation de debit par client"
+    },
+    {
+      "name": "Client",
+      "role": "Envoie la requete a travers la chaine de gestionnaires"
+    }
+  ],
+  "iterator.name": "Iterator",
+  "iterator.modes.playlist.label": "Playlist",
+  "iterator.modes.playlist.desc": "Une Playlist (agregat) cree un PlaylistIterator qui parcourt sa collection de Song de maniere sequentielle. Le client utilise hasNext()/next() pour iterer sans connaitre la structure de stockage interne de la playlist.",
+  "iterator.details.playlist.principles": [
+    "Encapsuler le parcours : l'iterateur masque la structure interne de la collection",
+    "Responsabilite unique : la collection gere le stockage, l'iterateur gere le parcours",
+    "Interface uniforme : tous les iterateurs partagent hasNext()/next() quelle que soit la collection sous-jacente",
+    "Principe ouvert/ferme : de nouveaux types d'iterateurs peuvent etre ajoutes sans modifier la collection",
+    "Parcours multiples : differents iterateurs peuvent parcourir la meme collection simultanement"
+  ],
+  "iterator.details.playlist.concepts": [
+    {
+      "term": "Aggregate",
+      "definition": "La collection Playlist qui stocke les chansons et fournit une methode factory createIterator()."
+    },
+    {
+      "term": "Iterator",
+      "definition": "Une interface declarant les methodes hasNext() et next() pour l'acces sequentiel aux elements."
+    },
+    {
+      "term": "Concrete Iterator",
+      "definition": "PlaylistIterator qui maintient l'etat du parcours (index courant) et sait comment acceder aux elements de la Playlist."
+    },
+    {
+      "term": "Element",
+      "definition": "Un objet Song stocke dans la collection, accessible sequentiellement via l'iterateur."
+    }
+  ],
+  "iterator.details.playlist.tradeoffs.pros": [
+    "Masque la structure interne des collections aux clients",
+    "Supporte plusieurs parcours simultanes de la meme collection",
+    "Fournit une interface uniforme pour parcourir differents types de collections",
+    "Simplifie l'interface de la collection en extrayant le parcours dans sa propre classe"
+  ],
+  "iterator.details.playlist.tradeoffs.cons": [
+    "Surdimensionne pour les collections simples facilement parcourues avec une boucle",
+    "Peut etre moins efficace que l'acces direct pour les collections a acces aleatoire",
+    "L'etat de l'iterateur peut devenir obsolete si la collection est modifiee pendant l'iteration",
+    "Ajoute des classes supplementaires pour chaque type de collection"
+  ],
+  "iterator.details.playlist.tradeoffs.whenToUse": "A utiliser quand vous voulez acceder aux elements d'une collection sans exposer sa structure interne, quand vous devez supporter plusieurs algorithmes de parcours sur une collection, ou quand vous voulez une interface uniforme pour parcourir differents types de collections.",
+  "iterator.tooltip.playlist": "Playlist stocke les chansons et cree des iterateurs pour le parcours",
+  "iterator.tooltip.iterator": "Interface Iterator — declare les methodes hasNext() et next()",
+  "iterator.tooltip.concrete": "PlaylistIterator suit la position et retourne les chansons sequentiellement",
+  "iterator.tooltip.obj-song1": "Song : Bohemian Rhapsody — premier element",
+  "iterator.tooltip.obj-song2": "Song : Imagine — deuxieme element",
+  "iterator.tooltip.obj-song3": "Song : Hotel California — troisieme element",
+  "iterator.tooltip.obj-iter": "Instance de PlaylistIterator apres la fin du parcours",
+  "iterator.step.playlist.0": "Le client appelle playlist.createIterator()",
+  "iterator.step.playlist.1": "Retourne une instance de PlaylistIterator",
+  "iterator.step.playlist.2": "hasNext() → true (index=0)",
+  "iterator.step.playlist.3": "next() → Song : Bohemian Rhapsody",
+  "iterator.step.playlist.4": "hasNext() → true (index=1)",
+  "iterator.step.playlist.5": "next() → Song : Imagine",
+  "iterator.step.playlist.6": "next() → Song : Hotel California",
+  "iterator.step.playlist.7": "hasNext() → false, iteration terminee",
+  "iterator.stepLabel.playlist": "Parcourir une playlist via le patron Iterateur",
+  "iterator.depRules": [
+    {
+      "name": "Playlist (Aggregate)",
+      "role": "Collection de chansons qui cree des iterateurs"
+    },
+    {
+      "name": "Iterator (interface)",
+      "role": "Definit le contrat de parcours hasNext() et next()"
+    },
+    {
+      "name": "PlaylistIterator",
+      "role": "Iterateur concret sur les chansons de la Playlist"
+    },
+    {
+      "name": "Song",
+      "role": "Element parcouru par l'iterateur"
+    }
+  ],
+  "mediator.name": "Mediator",
+  "mediator.modes.chatroom.label": "Salon de discussion",
+  "mediator.modes.chatroom.desc": "Un ChatRoom (mediateur) coordonne la communication entre les objets User. Au lieu que les utilisateurs se referencent directement, ils envoient des messages via le ChatRoom, qui diffuse a tous les participants sauf l'emetteur.",
+  "mediator.details.chatroom.principles": [
+    "Communication centralisee : toute communication inter-objets passe par le mediateur",
+    "Couplage faible : les collegues ne connaissent que l'interface du mediateur, pas les uns les autres",
+    "Responsabilite unique : le mediateur gere la coordination, les collegues gerent leur propre logique",
+    "Protocoles simplifies : les relations plusieurs-a-plusieurs deviennent un-a-plusieurs via le mediateur",
+    "Principe ouvert/ferme : de nouveaux types de collegues peuvent etre ajoutes sans changer les existants"
+  ],
+  "mediator.details.chatroom.concepts": [
+    {
+      "term": "Mediator",
+      "definition": "Une interface declarant sendMessage() pour acheminer les messages entre les collegues."
+    },
+    {
+      "term": "Concrete Mediator",
+      "definition": "ChatRoom implemente l'interface du mediateur et connait tous les utilisateurs enregistres pour acheminer les messages."
+    },
+    {
+      "term": "Colleague",
+      "definition": "Les objets User qui communiquent via le mediateur plutot que directement entre eux."
+    },
+    {
+      "term": "Message",
+      "definition": "Donnees envoyees d'un collegue aux autres, acheminees via le mediateur."
+    }
+  ],
+  "mediator.details.chatroom.tradeoffs.pros": [
+    "Reduit le couplage — les composants communiquent via un seul mediateur",
+    "Centralise la logique de communication complexe en un seul endroit",
+    "Les composants peuvent etre reutilises independamment du mediateur",
+    "Simplifie les protocoles inter-objets de plusieurs-a-plusieurs a un-a-plusieurs"
+  ],
+  "mediator.details.chatroom.tradeoffs.cons": [
+    "Le mediateur peut devenir un objet divin si trop de logique s'y accumule",
+    "Point de defaillance unique — si le mediateur echoue, toute communication s'arrete",
+    "Peut etre plus difficile de comprendre le flux quand toute communication est indirecte",
+    "Goulot d'etranglement de performance si tous les messages transitent par un seul objet"
+  ],
+  "mediator.details.chatroom.tradeoffs.whenToUse": "A utiliser quand un ensemble d'objets communiquent de maniere complexe mais bien definie, quand la reutilisation d'un objet est difficile parce qu'il reference de nombreux autres objets, ou quand vous voulez personnaliser un comportement distribue entre plusieurs classes sans creer de nombreuses sous-classes.",
+  "mediator.tooltip.mediator": "Interface Mediator — declare sendMessage() pour acheminer les messages",
+  "mediator.tooltip.chatroom": "ChatRoom gere les utilisateurs et diffuse les messages a tous sauf l'emetteur",
+  "mediator.tooltip.user": "User communique via le mediateur, pas directement avec les autres utilisateurs",
+  "mediator.tooltip.obj-alice": "Alice — une utilisatrice dans le salon de discussion",
+  "mediator.tooltip.obj-bob": "Bob — un utilisateur dans le salon de discussion",
+  "mediator.tooltip.obj-charlie": "Charlie — un utilisateur dans le salon de discussion",
+  "mediator.step.chatroom.0": "Les utilisateurs rejoignent le salon de discussion",
+  "mediator.step.chatroom.1": "Alice rejoint le ChatRoom",
+  "mediator.step.chatroom.2": "Bob rejoint le ChatRoom",
+  "mediator.step.chatroom.3": "Charlie rejoint le ChatRoom",
+  "mediator.step.chatroom.4": "Alice appelle send(\"Bonjour a tous !\")",
+  "mediator.step.chatroom.5": "ChatRoom diffuse a tous sauf l'emetteur",
+  "mediator.step.chatroom.6": "Bob.receive(\"Bonjour a tous !\", Alice)",
+  "mediator.step.chatroom.7": "Charlie.receive(\"Bonjour a tous !\", Alice)",
+  "mediator.stepLabel.chatroom": "Communication en salon via le patron Mediateur",
+  "mediator.depRules": [
+    {
+      "name": "Mediator (interface)",
+      "role": "Definit le contrat sendMessage(message, sender)"
+    },
+    {
+      "name": "ChatRoom",
+      "role": "Mediateur concret qui achemine les messages entre les utilisateurs"
+    },
+    {
+      "name": "User",
+      "role": "Collegue qui communique via le mediateur"
+    }
+  ],
+  "memento.name": "Memento",
+  "memento.modes.editor.label": "Editeur de texte",
+  "memento.modes.editor.desc": "Un Editor (createur) cree des instantanes EditorState (mementos) qui sont stockes dans un History (gardien). L'editeur peut saisir du texte, sauvegarder des instantanes et restaurer des etats precedents pour la fonctionnalite d'annulation.",
+  "memento.details.editor.principles": [
+    "Encapsulation preservee : le memento stocke l'etat sans exposer les details internes du createur",
+    "Responsabilite unique : le createur gere l'etat, le gardien gere l'historique",
+    "Instantanes immuables : les objets memento sont immuables une fois crees, assurant l'integrite",
+    "Separation des responsabilites : la logique d'annulation est dans le gardien, pas dans le createur",
+    "Externalisation de l'etat : l'etat du createur est externalise sans violer l'encapsulation"
+  ],
+  "memento.details.editor.concepts": [
+    {
+      "term": "Originator",
+      "definition": "L'Editor qui cree des mementos contenant des instantanes de son etat courant et peut les restaurer."
+    },
+    {
+      "term": "Memento",
+      "definition": "EditorState — un instantane immuable du contenu de l'editeur a un moment precis."
+    },
+    {
+      "term": "Caretaker",
+      "definition": "History — stocke et gere une pile de mementos sans examiner ni modifier leur contenu."
+    },
+    {
+      "term": "Snapshot",
+      "definition": "Une copie figee de l'etat du createur qui peut etre utilisee pour restaurer le createur ulterieurement."
+    }
+  ],
+  "memento.details.editor.tradeoffs.pros": [
+    "Fournit l'annulation/restauration sans exposer les details d'implementation",
+    "Preserve l'encapsulation — seul le createur accede a son propre etat",
+    "Simplifie le createur en deleguant la gestion de l'historique au gardien",
+    "Les instantanes peuvent etre serialises pour la persistance ou le transfert reseau"
+  ],
+  "memento.details.editor.tradeoffs.cons": [
+    "Peut consommer une memoire significative si les mementos sont volumineux ou crees frequemment",
+    "Le gardien doit gerer le cycle de vie des mementos pour eviter les fuites de memoire",
+    "Dans certains langages, assurer l'immutabilite du memento necessite un effort supplementaire",
+    "Les instantanes frequents d'objets complexes peuvent impacter la performance"
+  ],
+  "memento.details.editor.tradeoffs.whenToUse": "A utiliser quand vous devez fournir la fonctionnalite d'annulation/restauration, quand vous devez sauvegarder et restaurer l'etat d'un objet sans violer l'encapsulation, ou quand l'acces direct a l'etat d'un objet exposerait les details d'implementation.",
+  "memento.tooltip.editor": "Editor (createur) cree et restaure a partir d'instantanes d'etat",
+  "memento.tooltip.memento": "EditorState stocke un instantane immuable du contenu de l'editeur",
+  "memento.tooltip.history": "History (gardien) maintient une pile d'etats sauvegardes",
+  "memento.tooltip.obj-state1": "Instantane du contenu de l'editeur : \"Hello\"",
+  "memento.tooltip.obj-state2": "Instantane du contenu de l'editeur : \"Hello World\"",
+  "memento.tooltip.obj-state3": "Instantane restaure : \"Hello\"",
+  "memento.tooltip.obj-editor": "Instance de l'editeur apres l'operation de restauration",
+  "memento.step.editor.0": "Editor : type(\"Hello\")",
+  "memento.step.editor.1": "Editor.save() → creer EditorState(\"Hello\")",
+  "memento.step.editor.2": "Empiler EditorState dans History",
+  "memento.step.editor.3": "Editor : type(\" World\") → contenu = \"Hello World\"",
+  "memento.step.editor.4": "Save() → empiler \"Hello World\" dans History",
+  "memento.step.editor.5": "Annulation demandee → History.pop()",
+  "memento.step.editor.6": "Editor.restore(state) → contenu = \"Hello\"",
+  "memento.step.editor.7": "Editor restaure a \"Hello\"",
+  "memento.stepLabel.editor": "Sauvegarder et restaurer via le patron Memento",
+  "memento.depRules": [
+    {
+      "name": "Editor (Originator)",
+      "role": "Cree et restaure a partir d'instantanes d'etat"
+    },
+    {
+      "name": "EditorState (Memento)",
+      "role": "Instantane immuable du contenu de l'editeur"
+    },
+    {
+      "name": "History (Caretaker)",
+      "role": "Stocke et gere la pile de mementos"
+    }
+  ],
+  "template-method.name": "Template Method",
+  "template-method.modes.mining.label": "Exploration de donnees",
+  "template-method.modes.mining.desc": "Une classe abstraite DataMiner definit une methode patron mine() avec un squelette d'algorithme fixe : openFile → extractData → parseData → analyze → sendReport. Les sous-classes (CSVMiner, JSONMiner, XMLMiner) redefinissent les etapes variables tandis que les etapes invariantes restent dans la classe de base.",
+  "template-method.details.mining.principles": [
+    "Definir le squelette de l'algorithme : la methode patron decrit les etapes, les sous-classes remplissent les details",
+    "Principe d'Hollywood : \"Ne nous appelez pas, nous vous appellerons\" — la classe de base appelle les methodes des sous-classes",
+    "Reutilisation du code : les etapes communes (analyze, sendReport) resident dans la classe de base, pas dupliquees",
+    "Principe ouvert/ferme : de nouveaux miners peuvent etre ajoutes en sous-classant sans changer le patron",
+    "Inversion de controle : la classe de base controle le flux de l'algorithme, les sous-classes personnalisent les etapes"
+  ],
+  "template-method.details.mining.concepts": [
+    {
+      "term": "Template Method",
+      "definition": "La methode mine() qui definit le squelette de l'algorithme. Elle appelle des methodes abstraites et concretes dans un ordre specifique."
+    },
+    {
+      "term": "Abstract Class",
+      "definition": "DataMiner declare la methode patron et les etapes abstraites (openFile, extractData, parseData) que les sous-classes doivent implementer."
+    },
+    {
+      "term": "Concrete Class",
+      "definition": "CSVMiner, JSONMiner, XMLMiner — chacun redefinit les etapes abstraites pour gerer son format de fichier specifique."
+    },
+    {
+      "term": "Hook Method",
+      "definition": "Methodes optionnelles avec une implementation par defaut que les sous-classes peuvent redefinir pour des points de personnalisation supplementaires."
+    }
+  ],
+  "template-method.details.mining.tradeoffs.pros": [
+    "Elimine la duplication de code — la logique commune reste dans la classe de base",
+    "Fournit une structure d'algorithme claire et facile a comprendre",
+    "Les sous-classes ne personnalisent que les parties qui varient — moins de code a ecrire",
+    "Impose une structure d'algorithme coherente a travers toutes les variantes"
+  ],
+  "template-method.details.mining.tradeoffs.cons": [
+    "Necessite l'heritage — limite la flexibilite par rapport aux patrons bases sur la composition",
+    "Plus d'etapes dans le patron signifie plus de methodes a redefinir",
+    "Viole la substitution de Liskov si les sous-classes suppriment des etapes de la classe de base",
+    "Peut etre difficile a maintenir quand le patron a de nombreuses methodes de crochet optionnelles"
+  ],
+  "template-method.details.mining.tradeoffs.whenToUse": "A utiliser quand vous avez plusieurs classes avec des algorithmes similaires qui ne different que par certaines etapes, quand vous voulez laisser les sous-classes etendre des etapes specifiques d'un algorithme sans changer sa structure, ou quand vous voulez controler les points d'extension disponibles pour les sous-classes.",
+  "template-method.tooltip.abstract": "DataMiner definit le patron mine() avec des etapes abstraites a redefinir par les sous-classes",
+  "template-method.tooltip.csv": "CSVMiner redefinit openFile/extractData/parseData pour les fichiers CSV",
+  "template-method.tooltip.json": "JSONMiner redefinit openFile/extractData/parseData pour les fichiers JSON",
+  "template-method.tooltip.xml": "XMLMiner redefinit openFile/extractData/parseData pour les fichiers XML",
+  "template-method.tooltip.obj-csv": "Instance CSVMiner a l'execution apres le pipeline d'exploration",
+  "template-method.tooltip.obj-json": "Instance JSONMiner a l'execution — meme patron, format different",
+  "template-method.tooltip.obj-xml": "Instance XMLMiner a l'execution — meme patron, format different",
+  "template-method.step.mining.0": "Appeler la methode patron mine() sur CSVMiner",
+  "template-method.step.mining.1": "Etape 1 : openFile(\"data.csv\")",
+  "template-method.step.mining.2": "Etape 2 : extractData() → lignes CSV brutes",
+  "template-method.step.mining.3": "Etape 3 : parseData() → enregistrements structures",
+  "template-method.step.mining.4": "Etape 4 : analyze() — logique commune dans la classe de base",
+  "template-method.step.mining.5": "Etape 5 : sendReport() — logique commune dans la classe de base",
+  "template-method.step.mining.6": "Pipeline d'exploration termine pour CSV",
+  "template-method.step.mining.7": "Le meme patron fonctionne pour les miners JSON/XML",
+  "template-method.stepLabel.mining": "Pipeline d'exploration de donnees via la Methode patron",
+  "template-method.depRules": [
+    {
+      "name": "DataMiner (Abstract Class)",
+      "role": "Definit la methode patron mine() avec le squelette de l'algorithme"
+    },
+    {
+      "name": "CSVMiner",
+      "role": "Redefinit les etapes pour le traitement des fichiers CSV"
+    },
+    {
+      "name": "JSONMiner",
+      "role": "Redefinit les etapes pour le traitement des fichiers JSON"
+    },
+    {
+      "name": "XMLMiner",
+      "role": "Redefinit les etapes pour le traitement des fichiers XML"
+    }
+  ],
+  "visitor.name": "Visitor",
+  "visitor.modes.export.label": "Export de formes",
+  "visitor.modes.export.desc": "Un XMLExportVisitor et un JSONExportVisitor parcourent une collection de formes (Circle, Rectangle) via le double dispatch. La methode accept(visitor) de chaque forme appelle la methode visit appropriee, permettant d'ajouter de nouveaux formats d'export sans modifier les classes de formes.",
+  "visitor.details.export.principles": [
+    "Double dispatch : accept() appelle la methode specifique au type du visiteur, activant le polymorphisme des deux cotes",
+    "Principe ouvert/ferme : de nouvelles operations (visiteurs) peuvent etre ajoutees sans modifier les classes d'elements",
+    "Responsabilite unique : chaque visiteur encapsule une operation a travers tous les types d'elements",
+    "Separation des responsabilites : les algorithmes sont separes des objets sur lesquels ils operent",
+    "Accumulation : les visiteurs peuvent collecter un etat au fur et a mesure qu'ils parcourent la structure d'objets"
+  ],
+  "visitor.details.export.concepts": [
+    {
+      "term": "Visitor",
+      "definition": "Une interface declarant des methodes visit pour chaque type d'element (visitCircle, visitRectangle). Chaque visiteur concret implemente une operation specifique."
+    },
+    {
+      "term": "Element",
+      "definition": "L'interface Shape avec la methode accept(visitor). Chaque element concret appelle la methode visit appropriee sur le visiteur."
+    },
+    {
+      "term": "Double Dispatch",
+      "definition": "Deux appels polymorphiques : d'abord sur l'element (accept), puis sur le visiteur (visitX). Cela selectionne la methode correcte basee sur les deux types."
+    },
+    {
+      "term": "Object Structure",
+      "definition": "Une collection d'elements (formes) qui peut etre parcourue. Le visiteur est applique a chaque element tour a tour."
+    }
+  ],
+  "visitor.details.export.tradeoffs.pros": [
+    "Facile d'ajouter de nouvelles operations — il suffit de creer une nouvelle classe de visiteur",
+    "Les operations liees sont regroupees dans un seul visiteur, pas dispersees entre les classes d'elements",
+    "Les visiteurs peuvent accumuler un etat en parcourant la structure d'objets",
+    "Respecte la responsabilite unique — chaque visiteur gere une seule preoccupation"
+  ],
+  "visitor.details.export.tradeoffs.cons": [
+    "Ajouter de nouveaux types d'elements necessite la mise a jour de tous les visiteurs",
+    "Les visiteurs peuvent rompre l'encapsulation s'ils ont besoin d'acceder aux details internes des elements",
+    "Le double dispatch peut etre deroutant et difficile a deboguer",
+    "Pas adapte quand les classes d'elements changent frequemment"
+  ],
+  "visitor.details.export.tradeoffs.whenToUse": "A utiliser quand vous devez effectuer de nombreuses operations non liees sur des objets d'une structure et souhaitez eviter de polluer leurs classes, quand la structure d'objets change rarement mais de nouvelles operations sont ajoutees frequemment, ou quand vous voulez accumuler un etat a travers une structure d'objets complexe.",
+  "visitor.tooltip.visitor": "Interface Visitor — declare les methodes visitCircle() et visitRectangle()",
+  "visitor.tooltip.shape": "Interface Shape — declare accept(visitor) pour le double dispatch",
+  "visitor.tooltip.xml": "XMLExportVisitor exporte les formes au format XML",
+  "visitor.tooltip.json": "JSONExportVisitor exporte les formes au format JSON",
+  "visitor.tooltip.circle": "Forme Circle avec rayon, implemente accept(visitor)",
+  "visitor.tooltip.rect": "Forme Rectangle avec largeur et hauteur, implemente accept(visitor)",
+  "visitor.tooltip.obj-xml": "Instance XMLExportVisitor a l'execution traitant les formes",
+  "visitor.tooltip.obj-json": "Instance JSONExportVisitor a l'execution — meme parcours, sortie differente",
+  "visitor.tooltip.obj-circle": "Instance de Circle apres l'export",
+  "visitor.tooltip.obj-rect": "Instance de Rectangle apres l'export",
+  "visitor.step.export.0": "Creer XMLExportVisitor",
+  "visitor.step.export.1": "XMLExportVisitor instancie",
+  "visitor.step.export.2": "circle.accept(xmlVisitor)",
+  "visitor.step.export.3": "visitCircle(circle) → \"<circle r=5/>\"",
+  "visitor.step.export.4": "rectangle.accept(xmlVisitor)",
+  "visitor.step.export.5": "visitRectangle(rect) → \"<rect w=10 h=5/>\"",
+  "visitor.step.export.6": "Circle exporte en XML",
+  "visitor.step.export.7": "Rectangle exporte en XML",
+  "visitor.step.export.8": "Changer de visiteur : JSONExportVisitor fonctionne de la meme maniere",
+  "visitor.step.export.9": "Toutes les formes exportees — aucun code de forme modifie",
+  "visitor.stepLabel.export": "Exporter des formes via le patron Visiteur",
+  "visitor.depRules": [
+    {
+      "name": "Visitor (interface)",
+      "role": "Declare les methodes visit pour chaque type de forme"
+    },
+    {
+      "name": "XMLExportVisitor",
+      "role": "Exporte les formes au format XML"
+    },
+    {
+      "name": "JSONExportVisitor",
+      "role": "Exporte les formes au format JSON"
+    },
+    {
+      "name": "Shape (interface)",
+      "role": "Declare accept(visitor) pour le double dispatch"
+    },
+    {
+      "name": "Circle",
+      "role": "Forme concrete avec rayon"
+    },
+    {
+      "name": "Rectangle",
+      "role": "Forme concrete avec largeur et hauteur"
+    }
   ]
 }
