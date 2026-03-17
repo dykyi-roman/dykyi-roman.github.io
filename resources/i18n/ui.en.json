@@ -120,5 +120,18 @@
   "ui.log.type.LOAD": "LOAD",
   "ui.log.type.REPLAY": "REPLAY",
   "ui.log.type.WRITE_EVENT": "WRITE",
-  "ui.code_examples.title": "Code Examples"
+  "ui.code_examples.title": "Code Examples",
+  "ui.chat.title": "AI Assistant",
+  "ui.chat.welcome": "Hi! I'm an AI assistant. Ask me anything about what you see on this page, and I'll do my best to help.",
+  "ui.chat.placeholder": "Ask a question…",
+  "ui.chat.clear": "Clear chat",
+  "ui.chat.clear_history": "Clear history",
+  "ui.chat.close": "Close",
+  "ui.chat.close_chat": "Close chat",
+  "ui.chat.send": "Send message",
+  "ui.chat.input_label": "Message input",
+  "ui.chat.error": "Sorry, something went wrong. Please try again. ({error})",
+  "ui.chat.fab.open": "Open AI chat",
+  "ui.chat.fab.close": "Close AI chat",
+  "ui.chat.system_prompt": "You are a helpful AI assistant. Answer concisely and clearly."
 }

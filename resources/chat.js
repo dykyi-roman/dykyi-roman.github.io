@@ -5,6 +5,14 @@
 (function () {
     'use strict';
 
+    /* ── Translations ─────────────────────────────────────────────── */
+    function t(key, params, fallback) {
+        if (window.I18N && typeof window.I18N.t === 'function') {
+            return window.I18N.t(key, params, fallback);
+        }
+        return fallback;
+    }
+
     var DEFAULT_SYSTEM_PROMPT =
         'You are a helpful AI assistant. Answer concisely and clearly.';
 
@@ -23,9 +31,12 @@
     var dom = {
         fab: null,
         panel: null,
+        headerTitle: null,
         messages: null,
         input: null,
         sendBtn: null,
+        clearBtn: null,
+        closeBtn: null,
         typingIndicator: null
     };
 
@@ -57,7 +68,8 @@
     }
 
     function getSystemPrompt() {
-        return (window.CHAT_SYSTEM_PROMPT || DEFAULT_SYSTEM_PROMPT).trim();
+        var defaultPrompt = t('ui.chat.system_prompt', null, DEFAULT_SYSTEM_PROMPT);
+        return (window.CHAT_SYSTEM_PROMPT || defaultPrompt).trim();
     }
 
     function scrollToBottom() {
@@ -70,7 +82,7 @@
     function createFAB() {
         var btn = el('button', {
             className: 'chat-fab chat-fab--pulse',
-            'aria-label': 'Open AI chat',
+            'aria-label': t('ui.chat.fab.open', null, 'Open AI chat'),
             'aria-expanded': 'false',
             'aria-haspopup': 'dialog',
             innerHTML: SVG.chat
@@ -85,7 +97,8 @@
         var headerIcon = el('div', { className: 'chat-header-icon', innerHTML: SVG.ai });
 
         var headerTitle = el('div', { className: 'chat-header-title' });
-        headerTitle.textContent = 'AI Assistant';
+        headerTitle.textContent = t('ui.chat.title', null, 'AI Assistant');
+        dom.headerTitle = headerTitle;
 
         var headerSubtitle = el('div', { className: 'chat-header-subtitle' });
         headerSubtitle.textContent = '';
@@ -97,19 +110,21 @@
 
         var clearBtn = el('button', {
             className: 'chat-header-btn',
-            'aria-label': 'Clear history',
+            'aria-label': t('ui.chat.clear_history', null, 'Clear history'),
             innerHTML: SVG.clear,
-            title: 'Clear chat'
+            title: t('ui.chat.clear', null, 'Clear chat')
         });
         clearBtn.addEventListener('click', clearHistory);
+        dom.clearBtn = clearBtn;
 
         var closeBtn = el('button', {
             className: 'chat-header-btn',
-            'aria-label': 'Close chat',
+            'aria-label': t('ui.chat.close_chat', null, 'Close chat'),
             innerHTML: SVG.close,
-            title: 'Close'
+            title: t('ui.chat.close', null, 'Close')
         });
         closeBtn.addEventListener('click', closePanel);
+        dom.closeBtn = closeBtn;
 
         var actions = el('div', { className: 'chat-header-actions' });
         actions.appendChild(clearBtn);
@@ -132,9 +147,9 @@
         /* Input area */
         var input = el('textarea', {
             className: 'chat-input',
-            placeholder: 'Ask a question…',
+            placeholder: t('ui.chat.placeholder', null, 'Ask a question…'),
             rows: '1',
-            'aria-label': 'Message input',
+            'aria-label': t('ui.chat.input_label', null, 'Message input'),
             'aria-multiline': 'true'
         });
         dom.input = input;
@@ -153,7 +168,7 @@
 
         var sendBtn = el('button', {
             className: 'chat-send-btn',
-            'aria-label': 'Send message',
+            'aria-label': t('ui.chat.send', null, 'Send message'),
             innerHTML: SVG.send
         });
         dom.sendBtn = sendBtn;
@@ -167,7 +182,7 @@
         var panel = el('div', {
             className: 'chat-panel',
             role: 'dialog',
-            'aria-label': 'AI Chat',
+            'aria-label': t('ui.chat.title', null, 'AI Assistant'),
             'aria-modal': 'false'
         });
         panel.appendChild(header);
@@ -187,7 +202,7 @@
         dom.fab.classList.remove('chat-fab--pulse');
         dom.fab.innerHTML = SVG.close;
         dom.fab.setAttribute('aria-expanded', 'true');
-        dom.fab.setAttribute('aria-label', 'Close AI chat');
+        dom.fab.setAttribute('aria-label', t('ui.chat.fab.close', null, 'Close AI chat'));
 
         if (!state.welcomeShown) {
             state.welcomeShown = true;
@@ -207,7 +222,7 @@
         dom.fab.classList.add('chat-fab--pulse');
         dom.fab.innerHTML = SVG.chat;
         dom.fab.setAttribute('aria-expanded', 'false');
-        dom.fab.setAttribute('aria-label', 'Open AI chat');
+        dom.fab.setAttribute('aria-label', t('ui.chat.fab.open', null, 'Open AI chat'));
     }
 
     function togglePanel() {
@@ -216,7 +231,7 @@
 
     /* ── Welcome message ─────────────────────────────────────────── */
     function getWelcomeMessage() {
-        return 'Hi! I\'m an AI assistant. Ask me anything about what you see on this page, and I\'ll do my best to help.';
+        return t('ui.chat.welcome', null, 'Hi! I\'m an AI assistant. Ask me anything about what you see on this page, and I\'ll do my best to help.');
     }
 
     /* ── Messages ─────────────────────────────────────────────────── */
@@ -382,7 +397,8 @@
             })
             .catch(function (err) {
                 removeTypingIndicator();
-                appendMessage('error', 'Sorry, something went wrong. Please try again. (' + err.message + ')');
+                var errMsg = t('ui.chat.error', { error: err.message }, 'Sorry, something went wrong. Please try again. (' + err.message + ')');
+                appendMessage('error', errMsg);
             })
             .finally(function () {
                 setLoadingState(false);
@@ -402,6 +418,30 @@
         appendMessage('ai', getWelcomeMessage());
     }
 
+    /* ── Refresh UI ───────────────────────────────────────────────── */
+    window.CHAT_refresh = function() {
+        if (dom.headerTitle) dom.headerTitle.textContent = t('ui.chat.title', null, 'AI Assistant');
+        if (dom.input) {
+            dom.input.placeholder = t('ui.chat.placeholder', null, 'Ask a question…');
+            dom.input.setAttribute('aria-label', t('ui.chat.input_label', null, 'Message input'));
+        }
+        if (dom.clearBtn) {
+            dom.clearBtn.title = t('ui.chat.clear', null, 'Clear chat');
+            dom.clearBtn.setAttribute('aria-label', t('ui.chat.clear_history', null, 'Clear history'));
+        }
+        if (dom.closeBtn) {
+            dom.closeBtn.title = t('ui.chat.close', null, 'Close');
+            dom.closeBtn.setAttribute('aria-label', t('ui.chat.close_chat', null, 'Close chat'));
+        }
+        if (dom.sendBtn) dom.sendBtn.setAttribute('aria-label', t('ui.chat.send', null, 'Send message'));
+        if (dom.panel) dom.panel.setAttribute('aria-label', t('ui.chat.title', null, 'AI Assistant'));
+        if (dom.fab) {
+            var labelKey = state.isOpen ? 'ui.chat.fab.close' : 'ui.chat.fab.open';
+            var fallback = state.isOpen ? 'Close AI chat' : 'Open AI chat';
+            dom.fab.setAttribute('aria-label', t(labelKey, null, fallback));
+        }
+    };
+
     /* ── Keyboard handler ─────────────────────────────────────────── */
     function onKeyDown(e) {
         if (e.key === 'Escape' && state.isOpen) {
@@ -411,15 +451,20 @@
 
     /* ── Init ─────────────────────────────────────────────────────── */
     function init() {
+        if (document.body.classList.contains('has-chat')) return;
         document.body.classList.add('has-chat');
         createFAB();
         createPanel();
         document.addEventListener('keydown', onKeyDown);
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+    if (window.I18N && typeof window.I18N.onReady === 'function') {
+        window.I18N.onReady(init);
     } else {
-        init();
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     }
 }());

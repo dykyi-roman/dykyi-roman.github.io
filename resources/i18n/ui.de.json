@@ -101,5 +101,17 @@
     "ui.log.type.PROPERTY": "EIGENSCHAFT",
     "ui.log.type.POOL": "POOL",
     "ui.log.type.CACHE": "CACHE",
-    "ui.code_examples.title": "Codebeispiele"
-}
+    "ui.code_examples.title": "Code-Beispiele",
+    "ui.chat.title": "KI-Assistent",
+    "ui.chat.welcome": "Hallo! Ich bin ein KI-Assistent. Fragen Sie mich alles über das, was Sie auf dieser Seite sehen, und ich werde mein Bestes tun, um zu helfen.",
+    "ui.chat.placeholder": "Eine Frage stellen…",
+    "ui.chat.clear": "Chat leeren",
+    "ui.chat.clear_history": "Verlauf löschen",
+    "ui.chat.close": "Schließen",
+    "ui.chat.close_chat": "Chat schließen",
+    "ui.chat.send": "Nachricht senden",
+    "ui.chat.input_label": "Nachrichteneingabe",
+    "ui.chat.error": "Entschuldigung, etwas ist schief gelaufen. Bitte versuchen Sie es erneut. ({error})",    "ui.chat.fab.open": "KI-Chat öffnen",
+    "ui.chat.fab.close": "KI-Chat schließen",
+    "ui.chat.system_prompt": "Sie sind ein hilfreicher KI-Assistent. Antworten Sie prägnant und klar."
+    }

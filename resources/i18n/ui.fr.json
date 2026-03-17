@@ -101,5 +101,18 @@
     "ui.log.type.PROPERTY": "PROPRIÉTÉ",
     "ui.log.type.POOL": "POOL",
     "ui.log.type.CACHE": "CACHE",
-    "ui.code_examples.title": "Exemples de code"
-}
+    "ui.code_examples.title": "Exemples de Code",
+    "ui.chat.title": "Assistant IA",
+    "ui.chat.welcome": "Salut ! Je suis un assistant IA. Posez-moi toutes vos questions sur ce que vous voyez sur cette page, et je ferai de mon mieux pour vous aider.",
+    "ui.chat.placeholder": "Poser une question…",
+    "ui.chat.clear": "Effacer le chat",
+    "ui.chat.clear_history": "Effacer l'historique",
+    "ui.chat.close": "Fermer",
+    "ui.chat.close_chat": "Fermer le chat",
+    "ui.chat.send": "Envoyer le message",
+    "ui.chat.input_label": "Saisie du message",
+    "ui.chat.error": "Désolé, un problème est survenu. Veuillez réessayer. ({error})",
+    "ui.chat.fab.open": "Ouvrir le chat IA",
+    "ui.chat.fab.close": "Fermer le chat IA",
+    "ui.chat.system_prompt": "Vous êtes un assistant IA utile. Répondez de manière concise et claire."
+    }

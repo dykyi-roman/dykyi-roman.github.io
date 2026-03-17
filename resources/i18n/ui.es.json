@@ -101,5 +101,17 @@
     "ui.log.type.PROPERTY": "PROPIEDAD",
     "ui.log.type.POOL": "POOL",
     "ui.log.type.CACHE": "CACHÉ",
-    "ui.code_examples.title": "Ejemplos de código"
-}
+    "ui.code_examples.title": "Ejemplos de Código",
+    "ui.chat.title": "Asistente de IA",
+    "ui.chat.welcome": "¡Hola! Soy un asistente de IA. Pregúntame cualquier cosa sobre lo que ves en esta página e intentaré ayudarte.",
+    "ui.chat.placeholder": "Haz una pregunta…",
+    "ui.chat.clear": "Limpiar chat",
+    "ui.chat.clear_history": "Limpiar historial",
+    "ui.chat.close": "Cerrar",
+    "ui.chat.close_chat": "Cerrar chat",
+    "ui.chat.send": "Enviar mensaje",
+    "ui.chat.input_label": "Entrada de mensaje",
+    "ui.chat.error": "Lo siento, algo salió mal. Por favor, inténtalo de nuevo. ({error})",    "ui.chat.fab.open": "Abrir chat de IA",
+    "ui.chat.fab.close": "Cerrar chat de IA",
+    "ui.chat.system_prompt": "Eres un asistente de IA servicial. Responde de forma concisa и clara."
+    }

@@ -123,5 +123,18 @@
   "ui.log.type.LOAD": "ЗАГРУЗКА",
   "ui.log.type.REPLAY": "ВОСПРОИЗВ",
   "ui.log.type.WRITE_EVENT": "ЗАПИСЬ",
-  "ui.code_examples.title": "Примеры кода"
+  "ui.code_examples.title": "Примеры кода",
+  "ui.chat.title": "AI Помощник",
+  "ui.chat.welcome": "Привет! Я ИИ-помощник. Спрашивайте что угодно о содержании этой страницы, и я постараюсь помочь.",
+  "ui.chat.placeholder": "Задать вопрос…",
+  "ui.chat.clear": "Очистить чат",
+  "ui.chat.clear_history": "Очистить историю",
+  "ui.chat.close": "Закрыть",
+  "ui.chat.close_chat": "Закрыть чат",
+  "ui.chat.send": "Отправить сообщение",
+  "ui.chat.input_label": "Поле ввода сообщения",
+  "ui.chat.error": "Извините, что-то пошло не так. Пожалуйста, попробуйте еще раз. ({error})",
+  "ui.chat.fab.open": "Открыть чат с ИИ",
+  "ui.chat.fab.close": "Закрыть чат с ИИ",
+  "ui.chat.system_prompt": "Вы — полезный ИИ-помощник. Отвечайте кратко и четко."
 }
