@@ -223,6 +223,15 @@
     min-width: 0;
 }
 
+/* Compact tabs when 9+ items (Behavioral has 10) */
+.pv-tab:first-child:nth-last-child(n+9),
+.pv-tab:first-child:nth-last-child(n+9) ~ .pv-tab {
+    font-size: 11px;
+    padding: 8px 6px;
+    white-space: normal;
+    line-height: 1.3;
+}
+
 .pv-tab:hover {
     background: var(--pv-bg);
     color: var(--pv-text);

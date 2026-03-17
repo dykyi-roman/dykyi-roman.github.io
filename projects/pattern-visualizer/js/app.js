@@ -66,10 +66,6 @@
                 I18N.t(id + '.name', null, patternConfigs[id] ? patternConfigs[id].name : id) + '</button>';
         }).join('');
 
-        nav.querySelectorAll('.pv-tab').forEach(function(tab) {
-            tab.onclick = function() { switchPattern(tab.dataset.pattern); };
-        });
-
         if (patterns.length > 0 && patternConfigs[patterns[0]]) {
             switchPattern(patterns[0]);
         }
@@ -315,6 +311,14 @@
         document.getElementById('btn-step-fwd').onclick = function() { PV.stepForward(); };
         document.getElementById('btn-step-back').onclick = function() { PV.stepBack(); };
 
+        /* Pattern tab delegation */
+        document.getElementById('pv-nav').addEventListener('click', function(e) {
+            var tab = e.target.closest('.pv-tab');
+            if (tab && tab.dataset.pattern) {
+                switchPattern(tab.dataset.pattern);
+            }
+        });
+
         /* Category buttons */
         document.querySelectorAll('.pv-category').forEach(function(btn) {
             if (btn.disabled) return;
@@ -344,9 +348,6 @@
                         return '<button class="pv-tab" data-pattern="' + id + '" role="tab" aria-selected="false" data-i18n="' + id + '.name">' +
                             I18N.t(id + '.name', null, patternConfigs[id] ? patternConfigs[id].name : id) + '</button>';
                     }).join('');
-                    nav.querySelectorAll('.pv-tab').forEach(function(tab) {
-                        tab.onclick = function() { switchPattern(tab.dataset.pattern); };
-                    });
                 }
                 switchPattern(saved.pattern, saved.mode);
             } else {
@@ -372,9 +373,6 @@
                     return '<button class="pv-tab" data-pattern="' + id + '" role="tab" aria-selected="false" data-i18n="' + id + '.name">' +
                         I18N.t(id + '.name', null, patternConfigs[id] ? patternConfigs[id].name : id) + '</button>';
                 }).join('');
-                nav.querySelectorAll('.pv-tab').forEach(function(tab) {
-                    tab.onclick = function() { switchPattern(tab.dataset.pattern); };
-                });
             }
             switchPattern(saved.pattern, saved.mode);
         }

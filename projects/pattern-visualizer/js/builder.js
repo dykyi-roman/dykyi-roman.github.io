@@ -145,6 +145,16 @@ PV['builder'].house = {
                 badgePosition: 'top'
             },
             {
+                elementId: 'obj-b-house',
+                label: 'new House()',
+                description: 'WoodenHouseBuilder creates an empty House in constructor',
+                descriptionKey: 'builder.step.house.init',
+                logType: 'CREATE',
+                spawnId: 'obj-b-house',
+                spawnLabel: ':House',
+                arrowFromId: 'cls-wooden-builder'
+            },
+            {
                 elementId: 'cls-wooden-builder',
                 label: 'buildFoundation()',
                 description: 'Builder lays the foundation — log pilings for wooden house',
@@ -163,8 +173,8 @@ PV['builder'].house = {
                 spawnId: 'prop-foundation',
                 spawnLabel: 'foundation',
                 arrowFromId: 'cls-wooden-builder',
-                arrowFromOffset: { x: 0, y: -0.45 },
-                arrowToOffset: { x: 0, y: -0.45 }
+                arrowFromOffset: { x: 0, y: -0.75 },
+                arrowToOffset: { x: 0, y: -0.75 }
             },
             {
                 elementId: 'cls-wooden-builder',
@@ -185,8 +195,8 @@ PV['builder'].house = {
                 spawnId: 'prop-walls',
                 spawnLabel: 'walls',
                 arrowFromId: 'cls-wooden-builder',
-                arrowFromOffset: { x: 0, y: -0.15 },
-                arrowToOffset: { x: 0, y: -0.15 }
+                arrowFromOffset: { x: 0, y: -0.25 },
+                arrowToOffset: { x: 0, y: -0.25 }
             },
             {
                 elementId: 'cls-wooden-builder',
@@ -207,8 +217,8 @@ PV['builder'].house = {
                 spawnId: 'prop-roof',
                 spawnLabel: 'roof',
                 arrowFromId: 'cls-wooden-builder',
-                arrowFromOffset: { x: 0, y: 0.15 },
-                arrowToOffset: { x: 0, y: 0.15 }
+                arrowFromOffset: { x: 0, y: 0.25 },
+                arrowToOffset: { x: 0, y: 0.25 }
             },
             {
                 elementId: 'cls-wooden-builder',
@@ -229,8 +239,8 @@ PV['builder'].house = {
                 spawnId: 'prop-interior',
                 spawnLabel: 'interior',
                 arrowFromId: 'cls-wooden-builder',
-                arrowFromOffset: { x: 0, y: 0.45 },
-                arrowToOffset: { x: 0, y: 0.45 }
+                arrowFromOffset: { x: 0, y: 0.75 },
+                arrowToOffset: { x: 0, y: 0.75 }
             },
             {
                 elementId: 'cls-director',
@@ -246,8 +256,7 @@ PV['builder'].house = {
                 description: 'Fully assembled House returned to the client',
                 descriptionKey: 'builder.step.house.10',
                 logType: 'RESPONSE',
-                spawnId: 'obj-b-house',
-                spawnLabel: ':House'
+                arrowFromId: 'cls-director'
             }
         ];
     },

@@ -22,7 +22,7 @@ function renderFactoryMethodLogistics() {
             '<div class="pv-hierarchy-row" style="gap: 140px;">' +
                 PV.renderClass('fm-logistics', 'Logistics', {
                     stereotype: 'abstract',
-                    methods: ['createTransport(): Transport', 'planDelivery()'],
+                    methods: ['<em>createTransport(): Transport</em>', 'planDelivery()'],
                     tooltip: I18N.t('factory-method.tooltip.logistics', null, 'Abstract creator that declares the factory method createTransport() and uses it inside planDelivery()')
                 }) +
                 PV.renderClass('fm-transport', 'Transport', {
@@ -125,7 +125,7 @@ PV['factory-method'].logistics = {
     steps: function() {
         return [
             { elementId: 'fm-logistics', label: 'Client calls planDelivery()', description: 'Client invokes planDelivery() on the abstract Logistics reference', descriptionKey: 'factory-method.step.logistics.0', logType: 'REQUEST', badgePosition: 'top' },
-            { elementId: 'fm-logistics', label: 'Logistics.planDelivery()', description: 'planDelivery() internally calls the abstract createTransport() factory method', descriptionKey: 'factory-method.step.logistics.1', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },
+            { elementId: 'fm-logistics', label: 'Logistics.planDelivery()', description: 'planDelivery() internally calls the abstract createTransport() factory method', descriptionKey: 'factory-method.step.logistics.1', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'left' },
             { elementId: 'fm-road-logistics', label: 'RoadLogistics.createTransport()', description: 'Concrete creator overrides createTransport() to instantiate a Truck', descriptionKey: 'factory-method.step.logistics.2', logType: 'FLOW', arrowFromId: 'fm-logistics' },
             { elementId: 'fm-truck', label: 'new Truck()', description: 'Truck constructor is invoked by RoadLogistics', descriptionKey: 'factory-method.step.logistics.3', logType: 'CREATE', spawnId: 'obj-fm-truck', spawnLabel: ':Truck', arrowFromId: 'fm-road-logistics' },
             { elementId: 'obj-fm-truck', label: ':Truck', description: 'Truck instance is returned to planDelivery()', descriptionKey: 'factory-method.step.logistics.4', logType: 'FLOW', noArrowFromPrev: true, badgePosition: 'right' },
