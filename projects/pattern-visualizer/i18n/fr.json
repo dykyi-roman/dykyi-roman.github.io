@@ -1361,6 +1361,8 @@
     "Les parametres des commandes doivent etre serialisables si les commandes sont persistees"
   ],
   "command.details.remote.tradeoffs.whenToUse": "A utiliser quand vous souhaitez parametrer des objets avec des operations, mettre en file ou planifier des operations pour une execution ulterieure, implementer la fonctionnalite d'annulation/restauration, ou structurer un systeme autour d'operations de haut niveau construites a partir de primitives.",
+  "command.arrow.executes": "exécute",
+  "command.arrow.actson": "agit sur",
   "command.tooltip.invoker": "RemoteControl stocke et execute les commandes, maintient l'historique d'annulation",
   "command.tooltip.command": "Interface Command — declare les methodes execute() et undo()",
   "command.tooltip.on": "TurnOnCommand encapsule Light.turnOn() et son annulation",
@@ -1441,6 +1443,7 @@
     "Les donnees partagees entre les etats necessitent une conception soignee"
   ],
   "state.details.order.tradeoffs.whenToUse": "A utiliser quand le comportement d'un objet depend de son etat et change a l'execution, quand les operations ont de grandes instructions conditionnelles basees sur l'etat, ou quand vous souhaitez modeliser une machine a etats finis avec des transitions claires.",
+  "state.arrow.delegates": "délègue à",
   "state.tooltip.context": "Order maintient l'etat courant et delegue les appels pay/ship/deliver a celui-ci",
   "state.tooltip.state": "Interface OrderState — declare pay(), ship(), deliver() pour tous les etats",
   "state.tooltip.draft": "DraftState : etat initial, seul pay() est valide",
@@ -1683,6 +1686,7 @@
     "Goulot d'etranglement de performance si tous les messages transitent par un seul objet"
   ],
   "mediator.details.chatroom.tradeoffs.whenToUse": "A utiliser quand un ensemble d'objets communiquent de maniere complexe mais bien definie, quand la reutilisation d'un objet est difficile parce qu'il reference de nombreux autres objets, ou quand vous voulez personnaliser un comportement distribue entre plusieurs classes sans creer de nombreuses sous-classes.",
+  "mediator.arrow.mediates": "médie",
   "mediator.tooltip.mediator": "Interface Mediator — declare sendMessage() pour acheminer les messages",
   "mediator.tooltip.chatroom": "ChatRoom gere les utilisateurs et diffuse les messages a tous sauf l'emetteur",
   "mediator.tooltip.user": "User communique via le mediateur, pas directement avec les autres utilisateurs",

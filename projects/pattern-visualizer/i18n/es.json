@@ -1361,6 +1361,8 @@
     "Los parametros del comando deben ser serializables si los comandos se persisten"
   ],
   "command.details.remote.tradeoffs.whenToUse": "Usar cuando se desea parametrizar objetos con operaciones, encolar o programar operaciones para ejecucion posterior, implementar funcionalidad de deshacer/rehacer, o estructurar un sistema alrededor de operaciones de alto nivel construidas a partir de primitivas.",
+  "command.arrow.executes": "ejecuta",
+  "command.arrow.actson": "actúa sobre",
   "command.tooltip.invoker": "RemoteControl almacena y ejecuta comandos, mantiene historial de deshacer",
   "command.tooltip.command": "Interfaz Command — declara metodos execute() y undo()",
   "command.tooltip.on": "TurnOnCommand encapsula Light.turnOn() y su deshacer",
@@ -1441,6 +1443,7 @@
     "Los datos compartidos entre estados requieren un diseno cuidadoso"
   ],
   "state.details.order.tradeoffs.whenToUse": "Usar cuando el comportamiento de un objeto depende de su estado y cambia en tiempo de ejecucion, cuando las operaciones tienen grandes sentencias condicionales basadas en el estado, o cuando se quiere modelar una maquina de estados finita con transiciones claras.",
+  "state.arrow.delegates": "delega a",
   "state.tooltip.context": "Order mantiene el estado actual y delega las llamadas pay/ship/deliver a el",
   "state.tooltip.state": "Interfaz OrderState — declara pay(), ship(), deliver() para todos los estados",
   "state.tooltip.draft": "DraftState: estado inicial, solo pay() es valido",
@@ -1683,6 +1686,7 @@
     "Cuello de botella de rendimiento si todos los mensajes se enrutan a traves de un objeto"
   ],
   "mediator.details.chatroom.tradeoffs.whenToUse": "Usar cuando un conjunto de objetos se comunican de formas complejas pero bien definidas, cuando reutilizar un objeto es dificil porque referencia a muchos otros objetos, o cuando se desea personalizar el comportamiento distribuido entre varias clases sin crear muchas subclases.",
+  "mediator.arrow.mediates": "media",
   "mediator.tooltip.mediator": "Interfaz Mediator — declara sendMessage() para enrutar mensajes",
   "mediator.tooltip.chatroom": "ChatRoom gestiona usuarios y difunde mensajes a todos excepto al emisor",
   "mediator.tooltip.user": "User se comunica a traves del mediador, no directamente con otros usuarios",

@@ -1361,6 +1361,8 @@
     "Befehlsparameter muessen serialisierbar sein, wenn Befehle persistiert werden"
   ],
   "command.details.remote.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie Objekte mit Operationen parametrisieren, Operationen in Warteschlangen stellen oder fuer spaetere Ausfuehrung planen, Undo/Redo-Funktionalitaet implementieren oder ein System um High-Level-Operationen strukturieren moechten, die aus primitiven aufgebaut sind.",
+  "command.arrow.executes": "führt aus",
+  "command.arrow.actson": "wirkt auf",
   "command.tooltip.invoker": "RemoteControl speichert und fuehrt Befehle aus, verwaltet Undo-Historie",
   "command.tooltip.command": "Command-Schnittstelle — deklariert execute()- und undo()-Methoden",
   "command.tooltip.on": "TurnOnCommand kapselt Light.turnOn() und dessen Undo",
@@ -1441,6 +1443,7 @@
     "Gemeinsame Daten zwischen Zustaenden erfordern sorgfaeltiges Design"
   ],
   "state.details.order.tradeoffs.whenToUse": "Verwenden Sie es, wenn das Verhalten eines Objekts von seinem Zustand abhaengt und sich zur Laufzeit aendert, wenn Operationen grosse bedingte Anweisungen basierend auf dem Zustand haben, oder wenn Sie eine endliche Zustandsmaschine mit klaren Uebergaengen modellieren moechten.",
+  "state.arrow.delegates": "delegiert an",
   "state.tooltip.context": "Order verwaltet aktuellen Zustand und delegiert pay/ship/deliver-Aufrufe an diesen",
   "state.tooltip.state": "OrderState-Schnittstelle — deklariert pay(), ship(), deliver() fuer alle Zustaende",
   "state.tooltip.draft": "DraftState: Anfangszustand, nur pay() ist gueltig",
@@ -1683,6 +1686,7 @@
     "Leistungsengpass, wenn alle Nachrichten ueber ein Objekt geleitet werden"
   ],
   "mediator.details.chatroom.tradeoffs.whenToUse": "Verwenden Sie es, wenn eine Gruppe von Objekten auf komplexe, aber wohldefinierte Weise kommuniziert, wenn die Wiederverwendung eines Objekts schwierig ist, weil es viele andere Objekte referenziert, oder wenn Sie Verhalten, das zwischen mehreren Klassen verteilt ist, anpassen moechten, ohne viele Unterklassen zu erstellen.",
+  "mediator.arrow.mediates": "vermittelt",
   "mediator.tooltip.mediator": "Vermittlerschnittstelle — deklariert sendMessage() zum Weiterleiten von Nachrichten",
   "mediator.tooltip.chatroom": "ChatRoom verwaltet Benutzer und broadcastet Nachrichten an alle ausser dem Absender",
   "mediator.tooltip.user": "User kommuniziert ueber den Vermittler, nicht direkt mit anderen Benutzern",

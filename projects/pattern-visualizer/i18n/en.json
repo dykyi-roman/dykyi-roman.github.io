@@ -967,6 +967,8 @@
     "Command parameters must be serializable if commands are persisted"
   ],
   "command.details.remote.tradeoffs.whenToUse": "Use when you want to parameterize objects with operations, queue or schedule operations for later execution, implement undo/redo functionality, or structure a system around high-level operations built from primitive ones.",
+  "command.arrow.executes": "executes",
+  "command.arrow.actson": "acts on",
   "command.tooltip.invoker": "RemoteControl stores and executes commands, maintains undo history",
   "command.tooltip.command": "Command interface \u2014 declares execute() and undo() methods",
   "command.tooltip.on": "TurnOnCommand encapsulates Light.turnOn() and its undo",
@@ -1021,6 +1023,7 @@
     "Shared data between states requires careful design"
   ],
   "state.details.order.tradeoffs.whenToUse": "Use when an object's behavior depends on its state and changes at runtime, when operations have large conditional statements based on state, or when you want to model a finite state machine with clear transitions.",
+  "state.arrow.delegates": "delegates to",
   "state.tooltip.context": "Order maintains current state and delegates pay/ship/deliver calls to it",
   "state.tooltip.state": "OrderState interface \u2014 declares pay(), ship(), deliver() for all states",
   "state.tooltip.draft": "DraftState: initial state, only pay() is valid",
@@ -1185,6 +1188,7 @@
     "Performance bottleneck if all messages route through one object"
   ],
   "mediator.details.chatroom.tradeoffs.whenToUse": "Use when a set of objects communicate in complex but well-defined ways, when reusing an object is difficult because it references many other objects, or when you want to customize behavior distributed between several classes without creating many subclasses.",
+  "mediator.arrow.mediates": "mediates",
   "mediator.tooltip.mediator": "Mediator interface \u2014 declares sendMessage() for routing messages",
   "mediator.tooltip.chatroom": "ChatRoom manages users and broadcasts messages to all except sender",
   "mediator.tooltip.user": "User communicates through the mediator, not directly with other users",
