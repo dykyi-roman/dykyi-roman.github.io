@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes rise {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    @keyframes nodeGlow {
+      0%, 100% { r: 8; }
+      50% { r: 10; }
+    }
+    @keyframes dash {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes searchScan {
+      0% { fill: #3B82F6; opacity: 0.4; }
+      40% { fill: #3B82F6; opacity: 0.4; }
+      50% { fill: #FBBF24; opacity: 1; }
+      60% { fill: #3B82F6; opacity: 0.4; }
+      100% { fill: #3B82F6; opacity: 0.4; }
+    }
+    @keyframes edgeTravel {
+      from { stroke-dashoffset: 40; }
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes swapHint {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+  </style>
+
+  <!-- background -->
+  <rect width="400" height="300" rx="12" fill="#141922"/>
+
+  <!-- subtle grid -->
+  <line x1="200" y1="16" x2="200" y2="284" stroke="#1E293B" stroke-width="1"/>
+  <line x1="16" y1="150" x2="384" y2="150" stroke="#1E293B" stroke-width="1"/>
+
+  <!-- ===== TOP-LEFT: Sorting (bars) ===== -->
+  <g style="animation: fadeIn 0.5s ease-out backwards; animation-delay: 0s;">
+    <text x="28" y="38" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#94A3B8" letter-spacing="1">SORT</text>
+    <g>
+      <rect x="28" y="120" width="14" height="20" rx="2" fill="#3B82F6" opacity="0.5" style="transform-origin: 28px 140px; animation: rise 0.5s ease-out 0.2s backwards"/>
+      <rect x="48" y="90" width="14" height="50" rx="2" fill="#3B82F6" opacity="0.6" style="transform-origin: 48px 140px; animation: rise 0.5s ease-out 0.3s backwards"/>
+      <rect x="68" y="105" width="14" height="35" rx="2" fill="#FBBF24" style="transform-origin: 68px 140px; animation: rise 0.5s ease-out 0.4s backwards; animation: rise 0.5s ease-out 0.4s backwards, swapHint 2s ease-in-out 1.5s infinite"/>
+      <rect x="88" y="70" width="14" height="70" rx="2" fill="#EF4444" style="transform-origin: 88px 140px; animation: rise 0.5s ease-out 0.5s backwards; animation: rise 0.5s ease-out 0.5s backwards, swapHint 2s ease-in-out 1.5s infinite"/>
+      <rect x="108" y="55" width="14" height="85" rx="2" fill="#3B82F6" opacity="0.7" style="transform-origin: 108px 140px; animation: rise 0.5s ease-out 0.6s backwards"/>
+      <rect x="128" y="80" width="14" height="60" rx="2" fill="#3B82F6" opacity="0.5" style="transform-origin: 128px 140px; animation: rise 0.5s ease-out 0.7s backwards"/>
+      <rect x="148" y="60" width="14" height="80" rx="2" fill="#10B981" opacity="0.7" style="transform-origin: 148px 140px; animation: rise 0.5s ease-out 0.8s backwards"/>
+      <rect x="168" y="100" width="14" height="40" rx="2" fill="#3B82F6" opacity="0.5" style="transform-origin: 168px 140px; animation: rise 0.5s ease-out 0.9s backwards"/>
+      <!-- swap arrows -->
+      <path d="M75 64 L82 58 L89 64" stroke="#FBBF24" stroke-width="1.5" fill="none" opacity="0.7" style="animation: pulse 2s ease-in-out 1.5s infinite"/>
+    </g>
+  </g>
+
+  <!-- ===== TOP-RIGHT: Searching (binary search cells) ===== -->
+  <g style="animation: fadeIn 0.5s ease-out backwards; animation-delay: 0.3s;">
+    <text x="218" y="38" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#94A3B8" letter-spacing="1">SEARCH</text>
+    <!-- array cells -->
+    <rect x="218" y="60" width="24" height="24" rx="3" fill="#3B82F6" opacity="0.25" style="animation: searchScan 4s ease-in-out 0s infinite"/>
+    <rect x="247" y="60" width="24" height="24" rx="3" fill="#3B82F6" opacity="0.25" style="animation: searchScan 4s ease-in-out 0.3s infinite"/>
+    <rect x="276" y="60" width="24" height="24" rx="3" fill="#3B82F6" opacity="0.25" style="animation: searchScan 4s ease-in-out 0.6s infinite"/>
+    <rect x="305" y="60" width="24" height="24" rx="3" fill="#FBBF24" opacity="0.9" style="animation: searchScan 4s ease-in-out 0.9s infinite"/>
+    <rect x="334" y="60" width="24" height="24" rx="3" fill="#3B82F6" opacity="0.25" style="animation: searchScan 4s ease-in-out 1.2s infinite"/>
+    <rect x="363" y="60" width="20" height="24" rx="3" fill="#3B82F6" opacity="0.25" style="animation: searchScan 4s ease-in-out 1.5s infinite"/>
+    <!-- numbers inside cells -->
+    <text x="226" y="76" font-family="monospace" font-size="9" fill="#CBD5E1" text-anchor="middle">2</text>
+    <text x="255" y="76" font-family="monospace" font-size="9" fill="#CBD5E1" text-anchor="middle">5</text>
+    <text x="284" y="76" font-family="monospace" font-size="9" fill="#CBD5E1" text-anchor="middle">8</text>
+    <text x="317" y="76" font-family="monospace" font-size="9" fill="#FDE68A" text-anchor="middle" font-weight="700">13</text>
+    <text x="346" y="76" font-family="monospace" font-size="9" fill="#CBD5E1" text-anchor="middle">21</text>
+    <text x="373" y="76" font-family="monospace" font-size="9" fill="#CBD5E1" text-anchor="middle">34</text>
+    <!-- binary search pointer lines -->
+    <line x1="230" y1="92" x2="230" y2="100" stroke="#64748B" stroke-width="1" opacity="0.5"/>
+    <text x="230" y="110" font-family="monospace" font-size="7" fill="#64748B" text-anchor="middle">lo</text>
+    <line x1="373" y1="92" x2="373" y2="100" stroke="#64748B" stroke-width="1" opacity="0.5"/>
+    <text x="373" y="110" font-family="monospace" font-size="7" fill="#64748B" text-anchor="middle">hi</text>
+    <line x1="317" y1="92" x2="317" y2="100" stroke="#FBBF24" stroke-width="1.5" opacity="0.8" style="animation: pulse 1.5s ease-in-out infinite"/>
+    <text x="317" y="110" font-family="monospace" font-size="7" fill="#FBBF24" text-anchor="middle" style="animation: pulse 1.5s ease-in-out infinite">mid</text>
+    <!-- magnifying glass icon -->
+    <circle cx="340" cy="128" r="10" stroke="#94A3B8" stroke-width="1.5" fill="none" opacity="0.4"/>
+    <line x1="347" y1="135" x2="354" y2="142" stroke="#94A3B8" stroke-width="1.5" opacity="0.4"/>
+  </g>
+
+  <!-- ===== BOTTOM-LEFT: Graph (nodes + edges) ===== -->
+  <g style="animation: fadeIn 0.5s ease-out backwards; animation-delay: 0.6s;">
+    <text x="28" y="172" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#94A3B8" letter-spacing="1">GRAPH</text>
+    <!-- edges (drawn first, behind nodes) -->
+    <line x1="60" y1="210" x2="110" y2="195" stroke="#3B82F6" stroke-width="1.5" opacity="0.4" stroke-dasharray="40" style="animation: edgeTravel 1.5s ease-out 1s forwards"/>
+    <line x1="60" y1="210" x2="45" y2="260" stroke="#3B82F6" stroke-width="1.5" opacity="0.4" stroke-dasharray="40" style="animation: edgeTravel 1.5s ease-out 1.2s forwards"/>
+    <line x1="110" y1="195" x2="150" y2="240" stroke="#10B981" stroke-width="1.5" opacity="0.5" stroke-dasharray="40" style="animation: edgeTravel 1.5s ease-out 1.4s forwards"/>
+    <line x1="110" y1="195" x2="160" y2="195" stroke="#3B82F6" stroke-width="1.5" opacity="0.4" stroke-dasharray="40" style="animation: edgeTravel 1.5s ease-out 1.6s forwards"/>
+    <line x1="45" y1="260" x2="100" y2="270" stroke="#3B82F6" stroke-width="1.5" opacity="0.4" stroke-dasharray="40" style="animation: edgeTravel 1.5s ease-out 1.8s forwards"/>
+    <line x1="150" y1="240" x2="100" y2="270" stroke="#EF4444" stroke-width="1.5" opacity="0.4" stroke-dasharray="40" style="animation: edgeTravel 1.5s ease-out 2s forwards"/>
+    <line x1="160" y1="195" x2="150" y2="240" stroke="#3B82F6" stroke-width="1.5" opacity="0.4" stroke-dasharray="40" style="animation: edgeTravel 1.5s ease-out 2.2s forwards"/>
+    <!-- nodes -->
+    <circle cx="60" cy="210" r="8" fill="#3B82F6" style="animation: fadeIn 0.4s ease-out 0.8s backwards, pulse 3s ease-in-out infinite"/>
+    <circle cx="110" cy="195" r="8" fill="#FBBF24" style="animation: fadeIn 0.4s ease-out 1s backwards, pulse 3s ease-in-out 0.5s infinite"/>
+    <circle cx="45" cy="260" r="8" fill="#3B82F6" opacity="0.7" style="animation: fadeIn 0.4s ease-out 1.2s backwards"/>
+    <circle cx="150" cy="240" r="8" fill="#10B981" style="animation: fadeIn 0.4s ease-out 1.4s backwards, pulse 3s ease-in-out 1s infinite"/>
+    <circle cx="100" cy="270" r="8" fill="#3B82F6" opacity="0.7" style="animation: fadeIn 0.4s ease-out 1.6s backwards"/>
+    <circle cx="160" cy="195" r="8" fill="#EF4444" opacity="0.8" style="animation: fadeIn 0.4s ease-out 1.8s backwards"/>
+    <!-- node labels -->
+    <text x="60" y="213" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">A</text>
+    <text x="110" y="198" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">B</text>
+    <text x="45" y="263" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">C</text>
+    <text x="150" y="243" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">D</text>
+    <text x="100" y="273" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">E</text>
+    <text x="160" y="198" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">F</text>
+  </g>
+
+  <!-- ===== BOTTOM-RIGHT: Tree (binary tree) ===== -->
+  <g style="animation: fadeIn 0.5s ease-out backwards; animation-delay: 0.9s;">
+    <text x="218" y="172" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#94A3B8" letter-spacing="1">TREE</text>
+    <!-- tree edges -->
+    <line x1="305" y1="200" x2="270" y2="230" stroke="#3B82F6" stroke-width="1.5" opacity="0.35" stroke-dasharray="40" style="animation: edgeTravel 1s ease-out 1.5s forwards"/>
+    <line x1="305" y1="200" x2="340" y2="230" stroke="#3B82F6" stroke-width="1.5" opacity="0.35" stroke-dasharray="40" style="animation: edgeTravel 1s ease-out 1.7s forwards"/>
+    <line x1="270" y1="230" x2="250" y2="262" stroke="#3B82F6" stroke-width="1.5" opacity="0.35" stroke-dasharray="40" style="animation: edgeTravel 1s ease-out 1.9s forwards"/>
+    <line x1="270" y1="230" x2="290" y2="262" stroke="#10B981" stroke-width="1.5" opacity="0.5" stroke-dasharray="40" style="animation: edgeTravel 1s ease-out 2.1s forwards"/>
+    <line x1="340" y1="230" x2="322" y2="262" stroke="#3B82F6" stroke-width="1.5" opacity="0.35" stroke-dasharray="40" style="animation: edgeTravel 1s ease-out 2.3s forwards"/>
+    <line x1="340" y1="230" x2="360" y2="262" stroke="#3B82F6" stroke-width="1.5" opacity="0.35" stroke-dasharray="40" style="animation: edgeTravel 1s ease-out 2.5s forwards"/>
+    <!-- tree nodes -->
+    <circle cx="305" cy="200" r="9" fill="#FBBF24" style="animation: fadeIn 0.4s ease-out 1.3s backwards, pulse 2.5s ease-in-out infinite"/>
+    <circle cx="270" cy="230" r="8" fill="#3B82F6" opacity="0.8" style="animation: fadeIn 0.4s ease-out 1.6s backwards"/>
+    <circle cx="340" cy="230" r="8" fill="#3B82F6" opacity="0.8" style="animation: fadeIn 0.4s ease-out 1.8s backwards"/>
+    <circle cx="250" cy="262" r="7" fill="#3B82F6" opacity="0.6" style="animation: fadeIn 0.4s ease-out 2s backwards"/>
+    <circle cx="290" cy="262" r="7" fill="#10B981" opacity="0.8" style="animation: fadeIn 0.4s ease-out 2.2s backwards, pulse 2.5s ease-in-out 1s infinite"/>
+    <circle cx="322" cy="262" r="7" fill="#3B82F6" opacity="0.6" style="animation: fadeIn 0.4s ease-out 2.4s backwards"/>
+    <circle cx="360" cy="262" r="7" fill="#EF4444" opacity="0.7" style="animation: fadeIn 0.4s ease-out 2.6s backwards"/>
+    <!-- node values -->
+    <text x="305" y="203" font-family="monospace" font-size="8" fill="#fff" text-anchor="middle" font-weight="700">8</text>
+    <text x="270" y="233" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">4</text>
+    <text x="340" y="233" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">12</text>
+    <text x="250" y="265" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">2</text>
+    <text x="290" y="265" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">6</text>
+    <text x="322" y="265" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">10</text>
+    <text x="360" y="265" font-family="monospace" font-size="7" fill="#fff" text-anchor="middle">14</text>
+  </g>
+</svg>

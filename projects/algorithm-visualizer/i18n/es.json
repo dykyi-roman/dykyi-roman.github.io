@@ -1,0 +1,68 @@
+{
+  "av.title": "Visualizador de algoritmos",
+
+  "av.stat.comparisons": "Comparaciones",
+  "av.stat.swaps": "Intercambios",
+  "av.complexity.title": "Complejidad y propiedades",
+  "av.coming_soon": "Pr\u00f3ximamente...",
+
+  "av.legend.default": "Normal",
+  "av.legend.comparing": "Comparando",
+  "av.legend.swapping": "Intercambiando",
+  "av.legend.sorted": "Ordenado",
+
+  "av.log.started": "Algoritmo iniciado",
+  "av.log.compare": "Comparar arr[{i}]={a} con arr[{j}]={b}",
+  "av.log.swap": "Intercambiar arr[{i}]={a} \u2194 arr[{j}]={b}",
+  "av.log.sorted": "Posici\u00f3n {index} (valor={value}) ordenada",
+  "av.log.pass": "Pasada {n} comienza",
+  "av.log.done": "Completado en {time}ms ({comparisons} comparaciones, {swaps} intercambios)",
+  "av.log.done_step": "Ordenamiento completo",
+
+  "ui.log.type.COMPARE": "COMP",
+  "ui.log.type.SWAP": "INTER",
+  "ui.log.type.SORTED": "ORD",
+  "ui.log.type.PASS": "PASE",
+  "ui.log.type.DONE": "LISTO",
+  "ui.log.type.REQUEST": "SOL",
+
+  "bubble-sort.name": "Bubble Sort",
+  "bubble-sort.stepLabel": "Bubble Sort \u2014 Est\u00e1ndar",
+  "bubble-sort.modes.standard.label": "Est\u00e1ndar",
+  "bubble-sort.modes.standard.desc": "Bubble Sort cl\u00e1sico: recorre el arreglo repetidamente, compara elementos adyacentes y los intercambia si est\u00e1n en el orden incorrecto. Cada pasada lleva el mayor elemento no ordenado a su posici\u00f3n correcta.",
+  "bubble-sort.details.standard.principles": [
+    "Comparar elementos adyacentes por pares de izquierda a derecha",
+    "Intercambiar si el elemento izquierdo es mayor que el derecho",
+    "Despu\u00e9s de cada pasada, el mayor elemento no ordenado sube a su posici\u00f3n final",
+    "Optimizaci\u00f3n: si no hubo intercambios en una pasada, el arreglo ya est\u00e1 ordenado",
+    "Cada pasada reduce la porci\u00f3n no ordenada en un elemento"
+  ],
+  "bubble-sort.details.standard.concepts": [
+    { "term": "Pasada", "definition": "Un recorrido completo de la porci\u00f3n no ordenada. Despu\u00e9s de la pasada k, el k-\u00e9simo mayor elemento est\u00e1 en su posici\u00f3n." },
+    { "term": "Intercambio adyacente", "definition": "Operaci\u00f3n fundamental: comparar arr[j] con arr[j+1] e intercambiar si arr[j] > arr[j+1]." },
+    { "term": "Terminaci\u00f3n temprana", "definition": "Si una pasada completa no produce intercambios, el arreglo est\u00e1 ordenado. Da O(n) en el mejor caso." },
+    { "term": "Ordenamiento estable", "definition": "Bubble Sort nunca intercambia elementos iguales, preservando su orden relativo." }
+  ],
+  "bubble-sort.details.standard.tradeoffs.pros": [
+    "Extremadamente simple de entender e implementar",
+    "Algoritmo estable \u2014 preserva el orden de elementos iguales",
+    "En sitio \u2014 requiere solo O(1) de memoria adicional",
+    "Adaptativo \u2014 eficiente con datos casi ordenados",
+    "Ideal para ense\u00f1anza y conjuntos de datos peque\u00f1os"
+  ],
+  "bubble-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) promedio y peor caso \u2014 muy lento para arreglos grandes",
+    "Significativamente m\u00e1s lento que algoritmos O(n log n) como Merge Sort o Quick Sort",
+    "Muchas comparaciones innecesarias",
+    "Bajo rendimiento de cach\u00e9 por la cantidad de intercambios"
+  ],
+  "bubble-sort.details.standard.tradeoffs.whenToUse": "Ideal para ense\u00f1anza, arreglos muy peque\u00f1os (< 50 elementos) o datos casi ordenados. En producci\u00f3n, use Quick Sort, Merge Sort o Tim Sort.",
+  "bubble-sort.depRules": [
+    { "name": "Tiempo (mejor)", "role": "O(n) \u2014 arreglo ya ordenado" },
+    { "name": "Tiempo (promedio)", "role": "O(n\u00B2) \u2014 cuadr\u00e1tico" },
+    { "name": "Tiempo (peor)", "role": "O(n\u00B2) \u2014 orden inverso" },
+    { "name": "Espacio", "role": "O(1) \u2014 ordenamiento en sitio" },
+    { "name": "Estable", "role": "S\u00ed \u2014 los elementos iguales mantienen su orden relativo" },
+    { "name": "Adaptativo", "role": "S\u00ed \u2014 m\u00e1s r\u00e1pido con datos casi ordenados" }
+  ]
+}

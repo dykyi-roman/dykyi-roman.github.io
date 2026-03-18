@@ -1,0 +1,68 @@
+{
+  "av.title": "Algorithmus-Visualisierer",
+
+  "av.stat.comparisons": "Vergleiche",
+  "av.stat.swaps": "Tausche",
+  "av.complexity.title": "Komplexit\u00e4t und Eigenschaften",
+  "av.coming_soon": "Demn\u00e4chst...",
+
+  "av.legend.default": "Standard",
+  "av.legend.comparing": "Vergleich",
+  "av.legend.swapping": "Tausch",
+  "av.legend.sorted": "Sortiert",
+
+  "av.log.started": "Algorithmus gestartet",
+  "av.log.compare": "Vergleiche arr[{i}]={a} mit arr[{j}]={b}",
+  "av.log.swap": "Tausche arr[{i}]={a} \u2194 arr[{j}]={b}",
+  "av.log.sorted": "Position {index} (Wert={value}) ist sortiert",
+  "av.log.pass": "Durchlauf {n} beginnt",
+  "av.log.done": "Abgeschlossen in {time}ms ({comparisons} Vergleiche, {swaps} Tausche)",
+  "av.log.done_step": "Sortierung abgeschlossen",
+
+  "ui.log.type.COMPARE": "VRGL",
+  "ui.log.type.SWAP": "TAUSCH",
+  "ui.log.type.SORTED": "SORT",
+  "ui.log.type.PASS": "LAUF",
+  "ui.log.type.DONE": "FERTIG",
+  "ui.log.type.REQUEST": "ANFR",
+
+  "bubble-sort.name": "Bubble Sort",
+  "bubble-sort.stepLabel": "Bubble Sort \u2014 Standard",
+  "bubble-sort.modes.standard.label": "Standard",
+  "bubble-sort.modes.standard.desc": "Klassischer Bubble Sort: durchl\u00e4uft das Array wiederholt, vergleicht benachbarte Elemente und tauscht sie, wenn sie in der falschen Reihenfolge sind. Jeder Durchlauf bringt das gr\u00f6\u00dfte unsortierte Element an seine Position.",
+  "bubble-sort.details.standard.principles": [
+    "Benachbarte Elemente paarweise von links nach rechts vergleichen",
+    "Tauschen, wenn das linke Element gr\u00f6\u00dfer als das rechte ist",
+    "Nach jedem Durchlauf steigt das gr\u00f6\u00dfte unsortierte Element an seine Position",
+    "Optimierung: wenn keine Tausche in einem Durchlauf \u2014 Array ist bereits sortiert",
+    "Jeder Durchlauf verkleinert den unsortierten Bereich um ein Element"
+  ],
+  "bubble-sort.details.standard.concepts": [
+    { "term": "Durchlauf", "definition": "Ein vollst\u00e4ndiger Durchgang durch den unsortierten Teil. Nach Durchlauf k steht das k-gr\u00f6\u00dfte Element an seiner Position." },
+    { "term": "Nachbar-Tausch", "definition": "Grundoperation: arr[j] mit arr[j+1] vergleichen und tauschen wenn arr[j] > arr[j+1]." },
+    { "term": "Fr\u00fcher Abbruch", "definition": "Wenn ein Durchlauf keine Tausche erzeugt, ist das Array sortiert. Gibt O(n) im besten Fall." },
+    { "term": "Stabile Sortierung", "definition": "Bubble Sort tauscht nie gleiche Elemente und bewahrt deren relative Reihenfolge." }
+  ],
+  "bubble-sort.details.standard.tradeoffs.pros": [
+    "Extrem einfach zu verstehen und zu implementieren",
+    "Stabiler Algorithmus \u2014 bewahrt die Reihenfolge gleicher Elemente",
+    "In-place \u2014 ben\u00f6tigt nur O(1) zus\u00e4tzlichen Speicher",
+    "Adaptiv \u2014 performant bei fast sortierten Daten",
+    "Ideal f\u00fcr Lernzwecke und kleine Datens\u00e4tze"
+  ],
+  "bubble-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) im Durchschnitt und schlimmsten Fall \u2014 sehr langsam f\u00fcr gro\u00dfe Arrays",
+    "Deutlich langsamer als O(n log n) Algorithmen wie Merge Sort oder Quick Sort",
+    "Viele unn\u00f6tige Vergleiche",
+    "Schlechte Cache-Performance durch viele Tauschoperationen"
+  ],
+  "bubble-sort.details.standard.tradeoffs.whenToUse": "Am besten f\u00fcr Lernzwecke, sehr kleine Arrays (< 50 Elemente) oder fast sortierte Daten. F\u00fcr Produktion verwenden Sie Quick Sort, Merge Sort oder Tim Sort.",
+  "bubble-sort.depRules": [
+    { "name": "Zeit (best)", "role": "O(n) \u2014 bereits sortiertes Array" },
+    { "name": "Zeit (durchschnitt)", "role": "O(n\u00B2) \u2014 quadratisch" },
+    { "name": "Zeit (worst)", "role": "O(n\u00B2) \u2014 umgekehrt sortiert" },
+    { "name": "Speicher", "role": "O(1) \u2014 In-place-Sortierung" },
+    { "name": "Stabil", "role": "Ja \u2014 gleiche Elemente behalten relative Reihenfolge" },
+    { "name": "Adaptiv", "role": "Ja \u2014 schneller bei fast sortierten Daten" }
+  ]
+}

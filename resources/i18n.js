@@ -226,7 +226,7 @@
                 });
             }
 
-            var refreshFns = ['ARCHV_refresh', 'DBIV_refresh', 'MBV_refresh', 'GFV_refresh', 'PV_refresh', 'CHAT_refresh'];
+            var refreshFns = ['ARCHV_refresh', 'DBIV_refresh', 'MBV_refresh', 'GFV_refresh', 'PV_refresh', 'AV_refresh', 'CHAT_refresh'];
             refreshFns.forEach(function(fn) {
                 if (typeof window[fn] === 'function') {
                     window[fn]();

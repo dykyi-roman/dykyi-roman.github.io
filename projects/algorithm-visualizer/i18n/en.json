@@ -1,0 +1,67 @@
+{
+  "av.title": "Algorithm Visualizer",
+  "av.stat.comparisons": "Comparisons",
+  "av.stat.swaps": "Swaps",
+  "av.complexity.title": "Complexity & Properties",
+  "av.coming_soon": "Coming soon...",
+
+  "av.legend.default": "Default",
+  "av.legend.comparing": "Comparing",
+  "av.legend.swapping": "Swapping",
+  "av.legend.sorted": "Sorted",
+
+  "av.log.started": "Algorithm started",
+  "av.log.compare": "Compare arr[{i}]={a} with arr[{j}]={b}",
+  "av.log.swap": "Swap arr[{i}]={a} \u2194 arr[{j}]={b}",
+  "av.log.sorted": "Position {index} (value={value}) is sorted",
+  "av.log.pass": "Pass {n} begins",
+  "av.log.done": "Completed in {time}ms ({comparisons} comparisons, {swaps} swaps)",
+  "av.log.done_step": "Sorting complete",
+
+  "ui.log.type.COMPARE": "COMPARE",
+  "ui.log.type.SWAP": "SWAP",
+  "ui.log.type.SORTED": "SORTED",
+  "ui.log.type.PASS": "PASS",
+  "ui.log.type.DONE": "DONE",
+  "ui.log.type.REQUEST": "REQUEST",
+
+  "bubble-sort.name": "Bubble Sort",
+  "bubble-sort.stepLabel": "Bubble Sort \u2014 Standard",
+  "bubble-sort.modes.standard.label": "Standard",
+  "bubble-sort.modes.standard.desc": "Classic Bubble Sort: repeatedly steps through the array, compares adjacent elements, and swaps them if they are in the wrong order. Each pass bubbles the largest unsorted element to its correct position.",
+  "bubble-sort.details.standard.principles": [
+    "Compare adjacent elements pairwise from left to right",
+    "Swap if the left element is greater than the right element",
+    "After each pass, the largest unsorted element \"bubbles up\" to its final position",
+    "Optimization: if no swaps occur during a pass, the array is already sorted \u2014 stop early",
+    "Each pass reduces the unsorted portion by one element"
+  ],
+  "bubble-sort.details.standard.concepts": [
+    { "term": "Pass", "definition": "One complete traversal of the unsorted portion of the array. After pass k, the k-th largest element is in its correct position." },
+    { "term": "Adjacent Swap", "definition": "The fundamental operation: compare arr[j] with arr[j+1] and swap if arr[j] > arr[j+1]. This moves larger values toward the end." },
+    { "term": "Early Termination", "definition": "If a complete pass produces no swaps, the array is sorted. This optimization gives O(n) best-case time for already-sorted input." },
+    { "term": "Stable Sort", "definition": "Bubble Sort never swaps equal elements (only swaps when strictly greater), preserving the relative order of equal values." }
+  ],
+  "bubble-sort.details.standard.tradeoffs.pros": [
+    "Extremely simple to understand and implement",
+    "Stable sorting algorithm \u2014 preserves order of equal elements",
+    "In-place \u2014 requires only O(1) extra memory",
+    "Adaptive \u2014 performs well on nearly sorted data with early termination",
+    "Good for educational purposes and small datasets"
+  ],
+  "bubble-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) average and worst case \u2014 very slow for large arrays",
+    "Significantly slower than O(n log n) algorithms like Merge Sort or Quick Sort",
+    "Many unnecessary comparisons even when elements are far from their target position",
+    "Poor cache performance due to sequential access pattern with many swaps"
+  ],
+  "bubble-sort.details.standard.tradeoffs.whenToUse": "Best for educational purposes, very small arrays (< 50 elements), or nearly sorted data where early termination provides a real benefit. For production use with large datasets, prefer Quick Sort, Merge Sort, or Tim Sort.",
+  "bubble-sort.depRules": [
+    { "name": "Time (Best)", "role": "O(n) \u2014 already sorted array" },
+    { "name": "Time (Average)", "role": "O(n\u00B2) \u2014 quadratic" },
+    { "name": "Time (Worst)", "role": "O(n\u00B2) \u2014 reverse sorted" },
+    { "name": "Space", "role": "O(1) \u2014 in-place sorting" },
+    { "name": "Stable", "role": "Yes \u2014 equal elements maintain relative order" },
+    { "name": "Adaptive", "role": "Yes \u2014 faster on nearly sorted data" }
+  ]
+}

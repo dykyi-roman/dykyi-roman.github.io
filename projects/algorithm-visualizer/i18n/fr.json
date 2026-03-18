@@ -1,0 +1,68 @@
+{
+  "av.title": "Visualiseur d'algorithmes",
+
+  "av.stat.comparisons": "Comparaisons",
+  "av.stat.swaps": "\u00c9changes",
+  "av.complexity.title": "Complexit\u00e9 et propri\u00e9t\u00e9s",
+  "av.coming_soon": "Bient\u00f4t...",
+
+  "av.legend.default": "Par d\u00e9faut",
+  "av.legend.comparing": "Comparaison",
+  "av.legend.swapping": "\u00c9change",
+  "av.legend.sorted": "Tri\u00e9",
+
+  "av.log.started": "Algorithme lanc\u00e9",
+  "av.log.compare": "Comparer arr[{i}]={a} avec arr[{j}]={b}",
+  "av.log.swap": "\u00c9changer arr[{i}]={a} \u2194 arr[{j}]={b}",
+  "av.log.sorted": "Position {index} (valeur={value}) tri\u00e9e",
+  "av.log.pass": "Passe {n} commence",
+  "av.log.done": "Termin\u00e9 en {time}ms ({comparisons} comparaisons, {swaps} \u00e9changes)",
+  "av.log.done_step": "Tri termin\u00e9",
+
+  "ui.log.type.COMPARE": "COMP",
+  "ui.log.type.SWAP": "\u00c9CH",
+  "ui.log.type.SORTED": "TRI\u00c9",
+  "ui.log.type.PASS": "PASSE",
+  "ui.log.type.DONE": "FINI",
+  "ui.log.type.REQUEST": "REQ",
+
+  "bubble-sort.name": "Tri \u00e0 bulles",
+  "bubble-sort.stepLabel": "Tri \u00e0 bulles \u2014 Standard",
+  "bubble-sort.modes.standard.label": "Standard",
+  "bubble-sort.modes.standard.desc": "Tri \u00e0 bulles classique : parcourt le tableau, compare les \u00e9l\u00e9ments adjacents et les \u00e9change s'ils sont dans le mauvais ordre. Chaque passe fait remonter le plus grand \u00e9l\u00e9ment non tri\u00e9 \u00e0 sa position.",
+  "bubble-sort.details.standard.principles": [
+    "Comparer les \u00e9l\u00e9ments adjacents par paires de gauche \u00e0 droite",
+    "\u00c9changer si l'\u00e9l\u00e9ment gauche est plus grand que le droit",
+    "Apr\u00e8s chaque passe, le plus grand \u00e9l\u00e9ment non tri\u00e9 remonte \u00e0 sa position finale",
+    "Optimisation : si aucun \u00e9change pendant une passe, le tableau est d\u00e9j\u00e0 tri\u00e9",
+    "Chaque passe r\u00e9duit la portion non tri\u00e9e d'un \u00e9l\u00e9ment"
+  ],
+  "bubble-sort.details.standard.concepts": [
+    { "term": "Passe", "definition": "Un parcours complet de la partie non tri\u00e9e. Apr\u00e8s la passe k, le k-i\u00e8me plus grand \u00e9l\u00e9ment est \u00e0 sa place." },
+    { "term": "\u00c9change adjacent", "definition": "Op\u00e9ration fondamentale : comparer arr[j] avec arr[j+1] et \u00e9changer si arr[j] > arr[j+1]." },
+    { "term": "Arr\u00eat pr\u00e9coce", "definition": "Si une passe compl\u00e8te ne produit aucun \u00e9change, le tableau est tri\u00e9. Donne O(n) dans le meilleur cas." },
+    { "term": "Tri stable", "definition": "Bubble Sort n'\u00e9change jamais les \u00e9l\u00e9ments \u00e9gaux, pr\u00e9servant leur ordre relatif." }
+  ],
+  "bubble-sort.details.standard.tradeoffs.pros": [
+    "Extr\u00eamement simple \u00e0 comprendre et impl\u00e9menter",
+    "Algorithme stable \u2014 pr\u00e9serve l'ordre des \u00e9l\u00e9ments \u00e9gaux",
+    "En place \u2014 ne n\u00e9cessite que O(1) de m\u00e9moire suppl\u00e9mentaire",
+    "Adaptatif \u2014 performant sur des donn\u00e9es presque tri\u00e9es",
+    "Id\u00e9al pour l'enseignement et les petits jeux de donn\u00e9es"
+  ],
+  "bubble-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) en moyenne et au pire \u2014 tr\u00e8s lent pour les grands tableaux",
+    "Nettement plus lent que les algorithmes O(n log n) comme Merge Sort ou Quick Sort",
+    "Beaucoup de comparaisons inutiles",
+    "Mauvaise performance du cache \u00e0 cause des nombreux \u00e9changes"
+  ],
+  "bubble-sort.details.standard.tradeoffs.whenToUse": "Id\u00e9al pour l'enseignement, les tr\u00e8s petits tableaux (< 50 \u00e9l\u00e9ments) ou les donn\u00e9es presque tri\u00e9es. En production, pr\u00e9f\u00e9rez Quick Sort, Merge Sort ou Tim Sort.",
+  "bubble-sort.depRules": [
+    { "name": "Temps (meilleur)", "role": "O(n) \u2014 tableau d\u00e9j\u00e0 tri\u00e9" },
+    { "name": "Temps (moyen)", "role": "O(n\u00B2) \u2014 quadratique" },
+    { "name": "Temps (pire)", "role": "O(n\u00B2) \u2014 tri\u00e9 en ordre inverse" },
+    { "name": "Espace", "role": "O(1) \u2014 tri en place" },
+    { "name": "Stable", "role": "Oui \u2014 les \u00e9l\u00e9ments \u00e9gaux conservent leur ordre" },
+    { "name": "Adaptatif", "role": "Oui \u2014 plus rapide sur des donn\u00e9es presque tri\u00e9es" }
+  ]
+}
