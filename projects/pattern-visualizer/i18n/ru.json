@@ -1158,7 +1158,7 @@
   ],
   "observer.name": "Observer",
   "observer.modes.events.label": "События",
-  "observer.modes.events.desc": "EventManager (субъект) хранит список наблюдателей и автоматически уведомляет их при возникновении события. EmailNotifier, LoggingObserver и SlackNotifier реализуют интерфейс Observer и независимо реагируют на одно и то же событие.",
+  "observer.modes.events.desc": "EventManager (субъект) хранит список наблюдателей и автоматически уведомляет их при возникновении события. EmailListener, LoggingListener и SlackListener реализуют интерфейс Observer и независимо реагируют на одно и то же событие.",
   "observer.details.events.principles": [
     "Слабая связанность: субъект знает лишь то, что наблюдатели реализуют интерфейс, а не их конкретные типы",
     "Принцип открытости/закрытости: новые наблюдатели добавляются без изменения субъекта",
@@ -1199,20 +1199,20 @@
   "observer.details.events.tradeoffs.whenToUse": "Используйте, когда изменения в одном объекте требуют обновления других, и вы не знаете, сколько объектов нуждается в обновлении. Распространён в событийных системах, UI-фреймворках, брокерах сообщений и архитектурах pub/sub.",
   "observer.tooltip.subject": "EventManager хранит карту имён событий к спискам наблюдателей и рассылает уведомления",
   "observer.tooltip.observer": "Интерфейс Observer — все конкретные наблюдатели должны реализовать update(event, data)",
-  "observer.tooltip.email": "EmailNotifier отправляет письма-подтверждения при возникновении событий",
-  "observer.tooltip.logging": "LoggingObserver записывает детали событий в файл журнала",
-  "observer.tooltip.slack": "SlackNotifier публикует уведомления о событиях в канал Slack",
-  "observer.tooltip.obj-email": "Экземпляр EmailNotifier во время выполнения, обрабатывающий событие",
-  "observer.tooltip.obj-logging": "Экземпляр LoggingObserver во время выполнения, записывающий в журнал",
-  "observer.tooltip.obj-slack": "Экземпляр SlackNotifier во время выполнения, публикующий в Slack",
+  "observer.tooltip.email": "EmailListener отправляет письма-подтверждения при возникновении событий",
+  "observer.tooltip.logging": "LoggingListener записывает детали событий в файл журнала",
+  "observer.tooltip.slack": "SlackListener публикует уведомления о событиях в канал Slack",
+  "observer.tooltip.obj-email": "Экземпляр EmailListener во время выполнения, обрабатывающий событие",
+  "observer.tooltip.obj-logging": "Экземпляр LoggingListener во время выполнения, записывающий в журнал",
+  "observer.tooltip.obj-slack": "Экземпляр SlackListener во время выполнения, публикующий в Slack",
   "observer.step.events.0": "Пользователь инициирует событие \"order.placed\"",
   "observer.step.events.1": "EventManager ищет подписчиков для \"order.placed\"",
-  "observer.step.events.2": "Уведомить EmailNotifier.update()",
-  "observer.step.events.3": "EmailNotifier отправляет письмо-подтверждение",
-  "observer.step.events.4": "Уведомить LoggingObserver.update()",
-  "observer.step.events.5": "LoggingObserver записывает в файл журнала",
-  "observer.step.events.6": "Уведомить SlackNotifier.update()",
-  "observer.step.events.7": "SlackNotifier публикует в канал #orders",
+  "observer.step.events.2": "Уведомить EmailListener.update()",
+  "observer.step.events.3": "EmailListener отправляет письмо-подтверждение",
+  "observer.step.events.4": "Уведомить LoggingListener.update()",
+  "observer.step.events.5": "LoggingListener записывает в файл журнала",
+  "observer.step.events.6": "Уведомить SlackListener.update()",
+  "observer.step.events.7": "SlackListener публикует в канал #orders",
   "observer.stepLabel.events": "Рассылка событий через паттерн Наблюдатель",
   "observer.depRules": [
     {
@@ -1224,15 +1224,15 @@
       "role": "Определяет контракт update(event, data) для получения уведомлений"
     },
     {
-      "name": "EmailNotifier",
+      "name": "EmailListener",
       "role": "Отправляет email-уведомления при возникновении событий"
     },
     {
-      "name": "LoggingObserver",
+      "name": "LoggingListener",
       "role": "Записывает детали событий в файл для аудита"
     },
     {
-      "name": "SlackNotifier",
+      "name": "SlackListener",
       "role": "Публикует уведомления о событиях в канал Slack"
     }
   ],
@@ -1371,14 +1371,16 @@
   "command.tooltip.obj-on": "Экземпляр TurnOnCommand во время выполнения в стеке истории",
   "command.tooltip.obj-off": "Экземпляр TurnOffCommand во время выполнения после отмены",
   "command.tooltip.obj-light": "Экземпляр Light во время выполнения с текущим состоянием",
-  "command.step.remote.0": "Установить TurnOnCommand на пульт",
-  "command.step.remote.1": "pressButton() → command.execute()",
-  "command.step.remote.2": "Вызов TurnOnCommand.execute()",
-  "command.step.remote.3": "Light.turnOn() → isOn = true",
-  "command.step.remote.4": "Свет теперь ВКЛЮЧЁН",
-  "command.step.remote.5": "Добавить TurnOnCommand в стек истории",
-  "command.step.remote.6": "pressUndo() → command.undo()",
-  "command.step.remote.7": "Отмена: Light.turnOff() → isOn = false",
+  "command.tooltip.client": "Клиент создаёт получателя, команды и связывает их с вызывающим",
+  "command.step.remote.0": "Клиент создаёт Light, TurnOnCommand и настраивает RemoteControl",
+  "command.step.remote.1": "setCommand(new TurnOnCommand(light))",
+  "command.step.remote.2": "pressButton() → command.execute()",
+  "command.step.remote.3": "Вызов TurnOnCommand.execute()",
+  "command.step.remote.4": "Light.turnOn() → isOn = true",
+  "command.step.remote.5": "Свет теперь ВКЛЮЧЁН",
+  "command.step.remote.6": "Добавить TurnOnCommand в стек истории",
+  "command.step.remote.7": "pressUndo() → command.undo()",
+  "command.step.remote.8": "Отмена: Light.turnOff() → isOn = false",
   "command.stepLabel.remote": "Выполнение и отмена через паттерн Команда",
   "command.depRules": [
     {

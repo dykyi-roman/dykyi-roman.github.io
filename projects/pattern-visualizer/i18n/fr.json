@@ -1158,7 +1158,7 @@
   ],
   "observer.name": "Observer",
   "observer.modes.events.label": "Evenements",
-  "observer.modes.events.desc": "Un EventManager (sujet) maintient une liste d'observateurs et les notifie automatiquement lorsqu'un evenement survient. EmailNotifier, LoggingObserver et SlackNotifier implementent tous l'interface Observer et reagissent independamment au meme evenement.",
+  "observer.modes.events.desc": "Un EventManager (sujet) maintient une liste d'observateurs et les notifie automatiquement lorsqu'un evenement survient. EmailListener, LoggingListener et SlackListener implementent tous l'interface Observer et reagissent independamment au meme evenement.",
   "observer.details.events.principles": [
     "Couplage faible : le sujet sait uniquement que les observateurs implementent une interface, pas leurs types concrets",
     "Principe ouvert/ferme : de nouveaux observateurs peuvent etre ajoutes sans modifier le sujet",
@@ -1199,20 +1199,20 @@
   "observer.details.events.tradeoffs.whenToUse": "A utiliser quand les modifications d'un objet necessitent la mise a jour d'autres objets dont le nombre est inconnu. Courant dans les systemes d'evenements, les frameworks d'interface utilisateur, les courtiers de messages et les architectures pub/sub.",
   "observer.tooltip.subject": "EventManager maintient une table d'evenements vers des listes d'observateurs et diffuse les notifications",
   "observer.tooltip.observer": "Interface Observer — tous les observateurs concrets doivent implementer update(event, data)",
-  "observer.tooltip.email": "EmailNotifier envoie des emails de confirmation lorsque des evenements surviennent",
-  "observer.tooltip.logging": "LoggingObserver ecrit les details de l'evenement dans un fichier de log",
-  "observer.tooltip.slack": "SlackNotifier publie les notifications d'evenements sur un canal Slack",
-  "observer.tooltip.obj-email": "Instance d'execution d'EmailNotifier traitant l'evenement",
-  "observer.tooltip.obj-logging": "Instance d'execution de LoggingObserver ecrivant dans le log",
-  "observer.tooltip.obj-slack": "Instance d'execution de SlackNotifier publiant sur Slack",
+  "observer.tooltip.email": "EmailListener envoie des emails de confirmation lorsque des evenements surviennent",
+  "observer.tooltip.logging": "LoggingListener ecrit les details de l'evenement dans un fichier de log",
+  "observer.tooltip.slack": "SlackListener publie les notifications d'evenements sur un canal Slack",
+  "observer.tooltip.obj-email": "Instance d'execution d'EmailListener traitant l'evenement",
+  "observer.tooltip.obj-logging": "Instance d'execution de LoggingListener ecrivant dans le log",
+  "observer.tooltip.obj-slack": "Instance d'execution de SlackListener publiant sur Slack",
   "observer.step.events.0": "L'utilisateur declenche l'evenement \"order.placed\"",
   "observer.step.events.1": "EventManager recherche les abonnes de \"order.placed\"",
-  "observer.step.events.2": "Notifier EmailNotifier.update()",
-  "observer.step.events.3": "EmailNotifier envoie un email de confirmation",
-  "observer.step.events.4": "Notifier LoggingObserver.update()",
-  "observer.step.events.5": "LoggingObserver ecrit dans le fichier de log",
-  "observer.step.events.6": "Notifier SlackNotifier.update()",
-  "observer.step.events.7": "SlackNotifier publie sur le canal #orders",
+  "observer.step.events.2": "Notifier EmailListener.update()",
+  "observer.step.events.3": "EmailListener envoie un email de confirmation",
+  "observer.step.events.4": "Notifier LoggingListener.update()",
+  "observer.step.events.5": "LoggingListener ecrit dans le fichier de log",
+  "observer.step.events.6": "Notifier SlackListener.update()",
+  "observer.step.events.7": "SlackListener publie sur le canal #orders",
   "observer.stepLabel.events": "Diffuser un evenement via le patron Observateur",
   "observer.depRules": [
     {
@@ -1224,15 +1224,15 @@
       "role": "Definit le contrat update(event, data) pour recevoir les notifications"
     },
     {
-      "name": "EmailNotifier",
+      "name": "EmailListener",
       "role": "Envoie des notifications par email lorsque des evenements surviennent"
     },
     {
-      "name": "LoggingObserver",
+      "name": "LoggingListener",
       "role": "Journalise les details des evenements dans un fichier pour l'audit"
     },
     {
-      "name": "SlackNotifier",
+      "name": "SlackListener",
       "role": "Publie les notifications d'evenements sur un canal Slack"
     }
   ],
@@ -1371,14 +1371,16 @@
   "command.tooltip.obj-on": "Instance d'execution de TurnOnCommand dans la pile d'historique",
   "command.tooltip.obj-off": "Instance d'execution de TurnOffCommand apres annulation",
   "command.tooltip.obj-light": "Instance d'execution de Light avec l'etat courant",
-  "command.step.remote.0": "Definir TurnOnCommand sur la telecommande",
-  "command.step.remote.1": "pressButton() → command.execute()",
-  "command.step.remote.2": "TurnOnCommand.execute() appele",
-  "command.step.remote.3": "Light.turnOn() → isOn = true",
-  "command.step.remote.4": "La lumiere est maintenant ALLUMEE",
-  "command.step.remote.5": "Empiler TurnOnCommand dans la pile d'historique",
-  "command.step.remote.6": "pressUndo() → command.undo()",
-  "command.step.remote.7": "Annulation : Light.turnOff() → isOn = false",
+  "command.tooltip.client": "Le client cree le recepteur, les commandes et les relie a l'invocateur",
+  "command.step.remote.0": "Le client cree Light, TurnOnCommand et configure RemoteControl",
+  "command.step.remote.1": "setCommand(new TurnOnCommand(light))",
+  "command.step.remote.2": "pressButton() → command.execute()",
+  "command.step.remote.3": "TurnOnCommand.execute() appele",
+  "command.step.remote.4": "Light.turnOn() → isOn = true",
+  "command.step.remote.5": "La lumiere est maintenant ALLUMEE",
+  "command.step.remote.6": "Empiler TurnOnCommand dans la pile d'historique",
+  "command.step.remote.7": "pressUndo() → command.undo()",
+  "command.step.remote.8": "Annulation : Light.turnOff() → isOn = false",
   "command.stepLabel.remote": "Executer et annuler via le patron Commande",
   "command.depRules": [
     {

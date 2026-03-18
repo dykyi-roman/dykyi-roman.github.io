@@ -21,16 +21,12 @@ function renderStrategyNavigation() {
     var canvas = document.getElementById('pv-canvas');
     canvas.innerHTML =
         '<div class="layout-pattern-hierarchy" style="gap: 50px; padding: 30px 20px;">' +
-            /* Row 1: Client */
-            '<div class="pv-hierarchy-row" style="justify-content: center;">' +
+            /* Row 1: Client + Navigator side by side */
+            '<div class="pv-hierarchy-row" style="justify-content: center; gap: 60px;">' +
                 PV.renderClass('cls-sg-client', 'Client', {
                     methods: ['setStrategy(strategy)'],
                     tooltip: I18N.t('strategy.tooltip.client', null, 'Client configures the Navigator with a concrete RouteStrategy at runtime')
                 }) +
-            '</div>' +
-            PV.renderArrowConnector(I18N.t('ui.legend.configures', null, 'configures')) +
-            /* Row 2: Navigator (Context) */
-            '<div class="pv-hierarchy-row" style="justify-content: center;">' +
                 PV.renderClass('cls-sg-context', 'Navigator', {
                     fields: ['strategy: RouteStrategy'],
                     methods: ['buildRoute(a, b): Route'],
@@ -79,6 +75,7 @@ function renderStrategyNavigation() {
         '</div>';
 
     setTimeout(function() {
+        PV.renderRelation('cls-sg-client', 'cls-sg-context', 'sync');
         PV.renderRelation('cls-sg-driving', 'cls-sg-strategy', 'inherit');
         PV.renderRelation('cls-sg-walking', 'cls-sg-strategy', 'inherit', -6);
         PV.renderRelation('cls-sg-transit', 'cls-sg-strategy', 'inherit');
@@ -129,12 +126,12 @@ PV['strategy'].navigation = {
     },
     steps: function() {
         return [
-            { elementId: 'cls-sg-client', label: 'Client', description: 'Client sets DrivingStrategy on Navigator', descriptionKey: 'strategy.step.navigation.0', logType: 'REQUEST' },
+            { elementId: 'cls-sg-client', label: 'Client', description: 'Client sets DrivingStrategy on Navigator', descriptionKey: 'strategy.step.navigation.0', logType: 'REQUEST', badgePosition: 'right' },
             { elementId: 'cls-sg-context', label: 'Navigator', description: 'Navigator.buildRoute("A", "B") called', descriptionKey: 'strategy.step.navigation.1', logType: 'FLOW' },
             { elementId: 'cls-sg-strategy', label: 'RouteStrategy', description: 'Delegates to strategy.buildRoute()', descriptionKey: 'strategy.step.navigation.2', logType: 'FLOW' },
             { elementId: 'cls-sg-driving', label: 'DrivingStrategy', description: 'DrivingStrategy calculates fastest road route', descriptionKey: 'strategy.step.navigation.3', logType: 'FLOW' },
             { elementId: 'obj-driving', label: ':DrivingStrategy', description: 'Returns Route with 15km, 20min ETA', descriptionKey: 'strategy.step.navigation.4', logType: 'RESPONSE', spawnId: 'obj-driving' },
-            { elementId: 'cls-sg-client', label: 'Client', description: 'Client swaps to WalkingStrategy', descriptionKey: 'strategy.step.navigation.5', logType: 'REQUEST', arrowFromId: 'cls-sg-client', noArrowFromPrev: true, badgePosition: 'left' },
+            { elementId: 'cls-sg-client', label: 'Client', description: 'Client swaps to WalkingStrategy', descriptionKey: 'strategy.step.navigation.5', logType: 'REQUEST', badgePosition: 'left' },
             { elementId: 'obj-walking', label: ':WalkingStrategy', description: 'WalkingStrategy: 2km walk, 25min ETA', descriptionKey: 'strategy.step.navigation.6', logType: 'RESPONSE', spawnId: 'obj-walking', arrowFromId: 'cls-sg-walking' }
         ];
     },

@@ -1158,7 +1158,7 @@
   ],
   "observer.name": "Observer",
   "observer.modes.events.label": "Ereignisse",
-  "observer.modes.events.desc": "Ein EventManager (Subjekt) verwaltet eine Liste von Beobachtern und benachrichtigt sie automatisch, wenn ein Ereignis eintritt. EmailNotifier, LoggingObserver und SlackNotifier implementieren alle die Observer-Schnittstelle und reagieren unabhaengig voneinander auf dasselbe Ereignis.",
+  "observer.modes.events.desc": "Ein EventManager (Subjekt) verwaltet eine Liste von Beobachtern und benachrichtigt sie automatisch, wenn ein Ereignis eintritt. EmailListener, LoggingListener und SlackListener implementieren alle die Observer-Schnittstelle und reagieren unabhaengig voneinander auf dasselbe Ereignis.",
   "observer.details.events.principles": [
     "Lose Kopplung: Das Subjekt weiss nur, dass Beobachter eine Schnittstelle implementieren, nicht deren konkrete Typen",
     "Open/Closed-Prinzip: Neue Beobachter koennen hinzugefuegt werden, ohne das Subjekt zu aendern",
@@ -1199,20 +1199,20 @@
   "observer.details.events.tradeoffs.whenToUse": "Verwenden Sie es, wenn Aenderungen an einem Objekt die Aktualisierung anderer erfordern und Sie nicht wissen, wie viele Objekte sich aendern muessen. Verbreitet in Ereignissystemen, UI-Frameworks, Message Brokern und Pub/Sub-Architekturen.",
   "observer.tooltip.subject": "EventManager verwaltet eine Zuordnung von Ereignisnamen zu Beobachterlisten und sendet Benachrichtigungen",
   "observer.tooltip.observer": "Observer-Schnittstelle — alle konkreten Beobachter muessen update(event, data) implementieren",
-  "observer.tooltip.email": "EmailNotifier sendet Bestaetigungsmails, wenn Ereignisse eintreten",
-  "observer.tooltip.logging": "LoggingObserver schreibt Ereignisdetails in eine Protokolldatei",
-  "observer.tooltip.slack": "SlackNotifier postet Ereignisbenachrichtigungen in einen Slack-Kanal",
-  "observer.tooltip.obj-email": "Laufzeitinstanz von EmailNotifier, die das Ereignis verarbeitet",
-  "observer.tooltip.obj-logging": "Laufzeitinstanz von LoggingObserver, die ins Protokoll schreibt",
-  "observer.tooltip.obj-slack": "Laufzeitinstanz von SlackNotifier, die auf Slack postet",
+  "observer.tooltip.email": "EmailListener sendet Bestaetigungsmails, wenn Ereignisse eintreten",
+  "observer.tooltip.logging": "LoggingListener schreibt Ereignisdetails in eine Protokolldatei",
+  "observer.tooltip.slack": "SlackListener postet Ereignisbenachrichtigungen in einen Slack-Kanal",
+  "observer.tooltip.obj-email": "Laufzeitinstanz von EmailListener, die das Ereignis verarbeitet",
+  "observer.tooltip.obj-logging": "Laufzeitinstanz von LoggingListener, die ins Protokoll schreibt",
+  "observer.tooltip.obj-slack": "Laufzeitinstanz von SlackListener, die auf Slack postet",
   "observer.step.events.0": "Benutzer loest Ereignis \"order.placed\" aus",
   "observer.step.events.1": "EventManager sucht Abonnenten fuer \"order.placed\"",
-  "observer.step.events.2": "Benachrichtige EmailNotifier.update()",
-  "observer.step.events.3": "EmailNotifier sendet Bestaetigungsmail",
-  "observer.step.events.4": "Benachrichtige LoggingObserver.update()",
-  "observer.step.events.5": "LoggingObserver schreibt in Protokolldatei",
-  "observer.step.events.6": "Benachrichtige SlackNotifier.update()",
-  "observer.step.events.7": "SlackNotifier postet in #orders-Kanal",
+  "observer.step.events.2": "Benachrichtige EmailListener.update()",
+  "observer.step.events.3": "EmailListener sendet Bestaetigungsmail",
+  "observer.step.events.4": "Benachrichtige LoggingListener.update()",
+  "observer.step.events.5": "LoggingListener schreibt in Protokolldatei",
+  "observer.step.events.6": "Benachrichtige SlackListener.update()",
+  "observer.step.events.7": "SlackListener postet in #orders-Kanal",
   "observer.stepLabel.events": "Ereignis ueber Beobachter-Muster broadcasten",
   "observer.depRules": [
     {
@@ -1224,15 +1224,15 @@
       "role": "Definiert den update(event, data)-Vertrag fuer den Empfang von Benachrichtigungen"
     },
     {
-      "name": "EmailNotifier",
+      "name": "EmailListener",
       "role": "Sendet E-Mail-Benachrichtigungen bei Ereignissen"
     },
     {
-      "name": "LoggingObserver",
+      "name": "LoggingListener",
       "role": "Protokolliert Ereignisdetails in einer Datei zur Ueberpruefung"
     },
     {
-      "name": "SlackNotifier",
+      "name": "SlackListener",
       "role": "Postet Ereignisbenachrichtigungen in einen Slack-Kanal"
     }
   ],
@@ -1371,14 +1371,16 @@
   "command.tooltip.obj-on": "Laufzeitinstanz von TurnOnCommand im Verlaufsstapel",
   "command.tooltip.obj-off": "Laufzeitinstanz von TurnOffCommand nach Undo",
   "command.tooltip.obj-light": "Laufzeitinstanz von Light mit aktuellem Zustand",
-  "command.step.remote.0": "TurnOnCommand auf Fernbedienung setzen",
-  "command.step.remote.1": "pressButton() → command.execute()",
-  "command.step.remote.2": "TurnOnCommand.execute() aufgerufen",
-  "command.step.remote.3": "Light.turnOn() → isOn = true",
-  "command.step.remote.4": "Licht ist jetzt AN",
-  "command.step.remote.5": "TurnOnCommand in Verlaufsstapel schieben",
-  "command.step.remote.6": "pressUndo() → command.undo()",
-  "command.step.remote.7": "Undo: Light.turnOff() → isOn = false",
+  "command.tooltip.client": "Client erstellt Empfaenger, Befehle und verbindet sie mit dem Aufrufer",
+  "command.step.remote.0": "Client erstellt Light, TurnOnCommand und verbindet RemoteControl",
+  "command.step.remote.1": "setCommand(new TurnOnCommand(light))",
+  "command.step.remote.2": "pressButton() → command.execute()",
+  "command.step.remote.3": "TurnOnCommand.execute() aufgerufen",
+  "command.step.remote.4": "Light.turnOn() → isOn = true",
+  "command.step.remote.5": "Licht ist jetzt AN",
+  "command.step.remote.6": "TurnOnCommand in Verlaufsstapel schieben",
+  "command.step.remote.7": "pressUndo() → command.undo()",
+  "command.step.remote.8": "Undo: Light.turnOff() → isOn = false",
   "command.stepLabel.remote": "Ausfuehren und Rueckgaengigmachen ueber Befehl-Muster",
   "command.depRules": [
     {

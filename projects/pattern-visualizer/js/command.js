@@ -20,43 +20,39 @@ function renderCommandRemote() {
     var canvas = document.getElementById('pv-canvas');
     canvas.innerHTML =
         '<div class="layout-pattern-hierarchy" style="gap: 50px; padding: 30px 20px;">' +
-            /* Row 1: RemoteControl (Invoker) */
-            '<div class="pv-hierarchy-row">' +
+            /* Row 1: Client + RemoteControl + Command side by side */
+            '<div class="pv-hierarchy-row" style="justify-content: center; gap: 60px;">' +
+                PV.renderClass('cls-cm-client', 'Client', {
+                    methods: ['main()'],
+                    tooltip: I18N.t('command.tooltip.client', null, 'Client — creates receiver, commands, and wires them to the invoker')
+                }) +
                 PV.renderClass('cls-cm-invoker', 'RemoteControl', {
                     fields: ['command: Command', 'history: Command[]'],
                     methods: ['setCommand(cmd)', 'pressButton()', 'pressUndo()'],
                     tooltip: I18N.t('command.tooltip.invoker', null, 'Invoker — stores the current command and maintains a history stack for undo operations')
                 }) +
-            '</div>' +
-            PV.renderArrowConnector(I18N.t('command.arrow.executes', null, 'executes')) +
-            /* Row 2: Command interface */
-            '<div class="pv-hierarchy-row">' +
                 PV.renderClass('cls-cm-command', 'Command', {
                     stereotype: 'interface',
                     methods: ['execute(): void', 'undo(): void'],
                     tooltip: I18N.t('command.tooltip.command', null, 'Command interface — declares execute() and undo() methods that all concrete commands must implement')
                 }) +
             '</div>' +
-            /* Row 3: Concrete Commands */
-            '<div class="pv-hierarchy-row" style="gap: 100px; margin-top: 40px;">' +
+            /* Row 3: Concrete Commands + Receiver */
+            '<div class="pv-hierarchy-row" style="gap: 60px; margin-top: 40px;">' +
                 PV.renderClass('cls-cm-on', 'TurnOnCommand', {
                     fields: ['light: Light'],
                     methods: ['execute(): void', 'undo(): void'],
                     tooltip: I18N.t('command.tooltip.turnon', null, 'Concrete command — encapsulates the action of turning the light on; undo turns it off')
                 }) +
-                PV.renderClass('cls-cm-off', 'TurnOffCommand', {
-                    fields: ['light: Light'],
-                    methods: ['execute(): void', 'undo(): void'],
-                    tooltip: I18N.t('command.tooltip.turnoff', null, 'Concrete command — encapsulates the action of turning the light off; undo turns it on')
-                }) +
-            '</div>' +
-            PV.renderArrowConnector(I18N.t('command.arrow.actson', null, 'acts on')) +
-            /* Row 4: Light (Receiver) */
-            '<div class="pv-hierarchy-row">' +
                 PV.renderClass('cls-cm-receiver', 'Light', {
                     fields: ['isOn: bool'],
                     methods: ['turnOn(): void', 'turnOff(): void'],
                     tooltip: I18N.t('command.tooltip.light', null, 'Receiver — the actual device that performs the work when a command is executed')
+                }) +
+                PV.renderClass('cls-cm-off', 'TurnOffCommand', {
+                    fields: ['light: Light'],
+                    methods: ['execute(): void', 'undo(): void'],
+                    tooltip: I18N.t('command.tooltip.turnoff', null, 'Concrete command — encapsulates the action of turning the light off; undo turns it on')
                 }) +
             '</div>' +
             /* Row 5: Object instances */
@@ -79,6 +75,7 @@ function renderCommandRemote() {
         '</div>';
 
     setTimeout(function() {
+        PV.renderRelation('cls-cm-client', 'cls-cm-invoker', 'sync');
         PV.renderRelation('cls-cm-on', 'cls-cm-command', 'inherit');
         PV.renderRelation('cls-cm-off', 'cls-cm-command', 'inherit');
         PV.renderRelation('cls-cm-invoker', 'cls-cm-command', 'compose');
@@ -133,38 +130,46 @@ PV['command'].remote = {
     steps: function() {
         return [
             {
-                elementId: 'cls-cm-invoker',
-                label: 'RemoteControl',
-                description: 'Set TurnOnCommand on remote — setCommand(new TurnOnCommand(light))',
+                elementId: 'cls-cm-client',
+                label: 'Client',
+                description: 'Client creates Light, wraps it in TurnOnCommand, and wires to RemoteControl',
                 descriptionKey: 'command.step.remote.0',
                 logType: 'REQUEST'
+            },
+            {
+                elementId: 'cls-cm-invoker',
+                label: 'RemoteControl',
+                description: 'setCommand(new TurnOnCommand(light)) — store command reference',
+                descriptionKey: 'command.step.remote.1',
+                logType: 'REQUEST',
+                badgePosition: 'right'
             },
             {
                 elementId: 'cls-cm-command',
                 label: 'Command',
                 description: 'pressButton() invokes command.execute() through the Command interface',
-                descriptionKey: 'command.step.remote.1',
+                descriptionKey: 'command.step.remote.2',
                 logType: 'FLOW'
             },
             {
                 elementId: 'cls-cm-on',
                 label: 'TurnOnCommand',
                 description: 'TurnOnCommand.execute() called — delegates to receiver',
-                descriptionKey: 'command.step.remote.2',
+                descriptionKey: 'command.step.remote.3',
                 logType: 'FLOW'
             },
             {
                 elementId: 'cls-cm-receiver',
                 label: 'Light',
                 description: 'Light.turnOn() called — isOn = true',
-                descriptionKey: 'command.step.remote.3',
+                descriptionKey: 'command.step.remote.4',
                 logType: 'FLOW'
             },
             {
                 elementId: 'obj-light',
                 label: ':Light',
                 description: 'Light is now ON — state changed successfully',
-                descriptionKey: 'command.step.remote.4',
+                descriptionKey: 'command.step.remote.5',
                 logType: 'CREATE',
                 spawnId: 'obj-light'
             },
@@ -172,7 +177,7 @@ PV['command'].remote = {
                 elementId: 'obj-on',
                 label: ':TurnOnCommand',
                 description: 'Push TurnOnCommand to history stack for future undo',
-                descriptionKey: 'command.step.remote.5',
+                descriptionKey: 'command.step.remote.6',
                 logType: 'CREATE',
                 spawnId: 'obj-on'
             },
@@ -180,16 +185,15 @@ PV['command'].remote = {
                 elementId: 'cls-cm-invoker',
                 label: 'RemoteControl',
                 description: 'pressUndo() — pop last command from history and call command.undo()',
-                descriptionKey: 'command.step.remote.6',
+                descriptionKey: 'command.step.remote.7',
                 logType: 'REQUEST',
-                noArrowFromPrev: true,
                 badgePosition: 'left'
             },
             {
                 elementId: 'obj-off',
                 label: ':TurnOffCommand',
                 description: 'Undo: TurnOnCommand.undo() calls Light.turnOff() — isOn = false',
-                descriptionKey: 'command.step.remote.7',
+                descriptionKey: 'command.step.remote.8',
                 logType: 'RESPONSE',
                 spawnId: 'obj-off',
                 arrowFromId: 'cls-cm-receiver'

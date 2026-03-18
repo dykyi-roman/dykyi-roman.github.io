@@ -3,15 +3,15 @@
 PV['observer'] = {};
 
 PV['observer'].modes = [
-    { id: 'events', label: 'Event Notification', desc: 'EventManager maintains a list of subscribers and broadcasts events to all registered observers. When an event like "order.placed" fires, each observer (EmailNotifier, LoggingObserver, SlackNotifier) receives the update independently without knowing about each other.' }
+    { id: 'events', label: 'Event Notification', desc: 'EventManager maintains a list of subscribers and broadcasts events to all registered observers. When an event like "order.placed" fires, each observer (EmailListener, LoggingListener, SlackListener) receives the update independently without knowing about each other.' }
 ];
 
 PV['observer'].depRules = [
     { name: 'EventManager (Subject)', role: 'Manages subscriber list and broadcasts events' },
     { name: 'Observer (interface)', role: 'Defines the update(event) contract' },
-    { name: 'EmailNotifier', role: 'Sends email on event' },
-    { name: 'LoggingObserver', role: 'Logs event to file' },
-    { name: 'SlackNotifier', role: 'Posts to Slack channel' }
+    { name: 'EmailListener', role: 'Sends email on event' },
+    { name: 'LoggingListener', role: 'Logs event to file' },
+    { name: 'SlackListener', role: 'Posts to Slack channel' }
 ];
 
 /* ---------- Shared render functions ---------- */
@@ -39,24 +39,24 @@ function renderObserverEvents() {
             '</div>' +
             /* Row 3: Concrete observers */
             '<div class="pv-hierarchy-row" style="gap: 60px; margin-top: 40px;">' +
-                PV.renderClass('cls-ob-email', 'EmailNotifier', {
+                PV.renderClass('cls-ob-email', 'EmailListener', {
                     methods: ['update(event, data): void'],
                     tooltip: I18N.t('observer.tooltip.email', null, 'Concrete Observer — sends a confirmation email when notified of an event')
                 }) +
-                PV.renderClass('cls-ob-logging', 'LoggingObserver', {
+                PV.renderClass('cls-ob-logging', 'LoggingListener', {
                     methods: ['update(event, data): void'],
                     tooltip: I18N.t('observer.tooltip.logging', null, 'Concrete Observer — writes event details to a log file for auditing')
                 }) +
-                PV.renderClass('cls-ob-slack', 'SlackNotifier', {
+                PV.renderClass('cls-ob-slack', 'SlackListener', {
                     methods: ['update(event, data): void'],
                     tooltip: I18N.t('observer.tooltip.slack', null, 'Concrete Observer — posts a notification to a Slack channel when an event occurs')
                 }) +
             '</div>' +
             /* Row 4: Object instances */
             '<div class="pv-hierarchy-row" style="gap: 60px; margin-top: 20px;">' +
-                PV.renderObject('obj-email', ':EmailNotifier', { tooltip: I18N.t('observer.tooltip.obj-email', null, 'Runtime instance of EmailNotifier handling the event') }) +
-                PV.renderObject('obj-logging', ':LoggingObserver', { tooltip: I18N.t('observer.tooltip.obj-logging', null, 'Runtime instance of LoggingObserver handling the event') }) +
-                PV.renderObject('obj-slack', ':SlackNotifier', { tooltip: I18N.t('observer.tooltip.obj-slack', null, 'Runtime instance of SlackNotifier handling the event') }) +
+                PV.renderObject('obj-email', ':EmailListener', { tooltip: I18N.t('observer.tooltip.obj-email', null, 'Runtime instance of EmailListener handling the event') }) +
+                PV.renderObject('obj-logging', ':LoggingListener', { tooltip: I18N.t('observer.tooltip.obj-logging', null, 'Runtime instance of LoggingListener handling the event') }) +
+                PV.renderObject('obj-slack', ':SlackListener', { tooltip: I18N.t('observer.tooltip.obj-slack', null, 'Runtime instance of SlackListener handling the event') }) +
             '</div>' +
             /* Flow Legend */
             '<div class="pv-flow-legend">' +
@@ -123,12 +123,12 @@ PV['observer'].events = {
         return [
             { elementId: 'cls-ob-subject', label: 'EventManager', description: 'User triggers "order.placed" event', descriptionKey: 'observer.step.events.0', logType: 'REQUEST' },
             { elementId: 'cls-ob-observer', label: 'Observer', description: 'EventManager looks up subscribers for "order.placed"', descriptionKey: 'observer.step.events.1', logType: 'FLOW' },
-            { elementId: 'cls-ob-email', label: 'EmailNotifier', description: 'Notify EmailNotifier.update()', descriptionKey: 'observer.step.events.2', logType: 'FLOW' },
-            { elementId: 'obj-email', label: ':EmailNotifier', description: 'EmailNotifier sends confirmation email', descriptionKey: 'observer.step.events.3', logType: 'CREATE', spawnId: 'obj-email' },
-            { elementId: 'cls-ob-logging', label: 'LoggingObserver', description: 'Notify LoggingObserver.update()', descriptionKey: 'observer.step.events.4', logType: 'FLOW', arrowFromId: 'cls-ob-subject' },
-            { elementId: 'obj-logging', label: ':LoggingObserver', description: 'LoggingObserver writes to log file', descriptionKey: 'observer.step.events.5', logType: 'CREATE', spawnId: 'obj-logging' },
-            { elementId: 'cls-ob-slack', label: 'SlackNotifier', description: 'Notify SlackNotifier.update()', descriptionKey: 'observer.step.events.6', logType: 'FLOW', arrowFromId: 'cls-ob-subject' },
-            { elementId: 'obj-slack', label: ':SlackNotifier', description: 'SlackNotifier posts to #orders channel', descriptionKey: 'observer.step.events.7', logType: 'RESPONSE', spawnId: 'obj-slack' }
+            { elementId: 'cls-ob-email', label: 'EmailListener', description: 'Notify EmailListener.update()', descriptionKey: 'observer.step.events.2', logType: 'FLOW' },
+            { elementId: 'obj-email', label: ':EmailListener', description: 'EmailListener sends confirmation email', descriptionKey: 'observer.step.events.3', logType: 'CREATE', spawnId: 'obj-email' },
+            { elementId: 'cls-ob-logging', label: 'LoggingListener', description: 'Notify LoggingListener.update()', descriptionKey: 'observer.step.events.4', logType: 'FLOW', arrowFromId: 'cls-ob-subject' },
+            { elementId: 'obj-logging', label: ':LoggingListener', description: 'LoggingListener writes to log file', descriptionKey: 'observer.step.events.5', logType: 'CREATE', spawnId: 'obj-logging' },
+            { elementId: 'cls-ob-slack', label: 'SlackListener', description: 'Notify SlackListener.update()', descriptionKey: 'observer.step.events.6', logType: 'FLOW', arrowFromId: 'cls-ob-subject' },
+            { elementId: 'obj-slack', label: ':SlackListener', description: 'SlackListener posts to #orders channel', descriptionKey: 'observer.step.events.7', logType: 'RESPONSE', spawnId: 'obj-slack' }
         ];
     },
     stepOptions: function() { return { requestLabel: I18N.t('observer.stepLabel.events', null, 'Broadcast event via Observer pattern') }; },
@@ -177,7 +177,7 @@ final class EventManager
     }
 }
 
-readonly class EmailNotifier implements Observer
+readonly class EmailListener implements Observer
 {
     public function __construct(
         private string $adminEmail,
@@ -194,7 +194,7 @@ readonly class EmailNotifier implements Observer
     }
 }
 
-readonly class LoggingObserver implements Observer
+readonly class LoggingListener implements Observer
 {
     public function __construct(
         private string $logFile,
@@ -207,7 +207,7 @@ readonly class LoggingObserver implements Observer
     }
 }
 
-readonly class SlackNotifier implements Observer
+readonly class SlackListener implements Observer
 {
     public function __construct(
         private string $channel,
@@ -227,9 +227,9 @@ readonly class SlackNotifier implements Observer
 // Client
 $manager = new EventManager();
 
-$manager->subscribe('order.placed', new EmailNotifier('admin@shop.com'));
-$manager->subscribe('order.placed', new LoggingObserver('/var/log/orders.log'));
-$manager->subscribe('order.placed', new SlackNotifier('orders'));
+$manager->subscribe('order.placed', new EmailListener('admin@shop.com'));
+$manager->subscribe('order.placed', new LoggingListener('/var/log/orders.log'));
+$manager->subscribe('order.placed', new SlackListener('orders'));
 
 $manager->notify('order.placed', ['orderId' => 'ORD-1042', 'total' => 259.90]);`,
 
@@ -269,36 +269,36 @@ func (em *EventManager) Notify(event string, data map[string]any) {
 	}
 }
 
-type EmailNotifier struct {
+type EmailListener struct {
 	AdminEmail string
 }
 
-func (e *EmailNotifier) Update(event string, data map[string]any) {
+func (e *EmailListener) Update(event string, data map[string]any) {
 	fmt.Printf("Email to %s: [%s] Order #%v\\n", e.AdminEmail, event, data["orderId"])
 }
 
-type LoggingObserver struct {
+type LoggingListener struct {
 	LogFile string
 }
 
-func (l *LoggingObserver) Update(event string, data map[string]any) {
+func (l *LoggingListener) Update(event string, data map[string]any) {
 	fmt.Printf("Log %s: [%s] %v\\n", l.LogFile, event, data)
 }
 
-type SlackNotifier struct {
+type SlackListener struct {
 	Channel string
 }
 
-func (s *SlackNotifier) Update(event string, data map[string]any) {
+func (s *SlackListener) Update(event string, data map[string]any) {
 	fmt.Printf("Slack #%s: [%s] Order #%v placed\\n", s.Channel, event, data["orderId"])
 }
 
 func main() {
 	manager := NewEventManager()
 
-	manager.Subscribe("order.placed", &EmailNotifier{AdminEmail: "admin@shop.com"})
-	manager.Subscribe("order.placed", &LoggingObserver{LogFile: "/var/log/orders.log"})
-	manager.Subscribe("order.placed", &SlackNotifier{Channel: "orders"})
+	manager.Subscribe("order.placed", &EmailListener{AdminEmail: "admin@shop.com"})
+	manager.Subscribe("order.placed", &LoggingListener{LogFile: "/var/log/orders.log"})
+	manager.Subscribe("order.placed", &SlackListener{Channel: "orders"})
 
 	manager.Notify("order.placed", map[string]any{
 		"orderId": "ORD-1042",
@@ -333,7 +333,7 @@ class EventManager:
             observer.update(event, data or {})
 
 
-class EmailNotifier(Observer):
+class EmailListener(Observer):
     def __init__(self, admin_email: str) -> None:
         self._admin_email = admin_email
 
@@ -343,7 +343,7 @@ class EmailNotifier(Observer):
         print(f"Email to {self._admin_email}: [{event}] Order #{order_id}")
 
 
-class LoggingObserver(Observer):
+class LoggingListener(Observer):
     def __init__(self, log_file: str) -> None:
         self._log_file = log_file
 
@@ -352,7 +352,7 @@ class LoggingObserver(Observer):
         print(f"Log {self._log_file}: [{event}] {data}")
 
 
-class SlackNotifier(Observer):
+class SlackListener(Observer):
     def __init__(self, channel: str) -> None:
         self._channel = channel
 
@@ -365,9 +365,9 @@ class SlackNotifier(Observer):
 # Client
 manager = EventManager()
 
-manager.subscribe("order.placed", EmailNotifier("admin@shop.com"))
-manager.subscribe("order.placed", LoggingObserver("/var/log/orders.log"))
-manager.subscribe("order.placed", SlackNotifier("orders"))
+manager.subscribe("order.placed", EmailListener("admin@shop.com"))
+manager.subscribe("order.placed", LoggingListener("/var/log/orders.log"))
+manager.subscribe("order.placed", SlackListener("orders"))
 
 manager.notify("order.placed", {"orderId": "ORD-1042", "total": 259.90})`,
 
@@ -404,11 +404,11 @@ impl EventManager {
     }
 }
 
-struct EmailNotifier {
+struct EmailListener {
     admin_email: String,
 }
 
-impl EmailNotifier {
+impl EmailListener {
     fn new(admin_email: &str) -> Self {
         Self {
             admin_email: admin_email.to_string(),
@@ -416,7 +416,7 @@ impl EmailNotifier {
     }
 }
 
-impl Observer for EmailNotifier {
+impl Observer for EmailListener {
     fn update(&self, event: &str, data: &HashMap<String, String>) {
         let order_id = data.get("orderId").map_or("unknown", |v| v.as_str());
         println!(
@@ -426,11 +426,11 @@ impl Observer for EmailNotifier {
     }
 }
 
-struct LoggingObserver {
+struct LoggingListener {
     log_file: String,
 }
 
-impl LoggingObserver {
+impl LoggingListener {
     fn new(log_file: &str) -> Self {
         Self {
             log_file: log_file.to_string(),
@@ -438,17 +438,17 @@ impl LoggingObserver {
     }
 }
 
-impl Observer for LoggingObserver {
+impl Observer for LoggingListener {
     fn update(&self, event: &str, data: &HashMap<String, String>) {
         println!("Log {}: [{}] {:?}", self.log_file, event, data);
     }
 }
 
-struct SlackNotifier {
+struct SlackListener {
     channel: String,
 }
 
-impl SlackNotifier {
+impl SlackListener {
     fn new(channel: &str) -> Self {
         Self {
             channel: channel.to_string(),
@@ -456,7 +456,7 @@ impl SlackNotifier {
     }
 }
 
-impl Observer for SlackNotifier {
+impl Observer for SlackListener {
     fn update(&self, event: &str, data: &HashMap<String, String>) {
         let order_id = data.get("orderId").map_or("unknown", |v| v.as_str());
         println!(
@@ -469,9 +469,9 @@ impl Observer for SlackNotifier {
 fn main() {
     let mut manager = EventManager::new();
 
-    manager.subscribe("order.placed", Box::new(EmailNotifier::new("admin@shop.com")));
-    manager.subscribe("order.placed", Box::new(LoggingObserver::new("/var/log/orders.log")));
-    manager.subscribe("order.placed", Box::new(SlackNotifier::new("orders")));
+    manager.subscribe("order.placed", Box::new(EmailListener::new("admin@shop.com")));
+    manager.subscribe("order.placed", Box::new(LoggingListener::new("/var/log/orders.log")));
+    manager.subscribe("order.placed", Box::new(SlackListener::new("orders")));
 
     let mut data = HashMap::new();
     data.insert("orderId".to_string(), "ORD-1042".to_string());
