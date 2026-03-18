@@ -1615,7 +1615,8 @@
   "iterator.details.playlist.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie auf die Elemente einer Sammlung zugreifen moechten, ohne ihre interne Struktur offenzulegen, wenn Sie mehrere Durchlaufalgorithmen ueber eine Sammlung unterstuetzen muessen, oder wenn Sie eine einheitliche Schnittstelle zum Durchlaufen verschiedener Sammlungstypen wuenschen.",
   "iterator.tooltip.playlist": "Playlist speichert Songs und erzeugt Iteratoren zum Durchlaufen",
   "iterator.tooltip.iterator": "Iterator-Schnittstelle — deklariert hasNext()- und next()-Methoden",
-  "iterator.tooltip.concrete": "PlaylistIterator verfolgt die Position und gibt Songs sequenziell zurueck",
+  "iterator.tooltip.bidir": "Erweitert Iterator um Rueckwaertsdurchlauf — hasPrevious() und previous()",
+  "iterator.tooltip.concrete": "Bidirektionaler PlaylistIterator — durchlaeuft vorwaerts und rueckwaerts",
   "iterator.tooltip.obj-song1": "Song: Bohemian Rhapsody — erstes Element",
   "iterator.tooltip.obj-song2": "Song: Imagine — zweites Element",
   "iterator.tooltip.obj-song3": "Song: Hotel California — drittes Element",
@@ -1624,10 +1625,11 @@
   "iterator.step.playlist.1": "Gibt PlaylistIterator-Instanz zurueck",
   "iterator.step.playlist.2": "hasNext() → true (index=0)",
   "iterator.step.playlist.3": "next() → Song: Bohemian Rhapsody",
-  "iterator.step.playlist.4": "hasNext() → true (index=1)",
-  "iterator.step.playlist.5": "next() → Song: Imagine",
-  "iterator.step.playlist.6": "next() → Song: Hotel California",
-  "iterator.step.playlist.7": "hasNext() → false, Iteration abgeschlossen",
+  "iterator.step.playlist.4": "next() → Song: Imagine",
+  "iterator.step.playlist.5": "next() → Song: Hotel California",
+  "iterator.step.playlist.6": "hasPrevious() → true (index=2)",
+  "iterator.step.playlist.7": "previous() → Song: Imagine (index=1)",
+  "iterator.step.playlist.8": "Durchlauf abgeschlossen — Vorwaerts- und Rueckwaertsnavigation demonstriert",
   "iterator.stepLabel.playlist": "Wiedergabeliste ueber Iterator-Muster durchlaufen",
   "iterator.depRules": [
     {
@@ -1876,6 +1878,10 @@
   ],
   "visitor.details.export.concepts": [
     {
+      "term": "Client / Object Structure",
+      "definition": "Der Client erstellt einen Besucher, haelt eine Sammlung von Elementen (Formen) und durchlaeuft sie mit accept(visitor) — und startet so den Double-Dispatch-Prozess."
+    },
+    {
       "term": "Visitor",
       "definition": "Eine Schnittstelle, die visit-Methoden fuer jeden Elementtyp deklariert (visitCircle, visitRectangle). Jeder konkrete Besucher implementiert eine bestimmte Operation."
     },
@@ -1886,10 +1892,6 @@
     {
       "term": "Double Dispatch",
       "definition": "Zwei polymorphe Aufrufe: zuerst auf dem Element (accept), dann auf dem Besucher (visitX). Dies waehlt die korrekte Methode basierend auf beiden Typen aus."
-    },
-    {
-      "term": "Object Structure",
-      "definition": "Eine Sammlung von Elementen (Formen), die durchlaufen werden kann. Der Besucher wird nacheinander auf jedes Element angewendet."
     }
   ],
   "visitor.details.export.tradeoffs.pros": [
@@ -1905,6 +1907,7 @@
     "Nicht geeignet, wenn sich Elementklassen haeufig aendern"
   ],
   "visitor.details.export.tradeoffs.whenToUse": "Verwenden Sie es, wenn Sie viele unterschiedliche Operationen auf Objekten einer Struktur ausfuehren muessen und deren Klassen nicht verunreinigen moechten, wenn sich die Objektstruktur selten aendert, aber haeufig neue Operationen hinzukommen, oder wenn Sie Zustand ueber eine komplexe Objektstruktur ansammeln moechten.",
+  "visitor.tooltip.client": "Client — erstellt Besucher, durchlaeuft Formen und ruft accept(visitor) auf jeder auf",
   "visitor.tooltip.visitor": "Visitor-Schnittstelle — deklariert visitCircle()- und visitRectangle()-Methoden",
   "visitor.tooltip.shape": "Shape-Schnittstelle — deklariert accept(visitor) fuer Double Dispatch",
   "visitor.tooltip.xml": "XMLExportVisitor exportiert Formen im XML-Format",
@@ -1915,7 +1918,7 @@
   "visitor.tooltip.obj-json": "Laufzeit-JSONExportVisitor-Instanz — gleicher Durchlauf, andere Ausgabe",
   "visitor.tooltip.obj-circle": "Circle-Instanz nach Export",
   "visitor.tooltip.obj-rect": "Rectangle-Instanz nach Export",
-  "visitor.step.export.0": "XMLExportVisitor erstellen",
+  "visitor.step.export.0": "Client erstellt XMLExportVisitor",
   "visitor.step.export.1": "XMLExportVisitor instanziiert",
   "visitor.step.export.2": "circle.accept(xmlVisitor)",
   "visitor.step.export.3": "visitCircle(circle) → \"<circle r=5/>\"",
@@ -1923,10 +1926,14 @@
   "visitor.step.export.5": "visitRectangle(rect) → \"<rect w=10 h=5/>\"",
   "visitor.step.export.6": "Circle im XML-Format exportiert",
   "visitor.step.export.7": "Rectangle im XML-Format exportiert",
-  "visitor.step.export.8": "Besucher wechseln: JSONExportVisitor funktioniert gleich",
+  "visitor.step.export.8": "Client wechselt zu JSONExportVisitor",
   "visitor.step.export.9": "Alle Formen exportiert — kein Formcode geaendert",
   "visitor.stepLabel.export": "Formen ueber Besucher-Muster exportieren",
   "visitor.depRules": [
+    {
+      "name": "Client",
+      "role": "Erstellt Besucher, durchlaeuft Formen und ruft accept(visitor) auf jeder auf"
+    },
     {
       "name": "Visitor (Schnittstelle)",
       "role": "Deklariert visit-Methoden fuer jeden Formtyp"

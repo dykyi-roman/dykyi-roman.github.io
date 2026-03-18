@@ -1615,7 +1615,8 @@
   "iterator.details.playlist.tradeoffs.whenToUse": "Используйте, когда нужно обращаться к элементам коллекции, не раскрывая её внутреннюю структуру, когда требуется поддержка нескольких алгоритмов обхода коллекции, или когда нужен единый интерфейс для обхода различных типов коллекций.",
   "iterator.tooltip.playlist": "Playlist хранит песни и создаёт итераторы для обхода",
   "iterator.tooltip.iterator": "Интерфейс Iterator — объявляет методы hasNext() и next()",
-  "iterator.tooltip.concrete": "PlaylistIterator отслеживает позицию и возвращает песни последовательно",
+  "iterator.tooltip.bidir": "Расширяет Iterator обратным обходом — hasPrevious() и previous()",
+  "iterator.tooltip.concrete": "Двунаправленный PlaylistIterator — обход вперёд и назад",
   "iterator.tooltip.obj-song1": "Song: Bohemian Rhapsody — первый элемент",
   "iterator.tooltip.obj-song2": "Song: Imagine — второй элемент",
   "iterator.tooltip.obj-song3": "Song: Hotel California — третий элемент",
@@ -1624,10 +1625,11 @@
   "iterator.step.playlist.1": "Возвращён экземпляр PlaylistIterator",
   "iterator.step.playlist.2": "hasNext() → true (index=0)",
   "iterator.step.playlist.3": "next() → Song: Bohemian Rhapsody",
-  "iterator.step.playlist.4": "hasNext() → true (index=1)",
-  "iterator.step.playlist.5": "next() → Song: Imagine",
-  "iterator.step.playlist.6": "next() → Song: Hotel California",
-  "iterator.step.playlist.7": "hasNext() → false, обход завершён",
+  "iterator.step.playlist.4": "next() → Song: Imagine",
+  "iterator.step.playlist.5": "next() → Song: Hotel California",
+  "iterator.step.playlist.6": "hasPrevious() → true (index=2)",
+  "iterator.step.playlist.7": "previous() → Song: Imagine (index=1)",
+  "iterator.step.playlist.8": "Обход завершён — продемонстрирована навигация вперёд и назад",
   "iterator.stepLabel.playlist": "Обход плейлиста через паттерн Итератор",
   "iterator.depRules": [
     {
@@ -1876,6 +1878,10 @@
   ],
   "visitor.details.export.concepts": [
     {
+      "term": "Client / Object Structure",
+      "definition": "Клиент создаёт посетителя, хранит коллекцию элементов (фигур) и обходит их, вызывая accept(visitor) на каждом — запуская процесс двойной диспетчеризации."
+    },
+    {
       "term": "Visitor",
       "definition": "Интерфейс, объявляющий методы visit для каждого типа элемента (visitCircle, visitRectangle). Каждый конкретный посетитель реализует конкретную операцию."
     },
@@ -1886,10 +1892,6 @@
     {
       "term": "Double Dispatch",
       "definition": "Два полиморфных вызова: сначала на элементе (accept), затем на посетителе (visitX). Это выбирает правильный метод на основе обоих типов."
-    },
-    {
-      "term": "Object Structure",
-      "definition": "Коллекция элементов (фигур), которую можно обходить. Посетитель применяется к каждому элементу по очереди."
     }
   ],
   "visitor.details.export.tradeoffs.pros": [
@@ -1905,6 +1907,7 @@
     "Не подходит, когда классы элементов часто изменяются"
   ],
   "visitor.details.export.tradeoffs.whenToUse": "Используйте, когда нужно выполнять множество несвязанных операций над объектами структуры и вы хотите избежать засорения их классов, когда структура объектов редко меняется, но часто добавляются новые операции, или когда нужно накапливать состояние при обходе сложной структуры объектов.",
+  "visitor.tooltip.client": "Client — создаёт посетителей, обходит фигуры и вызывает accept(visitor) на каждой",
   "visitor.tooltip.visitor": "Интерфейс Visitor — объявляет методы visitCircle() и visitRectangle()",
   "visitor.tooltip.shape": "Интерфейс Shape — объявляет accept(visitor) для двойной диспетчеризации",
   "visitor.tooltip.xml": "XMLExportVisitor экспортирует фигуры в формат XML",
@@ -1915,7 +1918,7 @@
   "visitor.tooltip.obj-json": "Экземпляр JSONExportVisitor во время выполнения — тот же обход, другой вывод",
   "visitor.tooltip.obj-circle": "Экземпляр Circle после экспорта",
   "visitor.tooltip.obj-rect": "Экземпляр Rectangle после экспорта",
-  "visitor.step.export.0": "Создать XMLExportVisitor",
+  "visitor.step.export.0": "Client создаёт XMLExportVisitor",
   "visitor.step.export.1": "Экземпляр XMLExportVisitor создан",
   "visitor.step.export.2": "circle.accept(xmlVisitor)",
   "visitor.step.export.3": "visitCircle(circle) → \"<circle r=5/>\"",
@@ -1923,10 +1926,14 @@
   "visitor.step.export.5": "visitRectangle(rect) → \"<rect w=10 h=5/>\"",
   "visitor.step.export.6": "Circle экспортирован в XML",
   "visitor.step.export.7": "Rectangle экспортирован в XML",
-  "visitor.step.export.8": "Замена посетителя: JSONExportVisitor работает аналогично",
+  "visitor.step.export.8": "Client переключается на JSONExportVisitor",
   "visitor.step.export.9": "Все фигуры экспортированы — код фигур не изменён",
   "visitor.stepLabel.export": "Экспорт фигур через паттерн Посетитель",
   "visitor.depRules": [
+    {
+      "name": "Client",
+      "role": "Создаёт посетителей, обходит фигуры и вызывает accept(visitor) на каждой"
+    },
     {
       "name": "Visitor (interface)",
       "role": "Объявляет методы visit для каждого типа фигуры"

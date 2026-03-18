@@ -19,17 +19,13 @@ function renderMediatorChatroom() {
     var canvas = document.getElementById('pv-canvas');
     canvas.innerHTML =
         '<div class="layout-pattern-hierarchy" style="gap: 50px; padding: 30px 20px;">' +
-            /* Row 1: Mediator interface */
-            '<div class="pv-hierarchy-row">' +
+            /* Row 1: Mediator + ChatRoom side by side */
+            '<div class="pv-hierarchy-row" style="justify-content: center; gap: 120px;">' +
                 PV.renderClass('cls-md-mediator', 'Mediator', {
                     stereotype: 'interface',
                     methods: ['sendMessage(msg, sender)'],
                     tooltip: I18N.t('mediator.tooltip.mediator', null, 'Mediator interface — defines the contract for routing messages between colleagues')
                 }) +
-            '</div>' +
-            PV.renderArrowConnector(I18N.t('ui.legend.inherit', null, 'implements')) +
-            /* Row 2: ChatRoom */
-            '<div class="pv-hierarchy-row">' +
                 PV.renderClass('cls-md-chatroom', 'ChatRoom', {
                     fields: ['users: User[]'],
                     methods: ['sendMessage(msg, sender)', 'addUser(user)'],
@@ -46,7 +42,7 @@ function renderMediatorChatroom() {
                 }) +
             '</div>' +
             /* Row 4: Concrete user instances */
-            '<div class="pv-hierarchy-row" style="gap: 60px; margin-top: 20px;">' +
+            '<div class="pv-hierarchy-row" style="gap: 120px; margin-top: 20px;">' +
                 PV.renderObject('obj-alice', 'Alice', { tooltip: I18N.t('mediator.tooltip.obj-alice', null, 'Concrete user instance — sends and receives messages through the ChatRoom mediator') }) +
                 PV.renderObject('obj-bob', 'Bob', { tooltip: I18N.t('mediator.tooltip.obj-bob', null, 'Concrete user instance — receives broadcast messages from the ChatRoom') }) +
                 PV.renderObject('obj-charlie', 'Charlie', { tooltip: I18N.t('mediator.tooltip.obj-charlie', null, 'Concrete user instance — receives broadcast messages from the ChatRoom') }) +

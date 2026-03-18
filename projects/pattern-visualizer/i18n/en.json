@@ -1140,7 +1140,8 @@
   "iterator.details.playlist.tradeoffs.whenToUse": "Use when you want to access a collection's elements without exposing its internal structure, when you need to support multiple traversal algorithms over a collection, or when you want a uniform interface for traversing different collection types.",
   "iterator.tooltip.playlist": "Playlist stores songs and creates iterators for traversal",
   "iterator.tooltip.iterator": "Iterator interface \u2014 declares hasNext() and next() methods",
-  "iterator.tooltip.concrete": "PlaylistIterator tracks position and returns songs sequentially",
+  "iterator.tooltip.bidir": "Extends Iterator with reverse traversal \u2014 hasPrevious() and previous()",
+  "iterator.tooltip.concrete": "Bidirectional PlaylistIterator \u2014 traverses forward and backward",
   "iterator.tooltip.obj-song1": "Song: Bohemian Rhapsody \u2014 first element",
   "iterator.tooltip.obj-song2": "Song: Imagine \u2014 second element",
   "iterator.tooltip.obj-song3": "Song: Hotel California \u2014 third element",
@@ -1149,10 +1150,11 @@
   "iterator.step.playlist.1": "Returns PlaylistIterator instance",
   "iterator.step.playlist.2": "hasNext() \u2192 true (index=0)",
   "iterator.step.playlist.3": "next() \u2192 Song: Bohemian Rhapsody",
-  "iterator.step.playlist.4": "hasNext() \u2192 true (index=1)",
-  "iterator.step.playlist.5": "next() \u2192 Song: Imagine",
-  "iterator.step.playlist.6": "next() \u2192 Song: Hotel California",
-  "iterator.step.playlist.7": "hasNext() \u2192 false, iteration complete",
+  "iterator.step.playlist.4": "next() \u2192 Song: Imagine",
+  "iterator.step.playlist.5": "next() \u2192 Song: Hotel California",
+  "iterator.step.playlist.6": "hasPrevious() \u2192 true (index=2)",
+  "iterator.step.playlist.7": "previous() \u2192 Song: Imagine (index=1)",
+  "iterator.step.playlist.8": "Traversal complete \u2014 forward and backward navigation demonstrated",
   "iterator.stepLabel.playlist": "Traverse playlist via Iterator pattern",
   "iterator.depRules": [
     { "name": "Playlist (Aggregate)", "role": "Collection of songs that creates iterators" },
@@ -1326,10 +1328,10 @@
     "Accumulation: visitors can gather state as they traverse the object structure"
   ],
   "visitor.details.export.concepts": [
+    { "term": "Client / Object Structure", "definition": "The client creates a visitor, holds a collection of elements (shapes), and iterates them calling accept(visitor) on each — driving the double dispatch process." },
     { "term": "Visitor", "definition": "An interface declaring visit methods for each element type (visitCircle, visitRectangle). Each concrete visitor implements a specific operation." },
     { "term": "Element", "definition": "Shape interface with accept(visitor) method. Each concrete element calls the appropriate visit method on the visitor." },
-    { "term": "Double Dispatch", "definition": "Two polymorphic calls: first on the element (accept), then on the visitor (visitX). This selects the correct method based on both types." },
-    { "term": "Object Structure", "definition": "A collection of elements (shapes) that can be traversed. The visitor is applied to each element in turn." }
+    { "term": "Double Dispatch", "definition": "Two polymorphic calls: first on the element (accept), then on the visitor (visitX). This selects the correct method based on both types." }
   ],
   "visitor.details.export.tradeoffs.pros": [
     "Easy to add new operations \u2014 just create a new visitor class",
@@ -1344,6 +1346,7 @@
     "Not suitable when element classes change frequently"
   ],
   "visitor.details.export.tradeoffs.whenToUse": "Use when you need to perform many unrelated operations on objects in a structure and want to avoid polluting their classes, when the object structure rarely changes but new operations are added frequently, or when you want to accumulate state across a complex object structure.",
+  "visitor.tooltip.client": "Client \u2014 creates visitors, iterates shapes, and calls accept(visitor) on each",
   "visitor.tooltip.visitor": "Visitor interface \u2014 declares visitCircle() and visitRectangle() methods",
   "visitor.tooltip.shape": "Shape interface \u2014 declares accept(visitor) for double dispatch",
   "visitor.tooltip.xml": "XMLExportVisitor exports shapes to XML format",
@@ -1354,7 +1357,7 @@
   "visitor.tooltip.obj-json": "Runtime JSONExportVisitor instance \u2014 same traversal, different output",
   "visitor.tooltip.obj-circle": "Circle instance after export",
   "visitor.tooltip.obj-rect": "Rectangle instance after export",
-  "visitor.step.export.0": "Create XMLExportVisitor",
+  "visitor.step.export.0": "Client creates XMLExportVisitor",
   "visitor.step.export.1": "XMLExportVisitor instantiated",
   "visitor.step.export.2": "circle.accept(xmlVisitor)",
   "visitor.step.export.3": "visitCircle(circle) \u2192 \"<circle r=5/>\"",
@@ -1362,10 +1365,11 @@
   "visitor.step.export.5": "visitRectangle(rect) \u2192 \"<rect w=10 h=5/>\"",
   "visitor.step.export.6": "Circle exported to XML",
   "visitor.step.export.7": "Rectangle exported to XML",
-  "visitor.step.export.8": "Swap visitor: JSONExportVisitor works the same way",
+  "visitor.step.export.8": "Client swaps to JSONExportVisitor",
   "visitor.step.export.9": "All shapes exported \u2014 no shape code changed",
   "visitor.stepLabel.export": "Export shapes via Visitor pattern",
   "visitor.depRules": [
+    { "name": "Client", "role": "Creates visitors, iterates shapes, and calls accept(visitor) on each" },
     { "name": "Visitor (interface)", "role": "Declares visit methods for each shape type" },
     { "name": "XMLExportVisitor", "role": "Exports shapes to XML format" },
     { "name": "JSONExportVisitor", "role": "Exports shapes to JSON format" },

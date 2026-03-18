@@ -1615,7 +1615,8 @@
   "iterator.details.playlist.tradeoffs.whenToUse": "Usar cuando se desea acceder a los elementos de una coleccion sin exponer su estructura interna, cuando se necesita soportar multiples algoritmos de recorrido sobre una coleccion, o cuando se quiere una interfaz uniforme para recorrer diferentes tipos de colecciones.",
   "iterator.tooltip.playlist": "Playlist almacena canciones y crea iteradores para el recorrido",
   "iterator.tooltip.iterator": "Interfaz Iterator — declara metodos hasNext() y next()",
-  "iterator.tooltip.concrete": "PlaylistIterator rastrea la posicion y retorna canciones secuencialmente",
+  "iterator.tooltip.bidir": "Extiende Iterator con recorrido inverso — hasPrevious() y previous()",
+  "iterator.tooltip.concrete": "PlaylistIterator bidireccional — recorre hacia adelante y hacia atras",
   "iterator.tooltip.obj-song1": "Song: Bohemian Rhapsody — primer elemento",
   "iterator.tooltip.obj-song2": "Song: Imagine — segundo elemento",
   "iterator.tooltip.obj-song3": "Song: Hotel California — tercer elemento",
@@ -1624,10 +1625,11 @@
   "iterator.step.playlist.1": "Retorna instancia de PlaylistIterator",
   "iterator.step.playlist.2": "hasNext() → true (index=0)",
   "iterator.step.playlist.3": "next() → Song: Bohemian Rhapsody",
-  "iterator.step.playlist.4": "hasNext() → true (index=1)",
-  "iterator.step.playlist.5": "next() → Song: Imagine",
-  "iterator.step.playlist.6": "next() → Song: Hotel California",
-  "iterator.step.playlist.7": "hasNext() → false, iteracion completa",
+  "iterator.step.playlist.4": "next() → Song: Imagine",
+  "iterator.step.playlist.5": "next() → Song: Hotel California",
+  "iterator.step.playlist.6": "hasPrevious() → true (index=2)",
+  "iterator.step.playlist.7": "previous() → Song: Imagine (index=1)",
+  "iterator.step.playlist.8": "Recorrido completo — navegacion hacia adelante y hacia atras demostrada",
   "iterator.stepLabel.playlist": "Recorrer playlist via patron Iterator",
   "iterator.depRules": [
     {
@@ -1876,6 +1878,10 @@
   ],
   "visitor.details.export.concepts": [
     {
+      "term": "Client / Object Structure",
+      "definition": "El cliente crea un visitor, mantiene una coleccion de elementos (figuras) y los recorre llamando accept(visitor) en cada uno — iniciando el proceso de despacho doble."
+    },
+    {
       "term": "Visitor",
       "definition": "Una interfaz que declara metodos visit para cada tipo de elemento (visitCircle, visitRectangle). Cada visitor concreto implementa una operacion especifica."
     },
@@ -1886,10 +1892,6 @@
     {
       "term": "Double Dispatch",
       "definition": "Dos llamadas polimorficas: primero en el elemento (accept), luego en el visitor (visitX). Esto selecciona el metodo correcto basado en ambos tipos."
-    },
-    {
-      "term": "Object Structure",
-      "definition": "Una coleccion de elementos (figuras) que puede recorrerse. El visitor se aplica a cada elemento en turno."
     }
   ],
   "visitor.details.export.tradeoffs.pros": [
@@ -1905,6 +1907,7 @@
     "No es adecuado cuando las clases de elementos cambian frecuentemente"
   ],
   "visitor.details.export.tradeoffs.whenToUse": "Usar cuando se necesita realizar muchas operaciones no relacionadas sobre objetos en una estructura y se quiere evitar contaminar sus clases, cuando la estructura de objetos rara vez cambia pero se agregan nuevas operaciones frecuentemente, o cuando se desea acumular estado a traves de una estructura de objetos compleja.",
+  "visitor.tooltip.client": "Client — crea visitors, recorre figuras y llama accept(visitor) en cada una",
   "visitor.tooltip.visitor": "Interfaz Visitor — declara metodos visitCircle() y visitRectangle()",
   "visitor.tooltip.shape": "Interfaz Shape — declara accept(visitor) para despacho doble",
   "visitor.tooltip.xml": "XMLExportVisitor exporta figuras a formato XML",
@@ -1915,7 +1918,7 @@
   "visitor.tooltip.obj-json": "Instancia JSONExportVisitor en ejecucion — mismo recorrido, diferente salida",
   "visitor.tooltip.obj-circle": "Instancia de Circle despues de la exportacion",
   "visitor.tooltip.obj-rect": "Instancia de Rectangle despues de la exportacion",
-  "visitor.step.export.0": "Crear XMLExportVisitor",
+  "visitor.step.export.0": "Client crea XMLExportVisitor",
   "visitor.step.export.1": "XMLExportVisitor instanciado",
   "visitor.step.export.2": "circle.accept(xmlVisitor)",
   "visitor.step.export.3": "visitCircle(circle) → \"<circle r=5/>\"",
@@ -1923,10 +1926,14 @@
   "visitor.step.export.5": "visitRectangle(rect) → \"<rect w=10 h=5/>\"",
   "visitor.step.export.6": "Circle exportado a XML",
   "visitor.step.export.7": "Rectangle exportado a XML",
-  "visitor.step.export.8": "Cambiar visitor: JSONExportVisitor funciona de la misma manera",
+  "visitor.step.export.8": "Client cambia a JSONExportVisitor",
   "visitor.step.export.9": "Todas las figuras exportadas — sin cambios en el codigo de figuras",
   "visitor.stepLabel.export": "Exportar figuras via patron Visitor",
   "visitor.depRules": [
+    {
+      "name": "Client",
+      "role": "Crea visitors, recorre figuras y llama accept(visitor) en cada una"
+    },
     {
       "name": "Visitor (interface)",
       "role": "Declara metodos visit para cada tipo de figura"

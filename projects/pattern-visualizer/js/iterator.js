@@ -19,29 +19,30 @@ function renderIteratorPlaylist() {
     var canvas = document.getElementById('pv-canvas');
     canvas.innerHTML =
         '<div class="layout-pattern-hierarchy" style="gap: 50px; padding: 30px 20px;">' +
-            /* Row 1: Playlist */
-            '<div class="pv-hierarchy-row">' +
+            /* Row 1: Playlist + Iterator + BidirectionalIterator */
+            '<div class="pv-hierarchy-row" style="justify-content: center; gap: 40px;">' +
                 PV.renderClass('cls-it-playlist', 'Playlist', {
                     fields: ['songs: Song[]'],
                     methods: ['createIterator(): Iterator', 'addSong(song)'],
                     tooltip: I18N.t('iterator.tooltip.playlist', null, 'Aggregate that holds a collection of songs and creates iterators for traversal')
                 }) +
-            '</div>' +
-            PV.renderArrowConnector(I18N.t('ui.legend.creates', null, 'creates')) +
-            /* Row 2: Iterator interface */
-            '<div class="pv-hierarchy-row">' +
                 PV.renderClass('cls-it-iterator', 'Iterator', {
                     stereotype: 'interface',
                     methods: ['hasNext(): bool', 'next(): Song'],
                     tooltip: I18N.t('iterator.tooltip.iterator', null, 'Iterator interface defining the traversal contract — hasNext() checks if more elements exist, next() returns the current element')
+                }) +
+                PV.renderClass('cls-it-bidir', 'BidirectionalIterator', {
+                    stereotype: 'interface',
+                    methods: ['hasPrevious(): bool', 'previous(): Song'],
+                    tooltip: I18N.t('iterator.tooltip.bidir', null, 'Extends Iterator with reverse traversal — hasPrevious() and previous() enable backward navigation')
                 }) +
             '</div>' +
             /* Row 3: PlaylistIterator */
             '<div class="pv-hierarchy-row" style="margin-top: 40px;">' +
                 PV.renderClass('cls-it-concrete', 'PlaylistIterator', {
                     fields: ['playlist: Playlist', 'index: int'],
-                    methods: ['hasNext(): bool', 'next(): Song'],
-                    tooltip: I18N.t('iterator.tooltip.concrete', null, 'Concrete iterator that traverses a Playlist sequentially — tracks position with an internal index')
+                    methods: ['hasNext(): bool', 'next(): Song', 'hasPrevious(): bool', 'previous(): Song'],
+                    tooltip: I18N.t('iterator.tooltip.concrete', null, 'Concrete bidirectional iterator — traverses a Playlist forward and backward, tracks position with an internal index')
                 }) +
             '</div>' +
             /* Row 4: Song objects + Iterator object */
@@ -64,7 +65,9 @@ function renderIteratorPlaylist() {
         '</div>';
 
     setTimeout(function() {
-        PV.renderRelation('cls-it-concrete', 'cls-it-iterator', 'inherit');
+        PV.renderRelation('cls-it-playlist', 'cls-it-iterator', 'sync');
+        PV.renderRelation('cls-it-bidir', 'cls-it-iterator', 'inherit');
+        PV.renderRelation('cls-it-concrete', 'cls-it-bidir', 'inherit');
         PV.renderRelation('cls-it-playlist', 'cls-it-concrete', 'compose');
         PV.renderRelation('cls-it-concrete', 'cls-it-playlist', 'depend');
     }, 100);
@@ -83,8 +86,9 @@ PV['iterator'].details = {
         ],
         concepts: [
             { term: 'Aggregate', definition: 'The collection object (Playlist) that stores elements and provides a factory method (createIterator) to produce an iterator over its contents.' },
-            { term: 'Iterator', definition: 'Interface defining the traversal contract: hasNext() checks whether more elements remain, next() returns the current element and advances the cursor.' },
-            { term: 'Concrete Iterator', definition: 'PlaylistIterator implements the Iterator interface for a specific collection. It holds a reference to the Playlist and tracks the current index.' },
+            { term: 'Iterator', definition: 'Interface defining the forward traversal contract: hasNext() checks whether more elements remain, next() returns the current element and advances the cursor.' },
+            { term: 'BidirectionalIterator', definition: 'Extends Iterator with reverse traversal: hasPrevious() checks if earlier elements exist, previous() returns the prior element and moves the cursor backward.' },
+            { term: 'Concrete Iterator', definition: 'PlaylistIterator implements BidirectionalIterator for a specific collection. It holds a reference to the Playlist and tracks the current index for both forward and backward traversal.' },
             { term: 'Element', definition: 'Song — the individual item stored in the collection and returned by the iterator during traversal.' }
         ],
         tradeoffs: {
@@ -132,7 +136,8 @@ PV['iterator'].playlist = {
                 label: 'PlaylistIterator',
                 description: 'hasNext() → true (index=0)',
                 descriptionKey: 'iterator.step.playlist.2',
-                logType: 'FLOW'
+                logType: 'FLOW',
+                badgePosition: 'right'
             },
             {
                 elementId: 'obj-song1',
@@ -143,36 +148,43 @@ PV['iterator'].playlist = {
                 spawnId: 'obj-song1'
             },
             {
-                elementId: 'cls-it-concrete',
-                label: 'PlaylistIterator',
-                description: 'hasNext() → true (index=1)',
-                descriptionKey: 'iterator.step.playlist.4',
-                logType: 'FLOW',
-                noArrowFromPrev: true,
-                badgePosition: 'left'
-            },
-            {
                 elementId: 'obj-song2',
                 label: 'Imagine',
                 description: 'next() → Song: Imagine',
-                descriptionKey: 'iterator.step.playlist.5',
+                descriptionKey: 'iterator.step.playlist.4',
                 logType: 'CREATE',
-                spawnId: 'obj-song2'
+                spawnId: 'obj-song2',
+                arrowFromId: 'cls-it-concrete'
             },
             {
                 elementId: 'obj-song3',
                 label: 'Hotel California',
                 description: 'next() → Song: Hotel California',
-                descriptionKey: 'iterator.step.playlist.6',
+                descriptionKey: 'iterator.step.playlist.5',
                 logType: 'CREATE',
                 spawnId: 'obj-song3',
                 arrowFromId: 'cls-it-concrete'
             },
             {
+                elementId: 'cls-it-bidir',
+                label: 'BidirectionalIterator',
+                description: 'hasPrevious() → true (index=2)',
+                descriptionKey: 'iterator.step.playlist.6',
+                logType: 'FLOW'
+            },
+            {
+                elementId: 'cls-it-concrete',
+                label: 'PlaylistIterator',
+                description: 'previous() → Song: Imagine (index=1)',
+                descriptionKey: 'iterator.step.playlist.7',
+                logType: 'RESPONSE',
+                badgePosition: 'left'
+            },
+            {
                 elementId: 'obj-iter',
                 label: ':PlaylistIterator',
-                description: 'hasNext() → false, iteration complete',
-                descriptionKey: 'iterator.step.playlist.7',
+                description: 'Traversal complete — forward and backward navigation demonstrated',
+                descriptionKey: 'iterator.step.playlist.8',
                 logType: 'RESPONSE',
                 spawnId: 'obj-iter'
             }

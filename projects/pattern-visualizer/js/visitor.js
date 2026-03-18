@@ -7,6 +7,7 @@ PV['visitor'].modes = [
 ];
 
 PV['visitor'].depRules = [
+    { name: 'Client', role: 'Creates visitors, iterates shapes, and calls accept(visitor) on each' },
     { name: 'Visitor (interface)', role: 'Declares visit methods for each concrete element type (visitCircle, visitRectangle)' },
     { name: 'XMLExportVisitor', role: 'Exports shapes to XML format by implementing each visit method' },
     { name: 'JSONExportVisitor', role: 'Exports shapes to JSON format by implementing each visit method' },
@@ -21,8 +22,12 @@ function renderVisitorExport() {
     var canvas = document.getElementById('pv-canvas');
     canvas.innerHTML =
         '<div class="layout-pattern-hierarchy" style="gap: 50px; padding: 30px 20px;">' +
-            /* Row 1: Visitor interface + Shape interface side by side */
-            '<div class="pv-hierarchy-row" style="gap: 120px;">' +
+            /* Row 1: Client + Visitor interface + Shape interface */
+            '<div class="pv-hierarchy-row" style="gap: 80px;">' +
+                PV.renderClass('cls-vs-client', 'Client', {
+                    methods: ['exportShapes(shapes)'],
+                    tooltip: I18N.t('visitor.tooltip.client', null, 'Client — creates visitors, iterates shapes, and calls accept(visitor) on each')
+                }) +
                 PV.renderClass('cls-vs-visitor', 'Visitor', {
                     stereotype: 'interface',
                     methods: ['visitCircle(c)', 'visitRectangle(r)'],
@@ -35,7 +40,7 @@ function renderVisitorExport() {
                 }) +
             '</div>' +
             /* Row 2: Concrete visitors + Concrete shapes */
-            '<div class="pv-hierarchy-row" style="gap: 40px;">' +
+            '<div class="pv-hierarchy-row" style="gap: 60px; margin-top: 40px;">' +
                 PV.renderClass('cls-vs-xml', 'XMLExportVisitor', {
                     methods: ['visitCircle(c)', 'visitRectangle(r)'],
                     tooltip: I18N.t('visitor.tooltip.xml', null, 'Concrete Visitor that serializes each shape to XML format')
@@ -56,7 +61,7 @@ function renderVisitorExport() {
                 }) +
             '</div>' +
             /* Row 3: Object instances */
-            '<div class="pv-hierarchy-row" style="gap: 40px; margin-top: 20px;">' +
+            '<div class="pv-hierarchy-row" style="gap: 80px; margin-top: 20px;">' +
                 PV.renderObject('obj-xml', ':XMLExportVisitor', { tooltip: I18N.t('visitor.tooltip.obj-xml', null, 'Instance of XMLExportVisitor — visits shapes and produces XML output') }) +
                 PV.renderObject('obj-json', ':JSONExportVisitor', { tooltip: I18N.t('visitor.tooltip.obj-json', null, 'Instance of JSONExportVisitor — visits shapes and produces JSON output') }) +
                 PV.renderObject('obj-circle', ':Circle', { tooltip: I18N.t('visitor.tooltip.obj-circle', null, 'Circle instance exported by the visitor') }) +
@@ -78,6 +83,7 @@ function renderVisitorExport() {
         PV.renderRelation('cls-vs-circle', 'cls-vs-shape', 'inherit');
         PV.renderRelation('cls-vs-rect', 'cls-vs-shape', 'inherit');
         PV.renderRelation('cls-vs-shape', 'cls-vs-visitor', 'depend');
+        PV.renderRelation('cls-vs-client', 'cls-vs-shape', 'depend');
     }, 100);
 }
 
@@ -93,10 +99,10 @@ PV['visitor'].details = {
             'Element stability assumption: the pattern works best when the element hierarchy changes rarely, since adding a new element requires updating all visitors'
         ],
         concepts: [
+            { term: 'Client / Object Structure', definition: 'The client creates a visitor, holds a collection of elements (shapes), and iterates them calling accept(visitor) on each — driving the double dispatch process.' },
             { term: 'Visitor', definition: 'An interface declaring a visit method for each concrete element type. Each concrete visitor implements these methods with operation-specific logic.' },
             { term: 'Element', definition: 'An object (Shape) that exposes an accept(visitor) method. Inside accept(), it calls the visitor\'s type-specific method (e.g., visitor.visitCircle(this)).' },
-            { term: 'Double Dispatch', definition: 'The technique where accept() delegates to the visitor, which then calls back the correct visit method — resolving both the element type and the visitor type dynamically.' },
-            { term: 'Object Structure', definition: 'A collection of elements (e.g., a list of shapes) that can be iterated, with each element accepting the visitor in turn.' }
+            { term: 'Double Dispatch', definition: 'The technique where accept() delegates to the visitor, which then calls back the correct visit method — resolving both the element type and the visitor type dynamically.' }
         ],
         tradeoffs: {
             pros: [
@@ -127,9 +133,9 @@ PV['visitor'].export = {
     steps: function() {
         return [
             {
-                elementId: 'cls-vs-visitor',
-                label: 'Visitor',
-                description: 'Create XMLExportVisitor',
+                elementId: 'cls-vs-client',
+                label: 'Client',
+                description: 'Client creates XMLExportVisitor',
                 descriptionKey: 'visitor.step.export.0',
                 logType: 'REQUEST'
             },
@@ -147,14 +153,15 @@ PV['visitor'].export = {
                 description: 'circle.accept(xmlVisitor)',
                 descriptionKey: 'visitor.step.export.2',
                 logType: 'FLOW',
-                arrowFromId: 'cls-vs-visitor'
+                arrowFromId: 'cls-vs-client'
             },
             {
                 elementId: 'cls-vs-xml',
                 label: 'XMLExportVisitor',
                 description: 'visitCircle(circle) \u2192 "<circle r=5/>"',
                 descriptionKey: 'visitor.step.export.3',
-                logType: 'FLOW'
+                logType: 'FLOW',
+                badgePosition: 'right'
             },
             {
                 elementId: 'cls-vs-rect',
@@ -162,14 +169,15 @@ PV['visitor'].export = {
                 description: 'rectangle.accept(xmlVisitor)',
                 descriptionKey: 'visitor.step.export.4',
                 logType: 'FLOW',
-                arrowFromId: 'cls-vs-visitor'
+                arrowFromId: 'cls-vs-client'
             },
             {
                 elementId: 'cls-vs-xml',
                 label: 'XMLExportVisitor',
                 description: 'visitRectangle(rect) \u2192 "<rect w=10 h=5/>"',
                 descriptionKey: 'visitor.step.export.5',
-                logType: 'FLOW'
+                logType: 'FLOW',
+                badgePosition: 'left'
             },
             {
                 elementId: 'obj-circle',
@@ -177,7 +185,8 @@ PV['visitor'].export = {
                 description: 'Circle exported to XML',
                 descriptionKey: 'visitor.step.export.6',
                 logType: 'CREATE',
-                spawnId: 'obj-circle'
+                spawnId: 'obj-circle',
+                arrowFromId: 'cls-vs-circle'
             },
             {
                 elementId: 'obj-rect',
@@ -185,16 +194,16 @@ PV['visitor'].export = {
                 description: 'Rectangle exported to XML',
                 descriptionKey: 'visitor.step.export.7',
                 logType: 'CREATE',
-                spawnId: 'obj-rect'
+                spawnId: 'obj-rect',
+                arrowFromId: 'cls-vs-rect'
             },
             {
                 elementId: 'cls-vs-json',
                 label: 'JSONExportVisitor',
-                description: 'Swap visitor: JSONExportVisitor works the same way',
+                description: 'Client swaps to JSONExportVisitor',
                 descriptionKey: 'visitor.step.export.8',
                 logType: 'FLOW',
-                arrowFromId: 'cls-vs-visitor',
-                noArrowFromPrev: true
+                arrowFromId: 'cls-vs-client'
             },
             {
                 elementId: 'obj-json',
