@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../resources/analytics.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sapiens: A Brief History of Humankind - Dykyi Roman</title>
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <style>
+        .concept {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .revolution {
+            background-color: #fdedec;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .revolution-title {
+            font-weight: bold;
+            color: #c0392b;
+            margin-bottom: 10px;
+        }
+
+        .imagination {
+            background-color: #eaf2f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+
+        .imagination-title {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 10px;
+        }
+
+        .case-study {
+            background-color: #f5eef8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .case-title {
+            font-weight: bold;
+            color: #8e44ad;
+            margin-bottom: 10px;
+        }
+
+        .comparison {
+            margin: 25px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .comparison-row {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-header {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        .comparison-cell {
+            flex: 1;
+            padding: 12px 15px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .timeline-year {
+            position: absolute;
+            left: -50px;
+            top: 0;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+    </style>
+    <link rel="stylesheet" href="../../resources/navigation.css">
+</head>
+<body>
+<!-- Side Navigation -->
+<div class="side-nav">
+    <button class="nav-button" onclick="scrollToSection('book-section')">Intro</button>
+    <button class="nav-button" onclick="scrollToSection('review-section')">Review</button>
+    <button class="nav-button" onclick="scrollToSection('notes-section')">Notes</button>
+</div>
+
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="/pages/books.html">Book Reviews</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">Sapiens: A Brief History of Humankind</span>
+    </nav>
+
+    <!--  Book  -->
+    <div id="book-section" class="section">
+        <h3>Sapiens: A Brief History of Humankind</h3>
+        <p><strong>Author:</strong> Yuval Noah Harari</p>
+
+        <div class="post-content">
+            <p>
+                Это захватывающее путешествие длиной в 70 000 лет, которое перевернёт ваше представление о нас самих.
+            </p>
+            <p>
+                Представьте: обычный вид приматов, ничем особо не примечательный, вдруг становится властелином планеты.
+                Как? Благодаря уникальной способности верить в то, чего нет — в богов, деньги, государства и права
+                человека. Харари показывает, что вся наша цивилизация построена на коллективных иллюзиях, которые
+                оказались сильнее любого оружия.
+            </p>
+            <p>
+                Вы узнаете, как пшеница на самом деле приручила людей, а не наоборот. Почему появление денег важнее всех
+                королей и сражений. Как научная революция началась с простого признания: «Мы ничего не знаем». И главное
+                — куда мы идём теперь, когда технологии позволяют редактировать гены и создавать искусственный разум.
+            </p>
+            <p>
+                Это книга, после которой вы уже не сможете смотреть на мир прежними глазами. Она соединяет биологию,
+                историю и философию в удивительно цельный рассказ — иногда шокирующий, иногда смешной, но всегда
+                заставляющий думать. Харари не даёт готовых ответов, но задаёт вопросы, от которых мурашки бегут по
+                коже: «Чего мы на самом деле хотим?» и «Не станет ли Homo sapiens жертвой собственного успеха?»
+            </p>
+            <p>
+                Если вы готовы к интеллектуальному приключению, где каждая глава переворачивает ваши представления о
+                добре и зле, прогрессе и цене, которую мы за него платим — начинайте читать. Но предупреждаю: обратного
+                пути уже не будет.
+            </p>
+        </div>
+    </div>
+
+    <hr class="custom-hr">
+
+    <!-- Review  -->
+    <div id="review-section" class="section">
+        <h3>Review</h3>
+        <div class="concept">
+            <h2>1. Когнитивная революция (70,000 лет назад)</h2>
+
+            <div class="revolution">
+                <div class="revolution-title">Основные изменения:</div>
+                <ul>
+                    <li>Развитие сложного языка</li>
+                    <li>Способность к абстрактному мышлению</li>
+                    <li>Умение создавать и верить в вымышленные концепции</li>
+                    <li>Формирование крупных социальных групп</li>
+                </ul>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Пример:</div>
+                <p>Племя сапиенсов могло объединиться вокруг веры в духов предков или тотемных животных, что позволяло
+                    создавать группы до 150 человек (предел Данбара), в то время как неандертальцы ограничивались
+                    небольшими семейными группами.</p>
+            </div>
+
+            <div class="imagination">
+                <div class="imagination-title">Роль коллективных мифов:</div>
+                <p>Харари подчеркивает, что способность верить в вымышленные реальности (богов, нации, деньги) позволила
+                    сапиенсам массово сотрудничать с незнакомцами, что стало ключевым преимуществом над другими видами
+                    человека.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>2. Сельскохозяйственная революция (12,000 лет назад)</h2>
+
+            <div class="comparison">
+                <div class="comparison-row comparison-header">
+                    <div class="comparison-cell">Аспект</div>
+                    <div class="comparison-cell">Охотники-собиратели</div>
+                    <div class="comparison-cell">Земледельцы</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Питание</div>
+                    <div class="comparison-cell">Разнообразное, сезонное</div>
+                    <div class="comparison-cell">Однообразное, зависимое от урожая</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Рабочее время</div>
+                    <div class="comparison-cell">4-5 часов в день</div>
+                    <div class="comparison-cell">12-15 часов в день</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Здоровье</div>
+                    <div class="comparison-cell">Крепкие кости, хорошие зубы</div>
+                    <div class="comparison-cell">Недостаток витаминов, болезни</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Социальная структура</div>
+                    <div class="comparison-cell">Эгалитарная</div>
+                    <div class="comparison-cell">Иерархическая</div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Парадокс сельского хозяйства:</div>
+                <p>Харари называет сельскохозяйственную революцию "величайшим обманом человечества" — хотя она позволила
+                    увеличить численность населения, качество жизни отдельных людей ухудшилось. Пшеница "одомашнила"
+                    человека, а не наоборот.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>3. Объединение человечества</h2>
+
+            <div class="imagination">
+                <div class="imagination-title">Три универсальных порядка:</div>
+                <ol>
+                    <li><strong>Деньги:</strong> Универсальная система взаимного доверия</li>
+                    <li><strong>Империи:</strong> Политический порядок, объединяющий разнообразные культуры</li>
+                    <li><strong>Религии:</strong> Идеологические системы с универсальными претензиями</li>
+                </ol>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <p><strong>[3000 до н.э.] Первые деньги:</strong> Шумерские серебряные шекели как универсальный
+                        эквивалент</p>
+                </div>
+                <div class="timeline-item">
+                    <p><strong>[200 до н.э.] Империя Хань:</strong> Объединение Китая под единой административной
+                        системой</p>
+                </div>
+                <div class="timeline-item">
+                    <p><strong>[313 н.э.] Миланский эдикт:</strong> Христианство как объединяющая религия Римской
+                        империи</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>4. Научная революция (500 лет назад)</h2>
+
+            <div class="revolution">
+                <div class="revolution-title">Ключевые особенности:</div>
+                <ul>
+                    <li>Признание невежества: "Мы не знаем всего"</li>
+                    <li>Культ научного метода и экспериментов</li>
+                    <li>Тесная связь науки с империализмом и капитализмом</li>
+                    <li>Беспрецедентный технологический прогресс</li>
+                </ul>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Пример научного империализма:</div>
+                <p>Экспедиция Джеймса Кука (1768-1771) совмещала научные цели (наблюдение прохождения Венеры) с
+                    колониальными амбициями Британской империи. Научный прогресс часто финансировался ради военных и
+                    экономических преимуществ.</p>
+            </div>
+
+            <div class="imagination">
+                <div class="imagination-title">Капитализм как религия:</div>
+                <p>Харари анализирует современную экономику как систему коллективных верований, где кредит основан на
+                    вере в будущий рост, а корпорации существуют как юридические фикции, в которые миллионы людей
+                    искренне верят.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>5. Будущее sapiens</h2>
+
+            <div class="comparison">
+                <div class="comparison-row comparison-header">
+                    <div class="comparison-cell">Тренд</div>
+                    <div class="comparison-cell">Возможности</div>
+                    <div class="comparison-cell">Риски</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Биоинженерия</div>
+                    <div class="comparison-cell">Победа над болезнями, увеличение продолжительности жизни</div>
+                    <div class="comparison-cell">Создание "суперлюдей", социальное неравенство</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Киборгизация</div>
+                    <div class="comparison-cell">Усиление когнитивных и физических способностей</div>
+                    <div class="comparison-cell">Потеря человеческой идентичности</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-cell">Искусственный интеллект</div>
+                    <div class="comparison-cell">Решение глобальных проблем</div>
+                    <div class="comparison-cell">Потеря контроля, обесценивание человека</div>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Финальный вопрос Харари:</div>
+                <p>"Мы стали богами, но остались с психикой охотников-собирателей. Сможем ли мы найти смысл и счастье в
+                    мире, который сами создали, но не до конца понимаем?"</p>
+            </div>
+        </div>
+    </div>
+
+    <hr class="custom-hr">
+
+    <!-- Notes   -->
+    <div id="notes-section" class="section">
+        <h3>Notes</h3>
+        <ul>
+            <li><span>Not saved</span></li>
+        </ul>
+    </div>
+
+
+    <footer class="site-footer">
+        <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+        <div class="footer-links">
+            <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+            <a href="mailto:mr.dukuy@gmail.com">Email</a>
+        </div>
+    </footer>
+</div>
+
+<script src="../../resources/load-header.js"></script>
+</body>
+<script src="../../resources/back-to-top.js"></script>
+<script src="../../resources/navigation.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</html>

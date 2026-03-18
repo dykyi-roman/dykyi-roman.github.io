@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../resources/analytics.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to organize application structure - Dykyi Roman</title>
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/navigation.css">
+    <link rel="stylesheet" href="../../resources/article-style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="/pages/articles.html">Articles</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">How to organize application structure</span>
+    </nav>
+
+    <!-- Article Content -->
+    <div class="article-container">
+        <div class="article-header">
+            <h1 class="article-title">How to organize application structure</h1>
+            <div class="article-meta">11 min read | Jan 15, 2025</div>
+            <img src="img/5.png" alt="How to organize application structure" class="article-featured-img">
+        </div>
+
+        <div class="article-content">
+            <h2>🔔 Introduction</h2>
+            <p>Code structure is not just about organizing files and folders in a project; it is a fundamental aspect of
+                development that impacts its efficiency, quality, and long-term maintainability. A well-organized
+                codebase enhances understanding, simplifies the implementation of new features, and reduces the
+                likelihood of errors. Regardless of the project’s scale — whether a small application or a complex
+                system — a structured approach to code organization helps mitigate risks associated with technical debt.
+                It boosts the productivity of the development team. However, not all developers fully grasp the
+                significant difference between projects with a thoughtfully designed structure and those with chaotic
+                organization.</p>
+            <p>This article will explore what “clear code structure” means and why it is crucial for successful
+                development.</p>
+
+            <h3>Criteria of clarity</h3>
+            <ul>
+                <li>Each file and folder has a clear purpose.</li>
+                <li>The organization of the project’s file system should be intuitive and easy to understand.</li>
+                <li>Logic is divided into modules, layers, or functional areas.</li>
+                <li>Separating logic simplifies understanding of the system and reduces the coupling between
+                    components.
+                </li>
+                <li>File, variable, and function names reflect their roles.</li>
+                <li>Names should be self-documenting, meaning they should convey their purpose without requiring a deep
+                    dive into the implementation details.
+                </li>
+                <li>Coding standards adopted by the team are followed.</li>
+                <li>Adhering to a consistent coding style makes the code easier to read and understand.</li>
+                <li>Adding new features does not disrupt the existing structure.</li>
+                <li>The project should be designed in a way that allows new functionality to be added with minimal
+                    changes to the existing code.
+                </li>
+                <li>The architecture anticipates future growth.</li>
+                <li>The project should be built with scalability and future changes in mind.</li>
+            </ul>
+
+            <hr>
+            <h1>🔖 Monolithic</h1>
+            <img src="img/5.1.png" alt="Monolithic application structure diagram showing unorganized code organization" class="article-featured-img">
+
+            <h3>What are the problems we have?</h3>
+            <h4>Too General Level of Abstraction</h4>
+            <p>The structure is built around categories that reflect technical aspects of the code (e.g., Service,
+                Repository, Validator). This approach neglects the application's domain, making the system harder to
+                understand, especially for new developers who may not know which modules relate to which
+                functionality.</p>
+
+            <h4>Lack of Modularity</h4>
+            <p>This results in changes to one part of the code often requiring modifications in files across multiple
+                directories, increasing the likelihood of errors. When adding new functionality, in 95% of cases, you’ll
+                need to distribute code across several directories. This increases cognitive load as the logic of a
+                single module is scattered throughout the project. It also leads to more merge conflicts, as multiple
+                developers may modify the same code.</p>
+
+            <h4>Navigation Complexity</h4>
+            <p>Directories become “junk drawers” where files from different functionalities accumulate, making them hard
+                to locate and categorize.</p>
+
+            <h4>Violation of DDD</h4>
+            <p>Modern approaches to designing complex systems recommend structuring projects around domain entities and
+                the application’s domain. The proposed structure lacks a clear separation between business logic and
+                infrastructural concerns.</p>
+
+            <h4>Scalability Issues</h4>
+            <p>As the codebase grows, the proposed structure begins to “bloat.” Directories become overloaded with
+                files, and file names start to duplicate. Additionally, file sizes grow, leading to other code
+                smells.</p>
+
+            <h4>Violations of SOLID Principles</h4>
+            <ul>
+                <li><strong>S (Single Responsibility Principle):</strong> Directories like Service, Helper, and
+                    Constants violate SRP because they group files for technical purposes rather than functionality.
+                    This results in files within a single directory addressing completely different aspects of the
+                    system.
+                </li>
+                <li><strong>O (Open/Closed Principle):</strong> The structure makes it difficult to extend functionality
+                    without modifying existing code. For instance, adding new business logic often requires changes to
+                    existing services or validators, violating the open/closed principle.
+                </li>
+                <li><strong>L (Liskov Substitution Principle):</strong> No violations were identified.</li>
+                <li><strong>I (Interface Segregation Principle):</strong> General-purpose directories like Helper or
+                    Validator encourage utility classes with overly broad interfaces, forcing users to interact with
+                    methods they don’t need.
+                </li>
+                <li><strong>D (Dependency Inversion Principle):</strong> Dependencies in the current structure are often
+                    defined at the infrastructure level (e.g., Repository, ElasticSearch) rather than at the abstraction
+                    level. This violates DIP, as modules depend on implementation details rather than abstractions.
+                </li>
+            </ul>
+            <h4>Violations of GRASP Principles</h4>
+            <ul>
+                <li><strong>Information Expert:</strong> Classes and modules are not organized around business logic.
+                    Responsibilities are scattered across the structure, requiring developers to search the entire
+                    project to understand where data is processed.
+                </li>
+                <li><strong>Low Coupling & High Cohesion:</strong> The code of a single module is split across multiple
+                    directories, reducing cohesion. Instead of grouping related classes, they are scattered throughout
+                    the project. This structure also encourages excessive coupling between modules.
+                </li>
+            </ul>
+            <h4>Violations of the KISS Principle</h4>
+            <p>The structure complicates understanding of the system, as new developers must memorize where to find
+                specific logic. Simplicity is undermined by the scattered codebase.</p>
+
+            <hr>
+            <h1>🔖 MVC</h1>
+            <img src="img/5.2.png" alt="MVC architecture structure diagram showing Model-View-Controller pattern" class="article-featured-img">
+
+            <h3>What are the problems we have?</h3>
+            <p>Occurs in small projects. Has similar problems with unstructured ways of organizing.</p>
+
+            <hr>
+            <h1>🔖 Multilayer</h1>
+            <img src="img/5.3.png" alt="Multilayer architecture diagram showing Presentation, Application, Domain and Infrastructure layers" class="article-featured-img">
+
+            <h3>Advantages of the Structure</h3>
+            <p>This structure provides a clear separation of responsibilities. Changes in one layer will not affect
+                others (e.g., replacing the database). New layers or modules can be added without significant
+                modifications to the rest. Each layer has a strictly defined role:</p>
+            <ul>
+                <li><strong>Presentation:</strong> Handles user requests.</li>
+                <li><strong>Application:</strong> Coordinates actions and invokes business logic.</li>
+                <li><strong>Domain:</strong> The core containing business logic.</li>
+                <li><strong>Infrastructure:</strong> Handles technical details.</li>
+            </ul>
+            <p>This organization is significantly better but still not perfect, as it also has its drawbacks.</p>
+
+            <h3>What are the problems we have?</h3>
+            <h4>Layers Communicate Through Interfaces</h4>
+            <p>This increases the number of DTOs required for data transfer between layers. Logic related to a single
+                domain can still be scattered across layers.</p>
+
+            <h4>Violations of SOLID Principles</h4>
+            <ul>
+                <li><strong>S (Single Responsibility Principle):</strong> Code related to a single functionality is
+                    scattered across layers, making the system harder to understand. For example, a Order module is
+                    forced to include separate components in each layer instead of being localized.
+                </li>
+                <li><strong>O (Open/Closed Principle):</strong> No violations were detected.</li>
+                <li><strong>L (Liskov Substitution Principle):</strong> No violations were detected.</li>
+                <li><strong>I (Interface Segregation Principle):</strong> No violations were detected.</li>
+                <li><strong>D (Dependency Inversion Principle):</strong> Poor code organization can violate this
+                    principle when interfaces are defined alongside implementations in the Infrastructure layer rather
+                    than in the Domain layer.
+                </li>
+            </ul>
+            <h4>Violations of GRASP Principles</h4>
+            <ul>
+                <li><strong>Low Coupling & High Cohesion:</strong> Code related to a single functionality is still
+                    scattered across multiple directories (layers). Poor organization can also violate this principle
+                    when, for instance, the Application layer depends directly on the Domain, and the Domain depends on
+                    the Infrastructure. To prevent this, interfaces should be used for communication between layers to
+                    avoid direct dependencies.
+                </li>
+            </ul>
+            <h4>Code Duplication</h4>
+            <p>Code duplication is not necessarily an issue, and here’s why:</p>
+            <ul>
+                <li>Duplication can sometimes be a justified decision, especially when:</li>
+                <ul>
+                    <li>The code looks similar but serves different business domains.</li>
+                    <li>Changes in one place should not affect another.</li>
+                    <li>Contexts of use differ significantly.</li>
+                </ul>
+            </ul>
+            <h4>Logic Duplication</h4>
+            <blockquote>Logic duplication is truly dangerous! It’s important not to confuse these two concepts — accidental code
+                similarity and actual duplication of business logic.</blockquote>
+
+            <hr>
+            <h1>🔖 Clean Architecture</h1>
+            <img src="img/5.4.png" alt="Clean Architecture structure diagram showing Use Cases, Entities, Presenters organization" class="article-featured-img">
+
+            <blockquote>Use Cases are application components that handle business logic, interact with entities, and
+                perform specific operations within the application.
+            </blockquote>
+            <h3>Advantages of the Structure</h3>
+            <ul>
+                <li><strong>Clear Domain Organization:</strong> Each application layer separates business logic from
+                    technical details, keeping the code organized and understandable. This makes the project’s structure
+                    easier to grasp and maintain.
+                </li>
+                <li><strong>Convenient Project Navigation:</strong> Logical and consistent categorization of files
+                    (e.g., Entities, UseCases, Presenters) ensures intuitive project navigation. Developers can quickly
+                    locate necessary components without wasting time searching.
+                </li>
+                <li><strong>Scalability When Adding New Features:</strong> Each layer in this architecture is isolated,
+                    simplifying the process of adding new features or modifying existing ones. Adding a new use case or
+                    business rule won’t complicate the work of other layers.
+                </li>
+                <li><strong>Component Isolation:</strong> Separating logic into layers reduces interdependencies between
+                    components. Changes in one layer (e.g., the database or external interface) don’t impact other
+                    layers, enhancing the system’s modularity and testability.
+                </li>
+            </ul>
+            <h3>What are the problems we have?</h3>
+            <p>The structure shares similar challenges with unstructured organization.</p>
+
+            <hr>
+            <h1>🔖 Hexagonal</h1>
+            <img src="img/5.5.png" alt="Hexagonal Architecture diagram showing Ports and Adapters pattern" class="article-featured-img">
+
+            <blockquote>
+                <p>Inbound Ports define the interfaces through which external components or systems interact with your
+                    application (e.g., APIs, web controllers, commands).</p>
+                <p>Outbound Ports define the interfaces for the application to interact with external services, such as
+                    databases, external APIs, message queues, etc.</p>
+                <p>Adapters implement the integration with external systems.</p>
+            </blockquote>
+            <h3>What are the problems we have?</h3>
+            <h4>Complexity in Understanding and Maintenance</h4>
+            <p>Dividing the application into multiple layers and components can make the system harder to understand and
+                maintain. Adding ports and adapters increases the number of interfaces and abstractions, which might
+                make the project more complex, particularly for new developers.</p>
+
+            <h4>Violations of SOLID Principles</h4>
+            <ul>
+                <li><strong>S (Single Responsibility Principle):</strong> SRP might be violated if adapters begin
+                    performing additional functions beyond implementing a port, such as handling business logic.
+                </li>
+                <li><strong>O (Open/Closed Principle):</strong> No violations were detected.</li>
+                <li><strong>L (Liskov Substitution Principle):</strong> No violations were detected.</li>
+                <li><strong>I (Interface Segregation Principle):</strong> No violations were detected.</li>
+                <li><strong>D (Dependency Inversion Principle):</strong> No violations were detected.</li>
+            </ul>
+            <h4>Violations of GRASP Principles</h4>
+            <ul>
+                <li>No violations were detected.</li>
+            </ul>
+            However:
+            <blockquote>
+                <p><strong>Information Expert:</strong> This principle might be violated if responsibility for logic
+                    that better fits another part of the system is placed on the application or interface layer.</p>
+                <p><strong>Controller:</strong> This principle might be violated if controllers manage too much logic
+                </p>
+            </blockquote>
+
+            <hr>
+            <h1>🔖 DDD (Domain Driven Design)</h1>
+            <img src="img/5.6.png" alt="DDD Domain-Driven Design structure with Bounded Contexts and domain modules" class="article-featured-img">
+
+            <h3>Advantages of the Structure</h3>
+            <ul>
+                <li><strong>Focus on Business Domains:</strong> Code related to a specific business domain is localized,
+                    making it easier to understand and work on a module.
+                </li>
+                <li><strong>Encapsulation:</strong> Each module’s logic is isolated, helping minimize the impact of
+                    changes in one module on others. Code is clearly divided into layers, and layers within a module
+                    remain isolated from other modules.
+                </li>
+                <li><strong>Scalability:</strong> Adding new functionality or modules (e.g., a Partner module) does not
+                    require changes to existing modules.
+                </li>
+                <li><strong>Ease of Testing:</strong> Each module can be tested in isolation, simplifying the creation
+                    of unit and integration tests.
+                </li>
+                <li><strong>DDD Alignment:</strong> The proposed structure aligns well with Domain-Driven Design (DDD),
+                    providing a clear separation of modules into domains and distinct layers.
+                </li>
+            </ul>
+            <h3>What are the problems we have?</h3>
+            <h4>Shared Code</h4>
+            <p>Shared code may emerge. Adding a Shared module for common components (e.g., validators, exceptions,
+                utilities) can lead to an anti-pattern if not handled properly. To avoid this, only strictly common and
+                highly isolated components should be added to Shared, ensuring it doesn’t become a “dumping ground”.</p>
+
+            <h4>Violations of SOLID Principles</h4>
+            <ul>
+                <li>No violations were detected.</li>
+            </ul>
+            However:
+            <blockquote>
+                <p><strong>DIP (Dependency Inversion Principle):</strong> This can be violated if dependency injection
+                    (DI) is not used to inject implementations.</p>
+                <p><strong>ISP (Interface Segregation Principle):</strong> This can be violated if interfaces become
+                    bloated.</p>
+            </blockquote>
+
+            <h4>Violations of GRASP Principles</h4>
+            <ul>
+                <li>No violations were detected.</li>
+            </ul>
+            However:
+            <blockquote>
+                <p><strong>High Cohesion:</strong> This principle can be violated if layers contain unrelated code. The
+                    code that is used together should be placed together.</p>
+                <p><strong>Low Coupling:</strong> This principle can be violated if events or a message bus are not used
+                    for asynchronous interactions.</p>
+            </blockquote>
+
+            <hr>
+            <h1>✨ Advices</h1>
+            <ul>
+                <li>
+                    <strong>Tip #1:</strong> Sometimes layers can be excessive. For example, if we have a small domain
+                    and can confidently say that it will not expand.
+                    <img src="img/5.7.png" alt="Simplified domain structure for small projects" class="article-featured-img">
+                </li>
+                <li><strong>Tip #2:</strong> Sometimes layers can include multiple subdomains. In this case, the
+                    structure will be expanded.
+                    <img src="img/5.8.png" alt="Extended domain structure with multiple subdomains" class="article-featured-img">
+                </li>
+                <li>
+                    <strong>Tip #3:</strong> Moving configuration, migrations, and fixtures within the module boundaries
+                    makes the module fully self-contained: everything needed for development, testing, and deployment is
+                    located in one place.
+                    <img src="img/5.9.png" alt="Self-contained module structure with config, migrations and fixtures" class="article-featured-img">
+                </li>
+            </ul>
+            <p>It isolates configurations, migrations, and fixtures into a separate folder, simplifying navigation and
+                distinguishing resources related to setup or infrastructure aspects from business logic. All tests
+                related to the module are stored in its Tests folder, improving isolation. This approach makes it easier
+                to test and extract the module into a microservice if needed.</p>
+
+            <p><strong>Symfony example:</strong></p>
+            <div class="code-block">
+<pre>
+class Kernel extends \Symfony\Component\HttpKernel\Kernel
+{
+    use MicroKernelTrait;
+
+    protected function configureRoutes(RoutingConfigurator $routes): void
+    {
+        $configDir = $this->getConfigDir();
+        $routes->import($configDir.'/routes.yaml');
+
+        $this->loadDomainConfigurations($routes);
+    }
+
+    protected function loadDomainConfigurations(RoutingConfigurator $routes): void
+    {
+        $projectDir = $this->getProjectDir();
+        $finder = new Finder();
+        $finder->directories()
+            ->in($projectDir.'/src')
+            ->depth(0)
+            ->notName('Kernel.php');
+
+        foreach ($finder as $domainDir) {
+            $domainPath = $domainDir->getRealPath();
+            $domainName = strtolower($domainDir->getBasename());
+
+            // Load API routes
+            $apiPath = $domainPath.'/Presentation/Api';
+            if (is_dir($apiPath)) {
+                $routes->import($apiPath, 'attribute')
+                    ->prefix('/'.$domainName);
+            } else {
+                // Search in subdirectories for API routes
+                $subFinder = new Finder();
+                $subFinder->directories()
+                    ->in($domainPath)
+                    ->depth(0);
+
+                foreach ($subFinder as $subFolder) {
+                    $apiPath = $domainPath.'/'.$subFolder->getBasename().'/Presentation/Api';
+                    if (is_dir($apiPath)) {
+                        $routes->import($apiPath, 'attribute')
+                            ->prefix('/'.$domainName);
+                    }
+                }
+            }
+
+            // Load Web routes
+            $webPath = $domainPath.'/Presentation/Web';
+            if (is_dir($webPath)) {
+                $routes->import($webPath, 'attribute')
+                    ->prefix('/'.$domainName);
+            } else {
+                // Search in subdirectories for Web routes
+                $subFinder = new Finder();
+                $subFinder->directories()
+                    ->in($domainPath)
+                    ->depth(0);
+
+                foreach ($subFinder as $subFolder) {
+                    $webPath = $domainPath.'/'.$subFolder->getBasename().'/Presentation/Web';
+                    if (is_dir($webPath)) {
+                        $routes->import($webPath, 'attribute')
+                            ->prefix('/'.$domainName);
+                    }
+                }
+            }
+
+            // Load YAML routes if they exist
+            $routesPath = $domainPath.'/Resources/Config/routes.yaml';
+            if (file_exists($routesPath)) {
+                $routes->import($routesPath);
+            } else {
+                // Search in subdirectories for routes.yaml
+                $subFinder = new Finder();
+                $subFinder->directories()
+                    ->in($domainPath)
+                    ->depth(0);
+
+                foreach ($subFinder as $subFolder) {
+                    $routesPath = $domainPath.'/'.$subFolder->getBasename().'/Resources/Config/routes.yaml';
+                    if (file_exists($routesPath)) {
+                        $routes->import($routesPath);
+                    }
+                }
+            }
+        }
+    }
+
+    protected function buildContainer(): ContainerBuilder
+    {
+        $container = parent::buildContainer();
+
+        // Load domain services
+        $projectDir = $this->getProjectDir();
+        $finder = new Finder();
+        $finder->directories()
+            ->in($projectDir.'/src')
+            ->depth(0)
+            ->notName('Kernel.php');
+
+        // Load services
+        $loader = new YamlFileLoader($container, new FileLocator());
+        foreach ($finder as $domainDir) {
+            $domainPath = $domainDir->getRealPath();
+            $servicesPath = $domainPath.'/Resources/Config/services.yaml';
+
+            if (file_exists($servicesPath)) {
+                $loader->load($servicesPath);
+            } else {
+                // Search in all subdirectories
+                $subFinder = new Finder();
+                $subFinder->directories()
+                    ->in($domainPath)
+                    ->depth(0);
+
+                foreach ($subFinder as $subFolder) {
+                    $servicesPath = $domainPath.'/'.$subFolder->getBasename().'/Resources/Config/services.yaml';
+
+                    if (file_exists($servicesPath)) {
+                        $loader->load($servicesPath);
+                    }
+                }
+            }
+        }
+
+        return $container;
+    }
+}
+</pre>
+            </div>
+
+            <p><strong>Laravel example:</strong></p>
+            <div class="code-block">
+<pre>
+final class DomainServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        $this->registerRoutes();
+        $this->registerCommands();
+    }
+
+    private function registerRoutes(): void
+    {
+        $presentationPath = dirname(__DIR__).'/Presentation';
+        if (!is_dir($presentationPath)) {
+            return;
+        }
+
+        $this->registerRoutesFromPath($presentationPath);
+    }
+
+    private function registerCommands(): void
+    {
+        $consolePath = dirname(__DIR__).'/Presentation/Console';
+        if (!is_dir($consolePath)) {
+            return;
+        }
+
+        $commands = $this->findCommands($consolePath);
+        if (!empty($commands)) {
+            $this->commands($commands);
+        }
+    }
+
+    private function registerRoutesFromPath(string $path): void
+    {
+        $directory = new \RecursiveDirectoryIterator($path);
+        $iterator = new \RecursiveIteratorIterator($directory);
+        $files = new \RegexIterator($iterator, '/^.+\.php$/i', \RegexIterator::GET_MATCH);
+
+        foreach ($files as $file) {
+            $filePath = $file[0];
+            $className = $this->getClassNameFromFile($filePath);
+
+            if (!$className || !class_exists($className)) {
+                continue;
+            }
+
+            $this->registerClassRoutes($className);
+        }
+    }
+
+    private function registerClassRoutes(string $className): void
+    {
+        $reflection = new \ReflectionClass($className);
+        $attributes = $reflection->getAttributes(Route::class, \ReflectionAttribute::IS_INSTANCEOF);
+
+        foreach ($attributes as $attribute) {
+            $route = $attribute->newInstance();
+
+            LaravelRoute::middleware($route->middleware)
+                ->match($route->methods, $route->path, $className)
+                ->name($route->name);
+        }
+    }
+
+    private function findCommands(string $path): array
+    {
+        $commands = [];
+
+        $directory = new \RecursiveDirectoryIterator($path);
+        $iterator = new \RecursiveIteratorIterator($directory);
+        $files = new \RegexIterator($iterator, '/^.+Command\.php$/i', \RegexIterator::GET_MATCH);
+
+        foreach ($files as $file) {
+            $filePath = $file[0];
+            $className = $this->getClassNameFromFile($filePath);
+
+            if ($className && class_exists($className)) {
+                $reflection = new \ReflectionClass($className);
+                $attributes = $reflection->getAttributes(AsCommand::class);
+
+                if (!empty($attributes)) {
+                    $commands[] = $className;
+                }
+            }
+        }
+
+        return $commands;
+    }
+
+    private function getClassNameFromFile(string $filePath): ?string
+    {
+        $content = file_get_contents($filePath);
+        if (preg_match('/namespace\s+(.+?);/s', $content, $matches)
+            && preg_match('/class\s+(\w+)/', $content, $classMatches)) {
+            return $matches[1].'\\'.$classMatches[1];
+        }
+
+        return null;
+    }
+</pre>
+            </div>
+
+            <p><strong>That’s it 🎉, thanks for reading!</strong></p>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+        <div class="footer-links">
+            <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+            <a href="mailto:mr.dukuy@gmail.com">Email</a>
+        </div>
+    </footer>
+</div>
+
+<link rel="stylesheet" href="../../resources/chat.css">
+<script>window.CHAT_SYSTEM_PROMPT = "AI assistant for Dykyi Roman's technical blog. The reader is viewing: " + ((document.querySelector('.article-title') || {}).textContent || '') + ". Answer questions about the article, explain concepts, provide examples. Be concise.";</script>
+<script src="../../resources/chat.js"></script>
+<script src="../../resources/load-header.js"></script>
+</body>
+<script src="../../resources/back-to-top.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</html>

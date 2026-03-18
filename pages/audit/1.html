@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../resources/analytics.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company #1 - Dykyi Roman</title>
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/navigation.css">
+    <link rel="stylesheet" href="../../resources/article-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="/pages/audit.html">Audit</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">Company #1</span>
+    </nav>
+
+    <!-- Article Content -->
+    <div class="article-container">
+        <div class="article-header">
+            <h1 class="article-title">Company #1</h1>
+        </div>
+
+        <div class="audit-checklist">
+            <div class="audit-group">
+                <h3><i class="fa-solid fa-users"></i> Team & Process</h3>
+                <ul>
+                    <li>Formation of an internal development team</li>
+                    <li>Creating a project transition plan</li>
+                    <li>Transferring the project from outsource to in-house development</li>
+                    <li>Analysis of the current state of the project</li>
+                    <li>Implementation of Agile development methodology</li>
+                    <li>Establishing coding standards</li>
+                </ul>
+            </div>
+
+            <div class="audit-group">
+                <h3><i class="fa-solid fa-gears"></i> Tooling & Automation</h3>
+                <ul>
+                    <li>Automation of Jira + Github</li>
+                    <li>Building a technical backlog</li>
+                    <li>Organization of the release process</li>
+                    <li>Dockerization of the development process</li>
+                    <li>Setting up CI/CD</li>
+                </ul>
+            </div>
+
+            <div class="audit-group">
+                <h3><i class="fa-solid fa-chart-line"></i> Monitoring & Logging</h3>
+                <ul>
+                    <li>Logging and monitoring, standardizing logs to a unified format</li>
+                    <li>Removing unnecessary and adding required logs</li>
+                </ul>
+            </div>
+
+            <div class="audit-group">
+                <h3><i class="fa-solid fa-layer-group"></i> Architecture & Documentation</h3>
+                <ul>
+                    <li>Implementation of multi-layered architecture</li>
+                    <li>Updating API documentation</li>
+                    <li>Creating Postman collections</li>
+                    <li>Organizing cron commands</li>
+                </ul>
+            </div>
+
+            <div class="audit-group">
+                <h3><i class="fa-solid fa-bolt"></i> Performance & Infrastructure</h3>
+                <ul>
+                    <li>Analysis of the current performance state</li>
+                    <li>Implementation of server-level caching</li>
+                    <li>Minification of static content files</li>
+                    <li>Database optimization</li>
+                    <li>Elimination of deadlocks</li>
+                    <li>Enabling VPN for internal resources</li>
+                    <li>Configuration of key elements replication</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+        <div class="footer-links">
+            <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+            <a href="mailto:mr.dukuy@gmail.com">Email</a>
+        </div>
+    </footer>
+</div>
+
+<script src="../../resources/load-header.js"></script>
+</body>
+<script src="../../resources/back-to-top.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</html>
