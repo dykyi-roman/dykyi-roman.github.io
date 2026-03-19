@@ -146,7 +146,7 @@ AV.highlightBars = function(indices, className) {
 
 AV.clearHighlights = function() {
     document.querySelectorAll('.av-bar').forEach(function(bar) {
-        bar.classList.remove('av-comparing', 'av-swapping');
+        bar.classList.remove('av-comparing', 'av-swapping', 'av-examined');
     });
 };
 
@@ -201,7 +201,8 @@ AV.animateSwap = function(i, j) {
 AV.setAccentColors = function(algorithmId) {
     var root = document.documentElement.style;
     var themes = {
-        'bubble-sort': { accent: '#3B82F6', bg: '#0d1630', light: '#152048' }
+        'bubble-sort': { accent: '#3B82F6', bg: '#0d1630', light: '#152048' },
+        'linear-search': { accent: '#8B5CF6', bg: '#1a0d30', light: '#221548' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
     root.setProperty('--av-accent', t.accent);
@@ -325,16 +326,47 @@ AV.animateFlow = async function(steps, options) {
             AV.log('PASS', I18N.t('av.log.pass', { n: step.pass },
                 'Pass ' + step.pass + ' begins'));
             await AV.sleep(AV.state.stepDelay * 0.3);
+        } else if (step.type === 'SCAN') {
+            AV.clearHighlights();
+            var bars = document.querySelectorAll('.av-bar');
+            for (var ei = 0; ei < step.index; ei++) {
+                if (bars[ei]) bars[ei].classList.add('av-examined');
+            }
+            AV.highlightBars([step.index], 'av-comparing');
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('SCAN', I18N.t('av.log.scan', { index: step.index, value: step.value, target: step.target },
+                'Scan arr[' + step.index + ']=' + step.value + ' vs target=' + step.target));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'FOUND') {
+            AV.clearHighlights();
+            var barsF = document.querySelectorAll('.av-bar');
+            for (var fi = 0; fi < step.index; fi++) {
+                if (barsF[fi]) barsF[fi].classList.add('av-examined');
+            }
+            AV.highlightBars([step.index], 'av-sorted');
+            AV.log('FOUND', I18N.t('av.log.found', { index: step.index, value: step.value },
+                'Found ' + step.value + ' at index ' + step.index));
+            await AV.sleep(AV.state.stepDelay);
         } else if (step.type === 'DONE') {
             AV.clearHighlights();
-            document.querySelectorAll('.av-bar').forEach(function(bar) { bar.classList.add('av-sorted'); });
+            if (step.found === false) {
+                document.querySelectorAll('.av-bar').forEach(function(bar) { bar.classList.add('av-examined'); });
+            } else {
+                document.querySelectorAll('.av-bar').forEach(function(bar) { bar.classList.add('av-sorted'); });
+            }
         }
     }
 
     var elapsed = Math.round(performance.now() - startTime);
     if (AV.state.running) {
-        AV.log('DONE', I18N.t('av.log.done', { time: elapsed, comparisons: AV.state.comparisons, swaps: AV.state.swaps },
-            'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons, ' + AV.state.swaps + ' swaps)'));
+        if (AV.state._searchTarget !== undefined) {
+            AV.log('DONE', I18N.t('av.log.done_search', { time: elapsed, comparisons: AV.state.comparisons },
+                'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons)'));
+        } else {
+            AV.log('DONE', I18N.t('av.log.done', { time: elapsed, comparisons: AV.state.comparisons, swaps: AV.state.swaps },
+                'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons, ' + AV.state.swaps + ' swaps)'));
+        }
     }
     AV.state.running = false;
     AV.state.paused = false;
@@ -369,9 +401,13 @@ AV._computeSnapshots = function(initialArray, steps) {
             arr[step.indices[1]] = tmp;
         } else if (step.type === 'SORTED') {
             sorted = sorted.concat([step.index]);
+        } else if (step.type === 'FOUND') {
+            sorted = sorted.concat([step.index]);
         } else if (step.type === 'DONE') {
-            sorted = [];
-            for (var k = 0; k < arr.length; k++) sorted.push(k);
+            if (step.found !== false) {
+                sorted = [];
+                for (var k = 0; k < arr.length; k++) sorted.push(k);
+            }
         }
         snapshots.push({ arr: arr.slice(), sorted: sorted.slice() });
     }
@@ -396,11 +432,29 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
         AV.renderArray(snapshot.arr);
         snapshot.sorted.forEach(function(idx) { AV.markSorted(idx); });
 
+        /* Re-inject target line for search algorithms after renderArray */
+        if (AV.state._searchTarget !== undefined && AV['linear-search'] && AV['linear-search']._injectTargetLine) {
+            AV['linear-search']._injectTargetLine(snapshot.arr, AV.state._searchTarget);
+        }
+
         /* Restore highlight from the last executed step */
         if (resumeFromIndex > 0) {
             var lastStep = steps[resumeFromIndex - 1];
             if (lastStep.type === 'COMPARE') AV.highlightBars(lastStep.indices, 'av-comparing');
             else if (lastStep.type === 'SWAP') AV.highlightBars(lastStep.indices, 'av-swapping');
+            else if (lastStep.type === 'SCAN') {
+                var bars = document.querySelectorAll('.av-bar');
+                for (var ei = 0; ei < lastStep.index; ei++) {
+                    if (bars[ei]) bars[ei].classList.add('av-examined');
+                }
+                AV.highlightBars([lastStep.index], 'av-comparing');
+            } else if (lastStep.type === 'FOUND') {
+                var barsF = document.querySelectorAll('.av-bar');
+                for (var fi = 0; fi < lastStep.index; fi++) {
+                    if (barsF[fi]) barsF[fi].classList.add('av-examined');
+                }
+                AV.highlightBars([lastStep.index], 'av-sorted');
+            }
         }
 
         AV.log('PASS', I18N.t('ui.log.step_mode_resume', { step: resumeFromIndex },
@@ -432,6 +486,11 @@ AV.stepForward = function() {
     AV.renderArray(snapshot.arr);
     snapshot.sorted.forEach(function(idx) { AV.markSorted(idx); });
 
+    /* Re-inject target line for search algorithms after renderArray */
+    if (AV.state._searchTarget !== undefined && AV['linear-search'] && AV['linear-search']._injectTargetLine) {
+        AV['linear-search']._injectTargetLine(snapshot.arr, AV.state._searchTarget);
+    }
+
     if (step.type === 'COMPARE') {
         AV.highlightBars(step.indices, 'av-comparing');
         AV.state.comparisons++;
@@ -440,12 +499,34 @@ AV.stepForward = function() {
         AV.highlightBars(step.indices, 'av-swapping');
         AV.state.swaps++;
         AV.log('SWAP', 'Swap arr[' + step.indices[0] + ']=' + step.values[0] + ' \u2194 arr[' + step.indices[1] + ']=' + step.values[1]);
+    } else if (step.type === 'SCAN') {
+        var bars = document.querySelectorAll('.av-bar');
+        for (var ei = 0; ei < step.index; ei++) {
+            if (bars[ei]) bars[ei].classList.add('av-examined');
+        }
+        AV.highlightBars([step.index], 'av-comparing');
+        AV.state.comparisons++;
+        AV.log('SCAN', 'Scan arr[' + step.index + ']=' + step.value + ' vs target=' + step.target);
+    } else if (step.type === 'FOUND') {
+        var barsF = document.querySelectorAll('.av-bar');
+        for (var fi = 0; fi < step.index; fi++) {
+            if (barsF[fi]) barsF[fi].classList.add('av-examined');
+        }
+        AV.highlightBars([step.index], 'av-sorted');
+        AV.log('FOUND', 'Found ' + step.value + ' at index ' + step.index);
     } else if (step.type === 'SORTED') {
         AV.log('SORTED', 'Position ' + step.index + ' is sorted');
     } else if (step.type === 'PASS') {
         AV.log('PASS', 'Pass ' + step.pass);
     } else if (step.type === 'DONE') {
-        AV.log('DONE', I18N.t('av.log.done_step', null, 'Sorting complete'));
+        if (step.found === false) {
+            document.querySelectorAll('.av-bar').forEach(function(bar) { bar.classList.add('av-examined'); });
+            AV.log('DONE', I18N.t('av.log.not_found', null, 'Target not found'));
+        } else if (AV.state._searchTarget !== undefined) {
+            AV.log('DONE', I18N.t('av.log.done_step', null, 'Search complete'));
+        } else {
+            AV.log('DONE', I18N.t('av.log.done_step', null, 'Sorting complete'));
+        }
     }
 
     AV.updateStats();
@@ -468,7 +549,7 @@ AV.stepBack = function() {
     var comparisons = 0;
     var swaps = 0;
     for (var i = 0; i < sm.index; i++) {
-        if (sm.steps[i].type === 'COMPARE') comparisons++;
+        if (sm.steps[i].type === 'COMPARE' || sm.steps[i].type === 'SCAN') comparisons++;
         if (sm.steps[i].type === 'SWAP') swaps++;
     }
     AV.state.comparisons = comparisons;
@@ -478,10 +559,28 @@ AV.stepBack = function() {
     AV.renderArray(snapshot.arr);
     snapshot.sorted.forEach(function(idx) { AV.markSorted(idx); });
 
+    /* Re-inject target line for search algorithms after renderArray */
+    if (AV.state._searchTarget !== undefined && AV['linear-search'] && AV['linear-search']._injectTargetLine) {
+        AV['linear-search']._injectTargetLine(snapshot.arr, AV.state._searchTarget);
+    }
+
     if (sm.index > 0) {
         var prevStep = sm.steps[sm.index - 1];
         if (prevStep.type === 'COMPARE') AV.highlightBars(prevStep.indices, 'av-comparing');
         else if (prevStep.type === 'SWAP') AV.highlightBars(prevStep.indices, 'av-swapping');
+        else if (prevStep.type === 'SCAN') {
+            var bars = document.querySelectorAll('.av-bar');
+            for (var ei = 0; ei < prevStep.index; ei++) {
+                if (bars[ei]) bars[ei].classList.add('av-examined');
+            }
+            AV.highlightBars([prevStep.index], 'av-comparing');
+        } else if (prevStep.type === 'FOUND') {
+            var barsF = document.querySelectorAll('.av-bar');
+            for (var fi = 0; fi < prevStep.index; fi++) {
+                if (barsF[fi]) barsF[fi].classList.add('av-examined');
+            }
+            AV.highlightBars([prevStep.index], 'av-sorted');
+        }
     }
 
     AV._updateStepButtons();

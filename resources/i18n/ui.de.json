@@ -108,6 +108,8 @@
     "ui.log.type.PROPERTY": "EIGENSCHAFT",
     "ui.log.type.POOL": "POOL",
     "ui.log.type.CACHE": "CACHE",
+    "ui.log.type.SCAN": "SCAN",
+    "ui.log.type.FOUND": "GEFUND",
     "ui.code_examples.title": "Code-Beispiele",
     "ui.chat.title": "KI-Assistent",
     "ui.chat.welcome": "Hallo! Ich bin ein KI-Assistent. Fragen Sie mich alles über das, was Sie auf dieser Seite sehen, und ich werde mein Bestes tun, um zu helfen.",

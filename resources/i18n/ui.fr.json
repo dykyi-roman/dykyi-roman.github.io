@@ -108,6 +108,8 @@
     "ui.log.type.PROPERTY": "PROPRIÉTÉ",
     "ui.log.type.POOL": "POOL",
     "ui.log.type.CACHE": "CACHE",
+    "ui.log.type.SCAN": "ANALYSE",
+    "ui.log.type.FOUND": "TROUV\u00c9",
     "ui.code_examples.title": "Exemples de Code",
     "ui.chat.title": "Assistant IA",
     "ui.chat.welcome": "Salut ! Je suis un assistant IA. Posez-moi toutes vos questions sur ce que vous voyez sur cette page, et je ferai de mon mieux pour vous aider.",

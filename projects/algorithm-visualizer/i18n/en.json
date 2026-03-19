@@ -63,5 +63,57 @@
     { "name": "Space", "role": "O(1) \u2014 in-place sorting" },
     { "name": "Stable", "role": "Yes \u2014 equal elements maintain relative order" },
     { "name": "Adaptive", "role": "Yes \u2014 faster on nearly sorted data" }
+  ],
+
+  "av.legend.scanning": "Scanning",
+  "av.legend.examined": "Examined",
+  "av.legend.found": "Found",
+  "av.target_label_prefix": "Target:",
+  "av.log.scan": "Scan arr[{index}]={value} vs target={target}",
+  "av.log.found": "Found {value} at index {index}",
+  "av.log.not_found": "Target not found in array",
+  "av.log.done_search": "Completed in {time}ms ({comparisons} comparisons)",
+
+  "ui.log.type.SCAN": "SCAN",
+  "ui.log.type.FOUND": "FOUND",
+
+  "linear-search.name": "Linear Search",
+  "linear-search.stepLabel": "Linear Search \u2014 Standard",
+  "linear-search.modes.standard.label": "Standard",
+  "linear-search.modes.standard.desc": "Classic Linear Search: scans the array from left to right, comparing each element with the target value. Returns the index of the first match or reports that the target is not found.",
+  "linear-search.details.standard.principles": [
+    "Start from the first element and move sequentially to the right",
+    "Compare each element with the target value",
+    "If a match is found, return its index immediately",
+    "If the end of the array is reached without a match, report \"not found\"",
+    "No preprocessing or sorting of the input is required"
+  ],
+  "linear-search.details.standard.concepts": [
+    { "term": "Sequential Scan", "definition": "Visiting each element one by one in order. The simplest search strategy with no special data structure requirements." },
+    { "term": "Comparison", "definition": "The fundamental operation: check if arr[i] equals the target. Each comparison eliminates exactly one element." },
+    { "term": "Target", "definition": "The value being searched for. Linear Search works with any data type that supports equality comparison." },
+    { "term": "Sentinel Variant", "definition": "Place the target at the end of the array as a sentinel to eliminate the bounds check in each iteration, reducing constant factors." }
+  ],
+  "linear-search.details.standard.tradeoffs.pros": [
+    "Simplest search algorithm \u2014 easy to understand and implement",
+    "Works on unsorted arrays \u2014 no preprocessing needed",
+    "O(1) extra space \u2014 no auxiliary data structures",
+    "Good for small datasets or one-time searches",
+    "Works with any data type that supports equality check"
+  ],
+  "linear-search.details.standard.tradeoffs.cons": [
+    "O(n) time \u2014 slow for large datasets",
+    "Does not exploit sorted order \u2014 Binary Search is faster for sorted arrays",
+    "Must scan the entire array when the target is absent",
+    "No benefit from repeated queries on the same data"
+  ],
+  "linear-search.details.standard.tradeoffs.whenToUse": "Best for small or unsorted collections, one-time searches, or when the cost of sorting exceeds the search benefit. For sorted data or frequent queries, prefer Binary Search or hash-based lookups.",
+  "linear-search.depRules": [
+    { "name": "Time (Best)", "role": "O(1) \u2014 target is the first element" },
+    { "name": "Time (Average)", "role": "O(n) \u2014 linear" },
+    { "name": "Time (Worst)", "role": "O(n) \u2014 target at the end or absent" },
+    { "name": "Space", "role": "O(1) \u2014 no extra memory" },
+    { "name": "Sorted Input Required", "role": "No \u2014 works on any array" },
+    { "name": "Stable", "role": "Yes \u2014 returns first occurrence" }
   ]
 }

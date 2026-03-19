@@ -13,7 +13,7 @@
         hashing: ['hash-table', 'chaining', 'open-addressing']
     };
 
-    var implementedAlgorithms = ['bubble-sort'];
+    var implementedAlgorithms = ['bubble-sort', 'linear-search'];
 
     var activeCategory = 'sorting';
 
@@ -112,9 +112,40 @@
         return null;
     }
 
+    var defaultLegendHTML =
+        '<div class="av-legend-item"><span class="av-legend-swatch av-legend-default"></span> <span data-i18n="av.legend.default">' + 'Default' + '</span></div>' +
+        '<div class="av-legend-item"><span class="av-legend-swatch av-legend-comparing"></span> <span data-i18n="av.legend.comparing">' + 'Comparing' + '</span></div>' +
+        '<div class="av-legend-item"><span class="av-legend-swatch av-legend-swapping"></span> <span data-i18n="av.legend.swapping">' + 'Swapping' + '</span></div>' +
+        '<div class="av-legend-item"><span class="av-legend-swatch av-legend-sorted"></span> <span data-i18n="av.legend.sorted">' + 'Sorted' + '</span></div>';
+
+    function updateLegend(algorithmId) {
+        var legendEl = document.querySelector('.av-legend');
+        if (!legendEl) return;
+
+        var algoObj = AV[algorithmId];
+        if (algoObj && algoObj.legendItems) {
+            legendEl.innerHTML = algoObj.legendItems.map(function(item) {
+                var label = I18N.t(item.i18nKey, null, item.i18nKey);
+                return '<div class="av-legend-item"><span class="av-legend-swatch ' + item.swatch + '"></span> <span data-i18n="' + item.i18nKey + '">' + label + '</span></div>';
+            }).join('');
+        } else {
+            legendEl.innerHTML = defaultLegendHTML;
+            I18N.applyToDOM();
+        }
+    }
+
+    function removeSearchUI() {
+        var banner = document.querySelector('.av-target-banner');
+        if (banner) banner.remove();
+        var line = document.querySelector('.av-target-line');
+        if (line) line.remove();
+        delete AV.state._searchTarget;
+    }
+
     function switchAlgorithm(algorithmId, modeId) {
         AV.state.algorithm = algorithmId;
         AV.setAccentColors(algorithmId);
+        removeSearchUI();
 
         document.querySelectorAll('.av-tab').forEach(function(tab) {
             tab.classList.toggle('active', tab.dataset.algorithm === algorithmId);
@@ -124,6 +155,7 @@
         AV.clearLog();
         AV.resetStats();
         if (AV.stepMode.active) AV.exitStepMode();
+        updateLegend(algorithmId);
 
         var config = algorithmConfigs[algorithmId];
         renderModeTabs(algorithmId);
@@ -332,7 +364,6 @@
 
         /* Category buttons */
         document.querySelectorAll('.av-category').forEach(function(btn) {
-            if (btn.classList.contains('disabled')) return;
             btn.onclick = function() { switchCategory(btn.dataset.category); };
         });
     }
@@ -398,6 +429,15 @@
         document.querySelectorAll('.mode-tab').forEach(function(tab) {
             tab.classList.toggle('active', tab.dataset.mode === modeId);
         });
+
+        /* 5. Legend */
+        updateLegend(algorithmId);
+
+        /* 6. Target banner label (search algorithms) */
+        var targetLabel = document.querySelector('.av-target-banner [data-i18n]');
+        if (targetLabel) {
+            targetLabel.textContent = I18N.t('av.target_label_prefix', null, 'Target:');
+        }
 
         /* Speed label */
         var sr = document.getElementById('speed-range');

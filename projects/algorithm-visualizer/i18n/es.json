@@ -64,5 +64,57 @@
     { "name": "Espacio", "role": "O(1) \u2014 ordenamiento en sitio" },
     { "name": "Estable", "role": "S\u00ed \u2014 los elementos iguales mantienen su orden relativo" },
     { "name": "Adaptativo", "role": "S\u00ed \u2014 m\u00e1s r\u00e1pido con datos casi ordenados" }
+  ],
+
+  "av.legend.scanning": "Escaneando",
+  "av.legend.examined": "Examinado",
+  "av.legend.found": "Encontrado",
+  "av.target_label_prefix": "Objetivo:",
+  "av.log.scan": "Escanear arr[{index}]={value} vs objetivo={target}",
+  "av.log.found": "Encontrado {value} en \u00edndice {index}",
+  "av.log.not_found": "Objetivo no encontrado en el arreglo",
+  "av.log.done_search": "Completado en {time}ms ({comparisons} comparaciones)",
+
+  "ui.log.type.SCAN": "ESCAN",
+  "ui.log.type.FOUND": "HALLADO",
+
+  "linear-search.name": "B\u00fasqueda lineal",
+  "linear-search.stepLabel": "B\u00fasqueda lineal \u2014 Est\u00e1ndar",
+  "linear-search.modes.standard.label": "Est\u00e1ndar",
+  "linear-search.modes.standard.desc": "B\u00fasqueda lineal cl\u00e1sica: recorre el arreglo de izquierda a derecha, comparando cada elemento con el valor objetivo. Retorna el \u00edndice de la primera coincidencia o reporta que el objetivo no fue encontrado.",
+  "linear-search.details.standard.principles": [
+    "Comenzar desde el primer elemento y avanzar secuencialmente a la derecha",
+    "Comparar cada elemento con el valor objetivo",
+    "Si se encuentra una coincidencia, retornar su \u00edndice inmediatamente",
+    "Si se alcanza el final del arreglo sin coincidencia, reportar \u00abno encontrado\u00bb",
+    "No se requiere preprocesamiento ni ordenamiento de la entrada"
+  ],
+  "linear-search.details.standard.concepts": [
+    { "term": "Escaneo secuencial", "definition": "Visitar cada elemento uno por uno en orden. La estrategia de b\u00fasqueda m\u00e1s simple sin requisitos especiales de estructura de datos." },
+    { "term": "Comparaci\u00f3n", "definition": "La operaci\u00f3n fundamental: verificar si arr[i] es igual al objetivo. Cada comparaci\u00f3n elimina exactamente un elemento." },
+    { "term": "Objetivo", "definition": "El valor buscado. La b\u00fasqueda lineal funciona con cualquier tipo de datos que soporte comparaci\u00f3n de igualdad." },
+    { "term": "Variante centinela", "definition": "Colocar el objetivo al final del arreglo como centinela para eliminar la verificaci\u00f3n de l\u00edmites en cada iteraci\u00f3n." }
+  ],
+  "linear-search.details.standard.tradeoffs.pros": [
+    "Algoritmo de b\u00fasqueda m\u00e1s simple \u2014 f\u00e1cil de entender e implementar",
+    "Funciona con arreglos no ordenados \u2014 sin preprocesamiento",
+    "O(1) espacio extra \u2014 sin estructuras de datos auxiliares",
+    "Bueno para conjuntos peque\u00f1os o b\u00fasquedas \u00fanicas",
+    "Funciona con cualquier tipo de datos que soporte verificaci\u00f3n de igualdad"
+  ],
+  "linear-search.details.standard.tradeoffs.cons": [
+    "Tiempo O(n) \u2014 lento para conjuntos grandes",
+    "No aprovecha el orden \u2014 la b\u00fasqueda binaria es m\u00e1s r\u00e1pida para arreglos ordenados",
+    "Debe recorrer todo el arreglo cuando el objetivo est\u00e1 ausente",
+    "Sin beneficio de consultas repetidas sobre los mismos datos"
+  ],
+  "linear-search.details.standard.tradeoffs.whenToUse": "Ideal para colecciones peque\u00f1as o no ordenadas, b\u00fasquedas \u00fanicas o cuando el costo de ordenar supera el beneficio. Para datos ordenados, use b\u00fasqueda binaria o tablas hash.",
+  "linear-search.depRules": [
+    { "name": "Tiempo (mejor)", "role": "O(1) \u2014 objetivo es el primer elemento" },
+    { "name": "Tiempo (promedio)", "role": "O(n) \u2014 lineal" },
+    { "name": "Tiempo (peor)", "role": "O(n) \u2014 objetivo al final o ausente" },
+    { "name": "Espacio", "role": "O(1) \u2014 sin memoria extra" },
+    { "name": "Ordenamiento requerido", "role": "No \u2014 funciona con cualquier arreglo" },
+    { "name": "Estable", "role": "S\u00ed \u2014 retorna la primera ocurrencia" }
   ]
 }

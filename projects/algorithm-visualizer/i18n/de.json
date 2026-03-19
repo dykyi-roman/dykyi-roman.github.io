@@ -64,5 +64,57 @@
     { "name": "Speicher", "role": "O(1) \u2014 In-place-Sortierung" },
     { "name": "Stabil", "role": "Ja \u2014 gleiche Elemente behalten relative Reihenfolge" },
     { "name": "Adaptiv", "role": "Ja \u2014 schneller bei fast sortierten Daten" }
+  ],
+
+  "av.legend.scanning": "Scannt",
+  "av.legend.examined": "Gepr\u00fcft",
+  "av.legend.found": "Gefunden",
+  "av.target_label_prefix": "Ziel:",
+  "av.log.scan": "Scan arr[{index}]={value} vs Ziel={target}",
+  "av.log.found": "{value} gefunden an Index {index}",
+  "av.log.not_found": "Ziel nicht im Array gefunden",
+  "av.log.done_search": "Abgeschlossen in {time}ms ({comparisons} Vergleiche)",
+
+  "ui.log.type.SCAN": "SCAN",
+  "ui.log.type.FOUND": "GEFUND",
+
+  "linear-search.name": "Lineare Suche",
+  "linear-search.stepLabel": "Lineare Suche \u2014 Standard",
+  "linear-search.modes.standard.label": "Standard",
+  "linear-search.modes.standard.desc": "Klassische lineare Suche: durchl\u00e4uft das Array von links nach rechts und vergleicht jedes Element mit dem Zielwert. Gibt den Index der ersten \u00dcbereinstimmung zur\u00fcck oder meldet, dass der Wert nicht gefunden wurde.",
+  "linear-search.details.standard.principles": [
+    "Beim ersten Element beginnen und sequentiell nach rechts gehen",
+    "Jedes Element mit dem Zielwert vergleichen",
+    "Bei einer \u00dcbereinstimmung sofort den Index zur\u00fcckgeben",
+    "Wenn das Ende des Arrays ohne Treffer erreicht wird, \u00abnicht gefunden\u00bb melden",
+    "Keine Vorverarbeitung oder Sortierung der Eingabe erforderlich"
+  ],
+  "linear-search.details.standard.concepts": [
+    { "term": "Sequentieller Scan", "definition": "Besuch jedes Elements der Reihe nach. Die einfachste Suchstrategie ohne spezielle Datenstrukturanforderungen." },
+    { "term": "Vergleich", "definition": "Die grundlegende Operation: pr\u00fcfen ob arr[i] dem Ziel entspricht. Jeder Vergleich eliminiert genau ein Element." },
+    { "term": "Ziel", "definition": "Der gesuchte Wert. Lineare Suche funktioniert mit jedem Datentyp, der Gleichheitsvergleich unterst\u00fctzt." },
+    { "term": "Sentinel-Variante", "definition": "Das Ziel am Ende des Arrays als W\u00e4chter platzieren, um die Grenzpr\u00fcfung in jeder Iteration zu eliminieren." }
+  ],
+  "linear-search.details.standard.tradeoffs.pros": [
+    "Einfachster Suchalgorithmus \u2014 leicht zu verstehen und zu implementieren",
+    "Funktioniert mit unsortierten Arrays \u2014 keine Vorverarbeitung n\u00f6tig",
+    "O(1) zus\u00e4tzlicher Speicher \u2014 keine Hilfsdatenstrukturen",
+    "Gut f\u00fcr kleine Datens\u00e4tze oder einmalige Suchen",
+    "Funktioniert mit jedem Datentyp, der Gleichheitspr\u00fcfung unterst\u00fctzt"
+  ],
+  "linear-search.details.standard.tradeoffs.cons": [
+    "O(n) Zeit \u2014 langsam f\u00fcr gro\u00dfe Datens\u00e4tze",
+    "Nutzt keine Sortierung \u2014 Bin\u00e4rsuche ist schneller f\u00fcr sortierte Arrays",
+    "Muss das gesamte Array durchsuchen, wenn das Ziel fehlt",
+    "Kein Vorteil bei wiederholten Abfragen auf denselben Daten"
+  ],
+  "linear-search.details.standard.tradeoffs.whenToUse": "Am besten f\u00fcr kleine oder unsortierte Sammlungen, einmalige Suchen oder wenn die Sortierkosten den Suchvorteil \u00fcbersteigen. F\u00fcr sortierte Daten verwenden Sie Bin\u00e4rsuche oder Hash-Tabellen.",
+  "linear-search.depRules": [
+    { "name": "Zeit (best)", "role": "O(1) \u2014 Ziel ist das erste Element" },
+    { "name": "Zeit (durchschnitt)", "role": "O(n) \u2014 linear" },
+    { "name": "Zeit (worst)", "role": "O(n) \u2014 Ziel am Ende oder fehlend" },
+    { "name": "Speicher", "role": "O(1) \u2014 kein zus\u00e4tzlicher Speicher" },
+    { "name": "Sortierung n\u00f6tig", "role": "Nein \u2014 funktioniert mit jedem Array" },
+    { "name": "Stabil", "role": "Ja \u2014 gibt erstes Vorkommen zur\u00fcck" }
   ]
 }

@@ -114,6 +114,7 @@
     "ui.log.type.RESULT": "RESULT",
     "ui.log.type.LOOKUP": "LOOKUP",
   "ui.log.type.SCAN": "SCAN",
+  "ui.log.type.FOUND": "FOUND",
   "ui.log.type.FETCH": "FETCH",
   "ui.log.type.HASH": "HASH",
   "ui.log.type.INDEX": "INDEX",

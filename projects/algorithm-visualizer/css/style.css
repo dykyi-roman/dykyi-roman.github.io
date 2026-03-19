@@ -58,6 +58,11 @@
     --av-bar-comparing: #FBBF24;
     --av-bar-swapping: #EF4444;
     --av-bar-sorted: #10B981;
+    --av-bar-examined: #6B7280;
+
+    --linear-search-color: #8B5CF6;
+    --linear-search-bg: #1a0d30;
+    --linear-search-light: #221548;
 }
 
 /* ===== Page Container ===== */
@@ -166,6 +171,12 @@
     background: var(--bubble-sort-bg);
     border-color: var(--bubble-sort-color);
     color: var(--bubble-sort-color);
+}
+
+.av-tab.active[data-algorithm="linear-search"] {
+    background: var(--linear-search-bg);
+    border-color: var(--linear-search-color);
+    color: var(--linear-search-color);
 }
 
 .av-tab.disabled {
@@ -588,6 +599,11 @@
     background: var(--av-bar-sorted);
 }
 
+.av-bar.av-examined {
+    background: var(--av-bar-examined);
+    opacity: 0.5;
+}
+
 /* ===== Bar Legend ===== */
 .av-legend {
     display: flex;
@@ -616,6 +632,56 @@
 .av-legend-comparing { background: var(--av-bar-comparing); }
 .av-legend-swapping { background: var(--av-bar-swapping); }
 .av-legend-sorted { background: var(--av-bar-sorted); }
+.av-legend-scanning { background: var(--av-bar-comparing); }
+.av-legend-examined { background: var(--av-bar-examined); opacity: 0.5; }
+.av-legend-found { background: var(--av-bar-sorted); }
+
+/* ===== Target Banner (Search Algorithms) ===== */
+.av-target-banner {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: var(--av-accent-bg);
+    border: 1px solid var(--av-accent);
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--av-accent);
+    z-index: 10;
+    letter-spacing: 0.3px;
+}
+
+.av-target-input {
+    width: 60px;
+    padding: 4px 8px;
+    border: 1px solid var(--av-accent);
+    border-radius: 4px;
+    background: var(--av-bg);
+    color: var(--av-accent);
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    font-family: inherit;
+    outline: none;
+}
+
+.av-target-input:focus {
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+}
+
+.av-target-line {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    border-top: 2px dashed var(--av-accent);
+    opacity: 0.4;
+    z-index: 5;
+    pointer-events: none;
+}
 
 /* ===== Trade-offs Section ===== */
 .av-tradeoffs {
@@ -854,6 +920,8 @@
 .log-type.PASS { color: #8B5CF6; }
 .log-type.DONE { color: #3B82F6; }
 .log-type.REQUEST { color: #3B82F6; }
+.log-type.SCAN { color: #8B5CF6; }
+.log-type.FOUND { color: #10B981; }
 
 .log-text {
     color: var(--av-text);

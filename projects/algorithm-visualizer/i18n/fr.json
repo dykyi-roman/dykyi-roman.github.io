@@ -64,5 +64,57 @@
     { "name": "Espace", "role": "O(1) \u2014 tri en place" },
     { "name": "Stable", "role": "Oui \u2014 les \u00e9l\u00e9ments \u00e9gaux conservent leur ordre" },
     { "name": "Adaptatif", "role": "Oui \u2014 plus rapide sur des donn\u00e9es presque tri\u00e9es" }
+  ],
+
+  "av.legend.scanning": "Analyse",
+  "av.legend.examined": "Examin\u00e9",
+  "av.legend.found": "Trouv\u00e9",
+  "av.target_label_prefix": "Cible :",
+  "av.log.scan": "Analyse arr[{index}]={value} vs cible={target}",
+  "av.log.found": "Trouv\u00e9 {value} \u00e0 l'index {index}",
+  "av.log.not_found": "Cible non trouv\u00e9e dans le tableau",
+  "av.log.done_search": "Termin\u00e9 en {time}ms ({comparisons} comparaisons)",
+
+  "ui.log.type.SCAN": "ANALYSE",
+  "ui.log.type.FOUND": "TROUV\u00c9",
+
+  "linear-search.name": "Recherche lin\u00e9aire",
+  "linear-search.stepLabel": "Recherche lin\u00e9aire \u2014 Standard",
+  "linear-search.modes.standard.label": "Standard",
+  "linear-search.modes.standard.desc": "Recherche lin\u00e9aire classique : parcourt le tableau de gauche \u00e0 droite, comparant chaque \u00e9l\u00e9ment avec la valeur cible. Retourne l'index de la premi\u00e8re correspondance ou signale que la cible n'a pas \u00e9t\u00e9 trouv\u00e9e.",
+  "linear-search.details.standard.principles": [
+    "Commencer par le premier \u00e9l\u00e9ment et avancer s\u00e9quentiellement vers la droite",
+    "Comparer chaque \u00e9l\u00e9ment avec la valeur cible",
+    "Si une correspondance est trouv\u00e9e, retourner son index imm\u00e9diatement",
+    "Si la fin du tableau est atteinte sans correspondance, signaler \u00ab non trouv\u00e9 \u00bb",
+    "Aucun pr\u00e9traitement ou tri des donn\u00e9es n'est requis"
+  ],
+  "linear-search.details.standard.concepts": [
+    { "term": "Parcours s\u00e9quentiel", "definition": "Visite de chaque \u00e9l\u00e9ment un par un dans l'ordre. La strat\u00e9gie de recherche la plus simple sans exigence de structure de donn\u00e9es." },
+    { "term": "Comparaison", "definition": "L'op\u00e9ration fondamentale : v\u00e9rifier si arr[i] est \u00e9gal \u00e0 la cible. Chaque comparaison \u00e9limine exactement un \u00e9l\u00e9ment." },
+    { "term": "Cible", "definition": "La valeur recherch\u00e9e. La recherche lin\u00e9aire fonctionne avec tout type de donn\u00e9es supportant la comparaison d'\u00e9galit\u00e9." },
+    { "term": "Variante sentinelle", "definition": "Placer la cible \u00e0 la fin du tableau comme sentinelle pour \u00e9liminer la v\u00e9rification des limites \u00e0 chaque it\u00e9ration." }
+  ],
+  "linear-search.details.standard.tradeoffs.pros": [
+    "Algorithme de recherche le plus simple \u2014 facile \u00e0 comprendre et \u00e0 impl\u00e9menter",
+    "Fonctionne sur des tableaux non tri\u00e9s \u2014 aucun pr\u00e9traitement n\u00e9cessaire",
+    "O(1) espace suppl\u00e9mentaire \u2014 pas de structure de donn\u00e9es auxiliaire",
+    "Bon pour les petits jeux de donn\u00e9es ou les recherches ponctuelles",
+    "Fonctionne avec tout type de donn\u00e9es supportant la v\u00e9rification d'\u00e9galit\u00e9"
+  ],
+  "linear-search.details.standard.tradeoffs.cons": [
+    "Temps O(n) \u2014 lent pour les grands jeux de donn\u00e9es",
+    "N'exploite pas l'ordre tri\u00e9 \u2014 la recherche binaire est plus rapide pour les tableaux tri\u00e9s",
+    "Doit parcourir tout le tableau quand la cible est absente",
+    "Aucun avantage des requ\u00eates r\u00e9p\u00e9t\u00e9es sur les m\u00eames donn\u00e9es"
+  ],
+  "linear-search.details.standard.tradeoffs.whenToUse": "Id\u00e9al pour les petites collections non tri\u00e9es, les recherches ponctuelles ou quand le co\u00fbt du tri d\u00e9passe le b\u00e9n\u00e9fice. Pour les donn\u00e9es tri\u00e9es, pr\u00e9f\u00e9rez la recherche binaire ou les tables de hachage.",
+  "linear-search.depRules": [
+    { "name": "Temps (meilleur)", "role": "O(1) \u2014 la cible est le premier \u00e9l\u00e9ment" },
+    { "name": "Temps (moyen)", "role": "O(n) \u2014 lin\u00e9aire" },
+    { "name": "Temps (pire)", "role": "O(n) \u2014 cible \u00e0 la fin ou absente" },
+    { "name": "Espace", "role": "O(1) \u2014 pas de m\u00e9moire suppl\u00e9mentaire" },
+    { "name": "Tri requis", "role": "Non \u2014 fonctionne sur tout tableau" },
+    { "name": "Stable", "role": "Oui \u2014 retourne la premi\u00e8re occurrence" }
   ]
 }
