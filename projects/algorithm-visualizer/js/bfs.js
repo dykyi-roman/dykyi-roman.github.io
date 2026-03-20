@@ -50,11 +50,13 @@ AV['bfs'].details = {
 };
 
 AV['bfs'].legendItems = [
+    { swatch: 'av-legend-node-start', i18nKey: 'av.legend.bfs_start' },
     { swatch: 'av-legend-node-unvisited', i18nKey: 'av.legend.unvisited' },
     { swatch: 'av-legend-node-queued', i18nKey: 'av.legend.in_queue' },
     { swatch: 'av-legend-node-visiting', i18nKey: 'av.legend.visiting' },
     { swatch: 'av-legend-node-visited', i18nKey: 'av.legend.visited' },
-    { swatch: 'av-legend-edge-active', i18nKey: 'av.legend.edge_exploring' }
+    { swatch: 'av-legend-edge-active', i18nKey: 'av.legend.edge_exploring' },
+    { swatch: 'av-legend-visit-order', i18nKey: 'av.legend.bfs_order', swatchContent: '#' }
 ];
 
 AV['bfs']._graph = {
@@ -82,7 +84,8 @@ AV['bfs']._graph = {
         E: ['B', 'D', 'G'],
         F: ['C', 'G'],
         G: ['E', 'F']
-    }
+    },
+    levels: { A: 0, B: 1, C: 1, D: 2, E: 2, F: 2, G: 3 }
 };
 
 /* ---------- Mode: standard ---------- */
@@ -91,6 +94,8 @@ AV['bfs'].standard = {
     init: function() {
         var g = AV['bfs']._graph;
         AV.renderGraph(g.nodes, g.edges);
+        AV['bfs']._addLevelBands();
+        AV['bfs']._markStartNode('A');
         AV.renderQueue([]);
         AV._setGraphStatLabels();
     },
@@ -138,6 +143,8 @@ AV['bfs'].standard = {
     run: function() {
         var g = AV['bfs']._graph;
         AV.renderGraph(g.nodes, g.edges);
+        AV['bfs']._addLevelBands();
+        AV['bfs']._markStartNode('A');
         AV.renderQueue([]);
         AV._setGraphStatLabels();
         AV.animateFlow(
@@ -145,4 +152,61 @@ AV['bfs'].standard = {
             AV['bfs'].standard.stepOptions()
         );
     }
+};
+
+/* ---------- BFS Visual Helpers ---------- */
+
+AV['bfs']._addLevelBands = function() {
+    var svg = document.querySelector('.av-graph-svg');
+    if (!svg) return;
+
+    var bands = [
+        { y: 20, h: 90, level: 0 },
+        { y: 120, h: 110, level: 1 },
+        { y: 250, h: 90, level: 2 },
+        { y: 350, h: 80, level: 3 }
+    ];
+
+    /* Insert bands before edges (first children) */
+    var firstChild = svg.firstChild;
+
+    bands.forEach(function(b) {
+        var rect = AV._createSVG('rect', {
+            x: 0, y: b.y,
+            width: 900, height: b.h,
+            'class': 'av-level-band',
+            fill: b.level % 2 === 0 ? 'rgba(6,182,212,0.03)' : 'rgba(6,182,212,0.06)',
+            rx: 4
+        });
+        svg.insertBefore(rect, firstChild);
+
+        var label = AV._createSVG('text', {
+            x: 16, y: b.y + 18,
+            'class': 'av-level-label'
+        });
+        label.textContent = I18N.t('av.bfs.level', { n: b.level }, 'Level ' + b.level);
+        svg.insertBefore(label, firstChild);
+    });
+};
+
+AV['bfs']._markStartNode = function(nodeId) {
+    var node = document.querySelector('.av-node[data-node="' + nodeId + '"]');
+    if (!node) return;
+
+    node.className.baseVal = 'av-node av-node-start';
+
+    /* Avoid duplicate rings */
+    if (node.querySelector('.av-start-ring')) return;
+
+    /* Add pulsing ring */
+    var circle = node.querySelector('circle:not(.av-visit-order-bg)');
+    if (!circle) return;
+    var cx = circle.getAttribute('cx');
+    var cy = circle.getAttribute('cy');
+
+    var ring = AV._createSVG('circle', {
+        cx: cx, cy: cy, r: 32,
+        'class': 'av-start-ring'
+    });
+    node.insertBefore(ring, node.firstChild);
 };

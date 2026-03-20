@@ -234,5 +234,9 @@
     { "name": "En place", "role": "Non \u2014 alloue des n\u0153uds dynamiquement" },
     { "name": "Sortie tri\u00e9e", "role": "Oui \u2014 le parcours infixe donne une s\u00e9quence tri\u00e9e" },
     { "name": "Auto-\u00e9quilibrant", "role": "Non \u2014 utilisez AVL ou Rouge-Noir" }
-  ]
+  ],
+
+  "av.bfs.level": "Niveau {n}",
+  "av.legend.bfs_start": "N\u0153ud de d\u00e9part",
+  "av.legend.bfs_order": "Ordre de visite"
 }

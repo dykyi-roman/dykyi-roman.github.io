@@ -234,5 +234,9 @@
     { "name": "In-Place", "role": "Nein \u2014 weist Knoten dynamisch zu" },
     { "name": "Sortierte Ausgabe", "role": "Ja \u2014 Inorder-Durchlauf liefert sortierte Folge" },
     { "name": "Selbstbalancierend", "role": "Nein \u2014 verwenden Sie AVL oder Rot-Schwarz" }
-  ]
+  ],
+
+  "av.bfs.level": "Ebene {n}",
+  "av.legend.bfs_start": "Startknoten",
+  "av.legend.bfs_order": "Besuchsreihenfolge"
 }

@@ -253,6 +253,23 @@ AV.renderGraph = function(nodes, edges) {
         });
         text.textContent = n.id;
         g.appendChild(text);
+
+        /* Visit-order badge (hidden by default) */
+        var badgeBg = AV._createSVG('circle', {
+            cx: n.x + 20, cy: n.y - 20, r: 9,
+            'class': 'av-visit-order-bg',
+            'display': 'none'
+        });
+        g.appendChild(badgeBg);
+        var badge = AV._createSVG('text', {
+            x: n.x + 20, y: n.y - 16,
+            'text-anchor': 'middle',
+            'class': 'av-visit-order',
+            'display': 'none'
+        });
+        badge.textContent = '';
+        g.appendChild(badge);
+
         svg.appendChild(g);
     });
 
@@ -270,6 +287,28 @@ AV.highlightEdge = function(from, to, className) {
     var edge = document.querySelector('.av-edge[data-from="' + from + '"][data-to="' + to + '"]') ||
                document.querySelector('.av-edge[data-from="' + to + '"][data-to="' + from + '"]');
     if (edge) edge.setAttribute('class', 'av-edge ' + className);
+};
+
+AV._showVisitOrder = function(nodeId, order) {
+    var node = document.querySelector('.av-node[data-node="' + nodeId + '"]');
+    if (!node) return;
+    var bg = node.querySelector('.av-visit-order-bg');
+    var badge = node.querySelector('.av-visit-order');
+    if (bg && badge) {
+        bg.setAttribute('display', '');
+        badge.setAttribute('display', '');
+        badge.textContent = order;
+    }
+};
+
+AV._hideAllVisitOrders = function() {
+    document.querySelectorAll('.av-visit-order-bg').forEach(function(el) {
+        el.setAttribute('display', 'none');
+    });
+    document.querySelectorAll('.av-visit-order').forEach(function(el) {
+        el.setAttribute('display', 'none');
+        el.textContent = '';
+    });
 };
 
 AV.clearEdgeHighlights = function() {
@@ -456,6 +495,7 @@ AV.animateFlow = async function(steps, options) {
     AV.state.stepIndex = 0;
     AV.state._flowSteps = steps;
     AV.state._flowOptions = options;
+    AV.state._visitOrderCounter = 0;
     AV.state.running = true;
 
     var opts = options || {};
@@ -519,6 +559,9 @@ AV.animateFlow = async function(steps, options) {
                 'Found ' + step.value + ' at index ' + step.index));
             await AV.sleep(AV.state.stepDelay);
         } else if (step.type === 'ENQUEUE') {
+            /* Remove start ring if present */
+            var enqNode = document.querySelector('.av-node[data-node="' + step.node + '"]');
+            if (enqNode) { var sr = enqNode.querySelector('.av-start-ring'); if (sr) sr.remove(); }
             AV.setNodeState(step.node, 'queued');
             AV.renderQueue(step.queue);
             AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node }, 'Enqueue node ' + step.node));
@@ -544,6 +587,8 @@ AV.animateFlow = async function(steps, options) {
         } else if (step.type === 'VISIT') {
             AV.setNodeState(step.node, 'visited');
             AV.renderQueue(step.queue);
+            AV.state._visitOrderCounter++;
+            AV._showVisitOrder(step.node, AV.state._visitOrderCounter);
             AV.log('VISIT', I18N.t('av.log.visit', { node: step.node }, 'Node ' + step.node + ' fully processed'));
             await AV.sleep(AV.state.stepDelay * 0.4);
         } else if (step.type === 'COMPLETE') {
@@ -647,7 +692,9 @@ AV._computeGraphSnapshots = function(steps) {
     var nodeStates = {};
     var queue = [];
     var edgeStates = {};
-    var snapshots = [{ nodeStates: {}, queue: [], edgeStates: {} }];
+    var visitOrder = {};
+    var visitCounter = 0;
+    var snapshots = [{ nodeStates: {}, queue: [], edgeStates: {}, visitOrder: {} }];
 
     for (var i = 0; i < steps.length; i++) {
         var step = steps[i];
@@ -663,6 +710,8 @@ AV._computeGraphSnapshots = function(steps) {
         } else if (step.type === 'VISIT') {
             nodeStates[step.node] = 'visited';
             queue = step.queue.slice();
+            visitCounter++;
+            visitOrder[step.node] = visitCounter;
         } else if (step.type === 'INSERT_START') {
             Object.keys(nodeStates).forEach(function(k) {
                 if (nodeStates[k] === 'visiting' || nodeStates[k] === 'visited') {
@@ -690,7 +739,9 @@ AV._computeGraphSnapshots = function(steps) {
         Object.keys(nodeStates).forEach(function(k) { ns[k] = nodeStates[k]; });
         var es = {};
         Object.keys(edgeStates).forEach(function(k) { es[k] = edgeStates[k]; });
-        snapshots.push({ nodeStates: ns, queue: queue.slice(), edgeStates: es });
+        var vo = {};
+        Object.keys(visitOrder).forEach(function(k) { vo[k] = visitOrder[k]; });
+        snapshots.push({ nodeStates: ns, queue: queue.slice(), edgeStates: es, visitOrder: vo });
     }
     return snapshots;
 };
@@ -717,6 +768,19 @@ AV._applyGraphSnapshot = function(snapshot) {
     /* Apply queue (BFS only) */
     if (!isTree) {
         AV.renderQueue(snapshot.queue);
+    }
+    /* Apply visit order badges */
+    AV._hideAllVisitOrders();
+    if (snapshot.visitOrder) {
+        Object.keys(snapshot.visitOrder).forEach(function(id) {
+            AV._showVisitOrder(id, snapshot.visitOrder[id]);
+        });
+    }
+    /* Remove all start rings — they are transient decorations */
+    document.querySelectorAll('.av-start-ring').forEach(function(r) { r.remove(); });
+    /* Re-apply start marker if node A has no state (initial BFS state) */
+    if (!isTree && AV['bfs'] && AV.state.algorithm === 'bfs' && !snapshot.nodeStates['A']) {
+        AV['bfs']._markStartNode('A');
     }
 };
 
@@ -839,6 +903,9 @@ AV.stepForward = function() {
             }
         } else if (step.type === 'VISIT') {
             AV.log('VISIT', I18N.t('av.log.visit', { node: step.node }, 'Node ' + step.node + ' fully processed'));
+            if (snapshot.visitOrder && snapshot.visitOrder[step.node]) {
+                AV._showVisitOrder(step.node, snapshot.visitOrder[step.node]);
+            }
         } else if (step.type === 'COMPLETE') {
             if (AV.state._isTreeAlgorithm) {
                 AV._removeInsertBanner();

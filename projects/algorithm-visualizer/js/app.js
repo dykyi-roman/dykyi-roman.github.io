@@ -126,7 +126,8 @@
         if (algoObj && algoObj.legendItems) {
             legendEl.innerHTML = algoObj.legendItems.map(function(item) {
                 var label = I18N.t(item.i18nKey, null, item.i18nKey);
-                return '<div class="av-legend-item"><span class="av-legend-swatch ' + item.swatch + '"></span> <span data-i18n="' + item.i18nKey + '">' + label + '</span></div>';
+                var content = item.swatchContent || '';
+                return '<div class="av-legend-item"><span class="av-legend-swatch ' + item.swatch + '">' + content + '</span> <span data-i18n="' + item.i18nKey + '">' + label + '</span></div>';
             }).join('');
         } else {
             legendEl.innerHTML = defaultLegendHTML;

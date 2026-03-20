@@ -233,5 +233,9 @@
     { "name": "In-Place", "role": "No \u2014 allocates nodes dynamically" },
     { "name": "Sorted Output", "role": "Yes \u2014 in-order traversal gives sorted sequence" },
     { "name": "Self-Balancing", "role": "No \u2014 use AVL or Red-Black Tree" }
-  ]
+  ],
+
+  "av.bfs.level": "Level {n}",
+  "av.legend.bfs_start": "Start Node",
+  "av.legend.bfs_order": "Visit Order"
 }

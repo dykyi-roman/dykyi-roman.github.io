@@ -1159,6 +1159,83 @@
     height: 14px;
 }
 
+/* ===== BFS Start Node ===== */
+@keyframes av-start-pulse {
+    0%, 100% { stroke-opacity: 1; r: 32; }
+    50% { stroke-opacity: 0.4; r: 36; }
+}
+
+.av-start-ring {
+    fill: none;
+    stroke: var(--bfs-color);
+    stroke-width: 2;
+    animation: av-start-pulse 1.8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.av-node-start circle {
+    fill: var(--av-node-unvisited);
+    stroke: var(--bfs-color);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.5));
+}
+
+.av-node-start text {
+    fill: var(--bfs-color);
+}
+
+/* ===== BFS Visit Order Badge ===== */
+.av-visit-order-bg {
+    fill: var(--bfs-color);
+    pointer-events: none;
+}
+
+.av-visit-order {
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    fill: #0d1a22;
+    pointer-events: none;
+}
+
+/* ===== BFS Level Bands ===== */
+.av-level-band {
+    pointer-events: none;
+}
+
+.av-level-label {
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    fill: var(--bfs-color);
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* ===== BFS Legend Swatches ===== */
+.av-legend-node-start {
+    background: var(--av-node-unvisited);
+    border: 2px solid var(--bfs-color);
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 6px rgba(6, 182, 212, 0.5);
+}
+
+.av-legend-visit-order {
+    background: var(--bfs-color);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: #0d1a22;
+    line-height: 1;
+}
+
 /* ===== Graph Log Types ===== */
 .log-type.ENQUEUE { color: #FBBF24; }
 .log-type.DEQUEUE { color: #3B82F6; }

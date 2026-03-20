@@ -234,5 +234,9 @@
     { "name": "En lugar", "role": "No \u2014 asigna nodos din\u00e1micamente" },
     { "name": "Salida ordenada", "role": "S\u00ed \u2014 el recorrido en orden da secuencia ordenada" },
     { "name": "Autoequilibrado", "role": "No \u2014 use AVL o Rojo-Negro" }
-  ]
+  ],
+
+  "av.bfs.level": "Nivel {n}",
+  "av.legend.bfs_start": "Nodo inicial",
+  "av.legend.bfs_order": "Orden de visita"
 }
