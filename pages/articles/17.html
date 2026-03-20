@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../resources/analytics.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Visualizers: Inside the Software Mechanisms - Dykyi Roman</title>
+    <meta name="description" content="Six interactive visualizers for databases, message brokers, architectures, design patterns, Git branching strategies, and algorithms. Step-by-step animations that reveal how software mechanisms actually work.">
+    <meta name="author" content="Dykyi Roman">
+    <meta property="og:title" content="Interactive Visualizers: Inside the Software Mechanisms">
+    <meta property="og:description" content="Six interactive visualizers for databases, message brokers, architectures, design patterns, Git branching strategies, and algorithms. Step-by-step animations that reveal how software mechanisms actually work.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://dykyi-roman.github.io/articles/17.html">
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/articles/17.html">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/navigation.css">
+    <link rel="stylesheet" href="../../resources/article-style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="/pages/articles.html">Articles</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">Interactive Visualizers: Inside the Software Mechanisms</span>
+    </nav>
+
+    <!-- Article Content -->
+    <div class="article-container">
+        <div class="article-header">
+            <h1 class="article-title">Interactive Visualizers: Inside the Software Mechanisms</h1>
+            <div class="article-meta">10 min read | Apr 01, 2026</div>
+            <img src="img/17.png" alt="Interactive Visualizers: Inside the Software Mechanisms"
+                 class="article-featured-img">
+        </div>
+
+        <div class="article-content">
+            <h1>The Gap Between Knowing and Understanding</h1>
+
+            <p>Software engineers are remarkably good at memorizing terminology and remarkably bad at understanding mechanics. Most can recite that a B-Tree index provides O(log n) lookups, that Clean Architecture has a dependency rule pointing inward, or that the Builder pattern uses a Director. But ask them to trace the actual flow — the pages read during an Index Scan, the path of an HTTP request through architectural layers, the sequence of calls between pattern participants — and the picture gets blurry.</p>
+
+            <p>Static diagrams don't help enough. They show the end state, not the process. A B-Tree diagram has all nodes in place, but doesn't show how the tree <em>became</em> that shape. Clean Architecture circles are beautiful, but they don't show a request traveling through the layers.</p>
+
+            <p>Interactive visualization closes this gap. Instead of static images, these are tools where pressing Play reveals the step-by-step mechanics of a system. Below is an overview of six such tools covering databases, message brokers, software architectures, GoF design patterns, Git branching strategies, and algorithms.</p>
+
+            <h1>How to Use the Visualizers: Step by Step</h1>
+
+            <p>All visualizers run in the browser with no installation required. The interface is consistent across all six tools:</p>
+
+            <p><strong>Step 1. Choose a technology or pattern.</strong> Tabs at the top of the page organize content by category. For example, Database Visualizer has PostgreSQL / MySQL / MongoDB / Redis tabs. Pattern Visualizer has Creational / Structural / Behavioral.</p>
+
+            <p><strong>Step 2. Select a mode.</strong> Each technology has multiple modes. Select buttons below the main visualization area.</p>
+
+            <p><strong>Step 3. Press ▶ Play.</strong> The step-by-step animation begins. Each step renders in the visualization area and is simultaneously logged in the event panel on the right — with a description of what's happening.</p>
+
+            <p><strong>Step 4. Control playback.</strong> Pause, step forward/backward, and reset buttons allow stopping at any point to examine details.</p>
+
+            <p><strong>Step 5. Explore details.</strong> The "Principles & Key Concepts" panel expands on click, providing theoretical context — dependency rules, key concepts, constraints for the current technology.</p>
+
+            <p><strong>Step 6. Review the event log.</strong> The log panel at the bottom of the visualizer records every animation step — with operation type, description, and timestamp. The log lets you trace the sequence of actions, jump back to any step, and understand exactly what happened at each stage.</p>
+
+            <h1>Built-in AI Assistant</h1>
+
+            <p>Every visualizer includes an AI chat assistant (&#x1F4AC; icon in the bottom-right corner), specialized for its specific domain:</p>
+
+            <ul>
+                <li><strong>Database Visualizer</strong> — answers questions about index structures, performance characteristics, and when to use each index type</li>
+                <li><strong>Architecture Visualizer</strong> — explains data flows, layers, components, and when to apply each architectural pattern</li>
+                <li><strong>Pattern Visualizer</strong> — breaks down GoF patterns, their differences, and real-world use cases</li>
+                <li><strong>Message Broker Visualizer</strong> — explains messaging patterns, delivery guarantees, and fault tolerance</li>
+                <li><strong>GitFlow Visualizer</strong> — helps choose branching strategies, explains trade-offs of each approach</li>
+            </ul>
+
+            <p>The AI assistant is context-aware. After watching a Composite Index animation, for example, asking "When should a Composite Index be used instead of multiple Single Field indexes?" yields an answer grounded in the current topic.</p>
+
+            <h1>Architecture Visualizer</h1>
+
+            <p><strong><a href="https://dykyi-roman.github.io/projects/architecture-visualizer/" target="_blank">→ Open Visualizer</a></strong></p>
+
+            <p>9 architectures. 33 modes. Animated request flows and dependency rule visualization.</p>
+
+            <p>Each architecture includes a Dependency Rules mode — highlighting valid and invalid dependencies. The visualization makes abstract rules (like "dependencies point inward" in Clean Architecture) tangible: valid connections light up green, violations turn red.</p>
+
+            <h1>Design Pattern Visualizer</h1>
+
+            <p><strong><a href="https://dykyi-roman.github.io/projects/pattern-visualizer/" target="_blank">→ Open Visualizer</a></strong></p>
+
+            <p>25 GoF patterns across three categories. Each with step-by-step UML animation, relationship visualization, and Dependency Rules.</p>
+
+            <p><strong>Creational (8 patterns):</strong> Simple Factory, Static Factory, Factory Method, Abstract Factory, Builder, Prototype, Singleton, Object Pool.</p>
+
+            <p><strong>Structural (7 patterns):</strong> Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy.</p>
+
+            <p><strong>Behavioral (10 patterns):</strong> Observer, Strategy, Command, State, Chain of Responsibility, Iterator, Mediator, Memento, Template Method, Visitor.</p>
+
+            <p>For each pattern, the visualizer shows:</p>
+            <ul>
+                <li><strong>UML animation</strong> — classes appear, relationships build, call flow animates step by step</li>
+                <li><strong>Dependency Rules</strong> — who depends on whom, where dependency inversion applies, which connections are valid</li>
+            </ul>
+
+            <h1>Algorithm Visualizer</h1>
+
+            <p><strong><a href="https://dykyi-roman.github.io/projects/algorithm-visualizer/" target="_blank">→ Open Visualizer</a></strong></p>
+
+            <p>The project is in active development. At the time of writing, several algorithms have already been implemented.</p>
+
+            <h1>Message Broker Visualizer</h1>
+
+            <p><strong><a href="https://dykyi-roman.github.io/projects/message-broker-visualizer/" target="_blank">→ Open Visualizer</a></strong></p>
+
+            <p>3 brokers. 24 modes. Message routing, queue, partition, and consumer group visualization.</p>
+
+            <p><strong>RabbitMQ (11 modes)</strong> — from simple queues to advanced scenarios: Direct, Fanout, Topic, and Headers exchanges, Dead Letter Queues, Priority Queues, Publisher Confirms. The visualization shows how an exchange routes messages to the correct queue based on routing key.</p>
+
+            <p><strong>Kafka (5 modes)</strong> — partitioning, consumer groups, offset management, exactly-once semantics. Shows how messages distribute across partitions and how consumer groups balance load.</p>
+
+            <p><strong>Redis (8 modes)</strong> — Pub/Sub, Streams with consumer groups, cluster mode. Covers both simple Pub/Sub and persistent Streams with processing acknowledgment.</p>
+
+            <p>Each mode animates the complete message path: from producer through broker routing to consumer delivery. This helps clarify the fundamental differences between delivery models — push vs pull, at-most-once vs at-least-once vs exactly-once.</p>
+
+            <h1>Database Index Visualizer</h1>
+
+            <p><strong><a href="https://dykyi-roman.github.io/projects/db-visualizer/" target="_blank">→ Open Visualizer</a></strong></p>
+
+            <p>4 databases. 17 interactive modes. Step-by-step visualization of index construction and query execution.</p>
+
+            <p><strong>PostgreSQL</strong> — 5 modes: B-Tree with MVCC visualization (shows how row versioning interacts with the index, why VACUUM is needed, and what happens with dead tuples), Hash Index, GIN for full-text search, GiST for geometric data, BRIN for naturally ordered large tables.</p>
+
+            <p><strong>MySQL</strong> — 5 modes: classic B-Tree, Hash Index, Composite Index (visualizes the leftmost prefix rule — making it clear why column order in composite indexes matters), Full-Text Search, EXPLAIN Plan.</p>
+
+            <p><strong>MongoDB</strong> — 4 modes: Single Field, Compound Index, Multikey for arrays, Text Index.</p>
+
+            <p><strong>Redis</strong> — 3 modes: Sorted Set (SkipList + Hash Table), Hash with rehashing visualization, Secondary Index.</p>
+
+            <p>The core value is the Index Scan vs Full Table Scan comparison. The visualizer shows every data page read: Index Scan traverses from root to leaf through 3 pages, while Full Table Scan sequentially reads all 47. The difference between O(log n) and O(n) stops being abstract — it's concrete pages on screen.</p>
+
+            <h1>GitFlow Visualizer</h1>
+
+            <p><strong><a href="https://dykyi-roman.github.io/projects/gitflow-visualizer/" target="_blank">→ Open Visualizer</a></strong></p>
+
+            <p>11 branching strategies: Classic Git Flow, GitHub Flow, GitLab Flow, Trunk-Based Development, OneFlow, Release Flow, Forking Workflow, Environment-Based, Cherry-Pick, Ship/Show/Ask, Scaled Enterprise.</p>
+
+            <p>SVG animation shows branches, commits, and merges step by step. Each strategy is visualized through its complete cycle: from feature branch creation to release. The difference between GitHub Flow (single main branch, short-lived branches) and Classic Git Flow (develop, release, hotfix branches) becomes visible in motion, not just in description.</p>
+
+            <p>The tool is useful for choosing a branching strategy for a team: all 11 approaches can be reviewed sequentially, comparing complexity, number of parallel branches, and release process.</p>
+
+            <h1>Links</h1>
+
+            <p>All visualizers are collected on the <strong><a href="https://dykyi-roman.github.io/pages/projects.html">Projects Page</a></strong>. Source code is open — <a href="https://github.com/dykyi-roman/dykyi-roman.github.io" target="_blank">GitHub repository</a>. Issues and pull requests are welcome.</p>
+
+            <p>Visualization doesn't replace documentation and books. But it provides what text cannot — observation of the process.</p>
+
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+        <div class="footer-links">
+            <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+            <a href="mailto:mr.dukuy@gmail.com">Email</a>
+        </div>
+    </footer>
+</div>
+
+<link rel="stylesheet" href="../../resources/chat.css">
+<script>window.CHAT_SYSTEM_PROMPT = "AI assistant for Dykyi Roman's technical blog. The reader is viewing: " + ((document.querySelector('.article-title') || {}).textContent || '') + ". Answer questions about the article, explain concepts, provide examples. Be concise.";</script>
+<script src="../../resources/chat.js"></script>
+<script src="../../resources/load-header.js"></script>
+</body>
+<script src="../../resources/back-to-top.js"></script>
+<script src="../../resources/navigation.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</html>
