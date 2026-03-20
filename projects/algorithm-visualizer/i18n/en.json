@@ -115,5 +115,68 @@
     { "name": "Space", "role": "O(1) \u2014 no extra memory" },
     { "name": "Sorted Input Required", "role": "No \u2014 works on any array" },
     { "name": "Stable", "role": "Yes \u2014 returns first occurrence" }
+  ],
+
+  "av.stat.nodes_visited": "Nodes Visited",
+  "av.stat.edges_explored": "Edges Explored",
+  "av.legend.unvisited": "Unvisited",
+  "av.legend.in_queue": "In Queue",
+  "av.legend.visiting": "Visiting",
+  "av.legend.visited": "Visited",
+  "av.legend.edge_exploring": "Edge Exploring",
+  "av.queue.label": "Queue:",
+  "av.queue.empty": "empty",
+  "av.log.enqueue": "Enqueue node {node}",
+  "av.log.dequeue": "Dequeue node {node}",
+  "av.log.explore_edge": "Edge {from}\u2192{to} (new)",
+  "av.log.explore_edge_skip": "Edge {from}\u2192{to} (already visited)",
+  "av.log.visit": "Node {node} fully processed",
+  "av.log.complete": "BFS traversal complete",
+  "av.log.done_graph": "Completed in {time}ms ({nodes} nodes, {edges} edges)",
+
+  "ui.log.type.ENQUEUE": "ENQUEUE",
+  "ui.log.type.DEQUEUE": "DEQUEUE",
+  "ui.log.type.EXPLORE_EDGE": "EDGE",
+  "ui.log.type.VISIT": "VISIT",
+  "ui.log.type.COMPLETE": "COMPLETE",
+
+  "bfs.name": "BFS",
+  "bfs.stepLabel": "BFS \u2014 Standard",
+  "bfs.modes.standard.label": "Standard",
+  "bfs.modes.standard.desc": "Classic BFS: explores a graph level by level using a FIFO queue. Starting from node A, it visits all neighbors before moving to the next depth level, producing a wave-like traversal pattern.",
+  "bfs.details.standard.principles": [
+    "Start from a source node and mark it as visited",
+    "Add the source to a FIFO queue",
+    "While the queue is not empty: dequeue a node, explore all unvisited neighbors",
+    "Each neighbor is enqueued and marked as visited",
+    "This guarantees level-by-level (wave) traversal"
+  ],
+  "bfs.details.standard.concepts": [
+    { "term": "FIFO Queue", "definition": "First-In-First-Out data structure. Nodes discovered first are explored first, ensuring breadth-first order." },
+    { "term": "Level/Wave", "definition": "All nodes at distance k from the source are explored before any node at distance k+1. This is the key property of BFS." },
+    { "term": "Visited Set", "definition": "Tracks which nodes have been seen to prevent revisiting. Essential for correctness in graphs with cycles." },
+    { "term": "Shortest Path", "definition": "In unweighted graphs, BFS naturally finds the shortest path (fewest edges) from the source to every reachable node." }
+  ],
+  "bfs.details.standard.tradeoffs.pros": [
+    "Finds the shortest path in unweighted graphs",
+    "Complete \u2014 guaranteed to find a solution if reachable",
+    "Simple and intuitive level-by-level exploration",
+    "Optimal for finding nearest neighbors or closest nodes",
+    "Foundation for many advanced algorithms (Dijkstra, A*)"
+  ],
+  "bfs.details.standard.tradeoffs.cons": [
+    "O(V) space for the queue \u2014 can be large for wide graphs",
+    "Not suitable for weighted graphs \u2014 use Dijkstra instead",
+    "Explores all nodes at current depth before going deeper",
+    "Less memory-efficient than DFS for deep, narrow graphs"
+  ],
+  "bfs.details.standard.tradeoffs.whenToUse": "Use BFS when you need the shortest path in unweighted graphs, want to explore nodes by distance from source, or need level-order traversal. For weighted graphs, use Dijkstra. For exhaustive deep exploration, consider DFS.",
+  "bfs.depRules": [
+    { "name": "Time", "role": "O(V + E) \u2014 visits every vertex and edge once" },
+    { "name": "Space", "role": "O(V) \u2014 queue + visited set" },
+    { "name": "Shortest Path", "role": "Yes \u2014 finds shortest path in unweighted graphs" },
+    { "name": "Complete", "role": "Yes \u2014 always finds a solution if one exists" },
+    { "name": "Weighted Graphs", "role": "No \u2014 does not handle edge weights (use Dijkstra)" },
+    { "name": "Data Structure", "role": "FIFO Queue" }
   ]
 }

@@ -63,6 +63,17 @@
     --linear-search-color: #8B5CF6;
     --linear-search-bg: #1a0d30;
     --linear-search-light: #221548;
+
+    --bfs-color: #06B6D4;
+    --bfs-bg: #0d1a22;
+    --bfs-light: #15252f;
+
+    --av-node-unvisited: #4B5563;
+    --av-node-queued: #FBBF24;
+    --av-node-visiting: #3B82F6;
+    --av-node-visited: #10B981;
+    --av-edge-default: #374151;
+    --av-edge-active: #FBBF24;
 }
 
 /* ===== Page Container ===== */
@@ -177,6 +188,12 @@
     background: var(--linear-search-bg);
     border-color: var(--linear-search-color);
     color: var(--linear-search-color);
+}
+
+.av-tab.active[data-algorithm="bfs"] {
+    background: var(--bfs-bg);
+    border-color: var(--bfs-color);
+    color: var(--bfs-color);
 }
 
 .av-tab.disabled {
@@ -926,6 +943,150 @@
 .log-text {
     color: var(--av-text);
 }
+
+/* ===== Graph Visualization (SVG) ===== */
+.av-graph-svg {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+}
+
+.av-node circle {
+    transition: fill 0.3s ease, stroke 0.3s ease, filter 0.3s ease;
+}
+
+.av-node text {
+    font-family: inherit;
+    font-weight: 700;
+    pointer-events: none;
+}
+
+.av-node-unvisited circle { fill: var(--av-node-unvisited); stroke: #6B7280; stroke-width: 2; }
+.av-node-unvisited text { fill: #D1D5DB; }
+
+.av-node-queued circle { fill: var(--av-node-queued); stroke: #F59E0B; stroke-width: 3; }
+.av-node-queued text { fill: #1a2030; }
+
+.av-node-visiting circle {
+    fill: var(--av-node-visiting);
+    stroke: #60A5FA;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+}
+.av-node-visiting text { fill: #fff; }
+
+.av-node-visited circle { fill: var(--av-node-visited); stroke: #34D399; stroke-width: 2; }
+.av-node-visited text { fill: #fff; }
+
+.av-edge {
+    stroke: var(--av-edge-default);
+    stroke-width: 2;
+    transition: stroke 0.3s ease, stroke-width 0.3s ease, filter 0.3s ease;
+}
+
+.av-edge-active {
+    stroke: var(--av-edge-active);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.5));
+}
+
+.av-edge-traversed {
+    stroke: var(--av-node-visited);
+    stroke-width: 2.5;
+}
+
+/* ===== Queue Panel ===== */
+.av-queue-panel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    margin-top: 8px;
+    background: var(--av-card-bg);
+    border: 1px solid var(--av-border);
+    border-radius: 6px;
+    min-height: 44px;
+    flex-wrap: wrap;
+}
+
+.av-queue-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--av-text-light);
+    flex-shrink: 0;
+}
+
+.av-queue-items {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.av-queue-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 28px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    background: var(--av-node-queued);
+    color: #1a2030;
+    transition: all 0.2s ease;
+}
+
+.av-queue-empty {
+    font-size: 12px;
+    color: var(--av-text-light);
+    font-style: italic;
+}
+
+/* ===== Graph Legend Swatches ===== */
+.av-legend-node-unvisited {
+    background: var(--av-node-unvisited);
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+}
+
+.av-legend-node-queued {
+    background: var(--av-node-queued);
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+}
+
+.av-legend-node-visiting {
+    background: var(--av-node-visiting);
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 6px rgba(59, 130, 246, 0.5);
+}
+
+.av-legend-node-visited {
+    background: var(--av-node-visited);
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+}
+
+.av-legend-edge-active {
+    background: var(--av-edge-active);
+    width: 16px;
+    height: 3px;
+    border-radius: 2px;
+}
+
+/* ===== Graph Log Types ===== */
+.log-type.ENQUEUE { color: #FBBF24; }
+.log-type.DEQUEUE { color: #3B82F6; }
+.log-type.EXPLORE_EDGE { color: #A78BFA; }
+.log-type.VISIT { color: #10B981; }
+.log-type.COMPLETE { color: #06B6D4; }
 
 /* ===== Responsive ===== */
 @media (max-width: 1100px) {

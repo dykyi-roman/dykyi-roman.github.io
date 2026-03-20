@@ -197,12 +197,144 @@ AV.animateSwap = function(i, j) {
     });
 };
 
+/* ===== SVG Helpers (Graph Visualization) ===== */
+AV._svgNS = 'http://www.w3.org/2000/svg';
+
+AV._createSVG = function(tag, attrs) {
+    var el = document.createElementNS(AV._svgNS, tag);
+    if (attrs) {
+        Object.keys(attrs).forEach(function(k) { el.setAttribute(k, attrs[k]); });
+    }
+    return el;
+};
+
+AV.renderGraph = function(nodes, edges) {
+    var canvas = document.getElementById('av-canvas');
+    if (!canvas) return;
+
+    AV.state._graphData = { nodes: nodes, edges: edges };
+    AV.state._initialArray = [];
+
+    var svg = AV._createSVG('svg', {
+        'class': 'av-graph-svg',
+        'viewBox': '0 0 900 440',
+        'preserveAspectRatio': 'xMidYMid meet'
+    });
+
+    /* Render edges */
+    var nodeMap = {};
+    nodes.forEach(function(n) { nodeMap[n.id] = n; });
+
+    edges.forEach(function(e) {
+        var from = nodeMap[e[0]];
+        var to = nodeMap[e[1]];
+        if (!from || !to) return;
+        var line = AV._createSVG('line', {
+            'x1': from.x, 'y1': from.y,
+            'x2': to.x, 'y2': to.y,
+            'class': 'av-edge',
+            'data-from': e[0],
+            'data-to': e[1]
+        });
+        svg.appendChild(line);
+    });
+
+    /* Render nodes */
+    nodes.forEach(function(n) {
+        var g = AV._createSVG('g', {
+            'class': 'av-node av-node-unvisited',
+            'data-node': n.id
+        });
+        g.appendChild(AV._createSVG('circle', { cx: n.x, cy: n.y, r: 26 }));
+        var text = AV._createSVG('text', {
+            x: n.x, y: n.y + 5,
+            'text-anchor': 'middle',
+            'font-size': '16'
+        });
+        text.textContent = n.id;
+        g.appendChild(text);
+        svg.appendChild(g);
+    });
+
+    canvas.innerHTML = '';
+    canvas.appendChild(svg);
+};
+
+AV.setNodeState = function(nodeId, state) {
+    var node = document.querySelector('.av-node[data-node="' + nodeId + '"]');
+    if (!node) return;
+    node.className.baseVal = 'av-node av-node-' + state;
+};
+
+AV.highlightEdge = function(from, to, className) {
+    var edge = document.querySelector('.av-edge[data-from="' + from + '"][data-to="' + to + '"]') ||
+               document.querySelector('.av-edge[data-from="' + to + '"][data-to="' + from + '"]');
+    if (edge) edge.setAttribute('class', 'av-edge ' + className);
+};
+
+AV.clearEdgeHighlights = function() {
+    document.querySelectorAll('.av-edge').forEach(function(e) {
+        e.setAttribute('class', 'av-edge');
+    });
+};
+
+AV.renderQueue = function(queue) {
+    var vizArea = document.getElementById('viz-area');
+    if (!vizArea) return;
+
+    var panel = vizArea.querySelector('.av-queue-panel');
+    if (!panel) {
+        panel = document.createElement('div');
+        panel.className = 'av-queue-panel';
+        vizArea.appendChild(panel);
+    }
+
+    var label = I18N.t('av.queue.label', null, 'Queue:');
+    var emptyText = I18N.t('av.queue.empty', null, 'empty');
+
+    if (queue.length === 0) {
+        panel.innerHTML = '<span class="av-queue-label">' + label + '</span><span class="av-queue-empty">' + emptyText + '</span>';
+    } else {
+        var itemsHtml = queue.map(function(id) {
+            return '<span class="av-queue-item">' + id + '</span>';
+        }).join('');
+        panel.innerHTML = '<span class="av-queue-label">' + label + '</span><div class="av-queue-items">' + itemsHtml + '</div>';
+    }
+};
+
+AV._setGraphStatLabels = function() {
+    var lbl1 = document.querySelector('#stat-comparisons').closest('.stat-item').querySelector('.stat-label');
+    var lbl2 = document.querySelector('#stat-swaps').closest('.stat-item').querySelector('.stat-label');
+    if (lbl1) {
+        lbl1.textContent = I18N.t('av.stat.nodes_visited', null, 'Nodes Visited');
+        lbl1.setAttribute('data-i18n', 'av.stat.nodes_visited');
+    }
+    if (lbl2) {
+        lbl2.textContent = I18N.t('av.stat.edges_explored', null, 'Edges Explored');
+        lbl2.setAttribute('data-i18n', 'av.stat.edges_explored');
+    }
+};
+
+AV._restoreArrayStatLabels = function() {
+    var lbl1 = document.querySelector('#stat-comparisons').closest('.stat-item').querySelector('.stat-label');
+    var lbl2 = document.querySelector('#stat-swaps').closest('.stat-item').querySelector('.stat-label');
+    if (lbl1) {
+        lbl1.textContent = I18N.t('av.stat.comparisons', null, 'Comparisons');
+        lbl1.setAttribute('data-i18n', 'av.stat.comparisons');
+    }
+    if (lbl2) {
+        lbl2.textContent = I18N.t('av.stat.swaps', null, 'Swaps');
+        lbl2.setAttribute('data-i18n', 'av.stat.swaps');
+    }
+};
+
 /* ===== Accent Colors ===== */
 AV.setAccentColors = function(algorithmId) {
     var root = document.documentElement.style;
     var themes = {
         'bubble-sort': { accent: '#3B82F6', bg: '#0d1630', light: '#152048' },
-        'linear-search': { accent: '#8B5CF6', bg: '#1a0d30', light: '#221548' }
+        'linear-search': { accent: '#8B5CF6', bg: '#1a0d30', light: '#221548' },
+        'bfs': { accent: '#06B6D4', bg: '#0d1a22', light: '#15252f' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
     root.setProperty('--av-accent', t.accent);
@@ -348,6 +480,38 @@ AV.animateFlow = async function(steps, options) {
             AV.log('FOUND', I18N.t('av.log.found', { index: step.index, value: step.value },
                 'Found ' + step.value + ' at index ' + step.index));
             await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'ENQUEUE') {
+            AV.setNodeState(step.node, 'queued');
+            AV.renderQueue(step.queue);
+            AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node }, 'Enqueue node ' + step.node));
+            await AV.sleep(AV.state.stepDelay * 0.6);
+        } else if (step.type === 'DEQUEUE') {
+            AV.setNodeState(step.node, 'visiting');
+            AV.renderQueue(step.queue);
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node }, 'Dequeue node ' + step.node));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'EXPLORE_EDGE') {
+            AV.highlightEdge(step.from, step.to, 'av-edge-active');
+            AV.state.swaps++;
+            AV.updateStats();
+            if (step.alreadyVisited) {
+                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_skip', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ' (already visited)'));
+            } else {
+                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ' (new)'));
+            }
+            await AV.sleep(AV.state.stepDelay * 0.5);
+            AV.highlightEdge(step.from, step.to, 'av-edge-traversed');
+        } else if (step.type === 'VISIT') {
+            AV.setNodeState(step.node, 'visited');
+            AV.renderQueue(step.queue);
+            AV.log('VISIT', I18N.t('av.log.visit', { node: step.node }, 'Node ' + step.node + ' fully processed'));
+            await AV.sleep(AV.state.stepDelay * 0.4);
+        } else if (step.type === 'COMPLETE') {
+            AV.renderQueue([]);
+            AV.log('COMPLETE', I18N.t('av.log.complete', null, 'BFS traversal complete'));
+            await AV.sleep(AV.state.stepDelay * 0.3);
         } else if (step.type === 'DONE') {
             AV.clearHighlights();
             if (step.found === false) {
@@ -360,7 +524,10 @@ AV.animateFlow = async function(steps, options) {
 
     var elapsed = Math.round(performance.now() - startTime);
     if (AV.state.running) {
-        if (AV.state._searchTarget !== undefined) {
+        if (AV.state._graphData) {
+            AV.log('DONE', I18N.t('av.log.done_graph', { time: elapsed, nodes: AV.state.comparisons, edges: AV.state.swaps },
+                'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' nodes, ' + AV.state.swaps + ' edges)'));
+        } else if (AV.state._searchTarget !== undefined) {
             AV.log('DONE', I18N.t('av.log.done_search', { time: elapsed, comparisons: AV.state.comparisons },
                 'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons)'));
         } else {
@@ -386,6 +553,60 @@ AV.stepMode = {
     index: 0,
     options: null,
     arraySnapshots: null
+};
+
+AV._computeGraphSnapshots = function(steps) {
+    var nodeStates = {};
+    var queue = [];
+    var edgeStates = {};
+    var snapshots = [{ nodeStates: {}, queue: [], edgeStates: {} }];
+
+    for (var i = 0; i < steps.length; i++) {
+        var step = steps[i];
+        if (step.type === 'ENQUEUE') {
+            nodeStates[step.node] = 'queued';
+            queue = step.queue.slice();
+        } else if (step.type === 'DEQUEUE') {
+            nodeStates[step.node] = 'visiting';
+            queue = step.queue.slice();
+        } else if (step.type === 'EXPLORE_EDGE') {
+            var eKey = step.from + '-' + step.to;
+            edgeStates[eKey] = 'traversed';
+        } else if (step.type === 'VISIT') {
+            nodeStates[step.node] = 'visited';
+            queue = step.queue.slice();
+        } else if (step.type === 'COMPLETE') {
+            queue = [];
+        }
+        var ns = {};
+        Object.keys(nodeStates).forEach(function(k) { ns[k] = nodeStates[k]; });
+        var es = {};
+        Object.keys(edgeStates).forEach(function(k) { es[k] = edgeStates[k]; });
+        snapshots.push({ nodeStates: ns, queue: queue.slice(), edgeStates: es });
+    }
+    return snapshots;
+};
+
+AV._applyGraphSnapshot = function(snapshot) {
+    /* Reset all nodes to unvisited */
+    document.querySelectorAll('.av-node').forEach(function(n) {
+        n.className.baseVal = 'av-node av-node-unvisited';
+    });
+    /* Reset all edges */
+    document.querySelectorAll('.av-edge').forEach(function(e) {
+        e.setAttribute('class', 'av-edge');
+    });
+    /* Apply node states */
+    Object.keys(snapshot.nodeStates).forEach(function(id) {
+        AV.setNodeState(id, snapshot.nodeStates[id]);
+    });
+    /* Apply edge states */
+    Object.keys(snapshot.edgeStates).forEach(function(key) {
+        var parts = key.split('-');
+        AV.highlightEdge(parts[0], parts[1], 'av-edge-traversed');
+    });
+    /* Apply queue */
+    AV.renderQueue(snapshot.queue);
 };
 
 AV._computeSnapshots = function(initialArray, steps) {
@@ -415,7 +636,8 @@ AV._computeSnapshots = function(initialArray, steps) {
 };
 
 AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
-    var snapshots = AV._computeSnapshots(initialArray, steps);
+    var isGraph = !!AV.state._graphData;
+    var snapshots = isGraph ? AV._computeGraphSnapshots(steps) : AV._computeSnapshots(initialArray, steps);
 
     if (resumeFromIndex > 0) {
         /* Resume from current animation position — keep stats and log */
@@ -429,8 +651,12 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
 
         /* Render the snapshot at the current position */
         var snapshot = snapshots[resumeFromIndex];
-        AV.renderArray(snapshot.arr);
-        snapshot.sorted.forEach(function(idx) { AV.markSorted(idx); });
+        if (isGraph) {
+            AV._applyGraphSnapshot(snapshot);
+        } else {
+            AV.renderArray(snapshot.arr);
+            snapshot.sorted.forEach(function(idx) { AV.markSorted(idx); });
+        }
 
         /* Re-inject target line for search algorithms after renderArray */
         if (AV.state._searchTarget !== undefined && AV['linear-search'] && AV['linear-search']._injectTargetLine) {
@@ -438,7 +664,7 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
         }
 
         /* Restore highlight from the last executed step */
-        if (resumeFromIndex > 0) {
+        if (resumeFromIndex > 0 && !isGraph) {
             var lastStep = steps[resumeFromIndex - 1];
             if (lastStep.type === 'COMPARE') AV.highlightBars(lastStep.indices, 'av-comparing');
             else if (lastStep.type === 'SWAP') AV.highlightBars(lastStep.indices, 'av-swapping');
@@ -482,6 +708,35 @@ AV.stepForward = function() {
 
     var step = sm.steps[sm.index];
     var snapshot = sm.arraySnapshots[sm.index + 1];
+    var isGraph = !!AV.state._graphData;
+
+    if (isGraph) {
+        AV._applyGraphSnapshot(snapshot);
+
+        if (step.type === 'ENQUEUE') {
+            AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node }, 'Enqueue node ' + step.node));
+        } else if (step.type === 'DEQUEUE') {
+            AV.state.comparisons++;
+            AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node }, 'Dequeue node ' + step.node));
+        } else if (step.type === 'EXPLORE_EDGE') {
+            AV.highlightEdge(step.from, step.to, 'av-edge-active');
+            AV.state.swaps++;
+            if (step.alreadyVisited) {
+                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_skip', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ' (already visited)'));
+            } else {
+                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ' (new)'));
+            }
+        } else if (step.type === 'VISIT') {
+            AV.log('VISIT', I18N.t('av.log.visit', { node: step.node }, 'Node ' + step.node + ' fully processed'));
+        } else if (step.type === 'COMPLETE') {
+            AV.log('COMPLETE', I18N.t('av.log.complete', null, 'BFS traversal complete'));
+        }
+
+        AV.updateStats();
+        sm.index++;
+        AV._updateStepButtons();
+        return;
+    }
 
     AV.renderArray(snapshot.arr);
     snapshot.sorted.forEach(function(idx) { AV.markSorted(idx); });
@@ -545,6 +800,23 @@ AV.stepBack = function() {
 
     sm.index--;
     var snapshot = sm.arraySnapshots[sm.index];
+    var isGraph = !!AV.state._graphData;
+
+    if (isGraph) {
+        /* Recompute stats for graph */
+        var nodesVisited = 0;
+        var edgesExplored = 0;
+        for (var gi = 0; gi < sm.index; gi++) {
+            if (sm.steps[gi].type === 'DEQUEUE') nodesVisited++;
+            if (sm.steps[gi].type === 'EXPLORE_EDGE') edgesExplored++;
+        }
+        AV.state.comparisons = nodesVisited;
+        AV.state.swaps = edgesExplored;
+        AV.updateStats();
+        AV._applyGraphSnapshot(snapshot);
+        AV._updateStepButtons();
+        return;
+    }
 
     var comparisons = 0;
     var swaps = 0;

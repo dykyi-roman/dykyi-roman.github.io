@@ -116,5 +116,68 @@
     { "name": "Espacio", "role": "O(1) \u2014 sin memoria extra" },
     { "name": "Ordenamiento requerido", "role": "No \u2014 funciona con cualquier arreglo" },
     { "name": "Estable", "role": "S\u00ed \u2014 retorna la primera ocurrencia" }
+  ],
+
+  "av.stat.nodes_visited": "Nodos visitados",
+  "av.stat.edges_explored": "Aristas exploradas",
+  "av.legend.unvisited": "No visitado",
+  "av.legend.in_queue": "En cola",
+  "av.legend.visiting": "Visitando",
+  "av.legend.visited": "Visitado",
+  "av.legend.edge_exploring": "Explorando arista",
+  "av.queue.label": "Cola:",
+  "av.queue.empty": "vac\u00eda",
+  "av.log.enqueue": "Encolar nodo {node}",
+  "av.log.dequeue": "Desencolar nodo {node}",
+  "av.log.explore_edge": "Arista {from}\u2192{to} (nuevo)",
+  "av.log.explore_edge_skip": "Arista {from}\u2192{to} (ya visitado)",
+  "av.log.visit": "Nodo {node} completamente procesado",
+  "av.log.complete": "Recorrido BFS completo",
+  "av.log.done_graph": "Completado en {time}ms ({nodes} nodos, {edges} aristas)",
+
+  "ui.log.type.ENQUEUE": "ENCOLAR",
+  "ui.log.type.DEQUEUE": "DESENC",
+  "ui.log.type.EXPLORE_EDGE": "ARISTA",
+  "ui.log.type.VISIT": "VISITA",
+  "ui.log.type.COMPLETE": "LISTO",
+
+  "bfs.name": "BFS",
+  "bfs.stepLabel": "BFS \u2014 Est\u00e1ndar",
+  "bfs.modes.standard.label": "Est\u00e1ndar",
+  "bfs.modes.standard.desc": "BFS cl\u00e1sico: explora un grafo nivel por nivel usando una cola FIFO. Desde el nodo A, visita todos los vecinos antes de pasar al siguiente nivel de profundidad, creando un patr\u00f3n de recorrido en ola.",
+  "bfs.details.standard.principles": [
+    "Comenzar desde un nodo fuente y marcarlo como visitado",
+    "Agregar la fuente a una cola FIFO",
+    "Mientras la cola no est\u00e9 vac\u00eda: desencolar un nodo, explorar todos los vecinos no visitados",
+    "Cada vecino se encola y se marca como visitado",
+    "Esto garantiza un recorrido nivel por nivel (ola)"
+  ],
+  "bfs.details.standard.concepts": [
+    { "term": "Cola FIFO", "definition": "Estructura primero en entrar, primero en salir. Los nodos descubiertos primero se exploran primero." },
+    { "term": "Nivel/Ola", "definition": "Todos los nodos a distancia k de la fuente se exploran antes de cualquier nodo a distancia k+1." },
+    { "term": "Conjunto visitado", "definition": "Rastrea qu\u00e9 nodos han sido vistos para evitar revisitas. Esencial en grafos con ciclos." },
+    { "term": "Camino m\u00e1s corto", "definition": "En grafos no ponderados, BFS encuentra naturalmente el camino m\u00e1s corto (menor n\u00famero de aristas)." }
+  ],
+  "bfs.details.standard.tradeoffs.pros": [
+    "Encuentra el camino m\u00e1s corto en grafos no ponderados",
+    "Completo \u2014 garantiza encontrar una soluci\u00f3n si es alcanzable",
+    "Exploraci\u00f3n simple e intuitiva nivel por nivel",
+    "\u00d3ptimo para encontrar vecinos m\u00e1s cercanos",
+    "Base para muchos algoritmos avanzados (Dijkstra, A*)"
+  ],
+  "bfs.details.standard.tradeoffs.cons": [
+    "O(V) de espacio para la cola \u2014 puede ser grande en grafos amplios",
+    "No apto para grafos ponderados \u2014 use Dijkstra",
+    "Explora todos los nodos de la profundidad actual antes de ir m\u00e1s profundo",
+    "Menos eficiente en memoria que DFS para grafos profundos y estrechos"
+  ],
+  "bfs.details.standard.tradeoffs.whenToUse": "Use BFS cuando necesite el camino m\u00e1s corto en grafos no ponderados o recorrido por niveles. Para grafos ponderados, use Dijkstra. Para exploraci\u00f3n profunda exhaustiva, considere DFS.",
+  "bfs.depRules": [
+    { "name": "Tiempo", "role": "O(V + E) \u2014 visita cada v\u00e9rtice y arista una vez" },
+    { "name": "Espacio", "role": "O(V) \u2014 cola + conjunto visitado" },
+    { "name": "Camino m\u00e1s corto", "role": "S\u00ed \u2014 encuentra el camino m\u00e1s corto en grafos no ponderados" },
+    { "name": "Completo", "role": "S\u00ed \u2014 siempre encuentra una soluci\u00f3n si existe" },
+    { "name": "Grafos ponderados", "role": "No \u2014 no maneja pesos de aristas (use Dijkstra)" },
+    { "name": "Estructura", "role": "Cola FIFO" }
   ]
 }

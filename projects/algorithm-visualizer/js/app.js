@@ -13,7 +13,7 @@
         hashing: ['hash-table', 'chaining', 'open-addressing']
     };
 
-    var implementedAlgorithms = ['bubble-sort', 'linear-search'];
+    var implementedAlgorithms = ['bubble-sort', 'linear-search', 'bfs'];
 
     var activeCategory = 'sorting';
 
@@ -142,10 +142,20 @@
         delete AV.state._searchTarget;
     }
 
+    function removeGraphUI() {
+        var panel = document.querySelector('.av-queue-panel');
+        if (panel) panel.remove();
+        var svg = document.querySelector('.av-graph-svg');
+        if (svg) svg.remove();
+        delete AV.state._graphData;
+        AV._restoreArrayStatLabels();
+    }
+
     function switchAlgorithm(algorithmId, modeId) {
         AV.state.algorithm = algorithmId;
         AV.setAccentColors(algorithmId);
         removeSearchUI();
+        removeGraphUI();
 
         document.querySelectorAll('.av-tab').forEach(function(tab) {
             tab.classList.toggle('active', tab.dataset.algorithm === algorithmId);
@@ -433,7 +443,21 @@
         /* 5. Legend */
         updateLegend(algorithmId);
 
-        /* 6. Target banner label (search algorithms) */
+        /* 6. Graph stat labels */
+        if (AV.state._graphData) {
+            AV._setGraphStatLabels();
+        }
+
+        /* 6b. Queue panel label */
+        var queuePanel = document.querySelector('.av-queue-panel');
+        if (queuePanel) {
+            var qLabel = queuePanel.querySelector('.av-queue-label');
+            if (qLabel) qLabel.textContent = I18N.t('av.queue.label', null, 'Queue:');
+            var qEmpty = queuePanel.querySelector('.av-queue-empty');
+            if (qEmpty) qEmpty.textContent = I18N.t('av.queue.empty', null, 'empty');
+        }
+
+        /* 7. Target banner label (search algorithms) */
         var targetLabel = document.querySelector('.av-target-banner [data-i18n]');
         if (targetLabel) {
             targetLabel.textContent = I18N.t('av.target_label_prefix', null, 'Target:');

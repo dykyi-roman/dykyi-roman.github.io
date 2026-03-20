@@ -116,5 +116,68 @@
     { "name": "Espace", "role": "O(1) \u2014 pas de m\u00e9moire suppl\u00e9mentaire" },
     { "name": "Tri requis", "role": "Non \u2014 fonctionne sur tout tableau" },
     { "name": "Stable", "role": "Oui \u2014 retourne la premi\u00e8re occurrence" }
+  ],
+
+  "av.stat.nodes_visited": "N\u0153uds visit\u00e9s",
+  "av.stat.edges_explored": "Ar\u00eates explor\u00e9es",
+  "av.legend.unvisited": "Non visit\u00e9",
+  "av.legend.in_queue": "En file",
+  "av.legend.visiting": "En cours",
+  "av.legend.visited": "Visit\u00e9",
+  "av.legend.edge_exploring": "Exploration d'ar\u00eate",
+  "av.queue.label": "File :",
+  "av.queue.empty": "vide",
+  "av.log.enqueue": "Enfiler le n\u0153ud {node}",
+  "av.log.dequeue": "D\u00e9filer le n\u0153ud {node}",
+  "av.log.explore_edge": "Ar\u00eate {from}\u2192{to} (nouveau)",
+  "av.log.explore_edge_skip": "Ar\u00eate {from}\u2192{to} (d\u00e9j\u00e0 visit\u00e9)",
+  "av.log.visit": "N\u0153ud {node} enti\u00e8rement trait\u00e9",
+  "av.log.complete": "Parcours BFS termin\u00e9",
+  "av.log.done_graph": "Termin\u00e9 en {time}ms ({nodes} n\u0153uds, {edges} ar\u00eates)",
+
+  "ui.log.type.ENQUEUE": "ENFILER",
+  "ui.log.type.DEQUEUE": "D\u00c9FILER",
+  "ui.log.type.EXPLORE_EDGE": "AR\u00caTE",
+  "ui.log.type.VISIT": "VISITE",
+  "ui.log.type.COMPLETE": "FINI",
+
+  "bfs.name": "BFS",
+  "bfs.stepLabel": "BFS \u2014 Standard",
+  "bfs.modes.standard.label": "Standard",
+  "bfs.modes.standard.desc": "BFS classique : explore un graphe niveau par niveau \u00e0 l'aide d'une file FIFO. \u00c0 partir du n\u0153ud A, il visite tous les voisins avant de passer au niveau de profondeur suivant.",
+  "bfs.details.standard.principles": [
+    "Partir d'un n\u0153ud source et le marquer comme visit\u00e9",
+    "Ajouter la source \u00e0 une file FIFO",
+    "Tant que la file n'est pas vide : d\u00e9filer un n\u0153ud, explorer tous les voisins non visit\u00e9s",
+    "Chaque voisin est enfil\u00e9 et marqu\u00e9 comme visit\u00e9",
+    "Cela garantit un parcours niveau par niveau (vague)"
+  ],
+  "bfs.details.standard.concepts": [
+    { "term": "File FIFO", "definition": "Structure premier entr\u00e9, premier sorti. Les n\u0153uds d\u00e9couverts en premier sont explor\u00e9s en premier." },
+    { "term": "Niveau/Vague", "definition": "Tous les n\u0153uds \u00e0 distance k de la source sont explor\u00e9s avant tout n\u0153ud \u00e0 distance k+1." },
+    { "term": "Ensemble visit\u00e9", "definition": "Suit quels n\u0153uds ont \u00e9t\u00e9 vus pour \u00e9viter les revisites. Essentiel pour les graphes avec cycles." },
+    { "term": "Plus court chemin", "definition": "Dans les graphes non pond\u00e9r\u00e9s, BFS trouve naturellement le chemin le plus court (minimum d'ar\u00eates)." }
+  ],
+  "bfs.details.standard.tradeoffs.pros": [
+    "Trouve le plus court chemin dans les graphes non pond\u00e9r\u00e9s",
+    "Complet \u2014 garanti de trouver une solution si elle est accessible",
+    "Exploration simple et intuitive niveau par niveau",
+    "Optimal pour trouver les voisins les plus proches",
+    "Base de nombreux algorithmes avanc\u00e9s (Dijkstra, A*)"
+  ],
+  "bfs.details.standard.tradeoffs.cons": [
+    "O(V) d'espace pour la file \u2014 peut \u00eatre grand pour les graphes larges",
+    "Non adapt\u00e9 aux graphes pond\u00e9r\u00e9s \u2014 utilisez Dijkstra",
+    "Explore tous les n\u0153uds \u00e0 la profondeur actuelle avant d'aller plus loin",
+    "Moins efficace en m\u00e9moire que DFS pour les graphes profonds et \u00e9troits"
+  ],
+  "bfs.details.standard.tradeoffs.whenToUse": "Utilisez BFS quand vous avez besoin du plus court chemin dans un graphe non pond\u00e9r\u00e9 ou d'un parcours par niveaux. Pour les graphes pond\u00e9r\u00e9s, utilisez Dijkstra. Pour l'exploration en profondeur, consid\u00e9rez DFS.",
+  "bfs.depRules": [
+    { "name": "Temps", "role": "O(V + E) \u2014 visite chaque sommet et ar\u00eate une fois" },
+    { "name": "Espace", "role": "O(V) \u2014 file + ensemble visit\u00e9" },
+    { "name": "Plus court chemin", "role": "Oui \u2014 trouve le plus court chemin dans les graphes non pond\u00e9r\u00e9s" },
+    { "name": "Complet", "role": "Oui \u2014 trouve toujours une solution si elle existe" },
+    { "name": "Graphes pond\u00e9r\u00e9s", "role": "Non \u2014 ne g\u00e8re pas les poids (utilisez Dijkstra)" },
+    { "name": "Structure", "role": "File FIFO" }
   ]
 }

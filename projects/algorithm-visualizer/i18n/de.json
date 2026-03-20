@@ -116,5 +116,68 @@
     { "name": "Speicher", "role": "O(1) \u2014 kein zus\u00e4tzlicher Speicher" },
     { "name": "Sortierung n\u00f6tig", "role": "Nein \u2014 funktioniert mit jedem Array" },
     { "name": "Stabil", "role": "Ja \u2014 gibt erstes Vorkommen zur\u00fcck" }
+  ],
+
+  "av.stat.nodes_visited": "Besuchte Knoten",
+  "av.stat.edges_explored": "Erkundete Kanten",
+  "av.legend.unvisited": "Unbesucht",
+  "av.legend.in_queue": "In Warteschlange",
+  "av.legend.visiting": "Wird besucht",
+  "av.legend.visited": "Besucht",
+  "av.legend.edge_exploring": "Kante erkunden",
+  "av.queue.label": "Warteschlange:",
+  "av.queue.empty": "leer",
+  "av.log.enqueue": "Knoten {node} einreihen",
+  "av.log.dequeue": "Knoten {node} entnehmen",
+  "av.log.explore_edge": "Kante {from}\u2192{to} (neu)",
+  "av.log.explore_edge_skip": "Kante {from}\u2192{to} (bereits besucht)",
+  "av.log.visit": "Knoten {node} vollst\u00e4ndig verarbeitet",
+  "av.log.complete": "BFS-Durchlauf abgeschlossen",
+  "av.log.done_graph": "Abgeschlossen in {time}ms ({nodes} Knoten, {edges} Kanten)",
+
+  "ui.log.type.ENQUEUE": "EINR",
+  "ui.log.type.DEQUEUE": "ENTN",
+  "ui.log.type.EXPLORE_EDGE": "KANTE",
+  "ui.log.type.VISIT": "BESUCH",
+  "ui.log.type.COMPLETE": "FERTIG",
+
+  "bfs.name": "Breitensuche",
+  "bfs.stepLabel": "BFS \u2014 Standard",
+  "bfs.modes.standard.label": "Standard",
+  "bfs.modes.standard.desc": "Klassische Breitensuche: erkundet einen Graphen Ebene f\u00fcr Ebene mit einer FIFO-Warteschlange. Ausgehend von Knoten A werden alle Nachbarn besucht, bevor zur n\u00e4chsten Tiefenebene gewechselt wird.",
+  "bfs.details.standard.principles": [
+    "Von einem Startknoten ausgehen und ihn als besucht markieren",
+    "Den Startknoten in eine FIFO-Warteschlange einf\u00fcgen",
+    "Solange die Warteschlange nicht leer ist: Knoten entnehmen, alle unbesuchten Nachbarn erkunden",
+    "Jeder Nachbar wird eingereiht und als besucht markiert",
+    "Dies garantiert einen Durchlauf Ebene f\u00fcr Ebene (Wellenform)"
+  ],
+  "bfs.details.standard.concepts": [
+    { "term": "FIFO-Warteschlange", "definition": "First-In-First-Out-Datenstruktur. Zuerst entdeckte Knoten werden zuerst erkundet." },
+    { "term": "Ebene/Welle", "definition": "Alle Knoten mit Abstand k von der Quelle werden vor jedem Knoten mit Abstand k+1 erkundet." },
+    { "term": "Besuchte Menge", "definition": "Verfolgt, welche Knoten bereits gesehen wurden, um erneutes Besuchen zu verhindern." },
+    { "term": "K\u00fcrzester Pfad", "definition": "In ungewichteten Graphen findet BFS nat\u00fcrlich den k\u00fcrzesten Pfad (wenigste Kanten)." }
+  ],
+  "bfs.details.standard.tradeoffs.pros": [
+    "Findet den k\u00fcrzesten Pfad in ungewichteten Graphen",
+    "Vollst\u00e4ndig \u2014 findet garantiert eine L\u00f6sung, wenn erreichbar",
+    "Einfache und intuitive Ebene-f\u00fcr-Ebene-Erkundung",
+    "Optimal f\u00fcr die Suche nach n\u00e4chsten Nachbarn",
+    "Grundlage f\u00fcr viele fortgeschrittene Algorithmen (Dijkstra, A*)"
+  ],
+  "bfs.details.standard.tradeoffs.cons": [
+    "O(V) Speicher f\u00fcr die Warteschlange \u2014 kann bei breiten Graphen gro\u00df sein",
+    "Nicht geeignet f\u00fcr gewichtete Graphen \u2014 verwenden Sie Dijkstra",
+    "Erkundet alle Knoten der aktuellen Tiefe, bevor es tiefer geht",
+    "Weniger speichereffizient als DFS f\u00fcr tiefe, schmale Graphen"
+  ],
+  "bfs.details.standard.tradeoffs.whenToUse": "Verwenden Sie BFS, wenn Sie den k\u00fcrzesten Pfad in ungewichteten Graphen ben\u00f6tigen oder einen Ebenen-Durchlauf wollen. F\u00fcr gewichtete Graphen verwenden Sie Dijkstra. F\u00fcr tiefe Erkundung DFS.",
+  "bfs.depRules": [
+    { "name": "Zeit", "role": "O(V + E) \u2014 besucht jeden Knoten und jede Kante einmal" },
+    { "name": "Speicher", "role": "O(V) \u2014 Warteschlange + besuchte Menge" },
+    { "name": "K\u00fcrzester Pfad", "role": "Ja \u2014 findet k\u00fcrzesten Pfad in ungewichteten Graphen" },
+    { "name": "Vollst\u00e4ndig", "role": "Ja \u2014 findet immer eine L\u00f6sung, wenn sie existiert" },
+    { "name": "Gewichtete Graphen", "role": "Nein \u2014 behandelt keine Kantengewichte (verwenden Sie Dijkstra)" },
+    { "name": "Datenstruktur", "role": "FIFO-Warteschlange" }
   ]
 }
