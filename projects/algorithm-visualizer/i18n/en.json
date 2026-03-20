@@ -178,5 +178,60 @@
     { "name": "Complete", "role": "Yes \u2014 always finds a solution if one exists" },
     { "name": "Weighted Graphs", "role": "No \u2014 does not handle edge weights (use Dijkstra)" },
     { "name": "Data Structure", "role": "FIFO Queue" }
+  ],
+
+  "av.stat.nodes_inserted": "Nodes Inserted",
+  "av.legend.bst_pending": "Pending",
+  "av.legend.bst_comparing": "Comparing",
+  "av.legend.bst_inserted": "Inserted",
+  "av.insert_label": "Inserting:",
+  "av.log.insert_start": "Insert value {value}",
+  "av.log.tree_compare": "Compare {value} with node {nodeValue}",
+  "av.log.tree_go": "Go {direction} from {fromNode}",
+  "av.log.tree_place": "Place {value} as {direction} of {parentNode}",
+  "av.log.complete_tree": "BST construction complete",
+  "av.log.done_tree": "Completed in {time}ms ({comparisons} comparisons, {inserted} nodes inserted)",
+
+  "ui.log.type.INSERT": "INSERT",
+  "ui.log.type.TRAVERSE": "TRAVERSE",
+
+  "bst-operations.name": "BST Operations",
+  "bst-operations.stepLabel": "BST \u2014 Insert",
+  "bst-operations.modes.insert.label": "Insert",
+  "bst-operations.modes.insert.desc": "BST Insert: builds a Binary Search Tree by inserting values one at a time. Each value is compared with nodes starting from the root, going left if smaller or right if larger, until an empty position is found.",
+  "bst-operations.details.insert.principles": [
+    "Start at the root of the tree",
+    "Compare the new value with the current node",
+    "If smaller, go to the left child; if larger or equal, go to the right child",
+    "Repeat until an empty position (null child) is found",
+    "Place the new value at that empty position"
+  ],
+  "bst-operations.details.insert.concepts": [
+    { "term": "BST Property", "definition": "For every node, all values in the left subtree are smaller, and all values in the right subtree are larger. This invariant is maintained after every insertion." },
+    { "term": "Tree Height", "definition": "The number of edges on the longest root-to-leaf path. Determines the worst-case time for insert and search operations." },
+    { "term": "Balanced vs Degenerate", "definition": "A balanced BST has O(log n) height. A degenerate BST (all nodes in one direction) has O(n) height, reducing to a linked list." },
+    { "term": "In-Order Traversal", "definition": "Visiting left subtree, then root, then right subtree produces values in sorted order. This is a key property of BSTs." }
+  ],
+  "bst-operations.details.insert.tradeoffs.pros": [
+    "Simple insertion \u2014 just follow comparisons down the tree",
+    "O(log n) average case for insert, search, and delete",
+    "In-order traversal gives sorted output without extra work",
+    "Foundation for more advanced trees (AVL, Red-Black)",
+    "Dynamic \u2014 handles insertions and deletions efficiently"
+  ],
+  "bst-operations.details.insert.tradeoffs.cons": [
+    "O(n) worst case if input is sorted (degenerate tree)",
+    "Not self-balancing \u2014 can become highly unbalanced",
+    "No guaranteed O(log n) \u2014 depends on insertion order",
+    "Extra memory for node pointers compared to arrays"
+  ],
+  "bst-operations.details.insert.tradeoffs.whenToUse": "Use basic BST for educational purposes or when input is known to be random. For guaranteed O(log n) operations, use self-balancing variants: AVL Tree for read-heavy workloads, Red-Black Tree for write-heavy workloads.",
+  "bst-operations.depRules": [
+    { "name": "Time (Average)", "role": "O(log n) \u2014 balanced tree" },
+    { "name": "Time (Worst)", "role": "O(n) \u2014 degenerate (linked list)" },
+    { "name": "Space", "role": "O(n) \u2014 one node per value" },
+    { "name": "In-Place", "role": "No \u2014 allocates nodes dynamically" },
+    { "name": "Sorted Output", "role": "Yes \u2014 in-order traversal gives sorted sequence" },
+    { "name": "Self-Balancing", "role": "No \u2014 use AVL or Red-Black Tree" }
   ]
 }

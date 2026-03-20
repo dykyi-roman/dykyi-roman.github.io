@@ -179,5 +179,60 @@
     { "name": "Completo", "role": "S\u00ed \u2014 siempre encuentra una soluci\u00f3n si existe" },
     { "name": "Grafos ponderados", "role": "No \u2014 no maneja pesos de aristas (use Dijkstra)" },
     { "name": "Estructura", "role": "Cola FIFO" }
+  ],
+
+  "av.stat.nodes_inserted": "Nodos insertados",
+  "av.legend.bst_pending": "Pendiente",
+  "av.legend.bst_comparing": "Comparando",
+  "av.legend.bst_inserted": "Insertado",
+  "av.insert_label": "Insertando:",
+  "av.log.insert_start": "Insertar valor {value}",
+  "av.log.tree_compare": "Comparar {value} con nodo {nodeValue}",
+  "av.log.tree_go": "Ir a {direction} desde {fromNode}",
+  "av.log.tree_place": "Colocar {value} como {direction} de {parentNode}",
+  "av.log.complete_tree": "Construcci\u00f3n del BST completa",
+  "av.log.done_tree": "Completado en {time}ms ({comparisons} comparaciones, {inserted} nodos insertados)",
+
+  "ui.log.type.INSERT": "INSERTAR",
+  "ui.log.type.TRAVERSE": "RECORRER",
+
+  "bst-operations.name": "Operaciones BST",
+  "bst-operations.stepLabel": "BST \u2014 Inserci\u00f3n",
+  "bst-operations.modes.insert.label": "Inserci\u00f3n",
+  "bst-operations.modes.insert.desc": "Inserci\u00f3n BST: construye un \u00e1rbol binario de b\u00fasqueda insertando valores uno a uno. Cada valor se compara con los nodos desde la ra\u00edz, yendo a la izquierda si es menor o a la derecha si es mayor, hasta encontrar una posici\u00f3n vac\u00eda.",
+  "bst-operations.details.insert.principles": [
+    "Comenzar en la ra\u00edz del \u00e1rbol",
+    "Comparar el nuevo valor con el nodo actual",
+    "Si es menor, ir al hijo izquierdo; si es mayor o igual, ir al hijo derecho",
+    "Repetir hasta encontrar una posici\u00f3n vac\u00eda (hijo nulo)",
+    "Colocar el nuevo valor en esa posici\u00f3n"
+  ],
+  "bst-operations.details.insert.concepts": [
+    { "term": "Propiedad BST", "definition": "Para cada nodo, todos los valores del sub\u00e1rbol izquierdo son menores y los del sub\u00e1rbol derecho son mayores. Este invariante se mantiene tras cada inserci\u00f3n." },
+    { "term": "Altura del \u00e1rbol", "definition": "El n\u00famero de aristas en el camino m\u00e1s largo de la ra\u00edz a una hoja. Determina el tiempo en el peor caso para las operaciones." },
+    { "term": "Equilibrado vs Degenerado", "definition": "Un BST equilibrado tiene altura O(log n). Un BST degenerado tiene altura O(n), reduci\u00e9ndose a una lista enlazada." },
+    { "term": "Recorrido en orden", "definition": "Visitar el sub\u00e1rbol izquierdo, luego la ra\u00edz, luego el sub\u00e1rbol derecho produce valores ordenados. Propiedad clave de los BST." }
+  ],
+  "bst-operations.details.insert.tradeoffs.pros": [
+    "Inserci\u00f3n simple \u2014 seguir comparaciones hacia abajo",
+    "O(log n) en promedio para inserci\u00f3n, b\u00fasqueda y eliminaci\u00f3n",
+    "El recorrido en orden da salida ordenada sin trabajo extra",
+    "Base para \u00e1rboles m\u00e1s avanzados (AVL, Rojo-Negro)",
+    "Din\u00e1mico \u2014 maneja inserciones y eliminaciones eficientemente"
+  ],
+  "bst-operations.details.insert.tradeoffs.cons": [
+    "O(n) en el peor caso si la entrada est\u00e1 ordenada (\u00e1rbol degenerado)",
+    "No autoequilibrado \u2014 puede volverse muy desequilibrado",
+    "Sin O(log n) garantizado \u2014 depende del orden de inserci\u00f3n",
+    "Memoria extra para punteros de nodos comparado con arrays"
+  ],
+  "bst-operations.details.insert.tradeoffs.whenToUse": "Use un BST b\u00e1sico con fines educativos o cuando la entrada es aleatoria. Para operaciones O(log n) garantizadas, use variantes autoequilibradas: AVL para lectura intensiva, Rojo-Negro para escritura intensiva.",
+  "bst-operations.depRules": [
+    { "name": "Tiempo (promedio)", "role": "O(log n) \u2014 \u00e1rbol equilibrado" },
+    { "name": "Tiempo (peor caso)", "role": "O(n) \u2014 degenerado (lista enlazada)" },
+    { "name": "Espacio", "role": "O(n) \u2014 un nodo por valor" },
+    { "name": "En lugar", "role": "No \u2014 asigna nodos din\u00e1micamente" },
+    { "name": "Salida ordenada", "role": "S\u00ed \u2014 el recorrido en orden da secuencia ordenada" },
+    { "name": "Autoequilibrado", "role": "No \u2014 use AVL o Rojo-Negro" }
   ]
 }

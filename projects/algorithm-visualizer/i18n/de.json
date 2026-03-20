@@ -179,5 +179,60 @@
     { "name": "Vollst\u00e4ndig", "role": "Ja \u2014 findet immer eine L\u00f6sung, wenn sie existiert" },
     { "name": "Gewichtete Graphen", "role": "Nein \u2014 behandelt keine Kantengewichte (verwenden Sie Dijkstra)" },
     { "name": "Datenstruktur", "role": "FIFO-Warteschlange" }
+  ],
+
+  "av.stat.nodes_inserted": "Eingef\u00fcgte Knoten",
+  "av.legend.bst_pending": "Ausstehend",
+  "av.legend.bst_comparing": "Vergleich",
+  "av.legend.bst_inserted": "Eingef\u00fcgt",
+  "av.insert_label": "Einf\u00fcgen:",
+  "av.log.insert_start": "Wert {value} einf\u00fcgen",
+  "av.log.tree_compare": "Vergleiche {value} mit Knoten {nodeValue}",
+  "av.log.tree_go": "Gehe {direction} von {fromNode}",
+  "av.log.tree_place": "Platziere {value} als {direction} von {parentNode}",
+  "av.log.complete_tree": "BST-Aufbau abgeschlossen",
+  "av.log.done_tree": "Abgeschlossen in {time}ms ({comparisons} Vergleiche, {inserted} Knoten eingef\u00fcgt)",
+
+  "ui.log.type.INSERT": "EINF\u00dcGEN",
+  "ui.log.type.TRAVERSE": "DURCHL",
+
+  "bst-operations.name": "BST-Operationen",
+  "bst-operations.stepLabel": "BST \u2014 Einf\u00fcgen",
+  "bst-operations.modes.insert.label": "Einf\u00fcgen",
+  "bst-operations.modes.insert.desc": "BST-Einf\u00fcgen: baut einen bin\u00e4ren Suchbaum auf, indem Werte einzeln eingef\u00fcgt werden. Jeder Wert wird mit Knoten ab der Wurzel verglichen, geht nach links wenn kleiner oder nach rechts wenn gr\u00f6\u00dfer, bis eine leere Position gefunden wird.",
+  "bst-operations.details.insert.principles": [
+    "An der Wurzel des Baumes beginnen",
+    "Den neuen Wert mit dem aktuellen Knoten vergleichen",
+    "Wenn kleiner, zum linken Kind gehen; wenn gr\u00f6\u00dfer oder gleich, zum rechten Kind",
+    "Wiederholen, bis eine leere Position (Null-Kind) gefunden wird",
+    "Den neuen Wert an dieser Position platzieren"
+  ],
+  "bst-operations.details.insert.concepts": [
+    { "term": "BST-Eigenschaft", "definition": "F\u00fcr jeden Knoten sind alle Werte im linken Teilbaum kleiner und im rechten gr\u00f6\u00dfer. Diese Invariante wird nach jeder Einf\u00fcgung beibehalten." },
+    { "term": "Baumh\u00f6he", "definition": "Die Anzahl der Kanten auf dem l\u00e4ngsten Pfad von der Wurzel zu einem Blatt. Bestimmt die Worst-Case-Zeit f\u00fcr Operationen." },
+    { "term": "Balanciert vs Entartet", "definition": "Ein balancierter BST hat H\u00f6he O(log n). Ein entarteter BST hat H\u00f6he O(n) und wird zur verketteten Liste." },
+    { "term": "Inorder-Durchlauf", "definition": "Besuch des linken Teilbaums, dann der Wurzel, dann des rechten Teilbaums ergibt sortierte Werte. Schl\u00fcsseleigenschaft von BSTs." }
+  ],
+  "bst-operations.details.insert.tradeoffs.pros": [
+    "Einfaches Einf\u00fcgen \u2014 Vergleichen und nach unten folgen",
+    "O(log n) im Durchschnitt f\u00fcr Einf\u00fcgen, Suchen und L\u00f6schen",
+    "Inorder-Durchlauf liefert sortierte Ausgabe ohne Zusatzarbeit",
+    "Grundlage f\u00fcr fortgeschrittene B\u00e4ume (AVL, Rot-Schwarz)",
+    "Dynamisch \u2014 verarbeitet Einf\u00fcgungen und L\u00f6schungen effizient"
+  ],
+  "bst-operations.details.insert.tradeoffs.cons": [
+    "O(n) im Worst Case bei sortierter Eingabe (entarteter Baum)",
+    "Nicht selbstbalancierend \u2014 kann stark unbalanciert werden",
+    "Kein garantiertes O(log n) \u2014 abh\u00e4ngig von der Einf\u00fcgereihenfolge",
+    "Zus\u00e4tzlicher Speicher f\u00fcr Knotenzeiger im Vergleich zu Arrays"
+  ],
+  "bst-operations.details.insert.tradeoffs.whenToUse": "Verwenden Sie einen einfachen BST f\u00fcr Lernzwecke oder bei zuf\u00e4lliger Eingabe. F\u00fcr garantierte O(log n)-Operationen verwenden Sie selbstbalancierende Varianten: AVL f\u00fcr leselastige, Rot-Schwarz f\u00fcr schreiblastige Workloads.",
+  "bst-operations.depRules": [
+    { "name": "Zeit (Durchschnitt)", "role": "O(log n) \u2014 balancierter Baum" },
+    { "name": "Zeit (Worst Case)", "role": "O(n) \u2014 entartet (verkettete Liste)" },
+    { "name": "Speicher", "role": "O(n) \u2014 ein Knoten pro Wert" },
+    { "name": "In-Place", "role": "Nein \u2014 weist Knoten dynamisch zu" },
+    { "name": "Sortierte Ausgabe", "role": "Ja \u2014 Inorder-Durchlauf liefert sortierte Folge" },
+    { "name": "Selbstbalancierend", "role": "Nein \u2014 verwenden Sie AVL oder Rot-Schwarz" }
   ]
 }

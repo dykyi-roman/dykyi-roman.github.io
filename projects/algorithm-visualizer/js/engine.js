@@ -286,7 +286,8 @@ AV.renderQueue = function(queue) {
     if (!panel) {
         panel = document.createElement('div');
         panel.className = 'av-queue-panel';
-        vizArea.appendChild(panel);
+        var canvas = document.getElementById('av-canvas');
+        vizArea.insertBefore(panel, canvas);
     }
 
     var label = I18N.t('av.queue.label', null, 'Queue:');
@@ -328,13 +329,50 @@ AV._restoreArrayStatLabels = function() {
     }
 };
 
+AV._setTreeStatLabels = function() {
+    var lbl1 = document.querySelector('#stat-comparisons').closest('.stat-item').querySelector('.stat-label');
+    var lbl2 = document.querySelector('#stat-swaps').closest('.stat-item').querySelector('.stat-label');
+    if (lbl1) {
+        lbl1.textContent = I18N.t('av.stat.comparisons', null, 'Comparisons');
+        lbl1.setAttribute('data-i18n', 'av.stat.comparisons');
+    }
+    if (lbl2) {
+        lbl2.textContent = I18N.t('av.stat.nodes_inserted', null, 'Nodes Inserted');
+        lbl2.setAttribute('data-i18n', 'av.stat.nodes_inserted');
+    }
+};
+
+AV._renderInsertBanner = function(value) {
+    var canvas = document.getElementById('av-canvas');
+    if (!canvas) return;
+    var banner = canvas.querySelector('.av-insert-banner');
+    if (value === null) {
+        if (!banner) {
+            banner = document.createElement('div');
+            banner.className = 'av-insert-banner';
+            canvas.appendChild(banner);
+        }
+        var label = I18N.t('av.insert_label', null, 'Inserting:');
+        banner.innerHTML = '<span>' + label + '</span><span class="av-insert-value">\u2014</span>';
+        return;
+    }
+    if (!banner) return;
+    banner.querySelector('.av-insert-value').textContent = value;
+};
+
+AV._removeInsertBanner = function() {
+    var banner = document.querySelector('.av-insert-banner');
+    if (banner) banner.remove();
+};
+
 /* ===== Accent Colors ===== */
 AV.setAccentColors = function(algorithmId) {
     var root = document.documentElement.style;
     var themes = {
         'bubble-sort': { accent: '#3B82F6', bg: '#0d1630', light: '#152048' },
         'linear-search': { accent: '#8B5CF6', bg: '#1a0d30', light: '#221548' },
-        'bfs': { accent: '#06B6D4', bg: '#0d1a22', light: '#15252f' }
+        'bfs': { accent: '#06B6D4', bg: '#0d1a22', light: '#15252f' },
+        'bst-operations': { accent: '#F59E0B', bg: '#1a1508', light: '#2d2210' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
     root.setProperty('--av-accent', t.accent);
@@ -509,9 +547,56 @@ AV.animateFlow = async function(steps, options) {
             AV.log('VISIT', I18N.t('av.log.visit', { node: step.node }, 'Node ' + step.node + ' fully processed'));
             await AV.sleep(AV.state.stepDelay * 0.4);
         } else if (step.type === 'COMPLETE') {
-            AV.renderQueue([]);
-            AV.log('COMPLETE', I18N.t('av.log.complete', null, 'BFS traversal complete'));
+            if (AV.state._isTreeAlgorithm) {
+                document.querySelectorAll('.av-node').forEach(function(n) {
+                    var cls = n.className.baseVal;
+                    if (cls.indexOf('av-node-visiting') !== -1 || cls.indexOf('av-node-visited') !== -1) {
+                        n.className.baseVal = 'av-node av-node-inserted';
+                    }
+                });
+                AV._removeInsertBanner();
+                AV.log('COMPLETE', I18N.t('av.log.complete_tree', null, 'BST construction complete'));
+            } else {
+                AV.renderQueue([]);
+                AV.log('COMPLETE', I18N.t('av.log.complete', null, 'BFS traversal complete'));
+            }
             await AV.sleep(AV.state.stepDelay * 0.3);
+        } else if (step.type === 'INSERT_START') {
+            document.querySelectorAll('.av-node').forEach(function(n) {
+                var cls = n.className.baseVal;
+                if (cls.indexOf('av-node-visiting') !== -1 || cls.indexOf('av-node-visited') !== -1) {
+                    n.className.baseVal = 'av-node av-node-inserted';
+                }
+            });
+            AV._renderInsertBanner(step.value);
+            AV.log('INSERT', I18N.t('av.log.insert_start', { value: step.value }, 'Insert value ' + step.value));
+            await AV.sleep(AV.state.stepDelay * 0.5);
+        } else if (step.type === 'TREE_COMPARE') {
+            AV.setNodeState(String(step.nodeValue), 'visiting');
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('TRAVERSE', I18N.t('av.log.tree_compare', { value: step.value, nodeValue: step.nodeValue },
+                'Compare ' + step.value + ' with node ' + step.nodeValue));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'TREE_GO_LEFT' || step.type === 'TREE_GO_RIGHT') {
+            AV.setNodeState(String(step.fromNode), 'visited');
+            var treeDir = step.type === 'TREE_GO_LEFT' ? 'left' : 'right';
+            AV.log('TRAVERSE', I18N.t('av.log.tree_go', { value: step.value, direction: treeDir, fromNode: step.fromNode },
+                'Go ' + treeDir + ' from ' + step.fromNode));
+            await AV.sleep(AV.state.stepDelay * 0.4);
+        } else if (step.type === 'TREE_PLACE') {
+            if (step.parentNode !== null) {
+                AV.highlightEdge(String(step.parentNode), String(step.value), 'av-edge-active');
+            }
+            AV.setNodeState(String(step.value), 'inserted');
+            AV.state.swaps++;
+            AV.updateStats();
+            AV.log('INSERT', I18N.t('av.log.tree_place', { value: step.value, parentNode: step.parentNode || 'none', direction: step.direction },
+                'Place ' + step.value + (step.parentNode ? ' as ' + step.direction + ' of ' + step.parentNode : ' as root')));
+            await AV.sleep(AV.state.stepDelay * 0.8);
+            if (step.parentNode !== null) {
+                AV.highlightEdge(String(step.parentNode), String(step.value), 'av-edge-traversed');
+            }
         } else if (step.type === 'DONE') {
             AV.clearHighlights();
             if (step.found === false) {
@@ -524,7 +609,10 @@ AV.animateFlow = async function(steps, options) {
 
     var elapsed = Math.round(performance.now() - startTime);
     if (AV.state.running) {
-        if (AV.state._graphData) {
+        if (AV.state._isTreeAlgorithm) {
+            AV.log('DONE', I18N.t('av.log.done_tree', { time: elapsed, comparisons: AV.state.comparisons, inserted: AV.state.swaps },
+                'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons, ' + AV.state.swaps + ' nodes inserted)'));
+        } else if (AV.state._graphData) {
             AV.log('DONE', I18N.t('av.log.done_graph', { time: elapsed, nodes: AV.state.comparisons, edges: AV.state.swaps },
                 'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' nodes, ' + AV.state.swaps + ' edges)'));
         } else if (AV.state._searchTarget !== undefined) {
@@ -575,8 +663,28 @@ AV._computeGraphSnapshots = function(steps) {
         } else if (step.type === 'VISIT') {
             nodeStates[step.node] = 'visited';
             queue = step.queue.slice();
+        } else if (step.type === 'INSERT_START') {
+            Object.keys(nodeStates).forEach(function(k) {
+                if (nodeStates[k] === 'visiting' || nodeStates[k] === 'visited') {
+                    nodeStates[k] = 'inserted';
+                }
+            });
+        } else if (step.type === 'TREE_COMPARE') {
+            nodeStates[String(step.nodeValue)] = 'visiting';
+        } else if (step.type === 'TREE_GO_LEFT' || step.type === 'TREE_GO_RIGHT') {
+            nodeStates[String(step.fromNode)] = 'visited';
+        } else if (step.type === 'TREE_PLACE') {
+            nodeStates[String(step.value)] = 'inserted';
+            if (step.parentNode !== null) {
+                edgeStates[String(step.parentNode) + '-' + String(step.value)] = 'traversed';
+            }
         } else if (step.type === 'COMPLETE') {
             queue = [];
+            Object.keys(nodeStates).forEach(function(k) {
+                if (nodeStates[k] === 'visiting' || nodeStates[k] === 'visited') {
+                    nodeStates[k] = 'inserted';
+                }
+            });
         }
         var ns = {};
         Object.keys(nodeStates).forEach(function(k) { ns[k] = nodeStates[k]; });
@@ -588,13 +696,14 @@ AV._computeGraphSnapshots = function(steps) {
 };
 
 AV._applyGraphSnapshot = function(snapshot) {
-    /* Reset all nodes to unvisited */
+    var isTree = AV.state._isTreeAlgorithm;
+    /* Reset all nodes */
     document.querySelectorAll('.av-node').forEach(function(n) {
-        n.className.baseVal = 'av-node av-node-unvisited';
+        n.className.baseVal = isTree ? 'av-node av-node-pending' : 'av-node av-node-unvisited';
     });
     /* Reset all edges */
     document.querySelectorAll('.av-edge').forEach(function(e) {
-        e.setAttribute('class', 'av-edge');
+        e.setAttribute('class', isTree ? 'av-edge av-edge-pending' : 'av-edge');
     });
     /* Apply node states */
     Object.keys(snapshot.nodeStates).forEach(function(id) {
@@ -605,8 +714,10 @@ AV._applyGraphSnapshot = function(snapshot) {
         var parts = key.split('-');
         AV.highlightEdge(parts[0], parts[1], 'av-edge-traversed');
     });
-    /* Apply queue */
-    AV.renderQueue(snapshot.queue);
+    /* Apply queue (BFS only) */
+    if (!isTree) {
+        AV.renderQueue(snapshot.queue);
+    }
 };
 
 AV._computeSnapshots = function(initialArray, steps) {
@@ -729,7 +840,30 @@ AV.stepForward = function() {
         } else if (step.type === 'VISIT') {
             AV.log('VISIT', I18N.t('av.log.visit', { node: step.node }, 'Node ' + step.node + ' fully processed'));
         } else if (step.type === 'COMPLETE') {
-            AV.log('COMPLETE', I18N.t('av.log.complete', null, 'BFS traversal complete'));
+            if (AV.state._isTreeAlgorithm) {
+                AV._removeInsertBanner();
+                AV.log('COMPLETE', I18N.t('av.log.complete_tree', null, 'BST construction complete'));
+            } else {
+                AV.log('COMPLETE', I18N.t('av.log.complete', null, 'BFS traversal complete'));
+            }
+        } else if (step.type === 'INSERT_START') {
+            AV._renderInsertBanner(step.value);
+            AV.log('INSERT', I18N.t('av.log.insert_start', { value: step.value }, 'Insert value ' + step.value));
+        } else if (step.type === 'TREE_COMPARE') {
+            AV.state.comparisons++;
+            AV.log('TRAVERSE', I18N.t('av.log.tree_compare', { value: step.value, nodeValue: step.nodeValue },
+                'Compare ' + step.value + ' with node ' + step.nodeValue));
+        } else if (step.type === 'TREE_GO_LEFT' || step.type === 'TREE_GO_RIGHT') {
+            var stepDir = step.type === 'TREE_GO_LEFT' ? 'left' : 'right';
+            AV.log('TRAVERSE', I18N.t('av.log.tree_go', { value: step.value, direction: stepDir, fromNode: step.fromNode },
+                'Go ' + stepDir + ' from ' + step.fromNode));
+        } else if (step.type === 'TREE_PLACE') {
+            if (step.parentNode !== null) {
+                AV.highlightEdge(String(step.parentNode), String(step.value), 'av-edge-active');
+            }
+            AV.state.swaps++;
+            AV.log('INSERT', I18N.t('av.log.tree_place', { value: step.value, parentNode: step.parentNode || 'none', direction: step.direction },
+                'Place ' + step.value + (step.parentNode ? ' as ' + step.direction + ' of ' + step.parentNode : ' as root')));
         }
 
         AV.updateStats();
@@ -807,8 +941,8 @@ AV.stepBack = function() {
         var nodesVisited = 0;
         var edgesExplored = 0;
         for (var gi = 0; gi < sm.index; gi++) {
-            if (sm.steps[gi].type === 'DEQUEUE') nodesVisited++;
-            if (sm.steps[gi].type === 'EXPLORE_EDGE') edgesExplored++;
+            if (sm.steps[gi].type === 'DEQUEUE' || sm.steps[gi].type === 'TREE_COMPARE') nodesVisited++;
+            if (sm.steps[gi].type === 'EXPLORE_EDGE' || sm.steps[gi].type === 'TREE_PLACE') edgesExplored++;
         }
         AV.state.comparisons = nodesVisited;
         AV.state.swaps = edgesExplored;

@@ -179,5 +179,60 @@
     { "name": "Complet", "role": "Oui \u2014 trouve toujours une solution si elle existe" },
     { "name": "Graphes pond\u00e9r\u00e9s", "role": "Non \u2014 ne g\u00e8re pas les poids (utilisez Dijkstra)" },
     { "name": "Structure", "role": "File FIFO" }
+  ],
+
+  "av.stat.nodes_inserted": "N\u0153uds ins\u00e9r\u00e9s",
+  "av.legend.bst_pending": "En attente",
+  "av.legend.bst_comparing": "Comparaison",
+  "av.legend.bst_inserted": "Ins\u00e9r\u00e9",
+  "av.insert_label": "Insertion :",
+  "av.log.insert_start": "Ins\u00e9rer la valeur {value}",
+  "av.log.tree_compare": "Comparer {value} avec le n\u0153ud {nodeValue}",
+  "av.log.tree_go": "Aller \u00e0 {direction} depuis {fromNode}",
+  "av.log.tree_place": "Placer {value} comme {direction} de {parentNode}",
+  "av.log.complete_tree": "Construction du BST termin\u00e9e",
+  "av.log.done_tree": "Termin\u00e9 en {time}ms ({comparisons} comparaisons, {inserted} n\u0153uds ins\u00e9r\u00e9s)",
+
+  "ui.log.type.INSERT": "INS\u00c9RER",
+  "ui.log.type.TRAVERSE": "PARCOURS",
+
+  "bst-operations.name": "Op\u00e9rations BST",
+  "bst-operations.stepLabel": "BST \u2014 Insertion",
+  "bst-operations.modes.insert.label": "Insertion",
+  "bst-operations.modes.insert.desc": "Insertion BST : construit un arbre binaire de recherche en ins\u00e9rant les valeurs une par une. Chaque valeur est compar\u00e9e avec les n\u0153uds en partant de la racine, allant \u00e0 gauche si plus petit ou \u00e0 droite si plus grand, jusqu'\u00e0 trouver une position vide.",
+  "bst-operations.details.insert.principles": [
+    "Commencer \u00e0 la racine de l'arbre",
+    "Comparer la nouvelle valeur avec le n\u0153ud actuel",
+    "Si plus petit, aller au fils gauche ; si plus grand ou \u00e9gal, aller au fils droit",
+    "R\u00e9p\u00e9ter jusqu'\u00e0 trouver une position vide (fils nul)",
+    "Placer la nouvelle valeur \u00e0 cette position"
+  ],
+  "bst-operations.details.insert.concepts": [
+    { "term": "Propri\u00e9t\u00e9 BST", "definition": "Pour chaque n\u0153ud, toutes les valeurs du sous-arbre gauche sont plus petites et celles du sous-arbre droit sont plus grandes. Cet invariant est maintenu apr\u00e8s chaque insertion." },
+    { "term": "Hauteur de l'arbre", "definition": "Le nombre d'ar\u00eates sur le plus long chemin de la racine \u00e0 une feuille. D\u00e9termine le temps dans le pire cas pour les op\u00e9rations." },
+    { "term": "\u00c9quilibr\u00e9 vs D\u00e9g\u00e9n\u00e9r\u00e9", "definition": "Un BST \u00e9quilibr\u00e9 a une hauteur O(log n). Un BST d\u00e9g\u00e9n\u00e9r\u00e9 a une hauteur O(n), se r\u00e9duisant \u00e0 une liste cha\u00een\u00e9e." },
+    { "term": "Parcours infixe", "definition": "Visiter le sous-arbre gauche, puis la racine, puis le sous-arbre droit produit les valeurs en ordre tri\u00e9. Propri\u00e9t\u00e9 cl\u00e9 des BST." }
+  ],
+  "bst-operations.details.insert.tradeoffs.pros": [
+    "Insertion simple \u2014 suivre les comparaisons vers le bas",
+    "O(log n) en moyenne pour insertion, recherche et suppression",
+    "Le parcours infixe donne une sortie tri\u00e9e sans travail suppl\u00e9mentaire",
+    "Base pour des arbres plus avanc\u00e9s (AVL, Rouge-Noir)",
+    "Dynamique \u2014 g\u00e8re efficacement insertions et suppressions"
+  ],
+  "bst-operations.details.insert.tradeoffs.cons": [
+    "O(n) dans le pire cas si l'entr\u00e9e est tri\u00e9e (arbre d\u00e9g\u00e9n\u00e9r\u00e9)",
+    "Non auto-\u00e9quilibrant \u2014 peut devenir tr\u00e8s d\u00e9s\u00e9quilibr\u00e9",
+    "Pas de O(log n) garanti \u2014 d\u00e9pend de l'ordre d'insertion",
+    "M\u00e9moire suppl\u00e9mentaire pour les pointeurs de n\u0153uds"
+  ],
+  "bst-operations.details.insert.tradeoffs.whenToUse": "Utilisez un BST basique \u00e0 des fins p\u00e9dagogiques ou quand l'entr\u00e9e est al\u00e9atoire. Pour des op\u00e9rations O(log n) garanties, utilisez des variantes auto-\u00e9quilibrantes : AVL pour la lecture, Rouge-Noir pour l'\u00e9criture.",
+  "bst-operations.depRules": [
+    { "name": "Temps (moyen)", "role": "O(log n) \u2014 arbre \u00e9quilibr\u00e9" },
+    { "name": "Temps (pire)", "role": "O(n) \u2014 d\u00e9g\u00e9n\u00e9r\u00e9 (liste cha\u00een\u00e9e)" },
+    { "name": "Espace", "role": "O(n) \u2014 un n\u0153ud par valeur" },
+    { "name": "En place", "role": "Non \u2014 alloue des n\u0153uds dynamiquement" },
+    { "name": "Sortie tri\u00e9e", "role": "Oui \u2014 le parcours infixe donne une s\u00e9quence tri\u00e9e" },
+    { "name": "Auto-\u00e9quilibrant", "role": "Non \u2014 utilisez AVL ou Rouge-Noir" }
   ]
 }
