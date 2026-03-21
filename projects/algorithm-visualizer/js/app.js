@@ -13,7 +13,7 @@
         hashing: ['hash-table', 'chaining', 'open-addressing']
     };
 
-    var implementedAlgorithms = ['bubble-sort', 'linear-search', 'bfs', 'bst-operations'];
+    var implementedAlgorithms = ['bubble-sort', 'linear-search', 'bfs', 'bst-operations', 'fibonacci'];
 
     var activeCategory = 'sorting';
 
@@ -150,6 +150,10 @@
         if (svg) svg.remove();
         delete AV.state._graphData;
         delete AV.state._isTreeAlgorithm;
+        delete AV.state._isDPAlgorithm;
+        delete AV.state._fibN;
+        delete AV.state._dpMaxVal;
+        delete AV.state._dpNodeLabels;
         AV._removeInsertBanner();
         AV._restoreArrayStatLabels();
     }
@@ -446,8 +450,10 @@
         /* 5. Legend */
         updateLegend(algorithmId);
 
-        /* 6. Graph/Tree stat labels */
-        if (AV.state._isTreeAlgorithm) {
+        /* 6. Graph/Tree/DP stat labels */
+        if (AV.state._isDPAlgorithm) {
+            AV._setDpStatLabels();
+        } else if (AV.state._isTreeAlgorithm) {
             AV._setTreeStatLabels();
         } else if (AV.state._graphData) {
             AV._setGraphStatLabels();

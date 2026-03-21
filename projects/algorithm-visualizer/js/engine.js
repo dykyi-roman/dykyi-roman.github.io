@@ -146,8 +146,20 @@ AV.highlightBars = function(indices, className) {
 
 AV.clearHighlights = function() {
     document.querySelectorAll('.av-bar').forEach(function(bar) {
-        bar.classList.remove('av-comparing', 'av-swapping', 'av-examined');
+        bar.classList.remove('av-comparing', 'av-swapping', 'av-examined', 'av-reading', 'av-computing', 'av-result');
     });
+};
+
+AV.updateBarValue = function(index, value, maxVal) {
+    var bars = document.querySelectorAll('.av-bar');
+    var bar = bars[index];
+    if (!bar) return;
+    var containerHeight = 400;
+    var height = Math.max(8, (value / maxVal) * containerHeight);
+    bar.style.height = height + 'px';
+    bar.setAttribute('data-value', value);
+    var label = bar.querySelector('.av-bar-value');
+    if (label) label.textContent = value;
 };
 
 AV.markSorted = function(index) {
@@ -381,6 +393,19 @@ AV._setTreeStatLabels = function() {
     }
 };
 
+AV._setDpStatLabels = function() {
+    var lbl1 = document.querySelector('#stat-comparisons').closest('.stat-item').querySelector('.stat-label');
+    var lbl2 = document.querySelector('#stat-swaps').closest('.stat-item').querySelector('.stat-label');
+    if (lbl1) {
+        lbl1.textContent = I18N.t('av.stat.computations', null, 'Computations');
+        lbl1.setAttribute('data-i18n', 'av.stat.computations');
+    }
+    if (lbl2) {
+        lbl2.textContent = I18N.t('av.stat.cache_hits', null, 'Cache Hits');
+        lbl2.setAttribute('data-i18n', 'av.stat.cache_hits');
+    }
+};
+
 AV._renderInsertBanner = function(value) {
     var canvas = document.getElementById('av-canvas');
     if (!canvas) return;
@@ -411,7 +436,8 @@ AV.setAccentColors = function(algorithmId) {
         'bubble-sort': { accent: '#3B82F6', bg: '#0d1630', light: '#152048' },
         'linear-search': { accent: '#8B5CF6', bg: '#1a0d30', light: '#221548' },
         'bfs': { accent: '#06B6D4', bg: '#0d1a22', light: '#15252f' },
-        'bst-operations': { accent: '#F59E0B', bg: '#1a1508', light: '#2d2210' }
+        'bst-operations': { accent: '#F59E0B', bg: '#1a1508', light: '#2d2210' },
+        'fibonacci': { accent: '#EC4899', bg: '#1a0d18', light: '#2d1528' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
     root.setProperty('--av-accent', t.accent);
@@ -642,6 +668,74 @@ AV.animateFlow = async function(steps, options) {
             if (step.parentNode !== null) {
                 AV.highlightEdge(String(step.parentNode), String(step.value), 'av-edge-traversed');
             }
+        } else if (step.type === 'DP_BASE') {
+            AV.clearHighlights();
+            AV.updateBarValue(step.index, step.value, AV.state._dpMaxVal || 1);
+            AV.highlightBars([step.index], 'av-base-case');
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('DP_BASE', I18N.t('av.log.dp_base', { index: step.index, value: step.value },
+                'Base case: dp[' + step.index + '] = ' + step.value));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'DP_READ') {
+            AV.clearHighlights();
+            AV.highlightBars(step.indices, 'av-reading');
+            AV.log('DP_READ', I18N.t('av.log.dp_read', { i1: step.indices[0], v1: step.values[0], i2: step.indices[1], v2: step.values[1] },
+                'Read dp[' + step.indices[0] + ']=' + step.values[0] + ', dp[' + step.indices[1] + ']=' + step.values[1]));
+            await AV.sleep(AV.state.stepDelay * 0.7);
+        } else if (step.type === 'DP_FILL') {
+            AV.clearHighlights();
+            AV.highlightBars([step.index], 'av-computing');
+            AV.updateBarValue(step.index, step.value, AV.state._dpMaxVal || 1);
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('DP_FILL', I18N.t('av.log.dp_fill', { index: step.index, value: step.value, formula: step.formula },
+                'Fill dp[' + step.index + '] = ' + step.value + ' (' + step.formula + ')'));
+            await AV.sleep(AV.state.stepDelay);
+            AV.clearHighlights();
+            AV.markSorted(step.index);
+        } else if (step.type === 'DP_RESULT') {
+            AV.clearHighlights();
+            AV.highlightBars([step.index], 'av-result');
+            AV.log('DP_RESULT', I18N.t('av.log.dp_result', { n: step.index, value: step.value },
+                'Result: F(' + step.index + ') = ' + step.value));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'DP_CALL') {
+            AV.setNodeState(step.node, 'computing');
+            if (step.parentNode) {
+                AV.highlightEdge(step.parentNode, step.node, 'av-edge-active');
+            }
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('DP_CALL', I18N.t('av.log.dp_call', { n: step.label || step.node },
+                'Call ' + (step.label || step.node)));
+            await AV.sleep(AV.state.stepDelay * 0.7);
+            if (step.parentNode) {
+                AV.highlightEdge(step.parentNode, step.node, 'av-edge-traversed');
+            }
+        } else if (step.type === 'DP_MEMO_HIT') {
+            AV.setNodeState(step.node, 'cached');
+            if (step.parentNode) {
+                AV.highlightEdge(step.parentNode, step.node, 'av-edge-active');
+                await AV.sleep(AV.state.stepDelay * 0.3);
+                AV.highlightEdge(step.parentNode, step.node, 'av-edge-traversed');
+            }
+            AV.state.swaps++;
+            AV.updateStats();
+            AV.log('DP_MEMO', I18N.t('av.log.dp_memo_hit', { n: step.label || step.node, value: step.value },
+                'Memo hit: ' + (step.label || step.node) + ' = ' + step.value));
+            /* Update node text to show value */
+            var memoTextEl = document.querySelector('.av-node[data-node="' + step.node + '"] text');
+            if (memoTextEl) memoTextEl.textContent = (step.label || step.node) + '=' + step.value;
+            await AV.sleep(AV.state.stepDelay * 0.5);
+        } else if (step.type === 'DP_RETURN') {
+            AV.setNodeState(step.node, 'visited');
+            AV.log('DP_RETURN', I18N.t('av.log.dp_return', { n: step.label || step.node, value: step.value },
+                'Return ' + (step.label || step.node) + ' = ' + step.value));
+            /* Update node text to show value */
+            var retTextEl = document.querySelector('.av-node[data-node="' + step.node + '"] text');
+            if (retTextEl) retTextEl.textContent = (step.label || step.node) + '=' + step.value;
+            await AV.sleep(AV.state.stepDelay * 0.4);
         } else if (step.type === 'DONE') {
             AV.clearHighlights();
             if (step.found === false) {
@@ -654,7 +748,10 @@ AV.animateFlow = async function(steps, options) {
 
     var elapsed = Math.round(performance.now() - startTime);
     if (AV.state.running) {
-        if (AV.state._isTreeAlgorithm) {
+        if (AV.state._isDPAlgorithm) {
+            AV.log('DONE', I18N.t('av.log.done_dp', { time: elapsed, computations: AV.state.comparisons, cacheHits: AV.state.swaps },
+                'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' computations, ' + AV.state.swaps + ' cache hits)'));
+        } else if (AV.state._isTreeAlgorithm) {
             AV.log('DONE', I18N.t('av.log.done_tree', { time: elapsed, comparisons: AV.state.comparisons, inserted: AV.state.swaps },
                 'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons, ' + AV.state.swaps + ' nodes inserted)'));
         } else if (AV.state._graphData) {
@@ -734,6 +831,18 @@ AV._computeGraphSnapshots = function(steps) {
                     nodeStates[k] = 'inserted';
                 }
             });
+        } else if (step.type === 'DP_CALL') {
+            nodeStates[step.node] = 'computing';
+            if (step.parentNode) {
+                edgeStates[step.parentNode + '-' + step.node] = 'traversed';
+            }
+        } else if (step.type === 'DP_MEMO_HIT') {
+            nodeStates[step.node] = 'cached';
+            if (step.parentNode) {
+                edgeStates[step.parentNode + '-' + step.node] = 'traversed';
+            }
+        } else if (step.type === 'DP_RETURN') {
+            nodeStates[step.node] = 'visited';
         }
         var ns = {};
         Object.keys(nodeStates).forEach(function(k) { ns[k] = nodeStates[k]; });
@@ -748,13 +857,24 @@ AV._computeGraphSnapshots = function(steps) {
 
 AV._applyGraphSnapshot = function(snapshot) {
     var isTree = AV.state._isTreeAlgorithm;
+    var isDP = AV.state._isDPAlgorithm;
+    var defaultNodeClass = (isTree || isDP) ? 'av-node av-node-pending' : 'av-node av-node-unvisited';
+    var defaultEdgeClass = (isTree || isDP) ? 'av-edge av-edge-pending' : 'av-edge';
     /* Reset all nodes */
     document.querySelectorAll('.av-node').forEach(function(n) {
-        n.className.baseVal = isTree ? 'av-node av-node-pending' : 'av-node av-node-unvisited';
+        n.className.baseVal = defaultNodeClass;
+        /* Reset node text for DP trees */
+        if (isDP) {
+            var textEl = n.querySelector('text');
+            var nodeId = n.getAttribute('data-node');
+            if (textEl && nodeId && AV.state._dpNodeLabels && AV.state._dpNodeLabels[nodeId]) {
+                textEl.textContent = AV.state._dpNodeLabels[nodeId];
+            }
+        }
     });
     /* Reset all edges */
     document.querySelectorAll('.av-edge').forEach(function(e) {
-        e.setAttribute('class', isTree ? 'av-edge av-edge-pending' : 'av-edge');
+        e.setAttribute('class', defaultEdgeClass);
     });
     /* Apply node states */
     Object.keys(snapshot.nodeStates).forEach(function(id) {
@@ -766,7 +886,7 @@ AV._applyGraphSnapshot = function(snapshot) {
         AV.highlightEdge(parts[0], parts[1], 'av-edge-traversed');
     });
     /* Apply queue (BFS only) */
-    if (!isTree) {
+    if (!isTree && !isDP) {
         AV.renderQueue(snapshot.queue);
     }
     /* Apply visit order badges */
@@ -799,6 +919,13 @@ AV._computeSnapshots = function(initialArray, steps) {
             sorted = sorted.concat([step.index]);
         } else if (step.type === 'FOUND') {
             sorted = sorted.concat([step.index]);
+        } else if (step.type === 'DP_BASE' || step.type === 'DP_FILL') {
+            arr[step.index] = step.value;
+            if (step.type === 'DP_FILL') {
+                sorted = sorted.concat([step.index]);
+            }
+        } else if (step.type === 'DP_RESULT') {
+            /* keep sorted as-is; result highlight handled via bar class */
         } else if (step.type === 'DONE') {
             if (step.found !== false) {
                 sorted = [];
@@ -931,6 +1058,20 @@ AV.stepForward = function() {
             AV.state.swaps++;
             AV.log('INSERT', I18N.t('av.log.tree_place', { value: step.value, parentNode: step.parentNode || 'none', direction: step.direction },
                 'Place ' + step.value + (step.parentNode ? ' as ' + step.direction + ' of ' + step.parentNode : ' as root')));
+        } else if (step.type === 'DP_CALL') {
+            AV.state.comparisons++;
+            AV.log('DP_CALL', I18N.t('av.log.dp_call', { n: step.label || step.node }, 'Call ' + (step.label || step.node)));
+        } else if (step.type === 'DP_MEMO_HIT') {
+            AV.state.swaps++;
+            var memoText = document.querySelector('.av-node[data-node="' + step.node + '"] text');
+            if (memoText) memoText.textContent = (step.label || step.node) + '=' + step.value;
+            AV.log('DP_MEMO', I18N.t('av.log.dp_memo_hit', { n: step.label || step.node, value: step.value },
+                'Memo hit: ' + (step.label || step.node) + ' = ' + step.value));
+        } else if (step.type === 'DP_RETURN') {
+            var retText = document.querySelector('.av-node[data-node="' + step.node + '"] text');
+            if (retText) retText.textContent = (step.label || step.node) + '=' + step.value;
+            AV.log('DP_RETURN', I18N.t('av.log.dp_return', { n: step.label || step.node, value: step.value },
+                'Return ' + (step.label || step.node) + ' = ' + step.value));
         }
 
         AV.updateStats();
@@ -974,6 +1115,20 @@ AV.stepForward = function() {
         AV.log('SORTED', 'Position ' + step.index + ' is sorted');
     } else if (step.type === 'PASS') {
         AV.log('PASS', 'Pass ' + step.pass);
+    } else if (step.type === 'DP_BASE') {
+        AV.highlightBars([step.index], 'av-base-case');
+        AV.state.comparisons++;
+        AV.log('DP_BASE', 'Base case: dp[' + step.index + '] = ' + step.value);
+    } else if (step.type === 'DP_READ') {
+        AV.highlightBars(step.indices, 'av-reading');
+        AV.log('DP_READ', 'Read dp[' + step.indices[0] + ']=' + step.values[0] + ', dp[' + step.indices[1] + ']=' + step.values[1]);
+    } else if (step.type === 'DP_FILL') {
+        AV.highlightBars([step.index], 'av-computing');
+        AV.state.comparisons++;
+        AV.log('DP_FILL', 'Fill dp[' + step.index + '] = ' + step.value + ' (' + step.formula + ')');
+    } else if (step.type === 'DP_RESULT') {
+        AV.highlightBars([step.index], 'av-result');
+        AV.log('DP_RESULT', 'Result: F(' + step.index + ') = ' + step.value);
     } else if (step.type === 'DONE') {
         if (step.found === false) {
             document.querySelectorAll('.av-bar').forEach(function(bar) { bar.classList.add('av-examined'); });
@@ -1008,8 +1163,8 @@ AV.stepBack = function() {
         var nodesVisited = 0;
         var edgesExplored = 0;
         for (var gi = 0; gi < sm.index; gi++) {
-            if (sm.steps[gi].type === 'DEQUEUE' || sm.steps[gi].type === 'TREE_COMPARE') nodesVisited++;
-            if (sm.steps[gi].type === 'EXPLORE_EDGE' || sm.steps[gi].type === 'TREE_PLACE') edgesExplored++;
+            if (sm.steps[gi].type === 'DEQUEUE' || sm.steps[gi].type === 'TREE_COMPARE' || sm.steps[gi].type === 'DP_CALL') nodesVisited++;
+            if (sm.steps[gi].type === 'EXPLORE_EDGE' || sm.steps[gi].type === 'TREE_PLACE' || sm.steps[gi].type === 'DP_MEMO_HIT') edgesExplored++;
         }
         AV.state.comparisons = nodesVisited;
         AV.state.swaps = edgesExplored;
@@ -1022,7 +1177,7 @@ AV.stepBack = function() {
     var comparisons = 0;
     var swaps = 0;
     for (var i = 0; i < sm.index; i++) {
-        if (sm.steps[i].type === 'COMPARE' || sm.steps[i].type === 'SCAN') comparisons++;
+        if (sm.steps[i].type === 'COMPARE' || sm.steps[i].type === 'SCAN' || sm.steps[i].type === 'DP_BASE' || sm.steps[i].type === 'DP_FILL') comparisons++;
         if (sm.steps[i].type === 'SWAP') swaps++;
     }
     AV.state.comparisons = comparisons;
