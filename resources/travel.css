@@ -1930,3 +1930,54 @@
         transform: translateY(0);
     }
 }
+
+/* Section Anchor Links */
+.section-anchor {
+    color: rgba(255, 255, 255, 0.3);
+    text-decoration: none;
+    margin-left: 8px;
+    font-size: 0.7em;
+    opacity: 0;
+    transition: opacity var(--transition-fast), color var(--transition-fast);
+    cursor: pointer;
+    vertical-align: middle;
+    position: relative;
+}
+
+.top-countries-title:hover .section-anchor,
+.festivals-title:hover .section-anchor,
+.adventures-inner-title:hover .section-anchor,
+.journey-title:hover .section-anchor,
+summary h3:hover .section-anchor {
+    opacity: 1;
+}
+
+.section-anchor:hover {
+    color: #FFD700 !important;
+    opacity: 1 !important;
+}
+
+.section-anchor .anchor-tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    pointer-events: none;
+    font-weight: 400;
+}
+
+.section-anchor:hover .anchor-tooltip {
+    display: block;
+}
+
+.section-anchor.copied .anchor-tooltip {
+    display: block;
+    background: #4CAF50;
+}
