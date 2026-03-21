@@ -127,12 +127,12 @@
   "av.legend.edge_exploring": "Kante erkunden",
   "av.queue.label": "Warteschlange:",
   "av.queue.empty": "leer",
-  "av.log.enqueue": "Knoten {node} einreihen",
-  "av.log.dequeue": "Knoten {node} entnehmen",
-  "av.log.explore_edge": "Kante {from}\u2192{to} (neu)",
-  "av.log.explore_edge_skip": "Kante {from}\u2192{to} (bereits besucht)",
-  "av.log.visit": "Knoten {node} vollst\u00e4ndig verarbeitet",
-  "av.log.complete": "BFS-Durchlauf abgeschlossen",
+  "av.log.enqueue": "Einreihen {node} (Ebene {level}) | Warteschlange: [{queue}]",
+  "av.log.dequeue": "Entnehmen {node} (Ebene {level}): {neighborCount} Nachbarn | Warteschlange: [{queue}]",
+  "av.log.explore_edge": "Kante {from}\u2192{to}: {to} unbesucht \u2014 einreihen",
+  "av.log.explore_edge_skip": "Kante {from}\u2192{to}: {to} bereits besucht \u2014 \u00fcberspringen",
+  "av.log.visit": "{node} fertig (Ebene {level}), alle Nachbarn erkundet | Warteschlange: [{queue}]",
+  "av.log.complete": "BFS abgeschlossen: {totalVisited}/{totalNodes} Knoten auf {maxLevel} Ebenen",
   "av.log.done_graph": "Abgeschlossen in {time}ms ({nodes} Knoten, {edges} Kanten)",
 
   "ui.log.type.ENQUEUE": "EINR",
@@ -253,13 +253,18 @@
   "av.legend.dp_computing_node": "Berechnung",
   "av.legend.dp_computed": "Berechnet",
   "av.legend.dp_cached": "Im Cache (Memo)",
-  "av.log.dp_base": "Basisfall: dp[{index}] = {value}",
-  "av.log.dp_read": "Lese dp[{i1}]={v1}, dp[{i2}]={v2}",
-  "av.log.dp_fill": "F\u00fclle dp[{index}] = {value} ({formula})",
-  "av.log.dp_result": "Ergebnis: F({n}) = {value}",
+  "av.log.dp_base": "Basisfall: F({index}) = {value} \u2014 definiert, keine Berechnung n\u00f6tig",
+  "av.log.dp_read": "F\u00fcr F({computing}): lese F({i1})={v1}, F({i2})={v2}",
+  "av.log.dp_fill": "F({index}) = F({i1})+F({i2}) = {v1}+{v2} = {value}",
+  "av.log.dp_result": "Antwort: F({n}) = {value} \u2014 alle Teilprobleme Bottom-Up gel\u00f6st",
   "av.log.dp_call": "Aufruf {n}",
-  "av.log.dp_memo_hit": "Cache: {n} = {value}",
+  "av.log.dp_call_root": "Berechne {n}: Top-Down-Rekursion starten (Tiefe 0)",
+  "av.log.dp_call_from": "{parent} braucht {n}: tiefer rekursieren (Tiefe {depth})",
+  "av.log.dp_memo_hit": "Cache-Treffer: {n}={value} \u2014 Teilbaum \u00fcberspringen",
+  "av.log.dp_memo_hit_from": "{parent} braucht {n}: {value} im Cache \u2014 O(1)",
   "av.log.dp_return": "R\u00fcckgabe {n} = {value}",
+  "av.log.dp_return_base": "R\u00fcckgabe {n}={value} (Basisfall), im Cache speichern",
+  "av.log.dp_return_formula": "R\u00fcckgabe {n} = {formula} = {value}, im Cache speichern",
   "av.log.done_dp": "Abgeschlossen in {time}ms ({computations} Berechnungen, {cacheHits} Cache-Treffer)",
   "ui.log.type.DP_BASE": "BASIS",
   "ui.log.type.DP_READ": "LESEN",
@@ -315,5 +320,103 @@
     { "name": "Speicher (Bottom-Up)", "role": "O(n) \u2014 DP-Tabelle" },
     { "name": "Speicher (Top-Down)", "role": "O(n) \u2014 Cache + Stapel" },
     { "name": "Speicher (Naiv)", "role": "O(n) \u2014 Stapeltiefe" }
+  ],
+
+  "av.stat.matches_found": "Treffer",
+  "av.str.text_label": "Text:",
+  "av.str.pattern_label": "Muster:",
+  "av.str.lps_label": "LPS:",
+
+  "av.legend.str_default": "Standard",
+  "av.legend.str_comparing": "Vergleich",
+  "av.legend.str_match": "\u00dcbereinstimmung",
+  "av.legend.str_mismatch": "Keine \u00dcbereinstimmung",
+  "av.legend.str_found": "Muster gefunden",
+  "av.legend.str_lps_value": "LPS-Wert gesetzt",
+
+  "av.log.str_compare": "Vergleiche text[{ti}]=\u201E{tc}\u201C mit pattern[{pi}]=\u201E{pc}\u201C",
+  "av.log.str_match_char": "Treffer [{ti}]: \u201E{tc}\u201C \u2014 {matched}/{total} Zeichen",
+  "av.log.str_mismatch": "Fehlschlag text[{ti}]: \u201E{tc}\u201C\u2260\u201E{pc}\u201C \u2014 LPS[{lpsIdx}]={lps}, {lps} behalten",
+  "av.log.str_mismatch_start": "Fehlschlag text[{ti}]: \u201E{tc}\u201C\u2260\u201E{pc}\u201C \u2014 pattern[0], Text vorr\u00fccken",
+  "av.log.str_shift": "Verschiebung +{skipped} ({from}\u2192{to}): {lps} Zeichen passen noch",
+  "av.log.str_found": "Muster gefunden in text[{position}..{matchEnd}]!",
+  "av.log.str_lps_set": "LPS[{index}]={value}: \u201E{prefix}\u201C ist Pr\u00e4fix=Suffix von pattern[0..{index}]",
+  "av.log.str_lps_set_zero": "LPS[{index}]=0: kein echtes Pr\u00e4fix gleich Suffix",
+  "av.log.str_lps_set_base": "LPS[0]=0: Einzelzeichen \u2014 kein echtes Pr\u00e4fix",
+  "av.log.done_string": "Abgeschlossen in {time}ms ({comparisons} Vergleiche, {matches} Treffer)",
+
+  "ui.log.type.STR_COMPARE": "VERGL",
+  "ui.log.type.STR_MATCH_CHAR": "TREFFER",
+  "ui.log.type.STR_MISMATCH": "DIFF",
+  "ui.log.type.STR_SHIFT": "VERSCH",
+  "ui.log.type.STR_FOUND": "GEFUNDEN",
+  "ui.log.type.STR_LPS_SET": "LPS",
+
+  "kmp.name": "KMP",
+  "kmp.stepLabel": "KMP \u2014 Vollst\u00e4ndige Suche",
+  "kmp.stepLabel_lps": "KMP \u2014 LPS-Konstruktion",
+  "kmp.modes.standard.label": "Vollst\u00e4ndiges KMP",
+  "kmp.modes.standard.desc": "Vollst\u00e4ndiger KMP-Algorithmus: Erstellt zun\u00e4chst das LPS-Array (L\u00e4ngstes echtes Pr\u00e4fix, das auch Suffix ist) f\u00fcr das Muster, durchsucht dann den Text mit dem LPS-Array.",
+  "kmp.modes.lps-only.label": "LPS-Konstruktion",
+  "kmp.modes.lps-only.desc": "Visualisiert nur den Vorverarbeitungsschritt: den Aufbau des LPS-Arrays (Fehlerfunktion). Dieses Array ist die Schl\u00fcsselstruktur f\u00fcr O(n+m)-Suche.",
+  "kmp.details.standard.principles": [
+    "LPS-Array f\u00fcr das Muster in O(m) erstellen",
+    "Text von links nach rechts durchsuchen; der Textzeiger bewegt sich nie zur\u00fcck",
+    "Bei \u00dcbereinstimmung: beide Zeiger vorr\u00fccken",
+    "Bei Nicht\u00fcbereinstimmung: LPS[j\u22121] verwenden, um das Muster zu verschieben",
+    "Wenn Muster vollst\u00e4ndig passt (j == m), Treffer vermerken und mit LPS fortfahren"
+  ],
+  "kmp.details.standard.concepts": [
+    { "term": "KMP-Algorithmus", "definition": "Knuth\u2013Morris\u2013Pratt (1977) \u2014 ein Zeichenkettensuche-Algorithmus in Linearzeit. Statt Zeichen nach einer Nicht\u00fcbereinstimmung erneut zu scannen, nutzt er ein vorberechnetes LPS-Array f\u00fcr intelligente Musterverschiebung und erreicht O(n+m)." },
+    { "term": "LPS-Array", "definition": "L\u00e4ngstes echtes Pr\u00e4fix, das auch Suffix ist. F\u00fcr jede Position i speichert LPS[i] die L\u00e4nge des l\u00e4ngsten echten Pr\u00e4fixes von pattern[0..i], das auch Suffix ist. Dies ist die Schl\u00fcsselstruktur, die die Verschiebungsdistanz bestimmt." },
+    { "term": "Echtes Pr\u00e4fix", "definition": "Ein Pr\u00e4fix, das nicht die gesamte Zeichenkette ist. F\u00fcr \u201EABAB\u201C sind echte Pr\u00e4fixe: \u201E\u201C, \u201EA\u201C, \u201EAB\u201C, \u201EABA\u201C." },
+    { "term": "Musterverschiebung", "definition": "Bei Nicht\u00fcbereinstimmung an pattern[j] zeigt der LPS, dass pattern[0..LPS[j\u22121]\u22121] bereits zum Text passt. Wir setzen j = LPS[j\u22121]." },
+    { "term": "Kein R\u00fcckschritt", "definition": "Anders als bei der naiven Suche nimmt der Textindex i nie ab. Dies garantiert O(n) Suchzeit." }
+  ],
+  "kmp.details.standard.tradeoffs.pros": [
+    "O(n + m) im schlechtesten Fall \u2014 optimal f\u00fcr Einzelmustersuche",
+    "Kein R\u00fcckschritt im Textzeiger \u2014 geeignet f\u00fcr Streaming",
+    "Findet alle Vorkommen in einem Durchlauf",
+    "Deterministisch \u2014 keine Degradation",
+    "Einfache Vorverarbeitung in O(m)"
+  ],
+  "kmp.details.standard.tradeoffs.cons": [
+    "O(m) zus\u00e4tzlicher Speicher f\u00fcr das LPS-Array",
+    "Komplexer zu implementieren als naive Suche",
+    "F\u00fcr sehr kurze Muster kann der naive Ansatz schneller sein",
+    "Nur ein Muster \u2014 f\u00fcr mehrere Aho-Corasick verwenden"
+  ],
+  "kmp.details.standard.tradeoffs.whenToUse": "Verwenden Sie KMP f\u00fcr garantiert lineare Suche, besonders bei langen Texten oder Mustern mit wiederholten Pr\u00e4fixen. Ideal f\u00fcr Streaming-Daten.",
+  "kmp.details.lps-only.principles": [
+    "LPS[0] = 0 initialisieren",
+    "Zwei Zeiger verwenden: i (aktuelle Position) und len (L\u00e4nge des vorherigen LPS)",
+    "Wenn pattern[i] == pattern[len], len erh\u00f6hen und LPS[i] = len setzen",
+    "Bei Nicht\u00fcbereinstimmung und len > 0, len = LPS[len\u22121] setzen",
+    "Bei Nicht\u00fcbereinstimmung und len == 0, LPS[i] = 0 setzen und i vorr\u00fccken"
+  ],
+  "kmp.details.lps-only.concepts": [
+    { "term": "LPS (Fehlerfunktion)", "definition": "Das LPS-Array (auch Fehlerfunktion oder Pr\u00e4fixfunktion) ordnet jeder Position i die L\u00e4nge des l\u00e4ngsten echten Pr\u00e4fixes von pattern[0..i] zu, das auch Suffix ist. Beispiel: f\u00fcr \u201EABABC\u201C ist LPS = [0, 0, 1, 2, 0], da an Position 3 (\u201EABAB\u201C) das Pr\u00e4fix \u201EAB\u201C dem Suffix \u201EAB\u201C entspricht." },
+    { "term": "Selbstabgleich", "definition": "Die LPS-Berechnung ist im Wesentlichen der KMP-Algorithmus, der das Muster mit sich selbst abgleicht." },
+    { "term": "R\u00fcckfall", "definition": "Bei Nicht\u00fcbereinstimmung an Position len verwenden wir LPS[len\u22121], um das n\u00e4chstl\u00e4ngste passende Pr\u00e4fix zu finden." },
+    { "term": "Amortisiertes O(m)", "definition": "Die Gesamtanzahl der Iterationen ist durch O(m) begrenzt, da len pro Schritt h\u00f6chstens um 1 zunimmt." }
+  ],
+  "kmp.details.lps-only.tradeoffs.pros": [
+    "Konstruktion in O(m)",
+    "Enth\u00fcllt die innere Struktur des Musters",
+    "Grundlage f\u00fcr das Verst\u00e4ndnis des vollst\u00e4ndigen KMP",
+    "Gleiche Technik in anderen Algorithmen verwendet"
+  ],
+  "kmp.details.lps-only.tradeoffs.cons": [
+    "Konzeptuell anspruchsvoll \u2014 die R\u00fcckfalllogik erfordert sorgf\u00e4ltiges Verst\u00e4ndnis",
+    "Allein nicht n\u00fctzlich \u2014 muss mit der Suchphase kombiniert werden"
+  ],
+  "kmp.details.lps-only.tradeoffs.whenToUse": "Studieren Sie die LPS-Konstruktion, um zu verstehen, warum KMP lineare Zeit erreicht. Der R\u00fcckfallmechanismus ist die Schl\u00fcsselidee.",
+  "kmp.depRules": [
+    { "name": "Zeit (Vorverarbeitung)", "role": "O(m) \u2014 LPS-Array erstellen" },
+    { "name": "Zeit (Suche)", "role": "O(n) \u2014 einmaliger Durchlauf" },
+    { "name": "Zeit (Gesamt)", "role": "O(n + m) \u2014 linear" },
+    { "name": "Speicher", "role": "O(m) \u2014 LPS-Array" },
+    { "name": "Mehrfachtreffer", "role": "Ja \u2014 findet alle Vorkommen" },
+    { "name": "R\u00fcckschritt", "role": "Nein \u2014 Textzeiger bewegt sich nie zur\u00fcck" }
   ]
 }

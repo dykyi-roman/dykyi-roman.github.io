@@ -127,12 +127,12 @@
   "av.legend.edge_exploring": "Exploration d'ar\u00eate",
   "av.queue.label": "File :",
   "av.queue.empty": "vide",
-  "av.log.enqueue": "Enfiler le n\u0153ud {node}",
-  "av.log.dequeue": "D\u00e9filer le n\u0153ud {node}",
-  "av.log.explore_edge": "Ar\u00eate {from}\u2192{to} (nouveau)",
-  "av.log.explore_edge_skip": "Ar\u00eate {from}\u2192{to} (d\u00e9j\u00e0 visit\u00e9)",
-  "av.log.visit": "N\u0153ud {node} enti\u00e8rement trait\u00e9",
-  "av.log.complete": "Parcours BFS termin\u00e9",
+  "av.log.enqueue": "Enfiler {node} (niveau {level}) | File: [{queue}]",
+  "av.log.dequeue": "D\u00e9filer {node} (niveau {level}): {neighborCount} voisins | File: [{queue}]",
+  "av.log.explore_edge": "Ar\u00eate {from}\u2192{to}: {to} non visit\u00e9 \u2014 enfiler",
+  "av.log.explore_edge_skip": "Ar\u00eate {from}\u2192{to}: {to} d\u00e9j\u00e0 visit\u00e9 \u2014 ignorer",
+  "av.log.visit": "{node} termin\u00e9 (niveau {level}), tous les voisins explor\u00e9s | File: [{queue}]",
+  "av.log.complete": "BFS termin\u00e9: {totalVisited}/{totalNodes} n\u0153uds sur {maxLevel} niveaux",
   "av.log.done_graph": "Termin\u00e9 en {time}ms ({nodes} n\u0153uds, {edges} ar\u00eates)",
 
   "ui.log.type.ENQUEUE": "ENFILER",
@@ -253,13 +253,18 @@
   "av.legend.dp_computing_node": "En calcul",
   "av.legend.dp_computed": "Calcul\u00e9",
   "av.legend.dp_cached": "En cache (m\u00e9mo)",
-  "av.log.dp_base": "Cas de base : dp[{index}] = {value}",
-  "av.log.dp_read": "Lire dp[{i1}]={v1}, dp[{i2}]={v2}",
-  "av.log.dp_fill": "Remplir dp[{index}] = {value} ({formula})",
-  "av.log.dp_result": "R\u00e9sultat : F({n}) = {value}",
+  "av.log.dp_base": "Cas de base : F({index}) = {value} \u2014 d\u00e9fini, aucun calcul n\u00e9cessaire",
+  "av.log.dp_read": "Pour F({computing}) : lire F({i1})={v1}, F({i2})={v2}",
+  "av.log.dp_fill": "F({index}) = F({i1})+F({i2}) = {v1}+{v2} = {value}",
+  "av.log.dp_result": "R\u00e9ponse : F({n}) = {value} \u2014 tous les sous-probl\u00e8mes r\u00e9solus",
   "av.log.dp_call": "Appel {n}",
-  "av.log.dp_memo_hit": "Cache : {n} = {value}",
+  "av.log.dp_call_root": "Calculer {n} : d\u00e9but de la r\u00e9cursion descendante (prof. 0)",
+  "av.log.dp_call_from": "{parent} a besoin de {n} : r\u00e9cursion plus profonde (prof. {depth})",
+  "av.log.dp_memo_hit": "Cache trouv\u00e9 : {n}={value} \u2014 sous-arbre ignor\u00e9",
+  "av.log.dp_memo_hit_from": "{parent} a besoin de {n} : {value} en cache \u2014 O(1)",
   "av.log.dp_return": "Retour {n} = {value}",
+  "av.log.dp_return_base": "Retour {n}={value} (cas de base), m\u00e9moris\u00e9",
+  "av.log.dp_return_formula": "Retour {n} = {formula} = {value}, m\u00e9moris\u00e9",
   "av.log.done_dp": "Termin\u00e9 en {time}ms ({computations} calculs, {cacheHits} succ\u00e8s cache)",
   "ui.log.type.DP_BASE": "BASE",
   "ui.log.type.DP_READ": "LIRE",
@@ -321,5 +326,103 @@
     { "name": "Espace (ascendant)", "role": "O(n) \u2014 table DP" },
     { "name": "Espace (descendant)", "role": "O(n) \u2014 cache + pile" },
     { "name": "Espace (na\u00eff)", "role": "O(n) \u2014 profondeur pile" }
+  ],
+
+  "av.stat.matches_found": "Correspondances",
+  "av.str.text_label": "Texte :",
+  "av.str.pattern_label": "Motif :",
+  "av.str.lps_label": "LPS :",
+
+  "av.legend.str_default": "Par d\u00e9faut",
+  "av.legend.str_comparing": "Comparaison",
+  "av.legend.str_match": "Correspondance",
+  "av.legend.str_mismatch": "Non-correspondance",
+  "av.legend.str_found": "Motif trouv\u00e9",
+  "av.legend.str_lps_value": "Valeur LPS",
+
+  "av.log.str_compare": "Comparer text[{ti}]=\u00AB{tc}\u00BB et pattern[{pi}]=\u00AB{pc}\u00BB",
+  "av.log.str_match_char": "Correspondance [{ti}] : \u00AB{tc}\u00BB \u2014 {matched}/{total} caract\u00e8res",
+  "av.log.str_mismatch": "Non-correspondance text[{ti}] : \u00AB{tc}\u00BB\u2260\u00AB{pc}\u00BB \u2014 LPS[{lpsIdx}]={lps}, garder {lps}",
+  "av.log.str_mismatch_start": "Non-correspondance text[{ti}] : \u00AB{tc}\u00BB\u2260\u00AB{pc}\u00BB \u2014 pattern[0], avancer le texte",
+  "av.log.str_shift": "D\u00e9calage +{skipped} ({from}\u2192{to}) : {lps} caract\u00e8res align\u00e9s",
+  "av.log.str_found": "Motif trouv\u00e9 dans text[{position}..{matchEnd}] !",
+  "av.log.str_lps_set": "LPS[{index}]={value} : \u00AB{prefix}\u00BB est pr\u00e9fixe=suffixe de pattern[0..{index}]",
+  "av.log.str_lps_set_zero": "LPS[{index}]=0 : aucun pr\u00e9fixe propre \u00e9gal au suffixe",
+  "av.log.str_lps_set_base": "LPS[0]=0 : un seul caract\u00e8re \u2014 pas de pr\u00e9fixe propre",
+  "av.log.done_string": "Termin\u00e9 en {time}ms ({comparisons} comparaisons, {matches} correspondances)",
+
+  "ui.log.type.STR_COMPARE": "COMP",
+  "ui.log.type.STR_MATCH_CHAR": "CORR",
+  "ui.log.type.STR_MISMATCH": "DIFF",
+  "ui.log.type.STR_SHIFT": "D\u00c9CAL",
+  "ui.log.type.STR_FOUND": "TROUV\u00c9",
+  "ui.log.type.STR_LPS_SET": "LPS",
+
+  "kmp.name": "KMP",
+  "kmp.stepLabel": "KMP \u2014 Recherche compl\u00e8te",
+  "kmp.stepLabel_lps": "KMP \u2014 Construction LPS",
+  "kmp.modes.standard.label": "KMP complet",
+  "kmp.modes.standard.desc": "Algorithme KMP complet : construit d'abord le tableau LPS (Plus Long Pr\u00e9fixe Propre \u00e9galement Suffixe) pour le motif, puis parcourt le texte en utilisant le LPS pour \u00e9viter les comparaisons redondantes.",
+  "kmp.modes.lps-only.label": "Construction LPS",
+  "kmp.modes.lps-only.desc": "Visualise uniquement l'\u00e9tape de pr\u00e9traitement : la construction du tableau LPS (fonction d'\u00e9chec). Ce tableau est la structure cl\u00e9 permettant la recherche en O(n+m).",
+  "kmp.details.standard.principles": [
+    "Construire le tableau LPS pour le motif en O(m)",
+    "Parcourir le texte de gauche \u00e0 droite ; le pointeur ne recule jamais",
+    "En cas de correspondance : avancer les deux pointeurs",
+    "En cas de non-correspondance : utiliser LPS[j\u22121] pour d\u00e9caler le motif",
+    "Quand le motif correspond enti\u00e8rement (j == m), enregistrer et continuer avec LPS"
+  ],
+  "kmp.details.standard.concepts": [
+    { "term": "Algorithme KMP", "definition": "Knuth\u2013Morris\u2013Pratt (1977) \u2014 algorithme de recherche de sous-cha\u00eene en temps lin\u00e9aire. Au lieu de re-scanner les caract\u00e8res apr\u00e8s une non-correspondance, il utilise un tableau LPS pr\u00e9calcul\u00e9 pour d\u00e9caler le motif intelligemment, atteignant O(n+m)." },
+    { "term": "Tableau LPS", "definition": "Plus Long Pr\u00e9fixe Propre \u00e9galement Suffixe. Pour chaque position i, LPS[i] stocke la longueur du plus long pr\u00e9fixe propre de pattern[0..i] qui est aussi un suffixe. C'est la structure cl\u00e9 qui d\u00e9termine la distance de d\u00e9calage." },
+    { "term": "Pr\u00e9fixe propre", "definition": "Un pr\u00e9fixe qui n'est pas la cha\u00eene enti\u00e8re. Pour \u00ABABAB\u00BB, les pr\u00e9fixes propres sont \u00AB\u00BB, \u00ABA\u00BB, \u00ABAB\u00BB, \u00ABABA\u00BB." },
+    { "term": "D\u00e9calage du motif", "definition": "Lors d'une non-correspondance \u00e0 pattern[j], le LPS indique que pattern[0..LPS[j\u22121]\u22121] correspond d\u00e9j\u00e0 au texte. On pose j = LPS[j\u22121]." },
+    { "term": "Sans retour", "definition": "Contrairement \u00e0 la recherche na\u00efve, l'index du texte i ne diminue jamais. Cela garantit un temps de parcours O(n)." }
+  ],
+  "kmp.details.standard.tradeoffs.pros": [
+    "O(n + m) dans le pire cas \u2014 optimal pour la recherche d'un motif",
+    "Pas de retour sur le pointeur du texte \u2014 adapt\u00e9 aux flux",
+    "Trouve toutes les occurrences en un seul passage",
+    "D\u00e9terministe \u2014 pas de d\u00e9gradation",
+    "Pr\u00e9traitement simple en O(m)"
+  ],
+  "kmp.details.standard.tradeoffs.cons": [
+    "O(m) d'espace suppl\u00e9mentaire pour le tableau LPS",
+    "Plus complexe \u00e0 impl\u00e9menter que la recherche na\u00efve",
+    "Pour les motifs tr\u00e8s courts, l'approche na\u00efve peut \u00eatre plus rapide",
+    "Un seul motif \u2014 pour plusieurs, utiliser Aho-Corasick"
+  ],
+  "kmp.details.standard.tradeoffs.whenToUse": "Utilisez KMP pour une recherche lin\u00e9aire garantie, surtout pour les textes longs ou les motifs avec pr\u00e9fixes r\u00e9p\u00e9t\u00e9s. Id\u00e9al pour les flux de donn\u00e9es.",
+  "kmp.details.lps-only.principles": [
+    "Initialiser LPS[0] = 0",
+    "Utiliser deux pointeurs : i (position courante) et len (longueur du pr\u00e9c\u00e9dent LPS)",
+    "Si pattern[i] == pattern[len], incr\u00e9menter len et d\u00e9finir LPS[i] = len",
+    "Si non-correspondance et len > 0, poser len = LPS[len\u22121]",
+    "Si non-correspondance et len == 0, d\u00e9finir LPS[i] = 0 et avancer i"
+  ],
+  "kmp.details.lps-only.concepts": [
+    { "term": "LPS (fonction d'\u00e9chec)", "definition": "Le tableau LPS (aussi appel\u00e9 fonction d'\u00e9chec ou fonction pr\u00e9fixe) associe \u00e0 chaque position i la longueur du plus long pr\u00e9fixe propre de pattern[0..i] qui est aussi suffixe. Exemple : pour \u00ab ABABC \u00bb, LPS = [0, 0, 1, 2, 0] car en position 3 (\u00ab ABAB \u00bb) le pr\u00e9fixe \u00ab AB \u00bb \u00e9gale le suffixe \u00ab AB \u00bb." },
+    { "term": "Auto-correspondance", "definition": "Le calcul du LPS est essentiellement l'algorithme KMP appliqu\u00e9 au motif lui-m\u00eame, r\u00e9v\u00e9lant tous les chevauchements pr\u00e9fixe-suffixe." },
+    { "term": "Repli", "definition": "Lors d'une non-correspondance \u00e0 la position len, on utilise LPS[len\u22121] pour trouver le prochain pr\u00e9fixe le plus long." },
+    { "term": "O(m) amorti", "definition": "Le nombre total d'it\u00e9rations est born\u00e9 par O(m) car len augmente d'au plus 1 par \u00e9tape." }
+  ],
+  "kmp.details.lps-only.tradeoffs.pros": [
+    "Construction en O(m)",
+    "R\u00e9v\u00e8le la structure interne du motif",
+    "Base pour comprendre l'algorithme KMP complet",
+    "M\u00eame technique utilis\u00e9e dans d'autres algorithmes"
+  ],
+  "kmp.details.lps-only.tradeoffs.cons": [
+    "Conceptuellement complexe \u2014 la logique de repli demande attention",
+    "Inutile seul \u2014 doit \u00eatre associ\u00e9 \u00e0 la phase de recherche"
+  ],
+  "kmp.details.lps-only.tradeoffs.whenToUse": "\u00c9tudiez la construction LPS pour comprendre pourquoi KMP atteint un temps lin\u00e9aire. Le m\u00e9canisme de repli est l'id\u00e9e cl\u00e9.",
+  "kmp.depRules": [
+    { "name": "Temps (pr\u00e9traitement)", "role": "O(m) \u2014 construction du tableau LPS" },
+    { "name": "Temps (recherche)", "role": "O(n) \u2014 parcours unique" },
+    { "name": "Temps (total)", "role": "O(n + m) \u2014 lin\u00e9aire" },
+    { "name": "Espace", "role": "O(m) \u2014 tableau LPS" },
+    { "name": "Correspondances multiples", "role": "Oui \u2014 trouve toutes les occurrences" },
+    { "name": "Retour en arri\u00e8re", "role": "Non \u2014 le pointeur du texte ne recule jamais" }
   ]
 }

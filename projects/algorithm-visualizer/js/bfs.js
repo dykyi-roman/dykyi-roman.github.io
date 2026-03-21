@@ -108,16 +108,20 @@ AV['bfs'].standard = {
         var visited = {};
         var queue = [];
 
+        var levels = g.levels;
+        var maxLevel = 0;
+        Object.keys(levels).forEach(function(k) { if (levels[k] > maxLevel) maxLevel = levels[k]; });
+
         /* Enqueue start */
         queue.push(start);
         visited[start] = true;
-        steps.push({ type: 'ENQUEUE', node: start, queue: queue.slice() });
+        steps.push({ type: 'ENQUEUE', node: start, queue: queue.slice(), level: levels[start] });
 
         while (queue.length > 0) {
             var current = queue.shift();
-            steps.push({ type: 'DEQUEUE', node: current, queue: queue.slice() });
-
             var neighbors = adj[current] || [];
+            steps.push({ type: 'DEQUEUE', node: current, queue: queue.slice(), level: levels[current], neighborCount: neighbors.length });
+
             for (var i = 0; i < neighbors.length; i++) {
                 var neighbor = neighbors[i];
                 steps.push({ type: 'EXPLORE_EDGE', from: current, to: neighbor, alreadyVisited: !!visited[neighbor], queue: queue.slice() });
@@ -125,14 +129,14 @@ AV['bfs'].standard = {
                 if (!visited[neighbor]) {
                     visited[neighbor] = true;
                     queue.push(neighbor);
-                    steps.push({ type: 'ENQUEUE', node: neighbor, queue: queue.slice() });
+                    steps.push({ type: 'ENQUEUE', node: neighbor, queue: queue.slice(), level: levels[neighbor] });
                 }
             }
 
-            steps.push({ type: 'VISIT', node: current, queue: queue.slice() });
+            steps.push({ type: 'VISIT', node: current, queue: queue.slice(), level: levels[current] });
         }
 
-        steps.push({ type: 'COMPLETE', queue: [] });
+        steps.push({ type: 'COMPLETE', queue: [], totalVisited: Object.keys(visited).length, totalNodes: g.nodes.length, maxLevel: maxLevel });
         return steps;
     },
 

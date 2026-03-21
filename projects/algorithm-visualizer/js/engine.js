@@ -295,6 +295,28 @@ AV.setNodeState = function(nodeId, state) {
     node.className.baseVal = 'av-node av-node-' + state;
 };
 
+AV._setDpNodeText = function(nodeId, label, value) {
+    var textEl = document.querySelector('.av-node[data-node="' + nodeId + '"] text');
+    if (!textEl) return;
+    var circle = textEl.parentNode.querySelector('circle');
+    var cx = parseFloat(circle.getAttribute('cx'));
+    var cy = parseFloat(circle.getAttribute('cy'));
+    while (textEl.firstChild) textEl.removeChild(textEl.firstChild);
+    var line1 = document.createElementNS(AV._svgNS, 'tspan');
+    line1.setAttribute('x', cx);
+    line1.setAttribute('y', cy - 2);
+    line1.setAttribute('text-anchor', 'middle');
+    line1.textContent = label;
+    var line2 = document.createElementNS(AV._svgNS, 'tspan');
+    line2.setAttribute('x', cx);
+    line2.setAttribute('dy', '14');
+    line2.setAttribute('text-anchor', 'middle');
+    line2.setAttribute('font-size', '11');
+    line2.textContent = '=' + value;
+    textEl.appendChild(line1);
+    textEl.appendChild(line2);
+};
+
 AV.highlightEdge = function(from, to, className) {
     var edge = document.querySelector('.av-edge[data-from="' + from + '"][data-to="' + to + '"]') ||
                document.querySelector('.av-edge[data-from="' + to + '"][data-to="' + from + '"]');
@@ -354,6 +376,64 @@ AV.renderQueue = function(queue) {
     }
 };
 
+/* ===== String Matching Rendering ===== */
+AV.renderStringMatch = function(text, pattern, patternOffset, lps) {
+    var canvas = document.getElementById('av-canvas');
+    if (!canvas) return;
+
+    AV.state._isStringAlgorithm = true;
+
+    var html = '<div class="av-str-container">';
+
+    /* Text row */
+    html += '<div class="av-str-row"><span class="av-str-label">' +
+        I18N.t('av.str.text_label', null, 'Text:') + '</span>';
+    html += '<div class="av-str-cells" id="av-str-text">';
+    for (var i = 0; i < text.length; i++) {
+        html += '<div class="av-str-cell" data-index="' + i + '">' +
+            '<span class="av-str-index">' + i + '</span>' + text[i] + '</div>';
+    }
+    html += '</div></div>';
+
+    /* Pattern row (offset by patternOffset empty cells, clamped to text length) */
+    html += '<div class="av-str-row"><span class="av-str-label">' +
+        I18N.t('av.str.pattern_label', null, 'Pattern:') + '</span>';
+    html += '<div class="av-str-cells" id="av-str-pattern">';
+    for (var s = 0; s < patternOffset; s++) {
+        html += '<div class="av-str-cell av-str-empty"></div>';
+    }
+    var maxPatCells = Math.max(0, text.length - patternOffset);
+    for (var j = 0; j < pattern.length && j < maxPatCells; j++) {
+        html += '<div class="av-str-cell" data-pindex="' + j + '">' + pattern[j] + '</div>';
+    }
+    html += '</div></div>';
+
+    /* LPS row */
+    if (lps) {
+        html += '<div class="av-str-lps-row"><span class="av-str-label">' +
+            I18N.t('av.str.lps_label', null, 'LPS:') + '</span>';
+        html += '<div class="av-str-cells" id="av-str-lps">';
+        for (var k = 0; k < lps.length; k++) {
+            var val = lps[k] !== undefined && lps[k] !== -1 ? lps[k] : '\u2014';
+            var filledCls = lps[k] !== undefined && lps[k] !== -1 ? ' av-str-lps-filled' : '';
+            html += '<div class="av-str-lps-cell' + filledCls + '" data-lindex="' + k + '">' + val + '</div>';
+        }
+        html += '</div></div>';
+    }
+
+    html += '</div>';
+    canvas.innerHTML = html;
+};
+
+AV.clearStringHighlights = function() {
+    document.querySelectorAll('.av-str-cell').forEach(function(cell) {
+        cell.classList.remove('av-str-comparing', 'av-str-match', 'av-str-mismatch', 'av-str-found', 'av-str-idle');
+    });
+    document.querySelectorAll('.av-str-lps-cell').forEach(function(cell) {
+        cell.classList.remove('av-str-lps-active', 'av-str-lps-set');
+    });
+};
+
 AV._setGraphStatLabels = function() {
     var lbl1 = document.querySelector('#stat-comparisons').closest('.stat-item').querySelector('.stat-label');
     var lbl2 = document.querySelector('#stat-swaps').closest('.stat-item').querySelector('.stat-label');
@@ -406,6 +486,19 @@ AV._setDpStatLabels = function() {
     }
 };
 
+AV._setStringStatLabels = function() {
+    var lbl1 = document.querySelector('#stat-comparisons').closest('.stat-item').querySelector('.stat-label');
+    var lbl2 = document.querySelector('#stat-swaps').closest('.stat-item').querySelector('.stat-label');
+    if (lbl1) {
+        lbl1.textContent = I18N.t('av.stat.comparisons', null, 'Comparisons');
+        lbl1.setAttribute('data-i18n', 'av.stat.comparisons');
+    }
+    if (lbl2) {
+        lbl2.textContent = I18N.t('av.stat.matches_found', null, 'Matches Found');
+        lbl2.setAttribute('data-i18n', 'av.stat.matches_found');
+    }
+};
+
 AV._renderInsertBanner = function(value) {
     var canvas = document.getElementById('av-canvas');
     if (!canvas) return;
@@ -437,7 +530,8 @@ AV.setAccentColors = function(algorithmId) {
         'linear-search': { accent: '#8B5CF6', bg: '#1a0d30', light: '#221548' },
         'bfs': { accent: '#06B6D4', bg: '#0d1a22', light: '#15252f' },
         'bst-operations': { accent: '#F59E0B', bg: '#1a1508', light: '#2d2210' },
-        'fibonacci': { accent: '#EC4899', bg: '#1a0d18', light: '#2d1528' }
+        'fibonacci': { accent: '#EC4899', bg: '#1a0d18', light: '#2d1528' },
+        'kmp': { accent: '#14B8A6', bg: '#0d1a1a', light: '#15282a' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
     root.setProperty('--av-accent', t.accent);
@@ -590,23 +684,23 @@ AV.animateFlow = async function(steps, options) {
             if (enqNode) { var sr = enqNode.querySelector('.av-start-ring'); if (sr) sr.remove(); }
             AV.setNodeState(step.node, 'queued');
             AV.renderQueue(step.queue);
-            AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node }, 'Enqueue node ' + step.node));
+            AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node, level: step.level, queue: step.queue.join(', ') }, 'Enqueue ' + step.node));
             await AV.sleep(AV.state.stepDelay * 0.6);
         } else if (step.type === 'DEQUEUE') {
             AV.setNodeState(step.node, 'visiting');
             AV.renderQueue(step.queue);
             AV.state.comparisons++;
             AV.updateStats();
-            AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node }, 'Dequeue node ' + step.node));
+            AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node, level: step.level, neighborCount: step.neighborCount, queue: step.queue.join(', ') }, 'Dequeue ' + step.node));
             await AV.sleep(AV.state.stepDelay);
         } else if (step.type === 'EXPLORE_EDGE') {
             AV.highlightEdge(step.from, step.to, 'av-edge-active');
             AV.state.swaps++;
             AV.updateStats();
             if (step.alreadyVisited) {
-                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_skip', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ' (already visited)'));
+                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_skip', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': skip'));
             } else {
-                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ' (new)'));
+                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': enqueue'));
             }
             await AV.sleep(AV.state.stepDelay * 0.5);
             AV.highlightEdge(step.from, step.to, 'av-edge-traversed');
@@ -615,7 +709,7 @@ AV.animateFlow = async function(steps, options) {
             AV.renderQueue(step.queue);
             AV.state._visitOrderCounter++;
             AV._showVisitOrder(step.node, AV.state._visitOrderCounter);
-            AV.log('VISIT', I18N.t('av.log.visit', { node: step.node }, 'Node ' + step.node + ' fully processed'));
+            AV.log('VISIT', I18N.t('av.log.visit', { node: step.node, level: step.level, queue: step.queue.join(', ') }, step.node + ' done'));
             await AV.sleep(AV.state.stepDelay * 0.4);
         } else if (step.type === 'COMPLETE') {
             if (AV.state._isTreeAlgorithm) {
@@ -629,7 +723,7 @@ AV.animateFlow = async function(steps, options) {
                 AV.log('COMPLETE', I18N.t('av.log.complete_tree', null, 'BST construction complete'));
             } else {
                 AV.renderQueue([]);
-                AV.log('COMPLETE', I18N.t('av.log.complete', null, 'BFS traversal complete'));
+                AV.log('COMPLETE', I18N.t('av.log.complete', { totalVisited: step.totalVisited, totalNodes: step.totalNodes, maxLevel: step.maxLevel }, 'BFS complete'));
             }
             await AV.sleep(AV.state.stepDelay * 0.3);
         } else if (step.type === 'INSERT_START') {
@@ -675,13 +769,13 @@ AV.animateFlow = async function(steps, options) {
             AV.state.comparisons++;
             AV.updateStats();
             AV.log('DP_BASE', I18N.t('av.log.dp_base', { index: step.index, value: step.value },
-                'Base case: dp[' + step.index + '] = ' + step.value));
+                'Base case: F(' + step.index + ') = ' + step.value));
             await AV.sleep(AV.state.stepDelay);
         } else if (step.type === 'DP_READ') {
             AV.clearHighlights();
             AV.highlightBars(step.indices, 'av-reading');
-            AV.log('DP_READ', I18N.t('av.log.dp_read', { i1: step.indices[0], v1: step.values[0], i2: step.indices[1], v2: step.values[1] },
-                'Read dp[' + step.indices[0] + ']=' + step.values[0] + ', dp[' + step.indices[1] + ']=' + step.values[1]));
+            AV.log('DP_READ', I18N.t('av.log.dp_read', { i1: step.indices[0], v1: step.values[0], i2: step.indices[1], v2: step.values[1], computing: step.computing },
+                'To compute F(' + step.computing + '): read F(' + step.indices[0] + ')=' + step.values[0] + ', F(' + step.indices[1] + ')=' + step.values[1]));
             await AV.sleep(AV.state.stepDelay * 0.7);
         } else if (step.type === 'DP_FILL') {
             AV.clearHighlights();
@@ -689,8 +783,8 @@ AV.animateFlow = async function(steps, options) {
             AV.updateBarValue(step.index, step.value, AV.state._dpMaxVal || 1);
             AV.state.comparisons++;
             AV.updateStats();
-            AV.log('DP_FILL', I18N.t('av.log.dp_fill', { index: step.index, value: step.value, formula: step.formula },
-                'Fill dp[' + step.index + '] = ' + step.value + ' (' + step.formula + ')'));
+            AV.log('DP_FILL', I18N.t('av.log.dp_fill', { index: step.index, value: step.value, formula: step.formula, i1: step.i1, v1: step.v1, i2: step.i2, v2: step.v2 },
+                'F(' + step.index + ') = F(' + step.i1 + ')+F(' + step.i2 + ') = ' + step.v1 + '+' + step.v2 + ' = ' + step.value));
             await AV.sleep(AV.state.stepDelay);
             AV.clearHighlights();
             AV.markSorted(step.index);
@@ -698,7 +792,7 @@ AV.animateFlow = async function(steps, options) {
             AV.clearHighlights();
             AV.highlightBars([step.index], 'av-result');
             AV.log('DP_RESULT', I18N.t('av.log.dp_result', { n: step.index, value: step.value },
-                'Result: F(' + step.index + ') = ' + step.value));
+                'Answer: F(' + step.index + ') = ' + step.value));
             await AV.sleep(AV.state.stepDelay);
         } else if (step.type === 'DP_CALL') {
             AV.setNodeState(step.node, 'computing');
@@ -707,8 +801,12 @@ AV.animateFlow = async function(steps, options) {
             }
             AV.state.comparisons++;
             AV.updateStats();
-            AV.log('DP_CALL', I18N.t('av.log.dp_call', { n: step.label || step.node },
-                'Call ' + (step.label || step.node)));
+            var dpCallMsg = step.parentLabel
+                ? I18N.t('av.log.dp_call_from', { n: step.label || step.node, parent: step.parentLabel, depth: step.depth },
+                    step.parentLabel + ' needs ' + (step.label || step.node) + ': depth ' + step.depth)
+                : I18N.t('av.log.dp_call_root', { n: step.label || step.node },
+                    'Compute ' + (step.label || step.node) + ': begin recursion');
+            AV.log('DP_CALL', dpCallMsg);
             await AV.sleep(AV.state.stepDelay * 0.7);
             if (step.parentNode) {
                 AV.highlightEdge(step.parentNode, step.node, 'av-edge-traversed');
@@ -722,23 +820,129 @@ AV.animateFlow = async function(steps, options) {
             }
             AV.state.swaps++;
             AV.updateStats();
-            AV.log('DP_MEMO', I18N.t('av.log.dp_memo_hit', { n: step.label || step.node, value: step.value },
-                'Memo hit: ' + (step.label || step.node) + ' = ' + step.value));
-            /* Update node text to show value */
-            var memoTextEl = document.querySelector('.av-node[data-node="' + step.node + '"] text');
-            if (memoTextEl) memoTextEl.textContent = (step.label || step.node) + '=' + step.value;
+            var dpMemoMsg = step.parentLabel
+                ? I18N.t('av.log.dp_memo_hit_from', { n: step.label || step.node, value: step.value, parent: step.parentLabel },
+                    step.parentLabel + ' needs ' + (step.label || step.node) + ': ' + step.value + ' in cache')
+                : I18N.t('av.log.dp_memo_hit', { n: step.label || step.node, value: step.value },
+                    'Cache hit: ' + (step.label || step.node) + '=' + step.value + ' \u2014 skip subtree');
+            AV.log('DP_MEMO', dpMemoMsg);
+            /* Update node text to show value (two-line) */
+            AV._setDpNodeText(step.node, step.label || step.node, step.value);
             await AV.sleep(AV.state.stepDelay * 0.5);
         } else if (step.type === 'DP_RETURN') {
             AV.setNodeState(step.node, 'visited');
-            AV.log('DP_RETURN', I18N.t('av.log.dp_return', { n: step.label || step.node, value: step.value },
-                'Return ' + (step.label || step.node) + ' = ' + step.value));
-            /* Update node text to show value */
-            var retTextEl = document.querySelector('.av-node[data-node="' + step.node + '"] text');
-            if (retTextEl) retTextEl.textContent = (step.label || step.node) + '=' + step.value;
+            var dpRetMsg = step.formula
+                ? I18N.t('av.log.dp_return_formula', { n: step.label || step.node, value: step.value, formula: step.formula },
+                    'Return ' + (step.label || step.node) + ' = ' + step.formula + ' = ' + step.value + ', store')
+                : I18N.t('av.log.dp_return_base', { n: step.label || step.node, value: step.value },
+                    'Return ' + (step.label || step.node) + '=' + step.value + ' (base), store');
+            AV.log('DP_RETURN', dpRetMsg);
+            /* Update node text to show value (two-line) */
+            AV._setDpNodeText(step.node, step.label || step.node, step.value);
             await AV.sleep(AV.state.stepDelay * 0.4);
+
+        /* ===== String Matching Steps ===== */
+        } else if (step.type === 'STR_COMPARE') {
+            AV.clearStringHighlights();
+            var strTextCells = document.querySelectorAll('#av-str-text .av-str-cell');
+            var strPatCells = document.querySelectorAll('#av-str-pattern .av-str-cell:not(.av-str-empty)');
+            if (strTextCells[step.textIndex]) strTextCells[step.textIndex].classList.add('av-str-comparing');
+            if (strPatCells[step.patternIndex]) strPatCells[step.patternIndex].classList.add('av-str-comparing');
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('STR_COMPARE', I18N.t('av.log.str_compare',
+                { ti: step.textIndex, tc: step.textChar, pi: step.patternIndex, pc: step.patternChar },
+                'Compare text[' + step.textIndex + ']=\u201C' + step.textChar + '\u201D with pattern[' + step.patternIndex + ']=\u201C' + step.patternChar + '\u201D'));
+            await AV.sleep(AV.state.stepDelay);
+
+        } else if (step.type === 'STR_MATCH_CHAR') {
+            AV.clearStringHighlights();
+            var strTextCells2 = document.querySelectorAll('#av-str-text .av-str-cell');
+            var strPatCells2 = document.querySelectorAll('#av-str-pattern .av-str-cell:not(.av-str-empty)');
+            for (var smi = 0; smi <= step.patternIndex; smi++) {
+                if (strTextCells2[step.offset + smi]) strTextCells2[step.offset + smi].classList.add('av-str-match');
+                if (strPatCells2[smi]) strPatCells2[smi].classList.add('av-str-match');
+            }
+            var strMatched = step.matched || (step.patternIndex + 1);
+            var strTotal = (AV.state._pattern || '').length;
+            AV.log('STR_MATCH_CHAR', I18N.t('av.log.str_match_char',
+                { tc: step.textChar, ti: step.textIndex, pi: step.patternIndex, matched: strMatched, total: strTotal },
+                'Match at [' + step.textIndex + ']: \u201C' + step.textChar + '\u201D \u2014 ' + strMatched + '/' + strTotal));
+            await AV.sleep(AV.state.stepDelay * 0.5);
+
+        } else if (step.type === 'STR_MISMATCH') {
+            AV.clearStringHighlights();
+            var strTextCells3 = document.querySelectorAll('#av-str-text .av-str-cell');
+            var strPatCells3 = document.querySelectorAll('#av-str-pattern .av-str-cell:not(.av-str-empty)');
+            if (strTextCells3[step.textIndex]) strTextCells3[step.textIndex].classList.add('av-str-mismatch');
+            if (strPatCells3[step.patternIndex]) strPatCells3[step.patternIndex].classList.add('av-str-mismatch');
+            if (step.patternIndex === 0) {
+                AV.log('STR_MISMATCH', I18N.t('av.log.str_mismatch_start',
+                    { ti: step.textIndex, tc: step.textChar, pc: step.patternChar },
+                    'Mismatch at text[' + step.textIndex + ']: \u201C' + step.textChar + '\u201D\u2260\u201C' + step.patternChar + '\u201D \u2014 advance text'));
+            } else {
+                AV.log('STR_MISMATCH', I18N.t('av.log.str_mismatch',
+                    { tc: step.textChar, ti: step.textIndex, pi: step.patternIndex, pc: step.patternChar, lps: step.lpsValue, lpsIdx: step.lpsIdx !== undefined ? step.lpsIdx : step.patternIndex - 1 },
+                    'Mismatch text[' + step.textIndex + ']: \u201C' + step.textChar + '\u201D\u2260\u201C' + step.patternChar + '\u201D \u2014 LPS=' + step.lpsValue + ', keep ' + step.lpsValue));
+            }
+            await AV.sleep(AV.state.stepDelay);
+
+        } else if (step.type === 'STR_SHIFT') {
+            AV.renderStringMatch(AV.state._text, AV.state._pattern, step.newOffset, step.lps);
+            var strSkipped = step.skipped !== undefined ? step.skipped : (step.newOffset - step.oldOffset);
+            AV.log('STR_SHIFT', I18N.t('av.log.str_shift',
+                { from: step.oldOffset, to: step.newOffset, lps: step.lpsValue, skipped: strSkipped },
+                'Shift +' + strSkipped + ' (' + step.oldOffset + '\u2192' + step.newOffset + '): ' + step.lpsValue + ' chars align'));
+            await AV.sleep(AV.state.stepDelay * 0.6);
+
+        } else if (step.type === 'STR_FOUND') {
+            AV.clearStringHighlights();
+            var strTextCells4 = document.querySelectorAll('#av-str-text .av-str-cell');
+            var strPatCells4 = document.querySelectorAll('#av-str-pattern .av-str-cell:not(.av-str-empty)');
+            for (var sfi = 0; sfi < AV.state._pattern.length; sfi++) {
+                if (strTextCells4[step.position + sfi]) strTextCells4[step.position + sfi].classList.add('av-str-found');
+                if (strPatCells4[sfi]) strPatCells4[sfi].classList.add('av-str-found');
+            }
+            AV.state.swaps++;
+            AV.updateStats();
+            var strMatchEnd = step.matchEnd !== undefined ? step.matchEnd : (step.position + (AV.state._pattern || '').length - 1);
+            AV.log('STR_FOUND', I18N.t('av.log.str_found',
+                { position: step.position, matchEnd: strMatchEnd },
+                'Pattern found at text[' + step.position + '..' + strMatchEnd + ']!'));
+            await AV.sleep(AV.state.stepDelay);
+
+        } else if (step.type === 'STR_LPS_SET') {
+            var lpsCell = document.querySelector('.av-str-lps-cell[data-lindex="' + step.index + '"]');
+            if (lpsCell) {
+                lpsCell.textContent = step.value;
+                lpsCell.classList.add('av-str-lps-set');
+                lpsCell.classList.add('av-str-lps-filled');
+            }
+            var lpsLogKey, lpsLogParams, lpsLogFallback;
+            if (step.index === 0) {
+                lpsLogKey = 'av.log.str_lps_set_base';
+                lpsLogParams = { index: 0 };
+                lpsLogFallback = 'LPS[0]=0: single char \u2014 no proper prefix';
+            } else if (step.value === 0) {
+                lpsLogKey = 'av.log.str_lps_set_zero';
+                lpsLogParams = { index: step.index, char: step.char };
+                lpsLogFallback = 'LPS[' + step.index + ']=0: no prefix=suffix';
+            } else {
+                lpsLogKey = 'av.log.str_lps_set';
+                lpsLogParams = { index: step.index, value: step.value, char: step.char, prefix: step.prefix || '' };
+                lpsLogFallback = 'LPS[' + step.index + ']=' + step.value + ': \u201C' + (step.prefix || '') + '\u201D prefix=suffix';
+            }
+            AV.log('STR_LPS_SET', I18N.t(lpsLogKey, lpsLogParams, lpsLogFallback));
+            await AV.sleep(AV.state.stepDelay * 0.5);
+
         } else if (step.type === 'DONE') {
             AV.clearHighlights();
-            if (step.found === false) {
+            if (AV.state._isStringAlgorithm) {
+                AV.clearStringHighlights();
+                document.querySelectorAll('#av-str-text .av-str-cell').forEach(function(c) {
+                    if (!c.classList.contains('av-str-found')) c.classList.add('av-str-idle');
+                });
+            } else if (step.found === false) {
                 document.querySelectorAll('.av-bar').forEach(function(bar) { bar.classList.add('av-examined'); });
             } else {
                 document.querySelectorAll('.av-bar').forEach(function(bar) { bar.classList.add('av-sorted'); });
@@ -757,6 +961,9 @@ AV.animateFlow = async function(steps, options) {
         } else if (AV.state._graphData) {
             AV.log('DONE', I18N.t('av.log.done_graph', { time: elapsed, nodes: AV.state.comparisons, edges: AV.state.swaps },
                 'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' nodes, ' + AV.state.swaps + ' edges)'));
+        } else if (AV.state._isStringAlgorithm) {
+            AV.log('DONE', I18N.t('av.log.done_string', { time: elapsed, comparisons: AV.state.comparisons, matches: AV.state.swaps },
+                'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons, ' + AV.state.swaps + ' matches found)'));
         } else if (AV.state._searchTarget !== undefined) {
             AV.log('DONE', I18N.t('av.log.done_search', { time: elapsed, comparisons: AV.state.comparisons },
                 'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons)'));
@@ -937,9 +1144,61 @@ AV._computeSnapshots = function(initialArray, steps) {
     return snapshots;
 };
 
+AV._computeStringSnapshots = function(steps) {
+    var patternOffset = 0;
+    var lps = new Array(AV.state._pattern.length).fill(-1);
+    var matchedPositions = [];
+    var comparisons = 0;
+    var matches = 0;
+
+    var snapshots = [{
+        patternOffset: 0,
+        lps: lps.slice(),
+        matchedPositions: [],
+        comparisons: 0,
+        matches: 0
+    }];
+
+    for (var i = 0; i < steps.length; i++) {
+        var step = steps[i];
+        if (step.type === 'STR_COMPARE') {
+            comparisons++;
+        } else if (step.type === 'STR_SHIFT') {
+            patternOffset = step.newOffset;
+        } else if (step.type === 'STR_FOUND') {
+            matches++;
+            matchedPositions = matchedPositions.concat([step.position]);
+        } else if (step.type === 'STR_LPS_SET') {
+            lps[step.index] = step.value;
+        }
+        snapshots.push({
+            patternOffset: patternOffset,
+            lps: lps.slice(),
+            matchedPositions: matchedPositions.slice(),
+            comparisons: comparisons,
+            matches: matches
+        });
+    }
+    return snapshots;
+};
+
+AV._applyStringSnapshot = function(snapshot) {
+    var text = AV.state._text;
+    var pattern = AV.state._pattern;
+    AV.renderStringMatch(text, pattern, snapshot.patternOffset, snapshot.lps);
+
+    var textCells = document.querySelectorAll('#av-str-text .av-str-cell');
+    snapshot.matchedPositions.forEach(function(pos) {
+        for (var j = 0; j < pattern.length; j++) {
+            if (textCells[pos + j]) textCells[pos + j].classList.add('av-str-found');
+        }
+    });
+};
+
 AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
     var isGraph = !!AV.state._graphData;
-    var snapshots = isGraph ? AV._computeGraphSnapshots(steps) : AV._computeSnapshots(initialArray, steps);
+    var isString = !!AV.state._isStringAlgorithm;
+    var snapshots = isGraph ? AV._computeGraphSnapshots(steps) : isString ? AV._computeStringSnapshots(steps) : AV._computeSnapshots(initialArray, steps);
 
     if (resumeFromIndex > 0) {
         /* Resume from current animation position — keep stats and log */
@@ -955,6 +1214,8 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
         var snapshot = snapshots[resumeFromIndex];
         if (isGraph) {
             AV._applyGraphSnapshot(snapshot);
+        } else if (isString) {
+            AV._applyStringSnapshot(snapshot);
         } else {
             AV.renderArray(snapshot.arr);
             snapshot.sorted.forEach(function(idx) { AV.markSorted(idx); });
@@ -1016,20 +1277,20 @@ AV.stepForward = function() {
         AV._applyGraphSnapshot(snapshot);
 
         if (step.type === 'ENQUEUE') {
-            AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node }, 'Enqueue node ' + step.node));
+            AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node, level: step.level, queue: step.queue.join(', ') }, 'Enqueue ' + step.node));
         } else if (step.type === 'DEQUEUE') {
             AV.state.comparisons++;
-            AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node }, 'Dequeue node ' + step.node));
+            AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node, level: step.level, neighborCount: step.neighborCount, queue: step.queue.join(', ') }, 'Dequeue ' + step.node));
         } else if (step.type === 'EXPLORE_EDGE') {
             AV.highlightEdge(step.from, step.to, 'av-edge-active');
             AV.state.swaps++;
             if (step.alreadyVisited) {
-                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_skip', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ' (already visited)'));
+                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_skip', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': skip'));
             } else {
-                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ' (new)'));
+                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': enqueue'));
             }
         } else if (step.type === 'VISIT') {
-            AV.log('VISIT', I18N.t('av.log.visit', { node: step.node }, 'Node ' + step.node + ' fully processed'));
+            AV.log('VISIT', I18N.t('av.log.visit', { node: step.node, level: step.level, queue: step.queue.join(', ') }, step.node + ' done'));
             if (snapshot.visitOrder && snapshot.visitOrder[step.node]) {
                 AV._showVisitOrder(step.node, snapshot.visitOrder[step.node]);
             }
@@ -1038,7 +1299,7 @@ AV.stepForward = function() {
                 AV._removeInsertBanner();
                 AV.log('COMPLETE', I18N.t('av.log.complete_tree', null, 'BST construction complete'));
             } else {
-                AV.log('COMPLETE', I18N.t('av.log.complete', null, 'BFS traversal complete'));
+                AV.log('COMPLETE', I18N.t('av.log.complete', { totalVisited: step.totalVisited, totalNodes: step.totalNodes, maxLevel: step.maxLevel }, 'BFS complete'));
             }
         } else if (step.type === 'INSERT_START') {
             AV._renderInsertBanner(step.value);
@@ -1060,20 +1321,115 @@ AV.stepForward = function() {
                 'Place ' + step.value + (step.parentNode ? ' as ' + step.direction + ' of ' + step.parentNode : ' as root')));
         } else if (step.type === 'DP_CALL') {
             AV.state.comparisons++;
-            AV.log('DP_CALL', I18N.t('av.log.dp_call', { n: step.label || step.node }, 'Call ' + (step.label || step.node)));
+            var sfCallMsg = step.parentLabel
+                ? I18N.t('av.log.dp_call_from', { n: step.label || step.node, parent: step.parentLabel, depth: step.depth },
+                    step.parentLabel + ' needs ' + (step.label || step.node) + ': depth ' + step.depth)
+                : I18N.t('av.log.dp_call_root', { n: step.label || step.node },
+                    'Compute ' + (step.label || step.node) + ': begin recursion');
+            AV.log('DP_CALL', sfCallMsg);
         } else if (step.type === 'DP_MEMO_HIT') {
             AV.state.swaps++;
-            var memoText = document.querySelector('.av-node[data-node="' + step.node + '"] text');
-            if (memoText) memoText.textContent = (step.label || step.node) + '=' + step.value;
-            AV.log('DP_MEMO', I18N.t('av.log.dp_memo_hit', { n: step.label || step.node, value: step.value },
-                'Memo hit: ' + (step.label || step.node) + ' = ' + step.value));
+            AV._setDpNodeText(step.node, step.label || step.node, step.value);
+            var sfMemoMsg = step.parentLabel
+                ? I18N.t('av.log.dp_memo_hit_from', { n: step.label || step.node, value: step.value, parent: step.parentLabel },
+                    step.parentLabel + ' needs ' + (step.label || step.node) + ': ' + step.value + ' in cache')
+                : I18N.t('av.log.dp_memo_hit', { n: step.label || step.node, value: step.value },
+                    'Cache hit: ' + (step.label || step.node) + '=' + step.value + ' \u2014 skip subtree');
+            AV.log('DP_MEMO', sfMemoMsg);
         } else if (step.type === 'DP_RETURN') {
-            var retText = document.querySelector('.av-node[data-node="' + step.node + '"] text');
-            if (retText) retText.textContent = (step.label || step.node) + '=' + step.value;
-            AV.log('DP_RETURN', I18N.t('av.log.dp_return', { n: step.label || step.node, value: step.value },
-                'Return ' + (step.label || step.node) + ' = ' + step.value));
+            AV._setDpNodeText(step.node, step.label || step.node, step.value);
+            var sfRetMsg = step.formula
+                ? I18N.t('av.log.dp_return_formula', { n: step.label || step.node, value: step.value, formula: step.formula },
+                    'Return ' + (step.label || step.node) + ' = ' + step.formula + ' = ' + step.value + ', store')
+                : I18N.t('av.log.dp_return_base', { n: step.label || step.node, value: step.value },
+                    'Return ' + (step.label || step.node) + '=' + step.value + ' (base), store');
+            AV.log('DP_RETURN', sfRetMsg);
         }
 
+        AV.updateStats();
+        sm.index++;
+        AV._updateStepButtons();
+        return;
+    }
+
+    var isString = !!AV.state._isStringAlgorithm;
+    if (isString) {
+        AV._applyStringSnapshot(snapshot);
+        if (step.type === 'STR_COMPARE') {
+            var stCells = document.querySelectorAll('#av-str-text .av-str-cell');
+            var spCells = document.querySelectorAll('#av-str-pattern .av-str-cell:not(.av-str-empty)');
+            if (stCells[step.textIndex]) stCells[step.textIndex].classList.add('av-str-comparing');
+            if (spCells[step.patternIndex]) spCells[step.patternIndex].classList.add('av-str-comparing');
+            AV.state.comparisons++;
+            AV.log('STR_COMPARE', I18N.t('av.log.str_compare',
+                { ti: step.textIndex, tc: step.textChar, pi: step.patternIndex, pc: step.patternChar },
+                'Compare text[' + step.textIndex + ']=\u201C' + step.textChar + '\u201D vs pattern[' + step.patternIndex + ']=\u201C' + step.patternChar + '\u201D'));
+        } else if (step.type === 'STR_MATCH_CHAR') {
+            var stCells2 = document.querySelectorAll('#av-str-text .av-str-cell');
+            var spCells2 = document.querySelectorAll('#av-str-pattern .av-str-cell:not(.av-str-empty)');
+            for (var smi2 = 0; smi2 <= step.patternIndex; smi2++) {
+                if (stCells2[step.offset + smi2]) stCells2[step.offset + smi2].classList.add('av-str-match');
+                if (spCells2[smi2]) spCells2[smi2].classList.add('av-str-match');
+            }
+            var sfMatched = step.matched || (step.patternIndex + 1);
+            var sfTotal = (AV.state._pattern || '').length;
+            AV.log('STR_MATCH_CHAR', I18N.t('av.log.str_match_char',
+                { tc: step.textChar, ti: step.textIndex, pi: step.patternIndex, matched: sfMatched, total: sfTotal },
+                'Match at [' + step.textIndex + ']: \u201C' + step.textChar + '\u201D \u2014 ' + sfMatched + '/' + sfTotal));
+        } else if (step.type === 'STR_MISMATCH') {
+            var stCells3 = document.querySelectorAll('#av-str-text .av-str-cell');
+            var spCells3 = document.querySelectorAll('#av-str-pattern .av-str-cell:not(.av-str-empty)');
+            if (stCells3[step.textIndex]) stCells3[step.textIndex].classList.add('av-str-mismatch');
+            if (spCells3[step.patternIndex]) spCells3[step.patternIndex].classList.add('av-str-mismatch');
+            if (step.patternIndex === 0) {
+                AV.log('STR_MISMATCH', I18N.t('av.log.str_mismatch_start',
+                    { ti: step.textIndex, tc: step.textChar, pc: step.patternChar },
+                    'Mismatch at text[' + step.textIndex + ']: advance text'));
+            } else {
+                AV.log('STR_MISMATCH', I18N.t('av.log.str_mismatch',
+                    { tc: step.textChar, ti: step.textIndex, pi: step.patternIndex, pc: step.patternChar, lps: step.lpsValue, lpsIdx: step.lpsIdx !== undefined ? step.lpsIdx : step.patternIndex - 1 },
+                    'Mismatch text[' + step.textIndex + ']: LPS=' + step.lpsValue + ', keep ' + step.lpsValue));
+            }
+        } else if (step.type === 'STR_SHIFT') {
+            var sfSkipped = step.skipped !== undefined ? step.skipped : (step.newOffset - step.oldOffset);
+            AV.log('STR_SHIFT', I18N.t('av.log.str_shift',
+                { from: step.oldOffset, to: step.newOffset, lps: step.lpsValue, skipped: sfSkipped },
+                'Shift +' + sfSkipped + ' (' + step.oldOffset + '\u2192' + step.newOffset + ')'));
+        } else if (step.type === 'STR_FOUND') {
+            var stCells4 = document.querySelectorAll('#av-str-text .av-str-cell');
+            var spCells4 = document.querySelectorAll('#av-str-pattern .av-str-cell:not(.av-str-empty)');
+            for (var sfi2 = 0; sfi2 < AV.state._pattern.length; sfi2++) {
+                if (stCells4[step.position + sfi2]) stCells4[step.position + sfi2].classList.add('av-str-found');
+                if (spCells4[sfi2]) spCells4[sfi2].classList.add('av-str-found');
+            }
+            AV.state.swaps++;
+            var sfMatchEnd = step.matchEnd !== undefined ? step.matchEnd : (step.position + (AV.state._pattern || '').length - 1);
+            AV.log('STR_FOUND', I18N.t('av.log.str_found',
+                { position: step.position, matchEnd: sfMatchEnd },
+                'Pattern found at text[' + step.position + '..' + sfMatchEnd + ']!'));
+        } else if (step.type === 'STR_LPS_SET') {
+            var lpsCellSF = document.querySelector('.av-str-lps-cell[data-lindex="' + step.index + '"]');
+            if (lpsCellSF) {
+                lpsCellSF.classList.add('av-str-lps-set');
+            }
+            var sfLpsKey, sfLpsParams, sfLpsFb;
+            if (step.index === 0) {
+                sfLpsKey = 'av.log.str_lps_set_base';
+                sfLpsParams = { index: 0 };
+                sfLpsFb = 'LPS[0]=0: no proper prefix';
+            } else if (step.value === 0) {
+                sfLpsKey = 'av.log.str_lps_set_zero';
+                sfLpsParams = { index: step.index, char: step.char };
+                sfLpsFb = 'LPS[' + step.index + ']=0: no prefix=suffix';
+            } else {
+                sfLpsKey = 'av.log.str_lps_set';
+                sfLpsParams = { index: step.index, value: step.value, char: step.char, prefix: step.prefix || '' };
+                sfLpsFb = 'LPS[' + step.index + ']=' + step.value + ': \u201C' + (step.prefix || '') + '\u201D';
+            }
+            AV.log('STR_LPS_SET', I18N.t(sfLpsKey, sfLpsParams, sfLpsFb));
+        } else if (step.type === 'DONE') {
+            AV.log('DONE', I18N.t('av.log.done_step', null, 'Search complete'));
+        }
         AV.updateStats();
         sm.index++;
         AV._updateStepButtons();
@@ -1118,17 +1474,21 @@ AV.stepForward = function() {
     } else if (step.type === 'DP_BASE') {
         AV.highlightBars([step.index], 'av-base-case');
         AV.state.comparisons++;
-        AV.log('DP_BASE', 'Base case: dp[' + step.index + '] = ' + step.value);
+        AV.log('DP_BASE', I18N.t('av.log.dp_base', { index: step.index, value: step.value },
+            'Base case: F(' + step.index + ') = ' + step.value));
     } else if (step.type === 'DP_READ') {
         AV.highlightBars(step.indices, 'av-reading');
-        AV.log('DP_READ', 'Read dp[' + step.indices[0] + ']=' + step.values[0] + ', dp[' + step.indices[1] + ']=' + step.values[1]);
+        AV.log('DP_READ', I18N.t('av.log.dp_read', { i1: step.indices[0], v1: step.values[0], i2: step.indices[1], v2: step.values[1], computing: step.computing },
+            'To compute F(' + step.computing + '): read F(' + step.indices[0] + ')=' + step.values[0] + ', F(' + step.indices[1] + ')=' + step.values[1]));
     } else if (step.type === 'DP_FILL') {
         AV.highlightBars([step.index], 'av-computing');
         AV.state.comparisons++;
-        AV.log('DP_FILL', 'Fill dp[' + step.index + '] = ' + step.value + ' (' + step.formula + ')');
+        AV.log('DP_FILL', I18N.t('av.log.dp_fill', { index: step.index, value: step.value, formula: step.formula, i1: step.i1, v1: step.v1, i2: step.i2, v2: step.v2 },
+            'F(' + step.index + ') = F(' + step.i1 + ')+F(' + step.i2 + ') = ' + step.v1 + '+' + step.v2 + ' = ' + step.value));
     } else if (step.type === 'DP_RESULT') {
         AV.highlightBars([step.index], 'av-result');
-        AV.log('DP_RESULT', 'Result: F(' + step.index + ') = ' + step.value);
+        AV.log('DP_RESULT', I18N.t('av.log.dp_result', { n: step.index, value: step.value },
+            'Answer: F(' + step.index + ') = ' + step.value));
     } else if (step.type === 'DONE') {
         if (step.found === false) {
             document.querySelectorAll('.av-bar').forEach(function(bar) { bar.classList.add('av-examined'); });
@@ -1170,6 +1530,16 @@ AV.stepBack = function() {
         AV.state.swaps = edgesExplored;
         AV.updateStats();
         AV._applyGraphSnapshot(snapshot);
+        AV._updateStepButtons();
+        return;
+    }
+
+    var isStringBack = !!AV.state._isStringAlgorithm;
+    if (isStringBack) {
+        AV.state.comparisons = snapshot.comparisons;
+        AV.state.swaps = snapshot.matches;
+        AV.updateStats();
+        AV._applyStringSnapshot(snapshot);
         AV._updateStepButtons();
         return;
     }

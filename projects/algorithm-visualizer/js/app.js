@@ -13,7 +13,7 @@
         hashing: ['hash-table', 'chaining', 'open-addressing']
     };
 
-    var implementedAlgorithms = ['bubble-sort', 'linear-search', 'bfs', 'bst-operations', 'fibonacci'];
+    var implementedAlgorithms = ['bubble-sort', 'linear-search', 'bfs', 'bst-operations', 'fibonacci', 'kmp'];
 
     var activeCategory = 'sorting';
 
@@ -158,11 +158,21 @@
         AV._restoreArrayStatLabels();
     }
 
+    function removeStringUI() {
+        delete AV.state._isStringAlgorithm;
+        delete AV.state._text;
+        delete AV.state._pattern;
+        delete AV.state._lps;
+        delete AV.state._patternOffset;
+        AV._restoreArrayStatLabels();
+    }
+
     function switchAlgorithm(algorithmId, modeId) {
         AV.state.algorithm = algorithmId;
         AV.setAccentColors(algorithmId);
         removeSearchUI();
         removeGraphUI();
+        removeStringUI();
 
         document.querySelectorAll('.av-tab').forEach(function(tab) {
             tab.classList.toggle('active', tab.dataset.algorithm === algorithmId);
@@ -450,13 +460,15 @@
         /* 5. Legend */
         updateLegend(algorithmId);
 
-        /* 6. Graph/Tree/DP stat labels */
+        /* 6. Graph/Tree/DP/String stat labels */
         if (AV.state._isDPAlgorithm) {
             AV._setDpStatLabels();
         } else if (AV.state._isTreeAlgorithm) {
             AV._setTreeStatLabels();
         } else if (AV.state._graphData) {
             AV._setGraphStatLabels();
+        } else if (AV.state._isStringAlgorithm) {
+            AV._setStringStatLabels();
         }
 
         /* 6b. Queue panel label */

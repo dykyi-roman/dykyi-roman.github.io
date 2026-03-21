@@ -194,7 +194,7 @@ AV['fibonacci']._buildMemoTree = function(n) {
     }
 
     buildNode(n, null);
-    AV['fibonacci']._layoutTree(nodes, edges);
+    AV['fibonacci']._layoutMemoDAG(nodes, edges, n);
     return { nodes: nodes, edges: edges };
 };
 
@@ -248,12 +248,20 @@ AV['fibonacci']._layoutTree = function(nodes, edges) {
     }
     computeWidth(rootId);
 
-    var totalWidth = widths[rootId];
+    /* Dynamic yStep based on tree depth */
+    var maxDepth = 0;
+    function findDepth(id, d) {
+        if (d > maxDepth) maxDepth = d;
+        (children[id] || []).forEach(function(c) { findDepth(c, d + 1); });
+    }
+    findDepth(rootId, 0);
+
     var canvasWidth = 900;
-    var xPadding = 40;
+    var xPadding = 30;
     var usableWidth = canvasWidth - 2 * xPadding;
-    var yStep = 70;
-    var startY = 45;
+    var availableHeight = 400;
+    var startY = 35;
+    var yStep = maxDepth > 0 ? Math.min(70, availableHeight / maxDepth) : 70;
 
     var positions = {};
     function layoutNode(id, xStart, xEnd, depth) {
@@ -264,10 +272,13 @@ AV['fibonacci']._layoutTree = function(nodes, edges) {
         var ch = children[id] || [];
         if (ch.length === 0) return;
 
+        var localTotal = 0;
+        ch.forEach(function(c) { localTotal += widths[c]; });
+
         var currentX = xStart;
         ch.forEach(function(c) {
             var w = widths[c];
-            var childEnd = currentX + (w / totalWidth) * usableWidth;
+            var childEnd = currentX + (w / localTotal) * (xEnd - xStart);
             layoutNode(c, currentX, childEnd, depth + 1);
             currentX = childEnd;
         });
@@ -284,36 +295,149 @@ AV['fibonacci']._layoutTree = function(nodes, edges) {
     });
 };
 
+/* ===== DAG Layout for Memoized Tree ===== */
+
+AV['fibonacci']._layoutMemoDAG = function(nodes, edges, n) {
+    if (nodes.length === 0) return;
+
+    /* Build primary tree: F(k)->F(k-1) always primary, F(k)->F(k-2) primary only if unclaimed */
+    var primaryParent = {};
+    var primaryChildren = {};
+
+    for (var k = n; k >= 2; k--) {
+        var parentId = 'F' + k;
+        var leftChild = 'F' + (k - 1);
+        var rightChild = 'F' + (k - 2);
+
+        if (!primaryChildren[parentId]) primaryChildren[parentId] = [];
+
+        if (!primaryParent[leftChild]) {
+            primaryParent[leftChild] = parentId;
+            primaryChildren[parentId].push(leftChild);
+        }
+
+        if (!primaryParent[rightChild]) {
+            primaryParent[rightChild] = parentId;
+            primaryChildren[parentId].push(rightChild);
+        }
+    }
+
+    /* Compute subtree widths on primary tree only */
+    var rootId = 'F' + n;
+    var widths = {};
+    function computeWidth(id) {
+        var ch = primaryChildren[id] || [];
+        if (ch.length === 0) { widths[id] = 1; return 1; }
+        var total = 0;
+        ch.forEach(function(c) { total += computeWidth(c); });
+        widths[id] = total;
+        return total;
+    }
+    computeWidth(rootId);
+
+    /* Dynamic yStep based on tree depth */
+    var maxDepth = 0;
+    function findDepth(id, d) {
+        if (d > maxDepth) maxDepth = d;
+        (primaryChildren[id] || []).forEach(function(c) { findDepth(c, d + 1); });
+    }
+    findDepth(rootId, 0);
+
+    var canvasWidth = 900;
+    var xPadding = 60;
+    var usableWidth = canvasWidth - 2 * xPadding;
+    var availableHeight = 400;
+    var startY = 40;
+    var yStep = maxDepth > 0 ? Math.min(70, availableHeight / maxDepth) : 70;
+
+    /* Position nodes using primary tree */
+    var positions = {};
+    function layoutNode(id, xStart, xEnd, depth) {
+        var x = (xStart + xEnd) / 2;
+        var y = startY + depth * yStep;
+        positions[id] = { x: x, y: y };
+
+        var ch = primaryChildren[id] || [];
+        if (ch.length === 0) return;
+        var localTotal = 0;
+        ch.forEach(function(c) { localTotal += widths[c]; });
+
+        var currentX = xStart;
+        ch.forEach(function(c) {
+            var w = widths[c];
+            var childEnd = currentX + (w / localTotal) * (xEnd - xStart);
+            layoutNode(c, currentX, childEnd, depth + 1);
+            currentX = childEnd;
+        });
+    }
+    layoutNode(rootId, xPadding, xPadding + usableWidth, 0);
+
+    /* Enforce minimum horizontal spacing between nodes at the same depth */
+    var byDepth = {};
+    Object.keys(positions).forEach(function(id) {
+        var d = Math.round((positions[id].y - startY) / yStep);
+        if (!byDepth[d]) byDepth[d] = [];
+        byDepth[d].push(id);
+    });
+    var minSpacing = 65;
+    Object.keys(byDepth).forEach(function(d) {
+        var row = byDepth[d].sort(function(a, b) { return positions[a].x - positions[b].x; });
+        for (var i = 1; i < row.length; i++) {
+            var gap = positions[row[i]].x - positions[row[i - 1]].x;
+            if (gap < minSpacing) {
+                var shift = (minSpacing - gap) / 2;
+                positions[row[i - 1]].x -= shift;
+                positions[row[i]].x += shift;
+            }
+        }
+    });
+
+    /* Apply positions to nodes */
+    nodes.forEach(function(nd) {
+        var pos = positions[nd.id];
+        if (pos) { nd.x = pos.x; nd.y = pos.y; }
+    });
+
+    /* Tag cross-edges (non-primary) for visual distinction */
+    edges.forEach(function(e) {
+        var fromId = e[0], toId = e[1];
+        if (primaryParent[toId] !== fromId) {
+            e[2] = { cross: true };
+        }
+    });
+};
+
 /* ===== Generate Steps for Memoized Recursion ===== */
 
 AV['fibonacci']._memoSteps = function(n) {
     var steps = [];
     var memo = {};
 
-    function fib(val, parentNode) {
+    function fib(val, parentNode, depth) {
         var nodeId = 'F' + val;
+        var parentLabel = parentNode ? 'F(' + parentNode.replace(/^F/, '') + ')' : null;
 
         if (memo[val] !== undefined) {
-            steps.push({ type: 'DP_MEMO_HIT', node: nodeId, label: 'F(' + val + ')', value: memo[val], parentNode: parentNode });
+            steps.push({ type: 'DP_MEMO_HIT', node: nodeId, label: 'F(' + val + ')', value: memo[val], parentNode: parentNode, depth: depth, parentLabel: parentLabel });
             return memo[val];
         }
 
-        steps.push({ type: 'DP_CALL', node: nodeId, label: 'F(' + val + ')', parentNode: parentNode });
+        steps.push({ type: 'DP_CALL', node: nodeId, label: 'F(' + val + ')', parentNode: parentNode, depth: depth, parentLabel: parentLabel });
 
         if (val <= 1) {
             memo[val] = val;
-            steps.push({ type: 'DP_RETURN', node: nodeId, label: 'F(' + val + ')', value: val });
+            steps.push({ type: 'DP_RETURN', node: nodeId, label: 'F(' + val + ')', value: val, depth: depth, isBase: true });
             return val;
         }
 
-        var left = fib(val - 1, nodeId);
-        var right = fib(val - 2, nodeId);
+        var left = fib(val - 1, nodeId, depth + 1);
+        var right = fib(val - 2, nodeId, depth + 1);
         memo[val] = left + right;
-        steps.push({ type: 'DP_RETURN', node: nodeId, label: 'F(' + val + ')', value: memo[val] });
+        steps.push({ type: 'DP_RETURN', node: nodeId, label: 'F(' + val + ')', value: memo[val], depth: depth, formula: 'F(' + (val - 1) + ') + F(' + (val - 2) + ') = ' + left + ' + ' + right });
         return memo[val];
     }
 
-    fib(n, null);
+    fib(n, null, 0);
     steps.push({ type: 'DONE' });
     return steps;
 };
@@ -324,26 +448,31 @@ AV['fibonacci']._naiveSteps = function(n) {
     var steps = [];
     var counter = {};
 
-    function fib(val, parentNode) {
+    function fib(val, parentNode, depth) {
         var count = counter[val] || 0;
         counter[val] = count + 1;
         var nodeId = 'F' + val + '_' + count;
+        var parentLabel = null;
+        if (parentNode) {
+            var pMatch = parentNode.match(/^F(\d+)/);
+            if (pMatch) parentLabel = 'F(' + pMatch[1] + ')';
+        }
 
-        steps.push({ type: 'DP_CALL', node: nodeId, label: 'F(' + val + ')', parentNode: parentNode });
+        steps.push({ type: 'DP_CALL', node: nodeId, label: 'F(' + val + ')', parentNode: parentNode, depth: depth, parentLabel: parentLabel });
 
         if (val <= 1) {
-            steps.push({ type: 'DP_RETURN', node: nodeId, label: 'F(' + val + ')', value: val });
+            steps.push({ type: 'DP_RETURN', node: nodeId, label: 'F(' + val + ')', value: val, depth: depth, isBase: true });
             return val;
         }
 
-        var left = fib(val - 1, nodeId);
-        var right = fib(val - 2, nodeId);
+        var left = fib(val - 1, nodeId, depth + 1);
+        var right = fib(val - 2, nodeId, depth + 1);
         var result = left + right;
-        steps.push({ type: 'DP_RETURN', node: nodeId, label: 'F(' + val + ')', value: result });
+        steps.push({ type: 'DP_RETURN', node: nodeId, label: 'F(' + val + ')', value: result, depth: depth, formula: 'F(' + (val - 1) + ') + F(' + (val - 2) + ') = ' + left + ' + ' + right });
         return result;
     }
 
-    fib(n, null);
+    fib(n, null, 0);
     steps.push({ type: 'DONE' });
     return steps;
 };
@@ -406,8 +535,8 @@ AV['fibonacci']['bottom-up'] = {
         for (var i = 2; i <= n; i++) {
             var v1 = AV['fibonacci']._fib(i - 1);
             var v2 = AV['fibonacci']._fib(i - 2);
-            steps.push({ type: 'DP_READ', indices: [i - 1, i - 2], values: [v1, v2] });
-            steps.push({ type: 'DP_FILL', index: i, value: v1 + v2, formula: 'dp[' + (i - 1) + '] + dp[' + (i - 2) + ']' });
+            steps.push({ type: 'DP_READ', indices: [i - 1, i - 2], values: [v1, v2], computing: i });
+            steps.push({ type: 'DP_FILL', index: i, value: v1 + v2, formula: 'dp[' + (i - 1) + '] + dp[' + (i - 2) + ']', i1: i - 1, v1: v1, i2: i - 2, v2: v2 });
         }
 
         steps.push({ type: 'DP_RESULT', index: n, value: AV['fibonacci']._fib(n) });
@@ -443,6 +572,14 @@ AV['fibonacci']['top-down'] = {
 
         var treeData = AV['fibonacci']._buildMemoTree(n);
         AV.renderGraph(treeData.nodes, treeData.edges);
+
+        /* Mark cross-edges (memo-hit connections) with data attribute for dashed styling */
+        treeData.edges.forEach(function(e) {
+            if (e[2] && e[2].cross) {
+                var edgeEl = document.querySelector('.av-edge[data-from="' + e[0] + '"][data-to="' + e[1] + '"]');
+                if (edgeEl) edgeEl.setAttribute('data-cross', 'true');
+            }
+        });
 
         /* Store original labels for snapshot reset */
         var labels = {};
@@ -491,7 +628,7 @@ AV['fibonacci']['top-down'] = {
 AV['fibonacci']['naive'] = {
     init: function() {
         var n = AV.state._fibN || 6;
-        if (n > 7) n = 7;
+        if (n > 6) n = 6;
         AV.state._fibN = n;
         AV.state._isDPAlgorithm = true;
         AV.state._isTreeAlgorithm = false;
@@ -522,7 +659,7 @@ AV['fibonacci']['naive'] = {
         var panel = document.querySelector('.av-queue-panel');
         if (panel) panel.remove();
 
-        AV['fibonacci']._injectNBanner(n, 2, 7);
+        AV['fibonacci']._injectNBanner(n, 2, 6);
         AV._setDpStatLabels();
     },
 
