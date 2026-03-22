@@ -461,14 +461,14 @@
   "av.legend.hash_probing": "Probing",
   "av.legend.hash_found": "Found",
 
-  "av.log.hash_compute": "h({key}) = {key} mod {size} = {hash}",
+  "av.log.hash_compute": "h(\"{key}\") = ({sum}) mod {size} = {hash}",
   "av.log.hash_check_slot": "Check bucket[{index}]: {value}",
-  "av.log.hash_insert": "Insert {key} into bucket[{index}]",
-  "av.log.hash_collision": "Collision at bucket[{index}]: {existing} already present",
-  "av.log.hash_chain_add": "Chain {key} to bucket[{index}] (chain length: {chainLen})",
+  "av.log.hash_insert": "Insert \"{key}\" into bucket[{index}]",
+  "av.log.hash_collision": "Collision at bucket[{index}]: \"{existing}\" already present",
+  "av.log.hash_chain_add": "Chain \"{key}\" to bucket[{index}] (chain length: {chainLen})",
   "av.log.hash_probe": "Probe #{num}: bucket[{from}] \u2192 bucket[{to}]",
-  "av.log.hash_found": "Found {key} in bucket[{index}]",
-  "av.log.hash_not_found": "Value {key} not found in hash table",
+  "av.log.hash_found": "Found \"{key}\" in bucket[{index}]",
+  "av.log.hash_not_found": "Value \"{key}\" not found in hash table",
   "av.log.done_hash": "Completed in {time}ms ({operations} operations, {collisions} insertions)",
 
   "ui.log.type.HASH_COMPUTE": "HASH",
@@ -490,14 +490,14 @@
   "hash-table.modes.search.desc": "Search for a target value in a pre-populated hash table. Computes the hash, then traverses the chain until found or exhausted.",
 
   "hash-table.details.chaining.principles": [
-    "Compute the hash index: h(key) = key mod tableSize",
+    "Compute the hash index: h(key) = charSum(key) mod tableSize",
     "If the bucket at index h is empty, insert the key directly",
     "If the bucket is occupied (collision), append the key to the linked list (chain)",
     "Each bucket can hold an unlimited number of keys via chaining",
     "Load factor \u03B1 = n/m can exceed 1 without table restructuring"
   ],
   "hash-table.details.chaining.concepts": [
-    { "term": "Hash Function", "definition": "Maps a key to a bucket index. h(k) = k mod m distributes keys across buckets." },
+    { "term": "Hash Function", "definition": "Maps a key to a bucket index. h(k) = charSum(k) mod m sums the character codes of the key." },
     { "term": "Collision", "definition": "Two different keys hash to the same bucket index. Inevitable by the Pigeonhole Principle." },
     { "term": "Separate Chaining", "definition": "Each bucket stores a linked list of all keys that hash to that index." },
     { "term": "Load Factor", "definition": "Ratio \u03B1 = n/m. Average chain length equals \u03B1." },
@@ -518,7 +518,7 @@
   "hash-table.details.chaining.tradeoffs.whenToUse": "Use separate chaining when the load factor is unpredictable, deletions are frequent, or simplicity is preferred.",
 
   "hash-table.details.linear-probing.principles": [
-    "Compute the hash index: h(key) = key mod tableSize",
+    "Compute the hash index: h(key) = charSum(key) mod tableSize",
     "If the slot is empty, insert the key directly",
     "If occupied, probe to the next slot: (h + 1) mod m, (h + 2) mod m, ...",
     "Continue probing until an empty slot is found",
@@ -546,7 +546,7 @@
   "hash-table.details.linear-probing.tradeoffs.whenToUse": "Use linear probing when memory is limited, cache performance matters, and load factor stays low (< 0.7).",
 
   "hash-table.details.search.principles": [
-    "Compute the hash: h(target) = target mod tableSize",
+    "Compute the hash: h(target) = charSum(target) mod tableSize",
     "Go to the bucket at index h",
     "Traverse the chain comparing each node with the target",
     "Return found or not-found result"
@@ -574,6 +574,6 @@
     { "name": "Time (Worst Insert)", "role": "O(n) \u2014 all keys collide to same bucket" },
     { "name": "Time (Worst Search)", "role": "O(n) \u2014 degenerate chain or full table" },
     { "name": "Space", "role": "O(n + m) \u2014 n keys + m buckets" },
-    { "name": "Hash Function", "role": "h(k) = k mod m \u2014 division method" }
+    { "name": "Hash Function", "role": "h(k) = charSum(k) mod m \u2014 sum of character codes" }
   ]
 }

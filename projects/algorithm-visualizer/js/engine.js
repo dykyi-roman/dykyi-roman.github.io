@@ -524,7 +524,7 @@ AV.renderHashTable = function(table, mode) {
 
     html += '<div class="av-hash-formula" id="av-hash-formula">' +
         '<span class="av-hash-formula-label" data-i18n="av.hash.formula_label">' + I18N.t('av.hash.formula_label', null, 'Hash Function:') + '</span>' +
-        '<span class="av-hash-formula-text">h(k) = k mod ' + table.length + '</span>' +
+        '<span class="av-hash-formula-text">h(k) = charSum(k) mod ' + table.length + '</span>' +
         '</div>';
 
     html += '<div class="av-hash-key-banner" id="av-hash-key-banner" style="display:none">' +
@@ -574,12 +574,15 @@ AV.clearHashHighlights = function() {
     });
 };
 
-AV._updateHashFormula = function(key, hashValue, tableSize) {
+AV._updateHashFormula = function(key, hashValue, tableSize, charCodeSum) {
     var formula = document.getElementById('av-hash-formula');
     if (!formula) return;
     var text = formula.querySelector('.av-hash-formula-text');
     if (text) {
-        text.innerHTML = 'h(<strong>' + key + '</strong>) = ' + key + ' mod ' + tableSize + ' = <strong>' + hashValue + '</strong>';
+        var s = String(key);
+        var codes = [];
+        for (var i = 0; i < s.length; i++) codes.push(s.charCodeAt(i));
+        text.innerHTML = 'h(<strong>"' + key + '"</strong>) = (' + codes.join('+') + ') mod ' + tableSize + ' = <strong>' + hashValue + '</strong>';
     }
     formula.classList.add('av-hash-formula-active');
     setTimeout(function() { formula.classList.remove('av-hash-formula-active'); }, 600);
@@ -644,13 +647,15 @@ AV._computeHashSnapshots = function(steps) {
     var collisions = 0;
     var currentKey = null;
     var currentHash = null;
+    var currentCharCodeSum = null;
 
     var snapshots = [{
         table: JSON.parse(JSON.stringify(table)),
         operations: 0,
         collisions: 0,
         currentKey: null,
-        currentHash: null
+        currentHash: null,
+        charCodeSum: null
     }];
 
     for (var i = 0; i < steps.length; i++) {
@@ -659,6 +664,7 @@ AV._computeHashSnapshots = function(steps) {
         if (step.type === 'HASH_COMPUTE') {
             currentKey = step.key;
             currentHash = step.hashValue;
+            currentCharCodeSum = step.charCodeSum || null;
             operations++;
         } else if (step.type === 'HASH_INSERT') {
             if (mode === 'chaining') {
@@ -678,7 +684,8 @@ AV._computeHashSnapshots = function(steps) {
             operations: operations,
             collisions: collisions,
             currentKey: currentKey,
-            currentHash: currentHash
+            currentHash: currentHash,
+            charCodeSum: currentCharCodeSum
         });
     }
     return snapshots;
@@ -689,7 +696,7 @@ AV._applyHashSnapshot = function(snapshot) {
     if (snapshot.currentKey !== null) {
         AV._updateHashKeyBanner(snapshot.currentKey);
         if (snapshot.currentHash !== null) {
-            AV._updateHashFormula(snapshot.currentKey, snapshot.currentHash, AV.state._hashTableSize);
+            AV._updateHashFormula(snapshot.currentKey, snapshot.currentHash, AV.state._hashTableSize, snapshot.charCodeSum);
         }
     } else {
         AV._updateHashKeyBanner(null);
@@ -1187,12 +1194,12 @@ AV.animateFlow = async function(steps, options) {
         } else if (step.type === 'HASH_COMPUTE') {
             AV.clearHashHighlights();
             AV._updateHashKeyBanner(step.key);
-            AV._updateHashFormula(step.key, step.hashValue, step.tableSize);
+            AV._updateHashFormula(step.key, step.hashValue, step.tableSize, step.charCodeSum);
             AV.state.comparisons++;
             AV.updateStats();
             AV.log('HASH_COMPUTE', I18N.t('av.log.hash_compute',
-                { key: step.key, hash: step.hashValue, size: step.tableSize },
-                'h(' + step.key + ') = ' + step.key + ' mod ' + step.tableSize + ' = ' + step.hashValue));
+                { key: step.key, hash: step.hashValue, size: step.tableSize, sum: step.charCodeSum },
+                'h("' + step.key + '") = (' + step.charCodeSum + ') mod ' + step.tableSize + ' = ' + step.hashValue));
             await AV.sleep(AV.state.stepDelay);
 
         } else if (step.type === 'HASH_CHECK_SLOT') {
@@ -1217,7 +1224,7 @@ AV.animateFlow = async function(steps, options) {
             AV.updateStats();
             AV.log('HASH_INSERT', I18N.t('av.log.hash_insert',
                 { key: step.key, index: step.index },
-                'Insert ' + step.key + ' into bucket[' + step.index + ']'));
+                'Insert "' + step.key + '" into bucket[' + step.index + ']'));
             await AV.sleep(AV.state.stepDelay);
 
         } else if (step.type === 'HASH_COLLISION') {
@@ -1240,7 +1247,7 @@ AV.animateFlow = async function(steps, options) {
             AV.updateStats();
             AV.log('HASH_CHAIN', I18N.t('av.log.hash_chain_add',
                 { key: step.key, index: step.index, chainLen: step.chainLength },
-                'Chain ' + step.key + ' to bucket[' + step.index + '] (chain length: ' + step.chainLength + ')'));
+                'Chain "' + step.key + '" to bucket[' + step.index + '] (chain length: ' + step.chainLength + ')'));
             await AV.sleep(AV.state.stepDelay);
 
         } else if (step.type === 'HASH_PROBE') {
@@ -1264,7 +1271,7 @@ AV.animateFlow = async function(steps, options) {
             }
             AV.log('HASH_FOUND', I18N.t('av.log.hash_found',
                 { key: step.key, index: step.index },
-                'Found ' + step.key + ' in bucket[' + step.index + ']'));
+                'Found "' + step.key + '" in bucket[' + step.index + ']'));
             await AV.sleep(AV.state.stepDelay);
 
         } else if (step.type === 'HASH_NOT_FOUND') {
@@ -1274,7 +1281,7 @@ AV.animateFlow = async function(steps, options) {
             });
             AV.log('HASH_NOT_FOUND', I18N.t('av.log.hash_not_found',
                 { key: step.key },
-                'Value ' + step.key + ' not found in hash table'));
+                'Value "' + step.key + '" not found in hash table'));
             await AV.sleep(AV.state.stepDelay);
 
         } else if (step.type === 'DONE') {
@@ -1796,8 +1803,8 @@ AV.stepForward = function() {
         if (step.type === 'HASH_COMPUTE') {
             AV.state.comparisons++;
             AV.log('HASH_COMPUTE', I18N.t('av.log.hash_compute',
-                { key: step.key, hash: step.hashValue, size: step.tableSize },
-                'h(' + step.key + ') = ' + step.key + ' mod ' + step.tableSize + ' = ' + step.hashValue));
+                { key: step.key, hash: step.hashValue, size: step.tableSize, sum: step.charCodeSum },
+                'h("' + step.key + '") = (' + step.charCodeSum + ') mod ' + step.tableSize + ' = ' + step.hashValue));
         } else if (step.type === 'HASH_CHECK_SLOT') {
             var hcsSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
             if (hcsSf) hcsSf.classList.add('av-hash-checking');
@@ -1810,7 +1817,7 @@ AV.stepForward = function() {
             var hisSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
             if (hisSf) hisSf.classList.add('av-hash-inserting');
             AV.state.swaps++;
-            AV.log('HASH_INSERT', 'Insert ' + step.key + ' into bucket[' + step.index + ']');
+            AV.log('HASH_INSERT', 'Insert "' + step.key + '" into bucket[' + step.index + ']');
         } else if (step.type === 'HASH_COLLISION') {
             var hcolSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
             if (hcolSf) hcolSf.classList.add('av-hash-collision');
@@ -1820,7 +1827,7 @@ AV.stepForward = function() {
             var hcaSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
             if (hcaSf) hcaSf.classList.add('av-hash-inserting');
             AV.state.swaps++;
-            AV.log('HASH_CHAIN', 'Chain ' + step.key + ' to bucket[' + step.index + ']');
+            AV.log('HASH_CHAIN', 'Chain "' + step.key + '" to bucket[' + step.index + ']');
         } else if (step.type === 'HASH_PROBE') {
             var hpFSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.fromIndex + '"]');
             var hpTSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.toIndex + '"]');
@@ -1830,10 +1837,10 @@ AV.stepForward = function() {
         } else if (step.type === 'HASH_FOUND') {
             var hfSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
             if (hfSf) hfSf.classList.add('av-hash-found');
-            AV.log('HASH_FOUND', 'Found ' + step.key + ' in bucket[' + step.index + ']');
+            AV.log('HASH_FOUND', 'Found "' + step.key + '" in bucket[' + step.index + ']');
         } else if (step.type === 'HASH_NOT_FOUND') {
             document.querySelectorAll('.av-hash-bucket-slot').forEach(function(s) { s.classList.add('av-hash-not-found'); });
-            AV.log('HASH_NOT_FOUND', 'Value ' + step.key + ' not found');
+            AV.log('HASH_NOT_FOUND', 'Value "' + step.key + '" not found');
         } else if (step.type === 'DONE') {
             AV.log('DONE', I18N.t('av.log.done_step', null, 'Hash table operation complete'));
         }

@@ -408,14 +408,14 @@
   "av.legend.hash_probing": "Sondieren",
   "av.legend.hash_found": "Gefunden",
 
-  "av.log.hash_compute": "h({key}) = {key} mod {size} = {hash}",
+  "av.log.hash_compute": "h(\"{key}\") = ({sum}) mod {size} = {hash}",
   "av.log.hash_check_slot": "Pr\u00fcfe Bucket[{index}]: {value}",
-  "av.log.hash_insert": "{key} in Bucket[{index}] einf\u00fcgen",
-  "av.log.hash_collision": "Kollision bei Bucket[{index}]: {existing} bereits vorhanden",
-  "av.log.hash_chain_add": "{key} an Bucket[{index}] ketten (Kettenl\u00e4nge: {chainLen})",
+  "av.log.hash_insert": "\"{key}\" in Bucket[{index}] einf\u00fcgen",
+  "av.log.hash_collision": "Kollision bei Bucket[{index}]: \"{existing}\" bereits vorhanden",
+  "av.log.hash_chain_add": "\"{key}\" an Bucket[{index}] ketten (Kettenl\u00e4nge: {chainLen})",
   "av.log.hash_probe": "Sonde #{num}: Bucket[{from}] \u2192 Bucket[{to}]",
-  "av.log.hash_found": "{key} in Bucket[{index}] gefunden",
-  "av.log.hash_not_found": "Wert {key} nicht in der Hashtabelle gefunden",
+  "av.log.hash_found": "\"{key}\" in Bucket[{index}] gefunden",
+  "av.log.hash_not_found": "Wert \"{key}\" nicht in der Hashtabelle gefunden",
   "av.log.done_hash": "Abgeschlossen in {time}ms ({operations} Operationen, {collisions} Einf\u00fcgungen)",
 
   "ui.log.type.HASH_COMPUTE": "HASH",
@@ -437,14 +437,14 @@
   "hash-table.modes.search.desc": "Suche nach einem Wert in einer vorbef\u00fcllten Hashtabelle. Berechnet den Hash und durchl\u00e4uft die Kette.",
 
   "hash-table.details.chaining.principles": [
-    "Hashindex berechnen: h(key) = key mod Tabellengr\u00f6\u00dfe",
+    "Hashindex berechnen: h(key) = charSum(key) mod Tabellengr\u00f6\u00dfe",
     "Wenn der Bucket leer ist, direkt einf\u00fcgen",
     "Bei Kollision den Schl\u00fcssel an die verkettete Liste anh\u00e4ngen",
     "Jeder Bucket kann unbegrenzt viele Schl\u00fcssel speichern",
     "Lastfaktor \u03B1 = n/m kann 1 \u00fcberschreiten"
   ],
   "hash-table.details.chaining.concepts": [
-    { "term": "Hashfunktion", "definition": "Bildet einen Schl\u00fcssel auf einen Bucket-Index ab. h(k) = k mod m." },
+    { "term": "Hashfunktion", "definition": "Bildet einen Schl\u00fcssel auf einen Bucket-Index ab. h(k) = charSum(k) mod m." },
     { "term": "Kollision", "definition": "Zwei verschiedene Schl\u00fcssel haben denselben Hashindex." },
     { "term": "Separate Verkettung", "definition": "Jeder Bucket speichert eine verkettete Liste aller Schl\u00fcssel." },
     { "term": "Lastfaktor", "definition": "Verh\u00e4ltnis \u03B1 = n/m. Die durchschnittliche Kettenl\u00e4nge entspricht \u03B1." },
@@ -465,7 +465,7 @@
   "hash-table.details.chaining.tradeoffs.whenToUse": "Verwenden Sie Verkettung, wenn der Lastfaktor unvorhersehbar ist oder L\u00f6schungen h\u00e4ufig sind.",
 
   "hash-table.details.linear-probing.principles": [
-    "Hashindex berechnen: h(key) = key mod Tabellengr\u00f6\u00dfe",
+    "Hashindex berechnen: h(key) = charSum(key) mod Tabellengr\u00f6\u00dfe",
     "Wenn der Slot leer ist, direkt einf\u00fcgen",
     "Bei Kollision n\u00e4chsten Slot pr\u00fcfen: (h + 1) mod m, (h + 2) mod m, ...",
     "Weiter sondieren bis ein leerer Slot gefunden wird",
@@ -493,7 +493,7 @@
   "hash-table.details.linear-probing.tradeoffs.whenToUse": "Verwenden Sie lineares Sondieren bei begrenztem Speicher und niedrigem Lastfaktor (< 0.7).",
 
   "hash-table.details.search.principles": [
-    "Hash berechnen: h(Ziel) = Ziel mod Tabellengr\u00f6\u00dfe",
+    "Hash berechnen: h(Ziel) = charSum(Ziel) mod Tabellengr\u00f6\u00dfe",
     "Zum Bucket bei Index h gehen",
     "Kette durchlaufen und jeden Knoten vergleichen",
     "Ergebnis zur\u00fcckgeben: gefunden oder nicht gefunden"
@@ -521,6 +521,6 @@
     { "name": "Zeit (Einf\u00fcgen Worst)", "role": "O(n) \u2014 alle Schl\u00fcssel in einem Bucket" },
     { "name": "Zeit (Suche Worst)", "role": "O(n) \u2014 degenerierte Kette" },
     { "name": "Speicher", "role": "O(n + m) \u2014 n Schl\u00fcssel + m Buckets" },
-    { "name": "Hashfunktion", "role": "h(k) = k mod m \u2014 Divisionsmethode" }
+    { "name": "Hashfunktion", "role": "h(k) = charSum(k) mod m \u2014 Summe der Zeichencodes" }
   ]
 }

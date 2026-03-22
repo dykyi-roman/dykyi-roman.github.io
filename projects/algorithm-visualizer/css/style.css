@@ -1672,7 +1672,7 @@
 
 .av-hash-bucket-slot {
     min-height: 44px;
-    min-width: 56px;
+    min-width: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1735,7 +1735,7 @@
 }
 
 .av-hash-value {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--av-text);
     font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
@@ -1762,12 +1762,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
+    min-width: 44px;
+    width: auto;
+    padding: 0 6px;
     height: 32px;
     border-radius: 4px;
     background: var(--av-hash-occupied);
     color: #fff;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
@@ -1833,7 +1835,7 @@
 }
 
 .av-hash-target-input {
-    width: 60px;
+    width: 90px;
     padding: 4px 8px;
     border: 1px solid var(--av-border);
     border-radius: 4px;
@@ -1913,9 +1915,11 @@
         padding: 4px 6px;
     }
     .av-hash-chain-node {
-        width: 36px;
+        min-width: 36px;
+        width: auto;
+        padding: 0 4px;
         height: 26px;
-        font-size: 12px;
+        font-size: 11px;
     }
     .av-hash-value {
         font-size: 13px;

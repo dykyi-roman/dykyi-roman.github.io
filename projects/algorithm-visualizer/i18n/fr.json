@@ -414,14 +414,14 @@
   "av.legend.hash_probing": "Sondage",
   "av.legend.hash_found": "Trouv\u00e9",
 
-  "av.log.hash_compute": "h({key}) = {key} mod {size} = {hash}",
+  "av.log.hash_compute": "h(\"{key}\") = ({sum}) mod {size} = {hash}",
   "av.log.hash_check_slot": "V\u00e9rifier seau[{index}] : {value}",
-  "av.log.hash_insert": "Ins\u00e9rer {key} dans seau[{index}]",
-  "av.log.hash_collision": "Collision au seau[{index}] : {existing} d\u00e9j\u00e0 pr\u00e9sent",
-  "av.log.hash_chain_add": "Cha\u00eener {key} au seau[{index}] (longueur : {chainLen})",
+  "av.log.hash_insert": "Ins\u00e9rer \"{key}\" dans seau[{index}]",
+  "av.log.hash_collision": "Collision au seau[{index}] : \"{existing}\" d\u00e9j\u00e0 pr\u00e9sent",
+  "av.log.hash_chain_add": "Cha\u00eener \"{key}\" au seau[{index}] (longueur : {chainLen})",
   "av.log.hash_probe": "Sonde #{num} : seau[{from}] \u2192 seau[{to}]",
-  "av.log.hash_found": "{key} trouv\u00e9 dans seau[{index}]",
-  "av.log.hash_not_found": "Valeur {key} non trouv\u00e9e",
+  "av.log.hash_found": "\"{key}\" trouv\u00e9 dans seau[{index}]",
+  "av.log.hash_not_found": "Valeur \"{key}\" non trouv\u00e9e",
   "av.log.done_hash": "Termin\u00e9 en {time}ms ({operations} op\u00e9rations, {collisions} insertions)",
 
   "ui.log.type.HASH_COMPUTE": "HACHAGE",
@@ -443,14 +443,14 @@
   "hash-table.modes.search.desc": "Rechercher une valeur dans une table de hachage pr\u00e9-remplie. Calcule le hachage, puis parcourt la cha\u00eene.",
 
   "hash-table.details.chaining.principles": [
-    "Calculer l'indice de hachage : h(cl\u00e9) = cl\u00e9 mod tailleDeLaTable",
+    "Calculer l'indice de hachage : h(cl\u00e9) = charSum(cl\u00e9) mod tailleDeLaTable",
     "Si le seau \u00e0 l'indice h est vide, ins\u00e9rer directement",
     "Si le seau est occup\u00e9 (collision), ajouter \u00e0 la liste cha\u00een\u00e9e",
     "Chaque seau peut contenir un nombre illimit\u00e9 de cl\u00e9s",
     "Le facteur de charge \u03B1 = n/m peut d\u00e9passer 1"
   ],
   "hash-table.details.chaining.concepts": [
-    { "term": "Fonction de hachage", "definition": "Associe une cl\u00e9 \u00e0 un indice de seau. h(k) = k mod m." },
+    { "term": "Fonction de hachage", "definition": "Associe une cl\u00e9 \u00e0 un indice de seau. h(k) = charSum(k) mod m." },
     { "term": "Collision", "definition": "Deux cl\u00e9s diff\u00e9rentes ont le m\u00eame indice de hachage." },
     { "term": "Cha\u00eenage s\u00e9par\u00e9", "definition": "Chaque seau stocke une liste cha\u00een\u00e9e de toutes les cl\u00e9s." },
     { "term": "Facteur de charge", "definition": "Rapport \u03B1 = n/m. La longueur moyenne de cha\u00eene \u00e9gale \u03B1." },
@@ -471,7 +471,7 @@
   "hash-table.details.chaining.tradeoffs.whenToUse": "Utilisez le cha\u00eenage quand le facteur de charge est impr\u00e9visible ou que les suppressions sont fr\u00e9quentes.",
 
   "hash-table.details.linear-probing.principles": [
-    "Calculer l'indice : h(cl\u00e9) = cl\u00e9 mod tailleDeLaTable",
+    "Calculer l'indice : h(cl\u00e9) = charSum(cl\u00e9) mod tailleDeLaTable",
     "Si le slot est vide, ins\u00e9rer directement",
     "Si occup\u00e9, sonder le slot suivant : (h + 1) mod m, (h + 2) mod m, ...",
     "Continuer jusqu'\u00e0 trouver un slot vide",
@@ -499,7 +499,7 @@
   "hash-table.details.linear-probing.tradeoffs.whenToUse": "Utilisez le sondage lin\u00e9aire quand la m\u00e9moire est limit\u00e9e et que le facteur de charge reste bas (< 0.7).",
 
   "hash-table.details.search.principles": [
-    "Calculer le hachage : h(cible) = cible mod tailleDeLaTable",
+    "Calculer le hachage : h(cible) = charSum(cible) mod tailleDeLaTable",
     "Aller au seau \u00e0 l'indice h",
     "Parcourir la cha\u00eene en comparant chaque n\u0153ud",
     "Retourner trouv\u00e9 ou non trouv\u00e9"
@@ -527,6 +527,6 @@
     { "name": "Temps (insertion pire)", "role": "O(n) \u2014 toutes les cl\u00e9s dans un seau" },
     { "name": "Temps (recherche pire)", "role": "O(n) \u2014 cha\u00eene d\u00e9g\u00e9n\u00e9r\u00e9e" },
     { "name": "Espace", "role": "O(n + m) \u2014 n cl\u00e9s + m seaux" },
-    { "name": "Fonction de hachage", "role": "h(k) = k mod m \u2014 m\u00e9thode de division" }
+    { "name": "Fonction de hachage", "role": "h(k) = charSum(k) mod m \u2014 somme des codes de caract\u00e8res" }
   ]
 }

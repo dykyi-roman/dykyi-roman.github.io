@@ -3,21 +3,58 @@
 
     var TABLE_SIZE = 11;
 
+    var WORD_LIST = [
+        'cat', 'dog', 'sun', 'map', 'key', 'box', 'pen', 'cup',
+        'hat', 'jar', 'log', 'net', 'owl', 'pie', 'red', 'sky',
+        'toy', 'van', 'web', 'zip', 'arm', 'bug', 'cow', 'fig',
+        'gem', 'hop', 'ice', 'joy', 'kit', 'oak'
+    ];
+
     AV['hash-table'] = {};
 
     AV['hash-table']._TABLE_SIZE = TABLE_SIZE;
 
+    AV['hash-table']._charCodeSum = function(key) {
+        var s = String(key);
+        var sum = 0;
+        for (var i = 0; i < s.length; i++) {
+            sum += s.charCodeAt(i);
+        }
+        return sum;
+    };
+
     AV['hash-table']._hash = function(key) {
-        return key % TABLE_SIZE;
+        return AV['hash-table']._charCodeSum(key) % TABLE_SIZE;
     };
 
     AV['hash-table']._generateKeys = function(count) {
         var size = count || (8 + Math.floor(Math.random() * 3));
-        var set = {};
-        while (Object.keys(set).length < size) {
-            set[Math.floor(Math.random() * 90) + 10] = true;
+        var numCount = Math.floor(size / 2);
+        var wordCount = size - numCount;
+
+        var numSet = {};
+        while (Object.keys(numSet).length < numCount) {
+            numSet[Math.floor(Math.random() * 90) + 10] = true;
         }
-        return Object.keys(set).map(Number);
+        var nums = Object.keys(numSet).map(Number);
+
+        var shuffledWords = WORD_LIST.slice();
+        for (var i = shuffledWords.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * (i + 1));
+            var tmp = shuffledWords[i];
+            shuffledWords[i] = shuffledWords[j];
+            shuffledWords[j] = tmp;
+        }
+        var words = shuffledWords.slice(0, wordCount);
+
+        var keys = nums.concat(words);
+        for (var k = keys.length - 1; k > 0; k--) {
+            var m = Math.floor(Math.random() * (k + 1));
+            var t = keys[k];
+            keys[k] = keys[m];
+            keys[m] = t;
+        }
+        return keys;
     };
 
     /* ===== Modes ===== */
@@ -34,7 +71,7 @@
         { name: 'Time (Worst Insert)', role: 'O(n) \u2014 all keys collide to same bucket', type: 'bad' },
         { name: 'Time (Worst Search)', role: 'O(n) \u2014 degenerate chain or full table', type: 'bad' },
         { name: 'Space', role: 'O(n + m) \u2014 n keys + m buckets', type: 'info' },
-        { name: 'Hash Function', role: 'h(k) = k mod m \u2014 division method', type: 'info' }
+        { name: 'Hash Function', role: 'h(k) = charSum(k) mod m \u2014 sum of character codes', type: 'info' }
     ];
 
     /* ===== Legend ===== */
@@ -52,14 +89,14 @@
     AV['hash-table'].details = {
         chaining: {
             principles: [
-                'Compute the hash index: h(key) = key mod tableSize',
+                'Compute the hash index: h(key) = charSum(key) mod tableSize',
                 'If the bucket at index h is empty, insert the key directly',
                 'If the bucket is occupied (collision), append the key to the linked list (chain)',
                 'Each bucket can hold an unlimited number of keys via chaining',
                 'Load factor \u03B1 = n/m can exceed 1 without table restructuring'
             ],
             concepts: [
-                { term: 'Hash Function', definition: 'Maps a key to a bucket index. The division method h(k) = k mod m is the simplest approach. A good hash function distributes keys uniformly across buckets.' },
+                { term: 'Hash Function', definition: 'Maps a key to a bucket index. h(k) = charSum(k) mod m sums the character codes of the key. A good hash function distributes keys uniformly across buckets.' },
                 { term: 'Collision', definition: 'When two different keys hash to the same bucket index. Inevitable by the Pigeonhole Principle when the number of possible keys exceeds the table size.' },
                 { term: 'Separate Chaining', definition: 'Each bucket stores a linked list (chain) of all key-value pairs that hash to that index. Collisions are resolved by appending to the chain.' },
                 { term: 'Load Factor', definition: 'Ratio \u03B1 = n/m (keys / table size). Average chain length equals \u03B1. When \u03B1 grows large, chains become long and performance degrades toward O(n).' },
@@ -83,7 +120,7 @@
         },
         'linear-probing': {
             principles: [
-                'Compute the hash index: h(key) = key mod tableSize',
+                'Compute the hash index: h(key) = charSum(key) mod tableSize',
                 'If the slot is empty, insert the key directly',
                 'If occupied (collision), probe to the next slot: (h + 1) mod m, (h + 2) mod m, ...',
                 'Continue probing until an empty slot is found',
@@ -114,7 +151,7 @@
         },
         search: {
             principles: [
-                'Compute the hash of the target key: h(target) = target mod tableSize',
+                'Compute the hash of the target key: h(target) = charSum(target) mod tableSize',
                 'Go to the bucket at index h',
                 'For chaining: traverse the linked list comparing each node with the target',
                 'Return found or not-found result'
@@ -148,8 +185,8 @@
 
         for (var k = 0; k < keys.length; k++) {
             var key = keys[k];
-            var h = key % TABLE_SIZE;
-            steps.push({ type: 'HASH_COMPUTE', key: key, hashValue: h, tableSize: TABLE_SIZE });
+            var h = AV['hash-table']._hash(key);
+            steps.push({ type: 'HASH_COMPUTE', key: key, hashValue: h, tableSize: TABLE_SIZE, charCodeSum: AV['hash-table']._charCodeSum(key) });
             steps.push({ type: 'HASH_CHECK_SLOT', index: h, isEmpty: table[h].length === 0, currentValue: table[h][0] || null });
 
             if (table[h].length === 0) {
@@ -172,8 +209,8 @@
 
         for (var k = 0; k < keys.length; k++) {
             var key = keys[k];
-            var h = key % TABLE_SIZE;
-            steps.push({ type: 'HASH_COMPUTE', key: key, hashValue: h, tableSize: TABLE_SIZE });
+            var h = AV['hash-table']._hash(key);
+            steps.push({ type: 'HASH_COMPUTE', key: key, hashValue: h, tableSize: TABLE_SIZE, charCodeSum: AV['hash-table']._charCodeSum(key) });
 
             var idx = h;
             var probeNum = 0;
@@ -196,8 +233,8 @@
 
     function searchSteps(table, target) {
         var steps = [];
-        var h = target % TABLE_SIZE;
-        steps.push({ type: 'HASH_COMPUTE', key: target, hashValue: h, tableSize: TABLE_SIZE });
+        var h = AV['hash-table']._hash(target);
+        steps.push({ type: 'HASH_COMPUTE', key: target, hashValue: h, tableSize: TABLE_SIZE, charCodeSum: AV['hash-table']._charCodeSum(target) });
 
         var bucket = table[h];
         steps.push({ type: 'HASH_CHECK_SLOT', index: h, isEmpty: bucket.length === 0, currentValue: bucket[0] || null });
@@ -228,7 +265,7 @@
         var table = [];
         for (var i = 0; i < TABLE_SIZE; i++) table.push([]);
         for (var k = 0; k < keys.length; k++) {
-            var h = keys[k] % TABLE_SIZE;
+            var h = AV['hash-table']._hash(keys[k]);
             table[h].push(keys[k]);
         }
         return table;
@@ -246,15 +283,24 @@
         AV.state.sortedIndices = [];
     }
 
-    function injectSearchTargetUI(target, onUpdate) {
+    function injectSearchTargetUI(target, keys, onUpdate) {
         var container = document.querySelector('.av-hash-container');
         if (!container) return;
         var formula = container.querySelector('.av-hash-formula');
 
+        var options = keys.slice();
+        if (options.indexOf(target) === -1) options.push(target);
+        options.sort(function(a, b) { return String(a).localeCompare(String(b)); });
+
+        var optionsHtml = options.map(function(w) {
+            var val = String(w);
+            return '<option value="' + val + '"' + (w === target ? ' selected' : '') + '>' + val + '</option>';
+        }).join('');
+
         var panel = document.createElement('div');
         panel.className = 'av-hash-target-panel';
         panel.innerHTML = '<span class="av-hash-target-label">' + I18N.t('av.hash.searching_label', null, 'Search for:') + '</span>' +
-            '<input type="number" class="av-hash-target-input" id="av-hash-target-input" value="' + target + '" min="10" max="99">';
+            '<select class="av-hash-target-input" id="av-hash-target-input">' + optionsHtml + '</select>';
 
         if (formula && formula.nextSibling) {
             container.insertBefore(panel, formula.nextSibling);
@@ -265,10 +311,23 @@
         var input = document.getElementById('av-hash-target-input');
         if (input) {
             input.addEventListener('change', function() {
-                var val = parseInt(input.value, 10);
-                if (!isNaN(val) && val >= 10 && val <= 99) {
-                    onUpdate(val);
-                }
+                var val = input.value;
+                var numVal = Number(val);
+                var newTarget = isNaN(numVal) || String(numVal) !== val ? val : numVal;
+                onUpdate(newTarget);
+
+                AV.state.running = false;
+                AV.state.paused = false;
+                if (AV.stepMode && AV.stepMode.active) AV.exitStepMode();
+
+                AV.renderHashTable(AV.state._hashTable, 'chaining');
+                AV._setHashStatLabels();
+                injectSearchTargetUI(newTarget, AV.state._hashKeys || [], onUpdate);
+
+                AV.animateFlow(
+                    searchSteps(AV.state._hashTable, newTarget),
+                    AV['hash-table']['search'].stepOptions()
+                );
             });
         }
     }
@@ -276,7 +335,7 @@
     AV._reinjectSearchTargetUI = function() {
         if (AV.state._hashSearchTarget === undefined) return;
         if (document.querySelector('.av-hash-target-panel')) return;
-        injectSearchTargetUI(AV.state._hashSearchTarget, function(val) {
+        injectSearchTargetUI(AV.state._hashSearchTarget, AV.state._hashKeys || [], function(val) {
             AV.state._hashSearchTarget = val;
         });
     };
@@ -352,16 +411,21 @@
             if (Math.random() < 0.7) {
                 target = keys[Math.floor(Math.random() * keys.length)];
             } else {
-                do {
-                    target = Math.floor(Math.random() * 90) + 10;
-                } while (keys.indexOf(target) !== -1);
+                var unused = WORD_LIST.filter(function(w) { return keys.indexOf(w) === -1; });
+                if (unused.length > 0) {
+                    target = unused[Math.floor(Math.random() * unused.length)];
+                } else {
+                    do {
+                        target = Math.floor(Math.random() * 90) + 10;
+                    } while (keys.indexOf(target) !== -1);
+                }
             }
             AV.state._hashSearchTarget = target;
 
             AV.renderHashTable(table, 'chaining');
             AV._setHashStatLabels();
 
-            injectSearchTargetUI(target, function(val) {
+            injectSearchTargetUI(target, keys, function(val) {
                 AV.state._hashSearchTarget = val;
             });
         },
