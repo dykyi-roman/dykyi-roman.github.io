@@ -398,5 +398,135 @@
     { "name": "Espace", "role": "O(m) \u2014 tableau LPS" },
     { "name": "Correspondances multiples", "role": "Oui \u2014 trouve toutes les occurrences" },
     { "name": "Retour en arri\u00e8re", "role": "Non \u2014 le pointeur du texte ne recule jamais" }
+  ],
+
+  "av.stat.hash_operations": "Op\u00e9rations",
+  "av.stat.hash_collisions": "Collisions",
+  "av.hash.formula_label": "Fonction de hachage :",
+  "av.hash.inserting_label": "Insertion :",
+  "av.hash.searching_label": "Rechercher :",
+
+  "av.legend.hash_empty": "Seau vide",
+  "av.legend.hash_occupied": "Occup\u00e9",
+  "av.legend.hash_computing": "Calcul du hachage",
+  "av.legend.hash_collision": "Collision",
+  "av.legend.hash_inserting": "Insertion",
+  "av.legend.hash_probing": "Sondage",
+  "av.legend.hash_found": "Trouv\u00e9",
+
+  "av.log.hash_compute": "h({key}) = {key} mod {size} = {hash}",
+  "av.log.hash_check_slot": "V\u00e9rifier seau[{index}] : {value}",
+  "av.log.hash_insert": "Ins\u00e9rer {key} dans seau[{index}]",
+  "av.log.hash_collision": "Collision au seau[{index}] : {existing} d\u00e9j\u00e0 pr\u00e9sent",
+  "av.log.hash_chain_add": "Cha\u00eener {key} au seau[{index}] (longueur : {chainLen})",
+  "av.log.hash_probe": "Sonde #{num} : seau[{from}] \u2192 seau[{to}]",
+  "av.log.hash_found": "{key} trouv\u00e9 dans seau[{index}]",
+  "av.log.hash_not_found": "Valeur {key} non trouv\u00e9e",
+  "av.log.done_hash": "Termin\u00e9 en {time}ms ({operations} op\u00e9rations, {collisions} insertions)",
+
+  "ui.log.type.HASH_COMPUTE": "HACHAGE",
+  "ui.log.type.HASH_CHECK": "V\u00c9RIF",
+  "ui.log.type.HASH_INSERT": "INS\u00c9RER",
+  "ui.log.type.HASH_COLLISION": "COLLISION",
+  "ui.log.type.HASH_CHAIN": "CHA\u00ceNE",
+  "ui.log.type.HASH_PROBE": "SONDE",
+  "ui.log.type.HASH_FOUND": "TROUV\u00c9",
+  "ui.log.type.HASH_NOT_FOUND": "NON TROUV\u00c9",
+
+  "hash-table.name": "Table de hachage",
+  "hash-table.stepLabel": "Table de hachage",
+  "hash-table.modes.chaining.label": "Cha\u00eenage",
+  "hash-table.modes.chaining.desc": "Cha\u00eenage s\u00e9par\u00e9 : chaque seau contient une liste cha\u00een\u00e9e. En cas de collision, la cl\u00e9 est ajout\u00e9e \u00e0 la cha\u00eene.",
+  "hash-table.modes.linear-probing.label": "Sondage lin\u00e9aire",
+  "hash-table.modes.linear-probing.desc": "Adressage ouvert avec sondage lin\u00e9aire : chaque seau contient au plus une valeur. En cas de collision, v\u00e9rifier s\u00e9quentiellement.",
+  "hash-table.modes.search.label": "Recherche",
+  "hash-table.modes.search.desc": "Rechercher une valeur dans une table de hachage pr\u00e9-remplie. Calcule le hachage, puis parcourt la cha\u00eene.",
+
+  "hash-table.details.chaining.principles": [
+    "Calculer l'indice de hachage : h(cl\u00e9) = cl\u00e9 mod tailleDeLaTable",
+    "Si le seau \u00e0 l'indice h est vide, ins\u00e9rer directement",
+    "Si le seau est occup\u00e9 (collision), ajouter \u00e0 la liste cha\u00een\u00e9e",
+    "Chaque seau peut contenir un nombre illimit\u00e9 de cl\u00e9s",
+    "Le facteur de charge \u03B1 = n/m peut d\u00e9passer 1"
+  ],
+  "hash-table.details.chaining.concepts": [
+    { "term": "Fonction de hachage", "definition": "Associe une cl\u00e9 \u00e0 un indice de seau. h(k) = k mod m." },
+    { "term": "Collision", "definition": "Deux cl\u00e9s diff\u00e9rentes ont le m\u00eame indice de hachage." },
+    { "term": "Cha\u00eenage s\u00e9par\u00e9", "definition": "Chaque seau stocke une liste cha\u00een\u00e9e de toutes les cl\u00e9s." },
+    { "term": "Facteur de charge", "definition": "Rapport \u03B1 = n/m. La longueur moyenne de cha\u00eene \u00e9gale \u03B1." },
+    { "term": "Hachage uniforme", "definition": "Hypoth\u00e8se que chaque cl\u00e9 a une probabilit\u00e9 \u00e9gale d'atterrir dans n'importe quel seau." }
+  ],
+  "hash-table.details.chaining.tradeoffs.pros": [
+    "Simple \u00e0 impl\u00e9menter",
+    "Fonctionne avec n'importe quel facteur de charge",
+    "Suppression simple",
+    "D\u00e9gradation progressive des performances"
+  ],
+  "hash-table.details.chaining.tradeoffs.cons": [
+    "M\u00e9moire suppl\u00e9mentaire pour les pointeurs",
+    "Mauvaise localit\u00e9 de cache",
+    "O(n) dans le pire cas",
+    "Allocation dynamique de m\u00e9moire requise"
+  ],
+  "hash-table.details.chaining.tradeoffs.whenToUse": "Utilisez le cha\u00eenage quand le facteur de charge est impr\u00e9visible ou que les suppressions sont fr\u00e9quentes.",
+
+  "hash-table.details.linear-probing.principles": [
+    "Calculer l'indice : h(cl\u00e9) = cl\u00e9 mod tailleDeLaTable",
+    "Si le slot est vide, ins\u00e9rer directement",
+    "Si occup\u00e9, sonder le slot suivant : (h + 1) mod m, (h + 2) mod m, ...",
+    "Continuer jusqu'\u00e0 trouver un slot vide",
+    "Le facteur de charge doit rester inf\u00e9rieur \u00e0 1.0"
+  ],
+  "hash-table.details.linear-probing.concepts": [
+    { "term": "Adressage ouvert", "definition": "Toutes les cl\u00e9s sont stock\u00e9es directement dans la table." },
+    { "term": "Sondage lin\u00e9aire", "definition": "En cas de collision \u00e0 h, essayer h+1, h+2, h+3, etc." },
+    { "term": "Regroupement primaire", "definition": "Les slots occup\u00e9s cons\u00e9cutifs forment des groupes." },
+    { "term": "Facteur de charge", "definition": "\u00c0 \u03B1=0.5, sondes moyennes \u2248 1.5 ; \u00e0 \u03B1=0.9 \u2248 5.5." },
+    { "term": "Pierre tombale", "definition": "Les slots supprim\u00e9s sont marqu\u00e9s pour ne pas casser les cha\u00eenes de sondage." }
+  ],
+  "hash-table.details.linear-probing.tradeoffs.pros": [
+    "Compatible avec le cache",
+    "Pas de pointeurs suppl\u00e9mentaires",
+    "Impl\u00e9mentation simple",
+    "Bonnes performances \u00e0 faible charge"
+  ],
+  "hash-table.details.linear-probing.tradeoffs.cons": [
+    "Le regroupement primaire d\u00e9grade les performances",
+    "La suppression n\u00e9cessite des pierres tombales",
+    "Redimensionnement n\u00e9cessaire avant remplissage",
+    "D\u00e9gradation forte au-dessus de 70%"
+  ],
+  "hash-table.details.linear-probing.tradeoffs.whenToUse": "Utilisez le sondage lin\u00e9aire quand la m\u00e9moire est limit\u00e9e et que le facteur de charge reste bas (< 0.7).",
+
+  "hash-table.details.search.principles": [
+    "Calculer le hachage : h(cible) = cible mod tailleDeLaTable",
+    "Aller au seau \u00e0 l'indice h",
+    "Parcourir la cha\u00eene en comparant chaque n\u0153ud",
+    "Retourner trouv\u00e9 ou non trouv\u00e9"
+  ],
+  "hash-table.details.search.concepts": [
+    { "term": "Recherche r\u00e9ussie", "definition": "La cl\u00e9 existe. Sondes moyennes : 1 + \u03B1/2." },
+    { "term": "Recherche infructueuse", "definition": "La cl\u00e9 est absente. Sondes moyennes : 1 + \u03B1." },
+    { "term": "Sondes attendues", "definition": "Nombre de slots examin\u00e9s. D\u00e9pend du facteur de charge." }
+  ],
+  "hash-table.details.search.tradeoffs.pros": [
+    "Temps de recherche moyen O(1)",
+    "Pas besoin de trier les donn\u00e9es",
+    "Performances stables"
+  ],
+  "hash-table.details.search.tradeoffs.cons": [
+    "O(n) dans le pire cas",
+    "La qualit\u00e9 de la fonction de hachage affecte les performances",
+    "Pas de requ\u00eates par plage"
+  ],
+  "hash-table.details.search.tradeoffs.whenToUse": "Utilisez la recherche par hachage pour des correspondances exactes o\u00f9 le temps moyen O(1) est critique.",
+
+  "hash-table.depRules": [
+    { "name": "Temps (insertion moy.)", "role": "O(1) \u2014 constante avec bonne fonction" },
+    { "name": "Temps (recherche moy.)", "role": "O(1) \u2014 constante avec bonne fonction" },
+    { "name": "Temps (insertion pire)", "role": "O(n) \u2014 toutes les cl\u00e9s dans un seau" },
+    { "name": "Temps (recherche pire)", "role": "O(n) \u2014 cha\u00eene d\u00e9g\u00e9n\u00e9r\u00e9e" },
+    { "name": "Espace", "role": "O(n + m) \u2014 n cl\u00e9s + m seaux" },
+    { "name": "Fonction de hachage", "role": "h(k) = k mod m \u2014 m\u00e9thode de division" }
   ]
 }

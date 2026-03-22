@@ -102,6 +102,19 @@
     --av-str-cell-idle: #4B5563;
     --av-str-lps-active: #A78BFA;
     --av-str-lps-set: #3B82F6;
+
+    --hash-table-color: #F97316;
+    --hash-table-bg: #1a1208;
+    --hash-table-light: #2d1f10;
+
+    --av-hash-empty: #374151;
+    --av-hash-occupied: #3B82F6;
+    --av-hash-checking: #FBBF24;
+    --av-hash-inserting: #10B981;
+    --av-hash-collision: #EF4444;
+    --av-hash-probing: #A78BFA;
+    --av-hash-found: #14B8A6;
+    --av-hash-not-found: #6B7280;
 }
 
 /* ===== Page Container ===== */
@@ -1563,6 +1576,280 @@
     color: #fff;
 }
 
+/* ===== Hash Table Visualization ===== */
+#av-canvas:has(.av-hash-container) {
+    align-items: flex-start;
+}
+
+.av-hash-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    padding: 20px 10px 10px;
+}
+
+.av-hash-formula {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    background: var(--av-card-bg);
+    border: 1px solid var(--av-border);
+    border-radius: 6px;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.av-hash-formula-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--av-text-light);
+}
+
+.av-hash-formula-text {
+    font-size: 15px;
+    color: var(--av-text);
+}
+
+.av-hash-formula-text strong {
+    color: var(--av-accent);
+}
+
+.av-hash-formula.av-hash-formula-active {
+    border-color: var(--av-accent);
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.3);
+}
+
+.av-hash-key-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: var(--av-accent-bg);
+    border: 1px solid var(--av-accent);
+    border-radius: 6px;
+}
+
+.av-hash-key-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--av-text-light);
+    text-transform: uppercase;
+}
+
+.av-hash-key-value {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--av-accent);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.av-hash-buckets {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+.av-hash-bucket {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+}
+
+.av-hash-bucket-index {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--av-text-light);
+    margin-bottom: 4px;
+    opacity: 0.7;
+}
+
+.av-hash-bucket-slot {
+    min-height: 44px;
+    min-width: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 8px;
+    border-radius: 6px;
+    background: var(--av-hash-empty);
+    border: 2px solid transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.av-hash-bucket-slot.av-hash-checking {
+    background: var(--av-hash-checking);
+    border-color: var(--av-hash-checking);
+    box-shadow: 0 0 12px rgba(251, 191, 36, 0.5);
+    transform: scale(1.05);
+}
+
+.av-hash-bucket-slot.av-hash-inserting {
+    background: var(--av-hash-inserting);
+    border-color: var(--av-hash-inserting);
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+}
+
+.av-hash-bucket-slot.av-hash-collision {
+    background: var(--av-hash-collision);
+    border-color: var(--av-hash-collision);
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+    animation: av-hash-shake 0.3s ease;
+}
+
+@keyframes av-hash-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+.av-hash-bucket-slot.av-hash-probing {
+    background: var(--av-hash-probing);
+    border-color: var(--av-hash-probing);
+    box-shadow: 0 0 8px rgba(167, 139, 250, 0.4);
+    opacity: 0.7;
+}
+
+.av-hash-bucket-slot.av-hash-found {
+    background: var(--av-hash-found);
+    border-color: var(--av-hash-found);
+    box-shadow: 0 0 16px rgba(20, 184, 166, 0.6);
+    transform: scale(1.08);
+}
+
+.av-hash-bucket-slot.av-hash-not-found {
+    opacity: 0.4;
+}
+
+.av-hash-empty-label {
+    font-size: 14px;
+    color: var(--av-text-light);
+    opacity: 0.5;
+}
+
+.av-hash-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--av-text);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+.av-hash-value.av-hash-inserting {
+    color: #fff;
+    animation: av-hash-pop 0.3s ease;
+}
+
+@keyframes av-hash-pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.av-hash-chain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.av-hash-chain-node {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 32px;
+    border-radius: 4px;
+    background: var(--av-hash-occupied);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.av-hash-chain-node.av-hash-inserting {
+    background: var(--av-hash-inserting);
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+    animation: av-hash-pop 0.3s ease;
+}
+
+.av-hash-chain-node.av-hash-checking {
+    background: var(--av-hash-checking);
+    color: #1a2030;
+    box-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
+}
+
+.av-hash-chain-node.av-hash-found {
+    background: var(--av-hash-found);
+    box-shadow: 0 0 12px rgba(20, 184, 166, 0.5);
+}
+
+.av-hash-chain-arrow {
+    font-size: 10px;
+    color: var(--av-text-light);
+    opacity: 0.6;
+    transform: rotate(90deg);
+}
+
+.av-legend-hash-empty { background: var(--av-hash-empty); }
+.av-legend-hash-occupied { background: var(--av-hash-occupied); }
+.av-legend-hash-computing { background: var(--av-hash-checking); }
+.av-legend-hash-collision { background: var(--av-hash-collision); }
+.av-legend-hash-inserting { background: var(--av-hash-inserting); }
+.av-legend-hash-probing { background: var(--av-hash-probing); }
+.av-legend-hash-found { background: var(--av-hash-found); }
+
+.log-type.HASH_COMPUTE { color: #F97316; }
+.log-type.HASH_CHECK { color: #FBBF24; }
+.log-type.HASH_INSERT { color: #10B981; }
+.log-type.HASH_COLLISION { color: #EF4444; }
+.log-type.HASH_CHAIN { color: #3B82F6; }
+.log-type.HASH_PROBE { color: #A78BFA; }
+.log-type.HASH_FOUND { color: #14B8A6; }
+.log-type.HASH_NOT_FOUND { color: #6B7280; }
+
+/* Hash table target input for search mode */
+.av-hash-target-panel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: var(--av-card-bg);
+    border: 1px solid var(--av-border);
+    border-radius: 6px;
+}
+
+.av-hash-target-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--av-text-light);
+    text-transform: uppercase;
+}
+
+.av-hash-target-input {
+    width: 60px;
+    padding: 4px 8px;
+    border: 1px solid var(--av-border);
+    border-radius: 4px;
+    background: var(--av-bg);
+    color: var(--av-text);
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    text-align: center;
+}
+
+.av-hash-target-input:focus {
+    outline: none;
+    border-color: var(--av-accent);
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 1100px) {
     .av-page {
@@ -1615,6 +1902,26 @@
     .av-str-index {
         font-size: 8px;
         top: -14px;
+    }
+
+    .av-hash-bucket {
+        min-width: 48px;
+    }
+    .av-hash-bucket-slot {
+        min-height: 36px;
+        min-width: 44px;
+        padding: 4px 6px;
+    }
+    .av-hash-chain-node {
+        width: 36px;
+        height: 26px;
+        font-size: 12px;
+    }
+    .av-hash-value {
+        font-size: 13px;
+    }
+    .av-hash-formula {
+        flex-wrap: wrap;
     }
 }
 

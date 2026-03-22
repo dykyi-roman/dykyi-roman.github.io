@@ -392,5 +392,135 @@
     { "name": "Espacio", "role": "O(m) \u2014 array LPS" },
     { "name": "Coincidencias m\u00faltiples", "role": "S\u00ed \u2014 encuentra todas las ocurrencias" },
     { "name": "Retroceso", "role": "No \u2014 el puntero del texto nunca retrocede" }
+  ],
+
+  "av.stat.hash_operations": "Operaciones",
+  "av.stat.hash_collisions": "Colisiones",
+  "av.hash.formula_label": "Funci\u00f3n hash:",
+  "av.hash.inserting_label": "Insertando:",
+  "av.hash.searching_label": "Buscar:",
+
+  "av.legend.hash_empty": "Cubo vac\u00edo",
+  "av.legend.hash_occupied": "Ocupado",
+  "av.legend.hash_computing": "Calculando hash",
+  "av.legend.hash_collision": "Colisi\u00f3n",
+  "av.legend.hash_inserting": "Insertando",
+  "av.legend.hash_probing": "Sondeo",
+  "av.legend.hash_found": "Encontrado",
+
+  "av.log.hash_compute": "h({key}) = {key} mod {size} = {hash}",
+  "av.log.hash_check_slot": "Verificar cubo[{index}]: {value}",
+  "av.log.hash_insert": "Insertar {key} en cubo[{index}]",
+  "av.log.hash_collision": "Colisi\u00f3n en cubo[{index}]: {existing} ya presente",
+  "av.log.hash_chain_add": "Encadenar {key} al cubo[{index}] (longitud: {chainLen})",
+  "av.log.hash_probe": "Sondeo #{num}: cubo[{from}] \u2192 cubo[{to}]",
+  "av.log.hash_found": "{key} encontrado en cubo[{index}]",
+  "av.log.hash_not_found": "Valor {key} no encontrado en la tabla hash",
+  "av.log.done_hash": "Completado en {time}ms ({operations} operaciones, {collisions} inserciones)",
+
+  "ui.log.type.HASH_COMPUTE": "HASH",
+  "ui.log.type.HASH_CHECK": "VERIFICAR",
+  "ui.log.type.HASH_INSERT": "INSERTAR",
+  "ui.log.type.HASH_COLLISION": "COLISI\u00d3N",
+  "ui.log.type.HASH_CHAIN": "CADENA",
+  "ui.log.type.HASH_PROBE": "SONDEO",
+  "ui.log.type.HASH_FOUND": "ENCONTRADO",
+  "ui.log.type.HASH_NOT_FOUND": "NO ENCONTRADO",
+
+  "hash-table.name": "Tabla hash",
+  "hash-table.stepLabel": "Tabla hash",
+  "hash-table.modes.chaining.label": "Encadenamiento",
+  "hash-table.modes.chaining.desc": "Encadenamiento separado: cada cubo contiene una lista enlazada. En caso de colisi\u00f3n, la clave se a\u00f1ade a la cadena.",
+  "hash-table.modes.linear-probing.label": "Sondeo lineal",
+  "hash-table.modes.linear-probing.desc": "Direccionamiento abierto con sondeo lineal: cada cubo contiene como m\u00e1ximo un valor. En colisi\u00f3n, se sondea secuencialmente.",
+  "hash-table.modes.search.label": "B\u00fasqueda",
+  "hash-table.modes.search.desc": "Buscar un valor en una tabla hash pre-poblada. Calcula el hash y recorre la cadena.",
+
+  "hash-table.details.chaining.principles": [
+    "Calcular el \u00edndice hash: h(clave) = clave mod tama\u00f1oTabla",
+    "Si el cubo est\u00e1 vac\u00edo, insertar directamente",
+    "Si est\u00e1 ocupado (colisi\u00f3n), a\u00f1adir a la lista enlazada",
+    "Cada cubo puede almacenar un n\u00famero ilimitado de claves",
+    "El factor de carga \u03B1 = n/m puede superar 1"
+  ],
+  "hash-table.details.chaining.concepts": [
+    { "term": "Funci\u00f3n hash", "definition": "Mapea una clave a un \u00edndice de cubo. h(k) = k mod m." },
+    { "term": "Colisi\u00f3n", "definition": "Dos claves diferentes tienen el mismo \u00edndice hash." },
+    { "term": "Encadenamiento separado", "definition": "Cada cubo almacena una lista enlazada de todas las claves." },
+    { "term": "Factor de carga", "definition": "Relaci\u00f3n \u03B1 = n/m. La longitud media de cadena es \u03B1." },
+    { "term": "Hashing uniforme", "definition": "Suposici\u00f3n de que cada clave tiene igual probabilidad de ir a cualquier cubo." }
+  ],
+  "hash-table.details.chaining.tradeoffs.pros": [
+    "Simple de implementar",
+    "Funciona con cualquier factor de carga",
+    "Eliminaci\u00f3n sencilla",
+    "Degradaci\u00f3n gradual del rendimiento"
+  ],
+  "hash-table.details.chaining.tradeoffs.cons": [
+    "Memoria adicional para punteros",
+    "Mala localidad de cach\u00e9",
+    "O(n) en el peor caso",
+    "Requiere asignaci\u00f3n din\u00e1mica de memoria"
+  ],
+  "hash-table.details.chaining.tradeoffs.whenToUse": "Use encadenamiento cuando el factor de carga es impredecible o las eliminaciones son frecuentes.",
+
+  "hash-table.details.linear-probing.principles": [
+    "Calcular el \u00edndice: h(clave) = clave mod tama\u00f1oTabla",
+    "Si el slot est\u00e1 vac\u00edo, insertar directamente",
+    "Si est\u00e1 ocupado, sondear el siguiente: (h + 1) mod m, (h + 2) mod m, ...",
+    "Continuar hasta encontrar un slot vac\u00edo",
+    "El factor de carga debe mantenerse por debajo de 1.0"
+  ],
+  "hash-table.details.linear-probing.concepts": [
+    { "term": "Direccionamiento abierto", "definition": "Todas las claves se almacenan directamente en la tabla." },
+    { "term": "Sondeo lineal", "definition": "En colisi\u00f3n en h, probar h+1, h+2, h+3, etc." },
+    { "term": "Agrupamiento primario", "definition": "Slots ocupados consecutivos forman clusters." },
+    { "term": "Factor de carga", "definition": "Con \u03B1=0.5, sondeos promedio \u2248 1.5; con \u03B1=0.9 \u2248 5.5." },
+    { "term": "L\u00e1pida", "definition": "Slots eliminados se marcan para no romper cadenas de sondeo." }
+  ],
+  "hash-table.details.linear-probing.tradeoffs.pros": [
+    "Amigable con la cach\u00e9",
+    "Sin punteros adicionales",
+    "Implementaci\u00f3n simple",
+    "Buen rendimiento con baja carga"
+  ],
+  "hash-table.details.linear-probing.tradeoffs.cons": [
+    "El agrupamiento primario degrada el rendimiento",
+    "La eliminaci\u00f3n requiere l\u00e1pidas",
+    "Necesita redimensionar antes de llenarse",
+    "Degradaci\u00f3n fuerte sobre 70% de carga"
+  ],
+  "hash-table.details.linear-probing.tradeoffs.whenToUse": "Use sondeo lineal cuando la memoria es limitada y el factor de carga se mantiene bajo (< 0.7).",
+
+  "hash-table.details.search.principles": [
+    "Calcular el hash: h(objetivo) = objetivo mod tama\u00f1oTabla",
+    "Ir al cubo en el \u00edndice h",
+    "Recorrer la cadena comparando cada nodo",
+    "Devolver resultado: encontrado o no encontrado"
+  ],
+  "hash-table.details.search.concepts": [
+    { "term": "B\u00fasqueda exitosa", "definition": "La clave existe. Sondeos promedio: 1 + \u03B1/2." },
+    { "term": "B\u00fasqueda fallida", "definition": "La clave no existe. Sondeos promedio: 1 + \u03B1." },
+    { "term": "Sondeos esperados", "definition": "N\u00famero de slots examinados. Depende del factor de carga." }
+  ],
+  "hash-table.details.search.tradeoffs.pros": [
+    "Tiempo promedio de b\u00fasqueda O(1)",
+    "No necesita datos ordenados",
+    "Rendimiento estable"
+  ],
+  "hash-table.details.search.tradeoffs.cons": [
+    "O(n) en el peor caso",
+    "La calidad de la funci\u00f3n hash afecta el rendimiento",
+    "Sin consultas por rango"
+  ],
+  "hash-table.details.search.tradeoffs.whenToUse": "Use b\u00fasqueda hash para coincidencias exactas donde el tiempo promedio O(1) es cr\u00edtico.",
+
+  "hash-table.depRules": [
+    { "name": "Tiempo (inserci\u00f3n prom.)", "role": "O(1) \u2014 constante con buena funci\u00f3n" },
+    { "name": "Tiempo (b\u00fasqueda prom.)", "role": "O(1) \u2014 constante con buena funci\u00f3n" },
+    { "name": "Tiempo (inserci\u00f3n peor)", "role": "O(n) \u2014 todas las claves en un cubo" },
+    { "name": "Tiempo (b\u00fasqueda peor)", "role": "O(n) \u2014 cadena degenerada" },
+    { "name": "Espacio", "role": "O(n + m) \u2014 n claves + m cubos" },
+    { "name": "Funci\u00f3n hash", "role": "h(k) = k mod m \u2014 m\u00e9todo de divisi\u00f3n" }
   ]
 }

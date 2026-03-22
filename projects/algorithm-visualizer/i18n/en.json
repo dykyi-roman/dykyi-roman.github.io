@@ -444,5 +444,136 @@
     { "name": "Space", "role": "O(m) \u2014 LPS array" },
     { "name": "Multiple Matches", "role": "Yes \u2014 finds all occurrences" },
     { "name": "Backtracking", "role": "No \u2014 text pointer never moves backward" }
+  ],
+
+  "av.stat.hash_operations": "Operations",
+  "av.stat.hash_collisions": "Collisions",
+
+  "av.hash.formula_label": "Hash Function:",
+  "av.hash.inserting_label": "Inserting:",
+  "av.hash.searching_label": "Search for:",
+
+  "av.legend.hash_empty": "Empty Bucket",
+  "av.legend.hash_occupied": "Occupied",
+  "av.legend.hash_computing": "Computing Hash",
+  "av.legend.hash_collision": "Collision",
+  "av.legend.hash_inserting": "Inserting",
+  "av.legend.hash_probing": "Probing",
+  "av.legend.hash_found": "Found",
+
+  "av.log.hash_compute": "h({key}) = {key} mod {size} = {hash}",
+  "av.log.hash_check_slot": "Check bucket[{index}]: {value}",
+  "av.log.hash_insert": "Insert {key} into bucket[{index}]",
+  "av.log.hash_collision": "Collision at bucket[{index}]: {existing} already present",
+  "av.log.hash_chain_add": "Chain {key} to bucket[{index}] (chain length: {chainLen})",
+  "av.log.hash_probe": "Probe #{num}: bucket[{from}] \u2192 bucket[{to}]",
+  "av.log.hash_found": "Found {key} in bucket[{index}]",
+  "av.log.hash_not_found": "Value {key} not found in hash table",
+  "av.log.done_hash": "Completed in {time}ms ({operations} operations, {collisions} insertions)",
+
+  "ui.log.type.HASH_COMPUTE": "HASH",
+  "ui.log.type.HASH_CHECK": "CHECK",
+  "ui.log.type.HASH_INSERT": "INSERT",
+  "ui.log.type.HASH_COLLISION": "COLLISION",
+  "ui.log.type.HASH_CHAIN": "CHAIN",
+  "ui.log.type.HASH_PROBE": "PROBE",
+  "ui.log.type.HASH_FOUND": "FOUND",
+  "ui.log.type.HASH_NOT_FOUND": "NOT FOUND",
+
+  "hash-table.name": "Hash Table",
+  "hash-table.stepLabel": "Hash Table",
+  "hash-table.modes.chaining.label": "Chaining",
+  "hash-table.modes.chaining.desc": "Separate Chaining: each bucket holds a linked list of values. On collision, the new key is appended to the chain.",
+  "hash-table.modes.linear-probing.label": "Linear Probing",
+  "hash-table.modes.linear-probing.desc": "Open Addressing with Linear Probing: each bucket holds at most one value. On collision, probe sequentially to find an empty slot.",
+  "hash-table.modes.search.label": "Search",
+  "hash-table.modes.search.desc": "Search for a target value in a pre-populated hash table. Computes the hash, then traverses the chain until found or exhausted.",
+
+  "hash-table.details.chaining.principles": [
+    "Compute the hash index: h(key) = key mod tableSize",
+    "If the bucket at index h is empty, insert the key directly",
+    "If the bucket is occupied (collision), append the key to the linked list (chain)",
+    "Each bucket can hold an unlimited number of keys via chaining",
+    "Load factor \u03B1 = n/m can exceed 1 without table restructuring"
+  ],
+  "hash-table.details.chaining.concepts": [
+    { "term": "Hash Function", "definition": "Maps a key to a bucket index. h(k) = k mod m distributes keys across buckets." },
+    { "term": "Collision", "definition": "Two different keys hash to the same bucket index. Inevitable by the Pigeonhole Principle." },
+    { "term": "Separate Chaining", "definition": "Each bucket stores a linked list of all keys that hash to that index." },
+    { "term": "Load Factor", "definition": "Ratio \u03B1 = n/m. Average chain length equals \u03B1." },
+    { "term": "Uniform Hashing", "definition": "Assumption that each key is equally likely to hash to any bucket, giving O(1) average." }
+  ],
+  "hash-table.details.chaining.tradeoffs.pros": [
+    "Simple to implement \u2014 just a linked list per bucket",
+    "Handles any load factor without resizing",
+    "Deletion is straightforward",
+    "Performance degrades gracefully"
+  ],
+  "hash-table.details.chaining.tradeoffs.cons": [
+    "Extra memory for linked list pointers",
+    "Poor cache locality",
+    "O(n) worst case when all keys collide",
+    "Requires dynamic memory allocation"
+  ],
+  "hash-table.details.chaining.tradeoffs.whenToUse": "Use separate chaining when the load factor is unpredictable, deletions are frequent, or simplicity is preferred.",
+
+  "hash-table.details.linear-probing.principles": [
+    "Compute the hash index: h(key) = key mod tableSize",
+    "If the slot is empty, insert the key directly",
+    "If occupied, probe to the next slot: (h + 1) mod m, (h + 2) mod m, ...",
+    "Continue probing until an empty slot is found",
+    "Load factor must stay below 1.0"
+  ],
+  "hash-table.details.linear-probing.concepts": [
+    { "term": "Open Addressing", "definition": "All keys stored directly in the table. On collision, probe alternative slots." },
+    { "term": "Linear Probing", "definition": "On collision at h, try h+1, h+2, h+3, etc. (mod table size)." },
+    { "term": "Primary Clustering", "definition": "Consecutive occupied slots form clusters, degrading performance." },
+    { "term": "Load Factor", "definition": "At \u03B1=0.5, avg probes \u2248 1.5; at \u03B1=0.9, avg probes \u2248 5.5." },
+    { "term": "Tombstone", "definition": "Deleted slots marked as 'deleted' to avoid breaking probe chains." }
+  ],
+  "hash-table.details.linear-probing.tradeoffs.pros": [
+    "Cache-friendly \u2014 contiguous memory access",
+    "No extra pointers or allocation",
+    "Simple implementation",
+    "Good performance at low load factors"
+  ],
+  "hash-table.details.linear-probing.tradeoffs.cons": [
+    "Primary clustering degrades performance",
+    "Deletion requires tombstones",
+    "Must resize before becoming full",
+    "Sharp degradation above 70% load"
+  ],
+  "hash-table.details.linear-probing.tradeoffs.whenToUse": "Use linear probing when memory is limited, cache performance matters, and load factor stays low (< 0.7).",
+
+  "hash-table.details.search.principles": [
+    "Compute the hash: h(target) = target mod tableSize",
+    "Go to the bucket at index h",
+    "Traverse the chain comparing each node with the target",
+    "Return found or not-found result"
+  ],
+  "hash-table.details.search.concepts": [
+    { "term": "Successful Search", "definition": "Target exists. Average probes: 1 + \u03B1/2 for chaining." },
+    { "term": "Unsuccessful Search", "definition": "Target absent. Average probes: 1 + \u03B1 for chaining." },
+    { "term": "Expected Probes", "definition": "Number of slots examined. Depends on load factor and collision strategy." }
+  ],
+  "hash-table.details.search.tradeoffs.pros": [
+    "O(1) average-case search time",
+    "No need to sort data",
+    "Consistent performance regardless of insertion order"
+  ],
+  "hash-table.details.search.tradeoffs.cons": [
+    "O(n) worst case with many collisions",
+    "Hash function quality affects performance",
+    "No range queries or ordered traversal"
+  ],
+  "hash-table.details.search.tradeoffs.whenToUse": "Use hash-based search for exact-match lookups where average O(1) time is critical.",
+
+  "hash-table.depRules": [
+    { "name": "Time (Average Insert)", "role": "O(1) \u2014 constant with good hash function" },
+    { "name": "Time (Average Search)", "role": "O(1) \u2014 constant with good hash function" },
+    { "name": "Time (Worst Insert)", "role": "O(n) \u2014 all keys collide to same bucket" },
+    { "name": "Time (Worst Search)", "role": "O(n) \u2014 degenerate chain or full table" },
+    { "name": "Space", "role": "O(n + m) \u2014 n keys + m buckets" },
+    { "name": "Hash Function", "role": "h(k) = k mod m \u2014 division method" }
   ]
 }

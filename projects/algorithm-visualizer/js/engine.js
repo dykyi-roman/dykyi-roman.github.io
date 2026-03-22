@@ -94,6 +94,7 @@ AV.sleep = async function(ms) {
     while (AV.state.paused) {
         await new Promise(function(r) { AV.state._pauseResolve = r; });
     }
+    if (!AV.state.running) throw new Error('AV_STOP');
 };
 
 AV.pause = function() {
@@ -123,7 +124,7 @@ AV.renderArray = function(arr) {
     if (!canvas) return;
 
     AV.state.array = arr.slice();
-    var maxVal = Math.max.apply(null, arr);
+    var maxVal = AV.state._dpMaxVal || Math.max.apply(null, arr);
     var containerHeight = 400;
 
     var html = '<div class="av-bar-container">';
@@ -499,6 +500,205 @@ AV._setStringStatLabels = function() {
     }
 };
 
+AV._setHashStatLabels = function() {
+    var lbl1 = document.querySelector('#stat-comparisons').closest('.stat-item').querySelector('.stat-label');
+    var lbl2 = document.querySelector('#stat-swaps').closest('.stat-item').querySelector('.stat-label');
+    if (lbl1) {
+        lbl1.textContent = I18N.t('av.stat.hash_operations', null, 'Operations');
+        lbl1.setAttribute('data-i18n', 'av.stat.hash_operations');
+    }
+    if (lbl2) {
+        lbl2.textContent = I18N.t('av.stat.hash_collisions', null, 'Collisions');
+        lbl2.setAttribute('data-i18n', 'av.stat.hash_collisions');
+    }
+};
+
+/* ===== Hash Table Rendering ===== */
+AV.renderHashTable = function(table, mode) {
+    var canvas = document.getElementById('av-canvas');
+    if (!canvas) return;
+
+    AV.state._isHashAlgorithm = true;
+
+    var html = '<div class="av-hash-container">';
+
+    html += '<div class="av-hash-formula" id="av-hash-formula">' +
+        '<span class="av-hash-formula-label" data-i18n="av.hash.formula_label">' + I18N.t('av.hash.formula_label', null, 'Hash Function:') + '</span>' +
+        '<span class="av-hash-formula-text">h(k) = k mod ' + table.length + '</span>' +
+        '</div>';
+
+    html += '<div class="av-hash-key-banner" id="av-hash-key-banner" style="display:none">' +
+        '<span class="av-hash-key-label" data-i18n="av.hash.inserting_label">' + I18N.t('av.hash.inserting_label', null, 'Inserting:') + '</span>' +
+        '<span class="av-hash-key-value" id="av-hash-key-value">\u2014</span>' +
+        '</div>';
+
+    html += '<div class="av-hash-buckets" id="av-hash-buckets">';
+    for (var i = 0; i < table.length; i++) {
+        html += '<div class="av-hash-bucket" data-bucket="' + i + '">';
+        html += '<div class="av-hash-bucket-index">' + i + '</div>';
+        html += '<div class="av-hash-bucket-slot" data-slot="' + i + '">';
+
+        if (mode === 'chaining') {
+            if (table[i] && table[i].length > 0) {
+                html += '<div class="av-hash-chain">';
+                for (var ci = 0; ci < table[i].length; ci++) {
+                    if (ci > 0) html += '<div class="av-hash-chain-arrow">\u2192</div>';
+                    html += '<div class="av-hash-chain-node" data-chain-idx="' + ci + '">' + table[i][ci] + '</div>';
+                }
+                html += '</div>';
+            } else {
+                html += '<span class="av-hash-empty-label">\u2014</span>';
+            }
+        } else {
+            if (table[i] !== null && table[i] !== undefined) {
+                html += '<span class="av-hash-value">' + table[i] + '</span>';
+            } else {
+                html += '<span class="av-hash-empty-label">\u2014</span>';
+            }
+        }
+
+        html += '</div></div>';
+    }
+    html += '</div>';
+    html += '</div>';
+
+    canvas.innerHTML = html;
+};
+
+AV.clearHashHighlights = function() {
+    document.querySelectorAll('.av-hash-bucket-slot').forEach(function(slot) {
+        slot.classList.remove('av-hash-checking', 'av-hash-inserting', 'av-hash-collision', 'av-hash-probing', 'av-hash-found', 'av-hash-not-found');
+    });
+    document.querySelectorAll('.av-hash-chain-node').forEach(function(node) {
+        node.classList.remove('av-hash-checking', 'av-hash-inserting', 'av-hash-found');
+    });
+};
+
+AV._updateHashFormula = function(key, hashValue, tableSize) {
+    var formula = document.getElementById('av-hash-formula');
+    if (!formula) return;
+    var text = formula.querySelector('.av-hash-formula-text');
+    if (text) {
+        text.innerHTML = 'h(<strong>' + key + '</strong>) = ' + key + ' mod ' + tableSize + ' = <strong>' + hashValue + '</strong>';
+    }
+    formula.classList.add('av-hash-formula-active');
+    setTimeout(function() { formula.classList.remove('av-hash-formula-active'); }, 600);
+};
+
+AV._updateHashKeyBanner = function(key) {
+    var banner = document.getElementById('av-hash-key-banner');
+    if (!banner) return;
+    if (key === null) {
+        banner.style.display = 'none';
+    } else {
+        banner.style.display = '';
+        document.getElementById('av-hash-key-value').textContent = key;
+    }
+};
+
+AV._insertHashValue = function(index, key, mode) {
+    var slot = document.querySelector('.av-hash-bucket-slot[data-slot="' + index + '"]');
+    if (!slot) return;
+
+    if (mode === 'chaining') {
+        var chain = slot.querySelector('.av-hash-chain');
+        if (!chain) {
+            slot.innerHTML = '<div class="av-hash-chain"></div>';
+            chain = slot.querySelector('.av-hash-chain');
+        }
+        var existingNodes = chain.querySelectorAll('.av-hash-chain-node');
+        if (existingNodes.length > 0) {
+            var arrow = document.createElement('div');
+            arrow.className = 'av-hash-chain-arrow';
+            arrow.textContent = '\u2192';
+            chain.appendChild(arrow);
+        }
+        var node = document.createElement('div');
+        node.className = 'av-hash-chain-node av-hash-inserting';
+        node.setAttribute('data-chain-idx', existingNodes.length);
+        node.textContent = key;
+        chain.appendChild(node);
+        var emptyLabel = slot.querySelector('.av-hash-empty-label');
+        if (emptyLabel) emptyLabel.remove();
+    } else {
+        slot.innerHTML = '<span class="av-hash-value av-hash-inserting">' + key + '</span>';
+    }
+};
+
+/* ===== Hash Table Snapshots ===== */
+AV._computeHashSnapshots = function(steps) {
+    var tableSize = AV.state._hashTableSize;
+    var mode = AV.state._hashMode;
+
+    var hasInserts = steps.some(function(s) { return s.type === 'HASH_INSERT' || s.type === 'HASH_CHAIN_ADD'; });
+    var table;
+    if (!hasInserts && AV.state._hashTable) {
+        table = JSON.parse(JSON.stringify(AV.state._hashTable));
+    } else if (mode === 'chaining') {
+        table = (function() { var a = []; for (var i = 0; i < tableSize; i++) a.push([]); return a; })();
+    } else {
+        table = new Array(tableSize).fill(null);
+    }
+
+    var operations = 0;
+    var collisions = 0;
+    var currentKey = null;
+    var currentHash = null;
+
+    var snapshots = [{
+        table: JSON.parse(JSON.stringify(table)),
+        operations: 0,
+        collisions: 0,
+        currentKey: null,
+        currentHash: null
+    }];
+
+    for (var i = 0; i < steps.length; i++) {
+        var step = steps[i];
+
+        if (step.type === 'HASH_COMPUTE') {
+            currentKey = step.key;
+            currentHash = step.hashValue;
+            operations++;
+        } else if (step.type === 'HASH_INSERT') {
+            if (mode === 'chaining') {
+                table[step.index].push(step.key);
+            } else {
+                table[step.index] = step.key;
+            }
+        } else if (step.type === 'HASH_CHAIN_ADD') {
+            table[step.index].push(step.key);
+        } else if (step.type === 'HASH_COLLISION') {
+            collisions++;
+            operations++;
+        }
+
+        snapshots.push({
+            table: JSON.parse(JSON.stringify(table)),
+            operations: operations,
+            collisions: collisions,
+            currentKey: currentKey,
+            currentHash: currentHash
+        });
+    }
+    return snapshots;
+};
+
+AV._applyHashSnapshot = function(snapshot) {
+    AV.renderHashTable(snapshot.table, AV.state._hashMode);
+    if (snapshot.currentKey !== null) {
+        AV._updateHashKeyBanner(snapshot.currentKey);
+        if (snapshot.currentHash !== null) {
+            AV._updateHashFormula(snapshot.currentKey, snapshot.currentHash, AV.state._hashTableSize);
+        }
+    } else {
+        AV._updateHashKeyBanner(null);
+    }
+    if (AV.state._hashSearchTarget !== undefined) {
+        AV._reinjectSearchTargetUI();
+    }
+};
+
 /* ===== String Input Panel ===== */
 AV._renderStringInputPanel = function(text, pattern, onApply) {
     var canvas = document.getElementById('av-canvas');
@@ -578,7 +778,8 @@ AV.setAccentColors = function(algorithmId) {
         'bfs': { accent: '#06B6D4', bg: '#0d1a22', light: '#15252f' },
         'bst-operations': { accent: '#F59E0B', bg: '#1a1508', light: '#2d2210' },
         'fibonacci': { accent: '#EC4899', bg: '#1a0d18', light: '#2d1528' },
-        'kmp': { accent: '#14B8A6', bg: '#0d1a1a', light: '#15282a' }
+        'kmp': { accent: '#14B8A6', bg: '#0d1a1a', light: '#15282a' },
+        'hash-table': { accent: '#F97316', bg: '#1a1208', light: '#2d1f10' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
     root.setProperty('--av-accent', t.accent);
@@ -669,6 +870,7 @@ AV.animateFlow = async function(steps, options) {
     AV.log('REQUEST', opts.requestLabel || I18N.t('av.log.started', null, 'Algorithm started'));
     var startTime = performance.now();
 
+    try {
     for (var i = 0; i < steps.length; i++) {
         if (!AV.state.running) break;
         AV.state.stepIndex = i;
@@ -982,6 +1184,99 @@ AV.animateFlow = async function(steps, options) {
             AV.log('STR_LPS_SET', I18N.t(lpsLogKey, lpsLogParams, lpsLogFallback));
             await AV.sleep(AV.state.stepDelay * 0.5);
 
+        } else if (step.type === 'HASH_COMPUTE') {
+            AV.clearHashHighlights();
+            AV._updateHashKeyBanner(step.key);
+            AV._updateHashFormula(step.key, step.hashValue, step.tableSize);
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('HASH_COMPUTE', I18N.t('av.log.hash_compute',
+                { key: step.key, hash: step.hashValue, size: step.tableSize },
+                'h(' + step.key + ') = ' + step.key + ' mod ' + step.tableSize + ' = ' + step.hashValue));
+            await AV.sleep(AV.state.stepDelay);
+
+        } else if (step.type === 'HASH_CHECK_SLOT') {
+            AV.clearHashHighlights();
+            var hcSlot = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
+            if (hcSlot) hcSlot.classList.add('av-hash-checking');
+            if (step.chainPos !== undefined && hcSlot) {
+                var hcNode = hcSlot.querySelectorAll('.av-hash-chain-node')[step.chainPos];
+                if (hcNode) hcNode.classList.add('av-hash-checking');
+            }
+            AV.log('HASH_CHECK', I18N.t('av.log.hash_check_slot',
+                { index: step.index, value: step.currentValue },
+                'Check bucket[' + step.index + ']: ' + (step.isEmpty ? 'empty' : 'occupied (' + step.currentValue + ')')));
+            await AV.sleep(AV.state.stepDelay * 0.7);
+
+        } else if (step.type === 'HASH_INSERT') {
+            AV.clearHashHighlights();
+            AV._insertHashValue(step.index, step.key, AV.state._hashMode);
+            var hiSlot = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
+            if (hiSlot) hiSlot.classList.add('av-hash-inserting');
+            AV.state.swaps++;
+            AV.updateStats();
+            AV.log('HASH_INSERT', I18N.t('av.log.hash_insert',
+                { key: step.key, index: step.index },
+                'Insert ' + step.key + ' into bucket[' + step.index + ']'));
+            await AV.sleep(AV.state.stepDelay);
+
+        } else if (step.type === 'HASH_COLLISION') {
+            AV.clearHashHighlights();
+            var hcolSlot = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
+            if (hcolSlot) hcolSlot.classList.add('av-hash-collision');
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('HASH_COLLISION', I18N.t('av.log.hash_collision',
+                { key: step.key, index: step.index, existing: step.existingValue },
+                'Collision at bucket[' + step.index + ']: ' + step.existingValue + ' already present'));
+            await AV.sleep(AV.state.stepDelay);
+
+        } else if (step.type === 'HASH_CHAIN_ADD') {
+            AV.clearHashHighlights();
+            AV._insertHashValue(step.index, step.key, 'chaining');
+            var hcaSlot = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
+            if (hcaSlot) hcaSlot.classList.add('av-hash-inserting');
+            AV.state.swaps++;
+            AV.updateStats();
+            AV.log('HASH_CHAIN', I18N.t('av.log.hash_chain_add',
+                { key: step.key, index: step.index, chainLen: step.chainLength },
+                'Chain ' + step.key + ' to bucket[' + step.index + '] (chain length: ' + step.chainLength + ')'));
+            await AV.sleep(AV.state.stepDelay);
+
+        } else if (step.type === 'HASH_PROBE') {
+            AV.clearHashHighlights();
+            var hpFrom = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.fromIndex + '"]');
+            var hpTo = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.toIndex + '"]');
+            if (hpFrom) hpFrom.classList.add('av-hash-probing');
+            if (hpTo) hpTo.classList.add('av-hash-checking');
+            AV.log('HASH_PROBE', I18N.t('av.log.hash_probe',
+                { key: step.key, from: step.fromIndex, to: step.toIndex, num: step.probeNumber },
+                'Probe #' + step.probeNumber + ': bucket[' + step.fromIndex + '] \u2192 bucket[' + step.toIndex + ']'));
+            await AV.sleep(AV.state.stepDelay * 0.7);
+
+        } else if (step.type === 'HASH_FOUND') {
+            AV.clearHashHighlights();
+            var hfSlot = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
+            if (hfSlot) hfSlot.classList.add('av-hash-found');
+            if (step.chainPos !== undefined && hfSlot) {
+                var hfNode = hfSlot.querySelectorAll('.av-hash-chain-node')[step.chainPos];
+                if (hfNode) hfNode.classList.add('av-hash-found');
+            }
+            AV.log('HASH_FOUND', I18N.t('av.log.hash_found',
+                { key: step.key, index: step.index },
+                'Found ' + step.key + ' in bucket[' + step.index + ']'));
+            await AV.sleep(AV.state.stepDelay);
+
+        } else if (step.type === 'HASH_NOT_FOUND') {
+            AV.clearHashHighlights();
+            document.querySelectorAll('.av-hash-bucket-slot').forEach(function(s) {
+                s.classList.add('av-hash-not-found');
+            });
+            AV.log('HASH_NOT_FOUND', I18N.t('av.log.hash_not_found',
+                { key: step.key },
+                'Value ' + step.key + ' not found in hash table'));
+            await AV.sleep(AV.state.stepDelay);
+
         } else if (step.type === 'DONE') {
             AV.clearHighlights();
             if (AV.state._isStringAlgorithm) {
@@ -989,12 +1284,17 @@ AV.animateFlow = async function(steps, options) {
                 document.querySelectorAll('#av-str-text .av-str-cell').forEach(function(c) {
                     if (!c.classList.contains('av-str-found')) c.classList.add('av-str-idle');
                 });
+            } else if (AV.state._isHashAlgorithm) {
+                AV.clearHashHighlights();
             } else if (step.found === false) {
                 document.querySelectorAll('.av-bar').forEach(function(bar) { bar.classList.add('av-examined'); });
             } else {
                 document.querySelectorAll('.av-bar').forEach(function(bar) { bar.classList.add('av-sorted'); });
             }
         }
+    }
+    } catch (e) {
+        if (e.message !== 'AV_STOP') throw e;
     }
 
     var elapsed = Math.round(performance.now() - startTime);
@@ -1011,6 +1311,10 @@ AV.animateFlow = async function(steps, options) {
         } else if (AV.state._isStringAlgorithm) {
             AV.log('DONE', I18N.t('av.log.done_string', { time: elapsed, comparisons: AV.state.comparisons, matches: AV.state.swaps },
                 'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons, ' + AV.state.swaps + ' matches found)'));
+        } else if (AV.state._isHashAlgorithm) {
+            AV.log('DONE', I18N.t('av.log.done_hash',
+                { time: elapsed, operations: AV.state.comparisons, collisions: AV.state.swaps },
+                'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' operations, ' + AV.state.swaps + ' insertions)'));
         } else if (AV.state._searchTarget !== undefined) {
             AV.log('DONE', I18N.t('av.log.done_search', { time: elapsed, comparisons: AV.state.comparisons },
                 'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons)'));
@@ -1245,7 +1549,8 @@ AV._applyStringSnapshot = function(snapshot) {
 AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
     var isGraph = !!AV.state._graphData;
     var isString = !!AV.state._isStringAlgorithm;
-    var snapshots = isGraph ? AV._computeGraphSnapshots(steps) : isString ? AV._computeStringSnapshots(steps) : AV._computeSnapshots(initialArray, steps);
+    var isHash = !!AV.state._isHashAlgorithm;
+    var snapshots = isGraph ? AV._computeGraphSnapshots(steps) : isString ? AV._computeStringSnapshots(steps) : isHash ? AV._computeHashSnapshots(steps) : AV._computeSnapshots(initialArray, steps);
 
     if (resumeFromIndex > 0) {
         /* Resume from current animation position — keep stats and log */
@@ -1263,6 +1568,8 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
             AV._applyGraphSnapshot(snapshot);
         } else if (isString) {
             AV._applyStringSnapshot(snapshot);
+        } else if (isHash) {
+            AV._applyHashSnapshot(snapshot);
         } else {
             AV.renderArray(snapshot.arr);
             snapshot.sorted.forEach(function(idx) { AV.markSorted(idx); });
@@ -1483,6 +1790,59 @@ AV.stepForward = function() {
         return;
     }
 
+    var isHash = !!AV.state._isHashAlgorithm;
+    if (isHash) {
+        AV._applyHashSnapshot(snapshot);
+        if (step.type === 'HASH_COMPUTE') {
+            AV.state.comparisons++;
+            AV.log('HASH_COMPUTE', I18N.t('av.log.hash_compute',
+                { key: step.key, hash: step.hashValue, size: step.tableSize },
+                'h(' + step.key + ') = ' + step.key + ' mod ' + step.tableSize + ' = ' + step.hashValue));
+        } else if (step.type === 'HASH_CHECK_SLOT') {
+            var hcsSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
+            if (hcsSf) hcsSf.classList.add('av-hash-checking');
+            if (step.chainPos !== undefined && hcsSf) {
+                var hcsN = hcsSf.querySelectorAll('.av-hash-chain-node')[step.chainPos];
+                if (hcsN) hcsN.classList.add('av-hash-checking');
+            }
+            AV.log('HASH_CHECK', 'Check bucket[' + step.index + ']: ' + (step.isEmpty ? 'empty' : 'occupied'));
+        } else if (step.type === 'HASH_INSERT') {
+            var hisSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
+            if (hisSf) hisSf.classList.add('av-hash-inserting');
+            AV.state.swaps++;
+            AV.log('HASH_INSERT', 'Insert ' + step.key + ' into bucket[' + step.index + ']');
+        } else if (step.type === 'HASH_COLLISION') {
+            var hcolSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
+            if (hcolSf) hcolSf.classList.add('av-hash-collision');
+            AV.state.comparisons++;
+            AV.log('HASH_COLLISION', 'Collision at bucket[' + step.index + ']');
+        } else if (step.type === 'HASH_CHAIN_ADD') {
+            var hcaSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
+            if (hcaSf) hcaSf.classList.add('av-hash-inserting');
+            AV.state.swaps++;
+            AV.log('HASH_CHAIN', 'Chain ' + step.key + ' to bucket[' + step.index + ']');
+        } else if (step.type === 'HASH_PROBE') {
+            var hpFSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.fromIndex + '"]');
+            var hpTSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.toIndex + '"]');
+            if (hpFSf) hpFSf.classList.add('av-hash-probing');
+            if (hpTSf) hpTSf.classList.add('av-hash-checking');
+            AV.log('HASH_PROBE', 'Probe #' + step.probeNumber + ': bucket[' + step.fromIndex + '] \u2192 bucket[' + step.toIndex + ']');
+        } else if (step.type === 'HASH_FOUND') {
+            var hfSf = document.querySelector('.av-hash-bucket-slot[data-slot="' + step.index + '"]');
+            if (hfSf) hfSf.classList.add('av-hash-found');
+            AV.log('HASH_FOUND', 'Found ' + step.key + ' in bucket[' + step.index + ']');
+        } else if (step.type === 'HASH_NOT_FOUND') {
+            document.querySelectorAll('.av-hash-bucket-slot').forEach(function(s) { s.classList.add('av-hash-not-found'); });
+            AV.log('HASH_NOT_FOUND', 'Value ' + step.key + ' not found');
+        } else if (step.type === 'DONE') {
+            AV.log('DONE', I18N.t('av.log.done_step', null, 'Hash table operation complete'));
+        }
+        AV.updateStats();
+        sm.index++;
+        AV._updateStepButtons();
+        return;
+    }
+
     AV.renderArray(snapshot.arr);
     snapshot.sorted.forEach(function(idx) { AV.markSorted(idx); });
 
@@ -1591,6 +1951,16 @@ AV.stepBack = function() {
         return;
     }
 
+    var isHashBack = !!AV.state._isHashAlgorithm;
+    if (isHashBack) {
+        AV.state.comparisons = snapshot.operations;
+        AV.state.swaps = snapshot.collisions;
+        AV.updateStats();
+        AV._applyHashSnapshot(snapshot);
+        AV._updateStepButtons();
+        return;
+    }
+
     var comparisons = 0;
     var swaps = 0;
     for (var i = 0; i < sm.index; i++) {
@@ -1644,7 +2014,7 @@ AV.switchToStepMode = function() {
 
     var steps = AV.state._flowSteps;
     var options = AV.state._flowOptions || {};
-    var currentIndex = AV.state.stepIndex;
+    var currentIndex = AV.state.stepIndex + 1;
     var savedComparisons = AV.state.comparisons;
     var savedSwaps = AV.state.swaps;
 

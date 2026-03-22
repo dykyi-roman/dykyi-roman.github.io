@@ -13,7 +13,7 @@
         hashing: ['hash-table', 'chaining', 'open-addressing']
     };
 
-    var implementedAlgorithms = ['bubble-sort', 'linear-search', 'bfs', 'bst-operations', 'fibonacci', 'kmp'];
+    var implementedAlgorithms = ['bubble-sort', 'linear-search', 'bfs', 'bst-operations', 'fibonacci', 'kmp', 'hash-table'];
 
     var activeCategory = 'sorting';
 
@@ -170,12 +170,23 @@
         AV._restoreArrayStatLabels();
     }
 
+    function removeHashUI() {
+        delete AV.state._isHashAlgorithm;
+        delete AV.state._hashTableSize;
+        delete AV.state._hashTable;
+        delete AV.state._hashMode;
+        delete AV.state._hashKeys;
+        delete AV.state._hashSearchTarget;
+        AV._restoreArrayStatLabels();
+    }
+
     function switchAlgorithm(algorithmId, modeId) {
         AV.state.algorithm = algorithmId;
         AV.setAccentColors(algorithmId);
         removeSearchUI();
         removeGraphUI();
         removeStringUI();
+        removeHashUI();
 
         document.querySelectorAll('.av-tab').forEach(function(tab) {
             tab.classList.toggle('active', tab.dataset.algorithm === algorithmId);
@@ -372,7 +383,7 @@
             }
             if (AV.stepMode.active) {
                 AV.exitStepMode();
-                switchAlgorithm(AV.state.algorithm);
+                switchAlgorithm(AV.state.algorithm, AV.state.mode);
                 return;
             }
             var mode = getCurrentMode();
@@ -472,6 +483,22 @@
             AV._setGraphStatLabels();
         } else if (AV.state._isStringAlgorithm) {
             AV._setStringStatLabels();
+        } else if (AV.state._isHashAlgorithm) {
+            AV._setHashStatLabels();
+        }
+
+        /* 6a. Hash table formula & banner labels */
+        var hashFormulaLabel = document.querySelector('.av-hash-formula-label');
+        if (hashFormulaLabel) {
+            hashFormulaLabel.textContent = I18N.t('av.hash.formula_label', null, 'Hash Function:');
+        }
+        var hashKeyLabel = document.querySelector('.av-hash-key-label');
+        if (hashKeyLabel) {
+            hashKeyLabel.textContent = I18N.t('av.hash.inserting_label', null, 'Inserting:');
+        }
+        var hashTargetLabel = document.querySelector('.av-hash-target-label');
+        if (hashTargetLabel) {
+            hashTargetLabel.textContent = I18N.t('av.hash.searching_label', null, 'Search for:');
         }
 
         /* 6b. Queue panel label */

@@ -392,5 +392,135 @@
     { "name": "Speicher", "role": "O(m) \u2014 LPS-Array" },
     { "name": "Mehrfachtreffer", "role": "Ja \u2014 findet alle Vorkommen" },
     { "name": "R\u00fcckschritt", "role": "Nein \u2014 Textzeiger bewegt sich nie zur\u00fcck" }
+  ],
+
+  "av.stat.hash_operations": "Operationen",
+  "av.stat.hash_collisions": "Kollisionen",
+  "av.hash.formula_label": "Hashfunktion:",
+  "av.hash.inserting_label": "Einf\u00fcgen:",
+  "av.hash.searching_label": "Suchen:",
+
+  "av.legend.hash_empty": "Leerer Bucket",
+  "av.legend.hash_occupied": "Belegt",
+  "av.legend.hash_computing": "Hash berechnen",
+  "av.legend.hash_collision": "Kollision",
+  "av.legend.hash_inserting": "Einf\u00fcgen",
+  "av.legend.hash_probing": "Sondieren",
+  "av.legend.hash_found": "Gefunden",
+
+  "av.log.hash_compute": "h({key}) = {key} mod {size} = {hash}",
+  "av.log.hash_check_slot": "Pr\u00fcfe Bucket[{index}]: {value}",
+  "av.log.hash_insert": "{key} in Bucket[{index}] einf\u00fcgen",
+  "av.log.hash_collision": "Kollision bei Bucket[{index}]: {existing} bereits vorhanden",
+  "av.log.hash_chain_add": "{key} an Bucket[{index}] ketten (Kettenl\u00e4nge: {chainLen})",
+  "av.log.hash_probe": "Sonde #{num}: Bucket[{from}] \u2192 Bucket[{to}]",
+  "av.log.hash_found": "{key} in Bucket[{index}] gefunden",
+  "av.log.hash_not_found": "Wert {key} nicht in der Hashtabelle gefunden",
+  "av.log.done_hash": "Abgeschlossen in {time}ms ({operations} Operationen, {collisions} Einf\u00fcgungen)",
+
+  "ui.log.type.HASH_COMPUTE": "HASH",
+  "ui.log.type.HASH_CHECK": "PR\u00dcFEN",
+  "ui.log.type.HASH_INSERT": "EINF\u00dcGEN",
+  "ui.log.type.HASH_COLLISION": "KOLLISION",
+  "ui.log.type.HASH_CHAIN": "KETTE",
+  "ui.log.type.HASH_PROBE": "SONDE",
+  "ui.log.type.HASH_FOUND": "GEFUNDEN",
+  "ui.log.type.HASH_NOT_FOUND": "NICHT GEFUNDEN",
+
+  "hash-table.name": "Hashtabelle",
+  "hash-table.stepLabel": "Hashtabelle",
+  "hash-table.modes.chaining.label": "Verkettung",
+  "hash-table.modes.chaining.desc": "Separate Verkettung: Jeder Bucket enth\u00e4lt eine verkettete Liste. Bei Kollision wird der Schl\u00fcssel an die Kette angeh\u00e4ngt.",
+  "hash-table.modes.linear-probing.label": "Lineares Sondieren",
+  "hash-table.modes.linear-probing.desc": "Offene Adressierung mit linearem Sondieren: Jeder Bucket enth\u00e4lt h\u00f6chstens einen Wert. Bei Kollision wird sequenziell sondiert.",
+  "hash-table.modes.search.label": "Suche",
+  "hash-table.modes.search.desc": "Suche nach einem Wert in einer vorbef\u00fcllten Hashtabelle. Berechnet den Hash und durchl\u00e4uft die Kette.",
+
+  "hash-table.details.chaining.principles": [
+    "Hashindex berechnen: h(key) = key mod Tabellengr\u00f6\u00dfe",
+    "Wenn der Bucket leer ist, direkt einf\u00fcgen",
+    "Bei Kollision den Schl\u00fcssel an die verkettete Liste anh\u00e4ngen",
+    "Jeder Bucket kann unbegrenzt viele Schl\u00fcssel speichern",
+    "Lastfaktor \u03B1 = n/m kann 1 \u00fcberschreiten"
+  ],
+  "hash-table.details.chaining.concepts": [
+    { "term": "Hashfunktion", "definition": "Bildet einen Schl\u00fcssel auf einen Bucket-Index ab. h(k) = k mod m." },
+    { "term": "Kollision", "definition": "Zwei verschiedene Schl\u00fcssel haben denselben Hashindex." },
+    { "term": "Separate Verkettung", "definition": "Jeder Bucket speichert eine verkettete Liste aller Schl\u00fcssel." },
+    { "term": "Lastfaktor", "definition": "Verh\u00e4ltnis \u03B1 = n/m. Die durchschnittliche Kettenl\u00e4nge entspricht \u03B1." },
+    { "term": "Gleichm\u00e4\u00dfiges Hashing", "definition": "Annahme, dass jeder Schl\u00fcssel gleich wahrscheinlich in jeden Bucket f\u00e4llt." }
+  ],
+  "hash-table.details.chaining.tradeoffs.pros": [
+    "Einfach zu implementieren",
+    "Funktioniert bei jedem Lastfaktor",
+    "Einfaches L\u00f6schen",
+    "Allm\u00e4hliche Leistungsverschlechterung"
+  ],
+  "hash-table.details.chaining.tradeoffs.cons": [
+    "Zus\u00e4tzlicher Speicher f\u00fcr Zeiger",
+    "Schlechte Cache-Lokalit\u00e4t",
+    "O(n) im schlimmsten Fall",
+    "Dynamische Speicherzuweisung erforderlich"
+  ],
+  "hash-table.details.chaining.tradeoffs.whenToUse": "Verwenden Sie Verkettung, wenn der Lastfaktor unvorhersehbar ist oder L\u00f6schungen h\u00e4ufig sind.",
+
+  "hash-table.details.linear-probing.principles": [
+    "Hashindex berechnen: h(key) = key mod Tabellengr\u00f6\u00dfe",
+    "Wenn der Slot leer ist, direkt einf\u00fcgen",
+    "Bei Kollision n\u00e4chsten Slot pr\u00fcfen: (h + 1) mod m, (h + 2) mod m, ...",
+    "Weiter sondieren bis ein leerer Slot gefunden wird",
+    "Lastfaktor muss unter 1.0 bleiben"
+  ],
+  "hash-table.details.linear-probing.concepts": [
+    { "term": "Offene Adressierung", "definition": "Alle Schl\u00fcssel werden direkt in der Tabelle gespeichert." },
+    { "term": "Lineares Sondieren", "definition": "Bei Kollision bei h werden h+1, h+2, h+3 usw. gepr\u00fcft." },
+    { "term": "Prim\u00e4re Clusterbildung", "definition": "Aufeinanderfolgende belegte Slots bilden Cluster." },
+    { "term": "Lastfaktor", "definition": "Bei \u03B1=0.5 durchschnittlich \u2248 1.5 Sonden; bei \u03B1=0.9 \u2248 5.5." },
+    { "term": "Grabstein", "definition": "Gel\u00f6schte Slots werden markiert, um Sondierungsketten nicht zu unterbrechen." }
+  ],
+  "hash-table.details.linear-probing.tradeoffs.pros": [
+    "Cache-freundlich",
+    "Keine zus\u00e4tzlichen Zeiger",
+    "Einfache Implementierung",
+    "Gute Leistung bei niedrigem Lastfaktor"
+  ],
+  "hash-table.details.linear-probing.tradeoffs.cons": [
+    "Prim\u00e4re Clusterbildung verschlechtert Leistung",
+    "L\u00f6schen erfordert Grabsteine",
+    "Vergr\u00f6\u00dferung vor dem Vollwerden n\u00f6tig",
+    "Starke Verschlechterung \u00fcber 70% Last"
+  ],
+  "hash-table.details.linear-probing.tradeoffs.whenToUse": "Verwenden Sie lineares Sondieren bei begrenztem Speicher und niedrigem Lastfaktor (< 0.7).",
+
+  "hash-table.details.search.principles": [
+    "Hash berechnen: h(Ziel) = Ziel mod Tabellengr\u00f6\u00dfe",
+    "Zum Bucket bei Index h gehen",
+    "Kette durchlaufen und jeden Knoten vergleichen",
+    "Ergebnis zur\u00fcckgeben: gefunden oder nicht gefunden"
+  ],
+  "hash-table.details.search.concepts": [
+    { "term": "Erfolgreiche Suche", "definition": "Schl\u00fcssel existiert. Durchschnittliche Sonden: 1 + \u03B1/2." },
+    { "term": "Erfolglose Suche", "definition": "Schl\u00fcssel fehlt. Durchschnittliche Sonden: 1 + \u03B1." },
+    { "term": "Erwartete Sonden", "definition": "Anzahl gepr\u00fcfter Slots. Abh\u00e4ngig vom Lastfaktor." }
+  ],
+  "hash-table.details.search.tradeoffs.pros": [
+    "Durchschnittliche Suchzeit O(1)",
+    "Daten m\u00fcssen nicht sortiert sein",
+    "Stabile Leistung"
+  ],
+  "hash-table.details.search.tradeoffs.cons": [
+    "O(n) im schlimmsten Fall",
+    "Hashfunktionsqualit\u00e4t beeinflusst Leistung",
+    "Keine Bereichsabfragen"
+  ],
+  "hash-table.details.search.tradeoffs.whenToUse": "Verwenden Sie Hash-Suche f\u00fcr exakte Treffer, wenn durchschnittlich O(1) kritisch ist.",
+
+  "hash-table.depRules": [
+    { "name": "Zeit (Einf\u00fcgen Durchschn.)", "role": "O(1) \u2014 konstant bei guter Funktion" },
+    { "name": "Zeit (Suche Durchschn.)", "role": "O(1) \u2014 konstant bei guter Funktion" },
+    { "name": "Zeit (Einf\u00fcgen Worst)", "role": "O(n) \u2014 alle Schl\u00fcssel in einem Bucket" },
+    { "name": "Zeit (Suche Worst)", "role": "O(n) \u2014 degenerierte Kette" },
+    { "name": "Speicher", "role": "O(n + m) \u2014 n Schl\u00fcssel + m Buckets" },
+    { "name": "Hashfunktion", "role": "h(k) = k mod m \u2014 Divisionsmethode" }
   ]
 }
