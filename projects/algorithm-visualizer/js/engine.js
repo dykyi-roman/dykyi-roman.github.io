@@ -499,6 +499,53 @@ AV._setStringStatLabels = function() {
     }
 };
 
+/* ===== String Input Panel ===== */
+AV._renderStringInputPanel = function(text, pattern, onApply) {
+    var canvas = document.getElementById('av-canvas');
+    if (!canvas) return;
+    AV._removeStringInputPanel();
+
+    var panel = document.createElement('div');
+    panel.className = 'av-str-input-panel';
+
+    var textLabel = I18N.t('av.str.text_label', null, 'Text:');
+    var patternLabel = I18N.t('av.str.pattern_label', null, 'Pattern:');
+    var applyLabel = I18N.t('av.str.input_apply', null, 'Apply');
+
+    panel.innerHTML =
+        '<label class="av-str-input-group">' +
+            '<span class="av-str-input-label">' + textLabel + '</span>' +
+            '<input type="text" class="av-str-input" id="av-str-input-text" value="' + text + '" spellcheck="false" autocomplete="off">' +
+        '</label>' +
+        '<label class="av-str-input-group">' +
+            '<span class="av-str-input-label">' + patternLabel + '</span>' +
+            '<input type="text" class="av-str-input" id="av-str-input-pattern" value="' + pattern + '" spellcheck="false" autocomplete="off">' +
+        '</label>' +
+        '<button class="av-str-input-btn" id="av-str-input-apply">' + applyLabel + '</button>';
+
+    canvas.parentNode.insertBefore(panel, canvas);
+
+    var applyBtn = document.getElementById('av-str-input-apply');
+    var textInput = document.getElementById('av-str-input-text');
+    var patInput = document.getElementById('av-str-input-pattern');
+
+    function doApply() {
+        var t = textInput.value.trim();
+        var p = patInput.value.trim();
+        if (!t || !p || p.length > t.length) return;
+        onApply(t, p);
+    }
+
+    applyBtn.onclick = doApply;
+    textInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') doApply(); });
+    patInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') doApply(); });
+};
+
+AV._removeStringInputPanel = function() {
+    var panel = document.querySelector('.av-str-input-panel');
+    if (panel) panel.remove();
+};
+
 AV._renderInsertBanner = function(value) {
     var canvas = document.getElementById('av-canvas');
     if (!canvas) return;

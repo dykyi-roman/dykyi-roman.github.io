@@ -326,6 +326,7 @@
   "av.str.text_label": "Texto:",
   "av.str.pattern_label": "Patr\u00f3n:",
   "av.str.lps_label": "LPS:",
+  "av.str.input_apply": "Aplicar",
 
   "av.legend.str_default": "Normal",
   "av.legend.str_comparing": "Comparando",
@@ -353,12 +354,9 @@
   "ui.log.type.STR_LPS_SET": "LPS",
 
   "kmp.name": "KMP",
-  "kmp.stepLabel": "KMP \u2014 B\u00fasqueda completa",
-  "kmp.stepLabel_lps": "KMP \u2014 Construcci\u00f3n LPS",
-  "kmp.modes.standard.label": "KMP completo",
-  "kmp.modes.standard.desc": "Algoritmo KMP completo: primero construye el array LPS (Prefijo Propio m\u00e1s Largo que tambi\u00e9n es Sufijo) para el patr\u00f3n, luego escanea el texto usando el LPS para omitir comparaciones redundantes.",
-  "kmp.modes.lps-only.label": "Construcci\u00f3n LPS",
-  "kmp.modes.lps-only.desc": "Visualiza solo el paso de preprocesamiento: la construcci\u00f3n del array LPS (funci\u00f3n de fallo). Este array es la estructura clave que permite la b\u00fasqueda en O(n+m).",
+  "kmp.stepLabel": "KMP",
+  "kmp.modes.standard.label": "KMP",
+  "kmp.modes.standard.desc": "Algoritmo KMP: construye el array LPS (Prefijo Propio m\u00e1s Largo que tambi\u00e9n es Sufijo) para el patr\u00f3n, luego escanea el texto usando el LPS para omitir comparaciones redundantes.",
   "kmp.details.standard.principles": [
     "Construir el array LPS para el patr\u00f3n en O(m)",
     "Escanear el texto de izquierda a derecha; el puntero del texto nunca retrocede",
@@ -387,30 +385,6 @@
     "Solo un patr\u00f3n \u2014 para m\u00faltiples usar Aho-Corasick"
   ],
   "kmp.details.standard.tradeoffs.whenToUse": "Use KMP cuando necesite b\u00fasqueda lineal garantizada, especialmente para textos largos o patrones con prefijos repetidos. Ideal para datos en streaming.",
-  "kmp.details.lps-only.principles": [
-    "Inicializar LPS[0] = 0",
-    "Usar dos punteros: i (posici\u00f3n actual) y len (longitud del LPS anterior)",
-    "Si pattern[i] == pattern[len], incrementar len y establecer LPS[i] = len",
-    "Si no coincide y len > 0, establecer len = LPS[len\u22121]",
-    "Si no coincide y len == 0, establecer LPS[i] = 0 y avanzar i"
-  ],
-  "kmp.details.lps-only.concepts": [
-    { "term": "LPS (funci\u00f3n de fallo)", "definition": "El array LPS (tambi\u00e9n llamado funci\u00f3n de fallo o funci\u00f3n prefijo) asigna a cada posici\u00f3n i la longitud del prefijo propio m\u00e1s largo de pattern[0..i] que tambi\u00e9n es sufijo. Ejemplo: para \u00abABABC\u00bb, LPS = [0, 0, 1, 2, 0] porque en la posici\u00f3n 3 (\u00abABAB\u00bb) el prefijo \u00abAB\u00bb es igual al sufijo \u00abAB\u00bb." },
-    { "term": "Auto-coincidencia", "definition": "El c\u00e1lculo del LPS es esencialmente el algoritmo KMP comparando el patr\u00f3n consigo mismo, revelando todos los solapamientos prefijo-sufijo." },
-    { "term": "Retroceso", "definition": "En no coincidencia en posici\u00f3n len, usamos LPS[len\u22121] para encontrar el siguiente prefijo m\u00e1s largo que podr\u00eda coincidir." },
-    { "term": "O(m) amortizado", "definition": "El n\u00famero total de iteraciones est\u00e1 acotado por O(m) ya que len aumenta como m\u00e1ximo 1 por paso." }
-  ],
-  "kmp.details.lps-only.tradeoffs.pros": [
-    "Construcci\u00f3n en O(m)",
-    "Revela la estructura interna del patr\u00f3n",
-    "Base para entender el algoritmo KMP completo",
-    "Misma t\u00e9cnica usada en otros algoritmos"
-  ],
-  "kmp.details.lps-only.tradeoffs.cons": [
-    "Conceptualmente complejo \u2014 la l\u00f3gica de retroceso requiere comprensi\u00f3n cuidadosa",
-    "In\u00fatil solo \u2014 debe combinarse con la fase de b\u00fasqueda"
-  ],
-  "kmp.details.lps-only.tradeoffs.whenToUse": "Estudie la construcci\u00f3n LPS para entender por qu\u00e9 KMP logra tiempo lineal. El mecanismo de retroceso es la idea clave.",
   "kmp.depRules": [
     { "name": "Tiempo (preprocesamiento)", "role": "O(m) \u2014 construir array LPS" },
     { "name": "Tiempo (b\u00fasqueda)", "role": "O(n) \u2014 escaneo \u00fanico" },

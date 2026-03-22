@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../resources/analytics.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Lean Startup - Dykyi Roman</title>
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <style>
+        .concept {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .cycle-diagram {
+            background-color: #eaf2f8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .cycle-element {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 10px 15px;
+            background-color: #2980b9;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .arrow {
+            display: inline-block;
+            font-size: 24px;
+            color: #7f8c8d;
+        }
+
+        .principle-box {
+            background-color: #e8f8f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #2ecc71;
+        }
+
+        .warning-box {
+            background-color: #fdedec;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .warning-title {
+            font-weight: bold;
+            color: #c0392b;
+            margin-bottom: 10px;
+        }
+
+        .case-study {
+            background-color: #f5eef8;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 25px 0;
+            border-left: 4px solid #9b59b6;
+        }
+
+        .case-title {
+            font-weight: bold;
+            color: #8e44ad;
+            margin-bottom: 10px;
+        }
+
+        .pivot-type {
+            background-color: #fef9e7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 3px solid #f39c12;
+            color: #2c3e50;
+        }
+
+        .metric-compare {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .metric-card {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .metric-bad {
+            background-color: #fdedec;
+            border: 2px solid #e74c3c;
+        }
+
+        .metric-good {
+            background-color: #e8f8f5;
+            border: 2px solid #2ecc71;
+        }
+    </style>
+    <link rel="stylesheet" href="../../resources/navigation.css">
+</head>
+<body>
+<!-- Side Navigation -->
+<div class="side-nav">
+    <button class="nav-button" onclick="scrollToSection('book-section')">Intro</button>
+    <button class="nav-button" onclick="scrollToSection('review-section')">Review</button>
+    <button class="nav-button" onclick="scrollToSection('notes-section')">Notes</button>
+</div>
+
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="/pages/books.html">Book Reviews</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">The Lean Startup</span>
+    </nav>
+    <script>
+        fetch('../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <!--  Book  -->
+    <div id="book-section" class="section">
+        <h3>The Lean Startup</h3>
+        <p><strong>Author:</strong> Eric Ries</p>
+
+        <div class="post-content">
+            <p>
+                «Бизнес с нуля» — это манифест нового подхода к созданию компаний и продуктов в условиях экстремальной
+                неопределённости. Эрик Рис, серийный предприниматель из Кремниевой долины, предлагает научный метод
+                вместо интуиции и бизнес-планов.
+            </p>
+            <p>
+                Центральная идея книги: стартап — это не уменьшенная версия большой компании, а организация, созданная
+                для поиска устойчивой бизнес-модели. Вместо того чтобы месяцами разрабатывать «идеальный» продукт,
+                Рис предлагает быстро создавать минимально жизнеспособные продукты (MVP), тестировать гипотезы на
+                реальных клиентах и принимать решения на основе данных.
+            </p>
+            <p>
+                Книга построена вокруг цикла Build-Measure-Learn и объясняет:
+            </p>
+            <ul>
+                <li>Как создать MVP, который проверит ключевые предположения за минимальное время</li>
+                <li>Когда и как совершить «пивот» — стратегический разворот бизнеса</li>
+                <li>Почему метрики тщеславия опасны и как использовать actionable-метрики</li>
+                <li>Как применять принципы бережливого производства к инновациям</li>
+            </ul>
+            <p>
+                Рис разрушает мифы о том, что успех стартапа зависит от гениальной идеи или удачи. Вместо этого
+                он показывает, что предпринимательство — это управляемый процесс, которому можно научиться.
+                Методология Lean Startup применима не только к технологическим стартапам, но и к любому проекту
+                в условиях неопределённости — от корпоративных инноваций до государственных программ.
+            </p>
+        </div>
+    </div>
+
+    <!-- Review  -->
+    <hr class="custom-hr">
+    <div id="review-section" class="section">
+        <h3>Review</h3>
+
+        <div class="concept">
+            <h2>5 принципов бережливого стартапа</h2>
+
+            <p>Фундамент методологии Lean Startup составляют пять принципов, на которых строится всё остальное:</p>
+
+            <div class="principle-box">
+                <p><strong>1. Предприниматели есть повсюду</strong></p>
+                <p>Стартап — это не только два парня в гараже. Любой человек, создающий продукт в условиях
+                    неопределённости, является предпринимателем. Это применимо к корпоративным менеджерам,
+                    государственным служащим и основателям компаний.</p>
+            </div>
+
+            <div class="principle-box">
+                <p><strong>2. Предпринимательство — это менеджмент</strong></p>
+                <p>Стартап — это институт, а не просто продукт. Он требует нового вида управления, адаптированного
+                    к условиям экстремальной неопределённости. «Просто делай» — не стратегия.</p>
+            </div>
+
+            <div class="principle-box">
+                <p><strong>3. Подтверждённое обучение</strong></p>
+                <p>Стартапы существуют не для того, чтобы производить вещи или зарабатывать деньги. Они существуют,
+                    чтобы <strong>учиться строить устойчивый бизнес</strong>. Это обучение можно валидировать
+                    научным путём — через эксперименты.</p>
+            </div>
+
+            <div class="principle-box">
+                <p><strong>4. Создавай — Измеряй — Учись</strong></p>
+                <p>Основная деятельность стартапа — превращать идеи в продукты, измерять реакцию клиентов и решать,
+                    продолжать курс или развернуться. Все успешные стартапы должны ускорять этот цикл обратной связи.</p>
+            </div>
+
+            <div class="principle-box">
+                <p><strong>5. Инновационный учёт</strong></p>
+                <p>Для улучшения результатов и подотчётности предпринимателей нужен новый вид учёта — с измеримыми
+                    milestones, приоритизацией задач и умением понять, когда пора делать пивот.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>1. Build-Measure-Learn (Создай-Измерь-Научись)</h2>
+
+            <div class="cycle-diagram">
+                <span class="cycle-element">Build</span>
+                <span class="arrow">→</span>
+                <span class="cycle-element">Measure</span>
+                <span class="arrow">→</span>
+                <span class="cycle-element">Learn</span>
+                <span class="arrow">→</span>
+                <span class="cycle-element">Build</span>
+            </div>
+
+            <p>Центральный двигатель методологии Lean Startup. Каждая итерация цикла должна быть максимально короткой.</p>
+
+            <h3>Build (Создай)</h3>
+            <ul>
+                <li>Создайте минимальный продукт для проверки конкретной гипотезы</li>
+                <li>Не стремитесь к совершенству — стремитесь к скорости обучения</li>
+                <li><strong>Цель:</strong> не идеальный код, а валидация предположения</li>
+            </ul>
+
+            <h3>Measure (Измерь)</h3>
+            <ul>
+                <li>Соберите данные о реакции пользователей</li>
+                <li>Используйте actionable-метрики, а не метрики тщеславия</li>
+                <li><strong>Цель:</strong> понять, движетесь ли вы к product-market fit</li>
+            </ul>
+
+            <h3>Learn (Научись)</h3>
+            <ul>
+                <li>Проанализируйте данные и решите: продолжать (persevere) или развернуться (pivot)</li>
+                <li>Каждый цикл должен давать подтверждённое обучение (validated learning)</li>
+                <li><strong>Цель:</strong> принять решение на основе данных, а не интуиции</li>
+            </ul>
+
+            <div class="principle-box">
+                <p><strong>Ключевой принцип:</strong> Планируйте цикл в обратном порядке — сначала определите, чему хотите
+                    научиться, затем какие метрики это покажут, и только потом — что нужно создать.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>2. MVP — Minimum Viable Product</h2>
+
+            <p><strong>Определение:</strong> Версия продукта, которая позволяет пройти полный цикл Build-Measure-Learn
+                с <span style="background-color: #fef9e7; color: #2c3e50;">минимальными усилиями и за минимальное время</span>.</p>
+
+            <h3>Типы MVP:</h3>
+            <ul>
+                <li><strong>Video MVP</strong> — демонстрационное видео продукта (Dropbox снял 3-минутное видео,
+                    которое привлекло 75 000 подписчиков за ночь)</li>
+                <li><strong>Concierge MVP</strong> — ручное обслуживание каждого клиента вместо автоматизации
+                    (Food on the Table начинал с одного клиента и похода в магазин)</li>
+                <li><strong>Wizard of Oz MVP</strong> — пользователь видит автоматизированный продукт, но за кулисами
+                    всё делается вручную</li>
+                <li><strong>Landing Page MVP</strong> — одностраничный сайт для измерения спроса до создания продукта</li>
+            </ul>
+
+            <div class="case-study">
+                <div class="case-title">Пример: Zappos</div>
+                <p>Ник Свинмерн проверял гипотезу «люди готовы покупать обувь в интернете» простейшим способом:
+                    фотографировал обувь в магазинах, выставлял на сайт, а при заказе шёл и покупал пару в розницу.
+                    Никакого склада, никакой логистики — чистая проверка спроса.</p>
+            </div>
+
+            <div class="warning-box">
+                <div class="warning-title">Типичная ошибка</div>
+                <p>Перфекционизм при создании MVP. Если вам не стыдно за первую версию продукта — вы выпустили его
+                    слишком поздно. MVP должен быть достаточно плохим, чтобы выйти быстро, но достаточно хорошим,
+                    чтобы продемонстрировать ценность.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>3. Validated Learning (Подтверждённое обучение)</h2>
+
+            <p><strong>Определение:</strong> Единица прогресса стартапа — не строки кода, не количество фич и не
+                выручка, а <strong>подтверждённое обучение о клиентах</strong>.</p>
+
+            <p>Подтверждённое обучение отличается от обычного тем, что подкреплено эмпирическими данными реальных
+                клиентов, а не теориями и предположениями.</p>
+
+            <h3>Как это работает:</h3>
+            <ol>
+                <li><strong>Сформулируйте гипотезу</strong> — «клиенты будут платить за X, потому что Y»</li>
+                <li><strong>Определите метрику</strong> — что покажет, верна ли гипотеза</li>
+                <li><strong>Проведите эксперимент</strong> — создайте MVP и выпустите его</li>
+                <li><strong>Проанализируйте результат</strong> — гипотеза подтвердилась или опровергнута?</li>
+            </ol>
+
+            <div class="principle-box">
+                <p><strong>Две ключевые гипотезы любого стартапа:</strong></p>
+                <ul>
+                    <li><strong>Value Hypothesis</strong> — действительно ли продукт создаёт ценность для пользователей?</li>
+                    <li><strong>Growth Hypothesis</strong> — как новые пользователи будут узнавать о продукте?</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>4. Pivot (Разворот)</h2>
+
+            <p><strong>Определение:</strong> Структурированная коррекция курса для проверки новой фундаментальной
+                гипотезы о продукте, стратегии или двигателе роста.</p>
+
+            <p>Пивот — не провал. Это признание того, что текущая стратегия не работает, и переход к новой гипотезе
+                на основе полученных знаний.</p>
+
+            <h3>Типы пивотов:</h3>
+
+            <div class="pivot-type">
+                <strong>Zoom-in Pivot</strong> — одна функция продукта становится целым продуктом
+            </div>
+            <div class="pivot-type">
+                <strong>Zoom-out Pivot</strong> — весь продукт становится одной функцией более крупного продукта
+            </div>
+            <div class="pivot-type">
+                <strong>Customer Segment Pivot</strong> — продукт решает реальную проблему, но для других клиентов
+            </div>
+            <div class="pivot-type">
+                <strong>Customer Need Pivot</strong> — целевой клиент тот же, но проблема другая
+            </div>
+            <div class="pivot-type">
+                <strong>Channel Pivot</strong> — смена канала дистрибуции
+            </div>
+            <div class="pivot-type">
+                <strong>Technology Pivot</strong> — та же ценность, но через другую технологию
+            </div>
+
+            <div class="case-study">
+                <div class="case-title">Пример: IMVU</div>
+                <p>Команда Эрика Риса в IMVU изначально строила аддон к существующим мессенджерам. После месяцев
+                    разработки выяснилось, что пользователи не хотят приглашать друзей — они хотят общаться с
+                    незнакомцами. Пивот привёл к созданию независимой социальной платформы с аватарами.</p>
+            </div>
+
+            <div class="warning-box">
+                <div class="warning-title">Когда пивотить?</div>
+                <p>Рис рекомендует регулярно (каждые 4-8 недель) проводить «pivot-or-persevere meetings».
+                    Если метрики не улучшаются от итерации к итерации — время пивотить. Главный враг стартапа —
+                    не провал, а «зомби-состояние»: ни роста, ни смерти.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>5. Innovation Accounting (Инновационный учёт)</h2>
+
+            <p>Традиционные финансовые метрики бесполезны для стартапа на ранней стадии. Рис предлагает систему
+                измерения прогресса в условиях неопределённости.</p>
+
+            <h3>Метрики тщеславия vs Actionable-метрики</h3>
+
+            <div class="metric-compare">
+                <div class="metric-card metric-bad">
+                    <h4>Метрики тщеславия</h4>
+                    <p>Общее число пользователей</p>
+                    <p>Просмотры страниц</p>
+                    <p>Количество скачиваний</p>
+                    <p><em>Всегда растут, ничего не говорят</em></p>
+                </div>
+                <div class="metric-card metric-good">
+                    <h4>Actionable-метрики</h4>
+                    <p>Конверсия регистрации</p>
+                    <p>Retention по когортам</p>
+                    <p>Revenue per user</p>
+                    <p><em>Показывают реальное здоровье бизнеса</em></p>
+                </div>
+            </div>
+
+            <h3>Три этапа инновационного учёта:</h3>
+            <ol>
+                <li><strong>Establish the baseline</strong> — создайте MVP и измерьте текущее состояние</li>
+                <li><strong>Tune the engine</strong> — оптимизируйте продукт для улучшения метрик</li>
+                <li><strong>Pivot or persevere</strong> — если метрики не улучшаются, пивотите</li>
+            </ol>
+
+            <div class="principle-box">
+                <p><strong>Когортный анализ</strong> — вместо общих чисел смотрите на поведение каждой группы
+                    пользователей (когорты) отдельно. Это покажет, улучшается ли продукт от итерации к итерации.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>6. Small Batches (Маленькие партии)</h2>
+
+            <p>Рис заимствует концепцию из бережливого производства Toyota: <strong>маленькие партии быстрее и
+                эффективнее больших</strong>.</p>
+
+            <p>Интуитивно кажется, что работать большими партиями эффективнее (экономия на масштабе). Но в условиях
+                неопределённости маленькие партии выигрывают за счёт:</p>
+
+            <ul>
+                <li><strong>Быстрой обратной связи</strong> — проблемы обнаруживаются раньше</li>
+                <li><strong>Снижения рисков</strong> — меньше незавершённой работы (WIP)</li>
+                <li><strong>Гибкости</strong> — легче изменить направление</li>
+                <li><strong>Мотивации</strong> — команда чаще видит результат</li>
+            </ul>
+
+            <div class="case-study">
+                <div class="case-title">Эксперимент с конвертами</div>
+                <p>Рис описывает эксперимент: нужно сложить 100 писем, запечатать конверты и наклеить марки. Метод
+                    «по одному письму от начала до конца» оказывается быстрее, чем «сначала сложить все 100, потом
+                    запечатать все 100». Причина: в больших партиях ошибки накапливаются, а маленькие партии дают
+                    мгновенную обратную связь.</p>
+            </div>
+        </div>
+
+        <div class="concept">
+            <h2>7. Три двигателя роста</h2>
+
+            <p>Каждый стартап питается одним из трёх двигателей роста. Важно определить свой и сфокусироваться.</p>
+
+            <h3>Sticky Engine (Удержание)</h3>
+            <ul>
+                <li>Рост за счёт высокого retention</li>
+                <li>Ключевая метрика: churn rate (отток)</li>
+                <li>Новых клиентов нужно привлекать быстрее, чем уходят старые</li>
+            </ul>
+
+            <h3>Viral Engine (Виральность)</h3>
+            <ul>
+                <li>Рост за счёт того, что каждый пользователь приводит новых</li>
+                <li>Ключевая метрика: viral coefficient (>1 = экспоненциальный рост)</li>
+                <li>Виральность должна быть побочным эффектом использования продукта</li>
+            </ul>
+
+            <h3>Paid Engine (Платный)</h3>
+            <ul>
+                <li>Рост за счёт платной рекламы</li>
+                <li>Ключевая метрика: LTV > CAC (доход с клиента больше стоимости привлечения)</li>
+                <li>Маржинальная прибыль реинвестируется в привлечение</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Notes   -->
+    <hr class="custom-hr">
+    <div id="notes-section" class="section">
+        <h3>Notes</h3>
+        <ul>
+            <li>«Стартап — это человеческий институт, созданный для производства нового продукта или услуги в условиях
+                экстремальной неопределённости»</li>
+            <li>«Единственный способ победить — учиться быстрее всех остальных»</li>
+            <li>«Если вам не стыдно за первую версию продукта — вы выпустили её слишком поздно»</li>
+            <li>«Планирование — это всего лишь догадки. Называя план "бизнес-планом", вы не делаете его менее
+                умозрительным»</li>
+            <li>«Провал — не проблема. Проблема — не извлечь из провала уроки»</li>
+            <li>«Стартапы существуют не для того, чтобы делать вещи, зарабатывать деньги или обслуживать клиентов.
+                Они существуют для того, чтобы учиться строить устойчивый бизнес»</li>
+            <li>«Метрики тщеславия — это наркотик стартапа. Они заставляют чувствовать себя хорошо, но не помогают
+                принимать решения»</li>
+            <li>«Пивот — не провал и не конец. Это начало следующей фазы обучения»</li>
+            <li>«Маленькие партии побеждают не потому, что они дешевле, а потому, что позволяют обнаруживать
+                проблемы раньше»</li>
+            <li>«Главный ресурс стартапа — не деньги, не идея и не технология. Это время до того, как деньги
+                закончатся»</li>
+        </ul>
+    </div>
+
+</div>
+
+<script src="../../resources/load-header.js"></script>
+</body>
+<script src="../../resources/back-to-top.js"></script>
+<script src="../../resources/navigation.js"></script>
+</html>

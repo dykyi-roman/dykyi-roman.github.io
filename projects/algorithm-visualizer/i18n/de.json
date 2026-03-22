@@ -326,6 +326,7 @@
   "av.str.text_label": "Text:",
   "av.str.pattern_label": "Muster:",
   "av.str.lps_label": "LPS:",
+  "av.str.input_apply": "Anwenden",
 
   "av.legend.str_default": "Standard",
   "av.legend.str_comparing": "Vergleich",
@@ -353,12 +354,9 @@
   "ui.log.type.STR_LPS_SET": "LPS",
 
   "kmp.name": "KMP",
-  "kmp.stepLabel": "KMP \u2014 Vollst\u00e4ndige Suche",
-  "kmp.stepLabel_lps": "KMP \u2014 LPS-Konstruktion",
-  "kmp.modes.standard.label": "Vollst\u00e4ndiges KMP",
-  "kmp.modes.standard.desc": "Vollst\u00e4ndiger KMP-Algorithmus: Erstellt zun\u00e4chst das LPS-Array (L\u00e4ngstes echtes Pr\u00e4fix, das auch Suffix ist) f\u00fcr das Muster, durchsucht dann den Text mit dem LPS-Array.",
-  "kmp.modes.lps-only.label": "LPS-Konstruktion",
-  "kmp.modes.lps-only.desc": "Visualisiert nur den Vorverarbeitungsschritt: den Aufbau des LPS-Arrays (Fehlerfunktion). Dieses Array ist die Schl\u00fcsselstruktur f\u00fcr O(n+m)-Suche.",
+  "kmp.stepLabel": "KMP",
+  "kmp.modes.standard.label": "KMP",
+  "kmp.modes.standard.desc": "KMP-Algorithmus: Erstellt das LPS-Array (L\u00e4ngstes echtes Pr\u00e4fix, das auch Suffix ist) f\u00fcr das Muster, durchsucht dann den Text mit dem LPS-Array.",
   "kmp.details.standard.principles": [
     "LPS-Array f\u00fcr das Muster in O(m) erstellen",
     "Text von links nach rechts durchsuchen; der Textzeiger bewegt sich nie zur\u00fcck",
@@ -387,30 +385,6 @@
     "Nur ein Muster \u2014 f\u00fcr mehrere Aho-Corasick verwenden"
   ],
   "kmp.details.standard.tradeoffs.whenToUse": "Verwenden Sie KMP f\u00fcr garantiert lineare Suche, besonders bei langen Texten oder Mustern mit wiederholten Pr\u00e4fixen. Ideal f\u00fcr Streaming-Daten.",
-  "kmp.details.lps-only.principles": [
-    "LPS[0] = 0 initialisieren",
-    "Zwei Zeiger verwenden: i (aktuelle Position) und len (L\u00e4nge des vorherigen LPS)",
-    "Wenn pattern[i] == pattern[len], len erh\u00f6hen und LPS[i] = len setzen",
-    "Bei Nicht\u00fcbereinstimmung und len > 0, len = LPS[len\u22121] setzen",
-    "Bei Nicht\u00fcbereinstimmung und len == 0, LPS[i] = 0 setzen und i vorr\u00fccken"
-  ],
-  "kmp.details.lps-only.concepts": [
-    { "term": "LPS (Fehlerfunktion)", "definition": "Das LPS-Array (auch Fehlerfunktion oder Pr\u00e4fixfunktion) ordnet jeder Position i die L\u00e4nge des l\u00e4ngsten echten Pr\u00e4fixes von pattern[0..i] zu, das auch Suffix ist. Beispiel: f\u00fcr \u201EABABC\u201C ist LPS = [0, 0, 1, 2, 0], da an Position 3 (\u201EABAB\u201C) das Pr\u00e4fix \u201EAB\u201C dem Suffix \u201EAB\u201C entspricht." },
-    { "term": "Selbstabgleich", "definition": "Die LPS-Berechnung ist im Wesentlichen der KMP-Algorithmus, der das Muster mit sich selbst abgleicht." },
-    { "term": "R\u00fcckfall", "definition": "Bei Nicht\u00fcbereinstimmung an Position len verwenden wir LPS[len\u22121], um das n\u00e4chstl\u00e4ngste passende Pr\u00e4fix zu finden." },
-    { "term": "Amortisiertes O(m)", "definition": "Die Gesamtanzahl der Iterationen ist durch O(m) begrenzt, da len pro Schritt h\u00f6chstens um 1 zunimmt." }
-  ],
-  "kmp.details.lps-only.tradeoffs.pros": [
-    "Konstruktion in O(m)",
-    "Enth\u00fcllt die innere Struktur des Musters",
-    "Grundlage f\u00fcr das Verst\u00e4ndnis des vollst\u00e4ndigen KMP",
-    "Gleiche Technik in anderen Algorithmen verwendet"
-  ],
-  "kmp.details.lps-only.tradeoffs.cons": [
-    "Konzeptuell anspruchsvoll \u2014 die R\u00fcckfalllogik erfordert sorgf\u00e4ltiges Verst\u00e4ndnis",
-    "Allein nicht n\u00fctzlich \u2014 muss mit der Suchphase kombiniert werden"
-  ],
-  "kmp.details.lps-only.tradeoffs.whenToUse": "Studieren Sie die LPS-Konstruktion, um zu verstehen, warum KMP lineare Zeit erreicht. Der R\u00fcckfallmechanismus ist die Schl\u00fcsselidee.",
   "kmp.depRules": [
     { "name": "Zeit (Vorverarbeitung)", "role": "O(m) \u2014 LPS-Array erstellen" },
     { "name": "Zeit (Suche)", "role": "O(n) \u2014 einmaliger Durchlauf" },

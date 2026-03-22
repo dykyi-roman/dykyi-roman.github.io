@@ -1345,7 +1345,7 @@
     flex-direction: column;
     gap: 16px;
     width: 100%;
-    padding: 10px;
+    padding: 20px 10px 10px;
     overflow-x: auto;
 }
 
@@ -1491,6 +1491,77 @@
 .log-type.STR_SHIFT { color: #A78BFA; }
 .log-type.STR_FOUND { color: #14B8A6; }
 .log-type.STR_LPS_SET { color: #3B82F6; }
+
+/* ===== String Input Panel ===== */
+.av-str-input-panel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    margin-bottom: 8px;
+    background: var(--av-card-bg);
+    border: 1px solid var(--av-border);
+    border-radius: 6px;
+    flex-wrap: wrap;
+}
+
+.av-str-input-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.av-str-input-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--av-text-light);
+    white-space: nowrap;
+}
+
+.av-str-input {
+    padding: 4px 8px;
+    border: 1px solid var(--av-border);
+    border-radius: 4px;
+    background: var(--av-bg);
+    color: var(--av-text);
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.av-str-input:focus {
+    border-color: var(--av-accent);
+}
+
+#av-str-input-text {
+    width: 220px;
+}
+
+#av-str-input-pattern {
+    width: 120px;
+}
+
+.av-str-input-btn {
+    padding: 4px 14px;
+    border: 1px solid var(--av-accent);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--av-accent);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.av-str-input-btn:hover {
+    background: var(--av-accent);
+    color: #fff;
+}
 
 /* ===== Responsive ===== */
 @media (max-width: 1100px) {

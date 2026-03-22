@@ -164,6 +164,9 @@
         delete AV.state._pattern;
         delete AV.state._lps;
         delete AV.state._patternOffset;
+        delete AV.state._userText;
+        delete AV.state._userPattern;
+        AV._removeStringInputPanel();
         AV._restoreArrayStatLabels();
     }
 
