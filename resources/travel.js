@@ -1600,6 +1600,8 @@ function toggleCountryPanel(show, countryData = null) {
 function addCountryClickListeners() {
     const countryFlags = document.querySelectorAll('.country-item');
     countryFlags.forEach(flag => {
+        if (flag.dataset.clickBound) return;
+        flag.dataset.clickBound = 'true';
         flag.addEventListener('click', () => {
             const countryName = flag.title;
 
@@ -1632,7 +1634,8 @@ function addCountryClickListeners() {
 
     // Add close button listener
     const closeBtn = document.querySelector('.panel-close');
-    if (closeBtn) {
+    if (closeBtn && !closeBtn.dataset.clickBound) {
+        closeBtn.dataset.clickBound = 'true';
         closeBtn.addEventListener('click', () => {
             toggleCountryPanel(false);
         });
