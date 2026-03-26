@@ -109,14 +109,20 @@
   "av.legend.scanning": "Escaneando",
   "av.legend.examined": "Examinado",
   "av.legend.found": "Encontrado",
+  "av.legend.checking": "Verificando",
+  "av.legend.eliminated": "Eliminado",
   "av.target_label_prefix": "Objetivo:",
   "av.log.scan": "Escanear arr[{index}]={value} vs objetivo={target}",
   "av.log.found": "Encontrado {value} en \u00edndice {index}",
   "av.log.not_found": "Objetivo no encontrado en el arreglo",
   "av.log.done_search": "Completado en {time}ms ({comparisons} comparaciones)",
+  "av.log.bs_check": "Verificar arr[{mid}]={value} vs objetivo={target} (rango [{low}..{high}])",
+  "av.log.bs_eliminate": "Eliminar mitad {direction}, nuevo rango [{newLow}..{newHigh}]",
 
   "ui.log.type.SCAN": "ESCAN",
   "ui.log.type.FOUND": "HALLADO",
+  "ui.log.type.BS_CHECK": "VERIF",
+  "ui.log.type.BS_ELIMINATE": "ELIMIN",
 
   "linear-search.name": "B\u00fasqueda lineal",
   "linear-search.stepLabel": "B\u00fasqueda lineal \u2014 Est\u00e1ndar",
@@ -156,6 +162,46 @@
     { "name": "Espacio", "role": "O(1) \u2014 sin memoria extra" },
     { "name": "Ordenamiento requerido", "role": "No \u2014 funciona con cualquier arreglo" },
     { "name": "Estable", "role": "S\u00ed \u2014 retorna la primera ocurrencia" }
+  ],
+
+  "binary-search.name": "B\u00fasqueda binaria",
+  "binary-search.stepLabel": "B\u00fasqueda binaria \u2014 Est\u00e1ndar",
+  "binary-search.modes.standard.label": "Est\u00e1ndar",
+  "binary-search.modes.standard.desc": "B\u00fasqueda binaria cl\u00e1sica: divide repetidamente un arreglo ordenado por la mitad, comparando el elemento central con el objetivo. Elimina la mitad de los elementos restantes con cada comparaci\u00f3n, logrando O(log n).",
+  "binary-search.details.standard.principles": [
+    "El arreglo debe estar ordenado antes de aplicar la b\u00fasqueda binaria",
+    "Comparar el objetivo con el elemento central del rango actual",
+    "Si el objetivo es igual al elemento central, la b\u00fasqueda termina",
+    "Si el objetivo es menor, descartar la mitad derecha",
+    "Si el objetivo es mayor, descartar la mitad izquierda"
+  ],
+  "binary-search.details.standard.concepts": [
+    { "term": "Divide y vencer\u00e1s", "definition": "Estrategia que divide un problema en subproblemas m\u00e1s peque\u00f1os. La b\u00fasqueda binaria reduce el espacio de b\u00fasqueda a la mitad con cada comparaci\u00f3n." },
+    { "term": "Espacio de b\u00fasqueda", "definition": "El rango de \u00edndices [low..high] donde puede estar el objetivo. Inicialmente todo el arreglo; se reduce a la mitad tras cada comparaci\u00f3n." },
+    { "term": "C\u00e1lculo del punto medio", "definition": "mid = floor((low + high) / 2). Selecciona el centro del rango actual. Usar floor evita el desbordamiento." },
+    { "term": "Eliminaci\u00f3n logar\u00edtmica", "definition": "Cada comparaci\u00f3n elimina la mitad de los elementos restantes. Para n elementos, se necesitan como m\u00e1ximo \u2308log\u2082 n\u2309 + 1 comparaciones." }
+  ],
+  "binary-search.details.standard.tradeoffs.pros": [
+    "O(log n) tiempo \u2014 extremadamente r\u00e1pido para grandes conjuntos",
+    "O(1) espacio adicional \u2014 sin estructuras auxiliares",
+    "Simple y predecible \u2014 f\u00e1cil de analizar e implementar",
+    "Compatible con cach\u00e9 \u2014 acceso a regiones de memoria contiguas",
+    "\u00d3ptimo para datos ordenados est\u00e1ticos con consultas frecuentes"
+  ],
+  "binary-search.details.standard.tradeoffs.cons": [
+    "Requiere entrada ordenada \u2014 ordenar cuesta O(n log n)",
+    "Ineficiente para arreglos peque\u00f1os \u2014 la b\u00fasqueda lineal es m\u00e1s r\u00e1pida",
+    "Malo para datos din\u00e1micos \u2014 las inserciones rompen el orden",
+    "Solo funciona con estructuras de acceso aleatorio (arreglos, no listas)"
+  ],
+  "binary-search.details.standard.tradeoffs.whenToUse": "Ideal para grandes conjuntos de datos ordenados y est\u00e1ticos con consultas frecuentes. Para datos que cambian a menudo, considere \u00e1rboles balanceados o tablas hash.",
+  "binary-search.depRules": [
+    { "name": "Tiempo (mejor)", "role": "O(1) \u2014 el objetivo est\u00e1 en el medio" },
+    { "name": "Tiempo (promedio)", "role": "O(log n) \u2014 logar\u00edtmico" },
+    { "name": "Tiempo (peor)", "role": "O(log n) \u2014 objetivo ausente" },
+    { "name": "Espacio", "role": "O(1) \u2014 iterativo, sin memoria extra" },
+    { "name": "Ordenaci\u00f3n requerida", "role": "S\u00ed \u2014 el arreglo debe estar preordenado" },
+    { "name": "Estable", "role": "N/A \u2014 b\u00fasqueda, no ordenaci\u00f3n" }
   ],
 
   "av.stat.nodes_visited": "Nodos visitados",

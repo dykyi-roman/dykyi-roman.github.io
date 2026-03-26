@@ -109,14 +109,20 @@
   "av.legend.scanning": "Scannt",
   "av.legend.examined": "Gepr\u00fcft",
   "av.legend.found": "Gefunden",
+  "av.legend.checking": "Prüfung",
+  "av.legend.eliminated": "Eliminiert",
   "av.target_label_prefix": "Ziel:",
   "av.log.scan": "Scan arr[{index}]={value} vs Ziel={target}",
   "av.log.found": "{value} gefunden an Index {index}",
   "av.log.not_found": "Ziel nicht im Array gefunden",
   "av.log.done_search": "Abgeschlossen in {time}ms ({comparisons} Vergleiche)",
+  "av.log.bs_check": "Prüfe arr[{mid}]={value} vs Ziel={target} (Bereich [{low}..{high}])",
+  "av.log.bs_eliminate": "{direction} Hälfte eliminieren, neuer Bereich [{newLow}..{newHigh}]",
 
   "ui.log.type.SCAN": "SCAN",
   "ui.log.type.FOUND": "GEFUND",
+  "ui.log.type.BS_CHECK": "PRÜFUNG",
+  "ui.log.type.BS_ELIMINATE": "ELIMIN",
 
   "linear-search.name": "Lineare Suche",
   "linear-search.stepLabel": "Lineare Suche \u2014 Standard",
@@ -156,6 +162,46 @@
     { "name": "Speicher", "role": "O(1) \u2014 kein zus\u00e4tzlicher Speicher" },
     { "name": "Sortierung n\u00f6tig", "role": "Nein \u2014 funktioniert mit jedem Array" },
     { "name": "Stabil", "role": "Ja \u2014 gibt erstes Vorkommen zur\u00fcck" }
+  ],
+
+  "binary-search.name": "Bin\u00e4re Suche",
+  "binary-search.stepLabel": "Bin\u00e4re Suche \u2014 Standard",
+  "binary-search.modes.standard.label": "Standard",
+  "binary-search.modes.standard.desc": "Klassische bin\u00e4re Suche: teilt ein sortiertes Array wiederholt in zwei H\u00e4lften und vergleicht das mittlere Element mit dem Zielwert. Eliminiert die H\u00e4lfte der verbleibenden Elemente pro Vergleich und erreicht O(log n).",
+  "binary-search.details.standard.principles": [
+    "Das Array muss vor der bin\u00e4ren Suche sortiert sein",
+    "Vergleiche das Ziel mit dem mittleren Element des aktuellen Bereichs",
+    "Wenn das Ziel dem mittleren Element entspricht, ist die Suche abgeschlossen",
+    "Wenn das Ziel kleiner ist, verwirf die rechte H\u00e4lfte",
+    "Wenn das Ziel gr\u00f6\u00dfer ist, verwirf die linke H\u00e4lfte"
+  ],
+  "binary-search.details.standard.concepts": [
+    { "term": "Teile und Herrsche", "definition": "Eine Strategie, die ein Problem in kleinere Teilprobleme aufteilt. Die bin\u00e4re Suche halbiert den Suchraum mit jedem Vergleich." },
+    { "term": "Suchraum", "definition": "Der Indexbereich [low..high], in dem sich das Ziel befinden kann. Anfangs das gesamte Array; schrumpft nach jedem Vergleich um die H\u00e4lfte." },
+    { "term": "Mittelpunktberechnung", "definition": "mid = floor((low + high) / 2). W\u00e4hlt die Mitte des aktuellen Bereichs. Die Verwendung von floor verhindert \u00dcberlauf." },
+    { "term": "Logarithmische Elimination", "definition": "Jeder Vergleich eliminiert die H\u00e4lfte der verbleibenden Elemente. F\u00fcr n Elemente sind h\u00f6chstens \u2308log\u2082 n\u2309 + 1 Vergleiche n\u00f6tig." }
+  ],
+  "binary-search.details.standard.tradeoffs.pros": [
+    "O(log n) Zeit \u2014 extrem schnell f\u00fcr gro\u00dfe Datens\u00e4tze",
+    "O(1) zus\u00e4tzlicher Speicher \u2014 keine Hilfsstrukturen n\u00f6tig",
+    "Einfach und vorhersagbar \u2014 leicht zu analysieren",
+    "Cache-freundlich \u2014 greift auf zusammenh\u00e4ngende Speicherbereiche zu",
+    "Optimal f\u00fcr sortierte statische Daten mit h\u00e4ufigen Abfragen"
+  ],
+  "binary-search.details.standard.tradeoffs.cons": [
+    "Erfordert sortierte Eingabe \u2014 Sortierung kostet O(n log n)",
+    "Ineffizient f\u00fcr kleine Arrays \u2014 lineare Suche ist schneller",
+    "Schlecht f\u00fcr dynamische Daten \u2014 Einf\u00fcgungen brechen die Ordnung",
+    "Funktioniert nur mit Direktzugriffsstrukturen (Arrays, nicht Listen)"
+  ],
+  "binary-search.details.standard.tradeoffs.whenToUse": "Am besten f\u00fcr gro\u00dfe, sortierte, statische Datens\u00e4tze mit h\u00e4ufigen Suchanfragen. F\u00fcr sich h\u00e4ufig \u00e4ndernde Daten eignen sich balancierte B\u00e4ume oder Hash-Tabellen besser.",
+  "binary-search.depRules": [
+    { "name": "Zeit (Best)", "role": "O(1) \u2014 Ziel ist das mittlere Element" },
+    { "name": "Zeit (Durchschnitt)", "role": "O(log n) \u2014 logarithmisch" },
+    { "name": "Zeit (Worst)", "role": "O(log n) \u2014 Ziel fehlt" },
+    { "name": "Speicher", "role": "O(1) \u2014 iterativ, kein zus\u00e4tzlicher Speicher" },
+    { "name": "Sortierung n\u00f6tig", "role": "Ja \u2014 Array muss vorsortiert sein" },
+    { "name": "Stabil", "role": "N/A \u2014 Suche, keine Sortierung" }
   ],
 
   "av.stat.nodes_visited": "Besuchte Knoten",

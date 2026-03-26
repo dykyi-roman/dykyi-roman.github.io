@@ -109,14 +109,20 @@
   "av.legend.scanning": "Analyse",
   "av.legend.examined": "Examin\u00e9",
   "av.legend.found": "Trouv\u00e9",
+  "av.legend.checking": "V\u00e9rification",
+  "av.legend.eliminated": "\u00c9limin\u00e9",
   "av.target_label_prefix": "Cible :",
   "av.log.scan": "Analyse arr[{index}]={value} vs cible={target}",
   "av.log.found": "Trouv\u00e9 {value} \u00e0 l'index {index}",
   "av.log.not_found": "Cible non trouv\u00e9e dans le tableau",
   "av.log.done_search": "Termin\u00e9 en {time}ms ({comparisons} comparaisons)",
+  "av.log.bs_check": "V\u00e9rifier arr[{mid}]={value} vs cible={target} (plage [{low}..{high}])",
+  "av.log.bs_eliminate": "\u00c9liminer la moiti\u00e9 {direction}, nouvelle plage [{newLow}..{newHigh}]",
 
   "ui.log.type.SCAN": "ANALYSE",
   "ui.log.type.FOUND": "TROUV\u00c9",
+  "ui.log.type.BS_CHECK": "V\u00c9RIF",
+  "ui.log.type.BS_ELIMINATE": "\u00c9LIMIN",
 
   "linear-search.name": "Recherche lin\u00e9aire",
   "linear-search.stepLabel": "Recherche lin\u00e9aire \u2014 Standard",
@@ -156,6 +162,46 @@
     { "name": "Espace", "role": "O(1) \u2014 pas de m\u00e9moire suppl\u00e9mentaire" },
     { "name": "Tri requis", "role": "Non \u2014 fonctionne sur tout tableau" },
     { "name": "Stable", "role": "Oui \u2014 retourne la premi\u00e8re occurrence" }
+  ],
+
+  "binary-search.name": "Recherche binaire",
+  "binary-search.stepLabel": "Recherche binaire \u2014 Standard",
+  "binary-search.modes.standard.label": "Standard",
+  "binary-search.modes.standard.desc": "Recherche binaire classique : divise r\u00e9p\u00e9titivement un tableau tri\u00e9 en deux, comparant l'\u00e9l\u00e9ment central avec la cible. \u00c9limine la moiti\u00e9 des \u00e9l\u00e9ments restants \u00e0 chaque comparaison, atteignant O(log n).",
+  "binary-search.details.standard.principles": [
+    "Le tableau doit \u00eatre tri\u00e9 avant d'appliquer la recherche binaire",
+    "Comparer la cible avec l'\u00e9l\u00e9ment central de la plage actuelle",
+    "Si la cible est \u00e9gale \u00e0 l'\u00e9l\u00e9ment central, la recherche est termin\u00e9e",
+    "Si la cible est plus petite, \u00e9carter la moiti\u00e9 droite",
+    "Si la cible est plus grande, \u00e9carter la moiti\u00e9 gauche"
+  ],
+  "binary-search.details.standard.concepts": [
+    { "term": "Diviser pour r\u00e9gner", "definition": "Strat\u00e9gie divisant un probl\u00e8me en sous-probl\u00e8mes plus petits. La recherche binaire r\u00e9duit l'espace de recherche de moiti\u00e9 \u00e0 chaque comparaison." },
+    { "term": "Espace de recherche", "definition": "La plage d'indices [low..high] o\u00f9 la cible peut se trouver. Initialement tout le tableau ; r\u00e9duit de moiti\u00e9 apr\u00e8s chaque comparaison." },
+    { "term": "Calcul du milieu", "definition": "mid = floor((low + high) / 2). Choisit le centre de la plage actuelle. L'utilisation de floor \u00e9vite le d\u00e9passement." },
+    { "term": "\u00c9limination logarithmique", "definition": "Chaque comparaison \u00e9limine la moiti\u00e9 des \u00e9l\u00e9ments restants. Pour n \u00e9l\u00e9ments, au plus \u2308log\u2082 n\u2309 + 1 comparaisons sont n\u00e9cessaires." }
+  ],
+  "binary-search.details.standard.tradeoffs.pros": [
+    "O(log n) \u2014 extr\u00eamement rapide pour de grands ensembles",
+    "O(1) espace suppl\u00e9mentaire \u2014 aucune structure auxiliaire",
+    "Simple et pr\u00e9visible \u2014 facile \u00e0 analyser et impl\u00e9menter",
+    "Compatible avec le cache \u2014 acc\u00e8s m\u00e9moire contigus",
+    "Optimal pour les donn\u00e9es tri\u00e9es statiques avec recherches fr\u00e9quentes"
+  ],
+  "binary-search.details.standard.tradeoffs.cons": [
+    "N\u00e9cessite un tableau tri\u00e9 \u2014 le tri co\u00fbte O(n log n)",
+    "Inefficace pour les petits tableaux \u2014 la recherche lin\u00e9aire est plus rapide",
+    "Inadapt\u00e9 aux donn\u00e9es dynamiques \u2014 les insertions cassent l'ordre",
+    "Fonctionne uniquement avec les structures \u00e0 acc\u00e8s al\u00e9atoire"
+  ],
+  "binary-search.details.standard.tradeoffs.whenToUse": "Id\u00e9al pour les grands ensembles de donn\u00e9es tri\u00e9s et statiques avec des requ\u00eates fr\u00e9quentes. Pour les donn\u00e9es changeantes, pr\u00e9f\u00e9rez les arbres \u00e9quilibr\u00e9s ou les tables de hachage.",
+  "binary-search.depRules": [
+    { "name": "Temps (meilleur)", "role": "O(1) \u2014 la cible est au milieu" },
+    { "name": "Temps (moyen)", "role": "O(log n) \u2014 logarithmique" },
+    { "name": "Temps (pire)", "role": "O(log n) \u2014 cible absente" },
+    { "name": "Espace", "role": "O(1) \u2014 it\u00e9ratif, sans m\u00e9moire suppl\u00e9mentaire" },
+    { "name": "Tri requis", "role": "Oui \u2014 le tableau doit \u00eatre pr\u00e9-tri\u00e9" },
+    { "name": "Stable", "role": "N/A \u2014 recherche, pas tri" }
   ],
 
   "av.stat.nodes_visited": "N\u0153uds visit\u00e9s",

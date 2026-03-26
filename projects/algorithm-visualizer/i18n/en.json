@@ -108,14 +108,20 @@
   "av.legend.scanning": "Scanning",
   "av.legend.examined": "Examined",
   "av.legend.found": "Found",
+  "av.legend.checking": "Checking",
+  "av.legend.eliminated": "Eliminated",
   "av.target_label_prefix": "Target:",
   "av.log.scan": "Scan arr[{index}]={value} vs target={target}",
   "av.log.found": "Found {value} at index {index}",
   "av.log.not_found": "Target not found in array",
   "av.log.done_search": "Completed in {time}ms ({comparisons} comparisons)",
+  "av.log.bs_check": "Check arr[{mid}]={value} vs target={target} (range [{low}..{high}])",
+  "av.log.bs_eliminate": "Eliminate {direction} half, new range [{newLow}..{newHigh}]",
 
   "ui.log.type.SCAN": "SCAN",
   "ui.log.type.FOUND": "FOUND",
+  "ui.log.type.BS_CHECK": "CHECK",
+  "ui.log.type.BS_ELIMINATE": "ELIMINATE",
 
   "linear-search.name": "Linear Search",
   "linear-search.stepLabel": "Linear Search \u2014 Standard",
@@ -155,6 +161,46 @@
     { "name": "Space", "role": "O(1) \u2014 no extra memory" },
     { "name": "Sorted Input Required", "role": "No \u2014 works on any array" },
     { "name": "Stable", "role": "Yes \u2014 returns first occurrence" }
+  ],
+
+  "binary-search.name": "Binary Search",
+  "binary-search.stepLabel": "Binary Search \u2014 Standard",
+  "binary-search.modes.standard.label": "Standard",
+  "binary-search.modes.standard.desc": "Classic Binary Search: repeatedly divides a sorted array in half, comparing the middle element with the target. Eliminates half the remaining elements with each comparison, achieving O(log n) time.",
+  "binary-search.details.standard.principles": [
+    "The array must be sorted before binary search can be applied",
+    "Compare the target with the middle element of the current range",
+    "If the target equals the middle element, the search is complete",
+    "If the target is smaller, discard the right half and search the left",
+    "If the target is larger, discard the left half and search the right"
+  ],
+  "binary-search.details.standard.concepts": [
+    { "term": "Divide and Conquer", "definition": "A strategy that splits a problem into smaller subproblems. Binary Search halves the search space with each comparison, reducing the problem size exponentially." },
+    { "term": "Search Space", "definition": "The range of indices [low..high] where the target may exist. Initially the entire array; shrinks by half after each comparison." },
+    { "term": "Mid-Point Calculation", "definition": "mid = floor((low + high) / 2). Picks the center of the current range. Using floor avoids overflow that (low + high) / 2 can cause in some languages." },
+    { "term": "Logarithmic Elimination", "definition": "Each comparison eliminates half the remaining elements. For n elements, at most \u2308log\u2082 n\u2309 + 1 comparisons are needed." }
+  ],
+  "binary-search.details.standard.tradeoffs.pros": [
+    "O(log n) time \u2014 extremely fast for large datasets",
+    "O(1) extra space \u2014 no auxiliary data structures needed",
+    "Simple and predictable \u2014 easy to analyze and implement",
+    "Cache-friendly \u2014 accesses contiguous memory regions",
+    "Optimal for sorted static data with frequent lookups"
+  ],
+  "binary-search.details.standard.tradeoffs.cons": [
+    "Requires sorted input \u2014 sorting costs O(n log n) if not already sorted",
+    "Not efficient for small arrays \u2014 linear search has lower overhead",
+    "Poor for dynamic data \u2014 insertions/deletions break sorted order",
+    "Only works with random-access data structures (arrays, not linked lists)"
+  ],
+  "binary-search.details.standard.tradeoffs.whenToUse": "Best for large, sorted, static datasets with frequent search queries. If the data changes often, consider balanced BSTs or hash tables. For small arrays (n < 16), linear search may be faster due to lower overhead.",
+  "binary-search.depRules": [
+    { "name": "Time (Best)", "role": "O(1) \u2014 target is the middle element" },
+    { "name": "Time (Average)", "role": "O(log n) \u2014 logarithmic" },
+    { "name": "Time (Worst)", "role": "O(log n) \u2014 target absent or at boundary" },
+    { "name": "Space", "role": "O(1) \u2014 iterative, no extra memory" },
+    { "name": "Sorted Input Required", "role": "Yes \u2014 array must be pre-sorted" },
+    { "name": "Stable", "role": "N/A \u2014 search, not sort" }
   ],
 
   "av.stat.nodes_visited": "Nodes Visited",
