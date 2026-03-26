@@ -66,6 +66,46 @@
     { "name": "Adaptatif", "role": "Oui \u2014 plus rapide sur des donn\u00e9es presque tri\u00e9es" }
   ],
 
+  "selection-sort.name": "Tri par s\u00e9lection",
+  "selection-sort.stepLabel": "Tri par s\u00e9lection \u2014 Standard",
+  "selection-sort.modes.standard.label": "Standard",
+  "selection-sort.modes.standard.desc": "Tri par s\u00e9lection classique : trouve le minimum dans la partie non tri\u00e9e et l'\u00e9change avec le premier \u00e9l\u00e9ment non tri\u00e9. Chaque passe place un \u00e9l\u00e9ment \u00e0 sa position finale avec au plus un \u00e9change.",
+  "selection-sort.details.standard.principles": [
+    "Diviser le tableau en parties tri\u00e9e (gauche) et non tri\u00e9e (droite)",
+    "Trouver le minimum dans la partie non tri\u00e9e en parcourant de gauche \u00e0 droite",
+    "\u00c9changer le minimum avec le premier \u00e9l\u00e9ment non tri\u00e9",
+    "D\u00e9placer la fronti\u00e8re tri\u00e9e d'une position vers la droite",
+    "R\u00e9p\u00e9ter jusqu'\u00e0 ce que tout le tableau soit tri\u00e9"
+  ],
+  "selection-sort.details.standard.concepts": [
+    { "term": "S\u00e9lection", "definition": "L'op\u00e9ration principale : parcourir la partie non tri\u00e9e pour trouver le minimum. N\u00e9cessite n\u2212i\u22121 comparaisons \u00e0 la passe i." },
+    { "term": "En place", "definition": "Le tri par s\u00e9lection n'utilise que O(1) m\u00e9moire suppl\u00e9mentaire \u2014 une seule variable pour suivre l'index du minimum." },
+    { "term": "Instable", "definition": "\u00c9changer le minimum vers l'avant peut sauter des \u00e9l\u00e9ments \u00e9gaux, modifiant leur ordre relatif. Par exemple, [2a, 2b, 1] devient [1, 2b, 2a]." },
+    { "term": "\u00c9changes minimaux", "definition": "Chaque passe effectue au plus un \u00e9change, soit exactement n\u22121 \u00e9changes dans le pire cas. C'est optimal et bien moins que le tri \u00e0 bulles." }
+  ],
+  "selection-sort.details.standard.tradeoffs.pros": [
+    "Simple \u00e0 comprendre et \u00e0 impl\u00e9menter",
+    "Minimise le nombre d'\u00e9changes \u2014 O(n) \u00e9changes contre O(n\u00B2) pour le tri \u00e0 bulles",
+    "En place \u2014 ne n\u00e9cessite que O(1) m\u00e9moire suppl\u00e9mentaire",
+    "Performance pr\u00e9visible \u2014 toujours O(n\u00B2) quel que soit l'ordre d'entr\u00e9e",
+    "Bon quand les \u00e9critures/\u00e9changes sont co\u00fbteux (ex. m\u00e9moire flash)"
+  ],
+  "selection-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) dans tous les cas \u2014 pas d'am\u00e9lioration pour les entr\u00e9es tri\u00e9es",
+    "Instable \u2014 les \u00e9l\u00e9ments \u00e9gaux peuvent changer d'ordre relatif",
+    "Non adaptatif \u2014 ne profite pas des donn\u00e9es partiellement tri\u00e9es",
+    "Nettement plus lent que les algorithmes O(n log n) pour les grands ensembles"
+  ],
+  "selection-sort.details.standard.tradeoffs.whenToUse": "Id\u00e9al quand le co\u00fbt d'\u00e9change est \u00e9lev\u00e9 et le co\u00fbt de comparaison faible, pour les petits ensembles, ou quand la simplicit\u00e9 prime sur la performance. Si la stabilit\u00e9 est importante, pr\u00e9f\u00e9rez le tri par insertion. Pour les grands ensembles, pr\u00e9f\u00e9rez Quick Sort, Merge Sort ou Tim Sort.",
+  "selection-sort.depRules": [
+    { "name": "Temps (meilleur)", "role": "O(n\u00B2) \u2014 parcourt toujours toute la partie non tri\u00e9e" },
+    { "name": "Temps (moyen)", "role": "O(n\u00B2) \u2014 quadratique" },
+    { "name": "Temps (pire)", "role": "O(n\u00B2) \u2014 quadratique" },
+    { "name": "Espace", "role": "O(1) \u2014 tri en place" },
+    { "name": "Stable", "role": "Non \u2014 les \u00e9changes peuvent modifier l'ordre relatif des \u00e9l\u00e9ments \u00e9gaux" },
+    { "name": "\u00c9changes", "role": "O(n) \u2014 au plus n\u22121 \u00e9changes (moins que le tri \u00e0 bulles)" }
+  ],
+
   "av.legend.scanning": "Analyse",
   "av.legend.examined": "Examin\u00e9",
   "av.legend.found": "Trouv\u00e9",

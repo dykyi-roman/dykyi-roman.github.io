@@ -66,6 +66,46 @@
     { "name": "Adaptativo", "role": "S\u00ed \u2014 m\u00e1s r\u00e1pido con datos casi ordenados" }
   ],
 
+  "selection-sort.name": "Ordenamiento por selecci\u00f3n",
+  "selection-sort.stepLabel": "Ordenamiento por selecci\u00f3n \u2014 Est\u00e1ndar",
+  "selection-sort.modes.standard.label": "Est\u00e1ndar",
+  "selection-sort.modes.standard.desc": "Ordenamiento por selecci\u00f3n cl\u00e1sico: encuentra el m\u00ednimo en la porci\u00f3n no ordenada y lo intercambia con el primer elemento no ordenado. Cada pasada coloca un elemento en su posici\u00f3n final con a lo sumo un intercambio.",
+  "selection-sort.details.standard.principles": [
+    "Dividir el arreglo en porciones ordenada (izquierda) y no ordenada (derecha)",
+    "Encontrar el elemento m\u00ednimo en la porci\u00f3n no ordenada escaneando de izquierda a derecha",
+    "Intercambiar el m\u00ednimo con el primer elemento no ordenado",
+    "Mover la frontera de la porci\u00f3n ordenada una posici\u00f3n a la derecha",
+    "Repetir hasta que todo el arreglo est\u00e9 ordenado"
+  ],
+  "selection-sort.details.standard.concepts": [
+    { "term": "Selecci\u00f3n", "definition": "La operaci\u00f3n principal: escanear la porci\u00f3n no ordenada para encontrar el m\u00ednimo. Requiere n\u2212i\u22121 comparaciones en la pasada i." },
+    { "term": "En sitio", "definition": "El ordenamiento por selecci\u00f3n usa solo O(1) memoria adicional \u2014 una sola variable para rastrear el \u00edndice del m\u00ednimo." },
+    { "term": "Inestable", "definition": "Intercambiar el m\u00ednimo al frente puede saltar sobre elementos iguales, cambiando su orden relativo. Por ejemplo, [2a, 2b, 1] se convierte en [1, 2b, 2a]." },
+    { "term": "Intercambios m\u00ednimos", "definition": "Cada pasada realiza como m\u00e1ximo un intercambio, dando exactamente n\u22121 intercambios en el peor caso. Esto es \u00f3ptimo y mucho menos que Bubble Sort." }
+  ],
+  "selection-sort.details.standard.tradeoffs.pros": [
+    "Simple de entender e implementar",
+    "Minimiza el n\u00famero de intercambios \u2014 O(n) intercambios vs O(n\u00B2) para Bubble Sort",
+    "En sitio \u2014 requiere solo O(1) memoria adicional",
+    "Rendimiento predecible \u2014 siempre O(n\u00B2) independientemente del orden de entrada",
+    "Bueno cuando las escrituras/intercambios son costosos (ej. memoria flash)"
+  ],
+  "selection-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) en todos los casos \u2014 sin mejora para entrada ordenada",
+    "Inestable \u2014 los elementos iguales pueden cambiar su orden relativo",
+    "No adaptativo \u2014 no se beneficia de datos parcialmente ordenados",
+    "Significativamente m\u00e1s lento que algoritmos O(n log n) para grandes conjuntos"
+  ],
+  "selection-sort.details.standard.tradeoffs.whenToUse": "Mejor cuando el costo de intercambio es alto y el costo de comparaci\u00f3n es bajo, para conjuntos peque\u00f1os, o cuando la simplicidad es m\u00e1s importante que el rendimiento. Si la estabilidad importa, use Insertion Sort. Para grandes conjuntos, use Quick Sort, Merge Sort o Tim Sort.",
+  "selection-sort.depRules": [
+    { "name": "Tiempo (mejor)", "role": "O(n\u00B2) \u2014 siempre escanea toda la porci\u00f3n no ordenada" },
+    { "name": "Tiempo (promedio)", "role": "O(n\u00B2) \u2014 cuadr\u00e1tico" },
+    { "name": "Tiempo (peor)", "role": "O(n\u00B2) \u2014 cuadr\u00e1tico" },
+    { "name": "Espacio", "role": "O(1) \u2014 ordenamiento en sitio" },
+    { "name": "Estable", "role": "No \u2014 los intercambios pueden cambiar el orden relativo de elementos iguales" },
+    { "name": "Intercambios", "role": "O(n) \u2014 a lo sumo n\u22121 intercambios (menos que Bubble Sort)" }
+  ],
+
   "av.legend.scanning": "Escaneando",
   "av.legend.examined": "Examinado",
   "av.legend.found": "Encontrado",

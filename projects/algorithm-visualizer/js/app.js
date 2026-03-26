@@ -13,7 +13,7 @@
         hashing: ['hash-table', 'chaining', 'open-addressing']
     };
 
-    var implementedAlgorithms = ['bubble-sort', 'linear-search', 'bfs', 'bst-operations', 'fibonacci', 'kmp', 'hash-table'];
+    var implementedAlgorithms = ['bubble-sort', 'selection-sort', 'linear-search', 'bfs', 'bst-operations', 'fibonacci', 'kmp', 'hash-table'];
 
     var activeCategory = 'sorting';
 

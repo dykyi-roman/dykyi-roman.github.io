@@ -66,6 +66,46 @@
     { "name": "Adaptiv", "role": "Ja \u2014 schneller bei fast sortierten Daten" }
   ],
 
+  "selection-sort.name": "Selection Sort",
+  "selection-sort.stepLabel": "Selection Sort \u2014 Standard",
+  "selection-sort.modes.standard.label": "Standard",
+  "selection-sort.modes.standard.desc": "Klassischer Selection Sort: findet das Minimum im unsortierten Bereich und tauscht es mit dem ersten unsortierten Element. Jeder Durchlauf platziert ein Element an seiner endg\u00fcltigen Position mit h\u00f6chstens einem Tausch.",
+  "selection-sort.details.standard.principles": [
+    "Das Array in sortierte (links) und unsortierte (rechts) Bereiche unterteilen",
+    "Das Minimum im unsortierten Bereich durch Scannen von links nach rechts finden",
+    "Das Minimum mit dem ersten unsortierten Element tauschen",
+    "Die Grenze des sortierten Bereichs um eine Position nach rechts verschieben",
+    "Wiederholen, bis das gesamte Array sortiert ist"
+  ],
+  "selection-sort.details.standard.concepts": [
+    { "term": "Auswahl", "definition": "Die Kernoperation: den unsortierten Bereich nach dem Minimum durchsuchen. Dies erfordert n\u2212i\u22121 Vergleiche in Durchlauf i." },
+    { "term": "In-place", "definition": "Selection Sort ben\u00f6tigt nur O(1) zus\u00e4tzlichen Speicher \u2014 eine einzige Variable f\u00fcr den Minimum-Index." },
+    { "term": "Instabil", "definition": "Das Tauschen des Minimums nach vorne kann gleiche Elemente \u00fcberspringen und ihre relative Reihenfolge \u00e4ndern. Beispiel: [2a, 2b, 1] wird zu [1, 2b, 2a]." },
+    { "term": "Minimale Tauschvorg\u00e4nge", "definition": "Jeder Durchlauf f\u00fchrt h\u00f6chstens einen Tausch durch, also genau n\u22121 Tauschvorg\u00e4nge im schlechtesten Fall. Optimal und weit weniger als Bubble Sort." }
+  ],
+  "selection-sort.details.standard.tradeoffs.pros": [
+    "Einfach zu verstehen und zu implementieren",
+    "Minimiert die Anzahl der Tauschvorg\u00e4nge \u2014 O(n) Tausche vs O(n\u00B2) bei Bubble Sort",
+    "In-place \u2014 ben\u00f6tigt nur O(1) zus\u00e4tzlichen Speicher",
+    "Vorhersagbare Leistung \u2014 immer O(n\u00B2) unabh\u00e4ngig von der Eingabereihenfolge",
+    "Gut wenn Schreib-/Tauschoperationen teuer sind (z.B. Flash-Speicher)"
+  ],
+  "selection-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) in allen F\u00e4llen \u2014 keine Verbesserung f\u00fcr sortierte Eingaben",
+    "Instabil \u2014 gleiche Elemente k\u00f6nnen ihre relative Reihenfolge \u00e4ndern",
+    "Nicht adaptiv \u2014 profitiert nicht von teilweise sortierten Daten",
+    "Deutlich langsamer als O(n log n)-Algorithmen f\u00fcr gro\u00dfe Datens\u00e4tze"
+  ],
+  "selection-sort.details.standard.tradeoffs.whenToUse": "Am besten wenn Tauschkosten hoch und Vergleichskosten niedrig sind, f\u00fcr kleine Datens\u00e4tze, oder wenn Einfachheit wichtiger als Leistung ist. Wenn Stabilit\u00e4t wichtig ist, verwenden Sie Insertion Sort. F\u00fcr gro\u00dfe Datens\u00e4tze verwenden Sie Quick Sort, Merge Sort oder Tim Sort.",
+  "selection-sort.depRules": [
+    { "name": "Zeit (best)", "role": "O(n\u00B2) \u2014 durchsucht immer den gesamten unsortierten Bereich" },
+    { "name": "Zeit (durchschnitt)", "role": "O(n\u00B2) \u2014 quadratisch" },
+    { "name": "Zeit (worst)", "role": "O(n\u00B2) \u2014 quadratisch" },
+    { "name": "Speicher", "role": "O(1) \u2014 In-place-Sortierung" },
+    { "name": "Stabil", "role": "Nein \u2014 Tauschvorg\u00e4nge k\u00f6nnen die relative Reihenfolge gleicher Elemente \u00e4ndern" },
+    { "name": "Tauschvorg\u00e4nge", "role": "O(n) \u2014 h\u00f6chstens n\u22121 Tausche (weniger als Bubble Sort)" }
+  ],
+
   "av.legend.scanning": "Scannt",
   "av.legend.examined": "Gepr\u00fcft",
   "av.legend.found": "Gefunden",

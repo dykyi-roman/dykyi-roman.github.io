@@ -786,6 +786,7 @@ AV.setAccentColors = function(algorithmId) {
         'bst-operations': { accent: '#F59E0B', bg: '#1a1508', light: '#2d2210' },
         'fibonacci': { accent: '#EC4899', bg: '#1a0d18', light: '#2d1528' },
         'kmp': { accent: '#14B8A6', bg: '#0d1a1a', light: '#15282a' },
+        'selection-sort': { accent: '#10B981', bg: '#0d1a18', light: '#152a25' },
         'hash-table': { accent: '#F97316', bg: '#1a1208', light: '#2d1f10' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
