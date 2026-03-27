@@ -13,7 +13,7 @@
         hashing: ['hash-table', 'chaining', 'open-addressing']
     };
 
-    var implementedAlgorithms = ['bubble-sort', 'selection-sort', 'linear-search', 'binary-search', 'bfs', 'bst-operations', 'fibonacci', 'kmp', 'hash-table'];
+    var implementedAlgorithms = ['bubble-sort', 'selection-sort', 'insertion-sort', 'linear-search', 'binary-search', 'jump-search', 'bfs', 'dfs', 'bst-operations', 'fibonacci', 'kmp', 'hash-table'];
 
     var activeCategory = 'sorting';
 
@@ -140,7 +140,10 @@
         if (banner) banner.remove();
         var line = document.querySelector('.av-target-line');
         if (line) line.remove();
+        var jumpBanner = document.querySelector('.av-jump-banner');
+        if (jumpBanner) jumpBanner.remove();
         delete AV.state._searchTarget;
+        delete AV.state._jumpSize;
     }
 
     function removeGraphUI() {

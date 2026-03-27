@@ -106,11 +106,53 @@
     { "name": "Intercambios", "role": "O(n) \u2014 a lo sumo n\u22121 intercambios (menos que Bubble Sort)" }
   ],
 
+  "insertion-sort.name": "Ordenamiento por inserci\u00f3n",
+  "insertion-sort.stepLabel": "Ordenamiento por inserci\u00f3n \u2014 Est\u00e1ndar",
+  "insertion-sort.modes.standard.label": "Est\u00e1ndar",
+  "insertion-sort.modes.standard.desc": "Ordenamiento por inserci\u00f3n cl\u00e1sico: construye una porci\u00f3n ordenada de izquierda a derecha tomando cada elemento e insert\u00e1ndolo en su posici\u00f3n correcta entre los elementos ya ordenados, desplazando los mayores una posici\u00f3n a la derecha.",
+  "insertion-sort.details.standard.principles": [
+    "Comenzar con el primer elemento como porci\u00f3n ordenada de tama\u00f1o uno",
+    "Tomar el siguiente elemento no ordenado (clave) y compararlo hacia la izquierda con los elementos ordenados",
+    "Desplazar cada elemento ordenado mayor que la clave una posici\u00f3n a la derecha",
+    "Insertar la clave en la posici\u00f3n vacante",
+    "Repetir hasta que todos los elementos est\u00e9n en la porci\u00f3n ordenada"
+  ],
+  "insertion-sort.details.standard.concepts": [
+    { "term": "Clave", "definition": "El elemento actual que se inserta en la porci\u00f3n ordenada. En la pasada i, la clave es arr[i], y se compara con los elementos arr[i\u22121], arr[i\u22122], \u2026 hasta encontrar su posici\u00f3n correcta." },
+    { "term": "Desplazamiento", "definition": "Mover los elementos ordenados una posici\u00f3n a la derecha para hacer espacio para la clave. Equivalente a una serie de intercambios adyacentes que mueven la clave hacia la izquierda." },
+    { "term": "Ordenamiento estable", "definition": "El ordenamiento por inserci\u00f3n solo intercambia cuando es estrictamente mayor (no igual), por lo que los elementos iguales preservan su orden relativo original." },
+    { "term": "Adaptativo", "definition": "Con datos casi ordenados, el bucle interno termina temprano para la mayor\u00eda de los elementos, dando un tiempo O(n) en el mejor caso. Cuantas menos inversiones, m\u00e1s r\u00e1pido funciona." }
+  ],
+  "insertion-sort.details.standard.tradeoffs.pros": [
+    "Simple de entender e implementar",
+    "Algoritmo de ordenamiento estable \u2014 preserva el orden de elementos iguales",
+    "En sitio \u2014 requiere solo O(1) memoria adicional",
+    "Adaptativo \u2014 muy eficiente con datos casi ordenados o conjuntos peque\u00f1os",
+    "En l\u00ednea \u2014 puede ordenar elementos a medida que se reciben"
+  ],
+  "insertion-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) en promedio y peor caso \u2014 lento para arreglos grandes",
+    "Significativamente m\u00e1s lento que algoritmos O(n log n) como Merge Sort o Quick Sort",
+    "Muchos desplazamientos cuando los elementos est\u00e1n lejos de su posici\u00f3n objetivo",
+    "El rendimiento se degrada significativamente con datos ordenados en orden inverso"
+  ],
+  "insertion-sort.details.standard.tradeoffs.whenToUse": "Mejor para arreglos peque\u00f1os (< 50 elementos), datos casi ordenados, o como caso base en algoritmos h\u00edbridos como Tim Sort. Preferible al ordenamiento por selecci\u00f3n cuando se requiere estabilidad. Para grandes conjuntos, use Quick Sort, Merge Sort o Tim Sort.",
+  "insertion-sort.depRules": [
+    { "name": "Tiempo (mejor)", "role": "O(n) \u2014 arreglo ya ordenado" },
+    { "name": "Tiempo (promedio)", "role": "O(n\u00B2) \u2014 cuadr\u00e1tico" },
+    { "name": "Tiempo (peor)", "role": "O(n\u00B2) \u2014 ordenado en orden inverso" },
+    { "name": "Espacio", "role": "O(1) \u2014 ordenamiento en sitio" },
+    { "name": "Estable", "role": "S\u00ed \u2014 los elementos iguales mantienen su orden relativo" },
+    { "name": "Adaptativo", "role": "S\u00ed \u2014 m\u00e1s r\u00e1pido con datos casi ordenados" }
+  ],
+
   "av.legend.scanning": "Escaneando",
   "av.legend.examined": "Examinado",
   "av.legend.found": "Encontrado",
   "av.legend.checking": "Verificando",
   "av.legend.eliminated": "Eliminado",
+  "av.legend.jumping": "Saltando",
+  "av.legend.skipped": "Omitido",
   "av.target_label_prefix": "Objetivo:",
   "av.log.scan": "Escanear arr[{index}]={value} vs objetivo={target}",
   "av.log.found": "Encontrado {value} en \u00edndice {index}",
@@ -118,11 +160,15 @@
   "av.log.done_search": "Completado en {time}ms ({comparisons} comparaciones)",
   "av.log.bs_check": "Verificar arr[{mid}]={value} vs objetivo={target} (rango [{low}..{high}])",
   "av.log.bs_eliminate": "Eliminar mitad {direction}, nuevo rango [{newLow}..{newHigh}]",
+  "av.log.js_jump": "Salto a arr[{jumpPos}]={value} vs objetivo={target} (bloque desde {blockStart}, paso={jumpSize})",
+  "av.log.js_scan": "Escanear arr[{index}]={value} vs objetivo={target}",
 
   "ui.log.type.SCAN": "ESCAN",
   "ui.log.type.FOUND": "HALLADO",
   "ui.log.type.BS_CHECK": "VERIF",
   "ui.log.type.BS_ELIMINATE": "ELIMIN",
+  "ui.log.type.JS_JUMP": "SALTO",
+  "ui.log.type.JS_SCAN": "ESCAN",
 
   "linear-search.name": "B\u00fasqueda lineal",
   "linear-search.stepLabel": "B\u00fasqueda lineal \u2014 Est\u00e1ndar",
@@ -204,6 +250,47 @@
     { "name": "Estable", "role": "N/A \u2014 b\u00fasqueda, no ordenaci\u00f3n" }
   ],
 
+  "jump-search.name": "B\u00fasqueda por saltos",
+  "jump-search.stepLabel": "B\u00fasqueda por saltos \u2014 Est\u00e1ndar",
+  "jump-search.jump_label": "Salto:",
+  "jump-search.modes.standard.label": "Est\u00e1ndar",
+  "jump-search.modes.standard.desc": "B\u00fasqueda por saltos cl\u00e1sica: avanza en bloques de \u221an por un arreglo ordenado, luego realiza un escaneo lineal en el bloque identificado. Logra O(\u221an) \u2014 m\u00e1s r\u00e1pido que lineal, m\u00e1s simple que binario.",
+  "jump-search.details.standard.principles": [
+    "El arreglo debe estar ordenado antes de aplicar la b\u00fasqueda por saltos",
+    "Avanzar en bloques de tama\u00f1o fijo (\u221an) verificando el elemento l\u00edmite",
+    "Si el elemento l\u00edmite es menor que el objetivo, omitir todo el bloque",
+    "Una vez identificado el bloque, realizar un escaneo lineal dentro de \u00e9l",
+    "El tama\u00f1o \u00f3ptimo \u221an minimiza el n\u00famero total de comparaciones"
+  ],
+  "jump-search.details.standard.concepts": [
+    { "term": "Tama\u00f1o de bloque \u221an", "definition": "El paso \u00f3ptimo es la ra\u00edz cuadrada de la longitud del arreglo. Equilibra el n\u00famero de saltos (\u221an) con el tama\u00f1o del escaneo (\u221an)." },
+    { "term": "Fase de salto", "definition": "La primera fase omite bloques enteros verificando solo el \u00faltimo elemento. Si arr[fin] < objetivo, saltamos al siguiente bloque." },
+    { "term": "Fase de escaneo lineal", "definition": "Una vez identificado el bloque correcto, una b\u00fasqueda secuencial encuentra la posici\u00f3n exacta. Como m\u00e1ximo \u221an comparaciones." },
+    { "term": "Tama\u00f1o de paso \u00f3ptimo", "definition": "El paso \u221an minimiza el peor caso: muy peque\u00f1o = demasiados escaneos, muy grande = demasiados saltos. \u221an es el \u00f3ptimo matem\u00e1tico." }
+  ],
+  "jump-search.details.standard.tradeoffs.pros": [
+    "O(\u221an) tiempo \u2014 significativamente m\u00e1s r\u00e1pido que b\u00fasqueda lineal",
+    "M\u00e1s simple de implementar que b\u00fasqueda binaria",
+    "Solo requiere un retroceso \u2014 bueno para sistemas con retroceso costoso",
+    "O(1) espacio \u2014 sin recursi\u00f3n ni estructuras auxiliares",
+    "\u00datil cuando la sobrecarga de b\u00fasqueda binaria no se justifica"
+  ],
+  "jump-search.details.standard.tradeoffs.cons": [
+    "M\u00e1s lento que b\u00fasqueda binaria O(log n) para grandes conjuntos",
+    "Requiere entrada ordenada \u2014 ordenar cuesta O(n log n)",
+    "El tama\u00f1o fijo de bloque puede ser sub\u00f3ptimo",
+    "No adaptativo \u2014 no reduce el espacio tan agresivamente como b\u00fasqueda binaria"
+  ],
+  "jump-search.details.standard.tradeoffs.whenToUse": "Ideal cuando los datos est\u00e1n ordenados y el retroceso es costoso. Para arreglos, la b\u00fasqueda binaria suele ser mejor.",
+  "jump-search.depRules": [
+    { "name": "Tiempo (mejor)", "role": "O(1) \u2014 objetivo en primer l\u00edmite" },
+    { "name": "Tiempo (promedio)", "role": "O(\u221an) \u2014 sublineal" },
+    { "name": "Tiempo (peor)", "role": "O(\u221an) \u2014 objetivo al final del bloque" },
+    { "name": "Espacio", "role": "O(1) \u2014 sin memoria extra" },
+    { "name": "Ordenaci\u00f3n requerida", "role": "S\u00ed \u2014 el arreglo debe estar preordenado" },
+    { "name": "Bloque \u00f3ptimo", "role": "\u221an \u2014 equilibrio entre saltos y escaneo" }
+  ],
+
   "av.stat.nodes_visited": "Nodos visitados",
   "av.stat.edges_explored": "Aristas exploradas",
   "av.legend.unvisited": "No visitado",
@@ -223,6 +310,8 @@
 
   "ui.log.type.ENQUEUE": "ENCOLAR",
   "ui.log.type.DEQUEUE": "DESENC",
+  "ui.log.type.PUSH": "PUSH",
+  "ui.log.type.POP": "POP",
   "ui.log.type.EXPLORE_EDGE": "ARISTA",
   "ui.log.type.VISIT": "VISITA",
   "ui.log.type.COMPLETE": "LISTO",
@@ -265,6 +354,57 @@
     { "name": "Completo", "role": "S\u00ed \u2014 siempre encuentra una soluci\u00f3n si existe" },
     { "name": "Grafos ponderados", "role": "No \u2014 no maneja pesos de aristas (use Dijkstra)" },
     { "name": "Estructura", "role": "Cola FIFO" }
+  ],
+
+  "av.stack.label": "Pila:",
+  "av.stack.empty": "vacía",
+  "av.log.push": "Push {node} (profundidad {depth}) | Pila: [{stack}]",
+  "av.log.pop": "Pop {node} (profundidad {depth}): {neighborCount} vecinos no visitados | Pila: [{stack}]",
+  "av.log.explore_edge_push": "Arista {from}\u2192{to}: {to} no visitado \u2014 apilar",
+  "av.log.visit_dfs": "{node} listo (profundidad {depth}), todos los vecinos explorados | Pila: [{stack}]",
+  "av.log.complete_dfs": "DFS completado: {totalVisited}/{totalNodes} nodos, profundidad máx. {maxDepth}",
+  "av.legend.in_stack": "En la pila",
+  "av.legend.dfs_start": "Nodo inicial",
+  "av.legend.dfs_order": "Orden de visita",
+
+  "dfs.name": "Búsqueda en profundidad",
+  "dfs.stepLabel": "DFS \u2014 Estándar",
+  "dfs.modes.standard.label": "Estándar",
+  "dfs.modes.standard.desc": "DFS clásico: explora un grafo lo más profundo posible antes de retroceder, usando una pila LIFO. Partiendo del nodo A, desciende por un camino hasta un callejón sin salida, luego retrocede para explorar ramas no visitadas.",
+  "dfs.details.standard.principles": [
+    "Comenzar desde un nodo fuente y colocarlo en una pila LIFO",
+    "Mientras la pila no esté vacía: sacar un nodo de la cima",
+    "Si el nodo no ha sido visitado, marcarlo y explorar sus vecinos",
+    "Colocar todos los vecinos no visitados en la pila",
+    "Esto explora naturalmente lo más profundo posible antes de retroceder"
+  ],
+  "dfs.details.standard.concepts": [
+    { "term": "Pila LIFO", "definition": "Estructura de datos último en entrar, primero en salir. El nodo descubierto más recientemente se explora primero, produciendo un recorrido en profundidad." },
+    { "term": "Retroceso", "definition": "Cuando DFS llega a un callejón sin salida (sin vecinos no visitados), regresa al nodo más reciente con ramas inexploradas." },
+    { "term": "Conjunto visitado", "definition": "Rastrea qué nodos ya fueron vistos para evitar revisitas. Esencial para la corrección en grafos con ciclos." },
+    { "term": "Profundidad", "definition": "DFS explora caminos hasta la profundidad máxima antes de ramificarse. No garantiza visitar nodos en orden de distancia desde la fuente." }
+  ],
+  "dfs.details.standard.tradeoffs.pros": [
+    "Eficiente en memoria para grafos profundos y estrechos \u2014 profundidad de pila O(V)",
+    "Base natural para ordenamiento topológico de DAGs",
+    "Detecta ciclos eficientemente mediante aristas de retroceso",
+    "Fundamento para encontrar componentes conexos y fuertemente conexos",
+    "Implementación recursiva o iterativa simple"
+  ],
+  "dfs.details.standard.tradeoffs.cons": [
+    "No encuentra caminos más cortos \u2014 el resultado depende del orden de vecinos",
+    "Puede quedarse atascado en ramas profundas",
+    "El orden de recorrido depende del orden de vecinos \u2014 no determinista sin ordenar",
+    "Menos intuitivo que BFS para problemas relacionados con distancia"
+  ],
+  "dfs.details.standard.tradeoffs.whenToUse": "Use DFS cuando necesite explorar todos los nodos accesibles, detectar ciclos, realizar ordenamiento topológico o encontrar componentes conexos. Para caminos más cortos en grafos no ponderados, use BFS.",
+  "dfs.depRules": [
+    { "name": "Tiempo", "role": "O(V + E) \u2014 visita cada vértice y arista una vez" },
+    { "name": "Espacio", "role": "O(V) \u2014 pila + conjunto visitado" },
+    { "name": "Camino más corto", "role": "No \u2014 no garantiza el camino más corto" },
+    { "name": "Completo", "role": "Sí \u2014 siempre encuentra una solución si existe" },
+    { "name": "Detección de ciclos", "role": "Sí \u2014 detecta aristas de retroceso / ciclos" },
+    { "name": "Estructura de datos", "role": "Pila LIFO" }
   ],
 
   "av.stat.nodes_inserted": "Nodos insertados",

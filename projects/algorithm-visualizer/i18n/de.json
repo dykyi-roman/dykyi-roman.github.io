@@ -106,11 +106,53 @@
     { "name": "Tauschvorg\u00e4nge", "role": "O(n) \u2014 h\u00f6chstens n\u22121 Tausche (weniger als Bubble Sort)" }
   ],
 
+  "insertion-sort.name": "Insertion Sort",
+  "insertion-sort.stepLabel": "Insertion Sort \u2014 Standard",
+  "insertion-sort.modes.standard.label": "Standard",
+  "insertion-sort.modes.standard.desc": "Klassischer Insertion Sort: baut einen sortierten Bereich von links nach rechts auf, indem jedes Element an seiner korrekten Position unter den bereits sortierten Elementen eingef\u00fcgt wird, wobei gr\u00f6\u00dfere Elemente um eine Position nach rechts verschoben werden.",
+  "insertion-sort.details.standard.principles": [
+    "Mit dem ersten Element als sortiertem Bereich der Gr\u00f6\u00dfe eins beginnen",
+    "Das n\u00e4chste unsortierte Element (Schl\u00fcssel) nehmen und nach links mit den sortierten Elementen vergleichen",
+    "Jedes sortierte Element, das gr\u00f6\u00dfer als der Schl\u00fcssel ist, um eine Position nach rechts verschieben",
+    "Den Schl\u00fcssel an der frei gewordenen Position einf\u00fcgen",
+    "Wiederholen, bis alle Elemente im sortierten Bereich sind"
+  ],
+  "insertion-sort.details.standard.concepts": [
+    { "term": "Schl\u00fcssel", "definition": "Das aktuelle Element, das in den sortierten Bereich eingef\u00fcgt wird. Im Durchlauf i ist der Schl\u00fcssel arr[i] und wird mit den Elementen arr[i\u22121], arr[i\u22122], \u2026 verglichen, bis die korrekte Position gefunden ist." },
+    { "term": "Verschiebung", "definition": "Sortierte Elemente werden um eine Position nach rechts verschoben, um Platz f\u00fcr den Schl\u00fcssel zu schaffen. \u00c4quivalent zu einer Reihe von benachbarten Tauschvorg\u00e4ngen, die den Schl\u00fcssel nach links bewegen." },
+    { "term": "Stabiles Sortieren", "definition": "Insertion Sort tauscht nur bei strikt gr\u00f6\u00dfer (nicht bei gleich), sodass gleiche Elemente ihre urspr\u00fcngliche relative Reihenfolge beibehalten." },
+    { "term": "Adaptiv", "definition": "Bei fast sortierten Daten endet die innere Schleife fr\u00fch f\u00fcr die meisten Elemente, was O(n) Bestfall-Zeit ergibt. Je weniger Inversionen, desto schneller." }
+  ],
+  "insertion-sort.details.standard.tradeoffs.pros": [
+    "Einfach zu verstehen und zu implementieren",
+    "Stabiler Sortieralgorithmus \u2014 bewahrt die Reihenfolge gleicher Elemente",
+    "In-place \u2014 ben\u00f6tigt nur O(1) zus\u00e4tzlichen Speicher",
+    "Adaptiv \u2014 sehr effizient bei fast sortierten oder kleinen Datens\u00e4tzen",
+    "Online \u2014 kann Elemente sortieren, sobald sie empfangen werden"
+  ],
+  "insertion-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) im Durchschnitt und schlechtesten Fall \u2014 langsam f\u00fcr gro\u00dfe Arrays",
+    "Deutlich langsamer als O(n log n)-Algorithmen wie Merge Sort oder Quick Sort",
+    "Viele Verschiebungen n\u00f6tig, wenn Elemente weit von ihrer Zielposition entfernt sind",
+    "Leistung verschlechtert sich erheblich bei umgekehrt sortierten Daten"
+  ],
+  "insertion-sort.details.standard.tradeoffs.whenToUse": "Am besten f\u00fcr kleine Arrays (< 50 Elemente), fast sortierte Daten oder als Basisfall in hybriden Algorithmen wie Tim Sort. Bevorzugt gegen\u00fcber Selection Sort, wenn Stabilit\u00e4t erforderlich ist. F\u00fcr gro\u00dfe Datens\u00e4tze verwenden Sie Quick Sort, Merge Sort oder Tim Sort.",
+  "insertion-sort.depRules": [
+    { "name": "Zeit (best)", "role": "O(n) \u2014 bereits sortiertes Array" },
+    { "name": "Zeit (durchschnitt)", "role": "O(n\u00B2) \u2014 quadratisch" },
+    { "name": "Zeit (worst)", "role": "O(n\u00B2) \u2014 umgekehrt sortiert" },
+    { "name": "Speicher", "role": "O(1) \u2014 In-place-Sortierung" },
+    { "name": "Stabil", "role": "Ja \u2014 gleiche Elemente behalten ihre relative Reihenfolge" },
+    { "name": "Adaptiv", "role": "Ja \u2014 schneller bei fast sortierten Daten" }
+  ],
+
   "av.legend.scanning": "Scannt",
   "av.legend.examined": "Gepr\u00fcft",
   "av.legend.found": "Gefunden",
   "av.legend.checking": "Prüfung",
   "av.legend.eliminated": "Eliminiert",
+  "av.legend.jumping": "Sprung",
+  "av.legend.skipped": "Übersprungen",
   "av.target_label_prefix": "Ziel:",
   "av.log.scan": "Scan arr[{index}]={value} vs Ziel={target}",
   "av.log.found": "{value} gefunden an Index {index}",
@@ -118,11 +160,15 @@
   "av.log.done_search": "Abgeschlossen in {time}ms ({comparisons} Vergleiche)",
   "av.log.bs_check": "Prüfe arr[{mid}]={value} vs Ziel={target} (Bereich [{low}..{high}])",
   "av.log.bs_eliminate": "{direction} Hälfte eliminieren, neuer Bereich [{newLow}..{newHigh}]",
+  "av.log.js_jump": "Sprung zu arr[{jumpPos}]={value} vs Ziel={target} (Block ab {blockStart}, Schritt={jumpSize})",
+  "av.log.js_scan": "Scan arr[{index}]={value} vs Ziel={target}",
 
   "ui.log.type.SCAN": "SCAN",
   "ui.log.type.FOUND": "GEFUND",
   "ui.log.type.BS_CHECK": "PRÜFUNG",
   "ui.log.type.BS_ELIMINATE": "ELIMIN",
+  "ui.log.type.JS_JUMP": "SPRUNG",
+  "ui.log.type.JS_SCAN": "SCAN",
 
   "linear-search.name": "Lineare Suche",
   "linear-search.stepLabel": "Lineare Suche \u2014 Standard",
@@ -204,6 +250,47 @@
     { "name": "Stabil", "role": "N/A \u2014 Suche, keine Sortierung" }
   ],
 
+  "jump-search.name": "Sprungsuche",
+  "jump-search.stepLabel": "Sprungsuche \u2014 Standard",
+  "jump-search.jump_label": "Sprung:",
+  "jump-search.modes.standard.label": "Standard",
+  "jump-search.modes.standard.desc": "Klassische Sprungsuche: springt in Bl\u00f6cken der Gr\u00f6\u00dfe \u221an durch ein sortiertes Array und f\u00fchrt dann einen linearen Scan im gefundenen Block durch. Erreicht O(\u221an) \u2014 schneller als linear, einfacher als bin\u00e4r.",
+  "jump-search.details.standard.principles": [
+    "Das Array muss vor der Sprungsuche sortiert sein",
+    "In festen Bl\u00f6cken der Gr\u00f6\u00dfe \u221an vorw\u00e4rts springen und das Grenzelement pr\u00fcfen",
+    "Wenn das Grenzelement kleiner als das Ziel ist, den gesamten Block \u00fcberspringen",
+    "Sobald der richtige Block gefunden ist, linearen Scan darin durchf\u00fchren",
+    "Die optimale Blockgr\u00f6\u00dfe \u221an minimiert die Gesamtzahl der Vergleiche"
+  ],
+  "jump-search.details.standard.concepts": [
+    { "term": "Blockgr\u00f6\u00dfe \u221an", "definition": "Der optimale Sprungschritt ist die Quadratwurzel der Arrayl\u00e4nge. Dies balanciert die Anzahl der Spr\u00fcnge (\u221an) mit der Scangr\u00f6\u00dfe (\u221an)." },
+    { "term": "Sprungphase", "definition": "Die erste Phase \u00fcberspringt ganze Bl\u00f6cke, indem nur das letzte Element gepr\u00fcft wird. Wenn arr[Ende] < Ziel, springen wir weiter." },
+    { "term": "Lineare Scanphase", "definition": "Nach Identifikation des Blocks findet eine sequentielle Suche die genaue Position. H\u00f6chstens \u221an Vergleiche." },
+    { "term": "Optimale Schrittgr\u00f6\u00dfe", "definition": "Die Schrittgr\u00f6\u00dfe \u221an minimiert den schlimmsten Fall: zu klein = zu viele Scans, zu gro\u00df = zu viele Spr\u00fcnge. \u221an ist das mathematische Optimum." }
+  ],
+  "jump-search.details.standard.tradeoffs.pros": [
+    "O(\u221an) Zeit \u2014 deutlich schneller als lineare Suche",
+    "Einfacher zu implementieren als bin\u00e4re Suche",
+    "Erfordert nur einen R\u00fcckw\u00e4rtsdurchlauf",
+    "O(1) Speicher \u2014 keine Rekursion oder Hilfsstrukturen",
+    "N\u00fctzlich, wenn der Overhead der bin\u00e4ren Suche nicht gerechtfertigt ist"
+  ],
+  "jump-search.details.standard.tradeoffs.cons": [
+    "Langsamer als bin\u00e4re Suche O(log n) f\u00fcr gro\u00dfe Datens\u00e4tze",
+    "Erfordert sortierte Eingabe \u2014 Sortierung kostet O(n log n)",
+    "Feste Blockgr\u00f6\u00dfe kann suboptimal sein",
+    "Nicht adaptiv \u2014 verengt den Suchraum nicht so aggressiv wie bin\u00e4re Suche"
+  ],
+  "jump-search.details.standard.tradeoffs.whenToUse": "Am besten, wenn Daten sortiert sind und R\u00fcckw\u00e4rtsdurchlauf teuer ist. F\u00fcr Arrays ist bin\u00e4re Suche meist besser.",
+  "jump-search.depRules": [
+    { "name": "Zeit (Best)", "role": "O(1) \u2014 Ziel an erster Blockgrenze" },
+    { "name": "Zeit (Durchschnitt)", "role": "O(\u221an) \u2014 sublinear" },
+    { "name": "Zeit (Worst)", "role": "O(\u221an) \u2014 Ziel am Blockende" },
+    { "name": "Speicher", "role": "O(1) \u2014 kein zus\u00e4tzlicher Speicher" },
+    { "name": "Sortierung n\u00f6tig", "role": "Ja \u2014 Array muss vorsortiert sein" },
+    { "name": "Optimaler Block", "role": "\u221an \u2014 Balance zwischen Spr\u00fcngen und Scan" }
+  ],
+
   "av.stat.nodes_visited": "Besuchte Knoten",
   "av.stat.edges_explored": "Erkundete Kanten",
   "av.legend.unvisited": "Unbesucht",
@@ -223,6 +310,8 @@
 
   "ui.log.type.ENQUEUE": "EINR",
   "ui.log.type.DEQUEUE": "ENTN",
+  "ui.log.type.PUSH": "PUSH",
+  "ui.log.type.POP": "POP",
   "ui.log.type.EXPLORE_EDGE": "KANTE",
   "ui.log.type.VISIT": "BESUCH",
   "ui.log.type.COMPLETE": "FERTIG",
@@ -265,6 +354,57 @@
     { "name": "Vollst\u00e4ndig", "role": "Ja \u2014 findet immer eine L\u00f6sung, wenn sie existiert" },
     { "name": "Gewichtete Graphen", "role": "Nein \u2014 behandelt keine Kantengewichte (verwenden Sie Dijkstra)" },
     { "name": "Datenstruktur", "role": "FIFO-Warteschlange" }
+  ],
+
+  "av.stack.label": "Stapel:",
+  "av.stack.empty": "leer",
+  "av.log.push": "Push {node} (Tiefe {depth}) | Stapel: [{stack}]",
+  "av.log.pop": "Pop {node} (Tiefe {depth}): {neighborCount} unbesuchte Nachbarn | Stapel: [{stack}]",
+  "av.log.explore_edge_push": "Kante {from}\u2192{to}: {to} unbesucht \u2014 auf den Stapel",
+  "av.log.visit_dfs": "{node} fertig (Tiefe {depth}), alle Nachbarn erkundet | Stapel: [{stack}]",
+  "av.log.complete_dfs": "DFS abgeschlossen: {totalVisited}/{totalNodes} Knoten, max. Tiefe {maxDepth}",
+  "av.legend.in_stack": "Im Stapel",
+  "av.legend.dfs_start": "Startknoten",
+  "av.legend.dfs_order": "Besuchsreihenfolge",
+
+  "dfs.name": "Tiefensuche",
+  "dfs.stepLabel": "DFS \u2014 Standard",
+  "dfs.modes.standard.label": "Standard",
+  "dfs.modes.standard.desc": "Klassischer DFS: Erkundet einen Graphen so tief wie m\u00f6glich, bevor er zur\u00fcckkehrt, mit einem LIFO-Stapel. Ausgehend von Knoten A taucht er einen Pfad hinab bis zur Sackgasse und kehrt dann zur\u00fcck, um unbesuchte Zweige zu erkunden.",
+  "dfs.details.standard.principles": [
+    "Von einem Quellknoten starten und ihn auf einen LIFO-Stapel legen",
+    "Solange der Stapel nicht leer ist: einen Knoten von oben entnehmen",
+    "Wenn der Knoten nicht besucht wurde, markieren und Nachbarn erkunden",
+    "Alle unbesuchten Nachbarn auf den Stapel legen",
+    "Dies erkundet nat\u00fcrlich so tief wie m\u00f6glich vor dem Zur\u00fcckkehren"
+  ],
+  "dfs.details.standard.concepts": [
+    { "term": "LIFO-Stapel", "definition": "Last-In-First-Out Datenstruktur. Der zuletzt entdeckte Knoten wird zuerst erkundet, was eine Tiefensuche ergibt." },
+    { "term": "Backtracking", "definition": "Wenn DFS eine Sackgasse erreicht (keine unbesuchten Nachbarn), kehrt er zum letzten Knoten mit unerkundeten Zweigen zur\u00fcck." },
+    { "term": "Besuchte Menge", "definition": "Verfolgt, welche Knoten bereits gesehen wurden, um erneutes Besuchen zu verhindern. Wesentlich f\u00fcr Korrektheit in Graphen mit Zyklen." },
+    { "term": "Tiefe", "definition": "DFS erkundet Pfade bis zur maximalen Tiefe vor dem Verzweigen. Garantiert nicht den Besuch von Knoten in Entfernungsreihenfolge von der Quelle." }
+  ],
+  "dfs.details.standard.tradeoffs.pros": [
+    "Speichereffizient f\u00fcr tiefe, schmale Graphen \u2014 Stapeltiefe O(V) im schlimmsten Fall",
+    "Nat\u00fcrliche Grundlage f\u00fcr topologische Sortierung von DAGs",
+    "Erkennt Zyklen effizient \u00fcber R\u00fcckkanten",
+    "Grundlage f\u00fcr das Finden von Zusammenhangskomponenten und stark zusammenh\u00e4ngenden Komponenten",
+    "Einfache rekursive oder iterative Implementierung"
+  ],
+  "dfs.details.standard.tradeoffs.cons": [
+    "Findet keine k\u00fcrzesten Wege \u2014 Ergebnis h\u00e4ngt von der Nachbarreihenfolge ab",
+    "Kann in tiefen Zweigen stecken bleiben",
+    "Durchlaufreihenfolge h\u00e4ngt von der Nachbarreihenfolge ab \u2014 ohne Sortierung nicht deterministisch",
+    "Weniger intuitiv als BFS f\u00fcr entfernungsbezogene Probleme"
+  ],
+  "dfs.details.standard.tradeoffs.whenToUse": "Verwenden Sie DFS, wenn Sie alle erreichbaren Knoten erkunden, Zyklen erkennen, topologische Sortierung durchf\u00fchren oder Zusammenhangskomponenten finden m\u00fcssen. F\u00fcr k\u00fcrzeste Wege in ungewichteten Graphen verwenden Sie BFS.",
+  "dfs.depRules": [
+    { "name": "Zeit", "role": "O(V + E) \u2014 besucht jeden Knoten und jede Kante einmal" },
+    { "name": "Speicher", "role": "O(V) \u2014 Stapel + besuchte Menge" },
+    { "name": "K\u00fcrzester Weg", "role": "Nein \u2014 garantiert nicht den k\u00fcrzesten Weg" },
+    { "name": "Vollst\u00e4ndig", "role": "Ja \u2014 findet immer eine L\u00f6sung, falls vorhanden" },
+    { "name": "Zykluserkennung", "role": "Ja \u2014 erkennt R\u00fcckkanten / Zyklen" },
+    { "name": "Datenstruktur", "role": "LIFO-Stapel" }
   ],
 
   "av.stat.nodes_inserted": "Eingef\u00fcgte Knoten",

@@ -68,6 +68,10 @@
     --bfs-bg: #0d1a22;
     --bfs-light: #15252f;
 
+    --dfs-color: #A855F7;
+    --dfs-bg: #1a0d2e;
+    --dfs-light: #25154a;
+
     --bst-color: #F59E0B;
     --bst-bg: #1a1508;
     --bst-light: #2d2210;
@@ -235,6 +239,12 @@
     background: var(--bfs-bg);
     border-color: var(--bfs-color);
     color: var(--bfs-color);
+}
+
+.av-tab.active[data-algorithm="dfs"] {
+    background: var(--dfs-bg);
+    border-color: var(--dfs-color);
+    color: var(--dfs-color);
 }
 
 .av-tab.active[data-algorithm="bst-operations"] {
@@ -803,6 +813,27 @@
     pointer-events: none;
 }
 
+/* ===== Jump Search Info Banner ===== */
+.av-jump-banner {
+    position: absolute;
+    top: 8px;
+    right: 200px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--av-accent-bg);
+    border: 1px solid var(--av-border);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--av-text-light);
+    z-index: 10;
+}
+.av-jump-banner .av-jump-value {
+    color: var(--av-accent);
+    font-weight: 700;
+}
+
 /* ===== Trade-offs Section ===== */
 .av-tradeoffs {
     margin-bottom: 12px;
@@ -1214,6 +1245,12 @@
     font-style: italic;
 }
 
+/* ===== DFS Stack Panel ===== */
+.av-stack-item {
+    background: var(--dfs-color);
+    color: #fff;
+}
+
 /* ===== Graph Legend Swatches ===== */
 .av-legend-node-unvisited {
     background: var(--av-node-unvisited);
@@ -1293,7 +1330,7 @@
 
 .av-start-ring {
     fill: none;
-    stroke: var(--bfs-color);
+    stroke: var(--av-accent, #06B6D4);
     stroke-width: 2;
     animation: av-start-pulse 1.8s ease-in-out infinite;
     pointer-events: none;
@@ -1301,18 +1338,18 @@
 
 .av-node-start circle {
     fill: var(--av-node-unvisited);
-    stroke: var(--bfs-color);
+    stroke: var(--av-accent, #06B6D4);
     stroke-width: 3;
     filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.5));
 }
 
 .av-node-start text {
-    fill: var(--bfs-color);
+    fill: var(--av-accent, #06B6D4);
 }
 
-/* ===== BFS Visit Order Badge ===== */
+/* ===== Visit Order Badge ===== */
 .av-visit-order-bg {
-    fill: var(--bfs-color);
+    fill: var(--av-accent, #06B6D4);
     pointer-events: none;
 }
 
@@ -1333,15 +1370,15 @@
     font-family: inherit;
     font-size: 11px;
     font-weight: 600;
-    fill: var(--bfs-color);
+    fill: var(--av-accent, #06B6D4);
     opacity: 0.4;
     pointer-events: none;
 }
 
-/* ===== BFS Legend Swatches ===== */
+/* ===== Graph Legend Swatches (Start / Visit Order) ===== */
 .av-legend-node-start {
     background: var(--av-node-unvisited);
-    border: 2px solid var(--bfs-color);
+    border: 2px solid var(--av-accent, #06B6D4);
     border-radius: 50%;
     width: 14px;
     height: 14px;
@@ -1349,7 +1386,7 @@
 }
 
 .av-legend-visit-order {
-    background: var(--bfs-color);
+    background: var(--av-accent, #06B6D4);
     border-radius: 50%;
     width: 16px;
     height: 16px;
@@ -1365,6 +1402,8 @@
 /* ===== Graph Log Types ===== */
 .log-type.ENQUEUE { color: #FBBF24; }
 .log-type.DEQUEUE { color: #3B82F6; }
+.log-type.PUSH { color: #A855F7; }
+.log-type.POP { color: #3B82F6; }
 .log-type.EXPLORE_EDGE { color: #A78BFA; }
 .log-type.VISIT { color: #10B981; }
 .log-type.COMPLETE { color: #06B6D4; }

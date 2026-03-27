@@ -377,6 +377,31 @@ AV.renderQueue = function(queue) {
     }
 };
 
+AV.renderStack = function(stack) {
+    var vizArea = document.getElementById('viz-area');
+    if (!vizArea) return;
+
+    var panel = vizArea.querySelector('.av-stack-panel');
+    if (!panel) {
+        panel = document.createElement('div');
+        panel.className = 'av-queue-panel av-stack-panel';
+        var canvas = document.getElementById('av-canvas');
+        vizArea.insertBefore(panel, canvas);
+    }
+
+    var label = I18N.t('av.stack.label', null, 'Stack:');
+    var emptyText = I18N.t('av.stack.empty', null, 'empty');
+
+    if (stack.length === 0) {
+        panel.innerHTML = '<span class="av-queue-label">' + label + '</span><span class="av-queue-empty">' + emptyText + '</span>';
+    } else {
+        var itemsHtml = stack.map(function(id) {
+            return '<span class="av-queue-item av-stack-item">' + id + '</span>';
+        }).join('');
+        panel.innerHTML = '<span class="av-queue-label">' + label + '</span><div class="av-queue-items">' + itemsHtml + '</div>';
+    }
+};
+
 /* ===== String Matching Rendering ===== */
 AV.renderStringMatch = function(text, pattern, patternOffset, lps) {
     var canvas = document.getElementById('av-canvas');
@@ -788,7 +813,9 @@ AV.setAccentColors = function(algorithmId) {
         'kmp': { accent: '#14B8A6', bg: '#0d1a1a', light: '#15282a' },
         'selection-sort': { accent: '#10B981', bg: '#0d1a18', light: '#152a25' },
         'hash-table': { accent: '#F97316', bg: '#1a1208', light: '#2d1f10' },
-        'binary-search': { accent: '#0EA5E9', bg: '#0c1a2e', light: '#142d4a' }
+        'binary-search': { accent: '#0EA5E9', bg: '#0c1a2e', light: '#142d4a' },
+        'jump-search': { accent: '#A855F7', bg: '#1a0d2e', light: '#25154a' },
+        'dfs': { accent: '#A855F7', bg: '#1a0d2e', light: '#25154a' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
     root.setProperty('--av-accent', t.accent);
@@ -943,10 +970,34 @@ AV.animateFlow = async function(steps, options) {
             AV.log('BS_ELIMINATE', I18N.t('av.log.bs_eliminate', { direction: step.direction, newLow: step.newLow, newHigh: step.newHigh },
                 'Eliminate ' + step.direction + ' half, new range [' + step.newLow + '..' + step.newHigh + ']'));
             await AV.sleep(AV.state.stepDelay * 0.5);
+        } else if (step.type === 'JS_JUMP') {
+            AV.clearHighlights();
+            AV['jump-search']._applySkipped(step.skipped);
+            AV.highlightBars([step.jumpPos], 'av-comparing');
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('JS_JUMP', I18N.t('av.log.js_jump', { jumpPos: step.jumpPos, value: step.value, target: step.target, blockStart: step.blockStart, jumpSize: step.jumpSize },
+                'Jump to arr[' + step.jumpPos + ']=' + step.value + ' vs target=' + step.target + ' (block from ' + step.blockStart + ', step=' + step.jumpSize + ')'));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'JS_SCAN') {
+            AV.clearHighlights();
+            AV['jump-search']._applySkipped(step.skipped);
+            var jsBars = document.querySelectorAll('.av-bar');
+            for (var jsi = step.blockStart; jsi < step.index; jsi++) {
+                if (jsBars[jsi]) jsBars[jsi].classList.add('av-examined');
+            }
+            AV.highlightBars([step.index], 'av-comparing');
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('JS_SCAN', I18N.t('av.log.js_scan', { index: step.index, value: step.value, target: step.target },
+                'Scan arr[' + step.index + ']=' + step.value + ' vs target=' + step.target));
+            await AV.sleep(AV.state.stepDelay);
         } else if (step.type === 'FOUND') {
             AV.clearHighlights();
             if (step.eliminated) {
                 AV['binary-search']._applyEliminated(step.eliminated);
+            } else if (step.skipped) {
+                AV['jump-search']._applySkipped(step.skipped);
             } else {
                 var barsF = document.querySelectorAll('.av-bar');
                 for (var fi = 0; fi < step.index; fi++) {
@@ -965,12 +1016,26 @@ AV.animateFlow = async function(steps, options) {
             AV.renderQueue(step.queue);
             AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node, level: step.level, queue: step.queue.join(', ') }, 'Enqueue ' + step.node));
             await AV.sleep(AV.state.stepDelay * 0.6);
+        } else if (step.type === 'PUSH') {
+            var pushNode = document.querySelector('.av-node[data-node="' + step.node + '"]');
+            if (pushNode) { var sr2 = pushNode.querySelector('.av-start-ring'); if (sr2) sr2.remove(); }
+            AV.setNodeState(step.node, 'queued');
+            AV.renderStack(step.stack);
+            AV.log('PUSH', I18N.t('av.log.push', { node: step.node, depth: step.depth, stack: step.stack.join(', ') }, 'Push ' + step.node));
+            await AV.sleep(AV.state.stepDelay * 0.6);
         } else if (step.type === 'DEQUEUE') {
             AV.setNodeState(step.node, 'visiting');
             AV.renderQueue(step.queue);
             AV.state.comparisons++;
             AV.updateStats();
             AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node, level: step.level, neighborCount: step.neighborCount, queue: step.queue.join(', ') }, 'Dequeue ' + step.node));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'POP') {
+            AV.setNodeState(step.node, 'visiting');
+            AV.renderStack(step.stack);
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('POP', I18N.t('av.log.pop', { node: step.node, depth: step.depth, neighborCount: step.neighborCount, stack: step.stack.join(', ') }, 'Pop ' + step.node));
             await AV.sleep(AV.state.stepDelay);
         } else if (step.type === 'EXPLORE_EDGE') {
             AV.highlightEdge(step.from, step.to, 'av-edge-active');
@@ -979,16 +1044,25 @@ AV.animateFlow = async function(steps, options) {
             if (step.alreadyVisited) {
                 AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_skip', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': skip'));
             } else {
-                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': enqueue'));
+                var edgeLogKey = step.action === 'push' ? 'av.log.explore_edge_push' : 'av.log.explore_edge';
+                AV.log('EXPLORE_EDGE', I18N.t(edgeLogKey, { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': add'));
             }
             await AV.sleep(AV.state.stepDelay * 0.5);
             AV.highlightEdge(step.from, step.to, 'av-edge-traversed');
         } else if (step.type === 'VISIT') {
             AV.setNodeState(step.node, 'visited');
-            AV.renderQueue(step.queue);
+            if (step.stack !== undefined) {
+                AV.renderStack(step.stack);
+            } else {
+                AV.renderQueue(step.queue);
+            }
             AV.state._visitOrderCounter++;
             AV._showVisitOrder(step.node, AV.state._visitOrderCounter);
-            AV.log('VISIT', I18N.t('av.log.visit', { node: step.node, level: step.level, queue: step.queue.join(', ') }, step.node + ' done'));
+            if (step.stack !== undefined) {
+                AV.log('VISIT', I18N.t('av.log.visit_dfs', { node: step.node, depth: step.depth, stack: step.stack.join(', ') }, step.node + ' done'));
+            } else {
+                AV.log('VISIT', I18N.t('av.log.visit', { node: step.node, level: step.level, queue: step.queue.join(', ') }, step.node + ' done'));
+            }
             await AV.sleep(AV.state.stepDelay * 0.4);
         } else if (step.type === 'COMPLETE') {
             if (AV.state._isTreeAlgorithm) {
@@ -1000,6 +1074,9 @@ AV.animateFlow = async function(steps, options) {
                 });
                 AV._removeInsertBanner();
                 AV.log('COMPLETE', I18N.t('av.log.complete_tree', null, 'BST construction complete'));
+            } else if (step.maxDepth !== undefined) {
+                AV.renderStack([]);
+                AV.log('COMPLETE', I18N.t('av.log.complete_dfs', { totalVisited: step.totalVisited, totalNodes: step.totalNodes, maxDepth: step.maxDepth }, 'DFS complete'));
             } else {
                 AV.renderQueue([]);
                 AV.log('COMPLETE', I18N.t('av.log.complete', { totalVisited: step.totalVisited, totalNodes: step.totalNodes, maxLevel: step.maxLevel }, 'BFS complete'));
@@ -1386,15 +1463,21 @@ AV._computeGraphSnapshots = function(steps) {
         if (step.type === 'ENQUEUE') {
             nodeStates[step.node] = 'queued';
             queue = step.queue.slice();
+        } else if (step.type === 'PUSH') {
+            nodeStates[step.node] = 'queued';
+            queue = step.stack.slice();
         } else if (step.type === 'DEQUEUE') {
             nodeStates[step.node] = 'visiting';
             queue = step.queue.slice();
+        } else if (step.type === 'POP') {
+            nodeStates[step.node] = 'visiting';
+            queue = step.stack.slice();
         } else if (step.type === 'EXPLORE_EDGE') {
             var eKey = step.from + '-' + step.to;
             edgeStates[eKey] = 'traversed';
         } else if (step.type === 'VISIT') {
             nodeStates[step.node] = 'visited';
-            queue = step.queue.slice();
+            queue = (step.stack || step.queue).slice();
             visitCounter++;
             visitOrder[step.node] = visitCounter;
         } else if (step.type === 'INSERT_START') {
@@ -1473,9 +1556,13 @@ AV._applyGraphSnapshot = function(snapshot) {
         var parts = key.split('-');
         AV.highlightEdge(parts[0], parts[1], 'av-edge-traversed');
     });
-    /* Apply queue (BFS only) */
+    /* Apply queue/stack (graph algorithms) */
     if (!isTree && !isDP) {
-        AV.renderQueue(snapshot.queue);
+        if (AV.state.algorithm === 'dfs') {
+            AV.renderStack(snapshot.queue);
+        } else {
+            AV.renderQueue(snapshot.queue);
+        }
     }
     /* Apply visit order badges */
     AV._hideAllVisitOrders();
@@ -1486,9 +1573,13 @@ AV._applyGraphSnapshot = function(snapshot) {
     }
     /* Remove all start rings — they are transient decorations */
     document.querySelectorAll('.av-start-ring').forEach(function(r) { r.remove(); });
-    /* Re-apply start marker if node A has no state (initial BFS state) */
-    if (!isTree && AV['bfs'] && AV.state.algorithm === 'bfs' && !snapshot.nodeStates['A']) {
-        AV['bfs']._markStartNode('A');
+    /* Re-apply start marker if node A has no state (initial graph state) */
+    if (!isTree && !snapshot.nodeStates['A']) {
+        if (AV.state.algorithm === 'bfs' && AV['bfs']) {
+            AV['bfs']._markStartNode('A');
+        } else if (AV.state.algorithm === 'dfs' && AV['dfs']) {
+            AV['dfs']._markStartNode('A');
+        }
     }
 };
 
@@ -1631,9 +1722,21 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
             } else if (lastStep.type === 'BS_ELIMINATE') {
                 AV['binary-search']._applyEliminated(lastStep.eliminated);
                 AV['binary-search']._renderPointers(lastStep.newLow, -1, lastStep.newHigh);
+            } else if (lastStep.type === 'JS_JUMP') {
+                AV['jump-search']._applySkipped(lastStep.skipped);
+                AV.highlightBars([lastStep.jumpPos], 'av-comparing');
+            } else if (lastStep.type === 'JS_SCAN') {
+                AV['jump-search']._applySkipped(lastStep.skipped);
+                var jsBarsSM = document.querySelectorAll('.av-bar');
+                for (var jsi = lastStep.blockStart; jsi < lastStep.index; jsi++) {
+                    if (jsBarsSM[jsi]) jsBarsSM[jsi].classList.add('av-examined');
+                }
+                AV.highlightBars([lastStep.index], 'av-comparing');
             } else if (lastStep.type === 'FOUND') {
                 if (lastStep.eliminated) {
                     AV['binary-search']._applyEliminated(lastStep.eliminated);
+                } else if (lastStep.skipped) {
+                    AV['jump-search']._applySkipped(lastStep.skipped);
                 } else {
                     var barsF = document.querySelectorAll('.av-bar');
                     for (var fi = 0; fi < lastStep.index; fi++) {
@@ -1676,19 +1779,29 @@ AV.stepForward = function() {
 
         if (step.type === 'ENQUEUE') {
             AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node, level: step.level, queue: step.queue.join(', ') }, 'Enqueue ' + step.node));
+        } else if (step.type === 'PUSH') {
+            AV.log('PUSH', I18N.t('av.log.push', { node: step.node, depth: step.depth, stack: step.stack.join(', ') }, 'Push ' + step.node));
         } else if (step.type === 'DEQUEUE') {
             AV.state.comparisons++;
             AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node, level: step.level, neighborCount: step.neighborCount, queue: step.queue.join(', ') }, 'Dequeue ' + step.node));
+        } else if (step.type === 'POP') {
+            AV.state.comparisons++;
+            AV.log('POP', I18N.t('av.log.pop', { node: step.node, depth: step.depth, neighborCount: step.neighborCount, stack: step.stack.join(', ') }, 'Pop ' + step.node));
         } else if (step.type === 'EXPLORE_EDGE') {
             AV.highlightEdge(step.from, step.to, 'av-edge-active');
             AV.state.swaps++;
             if (step.alreadyVisited) {
                 AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_skip', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': skip'));
             } else {
-                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': enqueue'));
+                var sfEdgeLogKey = step.action === 'push' ? 'av.log.explore_edge_push' : 'av.log.explore_edge';
+                AV.log('EXPLORE_EDGE', I18N.t(sfEdgeLogKey, { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': add'));
             }
         } else if (step.type === 'VISIT') {
-            AV.log('VISIT', I18N.t('av.log.visit', { node: step.node, level: step.level, queue: step.queue.join(', ') }, step.node + ' done'));
+            if (step.stack !== undefined) {
+                AV.log('VISIT', I18N.t('av.log.visit_dfs', { node: step.node, depth: step.depth, stack: step.stack.join(', ') }, step.node + ' done'));
+            } else {
+                AV.log('VISIT', I18N.t('av.log.visit', { node: step.node, level: step.level, queue: step.queue.join(', ') }, step.node + ' done'));
+            }
             if (snapshot.visitOrder && snapshot.visitOrder[step.node]) {
                 AV._showVisitOrder(step.node, snapshot.visitOrder[step.node]);
             }
@@ -1696,6 +1809,8 @@ AV.stepForward = function() {
             if (AV.state._isTreeAlgorithm) {
                 AV._removeInsertBanner();
                 AV.log('COMPLETE', I18N.t('av.log.complete_tree', null, 'BST construction complete'));
+            } else if (step.maxDepth !== undefined) {
+                AV.log('COMPLETE', I18N.t('av.log.complete_dfs', { totalVisited: step.totalVisited, totalNodes: step.totalNodes, maxDepth: step.maxDepth }, 'DFS complete'));
             } else {
                 AV.log('COMPLETE', I18N.t('av.log.complete', { totalVisited: step.totalVisited, totalNodes: step.totalNodes, maxLevel: step.maxLevel }, 'BFS complete'));
             }
@@ -1924,9 +2039,25 @@ AV.stepForward = function() {
         AV['binary-search']._applyEliminated(step.eliminated);
         AV['binary-search']._renderPointers(step.newLow, -1, step.newHigh);
         AV.log('BS_ELIMINATE', 'Eliminate ' + step.direction + ' half, range [' + step.newLow + '..' + step.newHigh + ']');
+    } else if (step.type === 'JS_JUMP') {
+        AV['jump-search']._applySkipped(step.skipped);
+        AV.highlightBars([step.jumpPos], 'av-comparing');
+        AV.state.comparisons++;
+        AV.log('JS_JUMP', 'Jump to arr[' + step.jumpPos + ']=' + step.value + ' vs target=' + step.target);
+    } else if (step.type === 'JS_SCAN') {
+        AV['jump-search']._applySkipped(step.skipped);
+        var jsBars = document.querySelectorAll('.av-bar');
+        for (var jsi = step.blockStart; jsi < step.index; jsi++) {
+            if (jsBars[jsi]) jsBars[jsi].classList.add('av-examined');
+        }
+        AV.highlightBars([step.index], 'av-comparing');
+        AV.state.comparisons++;
+        AV.log('JS_SCAN', 'Scan arr[' + step.index + ']=' + step.value + ' vs target=' + step.target);
     } else if (step.type === 'FOUND') {
         if (step.eliminated) {
             AV['binary-search']._applyEliminated(step.eliminated);
+        } else if (step.skipped) {
+            AV['jump-search']._applySkipped(step.skipped);
         } else {
             var barsF = document.querySelectorAll('.av-bar');
             for (var fi = 0; fi < step.index; fi++) {
@@ -2025,7 +2156,7 @@ AV.stepBack = function() {
     var comparisons = 0;
     var swaps = 0;
     for (var i = 0; i < sm.index; i++) {
-        if (sm.steps[i].type === 'COMPARE' || sm.steps[i].type === 'SCAN' || sm.steps[i].type === 'BS_CHECK' || sm.steps[i].type === 'DP_BASE' || sm.steps[i].type === 'DP_FILL') comparisons++;
+        if (sm.steps[i].type === 'COMPARE' || sm.steps[i].type === 'SCAN' || sm.steps[i].type === 'BS_CHECK' || sm.steps[i].type === 'JS_JUMP' || sm.steps[i].type === 'JS_SCAN' || sm.steps[i].type === 'DP_BASE' || sm.steps[i].type === 'DP_FILL') comparisons++;
         if (sm.steps[i].type === 'SWAP') swaps++;
     }
     AV.state.comparisons = comparisons;
@@ -2060,9 +2191,21 @@ AV.stepBack = function() {
         } else if (prevStep.type === 'BS_ELIMINATE') {
             AV['binary-search']._applyEliminated(prevStep.eliminated);
             AV['binary-search']._renderPointers(prevStep.newLow, -1, prevStep.newHigh);
+        } else if (prevStep.type === 'JS_JUMP') {
+            AV['jump-search']._applySkipped(prevStep.skipped);
+            AV.highlightBars([prevStep.jumpPos], 'av-comparing');
+        } else if (prevStep.type === 'JS_SCAN') {
+            AV['jump-search']._applySkipped(prevStep.skipped);
+            var jsBarsBack = document.querySelectorAll('.av-bar');
+            for (var jsi = prevStep.blockStart; jsi < prevStep.index; jsi++) {
+                if (jsBarsBack[jsi]) jsBarsBack[jsi].classList.add('av-examined');
+            }
+            AV.highlightBars([prevStep.index], 'av-comparing');
         } else if (prevStep.type === 'FOUND') {
             if (prevStep.eliminated) {
                 AV['binary-search']._applyEliminated(prevStep.eliminated);
+            } else if (prevStep.skipped) {
+                AV['jump-search']._applySkipped(prevStep.skipped);
             } else {
                 var barsF = document.querySelectorAll('.av-bar');
                 for (var fi = 0; fi < prevStep.index; fi++) {
