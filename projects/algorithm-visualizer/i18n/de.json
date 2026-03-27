@@ -748,5 +748,65 @@
     { "name": "Zeit (Suche Worst)", "role": "O(n) \u2014 degenerierte Kette" },
     { "name": "Speicher", "role": "O(n + m) \u2014 n Schl\u00fcssel + m Buckets" },
     { "name": "Hashfunktion", "role": "h(k) = charSum(k) mod m \u2014 Summe der Zeichencodes" }
+  ],
+
+  "av.pq.label": "Prioritätswarteschlange:",
+  "av.pq.empty": "leer",
+  "av.log.explore_edge_no_relax": "Kante {from}\u2192{to}: keine Verbesserung ({newDist} \u2265 {currentDist}) \u2014 \u00fcbersprungen",
+  "av.log.relax": "Relaxieren {node}: {oldDist} \u2192 {newDist} \u00fcber {via}",
+  "av.log.relax_skip": "Relaxieren {node}: aktuell {currentDist} ≤ {newDist} über {via} — kein Update",
+  "av.log.enqueue_dijkstra": "Initialisiere {node} mit Distanz {dist}",
+  "av.log.dequeue_dijkstra": "Extract-min {node} (dist={dist}): {neighborCount} Nachbarn zu relaxieren",
+  "av.log.visit_dijkstra": "{node} finalisiert (kürzeste Distanz = {dist})",
+  "av.log.complete_dijkstra": "Dijkstra abgeschlossen: kürzeste Wege zu allen {totalVisited}/{totalNodes} Knoten gefunden",
+  "ui.log.type.RELAX": "RELAX",
+  "av.legend.in_pq": "In Prioritätswarteschlange",
+  "av.legend.dijkstra_start": "Startknoten",
+  "av.legend.dijkstra_finalized": "Finalisiert",
+  "av.legend.edge_weight": "Kantengewicht",
+  "av.legend.dist_label": "Distanz",
+  "av.legend.edge_relaxed": "Relaxierte Kante",
+  "av.legend.dijkstra_order": "Finalisierungsreihenfolge",
+
+  "dijkstra.name": "Dijkstra",
+  "dijkstra.stepLabel": "Dijkstra — Standard",
+  "dijkstra.modes.standard.label": "Standard",
+  "dijkstra.modes.standard.desc": "Dijkstras Algorithmus findet den kürzesten Weg von einem Startknoten zu allen anderen Knoten in einem gewichteten Graphen. Er verwendet eine Prioritätswarteschlange, um den nächsten unbesuchten Knoten gierig zu extrahieren und die Distanzen seiner Nachbarn zu relaxieren.",
+
+  "dijkstra.details.standard.principles": [
+    "Quell-Distanz auf 0 und alle anderen auf ∞ initialisieren",
+    "Startknoten mit Distanz 0 in die Prioritätswarteschlange einfügen",
+    "Knoten mit minimaler Distanz aus der Warteschlange extrahieren",
+    "Für jeden Nachbarn: wenn aktuelle Dist + Kantengewicht < bekannte Dist, aktualisieren (relaxieren)",
+    "Extrahierten Knoten als finalisiert markieren und wiederholen bis Warteschlange leer"
+  ],
+  "dijkstra.details.standard.concepts": [
+    { "term": "Prioritätswarteschlange (Min-Heap)", "definition": "Gibt immer das Element mit dem kleinsten Schlüssel zurück. Stellt sicher, dass der nächste unfinalisierte Knoten zuerst verarbeitet wird." },
+    { "term": "Relaxation", "definition": "Aktualisierung der Distanz eines Nachbarn, wenn ein kürzerer Weg gefunden wird: wenn dist[u] + gewicht(u,v) < dist[v], dist[v] aktualisieren." },
+    { "term": "Gierige Wahl", "definition": "Verarbeitet immer den nächsten unbesuchten Knoten. Bei nicht-negativen Gewichten garantiert dies Optimalität." },
+    { "term": "Kürzester-Wege-Baum", "definition": "Die Menge der Kanten, die die kürzesten Wege von der Quelle zu allen erreichbaren Knoten bilden." }
+  ],
+  "dijkstra.details.standard.tradeoffs.pros": [
+    "Findet optimale kürzeste Wege in gewichteten Graphen mit nicht-negativen Gewichten",
+    "Effizienter als Bellman-Ford für dünn besetzte Graphen: O((V+E)log V) vs O(VE)",
+    "Gieriger Ansatz garantiert Korrektheit ohne Wiederholung finalisierter Knoten",
+    "Grundlage für A*, bidirektionalen Dijkstra und andere Pfadfindungsvarianten",
+    "Ideal für GPS-Routing, Netzwerk-Routing und Kartennavigation"
+  ],
+  "dijkstra.details.standard.tradeoffs.cons": [
+    "Kann keine negativen Kantengewichte verarbeiten — Bellman-Ford verwenden",
+    "Prioritätswarteschlange erhöht die Komplexität im Vergleich zu BFS",
+    "O((V+E)log V) langsamer als BFS O(V+E) für ungewichtete Graphen",
+    "Berechnet nur kürzeste Wege von einer Quelle — Floyd-Warshall für alle Paare verwenden"
+  ],
+  "dijkstra.details.standard.tradeoffs.whenToUse": "Verwenden Sie Dijkstra für kürzeste Wege in gewichteten Graphen mit nicht-negativen Gewichten. Für ungewichtete Graphen ist BFS einfacher. Für negative Gewichte verwenden Sie Bellman-Ford.",
+
+  "dijkstra.depRules": [
+    { "name": "Zeit", "role": "O((V + E) log V) — mit Min-Heap" },
+    { "name": "Speicher", "role": "O(V) — Distanzen + Prioritätswarteschlange" },
+    { "name": "Kürzester Weg", "role": "Ja — findet optimale kürzeste Wege von der Quelle" },
+    { "name": "Negative Gewichte", "role": "Nein — erfordert nicht-negative Kantengewichte" },
+    { "name": "Vollständig", "role": "Ja — findet Wege zu allen erreichbaren Knoten" },
+    { "name": "Datenstruktur", "role": "Prioritätswarteschlange (Min-Heap)" }
   ]
 }

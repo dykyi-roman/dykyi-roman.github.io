@@ -748,5 +748,65 @@
     { "name": "Tiempo (b\u00fasqueda peor)", "role": "O(n) \u2014 cadena degenerada" },
     { "name": "Espacio", "role": "O(n + m) \u2014 n claves + m cubos" },
     { "name": "Funci\u00f3n hash", "role": "h(k) = charSum(k) mod m \u2014 suma de c\u00f3digos de caracteres" }
+  ],
+
+  "av.pq.label": "Cola de prioridad:",
+  "av.pq.empty": "vacía",
+  "av.log.explore_edge_no_relax": "Arco {from}\u2192{to}: sin mejora ({newDist} \u2265 {currentDist}) \u2014 omitido",
+  "av.log.relax": "Relajar {node}: {oldDist} \u2192 {newDist} v\u00eda {via}",
+  "av.log.relax_skip": "Relajar {node}: actual {currentDist} \u2264 {newDist} vía {via} \u2014 sin actualización",
+  "av.log.enqueue_dijkstra": "Inicializar {node} con distancia {dist}",
+  "av.log.dequeue_dijkstra": "Extraer-min {node} (dist={dist}): {neighborCount} vecinos a relajar",
+  "av.log.visit_dijkstra": "{node} finalizado (distancia más corta = {dist})",
+  "av.log.complete_dijkstra": "Dijkstra completado: caminos más cortos encontrados para {totalVisited}/{totalNodes} nodos",
+  "ui.log.type.RELAX": "RELAJAR",
+  "av.legend.in_pq": "En cola de prioridad",
+  "av.legend.dijkstra_start": "Nodo fuente",
+  "av.legend.dijkstra_finalized": "Finalizado",
+  "av.legend.edge_weight": "Peso del arco",
+  "av.legend.dist_label": "Distancia",
+  "av.legend.edge_relaxed": "Arco relajado",
+  "av.legend.dijkstra_order": "Orden de finalización",
+
+  "dijkstra.name": "Dijkstra",
+  "dijkstra.stepLabel": "Dijkstra \u2014 Estándar",
+  "dijkstra.modes.standard.label": "Estándar",
+  "dijkstra.modes.standard.desc": "El algoritmo de Dijkstra encuentra el camino más corto desde un nodo fuente a todos los demás nodos en un grafo ponderado. Usa una cola de prioridad para extraer ávidamente el nodo no visitado más cercano y relajar las distancias de sus vecinos.",
+
+  "dijkstra.details.standard.principles": [
+    "Inicializar distancia del origen a 0 y todas las demás a \u221E",
+    "Añadir el nodo fuente a la cola de prioridad con distancia 0",
+    "Extraer el nodo con distancia mínima de la cola",
+    "Para cada vecino: si dist actual + peso < dist conocida, actualizar (relajar)",
+    "Marcar el nodo extraído como finalizado y repetir hasta que la cola esté vacía"
+  ],
+  "dijkstra.details.standard.concepts": [
+    { "term": "Cola de prioridad (min-heap)", "definition": "Siempre devuelve el elemento con la clave más pequeña. Garantiza procesar el nodo no finalizado más cercano primero." },
+    { "term": "Relajación", "definition": "Actualización de la distancia de un vecino cuando se encuentra un camino más corto: si dist[u] + peso(u,v) < dist[v], actualizar dist[v]." },
+    { "term": "Elección ávida", "definition": "Siempre procesa el nodo no visitado más cercano. Con pesos no negativos, esto garantiza optimalidad." },
+    { "term": "Árbol de caminos más cortos", "definition": "El conjunto de arcos que forman los caminos más cortos desde el origen a todos los nodos alcanzables." }
+  ],
+  "dijkstra.details.standard.tradeoffs.pros": [
+    "Encuentra caminos más cortos óptimos en grafos ponderados con pesos no negativos",
+    "Más eficiente que Bellman-Ford para grafos dispersos: O((V+E)log V) vs O(VE)",
+    "El enfoque ávido garantiza corrección sin revisitar nodos finalizados",
+    "Base para A*, Dijkstra bidireccional y otras variantes de búsqueda de caminos",
+    "Ideal para enrutamiento GPS, enrutamiento de redes y navegación en mapas"
+  ],
+  "dijkstra.details.standard.tradeoffs.cons": [
+    "No maneja pesos negativos \u2014 usar Bellman-Ford",
+    "La cola de prioridad añade complejidad comparado con BFS",
+    "O((V+E)log V) más lento que BFS O(V+E) para grafos no ponderados",
+    "Solo calcula caminos más cortos desde una fuente \u2014 usar Floyd-Warshall para todos los pares"
+  ],
+  "dijkstra.details.standard.tradeoffs.whenToUse": "Use Dijkstra para caminos más cortos en grafos ponderados con pesos no negativos. Para grafos no ponderados, BFS es más simple. Para pesos negativos, use Bellman-Ford.",
+
+  "dijkstra.depRules": [
+    { "name": "Tiempo", "role": "O((V + E) log V) \u2014 con min-heap" },
+    { "name": "Espacio", "role": "O(V) \u2014 distancias + cola de prioridad" },
+    { "name": "Camino más corto", "role": "Sí \u2014 encuentra caminos más cortos óptimos desde el origen" },
+    { "name": "Pesos negativos", "role": "No \u2014 requiere pesos no negativos" },
+    { "name": "Completo", "role": "Sí \u2014 encuentra caminos a todos los nodos alcanzables" },
+    { "name": "Estructura de datos", "role": "Cola de prioridad (min-heap)" }
   ]
 }

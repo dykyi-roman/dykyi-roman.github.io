@@ -801,5 +801,65 @@
     { "name": "Time (Worst Search)", "role": "O(n) \u2014 degenerate chain or full table" },
     { "name": "Space", "role": "O(n + m) \u2014 n keys + m buckets" },
     { "name": "Hash Function", "role": "h(k) = charSum(k) mod m \u2014 sum of character codes" }
+  ],
+
+  "av.pq.label": "Priority Queue:",
+  "av.pq.empty": "empty",
+  "av.log.explore_edge_no_relax": "Edge {from}\u2192{to}: no improvement ({newDist} \u2265 {currentDist}) \u2014 skip",
+  "av.log.relax": "Relax {node}: {oldDist} \u2192 {newDist} via {via}",
+  "av.log.relax_skip": "Relax {node}: current {currentDist} \u2264 {newDist} via {via} \u2014 no update",
+  "av.log.enqueue_dijkstra": "Initialize {node} with distance {dist}",
+  "av.log.dequeue_dijkstra": "Extract-min {node} (dist={dist}): {neighborCount} neighbors to relax",
+  "av.log.visit_dijkstra": "{node} finalized (shortest distance = {dist})",
+  "av.log.complete_dijkstra": "Dijkstra complete: shortest paths found to all {totalVisited}/{totalNodes} nodes",
+  "ui.log.type.RELAX": "RELAX",
+  "av.legend.in_pq": "In Priority Queue",
+  "av.legend.dijkstra_start": "Source Node",
+  "av.legend.dijkstra_finalized": "Finalized",
+  "av.legend.edge_weight": "Edge Weight",
+  "av.legend.dist_label": "Distance",
+  "av.legend.edge_relaxed": "Relaxed Edge",
+  "av.legend.dijkstra_order": "Finalize Order",
+
+  "dijkstra.name": "Dijkstra",
+  "dijkstra.stepLabel": "Dijkstra \u2014 Standard",
+  "dijkstra.modes.standard.label": "Standard",
+  "dijkstra.modes.standard.desc": "Dijkstra's algorithm finds the shortest path from a source node to all other nodes in a weighted graph. It uses a priority queue to greedily extract the nearest unvisited node and relaxes its neighbors' distances.",
+
+  "dijkstra.details.standard.principles": [
+    "Initialize source distance to 0 and all other distances to \u221E",
+    "Add source node to the priority queue with distance 0",
+    "Extract the node with minimum distance from the priority queue",
+    "For each neighbor: if current dist + edge weight < known dist, update (relax)",
+    "Mark the extracted node as finalized and repeat until queue is empty"
+  ],
+  "dijkstra.details.standard.concepts": [
+    { "term": "Priority Queue (Min-Heap)", "definition": "Always returns the element with the smallest key. Ensures we process the closest unfinalized node first." },
+    { "term": "Relaxation", "definition": "Updating a neighbor's distance when a shorter path is found: if dist[u] + weight(u,v) < dist[v], update dist[v]." },
+    { "term": "Greedy Choice", "definition": "Always processes the nearest unvisited node. With non-negative weights, this guarantees optimality." },
+    { "term": "Shortest Path Tree", "definition": "The set of edges forming the shortest paths from source to all reachable nodes." }
+  ],
+  "dijkstra.details.standard.tradeoffs.pros": [
+    "Finds optimal shortest paths in weighted graphs with non-negative weights",
+    "More efficient than Bellman-Ford for sparse graphs: O((V+E)log V) vs O(VE)",
+    "Greedy approach guarantees correctness without revisiting finalized nodes",
+    "Foundation for A*, bidirectional Dijkstra, and other pathfinding variants",
+    "Natural fit for GPS routing, network routing, and map navigation"
+  ],
+  "dijkstra.details.standard.tradeoffs.cons": [
+    "Cannot handle negative edge weights \u2014 use Bellman-Ford instead",
+    "Priority queue adds complexity compared to simple BFS",
+    "O((V+E)log V) is slower than BFS O(V+E) for unweighted graphs",
+    "Only computes single-source shortest paths \u2014 use Floyd-Warshall for all-pairs"
+  ],
+  "dijkstra.details.standard.tradeoffs.whenToUse": "Use Dijkstra when you need shortest paths in weighted graphs with non-negative weights. For unweighted graphs, BFS is simpler. For negative weights, use Bellman-Ford.",
+
+  "dijkstra.depRules": [
+    { "name": "Time", "role": "O((V + E) log V) \u2014 with min-heap priority queue" },
+    { "name": "Space", "role": "O(V) \u2014 distances + priority queue" },
+    { "name": "Shortest Path", "role": "Yes \u2014 finds optimal shortest paths from source" },
+    { "name": "Negative Weights", "role": "No \u2014 requires non-negative edge weights" },
+    { "name": "Complete", "role": "Yes \u2014 finds paths to all reachable nodes" },
+    { "name": "Data Structure", "role": "Priority Queue (min-heap)" }
   ]
 }

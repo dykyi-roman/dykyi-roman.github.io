@@ -754,5 +754,65 @@
     { "name": "Temps (recherche pire)", "role": "O(n) \u2014 cha\u00eene d\u00e9g\u00e9n\u00e9r\u00e9e" },
     { "name": "Espace", "role": "O(n + m) \u2014 n cl\u00e9s + m seaux" },
     { "name": "Fonction de hachage", "role": "h(k) = charSum(k) mod m \u2014 somme des codes de caract\u00e8res" }
+  ],
+
+  "av.pq.label": "File de priorité :",
+  "av.pq.empty": "vide",
+  "av.log.explore_edge_no_relax": "Ar\u00eate {from}\u2192{to} : pas d'am\u00e9lioration ({newDist} \u2265 {currentDist}) \u2014 ignor\u00e9",
+  "av.log.relax": "Relaxer {node} : {oldDist} \u2192 {newDist} via {via}",
+  "av.log.relax_skip": "Relaxer {node} : actuel {currentDist} \u2264 {newDist} via {via} \u2014 pas de mise à jour",
+  "av.log.enqueue_dijkstra": "Initialiser {node} avec distance {dist}",
+  "av.log.dequeue_dijkstra": "Extraire-min {node} (dist={dist}) : {neighborCount} voisins à relaxer",
+  "av.log.visit_dijkstra": "{node} finalisé (distance la plus courte = {dist})",
+  "av.log.complete_dijkstra": "Dijkstra terminé : plus courts chemins trouvés pour {totalVisited}/{totalNodes} nœuds",
+  "ui.log.type.RELAX": "RELAXER",
+  "av.legend.in_pq": "Dans la file de priorité",
+  "av.legend.dijkstra_start": "Nœud source",
+  "av.legend.dijkstra_finalized": "Finalisé",
+  "av.legend.edge_weight": "Poids de l'arête",
+  "av.legend.dist_label": "Distance",
+  "av.legend.edge_relaxed": "Arête relaxée",
+  "av.legend.dijkstra_order": "Ordre de finalisation",
+
+  "dijkstra.name": "Dijkstra",
+  "dijkstra.stepLabel": "Dijkstra \u2014 Standard",
+  "dijkstra.modes.standard.label": "Standard",
+  "dijkstra.modes.standard.desc": "L'algorithme de Dijkstra trouve le plus court chemin d'un nœud source vers tous les autres nœuds dans un graphe pondéré. Il utilise une file de priorité pour extraire le nœud non visité le plus proche et relaxer les distances de ses voisins.",
+
+  "dijkstra.details.standard.principles": [
+    "Initialiser la distance source à 0 et toutes les autres à \u221E",
+    "Ajouter le nœud source à la file de priorité avec distance 0",
+    "Extraire le nœud avec la distance minimale de la file",
+    "Pour chaque voisin : si dist actuelle + poids < dist connue, mettre à jour (relaxer)",
+    "Marquer le nœud extrait comme finalisé et répéter jusqu'à file vide"
+  ],
+  "dijkstra.details.standard.concepts": [
+    { "term": "File de priorité (tas min)", "definition": "Retourne toujours l'élément avec la plus petite clé. Garantit le traitement du nœud non finalisé le plus proche en premier." },
+    { "term": "Relaxation", "definition": "Mise à jour de la distance d'un voisin quand un chemin plus court est trouvé : si dist[u] + poids(u,v) < dist[v], mettre à jour dist[v]." },
+    { "term": "Choix glouton", "definition": "Traite toujours le nœud non visité le plus proche. Avec des poids non négatifs, cela garantit l'optimalité." },
+    { "term": "Arbre des plus courts chemins", "definition": "L'ensemble des arêtes formant les plus courts chemins de la source vers tous les nœuds accessibles." }
+  ],
+  "dijkstra.details.standard.tradeoffs.pros": [
+    "Trouve les plus courts chemins optimaux dans les graphes pondérés à poids non négatifs",
+    "Plus efficace que Bellman-Ford pour les graphes creux : O((V+E)log V) vs O(VE)",
+    "L'approche gloutonne garantit la correction sans revisiter les nœuds finalisés",
+    "Base pour A*, Dijkstra bidirectionnel et autres variantes",
+    "Idéal pour le routage GPS, le routage réseau et la navigation cartographique"
+  ],
+  "dijkstra.details.standard.tradeoffs.cons": [
+    "Ne gère pas les poids négatifs \u2014 utiliser Bellman-Ford",
+    "La file de priorité ajoute de la complexité par rapport au BFS",
+    "O((V+E)log V) plus lent que BFS O(V+E) pour les graphes non pondérés",
+    "Ne calcule que les plus courts chemins depuis une seule source \u2014 utiliser Floyd-Warshall pour toutes les paires"
+  ],
+  "dijkstra.details.standard.tradeoffs.whenToUse": "Utilisez Dijkstra pour les plus courts chemins dans les graphes pondérés à poids non négatifs. Pour les graphes non pondérés, BFS est plus simple. Pour les poids négatifs, utilisez Bellman-Ford.",
+
+  "dijkstra.depRules": [
+    { "name": "Temps", "role": "O((V + E) log V) \u2014 avec tas min" },
+    { "name": "Espace", "role": "O(V) \u2014 distances + file de priorité" },
+    { "name": "Plus court chemin", "role": "Oui \u2014 trouve les plus courts chemins optimaux depuis la source" },
+    { "name": "Poids négatifs", "role": "Non \u2014 nécessite des poids non négatifs" },
+    { "name": "Complet", "role": "Oui \u2014 trouve les chemins vers tous les nœuds accessibles" },
+    { "name": "Structure de données", "role": "File de priorité (tas min)" }
   ]
 }

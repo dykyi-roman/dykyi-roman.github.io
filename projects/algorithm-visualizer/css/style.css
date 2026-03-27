@@ -72,6 +72,10 @@
     --dfs-bg: #1a0d2e;
     --dfs-light: #25154a;
 
+    --dijkstra-color: #F43F5E;
+    --dijkstra-bg: #1a0d12;
+    --dijkstra-light: #2d1520;
+
     --bst-color: #F59E0B;
     --bst-bg: #1a1508;
     --bst-light: #2d2210;
@@ -245,6 +249,11 @@
     background: var(--dfs-bg);
     border-color: var(--dfs-color);
     color: var(--dfs-color);
+}
+.av-tab.active[data-algorithm="dijkstra"] {
+    background: var(--dijkstra-bg);
+    border-color: var(--dijkstra-color);
+    color: var(--dijkstra-color);
 }
 
 .av-tab.active[data-algorithm="bst-operations"] {
@@ -737,8 +746,9 @@
 /* ===== Bar Legend ===== */
 .av-legend {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 14px 20px;
     padding: 10px 0;
     font-size: 12px;
     color: var(--av-text-light);
@@ -1142,6 +1152,31 @@
     stroke-width: 2.5;
 }
 
+.av-edge-relaxed {
+    stroke: var(--av-accent, #F43F5E);
+    stroke-width: 3;
+    filter: drop-shadow(0 0 6px rgba(244, 63, 94, 0.6));
+}
+
+/* ===== Edge Weight Labels ===== */
+.av-edge-weight {
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    fill: #9CA3AF;
+    pointer-events: none;
+}
+
+/* ===== Distance Labels (below nodes) ===== */
+.av-dist-label {
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    fill: var(--av-accent, #F43F5E);
+    pointer-events: none;
+    transition: fill 0.3s ease;
+}
+
 .av-edge-pending {
     stroke: #2a3444;
     stroke-width: 1;
@@ -1251,6 +1286,18 @@
     color: #fff;
 }
 
+/* ===== Priority Queue Item ===== */
+.av-pq-item {
+    width: auto;
+    padding: 0 8px;
+    gap: 2px;
+}
+.av-pq-dist {
+    font-size: 10px;
+    opacity: 0.7;
+    margin-left: 1px;
+}
+
 /* ===== Graph Legend Swatches ===== */
 .av-legend-node-unvisited {
     background: var(--av-node-unvisited);
@@ -1321,6 +1368,39 @@
 .av-legend-node-computing { background: var(--av-node-computing); border-radius: 50%; width: 14px; height: 14px; }
 .av-legend-node-cached { background: var(--av-node-cached); border-radius: 50%; width: 14px; height: 14px; }
 .av-legend-node-duplicate { background: var(--av-node-duplicate); border-radius: 50%; width: 14px; height: 14px; opacity: 0.7; }
+
+/* ===== Dijkstra Legend Swatches ===== */
+.av-legend-edge-weight {
+    background: transparent;
+    color: #9CA3AF;
+    font-size: 9px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 14px;
+}
+.av-legend-dist-label {
+    background: transparent;
+    border: 1.5px solid var(--av-accent, #F43F5E);
+    border-radius: 4px;
+    width: 16px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--av-accent, #F43F5E);
+}
+.av-legend-edge-relaxed {
+    background: var(--av-accent, #F43F5E);
+    width: 16px;
+    height: 3px;
+    border-radius: 2px;
+    box-shadow: 0 0 6px rgba(244, 63, 94, 0.6);
+}
 
 /* ===== BFS Start Node ===== */
 @keyframes av-start-pulse {
@@ -1407,6 +1487,7 @@
 .log-type.EXPLORE_EDGE { color: #A78BFA; }
 .log-type.VISIT { color: #10B981; }
 .log-type.COMPLETE { color: #06B6D4; }
+.log-type.RELAX { color: #F43F5E; }
 .log-type.INSERT { color: #F59E0B; }
 .log-type.TRAVERSE { color: #A78BFA; }
 .log-type.DP_BASE { color: #10B981; }

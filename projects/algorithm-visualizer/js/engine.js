@@ -250,6 +250,25 @@ AV.renderGraph = function(nodes, edges) {
             'data-to': e[1]
         });
         svg.appendChild(line);
+
+        /* Optional edge weight label */
+        if (e[2] !== undefined) {
+            var mx = (from.x + to.x) / 2;
+            var my = (from.y + to.y) / 2;
+            var dx = to.x - from.x;
+            var dy = to.y - from.y;
+            var len = Math.sqrt(dx * dx + dy * dy) || 1;
+            var ox = -dy / len * 14;
+            var oy = dx / len * 14;
+            var weightLabel = AV._createSVG('text', {
+                x: mx + ox, y: my + oy,
+                'text-anchor': 'middle',
+                'class': 'av-edge-weight',
+                'font-size': '12'
+            });
+            weightLabel.textContent = e[2];
+            svg.appendChild(weightLabel);
+        }
     });
 
     /* Render nodes */
@@ -346,6 +365,34 @@ AV._hideAllVisitOrders = function() {
     });
 };
 
+/* ===== Distance Labels (Dijkstra / weighted graphs) ===== */
+AV._setNodeDistance = function(nodeId, dist) {
+    var node = document.querySelector('.av-node[data-node="' + nodeId + '"]');
+    if (!node) return;
+    var existing = node.querySelector('.av-dist-label');
+    var circle = node.querySelector('circle:not(.av-visit-order-bg)');
+    if (!circle) return;
+    var cx = parseFloat(circle.getAttribute('cx'));
+    var cy = parseFloat(circle.getAttribute('cy'));
+    var text = (dist === Infinity || dist === 'Infinity') ? '\u221E' : dist;
+    if (existing) {
+        existing.textContent = text;
+        return;
+    }
+    var label = AV._createSVG('text', {
+        x: cx, y: cy + 44,
+        'text-anchor': 'middle',
+        'class': 'av-dist-label',
+        'font-size': '12'
+    });
+    label.textContent = text;
+    node.appendChild(label);
+};
+
+AV._hideAllDistances = function() {
+    document.querySelectorAll('.av-dist-label').forEach(function(el) { el.remove(); });
+};
+
 AV.clearEdgeHighlights = function() {
     document.querySelectorAll('.av-edge').forEach(function(e) {
         e.setAttribute('class', 'av-edge');
@@ -397,6 +444,33 @@ AV.renderStack = function(stack) {
     } else {
         var itemsHtml = stack.map(function(id) {
             return '<span class="av-queue-item av-stack-item">' + id + '</span>';
+        }).join('');
+        panel.innerHTML = '<span class="av-queue-label">' + label + '</span><div class="av-queue-items">' + itemsHtml + '</div>';
+    }
+};
+
+/* ===== Priority Queue Rendering (Dijkstra / weighted graphs) ===== */
+AV.renderPriorityQueue = function(pq) {
+    var vizArea = document.getElementById('viz-area');
+    if (!vizArea) return;
+
+    var panel = vizArea.querySelector('.av-queue-panel');
+    if (!panel) {
+        panel = document.createElement('div');
+        panel.className = 'av-queue-panel';
+        var canvas = document.getElementById('av-canvas');
+        vizArea.insertBefore(panel, canvas);
+    }
+
+    var label = I18N.t('av.pq.label', null, 'Priority Queue:');
+    var emptyText = I18N.t('av.pq.empty', null, 'empty');
+
+    if (pq.length === 0) {
+        panel.innerHTML = '<span class="av-queue-label">' + label + '</span><span class="av-queue-empty">' + emptyText + '</span>';
+    } else {
+        var itemsHtml = pq.map(function(entry) {
+            var d = (entry.dist === Infinity || entry.dist === 'Infinity') ? '\u221E' : entry.dist;
+            return '<span class="av-queue-item av-pq-item">' + entry.node + '<span class="av-pq-dist">(' + d + ')</span></span>';
         }).join('');
         panel.innerHTML = '<span class="av-queue-label">' + label + '</span><div class="av-queue-items">' + itemsHtml + '</div>';
     }
@@ -815,7 +889,8 @@ AV.setAccentColors = function(algorithmId) {
         'hash-table': { accent: '#F97316', bg: '#1a1208', light: '#2d1f10' },
         'binary-search': { accent: '#0EA5E9', bg: '#0c1a2e', light: '#142d4a' },
         'jump-search': { accent: '#A855F7', bg: '#1a0d2e', light: '#25154a' },
-        'dfs': { accent: '#A855F7', bg: '#1a0d2e', light: '#25154a' }
+        'dfs': { accent: '#A855F7', bg: '#1a0d2e', light: '#25154a' },
+        'dijkstra': { accent: '#F43F5E', bg: '#1a0d12', light: '#2d1520' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
     root.setProperty('--av-accent', t.accent);
@@ -1013,8 +1088,14 @@ AV.animateFlow = async function(steps, options) {
             var enqNode = document.querySelector('.av-node[data-node="' + step.node + '"]');
             if (enqNode) { var sr = enqNode.querySelector('.av-start-ring'); if (sr) sr.remove(); }
             AV.setNodeState(step.node, 'queued');
-            AV.renderQueue(step.queue);
-            AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node, level: step.level, queue: step.queue.join(', ') }, 'Enqueue ' + step.node));
+            if (step.pq) {
+                AV.renderPriorityQueue(step.pq);
+                if (step.dist !== undefined) AV._setNodeDistance(step.node, step.dist);
+                AV.log('ENQUEUE', I18N.t('av.log.enqueue_dijkstra', { node: step.node, dist: step.dist === Infinity ? '\u221E' : step.dist }, 'Init ' + step.node + ' dist=' + (step.dist === Infinity ? '\u221E' : step.dist)));
+            } else {
+                AV.renderQueue(step.queue);
+                AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node, level: step.level, queue: step.queue.join(', ') }, 'Enqueue ' + step.node));
+            }
             await AV.sleep(AV.state.stepDelay * 0.6);
         } else if (step.type === 'PUSH') {
             var pushNode = document.querySelector('.av-node[data-node="' + step.node + '"]');
@@ -1025,10 +1106,15 @@ AV.animateFlow = async function(steps, options) {
             await AV.sleep(AV.state.stepDelay * 0.6);
         } else if (step.type === 'DEQUEUE') {
             AV.setNodeState(step.node, 'visiting');
-            AV.renderQueue(step.queue);
             AV.state.comparisons++;
             AV.updateStats();
-            AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node, level: step.level, neighborCount: step.neighborCount, queue: step.queue.join(', ') }, 'Dequeue ' + step.node));
+            if (step.pq) {
+                AV.renderPriorityQueue(step.pq);
+                AV.log('DEQUEUE', I18N.t('av.log.dequeue_dijkstra', { node: step.node, dist: step.dist, neighborCount: step.neighborCount }, 'Extract-min ' + step.node + ' (dist=' + step.dist + ')'));
+            } else {
+                AV.renderQueue(step.queue);
+                AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node, level: step.level, neighborCount: step.neighborCount, queue: step.queue.join(', ') }, 'Dequeue ' + step.node));
+            }
             await AV.sleep(AV.state.stepDelay);
         } else if (step.type === 'POP') {
             AV.setNodeState(step.node, 'visiting');
@@ -1043,24 +1129,41 @@ AV.animateFlow = async function(steps, options) {
             AV.updateStats();
             if (step.alreadyVisited) {
                 AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_skip', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': skip'));
+            } else if (step.relaxSkipped) {
+                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_no_relax', { from: step.from, to: step.to, newDist: step.newDist, currentDist: step.currentDist },
+                    'Edge ' + step.from + '\u2192' + step.to + ': no improvement (' + step.newDist + ' \u2265 ' + step.currentDist + ')'));
             } else {
                 var edgeLogKey = step.action === 'push' ? 'av.log.explore_edge_push' : 'av.log.explore_edge';
                 AV.log('EXPLORE_EDGE', I18N.t(edgeLogKey, { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': add'));
             }
             await AV.sleep(AV.state.stepDelay * 0.5);
             AV.highlightEdge(step.from, step.to, 'av-edge-traversed');
+        } else if (step.type === 'RELAX') {
+            AV.setNodeState(step.node, 'queued');
+            AV._setNodeDistance(step.node, step.newDist);
+            AV.highlightEdge(step.via, step.node, 'av-edge-relaxed');
+            if (step.pq) AV.renderPriorityQueue(step.pq);
+            var oldD = (step.oldDist === Infinity || step.oldDist === 'Infinity') ? '\u221E' : step.oldDist;
+            AV.log('RELAX', I18N.t('av.log.relax', { node: step.node, oldDist: oldD, newDist: step.newDist, via: step.via },
+                'Relax ' + step.node + ': ' + oldD + ' \u2192 ' + step.newDist + ' via ' + step.via));
+            await AV.sleep(AV.state.stepDelay * 0.7);
+            AV.highlightEdge(step.via, step.node, 'av-edge-traversed');
         } else if (step.type === 'VISIT') {
             AV.setNodeState(step.node, 'visited');
-            if (step.stack !== undefined) {
+            if (step.pq) {
+                AV.renderPriorityQueue(step.pq);
+                AV.state._visitOrderCounter++;
+                AV._showVisitOrder(step.node, AV.state._visitOrderCounter);
+                AV.log('VISIT', I18N.t('av.log.visit_dijkstra', { node: step.node, dist: step.dist }, step.node + ' finalized (dist=' + step.dist + ')'));
+            } else if (step.stack !== undefined) {
                 AV.renderStack(step.stack);
-            } else {
-                AV.renderQueue(step.queue);
-            }
-            AV.state._visitOrderCounter++;
-            AV._showVisitOrder(step.node, AV.state._visitOrderCounter);
-            if (step.stack !== undefined) {
+                AV.state._visitOrderCounter++;
+                AV._showVisitOrder(step.node, AV.state._visitOrderCounter);
                 AV.log('VISIT', I18N.t('av.log.visit_dfs', { node: step.node, depth: step.depth, stack: step.stack.join(', ') }, step.node + ' done'));
             } else {
+                AV.renderQueue(step.queue);
+                AV.state._visitOrderCounter++;
+                AV._showVisitOrder(step.node, AV.state._visitOrderCounter);
                 AV.log('VISIT', I18N.t('av.log.visit', { node: step.node, level: step.level, queue: step.queue.join(', ') }, step.node + ' done'));
             }
             await AV.sleep(AV.state.stepDelay * 0.4);
@@ -1074,6 +1177,9 @@ AV.animateFlow = async function(steps, options) {
                 });
                 AV._removeInsertBanner();
                 AV.log('COMPLETE', I18N.t('av.log.complete_tree', null, 'BST construction complete'));
+            } else if (step.isDijkstra) {
+                AV.renderPriorityQueue([]);
+                AV.log('COMPLETE', I18N.t('av.log.complete_dijkstra', { totalVisited: step.totalVisited, totalNodes: step.totalNodes }, 'Dijkstra complete: ' + step.totalVisited + '/' + step.totalNodes + ' nodes'));
             } else if (step.maxDepth !== undefined) {
                 AV.renderStack([]);
                 AV.log('COMPLETE', I18N.t('av.log.complete_dfs', { totalVisited: step.totalVisited, totalNodes: step.totalNodes, maxDepth: step.maxDepth }, 'DFS complete'));
@@ -1456,28 +1562,44 @@ AV._computeGraphSnapshots = function(steps) {
     var edgeStates = {};
     var visitOrder = {};
     var visitCounter = 0;
-    var snapshots = [{ nodeStates: {}, queue: [], edgeStates: {}, visitOrder: {} }];
+    var distances = {};
+    var snapshots = [{ nodeStates: {}, queue: [], edgeStates: {}, visitOrder: {}, distances: {} }];
 
     for (var i = 0; i < steps.length; i++) {
         var step = steps[i];
         if (step.type === 'ENQUEUE') {
             nodeStates[step.node] = 'queued';
-            queue = step.queue.slice();
+            if (step.pq) {
+                queue = step.pq.slice();
+                if (step.dist !== undefined) distances[step.node] = step.dist;
+            } else {
+                queue = step.queue.slice();
+            }
         } else if (step.type === 'PUSH') {
             nodeStates[step.node] = 'queued';
             queue = step.stack.slice();
         } else if (step.type === 'DEQUEUE') {
             nodeStates[step.node] = 'visiting';
-            queue = step.queue.slice();
+            queue = step.pq ? step.pq.slice() : step.queue.slice();
         } else if (step.type === 'POP') {
             nodeStates[step.node] = 'visiting';
             queue = step.stack.slice();
         } else if (step.type === 'EXPLORE_EDGE') {
             var eKey = step.from + '-' + step.to;
             edgeStates[eKey] = 'traversed';
+        } else if (step.type === 'RELAX') {
+            nodeStates[step.node] = 'queued';
+            if (step.distances) {
+                Object.keys(step.distances).forEach(function(k) { distances[k] = step.distances[k]; });
+            }
+            if (step.pq) queue = step.pq.slice();
         } else if (step.type === 'VISIT') {
             nodeStates[step.node] = 'visited';
-            queue = (step.stack || step.queue).slice();
+            if (step.pq) {
+                queue = step.pq.slice();
+            } else {
+                queue = (step.stack || step.queue).slice();
+            }
             visitCounter++;
             visitOrder[step.node] = visitCounter;
         } else if (step.type === 'INSERT_START') {
@@ -1521,7 +1643,9 @@ AV._computeGraphSnapshots = function(steps) {
         Object.keys(edgeStates).forEach(function(k) { es[k] = edgeStates[k]; });
         var vo = {};
         Object.keys(visitOrder).forEach(function(k) { vo[k] = visitOrder[k]; });
-        snapshots.push({ nodeStates: ns, queue: queue.slice(), edgeStates: es, visitOrder: vo });
+        var dc = {};
+        Object.keys(distances).forEach(function(k) { dc[k] = distances[k]; });
+        snapshots.push({ nodeStates: ns, queue: queue.slice(), edgeStates: es, visitOrder: vo, distances: dc });
     }
     return snapshots;
 };
@@ -1558,7 +1682,9 @@ AV._applyGraphSnapshot = function(snapshot) {
     });
     /* Apply queue/stack (graph algorithms) */
     if (!isTree && !isDP) {
-        if (AV.state.algorithm === 'dfs') {
+        if (AV.state.algorithm === 'dijkstra') {
+            AV.renderPriorityQueue(snapshot.queue);
+        } else if (AV.state.algorithm === 'dfs') {
             AV.renderStack(snapshot.queue);
         } else {
             AV.renderQueue(snapshot.queue);
@@ -1571,6 +1697,13 @@ AV._applyGraphSnapshot = function(snapshot) {
             AV._showVisitOrder(id, snapshot.visitOrder[id]);
         });
     }
+    /* Apply distance labels (Dijkstra / weighted graphs) */
+    AV._hideAllDistances();
+    if (snapshot.distances && Object.keys(snapshot.distances).length > 0) {
+        Object.keys(snapshot.distances).forEach(function(id) {
+            AV._setNodeDistance(id, snapshot.distances[id]);
+        });
+    }
     /* Remove all start rings — they are transient decorations */
     document.querySelectorAll('.av-start-ring').forEach(function(r) { r.remove(); });
     /* Re-apply start marker if node A has no state (initial graph state) */
@@ -1579,6 +1712,8 @@ AV._applyGraphSnapshot = function(snapshot) {
             AV['bfs']._markStartNode('A');
         } else if (AV.state.algorithm === 'dfs' && AV['dfs']) {
             AV['dfs']._markStartNode('A');
+        } else if (AV.state.algorithm === 'dijkstra' && AV['dijkstra']) {
+            AV['dijkstra']._markStartNode('A');
         }
     }
 };
@@ -1778,12 +1913,20 @@ AV.stepForward = function() {
         AV._applyGraphSnapshot(snapshot);
 
         if (step.type === 'ENQUEUE') {
-            AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node, level: step.level, queue: step.queue.join(', ') }, 'Enqueue ' + step.node));
+            if (step.pq) {
+                AV.log('ENQUEUE', I18N.t('av.log.enqueue_dijkstra', { node: step.node, dist: step.dist === Infinity ? '\u221E' : step.dist }, 'Init ' + step.node + ' dist=' + (step.dist === Infinity ? '\u221E' : step.dist)));
+            } else {
+                AV.log('ENQUEUE', I18N.t('av.log.enqueue', { node: step.node, level: step.level, queue: step.queue.join(', ') }, 'Enqueue ' + step.node));
+            }
         } else if (step.type === 'PUSH') {
             AV.log('PUSH', I18N.t('av.log.push', { node: step.node, depth: step.depth, stack: step.stack.join(', ') }, 'Push ' + step.node));
         } else if (step.type === 'DEQUEUE') {
             AV.state.comparisons++;
-            AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node, level: step.level, neighborCount: step.neighborCount, queue: step.queue.join(', ') }, 'Dequeue ' + step.node));
+            if (step.pq) {
+                AV.log('DEQUEUE', I18N.t('av.log.dequeue_dijkstra', { node: step.node, dist: step.dist, neighborCount: step.neighborCount }, 'Extract-min ' + step.node + ' (dist=' + step.dist + ')'));
+            } else {
+                AV.log('DEQUEUE', I18N.t('av.log.dequeue', { node: step.node, level: step.level, neighborCount: step.neighborCount, queue: step.queue.join(', ') }, 'Dequeue ' + step.node));
+            }
         } else if (step.type === 'POP') {
             AV.state.comparisons++;
             AV.log('POP', I18N.t('av.log.pop', { node: step.node, depth: step.depth, neighborCount: step.neighborCount, stack: step.stack.join(', ') }, 'Pop ' + step.node));
@@ -1792,12 +1935,22 @@ AV.stepForward = function() {
             AV.state.swaps++;
             if (step.alreadyVisited) {
                 AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_skip', { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': skip'));
+            } else if (step.relaxSkipped) {
+                AV.log('EXPLORE_EDGE', I18N.t('av.log.explore_edge_no_relax', { from: step.from, to: step.to, newDist: step.newDist, currentDist: step.currentDist },
+                    'Edge ' + step.from + '\u2192' + step.to + ': no improvement (' + step.newDist + ' \u2265 ' + step.currentDist + ')'));
             } else {
                 var sfEdgeLogKey = step.action === 'push' ? 'av.log.explore_edge_push' : 'av.log.explore_edge';
                 AV.log('EXPLORE_EDGE', I18N.t(sfEdgeLogKey, { from: step.from, to: step.to }, 'Edge ' + step.from + '\u2192' + step.to + ': add'));
             }
+        } else if (step.type === 'RELAX') {
+            AV.highlightEdge(step.via, step.node, 'av-edge-relaxed');
+            var sfOldD = (step.oldDist === Infinity || step.oldDist === 'Infinity') ? '\u221E' : step.oldDist;
+            AV.log('RELAX', I18N.t('av.log.relax', { node: step.node, oldDist: sfOldD, newDist: step.newDist, via: step.via },
+                'Relax ' + step.node + ': ' + sfOldD + ' \u2192 ' + step.newDist + ' via ' + step.via));
         } else if (step.type === 'VISIT') {
-            if (step.stack !== undefined) {
+            if (step.pq) {
+                AV.log('VISIT', I18N.t('av.log.visit_dijkstra', { node: step.node, dist: step.dist }, step.node + ' finalized (dist=' + step.dist + ')'));
+            } else if (step.stack !== undefined) {
                 AV.log('VISIT', I18N.t('av.log.visit_dfs', { node: step.node, depth: step.depth, stack: step.stack.join(', ') }, step.node + ' done'));
             } else {
                 AV.log('VISIT', I18N.t('av.log.visit', { node: step.node, level: step.level, queue: step.queue.join(', ') }, step.node + ' done'));
@@ -1809,6 +1962,8 @@ AV.stepForward = function() {
             if (AV.state._isTreeAlgorithm) {
                 AV._removeInsertBanner();
                 AV.log('COMPLETE', I18N.t('av.log.complete_tree', null, 'BST construction complete'));
+            } else if (step.isDijkstra) {
+                AV.log('COMPLETE', I18N.t('av.log.complete_dijkstra', { totalVisited: step.totalVisited, totalNodes: step.totalNodes }, 'Dijkstra complete: ' + step.totalVisited + '/' + step.totalNodes + ' nodes'));
             } else if (step.maxDepth !== undefined) {
                 AV.log('COMPLETE', I18N.t('av.log.complete_dfs', { totalVisited: step.totalVisited, totalNodes: step.totalNodes, maxDepth: step.maxDepth }, 'DFS complete'));
             } else {

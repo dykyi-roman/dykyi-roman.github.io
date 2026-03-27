@@ -13,7 +13,7 @@
         hashing: ['hash-table', 'chaining', 'open-addressing']
     };
 
-    var implementedAlgorithms = ['bubble-sort', 'selection-sort', 'insertion-sort', 'linear-search', 'binary-search', 'jump-search', 'bfs', 'dfs', 'bst-operations', 'fibonacci', 'kmp', 'hash-table'];
+    var implementedAlgorithms = ['bubble-sort', 'selection-sort', 'insertion-sort', 'linear-search', 'binary-search', 'jump-search', 'bfs', 'dfs', 'dijkstra', 'bst-operations', 'fibonacci', 'kmp', 'hash-table'];
 
     var activeCategory = 'sorting';
 
@@ -420,18 +420,16 @@
             var saved = readHash();
             if (saved) {
                 var cat = getCategoryForAlgorithm(saved.algorithm);
-                if (cat !== activeCategory) {
-                    activeCategory = cat;
-                    document.querySelectorAll('.av-category').forEach(function(btn) {
-                        var isCurrent = btn.dataset.category === cat;
-                        btn.classList.toggle('active', isCurrent);
-                        btn.setAttribute('aria-selected', isCurrent);
-                    });
-                    switchCategory(cat);
-                }
+                activeCategory = cat;
+                document.querySelectorAll('.av-category').forEach(function(btn) {
+                    var isCurrent = btn.dataset.category === cat;
+                    btn.classList.toggle('active', isCurrent);
+                    btn.setAttribute('aria-selected', isCurrent);
+                });
+                switchCategory(cat);
                 switchAlgorithm(saved.algorithm, saved.mode);
             } else {
-                switchAlgorithm('bubble-sort');
+                switchCategory('sorting');
             }
         });
     });
