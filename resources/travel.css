@@ -925,6 +925,11 @@
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
+.adventure-card.planned {
+    opacity: 0.45;
+    border-style: dashed;
+}
+
 .adventure-icon {
     font-size: 2em;
     line-height: 1;
