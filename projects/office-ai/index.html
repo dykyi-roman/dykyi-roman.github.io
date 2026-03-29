@@ -20,6 +20,8 @@
         .oai-nav { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
         .oai-nav a { padding: 6px 16px; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; color: var(--color-text-light); text-decoration: none; font-size: 13px; transition: all 0.2s; }
         .oai-nav a:hover { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+        .oai-nav a.oai-nav-cta { background: var(--color-primary); color: #fff; border-color: var(--color-primary); font-weight: 600; }
+        .oai-nav a.oai-nav-cta:hover { opacity: 0.85; }
         .oai-hero .oai-demo { max-width: 100%; border-radius: 10px; margin-top: 10px; }
 
         .oai-section { margin: 40px 0; }
@@ -89,7 +91,7 @@
             <nav class="oai-nav">
                 <a href="#features">Features</a>
                 <a href="#agents">Agents</a>
-                <a href="#download">Download</a>
+                <a href="#download" class="oai-nav-cta"><i class="fas fa-download" style="margin-right: 4px; font-size: 11px;"></i>Download</a>
                 <a href="#extension">Extension</a>
                 <a href="#requirements">Requirements</a>
                 <a href="#opensource">Open Source</a>
