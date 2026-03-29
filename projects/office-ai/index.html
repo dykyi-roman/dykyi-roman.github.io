@@ -5,15 +5,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OfficeAI - Dykyi Roman</title>
+    <meta name="description" content="Desktop app that turns your AI agents into employees of a virtual isometric office. Download for macOS and Linux.">
     <link rel="icon" href="../../icon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="../../resources/style.css">
     <link rel="stylesheet" href="../../resources/navigation.css">
     <link rel="stylesheet" href="../../resources/article-style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .oai-hero { text-align: center; padding: 20px 0 30px; }
+        .oai-hero img.oai-icon { width: 120px; border-radius: 20px; margin-bottom: 16px; }
+        .oai-hero img.oai-demo { width: 150px; border-radius: 20px; margin-bottom: 16px; }
+        .oai-hero .oai-tagline { font-size: 1.15em; color: var(--color-text-light); max-width: 520px; margin: 0 auto 24px; line-height: 1.5; }
+        .oai-hero .oai-version { font-size: 0.85em; color: var(--color-text-light); margin-bottom: 16px; }
+        .oai-nav { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+        .oai-nav a { padding: 6px 16px; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; color: var(--color-text-light); text-decoration: none; font-size: 13px; transition: all 0.2s; }
+        .oai-nav a:hover { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+        .oai-hero .oai-demo { max-width: 100%; border-radius: 10px; margin-top: 10px; }
+
+        .oai-section { margin: 40px 0; }
+        .oai-section h2 { font-size: 22px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+
+        .oai-features { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .oai-feature { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 16px; }
+        .oai-feature img { width: 100%; border-radius: 6px; margin-bottom: 10px; }
+        .oai-feature h3 { font-size: 15px; margin: 0 0 6px; color: var(--color-primary); }
+        .oai-feature p { font-size: 13px; margin: 0; color: var(--color-text-light); line-height: 1.4; }
+
+        .oai-agents-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        .oai-agent-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; text-align: center; font-size: 13px; }
+        .oai-agent-card i { font-size: 24px; display: block; margin-bottom: 8px; color: var(--color-primary); }
+        .oai-agent-card .oai-agent-name { font-weight: bold; margin-bottom: 4px; }
+        .oai-agent-card .oai-agent-type { font-size: 11px; color: var(--color-text-light); }
+
+        .oai-downloads { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+        .oai-dl-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 20px; text-align: center; }
+        .oai-dl-card i.oai-dl-icon { font-size: 36px; color: var(--color-primary); display: block; margin-bottom: 12px; }
+        .oai-dl-card h3 { font-size: 16px; margin: 0 0 6px; }
+        .oai-dl-card .oai-dl-arch { font-size: 12px; color: var(--color-text-light); margin-bottom: 14px; }
+        .oai-dl-card .oai-dl-btn { display: inline-block; background: var(--color-primary); color: #fff; padding: 8px 20px; border-radius: 6px; text-decoration: none; font-size: 14px; font-weight: bold; transition: opacity 0.2s; margin: 4px 0; }
+        .oai-dl-card .oai-dl-btn:hover { opacity: 0.85; }
+        .oai-dl-card .oai-dl-btn.oai-dl-secondary { background: transparent; border: 1px solid var(--color-primary); color: var(--color-primary); }
+        .oai-dl-card .oai-dl-size { font-size: 11px; color: var(--color-text-light); margin-top: 8px; }
+        .oai-dl-card.oai-dl-disabled { opacity: 0.5; }
+        .oai-dl-card.oai-dl-disabled .oai-dl-btn { pointer-events: none; background: #555; }
+
+        .oai-req-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        .oai-req-table th, .oai-req-table td { padding: 10px 14px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .oai-req-table th { color: var(--color-primary); font-weight: 600; }
+
+        .oai-hero-img { width: 100%; border-radius: 10px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1); }
+
+        @media (max-width: 600px) {
+            .oai-features { grid-template-columns: 1fr; }
+            .oai-downloads { grid-template-columns: 1fr; }
+            .oai-agents-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <!-- Include header from external file -->
     <div id="header-container"></div>
 
     <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -24,23 +74,181 @@
         <span class="breadcrumb-current">OfficeAI</span>
     </nav>
 
-    <!-- Article Content -->
-    <div class="article-container">
-        <div class="article-header">
-            <h1 class="article-title">OfficeAI</h1>
+    <div class="article-container" style="max-width: 800px;">
+
+        <!-- Hero -->
+        <div class="oai-hero">
+            <img class="oai-icon" src="images/icon.png" alt="OfficeAI">
+            <h1 class="article-title" style="margin-bottom: 12px;">OfficeAI</h1>
+            <p class="oai-tagline">
+                Desktop app that turns your AI agents into employees of a virtual isometric office.
+                Install, open &mdash; see all your agents in real time. Zero changes to your workflow.
+            </p>
+            <p class="oai-version">Version 0.6.0</p>
+
+            <nav class="oai-nav">
+                <a href="#features">Features</a>
+                <a href="#agents">Agents</a>
+                <a href="#download">Download</a>
+                <a href="#extension">Extension</a>
+                <a href="#requirements">Requirements</a>
+            </nav>
         </div>
 
-        <div style="text-align: center; padding: var(--spacing-lg) 0;">
-            <p style="font-size: 1.2em; margin-bottom: var(--spacing-md);">
-                <i class="fas fa-code" style="color: var(--color-primary); margin-right: 8px;"></i>
-                🚧 Active development is underway
-            </p>
-            <p>
-                <a href="https://github.com/dykyi-roman/office-ai" target="_blank" style="font-size: 1.1em;">
-                    <i class="fab fa-github" style="margin-right: 6px;"></i>github.com/dykyi-roman/office-ai
-                </a>
-            </p>
-            <img src="intro.gif" alt="OfficeAI Demo" style="max-width: 60%; border-radius: 8px; margin-top: var(--spacing-md);">
+        <!-- Office overview -->
+        <img class="oai-hero-img" src="images/office_map.png" alt="Office with multiple AI agents" loading="lazy">
+
+        <!-- Features -->
+        <div id="features" class="oai-section">
+            <h2><i class="fas fa-star" style="color: var(--color-primary); margin-right: 8px;"></i>Features</h2>
+            <div class="oai-features">
+                <div class="oai-feature">
+                    <img src="images/agent_is_working.png" alt="Agent working">
+                    <h3>Real-time Agent States</h3>
+                    <p>See when your agents think, write code, use tools, respond, or go idle. Color-coded bouncing balls indicate activity tier.</p>
+                </div>
+                <div class="oai-feature">
+                    <img src="images/agent_is_idle.png" alt="Agent idle">
+                    <h3>Idle Zone Roaming</h3>
+                    <p>Idle agents roam the office &mdash; visit the water cooler, kitchen, sofa, meeting room, or lounge area.</p>
+                </div>
+                <div class="oai-feature">
+                    <img src="images/tool_tip_message.png" alt="Speech bubbles">
+                    <h3>Speech Bubbles</h3>
+                    <p>Hover over an agent to see what it's currently working on &mdash; live preview of the agent's responses.</p>
+                </div>
+                <div class="oai-feature">
+                    <img src="images/agents_popup_window.png" alt="Agents panel">
+                    <h3>Agents Panel</h3>
+                    <p>Track all active agents at once &mdash; model, status, project, and session duration at a glance.</p>
+                </div>
+                <div class="oai-feature">
+                    <img src="images/browser.png" alt="Browser extension">
+                    <h3>Browser Extension</h3>
+                    <p>Chrome extension tracks ChatGPT, Gemini, and Claude.ai browser sessions as office employees too.</p>
+                </div>
+                <div class="oai-feature">
+                    <h3>Zero Intrusion</h3>
+                    <p>Passively observes AI processes via OS process scanning and log file monitoring. No CLI modifications, no plugins, no configuration required.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Supported Agents -->
+        <div id="agents" class="oai-section">
+            <h2><i class="fas fa-robot" style="color: var(--color-primary); margin-right: 8px;"></i>Supported Agents</h2>
+            <div class="oai-agents-grid">
+                <div class="oai-agent-card">
+                    <i class="fas fa-terminal"></i>
+                    <div class="oai-agent-name">Claude Code</div>
+                    <div class="oai-agent-type">CLI</div>
+                </div>
+                <div class="oai-agent-card">
+                    <i class="fas fa-terminal"></i>
+                    <div class="oai-agent-name">Gemini CLI</div>
+                    <div class="oai-agent-type">CLI</div>
+                </div>
+                <div class="oai-agent-card">
+                    <i class="fas fa-terminal"></i>
+                    <div class="oai-agent-name">Codex CLI</div>
+                    <div class="oai-agent-type">CLI</div>
+                </div>
+                <div class="oai-agent-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <div class="oai-agent-name">Cursor IDE</div>
+                    <div class="oai-agent-type">IDE</div>
+                </div>
+                <div class="oai-agent-card">
+                    <i class="fas fa-laptop-code"></i>
+                    <div class="oai-agent-name">Windsurf IDE</div>
+                    <div class="oai-agent-type">IDE</div>
+                </div>
+                <div class="oai-agent-card">
+                    <i class="fas fa-globe"></i>
+                    <div class="oai-agent-name">ChatGPT</div>
+                    <div class="oai-agent-type">Browser</div>
+                </div>
+                <div class="oai-agent-card">
+                    <i class="fas fa-globe"></i>
+                    <div class="oai-agent-name">Gemini</div>
+                    <div class="oai-agent-type">Browser</div>
+                </div>
+                <div class="oai-agent-card">
+                    <i class="fas fa-globe"></i>
+                    <div class="oai-agent-name">Claude.ai</div>
+                    <div class="oai-agent-type">Browser</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Downloads -->
+        <div id="download" class="oai-section">
+            <h2><i class="fas fa-download" style="color: var(--color-primary); margin-right: 8px;"></i>Download</h2>
+            <div class="oai-downloads">
+                <div class="oai-dl-card">
+                    <i class="fab fa-apple oai-dl-icon"></i>
+                    <h3>macOS</h3>
+                    <div class="oai-dl-arch">Universal (Intel + Apple Silicon)</div>
+                    <a href="downloads/OfficeAI_0.1.0_universal.dmg" class="oai-dl-btn">.dmg</a>
+                    <div class="oai-dl-size">13 MB</div>
+                </div>
+                <div class="oai-dl-card">
+                    <i class="fab fa-linux oai-dl-icon"></i>
+                    <h3>Linux</h3>
+                    <div class="oai-dl-arch">x86_64</div>
+                    <a href="downloads/OfficeAI_0.1.0_amd64.deb" class="oai-dl-btn">.deb</a>
+                    <a href="downloads/OfficeAI-0.1.0-1.x86_64.rpm" class="oai-dl-btn oai-dl-secondary">.rpm</a>
+                    <div class="oai-dl-size">5.2 MB</div>
+                </div>
+                <div class="oai-dl-card oai-dl-disabled">
+                    <i class="fab fa-windows oai-dl-icon"></i>
+                    <h3>Windows</h3>
+                    <div class="oai-dl-arch">x86_64</div>
+                    <span class="oai-dl-btn">Coming soon</span>
+                    <div class="oai-dl-size">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Browser Extension -->
+        <div id="extension" class="oai-section">
+            <h2><i class="fab fa-chrome" style="color: var(--color-primary); margin-right: 8px;"></i>Browser Extension</h2>
+            <div class="oai-dl-card" style="max-width: 400px; margin: 0 auto;">
+                <i class="fab fa-chrome oai-dl-icon"></i>
+                <h3>Chrome Extension</h3>
+                <div class="oai-dl-arch">Track ChatGPT, Gemini, and Claude.ai sessions as office employees</div>
+                <a href="downloads/office-ai-extension.zip" class="oai-dl-btn" style="margin-top: 10px;">.zip (74 KB)</a>
+                <p style="font-size: 12px; color: var(--color-text-light); margin-top: 12px;">
+                    Install: unzip &rarr; chrome://extensions &rarr; Developer mode &rarr; Load unpacked
+                </p>
+            </div>
+        </div>
+
+        <!-- System Requirements -->
+        <div id="requirements" class="oai-section">
+            <h2><i class="fas fa-microchip" style="color: var(--color-primary); margin-right: 8px;"></i>System Requirements</h2>
+            <table class="oai-req-table">
+                <tr>
+                    <th>Platform</th>
+                    <th>Minimum</th>
+                </tr>
+                <tr>
+                    <td><i class="fab fa-apple" style="margin-right: 6px;"></i>macOS</td>
+                    <td>macOS 10.15 (Catalina) or later</td>
+                </tr>
+                <tr>
+                    <td><i class="fab fa-linux" style="margin-right: 6px;"></i>Linux</td>
+                    <td>Ubuntu 22.04+ / Fedora 38+ with WebKitGTK 4.1</td>
+                </tr>
+                <tr>
+                    <td><i class="fab fa-windows" style="margin-right: 6px;"></i>Windows</td>
+                    <td>Windows 10 (1803+) with WebView2</td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-memory" style="margin-right: 6px;"></i>Resources</td>
+                    <td>CPU &lt; 5%, RAM &lt; 150 MB (up to 20 agents)</td>
+                </tr>
+            </table>
         </div>
 
         <footer class="site-footer">
@@ -56,9 +264,7 @@
     <script>
         fetch('../../headers.html')
             .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-            })
+            .then(data => { document.getElementById('header-container').innerHTML = data; })
             .catch(error => console.error('Error loading header:', error));
     </script>
     <script src="../../resources/back-to-top.js"></script>
