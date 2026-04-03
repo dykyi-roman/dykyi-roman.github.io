@@ -146,6 +146,48 @@
     { "name": "Adaptiv", "role": "Ja \u2014 schneller bei fast sortierten Daten" }
   ],
 
+  "merge-sort.name": "Merge Sort",
+  "merge-sort.stepLabel": "Merge Sort \u2014 Standard",
+  "merge-sort.modes.standard.label": "Standard",
+  "merge-sort.modes.standard.desc": "Klassischer Top-Down Merge Sort: teilt das Array rekursiv in H\u00e4lften, bis Teilarrays ein Element haben, und f\u00fcgt sortierte Teilarrays durch Vergleichen und Einordnen zusammen. Garantiert O(n log n) in allen F\u00e4llen.",
+  "merge-sort.details.standard.principles": [
+    "Teile das Array rekursiv in zwei H\u00e4lften, bis jedes Teilarray ein Element hat",
+    "Ein einelementiges Teilarray ist von Natur aus sortiert (Basisfall)",
+    "F\u00fcge zwei sortierte Teilarrays zusammen, indem du ihre vorderen Elemente vergleichst und das kleinere zuerst platzierst",
+    "Fahre mit dem Zusammenf\u00fcgen fort, bis alle Elemente zu einem vollst\u00e4ndig sortierten Array kombiniert sind",
+    "Die Teilung ben\u00f6tigt O(log n) Ebenen; jede Ebene leistet O(n) Arbeit beim Zusammenf\u00fcgen"
+  ],
+  "merge-sort.details.standard.concepts": [
+    { "term": "Teilen", "definition": "Spalte das Array am Mittelpunkt in linke und rechte H\u00e4lften. Dies wird rekursiv fortgesetzt, bis Teilarrays ein Element haben." },
+    { "term": "Zusammenf\u00fcgen (Merge)", "definition": "Kombiniere zwei sortierte Teilarrays zu einem sortierten Array, indem wiederholt das kleinere vordere Element ausgew\u00e4hlt wird. Ben\u00f6tigt O(n) Hilfsspeicher." },
+    { "term": "Stabile Sortierung", "definition": "Bei gleichen Elementen wird das linke zuerst platziert, wodurch die urspr\u00fcngliche relative Reihenfolge gleicher Werte erhalten bleibt." },
+    { "term": "Garantiertes O(n log n)", "definition": "Im Gegensatz zu Quick Sort teilt Merge Sort immer gleichm\u00e4\u00dfig und leistet O(n) Arbeit pro Ebene. Es gibt keine Worst-Case-Verschlechterung." }
+  ],
+  "merge-sort.details.standard.tradeoffs.pros": [
+    "Garantierte O(n log n) Zeit in allen F\u00e4llen \u2014 keine Worst-Case-Verschlechterung",
+    "Stabiler Sortieralgorithmus \u2014 beh\u00e4lt die Reihenfolge gleicher Elemente bei",
+    "Hervorragend f\u00fcr das Sortieren verketteter Listen \u2014 kein wahlfreier Zugriff n\u00f6tig",
+    "Vorhersagbare Leistung \u2014 nicht abh\u00e4ngig von der Eingabereihenfolge",
+    "Nat\u00fcrliche Wahl f\u00fcr externe Sortierung (Daten zu gro\u00df f\u00fcr den Speicher)"
+  ],
+  "merge-sort.details.standard.tradeoffs.cons": [
+    "Ben\u00f6tigt O(n) Hilfsspeicher zum Zusammenf\u00fcgen \u2014 nicht in-place",
+    "In der Praxis langsamer als Quick Sort aufgrund h\u00f6herer Konstanten und Cache-Misses",
+    "Overhead durch rekursive Funktionsaufrufe bei kleinen Teilarrays",
+    "Speicherzuweisung f\u00fcr tempor\u00e4re Arrays kann teuer sein"
+  ],
+  "merge-sort.details.standard.tradeoffs.whenToUse": "Verwende Merge Sort, wenn Stabilit\u00e4t erforderlich ist, wenn garantiertes O(n log n) im Worst-Case ben\u00f6tigt wird, f\u00fcr verkettete Listen oder externe Sortierung. F\u00fcr Arrays im Speicher, wo Platz wichtig ist, bevorzuge Quick Sort.",
+  "merge-sort.depRules": [
+    { "name": "Zeit (best)", "role": "O(n log n) \u2014 teilt und f\u00fcgt immer zusammen" },
+    { "name": "Zeit (durchschnitt)", "role": "O(n log n) \u2014 garantiert" },
+    { "name": "Zeit (worst)", "role": "O(n log n) \u2014 keine Verschlechterung" },
+    { "name": "Speicher", "role": "O(n) \u2014 Hilfsarray f\u00fcr das Zusammenf\u00fcgen" },
+    { "name": "Stabil", "role": "Ja \u2014 gleiche Elemente behalten ihre relative Reihenfolge" },
+    { "name": "Adaptiv", "role": "Nein \u2014 immer O(n log n) unabh\u00e4ngig von der Eingabe" }
+  ],
+  "av.log.overwrite": "{value} an Position {index} platzieren",
+  "av.log.merge": "Zusammenf\u00fcgen [{left}..{right}]",
+
   "av.legend.scanning": "Scannt",
   "av.legend.examined": "Gepr\u00fcft",
   "av.legend.found": "Gefunden",

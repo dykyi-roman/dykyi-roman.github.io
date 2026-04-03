@@ -146,6 +146,48 @@
     { "name": "Adaptatif", "role": "Oui \u2014 plus rapide sur les donn\u00e9es presque tri\u00e9es" }
   ],
 
+  "merge-sort.name": "Tri fusion",
+  "merge-sort.stepLabel": "Tri fusion \u2014 Standard",
+  "merge-sort.modes.standard.label": "Standard",
+  "merge-sort.modes.standard.desc": "Tri fusion descendant classique : divise r\u00e9cursivement le tableau en deux jusqu'\u00e0 obtenir des sous-tableaux d'un \u00e9l\u00e9ment, puis fusionne les paires de sous-tableaux tri\u00e9s en comparant et pla\u00e7ant les \u00e9l\u00e9ments dans l'ordre. Garantit O(n log n) dans tous les cas.",
+  "merge-sort.details.standard.principles": [
+    "Diviser r\u00e9cursivement le tableau en deux moiti\u00e9s jusqu'\u00e0 ce que chaque sous-tableau ait un \u00e9l\u00e9ment",
+    "Un sous-tableau d'un seul \u00e9l\u00e9ment est naturellement tri\u00e9 (cas de base)",
+    "Fusionner deux sous-tableaux tri\u00e9s en comparant leurs premiers \u00e9l\u00e9ments et en pla\u00e7ant le plus petit en premier",
+    "Continuer la fusion jusqu'\u00e0 ce que tous les \u00e9l\u00e9ments soient combin\u00e9s en un tableau enti\u00e8rement tri\u00e9",
+    "La division prend O(log n) niveaux ; chaque niveau effectue O(n) de travail lors des fusions"
+  ],
+  "merge-sort.details.standard.concepts": [
+    { "term": "Diviser", "definition": "Couper le tableau au point m\u00e9dian en moiti\u00e9s gauche et droite. Cela continue r\u00e9cursivement jusqu'aux sous-tableaux d'un \u00e9l\u00e9ment." },
+    { "term": "Conqu\u00e9rir (Fusionner)", "definition": "Combiner deux sous-tableaux tri\u00e9s en un seul tableau tri\u00e9 en choisissant r\u00e9p\u00e9titivement le plus petit premier \u00e9l\u00e9ment. N\u00e9cessite O(n) d'espace auxiliaire." },
+    { "term": "Tri stable", "definition": "Quand les \u00e9l\u00e9ments gauche et droit sont \u00e9gaux, l'\u00e9l\u00e9ment gauche est plac\u00e9 en premier, pr\u00e9servant l'ordre relatif original des valeurs \u00e9gales." },
+    { "term": "O(n log n) garanti", "definition": "Contrairement au tri rapide, le tri fusion divise toujours \u00e9galement et effectue O(n) de travail par niveau. Il n'y a pas de d\u00e9gradation dans le pire cas." }
+  ],
+  "merge-sort.details.standard.tradeoffs.pros": [
+    "Temps O(n log n) garanti dans tous les cas \u2014 pas de d\u00e9gradation",
+    "Algorithme de tri stable \u2014 pr\u00e9serve l'ordre des \u00e9l\u00e9ments \u00e9gaux",
+    "Excellent pour le tri des listes cha\u00een\u00e9es \u2014 pas besoin d'acc\u00e8s al\u00e9atoire",
+    "Performance pr\u00e9visible \u2014 non sensible \u00e0 l'ordre d'entr\u00e9e",
+    "Choix naturel pour le tri externe (donn\u00e9es trop grandes pour la m\u00e9moire)"
+  ],
+  "merge-sort.details.standard.tradeoffs.cons": [
+    "N\u00e9cessite O(n) d'espace auxiliaire pour la fusion \u2014 pas en place",
+    "Plus lent que le tri rapide en pratique en raison de facteurs constants plus \u00e9lev\u00e9s et de d\u00e9fauts de cache",
+    "Surco\u00fbt des appels r\u00e9cursifs pour les petits sous-tableaux",
+    "L'allocation m\u00e9moire pour les tableaux temporaires peut \u00eatre co\u00fbteuse"
+  ],
+  "merge-sort.details.standard.tradeoffs.whenToUse": "Utilisez le tri fusion quand la stabilit\u00e9 est requise, quand un O(n log n) garanti dans le pire cas est n\u00e9cessaire, pour les listes cha\u00een\u00e9es ou le tri externe. Pour les tableaux en m\u00e9moire o\u00f9 l'espace compte, pr\u00e9f\u00e9rez le tri rapide.",
+  "merge-sort.depRules": [
+    { "name": "Temps (meilleur)", "role": "O(n log n) \u2014 divise et fusionne toujours" },
+    { "name": "Temps (moyen)", "role": "O(n log n) \u2014 garanti" },
+    { "name": "Temps (pire)", "role": "O(n log n) \u2014 pas de d\u00e9gradation" },
+    { "name": "Espace", "role": "O(n) \u2014 tableau auxiliaire pour la fusion" },
+    { "name": "Stable", "role": "Oui \u2014 les \u00e9l\u00e9ments \u00e9gaux conservent leur ordre relatif" },
+    { "name": "Adaptatif", "role": "Non \u2014 toujours O(n log n) quelle que soit l'entr\u00e9e" }
+  ],
+  "av.log.overwrite": "Placer {value} \u00e0 la position {index}",
+  "av.log.merge": "Fusionner [{left}..{right}]",
+
   "av.legend.scanning": "Analyse",
   "av.legend.examined": "Examin\u00e9",
   "av.legend.found": "Trouv\u00e9",

@@ -890,6 +890,7 @@ AV.setAccentColors = function(algorithmId) {
         'binary-search': { accent: '#0EA5E9', bg: '#0c1a2e', light: '#142d4a' },
         'jump-search': { accent: '#A855F7', bg: '#1a0d2e', light: '#25154a' },
         'dfs': { accent: '#A855F7', bg: '#1a0d2e', light: '#25154a' },
+        'merge-sort': { accent: '#6366F1', bg: '#0d0d30', light: '#15154a' },
         'dijkstra': { accent: '#F43F5E', bg: '#1a0d12', light: '#2d1520' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
@@ -1004,6 +1005,15 @@ AV.animateFlow = async function(steps, options) {
             AV.log('SWAP', I18N.t('av.log.swap', { a: step.values[0], b: step.values[1], i: step.indices[0], j: step.indices[1] },
                 'Swap arr[' + step.indices[0] + ']=' + step.values[0] + ' \u2194 arr[' + step.indices[1] + ']=' + step.values[1]));
             await AV.animateSwap(step.indices[0], step.indices[1]);
+            await AV.sleep(AV.state.stepDelay * 0.5);
+        } else if (step.type === 'OVERWRITE') {
+            AV.clearHighlights();
+            AV.updateBarValue(step.index, step.value, Math.max.apply(null, AV.state._initialArray));
+            AV.highlightBars([step.index], 'av-swapping');
+            AV.state.swaps++;
+            AV.updateStats();
+            AV.log('OVERWRITE', I18N.t('av.log.overwrite', { index: step.index, value: step.value },
+                'Place ' + step.value + ' at position ' + step.index));
             await AV.sleep(AV.state.stepDelay * 0.5);
         } else if (step.type === 'SORTED') {
             AV.clearHighlights();
@@ -1729,6 +1739,8 @@ AV._computeSnapshots = function(initialArray, steps) {
             var tmp = arr[step.indices[0]];
             arr[step.indices[0]] = arr[step.indices[1]];
             arr[step.indices[1]] = tmp;
+        } else if (step.type === 'OVERWRITE') {
+            arr[step.index] = step.value;
         } else if (step.type === 'SORTED') {
             sorted = sorted.concat([step.index]);
         } else if (step.type === 'FOUND') {
@@ -1844,6 +1856,7 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
             var lastStep = steps[resumeFromIndex - 1];
             if (lastStep.type === 'COMPARE') AV.highlightBars(lastStep.indices, 'av-comparing');
             else if (lastStep.type === 'SWAP') AV.highlightBars(lastStep.indices, 'av-swapping');
+            else if (lastStep.type === 'OVERWRITE') AV.highlightBars([lastStep.index], 'av-swapping');
             else if (lastStep.type === 'SCAN') {
                 var bars = document.querySelectorAll('.av-bar');
                 for (var ei = 0; ei < lastStep.index; ei++) {
@@ -2176,6 +2189,11 @@ AV.stepForward = function() {
         AV.highlightBars(step.indices, 'av-swapping');
         AV.state.swaps++;
         AV.log('SWAP', 'Swap arr[' + step.indices[0] + ']=' + step.values[0] + ' \u2194 arr[' + step.indices[1] + ']=' + step.values[1]);
+    } else if (step.type === 'OVERWRITE') {
+        AV.highlightBars([step.index], 'av-swapping');
+        AV.state.swaps++;
+        AV.log('OVERWRITE', I18N.t('av.log.overwrite', { index: step.index, value: step.value },
+            'Place ' + step.value + ' at position ' + step.index));
     } else if (step.type === 'SCAN') {
         var bars = document.querySelectorAll('.av-bar');
         for (var ei = 0; ei < step.index; ei++) {

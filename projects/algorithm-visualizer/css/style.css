@@ -115,6 +115,10 @@
     --hash-table-bg: #1a1208;
     --hash-table-light: #2d1f10;
 
+    --merge-sort-color: #6366F1;
+    --merge-sort-bg: #0d0d30;
+    --merge-sort-light: #15154a;
+
     --av-hash-empty: #374151;
     --av-hash-occupied: #3B82F6;
     --av-hash-checking: #FBBF24;

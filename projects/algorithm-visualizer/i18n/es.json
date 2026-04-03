@@ -146,6 +146,48 @@
     { "name": "Adaptativo", "role": "S\u00ed \u2014 m\u00e1s r\u00e1pido con datos casi ordenados" }
   ],
 
+  "merge-sort.name": "Merge Sort",
+  "merge-sort.stepLabel": "Merge Sort \u2014 Est\u00e1ndar",
+  "merge-sort.modes.standard.label": "Est\u00e1ndar",
+  "merge-sort.modes.standard.desc": "Merge Sort cl\u00e1sico descendente: divide recursivamente el arreglo por la mitad hasta tener sub-arreglos de un elemento, luego fusiona pares de sub-arreglos ordenados comparando y colocando elementos en orden. Garantiza O(n log n) en todos los casos.",
+  "merge-sort.details.standard.principles": [
+    "Divide recursivamente el arreglo en dos mitades hasta que cada sub-arreglo tenga un elemento",
+    "Un sub-arreglo de un solo elemento est\u00e1 inherentemente ordenado (caso base)",
+    "Fusiona dos sub-arreglos ordenados comparando sus primeros elementos y colocando el menor primero",
+    "Contin\u00faa fusionando hasta que todos los elementos se combinen en un arreglo completamente ordenado",
+    "La divisi\u00f3n toma O(log n) niveles; cada nivel realiza O(n) trabajo durante las fusiones"
+  ],
+  "merge-sort.details.standard.concepts": [
+    { "term": "Dividir", "definition": "Divide el arreglo en el punto medio en mitades izquierda y derecha. Esto contin\u00faa recursivamente hasta sub-arreglos de un elemento." },
+    { "term": "Conquistar (Fusionar)", "definition": "Combina dos sub-arreglos ordenados en uno solo, seleccionando repetidamente el menor de los primeros elementos. Requiere O(n) de espacio auxiliar." },
+    { "term": "Ordenamiento estable", "definition": "Cuando los elementos izquierdo y derecho son iguales, el izquierdo se coloca primero, preservando el orden relativo original de valores iguales." },
+    { "term": "O(n log n) garantizado", "definition": "A diferencia de Quick Sort, Merge Sort siempre divide uniformemente y realiza O(n) trabajo por nivel. No hay degradaci\u00f3n en el peor caso." }
+  ],
+  "merge-sort.details.standard.tradeoffs.pros": [
+    "Tiempo O(n log n) garantizado en todos los casos \u2014 sin degradaci\u00f3n",
+    "Algoritmo de ordenamiento estable \u2014 preserva el orden de elementos iguales",
+    "Excelente para ordenar listas enlazadas \u2014 no necesita acceso aleatorio",
+    "Rendimiento predecible \u2014 no sensible al orden de entrada",
+    "Elecci\u00f3n natural para ordenamiento externo (datos demasiado grandes para memoria)"
+  ],
+  "merge-sort.details.standard.tradeoffs.cons": [
+    "Requiere O(n) de espacio auxiliar para fusionar \u2014 no es in-place",
+    "M\u00e1s lento que Quick Sort en la pr\u00e1ctica debido a mayores factores constantes y fallos de cach\u00e9",
+    "Sobrecarga de llamadas recursivas para sub-arreglos peque\u00f1os",
+    "La asignaci\u00f3n de memoria para arreglos temporales puede ser costosa"
+  ],
+  "merge-sort.details.standard.tradeoffs.whenToUse": "Usa Merge Sort cuando se requiere estabilidad, cuando se necesita O(n log n) garantizado en el peor caso, para listas enlazadas o para ordenamiento externo. Para arreglos en memoria donde el espacio importa, prefiere Quick Sort.",
+  "merge-sort.depRules": [
+    { "name": "Tiempo (mejor)", "role": "O(n log n) \u2014 siempre divide y fusiona" },
+    { "name": "Tiempo (promedio)", "role": "O(n log n) \u2014 garantizado" },
+    { "name": "Tiempo (peor)", "role": "O(n log n) \u2014 sin degradaci\u00f3n" },
+    { "name": "Espacio", "role": "O(n) \u2014 arreglo auxiliar para fusi\u00f3n" },
+    { "name": "Estable", "role": "S\u00ed \u2014 los elementos iguales mantienen su orden relativo" },
+    { "name": "Adaptativo", "role": "No \u2014 siempre O(n log n) sin importar la entrada" }
+  ],
+  "av.log.overwrite": "Colocar {value} en la posici\u00f3n {index}",
+  "av.log.merge": "Fusionar [{left}..{right}]",
+
   "av.legend.scanning": "Escaneando",
   "av.legend.examined": "Examinado",
   "av.legend.found": "Encontrado",
