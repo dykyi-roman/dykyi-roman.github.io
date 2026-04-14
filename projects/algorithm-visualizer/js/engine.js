@@ -891,6 +891,7 @@ AV.setAccentColors = function(algorithmId) {
         'jump-search': { accent: '#A855F7', bg: '#1a0d2e', light: '#25154a' },
         'dfs': { accent: '#A855F7', bg: '#1a0d2e', light: '#25154a' },
         'merge-sort': { accent: '#6366F1', bg: '#0d0d30', light: '#15154a' },
+        'quick-sort': { accent: '#E11D48', bg: '#1a0d14', light: '#2d1522' },
         'dijkstra': { accent: '#F43F5E', bg: '#1a0d12', light: '#2d1520' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];

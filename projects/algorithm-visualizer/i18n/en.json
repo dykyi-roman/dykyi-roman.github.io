@@ -187,6 +187,46 @@
   "av.log.overwrite": "Place {value} at position {index}",
   "av.log.merge": "Merge [{left}..{right}]",
 
+  "quick-sort.name": "Quick Sort",
+  "quick-sort.stepLabel": "Quick Sort \u2014 Standard",
+  "quick-sort.modes.standard.label": "Standard",
+  "quick-sort.modes.standard.desc": "Classic Quick Sort with Lomuto partition: selects the last element as pivot, partitions the array so that elements smaller than pivot are on the left and larger on the right, then recursively sorts both sides.",
+  "quick-sort.details.standard.principles": [
+    "Choose a pivot element (here: last element in the sub-array)",
+    "Partition: rearrange so all elements \u2264 pivot are on the left, all > pivot are on the right",
+    "Place the pivot in its final sorted position between the two groups",
+    "Recursively apply the same process to the left and right sub-arrays",
+    "Base case: sub-arrays of size 0 or 1 are already sorted"
+  ],
+  "quick-sort.details.standard.concepts": [
+    { "term": "Pivot", "definition": "The element chosen to divide the array. After partitioning, the pivot is in its final sorted position. Lomuto scheme uses the last element." },
+    { "term": "Partition (Lomuto)", "definition": "Scans left to right maintaining a boundary index i. When an element \u2264 pivot is found, it is swapped to position i and i advances. After the scan, the pivot is swapped to position i." },
+    { "term": "In-place", "definition": "Quick Sort partitions within the original array using only O(log n) stack space for recursion, unlike Merge Sort which requires O(n) auxiliary space." },
+    { "term": "Divide and Conquer", "definition": "The array is divided by the pivot into two independent sub-problems. Each sub-array is sorted recursively. No merge step is needed because partitioning places elements in the correct relative order." }
+  ],
+  "quick-sort.details.standard.tradeoffs.pros": [
+    "Fastest general-purpose sorting in practice \u2014 excellent cache locality",
+    "In-place \u2014 only O(log n) extra space for recursion stack",
+    "Average O(n log n) with small constant factors",
+    "Widely used in standard libraries (C qsort, Java Arrays.sort for primitives)",
+    "Easy to parallelize \u2014 sub-arrays are independent after partitioning"
+  ],
+  "quick-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) worst case on already sorted or nearly sorted input (Lomuto scheme)",
+    "Not stable \u2014 equal elements may be reordered",
+    "Performance highly dependent on pivot selection",
+    "Recursion depth can reach O(n) in worst case, risking stack overflow"
+  ],
+  "quick-sort.details.standard.tradeoffs.whenToUse": "Best general-purpose sort for in-memory arrays. Prefer over Merge Sort when auxiliary space is limited. Avoid on nearly sorted data without randomized pivot. For stability, use Merge Sort. For small arrays, Insertion Sort is faster.",
+  "quick-sort.depRules": [
+    { "name": "Time (Best)", "role": "O(n log n) \u2014 balanced partitions" },
+    { "name": "Time (Average)", "role": "O(n log n) \u2014 expected with random data" },
+    { "name": "Time (Worst)", "role": "O(n\u00B2) \u2014 already sorted or all equal elements" },
+    { "name": "Space", "role": "O(log n) \u2014 recursion stack depth" },
+    { "name": "Stable", "role": "No \u2014 partitioning may change relative order" },
+    { "name": "Adaptive", "role": "No \u2014 depends on pivot, not input order" }
+  ],
+
   "av.legend.scanning": "Scanning",
   "av.legend.examined": "Examined",
   "av.legend.found": "Found",

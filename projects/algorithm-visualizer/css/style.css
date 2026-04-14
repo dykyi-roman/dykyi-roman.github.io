@@ -119,6 +119,10 @@
     --merge-sort-bg: #0d0d30;
     --merge-sort-light: #15154a;
 
+    --quick-sort-color: #E11D48;
+    --quick-sort-bg: #1a0d14;
+    --quick-sort-light: #2d1522;
+
     --av-hash-empty: #374151;
     --av-hash-occupied: #3B82F6;
     --av-hash-checking: #FBBF24;

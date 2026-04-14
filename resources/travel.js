@@ -24,6 +24,30 @@ const countriesData = {
             notes: 'Pyramids and history',
             instagram: [],
             facebook: []
+        },
+        {
+            flag: '🇲🇦',
+            name: 'Morocco',
+            visitDate: '2026-04',
+            duration: '9 days',
+            rating: '⭐⭐⭐⭐⭐',
+            highlights: {
+                'Rabat': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Casablanca': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Marrakesh': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
+            notes: 'Imperial cities and vibrant culture',
+            instagram: [],
+            facebook: []
         }
     ],
     asia: [
@@ -1966,6 +1990,11 @@ function initMap() {
             {lat: 30.0444196, lng: 31.2357116, title: "Cairo"},
             {lat: 25.687243, lng: 32.639637, title: "Luxor"},
         ],
+        "Morocco": [
+            {lat: 34.01325, lng: -6.83255, title: "Rabat"},
+            {lat: 33.57311, lng: -7.58984, title: "Casablanca"},
+            {lat: 31.63116, lng: -7.98165, title: "Marrakesh"},
+        ],
         "Madagascar": [
             {lat: -18.8791902, lng: 47.5079055, title: "Antananarivo (Wishlist)", wishlist: true},
         ],
@@ -2093,6 +2122,7 @@ function initMap() {
         "Georgia": "asia",
         "Azerbaijan": "asia",
         "Egypt": "africa",
+        "Morocco": "africa",
         "Madagascar": "wishlist",
         "Mauritius": "wishlist",
         "Tanzania": "wishlist",

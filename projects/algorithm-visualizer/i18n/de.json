@@ -188,6 +188,46 @@
   "av.log.overwrite": "{value} an Position {index} platzieren",
   "av.log.merge": "Zusammenf\u00fcgen [{left}..{right}]",
 
+  "quick-sort.name": "Quick Sort",
+  "quick-sort.stepLabel": "Quick Sort \u2014 Standard",
+  "quick-sort.modes.standard.label": "Standard",
+  "quick-sort.modes.standard.desc": "Klassischer Quick Sort mit Lomuto-Partitionierung: w\u00e4hlt das letzte Element als Pivot, teilt das Array so, dass kleinere Elemente links und gr\u00f6\u00dfere rechts stehen, und sortiert beide Seiten rekursiv.",
+  "quick-sort.details.standard.principles": [
+    "W\u00e4hle ein Pivot-Element (hier: letztes Element des Teilarrays)",
+    "Partitionierung: ordne um, sodass alle Elemente \u2264 Pivot links und alle > Pivot rechts stehen",
+    "Platziere das Pivot an seiner endg\u00fcltigen sortierten Position zwischen den beiden Gruppen",
+    "Wende denselben Prozess rekursiv auf die linken und rechten Teilarrays an",
+    "Basisfall: Teilarrays der Gr\u00f6\u00dfe 0 oder 1 sind bereits sortiert"
+  ],
+  "quick-sort.details.standard.concepts": [
+    { "term": "Pivot", "definition": "Das Element, das das Array teilt. Nach der Partitionierung befindet sich das Pivot an seiner endg\u00fcltigen sortierten Position. Das Lomuto-Schema verwendet das letzte Element." },
+    { "term": "Partitionierung (Lomuto)", "definition": "Scannt von links nach rechts mit einem Grenzindex i. Wenn ein Element \u2264 Pivot gefunden wird, wird es an Position i getauscht und i r\u00fcckt vor. Nach dem Scan wird das Pivot an Position i getauscht." },
+    { "term": "In-place", "definition": "Quick Sort partitioniert innerhalb des Originalarrays mit nur O(log n) Stapelspeicher f\u00fcr Rekursion, im Gegensatz zu Merge Sort, das O(n) Hilfsspeicher ben\u00f6tigt." },
+    { "term": "Teile und Herrsche", "definition": "Das Array wird durch das Pivot in zwei unabh\u00e4ngige Teilprobleme geteilt. Jedes Teilarray wird rekursiv sortiert. Kein Zusammenf\u00fcgungsschritt n\u00f6tig, da die Partitionierung die Elemente in die richtige relative Reihenfolge bringt." }
+  ],
+  "quick-sort.details.standard.tradeoffs.pros": [
+    "Schnellste Allzweck-Sortierung in der Praxis \u2014 hervorragende Cache-Lokalit\u00e4t",
+    "In-place \u2014 nur O(log n) zus\u00e4tzlicher Speicher f\u00fcr den Rekursionsstapel",
+    "Durchschnittlich O(n log n) mit kleinen Konstanten",
+    "Weit verbreitet in Standardbibliotheken (C qsort, Java Arrays.sort f\u00fcr Primitive)",
+    "Leicht parallelisierbar \u2014 Teilarrays sind nach der Partitionierung unabh\u00e4ngig"
+  ],
+  "quick-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) Worst Case bei bereits sortierten Daten (Lomuto-Schema)",
+    "Nicht stabil \u2014 gleiche Elemente k\u00f6nnen umgeordnet werden",
+    "Leistung stark abh\u00e4ngig von der Pivot-Wahl",
+    "Rekursionstiefe kann im Worst Case O(n) erreichen, mit Risiko eines Stapel\u00fcberlaufs"
+  ],
+  "quick-sort.details.standard.tradeoffs.whenToUse": "Beste Allzweck-Sortierung f\u00fcr Arrays im Speicher. Bevorzuge gegen\u00fcber Merge Sort, wenn Hilfsspeicher begrenzt ist. Vermeide bei fast sortierten Daten ohne randomisiertes Pivot. F\u00fcr Stabilit\u00e4t verwende Merge Sort.",
+  "quick-sort.depRules": [
+    { "name": "Zeit (best)", "role": "O(n log n) \u2014 ausgeglichene Partitionen" },
+    { "name": "Zeit (durchschnitt)", "role": "O(n log n) \u2014 erwartet bei zuf\u00e4lligen Daten" },
+    { "name": "Zeit (worst)", "role": "O(n\u00B2) \u2014 bereits sortiert oder alle Elemente gleich" },
+    { "name": "Speicher", "role": "O(log n) \u2014 Tiefe des Rekursionsstapels" },
+    { "name": "Stabil", "role": "Nein \u2014 Partitionierung kann relative Reihenfolge \u00e4ndern" },
+    { "name": "Adaptiv", "role": "Nein \u2014 h\u00e4ngt vom Pivot ab, nicht von der Eingabereihenfolge" }
+  ],
+
   "av.legend.scanning": "Scannt",
   "av.legend.examined": "Gepr\u00fcft",
   "av.legend.found": "Gefunden",

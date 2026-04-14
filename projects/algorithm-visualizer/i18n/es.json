@@ -188,6 +188,46 @@
   "av.log.overwrite": "Colocar {value} en la posici\u00f3n {index}",
   "av.log.merge": "Fusionar [{left}..{right}]",
 
+  "quick-sort.name": "Quick Sort",
+  "quick-sort.stepLabel": "Quick Sort \u2014 Est\u00e1ndar",
+  "quick-sort.modes.standard.label": "Est\u00e1ndar",
+  "quick-sort.modes.standard.desc": "Quick Sort cl\u00e1sico con partici\u00f3n Lomuto: selecciona el \u00faltimo elemento como pivote, particiona el arreglo de modo que los elementos menores est\u00e9n a la izquierda y los mayores a la derecha, luego ordena recursivamente ambos lados.",
+  "quick-sort.details.standard.principles": [
+    "Elegir un elemento pivote (aqu\u00ed: \u00faltimo elemento del sub-arreglo)",
+    "Partici\u00f3n: reorganizar para que todos los elementos \u2264 pivote est\u00e9n a la izquierda y todos > pivote a la derecha",
+    "Colocar el pivote en su posici\u00f3n ordenada final entre los dos grupos",
+    "Aplicar recursivamente el mismo proceso a los sub-arreglos izquierdo y derecho",
+    "Caso base: sub-arreglos de tama\u00f1o 0 o 1 ya est\u00e1n ordenados"
+  ],
+  "quick-sort.details.standard.concepts": [
+    { "term": "Pivote", "definition": "El elemento elegido para dividir el arreglo. Despu\u00e9s de la partici\u00f3n, el pivote est\u00e1 en su posici\u00f3n final ordenada. El esquema Lomuto usa el \u00faltimo elemento." },
+    { "term": "Partici\u00f3n (Lomuto)", "definition": "Escanea de izquierda a derecha manteniendo un \u00edndice l\u00edmite i. Cuando se encuentra un elemento \u2264 pivote, se intercambia a la posici\u00f3n i y i avanza. Despu\u00e9s del escaneo, el pivote se intercambia a la posici\u00f3n i." },
+    { "term": "En sitio", "definition": "Quick Sort particiona dentro del arreglo original usando solo O(log n) de pila para recursi\u00f3n, a diferencia de Merge Sort que requiere O(n) de espacio auxiliar." },
+    { "term": "Dividir y conquistar", "definition": "El arreglo se divide por el pivote en dos subproblemas independientes. Cada sub-arreglo se ordena recursivamente. No se necesita paso de fusi\u00f3n porque la partici\u00f3n coloca los elementos en el orden relativo correcto." }
+  ],
+  "quick-sort.details.standard.tradeoffs.pros": [
+    "Ordenamiento de prop\u00f3sito general m\u00e1s r\u00e1pido en la pr\u00e1ctica \u2014 excelente localidad de cach\u00e9",
+    "En sitio \u2014 solo O(log n) de espacio extra para la pila de recursi\u00f3n",
+    "O(n log n) promedio con factores constantes peque\u00f1os",
+    "Ampliamente usado en bibliotecas est\u00e1ndar (C qsort, Java Arrays.sort para primitivos)",
+    "F\u00e1cil de paralelizar \u2014 los sub-arreglos son independientes despu\u00e9s de la partici\u00f3n"
+  ],
+  "quick-sort.details.standard.tradeoffs.cons": [
+    "O(n\u00B2) en el peor caso con datos ya ordenados (esquema Lomuto)",
+    "No estable \u2014 los elementos iguales pueden reordenarse",
+    "El rendimiento depende mucho de la selecci\u00f3n del pivote",
+    "La profundidad de recursi\u00f3n puede alcanzar O(n) en el peor caso, arriesgando desbordamiento de pila"
+  ],
+  "quick-sort.details.standard.tradeoffs.whenToUse": "Mejor ordenamiento de prop\u00f3sito general para arreglos en memoria. Preferible a Merge Sort cuando el espacio auxiliar es limitado. Evitar con datos casi ordenados sin pivote aleatorio. Para estabilidad, usar Merge Sort.",
+  "quick-sort.depRules": [
+    { "name": "Tiempo (mejor)", "role": "O(n log n) \u2014 particiones equilibradas" },
+    { "name": "Tiempo (promedio)", "role": "O(n log n) \u2014 esperado con datos aleatorios" },
+    { "name": "Tiempo (peor)", "role": "O(n\u00B2) \u2014 ya ordenado o todos los elementos iguales" },
+    { "name": "Espacio", "role": "O(log n) \u2014 profundidad de pila de recursi\u00f3n" },
+    { "name": "Estable", "role": "No \u2014 la partici\u00f3n puede cambiar el orden relativo" },
+    { "name": "Adaptativo", "role": "No \u2014 depende del pivote, no del orden de entrada" }
+  ],
+
   "av.legend.scanning": "Escaneando",
   "av.legend.examined": "Examinado",
   "av.legend.found": "Encontrado",
