@@ -235,6 +235,7 @@
   "av.legend.eliminated": "Eliminado",
   "av.legend.jumping": "Saltando",
   "av.legend.skipped": "Omitido",
+  "av.legend.probing": "Sondeo",
   "av.target_label_prefix": "Objetivo:",
   "av.log.scan": "Escanear arr[{index}]={value} vs objetivo={target}",
   "av.log.found": "Encontrado {value} en \u00edndice {index}",
@@ -244,6 +245,8 @@
   "av.log.bs_eliminate": "Eliminar mitad {direction}, nuevo rango [{newLow}..{newHigh}]",
   "av.log.js_jump": "Salto a arr[{jumpPos}]={value} vs objetivo={target} (bloque desde {blockStart}, paso={jumpSize})",
   "av.log.js_scan": "Escanear arr[{index}]={value} vs objetivo={target}",
+  "av.log.is_probe": "Sondeo arr[{probe}]={value} vs objetivo={target} (pos={formula}, rango [{low}..{high}])",
+  "av.log.is_eliminate": "Eliminar mitad {direction}, nuevo rango [{newLow}..{newHigh}]",
 
   "ui.log.type.SCAN": "ESCAN",
   "ui.log.type.FOUND": "HALLADO",
@@ -251,6 +254,8 @@
   "ui.log.type.BS_ELIMINATE": "ELIMIN",
   "ui.log.type.JS_JUMP": "SALTO",
   "ui.log.type.JS_SCAN": "ESCAN",
+  "ui.log.type.IS_PROBE": "SONDEO",
+  "ui.log.type.IS_ELIMINATE": "ELIMIN",
 
   "linear-search.name": "B\u00fasqueda lineal",
   "linear-search.stepLabel": "B\u00fasqueda lineal \u2014 Est\u00e1ndar",
@@ -371,6 +376,47 @@
     { "name": "Espacio", "role": "O(1) \u2014 sin memoria extra" },
     { "name": "Ordenaci\u00f3n requerida", "role": "S\u00ed \u2014 el arreglo debe estar preordenado" },
     { "name": "Bloque \u00f3ptimo", "role": "\u221an \u2014 equilibrio entre saltos y escaneo" }
+  ],
+
+  "interpolation-search.name": "B\u00fasqueda por interpolaci\u00f3n",
+  "interpolation-search.stepLabel": "B\u00fasqueda por interpolaci\u00f3n \u2014 Est\u00e1ndar",
+  "interpolation-search.modes.standard.label": "Est\u00e1ndar",
+  "interpolation-search.modes.standard.desc": "La b\u00fasqueda por interpolaci\u00f3n estima la posici\u00f3n de la sonda usando la f\u00f3rmula de interpolaci\u00f3n, adapt\u00e1ndose a la distribuci\u00f3n de datos. Alcanza O(log log n) en datos uniformes pero se degrada a O(n) en distribuciones sesgadas.",
+  "interpolation-search.details.standard.principles": [
+    "El arreglo debe estar ordenado antes de aplicar la b\u00fasqueda por interpolaci\u00f3n",
+    "Estimar posici\u00f3n de sonda: pos = low + \u230a((objetivo \u2212 arr[low]) / (arr[high] \u2212 arr[low])) \u00d7 (high \u2212 low)\u230b",
+    "Si el elemento sondeado es igual al objetivo, la b\u00fasqueda termina",
+    "Si el elemento sondeado es menor que el objetivo, eliminar la parte izquierda",
+    "Si el elemento sondeado es mayor, eliminar la parte derecha"
+  ],
+  "interpolation-search.details.standard.concepts": [
+    { "term": "F\u00f3rmula de interpolaci\u00f3n", "definition": "pos = low + \u230a((objetivo \u2212 arr[low]) / (arr[high] \u2212 arr[low])) \u00d7 (high \u2212 low)\u230b. Estima d\u00f3nde estar\u00eda el objetivo si los valores estuvieran uniformemente distribuidos." },
+    { "term": "Posici\u00f3n de sonda", "definition": "A diferencia del punto medio fijo de la b\u00fasqueda binaria, la sonda se adapta a los datos. En datos uniformes, salta m\u00e1s cerca del objetivo." },
+    { "term": "Distribuci\u00f3n uniforme", "definition": "Valores espaciados de manera regular. La b\u00fasqueda por interpolaci\u00f3n sobresale aqu\u00ed porque la f\u00f3rmula predice con precisi\u00f3n la ubicaci\u00f3n del objetivo." },
+    { "term": "Degradaci\u00f3n en datos sesgados", "definition": "Si los valores est\u00e1n agrupados o distribuidos exponencialmente, la estimaci\u00f3n es pobre, causando comportamiento O(n) similar a la b\u00fasqueda lineal." }
+  ],
+  "interpolation-search.details.standard.tradeoffs.pros": [
+    "O(log log n) en promedio con datos uniformes \u2014 m\u00e1s r\u00e1pido que b\u00fasqueda binaria",
+    "O(1) espacio extra \u2014 sin estructuras auxiliares necesarias",
+    "Adaptativo \u2014 ajusta la posici\u00f3n de sonda seg\u00fan la distribuci\u00f3n",
+    "Excelente para grandes conjuntos de datos con distribuci\u00f3n uniforme conocida",
+    "Mismo peor caso que b\u00fasqueda lineal pero mucho mejor en datos t\u00edpicos"
+  ],
+  "interpolation-search.details.standard.tradeoffs.cons": [
+    "O(n) en el peor caso con datos sesgados",
+    "Requiere entrada ordenada \u2014 ordenar cuesta O(n log n)",
+    "Riesgo de divisi\u00f3n por cero cuando arr[low] igual a arr[high]",
+    "F\u00f3rmula m\u00e1s compleja que el punto medio de la b\u00fasqueda binaria",
+    "El rendimiento depende mucho de la distribuci\u00f3n de los datos"
+  ],
+  "interpolation-search.details.standard.tradeoffs.whenToUse": "Ideal para grandes conjuntos ordenados con distribuci\u00f3n de valores aproximadamente uniforme. Para datos no uniformes, la b\u00fasqueda binaria es m\u00e1s segura y predecible.",
+  "interpolation-search.depRules": [
+    { "name": "Tiempo (mejor)", "role": "O(1) \u2014 objetivo en posici\u00f3n de sonda" },
+    { "name": "Tiempo (promedio)", "role": "O(log log n) \u2014 datos uniformes" },
+    { "name": "Tiempo (peor)", "role": "O(n) \u2014 distribuci\u00f3n sesgada" },
+    { "name": "Espacio", "role": "O(1) \u2014 iterativo, sin memoria extra" },
+    { "name": "Entrada ordenada requerida", "role": "S\u00ed \u2014 el arreglo debe estar preordenado" },
+    { "name": "Datos uniformes", "role": "Mejor con valores uniformemente distribuidos" }
   ],
 
   "av.stat.nodes_visited": "Nodos visitados",

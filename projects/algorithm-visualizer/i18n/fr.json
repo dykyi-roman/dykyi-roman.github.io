@@ -235,6 +235,7 @@
   "av.legend.eliminated": "\u00c9limin\u00e9",
   "av.legend.jumping": "Saut",
   "av.legend.skipped": "Saut\u00e9",
+  "av.legend.probing": "Sondage",
   "av.target_label_prefix": "Cible :",
   "av.log.scan": "Analyse arr[{index}]={value} vs cible={target}",
   "av.log.found": "Trouv\u00e9 {value} \u00e0 l'index {index}",
@@ -244,6 +245,8 @@
   "av.log.bs_eliminate": "\u00c9liminer la moiti\u00e9 {direction}, nouvelle plage [{newLow}..{newHigh}]",
   "av.log.js_jump": "Saut vers arr[{jumpPos}]={value} vs cible={target} (bloc depuis {blockStart}, pas={jumpSize})",
   "av.log.js_scan": "Balayage arr[{index}]={value} vs cible={target}",
+  "av.log.is_probe": "Sonde arr[{probe}]={value} vs cible={target} (pos={formula}, plage [{low}..{high}])",
+  "av.log.is_eliminate": "Éliminer la moitié {direction}, nouvelle plage [{newLow}..{newHigh}]",
 
   "ui.log.type.SCAN": "ANALYSE",
   "ui.log.type.FOUND": "TROUV\u00c9",
@@ -251,6 +254,8 @@
   "ui.log.type.BS_ELIMINATE": "\u00c9LIMIN",
   "ui.log.type.JS_JUMP": "SAUT",
   "ui.log.type.JS_SCAN": "BALAY",
+  "ui.log.type.IS_PROBE": "SONDE",
+  "ui.log.type.IS_ELIMINATE": "ÉLIMIN",
 
   "linear-search.name": "Recherche lin\u00e9aire",
   "linear-search.stepLabel": "Recherche lin\u00e9aire \u2014 Standard",
@@ -371,6 +376,47 @@
     { "name": "Espace", "role": "O(1) \u2014 sans m\u00e9moire suppl\u00e9mentaire" },
     { "name": "Tri requis", "role": "Oui \u2014 le tableau doit \u00eatre pr\u00e9-tri\u00e9" },
     { "name": "Bloc optimal", "role": "\u221an \u2014 \u00e9quilibre sauts et balayage" }
+  ],
+
+  "interpolation-search.name": "Recherche par interpolation",
+  "interpolation-search.stepLabel": "Recherche par interpolation \u2014 Standard",
+  "interpolation-search.modes.standard.label": "Standard",
+  "interpolation-search.modes.standard.desc": "La recherche par interpolation estime la position de la sonde \u00e0 l'aide de la formule d'interpolation, en s'adaptant \u00e0 la distribution des donn\u00e9es. Atteint O(log log n) sur des donn\u00e9es uniformes mais se d\u00e9grade en O(n) sur des distributions asym\u00e9triques.",
+  "interpolation-search.details.standard.principles": [
+    "Le tableau doit \u00eatre tri\u00e9 avant d'appliquer la recherche par interpolation",
+    "Estimer la position de la sonde : pos = low + \u230a((cible \u2212 arr[low]) / (arr[high] \u2212 arr[low])) \u00d7 (high \u2212 low)\u230b",
+    "Si l'\u00e9l\u00e9ment sond\u00e9 est \u00e9gal \u00e0 la cible, la recherche est termin\u00e9e",
+    "Si l'\u00e9l\u00e9ment sond\u00e9 est inf\u00e9rieur \u00e0 la cible, \u00e9liminer la partie gauche",
+    "Si l'\u00e9l\u00e9ment sond\u00e9 est sup\u00e9rieur, \u00e9liminer la partie droite"
+  ],
+  "interpolation-search.details.standard.concepts": [
+    { "term": "Formule d'interpolation", "definition": "pos = low + \u230a((cible \u2212 arr[low]) / (arr[high] \u2212 arr[low])) \u00d7 (high \u2212 low)\u230b. Estime o\u00f9 se trouverait la cible si les valeurs \u00e9taient uniform\u00e9ment distribu\u00e9es." },
+    { "term": "Position de la sonde", "definition": "Contrairement au point m\u00e9dian fixe de la recherche binaire, la sonde s'adapte aux donn\u00e9es. Pour des donn\u00e9es uniformes, elle saute plus pr\u00e8s de la cible." },
+    { "term": "Distribution uniforme", "definition": "Valeurs espac\u00e9es de mani\u00e8re r\u00e9guli\u00e8re. La recherche par interpolation excelle ici car la formule pr\u00e9dit pr\u00e9cis\u00e9ment la position de la cible." },
+    { "term": "D\u00e9gradation sur donn\u00e9es asym\u00e9triques", "definition": "Si les valeurs sont regroup\u00e9es ou distribu\u00e9es exponentiellement, l'estimation est mauvaise, causant un comportement O(n) similaire \u00e0 la recherche lin\u00e9aire." }
+  ],
+  "interpolation-search.details.standard.tradeoffs.pros": [
+    "O(log log n) en moyenne sur donn\u00e9es uniformes \u2014 plus rapide que la recherche binaire",
+    "O(1) espace suppl\u00e9mentaire \u2014 aucune structure auxiliaire n\u00e9cessaire",
+    "Adaptatif \u2014 ajuste la position de la sonde selon la distribution",
+    "Excellent pour les grands ensembles de donn\u00e9es \u00e0 distribution uniforme connue",
+    "M\u00eame pire cas que la recherche lin\u00e9aire mais bien meilleur sur donn\u00e9es typiques"
+  ],
+  "interpolation-search.details.standard.tradeoffs.cons": [
+    "O(n) dans le pire cas sur donn\u00e9es asym\u00e9triques",
+    "N\u00e9cessite une entr\u00e9e tri\u00e9e \u2014 le tri co\u00fbte O(n log n)",
+    "Risque de division par z\u00e9ro quand arr[low] \u00e9gale arr[high]",
+    "Formule plus complexe que le point m\u00e9dian de la recherche binaire",
+    "Les performances d\u00e9pendent fortement de la distribution des donn\u00e9es"
+  ],
+  "interpolation-search.details.standard.tradeoffs.whenToUse": "Id\u00e9al pour les grands ensembles tri\u00e9s avec une distribution de valeurs approximativement uniforme. Pour des donn\u00e9es non uniformes, la recherche binaire est plus s\u00fbre.",
+  "interpolation-search.depRules": [
+    { "name": "Temps (meilleur)", "role": "O(1) \u2014 cible \u00e0 la position de la sonde" },
+    { "name": "Temps (moyen)", "role": "O(log log n) \u2014 donn\u00e9es uniformes" },
+    { "name": "Temps (pire)", "role": "O(n) \u2014 distribution asym\u00e9trique" },
+    { "name": "Espace", "role": "O(1) \u2014 it\u00e9ratif, sans m\u00e9moire suppl\u00e9mentaire" },
+    { "name": "Entr\u00e9e tri\u00e9e requise", "role": "Oui \u2014 le tableau doit \u00eatre pr\u00e9-tri\u00e9" },
+    { "name": "Donn\u00e9es uniformes", "role": "Meilleur avec des valeurs uniform\u00e9ment distribu\u00e9es" }
   ],
 
   "av.stat.nodes_visited": "N\u0153uds visit\u00e9s",

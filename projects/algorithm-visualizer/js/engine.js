@@ -892,7 +892,8 @@ AV.setAccentColors = function(algorithmId) {
         'dfs': { accent: '#A855F7', bg: '#1a0d2e', light: '#25154a' },
         'merge-sort': { accent: '#6366F1', bg: '#0d0d30', light: '#15154a' },
         'quick-sort': { accent: '#E11D48', bg: '#1a0d14', light: '#2d1522' },
-        'dijkstra': { accent: '#F43F5E', bg: '#1a0d12', light: '#2d1520' }
+        'dijkstra': { accent: '#F43F5E', bg: '#1a0d12', light: '#2d1520' },
+        'interpolation-search': { accent: '#14B8A6', bg: '#0d1a1a', light: '#15282a' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
     root.setProperty('--av-accent', t.accent);
@@ -1078,6 +1079,23 @@ AV.animateFlow = async function(steps, options) {
             AV.log('JS_SCAN', I18N.t('av.log.js_scan', { index: step.index, value: step.value, target: step.target },
                 'Scan arr[' + step.index + ']=' + step.value + ' vs target=' + step.target));
             await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'IS_PROBE') {
+            AV.clearHighlights();
+            AV['interpolation-search']._applyEliminated(step.eliminated);
+            AV.highlightBars([step.probe], 'av-comparing');
+            AV['interpolation-search']._renderPointers(step.low, step.probe, step.high);
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('IS_PROBE', I18N.t('av.log.is_probe', { probe: step.probe, value: step.value, target: step.target, low: step.low, high: step.high, formula: step.formula },
+                'Probe arr[' + step.probe + ']=' + step.value + ' vs target=' + step.target + ' (pos=' + step.formula + ')'));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'IS_ELIMINATE') {
+            AV.clearHighlights();
+            AV['interpolation-search']._applyEliminated(step.eliminated);
+            AV['interpolation-search']._renderPointers(step.newLow, -1, step.newHigh);
+            AV.log('IS_ELIMINATE', I18N.t('av.log.is_eliminate', { direction: step.direction, newLow: step.newLow, newHigh: step.newHigh },
+                'Eliminate ' + step.direction + ' half, new range [' + step.newLow + '..' + step.newHigh + ']'));
+            await AV.sleep(AV.state.stepDelay * 0.5);
         } else if (step.type === 'FOUND') {
             AV.clearHighlights();
             if (step.eliminated) {
@@ -1881,6 +1899,13 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
                     if (jsBarsSM[jsi]) jsBarsSM[jsi].classList.add('av-examined');
                 }
                 AV.highlightBars([lastStep.index], 'av-comparing');
+            } else if (lastStep.type === 'IS_PROBE') {
+                AV['interpolation-search']._applyEliminated(lastStep.eliminated);
+                AV.highlightBars([lastStep.probe], 'av-comparing');
+                AV['interpolation-search']._renderPointers(lastStep.low, lastStep.probe, lastStep.high);
+            } else if (lastStep.type === 'IS_ELIMINATE') {
+                AV['interpolation-search']._applyEliminated(lastStep.eliminated);
+                AV['interpolation-search']._renderPointers(lastStep.newLow, -1, lastStep.newHigh);
             } else if (lastStep.type === 'FOUND') {
                 if (lastStep.eliminated) {
                     AV['binary-search']._applyEliminated(lastStep.eliminated);
@@ -2227,6 +2252,16 @@ AV.stepForward = function() {
         AV.highlightBars([step.index], 'av-comparing');
         AV.state.comparisons++;
         AV.log('JS_SCAN', 'Scan arr[' + step.index + ']=' + step.value + ' vs target=' + step.target);
+    } else if (step.type === 'IS_PROBE') {
+        AV['interpolation-search']._applyEliminated(step.eliminated);
+        AV.highlightBars([step.probe], 'av-comparing');
+        AV['interpolation-search']._renderPointers(step.low, step.probe, step.high);
+        AV.state.comparisons++;
+        AV.log('IS_PROBE', 'Probe arr[' + step.probe + ']=' + step.value + ' vs target=' + step.target + ' (pos=' + step.formula + ')');
+    } else if (step.type === 'IS_ELIMINATE') {
+        AV['interpolation-search']._applyEliminated(step.eliminated);
+        AV['interpolation-search']._renderPointers(step.newLow, -1, step.newHigh);
+        AV.log('IS_ELIMINATE', 'Eliminate ' + step.direction + ' half, range [' + step.newLow + '..' + step.newHigh + ']');
     } else if (step.type === 'FOUND') {
         if (step.eliminated) {
             AV['binary-search']._applyEliminated(step.eliminated);
@@ -2330,7 +2365,7 @@ AV.stepBack = function() {
     var comparisons = 0;
     var swaps = 0;
     for (var i = 0; i < sm.index; i++) {
-        if (sm.steps[i].type === 'COMPARE' || sm.steps[i].type === 'SCAN' || sm.steps[i].type === 'BS_CHECK' || sm.steps[i].type === 'JS_JUMP' || sm.steps[i].type === 'JS_SCAN' || sm.steps[i].type === 'DP_BASE' || sm.steps[i].type === 'DP_FILL') comparisons++;
+        if (sm.steps[i].type === 'COMPARE' || sm.steps[i].type === 'SCAN' || sm.steps[i].type === 'BS_CHECK' || sm.steps[i].type === 'JS_JUMP' || sm.steps[i].type === 'JS_SCAN' || sm.steps[i].type === 'IS_PROBE' || sm.steps[i].type === 'DP_BASE' || sm.steps[i].type === 'DP_FILL') comparisons++;
         if (sm.steps[i].type === 'SWAP') swaps++;
     }
     AV.state.comparisons = comparisons;
@@ -2375,6 +2410,13 @@ AV.stepBack = function() {
                 if (jsBarsBack[jsi]) jsBarsBack[jsi].classList.add('av-examined');
             }
             AV.highlightBars([prevStep.index], 'av-comparing');
+        } else if (prevStep.type === 'IS_PROBE') {
+            AV['interpolation-search']._applyEliminated(prevStep.eliminated);
+            AV.highlightBars([prevStep.probe], 'av-comparing');
+            AV['interpolation-search']._renderPointers(prevStep.low, prevStep.probe, prevStep.high);
+        } else if (prevStep.type === 'IS_ELIMINATE') {
+            AV['interpolation-search']._applyEliminated(prevStep.eliminated);
+            AV['interpolation-search']._renderPointers(prevStep.newLow, -1, prevStep.newHigh);
         } else if (prevStep.type === 'FOUND') {
             if (prevStep.eliminated) {
                 AV['binary-search']._applyEliminated(prevStep.eliminated);

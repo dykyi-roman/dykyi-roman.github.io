@@ -234,6 +234,7 @@
   "av.legend.eliminated": "Eliminated",
   "av.legend.jumping": "Jumping",
   "av.legend.skipped": "Skipped",
+  "av.legend.probing": "Probing",
   "av.target_label_prefix": "Target:",
   "av.log.scan": "Scan arr[{index}]={value} vs target={target}",
   "av.log.found": "Found {value} at index {index}",
@@ -243,6 +244,8 @@
   "av.log.bs_eliminate": "Eliminate {direction} half, new range [{newLow}..{newHigh}]",
   "av.log.js_jump": "Jump to arr[{jumpPos}]={value} vs target={target} (block from {blockStart}, step={jumpSize})",
   "av.log.js_scan": "Scan arr[{index}]={value} vs target={target}",
+  "av.log.is_probe": "Probe arr[{probe}]={value} vs target={target} (pos={formula}, range [{low}..{high}])",
+  "av.log.is_eliminate": "Eliminate {direction} half, new range [{newLow}..{newHigh}]",
 
   "ui.log.type.SCAN": "SCAN",
   "ui.log.type.FOUND": "FOUND",
@@ -250,6 +253,8 @@
   "ui.log.type.BS_ELIMINATE": "ELIMINATE",
   "ui.log.type.JS_JUMP": "JUMP",
   "ui.log.type.JS_SCAN": "SCAN",
+  "ui.log.type.IS_PROBE": "PROBE",
+  "ui.log.type.IS_ELIMINATE": "ELIMINATE",
 
   "linear-search.name": "Linear Search",
   "linear-search.stepLabel": "Linear Search \u2014 Standard",
@@ -370,6 +375,47 @@
     { "name": "Space", "role": "O(1) \u2014 no extra memory" },
     { "name": "Sorted Input Required", "role": "Yes \u2014 array must be pre-sorted" },
     { "name": "Optimal Block", "role": "\u221An \u2014 balances jump and scan cost" }
+  ],
+
+  "interpolation-search.name": "Interpolation Search",
+  "interpolation-search.stepLabel": "Interpolation Search \u2014 Standard",
+  "interpolation-search.modes.standard.label": "Standard",
+  "interpolation-search.modes.standard.desc": "Interpolation Search estimates the probe position using the interpolation formula, adapting to the data distribution. Achieves O(log log n) on uniform data but degrades to O(n) on skewed distributions.",
+  "interpolation-search.details.standard.principles": [
+    "The array must be sorted before interpolation search can be applied",
+    "Estimate probe position using: pos = low + \u230A((target \u2212 arr[low]) / (arr[high] \u2212 arr[low])) \u00D7 (high \u2212 low)\u230B",
+    "If the probe element equals the target, the search is complete",
+    "If the probe element is less than the target, eliminate the left portion and search right",
+    "If the probe element is greater, eliminate the right portion and search left"
+  ],
+  "interpolation-search.details.standard.concepts": [
+    { "term": "Interpolation Formula", "definition": "pos = low + \u230A((target \u2212 arr[low]) / (arr[high] \u2212 arr[low])) \u00D7 (high \u2212 low)\u230B. Estimates where the target would fall if values are uniformly distributed between arr[low] and arr[high]." },
+    { "term": "Probe Position", "definition": "Unlike binary search\u2019s fixed midpoint, the probe adapts to the data. For uniform data it jumps closer to the target, reducing comparisons dramatically." },
+    { "term": "Uniform Distribution", "definition": "Values spaced roughly evenly. Interpolation search excels here because the formula accurately predicts the target\u2019s location, achieving O(log log n) comparisons." },
+    { "term": "Degradation on Skew", "definition": "If values are clustered or exponentially distributed, the probe estimate is poor, causing O(n) behavior similar to linear search. Binary search is safer for unknown distributions." }
+  ],
+  "interpolation-search.details.standard.tradeoffs.pros": [
+    "O(log log n) average on uniformly distributed data \u2014 faster than binary search",
+    "O(1) extra space \u2014 no auxiliary data structures needed",
+    "Adaptive \u2014 adjusts probe position based on value distribution",
+    "Excellent for large datasets with known uniform distribution",
+    "Same worst-case as linear search but vastly better on typical data"
+  ],
+  "interpolation-search.details.standard.tradeoffs.cons": [
+    "O(n) worst case on skewed or adversarial data",
+    "Requires sorted input \u2014 sorting costs O(n log n) if not already sorted",
+    "Division by zero risk when arr[low] equals arr[high]",
+    "More complex formula than binary search\u2019s simple midpoint",
+    "Performance depends heavily on data distribution \u2014 not always predictable"
+  ],
+  "interpolation-search.details.standard.tradeoffs.whenToUse": "Best for large, sorted datasets with roughly uniform value distribution (e.g., database keys, timestamps, sequential IDs). For non-uniform data or small arrays, binary search is safer and more predictable.",
+  "interpolation-search.depRules": [
+    { "name": "Time (Best)", "role": "O(1) \u2014 target at probe position" },
+    { "name": "Time (Average)", "role": "O(log log n) \u2014 on uniform data" },
+    { "name": "Time (Worst)", "role": "O(n) \u2014 skewed distribution" },
+    { "name": "Space", "role": "O(1) \u2014 iterative, no extra memory" },
+    { "name": "Sorted Input Required", "role": "Yes \u2014 array must be pre-sorted" },
+    { "name": "Uniform Data", "role": "Best with uniformly distributed values" }
   ],
 
   "av.stat.nodes_visited": "Nodes Visited",
