@@ -123,6 +123,10 @@
     --quick-sort-bg: #1a0d14;
     --quick-sort-light: #2d1522;
 
+    --heap-sort-color: #EAB308;
+    --heap-sort-bg: #1a1808;
+    --heap-sort-light: #2d2a10;
+
     --av-hash-empty: #374151;
     --av-hash-occupied: #3B82F6;
     --av-hash-checking: #FBBF24;
@@ -278,6 +282,11 @@
     background: var(--kmp-bg);
     border-color: var(--kmp-color);
     color: var(--kmp-color);
+}
+.av-tab.active[data-algorithm="heap-sort"] {
+    background: var(--heap-sort-bg);
+    border-color: var(--heap-sort-color);
+    color: var(--heap-sort-color);
 }
 
 .av-tab.disabled {

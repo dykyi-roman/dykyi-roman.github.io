@@ -228,6 +228,51 @@
     { "name": "Adaptatif", "role": "Non \u2014 d\u00e9pend du pivot, pas de l'ordre d'entr\u00e9e" }
   ],
 
+  "heap-sort.name": "Tri par tas",
+  "heap-sort.stepLabel": "Tri par tas \u2014 Standard",
+  "heap-sort.modes.standard.label": "Standard",
+  "heap-sort.modes.standard.desc": "Tri par tas bas\u00e9 sur un Max-Heap : construit un max-heap \u00e0 partir du tableau, puis extrait r\u00e9p\u00e9titivement l'\u00e9l\u00e9ment maximum et le place \u00e0 la fin. Utilise le tamisage vers le bas pour restaurer la propri\u00e9t\u00e9 du tas apr\u00e8s chaque extraction. Garantit O(n log n) dans tous les cas avec O(1) d'espace suppl\u00e9mentaire.",
+  "heap-sort.details.standard.principles": [
+    "Construire un max-heap \u00e0 partir du tableau non tri\u00e9 en utilisant le heapify ascendant",
+    "La propri\u00e9t\u00e9 du max-heap assure que chaque n\u0153ud parent est sup\u00e9rieur ou \u00e9gal \u00e0 ses enfants",
+    "Extraire r\u00e9p\u00e9titivement l'\u00e9l\u00e9ment maximum (racine) et le placer \u00e0 la fin du tableau",
+    "Apr\u00e8s chaque extraction, restaurer la propri\u00e9t\u00e9 du tas par un tamisage vers le bas depuis la racine",
+    "Les indices du tableau encodent l'arbre implicitement : pour le n\u0153ud \u00e0 l'indice i, enfant gauche = 2i+1, enfant droit = 2i+2"
+  ],
+  "heap-sort.details.standard.concepts": [
+    { "term": "Tas binaire", "definition": "Un arbre binaire complet stock\u00e9 dans un tableau o\u00f9 chaque parent \u2265 ses enfants (max-heap). La racine \u00e0 l'indice 0 contient toujours la valeur maximale." },
+    { "term": "Heapify (tamisage vers le bas)", "definition": "En partant d'un n\u0153ud, comparer avec les deux enfants et \u00e9changer avec le plus grand enfant si n\u00e9cessaire. R\u00e9p\u00e9ter vers le bas de l'arbre jusqu'\u00e0 restaurer la propri\u00e9t\u00e9 du tas. O(log n) par appel." },
+    { "term": "Construction du tas", "definition": "Traiter tous les n\u0153uds non-feuilles du bas vers le haut, en appelant heapify sur chacun. Malgr\u00e9 n/2 appels \u00e0 heapify, le travail total est O(n) gr\u00e2ce aux hauteurs d\u00e9croissantes aux niveaux inf\u00e9rieurs." },
+    { "term": "Extraction du maximum", "definition": "\u00c9changer la racine (maximum) avec le dernier \u00e9l\u00e9ment non tri\u00e9, r\u00e9duire la taille du tas d'un et tamiser la nouvelle racine. Chaque extraction co\u00fbte O(log n)." }
+  ],
+  "heap-sort.details.standard.tradeoffs.pros": [
+    "Temps O(n log n) garanti dans tous les cas \u2014 pas de d\u00e9gradation dans le pire cas",
+    "Tri en place \u2014 seulement O(1) de m\u00e9moire suppl\u00e9mentaire",
+    "Pas de d\u00e9gradation dans le pire cas contrairement au Quick Sort sur une entr\u00e9e tri\u00e9e",
+    "Combine le meilleur du Merge Sort (performance garantie) et du Quick Sort (en place)",
+    "Souvent utilis\u00e9 comme solution de repli dans Introsort pour garantir les limites du pire cas"
+  ],
+  "heap-sort.details.standard.tradeoffs.cons": [
+    "Non stable \u2014 les \u00e9l\u00e9ments \u00e9gaux peuvent changer d'ordre relatif lors des op\u00e9rations sur le tas",
+    "Mauvaise localit\u00e9 de cache due aux acc\u00e8s m\u00e9moire parent-enfant non s\u00e9quentiels",
+    "G\u00e9n\u00e9ralement plus lent que Quick Sort en pratique en raison de facteurs constants plus \u00e9lev\u00e9s",
+    "Plus complexe \u00e0 impl\u00e9menter correctement que les algorithmes O(n\u00B2) plus simples"
+  ],
+  "heap-sort.details.standard.tradeoffs.whenToUse": "Utiliser quand un O(n log n) garanti dans le pire cas est n\u00e9cessaire avec O(1) d'espace. Id\u00e9al pour les syst\u00e8mes avec des contraintes de m\u00e9moire strictes. Souvent partie d'Introsort (hybride avec Quick Sort). Pr\u00e9f\u00e9rer Quick Sort pour la vitesse moyenne, Merge Sort quand la stabilit\u00e9 est n\u00e9cessaire.",
+  "heap-sort.depRules": [
+    { "name": "Temps (meilleur)", "role": "O(n log n) \u2014 construit toujours le tas et extrait" },
+    { "name": "Temps (moyen)", "role": "O(n log n) \u2014 garanti" },
+    { "name": "Temps (pire)", "role": "O(n log n) \u2014 pas de d\u00e9gradation" },
+    { "name": "Espace", "role": "O(1) \u2014 tri en place" },
+    { "name": "Stable", "role": "Non \u2014 les op\u00e9rations sur le tas peuvent r\u00e9ordonner les \u00e9l\u00e9ments \u00e9gaux" },
+    { "name": "Adaptatif", "role": "Non \u2014 toujours O(n log n) ind\u00e9pendamment de l'entr\u00e9e" }
+  ],
+  "av.log.heap_phase_build": "Phase 1 : Construction du Max-Heap",
+  "av.log.heap_phase_extract": "Phase 2 : Extraction des \u00e9l\u00e9ments",
+  "av.log.heap_compare": "Comparer parent arr[{parent}]={pVal} avec {relation} arr[{child}]={cVal}",
+  "av.log.heap_swap": "Tamisage : \u00e9changer arr[{parent}]={pVal} \u2194 arr[{child}]={cVal}",
+  "av.log.heap_extract": "Extraire maximum : \u00e9changer arr[{i}]={root} \u2194 arr[{j}]={last}",
+
   "av.legend.scanning": "Analyse",
   "av.legend.examined": "Examin\u00e9",
   "av.legend.found": "Trouv\u00e9",

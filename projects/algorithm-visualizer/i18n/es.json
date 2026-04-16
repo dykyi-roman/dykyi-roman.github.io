@@ -228,6 +228,51 @@
     { "name": "Adaptativo", "role": "No \u2014 depende del pivote, no del orden de entrada" }
   ],
 
+  "heap-sort.name": "Heap Sort",
+  "heap-sort.stepLabel": "Heap Sort \u2014 Est\u00e1ndar",
+  "heap-sort.modes.standard.label": "Est\u00e1ndar",
+  "heap-sort.modes.standard.desc": "Heap Sort basado en Max-Heap: construye un max-heap a partir del array, luego extrae repetidamente el elemento m\u00e1ximo y lo coloca al final. Usa sift-down para restaurar la propiedad del heap despu\u00e9s de cada extracci\u00f3n. Garantiza O(n log n) en todos los casos con O(1) de espacio extra.",
+  "heap-sort.details.standard.principles": [
+    "Construir un max-heap del array desordenado usando heapify ascendente",
+    "La propiedad del max-heap asegura que cada nodo padre es mayor o igual que sus hijos",
+    "Extraer repetidamente el elemento m\u00e1ximo (ra\u00edz) y colocarlo al final del array",
+    "Despu\u00e9s de cada extracci\u00f3n, restaurar la propiedad del heap con una operaci\u00f3n sift-down desde la ra\u00edz",
+    "Los \u00edndices del array codifican el \u00e1rbol impl\u00edcitamente: para el nodo en el \u00edndice i, hijo izquierdo = 2i+1, hijo derecho = 2i+2"
+  ],
+  "heap-sort.details.standard.concepts": [
+    { "term": "Heap binario", "definition": "Un \u00e1rbol binario completo almacenado en un array donde cada padre \u2265 sus hijos (max-heap). La ra\u00edz en el \u00edndice 0 siempre contiene el valor m\u00e1ximo." },
+    { "term": "Heapify (Sift-Down)", "definition": "Comenzando en un nodo, comparar con ambos hijos e intercambiar con el hijo mayor si es necesario. Repetir hacia abajo en el \u00e1rbol hasta restaurar la propiedad del heap. O(log n) por llamada." },
+    { "term": "Construir Heap", "definition": "Procesar todos los nodos no-hoja de abajo hacia arriba, llamando a heapify en cada uno. A pesar de n/2 llamadas a heapify, el trabajo total es O(n) gracias a las alturas decrecientes en niveles inferiores." },
+    { "term": "Extraer M\u00e1ximo", "definition": "Intercambiar la ra\u00edz (m\u00e1ximo) con el \u00faltimo elemento no ordenado, reducir el tama\u00f1o del heap en uno y hacer sift-down de la nueva ra\u00edz. Cada extracci\u00f3n cuesta O(log n)." }
+  ],
+  "heap-sort.details.standard.tradeoffs.pros": [
+    "Tiempo O(n log n) garantizado en todos los casos \u2014 sin degradaci\u00f3n en el peor caso",
+    "Ordenamiento in-place \u2014 solo O(1) de memoria extra",
+    "Sin degradaci\u00f3n en el peor caso a diferencia de Quick Sort con entrada ordenada",
+    "Combina lo mejor de Merge Sort (rendimiento garantizado) y Quick Sort (in-place)",
+    "Frecuentemente usado como respaldo en Introsort para garantizar l\u00edmites del peor caso"
+  ],
+  "heap-sort.details.standard.tradeoffs.cons": [
+    "No es estable \u2014 los elementos iguales pueden cambiar de orden relativo durante operaciones del heap",
+    "Mala localidad de cach\u00e9 debido a patrones de acceso a memoria padre-hijo no secuenciales",
+    "T\u00edpicamente m\u00e1s lento que Quick Sort en la pr\u00e1ctica debido a factores constantes mayores",
+    "M\u00e1s complejo de implementar correctamente que algoritmos O(n\u00B2) m\u00e1s simples"
+  ],
+  "heap-sort.details.standard.tradeoffs.whenToUse": "Usar cuando se necesita O(n log n) garantizado en el peor caso con O(1) de espacio. Ideal para sistemas con restricciones estrictas de memoria. Frecuentemente parte de Introsort (h\u00edbrido con Quick Sort). Preferir Quick Sort para velocidad promedio, Merge Sort cuando se necesita estabilidad.",
+  "heap-sort.depRules": [
+    { "name": "Tiempo (mejor)", "role": "O(n log n) \u2014 siempre construye heap y extrae" },
+    { "name": "Tiempo (promedio)", "role": "O(n log n) \u2014 garantizado" },
+    { "name": "Tiempo (peor)", "role": "O(n log n) \u2014 sin degradaci\u00f3n" },
+    { "name": "Espacio", "role": "O(1) \u2014 ordenamiento in-place" },
+    { "name": "Estable", "role": "No \u2014 operaciones del heap pueden reordenar elementos iguales" },
+    { "name": "Adaptativo", "role": "No \u2014 siempre O(n log n) independientemente de la entrada" }
+  ],
+  "av.log.heap_phase_build": "Fase 1: Construyendo Max-Heap",
+  "av.log.heap_phase_extract": "Fase 2: Extrayendo elementos",
+  "av.log.heap_compare": "Comparar padre arr[{parent}]={pVal} con {relation} arr[{child}]={cVal}",
+  "av.log.heap_swap": "Sift: intercambiar arr[{parent}]={pVal} \u2194 arr[{child}]={cVal}",
+  "av.log.heap_extract": "Extraer m\u00e1ximo: intercambiar arr[{i}]={root} \u2194 arr[{j}]={last}",
+
   "av.legend.scanning": "Escaneando",
   "av.legend.examined": "Examinado",
   "av.legend.found": "Encontrado",

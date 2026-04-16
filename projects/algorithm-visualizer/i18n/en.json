@@ -227,6 +227,51 @@
     { "name": "Adaptive", "role": "No \u2014 depends on pivot, not input order" }
   ],
 
+  "heap-sort.name": "Heap Sort",
+  "heap-sort.stepLabel": "Heap Sort \u2014 Standard",
+  "heap-sort.modes.standard.label": "Standard",
+  "heap-sort.modes.standard.desc": "Max-Heap based Heap Sort: builds a max-heap from the array, then repeatedly extracts the maximum element and places it at the end. Uses sift-down to restore the heap property after each extraction. Guarantees O(n log n) in all cases with O(1) extra space.",
+  "heap-sort.details.standard.principles": [
+    "Build a max-heap from the unsorted array using bottom-up heapify",
+    "The max-heap property ensures every parent node is greater than or equal to its children",
+    "Repeatedly extract the maximum element (root) and place it at the end of the array",
+    "After each extraction, restore the heap property with a sift-down operation from the root",
+    "Array indices encode the tree implicitly: for node at index i, left child = 2i+1, right child = 2i+2"
+  ],
+  "heap-sort.details.standard.concepts": [
+    { "term": "Binary Heap", "definition": "A complete binary tree stored in an array where every parent \u2265 its children (max-heap). The root at index 0 always holds the maximum value." },
+    { "term": "Heapify (Sift-Down)", "definition": "Starting at a node, compare with both children and swap with the larger child if necessary. Repeat down the tree until the heap property is restored. O(log n) per call." },
+    { "term": "Build Heap", "definition": "Process all non-leaf nodes from bottom to top, calling heapify on each. Despite n/2 calls to heapify, the total work is O(n) due to decreasing tree heights at lower levels." },
+    { "term": "Extract Max", "definition": "Swap the root (maximum) with the last unsorted element, reduce the heap size by one, and sift-down the new root. Each extraction costs O(log n)." }
+  ],
+  "heap-sort.details.standard.tradeoffs.pros": [
+    "Guaranteed O(n log n) time in all cases \u2014 no worst-case degradation",
+    "In-place sorting \u2014 only O(1) extra memory",
+    "No worst-case degradation unlike Quick Sort on sorted input",
+    "Combines best of Merge Sort (guaranteed performance) and Quick Sort (in-place)",
+    "Often used as the fallback in Introsort to guarantee worst-case bounds"
+  ],
+  "heap-sort.details.standard.tradeoffs.cons": [
+    "Not stable \u2014 equal elements may change relative order during heap operations",
+    "Poor cache locality due to non-sequential parent-child memory access patterns",
+    "Typically slower than Quick Sort in practice due to higher constant factors",
+    "More complex to implement correctly than simpler O(n\u00B2) algorithms"
+  ],
+  "heap-sort.details.standard.tradeoffs.whenToUse": "Use when guaranteed O(n log n) worst-case is required with O(1) space. Ideal for systems with strict memory constraints. Often part of Introsort (hybrid with Quick Sort). Prefer Quick Sort for average-case speed, Merge Sort when stability is needed.",
+  "heap-sort.depRules": [
+    { "name": "Time (Best)", "role": "O(n log n) \u2014 always builds heap and extracts" },
+    { "name": "Time (Average)", "role": "O(n log n) \u2014 guaranteed" },
+    { "name": "Time (Worst)", "role": "O(n log n) \u2014 no degradation" },
+    { "name": "Space", "role": "O(1) \u2014 in-place sorting" },
+    { "name": "Stable", "role": "No \u2014 heap operations may reorder equal elements" },
+    { "name": "Adaptive", "role": "No \u2014 always O(n log n) regardless of input" }
+  ],
+  "av.log.heap_phase_build": "Phase 1: Building Max-Heap",
+  "av.log.heap_phase_extract": "Phase 2: Extracting elements",
+  "av.log.heap_compare": "Compare parent arr[{parent}]={pVal} with {relation} arr[{child}]={cVal}",
+  "av.log.heap_swap": "Sift: swap arr[{parent}]={pVal} \u2194 arr[{child}]={cVal}",
+  "av.log.heap_extract": "Extract max: swap arr[{i}]={root} \u2194 arr[{j}]={last}",
+
   "av.legend.scanning": "Scanning",
   "av.legend.examined": "Examined",
   "av.legend.found": "Found",

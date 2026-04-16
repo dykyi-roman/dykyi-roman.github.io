@@ -893,7 +893,8 @@ AV.setAccentColors = function(algorithmId) {
         'merge-sort': { accent: '#6366F1', bg: '#0d0d30', light: '#15154a' },
         'quick-sort': { accent: '#E11D48', bg: '#1a0d14', light: '#2d1522' },
         'dijkstra': { accent: '#F43F5E', bg: '#1a0d12', light: '#2d1520' },
-        'interpolation-search': { accent: '#14B8A6', bg: '#0d1a1a', light: '#15282a' }
+        'interpolation-search': { accent: '#14B8A6', bg: '#0d1a1a', light: '#15282a' },
+        'heap-sort': { accent: '#EAB308', bg: '#1a1808', light: '#2d2a10' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
     root.setProperty('--av-accent', t.accent);
@@ -1016,6 +1017,37 @@ AV.animateFlow = async function(steps, options) {
             AV.updateStats();
             AV.log('OVERWRITE', I18N.t('av.log.overwrite', { index: step.index, value: step.value },
                 'Place ' + step.value + ' at position ' + step.index));
+            await AV.sleep(AV.state.stepDelay * 0.5);
+        } else if (step.type === 'HEAP_PHASE') {
+            AV.clearHighlights();
+            AV.log('PHASE', I18N.t('av.log.heap_phase_' + step.phase, null,
+                step.phase === 'build' ? 'Phase 1: Building Max-Heap' : 'Phase 2: Extracting elements'));
+            await AV.sleep(AV.state.stepDelay * 0.3);
+        } else if (step.type === 'HEAP_COMPARE') {
+            AV.clearHighlights();
+            AV.highlightBars(step.indices, 'av-comparing');
+            AV.state.comparisons++;
+            AV.updateStats();
+            var hcRelation = step.isLeft ? 'left child' : 'right child';
+            AV.log('COMPARE', I18N.t('av.log.heap_compare',
+                { parent: step.indices[0], child: step.indices[1], pVal: step.values[0], cVal: step.values[1], relation: hcRelation },
+                'Compare parent arr[' + step.indices[0] + ']=' + step.values[0] + ' with ' + hcRelation + ' arr[' + step.indices[1] + ']=' + step.values[1]));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'HEAP_SWAP') {
+            AV.clearHighlights();
+            AV.highlightBars(step.indices, 'av-swapping');
+            AV.state.swaps++;
+            AV.updateStats();
+            if (step.extract) {
+                AV.log('SWAP', I18N.t('av.log.heap_extract',
+                    { i: step.indices[0], j: step.indices[1], root: step.values[0], last: step.values[1] },
+                    'Extract max: swap arr[' + step.indices[0] + ']=' + step.values[0] + ' \u2194 arr[' + step.indices[1] + ']=' + step.values[1]));
+            } else {
+                AV.log('SWAP', I18N.t('av.log.heap_swap',
+                    { parent: step.indices[0], child: step.indices[1], pVal: step.values[0], cVal: step.values[1] },
+                    'Sift: swap arr[' + step.indices[0] + ']=' + step.values[0] + ' \u2194 arr[' + step.indices[1] + ']=' + step.values[1]));
+            }
+            await AV.animateSwap(step.indices[0], step.indices[1]);
             await AV.sleep(AV.state.stepDelay * 0.5);
         } else if (step.type === 'SORTED') {
             AV.clearHighlights();
@@ -1760,6 +1792,10 @@ AV._computeSnapshots = function(initialArray, steps) {
             arr[step.indices[1]] = tmp;
         } else if (step.type === 'OVERWRITE') {
             arr[step.index] = step.value;
+        } else if (step.type === 'HEAP_SWAP') {
+            var tmp = arr[step.indices[0]];
+            arr[step.indices[0]] = arr[step.indices[1]];
+            arr[step.indices[1]] = tmp;
         } else if (step.type === 'SORTED') {
             sorted = sorted.concat([step.index]);
         } else if (step.type === 'FOUND') {
@@ -1876,6 +1912,8 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
             if (lastStep.type === 'COMPARE') AV.highlightBars(lastStep.indices, 'av-comparing');
             else if (lastStep.type === 'SWAP') AV.highlightBars(lastStep.indices, 'av-swapping');
             else if (lastStep.type === 'OVERWRITE') AV.highlightBars([lastStep.index], 'av-swapping');
+            else if (lastStep.type === 'HEAP_COMPARE') AV.highlightBars(lastStep.indices, 'av-comparing');
+            else if (lastStep.type === 'HEAP_SWAP') AV.highlightBars(lastStep.indices, 'av-swapping');
             else if (lastStep.type === 'SCAN') {
                 var bars = document.querySelectorAll('.av-bar');
                 for (var ei = 0; ei < lastStep.index; ei++) {
@@ -2220,6 +2258,28 @@ AV.stepForward = function() {
         AV.state.swaps++;
         AV.log('OVERWRITE', I18N.t('av.log.overwrite', { index: step.index, value: step.value },
             'Place ' + step.value + ' at position ' + step.index));
+    } else if (step.type === 'HEAP_PHASE') {
+        AV.log('PHASE', I18N.t('av.log.heap_phase_' + step.phase, null,
+            step.phase === 'build' ? 'Phase 1: Building Max-Heap' : 'Phase 2: Extracting elements'));
+    } else if (step.type === 'HEAP_COMPARE') {
+        AV.highlightBars(step.indices, 'av-comparing');
+        AV.state.comparisons++;
+        var hcRel = step.isLeft ? 'left child' : 'right child';
+        AV.log('COMPARE', I18N.t('av.log.heap_compare',
+            { parent: step.indices[0], child: step.indices[1], pVal: step.values[0], cVal: step.values[1], relation: hcRel },
+            'Compare parent arr[' + step.indices[0] + ']=' + step.values[0] + ' with ' + hcRel + ' arr[' + step.indices[1] + ']=' + step.values[1]));
+    } else if (step.type === 'HEAP_SWAP') {
+        AV.highlightBars(step.indices, 'av-swapping');
+        AV.state.swaps++;
+        if (step.extract) {
+            AV.log('SWAP', I18N.t('av.log.heap_extract',
+                { i: step.indices[0], j: step.indices[1], root: step.values[0], last: step.values[1] },
+                'Extract max: swap arr[' + step.indices[0] + ']=' + step.values[0] + ' \u2194 arr[' + step.indices[1] + ']=' + step.values[1]));
+        } else {
+            AV.log('SWAP', I18N.t('av.log.heap_swap',
+                { parent: step.indices[0], child: step.indices[1], pVal: step.values[0], cVal: step.values[1] },
+                'Sift: swap arr[' + step.indices[0] + ']=' + step.values[0] + ' \u2194 arr[' + step.indices[1] + ']=' + step.values[1]));
+        }
     } else if (step.type === 'SCAN') {
         var bars = document.querySelectorAll('.av-bar');
         for (var ei = 0; ei < step.index; ei++) {
@@ -2313,7 +2373,7 @@ AV.stepForward = function() {
     AV._updateStepButtons();
 
     /* Auto-advance past non-visual steps (PASS) so each click shows a bar change */
-    if (step.type === 'PASS' && sm.index < sm.steps.length) {
+    if ((step.type === 'PASS' || step.type === 'HEAP_PHASE') && sm.index < sm.steps.length) {
         AV.stepForward();
     }
 };
@@ -2365,8 +2425,8 @@ AV.stepBack = function() {
     var comparisons = 0;
     var swaps = 0;
     for (var i = 0; i < sm.index; i++) {
-        if (sm.steps[i].type === 'COMPARE' || sm.steps[i].type === 'SCAN' || sm.steps[i].type === 'BS_CHECK' || sm.steps[i].type === 'JS_JUMP' || sm.steps[i].type === 'JS_SCAN' || sm.steps[i].type === 'IS_PROBE' || sm.steps[i].type === 'DP_BASE' || sm.steps[i].type === 'DP_FILL') comparisons++;
-        if (sm.steps[i].type === 'SWAP') swaps++;
+        if (sm.steps[i].type === 'COMPARE' || sm.steps[i].type === 'SCAN' || sm.steps[i].type === 'BS_CHECK' || sm.steps[i].type === 'JS_JUMP' || sm.steps[i].type === 'JS_SCAN' || sm.steps[i].type === 'IS_PROBE' || sm.steps[i].type === 'DP_BASE' || sm.steps[i].type === 'DP_FILL' || sm.steps[i].type === 'HEAP_COMPARE') comparisons++;
+        if (sm.steps[i].type === 'SWAP' || sm.steps[i].type === 'OVERWRITE' || sm.steps[i].type === 'HEAP_SWAP') swaps++;
     }
     AV.state.comparisons = comparisons;
     AV.state.swaps = swaps;
@@ -2387,6 +2447,8 @@ AV.stepBack = function() {
         var prevStep = sm.steps[sm.index - 1];
         if (prevStep.type === 'COMPARE') AV.highlightBars(prevStep.indices, 'av-comparing');
         else if (prevStep.type === 'SWAP') AV.highlightBars(prevStep.indices, 'av-swapping');
+        else if (prevStep.type === 'HEAP_COMPARE') AV.highlightBars(prevStep.indices, 'av-comparing');
+        else if (prevStep.type === 'HEAP_SWAP') AV.highlightBars(prevStep.indices, 'av-swapping');
         else if (prevStep.type === 'SCAN') {
             var bars = document.querySelectorAll('.av-bar');
             for (var ei = 0; ei < prevStep.index; ei++) {

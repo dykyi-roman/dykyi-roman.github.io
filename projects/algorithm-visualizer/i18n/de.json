@@ -228,6 +228,51 @@
     { "name": "Adaptiv", "role": "Nein \u2014 h\u00e4ngt vom Pivot ab, nicht von der Eingabereihenfolge" }
   ],
 
+  "heap-sort.name": "Heap Sort",
+  "heap-sort.stepLabel": "Heap Sort \u2014 Standard",
+  "heap-sort.modes.standard.label": "Standard",
+  "heap-sort.modes.standard.desc": "Max-Heap-basierter Heap Sort: Baut einen Max-Heap aus dem Array auf, extrahiert dann wiederholt das gr\u00f6\u00dfte Element und platziert es am Ende. Verwendet Sift-Down zur Wiederherstellung der Heap-Eigenschaft nach jeder Extraktion. Garantiert O(n log n) in allen F\u00e4llen bei O(1) zus\u00e4tzlichem Speicher.",
+  "heap-sort.details.standard.principles": [
+    "Einen Max-Heap aus dem unsortierten Array mittels Bottom-Up-Heapify aufbauen",
+    "Die Max-Heap-Eigenschaft stellt sicher, dass jeder Elternknoten gr\u00f6\u00dfer oder gleich seinen Kindern ist",
+    "Wiederholt das gr\u00f6\u00dfte Element (Wurzel) extrahieren und ans Ende des Arrays setzen",
+    "Nach jeder Extraktion die Heap-Eigenschaft durch Sift-Down von der Wurzel wiederherstellen",
+    "Array-Indizes kodieren den Baum implizit: f\u00fcr Knoten bei Index i, linkes Kind = 2i+1, rechtes Kind = 2i+2"
+  ],
+  "heap-sort.details.standard.concepts": [
+    { "term": "Bin\u00e4rer Heap", "definition": "Ein vollst\u00e4ndiger Bin\u00e4rbaum, gespeichert in einem Array, wobei jeder Elternknoten \u2265 seiner Kinder ist (Max-Heap). Die Wurzel bei Index 0 enth\u00e4lt immer den gr\u00f6\u00dften Wert." },
+    { "term": "Heapify (Sift-Down)", "definition": "Beginnend bei einem Knoten, mit beiden Kindern vergleichen und bei Bedarf mit dem gr\u00f6\u00dferen Kind tauschen. Den Baum hinunter wiederholen, bis die Heap-Eigenschaft wiederhergestellt ist. O(log n) pro Aufruf." },
+    { "term": "Heap aufbauen", "definition": "Alle Nicht-Blatt-Knoten von unten nach oben verarbeiten und f\u00fcr jeden Heapify aufrufen. Trotz n/2 Aufrufen betr\u00e4gt die Gesamtarbeit O(n) dank abnehmender Baumh\u00f6hen auf unteren Ebenen." },
+    { "term": "Maximum extrahieren", "definition": "Die Wurzel (Maximum) mit dem letzten unsortierten Element tauschen, die Heap-Gr\u00f6\u00dfe um eins reduzieren und die neue Wurzel nach unten sieben. Jede Extraktion kostet O(log n)." }
+  ],
+  "heap-sort.details.standard.tradeoffs.pros": [
+    "Garantierte O(n log n) Zeit in allen F\u00e4llen \u2014 keine Worst-Case-Degradation",
+    "In-Place-Sortierung \u2014 nur O(1) zus\u00e4tzlicher Speicher",
+    "Keine Worst-Case-Degradation im Gegensatz zu Quick Sort bei sortierter Eingabe",
+    "Vereint das Beste von Merge Sort (garantierte Leistung) und Quick Sort (in-place)",
+    "Wird oft als Fallback in Introsort verwendet, um Worst-Case-Grenzen zu garantieren"
+  ],
+  "heap-sort.details.standard.tradeoffs.cons": [
+    "Nicht stabil \u2014 gleiche Elemente k\u00f6nnen bei Heap-Operationen ihre relative Reihenfolge \u00e4ndern",
+    "Schlechte Cache-Lokalit\u00e4t durch nicht-sequentielle Eltern-Kind-Speicherzugriffsmuster",
+    "In der Praxis typischerweise langsamer als Quick Sort aufgrund h\u00f6herer konstanter Faktoren",
+    "Komplexer korrekt zu implementieren als einfachere O(n\u00B2)-Algorithmen"
+  ],
+  "heap-sort.details.standard.tradeoffs.whenToUse": "Verwenden Sie Heap Sort, wenn garantierte O(n log n) Worst-Case-Leistung bei O(1) Speicher ben\u00f6tigt wird. Ideal f\u00fcr Systeme mit strengen Speicherbeschr\u00e4nkungen. Oft Teil von Introsort (Hybrid mit Quick Sort). Bevorzugen Sie Quick Sort f\u00fcr durchschnittliche Geschwindigkeit, Merge Sort wenn Stabilit\u00e4t ben\u00f6tigt wird.",
+  "heap-sort.depRules": [
+    { "name": "Zeit (best)", "role": "O(n log n) \u2014 baut immer Heap auf und extrahiert" },
+    { "name": "Zeit (durchschnitt)", "role": "O(n log n) \u2014 garantiert" },
+    { "name": "Zeit (worst)", "role": "O(n log n) \u2014 keine Degradation" },
+    { "name": "Speicher", "role": "O(1) \u2014 In-Place-Sortierung" },
+    { "name": "Stabil", "role": "Nein \u2014 Heap-Operationen k\u00f6nnen Reihenfolge gleicher Elemente \u00e4ndern" },
+    { "name": "Adaptiv", "role": "Nein \u2014 immer O(n log n) unabh\u00e4ngig von der Eingabe" }
+  ],
+  "av.log.heap_phase_build": "Phase 1: Max-Heap aufbauen",
+  "av.log.heap_phase_extract": "Phase 2: Elemente extrahieren",
+  "av.log.heap_compare": "Vergleiche Eltern arr[{parent}]={pVal} mit {relation} arr[{child}]={cVal}",
+  "av.log.heap_swap": "Sift: tausche arr[{parent}]={pVal} \u2194 arr[{child}]={cVal}",
+  "av.log.heap_extract": "Maximum extrahieren: tausche arr[{i}]={root} \u2194 arr[{j}]={last}",
+
   "av.legend.scanning": "Scannt",
   "av.legend.examined": "Gepr\u00fcft",
   "av.legend.found": "Gefunden",

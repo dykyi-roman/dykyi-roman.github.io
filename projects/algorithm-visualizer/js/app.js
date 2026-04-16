@@ -13,7 +13,7 @@
         hashing: ['hash-table', 'chaining', 'open-addressing']
     };
 
-    var implementedAlgorithms = ['bubble-sort', 'selection-sort', 'insertion-sort', 'merge-sort', 'quick-sort', 'linear-search', 'binary-search', 'jump-search', 'interpolation-search', 'bfs', 'dfs', 'dijkstra', 'bst-operations', 'fibonacci', 'kmp', 'hash-table'];
+    var implementedAlgorithms = ['bubble-sort', 'selection-sort', 'insertion-sort', 'merge-sort', 'quick-sort', 'heap-sort', 'linear-search', 'binary-search', 'jump-search', 'interpolation-search', 'bfs', 'dfs', 'dijkstra', 'bst-operations', 'fibonacci', 'kmp', 'hash-table'];
 
     var activeCategory = 'sorting';
 
