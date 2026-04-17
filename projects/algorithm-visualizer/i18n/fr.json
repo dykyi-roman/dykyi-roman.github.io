@@ -987,5 +987,73 @@
     { "name": "Poids négatifs", "role": "Non \u2014 nécessite des poids non négatifs" },
     { "name": "Complet", "role": "Oui \u2014 trouve les chemins vers tous les nœuds accessibles" },
     { "name": "Structure de données", "role": "File de priorité (tas min)" }
+  ],
+
+  "av.log.heuristic_init": "Heuristiques initialisées (but={goal})",
+  "av.log.enqueue_a-star": "Enfiler {node} (g={g}, h={h}, f={f})",
+  "av.log.dequeue_a-star": "Extraire-min {node} (f={f}, g={g}, h={h}) : {neighborCount} voisins ouverts",
+  "av.log.relax_a-star": "Relaxer {node} : g {oldG}\u2192{newG}, f {oldF}\u2192{newF} via {via}",
+  "av.log.visit_a-star": "{node} fermé (g={g}, f={f})",
+  "av.log.goal_reached": "But {node} atteint avec coût {g}",
+  "av.log.path_reconstruct": "Chemin : {path} (coût {cost})",
+  "av.log.complete_a-star": "A* terminé : coût du chemin {totalCost}, {totalExpanded}/{totalNodes} explorés",
+  "av.log.complete_a-star_no_path": "A* terminé : aucun chemin trouvé ({totalExpanded}/{totalNodes} explorés)",
+
+  "ui.log.type.INIT": "INIT",
+  "ui.log.type.GOAL": "BUT",
+  "ui.log.type.PATH": "CHEMIN",
+
+  "av.legend.a-star_start": "Nœud de départ",
+  "av.legend.a-star_goal": "Nœud but",
+  "av.legend.a-star_open": "Ensemble ouvert",
+  "av.legend.a-star_closed": "Ensemble fermé",
+  "av.legend.a-star_path_node": "Nœud du chemin",
+  "av.legend.a-star_path_edge": "Arête du chemin",
+
+  "a-star.name": "A*",
+  "a-star.stepLabel": "A* \u2014 Standard",
+  "a-star.modes.standard.label": "Standard",
+  "a-star.modes.standard.desc": "A* trouve le chemin de coût minimal d'un nœud de départ à un nœud but en ordonnant la frontière par f(n) = g(n) + h(n) : coût connu depuis le départ plus une estimation heuristique vers le but. Avec une heuristique admissible, A* est optimal et explore généralement moins de nœuds que Dijkstra.",
+
+  "a-star.details.standard.principles": [
+    "Initialiser g(départ)=0, g(n)=\u221E sinon ; précalculer h(n) pour chaque nœud",
+    "Pousser le départ dans l'ensemble ouvert avec f(départ) = g(départ) + h(départ)",
+    "Extraire le nœud avec f minimum de l'ensemble ouvert",
+    "S'il s'agit du but, reconstruire le chemin en remontant les pointeurs parents jusqu'au départ",
+    "Sinon pour chaque voisin : tentative_g = g(u) + poids(u,v) ; si meilleur que g(v), relaxer et pousser avec nouveau f",
+    "Déplacer le nœud extrait dans l'ensemble fermé ; répéter jusqu'à atteindre le but ou vider l'ensemble ouvert"
+  ],
+  "a-star.details.standard.concepts": [
+    { "term": "score g", "definition": "Le meilleur coût réel connu depuis le nœud de départ jusqu'au nœud n. Mis à jour lors de la découverte d'un chemin plus court (relaxation)." },
+    { "term": "score h (heuristique)", "definition": "Estimation du coût restant de n au but. Doit être admissible (ne jamais surestimer) pour préserver l'optimalité." },
+    { "term": "score f", "definition": "f(n) = g(n) + h(n). Clé de priorité ordonnant l'ensemble ouvert : plus petit f signifie nœud plus prometteur." },
+    { "term": "Ensemble ouvert (frontière)", "definition": "File de priorité des nœuds découverts mais non encore explorés. Ordonnée par f." },
+    { "term": "Ensemble fermé", "definition": "Nœuds déjà explorés avec un score g finalisé. Avec une heuristique cohérente, aucune réouverture nécessaire." },
+    { "term": "Heuristique admissible", "definition": "h(n) \u2264 coût réel de n au but pour tout n. Garantit que A* trouve un chemin optimal." },
+    { "term": "Heuristique cohérente (monotone)", "definition": "Pour chaque arête (u,v) : h(u) \u2264 poids(u,v) + h(v). Implique l'admissibilité et permet d'éviter les réouvertures." }
+  ],
+  "a-star.details.standard.tradeoffs.pros": [
+    "Chemin optimal garanti si l'heuristique est admissible",
+    "Explore généralement beaucoup moins de nœuds que Dijkstra pour les requêtes à une cible",
+    "Réglable : la qualité de l'heuristique contrôle directement efficacité vs optimalité",
+    "Base pour le routage GPS, l'IA de jeux, la robotique, la résolution de puzzles",
+    "Généralise Dijkstra (h\u22610) et Greedy Best-First (g\u22610) dans un même cadre"
+  ],
+  "a-star.details.standard.tradeoffs.cons": [
+    "Nécessite une heuristique spécifique au domaine \u2014 pas toujours évidente à concevoir",
+    "Gourmand en mémoire : stocke ensembles ouvert et fermé plus les pointeurs parents",
+    "Une heuristique non admissible casse l'optimalité (peut trouver un chemin suboptimal)",
+    "Avec une mauvaise heuristique, les performances retombent au niveau de Dijkstra"
+  ],
+  "a-star.details.standard.tradeoffs.whenToUse": "Utilisez A* pour les plus courts chemins source-unique-cible-unique quand une bonne heuristique admissible est disponible. Pour toutes les paires ou sans heuristique, utilisez Dijkstra. Pour les poids négatifs, utilisez Bellman-Ford.",
+
+  "a-star.depRules": [
+    { "name": "Temps", "role": "O((V + E) log V) \u2014 avec tas min" },
+    { "name": "Espace", "role": "O(V) \u2014 ensemble ouvert + fermé + parents" },
+    { "name": "Optimalité", "role": "Oui \u2014 lorsque l'heuristique h(n) est admissible" },
+    { "name": "Complétude", "role": "Oui \u2014 dans les graphes finis à poids non négatifs" },
+    { "name": "Admissibilité", "role": "Requise \u2014 h(n) ne doit jamais surestimer le coût réel" },
+    { "name": "Qualité de l'heuristique", "role": "Meilleure h \u2192 moins d'expansions ; h\u22610 dégénère en Dijkstra" },
+    { "name": "Structure de données", "role": "File de priorité avec clé f = g + h" }
   ]
 }

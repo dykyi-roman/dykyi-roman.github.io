@@ -981,5 +981,73 @@
     { "name": "Negative Gewichte", "role": "Nein — erfordert nicht-negative Kantengewichte" },
     { "name": "Vollständig", "role": "Ja — findet Wege zu allen erreichbaren Knoten" },
     { "name": "Datenstruktur", "role": "Prioritätswarteschlange (Min-Heap)" }
+  ],
+
+  "av.log.heuristic_init": "Heuristiken initialisiert (Ziel={goal})",
+  "av.log.enqueue_a-star": "{node} einreihen (g={g}, h={h}, f={f})",
+  "av.log.dequeue_a-star": "Min-Extrakt {node} (f={f}, g={g}, h={h}): {neighborCount} offene Nachbarn",
+  "av.log.relax_a-star": "Relaxiere {node}: g {oldG}→{newG}, f {oldF}→{newF} über {via}",
+  "av.log.visit_a-star": "{node} geschlossen (g={g}, f={f})",
+  "av.log.goal_reached": "Ziel {node} erreicht mit Kosten {g}",
+  "av.log.path_reconstruct": "Pfad: {path} (Kosten {cost})",
+  "av.log.complete_a-star": "A* abgeschlossen: Pfadkosten {totalCost}, {totalExpanded}/{totalNodes} expandiert",
+  "av.log.complete_a-star_no_path": "A* abgeschlossen: kein Pfad gefunden ({totalExpanded}/{totalNodes} expandiert)",
+
+  "ui.log.type.INIT": "INIT",
+  "ui.log.type.GOAL": "ZIEL",
+  "ui.log.type.PATH": "PFAD",
+
+  "av.legend.a-star_start": "Startknoten",
+  "av.legend.a-star_goal": "Zielknoten",
+  "av.legend.a-star_open": "Offene Menge",
+  "av.legend.a-star_closed": "Geschlossene Menge",
+  "av.legend.a-star_path_node": "Pfadknoten",
+  "av.legend.a-star_path_edge": "Pfadkante",
+
+  "a-star.name": "A*",
+  "a-star.stepLabel": "A* — Standard",
+  "a-star.modes.standard.label": "Standard",
+  "a-star.modes.standard.desc": "A* findet den kostengünstigsten Weg von einem Startknoten zu einem Zielknoten, indem es die Frontier nach f(n) = g(n) + h(n) sortiert: bekannte Kosten vom Start plus heuristische Schätzung zum Ziel. Mit einer zulässigen Heuristik ist A* optimal und expandiert typischerweise weniger Knoten als Dijkstra.",
+
+  "a-star.details.standard.principles": [
+    "g(Start)=0, g(n)=\u221E sonst initialisieren; h(n) für jeden Knoten vorberechnen",
+    "Start mit f(Start) = g(Start) + h(Start) in die offene Menge einfügen",
+    "Knoten mit minimalem f aus der offenen Menge extrahieren",
+    "Ist es das Ziel, den Pfad durch Rückverfolgung der Elternzeiger zum Start rekonstruieren",
+    "Sonst für jeden Nachbarn: tentative_g = g(u) + Gewicht(u,v); wenn besser als g(v), relaxieren und mit neuem f einfügen",
+    "Extrahierten Knoten in die geschlossene Menge verschieben; wiederholen bis Ziel erreicht oder offene Menge leer"
+  ],
+  "a-star.details.standard.concepts": [
+    { "term": "g-Wert", "definition": "Die beste bekannte tatsächliche Kost vom Startknoten zum Knoten n. Wird bei Entdeckung eines günstigeren Pfades aktualisiert (Relaxation)." },
+    { "term": "h-Wert (Heuristik)", "definition": "Schätzung der verbleibenden Kosten von n zum Ziel. Muss zulässig sein (niemals überschätzen), um Optimalität zu wahren." },
+    { "term": "f-Wert", "definition": "f(n) = g(n) + h(n). Prioritätsschlüssel zur Sortierung der offenen Menge: kleineres f bedeutet vielversprechenderer Knoten." },
+    { "term": "Offene Menge (Frontier)", "definition": "Prioritätswarteschlange entdeckter, aber noch nicht expandierter Knoten. Nach f-Wert sortiert." },
+    { "term": "Geschlossene Menge", "definition": "Bereits expandierte Knoten mit finalisiertem g-Wert. Bei konsistenter Heuristik kein erneutes Öffnen nötig." },
+    { "term": "Zulässige Heuristik", "definition": "h(n) \u2264 wahre Kosten von n zum Ziel für jedes n. Garantiert, dass A* einen optimalen Pfad findet." },
+    { "term": "Konsistente (monotone) Heuristik", "definition": "Für jede Kante (u,v): h(u) \u2264 Gewicht(u,v) + h(v). Impliziert Zulässigkeit und erlaubt das Überspringen erneuter Öffnungen." }
+  ],
+  "a-star.details.standard.tradeoffs.pros": [
+    "Optimaler Pfad garantiert bei zulässiger Heuristik",
+    "Expandiert typischerweise weit weniger Knoten als Dijkstra für Ein-Ziel-Anfragen",
+    "Anpassbar: Heuristikqualität steuert direkt Effizienz vs Optimalität",
+    "Grundlage für GPS-Routing, Spiel-KI-Wegfindung, Robotik, Puzzle-Lösung",
+    "Verallgemeinert Dijkstra (h\u22610) und Greedy Best-First (g\u22610) in einem Framework"
+  ],
+  "a-star.details.standard.tradeoffs.cons": [
+    "Benötigt domänenspezifische Heuristik — Entwurf nicht immer offensichtlich",
+    "Speicherintensiv: Offene und geschlossene Menge plus Elternzeiger",
+    "Nicht zulässige Heuristik bricht Optimalität (findet möglicherweise suboptimale Pfade)",
+    "Bei schlechter Heuristik fällt die Performanz auf Dijkstra-Niveau"
+  ],
+  "a-star.details.standard.tradeoffs.whenToUse": "Verwenden Sie A* für Einzelquelle-Einzelziel-Kürzeste-Wege, wenn eine gute zulässige Heuristik verfügbar ist. Für alle Paare oder ohne Heuristik, Dijkstra verwenden. Für negative Gewichte, Bellman-Ford verwenden.",
+
+  "a-star.depRules": [
+    { "name": "Zeit", "role": "O((V + E) log V) — mit Min-Heap" },
+    { "name": "Speicher", "role": "O(V) — offene + geschlossene Menge + Eltern" },
+    { "name": "Optimalität", "role": "Ja — wenn die Heuristik h(n) zulässig ist" },
+    { "name": "Vollständigkeit", "role": "Ja — in endlichen Graphen mit nicht-negativen Gewichten" },
+    { "name": "Zulässigkeit", "role": "Erforderlich — h(n) darf wahre Kosten nie überschätzen" },
+    { "name": "Heuristikqualität", "role": "Bessere h → weniger Expansionen; h\u22610 degeneriert zu Dijkstra" },
+    { "name": "Datenstruktur", "role": "Prioritätswarteschlange mit Schlüssel f = g + h" }
   ]
 }

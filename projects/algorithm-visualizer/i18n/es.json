@@ -981,5 +981,73 @@
     { "name": "Pesos negativos", "role": "No \u2014 requiere pesos no negativos" },
     { "name": "Completo", "role": "Sí \u2014 encuentra caminos a todos los nodos alcanzables" },
     { "name": "Estructura de datos", "role": "Cola de prioridad (min-heap)" }
+  ],
+
+  "av.log.heuristic_init": "Heurísticas inicializadas (objetivo={goal})",
+  "av.log.enqueue_a-star": "Encolar {node} (g={g}, h={h}, f={f})",
+  "av.log.dequeue_a-star": "Extraer-mín {node} (f={f}, g={g}, h={h}): {neighborCount} vecinos abiertos",
+  "av.log.relax_a-star": "Relajar {node}: g {oldG}\u2192{newG}, f {oldF}\u2192{newF} vía {via}",
+  "av.log.visit_a-star": "{node} cerrado (g={g}, f={f})",
+  "av.log.goal_reached": "Objetivo {node} alcanzado con coste {g}",
+  "av.log.path_reconstruct": "Camino: {path} (coste {cost})",
+  "av.log.complete_a-star": "A* completo: coste del camino {totalCost}, {totalExpanded}/{totalNodes} expandidos",
+  "av.log.complete_a-star_no_path": "A* completo: no se encontró camino ({totalExpanded}/{totalNodes} expandidos)",
+
+  "ui.log.type.INIT": "INIT",
+  "ui.log.type.GOAL": "META",
+  "ui.log.type.PATH": "CAMINO",
+
+  "av.legend.a-star_start": "Nodo de inicio",
+  "av.legend.a-star_goal": "Nodo objetivo",
+  "av.legend.a-star_open": "Conjunto abierto",
+  "av.legend.a-star_closed": "Conjunto cerrado",
+  "av.legend.a-star_path_node": "Nodo del camino",
+  "av.legend.a-star_path_edge": "Arista del camino",
+
+  "a-star.name": "A*",
+  "a-star.stepLabel": "A* \u2014 Estándar",
+  "a-star.modes.standard.label": "Estándar",
+  "a-star.modes.standard.desc": "A* encuentra el camino de menor coste de un nodo de inicio a un nodo objetivo ordenando la frontera por f(n) = g(n) + h(n): coste conocido desde el inicio más una estimación heurística hasta el objetivo. Con una heurística admisible, A* es óptimo y normalmente expande menos nodos que Dijkstra.",
+
+  "a-star.details.standard.principles": [
+    "Inicializar g(inicio)=0, g(n)=\u221E en otro caso; precomputar h(n) para cada nodo",
+    "Insertar el inicio en el conjunto abierto con f(inicio) = g(inicio) + h(inicio)",
+    "Extraer el nodo con f mínimo del conjunto abierto",
+    "Si es el objetivo, reconstruir el camino siguiendo punteros padre hasta el inicio",
+    "Si no, para cada vecino: tentativo_g = g(u) + peso(u,v); si mejora g(v), relajar e insertar con nuevo f",
+    "Mover el nodo extraído al conjunto cerrado; repetir hasta alcanzar objetivo o vaciar conjunto abierto"
+  ],
+  "a-star.details.standard.concepts": [
+    { "term": "puntuación g", "definition": "El mejor coste real conocido desde el nodo de inicio hasta el nodo n. Se actualiza al descubrir un camino más barato (relajación)." },
+    { "term": "puntuación h (heurística)", "definition": "Estimación del coste restante de n al objetivo. Debe ser admisible (nunca sobreestimar) para preservar la optimalidad." },
+    { "term": "puntuación f", "definition": "f(n) = g(n) + h(n). Clave de prioridad que ordena el conjunto abierto: menor f significa nodo más prometedor." },
+    { "term": "Conjunto abierto (frontera)", "definition": "Cola de prioridad de nodos descubiertos pero aún no expandidos. Ordenada por puntuación f." },
+    { "term": "Conjunto cerrado", "definition": "Nodos ya expandidos con puntuación g finalizada. Con heurística consistente no requieren reapertura." },
+    { "term": "Heurística admisible", "definition": "h(n) \u2264 coste real de n al objetivo para todo n. Garantiza que A* encuentre un camino óptimo." },
+    { "term": "Heurística consistente (monótona)", "definition": "Para cada arista (u,v): h(u) \u2264 peso(u,v) + h(v). Implica admisibilidad y permite omitir reaperturas." }
+  ],
+  "a-star.details.standard.tradeoffs.pros": [
+    "Camino óptimo garantizado cuando la heurística es admisible",
+    "Normalmente expande muchos menos nodos que Dijkstra para consultas de un solo objetivo",
+    "Ajustable: la calidad de la heurística controla directamente eficiencia vs optimalidad",
+    "Base para enrutamiento GPS, IA de juegos, robótica, resolución de puzles",
+    "Generaliza Dijkstra (h\u22610) y Greedy Best-First (g\u22610) en un mismo marco"
+  ],
+  "a-star.details.standard.tradeoffs.cons": [
+    "Requiere una heurística específica del dominio \u2014 no siempre obvia de diseñar",
+    "Uso intensivo de memoria: almacena conjuntos abierto y cerrado más punteros padre",
+    "Una heurística no admisible rompe la optimalidad (puede encontrar caminos subóptimos)",
+    "Con mala heurística, el rendimiento cae al nivel de Dijkstra"
+  ],
+  "a-star.details.standard.tradeoffs.whenToUse": "Use A* para caminos más cortos origen-único-objetivo-único cuando haya una buena heurística admisible. Para todos los pares o sin heurística, use Dijkstra. Para pesos negativos, use Bellman-Ford.",
+
+  "a-star.depRules": [
+    { "name": "Tiempo", "role": "O((V + E) log V) \u2014 con min-heap" },
+    { "name": "Espacio", "role": "O(V) \u2014 conjunto abierto + cerrado + padres" },
+    { "name": "Optimalidad", "role": "Sí \u2014 cuando la heurística h(n) es admisible" },
+    { "name": "Completitud", "role": "Sí \u2014 en grafos finitos con pesos no negativos" },
+    { "name": "Admisibilidad", "role": "Requerida \u2014 h(n) nunca debe sobreestimar el coste real" },
+    { "name": "Calidad de la heurística", "role": "Mejor h \u2192 menos expansiones; h\u22610 degenera a Dijkstra" },
+    { "name": "Estructura de datos", "role": "Cola de prioridad con clave f = g + h" }
   ]
 }

@@ -129,11 +129,18 @@
                 <h5 class="progress-title"><i class="fas fa-chart-line"></i> World Exploration Progress</h5>
                 <div class="world-progress">
                     <div class="progress-bar">
-                        <div class="progress-fill" id="world-progress-fill"></div>
-                        <span class="progress-text" id="world-progress-text">0%</span>
+                        <div class="progress-fill progress-fill-plan" id="world-progress-plan-fill"></div>
+                        <div class="progress-fill progress-fill-visited" id="world-progress-fill"></div>
+                        <span class="progress-text progress-text-visited" id="world-progress-text">0%</span>
+                        <span class="progress-text progress-text-plan" id="plan-progress-text">0%</span>
+                    </div>
+                    <div class="progress-legend">
+                        <span class="progress-legend-item"><span class="progress-legend-swatch swatch-visited"></span> Visited</span>
+                        <span class="progress-legend-item"><span class="progress-legend-swatch swatch-plan"></span> Wishlist</span>
                     </div>
                     <div class="progress-details">
                         <span id="visited-count">0</span> of <span id="total-world-countries">195</span> countries visited
+                        · <span id="plan-count">0</span> in plan
                     </div>
                 </div>
             </div>

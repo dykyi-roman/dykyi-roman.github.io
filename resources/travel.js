@@ -9,15 +9,29 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Cairo': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/DS9-Zf-CMHU/?img_index=1',
+                        'https://www.instagram.com/p/DTBSN6PDtkH/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Luxor': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/DSz2CvIiBoI/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Edfu': {
+                    instagram: [
+                        'https://www.instagram.com/p/DS2pgBAiHUy/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Aswan': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/DS5rj3TjqY2/?img_index=1',
+                        'https://www.instagram.com/p/DS7m6pwCBX6/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -33,11 +47,15 @@ const countriesData = {
             rating: '⭐⭐⭐⭐⭐',
             highlights: {
                 'Rabat': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/DXKa-bkjvrA/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Casablanca': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/DXH9xQIDuW5/?img_index=1',
+                    ],
                     facebook: []
                 },
                 'Marrakesh': {
@@ -264,7 +282,7 @@ const countriesData = {
                     ],
                     facebook: []
                 },
-                'Vanadzia': {
+                'Vardzia': {
                     instagram: [
                         'https://www.instagram.com/dykyi.roman/p/DLQE-zFIgF_/?img_index=1',
                         'https://www.instagram.com/dykyi.roman/p/DLb_hv6ITvi/?img_index=1',
@@ -1427,51 +1445,121 @@ const countriesData = {
             visitDate: '2025-08',
             duration: 'long term',
             rating: '⭐⭐⭐⭐',
-            highlights: ['Barcelona'],
-            notes: 'Catalonia and Andalusia'
+            highlights: {
+                'Valencia': {
+                    instagram: [
+                        'https://www.instagram.com/p/DPuJCKODlLc/?img_index=1',
+                        'https://www.instagram.com/p/DVVZCrJCHDk/?img_index=1',
+                        'https://www.instagram.com/p/DVnRhhfiMim/?img_index=1',
+                        'https://www.instagram.com/p/DWHV4oyCDHN/?img_index=1',
+                        'https://www.instagram.com/p/DWIy0uLiKy4/?img_index=1',
+                        'https://www.instagram.com/p/DWrmjMKDj84/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Barcelona': {
+                    instagram: [
+                        'https://www.instagram.com/p/DOkkm6HiHX-/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Madrid': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Benidorm': {
+                    instagram: [
+                        'https://www.instagram.com/p/DPeqdiejqGJ/?img_index=1',
+                        'https://www.instagram.com/p/DPg2xKxiCDQ/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Sagunto': {
+                    instagram: [
+                        'https://www.instagram.com/p/DOsSHJnCMhr/?img_index=1',
+                    ],
+                    facebook: []
+                },
+                'Xativa': {
+                    instagram: [
+                        'https://www.instagram.com/p/DQ5A41gDgot/?img_index=1',
+                    ],
+                    facebook: []
+                }
+            },
+            notes: 'Catalonia and Andalusia',
+            instagram: [],
+            facebook: []
         }
     ],
 };
 
 // Wishlist countries - places to visit in the future
 const wishlistCountries = {
+    europe: [
+        {flag: '🇵🇹', name: 'Portugal', wishIcon: '🌟'},
+        {flag: '🇨🇭', name: 'Switzerland', wishIcon: '🌟'},
+        {flag: '🇮🇪', name: 'Ireland', wishIcon: '🌟'},
+        {flag: '🇬🇧', name: 'United Kingdom', wishIcon: '🌟'},
+        {flag: '🇳🇴', name: 'Norway', wishIcon: '🌟'},
+        {flag: '🇮🇸', name: 'Iceland', wishIcon: '🌟'}
+    ],
     africa: [
-        {flag: '🇲🇬', name: 'Madagascar', wishIcon: '🌟'},
+        {flag: '🇿🇦', name: 'South Africa', wishIcon: '🌟'},
         {flag: '🇲🇺', name: 'Mauritius', wishIcon: '🌟'},
-        {flag: '🇹🇿', name: 'Tanzania', wishIcon: '🌟'},
+        {flag: '🇸🇨', name: 'Seychelles', wishIcon: '🌟'},
         {flag: '🇰🇪', name: 'Kenya', wishIcon: '🌟'},
+        {flag: '🇹🇿', name: 'Tanzania', wishIcon: '🌟'},
+        {flag: '🇳🇦', name: 'Namibia', wishIcon: '🌟'},
+        {flag: '🇷🇼', name: 'Rwanda', wishIcon: '🌟'},
+        {flag: '🇲🇬', name: 'Madagascar', wishIcon: '🌟'},
+        {flag: '🇧🇼', name: 'Botswana', wishIcon: '🌟'},
+        {flag: '🇿🇲', name: 'Zambia', wishIcon: '🌟'},
+        {flag: '🇺🇬', name: 'Uganda', wishIcon: '🌟'},
         {flag: '🇪🇹', name: 'Ethiopia', wishIcon: '🌟'},
-        {flag: '🇸🇦', name: 'Socotra', wishIcon: '🌟'}
+        {flag: '🇾🇪', name: 'Socotra', wishIcon: '🌟'}
     ],
     asia: [
         {flag: '🇶🇦', name: 'Qatar', wishIcon: '🌟'},
-        {flag: '🇨🇳', name: 'China', wishIcon: '🌟'},
+        {flag: '🇯🇴', name: 'Jordan', wishIcon: '🌟'},
+        {flag: '🇴🇲', name: 'Oman', wishIcon: '🌟'},
+        {flag: '🇸🇦', name: 'Saudi Arabia', wishIcon: '🌟'},
         {flag: '🇰🇷', name: 'South Korea', wishIcon: '🌟'},
+        {flag: '🇨🇳', name: 'China', wishIcon: '🌟'},
         {flag: '🇾🇪', name: 'Yamen', wishIcon: '🌟'},
     ],
     oceania: [
-        {flag: '🇵🇬', name: 'Papua New Guinea', wishIcon: '🌟'},
+        {flag: '🇵🇫', name: 'French Polynesia', wishIcon: '🌟'},
         {flag: '🇦🇺', name: 'Australia', wishIcon: '🌟'},
-        {flag: '🇳🇿', name: 'New Zealand', wishIcon: '🌟'}
+        {flag: '🇳🇿', name: 'New Zealand', wishIcon: '🌟'},
+        {flag: '🇫🇯', name: 'Fiji', wishIcon: '🌟'},
+        {flag: '🇵🇬', name: 'Papua New Guinea', wishIcon: '🌟'}
     ],
     america: [
-        {flag: '🇨🇦', name: 'Canada', wishIcon: '🌟'},
-        {flag: '🇺🇸', name: 'USA', wishIcon: '🌟'}
+        {flag: '🇺🇸', name: 'USA', wishIcon: '🌟'},
+        {flag: '🇨🇦', name: 'Canada', wishIcon: '🌟'}
     ],
     'latin-america': [
+        {flag: '🇲🇽', name: 'Mexico', wishIcon: '🌟'},
         {flag: '🇧🇷', name: 'Brazil', wishIcon: '🌟'},
         {flag: '🇦🇷', name: 'Argentina', wishIcon: '🌟'},
-        {flag: '🇨🇱', name: 'Chile', wishIcon: '🌟'},
         {flag: '🇨🇴', name: 'Colombia', wishIcon: '🌟'},
-        {flag: '🇻🇪', name: 'Venezuela', wishIcon: '🌟'},
-        {flag: '🇵🇦', name: 'Panama', wishIcon: '🌟'},
-        {flag: '🇲🇽', name: 'Mexico', wishIcon: '🌟'},
-        {flag: '🇬🇹', name: 'Guatemala', wishIcon: '🌟'},
         {flag: '🇵🇪', name: 'Peru', wishIcon: '🌟'},
-        {flag: '🇪🇨', name: 'Ecuador', wishIcon: '🌟'},
-        {flag: '🇧🇴', name: 'Bolivia', wishIcon: '🌟'},
+        {flag: '🇨🇱', name: 'Chile', wishIcon: '🌟'},
         {flag: '🇨🇺', name: 'Cuba', wishIcon: '🌟'},
+        {flag: '🇨🇷', name: 'Costa Rica', wishIcon: '🌟'},
+        {flag: '🇵🇦', name: 'Panama', wishIcon: '🌟'},
+        {flag: '🇺🇾', name: 'Uruguay', wishIcon: '🌟'},
+        {flag: '🇪🇨', name: 'Ecuador', wishIcon: '🌟'},
+        {flag: '🇬🇹', name: 'Guatemala', wishIcon: '🌟'},
         {flag: '🇵🇷', name: 'Puerto Rico', wishIcon: '🌟'},
+        {flag: '🇧🇴', name: 'Bolivia', wishIcon: '🌟'},
+        {flag: '🇵🇾', name: 'Paraguay', wishIcon: '🌟'},
+        {flag: '🇳🇮', name: 'Nicaragua', wishIcon: '🌟'},
+        {flag: '🇭🇳', name: 'Honduras', wishIcon: '🌟'},
+        {flag: '🇯🇲', name: 'Jamaica', wishIcon: '🌟'},
+        {flag: '🇧🇸', name: 'Bahamas', wishIcon: '🌟'},
+        {flag: '🇻🇪', name: 'Venezuela', wishIcon: '🌟'},
     ]
 };
 
@@ -1548,9 +1636,18 @@ function updateCountriesDisplay() {
     const visitedCount = totalCount;
     const totalWorldCountries = 195;
     const progressPercentage = (visitedCount / totalWorldCountries) * 100;
+    const planCount = visitedCount + wishlistCount;
+    const planPercentage = Math.min((planCount / totalWorldCountries) * 100, 100);
     document.getElementById('world-progress-fill').style.width = `${progressPercentage}%`;
-    document.getElementById('world-progress-text').textContent = `${progressPercentage.toFixed(1)}%`;
+    document.getElementById('world-progress-plan-fill').style.width = `${planPercentage}%`;
+    const visitedText = document.getElementById('world-progress-text');
+    const planText = document.getElementById('plan-progress-text');
+    visitedText.textContent = `${progressPercentage.toFixed(1)}%`;
+    visitedText.style.left = `${progressPercentage / 2}%`;
+    planText.textContent = `${planPercentage.toFixed(1)}%`;
+    planText.style.left = `${(progressPercentage + planPercentage) / 2}%`;
     document.getElementById('visited-count').textContent = visitedCount;
+    document.getElementById('plan-count').textContent = planCount;
     document.getElementById('total-world-countries').textContent = totalWorldCountries;
 
     // Add event listeners to country flags after they are created
@@ -1948,6 +2045,10 @@ function initMap() {
         "Spain": [
             {lat: 41.377071, lng: 2.1504022, title: "Barcelona, Home in Barcelona"},
             {lat: 39.4739172, lng: -0.3646948, title: "Valencia, Home in Valencia"},
+            {lat: 40.4167754, lng: -3.7037902, title: "Madrid, Home in Madrid"},
+            {lat: 38.5411153, lng: -0.1225347, title: "Benidorm, Home in Benidorm"},
+            {lat: 39.6766637, lng: -0.2758249, title: "Sagunto"},
+            {lat: 38.9925156, lng: -0.5164745, title: "Xativa"},
         ],
         "Macao": [
             {lat: 22.1903224, lng: 113.543226, title: "Macau, Travel by ship"},
@@ -1989,6 +2090,8 @@ function initMap() {
         "Egypt": [
             {lat: 30.0444196, lng: 31.2357116, title: "Cairo"},
             {lat: 25.687243, lng: 32.639637, title: "Luxor"},
+            {lat: 24.977872, lng: 32.873067, title: "Edfu"},
+            {lat: 24.088938, lng: 32.899830, title: "Aswan"},
         ],
         "Morocco": [
             {lat: 34.01325, lng: -6.83255, title: "Rabat"},
@@ -2003,6 +2106,7 @@ function initMap() {
         ],
         "Tanzania": [
             {lat: -6.792354, lng: 39.208328, title: "Dar es Salaam (Wishlist)", wishlist: true},
+            {lat: -6.1659, lng: 39.2026, title: "Zanzibar (Wishlist)", wishlist: true},
         ],
         "Kenya": [
             {lat: -1.292066, lng: 36.821946, title: "Nairobi (Wishlist)", wishlist: true},
@@ -2072,6 +2176,81 @@ function initMap() {
         ],
         "Puerto Rico": [
             {lat: 18.4655, lng: -66.1057, title: "San Juan (Wishlist)", wishlist: true},
+        ],
+        "Norway": [
+            {lat: 59.9139, lng: 10.7522, title: "Oslo (Wishlist)", wishlist: true},
+        ],
+        "Iceland": [
+            {lat: 64.1466, lng: -21.9426, title: "Reykjavik (Wishlist)", wishlist: true},
+        ],
+        "Ireland": [
+            {lat: 53.3498, lng: -6.2603, title: "Dublin (Wishlist)", wishlist: true},
+        ],
+        "United Kingdom": [
+            {lat: 51.5074, lng: -0.1278, title: "London (Wishlist)", wishlist: true},
+        ],
+        "Saudi Arabia": [
+            {lat: 24.7136, lng: 46.6753, title: "Riyadh (Wishlist)", wishlist: true},
+        ],
+        "Oman": [
+            {lat: 23.5880, lng: 58.3829, title: "Muscat (Wishlist)", wishlist: true},
+        ],
+        "Seychelles": [
+            {lat: -4.6191, lng: 55.4513, title: "Victoria (Wishlist)", wishlist: true},
+        ],
+        "Uganda": [
+            {lat: 0.3476, lng: 32.5825, title: "Kampala (Wishlist)", wishlist: true},
+        ],
+        "Zambia": [
+            {lat: -15.3875, lng: 28.3228, title: "Lusaka (Wishlist)", wishlist: true},
+        ],
+        "Fiji": [
+            {lat: -18.1416, lng: 178.4419, title: "Suva (Wishlist)", wishlist: true},
+        ],
+        "French Polynesia": [
+            {lat: -16.5004, lng: -151.7415, title: "Bora Bora (Wishlist)", wishlist: true},
+        ],
+        "Paraguay": [
+            {lat: -25.2637, lng: -57.5759, title: "Asunción (Wishlist)", wishlist: true},
+        ],
+        "Uruguay": [
+            {lat: -34.9011, lng: -56.1645, title: "Montevideo (Wishlist)", wishlist: true},
+        ],
+        "Honduras": [
+            {lat: 14.0723, lng: -87.1921, title: "Tegucigalpa (Wishlist)", wishlist: true},
+        ],
+        "Nicaragua": [
+            {lat: 12.1150, lng: -86.2362, title: "Managua (Wishlist)", wishlist: true},
+        ],
+        "Switzerland": [
+            {lat: 46.9480, lng: 7.4474, title: "Bern (Wishlist)", wishlist: true},
+        ],
+        "Portugal": [
+            {lat: 38.7223, lng: -9.1393, title: "Lisbon (Wishlist)", wishlist: true},
+        ],
+        "Jordan": [
+            {lat: 30.3285, lng: 35.4444, title: "Petra (Wishlist)", wishlist: true},
+        ],
+        "South Africa": [
+            {lat: -33.9249, lng: 18.4241, title: "Cape Town (Wishlist)", wishlist: true},
+        ],
+        "Namibia": [
+            {lat: -22.5609, lng: 17.0658, title: "Windhoek (Wishlist)", wishlist: true},
+        ],
+        "Rwanda": [
+            {lat: -1.9441, lng: 30.0619, title: "Kigali (Wishlist)", wishlist: true},
+        ],
+        "Botswana": [
+            {lat: -24.6282, lng: 25.9231, title: "Gaborone (Wishlist)", wishlist: true},
+        ],
+        "Costa Rica": [
+            {lat: 9.9281, lng: -84.0907, title: "San José (Wishlist)", wishlist: true},
+        ],
+        "Jamaica": [
+            {lat: 17.9714, lng: -76.7931, title: "Kingston (Wishlist)", wishlist: true},
+        ],
+        "Bahamas": [
+            {lat: 25.0343, lng: -77.3963, title: "Nassau (Wishlist)", wishlist: true},
         ],
     };
 
@@ -2149,6 +2328,31 @@ function initMap() {
         "Bolivia": "wishlist",
         "Cuba": "wishlist",
         "Puerto Rico": "wishlist",
+        "Norway": "wishlist",
+        "Iceland": "wishlist",
+        "Ireland": "wishlist",
+        "United Kingdom": "wishlist",
+        "Saudi Arabia": "wishlist",
+        "Oman": "wishlist",
+        "Seychelles": "wishlist",
+        "Uganda": "wishlist",
+        "Zambia": "wishlist",
+        "Fiji": "wishlist",
+        "French Polynesia": "wishlist",
+        "Paraguay": "wishlist",
+        "Uruguay": "wishlist",
+        "Honduras": "wishlist",
+        "Nicaragua": "wishlist",
+        "Switzerland": "wishlist",
+        "Portugal": "wishlist",
+        "Jordan": "wishlist",
+        "South Africa": "wishlist",
+        "Namibia": "wishlist",
+        "Rwanda": "wishlist",
+        "Botswana": "wishlist",
+        "Costa Rica": "wishlist",
+        "Jamaica": "wishlist",
+        "Bahamas": "wishlist",
     };
 
     // Build continentMapping from countryToContinentMap

@@ -393,6 +393,90 @@ AV._hideAllDistances = function() {
     document.querySelectorAll('.av-dist-label').forEach(function(el) { el.remove(); });
 };
 
+/* ===== Heuristic / F-Score Labels (A*) ===== */
+AV._setNodeHeuristic = function(nodeId, h) {
+    var node = document.querySelector('.av-node[data-node="' + nodeId + '"]');
+    if (!node) return;
+    var circle = node.querySelector('circle:not(.av-visit-order-bg)');
+    if (!circle) return;
+    var cx = parseFloat(circle.getAttribute('cx'));
+    var cy = parseFloat(circle.getAttribute('cy'));
+    var text = (h === Infinity || h === 'Infinity') ? '\u221E' : h;
+    var existing = node.querySelector('.av-h-label');
+    if (existing) {
+        existing.textContent = 'h=' + text;
+        return;
+    }
+    var label = AV._createSVG('text', {
+        x: cx + 32, y: cy - 22,
+        'text-anchor': 'start',
+        'class': 'av-h-label',
+        'font-size': '11'
+    });
+    label.textContent = 'h=' + text;
+    node.appendChild(label);
+};
+
+AV._hideAllHeuristics = function() {
+    document.querySelectorAll('.av-h-label').forEach(function(el) { el.remove(); });
+};
+
+AV._setNodeFScore = function(nodeId, g, h, f) {
+    var node = document.querySelector('.av-node[data-node="' + nodeId + '"]');
+    if (!node) return;
+    var circle = node.querySelector('circle:not(.av-visit-order-bg)');
+    if (!circle) return;
+    var cx = parseFloat(circle.getAttribute('cx'));
+    var cy = parseFloat(circle.getAttribute('cy'));
+    var gText = (g === Infinity || g === 'Infinity') ? '\u221E' : g;
+    var fText = (f === Infinity || f === 'Infinity') ? '\u221E' : f;
+    var existing = node.querySelector('.av-f-label');
+    var content = 'g=' + gText + ' f=' + fText;
+    if (existing) {
+        existing.textContent = content;
+        return;
+    }
+    var label = AV._createSVG('text', {
+        x: cx, y: cy + 44,
+        'text-anchor': 'middle',
+        'class': 'av-f-label',
+        'font-size': '12'
+    });
+    label.textContent = content;
+    node.appendChild(label);
+};
+
+AV._hideAllFScores = function() {
+    document.querySelectorAll('.av-f-label').forEach(function(el) { el.remove(); });
+};
+
+AV._renderPath = async function(edges, pathNodes) {
+    if (!edges) return;
+    for (var i = 0; i < edges.length; i++) {
+        var e = edges[i];
+        AV.highlightEdge(e[0], e[1], 'av-edge-path');
+        await AV.sleep(AV.state.stepDelay * 0.25);
+    }
+    if (pathNodes) {
+        pathNodes.forEach(function(id) {
+            var n = document.querySelector('.av-node[data-node="' + id + '"]');
+            if (n) n.className.baseVal = 'av-node av-node-path';
+        });
+    }
+};
+
+AV._applyPathStatic = function(edges, pathNodes) {
+    if (edges) {
+        edges.forEach(function(e) { AV.highlightEdge(e[0], e[1], 'av-edge-path'); });
+    }
+    if (pathNodes) {
+        pathNodes.forEach(function(id) {
+            var n = document.querySelector('.av-node[data-node="' + id + '"]');
+            if (n) n.className.baseVal = 'av-node av-node-path';
+        });
+    }
+};
+
 AV.clearEdgeHighlights = function() {
     document.querySelectorAll('.av-edge').forEach(function(e) {
         e.setAttribute('class', 'av-edge');
@@ -469,6 +553,13 @@ AV.renderPriorityQueue = function(pq) {
         panel.innerHTML = '<span class="av-queue-label">' + label + '</span><span class="av-queue-empty">' + emptyText + '</span>';
     } else {
         var itemsHtml = pq.map(function(entry) {
+            if (entry.f !== undefined) {
+                var fVal = (entry.f === Infinity || entry.f === 'Infinity') ? '\u221E' : entry.f;
+                var gVal = (entry.g === Infinity || entry.g === 'Infinity') ? '\u221E' : entry.g;
+                var hVal = (entry.h === Infinity || entry.h === 'Infinity') ? '\u221E' : entry.h;
+                return '<span class="av-queue-item av-pq-item">' + entry.node +
+                    '<span class="av-pq-dist">(f=' + fVal + ', g=' + gVal + ', h=' + hVal + ')</span></span>';
+            }
             var d = (entry.dist === Infinity || entry.dist === 'Infinity') ? '\u221E' : entry.dist;
             return '<span class="av-queue-item av-pq-item">' + entry.node + '<span class="av-pq-dist">(' + d + ')</span></span>';
         }).join('');
@@ -893,6 +984,7 @@ AV.setAccentColors = function(algorithmId) {
         'merge-sort': { accent: '#6366F1', bg: '#0d0d30', light: '#15154a' },
         'quick-sort': { accent: '#E11D48', bg: '#1a0d14', light: '#2d1522' },
         'dijkstra': { accent: '#F43F5E', bg: '#1a0d12', light: '#2d1520' },
+        'a-star': { accent: '#10B981', bg: '#0d1a15', light: '#15251d' },
         'interpolation-search': { accent: '#14B8A6', bg: '#0d1a1a', light: '#15282a' },
         'heap-sort': { accent: '#EAB308', bg: '#1a1808', light: '#2d2a10' }
     };
@@ -1144,12 +1236,26 @@ AV.animateFlow = async function(steps, options) {
             AV.log('FOUND', I18N.t('av.log.found', { index: step.index, value: step.value },
                 'Found ' + step.value + ' at index ' + step.index));
             await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'HEURISTIC_INIT') {
+            if (step.heuristics) {
+                Object.keys(step.heuristics).forEach(function(id) {
+                    AV._setNodeHeuristic(id, step.heuristics[id]);
+                });
+            }
+            AV.log('INIT', I18N.t('av.log.heuristic_init', { goal: step.goal }, 'Heuristic initialized (goal=' + step.goal + ')'));
+            await AV.sleep(AV.state.stepDelay * 0.5);
         } else if (step.type === 'ENQUEUE') {
             /* Remove start ring if present */
             var enqNode = document.querySelector('.av-node[data-node="' + step.node + '"]');
             if (enqNode) { var sr = enqNode.querySelector('.av-start-ring'); if (sr) sr.remove(); }
             AV.setNodeState(step.node, 'queued');
-            if (step.pq) {
+            if (step.f !== undefined) {
+                AV.renderPriorityQueue(step.pq);
+                AV._setNodeFScore(step.node, step.g, step.h, step.f);
+                AV.log('ENQUEUE', I18N.t('av.log.enqueue_a-star',
+                    { node: step.node, g: step.g, h: step.h, f: step.f },
+                    'Enqueue ' + step.node + ' (g=' + step.g + ', h=' + step.h + ', f=' + step.f + ')'));
+            } else if (step.pq) {
                 AV.renderPriorityQueue(step.pq);
                 if (step.dist !== undefined) AV._setNodeDistance(step.node, step.dist);
                 AV.log('ENQUEUE', I18N.t('av.log.enqueue_dijkstra', { node: step.node, dist: step.dist === Infinity ? '\u221E' : step.dist }, 'Init ' + step.node + ' dist=' + (step.dist === Infinity ? '\u221E' : step.dist)));
@@ -1169,7 +1275,12 @@ AV.animateFlow = async function(steps, options) {
             AV.setNodeState(step.node, 'visiting');
             AV.state.comparisons++;
             AV.updateStats();
-            if (step.pq) {
+            if (step.f !== undefined) {
+                AV.renderPriorityQueue(step.pq);
+                AV.log('DEQUEUE', I18N.t('av.log.dequeue_a-star',
+                    { node: step.node, g: step.g, h: step.h, f: step.f, neighborCount: step.neighborCount },
+                    'Extract-min ' + step.node + ' (f=' + step.f + ', g=' + step.g + ', h=' + step.h + '): ' + step.neighborCount + ' open neighbors'));
+            } else if (step.pq) {
                 AV.renderPriorityQueue(step.pq);
                 AV.log('DEQUEUE', I18N.t('av.log.dequeue_dijkstra', { node: step.node, dist: step.dist, neighborCount: step.neighborCount }, 'Extract-min ' + step.node + ' (dist=' + step.dist + ')'));
             } else {
@@ -1201,17 +1312,49 @@ AV.animateFlow = async function(steps, options) {
             AV.highlightEdge(step.from, step.to, 'av-edge-traversed');
         } else if (step.type === 'RELAX') {
             AV.setNodeState(step.node, 'queued');
-            AV._setNodeDistance(step.node, step.newDist);
             AV.highlightEdge(step.via, step.node, 'av-edge-relaxed');
             if (step.pq) AV.renderPriorityQueue(step.pq);
-            var oldD = (step.oldDist === Infinity || step.oldDist === 'Infinity') ? '\u221E' : step.oldDist;
-            AV.log('RELAX', I18N.t('av.log.relax', { node: step.node, oldDist: oldD, newDist: step.newDist, via: step.via },
-                'Relax ' + step.node + ': ' + oldD + ' \u2192 ' + step.newDist + ' via ' + step.via));
+            if (step.newG !== undefined && step.hVal !== undefined) {
+                AV._setNodeFScore(step.node, step.newG, step.hVal, step.newF);
+                var oldGText = (step.oldG === Infinity) ? '\u221E' : step.oldG;
+                var oldFText = (step.oldF === Infinity) ? '\u221E' : step.oldF;
+                AV.log('RELAX', I18N.t('av.log.relax_a-star',
+                    { node: step.node, oldG: oldGText, newG: step.newG, oldF: oldFText, newF: step.newF, via: step.via },
+                    'Relax ' + step.node + ': g ' + oldGText + '\u2192' + step.newG + ', f ' + oldFText + '\u2192' + step.newF + ' via ' + step.via));
+            } else {
+                AV._setNodeDistance(step.node, step.newDist);
+                var oldD = (step.oldDist === Infinity || step.oldDist === 'Infinity') ? '\u221E' : step.oldDist;
+                AV.log('RELAX', I18N.t('av.log.relax', { node: step.node, oldDist: oldD, newDist: step.newDist, via: step.via },
+                    'Relax ' + step.node + ': ' + oldD + ' \u2192 ' + step.newDist + ' via ' + step.via));
+            }
             await AV.sleep(AV.state.stepDelay * 0.7);
             AV.highlightEdge(step.via, step.node, 'av-edge-traversed');
+        } else if (step.type === 'GOAL_REACHED') {
+            var goalEl = document.querySelector('.av-node[data-node="' + step.node + '"]');
+            if (goalEl) {
+                var gr = goalEl.querySelector('.av-goal-ring');
+                if (gr) gr.setAttribute('class', 'av-goal-ring av-goal-ring-reached');
+            }
+            AV.log('GOAL', I18N.t('av.log.goal_reached', { node: step.node, g: step.g },
+                'Goal ' + step.node + ' reached with cost ' + step.g));
+            await AV.sleep(AV.state.stepDelay * 0.7);
+        } else if (step.type === 'PATH_RECONSTRUCT') {
+            AV.state._aStarPathEdges = step.edges;
+            AV.state._aStarPathNodes = step.path;
+            await AV._renderPath(step.edges, step.path);
+            AV.log('PATH', I18N.t('av.log.path_reconstruct',
+                { path: step.path.join(' \u2192 '), cost: step.totalCost },
+                'Path: ' + step.path.join(' \u2192 ') + ' (cost ' + step.totalCost + ')'));
+            await AV.sleep(AV.state.stepDelay * 0.5);
         } else if (step.type === 'VISIT') {
             AV.setNodeState(step.node, 'visited');
-            if (step.pq) {
+            if (step.f !== undefined) {
+                AV.renderPriorityQueue(step.pq);
+                AV.state._visitOrderCounter++;
+                AV._showVisitOrder(step.node, AV.state._visitOrderCounter);
+                AV.log('VISIT', I18N.t('av.log.visit_a-star', { node: step.node, g: step.g, h: step.h, f: step.f },
+                    step.node + ' closed (g=' + step.g + ', f=' + step.f + ')'));
+            } else if (step.pq) {
                 AV.renderPriorityQueue(step.pq);
                 AV.state._visitOrderCounter++;
                 AV._showVisitOrder(step.node, AV.state._visitOrderCounter);
@@ -1241,6 +1384,17 @@ AV.animateFlow = async function(steps, options) {
             } else if (step.isDijkstra) {
                 AV.renderPriorityQueue([]);
                 AV.log('COMPLETE', I18N.t('av.log.complete_dijkstra', { totalVisited: step.totalVisited, totalNodes: step.totalNodes }, 'Dijkstra complete: ' + step.totalVisited + '/' + step.totalNodes + ' nodes'));
+            } else if (step.isAStar) {
+                AV.renderPriorityQueue([]);
+                if (step.pathFound) {
+                    AV.log('COMPLETE', I18N.t('av.log.complete_a-star',
+                        { totalExpanded: step.totalExpanded, totalNodes: step.totalNodes, totalCost: step.totalCost },
+                        'A* complete: path cost ' + step.totalCost + ', ' + step.totalExpanded + '/' + step.totalNodes + ' expanded'));
+                } else {
+                    AV.log('COMPLETE', I18N.t('av.log.complete_a-star_no_path',
+                        { totalExpanded: step.totalExpanded, totalNodes: step.totalNodes },
+                        'A* complete: no path found (' + step.totalExpanded + '/' + step.totalNodes + ' expanded)'));
+                }
             } else if (step.maxDepth !== undefined) {
                 AV.renderStack([]);
                 AV.log('COMPLETE', I18N.t('av.log.complete_dfs', { totalVisited: step.totalVisited, totalNodes: step.totalNodes, maxDepth: step.maxDepth }, 'DFS complete'));
@@ -1624,13 +1778,25 @@ AV._computeGraphSnapshots = function(steps) {
     var visitOrder = {};
     var visitCounter = 0;
     var distances = {};
-    var snapshots = [{ nodeStates: {}, queue: [], edgeStates: {}, visitOrder: {}, distances: {} }];
+    var heuristics = {};
+    var fScores = {};
+    var pathEdges = null;
+    var pathNodes = null;
+    var goalReached = false;
+    var snapshots = [{ nodeStates: {}, queue: [], edgeStates: {}, visitOrder: {}, distances: {}, heuristics: {}, fScores: {}, pathEdges: null, pathNodes: null, goalReached: false }];
 
     for (var i = 0; i < steps.length; i++) {
         var step = steps[i];
-        if (step.type === 'ENQUEUE') {
+        if (step.type === 'HEURISTIC_INIT') {
+            if (step.heuristics) {
+                Object.keys(step.heuristics).forEach(function(k) { heuristics[k] = step.heuristics[k]; });
+            }
+        } else if (step.type === 'ENQUEUE') {
             nodeStates[step.node] = 'queued';
-            if (step.pq) {
+            if (step.f !== undefined) {
+                queue = step.pq.slice();
+                fScores[step.node] = { g: step.g, h: step.h, f: step.f };
+            } else if (step.pq) {
                 queue = step.pq.slice();
                 if (step.dist !== undefined) distances[step.node] = step.dist;
             } else {
@@ -1650,10 +1816,21 @@ AV._computeGraphSnapshots = function(steps) {
             edgeStates[eKey] = 'traversed';
         } else if (step.type === 'RELAX') {
             nodeStates[step.node] = 'queued';
+            if (step.newG !== undefined) {
+                fScores[step.node] = { g: step.newG, h: step.hVal, f: step.newF };
+            }
             if (step.distances) {
                 Object.keys(step.distances).forEach(function(k) { distances[k] = step.distances[k]; });
             }
             if (step.pq) queue = step.pq.slice();
+        } else if (step.type === 'GOAL_REACHED') {
+            goalReached = true;
+        } else if (step.type === 'PATH_RECONSTRUCT') {
+            pathEdges = step.edges ? step.edges.slice() : null;
+            pathNodes = step.path ? step.path.slice() : null;
+            if (pathNodes) {
+                pathNodes.forEach(function(id) { nodeStates[id] = 'path'; });
+            }
         } else if (step.type === 'VISIT') {
             nodeStates[step.node] = 'visited';
             if (step.pq) {
@@ -1706,7 +1883,17 @@ AV._computeGraphSnapshots = function(steps) {
         Object.keys(visitOrder).forEach(function(k) { vo[k] = visitOrder[k]; });
         var dc = {};
         Object.keys(distances).forEach(function(k) { dc[k] = distances[k]; });
-        snapshots.push({ nodeStates: ns, queue: queue.slice(), edgeStates: es, visitOrder: vo, distances: dc });
+        var hs = {};
+        Object.keys(heuristics).forEach(function(k) { hs[k] = heuristics[k]; });
+        var fs = {};
+        Object.keys(fScores).forEach(function(k) { fs[k] = { g: fScores[k].g, h: fScores[k].h, f: fScores[k].f }; });
+        snapshots.push({
+            nodeStates: ns, queue: queue.slice(), edgeStates: es, visitOrder: vo, distances: dc,
+            heuristics: hs, fScores: fs,
+            pathEdges: pathEdges ? pathEdges.slice() : null,
+            pathNodes: pathNodes ? pathNodes.slice() : null,
+            goalReached: goalReached
+        });
     }
     return snapshots;
 };
@@ -1743,7 +1930,7 @@ AV._applyGraphSnapshot = function(snapshot) {
     });
     /* Apply queue/stack (graph algorithms) */
     if (!isTree && !isDP) {
-        if (AV.state.algorithm === 'dijkstra') {
+        if (AV.state.algorithm === 'dijkstra' || AV.state.algorithm === 'a-star') {
             AV.renderPriorityQueue(snapshot.queue);
         } else if (AV.state.algorithm === 'dfs') {
             AV.renderStack(snapshot.queue);
@@ -1765,8 +1952,24 @@ AV._applyGraphSnapshot = function(snapshot) {
             AV._setNodeDistance(id, snapshot.distances[id]);
         });
     }
-    /* Remove all start rings — they are transient decorations */
+    /* Apply heuristic labels (A*) */
+    AV._hideAllHeuristics();
+    if (snapshot.heuristics && Object.keys(snapshot.heuristics).length > 0) {
+        Object.keys(snapshot.heuristics).forEach(function(id) {
+            AV._setNodeHeuristic(id, snapshot.heuristics[id]);
+        });
+    }
+    /* Apply f-score labels (A*) */
+    AV._hideAllFScores();
+    if (snapshot.fScores && Object.keys(snapshot.fScores).length > 0) {
+        Object.keys(snapshot.fScores).forEach(function(id) {
+            var e = snapshot.fScores[id];
+            AV._setNodeFScore(id, e.g, e.h, e.f);
+        });
+    }
+    /* Remove all start/goal rings — they are transient decorations */
     document.querySelectorAll('.av-start-ring').forEach(function(r) { r.remove(); });
+    document.querySelectorAll('.av-goal-ring').forEach(function(r) { r.remove(); });
     /* Re-apply start marker if node A has no state (initial graph state) */
     if (!isTree && !snapshot.nodeStates['A']) {
         if (AV.state.algorithm === 'bfs' && AV['bfs']) {
@@ -1775,7 +1978,30 @@ AV._applyGraphSnapshot = function(snapshot) {
             AV['dfs']._markStartNode('A');
         } else if (AV.state.algorithm === 'dijkstra' && AV['dijkstra']) {
             AV['dijkstra']._markStartNode('A');
+        } else if (AV.state.algorithm === 'a-star' && AV['a-star']) {
+            AV['a-star']._markStartNode('A');
         }
+    }
+    /* Re-apply goal marker ring for A* (ring is independent of node state) */
+    if (AV.state.algorithm === 'a-star' && AV['a-star'] && AV['a-star']._graph) {
+        var goalId = AV['a-star']._graph.goal;
+        var goalNode = document.querySelector('.av-node[data-node="' + goalId + '"]');
+        if (goalNode) {
+            var circle = goalNode.querySelector('circle:not(.av-visit-order-bg)');
+            if (circle) {
+                var cx = circle.getAttribute('cx');
+                var cy = circle.getAttribute('cy');
+                var ring = AV._createSVG('circle', {
+                    cx: cx, cy: cy, r: 32,
+                    'class': snapshot.goalReached ? 'av-goal-ring av-goal-ring-reached' : 'av-goal-ring'
+                });
+                goalNode.insertBefore(ring, goalNode.firstChild);
+            }
+        }
+    }
+    /* Re-apply path highlight (A*) */
+    if (snapshot.pathEdges && snapshot.pathEdges.length > 0) {
+        AV._applyPathStatic(snapshot.pathEdges, snapshot.pathNodes);
     }
 };
 

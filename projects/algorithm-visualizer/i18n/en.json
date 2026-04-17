@@ -1034,5 +1034,73 @@
     { "name": "Negative Weights", "role": "No \u2014 requires non-negative edge weights" },
     { "name": "Complete", "role": "Yes \u2014 finds paths to all reachable nodes" },
     { "name": "Data Structure", "role": "Priority Queue (min-heap)" }
+  ],
+
+  "av.log.heuristic_init": "Heuristics initialized (goal={goal})",
+  "av.log.enqueue_a-star": "Enqueue {node} (g={g}, h={h}, f={f})",
+  "av.log.dequeue_a-star": "Extract-min {node} (f={f}, g={g}, h={h}): {neighborCount} open neighbors",
+  "av.log.relax_a-star": "Relax {node}: g {oldG}\u2192{newG}, f {oldF}\u2192{newF} via {via}",
+  "av.log.visit_a-star": "{node} closed (g={g}, f={f})",
+  "av.log.goal_reached": "Goal {node} reached with cost {g}",
+  "av.log.path_reconstruct": "Path: {path} (cost {cost})",
+  "av.log.complete_a-star": "A* complete: path cost {totalCost}, {totalExpanded}/{totalNodes} expanded",
+  "av.log.complete_a-star_no_path": "A* complete: no path found ({totalExpanded}/{totalNodes} expanded)",
+
+  "ui.log.type.INIT": "INIT",
+  "ui.log.type.GOAL": "GOAL",
+  "ui.log.type.PATH": "PATH",
+
+  "av.legend.a-star_start": "Start Node",
+  "av.legend.a-star_goal": "Goal Node",
+  "av.legend.a-star_open": "Open Set",
+  "av.legend.a-star_closed": "Closed Set",
+  "av.legend.a-star_path_node": "Path Node",
+  "av.legend.a-star_path_edge": "Path Edge",
+
+  "a-star.name": "A*",
+  "a-star.stepLabel": "A* \u2014 Standard",
+  "a-star.modes.standard.label": "Standard",
+  "a-star.modes.standard.desc": "A* finds the lowest-cost path from a start node to a goal node by ordering the frontier by f(n) = g(n) + h(n): the known cost from start plus a heuristic estimate to the goal. With an admissible heuristic, A* is optimal and typically expands fewer nodes than Dijkstra.",
+
+  "a-star.details.standard.principles": [
+    "Initialize g(start)=0, g(n)=\u221E otherwise; precompute h(n) for every node",
+    "Push start into the open set with f(start) = g(start) + h(start)",
+    "Extract the node with minimum f from the open set",
+    "If it is the goal, reconstruct the path by walking parent pointers back to start",
+    "Otherwise for each neighbor: tentative_g = g(u) + weight(u,v); if better than g(v), relax and push with new f",
+    "Move the extracted node into the closed set; repeat until goal is reached or open set is empty"
+  ],
+  "a-star.details.standard.concepts": [
+    { "term": "g-score", "definition": "The best known actual cost from the start node to node n. Updated whenever a cheaper path is discovered (relaxation)." },
+    { "term": "h-score (heuristic)", "definition": "An estimate of the remaining cost from n to the goal. Must be admissible (never overestimate) to preserve optimality." },
+    { "term": "f-score", "definition": "f(n) = g(n) + h(n). The priority key used to order the open set: smaller f means more promising node." },
+    { "term": "Open Set (Frontier)", "definition": "Priority queue of discovered nodes that have not yet been expanded. Ordered by f-score." },
+    { "term": "Closed Set", "definition": "Nodes already expanded with a finalized g-score. With a consistent heuristic, they do not need re-opening." },
+    { "term": "Admissible Heuristic", "definition": "h(n) \u2264 true cost from n to the goal for every n. Guarantees A* finds an optimal path." },
+    { "term": "Consistent (Monotone) Heuristic", "definition": "For every edge (u,v): h(u) \u2264 weight(u,v) + h(v). Implies admissibility and allows skipping re-opens." }
+  ],
+  "a-star.details.standard.tradeoffs.pros": [
+    "Optimal path guaranteed when the heuristic is admissible",
+    "Typically expands far fewer nodes than Dijkstra for single-target queries",
+    "Tunable: heuristic quality directly controls efficiency vs optimality",
+    "Basis for GPS routing, game AI pathfinding, robotics, puzzle solving",
+    "Generalizes Dijkstra (h\u22610) and Greedy Best-First (g\u22610) in one framework"
+  ],
+  "a-star.details.standard.tradeoffs.cons": [
+    "Requires a domain-specific heuristic \u2014 not always obvious how to design",
+    "Memory-heavy: stores both open and closed sets plus parent pointers",
+    "A non-admissible heuristic breaks optimality (may find suboptimal paths)",
+    "With a poor heuristic, performance collapses toward Dijkstra"
+  ],
+  "a-star.details.standard.tradeoffs.whenToUse": "Use A* for single-source-single-target shortest paths when a good admissible heuristic is available. For all-pairs or no heuristic, use Dijkstra. For negative weights, use Bellman-Ford.",
+
+  "a-star.depRules": [
+    { "name": "Time", "role": "O((V + E) log V) \u2014 with min-heap priority queue" },
+    { "name": "Space", "role": "O(V) \u2014 open set + closed set + parents" },
+    { "name": "Optimality", "role": "Yes \u2014 when the heuristic h(n) is admissible" },
+    { "name": "Completeness", "role": "Yes \u2014 in finite graphs with non-negative weights" },
+    { "name": "Admissibility", "role": "Required \u2014 h(n) must never overestimate true cost" },
+    { "name": "Heuristic Quality", "role": "Better h \u2192 fewer expansions; h\u22610 degrades to Dijkstra" },
+    { "name": "Data Structure", "role": "Priority Queue keyed by f = g + h" }
   ]
 }

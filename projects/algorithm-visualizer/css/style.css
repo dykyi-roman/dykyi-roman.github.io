@@ -76,6 +76,10 @@
     --dijkstra-bg: #1a0d12;
     --dijkstra-light: #2d1520;
 
+    --a-star-color: #10B981;
+    --a-star-bg: #0d1a15;
+    --a-star-light: #15251d;
+
     --bst-color: #F59E0B;
     --bst-bg: #1a1508;
     --bst-light: #2d2210;
@@ -266,6 +270,12 @@
     background: var(--dijkstra-bg);
     border-color: var(--dijkstra-color);
     color: var(--dijkstra-color);
+}
+
+.av-tab.active[data-algorithm="a-star"] {
+    background: var(--a-star-bg);
+    border-color: var(--a-star-color);
+    color: var(--a-star-color);
 }
 
 .av-tab.active[data-algorithm="bst-operations"] {
@@ -2151,4 +2161,99 @@
         gap: 10px;
         font-size: 11px;
     }
+}
+
+/* ===== A* (A-star) Pathfinding ===== */
+.av-h-label {
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    fill: #9CA3AF;
+    pointer-events: none;
+}
+
+.av-f-label {
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    fill: var(--av-accent, #10B981);
+    pointer-events: none;
+    transition: fill 0.3s ease;
+}
+
+.av-edge-path {
+    stroke: var(--a-star-color);
+    stroke-width: 4;
+    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.7));
+}
+
+.av-node-path circle {
+    fill: var(--a-star-color);
+    stroke: #34D399;
+    stroke-width: 3;
+    filter: drop-shadow(0 0 6px rgba(16, 185, 129, 0.7));
+}
+
+.av-node-path text {
+    fill: #fff;
+    font-weight: 700;
+}
+
+@keyframes av-goal-pulse {
+    0%, 100% { stroke-opacity: 1; r: 32; }
+    50% { stroke-opacity: 0.5; r: 36; }
+}
+
+.av-goal-ring {
+    fill: none;
+    stroke: var(--a-star-color);
+    stroke-width: 2;
+    stroke-dasharray: 5 3;
+    animation: av-goal-pulse 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.av-goal-ring-reached {
+    fill: none;
+    stroke: var(--a-star-color);
+    stroke-width: 3;
+    stroke-dasharray: none;
+    filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.9));
+    animation: none;
+    pointer-events: none;
+}
+
+.av-node-goal circle {
+    fill: var(--av-node-unvisited);
+    stroke: var(--a-star-color);
+    stroke-width: 3;
+}
+
+.av-node-goal text {
+    fill: var(--a-star-color);
+    font-weight: 700;
+}
+
+.av-legend-node-goal {
+    background: transparent;
+    border: 2px dashed var(--a-star-color);
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+}
+
+.av-legend-node-path {
+    background: var(--a-star-color);
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
+}
+
+.av-legend-edge-path {
+    background: var(--a-star-color);
+    width: 16px;
+    height: 3px;
+    border-radius: 2px;
+    box-shadow: 0 0 6px rgba(16, 185, 129, 0.7);
 }
