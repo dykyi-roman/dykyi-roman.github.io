@@ -273,6 +273,105 @@
   "av.log.heap_swap": "Tamisage : \u00e9changer arr[{parent}]={pVal} \u2194 arr[{child}]={cVal}",
   "av.log.heap_extract": "Extraire maximum : \u00e9changer arr[{i}]={root} \u2194 arr[{j}]={last}",
 
+  "counting-sort.name": "Tri par comptage",
+  "counting-sort.stepLabel": "Tri par comptage \u2014 Standard",
+  "counting-sort.modes.standard.label": "Standard",
+  "counting-sort.modes.standard.desc": "Compte les occurrences de chaque valeur, calcule une somme cumulative (pr\u00e9fixe), puis place chaque \u00e9l\u00e9ment \u00e0 sa position finale \u2014 O(n+k), sans comparaisons et stable.",
+  "counting-sort.details.standard.principles": [
+    "Identifier la plage de valeurs k dans l'entr\u00e9e (par exemple, 1..9)",
+    "Phase 1 \u2014 Compter : parcourir l'entr\u00e9e ; incr\u00e9menter count[value] pour chaque \u00e9l\u00e9ment",
+    "Phase 2 \u2014 Somme cumulative : convertir count[] en sommes pr\u00e9fixes de sorte que count[v] soit la derni\u00e8re position de sortie de v",
+    "Phase 3 \u2014 Placer : parcourir l'entr\u00e9e de droite \u00e0 gauche ; pour chaque \u00e9l\u00e9ment v, le placer \u00e0 output[count[v]-1] et d\u00e9cr\u00e9menter count[v]",
+    "Le parcours de droite \u00e0 gauche est essentiel pour la stabilit\u00e9 \u2014 les cl\u00e9s \u00e9gales conservent leur ordre relatif d'origine"
+  ],
+  "counting-sort.details.standard.concepts": [
+    { "term": "Tableau de comptage", "definition": "Tableau auxiliaire de taille k+1 qui enregistre la fr\u00e9quence de chaque valeur distincte. Apr\u00e8s la phase de comptage, count[v] = nombre d'occurrences de v." },
+    { "term": "Somme cumulative (pr\u00e9fixe)", "definition": "Transforme count[] de sorte que count[v] soit \u00e9gal au nombre d'\u00e9l\u00e9ments inf\u00e9rieurs ou \u00e9gaux \u00e0 v. Cela donne la position (apr\u00e8s la derni\u00e8re) en sortie pour chaque valeur." },
+    { "term": "Placement stable", "definition": "Parcourir l'entr\u00e9e de droite \u00e0 gauche et d\u00e9cr\u00e9menter count[v] apr\u00e8s chaque placement garantit que les cl\u00e9s \u00e9gales conservent leur ordre \u2014 condition pr\u00e9alable pour utiliser Counting Sort dans Radix Sort." },
+    { "term": "Tri sans comparaison", "definition": "Aucune comparaison entre \u00e9l\u00e9ments \u2014 Counting Sort utilise la valeur comme indice, contournant la borne inf\u00e9rieure \u03A9(n log n) des tris par comparaison." }
+  ],
+  "counting-sort.details.standard.tradeoffs.pros": [
+    "Temps O(n + k) \u2014 lin\u00e9aire lorsque k est born\u00e9",
+    "Tri stable \u2014 pr\u00e9serve l'ordre relatif des cl\u00e9s \u00e9gales",
+    "Simple \u00e0 impl\u00e9menter \u2014 trois phases claires",
+    "Sert de tri interne stable dans Radix Sort",
+    "Pr\u00e9visible : performances ind\u00e9pendantes de l'ordre de l'entr\u00e9e"
+  ],
+  "counting-sort.details.standard.tradeoffs.cons": [
+    "Ne fonctionne qu'avec des cl\u00e9s enti\u00e8res (ou mappables sur des entiers)",
+    "Espace suppl\u00e9mentaire O(k) \u2014 peu pratique si k \u226B n",
+    "Non in-place \u2014 n\u00e9cessite un tableau de sortie s\u00e9par\u00e9",
+    "Inutile pour les donn\u00e9es comparables g\u00e9n\u00e9rales (cha\u00eenes, objets sans cl\u00e9 d'indexation)"
+  ],
+  "counting-sort.details.standard.tradeoffs.whenToUse": "Utilisez Counting Sort lorsque les cl\u00e9s sont de petits entiers dans une plage born\u00e9e (k = O(n)), lorsque la stabilit\u00e9 est requise, ou comme tri interne dans Radix Sort. \u00c9vitez-le lorsque la plage de valeurs k est beaucoup plus grande que la taille n de l'entr\u00e9e.",
+  "counting-sort.depRules": [
+    { "name": "Temps (Meilleur/Moyen/Pire)", "role": "O(n + k) \u2014 lin\u00e9aire en taille d'entr\u00e9e et plage de valeurs" },
+    { "name": "Espace", "role": "O(n + k) \u2014 tableau de comptage + tableau de sortie" },
+    { "name": "Stable", "role": "Oui \u2014 placement de droite \u00e0 gauche pr\u00e9serve l'ordre" },
+    { "name": "Adaptatif", "role": "Non \u2014 toujours O(n+k) quel que soit l'ordre" },
+    { "name": "Contrainte d'entr\u00e9e", "role": "Cl\u00e9s enti\u00e8res dans une plage born\u00e9e k" },
+    { "name": "In-Place", "role": "Non \u2014 tableaux auxiliaires requis" }
+  ],
+
+  "radix-sort.name": "Tri par base",
+  "radix-sort.stepLabel": "Tri par base \u2014 LSD",
+  "radix-sort.modes.lsd.label": "LSD",
+  "radix-sort.modes.lsd.desc": "Tri par base LSD (chiffre de poids faible) : effectue un tri de distribution stable par chaque chiffre, en commen\u00e7ant par les unit\u00e9s. Apr\u00e8s d passes (d = nombre de chiffres du maximum), le tableau est enti\u00e8rement tri\u00e9.",
+  "radix-sort.details.lsd.principles": [
+    "D\u00e9terminer d \u2014 le nombre de chiffres de la plus grande valeur (pour max 999 : d = 3)",
+    "Pour chaque position de chiffre, du poids faible au poids fort : effectuer un tri de distribution stable par ce chiffre",
+    "Distribuer : parcourir le tableau de gauche \u00e0 droite ; placer chaque \u00e9l\u00e9ment dans bucket[digit] selon le chiffre courant",
+    "Collecter : concat\u00e9ner les buckets 0..9 dans le tableau dans l'ordre",
+    "Apr\u00e8s les d passes, le tableau est enti\u00e8rement tri\u00e9 \u2014 la stabilit\u00e9 de chaque passe assure la correction"
+  ],
+  "radix-sort.details.lsd.concepts": [
+    { "term": "LSD (Least Significant Digit)", "definition": "Le chiffre de droite est trait\u00e9 en premier, puis les dizaines, les centaines, etc. Cet ordre combin\u00e9 \u00e0 un tri interne stable garantit un tableau tri\u00e9 apr\u00e8s d passes." },
+    { "term": "Tri interne stable", "definition": "Chaque passe par chiffre doit \u00eatre stable \u2014 les \u00e9l\u00e9ments avec le m\u00eame chiffre courant conservent leur ordre relatif de la passe pr\u00e9c\u00e9dente. Sans stabilit\u00e9, l'information des chiffres pr\u00e9c\u00e9dents serait perdue." },
+    { "term": "Buckets (corbeilles)", "definition": "Base b (g\u00e9n\u00e9ralement 10) de conteneurs auxiliaires. Chaque passe distribue les \u00e9l\u00e9ments dans les buckets par le chiffre courant, puis les collecte." },
+    { "term": "Extraction de chiffre", "definition": "Pour valeur v et position p (0 = unit\u00e9s) : digit = floor(v / 10^p) mod 10. Cette formule s\u00e9lectionne le chiffre courant \u00e0 chaque passe." }
+  ],
+  "radix-sort.details.lsd.tradeoffs.pros": [
+    "Temps O(d \u00B7 n) \u2014 lin\u00e9aire lorsque d est une petite constante",
+    "Plus rapide que les tris par comparaison O(n log n) pour des cl\u00e9s enti\u00e8res \u00e0 largeur fixe",
+    "Stable \u2014 pr\u00e9serve l'ordre relatif des cl\u00e9s \u00e9gales",
+    "Parall\u00e9lisable \u2014 chaque bucket peut \u00eatre trait\u00e9 ind\u00e9pendamment",
+    "Excellent pour le tri de grands ensembles d'entiers ou de cha\u00eenes \u00e0 longueur fixe"
+  ],
+  "radix-sort.details.lsd.tradeoffs.cons": [
+    "Ne fonctionne qu'avec des cl\u00e9s enti\u00e8res ou \u00e0 largeur fixe \u2014 pas pour des donn\u00e9es comparables g\u00e9n\u00e9rales",
+    "N\u00e9cessite O(n + b) de m\u00e9moire suppl\u00e9mentaire pour les buckets et la sortie",
+    "d passes sur les donn\u00e9es \u2014 nombreux d\u00e9fauts de cache pour grand n",
+    "Plus difficile \u00e0 impl\u00e9menter que quicksort ; le choix de la base affecte les performances"
+  ],
+  "radix-sort.details.lsd.tradeoffs.whenToUse": "Utilisez Radix Sort pour de grands tableaux d'entiers \u00e0 largeur born\u00e9e, pour des cha\u00eenes \u00e0 longueur fixe, ou lorsque la stabilit\u00e9 est requise et que les cl\u00e9s correspondent \u00e0 un mod\u00e8le \u00e0 chiffres. \u00c9vitez pour des cl\u00e9s v\u00e9ritablement de longueur variable.",
+  "radix-sort.depRules": [
+    { "name": "Temps", "role": "O(d \u00B7 (n + b)) \u2014 d passes sur n \u00e9l\u00e9ments, base b" },
+    { "name": "Espace", "role": "O(n + b) \u2014 buckets + tableau de sortie" },
+    { "name": "Stable", "role": "Oui \u2014 requis pour l'exactitude de LSD" },
+    { "name": "Adaptatif", "role": "Non \u2014 toujours d passes" },
+    { "name": "Contrainte d'entr\u00e9e", "role": "Entiers non n\u00e9gatifs (ou cl\u00e9s \u00e0 largeur fixe)" },
+    { "name": "In-Place", "role": "Non \u2014 buckets et sortie auxiliaires requis" }
+  ],
+
+  "av.legend.cs_reading": "Lecture",
+  "av.legend.cs_count_active": "Cellule de comptage",
+  "av.legend.rs_distributing": "Distribution",
+  "av.legend.rs_bucket_active": "Bucket actif",
+
+  "av.cs.count_label": "count[ ]",
+  "av.rs.buckets_label": "buckets[0..9]",
+  "av.rs.place_ones": "unit\u00e9s",
+  "av.rs.place_tens": "dizaines",
+  "av.rs.place_hundreds": "centaines",
+  "av.rs.place_thousands": "milliers",
+
+  "av.log.cs_count_incr": "Lire arr[{idx}]={val}, count[{countIdx}]\u2192{count}",
+  "av.log.cs_cumulative": "count[{idx}] = {old} + count[{prev}] = {neu}",
+  "av.log.cs_place": "Placer {val} \u00e0 output[{out}], count[{countIdx}]\u2192{cnt}",
+  "av.log.rs_digit_pass": "Passe {pass}/{total} : tri par chiffre des {place}",
+  "av.log.rs_bucket_add": "arr[{idx}]={val} \u2192 bucket[{digit}]",
+  "av.log.rs_bucket_collect": "bucket[{bucket}] \u2192 arr[{out}]={val}",
+
   "av.legend.scanning": "Analyse",
   "av.legend.examined": "Examin\u00e9",
   "av.legend.found": "Trouv\u00e9",

@@ -131,6 +131,14 @@
     --heap-sort-bg: #1a1808;
     --heap-sort-light: #2d2a10;
 
+    --counting-sort-color: #8B5CF6;
+    --counting-sort-bg: #1a0f2e;
+    --counting-sort-light: #2a1944;
+
+    --radix-sort-color: #14B8A6;
+    --radix-sort-bg: #062b29;
+    --radix-sort-light: #0d4442;
+
     --av-hash-empty: #374151;
     --av-hash-occupied: #3B82F6;
     --av-hash-checking: #FBBF24;
@@ -297,6 +305,16 @@
     background: var(--heap-sort-bg);
     border-color: var(--heap-sort-color);
     color: var(--heap-sort-color);
+}
+.av-tab.active[data-algorithm="counting-sort"] {
+    background: var(--counting-sort-bg);
+    border-color: var(--counting-sort-color);
+    color: var(--counting-sort-color);
+}
+.av-tab.active[data-algorithm="radix-sort"] {
+    background: var(--radix-sort-bg);
+    border-color: var(--radix-sort-color);
+    color: var(--radix-sort-color);
 }
 
 .av-tab.disabled {
@@ -832,6 +850,140 @@
 .av-legend-scanning { background: var(--av-bar-comparing); }
 .av-legend-examined { background: var(--av-bar-examined); opacity: 0.5; }
 .av-legend-found { background: var(--av-bar-sorted); }
+.av-legend-count-active { background: var(--av-bar-computing); }
+.av-legend-bucket-active { background: var(--radix-sort-color); }
+
+/* ===== Counting Sort: Count Array ===== */
+.av-count-container {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 16px auto 8px;
+    padding: 12px 14px;
+    background: var(--av-card-bg);
+    border: 1px solid var(--av-border);
+    border-radius: 8px;
+    max-width: 920px;
+}
+.av-count-label {
+    width: 100%;
+    text-align: center;
+    color: var(--av-text-light);
+    font-size: 12px;
+    font-family: monospace;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+}
+.av-count-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 44px;
+    padding: 4px 6px 6px;
+    background: var(--av-bg);
+    border: 1px solid var(--av-border);
+    border-radius: 4px;
+    font-family: monospace;
+    color: var(--av-text);
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+}
+.av-count-cell-index {
+    font-size: 10px;
+    color: var(--av-text-light);
+    margin-bottom: 2px;
+}
+.av-count-cell-value {
+    font-size: 15px;
+    font-weight: 700;
+}
+.av-count-cell.av-count-incrementing {
+    background: var(--av-bar-comparing);
+    border-color: var(--av-bar-comparing);
+    color: #111;
+    transform: translateY(-2px);
+}
+.av-count-cell.av-count-cumulative {
+    background: var(--av-bar-computing);
+    border-color: var(--av-bar-computing);
+    color: #111;
+}
+.av-count-cell.av-count-reading {
+    background: var(--av-bar-reading);
+    border-color: var(--av-bar-reading);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* ===== Radix Sort: Buckets ===== */
+.av-buckets-wrapper {
+    margin: 16px auto 8px;
+    padding: 10px 14px 12px;
+    background: var(--av-card-bg);
+    border: 1px solid var(--av-border);
+    border-radius: 8px;
+    max-width: 920px;
+}
+.av-buckets-label {
+    text-align: center;
+    color: var(--av-text-light);
+    font-size: 12px;
+    font-family: monospace;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+}
+.av-buckets-container {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.av-bucket {
+    display: flex;
+    flex-direction: column;
+    min-width: 52px;
+    min-height: 100px;
+    padding: 4px;
+    background: var(--av-bg);
+    border: 1px solid var(--av-border);
+    border-radius: 5px;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.av-bucket.av-bucket-active {
+    border-color: var(--radix-sort-color);
+    box-shadow: 0 0 0 1px var(--radix-sort-color) inset;
+}
+.av-bucket-label {
+    text-align: center;
+    color: var(--av-text-light);
+    font-size: 11px;
+    font-family: monospace;
+    padding: 2px 0 4px;
+    border-bottom: 1px dashed var(--av-border);
+    margin-bottom: 4px;
+    font-weight: 700;
+}
+.av-bucket-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-height: 20px;
+}
+.av-bucket-item {
+    padding: 3px 4px;
+    background: var(--radix-sort-color);
+    color: #000;
+    font-size: 11px;
+    font-family: monospace;
+    font-weight: 700;
+    border-radius: 3px;
+    text-align: center;
+    animation: av-bucket-in 0.25s ease;
+}
+@keyframes av-bucket-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 /* ===== Target Banner (Search Algorithms) ===== */
 .av-target-banner {

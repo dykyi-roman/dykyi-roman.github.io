@@ -273,6 +273,105 @@
   "av.log.heap_swap": "Sift: tausche arr[{parent}]={pVal} \u2194 arr[{child}]={cVal}",
   "av.log.heap_extract": "Maximum extrahieren: tausche arr[{i}]={root} \u2194 arr[{j}]={last}",
 
+  "counting-sort.name": "Z\u00e4hlsortierung",
+  "counting-sort.stepLabel": "Z\u00e4hlsortierung \u2014 Standard",
+  "counting-sort.modes.standard.label": "Standard",
+  "counting-sort.modes.standard.desc": "Z\u00e4hlt das Vorkommen jedes Wertes, berechnet eine kumulative (Pr\u00e4fix-)Summe und platziert dann jedes Element an seiner endg\u00fcltigen Ausgabeposition \u2014 O(n+k), vergleichsfrei und stabil.",
+  "counting-sort.details.standard.principles": [
+    "Den Wertebereich k der Eingabe bestimmen (z. B. 1..9)",
+    "Phase 1 \u2014 Z\u00e4hlen: Eingabe durchlaufen; count[value] f\u00fcr jedes Element erh\u00f6hen",
+    "Phase 2 \u2014 Kumulative Summe: count[] in Pr\u00e4fixsummen umwandeln, sodass count[v] die letzte Ausgabeposition von Wert v ist",
+    "Phase 3 \u2014 Platzieren: Eingabe von rechts nach links durchlaufen; jedes Element v bei output[count[v]-1] platzieren und count[v] dekrementieren",
+    "Der Rechts-nach-Links-Durchlauf ist entscheidend f\u00fcr Stabilit\u00e4t \u2014 gleiche Schl\u00fcssel behalten ihre urspr\u00fcngliche Reihenfolge"
+  ],
+  "counting-sort.details.standard.concepts": [
+    { "term": "Z\u00e4hlarray", "definition": "Hilfsarray der Gr\u00f6\u00dfe k+1, das die H\u00e4ufigkeit jedes unterschiedlichen Wertes speichert. Nach der Z\u00e4hlphase ist count[v] = Anzahl der Vorkommen von v in der Eingabe." },
+    { "term": "Kumulative Summe (Pr\u00e4fix)", "definition": "Transformiert count[] so, dass count[v] der Anzahl der Elemente \u2264 v entspricht. Dies gibt die Ausgabeposition (eins nach der letzten) f\u00fcr jeden Wert an." },
+    { "term": "Stabile Platzierung", "definition": "Eingabe von rechts nach links durchlaufen und count[v] nach jeder Platzierung dekrementieren stellt sicher, dass gleiche Schl\u00fcssel ihre Reihenfolge behalten \u2014 Voraussetzung f\u00fcr die Verwendung in Radix Sort." },
+    { "term": "Vergleichsfreie Sortierung", "definition": "Keine Element-zu-Element-Vergleiche \u2014 Counting Sort verwendet die Wertidentit\u00e4t als Index und umgeht so die untere Schranke \u03A9(n log n) f\u00fcr Vergleichssortierer." }
+  ],
+  "counting-sort.details.standard.tradeoffs.pros": [
+    "Zeit O(n + k) \u2014 linear bei beschr\u00e4nktem k",
+    "Stabile Sortierung \u2014 bewahrt die relative Reihenfolge gleicher Schl\u00fcssel",
+    "Einfach zu implementieren \u2014 drei klare Phasen",
+    "Dient als stabile innere Sortierung f\u00fcr Radix Sort",
+    "Vorhersehbar: Leistung unabh\u00e4ngig von der Eingabereihenfolge"
+  ],
+  "counting-sort.details.standard.tradeoffs.cons": [
+    "Funktioniert nur mit ganzzahligen Schl\u00fcsseln (oder auf Ganzzahlen abbildbar)",
+    "O(k) zus\u00e4tzlicher Speicher \u2014 unpraktisch, wenn k \u226B n",
+    "Nicht in-place \u2014 erfordert ein separates Ausgabearray",
+    "F\u00fcr allgemein vergleichbare Daten (Strings, Objekte ohne Ordnungsschl\u00fcssel) ungeeignet"
+  ],
+  "counting-sort.details.standard.tradeoffs.whenToUse": "Verwenden Sie Counting Sort, wenn die Schl\u00fcssel kleine Ganzzahlen in einem begrenzten Bereich sind (k = O(n)), wenn Stabilit\u00e4t erforderlich ist, oder als innere Sortierung in Radix Sort. Vermeiden Sie es, wenn der Wertebereich k viel gr\u00f6\u00dfer als die Eingabegr\u00f6\u00dfe n ist.",
+  "counting-sort.depRules": [
+    { "name": "Zeit (Best/Durchschnitt/Schlecht)", "role": "O(n + k) \u2014 linear in Eingabegr\u00f6\u00dfe und Wertebereich" },
+    { "name": "Speicher", "role": "O(n + k) \u2014 Z\u00e4hlarray + Ausgabearray" },
+    { "name": "Stabil", "role": "Ja \u2014 Rechts-nach-Links-Platzierung bewahrt Reihenfolge" },
+    { "name": "Adaptiv", "role": "Nein \u2014 immer O(n+k) unabh\u00e4ngig von der Eingabe" },
+    { "name": "Eingabebeschr\u00e4nkung", "role": "Ganzzahlige Schl\u00fcssel mit begrenztem Bereich k" },
+    { "name": "In-Place", "role": "Nein \u2014 erfordert Hilfsarrays" }
+  ],
+
+  "radix-sort.name": "Radix-Sortierung",
+  "radix-sort.stepLabel": "Radix-Sortierung \u2014 LSD",
+  "radix-sort.modes.lsd.label": "LSD",
+  "radix-sort.modes.lsd.desc": "LSD-Radix-Sortierung (niederwertigste Ziffer zuerst): f\u00fchrt eine stabile Verteilungssortierung nach jeder Ziffer durch, beginnend bei den Einern. Nach d Durchl\u00e4ufen (d = Anzahl der Ziffern des Maximums) ist das Array vollst\u00e4ndig sortiert.",
+  "radix-sort.details.lsd.principles": [
+    "d bestimmen \u2014 Anzahl der Ziffern des gr\u00f6\u00dften Wertes (f\u00fcr max 999: d = 3)",
+    "F\u00fcr jede Ziffernposition von niederwertigster zu h\u00f6chstwertiger: stabile Verteilungssortierung nach dieser Ziffer durchf\u00fchren",
+    "Verteilen: Array von links nach rechts durchlaufen; jedes Element nach aktueller Ziffer in bucket[digit] legen",
+    "Sammeln: Buckets 0..9 der Reihe nach zur\u00fcck ins Array zusammenf\u00fcgen",
+    "Nach allen d Durchl\u00e4ufen ist das Array sortiert \u2014 die Stabilit\u00e4t jeder Passphase sichert die Korrektheit"
+  ],
+  "radix-sort.details.lsd.concepts": [
+    { "term": "LSD (Least Significant Digit)", "definition": "Die rechteste Ziffer wird zuerst verarbeitet, dann Zehner, Hunderter usw. Diese Reihenfolge garantiert zusammen mit einer stabilen inneren Sortierung ein vollst\u00e4ndig sortiertes Array nach d Durchl\u00e4ufen." },
+    { "term": "Stabile innere Sortierung", "definition": "Jeder Ziffernpassdurchlauf muss stabil sein \u2014 Elemente mit derselben aktuellen Ziffer behalten ihre relative Reihenfolge aus dem vorherigen Durchlauf. Ohne Stabilit\u00e4t ginge Information \u00fcber fr\u00fchere Ziffern verloren." },
+    { "term": "Buckets", "definition": "Radix b (typisch 10 f\u00fcr Dezimal) Hilfscontainer. Jeder Durchlauf verteilt Elemente nach aktueller Ziffer in Buckets und sammelt sie anschlie\u00dfend." },
+    { "term": "Zifferextraktion", "definition": "F\u00fcr Wert v und Position p (0 = Einer): digit = floor(v / 10^p) mod 10. Diese Formel w\u00e4hlt in jedem Durchlauf die aktuelle Ziffer aus." }
+  ],
+  "radix-sort.details.lsd.tradeoffs.pros": [
+    "Zeit O(d \u00B7 n) \u2014 linear bei kleiner Konstante d",
+    "Schneller als O(n log n)-Vergleichssortierer f\u00fcr Ganzzahlschl\u00fcssel fester Breite",
+    "Stabil \u2014 bewahrt die relative Reihenfolge gleicher Schl\u00fcssel",
+    "Parallelisierbar \u2014 jeder Bucket kann unabh\u00e4ngig verarbeitet werden",
+    "Exzellent f\u00fcr gro\u00dfe Datens\u00e4tze von Ganzzahlen oder Strings fester L\u00e4nge"
+  ],
+  "radix-sort.details.lsd.tradeoffs.cons": [
+    "Funktioniert nur mit ganzzahligen oder festbreiten Schl\u00fcsseln \u2014 nicht f\u00fcr allgemein vergleichbare Daten",
+    "Erfordert O(n + b) zus\u00e4tzlichen Speicher f\u00fcr Buckets und Ausgabe",
+    "d Durchl\u00e4ufe \u00fcber die Daten \u2014 viele Cache-Misses bei gro\u00dfem n",
+    "Schwieriger zu implementieren als Quicksort; Radix-Wahl beeinflusst die Leistung"
+  ],
+  "radix-sort.details.lsd.tradeoffs.whenToUse": "Verwenden Sie Radix Sort f\u00fcr gro\u00dfe Arrays von Ganzzahlen mit begrenzter Breite, f\u00fcr Strings fester L\u00e4nge oder wenn Stabilit\u00e4t gefordert ist und die Schl\u00fcssel in ein Zifferneinteilungsmodell passen. Vermeiden Sie es bei wirklich variabler Schl\u00fcssell\u00e4nge.",
+  "radix-sort.depRules": [
+    { "name": "Zeit", "role": "O(d \u00B7 (n + b)) \u2014 d Ziffernl\u00e4ufe \u00fcber n Elemente, Basis b" },
+    { "name": "Speicher", "role": "O(n + b) \u2014 Buckets + Ausgabearray" },
+    { "name": "Stabil", "role": "Ja \u2014 erforderlich f\u00fcr die Korrektheit von LSD" },
+    { "name": "Adaptiv", "role": "Nein \u2014 immer d Durchl\u00e4ufe" },
+    { "name": "Eingabebeschr\u00e4nkung", "role": "Nichtnegative Ganzzahlen (oder festbreite Schl\u00fcssel)" },
+    { "name": "In-Place", "role": "Nein \u2014 Hilfs-Buckets und Ausgabe erforderlich" }
+  ],
+
+  "av.legend.cs_reading": "Lesen",
+  "av.legend.cs_count_active": "Z\u00e4hlzelle",
+  "av.legend.rs_distributing": "Verteilung",
+  "av.legend.rs_bucket_active": "Aktiver Bucket",
+
+  "av.cs.count_label": "count[ ]",
+  "av.rs.buckets_label": "buckets[0..9]",
+  "av.rs.place_ones": "Einer",
+  "av.rs.place_tens": "Zehner",
+  "av.rs.place_hundreds": "Hunderter",
+  "av.rs.place_thousands": "Tausender",
+
+  "av.log.cs_count_incr": "Lies arr[{idx}]={val}, count[{countIdx}]\u2192{count}",
+  "av.log.cs_cumulative": "count[{idx}] = {old} + count[{prev}] = {neu}",
+  "av.log.cs_place": "Platziere {val} bei output[{out}], count[{countIdx}]\u2192{cnt}",
+  "av.log.rs_digit_pass": "Durchlauf {pass}/{total}: sortieren nach {place}",
+  "av.log.rs_bucket_add": "arr[{idx}]={val} \u2192 bucket[{digit}]",
+  "av.log.rs_bucket_collect": "bucket[{bucket}] \u2192 arr[{out}]={val}",
+
   "av.legend.scanning": "Scannt",
   "av.legend.examined": "Gepr\u00fcft",
   "av.legend.found": "Gefunden",

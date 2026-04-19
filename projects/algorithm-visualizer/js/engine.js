@@ -1110,6 +1110,68 @@ AV.animateFlow = async function(steps, options) {
             AV.log('OVERWRITE', I18N.t('av.log.overwrite', { index: step.index, value: step.value },
                 'Place ' + step.value + ' at position ' + step.index));
             await AV.sleep(AV.state.stepDelay * 0.5);
+        } else if (step.type === 'CS_COUNT_INCR') {
+            AV.clearHighlights();
+            AV['counting-sort']._clearCountHighlights();
+            AV.highlightBars([step.inputIndex], 'av-comparing');
+            AV['counting-sort']._updateCountCell(step.countIndex, step.newCount, 'av-count-incrementing');
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('CS_COUNT', I18N.t('av.log.cs_count_incr',
+                { idx: step.inputIndex, val: step.inputValue, countIdx: step.countIndex, count: step.newCount },
+                'Read arr[' + step.inputIndex + ']=' + step.inputValue + ', count[' + step.countIndex + ']=' + step.newCount));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'CS_CUMULATIVE') {
+            AV.clearHighlights();
+            AV['counting-sort']._clearCountHighlights();
+            AV['counting-sort']._updateCountCell(step.countIndex, step.newValue, 'av-count-cumulative');
+            AV.log('CS_CUMUL', I18N.t('av.log.cs_cumulative',
+                { idx: step.countIndex, prev: step.countIndex - 1, old: step.prevValue, neu: step.newValue },
+                'count[' + step.countIndex + '] = ' + step.prevValue + ' + count[' + (step.countIndex - 1) + '] = ' + step.newValue));
+            await AV.sleep(AV.state.stepDelay * 0.7);
+        } else if (step.type === 'CS_PLACE') {
+            AV.clearHighlights();
+            AV['counting-sort']._clearCountHighlights();
+            AV.highlightBars([step.inputIndex], 'av-reading');
+            AV['counting-sort']._updateCountCell(step.countIndex, step.newCount, 'av-count-reading');
+            AV.updateBarValue(step.outputIndex, step.inputValue, Math.max.apply(null, AV.state._initialArray));
+            AV.highlightBars([step.outputIndex], 'av-swapping');
+            AV.state.swaps++;
+            AV.updateStats();
+            AV.log('CS_PLACE', I18N.t('av.log.cs_place',
+                { val: step.inputValue, out: step.outputIndex, countIdx: step.countIndex, cnt: step.newCount },
+                'Place ' + step.inputValue + ' at output[' + step.outputIndex + '], count[' + step.countIndex + ']\u2192' + step.newCount));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'RS_DIGIT_PASS') {
+            AV.clearHighlights();
+            AV.log('PHASE', I18N.t('av.log.rs_digit_pass',
+                { pass: step.passNum, total: step.totalPasses, place: step.placeLabel },
+                'Pass ' + step.passNum + '/' + step.totalPasses + ': sort by ' + step.placeLabel + ' digit'));
+            await AV.sleep(AV.state.stepDelay * 0.5);
+        } else if (step.type === 'RS_BUCKET_CLEAR') {
+            AV['radix-sort']._bucketClear();
+            await AV.sleep(AV.state.stepDelay * 0.3);
+        } else if (step.type === 'RS_BUCKET_ADD') {
+            AV.clearHighlights();
+            AV.highlightBars([step.inputIndex], 'av-comparing');
+            AV['radix-sort']._bucketAdd(step.digit, step.inputValue);
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('RS_ADD', I18N.t('av.log.rs_bucket_add',
+                { idx: step.inputIndex, val: step.inputValue, digit: step.digit, pos: step.digitPos },
+                'arr[' + step.inputIndex + ']=' + step.inputValue + ' \u2192 bucket[' + step.digit + ']'));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'RS_BUCKET_COLLECT') {
+            AV.clearHighlights();
+            AV.updateBarValue(step.outputIndex, step.value, Math.max.apply(null, AV.state._initialArray));
+            AV.highlightBars([step.outputIndex], 'av-swapping');
+            AV['radix-sort']._bucketPop(step.bucketIndex);
+            AV.state.swaps++;
+            AV.updateStats();
+            AV.log('RS_COLLECT', I18N.t('av.log.rs_bucket_collect',
+                { val: step.value, bucket: step.bucketIndex, out: step.outputIndex },
+                'bucket[' + step.bucketIndex + '] \u2192 arr[' + step.outputIndex + ']=' + step.value));
+            await AV.sleep(AV.state.stepDelay * 0.7);
         } else if (step.type === 'HEAP_PHASE') {
             AV.clearHighlights();
             AV.log('PHASE', I18N.t('av.log.heap_phase_' + step.phase, null,
@@ -2018,6 +2080,10 @@ AV._computeSnapshots = function(initialArray, steps) {
             arr[step.indices[1]] = tmp;
         } else if (step.type === 'OVERWRITE') {
             arr[step.index] = step.value;
+        } else if (step.type === 'CS_PLACE') {
+            arr[step.outputIndex] = step.inputValue;
+        } else if (step.type === 'RS_BUCKET_COLLECT') {
+            arr[step.outputIndex] = step.value;
         } else if (step.type === 'HEAP_SWAP') {
             var tmp = arr[step.indices[0]];
             arr[step.indices[0]] = arr[step.indices[1]];
@@ -2170,6 +2236,25 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
             } else if (lastStep.type === 'IS_ELIMINATE') {
                 AV['interpolation-search']._applyEliminated(lastStep.eliminated);
                 AV['interpolation-search']._renderPointers(lastStep.newLow, -1, lastStep.newHigh);
+            } else if (lastStep.type === 'CS_COUNT_INCR') {
+                AV['counting-sort']._applyCountSnapshot(lastStep.countState);
+                AV['counting-sort']._updateCountCell(lastStep.countIndex, lastStep.newCount, 'av-count-incrementing');
+                AV.highlightBars([lastStep.inputIndex], 'av-comparing');
+            } else if (lastStep.type === 'CS_CUMULATIVE') {
+                AV['counting-sort']._applyCountSnapshot(lastStep.countState);
+                AV['counting-sort']._updateCountCell(lastStep.countIndex, lastStep.newValue, 'av-count-cumulative');
+            } else if (lastStep.type === 'CS_PLACE') {
+                AV['counting-sort']._applyCountSnapshot(lastStep.countState);
+                AV['counting-sort']._updateCountCell(lastStep.countIndex, lastStep.newCount, 'av-count-reading');
+                AV.highlightBars([lastStep.outputIndex], 'av-swapping');
+            } else if (lastStep.type === 'RS_DIGIT_PASS' || lastStep.type === 'RS_BUCKET_CLEAR') {
+                AV['radix-sort']._applyBucketsSnapshot(lastStep.bucketsState || []);
+            } else if (lastStep.type === 'RS_BUCKET_ADD') {
+                AV['radix-sort']._applyBucketsSnapshot(lastStep.bucketsState);
+                AV.highlightBars([lastStep.inputIndex], 'av-comparing');
+            } else if (lastStep.type === 'RS_BUCKET_COLLECT') {
+                AV['radix-sort']._applyBucketsSnapshot(lastStep.bucketsState);
+                AV.highlightBars([lastStep.outputIndex], 'av-swapping');
             } else if (lastStep.type === 'FOUND') {
                 if (lastStep.eliminated) {
                     AV['binary-search']._applyEliminated(lastStep.eliminated);
@@ -2548,6 +2633,36 @@ AV.stepForward = function() {
         AV['interpolation-search']._applyEliminated(step.eliminated);
         AV['interpolation-search']._renderPointers(step.newLow, -1, step.newHigh);
         AV.log('IS_ELIMINATE', 'Eliminate ' + step.direction + ' half, range [' + step.newLow + '..' + step.newHigh + ']');
+    } else if (step.type === 'CS_COUNT_INCR') {
+        AV['counting-sort']._applyCountSnapshot(step.countState);
+        AV['counting-sort']._updateCountCell(step.countIndex, step.newCount, 'av-count-incrementing');
+        AV.highlightBars([step.inputIndex], 'av-comparing');
+        AV.state.comparisons++;
+        AV.log('CS_COUNT', 'Read arr[' + step.inputIndex + ']=' + step.inputValue + ', count[' + step.countIndex + ']=' + step.newCount);
+    } else if (step.type === 'CS_CUMULATIVE') {
+        AV['counting-sort']._applyCountSnapshot(step.countState);
+        AV['counting-sort']._updateCountCell(step.countIndex, step.newValue, 'av-count-cumulative');
+        AV.log('CS_CUMUL', 'count[' + step.countIndex + '] = ' + step.prevValue + ' + count[' + (step.countIndex - 1) + '] = ' + step.newValue);
+    } else if (step.type === 'CS_PLACE') {
+        AV['counting-sort']._applyCountSnapshot(step.countState);
+        AV['counting-sort']._updateCountCell(step.countIndex, step.newCount, 'av-count-reading');
+        AV.highlightBars([step.outputIndex], 'av-swapping');
+        AV.state.swaps++;
+        AV.log('CS_PLACE', 'Place ' + step.inputValue + ' at output[' + step.outputIndex + '], count[' + step.countIndex + ']\u2192' + step.newCount);
+    } else if (step.type === 'RS_DIGIT_PASS') {
+        AV.log('PHASE', 'Pass ' + step.passNum + '/' + step.totalPasses + ': sort by ' + step.placeLabel + ' digit');
+    } else if (step.type === 'RS_BUCKET_CLEAR') {
+        AV['radix-sort']._bucketClear();
+    } else if (step.type === 'RS_BUCKET_ADD') {
+        AV['radix-sort']._applyBucketsSnapshot(step.bucketsState);
+        AV.highlightBars([step.inputIndex], 'av-comparing');
+        AV.state.comparisons++;
+        AV.log('RS_ADD', 'arr[' + step.inputIndex + ']=' + step.inputValue + ' \u2192 bucket[' + step.digit + ']');
+    } else if (step.type === 'RS_BUCKET_COLLECT') {
+        AV['radix-sort']._applyBucketsSnapshot(step.bucketsState);
+        AV.highlightBars([step.outputIndex], 'av-swapping');
+        AV.state.swaps++;
+        AV.log('RS_COLLECT', 'bucket[' + step.bucketIndex + '] \u2192 arr[' + step.outputIndex + ']=' + step.value);
     } else if (step.type === 'FOUND') {
         if (step.eliminated) {
             AV['binary-search']._applyEliminated(step.eliminated);
@@ -2599,7 +2714,7 @@ AV.stepForward = function() {
     AV._updateStepButtons();
 
     /* Auto-advance past non-visual steps (PASS) so each click shows a bar change */
-    if ((step.type === 'PASS' || step.type === 'HEAP_PHASE') && sm.index < sm.steps.length) {
+    if ((step.type === 'PASS' || step.type === 'HEAP_PHASE' || step.type === 'RS_DIGIT_PASS') && sm.index < sm.steps.length) {
         AV.stepForward();
     }
 };
@@ -2651,8 +2766,8 @@ AV.stepBack = function() {
     var comparisons = 0;
     var swaps = 0;
     for (var i = 0; i < sm.index; i++) {
-        if (sm.steps[i].type === 'COMPARE' || sm.steps[i].type === 'SCAN' || sm.steps[i].type === 'BS_CHECK' || sm.steps[i].type === 'JS_JUMP' || sm.steps[i].type === 'JS_SCAN' || sm.steps[i].type === 'IS_PROBE' || sm.steps[i].type === 'DP_BASE' || sm.steps[i].type === 'DP_FILL' || sm.steps[i].type === 'HEAP_COMPARE') comparisons++;
-        if (sm.steps[i].type === 'SWAP' || sm.steps[i].type === 'OVERWRITE' || sm.steps[i].type === 'HEAP_SWAP') swaps++;
+        if (sm.steps[i].type === 'COMPARE' || sm.steps[i].type === 'SCAN' || sm.steps[i].type === 'BS_CHECK' || sm.steps[i].type === 'JS_JUMP' || sm.steps[i].type === 'JS_SCAN' || sm.steps[i].type === 'IS_PROBE' || sm.steps[i].type === 'DP_BASE' || sm.steps[i].type === 'DP_FILL' || sm.steps[i].type === 'HEAP_COMPARE' || sm.steps[i].type === 'CS_COUNT_INCR' || sm.steps[i].type === 'RS_BUCKET_ADD') comparisons++;
+        if (sm.steps[i].type === 'SWAP' || sm.steps[i].type === 'OVERWRITE' || sm.steps[i].type === 'HEAP_SWAP' || sm.steps[i].type === 'CS_PLACE' || sm.steps[i].type === 'RS_BUCKET_COLLECT') swaps++;
     }
     AV.state.comparisons = comparisons;
     AV.state.swaps = swaps;
@@ -2705,6 +2820,25 @@ AV.stepBack = function() {
         } else if (prevStep.type === 'IS_ELIMINATE') {
             AV['interpolation-search']._applyEliminated(prevStep.eliminated);
             AV['interpolation-search']._renderPointers(prevStep.newLow, -1, prevStep.newHigh);
+        } else if (prevStep.type === 'CS_COUNT_INCR') {
+            AV['counting-sort']._applyCountSnapshot(prevStep.countState);
+            AV['counting-sort']._updateCountCell(prevStep.countIndex, prevStep.newCount, 'av-count-incrementing');
+            AV.highlightBars([prevStep.inputIndex], 'av-comparing');
+        } else if (prevStep.type === 'CS_CUMULATIVE') {
+            AV['counting-sort']._applyCountSnapshot(prevStep.countState);
+            AV['counting-sort']._updateCountCell(prevStep.countIndex, prevStep.newValue, 'av-count-cumulative');
+        } else if (prevStep.type === 'CS_PLACE') {
+            AV['counting-sort']._applyCountSnapshot(prevStep.countState);
+            AV['counting-sort']._updateCountCell(prevStep.countIndex, prevStep.newCount, 'av-count-reading');
+            AV.highlightBars([prevStep.outputIndex], 'av-swapping');
+        } else if (prevStep.type === 'RS_DIGIT_PASS' || prevStep.type === 'RS_BUCKET_CLEAR') {
+            AV['radix-sort']._applyBucketsSnapshot(prevStep.bucketsState || []);
+        } else if (prevStep.type === 'RS_BUCKET_ADD') {
+            AV['radix-sort']._applyBucketsSnapshot(prevStep.bucketsState);
+            AV.highlightBars([prevStep.inputIndex], 'av-comparing');
+        } else if (prevStep.type === 'RS_BUCKET_COLLECT') {
+            AV['radix-sort']._applyBucketsSnapshot(prevStep.bucketsState);
+            AV.highlightBars([prevStep.outputIndex], 'av-swapping');
         } else if (prevStep.type === 'FOUND') {
             if (prevStep.eliminated) {
                 AV['binary-search']._applyEliminated(prevStep.eliminated);

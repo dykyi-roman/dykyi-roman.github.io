@@ -272,6 +272,105 @@
   "av.log.heap_swap": "Sift: swap arr[{parent}]={pVal} \u2194 arr[{child}]={cVal}",
   "av.log.heap_extract": "Extract max: swap arr[{i}]={root} \u2194 arr[{j}]={last}",
 
+  "counting-sort.name": "Counting Sort",
+  "counting-sort.stepLabel": "Counting Sort \u2014 Standard",
+  "counting-sort.modes.standard.label": "Standard",
+  "counting-sort.modes.standard.desc": "Counts occurrences of each value, computes a cumulative (prefix) sum, then places each element into its final output position \u2014 O(n+k), non-comparison-based and stable.",
+  "counting-sort.details.standard.principles": [
+    "Identify the range of values k in the input (e.g., 1..9)",
+    "Phase 1 \u2014 Count: iterate input; increment count[value] for each element",
+    "Phase 2 \u2014 Cumulative Sum: convert count[] to prefix sums so count[v] is the last output position of value v",
+    "Phase 3 \u2014 Place: scan input right-to-left; for each element v, place it at output[count[v]-1] and decrement count[v]",
+    "Right-to-left scan is essential for stability \u2014 equal keys keep their original relative order"
+  ],
+  "counting-sort.details.standard.concepts": [
+    { "term": "Count Array", "definition": "Auxiliary array of size k+1 that records the frequency of each distinct value. After the counting phase, count[v] = number of occurrences of v." },
+    { "term": "Cumulative Sum (Prefix)", "definition": "Transforms count[] so that count[v] equals the number of elements less-than-or-equal-to v. This gives the one-past-last output position for each value." },
+    { "term": "Stable Placement", "definition": "Scanning input right-to-left and decrementing count[v] after each placement ensures equal keys keep their original order \u2014 a prerequisite for using Counting Sort inside Radix Sort." },
+    { "term": "Non-Comparison Sort", "definition": "No element-to-element comparisons are performed \u2014 Counting Sort uses value identity as an index, bypassing the \u03A9(n log n) comparison-sort lower bound." }
+  ],
+  "counting-sort.details.standard.tradeoffs.pros": [
+    "O(n + k) time \u2014 linear when k is bounded",
+    "Stable sorting \u2014 preserves relative order of equal keys",
+    "Simple to implement \u2014 three clean phases",
+    "Acts as the stable inner sort for Radix Sort",
+    "Predictable: performance independent of input order"
+  ],
+  "counting-sort.details.standard.tradeoffs.cons": [
+    "Only works on integer keys (or keys mappable to integers)",
+    "O(k) extra space \u2014 impractical if k \u226B n",
+    "Not in-place \u2014 requires a separate output array",
+    "Not useful for general comparable data (strings, custom objects without ordering keys)"
+  ],
+  "counting-sort.details.standard.tradeoffs.whenToUse": "Use Counting Sort when keys are small integers within a bounded range (k = O(n)), when stability is required, or as the inner sort in Radix Sort. Avoid when the value range k is much larger than the input size n.",
+  "counting-sort.depRules": [
+    { "name": "Time (Best/Avg/Worst)", "role": "O(n + k) \u2014 linear in input size and value range" },
+    { "name": "Space", "role": "O(n + k) \u2014 count array + output array" },
+    { "name": "Stable", "role": "Yes \u2014 right-to-left placement preserves relative order" },
+    { "name": "Adaptive", "role": "No \u2014 always O(n+k) regardless of input order" },
+    { "name": "Input Constraint", "role": "Integer keys with bounded range k" },
+    { "name": "In-Place", "role": "No \u2014 requires auxiliary count and output arrays" }
+  ],
+
+  "radix-sort.name": "Radix Sort",
+  "radix-sort.stepLabel": "Radix Sort \u2014 LSD",
+  "radix-sort.modes.lsd.label": "LSD",
+  "radix-sort.modes.lsd.desc": "Least Significant Digit radix sort: performs a stable distribution sort by each digit, from the ones place upward. After d passes (d = number of digits in the maximum value), the array is fully sorted.",
+  "radix-sort.details.lsd.principles": [
+    "Determine d \u2014 the number of digits in the largest value (for max 999: d = 3)",
+    "For each digit position from least-significant to most-significant: perform a stable distribution sort by that digit",
+    "Distribute: scan array left-to-right; place each element into bucket[digit] based on the current digit",
+    "Collect: concatenate buckets 0..9 back into the array in order",
+    "After all d passes, the array is fully sorted \u2014 stability of each pass is what makes this correct"
+  ],
+  "radix-sort.details.lsd.concepts": [
+    { "term": "LSD (Least Significant Digit)", "definition": "The rightmost digit is processed first, then tens, then hundreds, etc. This order, combined with a stable inner sort, guarantees a fully sorted array after d passes." },
+    { "term": "Stable Inner Sort", "definition": "Each digit pass must be stable \u2014 elements with the same current digit keep their relative order from the previous pass. Without stability, earlier digit information would be lost." },
+    { "term": "Buckets", "definition": "Radix b (typically 10 for decimal) auxiliary containers. Each pass distributes elements into buckets by the current digit, then collects them back to form the next intermediate array." },
+    { "term": "Digit Extraction", "definition": "For value v and position p (0 = ones): digit = floor(v / 10^p) mod 10. Each pass uses this formula to pick the current digit being sorted." }
+  ],
+  "radix-sort.details.lsd.tradeoffs.pros": [
+    "O(d \u00B7 n) time \u2014 linear when d is a small constant",
+    "Beats O(n log n) comparison sorts for fixed-width integer keys",
+    "Stable \u2014 preserves relative order of equal keys",
+    "Parallelizable \u2014 each bucket can be processed independently",
+    "Excellent for sorting large datasets of integers or fixed-length strings"
+  ],
+  "radix-sort.details.lsd.tradeoffs.cons": [
+    "Only works with integer or fixed-width keys \u2014 not general comparable data",
+    "Requires O(n + b) extra memory for buckets and output",
+    "d passes over the data \u2014 many cache misses for large n",
+    "Harder to implement than quicksort; radix choice affects performance"
+  ],
+  "radix-sort.details.lsd.tradeoffs.whenToUse": "Use Radix Sort for large arrays of integers with bounded width, for fixed-length strings, or when stability is required and keys fit a digit model. Avoid when keys are truly variable-length.",
+  "radix-sort.depRules": [
+    { "name": "Time", "role": "O(d \u00B7 (n + b)) \u2014 d digit passes over n elements, base b" },
+    { "name": "Space", "role": "O(n + b) \u2014 buckets + output array" },
+    { "name": "Stable", "role": "Yes \u2014 required for correctness of LSD radix sort" },
+    { "name": "Adaptive", "role": "No \u2014 always d passes regardless of order" },
+    { "name": "Input Constraint", "role": "Non-negative integers (or fixed-width encodable keys)" },
+    { "name": "In-Place", "role": "No \u2014 auxiliary buckets and output needed" }
+  ],
+
+  "av.legend.cs_reading": "Reading",
+  "av.legend.cs_count_active": "Count Cell",
+  "av.legend.rs_distributing": "Distributing",
+  "av.legend.rs_bucket_active": "Active Bucket",
+
+  "av.cs.count_label": "count[ ]",
+  "av.rs.buckets_label": "buckets[0..9]",
+  "av.rs.place_ones": "ones",
+  "av.rs.place_tens": "tens",
+  "av.rs.place_hundreds": "hundreds",
+  "av.rs.place_thousands": "thousands",
+
+  "av.log.cs_count_incr": "Read arr[{idx}]={val}, count[{countIdx}]\u2192{count}",
+  "av.log.cs_cumulative": "count[{idx}] = {old} + count[{prev}] = {neu}",
+  "av.log.cs_place": "Place {val} at output[{out}], count[{countIdx}]\u2192{cnt}",
+  "av.log.rs_digit_pass": "Pass {pass}/{total}: sort by {place} digit",
+  "av.log.rs_bucket_add": "arr[{idx}]={val} \u2192 bucket[{digit}]",
+  "av.log.rs_bucket_collect": "bucket[{bucket}] \u2192 arr[{out}]={val}",
+
   "av.legend.scanning": "Scanning",
   "av.legend.examined": "Examined",
   "av.legend.found": "Found",

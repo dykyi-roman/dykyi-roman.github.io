@@ -13,7 +13,7 @@
         hashing: ['hash-table', 'chaining', 'open-addressing']
     };
 
-    var implementedAlgorithms = ['bubble-sort', 'selection-sort', 'insertion-sort', 'merge-sort', 'quick-sort', 'heap-sort', 'linear-search', 'binary-search', 'jump-search', 'interpolation-search', 'bfs', 'dfs', 'dijkstra', 'a-star', 'bst-operations', 'fibonacci', 'kmp', 'hash-table'];
+    var implementedAlgorithms = ['bubble-sort', 'selection-sort', 'insertion-sort', 'merge-sort', 'quick-sort', 'heap-sort', 'counting-sort', 'radix-sort', 'linear-search', 'binary-search', 'jump-search', 'interpolation-search', 'bfs', 'dfs', 'dijkstra', 'a-star', 'bst-operations', 'fibonacci', 'kmp', 'hash-table'];
 
     var activeCategory = 'sorting';
 
@@ -183,6 +183,15 @@
         AV._restoreArrayStatLabels();
     }
 
+    function removeAuxArrayUI() {
+        var countContainer = document.querySelector('.av-count-container');
+        if (countContainer) countContainer.remove();
+        var bucketsWrapper = document.querySelector('.av-buckets-wrapper');
+        if (bucketsWrapper) bucketsWrapper.remove();
+        delete AV.state._csMaxVal;
+        delete AV.state._rsMaxDigits;
+    }
+
     function switchAlgorithm(algorithmId, modeId) {
         AV.state.algorithm = algorithmId;
         AV.setAccentColors(algorithmId);
@@ -190,6 +199,7 @@
         removeGraphUI();
         removeStringUI();
         removeHashUI();
+        removeAuxArrayUI();
 
         document.querySelectorAll('.av-tab').forEach(function(tab) {
             tab.classList.toggle('active', tab.dataset.algorithm === algorithmId);

@@ -273,6 +273,105 @@
   "av.log.heap_swap": "Sift: intercambiar arr[{parent}]={pVal} \u2194 arr[{child}]={cVal}",
   "av.log.heap_extract": "Extraer m\u00e1ximo: intercambiar arr[{i}]={root} \u2194 arr[{j}]={last}",
 
+  "counting-sort.name": "Ordenamiento por conteo",
+  "counting-sort.stepLabel": "Ordenamiento por conteo \u2014 Est\u00e1ndar",
+  "counting-sort.modes.standard.label": "Est\u00e1ndar",
+  "counting-sort.modes.standard.desc": "Cuenta las ocurrencias de cada valor, calcula una suma acumulativa (prefijo) y luego coloca cada elemento en su posici\u00f3n final de salida \u2014 O(n+k), sin comparaciones y estable.",
+  "counting-sort.details.standard.principles": [
+    "Identificar el rango de valores k en la entrada (por ejemplo, 1..9)",
+    "Fase 1 \u2014 Conteo: recorrer la entrada; incrementar count[value] para cada elemento",
+    "Fase 2 \u2014 Suma acumulativa: convertir count[] en sumas de prefijo para que count[v] sea la \u00faltima posici\u00f3n de salida del valor v",
+    "Fase 3 \u2014 Colocaci\u00f3n: recorrer la entrada de derecha a izquierda; para cada elemento v, colocarlo en output[count[v]-1] y decrementar count[v]",
+    "El recorrido de derecha a izquierda es esencial para la estabilidad \u2014 las claves iguales mantienen su orden relativo original"
+  ],
+  "counting-sort.details.standard.concepts": [
+    { "term": "Arreglo de conteo", "definition": "Arreglo auxiliar de tama\u00f1o k+1 que registra la frecuencia de cada valor distinto. Despu\u00e9s de la fase de conteo, count[v] = n\u00famero de ocurrencias de v en la entrada." },
+    { "term": "Suma acumulativa (prefijo)", "definition": "Transforma count[] de modo que count[v] sea igual al n\u00famero de elementos \u2264 v. Esto da la posici\u00f3n (una m\u00e1s que la \u00faltima) en la salida para cada valor." },
+    { "term": "Colocaci\u00f3n estable", "definition": "Recorrer la entrada de derecha a izquierda y decrementar count[v] tras cada colocaci\u00f3n garantiza que las claves iguales mantengan su orden \u2014 requisito para usar Counting Sort dentro de Radix Sort." },
+    { "term": "Ordenamiento sin comparaciones", "definition": "No se realizan comparaciones entre elementos \u2014 Counting Sort usa la identidad del valor como \u00edndice, evitando la cota inferior \u03A9(n log n) de los ordenamientos por comparaci\u00f3n." }
+  ],
+  "counting-sort.details.standard.tradeoffs.pros": [
+    "Tiempo O(n + k) \u2014 lineal cuando k est\u00e1 acotado",
+    "Ordenamiento estable \u2014 preserva el orden relativo de claves iguales",
+    "Simple de implementar \u2014 tres fases claras",
+    "Act\u00faa como el ordenamiento interno estable de Radix Sort",
+    "Predecible: el rendimiento no depende del orden de la entrada"
+  ],
+  "counting-sort.details.standard.tradeoffs.cons": [
+    "Solo funciona con claves enteras (o mapeables a enteros)",
+    "O(k) de espacio extra \u2014 poco pr\u00e1ctico si k \u226B n",
+    "No in-place \u2014 requiere un arreglo de salida separado",
+    "No \u00fatil para datos comparables generales (cadenas, objetos sin clave de ordenaci\u00f3n)"
+  ],
+  "counting-sort.details.standard.tradeoffs.whenToUse": "Use Counting Sort cuando las claves son enteros peque\u00f1os en un rango acotado (k = O(n)), cuando se requiere estabilidad, o como el ordenamiento interno en Radix Sort. Evite cuando el rango de valores k sea mucho mayor que el tama\u00f1o de entrada n.",
+  "counting-sort.depRules": [
+    { "name": "Tiempo (Mejor/Promedio/Peor)", "role": "O(n + k) \u2014 lineal en tama\u00f1o de entrada y rango de valores" },
+    { "name": "Espacio", "role": "O(n + k) \u2014 arreglo de conteo + arreglo de salida" },
+    { "name": "Estable", "role": "S\u00ed \u2014 colocaci\u00f3n de derecha a izquierda preserva el orden" },
+    { "name": "Adaptativo", "role": "No \u2014 siempre O(n+k) independiente del orden" },
+    { "name": "Restricci\u00f3n de entrada", "role": "Claves enteras en rango acotado k" },
+    { "name": "In-Place", "role": "No \u2014 requiere arreglos auxiliares" }
+  ],
+
+  "radix-sort.name": "Ordenamiento Radix",
+  "radix-sort.stepLabel": "Ordenamiento Radix \u2014 LSD",
+  "radix-sort.modes.lsd.label": "LSD",
+  "radix-sort.modes.lsd.desc": "Ordenamiento Radix LSD (d\u00edgito menos significativo): realiza un ordenamiento por distribuci\u00f3n estable por cada d\u00edgito, comenzando por las unidades. Tras d pasadas (d = n\u00famero de d\u00edgitos del m\u00e1ximo), el arreglo queda completamente ordenado.",
+  "radix-sort.details.lsd.principles": [
+    "Determinar d \u2014 el n\u00famero de d\u00edgitos del valor m\u00e1ximo (para max 999: d = 3)",
+    "Para cada posici\u00f3n de d\u00edgito del menos significativo al m\u00e1s significativo: realizar un ordenamiento por distribuci\u00f3n estable por ese d\u00edgito",
+    "Distribuir: recorrer el arreglo de izquierda a derecha; colocar cada elemento en bucket[digit] seg\u00fan el d\u00edgito actual",
+    "Recolectar: concatenar los buckets 0..9 de vuelta al arreglo en orden",
+    "Tras las d pasadas, el arreglo est\u00e1 ordenado \u2014 la estabilidad de cada pasada garantiza la correcci\u00f3n"
+  ],
+  "radix-sort.details.lsd.concepts": [
+    { "term": "LSD (Least Significant Digit)", "definition": "El d\u00edgito m\u00e1s a la derecha se procesa primero, luego decenas, centenas, etc. Este orden combinado con un ordenamiento interno estable garantiza un arreglo totalmente ordenado tras d pasadas." },
+    { "term": "Ordenamiento interno estable", "definition": "Cada pasada por d\u00edgito debe ser estable \u2014 los elementos con el mismo d\u00edgito actual mantienen su orden relativo de la pasada anterior. Sin estabilidad se perder\u00eda la informaci\u00f3n de d\u00edgitos previos." },
+    { "term": "Buckets (cubetas)", "definition": "Base b (t\u00edpicamente 10 para decimal) de contenedores auxiliares. Cada pasada distribuye elementos en buckets seg\u00fan el d\u00edgito actual y luego los recolecta." },
+    { "term": "Extracci\u00f3n de d\u00edgito", "definition": "Para valor v y posici\u00f3n p (0 = unidades): digit = floor(v / 10^p) mod 10. Esta f\u00f3rmula selecciona el d\u00edgito actual en cada pasada." }
+  ],
+  "radix-sort.details.lsd.tradeoffs.pros": [
+    "Tiempo O(d \u00B7 n) \u2014 lineal cuando d es una constante peque\u00f1a",
+    "Supera los ordenamientos por comparaci\u00f3n O(n log n) para claves enteras de ancho fijo",
+    "Estable \u2014 preserva el orden relativo de claves iguales",
+    "Paralelizable \u2014 cada bucket puede procesarse independientemente",
+    "Excelente para ordenar grandes conjuntos de enteros o cadenas de longitud fija"
+  ],
+  "radix-sort.details.lsd.tradeoffs.cons": [
+    "Solo funciona con claves enteras o de ancho fijo \u2014 no con datos comparables generales",
+    "Requiere O(n + b) de memoria extra para buckets y salida",
+    "d pasadas sobre los datos \u2014 muchos fallos de cach\u00e9 para n grande",
+    "M\u00e1s dif\u00edcil de implementar que quicksort; la elecci\u00f3n de base afecta el rendimiento"
+  ],
+  "radix-sort.details.lsd.tradeoffs.whenToUse": "Use Radix Sort para arreglos grandes de enteros con ancho acotado, para cadenas de longitud fija, o cuando se requiere estabilidad y las claves encajan en un modelo de d\u00edgitos. Evite para claves realmente de longitud variable.",
+  "radix-sort.depRules": [
+    { "name": "Tiempo", "role": "O(d \u00B7 (n + b)) \u2014 d pasadas de d\u00edgitos sobre n elementos, base b" },
+    { "name": "Espacio", "role": "O(n + b) \u2014 buckets + arreglo de salida" },
+    { "name": "Estable", "role": "S\u00ed \u2014 requerido para correcci\u00f3n de LSD" },
+    { "name": "Adaptativo", "role": "No \u2014 siempre d pasadas" },
+    { "name": "Restricci\u00f3n de entrada", "role": "Enteros no negativos (o claves de ancho fijo)" },
+    { "name": "In-Place", "role": "No \u2014 se requieren buckets y salida auxiliares" }
+  ],
+
+  "av.legend.cs_reading": "Lectura",
+  "av.legend.cs_count_active": "Celda de conteo",
+  "av.legend.rs_distributing": "Distribuci\u00f3n",
+  "av.legend.rs_bucket_active": "Bucket activo",
+
+  "av.cs.count_label": "count[ ]",
+  "av.rs.buckets_label": "buckets[0..9]",
+  "av.rs.place_ones": "unidades",
+  "av.rs.place_tens": "decenas",
+  "av.rs.place_hundreds": "centenas",
+  "av.rs.place_thousands": "millares",
+
+  "av.log.cs_count_incr": "Leer arr[{idx}]={val}, count[{countIdx}]\u2192{count}",
+  "av.log.cs_cumulative": "count[{idx}] = {old} + count[{prev}] = {neu}",
+  "av.log.cs_place": "Colocar {val} en output[{out}], count[{countIdx}]\u2192{cnt}",
+  "av.log.rs_digit_pass": "Pasada {pass}/{total}: ordenar por d\u00edgito de {place}",
+  "av.log.rs_bucket_add": "arr[{idx}]={val} \u2192 bucket[{digit}]",
+  "av.log.rs_bucket_collect": "bucket[{bucket}] \u2192 arr[{out}]={val}",
+
   "av.legend.scanning": "Escaneando",
   "av.legend.examined": "Examinado",
   "av.legend.found": "Encontrado",
