@@ -1646,9 +1646,6 @@ function updateCountriesDisplay() {
     visitedText.style.left = `${progressPercentage / 2}%`;
     planText.textContent = `${planPercentage.toFixed(1)}%`;
     planText.style.left = `${(progressPercentage + planPercentage) / 2}%`;
-    document.getElementById('visited-count').textContent = visitedCount;
-    document.getElementById('plan-count').textContent = planCount;
-    document.getElementById('total-world-countries').textContent = totalWorldCountries;
 
     // Add event listeners to country flags after they are created
     setTimeout(() => {

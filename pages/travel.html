@@ -87,11 +87,25 @@
                 <h4><i class="fas fa-globe"></i> Total countries visited: <span class="country-count" data-target="0">0</span></h4>
             </div>
 
-            <!-- Search Container -->
-            <div class="search-container">
-                <label for="country-search" class="visually-hidden">Search country</label>
-                <input type="text" id="country-search" placeholder="Search country..." aria-label="Search country">
-                <i class="fas fa-search"></i>
+            <div class="world-progress-section">
+                <h5 class="progress-title"><i class="fas fa-chart-line"></i> World Exploration Progress</h5>
+                <div class="world-progress-header">
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-fill-plan" id="world-progress-plan-fill"></div>
+                        <div class="progress-fill progress-fill-visited" id="world-progress-fill"></div>
+                        <span class="progress-text progress-text-visited" id="world-progress-text">0%</span>
+                        <span class="progress-text progress-text-plan" id="plan-progress-text">0%</span>
+                    </div>
+                    <div class="search-container">
+                        <label for="country-search" class="visually-hidden">Search country</label>
+                        <input type="text" id="country-search" placeholder="Search country..." aria-label="Search country">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="progress-legend">
+                    <span class="progress-legend-item"><span class="progress-legend-swatch swatch-visited"></span> Visited</span>
+                    <span class="progress-legend-item"><span class="progress-legend-swatch swatch-plan"></span> Wishlist</span>
+                </div>
             </div>
 
             <div class="countries-by-continent">
@@ -121,26 +135,6 @@
                         <h5><i class="fas fa-globe"></i> Wishlist</h5>
                         <div class="country-flags">
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="world-progress-section">
-                <h5 class="progress-title"><i class="fas fa-chart-line"></i> World Exploration Progress</h5>
-                <div class="world-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill progress-fill-plan" id="world-progress-plan-fill"></div>
-                        <div class="progress-fill progress-fill-visited" id="world-progress-fill"></div>
-                        <span class="progress-text progress-text-visited" id="world-progress-text">0%</span>
-                        <span class="progress-text progress-text-plan" id="plan-progress-text">0%</span>
-                    </div>
-                    <div class="progress-legend">
-                        <span class="progress-legend-item"><span class="progress-legend-swatch swatch-visited"></span> Visited</span>
-                        <span class="progress-legend-item"><span class="progress-legend-swatch swatch-plan"></span> Wishlist</span>
-                    </div>
-                    <div class="progress-details">
-                        <span id="visited-count">0</span> of <span id="total-world-countries">195</span> countries visited
-                        · <span id="plan-count">0</span> in plan
                     </div>
                 </div>
             </div>

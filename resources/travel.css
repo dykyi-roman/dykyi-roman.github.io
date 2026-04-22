@@ -175,6 +175,30 @@
 
 .world-progress-section {
     margin-top: 20px;
+    margin-bottom: 25px;
+}
+
+.world-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.world-progress-header .progress-bar {
+    flex: 7 1 0;
+    min-width: 0;
+    margin: 0;
+}
+
+.world-progress-header .search-container {
+    margin-bottom: 0;
+    margin-top: 0;
+    flex: 3 1 0;
+    max-width: none;
+    min-width: 0;
 }
 
 .progress-title {
@@ -184,18 +208,19 @@
 
 .progress-bar {
     background-color: rgba(255, 255, 255, 0.3);
-    height: 25px;
-    border-radius: 15px;
+    height: 44px;
+    border-radius: 25px;
     overflow: hidden;
     position: relative;
     margin: 10px 0;
+    width: 100%;
 }
 
 .progress-fill {
     height: 100%;
     width: 0%;
     transition: width 1.5s ease-in-out;
-    border-radius: 15px;
+    border-radius: 25px;
     position: absolute;
     top: 0;
     left: 0;
@@ -1122,6 +1147,17 @@
     .search-container input {
         padding: 10px 35px 10px 12px;
         font-size: 14px;
+    }
+
+    .world-progress-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .world-progress-header .search-container {
+        flex: 1;
+        max-width: none;
     }
 
     .travel-timeline .timeline-container {
