@@ -1492,6 +1492,10 @@ const countriesData = {
             facebook: []
         }
     ],
+    northAmerica: [],
+    southAmerica: [],
+    australia: [],
+    antarctica: [],
 };
 
 // Wishlist countries - places to visit in the future
@@ -1565,7 +1569,13 @@ const wishlistCountries = {
 
 // Calculate total countries count
 function getTotalCountriesCount() {
-    return countriesData.asia.length + countriesData.africa.length + countriesData.europe.length;
+    return countriesData.asia.length
+        + countriesData.africa.length
+        + countriesData.europe.length
+        + countriesData.northAmerica.length
+        + countriesData.southAmerica.length
+        + countriesData.australia.length
+        + countriesData.antarctica.length;
 }
 
 // Calculate total wishlist countries count
@@ -1581,23 +1591,26 @@ function updateCountriesDisplay() {
     document.querySelector('.country-count').textContent = totalCount;
 
     // Update continent counts
-    const asiaElement = document.querySelector('.continent-group.asia h5');
-    const africaElement = document.querySelector('.continent-group.africa h5');
-    const europeElement = document.querySelector('.continent-group.europe h5');
+    const continentHeaders = [
+        { selector: '.continent-group.europe h5', icon: 'fa-solid fa-chess-rook', label: 'Europe', count: countriesData.europe.length },
+        { selector: '.continent-group.asia h5', icon: 'fas fa-mountain', label: 'Asia', count: countriesData.asia.length },
+        { selector: '.continent-group.africa h5', icon: 'fas fa-sun', label: 'Africa', count: countriesData.africa.length },
+        { selector: '.continent-group.north-america h5', icon: 'fas fa-flag-usa', label: 'North America', count: countriesData.northAmerica.length },
+        { selector: '.continent-group.south-america h5', icon: 'fas fa-tree', label: 'South America', count: countriesData.southAmerica.length },
+        { selector: '.continent-group.australia h5', icon: 'fas fa-umbrella-beach', label: 'Australia &amp; Oceania', count: countriesData.australia.length },
+        { selector: '.continent-group.antarctica h5', icon: 'fas fa-snowflake', label: 'Antarctica', count: countriesData.antarctica.length },
+    ];
 
-    if (asiaElement) {
-        asiaElement.innerHTML = `<i class="fas fa-mountain"></i> Asia (${countriesData.asia.length} countries)`;
-    }
-    if (africaElement) {
-        africaElement.innerHTML = `<i class="fas fa-sun"></i> Africa (${countriesData.africa.length} countries)`;
-    }
-    if (europeElement) {
-        europeElement.innerHTML = `<i class="fa-solid fa-chess-rook"></i></i> Europe (${countriesData.europe.length} countries)`;
-    }
+    continentHeaders.forEach(({ selector, icon, label, count }) => {
+        const el = document.querySelector(selector);
+        if (el) {
+            el.innerHTML = `<i class="${icon}"></i> ${label}<span class="continent-count-badge">${count}</span>`;
+        }
+    });
 
     // Update wishlist count
     document.querySelector('.wishlist-section .continent-group h5').innerHTML =
-        `<i class="fas fa-globe"></i> Wishlist (${wishlistCount} countries)`;
+        `<i class="fas fa-globe"></i> Wishlist<span class="continent-count-badge">${wishlistCount}</span>`;
 
     // Sort countries by visitDate (oldest first) for display
     const sortByDate = (a, b) => a.visitDate.localeCompare(b.visitDate);
@@ -1608,21 +1621,22 @@ function updateCountriesDisplay() {
         ).join('');
 
     // Update country flags
-    const asiaFlags = document.querySelector('.countries-by-continent .continent-group.asia .country-flags');
-    const africaFlags = document.querySelector('.countries-by-continent .continent-group.africa .country-flags');
-    const europeFlags = document.querySelector('.countries-by-continent .continent-group.europe .country-flags');
+    const continentFlags = [
+        { selector: '.countries-by-continent .continent-group.europe .country-flags', data: countriesData.europe, label: 'Europe' },
+        { selector: '.countries-by-continent .continent-group.asia .country-flags', data: countriesData.asia, label: 'Asia' },
+        { selector: '.countries-by-continent .continent-group.africa .country-flags', data: countriesData.africa, label: 'Africa' },
+        { selector: '.countries-by-continent .continent-group.north-america .country-flags', data: countriesData.northAmerica, label: 'North America' },
+        { selector: '.countries-by-continent .continent-group.south-america .country-flags', data: countriesData.southAmerica, label: 'South America' },
+        { selector: '.countries-by-continent .continent-group.australia .country-flags', data: countriesData.australia, label: 'Australia' },
+        { selector: '.countries-by-continent .continent-group.antarctica .country-flags', data: countriesData.antarctica, label: 'Antarctica' },
+    ];
 
-    if (asiaFlags) {
-        asiaFlags.innerHTML = renderCountryFlags(countriesData.asia, 'Asia');
-    }
-
-    if (africaFlags) {
-        africaFlags.innerHTML = renderCountryFlags(countriesData.africa, 'Africa');
-    }
-
-    if (europeFlags) {
-        europeFlags.innerHTML = renderCountryFlags(countriesData.europe, 'Europe');
-    }
+    continentFlags.forEach(({ selector, data, label }) => {
+        const el = document.querySelector(selector);
+        if (el) {
+            el.innerHTML = renderCountryFlags(data, label);
+        }
+    });
 
     // Wishlist countries
     const wishlistFlags = document.querySelector('.wishlist-section .country-flags');

@@ -54,10 +54,13 @@
 
 .countries-by-continent {
     display: grid;
-    gap: 20px;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    align-items: start;
 }
 
 .continent-group {
+    position: relative;
     background: rgba(255, 255, 255, 0.1);
     padding: 15px;
     border-radius: 10px;
@@ -65,6 +68,22 @@
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.continent-count-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #333;
+    font-weight: 700;
+    font-size: 0.85em;
+    padding: 3px 10px;
+    border-radius: 12px;
+    min-width: 28px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    line-height: 1.4;
 }
 
 .continent-group:hover {
@@ -80,9 +99,11 @@
 }
 
 .country-flags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(32px, 1fr));
+    gap: 2px;
+    justify-items: center;
+    align-items: center;
 }
 
 .country-item {
