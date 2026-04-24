@@ -59,7 +59,13 @@ const countriesData = {
                     facebook: []
                 },
                 'Marrakesh': {
-                    instagram: [],
+                    instagram: [
+                        'https://www.instagram.com/p/DXP2An3jmuf/?img_index=1',
+                        'https://www.instagram.com/p/DXSbgsgDgcX/?img_index=1',
+                        'https://www.instagram.com/p/DXU4nORji1Z/?img_index=1',
+                        'https://www.instagram.com/p/DXXdMvujndc/?img_index=1',
+                        'https://www.instagram.com/p/DXaCOrvDk5Y/?img_index=1',
+                    ],
                     facebook: []
                 }
             },
@@ -1590,22 +1596,31 @@ function updateCountriesDisplay() {
     const wishlistCount = getTotalWishlistCount();
     document.querySelector('.country-count').textContent = totalCount;
 
+    const stats = (typeof calculateDetailedStats === 'function') ? calculateDetailedStats() : null;
+    const days = stats ? stats.daysByContinent : {};
+    const cities = stats ? stats.citiesByContinent : {};
+
     // Update continent counts
     const continentHeaders = [
-        { selector: '.continent-group.europe h5', icon: 'fa-solid fa-chess-rook', label: 'Europe', count: countriesData.europe.length },
-        { selector: '.continent-group.asia h5', icon: 'fas fa-mountain', label: 'Asia', count: countriesData.asia.length },
-        { selector: '.continent-group.africa h5', icon: 'fas fa-sun', label: 'Africa', count: countriesData.africa.length },
-        { selector: '.continent-group.north-america h5', icon: 'fas fa-flag-usa', label: 'North America', count: countriesData.northAmerica.length },
-        { selector: '.continent-group.south-america h5', icon: 'fas fa-tree', label: 'South America', count: countriesData.southAmerica.length },
-        { selector: '.continent-group.australia h5', icon: 'fas fa-umbrella-beach', label: 'Australia &amp; Oceania', count: countriesData.australia.length },
-        { selector: '.continent-group.antarctica h5', icon: 'fas fa-snowflake', label: 'Antarctica', count: countriesData.antarctica.length },
+        { selector: '.continent-group.europe h5', icon: 'fa-solid fa-chess-rook', label: 'Europe', count: countriesData.europe.length, key: 'europe' },
+        { selector: '.continent-group.asia h5', icon: 'fas fa-mountain', label: 'Asia', count: countriesData.asia.length, key: 'asia' },
+        { selector: '.continent-group.africa h5', icon: 'fas fa-sun', label: 'Africa', count: countriesData.africa.length, key: 'africa' },
+        { selector: '.continent-group.north-america h5', icon: 'fas fa-flag-usa', label: 'North America', count: countriesData.northAmerica.length, key: 'northAmerica' },
+        { selector: '.continent-group.south-america h5', icon: 'fas fa-tree', label: 'South America', count: countriesData.southAmerica.length, key: 'southAmerica' },
+        { selector: '.continent-group.australia h5', icon: 'fas fa-umbrella-beach', label: 'Australia &amp; Oceania', count: countriesData.australia.length, key: 'australia' },
+        { selector: '.continent-group.antarctica h5', icon: 'fas fa-snowflake', label: 'Antarctica', count: countriesData.antarctica.length, key: 'antarctica' },
     ];
 
-    continentHeaders.forEach(({ selector, icon, label, count }) => {
+    continentHeaders.forEach(({ selector, icon, label, count, key }) => {
         const el = document.querySelector(selector);
-        if (el) {
-            el.innerHTML = `<i class="${icon}"></i> ${label}<span class="continent-count-badge">${count}</span>`;
-        }
+        if (!el) return;
+        const d = days[key] || 0;
+        const c = cities[key] || 0;
+        const extra = (d > 0 || c > 0)
+            ? `<span class="continent-stat-badge" title="Days"><i class="fas fa-calendar-alt"></i>${d}</span>`
+              + `<span class="continent-stat-badge" title="Cities"><i class="fas fa-city"></i>${c}</span>`
+            : '';
+        el.innerHTML = `<i class="${icon}"></i> ${label}<span class="continent-count-badge">${count}</span>${extra}`;
     });
 
     // Update wishlist count
@@ -2979,36 +2994,6 @@ function calculateDetailedStats() {
     };
 }
 
-// Update detailed stats display
-function updateDetailedStats() {
-    const stats = calculateDetailedStats();
-
-    const daysEl = document.getElementById('stat-days');
-    const citiesEl = document.getElementById('stat-cities');
-
-    if (daysEl) {
-        daysEl.dataset.target = stats.days;
-    }
-    if (citiesEl) {
-        citiesEl.dataset.target = stats.cities;
-    }
-
-    // Update days breakdown
-    const daysAsia = document.getElementById('days-asia');
-    const daysEurope = document.getElementById('days-europe');
-    const daysAfrica = document.getElementById('days-africa');
-    if (daysAsia) daysAsia.textContent = stats.daysByContinent.asia;
-    if (daysEurope) daysEurope.textContent = stats.daysByContinent.europe;
-    if (daysAfrica) daysAfrica.textContent = stats.daysByContinent.africa;
-
-    // Update cities breakdown
-    const citiesAsia = document.getElementById('cities-asia');
-    const citiesEurope = document.getElementById('cities-europe');
-    const citiesAfrica = document.getElementById('cities-africa');
-    if (citiesAsia) citiesAsia.textContent = stats.citiesByContinent.asia;
-    if (citiesEurope) citiesEurope.textContent = stats.citiesByContinent.europe;
-    if (citiesAfrica) citiesAfrica.textContent = stats.citiesByContinent.africa;
-}
 
 // Generate journey timeline
 function generateTimeline() {
@@ -3108,7 +3093,7 @@ function enhanceCountryItems() {
 // Initialize all new features on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
-        updateDetailedStats();
+        updateCountriesDisplay();
         generateTimeline();
         initSearch();
         enhanceCountryItems();

@@ -86,6 +86,27 @@
     line-height: 1.4;
 }
 
+.continent-stat-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 8px;
+    background: rgba(255, 215, 0, 0.15);
+    color: #FFD700;
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    font-weight: 600;
+    font-size: 0.75em;
+    padding: 2px 9px;
+    border-radius: 10px;
+    line-height: 1.4;
+    vertical-align: middle;
+}
+
+.continent-stat-badge i {
+    font-size: 0.9em;
+    color: #FFD700;
+}
+
 .continent-group:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
@@ -1278,129 +1299,6 @@
     transform: translateY(-50%);
     color: rgba(255, 255, 255, 0.7);
     pointer-events: none;
-}
-
-/* Detailed Statistics */
-.detailed-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.stat-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 20px;
-    border-radius: 15px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.stat-card-wide {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-align: left;
-    padding: 25px 30px;
-}
-
-.stat-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 120px;
-}
-
-.stat-main i {
-    font-size: 2em;
-    color: #FFD700;
-    margin-bottom: 10px;
-}
-
-.stat-breakdown {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding-left: 20px;
-    border-left: 2px solid rgba(255, 215, 0, 0.3);
-    margin-left: 20px;
-}
-
-.breakdown-item {
-    font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.9);
-    display: flex;
-    gap: 8px;
-}
-
-.breakdown-label {
-    color: rgba(255, 255, 255, 0.6);
-    min-width: 55px;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-.stat-card i {
-    font-size: 2em;
-    color: #FFD700;
-    margin-bottom: 10px;
-    display: block;
-}
-
-.stat-value {
-    font-size: 2.2em;
-    font-weight: bold;
-    color: white;
-    display: block;
-    line-height: 1.2;
-}
-
-.stat-label {
-    font-size: 0.85em;
-    color: rgba(255, 255, 255, 0.8);
-    margin-top: 5px;
-    display: block;
-}
-
-/* Stat cards mobile overrides (must be after desktop definitions) */
-@media (max-width: 768px) {
-    .detailed-stats {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
-    .stat-card {
-        padding: 15px;
-    }
-
-    .stat-card-wide {
-        flex-direction: column;
-        text-align: center;
-        padding: 20px;
-    }
-
-    .stat-breakdown {
-        border-left: none;
-        border-top: 2px solid rgba(255, 215, 0, 0.3);
-        margin-left: 0;
-        margin-top: 15px;
-        padding-left: 0;
-        padding-top: 15px;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-
-    .stat-value {
-        font-size: 1.8em;
-    }
 }
 
 /* Travel Timeline */
