@@ -944,6 +944,80 @@
     { "name": "Backtracking", "role": "No \u2014 text pointer never moves backward" }
   ],
 
+  "av.stat.hash_compares": "Hash Compares",
+
+  "av.rk.formula_label": "Hash function:",
+  "av.rk.pattern_hash_label": "H(pattern):",
+  "av.rk.window_hash_label": "H(window):",
+  "av.rk.roll_label": "Roll:",
+
+  "av.legend.rk_hash_compare": "Hash Compare",
+  "av.legend.rk_hash_equal": "Hash Match",
+  "av.legend.rk_hash_diff": "Hash Differ",
+  "av.legend.rk_spurious": "Spurious Hit",
+
+  "av.log.rk_hash_pattern": "H(pattern \u201c{p}\u201d) = {hash} (mod {q})",
+  "av.log.rk_hash_init": "H(initial window \u201c{w}\u201d) = {hash} (mod {q})",
+  "av.log.rk_compare_hash": "Compare H(window[{offset}..])=\u201c{w}\u201d \u2192 {hw} vs H(pattern)={hp}",
+  "av.log.rk_hash_mismatch": "Hashes differ at offset {offset} ({hw}\u2260{hp}) \u2014 skip without char compare",
+  "av.log.rk_hash_hit": "Hashes match at offset {offset} (H={hash}) \u2014 verify chars",
+  "av.log.rk_spurious": "Spurious hit at {offset}: hash matched (H={hash}) but \u201c{w}\u201d \u2260 \u201c{p}\u201d",
+  "av.log.rk_roll": "Roll [{from}\u2192{to}]: H_new = ({d}\u00b7({oldHash}\u2212{oldCode}\u00b7{hp})+{newCode}) mod {q} = {newHash}",
+  "av.log.done_rabin_karp": "Completed in {time}ms ({hashCompares} hash compares, {matches} matches, {spurious} spurious hits)",
+
+  "ui.log.type.RK_HASH_PATTERN": "HASH P",
+  "ui.log.type.RK_HASH_INIT": "HASH W",
+  "ui.log.type.RK_COMPARE_HASH": "HASH",
+  "ui.log.type.RK_HASH_HIT": "HASH HIT",
+  "ui.log.type.RK_HASH_MISMATCH": "HASH SKIP",
+  "ui.log.type.RK_SPURIOUS": "SPURIOUS",
+  "ui.log.type.RK_ROLL_HASH": "ROLL",
+
+  "rabin-karp.name": "Rabin-Karp",
+  "rabin-karp.stepLabel": "Rabin-Karp",
+  "rabin-karp.modes.standard.label": "Standard (Rolling Hash)",
+  "rabin-karp.modes.standard.desc": "Rabin-Karp algorithm: precomputes a polynomial hash of the pattern, then slides a window of length m across the text. The window hash is updated in O(1) using rolling-hash arithmetic. Character comparison happens only when window hash equals pattern hash, dramatically reducing average-case work.",
+  "rabin-karp.details.standard.principles": [
+    "Precompute the polynomial hash H(P) of the pattern in O(m)",
+    "Compute the hash H(window) of the first text window of length m in O(m)",
+    "Compare H(window) with H(P) \u2014 if different, slide the window without inspecting characters",
+    "If hashes match, verify character-by-character to rule out a spurious hit",
+    "Slide the window: roll the hash in O(1) by removing the leftmost char and adding the next char",
+    "Repeat until the window passes the end of the text"
+  ],
+  "rabin-karp.details.standard.concepts": [
+    { "term": "Rabin-Karp Algorithm", "definition": "Published by Michael Rabin and Richard Karp (1987). A randomized string-matching algorithm whose strength is O(1) hash updates between consecutive text windows. Average runtime is O(n + m); worst case degrades to O(n\u00b7m) only when many windows hash to the same value as the pattern." },
+    { "term": "Polynomial Hash", "definition": "H(s) = (s[0]\u00b7d^(m\u22121) + s[1]\u00b7d^(m\u22122) + \u2026 + s[m\u22121]) mod q, where d is the alphabet size (256 for ASCII) and q is a prime (101 in this visualization). Treats the string as a number in base d." },
+    { "term": "Rolling Hash", "definition": "Given the hash of T[i..i+m\u22121], the hash of the next window T[i+1..i+m] is computed in O(1): H_new = (d \u00b7 (H_old \u2212 T[i]\u00b7d^(m\u22121)) + T[i+m]) mod q. The leftmost contribution is subtracted, the rest is shifted by one position, and the new char is added." },
+    { "term": "Spurious Hit", "definition": "A window whose hash matches the pattern hash but whose characters differ. Caused by hash collisions (different strings sharing the same hash mod q). Rabin-Karp must verify every hash hit with a full character comparison." },
+    { "term": "Modular Arithmetic", "definition": "All operations are taken mod q to keep hash values bounded. Subtraction can become negative, so the implementation adjusts the result back into [0, q\u22121] before the modulo." },
+    { "term": "Choice of Base & Prime", "definition": "A larger prime reduces collision probability but produces larger intermediate values. The pair d=256, q=101 is small enough for visualization while preserving the rolling-hash mechanics. Production code uses much larger primes (often 10^9 + 7) and sometimes random primes for adversarial robustness." }
+  ],
+  "rabin-karp.details.standard.tradeoffs.pros": [
+    "Average O(n + m) \u2014 each window is filtered by a single integer comparison",
+    "Trivial extension to multi-pattern search: maintain a set of pattern hashes and probe each window once",
+    "Constant extra space \u2014 no preprocessing tables (unlike KMP\u2019s LPS array)",
+    "Great fit for plagiarism detection, Rabin fingerprints, content-defined chunking",
+    "Hash function and prime can be chosen randomly to defeat adversarial inputs"
+  ],
+  "rabin-karp.details.standard.tradeoffs.cons": [
+    "Worst case O(n\u00b7m) when many windows share the pattern hash",
+    "Requires a verification step on every hash hit \u2014 not purely linear",
+    "Quality depends entirely on the hash function and prime choice",
+    "Modular arithmetic and rolling formula are subtler to implement correctly than naive matching",
+    "Single small prime (as in this visualization) is unsafe in production: choose a large prime or double hashing"
+  ],
+  "rabin-karp.details.standard.tradeoffs.whenToUse": "Choose Rabin-Karp when searching for many patterns at once (signature matching, plagiarism detection, file deduplication) or when a hash-based fingerprint is already part of the data flow. For a single short pattern with worst-case guarantees, prefer KMP or Boyer-Moore.",
+  "rabin-karp.depRules": [
+    { "name": "Time (Average)", "role": "O(n + m) \u2014 hashes filter out most windows" },
+    { "name": "Time (Worst)", "role": "O(n\u00b7m) \u2014 many spurious hash collisions" },
+    { "name": "Time (Preprocessing)", "role": "O(m) \u2014 hash of pattern + first window" },
+    { "name": "Space", "role": "O(1) \u2014 only hash values, no LPS table" },
+    { "name": "Multiple Matches", "role": "Yes \u2014 finds all occurrences" },
+    { "name": "Multi-pattern", "role": "Yes \u2014 store a set of pattern hashes" },
+    { "name": "Backtracking", "role": "No on hash mismatch \u2014 immediate window slide" }
+  ],
+
   "av.stat.hash_operations": "Operations",
   "av.stat.hash_collisions": "Collisions",
 

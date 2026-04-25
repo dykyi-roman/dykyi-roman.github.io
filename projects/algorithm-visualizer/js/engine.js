@@ -623,6 +623,135 @@ AV.clearStringHighlights = function() {
     document.querySelectorAll('.av-str-lps-cell').forEach(function(cell) {
         cell.classList.remove('av-str-lps-active', 'av-str-lps-set');
     });
+    /* Only clear transient hash highlight; stable equal/diff remain until next RK_COMPARE_HASH */
+    document.querySelectorAll('.av-rk-hash-cell').forEach(function(cell) {
+        cell.classList.remove('av-rk-hash-active');
+    });
+};
+
+AV._clearRabinKarpHashStates = function() {
+    document.querySelectorAll('.av-rk-hash-cell').forEach(function(cell) {
+        cell.classList.remove('av-rk-hash-active', 'av-rk-hash-equal', 'av-rk-hash-diff');
+    });
+};
+
+/* ===== Rabin-Karp Hash Rendering ===== */
+AV.renderRabinKarpMatch = function(text, pattern, patternOffset, patternHash, windowHash, formula) {
+    var canvas = document.getElementById('av-canvas');
+    if (!canvas) return;
+
+    AV.state._isStringAlgorithm = true;
+    AV.state._isRabinKarp = true;
+
+    var d = AV.state._rkBase || 256;
+    var q = AV.state._rkPrime || 101;
+    var m = pattern.length;
+
+    var html = '<div class="av-str-container av-rk-container">';
+
+    /* Hash formula banner */
+    html += '<div class="av-rk-formula-row">' +
+        '<span class="av-rk-formula-label">' + I18N.t('av.rk.formula_label', null, 'Hash function:') + '</span>' +
+        '<span class="av-rk-formula-text">H(s) = (Σ s[i]·' + d + '<sup>m−1−i</sup>) mod ' + q + '</span>' +
+        '</div>';
+
+    /* Hash values row: H(pattern) and H(window) */
+    var pHashLabel = I18N.t('av.rk.pattern_hash_label', null, 'H(pattern):');
+    var wHashLabel = I18N.t('av.rk.window_hash_label', null, 'H(window):');
+    var pHashVal = (patternHash !== null && patternHash !== undefined) ? patternHash : '—';
+    var wHashVal = (windowHash !== null && windowHash !== undefined) ? windowHash : '—';
+    html += '<div class="av-rk-hash-row">';
+    html += '<div class="av-rk-hash-group">' +
+        '<span class="av-rk-hash-label">' + pHashLabel + '</span>' +
+        '<div class="av-rk-hash-cell av-rk-hash-pattern" id="av-rk-pattern-hash">' + pHashVal + '</div>' +
+        '</div>';
+    html += '<div class="av-rk-hash-group">' +
+        '<span class="av-rk-hash-label">' + wHashLabel + '</span>' +
+        '<div class="av-rk-hash-cell av-rk-hash-window" id="av-rk-window-hash">' + wHashVal + '</div>' +
+        '</div>';
+    html += '</div>';
+
+    /* Optional rolling-hash formula (shown briefly during a roll step) */
+    if (formula) {
+        html += '<div class="av-rk-roll-row" id="av-rk-roll-formula">' +
+            '<span class="av-rk-roll-label">' + I18N.t('av.rk.roll_label', null, 'Roll:') + '</span>' +
+            '<span class="av-rk-roll-text">' + formula + '</span>' +
+            '</div>';
+    }
+
+    /* Text row */
+    html += '<div class="av-str-row"><span class="av-str-label">' +
+        I18N.t('av.str.text_label', null, 'Text:') + '</span>';
+    html += '<div class="av-str-cells" id="av-str-text">';
+    for (var i = 0; i < text.length; i++) {
+        html += '<div class="av-str-cell" data-index="' + i + '">' +
+            '<span class="av-str-index">' + i + '</span>' + text[i] + '</div>';
+    }
+    html += '</div></div>';
+
+    /* Pattern row (offset) */
+    html += '<div class="av-str-row"><span class="av-str-label">' +
+        I18N.t('av.str.pattern_label', null, 'Pattern:') + '</span>';
+    html += '<div class="av-str-cells" id="av-str-pattern">';
+    for (var s = 0; s < patternOffset; s++) {
+        html += '<div class="av-str-cell av-str-empty"></div>';
+    }
+    var maxPatCells = Math.max(0, text.length - patternOffset);
+    for (var j = 0; j < pattern.length && j < maxPatCells; j++) {
+        html += '<div class="av-str-cell" data-pindex="' + j + '">' + pattern[j] + '</div>';
+    }
+    html += '</div></div>';
+
+    html += '</div>';
+    canvas.innerHTML = html;
+};
+
+AV._updateRabinKarpHashes = function(patternHash, windowHash) {
+    var pCell = document.getElementById('av-rk-pattern-hash');
+    var wCell = document.getElementById('av-rk-window-hash');
+    if (pCell && patternHash !== null && patternHash !== undefined) pCell.textContent = patternHash;
+    if (wCell && windowHash !== null && windowHash !== undefined) wCell.textContent = windowHash;
+};
+
+AV._showRabinKarpRollFormula = function(text) {
+    var canvas = document.getElementById('av-canvas');
+    if (!canvas) return;
+    var existing = document.getElementById('av-rk-roll-formula');
+    if (existing) {
+        var t = existing.querySelector('.av-rk-roll-text');
+        if (t) t.innerHTML = text;
+        existing.classList.remove('av-rk-roll-pulse');
+        /* trigger reflow so the animation re-runs */
+        void existing.offsetWidth;
+        existing.classList.add('av-rk-roll-pulse');
+        return;
+    }
+    var container = canvas.querySelector('.av-rk-container');
+    if (!container) return;
+    var hashRow = container.querySelector('.av-rk-hash-row');
+    var row = document.createElement('div');
+    row.className = 'av-rk-roll-row av-rk-roll-pulse';
+    row.id = 'av-rk-roll-formula';
+    row.innerHTML = '<span class="av-rk-roll-label">' + I18N.t('av.rk.roll_label', null, 'Roll:') + '</span>' +
+        '<span class="av-rk-roll-text">' + text + '</span>';
+    if (hashRow && hashRow.nextSibling) {
+        container.insertBefore(row, hashRow.nextSibling);
+    } else {
+        container.appendChild(row);
+    }
+};
+
+AV._setRabinKarpStatLabels = function() {
+    var lbl1 = document.querySelector('#stat-comparisons').closest('.stat-item').querySelector('.stat-label');
+    var lbl2 = document.querySelector('#stat-swaps').closest('.stat-item').querySelector('.stat-label');
+    if (lbl1) {
+        lbl1.textContent = I18N.t('av.stat.hash_compares', null, 'Hash Compares');
+        lbl1.setAttribute('data-i18n', 'av.stat.hash_compares');
+    }
+    if (lbl2) {
+        lbl2.textContent = I18N.t('av.stat.matches_found', null, 'Matches Found');
+        lbl2.setAttribute('data-i18n', 'av.stat.matches_found');
+    }
 };
 
 AV._setGraphStatLabels = function() {
@@ -976,6 +1105,7 @@ AV.setAccentColors = function(algorithmId) {
         'bst-operations': { accent: '#F59E0B', bg: '#1a1508', light: '#2d2210' },
         'fibonacci': { accent: '#EC4899', bg: '#1a0d18', light: '#2d1528' },
         'kmp': { accent: '#14B8A6', bg: '#0d1a1a', light: '#15282a' },
+        'rabin-karp': { accent: '#FB923C', bg: '#1a1208', light: '#2d1f10' },
         'selection-sort': { accent: '#10B981', bg: '#0d1a18', light: '#152a25' },
         'hash-table': { accent: '#F97316', bg: '#1a1208', light: '#2d1f10' },
         'binary-search': { accent: '#0EA5E9', bg: '#0c1a2e', light: '#142d4a' },
@@ -1674,6 +1804,102 @@ AV.animateFlow = async function(steps, options) {
             AV.log('STR_LPS_SET', I18N.t(lpsLogKey, lpsLogParams, lpsLogFallback));
             await AV.sleep(AV.state.stepDelay * 0.5);
 
+        } else if (step.type === 'RK_HASH_PATTERN') {
+            AV.clearStringHighlights();
+            AV._updateRabinKarpHashes(step.patternHash, undefined);
+            var rkPCell = document.getElementById('av-rk-pattern-hash');
+            if (rkPCell) rkPCell.classList.add('av-rk-hash-active');
+            AV.log('RK_HASH_PATTERN', I18N.t('av.log.rk_hash_pattern',
+                { p: step.pattern, hash: step.patternHash, d: step.d, q: step.q, m: step.m },
+                'H(pattern "' + step.pattern + '") = ' + step.patternHash + ' (mod ' + step.q + ')'));
+            await AV.sleep(AV.state.stepDelay);
+
+        } else if (step.type === 'RK_HASH_INIT') {
+            AV.clearStringHighlights();
+            AV._updateRabinKarpHashes(undefined, step.windowHash);
+            var rkWCell = document.getElementById('av-rk-window-hash');
+            if (rkWCell) rkWCell.classList.add('av-rk-hash-active');
+            /* Highlight the first window in the text */
+            var rkInitCells = document.querySelectorAll('#av-str-text .av-str-cell');
+            for (var rki = 0; rki < step.m; rki++) {
+                if (rkInitCells[step.offset + rki]) rkInitCells[step.offset + rki].classList.add('av-str-comparing');
+            }
+            AV.log('RK_HASH_INIT', I18N.t('av.log.rk_hash_init',
+                { w: step.window, hash: step.windowHash, q: step.q, m: step.m },
+                'H(window "' + step.window + '") = ' + step.windowHash + ' (mod ' + step.q + ')'));
+            await AV.sleep(AV.state.stepDelay);
+
+        } else if (step.type === 'RK_COMPARE_HASH') {
+            AV.clearStringHighlights();
+            AV._clearRabinKarpHashStates();
+            var rkCmpP = document.getElementById('av-rk-pattern-hash');
+            var rkCmpW = document.getElementById('av-rk-window-hash');
+            if (rkCmpP) rkCmpP.classList.add('av-rk-hash-active');
+            if (rkCmpW) rkCmpW.classList.add('av-rk-hash-active');
+            /* Highlight the current window in text */
+            var rkCmpCells = document.querySelectorAll('#av-str-text .av-str-cell');
+            var rkM = (AV.state._pattern || '').length;
+            for (var rkc = 0; rkc < rkM; rkc++) {
+                if (rkCmpCells[step.offset + rkc]) rkCmpCells[step.offset + rkc].classList.add('av-str-comparing');
+            }
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('RK_COMPARE_HASH', I18N.t('av.log.rk_compare_hash',
+                { offset: step.offset, hw: step.windowHash, hp: step.patternHash, w: step.window },
+                'Compare H(window[' + step.offset + '..])="' + step.window + '" → ' + step.windowHash + ' vs H(pattern)=' + step.patternHash));
+            await AV.sleep(AV.state.stepDelay);
+
+        } else if (step.type === 'RK_HASH_HIT') {
+            var rkHitP = document.getElementById('av-rk-pattern-hash');
+            var rkHitW = document.getElementById('av-rk-window-hash');
+            if (rkHitP) { rkHitP.classList.remove('av-rk-hash-active'); rkHitP.classList.add('av-rk-hash-equal'); }
+            if (rkHitW) { rkHitW.classList.remove('av-rk-hash-active'); rkHitW.classList.add('av-rk-hash-equal'); }
+            AV.log('RK_HASH_HIT', I18N.t('av.log.rk_hash_hit',
+                { offset: step.offset, hash: step.windowHash },
+                'Hashes match at offset ' + step.offset + ' (H=' + step.windowHash + ') — verify chars'));
+            await AV.sleep(AV.state.stepDelay * 0.6);
+
+        } else if (step.type === 'RK_HASH_MISMATCH') {
+            var rkMissP = document.getElementById('av-rk-pattern-hash');
+            var rkMissW = document.getElementById('av-rk-window-hash');
+            if (rkMissP) { rkMissP.classList.remove('av-rk-hash-active'); rkMissP.classList.add('av-rk-hash-diff'); }
+            if (rkMissW) { rkMissW.classList.remove('av-rk-hash-active'); rkMissW.classList.add('av-rk-hash-diff'); }
+            AV.log('RK_HASH_MISMATCH', I18N.t('av.log.rk_hash_mismatch',
+                { offset: step.offset, hw: step.windowHash, hp: step.patternHash },
+                'Hashes differ at offset ' + step.offset + ' (' + step.windowHash + '≠' + step.patternHash + ') — skip without char compare'));
+            await AV.sleep(AV.state.stepDelay * 0.6);
+
+        } else if (step.type === 'RK_SPURIOUS') {
+            AV.state._rkSpuriousHits = (AV.state._rkSpuriousHits || 0) + 1;
+            var rkSpurCells = document.querySelectorAll('#av-str-text .av-str-cell');
+            for (var rks = 0; rks < step.pattern.length; rks++) {
+                if (rkSpurCells[step.offset + rks]) {
+                    rkSpurCells[step.offset + rks].classList.remove('av-str-comparing', 'av-str-match');
+                    rkSpurCells[step.offset + rks].classList.add('av-rk-spurious');
+                }
+            }
+            AV.log('RK_SPURIOUS', I18N.t('av.log.rk_spurious',
+                { offset: step.offset, w: step.window, p: step.pattern, hash: step.windowHash },
+                'Spurious hit at ' + step.offset + ': hash matched (H=' + step.windowHash + ') but "' + step.window + '" ≠ "' + step.pattern + '"'));
+            await AV.sleep(AV.state.stepDelay);
+            /* Clear spurious markers before next iteration */
+            document.querySelectorAll('.av-rk-spurious').forEach(function(c) { c.classList.remove('av-rk-spurious'); });
+
+        } else if (step.type === 'RK_ROLL_HASH') {
+            AV.state._rkWindowHash = step.newHash;
+            /* Full re-render with new pattern offset and new window hash so the canvas stays in sync */
+            AV.renderRabinKarpMatch(AV.state._text, AV.state._pattern, step.newOffset, AV.state._rkPatternHash, step.newHash, null);
+            var rkRollCell = document.getElementById('av-rk-window-hash');
+            if (rkRollCell) {
+                rkRollCell.classList.add('av-rk-hash-active');
+            }
+            var rollFormula = '(' + step.d + ' · (' + step.oldHash + ' − ' + step.oldCharCode + '·' + step.highPower + ') + ' + step.newCharCode + ') mod ' + step.q + ' = <strong>' + step.newHash + '</strong>';
+            AV._showRabinKarpRollFormula(rollFormula);
+            AV.log('RK_ROLL_HASH', I18N.t('av.log.rk_roll',
+                { from: step.oldOffset, to: step.newOffset, oldHash: step.oldHash, newHash: step.newHash, oldChar: step.oldChar, newChar: step.newChar, oldCode: step.oldCharCode, newCode: step.newCharCode, hp: step.highPower, d: step.d, q: step.q },
+                'Roll [' + step.oldOffset + '→' + step.newOffset + ']: H_new = (' + step.d + '·(' + step.oldHash + '−' + step.oldCharCode + '·' + step.highPower + ')+' + step.newCharCode + ') mod ' + step.q + ' = ' + step.newHash));
+            await AV.sleep(AV.state.stepDelay * 0.7);
+
         } else if (step.type === 'HASH_COMPUTE') {
             AV.clearHashHighlights();
             AV._updateHashKeyBanner(step.key);
@@ -1799,8 +2025,15 @@ AV.animateFlow = async function(steps, options) {
             AV.log('DONE', I18N.t('av.log.done_graph', { time: elapsed, nodes: AV.state.comparisons, edges: AV.state.swaps },
                 'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' nodes, ' + AV.state.swaps + ' edges)'));
         } else if (AV.state._isStringAlgorithm) {
-            AV.log('DONE', I18N.t('av.log.done_string', { time: elapsed, comparisons: AV.state.comparisons, matches: AV.state.swaps },
-                'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons, ' + AV.state.swaps + ' matches found)'));
+            if (AV.state._isRabinKarp) {
+                var rkSpur = AV.state._rkSpuriousHits || 0;
+                AV.log('DONE', I18N.t('av.log.done_rabin_karp',
+                    { time: elapsed, hashCompares: AV.state.comparisons, matches: AV.state.swaps, spurious: rkSpur },
+                    'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' hash compares, ' + AV.state.swaps + ' matches, ' + rkSpur + ' spurious hits)'));
+            } else {
+                AV.log('DONE', I18N.t('av.log.done_string', { time: elapsed, comparisons: AV.state.comparisons, matches: AV.state.swaps },
+                    'Completed in ' + elapsed + 'ms (' + AV.state.comparisons + ' comparisons, ' + AV.state.swaps + ' matches found)'));
+            }
         } else if (AV.state._isHashAlgorithm) {
             AV.log('DONE', I18N.t('av.log.done_hash',
                 { time: elapsed, operations: AV.state.comparisons, collisions: AV.state.swaps },
@@ -2117,18 +2350,27 @@ AV._computeStringSnapshots = function(steps) {
     var comparisons = 0;
     var matches = 0;
 
+    var isRK = !!AV.state._isRabinKarp;
+    var patternHash = isRK ? (AV.state._rkPatternHash !== undefined ? AV.state._rkPatternHash : null) : null;
+    var windowHash = null;
+    var spuriousHits = 0;
+
     var snapshots = [{
         patternOffset: 0,
         lps: lps.slice(),
         matchedPositions: [],
         comparisons: 0,
-        matches: 0
+        matches: 0,
+        patternHash: patternHash,
+        windowHash: windowHash,
+        spuriousHits: 0
     }];
 
     for (var i = 0; i < steps.length; i++) {
         var step = steps[i];
         if (step.type === 'STR_COMPARE') {
-            comparisons++;
+            /* In RK mode we count hash comparisons separately; char compares don't bump the counter */
+            if (!isRK) comparisons++;
         } else if (step.type === 'STR_SHIFT') {
             patternOffset = step.newOffset;
         } else if (step.type === 'STR_FOUND') {
@@ -2136,13 +2378,27 @@ AV._computeStringSnapshots = function(steps) {
             matchedPositions = matchedPositions.concat([step.position]);
         } else if (step.type === 'STR_LPS_SET') {
             lps[step.index] = step.value;
+        } else if (step.type === 'RK_HASH_PATTERN') {
+            patternHash = step.patternHash;
+        } else if (step.type === 'RK_HASH_INIT') {
+            windowHash = step.windowHash;
+        } else if (step.type === 'RK_COMPARE_HASH') {
+            comparisons++;
+        } else if (step.type === 'RK_ROLL_HASH') {
+            windowHash = step.newHash;
+            patternOffset = step.newOffset;
+        } else if (step.type === 'RK_SPURIOUS') {
+            spuriousHits++;
         }
         snapshots.push({
             patternOffset: patternOffset,
             lps: lps.slice(),
             matchedPositions: matchedPositions.slice(),
             comparisons: comparisons,
-            matches: matches
+            matches: matches,
+            patternHash: patternHash,
+            windowHash: windowHash,
+            spuriousHits: spuriousHits
         });
     }
     return snapshots;
@@ -2151,7 +2407,11 @@ AV._computeStringSnapshots = function(steps) {
 AV._applyStringSnapshot = function(snapshot) {
     var text = AV.state._text;
     var pattern = AV.state._pattern;
-    AV.renderStringMatch(text, pattern, snapshot.patternOffset, snapshot.lps);
+    if (AV.state._isRabinKarp) {
+        AV.renderRabinKarpMatch(text, pattern, snapshot.patternOffset, snapshot.patternHash, snapshot.windowHash, null);
+    } else {
+        AV.renderStringMatch(text, pattern, snapshot.patternOffset, snapshot.lps);
+    }
 
     var textCells = document.querySelectorAll('#av-str-text .av-str-cell');
     snapshot.matchedPositions.forEach(function(pos) {
@@ -2483,6 +2743,77 @@ AV.stepForward = function() {
                 sfLpsFb = 'LPS[' + step.index + ']=' + step.value + ': \u201C' + (step.prefix || '') + '\u201D';
             }
             AV.log('STR_LPS_SET', I18N.t(sfLpsKey, sfLpsParams, sfLpsFb));
+        } else if (step.type === 'RK_HASH_PATTERN') {
+            var rkSfP = document.getElementById('av-rk-pattern-hash');
+            if (rkSfP) rkSfP.classList.add('av-rk-hash-active');
+            AV.log('RK_HASH_PATTERN', I18N.t('av.log.rk_hash_pattern',
+                { p: step.pattern, hash: step.patternHash, d: step.d, q: step.q, m: step.m },
+                'H(pattern "' + step.pattern + '") = ' + step.patternHash));
+        } else if (step.type === 'RK_HASH_INIT') {
+            var rkSfW = document.getElementById('av-rk-window-hash');
+            if (rkSfW) rkSfW.classList.add('av-rk-hash-active');
+            var rkSfInitCells = document.querySelectorAll('#av-str-text .av-str-cell');
+            for (var rkii = 0; rkii < step.m; rkii++) {
+                if (rkSfInitCells[step.offset + rkii]) rkSfInitCells[step.offset + rkii].classList.add('av-str-comparing');
+            }
+            AV.log('RK_HASH_INIT', I18N.t('av.log.rk_hash_init',
+                { w: step.window, hash: step.windowHash, q: step.q, m: step.m },
+                'H(window "' + step.window + '") = ' + step.windowHash));
+        } else if (step.type === 'RK_COMPARE_HASH') {
+            AV._clearRabinKarpHashStates();
+            var rkSfCmpP = document.getElementById('av-rk-pattern-hash');
+            var rkSfCmpW = document.getElementById('av-rk-window-hash');
+            if (rkSfCmpP) rkSfCmpP.classList.add('av-rk-hash-active');
+            if (rkSfCmpW) rkSfCmpW.classList.add('av-rk-hash-active');
+            var rkSfCmpCells = document.querySelectorAll('#av-str-text .av-str-cell');
+            var rkSfM = (AV.state._pattern || '').length;
+            for (var rkcc = 0; rkcc < rkSfM; rkcc++) {
+                if (rkSfCmpCells[step.offset + rkcc]) rkSfCmpCells[step.offset + rkcc].classList.add('av-str-comparing');
+            }
+            AV.state.comparisons++;
+            AV.log('RK_COMPARE_HASH', I18N.t('av.log.rk_compare_hash',
+                { offset: step.offset, hw: step.windowHash, hp: step.patternHash, w: step.window },
+                'Compare H(window)=' + step.windowHash + ' vs H(pattern)=' + step.patternHash));
+        } else if (step.type === 'RK_HASH_HIT') {
+            var rkSfHitP = document.getElementById('av-rk-pattern-hash');
+            var rkSfHitW = document.getElementById('av-rk-window-hash');
+            if (rkSfHitP) { rkSfHitP.classList.remove('av-rk-hash-active'); rkSfHitP.classList.add('av-rk-hash-equal'); }
+            if (rkSfHitW) { rkSfHitW.classList.remove('av-rk-hash-active'); rkSfHitW.classList.add('av-rk-hash-equal'); }
+            AV.log('RK_HASH_HIT', I18N.t('av.log.rk_hash_hit',
+                { offset: step.offset, hash: step.windowHash },
+                'Hashes match at offset ' + step.offset + ' — verify chars'));
+        } else if (step.type === 'RK_HASH_MISMATCH') {
+            var rkSfMissP = document.getElementById('av-rk-pattern-hash');
+            var rkSfMissW = document.getElementById('av-rk-window-hash');
+            if (rkSfMissP) { rkSfMissP.classList.remove('av-rk-hash-active'); rkSfMissP.classList.add('av-rk-hash-diff'); }
+            if (rkSfMissW) { rkSfMissW.classList.remove('av-rk-hash-active'); rkSfMissW.classList.add('av-rk-hash-diff'); }
+            AV.log('RK_HASH_MISMATCH', I18N.t('av.log.rk_hash_mismatch',
+                { offset: step.offset, hw: step.windowHash, hp: step.patternHash },
+                'Hashes differ at offset ' + step.offset + ' — skip'));
+        } else if (step.type === 'RK_SPURIOUS') {
+            AV.state._rkSpuriousHits = (AV.state._rkSpuriousHits || 0) + 1;
+            var rkSfSpurCells = document.querySelectorAll('#av-str-text .av-str-cell');
+            for (var rksp = 0; rksp < step.pattern.length; rksp++) {
+                if (rkSfSpurCells[step.offset + rksp]) {
+                    rkSfSpurCells[step.offset + rksp].classList.add('av-rk-spurious');
+                }
+            }
+            AV.log('RK_SPURIOUS', I18N.t('av.log.rk_spurious',
+                { offset: step.offset, w: step.window, p: step.pattern, hash: step.windowHash },
+                'Spurious hit at ' + step.offset + ': hash matched but chars differ'));
+        } else if (step.type === 'RK_ROLL_HASH') {
+            AV.state._rkWindowHash = step.newHash;
+            AV._updateRabinKarpHashes(undefined, step.newHash);
+            var rkSfRollW = document.getElementById('av-rk-window-hash');
+            if (rkSfRollW) {
+                rkSfRollW.classList.remove('av-rk-hash-equal', 'av-rk-hash-diff');
+                rkSfRollW.classList.add('av-rk-hash-active');
+            }
+            var rkSfRollFormula = '(' + step.d + ' · (' + step.oldHash + ' − ' + step.oldCharCode + '·' + step.highPower + ') + ' + step.newCharCode + ') mod ' + step.q + ' = <strong>' + step.newHash + '</strong>';
+            AV._showRabinKarpRollFormula(rkSfRollFormula);
+            AV.log('RK_ROLL_HASH', I18N.t('av.log.rk_roll',
+                { from: step.oldOffset, to: step.newOffset, oldHash: step.oldHash, newHash: step.newHash, oldChar: step.oldChar, newChar: step.newChar, oldCode: step.oldCharCode, newCode: step.newCharCode, hp: step.highPower, d: step.d, q: step.q },
+                'Roll [' + step.oldOffset + '→' + step.newOffset + ']: H_new = ' + step.newHash));
         } else if (step.type === 'DONE') {
             AV.log('DONE', I18N.t('av.log.done_step', null, 'Search complete'));
         }

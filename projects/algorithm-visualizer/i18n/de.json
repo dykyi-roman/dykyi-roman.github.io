@@ -892,6 +892,80 @@
     { "name": "R\u00fcckschritt", "role": "Nein \u2014 Textzeiger bewegt sich nie zur\u00fcck" }
   ],
 
+  "av.stat.hash_compares": "Hash-Vergleiche",
+
+  "av.rk.formula_label": "Hashfunktion:",
+  "av.rk.pattern_hash_label": "H(Muster):",
+  "av.rk.window_hash_label": "H(Fenster):",
+  "av.rk.roll_label": "Rollen:",
+
+  "av.legend.rk_hash_compare": "Hash-Vergleich",
+  "av.legend.rk_hash_equal": "Hash gleich",
+  "av.legend.rk_hash_diff": "Hash verschieden",
+  "av.legend.rk_spurious": "Falscher Treffer",
+
+  "av.log.rk_hash_pattern": "H(Muster „{p}“) = {hash} (mod {q})",
+  "av.log.rk_hash_init": "H(Anfangsfenster „{w}“) = {hash} (mod {q})",
+  "av.log.rk_compare_hash": "Vergleiche H(Fenster[{offset}..])=„{w}“ → {hw} mit H(Muster)={hp}",
+  "av.log.rk_hash_mismatch": "Hashes verschieden bei Offset {offset} ({hw}≠{hp}) — überspringen ohne Zeichenvergleich",
+  "av.log.rk_hash_hit": "Hashes gleich bei Offset {offset} (H={hash}) — Zeichen prüfen",
+  "av.log.rk_spurious": "Falscher Treffer bei {offset}: Hash gleich (H={hash}), aber „{w}“ ≠ „{p}“",
+  "av.log.rk_roll": "Rollen [{from}→{to}]: H_neu = ({d}·({oldHash}−{oldCode}·{hp})+{newCode}) mod {q} = {newHash}",
+  "av.log.done_rabin_karp": "Abgeschlossen in {time}ms ({hashCompares} Hash-Vergleiche, {matches} Treffer, {spurious} falsche Treffer)",
+
+  "ui.log.type.RK_HASH_PATTERN": "HASH P",
+  "ui.log.type.RK_HASH_INIT": "HASH F",
+  "ui.log.type.RK_COMPARE_HASH": "HASH",
+  "ui.log.type.RK_HASH_HIT": "HASH ✓",
+  "ui.log.type.RK_HASH_MISMATCH": "HASH ✗",
+  "ui.log.type.RK_SPURIOUS": "FALSCH",
+  "ui.log.type.RK_ROLL_HASH": "ROLL",
+
+  "rabin-karp.name": "Rabin-Karp",
+  "rabin-karp.stepLabel": "Rabin-Karp",
+  "rabin-karp.modes.standard.label": "Standard (Rolling Hash)",
+  "rabin-karp.modes.standard.desc": "Rabin-Karp-Algorithmus: berechnet einen polynomiellen Hash des Musters vor und schiebt dann ein Fenster der Länge m über den Text. Der Fenster-Hash wird in O(1) per Rolling-Hash-Arithmetik aktualisiert. Zeichenvergleich erfolgt nur, wenn Fenster-Hash und Muster-Hash übereinstimmen — das reduziert den durchschnittlichen Aufwand erheblich.",
+  "rabin-karp.details.standard.principles": [
+    "Polynomiellen Hash H(P) des Musters in O(m) vorberechnen",
+    "Hash H(Fenster) des ersten Textfensters der Länge m in O(m) berechnen",
+    "H(Fenster) mit H(P) vergleichen — bei Unterschied Fenster ohne Zeichenprüfung verschieben",
+    "Bei Hash-Übereinstimmung Zeichen für Zeichen verifizieren, um falsche Treffer auszuschließen",
+    "Fenster verschieben: Hash in O(1) rollen, indem das linkeste Zeichen entfernt und das nächste hinzugefügt wird",
+    "Wiederholen, bis das Fenster das Textende erreicht"
+  ],
+  "rabin-karp.details.standard.concepts": [
+    { "term": "Rabin-Karp-Algorithmus", "definition": "Veröffentlicht von Michael Rabin und Richard Karp (1987). Ein randomisierter Stringmatching-Algorithmus, dessen Stärke das Hash-Update in O(1) zwischen aufeinanderfolgenden Textfenstern ist. Durchschnittliche Laufzeit O(n + m); im schlechtesten Fall O(n·m), wenn viele Fenster denselben Hash wie das Muster haben." },
+    { "term": "Polynomieller Hash", "definition": "H(s) = (s[0]·d^(m−1) + s[1]·d^(m−2) + … + s[m−1]) mod q, wobei d die Alphabetgröße (256 für ASCII) und q eine Primzahl (101 in dieser Visualisierung) ist. Behandelt den String als Zahl zur Basis d." },
+    { "term": "Rolling Hash", "definition": "Aus dem Hash von T[i..i+m−1] wird der Hash des nächsten Fensters T[i+1..i+m] in O(1) berechnet: H_neu = (d · (H_alt − T[i]·d^(m−1)) + T[i+m]) mod q. Der linke Beitrag wird abgezogen, der Rest um eine Position verschoben, das neue Zeichen hinzugefügt." },
+    { "term": "Falscher Treffer (Spurious Hit)", "definition": "Ein Fenster, dessen Hash mit dem Muster-Hash übereinstimmt, dessen Zeichen aber abweichen. Verursacht durch Hash-Kollisionen (verschiedene Strings mit gleichem Hash mod q). Rabin-Karp muss jeden Hash-Treffer mit einem vollständigen Zeichenvergleich verifizieren." },
+    { "term": "Modulare Arithmetik", "definition": "Alle Operationen werden mod q gerechnet, damit die Hash-Werte beschränkt bleiben. Subtraktion kann negativ werden, daher wird das Ergebnis vor dem Modulo wieder in [0, q−1] gebracht." },
+    { "term": "Wahl von Basis und Primzahl", "definition": "Eine größere Primzahl reduziert die Kollisionswahrscheinlichkeit, erzeugt aber größere Zwischenwerte. Das Paar d=256, q=101 ist klein genug für die Visualisierung und erhält die Rolling-Hash-Mechanik. In Produktion verwendet man deutlich größere Primzahlen (oft 10^9 + 7), gegen Angreifer auch zufällige Primzahlen." }
+  ],
+  "rabin-karp.details.standard.tradeoffs.pros": [
+    "Im Mittel O(n + m) — jedes Fenster wird durch einen einzigen Integer-Vergleich gefiltert",
+    "Triviale Erweiterung auf Mehrmuster-Suche: Menge von Muster-Hashes pflegen",
+    "Konstanter Zusatzspeicher — keine Vorberechnungstabellen (anders als KMPs LPS)",
+    "Sehr passend für Plagiatserkennung, Rabin-Fingerprints, content-defined Chunking",
+    "Hashfunktion und Primzahl können zufällig gewählt werden, um adversariale Eingaben abzuwehren"
+  ],
+  "rabin-karp.details.standard.tradeoffs.cons": [
+    "Worst Case O(n·m), wenn viele Fenster den Muster-Hash teilen",
+    "Erfordert einen Verifikationsschritt bei jedem Hash-Treffer — nicht rein linear",
+    "Qualität hängt vollständig von Hashfunktion und Primzahl ab",
+    "Modulare Arithmetik und Roll-Formel sind subtiler korrekt zu implementieren als naives Matching",
+    "Eine einzelne kleine Primzahl (wie hier) ist in Produktion unsicher: große Primzahl oder Doppel-Hashing wählen"
+  ],
+  "rabin-karp.details.standard.tradeoffs.whenToUse": "Rabin-Karp ist ideal, wenn viele Muster gleichzeitig gesucht werden (Signaturerkennung, Plagiatsprüfung, Datei-Deduplizierung) oder ein Hash-Fingerabdruck ohnehin Teil der Pipeline ist. Für ein einzelnes kurzes Muster mit Worst-Case-Garantien sind KMP oder Boyer-Moore vorzuziehen.",
+  "rabin-karp.depRules": [
+    { "name": "Zeit (Mittel)", "role": "O(n + m) — Hashes filtern die meisten Fenster" },
+    { "name": "Zeit (Worst)", "role": "O(n·m) — viele falsche Hash-Treffer" },
+    { "name": "Zeit (Vorberechnung)", "role": "O(m) — Hash des Musters und des ersten Fensters" },
+    { "name": "Speicher", "role": "O(1) — nur Hash-Werte, keine LPS-Tabelle" },
+    { "name": "Mehrere Treffer", "role": "Ja — findet alle Vorkommen" },
+    { "name": "Mehrmuster-Suche", "role": "Ja — Menge von Muster-Hashes" },
+    { "name": "Backtracking", "role": "Nein bei Hash-Mismatch — sofortiges Verschieben" }
+  ],
+
   "av.stat.hash_operations": "Operationen",
   "av.stat.hash_collisions": "Kollisionen",
   "av.hash.formula_label": "Hashfunktion:",

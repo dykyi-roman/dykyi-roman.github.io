@@ -898,6 +898,80 @@
     { "name": "Retour en arri\u00e8re", "role": "Non \u2014 le pointeur du texte ne recule jamais" }
   ],
 
+  "av.stat.hash_compares": "Comparaisons de hachage",
+
+  "av.rk.formula_label": "Fonction de hachage :",
+  "av.rk.pattern_hash_label": "H(motif) :",
+  "av.rk.window_hash_label": "H(fen\u00eatre) :",
+  "av.rk.roll_label": "Roulement :",
+
+  "av.legend.rk_hash_compare": "Comparaison de hachage",
+  "av.legend.rk_hash_equal": "Hachages \u00e9gaux",
+  "av.legend.rk_hash_diff": "Hachages diff\u00e9rents",
+  "av.legend.rk_spurious": "Faux positif",
+
+  "av.log.rk_hash_pattern": "H(motif \u00ab {p} \u00bb) = {hash} (mod {q})",
+  "av.log.rk_hash_init": "H(fen\u00eatre initiale \u00ab {w} \u00bb) = {hash} (mod {q})",
+  "av.log.rk_compare_hash": "Comparer H(fen\u00eatre[{offset}..])=\u00ab {w} \u00bb \u2192 {hw} avec H(motif)={hp}",
+  "av.log.rk_hash_mismatch": "Hachages diff\u00e9rents au d\u00e9calage {offset} ({hw}\u2260{hp}) \u2014 saut sans comparaison de caract\u00e8res",
+  "av.log.rk_hash_hit": "Hachages \u00e9gaux au d\u00e9calage {offset} (H={hash}) \u2014 v\u00e9rification des caract\u00e8res",
+  "av.log.rk_spurious": "Faux positif \u00e0 {offset} : hachage \u00e9gal (H={hash}), mais \u00ab {w} \u00bb \u2260 \u00ab {p} \u00bb",
+  "av.log.rk_roll": "Roulement [{from}\u2192{to}] : H_nouveau = ({d}\u00b7({oldHash}\u2212{oldCode}\u00b7{hp})+{newCode}) mod {q} = {newHash}",
+  "av.log.done_rabin_karp": "Termin\u00e9 en {time}ms ({hashCompares} comparaisons de hachage, {matches} correspondances, {spurious} faux positifs)",
+
+  "ui.log.type.RK_HASH_PATTERN": "HACH M",
+  "ui.log.type.RK_HASH_INIT": "HACH F",
+  "ui.log.type.RK_COMPARE_HASH": "HACH",
+  "ui.log.type.RK_HASH_HIT": "HACH \u2713",
+  "ui.log.type.RK_HASH_MISMATCH": "HACH \u2717",
+  "ui.log.type.RK_SPURIOUS": "FAUX",
+  "ui.log.type.RK_ROLL_HASH": "ROUL",
+
+  "rabin-karp.name": "Rabin-Karp",
+  "rabin-karp.stepLabel": "Rabin-Karp",
+  "rabin-karp.modes.standard.label": "Standard (hachage glissant)",
+  "rabin-karp.modes.standard.desc": "Algorithme de Rabin-Karp : pr\u00e9calcule un hachage polynomial du motif, puis fait glisser une fen\u00eatre de longueur m sur le texte. Le hachage de la fen\u00eatre est mis \u00e0 jour en O(1) par arithm\u00e9tique de hachage glissant. La comparaison caract\u00e8re par caract\u00e8re n'a lieu que lorsque les hachages co\u00efncident, ce qui r\u00e9duit fortement le co\u00fbt moyen.",
+  "rabin-karp.details.standard.principles": [
+    "Pr\u00e9calculer le hachage polynomial H(P) du motif en O(m)",
+    "Calculer le hachage H(fen\u00eatre) de la premi\u00e8re fen\u00eatre de longueur m en O(m)",
+    "Comparer H(fen\u00eatre) \u00e0 H(P) \u2014 s'ils diff\u00e8rent, d\u00e9placer la fen\u00eatre sans inspecter les caract\u00e8res",
+    "Si les hachages co\u00efncident, v\u00e9rifier caract\u00e8re par caract\u00e8re pour \u00e9carter un faux positif",
+    "Faire glisser la fen\u00eatre : rouler le hachage en O(1) en retirant le caract\u00e8re de gauche et en ajoutant le suivant",
+    "R\u00e9p\u00e9ter jusqu'\u00e0 ce que la fen\u00eatre d\u00e9passe la fin du texte"
+  ],
+  "rabin-karp.details.standard.concepts": [
+    { "term": "Algorithme de Rabin-Karp", "definition": "Publi\u00e9 par Michael Rabin et Richard Karp (1987). Algorithme de recherche de cha\u00eene randomis\u00e9 dont la force est la mise \u00e0 jour du hachage en O(1) entre fen\u00eatres cons\u00e9cutives. Temps moyen O(n + m) ; pire cas O(n\u00b7m) seulement si beaucoup de fen\u00eatres partagent le hachage du motif." },
+    { "term": "Hachage polynomial", "definition": "H(s) = (s[0]\u00b7d^(m\u22121) + s[1]\u00b7d^(m\u22122) + \u2026 + s[m\u22121]) mod q, o\u00f9 d est la taille de l'alphabet (256 pour ASCII) et q un nombre premier (101 dans cette visualisation). Traite la cha\u00eene comme un nombre en base d." },
+    { "term": "Hachage glissant", "definition": "\u00c0 partir du hachage de T[i..i+m\u22121], celui de la fen\u00eatre suivante T[i+1..i+m] se calcule en O(1) : H_nouveau = (d \u00b7 (H_ancien \u2212 T[i]\u00b7d^(m\u22121)) + T[i+m]) mod q. La contribution de gauche est retir\u00e9e, le reste d\u00e9cal\u00e9 d'une position, le nouveau caract\u00e8re ajout\u00e9." },
+    { "term": "Faux positif (spurious hit)", "definition": "Une fen\u00eatre dont le hachage co\u00efncide avec celui du motif mais dont les caract\u00e8res diff\u00e8rent. Caus\u00e9e par les collisions de hachage (cha\u00eenes diff\u00e9rentes ayant le m\u00eame hachage mod q). Rabin-Karp doit v\u00e9rifier chaque co\u00efncidence par une comparaison compl\u00e8te." },
+    { "term": "Arithm\u00e9tique modulaire", "definition": "Toutes les op\u00e9rations sont prises mod q pour borner les hachages. La soustraction peut devenir n\u00e9gative, l'impl\u00e9mentation ram\u00e8ne donc le r\u00e9sultat dans [0, q\u22121] avant le modulo." },
+    { "term": "Choix de la base et du premier", "definition": "Un premier plus grand r\u00e9duit la probabilit\u00e9 de collisions mais produit des valeurs interm\u00e9diaires plus grandes. Le couple d=256, q=101 est assez petit pour la visualisation tout en pr\u00e9servant la m\u00e9canique de hachage glissant. En production, on utilise des premiers bien plus grands (souvent 10^9 + 7), parfois al\u00e9atoires contre les attaques." }
+  ],
+  "rabin-karp.details.standard.tradeoffs.pros": [
+    "En moyenne O(n + m) \u2014 chaque fen\u00eatre est filtr\u00e9e par une seule comparaison d'entiers",
+    "Extension triviale \u00e0 la recherche multi-motifs : maintenir un ensemble de hachages",
+    "M\u00e9moire constante \u2014 pas de tables de pr\u00e9traitement (contrairement au LPS de KMP)",
+    "Excellent pour la d\u00e9tection de plagiat, les empreintes Rabin, le d\u00e9coupage par contenu",
+    "Fonction de hachage et premier choisis al\u00e9atoirement contre les entr\u00e9es adverses"
+  ],
+  "rabin-karp.details.standard.tradeoffs.cons": [
+    "Pire cas O(n\u00b7m) si beaucoup de fen\u00eatres partagent le hachage du motif",
+    "\u00c9tape de v\u00e9rification \u00e0 chaque co\u00efncidence \u2014 pas strictement lin\u00e9aire",
+    "La qualit\u00e9 d\u00e9pend enti\u00e8rement du choix de la fonction et du premier",
+    "Arithm\u00e9tique modulaire et formule de roulement plus d\u00e9licates \u00e0 impl\u00e9menter qu'une recherche na\u00efve",
+    "Un unique petit premier (comme ici) est dangereux en production : pr\u00e9f\u00e9rer un grand premier ou le double hachage"
+  ],
+  "rabin-karp.details.standard.tradeoffs.whenToUse": "Choisissez Rabin-Karp pour rechercher plusieurs motifs simultan\u00e9ment (signatures, anti-plagiat, d\u00e9duplication de fichiers) ou lorsque l'empreinte hach\u00e9e fait d\u00e9j\u00e0 partie du flux. Pour un seul motif court avec garanties pire cas, pr\u00e9f\u00e9rez KMP ou Boyer-Moore.",
+  "rabin-karp.depRules": [
+    { "name": "Temps (moyen)", "role": "O(n + m) \u2014 les hachages filtrent la plupart des fen\u00eatres" },
+    { "name": "Temps (pire)", "role": "O(n\u00b7m) \u2014 nombreux faux positifs de hachage" },
+    { "name": "Temps (pr\u00e9traitement)", "role": "O(m) \u2014 hachage du motif et de la premi\u00e8re fen\u00eatre" },
+    { "name": "Espace", "role": "O(1) \u2014 uniquement les valeurs de hachage" },
+    { "name": "Correspondances multiples", "role": "Oui \u2014 toutes les occurrences" },
+    { "name": "Multi-motifs", "role": "Oui \u2014 ensemble de hachages de motifs" },
+    { "name": "Retour arri\u00e8re", "role": "Non en cas de diff\u00e9rence de hachage \u2014 glissement imm\u00e9diat" }
+  ],
+
   "av.stat.hash_operations": "Op\u00e9rations",
   "av.stat.hash_collisions": "Collisions",
   "av.hash.formula_label": "Fonction de hachage :",

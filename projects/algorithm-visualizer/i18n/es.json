@@ -892,6 +892,80 @@
     { "name": "Retroceso", "role": "No \u2014 el puntero del texto nunca retrocede" }
   ],
 
+  "av.stat.hash_compares": "Comparaciones de hash",
+
+  "av.rk.formula_label": "Funci\u00f3n hash:",
+  "av.rk.pattern_hash_label": "H(patr\u00f3n):",
+  "av.rk.window_hash_label": "H(ventana):",
+  "av.rk.roll_label": "Rodar:",
+
+  "av.legend.rk_hash_compare": "Comparaci\u00f3n de hash",
+  "av.legend.rk_hash_equal": "Hashes iguales",
+  "av.legend.rk_hash_diff": "Hashes distintos",
+  "av.legend.rk_spurious": "Coincidencia espuria",
+
+  "av.log.rk_hash_pattern": "H(patr\u00f3n \u00ab{p}\u00bb) = {hash} (mod {q})",
+  "av.log.rk_hash_init": "H(ventana inicial \u00ab{w}\u00bb) = {hash} (mod {q})",
+  "av.log.rk_compare_hash": "Comparar H(ventana[{offset}..])=\u00ab{w}\u00bb \u2192 {hw} con H(patr\u00f3n)={hp}",
+  "av.log.rk_hash_mismatch": "Hashes distintos en el offset {offset} ({hw}\u2260{hp}) \u2014 saltar sin comparar caracteres",
+  "av.log.rk_hash_hit": "Hashes iguales en el offset {offset} (H={hash}) \u2014 verificar caracteres",
+  "av.log.rk_spurious": "Coincidencia espuria en {offset}: hash igual (H={hash}), pero \u00ab{w}\u00bb \u2260 \u00ab{p}\u00bb",
+  "av.log.rk_roll": "Rodar [{from}\u2192{to}]: H_nuevo = ({d}\u00b7({oldHash}\u2212{oldCode}\u00b7{hp})+{newCode}) mod {q} = {newHash}",
+  "av.log.done_rabin_karp": "Completado en {time}ms ({hashCompares} comparaciones de hash, {matches} coincidencias, {spurious} coincidencias espurias)",
+
+  "ui.log.type.RK_HASH_PATTERN": "HASH P",
+  "ui.log.type.RK_HASH_INIT": "HASH V",
+  "ui.log.type.RK_COMPARE_HASH": "HASH",
+  "ui.log.type.RK_HASH_HIT": "HASH \u2713",
+  "ui.log.type.RK_HASH_MISMATCH": "HASH \u2717",
+  "ui.log.type.RK_SPURIOUS": "ESPURIA",
+  "ui.log.type.RK_ROLL_HASH": "ROLL",
+
+  "rabin-karp.name": "Rabin-Karp",
+  "rabin-karp.stepLabel": "Rabin-Karp",
+  "rabin-karp.modes.standard.label": "Est\u00e1ndar (hash rodante)",
+  "rabin-karp.modes.standard.desc": "Algoritmo Rabin-Karp: precalcula un hash polin\u00f3mico del patr\u00f3n y luego desliza una ventana de longitud m por el texto. El hash de la ventana se actualiza en O(1) usando aritm\u00e9tica de hash rodante. La comparaci\u00f3n car\u00e1cter a car\u00e1cter solo ocurre cuando el hash de la ventana coincide con el del patr\u00f3n, reduciendo dr\u00e1sticamente el trabajo medio.",
+  "rabin-karp.details.standard.principles": [
+    "Precalcular el hash polin\u00f3mico H(P) del patr\u00f3n en O(m)",
+    "Calcular el hash H(ventana) de la primera ventana de longitud m en O(m)",
+    "Comparar H(ventana) con H(P) \u2014 si difieren, deslizar la ventana sin inspeccionar caracteres",
+    "Si los hashes coinciden, verificar car\u00e1cter a car\u00e1cter para descartar una coincidencia espuria",
+    "Deslizar la ventana: rodar el hash en O(1) eliminando el car\u00e1cter izquierdo y a\u00f1adiendo el siguiente",
+    "Repetir hasta que la ventana supere el final del texto"
+  ],
+  "rabin-karp.details.standard.concepts": [
+    { "term": "Algoritmo Rabin-Karp", "definition": "Publicado por Michael Rabin y Richard Karp (1987). Algoritmo de b\u00fasqueda de cadenas aleatorizado cuya fuerza es la actualizaci\u00f3n del hash en O(1) entre ventanas consecutivas. Tiempo medio O(n + m); peor caso O(n\u00b7m) solo cuando muchas ventanas comparten el hash del patr\u00f3n." },
+    { "term": "Hash polin\u00f3mico", "definition": "H(s) = (s[0]\u00b7d^(m\u22121) + s[1]\u00b7d^(m\u22122) + \u2026 + s[m\u22121]) mod q, donde d es el tama\u00f1o del alfabeto (256 para ASCII) y q un primo (101 en esta visualizaci\u00f3n). Trata la cadena como un n\u00famero en base d." },
+    { "term": "Hash rodante", "definition": "Dado el hash de T[i..i+m\u22121], el hash de la siguiente ventana T[i+1..i+m] se calcula en O(1): H_nuevo = (d \u00b7 (H_anterior \u2212 T[i]\u00b7d^(m\u22121)) + T[i+m]) mod q. Se resta la contribuci\u00f3n izquierda, el resto se desplaza una posici\u00f3n y se a\u00f1ade el nuevo car\u00e1cter." },
+    { "term": "Coincidencia espuria", "definition": "Una ventana cuyo hash coincide con el del patr\u00f3n pero cuyos caracteres difieren. Causada por colisiones de hash (cadenas distintas con el mismo hash mod q). Rabin-Karp debe verificar cada coincidencia de hash con una comparaci\u00f3n completa." },
+    { "term": "Aritm\u00e9tica modular", "definition": "Todas las operaciones se toman mod q para acotar los hashes. La resta puede ser negativa, as\u00ed que la implementaci\u00f3n ajusta el resultado a [0, q\u22121] antes del m\u00f3dulo." },
+    { "term": "Elecci\u00f3n de base y primo", "definition": "Un primo mayor reduce la probabilidad de colisiones pero produce valores intermedios mayores. El par d=256, q=101 es lo bastante peque\u00f1o para visualizar y conserva la mec\u00e1nica del hash rodante. En producci\u00f3n se usan primos mucho mayores (a menudo 10^9 + 7), incluso aleatorios contra ataques." }
+  ],
+  "rabin-karp.details.standard.tradeoffs.pros": [
+    "En promedio O(n + m) \u2014 cada ventana se filtra con una sola comparaci\u00f3n de enteros",
+    "Extensi\u00f3n trivial a b\u00fasqueda multi-patr\u00f3n: mantener un conjunto de hashes",
+    "Memoria constante \u2014 sin tablas de preprocesamiento (a diferencia del LPS de KMP)",
+    "Ideal para detecci\u00f3n de plagio, huellas Rabin y troceado por contenido",
+    "Funci\u00f3n hash y primo elegidos aleatoriamente para defenderse de entradas adversarias"
+  ],
+  "rabin-karp.details.standard.tradeoffs.cons": [
+    "Peor caso O(n\u00b7m) cuando muchas ventanas comparten el hash del patr\u00f3n",
+    "Requiere paso de verificaci\u00f3n en cada coincidencia \u2014 no es estrictamente lineal",
+    "La calidad depende totalmente de la funci\u00f3n hash y del primo",
+    "La aritm\u00e9tica modular y la f\u00f3rmula de rodadura son m\u00e1s sutiles que la b\u00fasqueda ingenua",
+    "Un \u00fanico primo peque\u00f1o (como aqu\u00ed) es inseguro en producci\u00f3n: usar un primo grande o doble hashing"
+  ],
+  "rabin-karp.details.standard.tradeoffs.whenToUse": "Elija Rabin-Karp cuando busque muchos patrones a la vez (firmas, antiplagio, deduplicaci\u00f3n de archivos) o cuando una huella hash ya forme parte del flujo. Para un \u00fanico patr\u00f3n corto con garant\u00edas de peor caso, prefiera KMP o Boyer-Moore.",
+  "rabin-karp.depRules": [
+    { "name": "Tiempo (medio)", "role": "O(n + m) \u2014 los hashes filtran la mayor\u00eda de las ventanas" },
+    { "name": "Tiempo (peor)", "role": "O(n\u00b7m) \u2014 muchas coincidencias espurias" },
+    { "name": "Tiempo (preprocesamiento)", "role": "O(m) \u2014 hash del patr\u00f3n y de la primera ventana" },
+    { "name": "Memoria", "role": "O(1) \u2014 solo valores de hash" },
+    { "name": "Coincidencias m\u00faltiples", "role": "S\u00ed \u2014 encuentra todas las ocurrencias" },
+    { "name": "Multi-patr\u00f3n", "role": "S\u00ed \u2014 conjunto de hashes de patrones" },
+    { "name": "Retroceso", "role": "No al diferir el hash \u2014 desplazamiento inmediato" }
+  ],
+
   "av.stat.hash_operations": "Operaciones",
   "av.stat.hash_collisions": "Colisiones",
   "av.hash.formula_label": "Funci\u00f3n hash:",
