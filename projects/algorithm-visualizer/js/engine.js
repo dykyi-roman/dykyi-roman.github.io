@@ -568,11 +568,15 @@ AV.renderPriorityQueue = function(pq) {
 };
 
 /* ===== String Matching Rendering ===== */
-AV.renderStringMatch = function(text, pattern, patternOffset, lps) {
+AV.renderStringMatch = function(text, pattern, patternOffset, lps, gs) {
     var canvas = document.getElementById('av-canvas');
     if (!canvas) return;
 
     AV.state._isStringAlgorithm = true;
+
+    var isBM = !!AV.state._isBoyerMoore;
+    var lpsLabelKey = isBM ? 'av.str.bc_label' : 'av.str.lps_label';
+    var lpsLabelFallback = isBM ? 'BC:' : 'LPS:';
 
     var html = '<div class="av-str-container">';
 
@@ -599,15 +603,28 @@ AV.renderStringMatch = function(text, pattern, patternOffset, lps) {
     }
     html += '</div></div>';
 
-    /* LPS row */
+    /* LPS row (or BC row for Boyer-Moore \u2014 same DOM, different label) */
     if (lps) {
         html += '<div class="av-str-lps-row"><span class="av-str-label">' +
-            I18N.t('av.str.lps_label', null, 'LPS:') + '</span>';
+            I18N.t(lpsLabelKey, null, lpsLabelFallback) + '</span>';
         html += '<div class="av-str-cells" id="av-str-lps">';
         for (var k = 0; k < lps.length; k++) {
             var val = lps[k] !== undefined && lps[k] !== -1 ? lps[k] : '\u2014';
             var filledCls = lps[k] !== undefined && lps[k] !== -1 ? ' av-str-lps-filled' : '';
             html += '<div class="av-str-lps-cell' + filledCls + '" data-lindex="' + k + '">' + val + '</div>';
+        }
+        html += '</div></div>';
+    }
+
+    /* GS row (Boyer-Moore Good Suffix shifts) */
+    if (gs) {
+        html += '<div class="av-str-gs-row"><span class="av-str-label">' +
+            I18N.t('av.str.gs_label', null, 'GS:') + '</span>';
+        html += '<div class="av-str-cells" id="av-str-gs">';
+        for (var g = 0; g < gs.length; g++) {
+            var gsVal = gs[g] !== undefined && gs[g] !== 0 && gs[g] !== -1 ? gs[g] : '\u2014';
+            var gsFilledCls = gs[g] !== undefined && gs[g] !== 0 && gs[g] !== -1 ? ' av-str-gs-filled' : '';
+            html += '<div class="av-str-gs-cell' + gsFilledCls + '" data-gsindex="' + g + '">' + gsVal + '</div>';
         }
         html += '</div></div>';
     }
@@ -622,6 +639,9 @@ AV.clearStringHighlights = function() {
     });
     document.querySelectorAll('.av-str-lps-cell').forEach(function(cell) {
         cell.classList.remove('av-str-lps-active', 'av-str-lps-set');
+    });
+    document.querySelectorAll('.av-str-gs-cell').forEach(function(cell) {
+        cell.classList.remove('av-str-gs-active', 'av-str-gs-set');
     });
     /* Only clear transient hash highlight; stable equal/diff remain until next RK_COMPARE_HASH */
     document.querySelectorAll('.av-rk-hash-cell').forEach(function(cell) {
@@ -1757,11 +1777,21 @@ AV.animateFlow = async function(steps, options) {
             await AV.sleep(AV.state.stepDelay);
 
         } else if (step.type === 'STR_SHIFT') {
-            AV.renderStringMatch(AV.state._text, AV.state._pattern, step.newOffset, step.lps);
+            if (AV.state._isBoyerMoore) {
+                AV.renderStringMatch(AV.state._text, AV.state._pattern, step.newOffset, step.lps, step.gs);
+            } else {
+                AV.renderStringMatch(AV.state._text, AV.state._pattern, step.newOffset, step.lps);
+            }
             var strSkipped = step.skipped !== undefined ? step.skipped : (step.newOffset - step.oldOffset);
-            AV.log('STR_SHIFT', I18N.t('av.log.str_shift',
-                { from: step.oldOffset, to: step.newOffset, lps: step.lpsValue, skipped: strSkipped },
-                'Shift +' + strSkipped + ' (' + step.oldOffset + '\u2192' + step.newOffset + '): ' + step.lpsValue + ' chars align'));
+            if (AV.state._isBoyerMoore) {
+                AV.log('STR_SHIFT', I18N.t('av.log.bm_shift',
+                    { from: step.oldOffset, to: step.newOffset, shift: strSkipped, bc: step.bcShift, gs: step.gsShift, rule: step.chosenRule || 'bc' },
+                    'Shift +' + strSkipped + ' (' + step.oldOffset + '\u2192' + step.newOffset + '): max(BC=' + step.bcShift + ', GS=' + step.gsShift + ')'));
+            } else {
+                AV.log('STR_SHIFT', I18N.t('av.log.str_shift',
+                    { from: step.oldOffset, to: step.newOffset, lps: step.lpsValue, skipped: strSkipped },
+                    'Shift +' + strSkipped + ' (' + step.oldOffset + '\u2192' + step.newOffset + '): ' + step.lpsValue + ' chars align'));
+            }
             await AV.sleep(AV.state.stepDelay * 0.6);
 
         } else if (step.type === 'STR_FOUND') {
@@ -1802,6 +1832,30 @@ AV.animateFlow = async function(steps, options) {
                 lpsLogFallback = 'LPS[' + step.index + ']=' + step.value + ': \u201C' + (step.prefix || '') + '\u201D prefix=suffix';
             }
             AV.log('STR_LPS_SET', I18N.t(lpsLogKey, lpsLogParams, lpsLogFallback));
+            await AV.sleep(AV.state.stepDelay * 0.5);
+
+        } else if (step.type === 'BM_BC_SET') {
+            var bcCell = document.querySelector('.av-str-lps-cell[data-lindex="' + step.index + '"]');
+            if (bcCell) {
+                bcCell.textContent = step.value === -1 ? '—' : step.value;
+                bcCell.classList.add('av-str-lps-set');
+                if (step.value !== -1) bcCell.classList.add('av-str-lps-filled');
+            }
+            AV.log('BM_BC_SET', I18N.t('av.log.bm_bc_set',
+                { index: step.index, value: step.value, char: step.char },
+                'BC[' + step.index + ']: char “' + step.char + '” last seen at ' + (step.value === -1 ? 'no prior position' : 'position ' + step.value)));
+            await AV.sleep(AV.state.stepDelay * 0.5);
+
+        } else if (step.type === 'BM_GS_SET') {
+            var gsCell = document.querySelector('.av-str-gs-cell[data-gsindex="' + step.index + '"]');
+            if (gsCell) {
+                gsCell.textContent = step.value;
+                gsCell.classList.add('av-str-gs-set');
+                if (step.value > 0) gsCell.classList.add('av-str-gs-filled');
+            }
+            AV.log('BM_GS_SET', I18N.t('av.log.bm_gs_set',
+                { index: step.index, value: step.value },
+                'GS[' + step.index + ']=' + step.value + ': shift ' + step.value + ' on mismatch at pattern[' + step.index + ']'));
             await AV.sleep(AV.state.stepDelay * 0.5);
 
         } else if (step.type === 'RK_HASH_PATTERN') {
@@ -2351,13 +2405,19 @@ AV._computeStringSnapshots = function(steps) {
     var matches = 0;
 
     var isRK = !!AV.state._isRabinKarp;
+    var isBM = !!AV.state._isBoyerMoore;
     var patternHash = isRK ? (AV.state._rkPatternHash !== undefined ? AV.state._rkPatternHash : null) : null;
     var windowHash = null;
     var spuriousHits = 0;
 
+    var bc = isBM ? new Array(AV.state._pattern.length).fill(-1) : null;
+    var gs = isBM ? new Array(AV.state._pattern.length).fill(0) : null;
+
     var snapshots = [{
         patternOffset: 0,
         lps: lps.slice(),
+        bc: bc ? bc.slice() : null,
+        gs: gs ? gs.slice() : null,
         matchedPositions: [],
         comparisons: 0,
         matches: 0,
@@ -2378,6 +2438,10 @@ AV._computeStringSnapshots = function(steps) {
             matchedPositions = matchedPositions.concat([step.position]);
         } else if (step.type === 'STR_LPS_SET') {
             lps[step.index] = step.value;
+        } else if (step.type === 'BM_BC_SET') {
+            if (bc) bc[step.index] = step.value;
+        } else if (step.type === 'BM_GS_SET') {
+            if (gs) gs[step.index] = step.value;
         } else if (step.type === 'RK_HASH_PATTERN') {
             patternHash = step.patternHash;
         } else if (step.type === 'RK_HASH_INIT') {
@@ -2393,6 +2457,8 @@ AV._computeStringSnapshots = function(steps) {
         snapshots.push({
             patternOffset: patternOffset,
             lps: lps.slice(),
+            bc: bc ? bc.slice() : null,
+            gs: gs ? gs.slice() : null,
             matchedPositions: matchedPositions.slice(),
             comparisons: comparisons,
             matches: matches,
@@ -2409,6 +2475,8 @@ AV._applyStringSnapshot = function(snapshot) {
     var pattern = AV.state._pattern;
     if (AV.state._isRabinKarp) {
         AV.renderRabinKarpMatch(text, pattern, snapshot.patternOffset, snapshot.patternHash, snapshot.windowHash, null);
+    } else if (AV.state._isBoyerMoore) {
+        AV.renderStringMatch(text, pattern, snapshot.patternOffset, snapshot.bc, snapshot.gs);
     } else {
         AV.renderStringMatch(text, pattern, snapshot.patternOffset, snapshot.lps);
     }
@@ -2708,9 +2776,15 @@ AV.stepForward = function() {
             }
         } else if (step.type === 'STR_SHIFT') {
             var sfSkipped = step.skipped !== undefined ? step.skipped : (step.newOffset - step.oldOffset);
-            AV.log('STR_SHIFT', I18N.t('av.log.str_shift',
-                { from: step.oldOffset, to: step.newOffset, lps: step.lpsValue, skipped: sfSkipped },
-                'Shift +' + sfSkipped + ' (' + step.oldOffset + '\u2192' + step.newOffset + ')'));
+            if (AV.state._isBoyerMoore) {
+                AV.log('STR_SHIFT', I18N.t('av.log.bm_shift',
+                    { from: step.oldOffset, to: step.newOffset, shift: sfSkipped, bc: step.bcShift, gs: step.gsShift, rule: step.chosenRule || 'bc' },
+                    'Shift +' + sfSkipped + ' (' + step.oldOffset + '\u2192' + step.newOffset + '): max(BC=' + step.bcShift + ', GS=' + step.gsShift + ')'));
+            } else {
+                AV.log('STR_SHIFT', I18N.t('av.log.str_shift',
+                    { from: step.oldOffset, to: step.newOffset, lps: step.lpsValue, skipped: sfSkipped },
+                    'Shift +' + sfSkipped + ' (' + step.oldOffset + '\u2192' + step.newOffset + ')'));
+            }
         } else if (step.type === 'STR_FOUND') {
             var stCells4 = document.querySelectorAll('#av-str-text .av-str-cell');
             var spCells4 = document.querySelectorAll('#av-str-pattern .av-str-cell:not(.av-str-empty)');
@@ -2743,6 +2817,18 @@ AV.stepForward = function() {
                 sfLpsFb = 'LPS[' + step.index + ']=' + step.value + ': \u201C' + (step.prefix || '') + '\u201D';
             }
             AV.log('STR_LPS_SET', I18N.t(sfLpsKey, sfLpsParams, sfLpsFb));
+        } else if (step.type === 'BM_BC_SET') {
+            var bcCellSF = document.querySelector('.av-str-lps-cell[data-lindex="' + step.index + '"]');
+            if (bcCellSF) bcCellSF.classList.add('av-str-lps-set');
+            AV.log('BM_BC_SET', I18N.t('av.log.bm_bc_set',
+                { index: step.index, value: step.value, char: step.char },
+                'BC[' + step.index + ']: char "' + step.char + '" last seen at ' + (step.value === -1 ? 'no prior position' : 'position ' + step.value)));
+        } else if (step.type === 'BM_GS_SET') {
+            var gsCellSF = document.querySelector('.av-str-gs-cell[data-gsindex="' + step.index + '"]');
+            if (gsCellSF) gsCellSF.classList.add('av-str-gs-set');
+            AV.log('BM_GS_SET', I18N.t('av.log.bm_gs_set',
+                { index: step.index, value: step.value },
+                'GS[' + step.index + ']=' + step.value));
         } else if (step.type === 'RK_HASH_PATTERN') {
             var rkSfP = document.getElementById('av-rk-pattern-hash');
             if (rkSfP) rkSfP.classList.add('av-rk-hash-active');

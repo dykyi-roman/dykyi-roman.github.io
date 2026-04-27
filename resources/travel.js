@@ -1491,6 +1491,12 @@ const countriesData = {
                         'https://www.instagram.com/p/DQ5A41gDgot/?img_index=1',
                     ],
                     facebook: []
+                },
+                'Buñol': {
+                    instagram: [
+                        'https://www.instagram.com/p/DXmxxYSjk6y/?img_index=1',
+                    ],
+                    facebook: []
                 }
             },
             notes: 'Catalonia and Andalusia',
@@ -1617,8 +1623,8 @@ function updateCountriesDisplay() {
         const d = days[key] || 0;
         const c = cities[key] || 0;
         const extra = (d > 0 || c > 0)
-            ? `<span class="continent-stat-badge" title="Days"><i class="fas fa-calendar-alt"></i>${d}</span>`
-              + `<span class="continent-stat-badge" title="Cities"><i class="fas fa-city"></i>${c}</span>`
+            ? `<span class="continent-stat-badge" title="Cities"><i class="fas fa-city"></i>${c}</span>`
+              + `<span class="continent-stat-badge" title="Days"><i class="fas fa-calendar-alt"></i>${d}</span>`
             : '';
         el.innerHTML = `<i class="${icon}"></i> ${label}<span class="continent-count-badge">${count}</span>${extra}`;
     });

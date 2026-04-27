@@ -124,6 +124,12 @@
     --av-rk-hash-diff: #EF4444;
     --av-rk-spurious: #F59E0B;
 
+    --boyer-moore-color: #C084FC;
+    --boyer-moore-bg: #1a0d22;
+    --boyer-moore-light: #2a1a30;
+    --av-str-gs-active: #F472B6;
+    --av-str-gs-set: #EC4899;
+
     --hash-table-color: #F97316;
     --hash-table-bg: #1a1208;
     --hash-table-light: #2d1f10;
@@ -314,6 +320,11 @@
     background: var(--rabin-karp-bg);
     border-color: var(--rabin-karp-color);
     color: var(--rabin-karp-color);
+}
+.av-tab.active[data-algorithm="boyer-moore"] {
+    background: var(--boyer-moore-bg);
+    border-color: var(--boyer-moore-color);
+    color: var(--boyer-moore-color);
 }
 .av-tab.active[data-algorithm="heap-sort"] {
     background: var(--heap-sort-bg);
@@ -1870,6 +1881,53 @@
 .av-legend-str-mismatch { background: var(--av-str-cell-mismatch); }
 .av-legend-str-found { background: var(--av-str-cell-found); }
 .av-legend-str-lps { background: var(--av-str-lps-set); }
+.av-legend-bm-bc { background: var(--av-str-lps-set); }
+.av-legend-bm-gs { background: var(--av-str-gs-set); }
+
+/* ===== Boyer-Moore Good Suffix Row ===== */
+.av-str-gs-row {
+    display: flex;
+    gap: 0;
+    align-items: center;
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--av-border);
+}
+
+.av-str-gs-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 30px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    background: var(--av-card-bg);
+    color: var(--av-text-light);
+    border: 1px solid var(--av-border);
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    margin-right: 2px;
+}
+
+.av-str-gs-cell.av-str-gs-active {
+    background: var(--av-str-gs-active);
+    color: #fff;
+    border-color: var(--av-str-gs-active);
+    box-shadow: 0 0 8px rgba(244, 114, 182, 0.4);
+}
+
+.av-str-gs-cell.av-str-gs-set {
+    background: var(--av-str-gs-set);
+    color: #fff;
+    border-color: var(--av-str-gs-set);
+}
+
+.av-str-gs-cell.av-str-gs-filled {
+    border-color: var(--boyer-moore-color);
+    color: var(--boyer-moore-color);
+}
 
 .log-type.STR_COMPARE { color: #FBBF24; }
 .log-type.STR_MATCH_CHAR { color: #10B981; }
@@ -1877,6 +1935,8 @@
 .log-type.STR_SHIFT { color: #A78BFA; }
 .log-type.STR_FOUND { color: #14B8A6; }
 .log-type.STR_LPS_SET { color: #3B82F6; }
+.log-type.BM_BC_SET { color: #3B82F6; }
+.log-type.BM_GS_SET { color: #EC4899; }
 
 /* ===== Rabin-Karp Hash Display ===== */
 .av-rk-container .av-rk-formula-row {

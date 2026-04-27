@@ -824,6 +824,8 @@
   "av.str.text_label": "Text:",
   "av.str.pattern_label": "Muster:",
   "av.str.lps_label": "LPS:",
+  "av.str.bc_label": "BC:",
+  "av.str.gs_label": "GS:",
   "av.str.input_apply": "Anwenden",
 
   "av.legend.str_default": "Standard",
@@ -832,6 +834,8 @@
   "av.legend.str_mismatch": "Keine \u00dcbereinstimmung",
   "av.legend.str_found": "Muster gefunden",
   "av.legend.str_lps_value": "LPS-Wert gesetzt",
+  "av.legend.str_bc": "Bad Character",
+  "av.legend.str_gs": "Good Suffix",
 
   "av.log.str_compare": "Vergleiche text[{ti}]=\u201E{tc}\u201C mit pattern[{pi}]=\u201E{pc}\u201C",
   "av.log.str_match_char": "Treffer [{ti}]: \u201E{tc}\u201C \u2014 {matched}/{total} Zeichen",
@@ -842,6 +846,9 @@
   "av.log.str_lps_set": "LPS[{index}]={value}: \u201E{prefix}\u201C ist Pr\u00e4fix=Suffix von pattern[0..{index}]",
   "av.log.str_lps_set_zero": "LPS[{index}]=0: kein echtes Pr\u00e4fix gleich Suffix",
   "av.log.str_lps_set_base": "LPS[0]=0: Einzelzeichen \u2014 kein echtes Pr\u00e4fix",
+  "av.log.bm_bc_set": "BC[{index}]: Zeichen „{char}“ zuletzt an Position {value} gesehen",
+  "av.log.bm_gs_set": "GS[{index}]={value}: Verschiebung {value} bei Mismatch an pattern[{index}]",
+  "av.log.bm_shift": "Verschiebung +{shift} ({from}→{to}): max(BC={bc}, GS={gs}) — Regel: {rule}",
   "av.log.done_string": "Abgeschlossen in {time}ms ({comparisons} Vergleiche, {matches} Treffer)",
 
   "ui.log.type.STR_COMPARE": "VERGL",
@@ -850,6 +857,8 @@
   "ui.log.type.STR_SHIFT": "VERSCH",
   "ui.log.type.STR_FOUND": "GEFUNDEN",
   "ui.log.type.STR_LPS_SET": "LPS",
+  "ui.log.type.BM_BC_SET": "BC",
+  "ui.log.type.BM_GS_SET": "GS",
 
   "kmp.name": "KMP",
   "kmp.stepLabel": "KMP",
@@ -964,6 +973,51 @@
     { "name": "Mehrere Treffer", "role": "Ja — findet alle Vorkommen" },
     { "name": "Mehrmuster-Suche", "role": "Ja — Menge von Muster-Hashes" },
     { "name": "Backtracking", "role": "Nein bei Hash-Mismatch — sofortiges Verschieben" }
+  ],
+
+  "boyer-moore.name": "Boyer-Moore",
+  "boyer-moore.stepLabel": "Boyer-Moore",
+  "boyer-moore.modes.standard.label": "Standard (BC + GS)",
+  "boyer-moore.modes.standard.desc": "Klassisches Boyer-Moore mit Bad-Character- und Good-Suffix-Heuristik. Vergleicht das Muster im aktuellen Textfenster von rechts nach links und verschiebt es bei Mismatch um max(BC-Verschiebung, GS-Verschiebung) — meist mehrere Positionen, sublineare Durchschnittslaufzeit.",
+  "boyer-moore.details.standard.principles": [
+    "Vorberechnung: zwei Tabellen — Bad Character (BC) und Good Suffix (GS)",
+    "In jedem Fenster Zeichen von rechts nach links vergleichen, beginnend bei pattern[m−1]",
+    "Bei Mismatch an pattern[j] vs text[i+j]: BC-Verschiebung = j − letzter Index von text[i+j] im Muster",
+    "GS-Verschiebung aus der Good-Suffix-Tabelle für das schon übereinstimmende Suffix pattern[j+1..m−1]",
+    "Fenster um max(BC, GS) verschieben — oft mehrere Positionen auf einmal",
+    "Bei vollständigem Treffer um GS[0] (Periode des Musters) verschieben und weiter suchen"
+  ],
+  "boyer-moore.details.standard.concepts": [
+    { "term": "Boyer-Moore-Algorithmus", "definition": "Robert S. Boyer und J Strother Moore (1977) — schneller String-Matching-Algorithmus, der das Muster im Textfenster von rechts nach links vergleicht. Durch Kombination der Bad-Character- und Good-Suffix-Heuristiken werden meist mehrere Positionen pro Versuch übersprungen, sublineare durchschnittliche Laufzeit." },
+    { "term": "Bad-Character-Regel", "definition": "Bei einem Mismatch mit Textzeichen c an Musterposition j wird das Muster so verschoben, dass das rechteste vorherige Vorkommen von c in pattern[0..j−1] am Text ausgerichtet wird. Falls c im Muster nicht vorkommt: vollständig überspringen." },
+    { "term": "Good-Suffix-Regel", "definition": "Wenn der Mismatch an pattern[j] auftritt, aber pattern[j+1..m−1] schon übereinstimmte: ein anderes Vorkommen dieses Suffix im Muster suchen (mit anderem Vorgängerzeichen). Falls keines existiert: längstes Präfix des Musters finden, das auch Suffix der gematchten Sequenz ist." },
+    { "term": "Vergleich von rechts nach links", "definition": "Anders als KMP (links→rechts) prüft Boyer-Moore zuerst das rechteste Musterzeichen. Das ist essenziell für die Heuristiken — ein Mismatch tief im Fenster liefert deutlich mehr Information über die mögliche Verschiebung." },
+    { "term": "Sublineare Durchschnittslaufzeit", "definition": "Da die Heuristiken oft Verschiebungen nahe m liefern, liest Boyer-Moore in der Praxis nur einen Bruchteil des Textes. Durchschnittlich O(n/m) — der schnellste Einzelmuster-Matcher für natürlichen Text." },
+    { "term": "Galil-Variante", "definition": "Modifikation von Zvi Galil (1979): merkt sich Information über bereits gematchte Textbereiche und vermeidet doppelte Vergleiche. Reduziert den Worst Case von O(n·m) auf garantiert O(n)." }
+  ],
+  "boyer-moore.details.standard.tradeoffs.pros": [
+    "Sublineare Durchschnittslaufzeit — schnellster Einzelmuster-Algorithmus in der Praxis bei langen Mustern und großen Alphabeten",
+    "Zwei sich ergänzende Heuristiken — zusammen dominieren sie naives Matching",
+    "Eingesetzt in grep, GNU coreutils, vielen Editoren und IDEs",
+    "Kein Backtracking des Textzeigers bei typischen Eingaben",
+    "Gute Wahl für lange Muster über reichhaltigen Alphabeten (englischer Text, Quellcode)"
+  ],
+  "boyer-moore.details.standard.tradeoffs.cons": [
+    "Worst Case O(n·m) ohne Galil-Modifikation",
+    "Komplexere Vorberechnung als KMP — Good-Suffix-Tabelle ist nicht trivial",
+    "Bad-Character-Regel ist auf kleinen Alphabeten schwach (DNA: |Σ|=4) — dort dominiert Good Suffix",
+    "Benötigt O(|Σ|) Zusatzspeicher für die BC-Tabelle bei beschränktem Alphabet",
+    "Nicht stream-tauglich — das Fenster muss innerhalb der inspizierten Region rückwärts beweglich sein"
+  ],
+  "boyer-moore.details.standard.tradeoffs.whenToUse": "Boyer-Moore eignet sich, wenn ein einzelnes Muster in langem Text gesucht wird und Durchschnittsgeschwindigkeit wichtiger ist als Worst-Case-Garantien — grep-ähnliche Tools, Code-Suche, Dokumentscan. Für DNA und sehr kleine Alphabete besser nur Good Suffix oder KMP. Wenn lineare Worst-Case-Zeit Pflicht ist, Galil-Variante oder KMP wählen.",
+  "boyer-moore.depRules": [
+    { "name": "Zeit (Vorberechnung)", "role": "O(m + |Σ|) — Aufbau von BC- und GS-Tabelle" },
+    { "name": "Zeit (Best)", "role": "O(n / m) — sublinear bei seltenem Muster" },
+    { "name": "Zeit (Mittel)", "role": "O(n / m) — große Sprünge durch Heuristiken" },
+    { "name": "Zeit (Worst)", "role": "O(n·m) — pathologisch (Galil-Variante O(n))" },
+    { "name": "Speicher", "role": "O(m + |Σ|) — GS-Tabelle + BC-Tabelle" },
+    { "name": "Mehrere Treffer", "role": "Ja — findet alle Vorkommen" },
+    { "name": "Vergleichsrichtung", "role": "Rechts nach links innerhalb jedes Fensters" }
   ],
 
   "av.stat.hash_operations": "Operationen",

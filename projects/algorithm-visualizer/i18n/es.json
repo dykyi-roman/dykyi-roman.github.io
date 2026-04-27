@@ -824,6 +824,8 @@
   "av.str.text_label": "Texto:",
   "av.str.pattern_label": "Patr\u00f3n:",
   "av.str.lps_label": "LPS:",
+  "av.str.bc_label": "BC:",
+  "av.str.gs_label": "GS:",
   "av.str.input_apply": "Aplicar",
 
   "av.legend.str_default": "Normal",
@@ -832,6 +834,8 @@
   "av.legend.str_mismatch": "No coincide",
   "av.legend.str_found": "Patr\u00f3n encontrado",
   "av.legend.str_lps_value": "Valor LPS",
+  "av.legend.str_bc": "Mal car\u00e1cter",
+  "av.legend.str_gs": "Buen sufijo",
 
   "av.log.str_compare": "Comparar text[{ti}]=\u00AB{tc}\u00BB con pattern[{pi}]=\u00AB{pc}\u00BB",
   "av.log.str_match_char": "Coincidencia [{ti}]: \u00AB{tc}\u00BB \u2014 {matched}/{total} caracteres",
@@ -842,6 +846,9 @@
   "av.log.str_lps_set": "LPS[{index}]={value}: \u00AB{prefix}\u00BB es prefijo=sufijo de pattern[0..{index}]",
   "av.log.str_lps_set_zero": "LPS[{index}]=0: ning\u00fan prefijo propio igual al sufijo",
   "av.log.str_lps_set_base": "LPS[0]=0: un solo car\u00e1cter \u2014 no existe prefijo propio",
+  "av.log.bm_bc_set": "BC[{index}]: carácter «{char}» visto por última vez en posición {value}",
+  "av.log.bm_gs_set": "GS[{index}]={value}: desplazamiento {value} en discrepancia en pattern[{index}]",
+  "av.log.bm_shift": "Desplazar +{shift} ({from}→{to}): max(BC={bc}, GS={gs}) — regla: {rule}",
   "av.log.done_string": "Completado en {time}ms ({comparisons} comparaciones, {matches} coincidencias)",
 
   "ui.log.type.STR_COMPARE": "COMP",
@@ -850,6 +857,8 @@
   "ui.log.type.STR_SHIFT": "DESPL",
   "ui.log.type.STR_FOUND": "HALLADO",
   "ui.log.type.STR_LPS_SET": "LPS",
+  "ui.log.type.BM_BC_SET": "BC",
+  "ui.log.type.BM_GS_SET": "GS",
 
   "kmp.name": "KMP",
   "kmp.stepLabel": "KMP",
@@ -964,6 +973,51 @@
     { "name": "Coincidencias m\u00faltiples", "role": "S\u00ed \u2014 encuentra todas las ocurrencias" },
     { "name": "Multi-patr\u00f3n", "role": "S\u00ed \u2014 conjunto de hashes de patrones" },
     { "name": "Retroceso", "role": "No al diferir el hash \u2014 desplazamiento inmediato" }
+  ],
+
+  "boyer-moore.name": "Boyer-Moore",
+  "boyer-moore.stepLabel": "Boyer-Moore",
+  "boyer-moore.modes.standard.label": "Est\u00e1ndar (BC + GS)",
+  "boyer-moore.modes.standard.desc": "Boyer-Moore cl\u00e1sico con heur\u00edsticas de Mal Car\u00e1cter (BC) y Buen Sufijo (GS). Compara el patr\u00f3n con la ventana actual de derecha a izquierda y desplaza por max(BC, GS) en discrepancia \u2014 habitualmente varias posiciones a la vez, tiempo medio sublineal.",
+  "boyer-moore.details.standard.principles": [
+    "Preprocesamiento: dos tablas \u2014 Mal Car\u00e1cter (BC) y Buen Sufijo (GS)",
+    "En cada ventana, comparar caracteres de derecha a izquierda partiendo de pattern[m\u22121]",
+    "En discrepancia en pattern[j] vs text[i+j]: desplazamiento BC = j \u2212 \u00faltimo \u00edndice de text[i+j] en el patr\u00f3n",
+    "Desplazamiento GS desde la tabla de Buen Sufijo para el sufijo ya emparejado pattern[j+1..m\u22121]",
+    "Avanzar la ventana max(BC, GS) \u2014 frecuentemente varias posiciones",
+    "En coincidencia completa: desplazar GS[0] (per\u00edodo del patr\u00f3n) y continuar la b\u00fasqueda"
+  ],
+  "boyer-moore.details.standard.concepts": [
+    { "term": "Algoritmo Boyer-Moore", "definition": "Robert S. Boyer y J Strother Moore (1977) \u2014 algoritmo r\u00e1pido de b\u00fasqueda de subcadena que recorre el patr\u00f3n de derecha a izquierda en cada ventana. Combinando heur\u00edsticas Bad Character y Good Suffix, suele saltar varias posiciones por intento, alcanzando tiempo medio sublineal." },
+    { "term": "Regla del Mal Car\u00e1cter", "definition": "En discrepancia con un car\u00e1cter c en posici\u00f3n j del patr\u00f3n, desplazar el patr\u00f3n para que la \u00faltima aparici\u00f3n previa de c en pattern[0..j\u22121] quede alineada con el texto. Si c no aparece en el patr\u00f3n: saltar completamente." },
+    { "term": "Regla del Buen Sufijo", "definition": "Si la discrepancia ocurre en pattern[j] pero pattern[j+1..m\u22121] ya coincid\u00eda: buscar otra aparici\u00f3n de ese sufijo en el patr\u00f3n (con un car\u00e1cter precedente distinto). Si no existe: encontrar el prefijo m\u00e1s largo del patr\u00f3n que tambi\u00e9n sea sufijo de la porci\u00f3n coincidente." },
+    { "term": "Comparaci\u00f3n de derecha a izquierda", "definition": "A diferencia de KMP (izquierda\u2192derecha), Boyer-Moore inspecciona primero el car\u00e1cter m\u00e1s a la derecha del patr\u00f3n. Esencial para las heur\u00edsticas: una discrepancia en lo profundo de la ventana aporta mucha m\u00e1s informaci\u00f3n sobre el desplazamiento posible." },
+    { "term": "Caso medio sublineal", "definition": "Como las heur\u00edsticas suelen avanzar la ventana un valor cercano a m, Boyer-Moore solo lee una fracci\u00f3n del texto en entradas t\u00edpicas. Tiempo medio O(n/m) \u2014 el m\u00e1s r\u00e1pido en la pr\u00e1ctica para b\u00fasqueda de un patr\u00f3n \u00fanico en texto natural." },
+    { "term": "Variante de Galil", "definition": "Modificaci\u00f3n de Zvi Galil (1979) que memoriza informaci\u00f3n sobre porciones de texto ya comparadas para evitar comparaciones redundantes. Reduce el peor caso de O(n\u00b7m) a O(n) garantizado, sin degradar el caso medio." }
+  ],
+  "boyer-moore.details.standard.tradeoffs.pros": [
+    "Caso medio sublineal \u2014 el algoritmo de un solo patr\u00f3n m\u00e1s r\u00e1pido en la pr\u00e1ctica para patrones largos y alfabetos amplios",
+    "Dos heur\u00edsticas complementarias \u2014 juntas dominan ampliamente la b\u00fasqueda ingenua",
+    "Usado dentro de grep, GNU coreutils, muchos editores e IDE",
+    "Sin retroceso del puntero de texto en entradas t\u00edpicas",
+    "Excelente para patrones largos sobre alfabetos ricos (texto natural, c\u00f3digo fuente)"
+  ],
+  "boyer-moore.details.standard.tradeoffs.cons": [
+    "Peor caso O(n\u00b7m) sin la modificaci\u00f3n de Galil",
+    "Preprocesamiento m\u00e1s complejo que KMP \u2014 la tabla Buen Sufijo no es trivial de implementar correctamente",
+    "Regla Mal Car\u00e1cter d\u00e9bil en alfabetos peque\u00f1os (ADN: |\u03a3|=4) \u2014 domina Buen Sufijo",
+    "Requiere O(|\u03a3|) de espacio adicional para la tabla BC en alfabeto acotado",
+    "No apto para texto en flujo \u2014 la ventana puede necesitar moverse hacia atr\u00e1s dentro de la regi\u00f3n inspeccionada"
+  ],
+  "boyer-moore.details.standard.tradeoffs.whenToUse": "Elija Boyer-Moore para buscar un patr\u00f3n \u00fanico en texto largo cuando la velocidad media importe m\u00e1s que las garant\u00edas de peor caso \u2014 utilidades tipo grep, b\u00fasqueda de c\u00f3digo, escaneo de documentos. Para ADN u otros alfabetos peque\u00f1os: solo Buen Sufijo o KMP. Si se requiere tiempo lineal garantizado: variante de Galil o KMP.",
+  "boyer-moore.depRules": [
+    { "name": "Tiempo (preprocesamiento)", "role": "O(m + |\u03a3|) \u2014 construcci\u00f3n de tablas BC y GS" },
+    { "name": "Tiempo (mejor)", "role": "O(n / m) \u2014 sublineal con patr\u00f3n raro" },
+    { "name": "Tiempo (medio)", "role": "O(n / m) \u2014 saltos grandes por las heur\u00edsticas" },
+    { "name": "Tiempo (peor)", "role": "O(n\u00b7m) \u2014 entradas patol\u00f3gicas (Galil da O(n))" },
+    { "name": "Memoria", "role": "O(m + |\u03a3|) \u2014 tabla GS + tabla BC" },
+    { "name": "Coincidencias m\u00faltiples", "role": "S\u00ed \u2014 todas las ocurrencias" },
+    { "name": "Direcci\u00f3n de comparaci\u00f3n", "role": "Derecha a izquierda dentro de cada ventana" }
   ],
 
   "av.stat.hash_operations": "Operaciones",

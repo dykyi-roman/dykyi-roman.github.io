@@ -876,6 +876,8 @@
   "av.str.text_label": "Text:",
   "av.str.pattern_label": "Pattern:",
   "av.str.lps_label": "LPS:",
+  "av.str.bc_label": "BC:",
+  "av.str.gs_label": "GS:",
   "av.str.input_apply": "Apply",
 
   "av.legend.str_default": "Default",
@@ -884,6 +886,8 @@
   "av.legend.str_mismatch": "Mismatch",
   "av.legend.str_found": "Pattern Found",
   "av.legend.str_lps_value": "LPS Value Set",
+  "av.legend.str_bc": "Bad Character",
+  "av.legend.str_gs": "Good Suffix",
 
   "av.log.str_compare": "Compare text[{ti}]=\u201C{tc}\u201D vs pattern[{pi}]=\u201C{pc}\u201D",
   "av.log.str_match_char": "Match at [{ti}]: \u201C{tc}\u201D \u2014 {matched}/{total} chars matched",
@@ -894,6 +898,9 @@
   "av.log.str_lps_set": "LPS[{index}]={value}: \u201C{prefix}\u201D is prefix=suffix of pattern[0..{index}]",
   "av.log.str_lps_set_zero": "LPS[{index}]=0: no proper prefix equals suffix",
   "av.log.str_lps_set_base": "LPS[0]=0: single char \u2014 no proper prefix exists",
+  "av.log.bm_bc_set": "BC[{index}]: char \u201c{char}\u201d last seen at {value}",
+  "av.log.bm_gs_set": "GS[{index}]={value}: shift {value} on mismatch at pattern[{index}]",
+  "av.log.bm_shift": "Shift +{shift} ({from}\u2192{to}): max(BC={bc}, GS={gs}) \u2014 rule: {rule}",
   "av.log.done_string": "Completed in {time}ms ({comparisons} comparisons, {matches} matches found)",
 
   "ui.log.type.STR_COMPARE": "COMPARE",
@@ -902,6 +909,8 @@
   "ui.log.type.STR_SHIFT": "SHIFT",
   "ui.log.type.STR_FOUND": "FOUND",
   "ui.log.type.STR_LPS_SET": "LPS",
+  "ui.log.type.BM_BC_SET": "BC",
+  "ui.log.type.BM_GS_SET": "GS",
 
   "kmp.name": "KMP",
   "kmp.stepLabel": "KMP",
@@ -1016,6 +1025,51 @@
     { "name": "Multiple Matches", "role": "Yes \u2014 finds all occurrences" },
     { "name": "Multi-pattern", "role": "Yes \u2014 store a set of pattern hashes" },
     { "name": "Backtracking", "role": "No on hash mismatch \u2014 immediate window slide" }
+  ],
+
+  "boyer-moore.name": "Boyer-Moore",
+  "boyer-moore.stepLabel": "Boyer-Moore",
+  "boyer-moore.modes.standard.label": "Standard (BC + GS)",
+  "boyer-moore.modes.standard.desc": "Classic Boyer-Moore string matching using both Bad Character and Good Suffix heuristics. Compares the pattern against the current text window from right to left and shifts the pattern by max(BC shift, GS shift) on mismatch \u2014 typically several positions at a time, achieving sublinear average case.",
+  "boyer-moore.details.standard.principles": [
+    "Preprocess the pattern into two tables: Bad Character (BC) and Good Suffix (GS)",
+    "For each window, compare characters from right to left starting at pattern[m\u22121]",
+    "On mismatch at pattern[j] vs text[i+j], compute BC shift = j \u2212 last index of text[i+j] in pattern",
+    "Compute GS shift from the Good Suffix table for the matched suffix pattern[j+1..m\u22121]",
+    "Advance the window by max(BC shift, GS shift) \u2014 often skipping many positions at once",
+    "On full match, shift by GS[0] (period of the pattern) and continue searching for further occurrences"
+  ],
+  "boyer-moore.details.standard.concepts": [
+    { "term": "Boyer-Moore Algorithm", "definition": "Robert S. Boyer and J Strother Moore (1977) \u2014 a fast string-matching algorithm that scans the pattern right-to-left within each text window. By combining the Bad Character and Good Suffix heuristics, it often shifts the pattern by several positions per attempt, achieving sublinear average runtime." },
+    { "term": "Bad Character Rule", "definition": "On a mismatch with text character c at pattern position j, shift the pattern so that the rightmost previous occurrence of c in pattern[0..j\u22121] aligns with the text. If c never appears in the pattern, shift past it entirely (shift = j+1)." },
+    { "term": "Good Suffix Rule", "definition": "When a mismatch occurs at pattern[j] but pattern[j+1..m\u22121] already matched, look for another occurrence of that suffix elsewhere in the pattern (preceded by a different character). If none, find the longest prefix of the pattern that is also a suffix of the matched portion. The shift is the resulting alignment distance." },
+    { "term": "Right-to-Left Comparison", "definition": "Unlike KMP (left-to-right), Boyer-Moore inspects the rightmost character of the pattern first. This is essential for the heuristics to work \u2014 a mismatch deep in the window provides much more information about how far to skip than a left-side mismatch would." },
+    { "term": "Sublinear Average Case", "definition": "Because the heuristics frequently advance the window by a value close to m, Boyer-Moore reads only a fraction of the text on typical inputs. Average runtime is O(n/m), making it the practical fastest single-pattern matcher for natural-language text." },
+    { "term": "Galil Variant", "definition": "A modification by Zvi Galil (1979) caches information about previously matched portions of the text to avoid redundant comparisons. This raises the worst case from O(n\u00b7m) down to a guaranteed O(n) with no degradation of the average case." }
+  ],
+  "boyer-moore.details.standard.tradeoffs.pros": [
+    "Sublinear average case \u2014 fastest single-pattern algorithm in practice for long patterns and large alphabets",
+    "Two complementary heuristics \u2014 either one alone is decent, together they dominate naive matching",
+    "Used inside grep, GNU coreutils, many text editors and IDEs",
+    "No backtracking on the text pointer for typical inputs",
+    "Great fit for long patterns over rich alphabets (English text, source code)"
+  ],
+  "boyer-moore.details.standard.tradeoffs.cons": [
+    "Worst case O(n\u00b7m) without the Galil modification",
+    "More complex preprocessing than KMP \u2014 the Good Suffix table is non-trivial to implement correctly",
+    "Bad Character rule is weak on small alphabets (DNA: |\u03a3|=4) \u2014 Good Suffix dominates there",
+    "Requires O(|\u03a3|) extra space for the Bad Character table when implemented over a bounded alphabet",
+    "Not adaptive to streaming text \u2014 the window must move backward inside the text region currently being inspected"
+  ],
+  "boyer-moore.details.standard.tradeoffs.whenToUse": "Choose Boyer-Moore when searching for a single pattern in a long text and average-case speed matters more than worst-case guarantees \u2014 grep-like utilities, code search, document scanning. For DNA or other tiny alphabets, prefer the Good-Suffix-only variant or KMP. When worst-case linear time is a hard requirement, use the Galil variant or KMP.",
+  "boyer-moore.depRules": [
+    { "name": "Time (Preprocessing)", "role": "O(m + |\u03a3|) \u2014 build BC and GS tables" },
+    { "name": "Time (Best)", "role": "O(n / m) \u2014 sublinear when pattern is rare" },
+    { "name": "Time (Average)", "role": "O(n / m) \u2014 large jumps from heuristics" },
+    { "name": "Time (Worst)", "role": "O(n\u00b7m) \u2014 pathological inputs (Galil variant gives O(n))" },
+    { "name": "Space", "role": "O(m + |\u03a3|) \u2014 GS table + BC table" },
+    { "name": "Multiple Matches", "role": "Yes \u2014 finds all occurrences" },
+    { "name": "Comparison Direction", "role": "Right-to-left within each window" }
   ],
 
   "av.stat.hash_operations": "Operations",

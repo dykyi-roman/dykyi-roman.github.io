@@ -830,6 +830,8 @@
   "av.str.text_label": "Texte :",
   "av.str.pattern_label": "Motif :",
   "av.str.lps_label": "LPS :",
+  "av.str.bc_label": "BC :",
+  "av.str.gs_label": "GS :",
   "av.str.input_apply": "Appliquer",
 
   "av.legend.str_default": "Par d\u00e9faut",
@@ -838,6 +840,8 @@
   "av.legend.str_mismatch": "Non-correspondance",
   "av.legend.str_found": "Motif trouv\u00e9",
   "av.legend.str_lps_value": "Valeur LPS",
+  "av.legend.str_bc": "Mauvais caract\u00e8re",
+  "av.legend.str_gs": "Bon suffixe",
 
   "av.log.str_compare": "Comparer text[{ti}]=\u00AB{tc}\u00BB et pattern[{pi}]=\u00AB{pc}\u00BB",
   "av.log.str_match_char": "Correspondance [{ti}] : \u00AB{tc}\u00BB \u2014 {matched}/{total} caract\u00e8res",
@@ -848,6 +852,9 @@
   "av.log.str_lps_set": "LPS[{index}]={value} : \u00AB{prefix}\u00BB est pr\u00e9fixe=suffixe de pattern[0..{index}]",
   "av.log.str_lps_set_zero": "LPS[{index}]=0 : aucun pr\u00e9fixe propre \u00e9gal au suffixe",
   "av.log.str_lps_set_base": "LPS[0]=0 : un seul caract\u00e8re \u2014 pas de pr\u00e9fixe propre",
+  "av.log.bm_bc_set": "BC[{index}] : caract\u00e8re \u00ab {char} \u00bb vu pour la derni\u00e8re fois en position {value}",
+  "av.log.bm_gs_set": "GS[{index}]={value} : d\u00e9calage {value} en cas de non-correspondance \u00e0 pattern[{index}]",
+  "av.log.bm_shift": "D\u00e9calage +{shift} ({from}\u2192{to}) : max(BC={bc}, GS={gs}) \u2014 r\u00e8gle : {rule}",
   "av.log.done_string": "Termin\u00e9 en {time}ms ({comparisons} comparaisons, {matches} correspondances)",
 
   "ui.log.type.STR_COMPARE": "COMP",
@@ -856,6 +863,8 @@
   "ui.log.type.STR_SHIFT": "D\u00c9CAL",
   "ui.log.type.STR_FOUND": "TROUV\u00c9",
   "ui.log.type.STR_LPS_SET": "LPS",
+  "ui.log.type.BM_BC_SET": "BC",
+  "ui.log.type.BM_GS_SET": "GS",
 
   "kmp.name": "KMP",
   "kmp.stepLabel": "KMP",
@@ -970,6 +979,51 @@
     { "name": "Correspondances multiples", "role": "Oui \u2014 toutes les occurrences" },
     { "name": "Multi-motifs", "role": "Oui \u2014 ensemble de hachages de motifs" },
     { "name": "Retour arri\u00e8re", "role": "Non en cas de diff\u00e9rence de hachage \u2014 glissement imm\u00e9diat" }
+  ],
+
+  "boyer-moore.name": "Boyer-Moore",
+  "boyer-moore.stepLabel": "Boyer-Moore",
+  "boyer-moore.modes.standard.label": "Standard (BC + GS)",
+  "boyer-moore.modes.standard.desc": "Boyer-Moore classique avec heuristiques Mauvais Caract\u00e8re (BC) et Bon Suffixe (GS). Compare le motif \u00e0 la fen\u00eatre courante de droite \u00e0 gauche et d\u00e9cale de max(BC, GS) en cas de non-correspondance \u2014 souvent plusieurs positions \u00e0 la fois, temps moyen sous-lin\u00e9aire.",
+  "boyer-moore.details.standard.principles": [
+    "Pr\u00e9traitement : deux tables \u2014 Mauvais Caract\u00e8re (BC) et Bon Suffixe (GS)",
+    "Pour chaque fen\u00eatre, comparer les caract\u00e8res de droite \u00e0 gauche en partant de pattern[m\u22121]",
+    "Sur non-correspondance \u00e0 pattern[j] vs text[i+j] : d\u00e9calage BC = j \u2212 dernier index de text[i+j] dans le motif",
+    "D\u00e9calage GS issu de la table Bon Suffixe pour le suffixe d\u00e9j\u00e0 appari\u00e9 pattern[j+1..m\u22121]",
+    "Avancer la fen\u00eatre de max(BC, GS) \u2014 souvent plusieurs positions",
+    "Sur correspondance compl\u00e8te : d\u00e9caler de GS[0] (p\u00e9riode du motif) et continuer la recherche"
+  ],
+  "boyer-moore.details.standard.concepts": [
+    { "term": "Algorithme Boyer-Moore", "definition": "Robert S. Boyer et J Strother Moore (1977) \u2014 algorithme rapide de recherche de motif qui parcourt le motif de droite \u00e0 gauche dans chaque fen\u00eatre. Combinaison des heuristiques Bad Character et Good Suffix permet de sauter plusieurs positions par tentative, temps moyen sous-lin\u00e9aire." },
+    { "term": "R\u00e8gle Mauvais Caract\u00e8re", "definition": "En cas de non-correspondance avec un caract\u00e8re c en position j du motif, d\u00e9caler le motif de sorte que la derni\u00e8re occurrence pr\u00e9c\u00e9dente de c dans pattern[0..j\u22121] soit align\u00e9e avec le texte. Si c n'appara\u00eet pas dans le motif : sauter compl\u00e8tement." },
+    { "term": "R\u00e8gle Bon Suffixe", "definition": "Si la non-correspondance survient \u00e0 pattern[j] mais pattern[j+1..m\u22121] correspondait d\u00e9j\u00e0 : chercher une autre occurrence de ce suffixe dans le motif (avec un caract\u00e8re pr\u00e9c\u00e9dent diff\u00e9rent). \u00c0 d\u00e9faut : trouver le plus long pr\u00e9fixe du motif qui soit suffixe de la portion appari\u00e9e." },
+    { "term": "Comparaison de droite \u00e0 gauche", "definition": "Contrairement \u00e0 KMP (gauche\u2192droite), Boyer-Moore inspecte d'abord le caract\u00e8re le plus \u00e0 droite du motif. Essentiel pour les heuristiques : une non-correspondance profonde dans la fen\u00eatre fournit beaucoup plus d'information sur le d\u00e9calage possible." },
+    { "term": "Cas moyen sous-lin\u00e9aire", "definition": "Comme les heuristiques avancent souvent la fen\u00eatre d'une valeur proche de m, Boyer-Moore ne lit qu'une fraction du texte sur les entr\u00e9es typiques. Temps moyen O(n/m) \u2014 le plus rapide en pratique pour la recherche d'un motif unique dans du texte naturel." },
+    { "term": "Variante de Galil", "definition": "Modification par Zvi Galil (1979) qui m\u00e9morise des informations sur les portions de texte d\u00e9j\u00e0 compar\u00e9es pour \u00e9viter les comparaisons redondantes. Ram\u00e8ne le pire cas de O(n\u00b7m) \u00e0 O(n) garanti, sans d\u00e9grader le cas moyen." }
+  ],
+  "boyer-moore.details.standard.tradeoffs.pros": [
+    "Cas moyen sous-lin\u00e9aire \u2014 l'algorithme mono-motif le plus rapide en pratique pour les motifs longs et alphabets riches",
+    "Deux heuristiques compl\u00e9mentaires \u2014 ensemble dominent largement la recherche na\u00efve",
+    "Utilis\u00e9 dans grep, GNU coreutils, de nombreux \u00e9diteurs et IDE",
+    "Pas de retour arri\u00e8re du pointeur de texte sur les entr\u00e9es typiques",
+    "Parfait pour les motifs longs sur alphabets riches (texte naturel, code source)"
+  ],
+  "boyer-moore.details.standard.tradeoffs.cons": [
+    "Pire cas O(n\u00b7m) sans la variante de Galil",
+    "Pr\u00e9traitement plus complexe que KMP \u2014 la table Bon Suffixe n'est pas triviale \u00e0 impl\u00e9menter correctement",
+    "R\u00e8gle Mauvais Caract\u00e8re faible sur petits alphabets (ADN : |\u03a3|=4) \u2014 c'est Bon Suffixe qui domine",
+    "N\u00e9cessite O(|\u03a3|) d'espace suppl\u00e9mentaire pour la table BC sur alphabet born\u00e9",
+    "Inadapt\u00e9 au texte en flux \u2014 la fen\u00eatre doit pouvoir reculer dans la zone inspect\u00e9e"
+  ],
+  "boyer-moore.details.standard.tradeoffs.whenToUse": "Choisissez Boyer-Moore pour la recherche d'un motif unique dans un long texte quand la vitesse moyenne prime sur les garanties pire cas \u2014 outils type grep, recherche de code, scan de documents. Pour l'ADN ou autres petits alphabets, pr\u00e9f\u00e9rer Bon Suffixe seul ou KMP. Pour temps lin\u00e9aire garanti : variante de Galil ou KMP.",
+  "boyer-moore.depRules": [
+    { "name": "Temps (pr\u00e9traitement)", "role": "O(m + |\u03a3|) \u2014 construction des tables BC et GS" },
+    { "name": "Temps (meilleur)", "role": "O(n / m) \u2014 sous-lin\u00e9aire si motif rare" },
+    { "name": "Temps (moyen)", "role": "O(n / m) \u2014 grands sauts gr\u00e2ce aux heuristiques" },
+    { "name": "Temps (pire)", "role": "O(n\u00b7m) \u2014 entr\u00e9es pathologiques (Galil donne O(n))" },
+    { "name": "Espace", "role": "O(m + |\u03a3|) \u2014 table GS + table BC" },
+    { "name": "Correspondances multiples", "role": "Oui \u2014 toutes les occurrences" },
+    { "name": "Sens de comparaison", "role": "Droite \u00e0 gauche dans chaque fen\u00eatre" }
   ],
 
   "av.stat.hash_operations": "Op\u00e9rations",
