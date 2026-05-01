@@ -1072,6 +1072,77 @@
     { "name": "Comparison Direction", "role": "Right-to-left within each window" }
   ],
 
+  "av.stat.cells_filled": "Cells Filled",
+  "av.stat.char_compares": "Char Compares",
+  "av.lev.s1_label": "String 1:",
+  "av.lev.s2_label": "String 2:",
+
+  "av.legend.lev_base": "Base case",
+  "av.legend.lev_reading": "Reading neighbors",
+  "av.legend.lev_computing": "Computing",
+  "av.legend.lev_computed": "Computed",
+  "av.legend.lev_result": "Edit distance",
+  "av.legend.lev_path": "Optimal alignment",
+
+  "av.log.lev_base": "dp[{i}][{j}] = {value} (base case)",
+  "av.log.lev_compare_match": "Compare s1[{i}]=\u201c{c1}\u201d vs s2[{j}]=\u201c{c2}\u201d \u2014 match",
+  "av.log.lev_compare_diff": "Compare s1[{i}]=\u201c{c1}\u201d vs s2[{j}]=\u201c{c2}\u201d \u2014 differ",
+  "av.log.lev_read": "dp[{i}][{j}]: read \u2191={up}, \u2190={left}, \u2196={diag}",
+  "av.log.lev_fill": "dp[{i}][{j}] = {formula} = {value} ({op})",
+  "av.log.lev_result": "Edit distance = {value}",
+  "av.log.lev_trace": "Path ({i},{j}) \u2014 {op}",
+
+  "ui.log.type.LEV_BASE": "BASE",
+  "ui.log.type.LEV_COMPARE": "COMPARE",
+  "ui.log.type.LEV_READ": "READ",
+  "ui.log.type.LEV_FILL": "FILL",
+  "ui.log.type.LEV_RESULT": "RESULT",
+  "ui.log.type.LEV_TRACE": "PATH",
+
+  "levenshtein.name": "Levenshtein",
+  "levenshtein.stepLabel": "Levenshtein \u2014 Tabulation",
+  "levenshtein.modes.tabulation.label": "Tabulation",
+  "levenshtein.modes.tabulation.desc": "Bottom-up dynamic programming: builds an (m+1)\u00d7(n+1) table where dp[i][j] is the minimum number of single-character insert / delete / replace operations to transform s1[0..i\u22121] into s2[0..j\u22121]. After filling the table, a traceback from dp[m][n] reconstructs one optimal edit sequence.",
+  "levenshtein.details.tabulation.principles": [
+    "Base cases: dp[0][j] = j (insert j chars), dp[i][0] = i (delete i chars)",
+    "For each pair (i, j): if s1[i\u22121] == s2[j\u22121] then dp[i][j] = dp[i\u22121][j\u22121]",
+    "Otherwise dp[i][j] = 1 + min(dp[i\u22121][j], dp[i][j\u22121], dp[i\u22121][j\u22121])",
+    "The three neighbors correspond to delete, insert, replace operations",
+    "Final answer dp[m][n] is the minimum edit distance",
+    "Traceback from dp[m][n] toward dp[0][0] reconstructs one optimal sequence of edits"
+  ],
+  "levenshtein.details.tabulation.concepts": [
+    { "term": "Edit Distance", "definition": "The minimum number of single-character operations (insertion, deletion, substitution) required to transform one string into another. Introduced by Vladimir Levenshtein in 1965." },
+    { "term": "Optimal Substructure", "definition": "The distance between s1[0..i] and s2[0..j] depends only on distances of three smaller subproblems: dp[i\u22121][j\u22121], dp[i\u22121][j], dp[i][j\u22121]. This recursive structure is what makes DP applicable." },
+    { "term": "Three Neighbors", "definition": "dp[i\u22121][j] (delete from s1), dp[i][j\u22121] (insert into s1), and dp[i\u22121][j\u22121] (replace or match). On each cell, the algorithm reads exactly these three predecessors." },
+    { "term": "Match vs Replace", "definition": "When s1[i\u22121] equals s2[j\u22121], the diagonal value is taken without adding a cost (match). Otherwise dp[i\u22121][j\u22121] + 1 represents a substitution." },
+    { "term": "Traceback", "definition": "Starting from dp[m][n], at each cell pick a predecessor that produced the current value. The chosen direction reveals which operation was applied: \u2196 match/replace, \u2191 delete, \u2190 insert." },
+    { "term": "Applications", "definition": "Spell-checkers, fuzzy text search, DNA/protein sequence alignment, diff utilities, OCR error correction, autocomplete suggestions." }
+  ],
+  "levenshtein.details.tabulation.tradeoffs.pros": [
+    "Guaranteed optimal \u2014 always returns the minimum edit distance",
+    "Handles arbitrary alphabets and string lengths",
+    "Easy to extend with custom operation costs (weighted Levenshtein)",
+    "Traceback recovers the actual edit sequence, not just the distance",
+    "Predictable O(m \u00b7 n) time \u2014 no worst-case blow-up"
+  ],
+  "levenshtein.details.tabulation.tradeoffs.cons": [
+    "O(m \u00b7 n) memory \u2014 prohibitive for very long strings",
+    "No early termination \u2014 entire table is filled even for distant strings",
+    "Quadratic time is too slow for strings of length > 10\u2074 each",
+    "Does not exploit the structure of small distances (e.g., bounded edit distance can use O(k \u00b7 min(m, n)))",
+    "Standard variant ignores transposition (swap of adjacent chars) \u2014 see Damerau\u2013Levenshtein"
+  ],
+  "levenshtein.details.tabulation.tradeoffs.whenToUse": "Suitable when both strings are short to moderate (typically each up to a few thousand characters), the exact distance is required, and the edit operations themselves are useful (alignment, diff). For threshold-based fuzzy matching prefer bit-parallel methods or bounded variants; for very long sequences prefer Hirschberg\u2019s linear-space algorithm or specialized aligners.",
+  "levenshtein.depRules": [
+    { "name": "Time", "role": "O(m \u00b7 n) \u2014 every cell computed exactly once" },
+    { "name": "Space", "role": "O(m \u00b7 n) \u2014 full DP table; can be reduced to O(min(m,n))" },
+    { "name": "Best Case", "role": "O(m \u00b7 n) \u2014 same as worst (no early exit)" },
+    { "name": "Worst Case", "role": "O(m \u00b7 n) \u2014 entire table required for traceback" },
+    { "name": "Operations", "role": "Insert, Delete, Replace (each unit cost)" },
+    { "name": "Traceback", "role": "O(m + n) \u2014 reconstructs the optimal alignment" }
+  ],
+
   "av.stat.hash_operations": "Operations",
   "av.stat.hash_collisions": "Collisions",
 

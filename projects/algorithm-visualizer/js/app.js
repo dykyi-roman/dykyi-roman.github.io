@@ -13,7 +13,7 @@
         hashing: ['hash-table', 'chaining', 'open-addressing']
     };
 
-    var implementedAlgorithms = ['bubble-sort', 'selection-sort', 'insertion-sort', 'merge-sort', 'quick-sort', 'heap-sort', 'counting-sort', 'radix-sort', 'linear-search', 'binary-search', 'jump-search', 'interpolation-search', 'bfs', 'dfs', 'dijkstra', 'a-star', 'bst-operations', 'fibonacci', 'kmp', 'rabin-karp', 'boyer-moore', 'hash-table'];
+    var implementedAlgorithms = ['bubble-sort', 'selection-sort', 'insertion-sort', 'merge-sort', 'quick-sort', 'heap-sort', 'counting-sort', 'radix-sort', 'linear-search', 'binary-search', 'jump-search', 'interpolation-search', 'bfs', 'dfs', 'dijkstra', 'a-star', 'bst-operations', 'fibonacci', 'kmp', 'rabin-karp', 'boyer-moore', 'levenshtein', 'hash-table'];
 
     var activeCategory = 'sorting';
 
@@ -165,6 +165,7 @@
         delete AV.state._isStringAlgorithm;
         delete AV.state._isRabinKarp;
         delete AV.state._isBoyerMoore;
+        delete AV.state._isLevAlgorithm;
         delete AV.state._text;
         delete AV.state._pattern;
         delete AV.state._lps;
@@ -173,6 +174,10 @@
         delete AV.state._patternOffset;
         delete AV.state._userText;
         delete AV.state._userPattern;
+        delete AV.state._s1;
+        delete AV.state._s2;
+        delete AV.state._userS1;
+        delete AV.state._userS2;
         delete AV.state._rkPatternHash;
         delete AV.state._rkWindowHash;
         delete AV.state._rkBase;
@@ -507,6 +512,8 @@
             } else {
                 AV._setStringStatLabels();
             }
+        } else if (AV.state._isLevAlgorithm) {
+            AV._setLevStatLabels();
         } else if (AV.state._isHashAlgorithm) {
             AV._setHashStatLabels();
         }

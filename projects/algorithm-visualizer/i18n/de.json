@@ -1020,6 +1020,77 @@
     { "name": "Vergleichsrichtung", "role": "Rechts nach links innerhalb jedes Fensters" }
   ],
 
+  "av.stat.cells_filled": "Gefüllte Zellen",
+  "av.stat.char_compares": "Zeichenvergleiche",
+  "av.lev.s1_label": "Zeichenkette 1:",
+  "av.lev.s2_label": "Zeichenkette 2:",
+
+  "av.legend.lev_base": "Basisfall",
+  "av.legend.lev_reading": "Nachbarn lesen",
+  "av.legend.lev_computing": "Berechnung",
+  "av.legend.lev_computed": "Berechnet",
+  "av.legend.lev_result": "Editierdistanz",
+  "av.legend.lev_path": "Optimaler Pfad",
+
+  "av.log.lev_base": "dp[{i}][{j}] = {value} (Basisfall)",
+  "av.log.lev_compare_match": "Vergleich s1[{i}]=„{c1}“ vs s2[{j}]=„{c2}“ — Treffer",
+  "av.log.lev_compare_diff": "Vergleich s1[{i}]=„{c1}“ vs s2[{j}]=„{c2}“ — verschieden",
+  "av.log.lev_read": "dp[{i}][{j}]: lese ↑={up}, ←={left}, ↖={diag}",
+  "av.log.lev_fill": "dp[{i}][{j}] = {formula} = {value} ({op})",
+  "av.log.lev_result": "Editierdistanz = {value}",
+  "av.log.lev_trace": "Pfad ({i},{j}) — {op}",
+
+  "ui.log.type.LEV_BASE": "BASIS",
+  "ui.log.type.LEV_COMPARE": "VERGLEICH",
+  "ui.log.type.LEV_READ": "LESEN",
+  "ui.log.type.LEV_FILL": "FÜLLEN",
+  "ui.log.type.LEV_RESULT": "ERGEBNIS",
+  "ui.log.type.LEV_TRACE": "PFAD",
+
+  "levenshtein.name": "Levenshtein",
+  "levenshtein.stepLabel": "Levenshtein — Tabellierung",
+  "levenshtein.modes.tabulation.label": "Tabellierung",
+  "levenshtein.modes.tabulation.desc": "Bottom-up dynamische Programmierung: baut eine (m+1)×(n+1)-Tabelle, in der dp[i][j] die minimale Anzahl elementarer Operationen Einfügen / Löschen / Ersetzen ist, um s1[0..i−1] in s2[0..j−1] zu überführen. Nach dem Füllen rekonstruiert ein Rückverfolgen ab dp[m][n] eine optimale Editfolge.",
+  "levenshtein.details.tabulation.principles": [
+    "Basisfälle: dp[0][j] = j (j Zeichen einfügen), dp[i][0] = i (i Zeichen löschen)",
+    "Für jedes Paar (i, j): falls s1[i−1] == s2[j−1] dann dp[i][j] = dp[i−1][j−1]",
+    "Andernfalls dp[i][j] = 1 + min(dp[i−1][j], dp[i][j−1], dp[i−1][j−1])",
+    "Die drei Nachbarn entsprechen den Operationen Löschen, Einfügen, Ersetzen",
+    "Die Lösung dp[m][n] ist die minimale Editierdistanz",
+    "Die Rückverfolgung von dp[m][n] zu dp[0][0] liefert eine optimale Editfolge"
+  ],
+  "levenshtein.details.tabulation.concepts": [
+    { "term": "Editierdistanz", "definition": "Minimale Anzahl elementarer Operationen (Einfügen, Löschen, Ersetzen), um eine Zeichenkette in eine andere zu überführen. Eingeführt von Wladimir Lewenschtein 1965." },
+    { "term": "Optimale Substruktur", "definition": "Der Abstand zwischen s1[0..i] und s2[0..j] hängt nur von drei kleineren Teilproblemen ab: dp[i−1][j−1], dp[i−1][j], dp[i][j−1]." },
+    { "term": "Drei Nachbarn", "definition": "dp[i−1][j] (Löschen), dp[i][j−1] (Einfügen) und dp[i−1][j−1] (Ersetzen oder Treffer). Der Algorithmus liest genau diese drei Vorgänger." },
+    { "term": "Treffer vs Ersetzen", "definition": "Wenn s1[i−1] == s2[j−1], wird der diagonale Wert ohne Kosten übernommen. Andernfalls bedeutet dp[i−1][j−1] + 1 eine Substitution." },
+    { "term": "Rückverfolgung", "definition": "Ab dp[m][n] wird in jeder Zelle ein Vorgänger gewählt, der den aktuellen Wert erzeugt hat. Die Richtung verrät die Operation: ↖ Treffer/Ersetzen, ↑ Löschen, ← Einfügen." },
+    { "term": "Anwendungen", "definition": "Rechtschreibprüfung, unscharfe Suche, DNA-/Protein-Alignment, diff-Werkzeuge, OCR-Korrektur, Autovervollständigung." }
+  ],
+  "levenshtein.details.tabulation.tradeoffs.pros": [
+    "Garantiert optimal — liefert stets die minimale Editierdistanz",
+    "Funktioniert mit beliebigen Alphabeten und Längen",
+    "Lässt sich leicht mit gewichteten Kosten erweitern",
+    "Rückverfolgung liefert die Editfolge, nicht nur den Abstand",
+    "Vorhersagbare O(m · n)-Laufzeit"
+  ],
+  "levenshtein.details.tabulation.tradeoffs.cons": [
+    "O(m · n) Speicher — prohibitiv für sehr lange Zeichenketten",
+    "Keine vorzeitige Terminierung — die Tabelle wird auch bei großem Abstand gefüllt",
+    "Quadratische Laufzeit ist zu langsam für Längen > 10⁴",
+    "Nutzt die Struktur kleiner Abstände nicht (begrenzte Varianten: O(k · min(m, n)))",
+    "Standardvariante ignoriert Vertauschungen — siehe Damerau–Levenshtein"
+  ],
+  "levenshtein.details.tabulation.tradeoffs.whenToUse": "Geeignet, wenn beide Zeichenketten kurz bis mittel sind (typischerweise jeweils bis zu einigen tausend Zeichen), die exakte Distanz benötigt wird und die Operationen selbst nützlich sind (Alignment, diff). Für schwellenbasiertes Fuzzy-Matching sind bit-parallele Methoden oder begrenzte Varianten besser; für sehr lange Sequenzen Hirschbergs Algorithmus mit linearem Speicher oder spezialisierte Aligner.",
+  "levenshtein.depRules": [
+    { "name": "Zeit", "role": "O(m · n) — jede Zelle wird genau einmal berechnet" },
+    { "name": "Speicher", "role": "O(m · n) — vollständige DP-Tabelle; reduzierbar auf O(min(m,n))" },
+    { "name": "Bester Fall", "role": "O(m · n) — wie schlechtester (kein vorzeitiger Abbruch)" },
+    { "name": "Schlechtester Fall", "role": "O(m · n) — vollständige Tabelle nötig für Rückverfolgung" },
+    { "name": "Operationen", "role": "Einfügen, Löschen, Ersetzen (Einheitskosten)" },
+    { "name": "Rückverfolgung", "role": "O(m + n) — rekonstruiert das optimale Alignment" }
+  ],
+
   "av.stat.hash_operations": "Operationen",
   "av.stat.hash_collisions": "Kollisionen",
   "av.hash.formula_label": "Hashfunktion:",

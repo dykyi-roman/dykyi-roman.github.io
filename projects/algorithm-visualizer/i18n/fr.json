@@ -1026,6 +1026,77 @@
     { "name": "Sens de comparaison", "role": "Droite \u00e0 gauche dans chaque fen\u00eatre" }
   ],
 
+  "av.stat.cells_filled": "Cellules remplies",
+  "av.stat.char_compares": "Comparaisons de caract\u00e8res",
+  "av.lev.s1_label": "Cha\u00eene 1 :",
+  "av.lev.s2_label": "Cha\u00eene 2 :",
+
+  "av.legend.lev_base": "Cas de base",
+  "av.legend.lev_reading": "Lecture des voisins",
+  "av.legend.lev_computing": "Calcul",
+  "av.legend.lev_computed": "Calcul\u00e9",
+  "av.legend.lev_result": "Distance d'\u00e9dition",
+  "av.legend.lev_path": "Alignement optimal",
+
+  "av.log.lev_base": "dp[{i}][{j}] = {value} (cas de base)",
+  "av.log.lev_compare_match": "Comparaison s1[{i}]=\u00ab\u202f{c1}\u202f\u00bb vs s2[{j}]=\u00ab\u202f{c2}\u202f\u00bb \u2014 \u00e9gal",
+  "av.log.lev_compare_diff": "Comparaison s1[{i}]=\u00ab\u202f{c1}\u202f\u00bb vs s2[{j}]=\u00ab\u202f{c2}\u202f\u00bb \u2014 diff\u00e9rent",
+  "av.log.lev_read": "dp[{i}][{j}] : lecture \u2191={up}, \u2190={left}, \u2196={diag}",
+  "av.log.lev_fill": "dp[{i}][{j}] = {formula} = {value} ({op})",
+  "av.log.lev_result": "Distance d'\u00e9dition = {value}",
+  "av.log.lev_trace": "Chemin ({i},{j}) \u2014 {op}",
+
+  "ui.log.type.LEV_BASE": "BASE",
+  "ui.log.type.LEV_COMPARE": "COMPARE",
+  "ui.log.type.LEV_READ": "LIRE",
+  "ui.log.type.LEV_FILL": "REMPLIR",
+  "ui.log.type.LEV_RESULT": "R\u00c9SULTAT",
+  "ui.log.type.LEV_TRACE": "CHEMIN",
+
+  "levenshtein.name": "Levenshtein",
+  "levenshtein.stepLabel": "Levenshtein \u2014 Tabulation",
+  "levenshtein.modes.tabulation.label": "Tabulation",
+  "levenshtein.modes.tabulation.desc": "Programmation dynamique ascendante : construit une table (m+1)\u00d7(n+1) o\u00f9 dp[i][j] est le nombre minimal d'op\u00e9rations \u00e9l\u00e9mentaires d'insertion / suppression / remplacement pour transformer s1[0..i\u22121] en s2[0..j\u22121]. Apr\u00e8s remplissage, un retour arri\u00e8re depuis dp[m][n] reconstruit une s\u00e9quence d'\u00e9dition optimale.",
+  "levenshtein.details.tabulation.principles": [
+    "Cas de base : dp[0][j] = j (ins\u00e9rer j caract\u00e8res), dp[i][0] = i (supprimer i caract\u00e8res)",
+    "Pour chaque (i, j) : si s1[i\u22121] == s2[j\u22121] alors dp[i][j] = dp[i\u22121][j\u22121]",
+    "Sinon dp[i][j] = 1 + min(dp[i\u22121][j], dp[i][j\u22121], dp[i\u22121][j\u22121])",
+    "Les trois voisins correspondent aux op\u00e9rations de suppression, insertion et remplacement",
+    "La r\u00e9ponse finale dp[m][n] est la distance d'\u00e9dition minimale",
+    "Le retour arri\u00e8re depuis dp[m][n] reconstitue une s\u00e9quence d'\u00e9dition optimale"
+  ],
+  "levenshtein.details.tabulation.concepts": [
+    { "term": "Distance d'\u00e9dition", "definition": "Nombre minimal d'op\u00e9rations \u00e9l\u00e9mentaires (insertion, suppression, substitution) requises pour transformer une cha\u00eene en une autre. Introduite par Vladimir Levenshtein en 1965." },
+    { "term": "Sous-structure optimale", "definition": "La distance entre s1[0..i] et s2[0..j] d\u00e9pend uniquement de trois sous-probl\u00e8mes plus petits : dp[i\u22121][j\u22121], dp[i\u22121][j], dp[i][j\u22121]." },
+    { "term": "Trois voisins", "definition": "dp[i\u22121][j] (suppression), dp[i][j\u22121] (insertion) et dp[i\u22121][j\u22121] (remplacement ou correspondance). L'algorithme lit ces trois pr\u00e9d\u00e9cesseurs." },
+    { "term": "Match vs Replace", "definition": "Si s1[i\u22121] == s2[j\u22121], la valeur diagonale est prise sans co\u00fbt (correspondance). Sinon dp[i\u22121][j\u22121] + 1 repr\u00e9sente une substitution." },
+    { "term": "Retour arri\u00e8re", "definition": "Depuis dp[m][n], on choisit \u00e0 chaque \u00e9tape un pr\u00e9d\u00e9cesseur ayant produit la valeur courante. La direction r\u00e9v\u00e8le l'op\u00e9ration : \u2196 correspondance/remplacement, \u2191 suppression, \u2190 insertion." },
+    { "term": "Applications", "definition": "Correcteurs orthographiques, recherche floue, alignement ADN/prot\u00e9ines, outils diff, correction OCR, autocompl\u00e9tion." }
+  ],
+  "levenshtein.details.tabulation.tradeoffs.pros": [
+    "Toujours optimal \u2014 retourne la distance minimale",
+    "Fonctionne avec n'importe quel alphabet et n'importe quelle longueur",
+    "Facile \u00e0 \u00e9tendre avec des co\u00fbts personnalis\u00e9s (Levenshtein pond\u00e9r\u00e9)",
+    "Le retour arri\u00e8re reconstitue la s\u00e9quence d'\u00e9dition, pas seulement la distance",
+    "Temps O(m \u00b7 n) pr\u00e9visible \u2014 pas de pire cas explosif"
+  ],
+  "levenshtein.details.tabulation.tradeoffs.cons": [
+    "M\u00e9moire O(m \u00b7 n) \u2014 prohibitive pour de tr\u00e8s longues cha\u00eenes",
+    "Aucune terminaison anticip\u00e9e \u2014 la table enti\u00e8re est remplie m\u00eame pour des cha\u00eenes \u00e9loign\u00e9es",
+    "Le temps quadratique est trop lent pour des cha\u00eenes de longueur > 10\u2074",
+    "N'exploite pas la structure des petites distances (variantes born\u00e9es : O(k \u00b7 min(m, n)))",
+    "Le variant standard ignore la transposition (\u00e9change de caract\u00e8res adjacents) \u2014 voir Damerau\u2013Levenshtein"
+  ],
+  "levenshtein.details.tabulation.tradeoffs.whenToUse": "Convient lorsque les deux cha\u00eenes sont courtes \u00e0 mod\u00e9r\u00e9es (g\u00e9n\u00e9ralement jusqu'\u00e0 quelques milliers de caract\u00e8res chacune), que la distance exacte est requise et que les op\u00e9rations elles-m\u00eames sont utiles (alignement, diff). Pour la correspondance floue avec seuil, pr\u00e9f\u00e9rer les m\u00e9thodes bit-parall\u00e8les ou les variantes born\u00e9es ; pour de tr\u00e8s longues s\u00e9quences, l'algorithme de Hirschberg \u00e0 m\u00e9moire lin\u00e9aire ou un aligneur sp\u00e9cialis\u00e9.",
+  "levenshtein.depRules": [
+    { "name": "Temps", "role": "O(m \u00b7 n) \u2014 chaque cellule calcul\u00e9e une seule fois" },
+    { "name": "Espace", "role": "O(m \u00b7 n) \u2014 table compl\u00e8te ; r\u00e9ductible \u00e0 O(min(m,n))" },
+    { "name": "Meilleur cas", "role": "O(m \u00b7 n) \u2014 identique au pire (pas de sortie anticip\u00e9e)" },
+    { "name": "Pire cas", "role": "O(m \u00b7 n) \u2014 toute la table requise pour le retour arri\u00e8re" },
+    { "name": "Op\u00e9rations", "role": "Insertion, suppression, remplacement (co\u00fbt unitaire)" },
+    { "name": "Retour arri\u00e8re", "role": "O(m + n) \u2014 reconstruit l'alignement optimal" }
+  ],
+
   "av.stat.hash_operations": "Op\u00e9rations",
   "av.stat.hash_collisions": "Collisions",
   "av.hash.formula_label": "Fonction de hachage :",

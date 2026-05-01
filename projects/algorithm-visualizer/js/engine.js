@@ -1115,6 +1115,137 @@ AV._removeInsertBanner = function() {
     if (banner) banner.remove();
 };
 
+/* ===== Levenshtein DP Matrix Rendering ===== */
+AV.renderLevMatrix = function(s1, s2) {
+    var canvas = document.getElementById('av-canvas');
+    if (!canvas) return;
+
+    var m = s1.length;
+    var n = s2.length;
+
+    var html = '<div class="av-lev-container">';
+    html += '<div class="av-lev-table" style="grid-template-columns: 44px 44px repeat(' + n + ', 44px);">';
+
+    /* Header row: empty corner, ε column, then s2 chars */
+    html += '<div class="av-lev-corner"></div>';
+    html += '<div class="av-lev-header-cell av-lev-header-eps" data-side="col" data-index="0">ε</div>';
+    for (var jc = 0; jc < n; jc++) {
+        html += '<div class="av-lev-header-cell" data-side="col" data-index="' + (jc + 1) + '">' +
+            AV._escapeChar(s2.charAt(jc)) + '</div>';
+    }
+
+    /* Data rows */
+    for (var ir = 0; ir <= m; ir++) {
+        if (ir === 0) {
+            html += '<div class="av-lev-header-cell av-lev-header-eps" data-side="row" data-index="0">ε</div>';
+        } else {
+            html += '<div class="av-lev-header-cell" data-side="row" data-index="' + ir + '">' +
+                AV._escapeChar(s1.charAt(ir - 1)) + '</div>';
+        }
+        for (var jr = 0; jr <= n; jr++) {
+            html += '<div class="av-lev-cell" data-row="' + ir + '" data-col="' + jr + '"></div>';
+        }
+    }
+
+    html += '</div></div>';
+    canvas.innerHTML = html;
+};
+
+AV._escapeChar = function(ch) {
+    if (ch === '<') return '&lt;';
+    if (ch === '>') return '&gt;';
+    if (ch === '&') return '&amp;';
+    if (ch === ' ') return '␣';
+    return ch;
+};
+
+AV._setLevCell = function(i, j, value, className) {
+    var cell = document.querySelector('.av-lev-cell[data-row="' + i + '"][data-col="' + j + '"]');
+    if (!cell) return;
+    if (value !== undefined && value !== null) {
+        cell.textContent = String(value);
+    }
+    if (className) {
+        cell.classList.add(className);
+    }
+};
+
+AV._highlightLevCells = function(coords, className) {
+    if (!coords) return;
+    coords.forEach(function(c) {
+        var cell = document.querySelector('.av-lev-cell[data-row="' + c[0] + '"][data-col="' + c[1] + '"]');
+        if (cell) cell.classList.add(className);
+    });
+};
+
+AV._clearLevHighlights = function() {
+    document.querySelectorAll('.av-lev-cell').forEach(function(cell) {
+        cell.classList.remove('av-lev-reading', 'av-lev-computing', 'av-lev-current');
+    });
+    document.querySelectorAll('.av-lev-header-cell').forEach(function(h) {
+        h.classList.remove('av-lev-header-active');
+    });
+};
+
+AV._highlightLevHeader = function(side, index, className) {
+    var h = document.querySelector('.av-lev-header-cell[data-side="' + side + '"][data-index="' + index + '"]');
+    if (h) h.classList.add(className);
+};
+
+AV._setLevStatLabels = function() {
+    var lbl1 = document.querySelector('#stat-comparisons').closest('.stat-item').querySelector('.stat-label');
+    var lbl2 = document.querySelector('#stat-swaps').closest('.stat-item').querySelector('.stat-label');
+    if (lbl1) {
+        lbl1.textContent = I18N.t('av.stat.cells_filled', null, 'Cells Filled');
+        lbl1.setAttribute('data-i18n', 'av.stat.cells_filled');
+    }
+    if (lbl2) {
+        lbl2.textContent = I18N.t('av.stat.char_compares', null, 'Char Compares');
+        lbl2.setAttribute('data-i18n', 'av.stat.char_compares');
+    }
+};
+
+AV._renderLevInputPanel = function(s1, s2, onApply) {
+    var canvas = document.getElementById('av-canvas');
+    if (!canvas) return;
+    AV._removeStringInputPanel();
+
+    var panel = document.createElement('div');
+    panel.className = 'av-str-input-panel';
+
+    var s1Label = I18N.t('av.lev.s1_label', null, 'String 1:');
+    var s2Label = I18N.t('av.lev.s2_label', null, 'String 2:');
+    var applyLabel = I18N.t('av.str.input_apply', null, 'Apply');
+
+    panel.innerHTML =
+        '<label class="av-str-input-group">' +
+            '<span class="av-str-input-label">' + s1Label + '</span>' +
+            '<input type="text" class="av-str-input" id="av-lev-input-s1" value="' + s1 + '" spellcheck="false" autocomplete="off" maxlength="20">' +
+        '</label>' +
+        '<label class="av-str-input-group">' +
+            '<span class="av-str-input-label">' + s2Label + '</span>' +
+            '<input type="text" class="av-str-input" id="av-lev-input-s2" value="' + s2 + '" spellcheck="false" autocomplete="off" maxlength="20">' +
+        '</label>' +
+        '<button class="av-str-input-btn" id="av-lev-input-apply">' + applyLabel + '</button>';
+
+    canvas.parentNode.insertBefore(panel, canvas);
+
+    var applyBtn = document.getElementById('av-lev-input-apply');
+    var s1Input = document.getElementById('av-lev-input-s1');
+    var s2Input = document.getElementById('av-lev-input-s2');
+
+    function doApply() {
+        var a = s1Input.value;
+        var b = s2Input.value;
+        if (!a || !b) return;
+        onApply(a, b);
+    }
+
+    applyBtn.onclick = doApply;
+    s1Input.addEventListener('keydown', function(e) { if (e.key === 'Enter') doApply(); });
+    s2Input.addEventListener('keydown', function(e) { if (e.key === 'Enter') doApply(); });
+};
+
 /* ===== Accent Colors ===== */
 AV.setAccentColors = function(algorithmId) {
     var root = document.documentElement.style;
@@ -1136,7 +1267,8 @@ AV.setAccentColors = function(algorithmId) {
         'dijkstra': { accent: '#F43F5E', bg: '#1a0d12', light: '#2d1520' },
         'a-star': { accent: '#10B981', bg: '#0d1a15', light: '#15251d' },
         'interpolation-search': { accent: '#14B8A6', bg: '#0d1a1a', light: '#15282a' },
-        'heap-sort': { accent: '#EAB308', bg: '#1a1808', light: '#2d2a10' }
+        'heap-sort': { accent: '#EAB308', bg: '#1a1808', light: '#2d2a10' },
+        'levenshtein': { accent: '#22D3EE', bg: '#0c1a20', light: '#142a35' }
     };
     var t = themes[algorithmId] || themes['bubble-sort'];
     root.setProperty('--av-accent', t.accent);
@@ -1728,6 +1860,62 @@ AV.animateFlow = async function(steps, options) {
             AV.log('DP_RETURN', dpRetMsg);
             /* Update node text to show value (two-line) */
             AV._setDpNodeText(step.node, step.label || step.node, step.value);
+            await AV.sleep(AV.state.stepDelay * 0.4);
+
+        /* ===== Levenshtein DP Matrix Steps ===== */
+        } else if (step.type === 'LEV_BASE') {
+            AV._clearLevHighlights();
+            AV._setLevCell(step.i, step.j, step.value, 'av-lev-base');
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('LEV_BASE', I18N.t('av.log.lev_base',
+                { i: step.i, j: step.j, value: step.value },
+                'dp[' + step.i + '][' + step.j + '] = ' + step.value + ' (base)'));
+            await AV.sleep(AV.state.stepDelay * 0.25);
+        } else if (step.type === 'LEV_COMPARE_CHARS') {
+            AV._clearLevHighlights();
+            AV._highlightLevHeader('row', step.i, 'av-lev-header-active');
+            AV._highlightLevHeader('col', step.j, 'av-lev-header-active');
+            AV.state.swaps++;
+            AV.updateStats();
+            var levCmpKey = step.match ? 'av.log.lev_compare_match' : 'av.log.lev_compare_diff';
+            var levCmpFb = step.match
+                ? 'Compare s1[' + (step.i - 1) + ']=“' + step.c1 + '” with s2[' + (step.j - 1) + ']=“' + step.c2 + '” — match'
+                : 'Compare s1[' + (step.i - 1) + ']=“' + step.c1 + '” with s2[' + (step.j - 1) + ']=“' + step.c2 + '” — differ';
+            AV.log('LEV_COMPARE', I18N.t(levCmpKey,
+                { i: step.i - 1, j: step.j - 1, c1: step.c1, c2: step.c2 }, levCmpFb));
+            await AV.sleep(AV.state.stepDelay * 0.5);
+        } else if (step.type === 'LEV_READ_NEIGHBORS') {
+            AV._highlightLevCells(
+                [[step.i - 1, step.j], [step.i, step.j - 1], [step.i - 1, step.j - 1]],
+                'av-lev-reading'
+            );
+            AV._highlightLevCells([[step.i, step.j]], 'av-lev-computing');
+            AV.log('LEV_READ', I18N.t('av.log.lev_read',
+                { i: step.i, j: step.j, up: step.up, left: step.left, diag: step.diag },
+                'dp[' + step.i + '][' + step.j + ']: read ↑=' + step.up + ', ←=' + step.left + ', ↖=' + step.diag));
+            await AV.sleep(AV.state.stepDelay * 0.7);
+        } else if (step.type === 'LEV_FILL') {
+            AV._clearLevHighlights();
+            AV._setLevCell(step.i, step.j, step.value, 'av-lev-computed');
+            AV.state.comparisons++;
+            AV.updateStats();
+            AV.log('LEV_FILL', I18N.t('av.log.lev_fill',
+                { i: step.i, j: step.j, value: step.value, formula: step.formula, op: step.op },
+                'dp[' + step.i + '][' + step.j + '] = ' + step.formula + ' = ' + step.value + ' (' + step.op + ')'));
+            await AV.sleep(AV.state.stepDelay * 0.7);
+        } else if (step.type === 'LEV_RESULT') {
+            AV._clearLevHighlights();
+            AV._setLevCell(step.i, step.j, step.value, 'av-lev-result');
+            AV.log('LEV_RESULT', I18N.t('av.log.lev_result',
+                { value: step.value },
+                'Edit distance = ' + step.value));
+            await AV.sleep(AV.state.stepDelay);
+        } else if (step.type === 'LEV_TRACE_STEP') {
+            AV._highlightLevCells([[step.i, step.j]], 'av-lev-path');
+            AV.log('LEV_TRACE', I18N.t('av.log.lev_trace',
+                { i: step.i, j: step.j, op: step.op },
+                'Path (' + step.i + ',' + step.j + ') — ' + step.op));
             await AV.sleep(AV.state.stepDelay * 0.4);
 
         /* ===== String Matching Steps ===== */
@@ -2489,11 +2677,103 @@ AV._applyStringSnapshot = function(snapshot) {
     });
 };
 
+/* ===== Levenshtein Snapshots ===== */
+AV._computeLevSnapshots = function(steps) {
+    var s1 = AV.state._s1 || '';
+    var s2 = AV.state._s2 || '';
+    var m = s1.length;
+    var n = s2.length;
+
+    function makeMatrix() {
+        var mat = [];
+        for (var i = 0; i <= m; i++) mat.push(new Array(n + 1).fill(null));
+        return mat;
+    }
+    function cloneMatrix(src) {
+        var dst = [];
+        for (var i = 0; i < src.length; i++) dst.push(src[i].slice());
+        return dst;
+    }
+
+    var matrix = makeMatrix();
+    var computed = {};
+    var pathCells = {};
+    var resultCell = null;
+    var cellsFilled = 0;
+    var charCompares = 0;
+    var distance = null;
+
+    var snapshots = [{
+        matrix: cloneMatrix(matrix),
+        computed: {},
+        pathCells: {},
+        resultCell: null,
+        cellsFilled: 0,
+        charCompares: 0,
+        distance: null
+    }];
+
+    for (var s = 0; s < steps.length; s++) {
+        var step = steps[s];
+        if (step.type === 'LEV_BASE') {
+            matrix[step.i][step.j] = step.value;
+            computed[step.i + ',' + step.j] = 'av-lev-base';
+            cellsFilled++;
+        } else if (step.type === 'LEV_COMPARE_CHARS') {
+            charCompares++;
+        } else if (step.type === 'LEV_FILL') {
+            matrix[step.i][step.j] = step.value;
+            computed[step.i + ',' + step.j] = 'av-lev-computed';
+            cellsFilled++;
+        } else if (step.type === 'LEV_RESULT') {
+            resultCell = { i: step.i, j: step.j };
+            distance = step.value;
+            computed[step.i + ',' + step.j] = 'av-lev-result';
+        } else if (step.type === 'LEV_TRACE_STEP') {
+            pathCells[step.i + ',' + step.j] = true;
+        }
+        snapshots.push({
+            matrix: cloneMatrix(matrix),
+            computed: Object.assign({}, computed),
+            pathCells: Object.assign({}, pathCells),
+            resultCell: resultCell,
+            cellsFilled: cellsFilled,
+            charCompares: charCompares,
+            distance: distance
+        });
+    }
+    return snapshots;
+};
+
+AV._applyLevSnapshot = function(snapshot) {
+    var s1 = AV.state._s1 || '';
+    var s2 = AV.state._s2 || '';
+    AV.renderLevMatrix(s1, s2);
+    var mat = snapshot.matrix;
+    for (var i = 0; i < mat.length; i++) {
+        for (var j = 0; j < mat[i].length; j++) {
+            if (mat[i][j] !== null) {
+                var cls = snapshot.computed[i + ',' + j] || 'av-lev-computed';
+                AV._setLevCell(i, j, mat[i][j], cls);
+            }
+        }
+    }
+    Object.keys(snapshot.pathCells).forEach(function(key) {
+        var parts = key.split(',');
+        AV._highlightLevCells([[parseInt(parts[0], 10), parseInt(parts[1], 10)]], 'av-lev-path');
+    });
+};
+
 AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
     var isGraph = !!AV.state._graphData;
     var isString = !!AV.state._isStringAlgorithm;
     var isHash = !!AV.state._isHashAlgorithm;
-    var snapshots = isGraph ? AV._computeGraphSnapshots(steps) : isString ? AV._computeStringSnapshots(steps) : isHash ? AV._computeHashSnapshots(steps) : AV._computeSnapshots(initialArray, steps);
+    var isLev = !!AV.state._isLevAlgorithm;
+    var snapshots = isGraph ? AV._computeGraphSnapshots(steps)
+        : isString ? AV._computeStringSnapshots(steps)
+        : isHash ? AV._computeHashSnapshots(steps)
+        : isLev ? AV._computeLevSnapshots(steps)
+        : AV._computeSnapshots(initialArray, steps);
 
     if (resumeFromIndex > 0) {
         /* Resume from current animation position — keep stats and log */
@@ -2513,6 +2793,8 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
             AV._applyStringSnapshot(snapshot);
         } else if (isHash) {
             AV._applyHashSnapshot(snapshot);
+        } else if (isLev) {
+            AV._applyLevSnapshot(snapshot);
         } else {
             AV.renderArray(snapshot.arr);
             snapshot.sorted.forEach(function(idx) { AV.markSorted(idx); });
@@ -2527,7 +2809,7 @@ AV.startStepMode = function(steps, options, initialArray, resumeFromIndex) {
         }
 
         /* Restore highlight from the last executed step */
-        if (resumeFromIndex > 0 && !isGraph) {
+        if (resumeFromIndex > 0 && !isGraph && !isLev) {
             var lastStep = steps[resumeFromIndex - 1];
             if (lastStep.type === 'COMPARE') AV.highlightBars(lastStep.indices, 'av-comparing');
             else if (lastStep.type === 'SWAP') AV.highlightBars(lastStep.indices, 'av-swapping');
@@ -2962,6 +3244,52 @@ AV.stepForward = function() {
         return;
     }
 
+    var isLev = !!AV.state._isLevAlgorithm;
+    if (isLev) {
+        AV._applyLevSnapshot(snapshot);
+        if (step.type === 'LEV_BASE') {
+            AV.state.comparisons = snapshot.cellsFilled;
+            AV.log('LEV_BASE', I18N.t('av.log.lev_base',
+                { i: step.i, j: step.j, value: step.value },
+                'dp[' + step.i + '][' + step.j + '] = ' + step.value + ' (base)'));
+        } else if (step.type === 'LEV_COMPARE_CHARS') {
+            AV.state.swaps = snapshot.charCompares;
+            AV._highlightLevHeader('row', step.i, 'av-lev-header-active');
+            AV._highlightLevHeader('col', step.j, 'av-lev-header-active');
+            var levSfCmpKey = step.match ? 'av.log.lev_compare_match' : 'av.log.lev_compare_diff';
+            AV.log('LEV_COMPARE', I18N.t(levSfCmpKey,
+                { i: step.i - 1, j: step.j - 1, c1: step.c1, c2: step.c2 },
+                'Compare s1[' + (step.i - 1) + ']=“' + step.c1 + '” vs s2[' + (step.j - 1) + ']=“' + step.c2 + '”'));
+        } else if (step.type === 'LEV_READ_NEIGHBORS') {
+            AV._highlightLevCells(
+                [[step.i - 1, step.j], [step.i, step.j - 1], [step.i - 1, step.j - 1]],
+                'av-lev-reading'
+            );
+            AV._highlightLevCells([[step.i, step.j]], 'av-lev-computing');
+            AV.log('LEV_READ', I18N.t('av.log.lev_read',
+                { i: step.i, j: step.j, up: step.up, left: step.left, diag: step.diag },
+                'dp[' + step.i + '][' + step.j + ']: read ↑=' + step.up + ', ←=' + step.left + ', ↖=' + step.diag));
+        } else if (step.type === 'LEV_FILL') {
+            AV.state.comparisons = snapshot.cellsFilled;
+            AV.log('LEV_FILL', I18N.t('av.log.lev_fill',
+                { i: step.i, j: step.j, value: step.value, formula: step.formula, op: step.op },
+                'dp[' + step.i + '][' + step.j + '] = ' + step.formula + ' = ' + step.value + ' (' + step.op + ')'));
+        } else if (step.type === 'LEV_RESULT') {
+            AV.log('LEV_RESULT', I18N.t('av.log.lev_result',
+                { value: step.value }, 'Edit distance = ' + step.value));
+        } else if (step.type === 'LEV_TRACE_STEP') {
+            AV.log('LEV_TRACE', I18N.t('av.log.lev_trace',
+                { i: step.i, j: step.j, op: step.op },
+                'Path (' + step.i + ',' + step.j + ') — ' + step.op));
+        } else if (step.type === 'DONE') {
+            AV.log('DONE', I18N.t('av.log.done_step', null, 'Levenshtein complete'));
+        }
+        AV.updateStats();
+        sm.index++;
+        AV._updateStepButtons();
+        return;
+    }
+
     AV.renderArray(snapshot.arr);
     snapshot.sorted.forEach(function(idx) { AV.markSorted(idx); });
 
@@ -3176,6 +3504,16 @@ AV.stepBack = function() {
         AV.state.swaps = snapshot.collisions;
         AV.updateStats();
         AV._applyHashSnapshot(snapshot);
+        AV._updateStepButtons();
+        return;
+    }
+
+    var isLevBack = !!AV.state._isLevAlgorithm;
+    if (isLevBack) {
+        AV.state.comparisons = snapshot.cellsFilled;
+        AV.state.swaps = snapshot.charCompares;
+        AV.updateStats();
+        AV._applyLevSnapshot(snapshot);
         AV._updateStepButtons();
         return;
     }

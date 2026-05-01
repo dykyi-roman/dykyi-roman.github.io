@@ -162,6 +162,20 @@
     --av-hash-probing: #A78BFA;
     --av-hash-found: #14B8A6;
     --av-hash-not-found: #6B7280;
+
+    --levenshtein-color: #22D3EE;
+    --levenshtein-bg: #0c1a20;
+    --levenshtein-light: #142a35;
+    --av-lev-cell-default: #1f2a3a;
+    --av-lev-cell-base: #4B5563;
+    --av-lev-cell-reading: #A78BFA;
+    --av-lev-cell-computing: #FBBF24;
+    --av-lev-cell-computed: #10B981;
+    --av-lev-cell-result: #EC4899;
+    --av-lev-cell-path: #14B8A6;
+    --av-lev-header-default: #2a3444;
+    --av-lev-header-text: #e0e4ea;
+    --av-lev-header-active: #FBBF24;
 }
 
 /* ===== Page Container ===== */
@@ -1938,6 +1952,127 @@
 .log-type.BM_BC_SET { color: #3B82F6; }
 .log-type.BM_GS_SET { color: #EC4899; }
 
+/* ===== Levenshtein DP Matrix ===== */
+.av-lev-container {
+    display: flex;
+    justify-content: center;
+    padding: 16px 8px;
+    overflow-x: auto;
+}
+
+.av-lev-table {
+    display: grid;
+    gap: 4px;
+    padding: 8px;
+    background: var(--av-card-bg);
+    border: 1px solid var(--av-border);
+    border-radius: 8px;
+}
+
+.av-lev-corner {
+    width: 44px;
+    height: 44px;
+    background: transparent;
+}
+
+.av-lev-header-cell {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--av-lev-header-default);
+    color: var(--av-lev-header-text);
+    border-radius: 6px;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.av-lev-header-cell.av-lev-header-eps {
+    background: transparent;
+    color: var(--av-text-light);
+    font-style: italic;
+    font-weight: 500;
+}
+
+.av-lev-header-cell.av-lev-header-active {
+    background: var(--av-lev-header-active);
+    color: #1a1a1a;
+    transform: scale(1.06);
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.45);
+}
+
+.av-lev-cell {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--av-lev-cell-default);
+    color: var(--av-text-light);
+    border-radius: 6px;
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.av-lev-cell.av-lev-base {
+    background: var(--av-lev-cell-base);
+    color: #fff;
+}
+
+.av-lev-cell.av-lev-reading {
+    background: var(--av-lev-cell-reading);
+    color: #fff;
+    box-shadow: 0 0 12px rgba(167, 139, 250, 0.55);
+}
+
+.av-lev-cell.av-lev-computing {
+    background: var(--av-lev-cell-computing);
+    color: #1a1a1a;
+    transform: scale(1.08);
+    box-shadow: 0 0 14px rgba(251, 191, 36, 0.6);
+}
+
+.av-lev-cell.av-lev-computed {
+    background: var(--av-lev-cell-computed);
+    color: #fff;
+}
+
+.av-lev-cell.av-lev-result {
+    background: var(--av-lev-cell-result);
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 0 16px rgba(236, 72, 153, 0.65);
+}
+
+.av-lev-cell.av-lev-path {
+    background: var(--av-lev-cell-path);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(20, 184, 166, 0.5);
+}
+
+.av-lev-cell.av-lev-result.av-lev-path {
+    background: var(--av-lev-cell-result);
+}
+
+.av-legend-lev-base { background: var(--av-lev-cell-base); }
+.av-legend-lev-reading { background: var(--av-lev-cell-reading); }
+.av-legend-lev-computing { background: var(--av-lev-cell-computing); }
+.av-legend-lev-computed { background: var(--av-lev-cell-computed); }
+.av-legend-lev-result { background: var(--av-lev-cell-result); }
+.av-legend-lev-path { background: var(--av-lev-cell-path); }
+
+.log-type.LEV_BASE { color: #9CA3AF; }
+.log-type.LEV_COMPARE { color: #FBBF24; }
+.log-type.LEV_READ { color: #A78BFA; }
+.log-type.LEV_FILL { color: #10B981; }
+.log-type.LEV_RESULT { color: #EC4899; }
+.log-type.LEV_TRACE { color: #14B8A6; }
+
 /* ===== Rabin-Karp Hash Display ===== */
 .av-rk-container .av-rk-formula-row {
     display: flex;
@@ -2515,6 +2650,21 @@
     }
     .av-hash-formula {
         flex-wrap: wrap;
+    }
+
+    .av-lev-cell,
+    .av-lev-header-cell,
+    .av-lev-corner {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+    .av-lev-table {
+        gap: 3px;
+        padding: 6px;
+    }
+    .av-lev-container {
+        padding: 12px 4px;
     }
 }
 

@@ -1020,6 +1020,77 @@
     { "name": "Direcci\u00f3n de comparaci\u00f3n", "role": "Derecha a izquierda dentro de cada ventana" }
   ],
 
+  "av.stat.cells_filled": "Celdas rellenadas",
+  "av.stat.char_compares": "Comparaciones de caracteres",
+  "av.lev.s1_label": "Cadena 1:",
+  "av.lev.s2_label": "Cadena 2:",
+
+  "av.legend.lev_base": "Caso base",
+  "av.legend.lev_reading": "Leyendo vecinos",
+  "av.legend.lev_computing": "Calculando",
+  "av.legend.lev_computed": "Calculado",
+  "av.legend.lev_result": "Distancia de edici\u00f3n",
+  "av.legend.lev_path": "Alineamiento \u00f3ptimo",
+
+  "av.log.lev_base": "dp[{i}][{j}] = {value} (caso base)",
+  "av.log.lev_compare_match": "Comparar s1[{i}]=\u00ab{c1}\u00bb vs s2[{j}]=\u00ab{c2}\u00bb \u2014 coinciden",
+  "av.log.lev_compare_diff": "Comparar s1[{i}]=\u00ab{c1}\u00bb vs s2[{j}]=\u00ab{c2}\u00bb \u2014 difieren",
+  "av.log.lev_read": "dp[{i}][{j}]: leer \u2191={up}, \u2190={left}, \u2196={diag}",
+  "av.log.lev_fill": "dp[{i}][{j}] = {formula} = {value} ({op})",
+  "av.log.lev_result": "Distancia de edici\u00f3n = {value}",
+  "av.log.lev_trace": "Camino ({i},{j}) \u2014 {op}",
+
+  "ui.log.type.LEV_BASE": "BASE",
+  "ui.log.type.LEV_COMPARE": "COMPARAR",
+  "ui.log.type.LEV_READ": "LEER",
+  "ui.log.type.LEV_FILL": "RELLENAR",
+  "ui.log.type.LEV_RESULT": "RESULTADO",
+  "ui.log.type.LEV_TRACE": "CAMINO",
+
+  "levenshtein.name": "Levenshtein",
+  "levenshtein.stepLabel": "Levenshtein \u2014 Tabulaci\u00f3n",
+  "levenshtein.modes.tabulation.label": "Tabulaci\u00f3n",
+  "levenshtein.modes.tabulation.desc": "Programaci\u00f3n din\u00e1mica ascendente: construye una tabla (m+1)\u00d7(n+1) donde dp[i][j] es el n\u00famero m\u00ednimo de operaciones elementales de inserci\u00f3n / eliminaci\u00f3n / reemplazo necesarias para transformar s1[0..i\u22121] en s2[0..j\u22121]. Tras rellenar la tabla, un retroceso desde dp[m][n] reconstruye una secuencia \u00f3ptima de ediciones.",
+  "levenshtein.details.tabulation.principles": [
+    "Casos base: dp[0][j] = j (insertar j caracteres), dp[i][0] = i (eliminar i caracteres)",
+    "Para cada par (i, j): si s1[i\u22121] == s2[j\u22121] entonces dp[i][j] = dp[i\u22121][j\u22121]",
+    "En caso contrario dp[i][j] = 1 + min(dp[i\u22121][j], dp[i][j\u22121], dp[i\u22121][j\u22121])",
+    "Los tres vecinos corresponden a las operaciones de eliminaci\u00f3n, inserci\u00f3n y reemplazo",
+    "La respuesta final dp[m][n] es la distancia de edici\u00f3n m\u00ednima",
+    "El retroceso desde dp[m][n] hasta dp[0][0] reconstruye una secuencia \u00f3ptima de ediciones"
+  ],
+  "levenshtein.details.tabulation.concepts": [
+    { "term": "Distancia de edici\u00f3n", "definition": "N\u00famero m\u00ednimo de operaciones elementales (inserci\u00f3n, eliminaci\u00f3n, sustituci\u00f3n) requeridas para transformar una cadena en otra. Introducida por Vladimir Levenshtein en 1965." },
+    { "term": "Subestructura \u00f3ptima", "definition": "La distancia entre s1[0..i] y s2[0..j] depende solo de tres subproblemas m\u00e1s peque\u00f1os: dp[i\u22121][j\u22121], dp[i\u22121][j], dp[i][j\u22121]." },
+    { "term": "Tres vecinos", "definition": "dp[i\u22121][j] (eliminar), dp[i][j\u22121] (insertar) y dp[i\u22121][j\u22121] (reemplazar o coincidir). El algoritmo lee precisamente estos tres predecesores." },
+    { "term": "Coincidencia vs Reemplazo", "definition": "Si s1[i\u22121] == s2[j\u22121], se toma el valor diagonal sin coste (coincidencia). En caso contrario dp[i\u22121][j\u22121] + 1 representa una sustituci\u00f3n." },
+    { "term": "Retroceso", "definition": "Desde dp[m][n], en cada celda se elige un predecesor que produjo el valor actual. La direcci\u00f3n revela la operaci\u00f3n: \u2196 coincidencia/reemplazo, \u2191 eliminaci\u00f3n, \u2190 inserci\u00f3n." },
+    { "term": "Aplicaciones", "definition": "Correctores ortogr\u00e1ficos, b\u00fasqueda difusa, alineamiento de ADN/prote\u00ednas, herramientas diff, correcci\u00f3n OCR, autocompletado." }
+  ],
+  "levenshtein.details.tabulation.tradeoffs.pros": [
+    "Siempre \u00f3ptimo \u2014 devuelve la distancia m\u00ednima",
+    "Funciona con cualquier alfabeto y longitud",
+    "F\u00e1cil de extender con costes personalizados (Levenshtein ponderado)",
+    "El retroceso recupera la secuencia de edici\u00f3n, no solo la distancia",
+    "Tiempo O(m \u00b7 n) predecible \u2014 sin peor caso explosivo"
+  ],
+  "levenshtein.details.tabulation.tradeoffs.cons": [
+    "Memoria O(m \u00b7 n) \u2014 prohibitiva para cadenas muy largas",
+    "Sin terminaci\u00f3n temprana \u2014 la tabla se llena por completo aunque las cadenas sean muy distintas",
+    "El tiempo cuadr\u00e1tico es demasiado lento para longitudes > 10\u2074",
+    "No aprovecha la estructura de distancias peque\u00f1as (variantes acotadas: O(k \u00b7 min(m, n)))",
+    "La variante est\u00e1ndar ignora la transposici\u00f3n (intercambio de caracteres adyacentes) \u2014 v\u00e9ase Damerau\u2013Levenshtein"
+  ],
+  "levenshtein.details.tabulation.tradeoffs.whenToUse": "Adecuado cuando ambas cadenas son cortas o de longitud moderada (t\u00edpicamente hasta unos miles de caracteres cada una), se requiere la distancia exacta y las operaciones de edici\u00f3n resultan \u00fatiles (alineamiento, diff). Para coincidencia difusa con umbral, prefiera m\u00e9todos bit-paralelos o variantes acotadas; para secuencias muy largas, el algoritmo de Hirschberg con memoria lineal o alineadores especializados.",
+  "levenshtein.depRules": [
+    { "name": "Tiempo", "role": "O(m \u00b7 n) \u2014 cada celda se calcula exactamente una vez" },
+    { "name": "Memoria", "role": "O(m \u00b7 n) \u2014 tabla DP completa; reducible a O(min(m,n))" },
+    { "name": "Mejor caso", "role": "O(m \u00b7 n) \u2014 igual que el peor (sin salida temprana)" },
+    { "name": "Peor caso", "role": "O(m \u00b7 n) \u2014 se necesita toda la tabla para el retroceso" },
+    { "name": "Operaciones", "role": "Inserci\u00f3n, eliminaci\u00f3n, reemplazo (coste unitario)" },
+    { "name": "Retroceso", "role": "O(m + n) \u2014 reconstruye el alineamiento \u00f3ptimo" }
+  ],
+
   "av.stat.hash_operations": "Operaciones",
   "av.stat.hash_collisions": "Colisiones",
   "av.hash.formula_label": "Funci\u00f3n hash:",
