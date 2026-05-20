@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif">
+  <defs>
+    <linearGradient id="dv-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b2233"/>
+      <stop offset="1" stop-color="#10141c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="400" rx="16" fill="url(#dv-bg)"/>
+  <rect x="0.5" y="0.5" width="599" height="399" rx="15.5" fill="none" stroke="#2a3444"/>
+
+  <!-- ===== Deploy pipeline strip ===== -->
+  <g transform="translate(34,38)" font-size="11" font-weight="700" text-anchor="middle">
+    <g>
+      <rect width="78" height="30" rx="6" fill="#1f1a0d" stroke="#F59E0B"/>
+      <text x="39" y="19" fill="#F59E0B">Build</text>
+    </g>
+    <text x="92" y="20" fill="#4b566b" font-size="13">&#8250;</text>
+    <g transform="translate(106,0)">
+      <rect width="78" height="30" rx="6" fill="#1f1a0d" stroke="#F59E0B"/>
+      <text x="39" y="19" fill="#F59E0B">Migrate</text>
+    </g>
+    <text x="198" y="20" fill="#4b566b" font-size="13">&#8250;</text>
+    <g transform="translate(212,0)">
+      <rect width="78" height="30" rx="6" fill="#0d1f18" stroke="#10B981"/>
+      <text x="39" y="19" fill="#34d399">Deploy</text>
+    </g>
+    <text x="304" y="20" fill="#4b566b" font-size="13">&#8250;</text>
+    <g transform="translate(318,0)">
+      <rect width="78" height="30" rx="6" fill="#0d1f18" stroke="#10B981"/>
+      <text x="39" y="19" fill="#34d399">Traffic</text>
+    </g>
+    <text x="410" y="20" fill="#4b566b" font-size="13">&#8250;</text>
+    <g transform="translate(424,0)">
+      <rect width="78" height="30" rx="6" fill="#161830" stroke="#6366F1">
+        <animate attributeName="opacity" values="1;0.55;1" dur="1.4s" repeatCount="indefinite"/>
+      </rect>
+      <text x="39" y="19" fill="#a5b4fc">Done</text>
+    </g>
+  </g>
+
+  <!-- ===== Traffic router ===== -->
+  <g transform="translate(34,96)">
+    <text x="0" y="10" font-size="11" font-weight="700" fill="#8892a4">TRAFFIC ROUTER</text>
+    <rect x="0" y="18" width="318" height="22" rx="5" fill="#5a6b86"/>
+    <rect x="322" y="18" width="210" height="22" rx="5" fill="#4f9cf9"/>
+    <text x="159" y="33" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">v1 &#183; 60%</text>
+    <text x="427" y="33" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">v2 &#183; 40%</text>
+  </g>
+
+  <!-- ===== App instances ===== -->
+  <g transform="translate(34,154)">
+    <text x="0" y="10" font-size="11" font-weight="700" fill="#8892a4">APP INSTANCES</text>
+    <g transform="translate(0,18)">
+      <g>
+        <rect width="40" height="40" rx="6" fill="#161b27" stroke="#5a6b86" stroke-width="1.5"/>
+        <text x="20" y="20" font-size="10" font-weight="700" fill="#8aa0c4" text-anchor="middle">v1</text>
+        <circle cx="20" cy="30" r="4" fill="#10B981"/>
+      </g>
+      <g transform="translate(48,0)">
+        <rect width="40" height="40" rx="6" fill="#161b27" stroke="#5a6b86" stroke-width="1.5"/>
+        <text x="20" y="20" font-size="10" font-weight="700" fill="#8aa0c4" text-anchor="middle">v1</text>
+        <circle cx="20" cy="30" r="4" fill="#10B981"/>
+      </g>
+      <g transform="translate(96,0)">
+        <rect width="40" height="40" rx="6" fill="#161b27" stroke="#5a6b86" stroke-width="1.5"/>
+        <text x="20" y="20" font-size="10" font-weight="700" fill="#8aa0c4" text-anchor="middle">v1</text>
+        <circle cx="20" cy="30" r="4" fill="#10B981"/>
+      </g>
+      <text x="166" y="25" font-size="20" fill="#4f9cf9">&#8594;</text>
+      <g transform="translate(190,0)">
+        <rect width="40" height="40" rx="6" fill="#101a2c" stroke="#4f9cf9" stroke-width="1.5"/>
+        <text x="20" y="20" font-size="10" font-weight="700" fill="#79b4ff" text-anchor="middle">v2</text>
+        <circle cx="20" cy="30" r="4" fill="#10B981"/>
+      </g>
+      <g transform="translate(238,0)">
+        <rect width="40" height="40" rx="6" fill="#101a2c" stroke="#4f9cf9" stroke-width="1.5"/>
+        <text x="20" y="20" font-size="10" font-weight="700" fill="#79b4ff" text-anchor="middle">v2</text>
+        <circle cx="20" cy="30" r="4" fill="#F59E0B">
+          <animate attributeName="opacity" values="1;0.3;1" dur="0.8s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+      <g transform="translate(286,0)">
+        <rect width="40" height="40" rx="6" fill="#101a2c" stroke="#4f9cf9" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="20" y="24" font-size="10" font-weight="700" fill="#5a6b86" text-anchor="middle">v2</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ===== Backing services ===== -->
+  <g transform="translate(34,242)" font-size="11" font-weight="700">
+    <g>
+      <rect width="125" height="64" rx="7" fill="#212a3a" stroke="#2a3444"/>
+      <rect width="3" height="64" rx="1.5" fill="#60a5fa"/>
+      <text x="14" y="24" fill="#e0e4ea">&#128452;  PostgreSQL</text>
+      <text x="14" y="44" font-size="10" font-weight="500" fill="#8892a4">schema v1 &#8594; v2</text>
+      <circle cx="110" cy="20" r="5" fill="#F59E0B"><animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite"/></circle>
+    </g>
+    <g transform="translate(137,0)">
+      <rect width="125" height="64" rx="7" fill="#212a3a" stroke="#2a3444"/>
+      <rect width="3" height="64" rx="1.5" fill="#f472b6"/>
+      <text x="14" y="24" fill="#e0e4ea">&#9889;  Redis</text>
+      <text x="14" y="44" font-size="10" font-weight="500" fill="#8892a4">cold &#8594; warm</text>
+      <circle cx="110" cy="20" r="5" fill="#f472b6"/>
+    </g>
+    <g transform="translate(274,0)">
+      <rect width="125" height="64" rx="7" fill="#212a3a" stroke="#2a3444"/>
+      <rect width="3" height="64" rx="1.5" fill="#34d399"/>
+      <text x="14" y="24" fill="#e0e4ea">&#128236;  Kafka</text>
+      <text x="14" y="44" font-size="10" font-weight="500" fill="#8892a4">consumers v1+v2</text>
+      <circle cx="110" cy="20" r="5" fill="#34d399"><animate attributeName="opacity" values="1;0.2;1" dur="1.3s" repeatCount="indefinite"/></circle>
+    </g>
+    <g transform="translate(411,0)">
+      <rect width="125" height="64" rx="7" fill="#212a3a" stroke="#2a3444"/>
+      <rect width="3" height="64" rx="1.5" fill="#22d3ee"/>
+      <text x="14" y="24" fill="#e0e4ea">&#128270;  Elasticsearch</text>
+      <text x="14" y="44" font-size="10" font-weight="500" fill="#8892a4">reindex &#8594; alias</text>
+      <circle cx="110" cy="20" r="5" fill="#22d3ee"/>
+    </g>
+  </g>
+
+  <!-- ===== Title ===== -->
+  <text x="300" y="350" font-size="20" font-weight="800" fill="#e0e4ea" text-anchor="middle">Deployment Visualizer</text>
+  <text x="300" y="372" font-size="11" font-weight="500" fill="#8892a4" text-anchor="middle">Big Bang &#183; Rolling &#183; Blue-Green &#183; Canary &#183; Feature Toggle &#183; Shadow</text>
+</svg>

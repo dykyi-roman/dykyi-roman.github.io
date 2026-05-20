@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../resources/analytics.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deployment Visualizer - Dykyi Roman</title>
+    <meta name="description" content="Interactive visualizer for deployment strategies: Big Bang, Rolling, Blue-Green, Canary, Feature Toggle, Shadow. Shows database migrations and live I/O on PostgreSQL, Redis, Kafka, and Elasticsearch during a release.">
+    <meta name="author" content="Dykyi Roman">
+    <meta property="og:title" content="Deployment Visualizer - Dykyi Roman">
+    <meta property="og:description" content="Animated deployment strategies with migrations and backing-service I/O — success, migration failure, and application failure scenarios.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dykyi-roman.github.io/projects/deployment-visualizer/">
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/projects/deployment-visualizer/">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/navigation.css">
+    <link rel="stylesheet" href="../../resources/article-style.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <div id="header-container"></div>
+    <script>
+        fetch('../../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html" data-i18n="ui.breadcrumb.home">Home</a>
+        <span class="breadcrumb-separator">&rsaquo;</span>
+        <a href="/pages/projects.html" data-i18n="ui.breadcrumb.projects">Projects</a>
+        <span class="breadcrumb-separator">&rsaquo;</span>
+        <span class="breadcrumb-current" data-i18n="dv.title">Deployment Visualizer</span>
+        <div class="lang-switcher" id="lang-switcher"></div>
+    </nav>
+
+    <div class="article-container dv-page">
+        <div class="article-header">
+            <h1 class="article-title" data-i18n="dv.title">Deployment Visualizer</h1>
+        </div>
+
+        <!-- Strategy Navigation (Level 1) -->
+        <div class="dv-strategy-nav" role="tablist" aria-label="Select deployment strategy">
+            <button class="dv-strategy-tab active" data-strategy="big-bang" role="tab" aria-selected="true" data-i18n="dv.strategy.big-bang.name">Big Bang</button>
+            <button class="dv-strategy-tab" data-strategy="rolling" role="tab" aria-selected="false" data-i18n="dv.strategy.rolling.name">Rolling</button>
+            <button class="dv-strategy-tab" data-strategy="blue-green" role="tab" aria-selected="false" data-i18n="dv.strategy.blue-green.name">Blue-Green</button>
+            <button class="dv-strategy-tab" data-strategy="canary" role="tab" aria-selected="false" data-i18n="dv.strategy.canary.name">Canary</button>
+            <button class="dv-strategy-tab" data-strategy="feature-toggle" role="tab" aria-selected="false" data-i18n="dv.strategy.feature-toggle.name">Feature Toggle</button>
+            <button class="dv-strategy-tab" data-strategy="shadow" role="tab" aria-selected="false" data-i18n="dv.strategy.shadow.name">Shadow</button>
+        </div>
+
+        <!-- Mode Tabs (Level 2) -->
+        <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Select scenario"></div>
+
+        <!-- Global Controls -->
+        <div class="global-controls-placeholder" id="controls-placeholder"></div>
+        <div class="global-controls" id="global-controls">
+            <div class="controls-left">
+                <button class="ctrl-btn run-btn" id="btn-run" title="Run the deployment" data-i18n-title="dv.btn.run.tooltip">&#x25B6; <span data-i18n="dv.btn.run">Deploy</span></button>
+                <button class="ctrl-btn pause-btn" id="btn-pause" title="Pause / Resume" data-i18n-title="ui.btn.pause.tooltip" disabled>&#x23F8; <span data-i18n="ui.btn.pause">Pause</span></button>
+                <button class="ctrl-btn reset-btn" id="btn-reset" title="Reset" data-i18n-title="ui.btn.reset.tooltip">&#x21BA; <span data-i18n="ui.btn.reset">Reset</span></button>
+                <button class="step-btn" id="btn-step-mode" title="Step-by-step mode" data-i18n-title="ui.btn.step_mode.tooltip">&#x23ED; <span data-i18n="ui.btn.step_mode">Step Mode</span></button>
+                <button class="step-btn" id="btn-step-back" title="Step back" data-i18n-title="ui.btn.step_back.tooltip" style="display:none" disabled>&#x23EE;</button>
+                <button class="step-btn" id="btn-step-fwd" title="Step forward" data-i18n-title="ui.btn.step_fwd.tooltip" style="display:none" disabled>&#x23ED;</button>
+                <label class="speed-label" for="speed-range" data-i18n="ui.speed.label">Speed:</label>
+                <input type="range" class="speed-range" id="speed-range" min="100" max="1200" value="600" step="50">
+                <span class="speed-value" id="speed-value">Normal</span>
+            </div>
+            <div class="controls-right">
+                <div class="stat-item"><span class="stat-label" data-i18n="dv.stat.downtime">Downtime</span><span class="stat-value" id="stat-downtime">0s</span></div>
+                <div class="stat-item"><span class="stat-label" data-i18n="dv.stat.errors">Errors</span><span class="stat-value" id="stat-errors">0</span></div>
+                <div class="stat-item"><span class="stat-label" data-i18n="dv.stat.traffic">v2 Traffic</span><span class="stat-value" id="stat-traffic">0%</span></div>
+                <div class="stat-item"><span class="stat-label" data-i18n="dv.stat.rollbacks">Rollbacks</span><span class="stat-value" id="stat-rollbacks">0</span></div>
+            </div>
+        </div>
+
+        <!-- Scenario Description -->
+        <div class="pattern-desc" id="pattern-desc"></div>
+
+        <!-- Collapsible Principles & Key Concepts -->
+        <div class="pattern-details" id="pattern-details" style="display:none">
+            <button class="pattern-details-toggle" id="pattern-details-toggle" aria-expanded="false">
+                <span class="pattern-details-toggle-icon">&#x25B6;</span>
+                <span data-i18n="ui.details.title">Principles &amp; Key Concepts</span>
+            </button>
+            <div class="pattern-details-body" id="pattern-details-body"></div>
+        </div>
+
+        <!-- Main Visualization Area -->
+        <div class="viz-area" id="viz-area">
+            <div id="dv-board"></div>
+        </div>
+
+        <!-- Board Legend -->
+        <div class="dv-legend" id="dv-legend">
+            <div class="dv-legend-item"><span class="dv-legend-swatch dv-sw-healthy"></span><span data-i18n="dv.legend.healthy">Healthy</span></div>
+            <div class="dv-legend-item"><span class="dv-legend-swatch dv-sw-starting"></span><span data-i18n="dv.legend.starting">Starting</span></div>
+            <div class="dv-legend-item"><span class="dv-legend-swatch dv-sw-unhealthy"></span><span data-i18n="dv.legend.unhealthy">Unhealthy</span></div>
+            <div class="dv-legend-item"><span class="dv-legend-swatch dv-sw-draining"></span><span data-i18n="dv.legend.draining">Draining</span></div>
+            <div class="dv-legend-item"><span class="dv-legend-swatch dv-sw-v1"></span><span data-i18n="dv.legend.v1">v1 (old)</span></div>
+            <div class="dv-legend-item"><span class="dv-legend-swatch dv-sw-v2"></span><span data-i18n="dv.legend.v2">v2 (new)</span></div>
+        </div>
+
+        <!-- Trade-offs Panel -->
+        <div class="pattern-tradeoffs" id="tradeoffs-panel" style="display:none">
+            <button class="pattern-tradeoffs-toggle" id="tradeoffs-toggle" aria-expanded="false">
+                <span class="pattern-tradeoffs-toggle-icon">&#x25B6;</span>
+                <span data-i18n="ui.tradeoffs.title">Trade-offs: Pros, Cons &amp; When to Use</span>
+            </button>
+            <div class="pattern-tradeoffs-body" id="tradeoffs-body"></div>
+        </div>
+
+        <!-- Strategy Properties Panel -->
+        <div class="dep-rules-panel" id="dep-rules-panel">
+            <div class="dep-rules-header" data-i18n="dv.properties.title">Strategy Properties</div>
+            <div class="dep-rules-body" id="dep-rules-body"></div>
+        </div>
+
+        <!-- Event Log -->
+        <div class="event-log-container">
+            <div class="event-log-header">
+                <span data-i18n="ui.log.header">Event Log</span>
+                <div>
+                    <button class="log-clear-btn" id="btn-copy-log" data-i18n="ui.btn.copy">Copy</button>
+                    <button class="log-clear-btn" id="btn-clear-log" data-i18n="ui.btn.clear">Clear</button>
+                </div>
+            </div>
+            <div class="event-log" id="event-log"></div>
+        </div>
+        <footer class="site-footer">
+            <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+            <div class="footer-links">
+                <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+                <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+                <a href="mailto:mr.dukuy@gmail.com">Email</a>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script>document.querySelector('.current-year').textContent = new Date().getFullYear();</script>
+<script src="../../resources/i18n.js"></script>
+<script>
+    I18N._basePath = '../..';
+    I18N.load('deployment-visualizer', '../..').then(function() {
+        I18N.renderSwitcher('lang-switcher');
+        I18N.applyToDOM();
+    });
+</script>
+<script src="../../resources/back-to-top.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/big-bang.js"></script>
+<script src="js/rolling.js"></script>
+<script src="js/blue-green.js"></script>
+<script src="js/canary.js"></script>
+<script src="js/feature-toggle.js"></script>
+<script src="js/shadow.js"></script>
+<script src="js/app.js"></script>
+<script>window.CHAT_SYSTEM_PROMPT = 'AI assistant для интерактивного визуализатора стратегий деплоя (Big Bang, Rolling, Blue-Green, Canary, Feature Toggle, Shadow). Объясняй этапы выкатки, миграции БД по схеме expand-contract, поведение PostgreSQL, Redis, Kafka и Elasticsearch во время релиза, а также сценарии сбоя и отката.';</script>
+<link rel="stylesheet" href="../../resources/chat.css">
+<script src="../../resources/chat.js"></script>
+</body>
+</html>
