@@ -757,16 +757,15 @@
     fill: #ffb4b4;
 }
 
-/* ===== Board Legend ===== */
+/* ===== Board Legend (inside the visualization panel, centered) ===== */
 .dv-legend {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px;
-    padding: 8px 14px;
-    background: var(--dv-card-bg);
-    border: 1px solid var(--dv-border);
-    border-radius: var(--dv-radius);
-    margin-bottom: 12px;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--dv-border);
 }
 
 .dv-legend-item {
