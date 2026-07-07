@@ -1331,6 +1331,10 @@ const countriesData = {
                         'https://www.instagram.com/dykyi.roman/p/CUHGK8IoEtp/',
                     ],
                     facebook: [],
+                },
+                'Rome': {
+                    instagram: [],
+                    facebook: []
                 }
             },
             notes: 'Renaissance and romance',
@@ -1500,6 +1504,50 @@ const countriesData = {
                 }
             },
             notes: 'Catalonia and Andalusia',
+            instagram: [],
+            facebook: []
+        },
+        {
+            flag: '🇻🇦',
+            name: 'Vatican',
+            visitDate: '2026-06',
+            duration: '1 day',
+            rating: '⭐⭐⭐⭐⭐',
+            highlights: {
+                'Vatican City': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
+            notes: 'Smallest state in the world',
+            instagram: [],
+            facebook: []
+        },
+        {
+            flag: '🇦🇱',
+            name: 'Albania',
+            visitDate: '2026-06',
+            duration: '7 days',
+            rating: '⭐⭐⭐⭐',
+            highlights: {
+                'Tirana': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Berat': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Durrës': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Krujë': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
+            notes: 'Adriatic coast and Ottoman towns',
             instagram: [],
             facebook: []
         }
@@ -1953,6 +2001,16 @@ function initMap() {
             {lat: 43.7710583, lng: 11.2501702, title: "Florence"},
             {lat: 45.4390869, lng: 12.3344736, title: "Venice, Residenza Grisostomo"},
             {lat: 44.061159, lng: 12.5820507, title: "Rimini, Hotel Jana"},
+            {lat: 41.9027835, lng: 12.4963655, title: "Rome"},
+        ],
+        "Vatican": [
+            {lat: 41.9022008, lng: 12.4533504, title: "Vatican City"},
+        ],
+        "Albania": [
+            {lat: 41.3275459, lng: 19.8186982, title: "Tirana"},
+            {lat: 40.7058169, lng: 19.9521904, title: "Berat"},
+            {lat: 41.3231115, lng: 19.4414815, title: "Durrës"},
+            {lat: 41.5089229, lng: 19.7928019, title: "Krujë"},
         ],
         "Israel": [
             {lat: 31.7838176, lng: 35.209266, title: "Jerusalem, Home in Jerusalem"},
@@ -2310,6 +2368,8 @@ function initMap() {
         "France": "europe",
         "Belgium": "europe",
         "Hungary": "europe",
+        "Vatican": "europe",
+        "Albania": "europe",
         "UAE": "asia",
         "Nepal": "asia",
         "India": "asia",
