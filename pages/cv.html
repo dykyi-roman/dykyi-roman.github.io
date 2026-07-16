@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../resources/analytics.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dykyi Roman - Senior Software Engineer | CV</title>
+    <meta name="description" content="Printable CV of Dykyi Roman - Senior Software Engineer / Tech Lead. PHP, DDD, CQRS, event-driven architecture, and microservices.">
+    <meta name="keywords" content="CV, Resume, Software Engineer, PHP Developer, DDD, Clean Architecture, Team Lead, Tech Lead">
+    <meta name="author" content="Dykyi Roman">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Dykyi Roman - Senior Software Engineer CV">
+    <meta property="og:description" content="CV of Dykyi Roman - Senior Software Engineer / Tech Lead. PHP, DDD, CQRS, Event-Driven Architecture, Microservices.">
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://dykyi-roman.github.io/pages/cv.html">
+    <link rel="icon" href="../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/pages/cv.html">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Dykyi Roman",
+        "jobTitle": "Senior Software Engineer",
+        "url": "https://dykyi-roman.github.io",
+        "sameAs": [
+            "https://linkedin.com/in/roman-dykyi-43428543/",
+            "https://github.com/dykyi-roman",
+            "https://medium.com/@dykyi.roman"
+        ],
+        "knowsAbout": ["PHP", "Domain-Driven Design", "Software Architecture", "Team Leadership"],
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Bohdan Khmelnytsky National University of Cherkasy"
+        }
+    }
+    </script>
+    <style>
+        :root {
+            color-scheme: light;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #e8eaed;
+            color: #1f2937;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.45;
+        }
+
+        .toolbar {
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .toolbar a {
+            color: #b45309;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .toolbar a:hover {
+            text-decoration: underline;
+        }
+
+        .toolbar button {
+            background: #dc7603;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 14px;
+            font-size: 14px;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .toolbar button:hover {
+            background: #ff6600;
+        }
+
+        .sheet {
+            max-width: 210mm;
+            margin: 28px auto;
+            padding: 14mm 16mm;
+            background: #fff;
+            box-shadow: 0 2px 14px rgba(0, 0, 0, 0.18);
+        }
+
+        .cv-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            border-bottom: 3px solid #dc7603;
+            padding-bottom: 14px;
+        }
+
+        .cv-photo {
+            width: 92px;
+            height: 92px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .cv-identity h1 {
+            margin: 0;
+            font-size: 30px;
+            color: #111827;
+        }
+
+        .cv-role {
+            margin: 4px 0 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #b45309;
+        }
+
+        .cv-contacts {
+            list-style: none;
+            margin: 0 0 0 auto;
+            padding: 0;
+            text-align: right;
+            font-size: 13px;
+            color: #374151;
+        }
+
+        .cv-contacts li {
+            margin: 2px 0;
+        }
+
+        .cv-contacts a {
+            color: #b45309;
+            text-decoration: none;
+            overflow-wrap: break-word;
+        }
+
+        .cv-section {
+            margin-top: 18px;
+        }
+
+        h2 {
+            margin: 0 0 10px;
+            padding-bottom: 4px;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: #111827;
+            border-bottom: 1px solid #d1d5db;
+        }
+
+        p {
+            margin: 0 0 8px;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 4px 14px;
+            margin: 0;
+        }
+
+        .skills dt {
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .skills dd {
+            margin: 0;
+        }
+
+        .job {
+            margin-bottom: 14px;
+        }
+
+        .job:last-child {
+            margin-bottom: 0;
+        }
+
+        .job-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .job-head h3 {
+            margin: 0;
+            font-size: 16px;
+            color: #111827;
+        }
+
+        .job-loc {
+            font-size: 13px;
+            color: #6b7280;
+            white-space: nowrap;
+        }
+
+        .job-role {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 2px 0 0;
+        }
+
+        .job-dates {
+            font-size: 13px;
+            color: #6b7280;
+            white-space: nowrap;
+        }
+
+        .job ul {
+            margin: 6px 0 0;
+            padding-left: 18px;
+        }
+
+        .job li {
+            margin: 3px 0;
+        }
+
+        ul.flat {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        ul.flat li {
+            margin: 4px 0;
+        }
+
+        @media (max-width: 640px) {
+            .toolbar {
+                position: static;
+                justify-content: flex-end;
+                padding: 10px 12px 0;
+            }
+
+            .sheet {
+                margin: 0;
+                padding: 16px 16px 28px;
+                box-shadow: none;
+            }
+
+            .cv-header {
+                flex-wrap: wrap;
+            }
+
+            .cv-contacts {
+                margin-left: 0;
+                text-align: left;
+                width: 100%;
+            }
+
+            .skills {
+                grid-template-columns: 1fr;
+                gap: 2px;
+            }
+
+            .skills dd {
+                margin-bottom: 6px;
+            }
+
+            .job-head,
+            .job-role {
+                flex-wrap: wrap;
+            }
+        }
+
+        @page {
+            size: A4;
+            margin: 12mm 14mm;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                font-size: 9.5pt;
+                line-height: 1.35;
+            }
+
+            .sheet {
+                max-width: none;
+                width: auto;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .cv-header {
+                padding-bottom: 8pt;
+            }
+
+            .cv-photo {
+                width: 68pt;
+                height: 68pt;
+            }
+
+            .cv-section {
+                margin-top: 10pt;
+            }
+
+            h2 {
+                margin-bottom: 6pt;
+            }
+
+            .job {
+                margin-bottom: 8pt;
+            }
+
+            .job ul {
+                margin-top: 3pt;
+            }
+
+            .job li,
+            ul.flat li {
+                margin: 2pt 0;
+            }
+
+            .cv-identity h1 {
+                font-size: 19pt;
+            }
+
+            .cv-role {
+                font-size: 11pt;
+            }
+
+            h2 {
+                font-size: 11.5pt;
+                break-after: avoid;
+                page-break-after: avoid;
+            }
+
+            .job-head h3 {
+                font-size: 10.5pt;
+            }
+
+            .cv-contacts,
+            .job-dates,
+            .job-loc {
+                font-size: 9pt;
+            }
+
+            li,
+            .job-head,
+            .job-role,
+            .skills dt,
+            .skills dd {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .job:not(.job--long) {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .job-head {
+                break-after: avoid;
+                page-break-after: avoid;
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+
+            .cv-header,
+            .cv-photo {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="toolbar no-print">
+    <a href="/index.html">&larr; dykyi-roman.github.io</a>
+    <button type="button" onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<main class="sheet">
+    <!-- Header -->
+    <header class="cv-header">
+        <img class="cv-photo" src="../images/photo.jpg" alt="Dykyi Roman">
+        <div class="cv-identity">
+            <h1>Dykyi Roman</h1>
+            <p class="cv-role">Senior Software Engineer / Tech Lead</p>
+        </div>
+        <ul class="cv-contacts">
+            <li><a href="mailto:mr.dukuy@gmail.com">mr.dukuy@gmail.com</a></li>
+            <li><a href="https://www.linkedin.com/in/roman-dykyi-43428543/">linkedin.com/in/roman-dykyi-43428543</a></li>
+            <li><a href="https://github.com/dykyi-roman">github.com/dykyi-roman</a></li>
+            <li><a href="https://medium.com/@dykyi.roman">medium.com/@dykyi.roman</a></li>
+            <li><a href="https://t.me/dykyi_roman">t.me/dykyi_roman</a></li>
+            <li>Spain (Remote) &middot; Ukrainian</li>
+        </ul>
+    </header>
+
+    <!-- Profile -->
+    <section class="cv-section">
+        <h2>Profile</h2>
+        <p><strong>Senior Software Engineer</strong> with <strong><span id="experience-years">16</span>+ years</strong> of experience designing and building scalable backend systems. I specialize in <strong>DDD</strong>, <strong>CQRS</strong>, <strong>Event-Driven Architecture</strong>, <strong>Event Sourcing</strong>, and <strong>Microservices</strong>, applying Clean, Layered, and Hexagonal architecture patterns to solve complex business problems.</p>
+        <p>Experienced in <strong>Team Lead</strong> and <strong>Tech Lead</strong> roles &mdash; driving architectural decisions, mentoring engineers, and delivering high-quality solutions. Passionate about clean code, continuous improvement, and knowledge sharing through articles, teaching, and open-source contributions.</p>
+    </section>
+
+    <!-- Skills -->
+    <section class="cv-section">
+        <h2>Skills</h2>
+        <dl class="skills">
+            <dt>Programming</dt>
+            <dd>PHP, JavaScript, Go, Delphi</dd>
+            <dt>Frameworks</dt>
+            <dd>Symfony, Laravel, Yii2, CodeIgniter (framework-agnostic mindset)</dd>
+            <dt>Data &amp; Messaging</dt>
+            <dd>MySQL, PostgreSQL, MongoDB, Redis, Elasticsearch, RabbitMQ, Kafka</dd>
+            <dt>Architecture</dt>
+            <dd>Clean, Layered, Hexagonal, CQRS, EDA, Event Sourcing, Modular, Microservices</dd>
+            <dt>Principles</dt>
+            <dd>DDD, ADR, GRASP, SOLID, KISS, DRY, YAGNI, 12-Factor</dd>
+            <dt>Design &amp; Docs</dt>
+            <dd>C4 diagrams, PlantUML, API specifications (OpenAPI), technical documentation</dd>
+            <dt>Quality</dt>
+            <dd>PHPUnit, Codeception, Postman, Deptrac, PhpCsFixer, Psalm, PHPStan, PHPDoc</dd>
+            <dt>DevOps</dt>
+            <dd>Docker, GitLab CI, GitHub Actions</dd>
+            <dt>AI</dt>
+            <dd>Claude Code, AI agents development, prompt engineering</dd>
+            <dt>Leadership</dt>
+            <dd>Mentoring, onboarding, team building, SCRUM, SAFe, MoSCoW, GitFlow</dd>
+        </dl>
+    </section>
+
+    <!-- Experience -->
+    <section class="cv-section">
+        <h2>Professional Experience</h2>
+
+        <article class="job job--long">
+            <div class="job-head">
+                <h3>Forex4you</h3>
+                <span class="job-loc">Latvia / Remote</span>
+            </div>
+            <p class="job-role"><strong>Tech/Team Lead</strong> <span class="job-dates">Feb 2023 &ndash; May 2025</span></p>
+            <p class="job-role"><strong>Senior PHP Developer</strong> <span class="job-dates">Apr 2020 &ndash; Feb 2023</span></p>
+            <ul>
+                <li>Designed a service-oriented architecture for billing workflows, ensuring flexibility and maintainability; integrated Zoho CRM, Risk Assessment Matrix, and notification services.</li>
+                <li>Integrated open banking (Yapily), payment CRMs (Konnektive, Sticky), and payment gateways: BitPay, Fibonatix, MaxPay, ACI PayOn, EmerchantPay, Checkout, Paytend, Trust Payments, and others.</li>
+                <li>Developed a custom billing solution with microservices for better scalability and modularity, replacing paid payment gateways.</li>
+                <li>Transitioned a marketplace project from outsourcing to in-house development: formed a dedicated team, created a technical roadmap, and implemented step-by-step refactoring to enhance stability and performance.</li>
+            </ul>
+        </article>
+
+        <article class="job">
+            <div class="job-head">
+                <h3>Lucky Labs</h3>
+                <span class="job-loc">Riga, Latvia</span>
+            </div>
+            <p class="job-role"><strong>Senior PHP Developer</strong> <span class="job-dates">Jun 2019 &ndash; May 2020</span></p>
+            <ul>
+                <li>Promoted the Domain-Driven Design (DDD) approach within the team to improve project focus and alignment with business goals.</li>
+                <li>Boosted the speed of functional testing by 3x; implemented new gamification features to increase user engagement.</li>
+                <li>Integrated a new game provider; compressed data to address SEO performance issues; set up a CI/CD pipeline to automate deployment.</li>
+            </ul>
+        </article>
+
+        <article class="job">
+            <div class="job-head">
+                <h3>UvoCorp</h3>
+                <span class="job-loc">Kyiv, Ukraine</span>
+            </div>
+            <p class="job-role"><strong>Team Lead</strong> <span class="job-dates">Jan 2017 &ndash; May 2019</span></p>
+            <ul>
+                <li>Integrated Customer.io, Twilio Lookup, HashiCorp Vault, and Document Plagiarism APIs to enhance functionality and security.</li>
+                <li>Separated the Core bundle into functional modules following the DDD approach; created a Docker environment for streamlined local development.</li>
+                <li>Migrated error tracking from Errbit to Sentry; integrated Graylog for centralized log management and enhanced troubleshooting.</li>
+            </ul>
+        </article>
+
+        <article class="job">
+            <div class="job-head">
+                <h3>Travel Professional Group (TPG)</h3>
+                <span class="job-loc">Kyiv, Ukraine</span>
+            </div>
+            <p class="job-role"><strong>Senior PHP Developer / Team Lead</strong> <span class="job-dates">Jun 2014 &ndash; Dec 2016</span></p>
+            <ul>
+                <li>Developed a Skype API messenger integration using PHP and Delphi.</li>
+                <li>Built an Admin CRM from scratch using Laravel and PHP 7; led full-stack website development projects using WordPress, Laravel, PHP, and JavaScript.</li>
+            </ul>
+        </article>
+
+        <article class="job">
+            <div class="job-head">
+                <h3>4Shared / 4Sync</h3>
+                <span class="job-loc">Kyiv, Ukraine</span>
+            </div>
+            <p class="job-role"><strong>Senior Delphi Developer</strong> <span class="job-dates">Nov 2012 &ndash; Oct 2014</span></p>
+            <p class="job-role"><strong>Delphi Developer</strong> <span class="job-dates">Jun 2011 &ndash; Nov 2012</span></p>
+            <ul>
+                <li>Developed a coupons module and toolbars for multiple platforms: 4shared Toolbar, 2shared Toolbar, and 4Sync Toolbar.</li>
+                <li>Created a centralized logging server for all systems using the Syslog protocol (UDP/IP).</li>
+                <li>Wrote FastReport scripts for automated report generation; developed DLLs for LoadRunner load-testing scenarios; built online and offline installers with NSIS.</li>
+                <li>Developed various COM objects to support integration and automation tasks.</li>
+            </ul>
+        </article>
+    </section>
+
+    <!-- Achievements -->
+    <section class="cv-section">
+        <h2>Selected Achievements</h2>
+        <ul class="flat">
+            <li><strong>Unified admin panel for microservices architecture:</strong> developed a manifest and inter-service communication methods, creating a flexible admin panel that requires no constant adjustments as the system architecture evolves. Also built a custom billing CRM (CardStore, PaymentIntegration, Notification, RiskAssessment) to move away from paid payment gateways and save the business money.</li>
+            <li><strong>Moved a legacy project from outsourcing to in-house development:</strong> formed the team, developed a technical roadmap, and implemented a step-by-step refactoring process &mdash; transforming a complex, confusing project into a stable and efficient product without interrupting business operations.</li>
+            <li><strong>Independent technical audits:</strong> professional audits of code quality, architecture, security, performance, and development workflows; built a reputation as a trusted technical consultant through word-of-mouth recommendations.</li>
+        </ul>
+    </section>
+
+    <!-- Teaching & Publications -->
+    <section class="cv-section">
+        <h2>Teaching &amp; Publications</h2>
+        <ul class="flat">
+            <li><strong>PHP Teacher</strong> &mdash; IT School Hillel <span class="job-dates">(Jan 2017 &ndash; Dec 2019)</span>; public course presentations available on GitHub.</li>
+            <li><strong>Featured in:</strong> PHP Annotated by JetBrains (Sep 2023); PHP Digest (Sep 2025, Aug 2025, #202 Apr 2021).</li>
+            <li><strong>Writing:</strong> medium.com/@dykyi.roman (architecture &amp; engineering) &middot; habr.com/ru/users/dykyi_roman (PHP &amp; DDD).</li>
+        </ul>
+    </section>
+
+    <!-- Education -->
+    <section class="cv-section">
+        <h2>Education</h2>
+        <article class="job">
+            <div class="job-head">
+                <h3>Bohdan Khmelnytsky National University of Cherkasy</h3>
+                <span class="job-dates">2006 &ndash; 2011</span>
+            </div>
+            <p>Master&rsquo;s degree &mdash; Computer, Information and Biomedical Technology</p>
+        </article>
+    </section>
+</main>
+
+<script>
+    document.getElementById('experience-years').textContent = new Date().getFullYear() - 2010;
+</script>
+</body>
+</html>
