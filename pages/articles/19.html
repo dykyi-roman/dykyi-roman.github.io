@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../resources/analytics.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your AI Agent Needs a Map: LLM Wiki vs README-Driven Documentation - Dykyi Roman</title>
+    <meta name="description" content="How to organize project knowledge for AI agents: Karpathy's LLM Wiki pattern in practice, README-driven documentation, a side-by-side comparison, and when each approach is worth it.">
+    <meta name="author" content="Dykyi Roman">
+    <meta property="og:title" content="Your AI Agent Needs a Map: LLM Wiki vs README-Driven Documentation">
+    <meta property="og:description" content="How to organize project knowledge for AI agents: Karpathy's LLM Wiki pattern in practice, README-driven documentation, a side-by-side comparison, and when each approach is worth it.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://dykyi-roman.github.io/pages/articles/19.html">
+    <meta property="og:image" content="https://dykyi-roman.github.io/pages/articles/img/19.png">
+    <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/pages/articles/19.html">
+    <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/navigation.css">
+    <link rel="stylesheet" href="../../resources/article-style.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="/pages/articles.html">Articles</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">Your AI Agent Needs a Map: LLM Wiki vs README-Driven Documentation</span>
+    </nav>
+
+    <!-- Article Content -->
+    <div class="article-container">
+        <div class="article-header">
+            <h1 class="article-title">Your AI Agent Needs a Map: LLM Wiki vs README-Driven Documentation</h1>
+            <div class="article-meta">24 min read | Jul 21, 2026</div>
+            <img src="img/19.png" alt="Your AI Agent Needs a Map: LLM Wiki vs README-Driven Documentation"
+                 class="article-featured-img">
+        </div>
+
+        <div class="article-content">
+            <h1>Introduction</h1>
+
+            <blockquote>vibe coding → agentic engineering → LLM wiki</blockquote>
+
+            <p>In my previous article about <a href="14.html">AI tools and agents</a>, I explored the instruments that are changing how software is developed. In the follow-up, I argued that the developer's role is shifting from writing code to directing it.</p>
+
+            <p>This article takes the next step: what happens when AI agents become capable of building and navigating increasingly complex codebases? How do we keep the knowledge they rely on accurate, discoverable, and up to date?  This is where the idea of an LLM wiki comes in.</p>
+
+            <p>An onboarding file (example: CLAUDE.MD) tells the agent <strong>how to behave</strong>: the conventions, the layer rules, the forbidden patterns. What it does not give the agent is the <strong>accumulated knowledge</strong> of your system — why the payment flow has that strange branch, which of the eleven integrations quietly deviates from its documented contract, which parts of the documentation are lies. A human developer builds this knowledge over months of incidents and code reviews. An agent starts from zero every single session.</p>
+
+            <p>In April 2026 Andrej Karpathy published a short gist called <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" target="_blank">LLM Wiki</a> that proposes one answer to this problem. I implemented it over the payment core of a large platform I work on. Before that, I had been practicing a different answer: a README-driven repository where every module documents itself and the agent is told exactly what to read. This article is a field report on both — what each approach looks like in production, where they turn out to be the same idea, and when you actually need one over the other.</p>
+
+            <h1>[I] Karpathy's LLM Wiki: The Idea</h1>
+
+            <p>The gist describes itself modestly: <em>"A pattern for building personal knowledge bases using LLMs. This is an idea file, it is designed to be copy pasted to your own LLM Agent (e.g. OpenAI Codex, Claude Code, OpenCode / Pi, or etc.)"</em>. Not a product, not a framework — a pattern you hand to the agent you already have.</p>
+
+            <h2>The Problem It Names</h2>
+
+            <p>Karpathy starts from the failure mode of the default approach — retrieval over a pile of raw documents, RAG-style:</p>
+
+            <blockquote>"Ask a subtle question that requires synthesizing five documents, and the LLM has to find and piece together the relevant fragments every time. Nothing is built up."</blockquote>
+
+            <p>The traditional alternative — a hand-maintained wiki — fails for the opposite reason: humans are bad at the maintenance. As the gist puts it, <em>"the tedious part of maintaining a knowledge base is not reading or thinking — it's the bookkeeping"</em>. Updating cross-references, reconciling contradictions, keeping the index consistent — exactly the work people silently stop doing after week three.</p>
+
+            <h2>Three Layers, Two Files, Three Operations</h2>
+
+            <p>The proposed structure is deliberately minimal:</p>
+
+            <pre>raw/           immutable source documents; raw/assets/ for attachments
+wiki/          markdown pages — written and maintained only by the LLM
+CLAUDE.md      the schema: conventions and instructions for the agent
+index.md       a catalog of every page with a one-line description
+log.md         append-only journal of everything the wiki did</pre>
+
+            <p>And the agent performs three operations on it:</p>
+
+            <ul>
+                <li><strong>Ingest.</strong> A new source arrives; the LLM reads it, discusses the takeaways with you, writes a summary page — and, this is the important part, updates ten or fifteen existing pages with new connections and corrections.</li>
+                <li><strong>Query.</strong> You ask a question; the LLM routes through the index, reads the relevant pages, and synthesizes an answer with citations. A good answer can itself be filed back as a new page.</li>
+                <li><strong>Lint.</strong> A periodic health check: contradictions, orphan pages, stale claims, missing cross-references.</li>
+            </ul>
+
+            <blockquote>"You never write the wiki yourself — the LLM writes and maintains all of it."</blockquote>
+
+            <p>Your job, then? <em>"The human's job is to curate sources, direct analysis, ask good questions. The LLM's job is everything else."</em></p>
+
+            <blockquote>"The wiki is a persistent, compounding artifact. The cross-references are already there."</blockquote>
+
+            <h1>[II] How I Implemented It: A Wiki Over a Payment Core</h1>
+
+            <p>This is not a thought experiment — the wiki is built and in daily use. It runs on top of a large payment platform: a DDD + CQRS monolith with around twenty bounded contexts and roughly 37,000 PHP files. It does not try to swallow the whole system — it covers the hardest part, the payment core, distilled into exactly <strong>70 pages</strong>.</p>
+
+            <p>It lives in <code>.claude/wiki/</code> and is deliberately gitignored: a personal synthesis layer, not team documentation — and not a replacement for the module READMEs, but a layer on top of them. It is invoked through an explicit slash command — <code>/wiki</code>, described below; nothing is auto-loaded into context.</p>
+
+            <h2>The Shape of It</h2>
+
+            <pre>.claude/wiki/
+├── CLAUDE.md     the constitution: source rules, page templates, lint
+│                 checklist — the only file a human edits
+├── index.md      the router: "if you are looking for X -> page Y",
+│                 known contradictions, known gaps
+├── log.md        append-only journal
+├── contexts/     7 pages  — one per bounded context
+├── providers/    8 pages  — the payment-provider roster
+├── concepts/     10 pages — cross-cutting domain concepts
+└── flows/        5 pages  — end-to-end payment scenarios</pre>
+
+            <p>The index deserves special mention. It is not a table of contents — it is a router. Its main section is literally a table of "if you are looking for X, open page Y" entries, followed by a list of known contradictions and a list of known gaps. The query workflow starts there: pick three to seven pages, follow links at most one level deeper, synthesize. And if the wiki has no answer, the rule is to say "the wiki does not cover this" and propose ingesting a source — not to quietly improvise from code.</p>
+
+            <h2>Anatomy of a Page</h2>
+
+            <p>Every page follows the same contract, enforced by the schema file:</p>
+
+            <pre>---
+title: Provider A — card processing
+type: provider
+status: active
+verified: 2026-07-14
+verified_sha: 3f9c2e1
+---</pre>
+
+            <p>A page opens with a lead paragraph that answers "why you came here", uses a single level of headings, always ends with an "Open questions" section, and must stay under <strong>120 lines</strong>. When a page outgrows the budget, the rule is to split it into two linked pages — never to stretch it. And every page needs at least two inbound links, so knowledge stays reachable instead of orphaned.</p>
+
+            <h2>The /wiki Command — and the One Rule That Holds It Together</h2>
+
+            <p>All of this is wrapped into a single custom slash command I created for the agent — <code>/wiki</code>, defined in <code>.claude/commands/wiki.md</code>. It is the only entry point: outside of it, the wiki is never touched. Karpathy's three operations grew into seven subcommands:</p>
+
+            <pre>/wiki seed               initial fill of the wiki from the codebase
+/wiki ingest &lt;source&gt;    absorb a document, a plan, or a memory note
+/wiki query &lt;question&gt;   answer from the wiki, with credibility markers
+/wiki sync [ref]         reconcile pages with the code they describe
+/wiki verify &lt;page&gt;      re-check a single page against its sources
+/wiki lint               the 17-check health suite
+/wiki status             cheap frontmatter-only health readout</pre>
+
+            <p>Every subcommand starts with the same mandatory pre-flight: read the schema (the wiki's <code>CLAUDE.md</code>), read the index, check the last entries of the log — so the agent always operates under the wiki's rules rather than its own habits. Two subcommands do the heavy lifting:</p>
+
+            <ul>
+                <li><strong>sync</strong> — run after every <code>git pull</code> and after finishing a task, before the merge request. For each page it diffs the code between the SHA the page was last verified at and the current HEAD, restricted to that page's declared sources. Every touched page gets one of three verdicts: <em>unchanged</em> (only the verification stamp moves), <em>corrected</em> (the diff made the page wrong — the text gets fixed), or <em>uncovered</em> (new behavior no page describes — a new page is proposed).</li>
+                <li><strong>lint</strong> — seventeen automated checks run by two parallel read-only subagents: contradictions, orphans, broken links, budget overruns. The check I value most re-runs every negative claim's command and flags any grep that has stopped returning empty.</li>
+            </ul>
+
+            <h1>[III] The Approach I Was Already Using: README-Driven Repos</h1>
+
+            <p>Long before the gist, I had been practicing documentation-as-code. The documentation there went through its own migration: out of Confluence, into the repository, next to the code it describes. Confluence did not disappear — it now holds a curated mirror of selected pages for management, rendered from the repository through a GitHub plugin. Engineers read and edit markdown next to the code; managers read Confluence; there is exactly one source of truth.</p>
+
+            <h2>Four Levels of Documentation</h2>
+
+            <pre>application/
+├── README.md                 73 lines   the map: modern modules vs
+│                                        legacy, migration plan
+├── ARCHITECTURE.MD          921 lines   frozen narrative: how the
+│                                        system actually works
+├── modules/
+│   ├── README.md            952 lines   the conventions bible: layers,
+│   │                                    naming, DI, testing, checklists
+│   └── {Module}/README.md  ~300 lines   business value, annotated
+│                                        file tree, data flow, monitoring
+└── docs/                                guides, rules, api-doc...</pre>
+
+            <p>Each level answers a different question. The top README answers "what is where, and what is legacy". The architecture narrative answers "how does this actually work end to end". The conventions guide answers "how do I build a module here". And each module's README answers "what does this module do, and why does it exist" — the best of them opens with business value, walks through an annotated tree of all 62 of its files, and closes with monitoring and configuration.</p>
+
+            <h3>CLAUDE.md as a Router, Not a Container</h3>
+
+            <p>The crucial decision in this setup: the onboarding file does not contain the knowledge. It routes to it. The project's CLAUDE.md opens with a fixed reading order — "before executing any task, read the following documentation" — pointing at the four levels above, and then delegates downward: <em>"Read the relevant module README before working on module-specific code."</em> The agent ends up reading the two or three documents relevant to the task, not the whole tree. Progressive disclosure — before I knew there was a term for it.</p>
+
+            <p>And the routing works in both directions. The same CLAUDE.md makes updating the documentation part of the task itself: <em>"Keep README up to date. After making changes to an application, update the corresponding README.md."</em> So after finishing a change, the agent itself updates the README of the module it touched — the documentation diff lands in the same merge request as the code diff, and both are reviewed together. No separate "documentation day", no ticket to write the docs later: the docs move with the code, or they do not move at all.</p>
+
+            <h1>[IV] Same Idea, Two Scales</h1>
+
+            <p>Put side by side, the two approaches are almost embarrassingly similar. Knowledge lives next to the code, in plain files, under version control. An entry file routes the agent instead of stuffing everything into its context. Reading is progressive: index first, then the two or three documents that matter. If your coding agent indexes the repository well, both setups give it the same superpower — it stops rediscovering your system and starts consulting it.</p>
+
+            <p>The real difference is not the format. It is the answer to two questions: <strong>where does the knowledge come from, and who does the bookkeeping?</strong></p>
+
+            <p>A README is written by a developer, about one module, from the code in front of them. A wiki in Karpathy's sense is synthesized by the LLM from every source it can reach:</p>
+
+            <pre>Code
+  ↓
+Git history
+  ↓
+README files
+  ↓
+Architecture Decision Records
+  ↓
+Issues / Pull Requests
+  ↓
+LLM — reads, synthesizes, cross-links
+  ↓
+Knowledge Graph / Wiki</pre>
+
+            <p>Which produces this comparison:</p>
+
+            <pre>--------------------+---------------------------+---------------------------
+                    | README-per-module         | LLM Wiki
+--------------------+---------------------------+---------------------------
+Who writes it       | developers                | the LLM writes,
+                    |                           | a human curates
+Sources             | the module's code         | code, git history, README,
+                    |                           | ADRs, issues and PRs
+Unit of knowledge   | one module                | cross-module synthesis
+Staleness           | manual updates — drifts   | mechanically detectable
+                    |                           | (SHA diffs, lint)
+Structure           | fixed up front            | grows with the knowledge
+Sweet spot          | the current project       | huge, heterogeneous
+                    |                           | knowledge volumes
+--------------------+---------------------------+---------------------------</pre>
+
+            <h1>[V] When You Don't Need a Wiki</h1>
+
+            <p>On the other hand, I am ready to admit that not every project needs a separate LLM wiki. If you work with a coding agent that indexes a repository well — Claude Code, Cursor, Codex — and your repository is well-structured — clean modular code, a README per module, clear DDD boundaries, and architecture documents — then much of the knowledge the wiki provides is already available through repository retrieval.</p>
+
+            <p>The wiki becomes valuable when the repository itself is no longer enough to answer cross-cutting questions. It adds a synthesis layer for knowledge that does not naturally belong to any single module: relationships between bounded contexts, end-to-end flows, provider comparisons, architectural contradictions, and verified claims that span multiple sources.</p>
+
+            <p>So the choice is not really "README or Wiki". A well-structured repository is the foundation. The wiki is an additional layer that becomes useful when the complexity of the system creates knowledge that cannot be cleanly owned by a single part of the codebase.</p>
+
+            <h2>The Default Setup I Recommend</h2>
+
+            <p>For a modular project of ordinary size, I would not start with a wiki. I would start with this:</p>
+
+            <pre>docs/
+├── architecture/
+│   ├── overview.md         system map: contexts and boundaries
+│   └── payment-flow.md     end-to-end flows
+├── decisions/              ADRs — the "why", not just the "what"
+├── modules/                one page per module
+├── integrations/           external services and their contracts
+└── development/            conventions, how to add a module
+
+AGENTS.md / CLAUDE.md       the rules — and the routing</pre>
+
+            <p>With an agent rules file whose contents look like this:</p>
+
+            <ul>
+                <li>You are working in DDD + Clean Architecture.</li>
+                <li>Domain does not depend on Infrastructure.</li>
+                <li>Use cases live in the Application layer.</li>
+                <li>Do not use Doctrine inside Domain.</li>
+                <li>Every change ships with tests.</li>
+                <li>Before changing the payment flow, read <code>docs/architecture/payment-flow.md</code>.</li>
+            </ul>
+
+            <p>That last line is the pattern that matters most: <strong>rules that route</strong>. "Before touching X, read Y" gives the agent exactly the progressive disclosure a wiki index gives — at zero maintenance cost beyond keeping Y honest.</p>
+
+            <h1>Conclusion</h1>
+
+            <p>Strip away the formats, and both approaches are one philosophy. Knowledge lives next to the code, in plain files, versioned like code. An entry file — CLAUDE.md, index.md — is a router, not a container.</p>
+
+            <p>The ladder, as I see it now:</p>
+
+            <ol>
+                <li><strong>Every project:</strong> a README worth reading, and a CLAUDE.md that routes.</li>
+                <li><strong>Modular projects:</strong> a <code>docs/</code> tree — architecture, decisions, module pages — with "read X before touching Y" rules wired into the agent file.</li>
+                <li><strong>Past the complexity threshold:</strong> an LLM-maintained wiki with verification metadata, synthesizing what no single document holds.</li>
+            </ol>
+
+            <h2>Where to Start</h2>
+
+            <ol>
+                <li><strong>Turn your CLAUDE.md into a router.</strong> A reading order, "read X before touching Y" rules, pointers instead of content. If it is longer than a page, it is holding knowledge that belongs elsewhere</li>
+                <li><strong>Create the docs/ skeleton.</strong> architecture/, decisions/, modules/, integrations/, development/ — even with three files in it, the structure tells both humans and agents where knowledge lives</li>
+                <li><strong>Write ADRs for the decisions you already regret not writing down.</strong> The "why" is the only part of your system an agent cannot re-derive from code</li>
+                <li><strong>Stop enumerating what a command can list.</strong> Point at <code>ls</code>, route dumps, configs. Lists drift; the filesystem does not</li>
+                <li><strong>Past the threshold — seed a wiki over your hardest subsystem.</strong> Copy Karpathy's gist to your agent, point it at the one domain where every answer lives in five places, and let it write the seventy pages you never will</li>
+                <li><strong>Make freshness mechanical.</strong> Pin every synthesized page to the commit it was verified against, and make "the diff was read" a precondition for moving that pin. A knowledge base you cannot audit for staleness is a rumor mill with good formatting</li>
+            </ol>
+
+            <p>In <a href="16.html">the previous article</a> I argued that the code is no longer yours. The knowledge about the code still has to be. The only question left is who maintains that knowledge — you, or your agent. My answer, after running both approaches: you curate, it maintains. That division of labor is the whole pattern.</p>
+
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+        <div class="footer-links">
+            <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+            <a href="mailto:mr.dukuy@gmail.com">Email</a>
+        </div>
+    </footer>
+</div>
+
+<link rel="stylesheet" href="../../resources/chat.css">
+<script>window.CHAT_SYSTEM_PROMPT = "AI assistant for Dykyi Roman's technical blog. The reader is viewing: " + ((document.querySelector('.article-title') || {}).textContent || '') + ". Answer questions about the article, explain concepts, provide examples. Be concise.";</script>
+<script src="../../resources/chat.js"></script>
+<script src="../../resources/load-header.js"></script>
+</body>
+<script src="../../resources/back-to-top.js"></script>
+<script src="../../resources/navigation.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</html>
