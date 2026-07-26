@@ -1,14 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <script src="../../resources/analytics.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dykyi Roman - Software Engineer</title>
+    <title>{BOOK NAME} - Dykyi Roman</title>
+    <meta name="description" content="{META DESCRIPTION}">
+    <meta name="author" content="Dykyi Roman">
+    <!-- Open Graph -->
+    <meta property="og:title" content="{BOOK NAME} - Dykyi Roman">
+    <meta property="og:description" content="{META DESCRIPTION}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://dykyi-roman.github.io/pages/book/{SLUG}.html">
     <link rel="icon" href="../../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/pages/book/{SLUG}.html">
     <link rel="stylesheet" type="text/css" href="../../resources/style.css">
+    <link rel="stylesheet" href="../../resources/book-review.css">
     <link rel="stylesheet" href="../../resources/navigation.css">
     <link rel="stylesheet" href="../../resources/vocabulary-section.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "Book",
+        "name": "{BOOK NAME}",
+        "author": {"@type": "Person", "name": "{Author}"}
+      },
+      "author": {"@type": "Person", "name": "Dykyi Roman"},
+      "url": "https://dykyi-roman.github.io/pages/book/{SLUG}.html"
+    }
+    </script>
 </head>
 <body>
 <!-- Side Navigation -->
@@ -23,10 +45,20 @@
     <!-- Include header from external file -->
     <div id="header-container"></div>
 
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="/pages/books.html">Book Reviews</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">{BOOK NAME}</span>
+    </nav>
+
     <!-- Book  -->
     <div id="book-section" class="section">
         <h3>{BOOK NAME}</h3>
         <p><strong>Author:</strong> {Author}</p>
+        <p><strong>Год:</strong> {YEAR} · <strong>Объём:</strong> {PAGES} стр. · <strong>Оценка:</strong> {RATING}/10</p>
+        <p><strong>Кому читать:</strong> {AUDIENCE}</p>
 
         <div class="post-content">
             <p>{DESCRIPTION}</p>
@@ -38,6 +70,22 @@
     <div id="review-section" class="section">
         <h3>Review</h3>
 
+        <div class="key-insight">
+            <div class="key-insight-title">Коротко</div>
+            <ul>
+                <li></li>
+            </ul>
+        </div>
+
+        <div class="concept">
+            <h4>1. {CONCEPT}</h4>
+            <p></p>
+        </div>
+
+        <div class="warning-box">
+            <div class="warning-title">Критика</div>
+            <p></p>
+        </div>
     </div>
 
     <!-- Vocabulary  -->
@@ -58,10 +106,21 @@
         </ul>
     </div>
 
+    <footer class="site-footer">
+        <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+        <div class="footer-links">
+            <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+            <a href="mailto:mr.dukuy@gmail.com">Email</a>
+        </div>
+    </footer>
 </div>
 
 <script src="../../resources/load-header.js"></script>
 </body>
 <script src="../../resources/back-to-top.js"></script>
 <script src="../../resources/navigation.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
 </html>
