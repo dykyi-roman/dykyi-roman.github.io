@@ -120,11 +120,12 @@ type: provider
 status: active
 verified: 2026-07-14
 verified_sha: 3f9c2e1
+sources: ...
 ---</pre>
 
             <p>A page opens with a lead paragraph that answers "why you came here", uses a single level of headings, always ends with an "Open questions" section, and must stay under <strong>120 lines</strong>. When a page outgrows the budget, the rule is to split it into two linked pages — never to stretch it. And every page needs at least two inbound links, so knowledge stays reachable instead of orphaned.</p>
 
-            <h2>The /wiki Command — and the One Rule That Holds It Together</h2>
+            <h2>The /wiki Command</h2>
 
             <p>All of this is wrapped into a single custom slash command I created for the agent — <code>/wiki</code>, defined in <code>.claude/commands/wiki.md</code>. It is the only entry point: outside of it, the wiki is never touched. Karpathy's three operations grew into seven subcommands:</p>
 
@@ -187,6 +188,10 @@ Architecture Decision Records
   ↓
 Issues / Pull Requests
   ↓
+Work Chats
+  ↓
+Video Call Recordings/Transcripts
+  ↓
 LLM — reads, synthesizes, cross-links
   ↓
 Knowledge Graph / Wiki</pre>
@@ -230,19 +235,6 @@ Sweet spot          | the current project       | huge, heterogeneous
 └── development/            conventions, how to add a module
 
 AGENTS.md / CLAUDE.md       the rules — and the routing</pre>
-
-            <p>With an agent rules file whose contents look like this:</p>
-
-            <ul>
-                <li>You are working in DDD + Clean Architecture.</li>
-                <li>Domain does not depend on Infrastructure.</li>
-                <li>Use cases live in the Application layer.</li>
-                <li>Do not use Doctrine inside Domain.</li>
-                <li>Every change ships with tests.</li>
-                <li>Before changing the payment flow, read <code>docs/architecture/payment-flow.md</code>.</li>
-            </ul>
-
-            <p>That last line is the pattern that matters most: <strong>rules that route</strong>. "Before touching X, read Y" gives the agent exactly the progressive disclosure a wiki index gives — at zero maintenance cost beyond keeping Y honest.</p>
 
             <h1>Conclusion</h1>
 
