@@ -1997,3 +1997,89 @@ summary h3:hover .section-anchor {
     display: block;
     background: #4CAF50;
 }
+
+/* ==========================================================================
+   Photo carousel (top of the travel page, fed by pages/gallery.html)
+   ========================================================================== */
+
+.photo-carousel {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--spacing-md);
+    padding: 8px 0;
+    border-radius: 12px;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.photo-carousel[hidden] {
+    display: none;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 8px;
+    width: max-content;
+    animation: carousel-scroll var(--carousel-duration, 60s) linear infinite;
+}
+
+@keyframes carousel-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-50% - 4px)); }
+}
+
+.photo-carousel:hover .carousel-track,
+.photo-carousel:focus-within .carousel-track {
+    animation-play-state: paused;
+}
+
+.carousel-item {
+    position: relative;
+    flex: 0 0 auto;
+    display: block;
+    width: 105px;
+    aspect-ratio: 3 / 4;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.carousel-item:hover {
+    transform: scale(1.08);
+    z-index: 2;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.6);
+}
+
+.carousel-item:focus-visible {
+    outline: 2px solid #FFD700;
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+    .carousel-item {
+        width: 84px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .photo-carousel {
+        overflow-x: auto;
+    }
+
+    .carousel-track {
+        animation: none;
+    }
+}
+
+@media print {
+    .photo-carousel {
+        display: none !important;
+    }
+}
