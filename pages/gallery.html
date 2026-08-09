@@ -16,11 +16,51 @@
     <link rel="canonical" href="https://dykyi-roman.github.io/pages/gallery.html">
     <link rel="stylesheet" type="text/css" href="../resources/style.css">
     <style>
+        .gallery-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
         .gallery-filter {
             display: flex;
             flex-wrap: wrap;
             gap: var(--spacing-xs);
-            margin-bottom: var(--spacing-md);
+        }
+
+        .gallery-views {
+            display: flex;
+            gap: var(--spacing-xs);
+            margin-left: auto;
+        }
+
+        .view-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 28px;
+            padding: 0;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            background: var(--color-white);
+            color: var(--color-text-light);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .view-btn svg {
+            fill: currentColor;
+        }
+
+        .view-btn:hover,
+        .view-btn.active {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: #fff;
         }
 
         .filter-btn {
@@ -44,8 +84,11 @@
         }
 
         .gallery-grid {
+            --gallery-cols: 10;
+            --gallery-cols-md: 6;
+            --gallery-cols-sm: 4;
             display: grid;
-            grid-template-columns: repeat(10, minmax(0, 1fr));
+            grid-template-columns: repeat(var(--gallery-cols), minmax(0, 1fr));
             gap: var(--spacing-xs);
         }
 
@@ -81,13 +124,13 @@
 
         @media (max-width: 768px) {
             .gallery-grid {
-                grid-template-columns: repeat(6, minmax(0, 1fr));
+                grid-template-columns: repeat(var(--gallery-cols-md), minmax(0, 1fr));
             }
         }
 
         @media (max-width: 480px) {
             .gallery-grid {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
+                grid-template-columns: repeat(var(--gallery-cols-sm), minmax(0, 1fr));
             }
         }
     </style>
@@ -116,6 +159,7 @@
     <div class="section">
         <h1>Gallery</h1>
 
+        <div class="gallery-toolbar">
         <div class="gallery-filter" role="group" aria-label="Filter photos by year">
             <button type="button" class="filter-btn active" data-year="all" aria-pressed="true">All</button>
             <button type="button" class="filter-btn" data-year="2026" aria-pressed="false">2026</button>
@@ -129,6 +173,40 @@
             <button type="button" class="filter-btn" data-year="2018" aria-pressed="false">2018</button>
             <button type="button" class="filter-btn" data-year="2017" aria-pressed="false">2017</button>
             <button type="button" class="filter-btn" data-year="2014" aria-pressed="false">2014</button>
+        </div>
+
+        <div class="gallery-views" role="group" aria-label="Photos per row">
+            <button type="button" class="view-btn" data-cols="10" title="10 per row" aria-label="10 photos per row" aria-pressed="false">
+                <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
+                    <rect x="0" y="0" width="2.4" height="2.4" rx="0.6"/><rect x="3.4" y="0" width="2.4" height="2.4" rx="0.6"/><rect x="6.8" y="0" width="2.4" height="2.4" rx="0.6"/><rect x="10.2" y="0" width="2.4" height="2.4" rx="0.6"/><rect x="13.6" y="0" width="2.4" height="2.4" rx="0.6"/>
+                    <rect x="0" y="3.4" width="2.4" height="2.4" rx="0.6"/><rect x="3.4" y="3.4" width="2.4" height="2.4" rx="0.6"/><rect x="6.8" y="3.4" width="2.4" height="2.4" rx="0.6"/><rect x="10.2" y="3.4" width="2.4" height="2.4" rx="0.6"/><rect x="13.6" y="3.4" width="2.4" height="2.4" rx="0.6"/>
+                    <rect x="0" y="6.8" width="2.4" height="2.4" rx="0.6"/><rect x="3.4" y="6.8" width="2.4" height="2.4" rx="0.6"/><rect x="6.8" y="6.8" width="2.4" height="2.4" rx="0.6"/><rect x="10.2" y="6.8" width="2.4" height="2.4" rx="0.6"/><rect x="13.6" y="6.8" width="2.4" height="2.4" rx="0.6"/>
+                    <rect x="0" y="10.2" width="2.4" height="2.4" rx="0.6"/><rect x="3.4" y="10.2" width="2.4" height="2.4" rx="0.6"/><rect x="6.8" y="10.2" width="2.4" height="2.4" rx="0.6"/><rect x="10.2" y="10.2" width="2.4" height="2.4" rx="0.6"/><rect x="13.6" y="10.2" width="2.4" height="2.4" rx="0.6"/>
+                    <rect x="0" y="13.6" width="2.4" height="2.4" rx="0.6"/><rect x="3.4" y="13.6" width="2.4" height="2.4" rx="0.6"/><rect x="6.8" y="13.6" width="2.4" height="2.4" rx="0.6"/><rect x="10.2" y="13.6" width="2.4" height="2.4" rx="0.6"/><rect x="13.6" y="13.6" width="2.4" height="2.4" rx="0.6"/>
+                </svg>
+            </button>
+            <button type="button" class="view-btn" data-cols="8" title="8 per row" aria-label="8 photos per row" aria-pressed="false">
+                <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
+                    <rect x="0" y="0" width="3.25" height="3.25" rx="0.6"/><rect x="4.25" y="0" width="3.25" height="3.25" rx="0.6"/><rect x="8.5" y="0" width="3.25" height="3.25" rx="0.6"/><rect x="12.75" y="0" width="3.25" height="3.25" rx="0.6"/>
+                    <rect x="0" y="4.25" width="3.25" height="3.25" rx="0.6"/><rect x="4.25" y="4.25" width="3.25" height="3.25" rx="0.6"/><rect x="8.5" y="4.25" width="3.25" height="3.25" rx="0.6"/><rect x="12.75" y="4.25" width="3.25" height="3.25" rx="0.6"/>
+                    <rect x="0" y="8.5" width="3.25" height="3.25" rx="0.6"/><rect x="4.25" y="8.5" width="3.25" height="3.25" rx="0.6"/><rect x="8.5" y="8.5" width="3.25" height="3.25" rx="0.6"/><rect x="12.75" y="8.5" width="3.25" height="3.25" rx="0.6"/>
+                    <rect x="0" y="12.75" width="3.25" height="3.25" rx="0.6"/><rect x="4.25" y="12.75" width="3.25" height="3.25" rx="0.6"/><rect x="8.5" y="12.75" width="3.25" height="3.25" rx="0.6"/><rect x="12.75" y="12.75" width="3.25" height="3.25" rx="0.6"/>
+                </svg>
+            </button>
+            <button type="button" class="view-btn" data-cols="6" title="6 per row" aria-label="6 photos per row" aria-pressed="false">
+                <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
+                    <rect x="0" y="0" width="4" height="4" rx="0.6"/><rect x="6" y="0" width="4" height="4" rx="0.6"/><rect x="12" y="0" width="4" height="4" rx="0.6"/>
+                    <rect x="0" y="6" width="4" height="4" rx="0.6"/><rect x="6" y="6" width="4" height="4" rx="0.6"/><rect x="12" y="6" width="4" height="4" rx="0.6"/>
+                    <rect x="0" y="12" width="4" height="4" rx="0.6"/><rect x="6" y="12" width="4" height="4" rx="0.6"/><rect x="12" y="12" width="4" height="4" rx="0.6"/>
+                </svg>
+            </button>
+            <button type="button" class="view-btn" data-cols="4" title="4 per row" aria-label="4 photos per row" aria-pressed="false">
+                <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false">
+                    <rect x="0" y="0" width="7" height="7" rx="0.6"/><rect x="9" y="0" width="7" height="7" rx="0.6"/>
+                    <rect x="0" y="9" width="7" height="7" rx="0.6"/><rect x="9" y="9" width="7" height="7" rx="0.6"/>
+                </svg>
+            </button>
+        </div>
         </div>
 
         <div class="gallery-grid">
@@ -1194,6 +1272,44 @@
             });
         });
     });
+
+    (function () {
+        const COOKIE = 'gallery-cols';
+        const ALLOWED = [10, 8, 6, 4];
+        const grid = document.querySelector('.gallery-grid');
+        const buttons = document.querySelectorAll('.view-btn');
+
+        function readCookie() {
+            const match = document.cookie.match(/(?:^|;\s*)gallery-cols=(\d+)/);
+            return match ? Number(match[1]) : null;
+        }
+
+        function writeCookie(cols) {
+            document.cookie = COOKIE + '=' + cols + '; path=/; max-age=31536000; SameSite=Lax';
+        }
+
+        function apply(cols) {
+            grid.style.setProperty('--gallery-cols', cols);
+            grid.style.setProperty('--gallery-cols-md', Math.min(cols, 6));
+            grid.style.setProperty('--gallery-cols-sm', Math.min(cols, 4));
+            buttons.forEach(btn => {
+                const active = Number(btn.dataset.cols) === cols;
+                btn.classList.toggle('active', active);
+                btn.setAttribute('aria-pressed', String(active));
+            });
+        }
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cols = Number(btn.dataset.cols);
+                apply(cols);
+                writeCookie(cols);
+            });
+        });
+
+        const saved = readCookie();
+        apply(ALLOWED.includes(saved) ? saved : 10);
+    })();
 </script>
 </body>
 </html>
