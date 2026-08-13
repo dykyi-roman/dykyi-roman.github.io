@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../resources/analytics.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn - Dykyi Roman | Knowledge Practice</title>
+    <meta name="description" content="Daily knowledge practice: principles, book vocabulary, quotes and insights collected by Dykyi Roman — flashcards, quizzes and search.">
+    <meta name="author" content="Dykyi Roman">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Learn - Dykyi Roman">
+    <meta property="og:description" content="Daily knowledge practice: principles, book vocabulary, quotes and insights — flashcards, quizzes and search.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dykyi-roman.github.io/pages/learn.html">
+    <link rel="icon" href="../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/pages/learn.html">
+    <link rel="stylesheet" type="text/css" href="../resources/style.css">
+    <link rel="stylesheet" href="../resources/learn.css">
+</head>
+<body>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+    <script>
+        fetch('../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">Learn</span>
+    </nav>
+
+    <main id="main-content">
+    <!--  Learn  -->
+    <div class="section">
+        <h1>Learn</h1>
+        <p class="learn-intro" id="learn-intro"></p>
+
+        <div id="learn-error" class="learn-empty" hidden>Knowledge data failed to load.</div>
+
+        <div class="learn-tabs" role="tablist" aria-label="Learning mode">
+            <button type="button" class="learn-tab active" data-mode="daily" role="tab" aria-selected="true" aria-controls="panel-daily">Daily 10</button>
+            <button type="button" class="learn-tab" data-mode="cards" role="tab" aria-selected="false" aria-controls="panel-cards">Flashcards</button>
+            <button type="button" class="learn-tab" data-mode="quiz" role="tab" aria-selected="false" aria-controls="panel-quiz">Quiz</button>
+            <button type="button" class="learn-tab" data-mode="browse" role="tab" aria-selected="false" aria-controls="panel-browse">Browse</button>
+        </div>
+
+        <!-- Daily 10 -->
+        <section id="panel-daily" class="learn-panel" role="tabpanel" aria-label="Daily 10">
+            <div class="learn-stats" id="daily-stats"></div>
+            <div class="learn-progress"><span id="daily-bar"></span></div>
+            <div class="k-list" id="daily-list"></div>
+            <div class="learn-actions">
+                <button type="button" class="learn-btn" id="daily-more">Show 10 more</button>
+            </div>
+        </section>
+
+        <!-- Flashcards -->
+        <section id="panel-cards" class="learn-panel" role="tabpanel" aria-label="Flashcards" hidden>
+            <div class="learn-stats" id="cards-stats"></div>
+            <div class="flashcard" id="flashcard" hidden>
+                <div class="flashcard-meta" id="flashcard-meta"></div>
+                <div class="flashcard-front" id="flashcard-front"></div>
+                <div class="flashcard-back" id="flashcard-back"></div>
+            </div>
+            <div class="learn-empty" id="cards-empty" hidden>
+                <p>No cards due today — come back tomorrow.</p>
+                <button type="button" class="learn-btn" id="cards-ahead">Practice ahead</button>
+            </div>
+            <div class="learn-actions">
+                <button type="button" class="learn-btn primary" id="cards-reveal">Show answer</button>
+                <button type="button" class="learn-btn again" id="cards-again" hidden>Again</button>
+                <button type="button" class="learn-btn good" id="cards-good" hidden>Good</button>
+                <button type="button" class="learn-btn" id="cards-new10">+10 new</button>
+            </div>
+            <p class="learn-keys">Keyboard: Space — show answer · 1 — Again · 2 — Good</p>
+        </section>
+
+        <!-- Quiz -->
+        <section id="panel-quiz" class="learn-panel" role="tabpanel" aria-label="Quiz" hidden>
+            <div id="quiz-start">
+                <div class="learn-stats" id="quiz-total-stats"></div>
+                <button type="button" class="learn-btn primary" id="quiz-begin">Start quiz — 10 questions</button>
+            </div>
+            <div id="quiz-round" hidden>
+                <div class="learn-stats" id="quiz-progress"></div>
+                <div class="quiz-question" id="quiz-question"></div>
+                <div class="quiz-options" id="quiz-options"></div>
+                <div class="learn-actions">
+                    <button type="button" class="learn-btn primary" id="quiz-next" hidden>Next</button>
+                </div>
+            </div>
+            <div id="quiz-done" class="learn-empty" hidden>
+                <p id="quiz-score"></p>
+                <button type="button" class="learn-btn primary" id="quiz-again">New round</button>
+            </div>
+        </section>
+
+        <!-- Browse -->
+        <section id="panel-browse" class="learn-panel" role="tabpanel" aria-label="Browse" hidden>
+            <div class="learn-toolbar">
+                <input type="search" id="browse-search" placeholder="Search…" aria-label="Search knowledge">
+                <select id="browse-src" aria-label="Filter by source"></select>
+                <select id="browse-type" aria-label="Filter by type"></select>
+                <select id="browse-category" aria-label="Filter by category"></select>
+                <button type="button" class="learn-btn" id="browse-shuffle">Shuffle</button>
+                <button type="button" class="learn-btn" id="browse-reset">Reset</button>
+                <button type="button" class="learn-btn" id="browse-export-json">Export JSON</button>
+                <button type="button" class="learn-btn" id="browse-export-csv">Export CSV</button>
+                <span class="learn-count" id="browse-count"></span>
+            </div>
+            <div class="k-list" id="browse-list"></div>
+            <div class="learn-actions">
+                <button type="button" class="learn-btn" id="browse-more" hidden>Show more</button>
+            </div>
+            <div class="learn-empty" id="browse-empty" hidden>No results.</div>
+        </section>
+    </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+        <div class="footer-links">
+            <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+            <a href="mailto:mr.dukuy@gmail.com">Email</a>
+        </div>
+    </footer>
+</div>
+
+<script src="../resources/back-to-top.js"></script>
+<script src="../resources/knowledge-data.js"></script>
+<script src="../resources/learn.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</body>
+</html>

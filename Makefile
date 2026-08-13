@@ -3,3 +3,6 @@ encode:
 
 decode:
 	python3 scripts/decode_letter.py
+
+knowledge:
+	python3 scripts/extract_knowledge.py
