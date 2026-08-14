@@ -154,16 +154,6 @@
     color: var(--color-text-light);
 }
 
-.k-done {
-    margin-left: auto;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    color: var(--color-text-light);
-    cursor: pointer;
-    user-select: none;
-}
-
 .k-title {
     font-weight: 600;
     color: var(--color-heading);
@@ -175,25 +165,6 @@
     overflow-wrap: anywhere;
 }
 
-.k-card.done {
-    opacity: 0.45;
-}
-
-.learn-progress {
-    height: 6px;
-    background: var(--color-border);
-    border-radius: 999px;
-    overflow: hidden;
-    margin: var(--spacing-sm) 0 var(--spacing-md);
-}
-
-.learn-progress span {
-    display: block;
-    height: 100%;
-    width: 0;
-    background: var(--color-primary);
-    transition: width var(--transition-normal);
-}
 
 /* --- Flashcards --- */
 
