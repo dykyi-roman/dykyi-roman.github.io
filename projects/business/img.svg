@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif">
+  <defs>
+    <linearGradient id="cf-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1f2430"/>
+      <stop offset="1" stop-color="#12151c"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="400" rx="16" fill="url(#cf-bg)"/>
+  <rect x="0.5" y="0.5" width="599" height="399" rx="15.5" fill="none" stroke="#2f3646"/>
+
+  <!-- ===== KPI row ===== -->
+  <g transform="translate(30,30)" font-size="10" font-weight="700">
+    <g>
+      <rect width="128" height="52" rx="7" fill="#212736" stroke="#2f3646"/>
+      <text x="12" y="20" fill="#8892a4">ВЫРУЧКА / МЕС</text>
+      <text x="12" y="40" font-size="16" font-weight="800" fill="#e6e9ef">42 800 €</text>
+    </g>
+    <g transform="translate(136,0)">
+      <rect width="128" height="52" rx="7" fill="#1f2517" stroke="#7f9f3a"/>
+      <text x="12" y="20" fill="#a8bf6a">EBITDA</text>
+      <text x="12" y="40" font-size="16" font-weight="800" fill="#c9dd8a">6 150 €</text>
+    </g>
+    <g transform="translate(272,0)">
+      <rect width="128" height="52" rx="7" fill="#2a2113" stroke="#dc7603"/>
+      <text x="12" y="20" fill="#e0a45c">PRIME COST</text>
+      <text x="12" y="40" font-size="16" font-weight="800" fill="#f0bd7a">62 %</text>
+    </g>
+    <g transform="translate(408,0)">
+      <rect width="128" height="52" rx="7" fill="#212736" stroke="#2f3646"/>
+      <text x="12" y="20" fill="#8892a4">ОКУПАЕМОСТЬ</text>
+      <text x="12" y="40" font-size="16" font-weight="800" fill="#e6e9ef">19 мес</text>
+    </g>
+  </g>
+
+  <!-- ===== Guests-by-hour chart ===== -->
+  <g transform="translate(30,104)">
+    <text x="0" y="10" font-size="10" font-weight="700" fill="#8892a4">ГОСТЕЙ ПО ЧАСАМ</text>
+    <line x1="0" y1="98" x2="300" y2="98" stroke="#2f3646"/>
+    <g fill="#dc7603">
+      <rect x="4" y="72" width="14" height="26" rx="2"/>
+      <rect x="28" y="58" width="14" height="40" rx="2"/>
+      <rect x="52" y="48" width="14" height="50" rx="2"/>
+      <rect x="76" y="62" width="14" height="36" rx="2"/>
+      <rect x="100" y="40" width="14" height="58" rx="2"/>
+      <rect x="124" y="24" width="14" height="74" rx="2"/>
+      <rect x="148" y="30" width="14" height="68" rx="2"/>
+      <rect x="172" y="56" width="14" height="42" rx="2"/>
+      <rect x="196" y="64" width="14" height="34" rx="2"/>
+      <rect x="220" y="68" width="14" height="30" rx="2"/>
+      <rect x="244" y="78" width="14" height="20" rx="2"/>
+      <rect x="268" y="86" width="14" height="12" rx="2"/>
+    </g>
+    <polyline points="11,66 35,52 59,38 83,44 107,32 131,18 155,22 179,44 203,52 227,58 251,70 275,80"
+              fill="none" stroke="#4f9cf9" stroke-width="2" stroke-linejoin="round"/>
+    <g font-size="9" font-weight="600" fill="#8892a4">
+      <text x="0" y="112">08</text>
+      <text x="130" y="112">14</text>
+      <text x="266" y="112">20</text>
+      <text x="196" y="14" fill="#dc7603">будни</text>
+      <text x="248" y="14" fill="#4f9cf9">выходные</text>
+    </g>
+  </g>
+
+  <!-- ===== P&L waterfall ===== -->
+  <g transform="translate(352,104)" font-size="9" font-weight="700">
+    <text x="0" y="10" font-size="10" fill="#8892a4">ПУТЬ ВЫРУЧКИ</text>
+    <g transform="translate(0,20)">
+      <rect width="214" height="14" rx="3" fill="#4f9cf9"/>
+      <text x="0" y="26" fill="#8892a4">выручка</text>
+      <g transform="translate(0,32)">
+        <rect width="66" height="14" rx="3" fill="#c2410c"/>
+        <text x="0" y="26" fill="#8892a4">food cost</text>
+      </g>
+      <g transform="translate(0,64)">
+        <rect width="78" height="14" rx="3" fill="#b45309"/>
+        <text x="0" y="26" fill="#8892a4">персонал</text>
+      </g>
+      <g transform="translate(0,96)">
+        <rect width="44" height="14" rx="3" fill="#7c3aed"/>
+        <text x="0" y="26" fill="#8892a4">аренда и постоянные</text>
+      </g>
+      <g transform="translate(0,128)">
+        <rect width="32" height="14" rx="3" fill="#10B981"/>
+        <text x="0" y="26" fill="#a8bf6a">EBITDA</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ===== Break-even marker ===== -->
+  <g transform="translate(30,226)">
+    <text x="0" y="10" font-size="10" font-weight="700" fill="#8892a4">БЕЗУБЫТОЧНОСТЬ — ЗАГРУЗКА ЗАЛА</text>
+    <rect x="0" y="18" width="300" height="18" rx="5" fill="#2b3242"/>
+    <rect x="0" y="18" width="168" height="18" rx="5" fill="#4a7f2f"/>
+    <line x1="126" y1="12" x2="126" y2="42" stroke="#dc7603" stroke-width="2"/>
+    <circle cx="126" cy="12" r="3.5" fill="#dc7603"/>
+    <text x="132" y="52" font-size="9" font-weight="700" fill="#e0a45c">денежная 24 %</text>
+    <line x1="168" y1="12" x2="168" y2="42" stroke="#f0bd7a" stroke-width="2" stroke-dasharray="3 3"/>
+    <text x="228" y="52" font-size="9" font-weight="700" fill="#8892a4">план 32 %</text>
+  </g>
+
+  <!-- ===== Title ===== -->
+  <text x="300" y="330" font-size="20" font-weight="800" fill="#e6e9ef" text-anchor="middle">Cafe Business Model</text>
+  <text x="300" y="352" font-size="11" font-weight="500" fill="#8892a4" text-anchor="middle">P&#38;L &#183; безубыточность &#183; окупаемость &#183; чувствительность</text>
+  <text x="300" y="374" font-size="10" font-weight="500" fill="#6b7688" text-anchor="middle">три сценария: пессимистичный &#183; базовый &#183; оптимистичный</text>
+</svg>

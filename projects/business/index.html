@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="../../resources/analytics.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="cf.meta.title">Cafe Business Model — unit economics calculator | Dykyi Roman</title>
+<meta name="description" data-i18n-content="cf.meta.description" content="Unit-economics calculator for a cafe: P&amp;L of an average month, two break-even points, payback period and sensitivity analysis. Dine-in, takeaway and delivery, staff, taxes, start-up investment, three scenarios.">
+<meta name="author" content="Dykyi Roman">
+<meta property="og:title" data-i18n-content="cf.meta.ogTitle" content="Cafe Business Model — unit economics calculator">
+<meta property="og:description" data-i18n-content="cf.meta.ogDescription" content="Set the parameters of a cafe and get its P&amp;L, break-even point, payback and the levers that move profit the most. Everything is computed in the browser, nothing is sent to a server.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dykyi-roman.github.io/projects/business/">
+<link rel="icon" href="../../icon.ico" type="image/x-icon">
+<link rel="canonical" href="https://dykyi-roman.github.io/projects/business/">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="i-cup" viewBox="0 0 24 24"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+<symbol id="i-chair" viewBox="0 0 24 24"><path d="M6 10V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v6"/><path d="M4 10h16v4H4z"/><line x1="7" y1="14" x2="7" y2="21"/><line x1="17" y1="14" x2="17" y2="21"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 3h13a3 3 0 0 1 3 3v15H7a3 3 0 0 1-3-3z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></symbol>
+<symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-building" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="18" rx="1"/><rect x="13" y="8" width="8" height="13" rx="1"/><line x1="6" y1="7" x2="8" y2="7"/><line x1="6" y1="11" x2="8" y2="11"/><line x1="6" y1="15" x2="8" y2="15"/><line x1="16" y1="12" x2="18" y2="12"/><line x1="16" y1="16" x2="18" y2="16"/></symbol>
+<symbol id="i-percent" viewBox="0 0 24 24"><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></symbol>
+<symbol id="i-scale" viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7h6z"/><path d="M19 7l-3 7h6z"/><path d="M8 21h8"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol>
+<symbol id="i-pie" viewBox="0 0 24 24"><path d="M21.2 15.9A10 10 0 1 1 8.1 2.8"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.8V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.8"/><path d="M10 21v-6h4v6"/></symbol>
+<symbol id="i-arrow-left" viewBox="0 0 24 24"><line x1="20" y1="12" x2="5" y2="12"/><polyline points="11 18 5 12 11 6"/></symbol>
+</defs></svg>
+
+<a class="skip-link" href="#main" data-i18n="cf.skip">Skip to content</a>
+
+<div class="layout">
+
+<nav class="side">
+  <a class="back-link" href="../../pages/projects.html">
+    <svg class="ic"><use href="#i-arrow-left"/></svg><span data-i18n="cf.nav.back">Back to projects</span>
+  </a>
+  <h1 data-i18n="cf.nav.title">Cafe business model</h1>
+  <div class="sub" data-i18n="cf.nav.sub">unit economics before opening — the numbers stay in your browser</div>
+
+  <div class="theme-row">
+    <button type="button" class="ghost-btn sm" id="themeAuto" data-i18n="cf.theme.auto">Auto</button>
+    <button type="button" class="ghost-btn sm" id="themeLight" data-i18n-title="cf.theme.light" title="Light theme"><svg class="ic"><use href="#i-sun"/></svg></button>
+    <button type="button" class="ghost-btn sm" id="themeDark" data-i18n-title="cf.theme.dark" title="Dark theme"><svg class="ic"><use href="#i-moon"/></svg></button>
+  </div>
+
+  <div class="lang-switcher" id="lang-switcher"></div>
+
+  <div class="nav-group">
+    <div class="nav-group-title" data-i18n="cf.nav.group.params">Parameters</div>
+    <a href="#s-general"><svg class="ic"><use href="#i-clock"/></svg><span data-i18n="cf.nav.general">Opening hours</span></a>
+    <a href="#s-hall"><svg class="ic"><use href="#i-chair"/></svg><span data-i18n="cf.nav.hall">Room and occupancy</span></a>
+    <a href="#s-menu"><svg class="ic"><use href="#i-menu"/></svg><span data-i18n="cf.nav.menu">Menu and check</span></a>
+    <a href="#s-channels"><svg class="ic"><use href="#i-bag"/></svg><span data-i18n="cf.nav.channels">Takeaway and delivery</span></a>
+    <a href="#s-staff"><svg class="ic"><use href="#i-users"/></svg><span data-i18n="cf.nav.staff">Staff</span></a>
+    <a href="#s-fixed"><svg class="ic"><use href="#i-building"/></svg><span data-i18n="cf.nav.fixed">Fixed costs</span></a>
+    <a href="#s-tax"><svg class="ic"><use href="#i-percent"/></svg><span data-i18n="cf.nav.tax">Variable costs and taxes</span></a>
+    <a href="#s-capex"><svg class="ic"><use href="#i-wallet"/></svg><span data-i18n="cf.nav.capex">Start-up investment</span></a>
+    <a href="#s-scen"><svg class="ic"><use href="#i-layers"/></svg><span data-i18n="cf.nav.scen">Scenarios</span></a>
+  </div>
+
+  <div class="nav-group">
+    <div class="nav-group-title" data-i18n="cf.nav.group.result">Result</div>
+    <a href="#s-kpi"><svg class="ic"><use href="#i-target"/></svg><span data-i18n="cf.nav.kpi">Key metrics</span></a>
+    <a href="#s-pnl"><svg class="ic"><use href="#i-scale"/></svg><span data-i18n="cf.nav.pnl">Monthly P&amp;L</span></a>
+    <a href="#s-hours"><svg class="ic"><use href="#i-chart"/></svg><span data-i18n="cf.nav.hours">Guests by hour</span></a>
+    <a href="#s-water"><svg class="ic"><use href="#i-trend"/></svg><span data-i18n="cf.nav.water">From revenue to profit</span></a>
+    <a href="#s-struct"><svg class="ic"><use href="#i-pie"/></svg><span data-i18n="cf.nav.struct">Cost structure</span></a>
+    <a href="#s-bep"><svg class="ic"><use href="#i-target"/></svg><span data-i18n="cf.nav.bep">Break-even</span></a>
+    <a href="#s-sens"><svg class="ic"><use href="#i-sliders"/></svg><span data-i18n="cf.nav.sens">Sensitivity</span></a>
+    <a href="#s-scenres"><svg class="ic"><use href="#i-layers"/></svg><span data-i18n="cf.nav.scenres">Scenario comparison</span></a>
+  </div>
+
+</nav>
+
+<main id="main">
+
+  <!-- Предупреждения о хранилище живут снаружи сворачиваемого блока: они важны
+       и тогда, когда параметры свёрнуты. -->
+  <div class="warnbox info" id="storeNote" hidden></div>
+
+  <!-- Верхний переключатель тоже снаружи #params — иначе, свернув форму, её
+       нечем было бы развернуть, не уходя вниз к панели запуска. -->
+  <div class="topbar">
+    <span class="t" data-i18n="cf.topbar.title">Model parameters</span>
+    <span class="spacer"></span>
+    <button type="button" class="ghost-btn" id="toggleParamsTop"
+            data-i18n-title="cf.btn.toggleTitle" title="Hide or show every parameter block">Collapse parameters</button>
+  </div>
+
+  <!-- ============================ ПАРАМЕТРЫ ============================ -->
+  <div id="params">
+
+  <div class="card">
+    <h2><svg class="ic"><use href="#i-cup"/></svg> <span data-i18n="cf.card.start">Where to start</span></h2>
+    <div class="body">
+      <p class="lead" style="margin:0" data-i18n="cf.start.lead">
+        Fill in the parameters below and press «Calculate». The model returns the P&amp;L of an
+        average month, the break-even point and the payback period, and shows which levers move
+        profit the most. Parameters are saved in the browser automatically; to keep them for
+        good, export the JSON — the same file can be loaded back.
+      </p>
+    </div>
+  </div>
+
+  <section class="card" id="s-general">
+    <h2><svg class="ic"><use href="#i-clock"/></svg> <span data-i18n="cf.card.general">Venue and opening hours</span></h2>
+    <div class="fields" id="f-general"></div>
+    <div class="body" style="padding-top:0">
+      <div class="fieldset-title" style="border:0;padding:0;margin:0 0 8px" data-i18n="cf.general.workdays">Working days</div>
+      <div class="days" id="dayToggles"></div>
+      <div class="lt-note" id="daysNote"></div>
+    </div>
+    <div class="fields" id="f-hours"></div>
+  </section>
+
+  <section class="card" id="s-hall">
+    <h2><svg class="ic"><use href="#i-chair"/></svg> <span data-i18n="cf.card.hall">Room and occupancy by hour</span></h2>
+    <div class="fields" id="f-hall"></div>
+    <div class="body" style="padding-top:6px">
+      <div class="fieldset-title" style="border:0;padding:0;margin:0 0 8px" data-i18n="cf.hall.occTitle">
+        Room occupancy, % of seats taken
+      </div>
+      <div class="lt-note" style="margin:0 0 10px" id="turnsNote"></div>
+      <div class="presets" id="occPresets"></div>
+      <div class="grid2" style="gap:22px">
+        <div>
+          <div class="fieldset-title" style="border:0;padding:0;margin:0 0 8px" data-i18n="cf.hall.weekday">Weekdays</div>
+          <div class="occ" id="occWd"></div>
+        </div>
+        <div>
+          <div class="fieldset-title" style="border:0;padding:0;margin:0 0 8px" data-i18n="cf.hall.weekend">Weekends</div>
+          <div class="occ" id="occWe"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="s-menu">
+    <h2><svg class="ic"><use href="#i-menu"/></svg> <span data-i18n="cf.card.menu">Menu and average check</span></h2>
+    <div class="body">
+      <p class="lead" data-i18n="cf.menu.lead" data-i18n-html="true">Enter how much <b>a single guest</b> spends on each category on
+        average. The sum of those amounts is the average check — no shares to work out.</p>
+      <div class="tablewrap"><table class="lt" id="menuTable"></table></div>
+      <div class="lt-note" id="menuNote"></div>
+    </div>
+    <div class="fields" id="f-menu"></div>
+  </section>
+
+  <section class="card" id="s-channels">
+    <h2><svg class="ic"><use href="#i-bag"/></svg> <span data-i18n="cf.card.channels">Takeaway and delivery</span></h2>
+    <div class="fields" id="f-channels"></div>
+  </section>
+
+  <section class="card" id="s-staff">
+    <h2><svg class="ic"><use href="#i-users"/></svg> <span data-i18n="cf.card.staff">Staff</span></h2>
+    <div class="body">
+      <div class="tablewrap"><table class="lt" id="staffTable"></table></div>
+      <div class="lt-note" id="staffNote"></div>
+    </div>
+    <div class="fields" id="f-staff"></div>
+  </section>
+
+  <section class="card" id="s-fixed">
+    <h2><svg class="ic"><use href="#i-building"/></svg> <span data-i18n="cf.card.fixed">Fixed costs, per month</span></h2>
+    <div class="body">
+      <div class="tablewrap"><table class="lt" id="fixedTable"></table></div>
+      <div class="lt-note" id="fixedNote"></div>
+    </div>
+  </section>
+
+  <section class="card" id="s-tax">
+    <h2><svg class="ic"><use href="#i-percent"/></svg> <span data-i18n="cf.card.tax">Variable costs and taxes</span></h2>
+    <div class="fields" id="f-tax"></div>
+  </section>
+
+  <section class="card" id="s-capex">
+    <h2><svg class="ic"><use href="#i-wallet"/></svg> <span data-i18n="cf.card.capex">Start-up investment</span></h2>
+    <div class="body">
+      <p class="lead" data-i18n="cf.capex.lead" data-i18n-html="true">Each line has its own depreciation period: a fit-out lasts longer
+        than tableware. The deposit, the opening inventory and the reserve are not depreciated — they
+        are frozen cash, not wear and tear.</p>
+      <div class="tablewrap"><table class="lt" id="capexTable"></table></div>
+      <div class="lt-note" id="capexNote"></div>
+    </div>
+  </section>
+
+  <section class="card" id="s-scen">
+    <h2><svg class="ic"><use href="#i-layers"/></svg> <span data-i18n="cf.card.scen">Scenarios</span></h2>
+    <div class="body">
+      <p class="lead" data-i18n="cf.scen.lead" data-i18n-html="true">Every value is a <b>multiplier on the base parameter</b>: 1 means
+        «as set above», 0.75 is minus 25%, 1.2 is plus 20%. Sensitivity analysis is always computed
+        from the base scenario, so the two never mix.</p>
+      <div class="tablewrap"><table class="lt" id="scenTable"></table></div>
+      <div class="lt-note" id="scenNote"></div>
+    </div>
+  </section>
+
+  </div><!-- /#params -->
+
+  <!-- ============================== ЗАПУСК ============================== -->
+
+  <div class="runbar">
+    <button type="button" class="btn primary" id="run" data-i18n="cf.btn.run">Calculate</button>
+    <button type="button" class="ghost-btn" id="toggleParams"
+            data-i18n-title="cf.btn.toggleTitle" title="Hide or show every parameter block">Collapse parameters</button>
+    <span class="status" id="runStatus"></span>
+    <span class="spacer" style="flex:1"></span>
+    <button type="button" class="ghost-btn" id="exportBtn" data-i18n="cf.btn.export" data-i18n-title="cf.btn.exportTitle" title="Download parameters and results as one JSON file">Export JSON</button>
+    <button type="button" class="ghost-btn" id="importBtn" data-i18n="cf.btn.import" data-i18n-title="cf.btn.importTitle" title="Load a previously saved file">Import JSON</button>
+    <input type="file" id="importFile" accept="application/json,.json" hidden>
+    <button type="button" class="ghost-btn danger" id="resetBtn" data-i18n="cf.btn.reset" data-i18n-title="cf.btn.resetTitle" title="Return every field to its original value">Reset</button>
+  </div>
+
+  <!-- ============================= РЕЗУЛЬТАТ ============================ -->
+
+  <div id="result" hidden>
+
+    <div class="scen-tabs" id="scenTabs" style="padding-left:0"></div>
+
+    <section class="card reveal" id="s-kpi">
+      <h2><svg class="ic"><use href="#i-target"/></svg> <span data-i18n="cf.card.kpi">Key metrics</span> <span class="badge" id="kpiBadge"></span></h2>
+      <div class="kpis" id="kpis"></div>
+      <div id="warnHost"></div>
+    </section>
+
+    <section class="card reveal" id="s-pnl">
+      <h2><svg class="ic"><use href="#i-scale"/></svg> <span data-i18n="cf.card.pnl">Report for an average month</span></h2>
+      <div class="body" style="padding:0">
+        <table class="pnl" id="pnlTable"></table>
+      </div>
+    </section>
+
+    <section class="card reveal" id="s-hours">
+      <h2><svg class="ic"><use href="#i-chart"/></svg> <span data-i18n="cf.card.hours">Guests by hour</span></h2>
+      <div class="chart-scroll"><svg id="chHours" viewBox="0 0 900 300" width="100%" height="300" role="img" data-i18n-aria="cf.aria.hours" aria-label="Bar chart of guest numbers across opening hours, weekdays and weekends separately"></svg></div>
+      <div class="legend" id="lgHours"></div>
+    </section>
+
+    <section class="card reveal" id="s-water">
+      <h2><svg class="ic"><use href="#i-trend"/></svg> <span data-i18n="cf.card.water">From revenue to profit</span></h2>
+      <div class="chart-scroll"><svg id="chWater" viewBox="0 0 900 340" width="100%" height="340" role="img" data-i18n-aria="cf.aria.water" aria-label="Waterfall chart: costs are subtracted from revenue step by step down to net profit"></svg></div>
+    </section>
+
+    <section class="card reveal" id="s-struct">
+      <h2><svg class="ic"><use href="#i-pie"/></svg> <span data-i18n="cf.card.struct">Cost structure</span></h2>
+      <div class="donut-row">
+        <svg id="chDonut" viewBox="0 0 260 260" width="260" height="260" role="img" data-i18n-aria="cf.aria.donut" aria-label="Doughnut chart of the cost structure"></svg>
+        <div class="legend col" id="lgDonut"></div>
+      </div>
+    </section>
+
+    <section class="card reveal" id="s-bep">
+      <h2><svg class="ic"><use href="#i-target"/></svg> <span data-i18n="cf.card.bep">Break-even point</span></h2>
+      <div class="body" style="padding-bottom:0"><div class="lt-note" id="bepNote"></div></div>
+      <div class="chart-scroll"><svg id="chBep" viewBox="0 0 900 320" width="100%" height="320" role="img" data-i18n-aria="cf.aria.bep" aria-label="Revenue and cost lines against guests per day, with their crossing point"></svg></div>
+      <div class="legend" id="lgBep"></div>
+    </section>
+
+    <section class="card reveal" id="s-sens">
+      <h2><svg class="ic"><use href="#i-sliders"/></svg> <span data-i18n="cf.card.sens">What moves profit the most</span> <span class="badge" data-i18n="cf.card.sensBadge">from the base scenario</span></h2>
+      <div class="chart-scroll"><svg id="chTornado" viewBox="0 0 900 300" width="100%" height="300" role="img" data-i18n-aria="cf.aria.tornado" aria-label="Tornado chart: change in net profit when each parameter moves by ±10 and ±20 percent"></svg></div>
+      <div class="body" style="padding-top:0"><div class="lt-note" id="sensNote"></div></div>
+    </section>
+
+    <section class="card reveal" id="s-scenres">
+      <h2><svg class="ic"><use href="#i-layers"/></svg> <span data-i18n="cf.card.scenres">Scenario comparison</span></h2>
+      <div class="chart-scroll"><svg id="chScen" viewBox="0 0 900 280" width="100%" height="280" role="img" data-i18n-aria="cf.aria.scen" aria-label="Net profit compared across the pessimistic, base and optimistic scenarios"></svg></div>
+      <div class="body" style="padding:0 0 4px"><table class="pnl" id="scenResTable"></table></div>
+    </section>
+
+  </div>
+</main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/engine.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/charts.js"></script>
+<script src="../../resources/i18n.js"></script>
+<script>
+  /* Бутстрап ждёт переводы: иначе первый кадр рисуется по-английски и тут же
+     перерисовывается, а на медленном соединении это видно. Если переводы не
+     пришли (file://, где fetch запрещён), I18N.load всё равно резолвится и
+     страница остаётся английской — CF_boot вызывается в любом случае. */
+  I18N._basePath = '../..';
+  I18N.load('business', '../..').then(function () {
+    I18N.renderSwitcher('lang-switcher');
+    CF_applyLang();
+    CF_boot();
+  });
+</script>
+</body>
+</html>
