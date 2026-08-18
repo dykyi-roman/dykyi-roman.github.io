@@ -249,7 +249,7 @@ var FIELDS = {
       opts: [["profit", ["cf.opt.profit", "On profit"]],
              ["turnover", ["cf.opt.turnover", "On turnover"]],
              ["both", ["cf.opt.both", "Both"]]],
-      hint: ["cf.f.taxRegime.hint", "The inactive rate is locked at zero so that nothing is paid twice."] },
+      hint: ["cf.f.taxRegime.hint", "The inactive rate is greyed out and ignored in the calculation, so nothing is paid twice."] },
     { k: "profitTax", t: "num", label: ["cf.f.profitTax", "Profit tax"], unit: U_PCT, step: 1, min: 0, max: 100 },
     { k: "turnoverTax", t: "num", label: ["cf.f.turnoverTax", "Turnover tax"], unit: U_PCT, step: 0.5, min: 0, max: 100 },
     { k: "turnoverBase", t: "select", label: ["cf.f.turnoverBase", "Turnover tax base"],
@@ -332,9 +332,24 @@ function buildField(spec) {
       inp.value = (spec.k === "name" && P.name === defaults().name)
         ? T("cf.venue.default", null, P.name)
         : P[spec.k];
+      /* Поле с min > 0 (длительность визита) нельзя оставлять пустым: пустота
+         превращалась в 0, движок поднимал её до 5 минут, и пока пользователь
+         стирал старое значение, ёмкость зала на экране вырастала в девять раз
+         и успевала лечь в сохранёнку. Пустое значение в P не пишем, на blur
+         возвращаем прежнее. */
+      var keepLast = spec.t === "num" && spec.min > 0;
       inp.addEventListener("input", function () {
-        setParam(spec.k, spec.t === "num" && inp.value !== "" ? num(inp.value) : inp.value);
+        if (spec.t === "num" && inp.value === "") {
+          if (!keepLast) setParam(spec.k, "");
+          return;
+        }
+        setParam(spec.k, spec.t === "num" ? num(inp.value) : inp.value);
       });
+      if (keepLast) {
+        inp.addEventListener("blur", function () {
+          if (inp.value === "") inp.value = P[spec.k];
+        });
+      }
     }
     inp.id = id;
     row.appendChild(inp);
@@ -598,7 +613,9 @@ function renderScenTable() {
       inp.disabled = (s === "base");
       var delta = h("span", "unit delta", multLabel(P.scen[s][k]));
       inp.addEventListener("input", function () {
-        P.scen[s][k] = num(inp.value);
+        /* Пустое поле храним пустым — движок читает его как «как есть»; а вот
+           введённый 0 остаётся нулём, как и обещает подпись «−100 %». */
+        P.scen[s][k] = inp.value === "" ? "" : num(inp.value);
         delta.textContent = multLabel(P.scen[s][k]);
         markDirty(); scheduleSave();
       });
@@ -620,9 +637,10 @@ function renderScenTable() {
       "checks, fixed costs — to the cost lines.")));
   }
 }
-/* «×0,75» → «−25 %»; ровно единица подписывается словом, чтобы не было «0 %». */
+/* «×0,75» → «−25 %»; ровно единица (и пустое поле) подписывается словом,
+   чтобы не было «0 %». Ту же трактовку пустого поля даёт mult() в движке. */
 function multLabel(m) {
-  var v = num(m);
+  var v = mult(m);
   if (v === 1) return T("cf.scen.asIs", null, "as is");
   /* округляем до десятой: (1.05 - 1) * 100 в двоичной арифметике даёт
      5.000000000000004, и без этого подпись выходит «+5,0 %» вместо «+5 %» */
@@ -864,6 +882,13 @@ function applyParams(src) {
   /* Единая точка и для сохранёнки, и для импорта файла: старые русские названия
      приводятся к дефолтам сразу после того, как состояние легло в P. */
   if (migrateLegacyNames()) legacyFixed = true;
+  /* Базовый ряд множителей в форме заблокирован и всегда равен единице —
+     движок его и не применяет. Файл мог принести другие значения; чтобы
+     заблокированное поле не показывало то, чего нет в расчёте, выравниваем. */
+  if (P.scen) P.scen.base = { traffic: 1, check: 1, fixed: 1 };
+  /* Незнакомый режим налога селект показал бы пустым, а движок счёл бы
+     «на прибыль» — пусть и в P лежит то же самое. */
+  if (["profit", "turnover", "both"].indexOf(P.taxRegime) < 0) P.taxRegime = "profit";
 }
 
 function load() {
@@ -1010,6 +1035,17 @@ function animateNum(node, to, fmt) {
   requestAnimationFrame(step);
 }
 
+/* Движок не знает языка интерфейса, поэтому в предупреждении о строке таблицы
+   он передаёт её id и ключ списка — название подставляем здесь, переведённое
+   по тому же правилу, что и в самой таблице. */
+function warnParams(p) {
+  if (!p || !p.listKey || !p.id) return p;
+  var out = {};
+  Object.keys(p).forEach(function (k) { out[k] = p[k]; });
+  out.name = rowName(p.listKey, { id: p.id, name: p.name });
+  return out;
+}
+
 function kpiCard(label, value, detail, gradeKey, gradeVal) {
   var g = gradeKey ? grade(gradeKey, gradeVal) : "";
   var c = h("div", "kpi" + (g ? " " + g : ""));
@@ -1044,7 +1080,13 @@ function renderKpis() {
      T("cf.kpi.prime.d", { v: bench("prime").good }, "food + payroll, target ≤ {v}%"), "prime", k.prime],
     [T("cf.kpi.rent", null, "Rent"), k.rent, asPct,
      T("cf.kpi.perMonth", { v: money(R.rent) }, "{v} per month"), "rent", k.rent],
-    [T("cf.kpi.avgCheck", null, "Average check"), R.avgCheck, function (x) { return money(x, 2); },
+    [T("cf.kpi.occupancy", null, "Rent and utilities"), k.occupancy, asPct,
+     T("cf.kpi.perMonth", {
+       v: money(R.rent == null || R.utilities == null ? null : R.rent + R.utilities)
+     }, "{v} per month"), "occupancy", k.occupancy],
+    /* Чек показываем таким, каким его платит гость: при ценах с НДС это цена
+       меню, при ценах без НДС — цена плюс налог. */
+    [T("cf.kpi.avgCheck", null, "Average check"), R.avgCheckGross, function (x) { return money(x, 2); },
      T("cf.kpi.avgCheck.d", { v: money(R.avgCheckNet, 2) }, "excl. VAT {v}"), null, null],
     [T("cf.kpi.guestsDay", null, "Guests per day"), R.guestsDay, function (x) { return nf(x); },
      T("cf.kpi.guestsDay.d", { v: pctS(R.occAvg * 100) }, "room occupancy {v}"), null, null],
@@ -1080,7 +1122,7 @@ function renderKpis() {
     var box = h("div", "warnbox");
     var ul = document.createElement("ul");
     R.warns.forEach(function (w) {
-      ul.appendChild(h("li", null, T(w.k, w.p, w.en)));
+      ul.appendChild(h("li", null, T(w.k, warnParams(w.p), w.en)));
     });
     box.appendChild(ul);
     wh.appendChild(box);
@@ -1115,6 +1157,11 @@ function renderPnl() {
   row(T("cf.pnl.takeaway", null, "takeaway"), R.revTaN, "sub");
   row(T("cf.pnl.delivery", null, "delivery"), R.revDlN, "sub");
   row(T("cf.pnl.cogs", null, "Cost of goods"), -R.cogs);
+  /* Упаковку выделяем: она в себестоимости, но не в KPI «Food cost». */
+  if (R.packaging > 0) {
+    row(T("cf.pnl.food", null, "food"), -R.cogsFood, "sub");
+    row(T("cf.pnl.packaging", null, "packaging"), -R.packaging, "sub");
+  }
   row(T("cf.pnl.gross", null, "Gross profit"), R.grossProfit, "total");
   row(T("cf.pnl.payroll", null, "Payroll with taxes"), -R.payrollTotal);
   row(T("cf.pnl.fixed", null, "Fixed costs"), -R.fixed);

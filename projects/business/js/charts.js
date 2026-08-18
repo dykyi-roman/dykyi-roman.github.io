@@ -73,24 +73,23 @@ function legend(hostId, items) {
   });
 }
 
-/* Гостей по каждому часу в обоих профилях — нужно и графику, и подписям. */
+/* Гостей по каждому часу в обоих профилях. Ряды берём из результата R, а не
+   пересчитываем по ползункам: в табах сценариев R посчитан по сценарной
+   загрузке, и столбцы обязаны сходиться с легендой и KPI того же таба. Часы
+   работы сценарии не трогают, поэтому подписи часов — из P. */
 function hourSeries() {
   var wdH = hourLabels(P.openWd, P.closeWd);
   var weH = hourLabels(P.openWe, P.closeWe);
-  var buf = clamp(num(P.lastOrderBuffer), 0, 60);
-  var wLast = Math.max(0, 1 - buf / 60);
   var anchor = Math.min(wdH.length ? wdH[0] : 0, weH.length ? weH[0] : 0);
   var map = {};
-  function put(hours, key) {
+  function put(hours, series, key) {
     hours.forEach(function (hr, i) {
-      var occ = clamp(num(P[key === "wd" ? "occWd" : "occWe"][i]), 0, 100) / 100;
-      var g = R.capHour * occ * (i === hours.length - 1 ? wLast : 1);
       if (!map[hr]) map[hr] = { hr: hr, wd: 0, we: 0 };
-      map[hr][key] = g;
+      map[hr][key] = series[i] || 0;
     });
   }
-  put(wdH, "wd");
-  put(weH, "we");
+  put(wdH, R.hoursWd || [], "wd");
+  put(weH, R.hoursWe || [], "we");
   return Object.keys(map).map(function (k) { return map[k]; })
     .sort(function (a, b) {
       return ((a.hr - anchor + 24) % 24) - ((b.hr - anchor + 24) % 24);
@@ -227,8 +226,10 @@ function chartDonut() {
   var segs = [
     [T("cf.donut.cogs", null, "Food"), R.cogs, cssv("--cf-s1")],
     [T("cf.donut.payroll", null, "Payroll with taxes"), R.payrollTotal, cssv("--cf-s2")],
+    /* Без строки аренды (R.rent == null) сегмент отфильтруется ниже, а вся
+       смета уйдёт в «прочие постоянные». */
     [T("cf.donut.rent", null, "Rent"), R.rent, cssv("--cf-s3")],
-    [T("cf.donut.otherFixed", null, "Other fixed costs"), Math.max(0, R.fixed - R.rent), cssv("--cf-s4")],
+    [T("cf.donut.otherFixed", null, "Other fixed costs"), Math.max(0, R.fixed - (R.rent || 0)), cssv("--cf-s4")],
     [T("cf.donut.variable", null, "Variable costs"), R.variable, cssv("--cf-s5")],
     [T("cf.donut.daLevy", null, "Depreciation and levy"), R.da + R.levy, cssv("--cf-s6")],
     [T("cf.donut.incomeTax", null, "Profit tax"), R.incomeTax, cssv("--cf-s7")],
@@ -259,9 +260,13 @@ function chartDonut() {
     x: cx, y: cy - 4, "text-anchor": "middle", fill: cssv("--cf-text"),
     "font-size": "19", "font-weight": "650"
   }, short(total)));
+  /* При прибыли сегменты складываются в выручку; при убытке сегмент прибыли
+     обнулён и сумма — это расходы, которые больше выручки. Подпись честная. */
   svg.appendChild(el("text", {
     x: cx, y: cy + 15, "text-anchor": "middle", "font-size": "11"
-  }, T("cf.donut.center", null, "revenue excl. VAT")));
+  }, R.netProfit < 0
+      ? T("cf.donut.centerCosts", null, "costs excl. VAT")
+      : T("cf.donut.center", null, "revenue excl. VAT")));
 
   legend("lgDonut", segs.map(function (s) {
     return [s[0] + " — " + pctS(s[1] / total * 100), s[2]];
@@ -425,9 +430,11 @@ function chartTornado() {
       svg.appendChild(rct);
     });
 
+    /* Нулевой размах — не «±0», а слова: так видно, что рычагу нечего двигать
+       (например, строку аренды удалили или обнулили). */
     svg.appendChild(el("text", {
       x: W - Rm + 8, y: y + rh / 2 + 4, "font-size": "11"
-    }, "±" + short(r.span)));
+    }, r.span > 0 ? "±" + short(r.span) : T("cf.tornado.noEffect", null, "no effect")));
   });
 
   svg.appendChild(el("text", {
@@ -628,6 +635,18 @@ function CF_boot() {
     "Showing the calculation from the saved parameters");
 }
 window.CF_boot = CF_boot;
+
+/* Точка входа после загрузки переводов. Если страховочный таймер ниже уже
+   поднял страницу по-английски (переводы ехали дольше 2,5 с), простого
+   CF_boot() мало — он выйдет по `booted`, а applyToDOM переведёт только
+   статику; форма, таблицы, KPI и графики остались бы английскими до смены
+   языка. Поэтому в этом случае — полная пересборка через CF_refresh. */
+function CF_start() {
+  if (booted) { CF_refresh(); return; }
+  CF_applyLang();
+  CF_boot();
+}
+window.CF_start = CF_start;
 
 /* Страховка: если resources/i18n.js не подключился, бутстрап всё равно должен
    произойти — иначе вместо страницы остался бы пустой каркас. */

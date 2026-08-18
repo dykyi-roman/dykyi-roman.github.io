@@ -1,5 +1,7 @@
 /* Автопроверка расчётного движка. Запуск:  node verify.js
-   Прогоняет пункты 1–5 раздела «Верификация» из плана. */
+   Секции: 1 базовый прогон · 2 сходимость водопада · 3 обратная проверка BEP ·
+   4 вырожденные входы · 5 сценарии и торнадо · 6 сохранение и импорт ·
+   7 регрессии по итогам ревью (НДС без цен «с НДС», ряды по часам, KPI). */
 "use strict";
 var vm = require("vm"), fs = require("fs"), path = require("path");
 vm.runInThisContext(fs.readFileSync(path.join(__dirname, "js/engine.js"), "utf8"));
@@ -149,7 +151,7 @@ ok("рост food cost снижает прибыль",
    T.rows.filter(function (r2) { return r2.id === "foodcost"; })[0].points[3].delta < 0);
 ok("рост трафика повышает прибыль",
    T.rows.filter(function (r2) { return r2.id === "traffic"; })[0].points[3].delta > 0);
-ok("трафик — сильнейший рычаг", T.rows[0].id === "traffic" || T.rows[0].id === "check",
+ok("сильнейший рычаг — чек или трафик", T.rows[0].id === "traffic" || T.rows[0].id === "check",
    "первый: " + T.rows[0].name);
 
 /* --------------------------------------------- 6. сохранение и импорт ------ */
@@ -215,6 +217,116 @@ ok("частичная правка сценария не теряет оста�
    scen.scen.opt.traffic === 1.5 && scen.scen.opt.check === 1.05 &&
    scen.scen.pes.traffic === 0.75,
    "opt: " + JSON.stringify(scen.scen.opt));
+
+/* ------------------------------------------- 7. регрессии по итогам ревью -- */
+console.log("\n7. Регрессии по итогам ревью");
+function withOpt(fn) { var q = defaults(); fn(q); return q; }
+function hasWarn(r, key) { return r.warns.some(function (w) { return w.k === key; }); }
+function sumArr(a) { return a.reduce(function (s, x) { return s + x; }, 0); }
+
+/* 7.1 Цены меню без НДС у плательщика НДС: гость платит цену × (1 + НДС), и всё,
+   что считается от брутто, обязано это видеть. Раньше «брутто» здесь равнялось нетто. */
+var Pex = withOpt(function (q) { q.priceInclVat = false; });
+var Rex = calc(Pex);
+ok("цены без НДС: брутто = нетто × (1 + НДС)", near(Rex.revGross, Rex.revNet * 1.10, 0.01),
+   n(Rex.revGross) + " vs " + n(Rex.revNet * 1.1));
+ok("цены без НДС: нетто равно выручке в ценах меню", near(Rex.revNet, R.revNet * 1.10, 0.01));
+ok("цены без НДС: эквайринг — та же доля от брутто, что и при ценах с НДС",
+   near(Rex.acquiringFee / Rex.revGross, R.acquiringFee / R.revGross, 1e-9));
+ok("цены без НДС: комиссия агрегатора берётся от брутто заказа",
+   near(Rex.aggFee, Rex.revDlG * 0.28, 0.01));
+ok("цены без НДС: средний чек гостя = цена меню × (1 + НДС), нетто = цена меню",
+   near(Rex.avgCheckGross, R.avgCheck * 1.10, 0.001) && near(Rex.avgCheckNet, R.avgCheck, 0.001),
+   n(Rex.avgCheckGross, 2) + " / " + n(Rex.avgCheckNet, 2));
+var Ptg = withOpt(function (q) { q.priceInclVat = false; q.taxRegime = "both"; q.turnoverTax = 5; });
+var Ptn = clone(Ptg); Ptn.turnoverBase = "net";
+ok("цены без НДС: налог с оборота по базе «с НДС» больше, чем по базе «без», ровно на НДС",
+   near(calc(Ptg).turnoverTax, calc(Ptn).turnoverTax * 1.10, 0.01),
+   n(calc(Ptg).turnoverTax) + " vs " + n(calc(Ptn).turnoverTax));
+var kex = Rex.bepCash.guestsMonth / Rex.guestsMonth;
+var Pexb = clone(Pex);
+Pexb.occWd = Pexb.occWd.map(function (o) { return o * kex; });
+Pexb.occWe = Pexb.occWe.map(function (o) { return o * kex; });
+ok("цены без НДС: обратная проверка BEP даёт EBITDA = 0", near(calc(Pexb).ebitda, 0, 0.5),
+   "EBITDA = " + n(calc(Pexb).ebitda, 3));
+var Rnv = calc(withOpt(function (q) { q.vatReg = false; }));
+ok("не плательщик НДС: брутто = нетто = цены меню",
+   near(Rnv.revGross, Rnv.revNet) && near(Rnv.revNet, R.revGross) && Rnv.vatPayable === 0);
+
+/* 7.2 Ряды гостей по часам — из calc(), и они сходятся с итогами дня в каждом сценарии. */
+ok("сумма ряда по часам = гостей за будний день", near(sumArr(R.hoursWd), R.guestsWdDay, 1e-6));
+ok("ряд по часам в пессимистичном сценарии масштабирован вместе с легендой",
+   near(sumArr(S.pes.hoursWd), S.pes.guestsWdDay, 1e-6) &&
+   near(S.pes.guestsWdDay, R.guestsWdDay * 0.75, 0.01),
+   n(sumArr(S.pes.hoursWd), 1) + " vs " + n(S.pes.guestsWdDay, 1));
+
+/* 7.3 Ёмкость зала считается с тем же буфером последнего часа, что и гости. */
+var Rbuf = calc(withOpt(function (q) { q.lastOrderBuffer = 60; }));
+ok("буфер 60 мин: ёмкость без последнего часа",
+   near(Rbuf.capacityMonth, Rbuf.capHour * ((Rbuf.Hwd - 1) * Rbuf.Dwd + (Rbuf.Hwe - 1) * Rbuf.Dwe), 0.01));
+ok("буфер 60 мин: загрузка при 100 % на ползунках ровно 100 %",
+   near(calc(withOpt(function (q) {
+     q.lastOrderBuffer = 60;
+     q.occWd = q.occWd.map(function () { return 100; });
+     q.occWe = q.occWe.map(function () { return 100; });
+   })).occAvg, 1, 1e-9));
+
+/* 7.4 KPI: выручка на место — только зал; food cost — без упаковки. */
+ok("выручка на место считается по залу", near(R.kpi.revPerSeat, R.revDineG / R.Dall / R.seats, 1e-9),
+   n(R.kpi.revPerSeat, 1) + " €/место/день");
+ok("food cost без упаковки меньше полной себестоимости в долях выручки",
+   R.packaging > 0 && R.kpi.foodCost < R.cogs / R.revNet * 100 && near(R.cogsFood + R.packaging, R.cogs),
+   n(R.kpi.foodCost, 1) + "% vs " + n(R.cogs / R.revNet * 100, 1) + "%");
+
+/* 7.5 Амортизация при сроке 0 — не за год, а пропуск с предупреждением. */
+var Rd0 = calc(withOpt(function (q) { q.capex.forEach(function (c) { if (c.id === "reserve") c.dep = true; }); }));
+ok("dep=true при years=0 не меняет DA и даёт предупреждение",
+   near(Rd0.da, R.da) && hasWarn(Rd0, "cf.warn.depYears"), n(Rd0.da, 2) + " vs " + n(R.da, 2));
+
+/* 7.6 Аренда и коммуналка — по id: без строки честный null, а не «0 % ok». */
+var Rnr = calc(withOpt(function (q) { q.fixed = q.fixed.filter(function (r) { return r.id !== "rent"; }); }));
+ok("без строки rent: KPI аренды и «аренда+коммуналка» = null, смета посчитана",
+   Rnr.rent === null && Rnr.kpi.rent === null && Rnr.kpi.occupancy === null &&
+   near(Rnr.fixed, R.fixed - 4200));
+ok("с дефолтной сметой KPI «аренда + коммуналка» считается",
+   near(R.kpi.occupancy, (R.rent + R.utilities) / R.revNet * 100, 1e-9), n(R.kpi.occupancy, 1) + "%");
+
+/* 7.7 Режим налога: неизвестное значение = «на прибыль», а не оба налога сразу. */
+var Rtx = calc(withOpt(function (q) { q.taxRegime = "xyz"; q.turnoverTax = 5; }));
+ok("taxRegime «xyz» считается как «на прибыль»", Rtx.turnoverTax === 0 && near(Rtx.netProfit, R.netProfit));
+
+/* 7.8 Множители сценариев: пустое поле — «как есть», ноль — ноль; база всегда без множителей. */
+ok("mult(): пусто → 1, 0 → 0, «0,75» → 0.75, мусор → 1",
+   mult("") === 1 && mult(null) === 1 && mult(0) === 0 && mult("0,75") === 0.75 && mult("abc") === 1);
+ok("множитель трафика 0 обнуляет выручку сценария",
+   runScenarios(withOpt(function (q) { q.scen.pes.traffic = 0; })).pes.revNet === 0);
+ok("пустые множители сценария = базовый расчёт",
+   near(runScenarios(withOpt(function (q) { q.scen.pes = { traffic: "", check: "", fixed: "" }; })).pes.netProfit,
+        R.netProfit));
+ok("базовый сценарий не зависит от множителей строки base",
+   near(runScenarios(withOpt(function (q) { q.scen.base.traffic = 1.2; })).base.netProfit, R.netProfit));
+
+/* 7.9 Чувствительность: 24 точки + база = 25 прогонов, и рычаг food cost трогает свой fc каналов. */
+var calls = 0, origCalc = calc;
+global.calc = function (q) { calls++; return origCalc(q); };
+sensitivity(P);
+global.calc = origCalc;
+ok("sensitivity() = 25 прогонов calc()", calls === 25, calls + " вызовов");
+var Pfc = withOpt(function (q) { q.taFc = 30; q.dlFc = ""; });
+LEVERS.filter(function (l) { return l.id === "foodcost"; })[0].patch(Pfc, 0.2);
+ok("рычаг food cost масштабирует заданный taFc и не трогает пустой dlFc",
+   near(Pfc.taFc, 36, 1e-9) && Pfc.dlFc === "");
+
+/* 7.10 Импорт: нормализация режима налога и строки base. */
+ok("импорт: неизвестный режим налога приводится к «на прибыль»",
+   importInto({ taxRegime: "xyz" }).taxRegime === "profit");
+ok("импорт: множители base приводятся к единице",
+   importInto({ scen: { base: { traffic: 1.2, check: 0.9 } } }).scen.base.traffic === 1);
+
+/* 7.11 При нулевом чеке одно предупреждение, а не два. */
+var Rz = calc(withOpt(function (q) { q.menu.forEach(function (m) { m.spend = 0; }); }));
+ok("нулевой чек: предупреждение про чек без «BEP недостижима»",
+   hasWarn(Rz, "cf.warn.zeroCheck") && !hasWarn(Rz, "cf.warn.bepUnreachable"));
 
 /* ------------------------------------------------------------------- итог -- */
 console.log("\n" + (fails ? "✗ провалено " + fails + " из " + checks

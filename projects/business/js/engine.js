@@ -19,7 +19,7 @@ var WEEKS = 4.345;              /* 365 / 7 / 12 — недель в средне
 /* ---------------------------------------------------------------- хранилище */
 /* Куки + localStorage: куки просил владелец, localStorage — страховка, потому
    что в Chrome на file:// куки молча не сохраняются, а лимит куки ~4 КБ.
-   Пишем всегда в оба, читаем сперва куку. */
+   Пишем всегда в оба, читаем сперва localStorage (почему — см. get). */
 var STORE = (function () {
   var hasDoc = typeof document !== "undefined";
 
@@ -133,10 +133,12 @@ function hourLabels(open, close) {
 }
 
 /* ================================= ДЕФОЛТЫ ================================= */
-/* Набор просчитан вручную и сходится: выручка 44 588 € нетто, food cost 30,0 %,
-   ФОТ 30,7 %, prime cost 60,7 %, чистая прибыль 5 638 € (12,6 %), окупаемость
-   22,5 мес. Пессимистичный сценарий на этих же числах уходит в убыток — это
-   осознанно, чтобы сразу было видно, что модель чувствительна. */
+/* Набор просчитан и сходится (см. verify.js): выручка 45 681 € нетто, food
+   cost 28,6 % (без упаковки), ФОТ 34,3 %, prime cost 64,2 %, чистая прибыль
+   4 733 € (10,4 %), окупаемость 25,7 мес, денежная точка безубыточности 119
+   гостей в день (18,6 % загрузки). Пессимистичный сценарий на этих же числах
+   уходит в убыток — это осознанно, чтобы сразу было видно, что модель
+   чувствительна. Меняете дефолты — обновите числа здесь и в README. */
 function defaults() {
   return {
     schemaVersion: SCHEMA_VERSION,
@@ -292,11 +294,17 @@ function calc(p) {
   var warns = [];
 
   /* --- НДС ------------------------------------------------------------- */
+  /* Брутто — это всегда то, что платит гость; нетто — брутто без НДС. Цены
+     меню могут быть заданы и с НДС, и без: menuGross переводит цену меню в
+     брутто (при ценах без НДС гость платит цену × (1 + НДС)). Раньше при
+     ценах без НДС «брутто» равнялось нетто, и всё, что считается от брутто —
+     эквайринг, комиссия агрегатора, налог с оборота по базе «с НДС», подписи
+     «с НДС», — занижалось ровно на ставку НДС. */
   var vatReg = !!p.vatReg;
   var vat = vatReg ? pct(p.vat, 0, 100) : 0;
-  var inclVat = vatReg && !!p.priceInclVat;
-  var g2n = inclVat ? (1 + vat) : 1;          /* множитель брутто → нетто наоборот */
-  function toNet(x) { return inclVat ? x / (1 + vat) : x; }
+  var menuGross = (vatReg && !p.priceInclVat) ? (1 + vat) : 1;
+  var g2n = 1 + vat;                          /* брутто / нетто (1, если НДС нет) */
+  function toGross(menuRev) { return menuRev * menuGross; }
 
   /* --- календарь ------------------------------------------------------- */
   var wdWeek = 0, weWeek = 0;
@@ -322,21 +330,30 @@ function calc(p) {
   var buffer = clamp(num(p.lastOrderBuffer), 0, 60);
   var wLast = Math.max(0, 1 - buffer / 60);      /* последний час обслуживает меньше */
 
-  function occSum(arr, H) {
-    var s = 0, hot = 0;
+  /* Гостей в каждый час работы — ряд нужен и графику «Гостей по часам», и
+     сумме за день. График берёт ряд отсюда, а не пересчитывает по ползункам:
+     иначе в табах сценариев столбцы рисовались бы по базовой загрузке, а
+     легенда — по сценарной. */
+  function hourGuests(arr, H) {
+    var out = [], hot = 0;
     for (var i = 0; i < H; i++) {
       var o = pct(arr && arr[i], 0, 100);
       if (o > 0.95) hot++;
-      s += o * (i === H - 1 ? wLast : 1);
+      out.push(capHour * o * (i === H - 1 ? wLast : 1));
     }
     if (hot) warns.push(warn("cf.warn.occHot",
       "Occupancy above 95% for {n} h — practically unreachable.", { n: hot }));
-    return s;
+    return out;
   }
-  var guestsWdDay = capHour * occSum(p.occWd, Hwd);
-  var guestsWeDay = capHour * occSum(p.occWe, Hwe);
+  function sum(a) { var s = 0; for (var i = 0; i < a.length; i++) s += a[i]; return s; }
+  var hoursWd = hourGuests(p.occWd, Hwd);
+  var hoursWe = hourGuests(p.occWe, Hwe);
+  var guestsWdDay = sum(hoursWd);
+  var guestsWeDay = sum(hoursWe);
   var guestsMonth = guestsWdDay * Dwd + guestsWeDay * Dwe;
-  var capacityMonth = capHour * (Hwd * Dwd + Hwe * Dwe);
+  /* Ёмкость — с тем же буфером последнего часа, что и гости, иначе занятость
+     и «достижимость» точки безубыточности выходят чуть оптимистичнее. */
+  var capacityMonth = capHour * ((Hwd - 1 + wLast) * Dwd + (Hwe - 1 + wLast) * Dwe);
   var occAvg = capacityMonth > 0 ? guestsMonth / capacityMonth : null;
 
   /* --- меню ------------------------------------------------------------ */
@@ -355,26 +372,33 @@ function calc(p) {
   var taOrders = Math.max(0, num(p.taOrders)) * Dall;
   var dlOrders = Math.max(0, num(p.dlOrders)) * Dall;
 
-  var revDineG = guestsMonth * avgCheck;
-  var revTaG = taOrders * Math.max(0, num(p.taCheck));
-  var revDlG = dlOrders * Math.max(0, num(p.dlCheck));
+  var revDineG = toGross(guestsMonth * avgCheck);
+  var revTaG = toGross(taOrders * Math.max(0, num(p.taCheck)));
+  var revDlG = toGross(dlOrders * Math.max(0, num(p.dlCheck)));
   var revGross = revDineG + revTaG + revDlG;
 
-  var revDineN = toNet(revDineG);
-  var revTaN = toNet(revTaG);
-  var revDlN = toNet(revDlG);
+  var revDineN = revDineG / g2n;
+  var revTaN = revTaG / g2n;
+  var revDlN = revDlG / g2n;
   var revNet = revDineN + revTaN + revDlN;
 
   /* --- себестоимость по каналам ---------------------------------------- */
   /* Упаковка — реальные деньги за заказ, а не процент: именно она делает
-     вынос и доставку заметно менее выгодными, чем кажется по food cost. */
+     вынос и доставку заметно менее выгодными, чем кажется по food cost.
+     Поэтому она и считается отдельно: в COGS и prime cost входит, а в KPI
+     «Food cost» — нет, иначе ориентир 30 % сравнивался бы не с едой. */
   var fcTa = (p.taFc === "" || p.taFc == null) ? fcW : pct(p.taFc, 0, 95);
   var fcDl = (p.dlFc === "" || p.dlFc == null) ? fcW : pct(p.dlFc, 0, 95);
 
+  var packTa = taOrders * Math.max(0, num(p.taPack));
+  var packDl = dlOrders * Math.max(0, num(p.dlPack));
+  var packaging = packTa + packDl;
+
   var cogsDine = revDineN * fcW * kWaste;
-  var cogsTa = revTaN * fcTa * kWaste + taOrders * Math.max(0, num(p.taPack));
-  var cogsDl = revDlN * fcDl * kWaste + dlOrders * Math.max(0, num(p.dlPack));
+  var cogsTa = revTaN * fcTa * kWaste + packTa;
+  var cogsDl = revDlN * fcDl * kWaste + packDl;
   var cogs = cogsDine + cogsTa + cogsDl;
+  var cogsFood = cogs - packaging;
   var grossProfit = revNet - cogs;
 
   /* --- персонал --------------------------------------------------------- */
@@ -401,8 +425,11 @@ function calc(p) {
     fixedTotal += v;
     fixedById[r.id] = v;
   });
-  var rent = fixedById.rent || 0;
-  var utilities = fixedById.util || 0;
+  /* Аренда и коммуналка узнаются по встроенным id строк сметы. Если строку
+     удалили и завели свою — это null, а не ноль: иначе KPI «Аренда» показывал
+     бы 0 % с зелёным светофором, а рычаг аренды в торнадо молча обнулялся. */
+  var rent = ("rent" in fixedById) ? fixedById.rent : null;
+  var utilities = ("util" in fixedById) ? fixedById.util : null;
 
   /* --- переменные ------------------------------------------------------- */
   var acqRate = pct(p.acquiring, 0, 100);
@@ -417,7 +444,10 @@ function calc(p) {
   var aggFee = revDlG * aggRate;
   var royaltyFee = revNet * royalty;
 
-  var regime = p.taxRegime || "profit";
+  /* Незнакомое значение режима (испорченный импорт) считаем «на прибыль», а
+     не «оба налога сразу», как получалось из двух отрицаний. */
+  var regime = p.taxRegime;
+  if (regime !== "turnover" && regime !== "both") regime = "profit";
   var tRate = regime !== "profit" ? pct(p.turnoverTax, 0, 100) : 0;
   var tBaseGross = (p.turnoverBase || "gross") === "gross";
   /* Налог с оборота — операционный расход ДО EBITDA: он масштабируется с
@@ -435,7 +465,18 @@ function calc(p) {
   (p.capex || []).forEach(function (r) {
     var v = Math.max(0, num(r.v));
     investment += v;
-    if (r.dep) da += v / (Math.max(1, num(r.years)) * 12);
+    if (!r.dep) return;
+    var years = num(r.years);
+    /* Галочка «амортизировать» при сроке 0 — не «за один год», а ошибка
+       ввода: депозит и резерв в дефолтах как раз с нулевым сроком, и молчаливая
+       годовая амортизация удваивала бы DA. Строку пропускаем и предупреждаем. */
+    if (years <= 0) {
+      if (v > 0) warns.push(warn("cf.warn.depYears",
+        "«{name}» is marked for depreciation but its term is 0 years — the line is not depreciated.",
+        { name: r.name, listKey: "capex", id: r.id }));
+      return;
+    }
+    da += v / (years * 12);
   });
 
   var ebit = ebitda - da;
@@ -461,7 +502,8 @@ function calc(p) {
            - revDlN * royalty - (tBaseGross ? revDlG : revDlN) * tRate;
   var cmOther = cmTa + cmDl;
 
-  var avgCheckNet = toNet(avgCheck);
+  var avgCheckGross = toGross(avgCheck);          /* что платит гость */
+  var avgCheckNet = avgCheckGross / g2n;
   var fixedCash = payrollTotal + fixedTotal + levy;
 
   function bep(F) {
@@ -478,24 +520,21 @@ function calc(p) {
     }
     var dineRevNet = need / cmDine;
     var gm = avgCheckNet > 0 ? dineRevNet / avgCheckNet : null;
-    /* Профиль масштабируем коэффициентом, а не усредняем плоско — тогда BEP по
-       будням и выходным получается разный и правдоподобный. */
-    var k = (gm != null && guestsMonth > 0) ? gm / guestsMonth : null;
     return {
       status: "ok",
       dineRevNet: dineRevNet,
       totalRevNet: dineRevNet + revTaN + revDlN,
       guestsMonth: gm,
       guestsDay: (gm != null && Dall > 0) ? gm / Dall : null,
-      guestsWdDay: k != null ? guestsWdDay * k : null,
-      guestsWeDay: k != null ? guestsWeDay * k : null,
       occRequired: (gm != null && capacityMonth > 0) ? gm / capacityMonth : null,
       feasible: gm != null && capacityMonth > 0 ? gm <= capacityMonth : false
     };
   }
   var bepCash = bep(fixedCash);
   var bepAcct = bep(fixedCash + da);
-  if (bepCash.status === "ok" && !bepCash.feasible) {
+  /* При нулевом чеке гостей не посчитать вовсе — об этом уже говорит
+     предупреждение про чек, второе «недостижимо» было бы шумом. */
+  if (bepCash.status === "ok" && bepCash.guestsMonth != null && !bepCash.feasible) {
     warns.push(warn("cf.warn.bepUnreachable",
       "Break-even is unreachable with the current seating and opening hours."));
   }
@@ -507,18 +546,20 @@ function calc(p) {
   var roiYear = investment > 0 ? netProfit * 12 / investment : null;
 
   /* --- доли и KPI ------------------------------------------------------- */
-  function share(x) { return revNet > 0 ? x / revNet * 100 : null; }
+  function share(x) { return (x != null && revNet > 0) ? x / revNet * 100 : null; }
   var kpi = {
-    foodCost:   share(cogs),
+    foodCost:   share(cogsFood),                /* без упаковки — ориентир 30 % про еду */
     labour:     share(payrollTotal),
-    prime:      share(cogs + payrollTotal),
+    prime:      share(cogs + payrollTotal),     /* prime cost — вся себестоимость + ФОТ */
     rent:       share(rent),
-    occupancy:  share(rent + utilities),
+    occupancy:  (rent != null && utilities != null) ? share(rent + utilities) : null,
     netMargin:  share(netProfit),
     ebitdaM:    share(ebitda),
     payback:    payback,
     safety:     safety != null ? safety * 100 : null,
-    revPerSeat: (seats > 0 && Dall > 0) ? revGross / Dall / seats : null
+    /* Только зал: вынос и доставка к посадочным местам отношения не имеют, а
+       с ними ориентир 35 €/место/день выполнялся «за счёт» курьеров. */
+    revPerSeat: (seats > 0 && Dall > 0) ? revDineG / Dall / seats : null
   };
 
   /* --- мягкие предупреждения -------------------------------------------- */
@@ -537,16 +578,19 @@ function calc(p) {
     /* календарь и зал */
     Dwd: Dwd, Dwe: Dwe, Dall: Dall, Hwd: Hwd, Hwe: Hwe,
     seats: seats, turns: turns, capHour: capHour,
+    hoursWd: hoursWd, hoursWe: hoursWe,
     guestsWdDay: guestsWdDay, guestsWeDay: guestsWeDay,
     guestsMonth: guestsMonth, guestsDay: Dall > 0 ? guestsMonth / Dall : 0,
     capacityMonth: capacityMonth, occAvg: occAvg,
-    /* чек и себестоимость */
-    avgCheck: avgCheck, avgCheckNet: avgCheckNet, fcW: fcW, fcEff: fcEff,
+    /* чек и себестоимость: avgCheck — в ценах меню, Gross — что платит гость */
+    avgCheck: avgCheck, avgCheckGross: avgCheckGross, avgCheckNet: avgCheckNet,
+    fcW: fcW, fcEff: fcEff,
     /* выручка */
     revDineG: revDineG, revTaG: revTaG, revDlG: revDlG, revGross: revGross,
     revDineN: revDineN, revTaN: revTaN, revDlN: revDlN, revNet: revNet,
     /* расходы */
     cogsDine: cogsDine, cogsTa: cogsTa, cogsDl: cogsDl, cogs: cogs,
+    cogsFood: cogsFood, packaging: packaging,
     grossProfit: grossProfit,
     payrollGross: payrollGross, payrollTotal: payrollTotal, staffHours: staffHours,
     fixed: fixedTotal, fixedById: fixedById, rent: rent, utilities: utilities,
@@ -569,10 +613,18 @@ function calc(p) {
 /* Множители применяются к ВХОДАМ до calc(): трафик — к слайдерам загрузки (с
    клампом на 100 %) и к числу заказов, чек — к тратам по категориям и чекам
    каналов, постоянные — к статьям расходов. */
+/* Пустое поле множителя — «как есть», а вот явный 0 — честный ноль: раньше
+   `num(x) || 1` превращал введённый 0 в единицу, хотя подпись рядом с полем
+   говорила «−100 %». */
+function mult(v) {
+  if (v == null || v === "") return 1;
+  var x = parseFloat(String(v).replace(/\s/g, "").replace(",", "."));
+  return isFinite(x) ? Math.max(0, x) : 1;
+}
 function applyScenario(p, s) {
   if (!s) return p;
   var q = clone(p);
-  var t = num(s.traffic) || 1, c = num(s.check) || 1, f = num(s.fixed) || 1;
+  var t = mult(s.traffic), c = mult(s.check), f = mult(s.fixed);
 
   if (t !== 1) {
     q.occWd = (q.occWd || []).map(function (o) { return clamp(num(o) * t, 0, 100); });
@@ -591,11 +643,15 @@ function applyScenario(p, s) {
   return q;
 }
 
+/* Базовый сценарий — это всегда сами параметры, без множителей: на них же
+   стоят подписи под формой и торнадо. Если бы сюда попадала строка base с
+   множителями ≠ 1 (например, из импортированного файла), KPI базы молча
+   разошлись бы с остальным экраном. */
 function runScenarios(p) {
   var sc = p.scen || defaults().scen;
   return {
     pes:  calc(applyScenario(p, sc.pes)),
-    base: calc(applyScenario(p, sc.base)),
+    base: calc(p),
     opt:  calc(applyScenario(p, sc.opt))
   };
 }
@@ -620,6 +676,12 @@ var LEVERS = [
     } },
   { id: "foodcost", name: "Food cost", patch: function (q, d) {
       (q.menu || []).forEach(function (m) { m.fc = clamp(num(m.fc) * (1 + d), 0, 95); });
+      /* Свой food cost выноса и доставки — тоже себестоимость: рычаг «чек»
+         масштабирует чеки каналов, значит и этот обязан масштабировать их
+         себестоимость, иначе рычаги несогласованны. Пустое поле — «как в
+         меню», оно уже масштабируется через menu. */
+      if (q.taFc !== "" && q.taFc != null) q.taFc = clamp(num(q.taFc) * (1 + d), 0, 95);
+      if (q.dlFc !== "" && q.dlFc != null) q.dlFc = clamp(num(q.dlFc) * (1 + d), 0, 95);
     } },
   { id: "rent", name: "Rent", patch: function (q, d) {
       (q.fixed || []).forEach(function (r) { if (r.id === "rent") r.v = num(r.v) * (1 + d); });
@@ -639,7 +701,8 @@ function sensitivity(p) {
     var pts = deltas.map(function (d) {
       var q = clone(p);
       lv.patch(q, d);
-      return { d: d, netProfit: calc(q).netProfit, delta: calc(q).netProfit - base.netProfit };
+      var r = calc(q);
+      return { d: d, netProfit: r.netProfit, delta: r.netProfit - base.netProfit };
     });
     var span = Math.max(Math.abs(pts[0].delta), Math.abs(pts[3].delta));
     return { id: lv.id, name: lv.name, points: pts, span: span };
@@ -653,7 +716,7 @@ if (typeof window !== "undefined") {
   window.CAFE = {
     SCHEMA_VERSION: SCHEMA_VERSION, STORE: STORE, BENCH: BENCH,
     defaults: defaults, calc: calc, grade: grade,
-    applyScenario: applyScenario, runScenarios: runScenarios,
+    applyScenario: applyScenario, runScenarios: runScenarios, mult: mult,
     sensitivity: sensitivity, LEVERS: LEVERS,
     num: num, clamp: clamp, clone: clone,
     hoursCount: hoursCount, hourLabels: hourLabels
