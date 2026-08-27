@@ -933,6 +933,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    position: relative;
 }
 
 .festival-card:hover {
@@ -976,6 +977,9 @@
 .festival-status {
     flex-shrink: 0;
     font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .festival-status .fa-check-circle {
@@ -984,6 +988,35 @@
 
 .festival-status .fa-crosshairs {
     color: rgba(255, 255, 255, 0.4);
+}
+
+/* Instagram links on visited cards */
+.festival-link {
+    color: #4CAF50;
+    font-size: 0.95em;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.festival-link:hover,
+.festival-link:focus-visible {
+    color: #E1306C;
+    transform: scale(1.15);
+}
+
+/* The first link covers the whole card, so a click anywhere opens the post */
+.festival-link-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+}
+
+.festival-card:focus-within {
+    outline: 2px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 2px;
 }
 
 @media (max-width: 768px) {
