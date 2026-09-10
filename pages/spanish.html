@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spanish - Dykyi Roman | Practice Spanish for life in Spain</title>
-    <meta name="description" content="Spanish trainer: flashcards with spaced repetition, quiz, listening and search over five stages of practical Castilian Spanish — 1050 words and 460 everyday phrases.">
+    <meta name="description" content="Spanish trainer: flashcards with spaced repetition, quiz, listening and a browsable word list over five stages of practical Castilian Spanish — 1050 words and 460 everyday phrases.">
     <meta name="author" content="Dykyi Roman">
     <!-- Open Graph -->
     <meta property="og:title" content="Spanish - Dykyi Roman">
-    <meta property="og:description" content="Flashcards, quiz, listening and search over five stages of practical Spanish for everyday life in Spain.">
+    <meta property="og:description" content="Flashcards, quiz, listening and the full word list over five stages of practical Spanish for everyday life in Spain.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dykyi-roman.github.io/pages/spanish.html">
     <link rel="icon" href="../icon.ico" type="image/x-icon">
@@ -39,14 +39,8 @@
 
     <main id="main-content">
         <h2>Spanish</h2>
-        <p class="sp-intro">
-            Practical Castilian Spanish for everyday life in Spain — five stages, from space and
-            direction to school runs, cafés and rented flats. Pick a stage, then drill it with
-            flashcards, a quiz, listening or plain search. Progress is kept in this browser.
-        </p>
-
         <div class="sp-error" id="sp-error" hidden></div>
-        <p class="sp-intro" id="sp-loading">Loading the Spanish base…</p>
+        <p class="sp-stats" id="sp-loading">Loading the Spanish base…</p>
 
         <div id="sp-app" data-base="../resources/spanish/" hidden>
             <div class="sp-bar">
@@ -59,6 +53,36 @@
             <p class="sp-stats" id="sp-tts-note" hidden>
                 This browser has no speech synthesis, so the listening mode and the play buttons are hidden.
             </p>
+
+            <!-- Browse -->
+            <section class="sp-panel" id="panel-browse" role="tabpanel" aria-label="Browse" hidden>
+                <div class="sp-filters">
+                    <label class="visually-hidden" for="sp-browse-type">Type</label>
+                    <select class="sp-select" id="sp-browse-type">
+                        <option value="">All types</option>
+                        <option value="vocab">Words</option>
+                        <option value="pair">Pairs</option>
+                        <option value="phrase">Phrases</option>
+                        <option value="exchange">Exchanges</option>
+                        <option value="drill">Drills</option>
+                    </select>
+                    <label class="visually-hidden" for="sp-browse-group">Group</label>
+                    <select class="sp-select" id="sp-browse-group"></select>
+                    <button type="button" class="sp-btn" id="sp-browse-reset">Reset</button>
+                </div>
+
+                <div class="sp-actions">
+                    <span class="sp-stats" id="sp-browse-count"></span>
+                    <button type="button" class="sp-btn quiet" id="sp-browse-csv"
+                            title="Download what is listed below as CSV">Export CSV</button>
+                </div>
+
+                <div class="sp-lex" id="sp-browse-list"></div>
+                <p class="sp-empty" id="sp-browse-empty" hidden>Nothing matches.</p>
+                <div class="sp-actions">
+                    <button type="button" class="sp-btn" id="sp-browse-more" hidden></button>
+                </div>
+            </section>
 
             <!-- Flashcards -->
             <section class="sp-panel" id="panel-cards" role="tabpanel" aria-label="Flashcards" hidden>
@@ -129,40 +153,6 @@
                     <p class="sp-es" id="sp-listen-answer" hidden></p>
                 </div>
                 <p class="sp-empty" id="sp-listen-empty" hidden>Not enough items in this stage.</p>
-            </section>
-
-            <!-- Browse -->
-            <section class="sp-panel" id="panel-browse" role="tabpanel" aria-label="Browse" hidden>
-                <label class="visually-hidden" for="sp-browse-search">Search</label>
-                <input type="search" class="sp-search" id="sp-browse-search"
-                       placeholder="Search in Spanish, English or Russian…" autocomplete="off">
-
-                <div class="sp-filters">
-                    <label class="visually-hidden" for="sp-browse-type">Type</label>
-                    <select class="sp-select" id="sp-browse-type">
-                        <option value="">All types</option>
-                        <option value="vocab">Words</option>
-                        <option value="pair">Pairs</option>
-                        <option value="phrase">Phrases</option>
-                        <option value="exchange">Exchanges</option>
-                        <option value="drill">Drills</option>
-                    </select>
-                    <label class="visually-hidden" for="sp-browse-group">Group</label>
-                    <select class="sp-select" id="sp-browse-group"></select>
-                    <button type="button" class="sp-btn" id="sp-browse-reset">Reset</button>
-                </div>
-
-                <div class="sp-actions">
-                    <span class="sp-stats" id="sp-browse-count"></span>
-                    <button type="button" class="sp-btn" id="sp-browse-json">Export JSON</button>
-                    <button type="button" class="sp-btn" id="sp-browse-csv">Export CSV</button>
-                </div>
-
-                <div class="sp-lex" id="sp-browse-list"></div>
-                <p class="sp-empty" id="sp-browse-empty" hidden>Nothing matches.</p>
-                <div class="sp-actions">
-                    <button type="button" class="sp-btn" id="sp-browse-more" hidden></button>
-                </div>
             </section>
 
             <h3 style="margin-top: var(--spacing-lg);">All stages</h3>

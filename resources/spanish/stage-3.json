@@ -4,7 +4,7 @@
  "no": 3,
  "title": "Core vocabulary",
  "titleRu": "База слов для живого общения",
- "goal": "Практическая база из 620 слов и коротких выражений для быстрого перехода к бытовому испанскому.",
+ "goal": "Практическая база из 628 слов и коротких выражений для быстрого перехода к бытовому испанскому.",
  "url": "spanish/stage-3.html",
  "intro": [
   {
@@ -88,7 +88,7 @@
      "t": "Всего элементов: "
     },
     {
-     "t": "620",
+     "t": "628",
      "s": "b"
     },
     {
@@ -6298,6 +6298,86 @@
    "tr": "партисипар",
    "group": null,
    "chunk": "601–620"
+  },
+  {
+   "id": "es3-v621",
+   "type": "vocab",
+   "es": "lejos",
+   "en": "far",
+   "ru": "далеко",
+   "tr": "лехос",
+   "group": null,
+   "chunk": "621–628"
+  },
+  {
+   "id": "es3-v622",
+   "type": "vocab",
+   "es": "cerca",
+   "en": "near / close",
+   "ru": "близко",
+   "tr": "серка",
+   "group": null,
+   "chunk": "621–628"
+  },
+  {
+   "id": "es3-v623",
+   "type": "vocab",
+   "es": "fuera",
+   "en": "outside",
+   "ru": "снаружи",
+   "tr": "фуэра",
+   "group": null,
+   "chunk": "621–628"
+  },
+  {
+   "id": "es3-v624",
+   "type": "vocab",
+   "es": "dentro",
+   "en": "inside",
+   "ru": "внутри",
+   "tr": "дентро",
+   "group": null,
+   "chunk": "621–628"
+  },
+  {
+   "id": "es3-v625",
+   "type": "vocab",
+   "es": "a la derecha",
+   "en": "to / on the right",
+   "ru": "направо / справа",
+   "tr": "а ла дерэча",
+   "group": null,
+   "chunk": "621–628"
+  },
+  {
+   "id": "es3-v626",
+   "type": "vocab",
+   "es": "a la izquierda",
+   "en": "to / on the left",
+   "ru": "налево / слева",
+   "tr": "а ла искьерда",
+   "group": null,
+   "chunk": "621–628"
+  },
+  {
+   "id": "es3-v627",
+   "type": "vocab",
+   "es": "todo recto",
+   "en": "straight ahead",
+   "ru": "прямо",
+   "tr": "тодо рэкто",
+   "group": null,
+   "chunk": "621–628"
+  },
+  {
+   "id": "es3-v628",
+   "type": "vocab",
+   "es": "al fondo",
+   "en": "at the back / at the end",
+   "ru": "в конце / в глубине",
+   "tr": "аль фондо",
+   "group": null,
+   "chunk": "621–628"
   }
  ],
  "notes": [],

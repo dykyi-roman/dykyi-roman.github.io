@@ -65,15 +65,6 @@
         try { localStorage.setItem(key, JSON.stringify(state)); } catch (e) { /* private mode / quota */ }
     };
 
-    /* ---------- search ---------- */
-
-    // Fold case, ё→е and Spanish accents so "donde" finds "dónde".
-    SP.normalizeQuery = function (text) {
-        var s = String(text == null ? '' : text).toLowerCase().replace(/ё/g, 'е');
-        if (String.prototype.normalize) s = s.normalize('NFD').replace(/[̀-ͯ]/g, '');
-        return s;
-    };
-
     /* ---------- data loading ---------- */
 
     SP.base = '../resources/spanish/';   // overridden by each page before load()

@@ -72,6 +72,20 @@
 
 .sp-btn.primary { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
 .sp-btn.primary:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); color: #fff; }
+/* A rare secondary action (the CSV export): compact and quiet, deliberately
+   below the 44px touch floor so it never reads as a main control. */
+.sp-btn.quiet {
+    align-self: center;
+    min-height: 32px;
+    padding: 4px 10px;
+    border-color: transparent;
+    background: transparent;
+    color: var(--color-text-light);
+    font-size: 0.8rem;
+}
+
+.sp-btn.quiet:hover { border-color: var(--color-border); color: var(--color-primary); }
+
 .sp-btn[disabled] { opacity: 0.45; cursor: default; }
 .sp-btn[disabled]:hover { border-color: var(--color-border); color: var(--color-text); }
 
@@ -368,21 +382,6 @@
 .sp-listen-word .sp-speak svg { width: 36px; height: 36px; }
 
 /* ---------- browse ---------- */
-
-.sp-search {
-    width: 100%;
-    min-height: 44px;
-    padding: 10px 12px;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: var(--color-white);
-    color: var(--color-text);
-    font-family: var(--font-family);
-    /* 16px exactly: anything smaller makes iOS Safari zoom the page on focus */
-    font-size: 16px;
-}
-
-.sp-search::placeholder { color: var(--color-text-light); }
 
 .sp-select {
     min-height: 44px;

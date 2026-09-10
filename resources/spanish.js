@@ -1,6 +1,6 @@
 /* The Spanish trainer on pages/spanish.html.
-   A stage chip picks the pool; four modes work over it — Leitner flashcards,
-   a multiple-choice quiz, a listening drill and a searchable browser.
+   A stage chip picks the pool; four modes work over it — a browsable list,
+   Leitner flashcards, a multiple-choice quiz and a listening drill.
    Progress lives under its own localStorage keys and never touches the ones
    resources/learn.js owns. */
 
@@ -9,7 +9,7 @@
 
     var SP = window.SP;
 
-    var MODES = ['cards', 'quiz', 'listen', 'browse'];
+    var MODES = ['browse', 'cards', 'quiz', 'listen'];   // the browse list leads and opens by default
     var BOX_INTERVALS = { 1: 0, 2: 1, 3: 3, 4: 7, 5: 21 };
     var NEW_PER_BATCH = 10;
     var QUIZ_LENGTH = 10;
@@ -20,7 +20,11 @@
     var CARDS_KEY = 'spanishCards';
     var QUIZ_KEY = 'spanishQuiz';
 
-    var prefs = SP.loadState(PREFS_KEY, 1) || { v: 1, stage: 'all', mode: 'cards', dir: 'es-ru', rate: 1 };
+    // Only the scope and the card direction are remembered; the mode is not,
+    // so every visit opens on the browse list unless the hash asks otherwise.
+    var saved = SP.loadState(PREFS_KEY, 1) || {};
+    var prefs = { v: 1, stage: saved.stage || 'all', dir: saved.dir || 'es-ru', rate: saved.rate || 1 };
+    var currentMode = MODES[0];
     var manifest = null;
     var pool = [];          // studyable items of the selected stages
     var allItems = [];      // everything, drills included (browse)
@@ -60,6 +64,17 @@
         var strip = byId('sp-stages');
         SP.clear(strip);
 
+        // The rules are reference, not a study scope, so the first chip is a
+        // plain link out to the phonetics-and-grammar page.
+        if (manifest.rules) {
+            var rulesChip = SP.el('a', 'sp-chip');
+            rulesChip.href = manifest.rules.url;
+            rulesChip.title = manifest.rules.titleRu;
+            rulesChip.appendChild(SP.el('span', 'sp-chip-label', 'Rules'));
+            rulesChip.appendChild(SP.el('small', null, ' ↗'));
+            strip.appendChild(rulesChip);
+        }
+
         var options = [{ key: 'all', label: 'All stages', sub: '' }].concat(
             manifest.stages.map(function (s) {
                 var n = 0;
@@ -78,7 +93,7 @@
                 prefs.stage = option.key;
                 savePrefs();
                 renderStageChips();
-                loadScope().then(function () { enterMode(prefs.mode, true); })
+                loadScope().then(function () { enterMode(currentMode, true); })
                     .catch(function (e) { SP.showError('sp-error', e); });
             });
             strip.appendChild(chip);
@@ -99,7 +114,7 @@
     function renderModeTabs() {
         var strip = byId('sp-modes');
         SP.clear(strip);
-        var labels = { cards: 'Flashcards', quiz: 'Quiz', listen: 'Listening', browse: 'Browse' };
+        var labels = { browse: 'Browse', cards: 'Flashcards', quiz: 'Quiz', listen: 'Listening' };
         MODES.forEach(function (mode) {
             if (mode === 'listen' && !SP.tts.available()) return;
             var tab = SP.el('button', 'sp-tab', labels[mode]);
@@ -112,11 +127,10 @@
     }
 
     function enterMode(mode, force) {
-        if (MODES.indexOf(mode) === -1) mode = 'cards';
-        if (mode === 'listen' && !SP.tts.available()) mode = 'cards';
-        if (prefs.mode === mode && !force) { /* still re-render below */ }
-        prefs.mode = mode;
-        savePrefs();
+        if (MODES.indexOf(mode) === -1) mode = 'browse';
+        if (mode === 'listen' && !SP.tts.available()) mode = 'browse';
+        if (currentMode === mode && !force) { /* still re-render below */ }
+        currentMode = mode;
 
         document.querySelectorAll('#sp-modes .sp-tab').forEach(function (tab) {
             var active = tab.dataset.mode === mode;
@@ -130,10 +144,10 @@
         if (location.hash.slice(1) !== mode) history.replaceState(null, '', '#' + mode);
 
         SP.tts.stop();
-        if (mode === 'cards') initCards();
+        if (mode === 'browse') initBrowse();
         else if (mode === 'quiz') initQuiz();
         else if (mode === 'listen') initListen();
-        else initBrowse();
+        else initCards();
     }
 
     /* ---------- flashcards ---------- */
@@ -677,7 +691,6 @@
 
     var browseShown = BROWSE_PAGE;
     var browseFiltered = [];
-    var browseDebounce = null;
 
     function initBrowse() {
         var groups = {};
@@ -700,19 +713,13 @@
     }
 
     function applyBrowse() {
-        var query = SP.normalizeQuery(byId('sp-browse-search').value.trim());
         var type = byId('sp-browse-type').value;
         var group = byId('sp-browse-group').value;
 
         browseFiltered = allItems.filter(function (item) {
             if (type && item.type !== type) return false;
             if (group && item.group !== group) return false;
-            if (!query) return true;
-            var haystack = SP.normalizeQuery(
-                [item.es, item.en, item.ru, item.tr, item.prompt, item.answer, item.group]
-                    .filter(Boolean).join('\n')
-            );
-            return haystack.indexOf(query) !== -1;
+            return true;
         });
 
         browseShown = BROWSE_PAGE;
@@ -722,7 +729,7 @@
     function renderBrowse() {
         var list = byId('sp-browse-list');
         SP.clear(list);
-        byId('sp-browse-count').textContent = browseFiltered.length + ' found';
+        byId('sp-browse-count').textContent = browseFiltered.length + ' entries';
         byId('sp-browse-empty').hidden = browseFiltered.length !== 0;
 
         var slice = browseFiltered.slice(0, browseShown);
@@ -753,27 +760,21 @@
         }
     }
 
-    function exportItems(format) {
-        var rows = browseFiltered;
-        var blob;
-        var name = 'spanish-' + SP.todayStr() + '.' + format;
-        if (format === 'json') {
-            blob = new Blob([JSON.stringify(rows, null, 1)], { type: 'application/json' });
-        } else {
-            var head = ['id', 'stage', 'type', 'group', 'es', 'en', 'ru', 'tr'];
-            var lines = [head.join(',')];
-            rows.forEach(function (item) {
-                lines.push(head.map(function (key) {
-                    var value = item[key] === undefined || item[key] === null ? '' : String(item[key]);
-                    return '"' + value.replace(/"/g, '""') + '"';
-                }).join(','));
-            });
-            blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv' });
-        }
+    function exportCsv() {
+        var head = ['id', 'stage', 'type', 'group', 'es', 'en', 'ru', 'tr'];
+        var lines = [head.join(',')];
+        browseFiltered.forEach(function (item) {
+            lines.push(head.map(function (key) {
+                var value = item[key] === undefined || item[key] === null ? '' : String(item[key]);
+                return '"' + value.replace(/"/g, '""') + '"';
+            }).join(','));
+        });
+        // The BOM keeps Excel from reading the Cyrillic as mojibake.
+        var blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv' });
         var url = URL.createObjectURL(blob);
         var link = document.createElement('a');
         link.href = url;
-        link.download = name;
+        link.download = 'spanish-' + SP.todayStr() + '.csv';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -781,14 +782,9 @@
     }
 
     function initBrowseControls() {
-        byId('sp-browse-search').addEventListener('input', function () {
-            clearTimeout(browseDebounce);
-            browseDebounce = setTimeout(applyBrowse, 150);
-        });
         byId('sp-browse-type').addEventListener('change', applyBrowse);
         byId('sp-browse-group').addEventListener('change', applyBrowse);
         byId('sp-browse-reset').addEventListener('click', function () {
-            byId('sp-browse-search').value = '';
             byId('sp-browse-type').value = '';
             byId('sp-browse-group').value = '';
             applyBrowse();
@@ -797,8 +793,7 @@
             browseShown += BROWSE_STEP;
             renderBrowse();
         });
-        byId('sp-browse-json').addEventListener('click', function () { exportItems('json'); });
-        byId('sp-browse-csv').addEventListener('click', function () { exportItems('csv'); });
+        byId('sp-browse-csv').addEventListener('click', exportCsv);
     }
 
     /* ---------- boot ---------- */
@@ -828,7 +823,7 @@
             root.hidden = false;
             byId('sp-loading').hidden = true;
             var fromHash = location.hash.slice(1);
-            enterMode(MODES.indexOf(fromHash) !== -1 ? fromHash : prefs.mode, true);
+            enterMode(MODES.indexOf(fromHash) !== -1 ? fromHash : 'browse', true);
         }).catch(function (e) {
             byId('sp-loading').hidden = true;
             SP.showError('sp-error', e);
@@ -836,7 +831,7 @@
 
         window.addEventListener('hashchange', function () {
             var mode = location.hash.slice(1);
-            if (MODES.indexOf(mode) !== -1 && mode !== prefs.mode) enterMode(mode);
+            if (MODES.indexOf(mode) !== -1 && mode !== currentMode) enterMode(mode);
         });
     }
 
