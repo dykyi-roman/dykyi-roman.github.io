@@ -1,0 +1,3112 @@
+{
+ "id": "stage-5",
+ "prefix": "es5",
+ "no": 5,
+ "title": "Everyday situations",
+ "titleRu": "Личная рутина и реальные ситуации",
+ "goal": "уверенно говорить в тех ситуациях, которые повторяются каждую неделю — школа и садик, кафе и супермаркет, аэропорт и поезд, аптека, банк, доставка, аренда, соседи, звонки.",
+ "url": "spanish/stage-5.html",
+ "intro": [
+  {
+   "k": "p",
+   "spans": [
+    {
+     "t": "Базовые существительные ("
+    },
+    {
+     "t": "billete",
+     "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "maleta",
+     "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "farmacia",
+     "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "cuenta",
+     "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "vecino",
+     "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "hotel",
+     "s": "es"
+    },
+    {
+     "t": ") уже есть в Stage 3, а признаки ("
+    },
+    {
+     "t": "caro",
+     "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "libre",
+     "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "cerrado",
+     "s": "es"
+    },
+    {
+     "t": ") — в Stage 4. Поэтому здесь собрано другое: "
+    },
+    {
+     "t": "ситуационные связки и готовые фразы",
+     "s": "b"
+    },
+    {
+     "t": ", то, что в Испании реально произносят у школьных ворот, у барной стойки, на перроне, в аптеке и по телефону. Порядок разделов повторяет порядок дня: ребёнок → еда → дорога → быт."
+    }
+   ]
+  },
+  {
+   "k": "p",
+   "spans": [
+    {
+     "t": "Всего элементов: "
+    },
+    {
+     "t": "124",
+     "s": "b"
+    },
+    {
+     "t": "."
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "kind": "vocab",
+   "name": "Семья, школа и садик"
+  },
+  {
+   "kind": "vocab",
+   "name": "Кафе, ресторан и бар"
+  },
+  {
+   "kind": "vocab",
+   "name": "Супермаркет и покупки"
+  },
+  {
+   "kind": "vocab",
+   "name": "Аэропорт"
+  },
+  {
+   "kind": "vocab",
+   "name": "Поезд, автобус, такси и машина"
+  },
+  {
+   "kind": "vocab",
+   "name": "Отель"
+  },
+  {
+   "kind": "vocab",
+   "name": "Врач и аптека"
+  },
+  {
+   "kind": "vocab",
+   "name": "Банк, почта и доставка"
+  },
+  {
+   "kind": "vocab",
+   "name": "Дом, аренда и соседи"
+  },
+  {
+   "kind": "vocab",
+   "name": "Звонки, сообщения и договорённости"
+  },
+  {
+   "kind": "example",
+   "name": "Школа и садик"
+  },
+  {
+   "kind": "example",
+   "name": "Ребёнок заболел"
+  },
+  {
+   "kind": "example",
+   "name": "Бар и ресторан"
+  },
+  {
+   "kind": "example",
+   "name": "Заказ и особые пожелания"
+  },
+  {
+   "kind": "example",
+   "name": "Счёт и оплата"
+  },
+  {
+   "kind": "example",
+   "name": "Супермаркет"
+  },
+  {
+   "kind": "example",
+   "name": "Аэропорт"
+  },
+  {
+   "kind": "example",
+   "name": "Поезд и автобус"
+  },
+  {
+   "kind": "example",
+   "name": "Такси и машина"
+  },
+  {
+   "kind": "example",
+   "name": "Отель"
+  },
+  {
+   "kind": "example",
+   "name": "Аптека и врач"
+  },
+  {
+   "kind": "example",
+   "name": "Банк, почта и доставка"
+  },
+  {
+   "kind": "example",
+   "name": "Аренда и бытовые проблемы"
+  },
+  {
+   "kind": "example",
+   "name": "Соседи"
+  },
+  {
+   "kind": "example",
+   "name": "Звонки и сообщения"
+  }
+ ],
+ "items": [
+  {
+   "id": "es5-v001",
+   "type": "vocab",
+   "es": "el cole",
+   "en": "school (informal)",
+   "ru": "школа (разг.)",
+   "tr": "эль ко́ле",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v002",
+   "type": "vocab",
+   "es": "la guardería",
+   "en": "nursery, daycare",
+   "ru": "ясли / садик",
+   "tr": "ла гардери́а",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v003",
+   "type": "vocab",
+   "es": "la escuela infantil",
+   "en": "preschool",
+   "ru": "детский сад",
+   "tr": "ла эскуэ́ла инфанти́ль",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v004",
+   "type": "vocab",
+   "es": "el tutor / la tutora",
+   "en": "class teacher",
+   "ru": "классный руководитель",
+   "tr": "эль туто́р / ла туто́ра",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v005",
+   "type": "vocab",
+   "es": "la tutoría",
+   "en": "parent–teacher meeting",
+   "ru": "встреча с учителем",
+   "tr": "ла тутори́а",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v006",
+   "type": "vocab",
+   "es": "la reunión de padres",
+   "en": "parents' meeting",
+   "ru": "родительское собрание",
+   "tr": "ла реунио́н де па́дрес",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v007",
+   "type": "vocab",
+   "es": "el recreo",
+   "en": "break, recess",
+   "ru": "перемена",
+   "tr": "эль рекре́о",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v008",
+   "type": "vocab",
+   "es": "los deberes",
+   "en": "homework",
+   "ru": "домашнее задание",
+   "tr": "лос дебе́рес",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v009",
+   "type": "vocab",
+   "es": "la merienda",
+   "en": "afternoon snack",
+   "ru": "полдник",
+   "tr": "ла мерье́нда",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v010",
+   "type": "vocab",
+   "es": "el comedor",
+   "en": "school canteen",
+   "ru": "школьная столовая",
+   "tr": "эль комедо́р",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v011",
+   "type": "vocab",
+   "es": "las extraescolares",
+   "en": "after-school activities",
+   "ru": "кружки / секции",
+   "tr": "лас экстраэскола́рес",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v012",
+   "type": "vocab",
+   "es": "la excursión",
+   "en": "school trip",
+   "ru": "экскурсия",
+   "tr": "ла экскурсио́н",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v013",
+   "type": "vocab",
+   "es": "el babi",
+   "en": "school smock",
+   "ru": "халатик (в садик)",
+   "tr": "эль ба́би",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v014",
+   "type": "vocab",
+   "es": "la autorización",
+   "en": "permission slip",
+   "ru": "разрешение (подписать)",
+   "tr": "ла ауторисасио́н",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v015",
+   "type": "vocab",
+   "es": "la circular",
+   "en": "school notice",
+   "ru": "уведомление от школы",
+   "tr": "ла сиркула́р",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v016",
+   "type": "vocab",
+   "es": "recoger",
+   "en": "to pick up",
+   "ru": "забирать",
+   "tr": "рекохе́р",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v017",
+   "type": "vocab",
+   "es": "dejar",
+   "en": "to drop off, to leave",
+   "ru": "завозить / оставлять",
+   "tr": "деха́р",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v018",
+   "type": "vocab",
+   "es": "faltar",
+   "en": "to be absent, to be missing",
+   "ru": "пропускать / не хватать",
+   "tr": "фальта́р",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v019",
+   "type": "vocab",
+   "es": "justificar la falta",
+   "en": "to excuse an absence",
+   "ru": "оправдать пропуск",
+   "tr": "хустифика́р ла фа́льта",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v020",
+   "type": "vocab",
+   "es": "estar malito / malita",
+   "en": "to be a bit ill (of a child)",
+   "ru": "приболеть (о ребёнке)",
+   "tr": "эста́р мали́то / мали́та",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v021",
+   "type": "vocab",
+   "es": "ponerse malo",
+   "en": "to get ill",
+   "ru": "заболеть",
+   "tr": "поне́рсе ма́ло",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v022",
+   "type": "vocab",
+   "es": "le duele la tripa",
+   "en": "his/her tummy hurts",
+   "ru": "у неё болит живот",
+   "tr": "ле дуэ́ле ла три́па",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v023",
+   "type": "vocab",
+   "es": "a por",
+   "en": "(to go) to get",
+   "ru": "за (кем-то / чем-то)",
+   "tr": "а пор",
+   "group": "Семья, школа и садик"
+  },
+  {
+   "id": "es5-v024",
+   "type": "vocab",
+   "es": "la carta",
+   "en": "menu",
+   "ru": "меню (карта)",
+   "tr": "ла ка́рта",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v025",
+   "type": "vocab",
+   "es": "el menú del día",
+   "en": "set lunch menu",
+   "ru": "комплексный обед",
+   "tr": "эль мену́ дель ди́а",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v026",
+   "type": "vocab",
+   "es": "el primero / el segundo",
+   "en": "first / second course",
+   "ru": "первое / второе",
+   "tr": "эль приме́ро / эль сегу́ндо",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v027",
+   "type": "vocab",
+   "es": "el postre",
+   "en": "dessert",
+   "ru": "десерт",
+   "tr": "эль по́стре",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v028",
+   "type": "vocab",
+   "es": "la ración / la media ración",
+   "en": "full / half portion",
+   "ru": "порция / полпорции",
+   "tr": "ла расио́н / ла ме́диа расио́н",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v029",
+   "type": "vocab",
+   "es": "la tapa / el pincho",
+   "en": "small snack, tapa",
+   "ru": "закуска",
+   "tr": "ла та́па / эль пи́нчо",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v030",
+   "type": "vocab",
+   "es": "la caña",
+   "en": "small draught beer",
+   "ru": "маленькое разливное пиво",
+   "tr": "ла ка́нья",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v031",
+   "type": "vocab",
+   "es": "el café con leche / el cortado",
+   "en": "white coffee / macchiato",
+   "ru": "кофе с молоком / кортадо",
+   "tr": "эль кафе́ кон ле́че / эль корта́до",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v032",
+   "type": "vocab",
+   "es": "la terraza",
+   "en": "outdoor terrace",
+   "ru": "терраса",
+   "tr": "ла терра́са",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v033",
+   "type": "vocab",
+   "es": "la barra",
+   "en": "bar counter",
+   "ru": "барная стойка",
+   "tr": "ла ба́рра",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v034",
+   "type": "vocab",
+   "es": "la trona",
+   "en": "high chair",
+   "ru": "детский стульчик",
+   "tr": "ла тро́на",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v035",
+   "type": "vocab",
+   "es": "el menú infantil",
+   "en": "kids' menu",
+   "ru": "детское меню",
+   "tr": "эль мену́ инфанти́ль",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v036",
+   "type": "vocab",
+   "es": "para llevar",
+   "en": "takeaway",
+   "ru": "с собой",
+   "tr": "па́ра йеба́р",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v037",
+   "type": "vocab",
+   "es": "para tomar aquí",
+   "en": "to eat in",
+   "ru": "здесь (не с собой)",
+   "tr": "па́ра тома́р аки́",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v038",
+   "type": "vocab",
+   "es": "¿me pone...?",
+   "en": "can I have...?",
+   "ru": "дайте, пожалуйста",
+   "tr": "ме по́не",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v039",
+   "type": "vocab",
+   "es": "¿nos trae...?",
+   "en": "could you bring us...?",
+   "ru": "принесите нам",
+   "tr": "нос тра́е",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v040",
+   "type": "vocab",
+   "es": "¿qué lleva?",
+   "en": "what is in it?",
+   "ru": "что в составе?",
+   "tr": "ке йе́ба",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v041",
+   "type": "vocab",
+   "es": "sin gluten / sin lactosa",
+   "en": "gluten-free / lactose-free",
+   "ru": "без глютена / без лактозы",
+   "tr": "син глу́тен / син лакто́са",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v042",
+   "type": "vocab",
+   "es": "ser alérgico a",
+   "en": "to be allergic to",
+   "ru": "иметь аллергию на",
+   "tr": "сер але́рхико а",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v043",
+   "type": "vocab",
+   "es": "los frutos secos",
+   "en": "nuts",
+   "ru": "орехи",
+   "tr": "лос фру́тос се́кос",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v044",
+   "type": "vocab",
+   "es": "la reserva a nombre de",
+   "en": "booking under the name of",
+   "ru": "бронь на имя",
+   "tr": "ла ресе́рба а но́мбре де",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v045",
+   "type": "vocab",
+   "es": "pagar a medias",
+   "en": "to split the bill",
+   "ru": "платить пополам",
+   "tr": "пага́р а ме́диас",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v046",
+   "type": "vocab",
+   "es": "el súper",
+   "en": "supermarket",
+   "ru": "супермаркет",
+   "tr": "эль су́пер",
+   "group": "Супермаркет и покупки"
+  },
+  {
+   "id": "es5-v047",
+   "type": "vocab",
+   "es": "la caja",
+   "en": "checkout",
+   "ru": "касса",
+   "tr": "ла ка́ха",
+   "group": "Супермаркет и покупки"
+  },
+  {
+   "id": "es5-v048",
+   "type": "vocab",
+   "es": "la bolsa",
+   "en": "bag",
+   "ru": "пакет",
+   "tr": "ла бо́льса",
+   "group": "Супермаркет и покупки"
+  },
+  {
+   "id": "es5-v049",
+   "type": "vocab",
+   "es": "a granel",
+   "en": "loose, by weight",
+   "ru": "на развес",
+   "tr": "а гране́ль",
+   "group": "Супермаркет и покупки"
+  },
+  {
+   "id": "es5-v050",
+   "type": "vocab",
+   "es": "medio kilo / un cuarto",
+   "en": "half a kilo / a quarter",
+   "ru": "полкило / четверть кило",
+   "tr": "ме́дио ки́ло / ун куа́рто",
+   "group": "Супермаркет и покупки"
+  },
+  {
+   "id": "es5-v051",
+   "type": "vocab",
+   "es": "la fecha de caducidad",
+   "en": "expiry date",
+   "ru": "срок годности",
+   "tr": "ла фе́ча де кадусида́д",
+   "group": "Супермаркет и покупки"
+  },
+  {
+   "id": "es5-v052",
+   "type": "vocab",
+   "es": "estar en oferta",
+   "en": "to be on sale",
+   "ru": "быть по акции",
+   "tr": "эста́р эн офе́рта",
+   "group": "Супермаркет и покупки"
+  },
+  {
+   "id": "es5-v053",
+   "type": "vocab",
+   "es": "el probador",
+   "en": "fitting room",
+   "ru": "примерочная",
+   "tr": "эль пробадо́р",
+   "group": "Супермаркет и покупки"
+  },
+  {
+   "id": "es5-v054",
+   "type": "vocab",
+   "es": "el ticket",
+   "en": "receipt",
+   "ru": "чек",
+   "tr": "эль ти́кет",
+   "group": "Супермаркет и покупки"
+  },
+  {
+   "id": "es5-v055",
+   "type": "vocab",
+   "es": "la tarjeta de embarque",
+   "en": "boarding pass",
+   "ru": "посадочный талон",
+   "tr": "ла тархе́та де эмба́рке",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-v056",
+   "type": "vocab",
+   "es": "el mostrador de facturación",
+   "en": "check-in desk",
+   "ru": "стойка регистрации",
+   "tr": "эль мострадо́р де фактурасио́н",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-v057",
+   "type": "vocab",
+   "es": "facturar la maleta",
+   "en": "to check in a suitcase",
+   "ru": "сдать чемодан в багаж",
+   "tr": "фактура́р ла мале́та",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-v058",
+   "type": "vocab",
+   "es": "el equipaje de mano",
+   "en": "hand luggage",
+   "ru": "ручная кладь",
+   "tr": "эль экипа́хе де ма́но",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-v059",
+   "type": "vocab",
+   "es": "la puerta de embarque",
+   "en": "boarding gate",
+   "ru": "выход на посадку",
+   "tr": "ла пуэ́рта де эмба́рке",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-v060",
+   "type": "vocab",
+   "es": "el control de seguridad",
+   "en": "security check",
+   "ru": "контроль безопасности",
+   "tr": "эль контро́ль де сегурида́д",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-v061",
+   "type": "vocab",
+   "es": "la recogida de equipajes",
+   "en": "baggage claim",
+   "ru": "выдача багажа",
+   "tr": "ла рекохи́да де экипа́хес",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-v062",
+   "type": "vocab",
+   "es": "el vuelo directo / la escala",
+   "en": "direct flight / layover",
+   "ru": "прямой рейс / пересадка (в самолёте)",
+   "tr": "эль буэ́ло дире́кто / ла эска́ла",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-v063",
+   "type": "vocab",
+   "es": "el carrito (del bebé)",
+   "en": "pushchair",
+   "ru": "детская коляска",
+   "tr": "эль карри́то дель бебе́",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-v064",
+   "type": "vocab",
+   "es": "ida y vuelta / solo ida",
+   "en": "return / one way",
+   "ru": "туда-обратно / в одну сторону",
+   "tr": "и́да и буэ́льта / со́ло и́да",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v065",
+   "type": "vocab",
+   "es": "el asiento de ventanilla / de pasillo",
+   "en": "window / aisle seat",
+   "ru": "место у окна / у прохода",
+   "tr": "эль асье́нто де бентани́йа / де паси́йо",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v066",
+   "type": "vocab",
+   "es": "la vía",
+   "en": "track, platform",
+   "ru": "путь (на вокзале)",
+   "tr": "ла би́а",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v067",
+   "type": "vocab",
+   "es": "hacer transbordo",
+   "en": "to change trains",
+   "ru": "делать пересадку",
+   "tr": "асе́р трансбо́рдо",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v068",
+   "type": "vocab",
+   "es": "la próxima parada",
+   "en": "next stop",
+   "ru": "следующая остановка",
+   "tr": "ла про́ксима пара́да",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v069",
+   "type": "vocab",
+   "es": "bajarse en",
+   "en": "to get off at",
+   "ru": "выходить на",
+   "tr": "баха́рсе эн",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v070",
+   "type": "vocab",
+   "es": "el bono / la tarjeta de transporte",
+   "en": "travel pass",
+   "ru": "проездной",
+   "tr": "эль бо́но / ла тархе́та де транспо́рте",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v071",
+   "type": "vocab",
+   "es": "recargar",
+   "en": "to top up",
+   "ru": "пополнить",
+   "tr": "рекарга́р",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v072",
+   "type": "vocab",
+   "es": "validar / picar el billete",
+   "en": "to validate a ticket",
+   "ru": "пробить билет",
+   "tr": "балида́р / пика́р эль бийе́те",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v073",
+   "type": "vocab",
+   "es": "llevar retraso",
+   "en": "to be running late",
+   "ru": "опаздывать (о транспорте)",
+   "tr": "йеба́р ретра́со",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v074",
+   "type": "vocab",
+   "es": "la sillita (infantil)",
+   "en": "child car seat",
+   "ru": "детское кресло",
+   "tr": "ла сийи́та инфанти́ль",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v075",
+   "type": "vocab",
+   "es": "aparcar / el aparcamiento",
+   "en": "to park / car park",
+   "ru": "парковаться / парковка",
+   "tr": "апарка́р / эль апаркамье́нто",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v076",
+   "type": "vocab",
+   "es": "el peaje",
+   "en": "toll road",
+   "ru": "платная дорога",
+   "tr": "эль пеа́хе",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v077",
+   "type": "vocab",
+   "es": "la gasolinera / repostar",
+   "en": "petrol station / to fill up",
+   "ru": "заправка / заправиться",
+   "tr": "ла гасолине́ра / репоста́р",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v078",
+   "type": "vocab",
+   "es": "lleno, por favor",
+   "en": "fill it up, please",
+   "ru": "полный бак, пожалуйста",
+   "tr": "йе́но пор фабо́р",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v079",
+   "type": "vocab",
+   "es": "la habitación doble",
+   "en": "double room",
+   "ru": "двухместный номер",
+   "tr": "ла абитасио́н до́бле",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-v080",
+   "type": "vocab",
+   "es": "la cuna",
+   "en": "cot",
+   "ru": "детская кроватка",
+   "tr": "ла ку́на",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-v081",
+   "type": "vocab",
+   "es": "el desayuno incluido",
+   "en": "breakfast included",
+   "ru": "завтрак включён",
+   "tr": "эль десайу́но инклуи́до",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-v082",
+   "type": "vocab",
+   "es": "la entrada / la salida",
+   "en": "check-in / check-out",
+   "ru": "заезд / выезд",
+   "tr": "ла энтра́да / ла сали́да",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-v083",
+   "type": "vocab",
+   "es": "dejar las maletas",
+   "en": "to leave the luggage",
+   "ru": "оставить чемоданы",
+   "tr": "деха́р лас мале́тас",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-v084",
+   "type": "vocab",
+   "es": "la toalla / las sábanas",
+   "en": "towel / bed sheets",
+   "ru": "полотенце / постельное бельё",
+   "tr": "ла тоа́йа / лас са́банас",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-v085",
+   "type": "vocab",
+   "es": "la cita previa",
+   "en": "prior appointment",
+   "ru": "предварительная запись",
+   "tr": "ла си́та пре́биа",
+   "group": "Врач и аптека"
+  },
+  {
+   "id": "es5-v086",
+   "type": "vocab",
+   "es": "pedir cita",
+   "en": "to make an appointment",
+   "ru": "записаться",
+   "tr": "педи́р си́та",
+   "group": "Врач и аптека"
+  },
+  {
+   "id": "es5-v087",
+   "type": "vocab",
+   "es": "el médico de cabecera",
+   "en": "family doctor, GP",
+   "ru": "семейный врач",
+   "tr": "эль ме́дико де кабесе́ра",
+   "group": "Врач и аптека"
+  },
+  {
+   "id": "es5-v088",
+   "type": "vocab",
+   "es": "urgencias",
+   "en": "emergency room, A&E",
+   "ru": "неотложка / приёмный покой",
+   "tr": "урхе́нсиас",
+   "group": "Врач и аптека"
+  },
+  {
+   "id": "es5-v089",
+   "type": "vocab",
+   "es": "la tarjeta sanitaria",
+   "en": "health card",
+   "ru": "медицинская карта",
+   "tr": "ла тархе́та санита́риа",
+   "group": "Врач и аптека"
+  },
+  {
+   "id": "es5-v090",
+   "type": "vocab",
+   "es": "la receta",
+   "en": "prescription",
+   "ru": "рецепт",
+   "tr": "ла ресе́та",
+   "group": "Врач и аптека"
+  },
+  {
+   "id": "es5-v091",
+   "type": "vocab",
+   "es": "la farmacia de guardia",
+   "en": "duty pharmacy (24 h)",
+   "ru": "дежурная аптека",
+   "tr": "ла фарма́сиа де гуа́рдиа",
+   "group": "Врач и аптека"
+  },
+  {
+   "id": "es5-v092",
+   "type": "vocab",
+   "es": "el jarabe / las pastillas",
+   "en": "syrup / pills",
+   "ru": "сироп / таблетки",
+   "tr": "эль хара́бе / лас пасти́йас",
+   "group": "Врач и аптека"
+  },
+  {
+   "id": "es5-v093",
+   "type": "vocab",
+   "es": "el DNI / el NIE",
+   "en": "ID card / foreigner's ID number",
+   "ru": "документ / номер иностранца",
+   "tr": "эль де-эне-и́ / эль ни́е",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v094",
+   "type": "vocab",
+   "es": "el cajero (automático)",
+   "en": "cash machine, ATM",
+   "ru": "банкомат",
+   "tr": "эль кахе́ро аутома́тико",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v095",
+   "type": "vocab",
+   "es": "sacar dinero",
+   "en": "to withdraw money",
+   "ru": "снять деньги",
+   "tr": "сака́р дине́ро",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v096",
+   "type": "vocab",
+   "es": "la transferencia",
+   "en": "bank transfer",
+   "ru": "перевод",
+   "tr": "ла трансфере́нсиа",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v097",
+   "type": "vocab",
+   "es": "la comisión",
+   "en": "fee, charge",
+   "ru": "комиссия",
+   "tr": "ла комисио́н",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v098",
+   "type": "vocab",
+   "es": "el recibo domiciliado",
+   "en": "direct debit",
+   "ru": "автоплатёж",
+   "tr": "эль реси́бо домисилиа́до",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v099",
+   "type": "vocab",
+   "es": "el paquete / el envío",
+   "en": "parcel / shipment",
+   "ru": "посылка / отправление",
+   "tr": "эль паке́те / эль энби́о",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v100",
+   "type": "vocab",
+   "es": "el punto de recogida",
+   "en": "pick-up point",
+   "ru": "пункт выдачи",
+   "tr": "эль пу́нто де рекохи́да",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v101",
+   "type": "vocab",
+   "es": "el repartidor",
+   "en": "delivery driver",
+   "ru": "курьер",
+   "tr": "эль репартидо́р",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v102",
+   "type": "vocab",
+   "es": "el aviso",
+   "en": "notice, slip",
+   "ru": "уведомление",
+   "tr": "эль аби́со",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v103",
+   "type": "vocab",
+   "es": "el buzón",
+   "en": "letterbox",
+   "ru": "почтовый ящик",
+   "tr": "эль бусо́н",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v104",
+   "type": "vocab",
+   "es": "el portal / la portería",
+   "en": "building entrance / concierge desk",
+   "ru": "подъезд / консьерж",
+   "tr": "эль порта́ль / ла портери́а",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v105",
+   "type": "vocab",
+   "es": "el timbre",
+   "en": "doorbell",
+   "ru": "дверной звонок",
+   "tr": "эль ти́мбре",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v106",
+   "type": "vocab",
+   "es": "el ascensor",
+   "en": "lift, elevator",
+   "ru": "лифт",
+   "tr": "эль ассенсо́р",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v107",
+   "type": "vocab",
+   "es": "el casero / la casera",
+   "en": "landlord / landlady",
+   "ru": "арендодатель / арендодательница",
+   "tr": "эль касе́ро / ла касе́ра",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v108",
+   "type": "vocab",
+   "es": "la fianza",
+   "en": "deposit",
+   "ru": "залог",
+   "tr": "ла фиа́нса",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v109",
+   "type": "vocab",
+   "es": "el contrato de alquiler",
+   "en": "rental contract",
+   "ru": "договор аренды",
+   "tr": "эль контра́то де алкиле́р",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v110",
+   "type": "vocab",
+   "es": "la comunidad (de vecinos)",
+   "en": "building charges, residents' association",
+   "ru": "коммунальные / жильцы дома",
+   "tr": "ла комунида́д де беси́нос",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v111",
+   "type": "vocab",
+   "es": "los suministros (luz, agua, gas)",
+   "en": "utilities",
+   "ru": "свет, вода, газ",
+   "tr": "лос сумини́строс",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v112",
+   "type": "vocab",
+   "es": "la avería",
+   "en": "breakdown, fault",
+   "ru": "поломка",
+   "tr": "ла абери́а",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v113",
+   "type": "vocab",
+   "es": "el fontanero / el electricista",
+   "en": "plumber / electrician",
+   "ru": "сантехник / электрик",
+   "tr": "эль фонтане́ро / эль электриси́ста",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v114",
+   "type": "vocab",
+   "es": "se ha estropeado",
+   "en": "it has broken down",
+   "ru": "сломалось",
+   "tr": "се а эстропеа́до",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v115",
+   "type": "vocab",
+   "es": "la fuga de agua",
+   "en": "water leak",
+   "ru": "протечка",
+   "tr": "ла фу́га де а́гуа",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v116",
+   "type": "vocab",
+   "es": "el contenedor",
+   "en": "rubbish container",
+   "ru": "мусорный контейнер",
+   "tr": "эль контенедо́р",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v117",
+   "type": "vocab",
+   "es": "el ruido",
+   "en": "noise",
+   "ru": "шум",
+   "tr": "эль руи́до",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v118",
+   "type": "vocab",
+   "es": "te llamo / te escribo",
+   "en": "I'll call / text you",
+   "ru": "я позвоню / напишу",
+   "tr": "те йа́мо / те эскри́бо",
+   "group": "Звонки, сообщения и договорённости"
+  },
+  {
+   "id": "es5-v119",
+   "type": "vocab",
+   "es": "mandar un wasap",
+   "en": "to send a WhatsApp",
+   "ru": "написать в вотсап",
+   "tr": "манда́р ун уаса́п",
+   "group": "Звонки, сообщения и договорённости"
+  },
+  {
+   "id": "es5-v120",
+   "type": "vocab",
+   "es": "no te oigo bien",
+   "en": "I can't hear you well",
+   "ru": "плохо тебя слышу",
+   "tr": "но те о́йго бье́н",
+   "group": "Звонки, сообщения и договорённости"
+  },
+  {
+   "id": "es5-v121",
+   "type": "vocab",
+   "es": "se corta",
+   "en": "the line is breaking up",
+   "ru": "связь обрывается",
+   "tr": "се ко́рта",
+   "group": "Звонки, сообщения и договорённости"
+  },
+  {
+   "id": "es5-v122",
+   "type": "vocab",
+   "es": "la llamada perdida",
+   "en": "missed call",
+   "ru": "пропущенный звонок",
+   "tr": "ла йама́да перди́да",
+   "group": "Звонки, сообщения и договорённости"
+  },
+  {
+   "id": "es5-v123",
+   "type": "vocab",
+   "es": "quedar (con alguien)",
+   "en": "to arrange to meet",
+   "ru": "договориться о встрече",
+   "tr": "кеда́р",
+   "group": "Звонки, сообщения и договорённости"
+  },
+  {
+   "id": "es5-v124",
+   "type": "vocab",
+   "es": "ir de camino",
+   "en": "to be on the way",
+   "ru": "быть в пути",
+   "tr": "ир де ками́но",
+   "group": "Звонки, сообщения и договорённости"
+  },
+  {
+   "id": "es5-x001",
+   "type": "phrase",
+   "es": "¿A qué hora hay que recogerla?",
+   "ru": "Во сколько её нужно забирать?",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x002",
+   "type": "phrase",
+   "es": "Hoy la recojo yo.",
+   "ru": "Сегодня забираю её я.",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x003",
+   "type": "phrase",
+   "es": "Vengo a por mi hija.",
+   "ru": "Я за дочкой.",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x004",
+   "type": "phrase",
+   "es": "Se me ha olvidado el babi.",
+   "ru": "Я забыл халатик.",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x005",
+   "type": "phrase",
+   "es": "Se ha dejado la mochila en clase.",
+   "ru": "Она забыла рюкзак в классе.",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x006",
+   "type": "phrase",
+   "es": "¿Ha comido bien hoy?",
+   "ru": "Она сегодня хорошо поела?",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x007",
+   "type": "phrase",
+   "es": "¿Cómo se ha portado?",
+   "ru": "Как она себя вела?",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x008",
+   "type": "phrase",
+   "es": "Perdona el retraso, había mucho tráfico.",
+   "ru": "Извини за опоздание, были пробки.",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x009",
+   "type": "phrase",
+   "es": "Mañana llega un poco más tarde.",
+   "ru": "Завтра она придёт чуть позже.",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x010",
+   "type": "phrase",
+   "es": "¿Hay deberes para mañana?",
+   "ru": "На завтра есть домашка?",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x011",
+   "type": "phrase",
+   "es": "¿Se queda hoy al comedor?",
+   "ru": "Она сегодня остаётся на обед?",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x012",
+   "type": "phrase",
+   "es": "¿Cuándo es la reunión de padres?",
+   "ru": "Когда родительское собрание?",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x013",
+   "type": "phrase",
+   "es": "Quería hablar con la tutora.",
+   "ru": "Я хотел бы поговорить с классным руководителем.",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x014",
+   "type": "phrase",
+   "es": "¿Puedo pedir una tutoría?",
+   "ru": "Можно записаться на встречу с учителем?",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x015",
+   "type": "phrase",
+   "es": "Hay que firmar la autorización de la excursión.",
+   "ru": "Нужно подписать разрешение на экскурсию.",
+   "group": "Школа и садик"
+  },
+  {
+   "id": "es5-x016",
+   "type": "phrase",
+   "es": "Hoy no va al cole, está malita.",
+   "ru": "Сегодня она не идёт в школу, приболела.",
+   "group": "Ребёнок заболел"
+  },
+  {
+   "id": "es5-x017",
+   "type": "phrase",
+   "es": "Tiene fiebre desde ayer.",
+   "ru": "У неё температура со вчера.",
+   "group": "Ребёнок заболел"
+  },
+  {
+   "id": "es5-x018",
+   "type": "phrase",
+   "es": "Le duele la tripa.",
+   "ru": "У неё болит живот.",
+   "group": "Ребёнок заболел"
+  },
+  {
+   "id": "es5-x019",
+   "type": "phrase",
+   "es": "Ha vomitado esta noche.",
+   "ru": "Ночью её вырвало.",
+   "group": "Ребёнок заболел"
+  },
+  {
+   "id": "es5-x020",
+   "type": "phrase",
+   "es": "Voy a recogerla ahora, se ha puesto mala.",
+   "ru": "Я сейчас её заберу, ей стало плохо.",
+   "group": "Ребёнок заболел"
+  },
+  {
+   "id": "es5-x021",
+   "type": "phrase",
+   "es": "Mañana justifico la falta.",
+   "ru": "Завтра оправдаю пропуск.",
+   "group": "Ребёнок заболел"
+  },
+  {
+   "id": "es5-x022",
+   "type": "phrase",
+   "es": "¿Le puedo dar algo para la fiebre?",
+   "ru": "Можно дать ей что-нибудь от температуры?",
+   "group": "Ребёнок заболел"
+  },
+  {
+   "id": "es5-x023",
+   "type": "phrase",
+   "es": "¿Tienen mesa para tres?",
+   "ru": "У вас есть стол на троих?",
+   "group": "Бар и ресторан"
+  },
+  {
+   "id": "es5-x024",
+   "type": "phrase",
+   "es": "Tengo una reserva a nombre de Roman.",
+   "ru": "У меня бронь на имя Roman.",
+   "group": "Бар и ресторан"
+  },
+  {
+   "id": "es5-x025",
+   "type": "phrase",
+   "es": "¿Podemos sentarnos en la terraza?",
+   "ru": "Можно сесть на террасе?",
+   "group": "Бар и ресторан"
+  },
+  {
+   "id": "es5-x026",
+   "type": "phrase",
+   "es": "¿Nos trae una trona, por favor?",
+   "ru": "Принесите, пожалуйста, детский стульчик.",
+   "group": "Бар и ресторан"
+  },
+  {
+   "id": "es5-x027",
+   "type": "phrase",
+   "es": "¿Me pone una caña, por favor?",
+   "ru": "Мне маленькое пиво, пожалуйста.",
+   "group": "Бар и ресторан"
+  },
+  {
+   "id": "es5-x028",
+   "type": "phrase",
+   "es": "¿Qué hay hoy de menú?",
+   "ru": "Что сегодня в комплексном обеде?",
+   "group": "Бар и ресторан"
+  },
+  {
+   "id": "es5-x029",
+   "type": "phrase",
+   "es": "De primero, sopa; de segundo, pollo.",
+   "ru": "На первое суп, на второе курица.",
+   "group": "Бар и ресторан"
+  },
+  {
+   "id": "es5-x030",
+   "type": "exchange",
+   "es": "¿Y de beber? — Agua, por favor.",
+   "ru": "А пить? — Воду, пожалуйста.",
+   "group": "Бар и ресторан"
+  },
+  {
+   "id": "es5-x031",
+   "type": "phrase",
+   "es": "Una ración y media ración.",
+   "ru": "Одну порцию и полпорции.",
+   "group": "Бар и ресторан"
+  },
+  {
+   "id": "es5-x032",
+   "type": "phrase",
+   "es": "¿Esto qué lleva?",
+   "ru": "Что здесь в составе?",
+   "group": "Заказ и особые пожелания"
+  },
+  {
+   "id": "es5-x033",
+   "type": "phrase",
+   "es": "¿Lleva leche?",
+   "ru": "Там есть молоко?",
+   "group": "Заказ и особые пожелания"
+  },
+  {
+   "id": "es5-x034",
+   "type": "phrase",
+   "es": "Sin cebolla, por favor.",
+   "ru": "Без лука, пожалуйста.",
+   "group": "Заказ и особые пожелания"
+  },
+  {
+   "id": "es5-x035",
+   "type": "phrase",
+   "es": "Mi hija es alérgica a los frutos secos.",
+   "ru": "У дочери аллергия на орехи.",
+   "group": "Заказ и особые пожелания"
+  },
+  {
+   "id": "es5-x036",
+   "type": "phrase",
+   "es": "¿Tienen algo para niños?",
+   "ru": "Есть что-нибудь для детей?",
+   "group": "Заказ и особые пожелания"
+  },
+  {
+   "id": "es5-x037",
+   "type": "phrase",
+   "es": "Para la niña, algo sin picante.",
+   "ru": "Ребёнку что-нибудь неострое.",
+   "group": "Заказ и особые пожелания"
+  },
+  {
+   "id": "es5-x038",
+   "type": "phrase",
+   "es": "Un café con leche para llevar.",
+   "ru": "Кофе с молоком с собой.",
+   "group": "Заказ и особые пожелания"
+  },
+  {
+   "id": "es5-x039",
+   "type": "phrase",
+   "es": "¿Para tomar aquí o para llevar?",
+   "ru": "Здесь или с собой?",
+   "group": "Заказ и особые пожелания"
+  },
+  {
+   "id": "es5-x040",
+   "type": "phrase",
+   "es": "¿Nos trae la cuenta, por favor?",
+   "ru": "Принесите счёт, пожалуйста.",
+   "group": "Счёт и оплата"
+  },
+  {
+   "id": "es5-x041",
+   "type": "phrase",
+   "es": "Esto no lo he pedido.",
+   "ru": "Я этого не заказывал.",
+   "group": "Счёт и оплата"
+  },
+  {
+   "id": "es5-x042",
+   "type": "phrase",
+   "es": "Creo que hay un error en la cuenta.",
+   "ru": "Кажется, в счёте ошибка.",
+   "group": "Счёт и оплата"
+  },
+  {
+   "id": "es5-x043",
+   "type": "phrase",
+   "es": "¿Se puede pagar con tarjeta?",
+   "ru": "Картой можно?",
+   "group": "Счёт и оплата"
+  },
+  {
+   "id": "es5-x044",
+   "type": "phrase",
+   "es": "Lo pago yo.",
+   "ru": "Я плачу.",
+   "group": "Счёт и оплата"
+  },
+  {
+   "id": "es5-x045",
+   "type": "phrase",
+   "es": "Pagamos a medias.",
+   "ru": "Платим пополам.",
+   "group": "Счёт и оплата"
+  },
+  {
+   "id": "es5-x046",
+   "type": "phrase",
+   "es": "¿Me da el ticket, por favor?",
+   "ru": "Дайте чек, пожалуйста.",
+   "group": "Счёт и оплата"
+  },
+  {
+   "id": "es5-x047",
+   "type": "phrase",
+   "es": "¿Dónde está el pan?",
+   "ru": "Где хлеб?",
+   "group": "Супермаркет"
+  },
+  {
+   "id": "es5-x048",
+   "type": "phrase",
+   "es": "¿Me pone medio kilo de jamón?",
+   "ru": "Полкило хамона, пожалуйста.",
+   "group": "Супермаркет"
+  },
+  {
+   "id": "es5-x049",
+   "type": "phrase",
+   "es": "¿Esto está en oferta?",
+   "ru": "Это по акции?",
+   "group": "Супермаркет"
+  },
+  {
+   "id": "es5-x050",
+   "type": "phrase",
+   "es": "¿Me da una bolsa, por favor?",
+   "ru": "Дайте пакет, пожалуйста.",
+   "group": "Супермаркет"
+  },
+  {
+   "id": "es5-x051",
+   "type": "phrase",
+   "es": "¿Hasta qué hora abren?",
+   "ru": "До скольких вы работаете?",
+   "group": "Супермаркет"
+  },
+  {
+   "id": "es5-x052",
+   "type": "phrase",
+   "es": "¿Dónde está el probador?",
+   "ru": "Где примерочная?",
+   "group": "Супермаркет"
+  },
+  {
+   "id": "es5-x053",
+   "type": "phrase",
+   "es": "¿Lo puedo devolver si no le vale?",
+   "ru": "Можно вернуть, если не подойдёт?",
+   "group": "Супермаркет"
+  },
+  {
+   "id": "es5-x054",
+   "type": "phrase",
+   "es": "¿Dónde está el mostrador de facturación?",
+   "ru": "Где стойка регистрации?",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-x055",
+   "type": "phrase",
+   "es": "Solo llevo equipaje de mano.",
+   "ru": "У меня только ручная кладь.",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-x056",
+   "type": "phrase",
+   "es": "Quiero facturar esta maleta.",
+   "ru": "Я хочу сдать этот чемодан.",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-x057",
+   "type": "phrase",
+   "es": "¿Cuál es la puerta de embarque?",
+   "ru": "Какой выход на посадку?",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-x058",
+   "type": "phrase",
+   "es": "¿A qué hora empieza el embarque?",
+   "ru": "Во сколько начинается посадка?",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-x059",
+   "type": "phrase",
+   "es": "El vuelo sale con retraso.",
+   "ru": "Рейс задерживается.",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-x060",
+   "type": "phrase",
+   "es": "¿El carrito se factura o lo llevo hasta la puerta?",
+   "ru": "Коляску сдавать или везти до выхода?",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-x061",
+   "type": "phrase",
+   "es": "He perdido el vuelo de enlace.",
+   "ru": "Я опоздал на стыковочный рейс.",
+   "group": "Аэропорт"
+  },
+  {
+   "id": "es5-x062",
+   "type": "phrase",
+   "es": "Dos billetes para Valencia, ida y vuelta.",
+   "ru": "Два билета до Валенсии, туда-обратно.",
+   "group": "Поезд и автобус"
+  },
+  {
+   "id": "es5-x063",
+   "type": "phrase",
+   "es": "¿De qué vía sale el tren?",
+   "ru": "С какого пути отходит поезд?",
+   "group": "Поезд и автобус"
+  },
+  {
+   "id": "es5-x064",
+   "type": "phrase",
+   "es": "¿Este tren para en Sitges?",
+   "ru": "Этот поезд останавливается в Ситжесе?",
+   "group": "Поезд и автобус"
+  },
+  {
+   "id": "es5-x065",
+   "type": "phrase",
+   "es": "¿Hay que hacer transbordo?",
+   "ru": "Нужна пересадка?",
+   "group": "Поезд и автобус"
+  },
+  {
+   "id": "es5-x066",
+   "type": "phrase",
+   "es": "¿Este autobús va al centro?",
+   "ru": "Этот автобус идёт в центр?",
+   "group": "Поезд и автобус"
+  },
+  {
+   "id": "es5-x067",
+   "type": "phrase",
+   "es": "¿Cuántas paradas faltan?",
+   "ru": "Сколько остановок осталось?",
+   "group": "Поезд и автобус"
+  },
+  {
+   "id": "es5-x068",
+   "type": "phrase",
+   "es": "Me bajo en la próxima.",
+   "ru": "Я выхожу на следующей.",
+   "group": "Поезд и автобус"
+  },
+  {
+   "id": "es5-x069",
+   "type": "phrase",
+   "es": "¿Puedo recargar la tarjeta aquí?",
+   "ru": "Здесь можно пополнить проездной?",
+   "group": "Поезд и автобус"
+  },
+  {
+   "id": "es5-x070",
+   "type": "phrase",
+   "es": "El tren lleva veinte minutos de retraso.",
+   "ru": "Поезд опаздывает на двадцать минут.",
+   "group": "Поезд и автобус"
+  },
+  {
+   "id": "es5-x071",
+   "type": "phrase",
+   "es": "¿Me lleva a esta dirección?",
+   "ru": "Отвезёте по этому адресу?",
+   "group": "Такси и машина"
+  },
+  {
+   "id": "es5-x072",
+   "type": "phrase",
+   "es": "¿Cuánto sería hasta el aeropuerto?",
+   "ru": "Сколько будет до аэропорта?",
+   "group": "Такси и машина"
+  },
+  {
+   "id": "es5-x073",
+   "type": "phrase",
+   "es": "¿Tiene sillita para niños?",
+   "ru": "У вас есть детское кресло?",
+   "group": "Такси и машина"
+  },
+  {
+   "id": "es5-x074",
+   "type": "phrase",
+   "es": "Vamos con prisa, tenemos un vuelo.",
+   "ru": "Мы спешим, у нас самолёт.",
+   "group": "Такси и машина"
+  },
+  {
+   "id": "es5-x075",
+   "type": "phrase",
+   "es": "Pare aquí, por favor.",
+   "ru": "Остановите здесь, пожалуйста.",
+   "group": "Такси и машина"
+  },
+  {
+   "id": "es5-x076",
+   "type": "phrase",
+   "es": "¿Dónde puedo aparcar por aquí?",
+   "ru": "Где здесь можно припарковаться?",
+   "group": "Такси и машина"
+  },
+  {
+   "id": "es5-x077",
+   "type": "phrase",
+   "es": "Lleno, por favor.",
+   "ru": "Полный бак, пожалуйста.",
+   "group": "Такси и машина"
+  },
+  {
+   "id": "es5-x078",
+   "type": "phrase",
+   "es": "Tengo una reserva a nombre de Roman.",
+   "ru": "У меня бронь на имя Roman.",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-x079",
+   "type": "phrase",
+   "es": "¿A qué hora es la entrada?",
+   "ru": "Во сколько заезд?",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-x080",
+   "type": "phrase",
+   "es": "¿Podemos dejar las maletas hasta las cinco?",
+   "ru": "Можно оставить чемоданы до пяти?",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-x081",
+   "type": "phrase",
+   "es": "¿La habitación tiene cuna?",
+   "ru": "В номере есть детская кроватка?",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-x082",
+   "type": "phrase",
+   "es": "¿El desayuno está incluido?",
+   "ru": "Завтрак включён?",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-x083",
+   "type": "phrase",
+   "es": "El aire acondicionado no funciona.",
+   "ru": "Кондиционер не работает.",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-x084",
+   "type": "phrase",
+   "es": "¿Nos puede dar otra toalla?",
+   "ru": "Можно ещё полотенце?",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-x085",
+   "type": "phrase",
+   "es": "¿A qué hora hay que dejar la habitación?",
+   "ru": "Во сколько нужно освободить номер?",
+   "group": "Отель"
+  },
+  {
+   "id": "es5-x086",
+   "type": "phrase",
+   "es": "¿Tiene algo para la tos?",
+   "ru": "Есть что-нибудь от кашля?",
+   "group": "Аптека и врач"
+  },
+  {
+   "id": "es5-x087",
+   "type": "phrase",
+   "es": "Es para una niña de tres años.",
+   "ru": "Это для трёхлетнего ребёнка.",
+   "group": "Аптека и врач"
+  },
+  {
+   "id": "es5-x088",
+   "type": "phrase",
+   "es": "¿Hace falta receta?",
+   "ru": "Нужен рецепт?",
+   "group": "Аптека и врач"
+  },
+  {
+   "id": "es5-x089",
+   "type": "phrase",
+   "es": "¿Cuál es la farmacia de guardia hoy?",
+   "ru": "Какая аптека сегодня дежурная?",
+   "group": "Аптека и врач"
+  },
+  {
+   "id": "es5-x090",
+   "type": "phrase",
+   "es": "Quería pedir cita con el médico de cabecera.",
+   "ru": "Хочу записаться к терапевту.",
+   "group": "Аптека и врач"
+  },
+  {
+   "id": "es5-x091",
+   "type": "phrase",
+   "es": "¿Tienen cita para esta semana?",
+   "ru": "Есть запись на эту неделю?",
+   "group": "Аптека и врач"
+  },
+  {
+   "id": "es5-x092",
+   "type": "phrase",
+   "es": "Me encuentro mal desde ayer.",
+   "ru": "Мне плохо со вчера.",
+   "group": "Аптека и врач"
+  },
+  {
+   "id": "es5-x093",
+   "type": "phrase",
+   "es": "¿Dónde están las urgencias?",
+   "ru": "Где приёмный покой?",
+   "group": "Аптека и врач"
+  },
+  {
+   "id": "es5-x094",
+   "type": "phrase",
+   "es": "¿Hace falta cita previa?",
+   "ru": "Нужна предварительная запись?",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-x095",
+   "type": "phrase",
+   "es": "Quería hacer una transferencia.",
+   "ru": "Я хотел бы сделать перевод.",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-x096",
+   "type": "phrase",
+   "es": "¿Esta operación tiene comisión?",
+   "ru": "За эту операцию есть комиссия?",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-x097",
+   "type": "phrase",
+   "es": "El cajero no me ha dado el dinero.",
+   "ru": "Банкомат не выдал деньги.",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-x098",
+   "type": "phrase",
+   "es": "Vengo a recoger un paquete.",
+   "ru": "Я за посылкой.",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-x099",
+   "type": "phrase",
+   "es": "Tengo un aviso de Correos.",
+   "ru": "У меня уведомление с почты.",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-x100",
+   "type": "phrase",
+   "es": "¿Me lo pueden dejar en el punto de recogida?",
+   "ru": "Можно оставить в пункте выдачи?",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-x101",
+   "type": "phrase",
+   "es": "No estaré en casa, déjelo en portería.",
+   "ru": "Меня не будет дома, оставьте у консьержа.",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-x102",
+   "type": "phrase",
+   "es": "El repartidor no ha llamado al timbre.",
+   "ru": "Курьер не позвонил в дверь.",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-x103",
+   "type": "phrase",
+   "es": "Busco piso de alquiler en esta zona.",
+   "ru": "Ищу квартиру в аренду в этом районе.",
+   "group": "Аренда и бытовые проблемы"
+  },
+  {
+   "id": "es5-x104",
+   "type": "phrase",
+   "es": "¿Cuánto es la fianza?",
+   "ru": "Какой залог?",
+   "group": "Аренда и бытовые проблемы"
+  },
+  {
+   "id": "es5-x105",
+   "type": "phrase",
+   "es": "¿La comunidad está incluida?",
+   "ru": "Коммунальные включены?",
+   "group": "Аренда и бытовые проблемы"
+  },
+  {
+   "id": "es5-x106",
+   "type": "phrase",
+   "es": "¿Los suministros van aparte?",
+   "ru": "Свет и вода отдельно?",
+   "group": "Аренда и бытовые проблемы"
+  },
+  {
+   "id": "es5-x107",
+   "type": "phrase",
+   "es": "Se ha estropeado la caldera.",
+   "ru": "Сломался котёл.",
+   "group": "Аренда и бытовые проблемы"
+  },
+  {
+   "id": "es5-x108",
+   "type": "phrase",
+   "es": "Hay una fuga de agua en el baño.",
+   "ru": "В ванной течёт вода.",
+   "group": "Аренда и бытовые проблемы"
+  },
+  {
+   "id": "es5-x109",
+   "type": "phrase",
+   "es": "No hay agua caliente.",
+   "ru": "Нет горячей воды.",
+   "group": "Аренда и бытовые проблемы"
+  },
+  {
+   "id": "es5-x110",
+   "type": "phrase",
+   "es": "¿Puede venir un fontanero hoy?",
+   "ru": "Сантехник может прийти сегодня?",
+   "group": "Аренда и бытовые проблемы"
+  },
+  {
+   "id": "es5-x111",
+   "type": "phrase",
+   "es": "El ascensor no funciona otra vez.",
+   "ru": "Лифт снова не работает.",
+   "group": "Аренда и бытовые проблемы"
+  },
+  {
+   "id": "es5-x112",
+   "type": "phrase",
+   "es": "¿Cuándo pasan a arreglarlo?",
+   "ru": "Когда придут чинить?",
+   "group": "Аренда и бытовые проблемы"
+  },
+  {
+   "id": "es5-x113",
+   "type": "phrase",
+   "es": "Hola, soy el vecino del cuarto.",
+   "ru": "Здравствуйте, я сосед с четвёртого.",
+   "group": "Соседи"
+  },
+  {
+   "id": "es5-x114",
+   "type": "phrase",
+   "es": "Perdona por el ruido de ayer.",
+   "ru": "Извини за вчерашний шум.",
+   "group": "Соседи"
+  },
+  {
+   "id": "es5-x115",
+   "type": "phrase",
+   "es": "¿Dónde están los contenedores?",
+   "ru": "Где мусорные контейнеры?",
+   "group": "Соседи"
+  },
+  {
+   "id": "es5-x116",
+   "type": "phrase",
+   "es": "¿Me puedes abrir el portal?",
+   "ru": "Можешь открыть подъезд?",
+   "group": "Соседи"
+  },
+  {
+   "id": "es5-x117",
+   "type": "phrase",
+   "es": "Hay reunión de la comunidad el jueves.",
+   "ru": "В четверг собрание жильцов.",
+   "group": "Соседи"
+  },
+  {
+   "id": "es5-x118",
+   "type": "phrase",
+   "es": "¿Me llamas luego?",
+   "ru": "Позвонишь потом?",
+   "group": "Звонки и сообщения"
+  },
+  {
+   "id": "es5-x119",
+   "type": "phrase",
+   "es": "Ahora no puedo hablar, te llamo en diez minutos.",
+   "ru": "Сейчас не могу говорить, перезвоню через десять минут.",
+   "group": "Звонки и сообщения"
+  },
+  {
+   "id": "es5-x120",
+   "type": "phrase",
+   "es": "No te oigo bien, se corta.",
+   "ru": "Плохо слышно, связь рвётся.",
+   "group": "Звонки и сообщения"
+  },
+  {
+   "id": "es5-x121",
+   "type": "phrase",
+   "es": "Te mando un wasap con la dirección.",
+   "ru": "Скину адрес в вотсап.",
+   "group": "Звонки и сообщения"
+  },
+  {
+   "id": "es5-x122",
+   "type": "phrase",
+   "es": "Tengo una llamada perdida tuya.",
+   "ru": "У меня от тебя пропущенный.",
+   "group": "Звонки и сообщения"
+  },
+  {
+   "id": "es5-x123",
+   "type": "phrase",
+   "es": "¿Quedamos a las seis?",
+   "ru": "Встретимся в шесть?",
+   "group": "Звонки и сообщения"
+  },
+  {
+   "id": "es5-x124",
+   "type": "phrase",
+   "es": "Voy de camino, llego en cinco.",
+   "ru": "Я в пути, буду через пять минут.",
+   "group": "Звонки и сообщения"
+  },
+  {
+   "id": "es5-d001",
+   "type": "drill",
+   "block": "4.1",
+   "blockTitle": "Короткие вопросы",
+   "kind": "open",
+   "prompt": "Как попросить в баре маленькое пиво?",
+   "answer": "¿Me pone una caña, por favor?"
+  },
+  {
+   "id": "es5-d002",
+   "type": "drill",
+   "block": "4.1",
+   "blockTitle": "Короткие вопросы",
+   "kind": "open",
+   "prompt": "Как сказать «с собой»?",
+   "answer": "Para llevar."
+  },
+  {
+   "id": "es5-d003",
+   "type": "drill",
+   "block": "4.1",
+   "blockTitle": "Короткие вопросы",
+   "kind": "open",
+   "prompt": "Как спросить состав блюда?",
+   "answer": "¿Esto qué lleva?"
+  },
+  {
+   "id": "es5-d004",
+   "type": "drill",
+   "block": "4.1",
+   "blockTitle": "Короткие вопросы",
+   "kind": "open",
+   "prompt": "Как сказать, что у тебя бронь на имя Roman?",
+   "answer": "Tengo una reserva a nombre de Roman."
+  },
+  {
+   "id": "es5-d005",
+   "type": "drill",
+   "block": "4.1",
+   "blockTitle": "Короткие вопросы",
+   "kind": "open",
+   "prompt": "Как попросить счёт?",
+   "answer": "¿Nos trae la cuenta, por favor?"
+  },
+  {
+   "id": "es5-d006",
+   "type": "drill",
+   "block": "4.1",
+   "blockTitle": "Короткие вопросы",
+   "kind": "open",
+   "prompt": "Как сказать «я за дочкой»?",
+   "answer": "Vengo a por mi hija."
+  },
+  {
+   "id": "es5-d007",
+   "type": "drill",
+   "block": "4.1",
+   "blockTitle": "Короткие вопросы",
+   "kind": "open",
+   "prompt": "Как спросить, включён ли завтрак?",
+   "answer": "¿El desayuno está incluido?"
+  },
+  {
+   "id": "es5-d008",
+   "type": "drill",
+   "block": "4.1",
+   "blockTitle": "Короткие вопросы",
+   "kind": "open",
+   "prompt": "Как сказать, что лифт не работает?",
+   "answer": "El ascensor no funciona."
+  },
+  {
+   "id": "es5-d009",
+   "type": "drill",
+   "block": "4.2",
+   "blockTitle": "Перевод с русского на испанский",
+   "kind": "open",
+   "prompt": "Во сколько нужно её забирать?",
+   "answer": "¿A qué hora hay que recogerla?"
+  },
+  {
+   "id": "es5-d010",
+   "type": "drill",
+   "block": "4.2",
+   "blockTitle": "Перевод с русского на испанский",
+   "kind": "open",
+   "prompt": "Сегодня она не идёт в школу, приболела.",
+   "answer": "Hoy no va al cole, está malita."
+  },
+  {
+   "id": "es5-d011",
+   "type": "drill",
+   "block": "4.2",
+   "blockTitle": "Перевод с русского на испанский",
+   "kind": "open",
+   "prompt": "Принесите, пожалуйста, детский стульчик.",
+   "answer": "¿Nos trae una trona, por favor?"
+  },
+  {
+   "id": "es5-d012",
+   "type": "drill",
+   "block": "4.2",
+   "blockTitle": "Перевод с русского на испанский",
+   "kind": "open",
+   "prompt": "Кофе с молоком с собой.",
+   "answer": "Un café con leche para llevar."
+  },
+  {
+   "id": "es5-d013",
+   "type": "drill",
+   "block": "4.2",
+   "blockTitle": "Перевод с русского на испанский",
+   "kind": "open",
+   "prompt": "У дочери аллергия на орехи.",
+   "answer": "Mi hija es alérgica a los frutos secos."
+  },
+  {
+   "id": "es5-d014",
+   "type": "drill",
+   "block": "4.2",
+   "blockTitle": "Перевод с русского на испанский",
+   "kind": "open",
+   "prompt": "С какого пути отходит поезд?",
+   "answer": "¿De qué vía sale el tren?"
+  },
+  {
+   "id": "es5-d015",
+   "type": "drill",
+   "block": "4.2",
+   "blockTitle": "Перевод с русского на испанский",
+   "kind": "open",
+   "prompt": "В ванной течёт вода.",
+   "answer": "Hay una fuga de agua en el baño."
+  },
+  {
+   "id": "es5-d016",
+   "type": "drill",
+   "block": "4.2",
+   "blockTitle": "Перевод с русского на испанский",
+   "kind": "open",
+   "prompt": "Нужна предварительная запись?",
+   "answer": "¿Hace falta cita previa?"
+  },
+  {
+   "id": "es5-d017",
+   "type": "drill",
+   "block": "4.3",
+   "blockTitle": "Перевод с испанского на русский",
+   "kind": "open",
+   "prompt": "¿Se queda hoy al comedor?",
+   "answer": "Она сегодня остаётся на обед в столовой?"
+  },
+  {
+   "id": "es5-d018",
+   "type": "drill",
+   "block": "4.3",
+   "blockTitle": "Перевод с испанского на русский",
+   "kind": "open",
+   "prompt": "¿Esto qué lleva?",
+   "answer": "Что здесь в составе?"
+  },
+  {
+   "id": "es5-d019",
+   "type": "drill",
+   "block": "4.3",
+   "blockTitle": "Перевод с испанского на русский",
+   "kind": "open",
+   "prompt": "El tren lleva veinte minutos de retraso.",
+   "answer": "Поезд опаздывает на двадцать минут."
+  },
+  {
+   "id": "es5-d020",
+   "type": "drill",
+   "block": "4.3",
+   "blockTitle": "Перевод с испанского на русский",
+   "kind": "open",
+   "prompt": "¿Hay que hacer transbordo?",
+   "answer": "Нужна пересадка?"
+  },
+  {
+   "id": "es5-d021",
+   "type": "drill",
+   "block": "4.3",
+   "blockTitle": "Перевод с испанского на русский",
+   "kind": "open",
+   "prompt": "¿La habitación tiene cuna?",
+   "answer": "В номере есть детская кроватка?"
+  },
+  {
+   "id": "es5-d022",
+   "type": "drill",
+   "block": "4.3",
+   "blockTitle": "Перевод с испанского на русский",
+   "kind": "open",
+   "prompt": "¿Hace falta receta?",
+   "answer": "Нужен рецепт?"
+  },
+  {
+   "id": "es5-d023",
+   "type": "drill",
+   "block": "4.3",
+   "blockTitle": "Перевод с испанского на русский",
+   "kind": "open",
+   "prompt": "Se ha estropeado la caldera.",
+   "answer": "Сломался котёл."
+  },
+  {
+   "id": "es5-d024",
+   "type": "drill",
+   "block": "4.3",
+   "blockTitle": "Перевод с испанского на русский",
+   "kind": "open",
+   "prompt": "Ahora no puedo hablar, te llamo luego.",
+   "answer": "Сейчас не могу говорить, позвоню тебе позже."
+  },
+  {
+   "id": "es5-d025",
+   "type": "drill",
+   "block": "4.4",
+   "blockTitle": "Мини-ситуации",
+   "kind": "open",
+   "prompt": "Пришёл с дочкой в кафе: нужен стол на террасе и детский стульчик.",
+   "answer": "¿Tienen mesa en la terraza? ¿Nos trae una trona, por favor?"
+  },
+  {
+   "id": "es5-d026",
+   "type": "drill",
+   "block": "4.4",
+   "blockTitle": "Мини-ситуации",
+   "kind": "open",
+   "prompt": "Дочь проснулась с температурой — предупреждаешь школу.",
+   "answer": "Hoy no va al cole, está malita, tiene fiebre."
+  },
+  {
+   "id": "es5-d027",
+   "type": "drill",
+   "block": "4.4",
+   "blockTitle": "Мини-ситуации",
+   "kind": "open",
+   "prompt": "В аэропорту: у тебя только ручная кладь, хочешь узнать выход на посадку.",
+   "answer": "Solo llevo equipaje de mano. ¿Cuál es la puerta de embarque?"
+  },
+  {
+   "id": "es5-d028",
+   "type": "drill",
+   "block": "4.4",
+   "blockTitle": "Мини-ситуации",
+   "kind": "open",
+   "prompt": "Поезд опаздывает, а у тебя пересадка — спрашиваешь у сотрудника.",
+   "answer": "El tren lleva retraso y tengo que hacer transbordo. ¿Llego?"
+  },
+  {
+   "id": "es5-d029",
+   "type": "drill",
+   "block": "4.4",
+   "blockTitle": "Мини-ситуации",
+   "kind": "open",
+   "prompt": "Курьер не дозвонился, посылку надо забрать в пункте выдачи.",
+   "answer": "¿Me lo pueden dejar en el punto de recogida?"
+  },
+  {
+   "id": "es5-d030",
+   "type": "drill",
+   "block": "4.4",
+   "blockTitle": "Мини-ситуации",
+   "kind": "open",
+   "prompt": "В квартире нет горячей воды — пишешь арендодателю.",
+   "answer": "No hay agua caliente. ¿Puede venir un fontanero hoy?"
+  },
+  {
+   "id": "es5-d031",
+   "type": "drill",
+   "block": "4.4",
+   "blockTitle": "Мини-ситуации",
+   "kind": "open",
+   "prompt": "В такси с ребёнком: нужно детское кресло и чек.",
+   "answer": "¿Tiene sillita para niños? ¿Me da un recibo?"
+  },
+  {
+   "id": "es5-d032",
+   "type": "drill",
+   "block": "4.4",
+   "blockTitle": "Мини-ситуации",
+   "kind": "open",
+   "prompt": "В ресторане принесли не то блюдо.",
+   "answer": "Perdone, esto no lo he pedido."
+  },
+  {
+   "id": "es5-d033",
+   "type": "drill",
+   "block": "4.5",
+   "blockTitle": "Выбери правильное слово",
+   "kind": "choice",
+   "prompt": "¿Me ___ una caña?",
+   "answer": "pone",
+   "options": [
+    "pone",
+    "pongo"
+   ]
+  },
+  {
+   "id": "es5-d034",
+   "type": "drill",
+   "block": "4.5",
+   "blockTitle": "Выбери правильное слово",
+   "kind": "choice",
+   "prompt": "Vengo ___ mi hija.",
+   "answer": "a por",
+   "options": [
+    "a por",
+    "para"
+   ]
+  },
+  {
+   "id": "es5-d035",
+   "type": "drill",
+   "block": "4.5",
+   "blockTitle": "Выбери правильное слово",
+   "kind": "choice",
+   "prompt": "La niña está ___.",
+   "answer": "mala",
+   "options": [
+    "mala",
+    "malo"
+   ]
+  },
+  {
+   "id": "es5-d036",
+   "type": "drill",
+   "block": "4.5",
+   "blockTitle": "Выбери правильное слово",
+   "kind": "choice",
+   "prompt": "¿Hace falta ___?",
+   "answer": "cita previa",
+   "options": [
+    "cita previa",
+    "cita anterior"
+   ]
+  },
+  {
+   "id": "es5-d037",
+   "type": "drill",
+   "block": "4.5",
+   "blockTitle": "Выбери правильное слово",
+   "kind": "choice",
+   "prompt": "Un café ___ llevar.",
+   "answer": "para",
+   "options": [
+    "para",
+    "por"
+   ]
+  },
+  {
+   "id": "es5-d038",
+   "type": "drill",
+   "block": "4.5",
+   "blockTitle": "Выбери правильное слово",
+   "kind": "choice",
+   "prompt": "¿De qué ___ sale el tren?",
+   "answer": "vía",
+   "options": [
+    "vía",
+    "calle"
+   ]
+  },
+  {
+   "id": "es5-d039",
+   "type": "drill",
+   "block": "4.5",
+   "blockTitle": "Выбери правильное слово",
+   "kind": "choice",
+   "prompt": "¿El desayuno está ___?",
+   "answer": "incluido",
+   "options": [
+    "incluido",
+    "incluida"
+   ]
+  },
+  {
+   "id": "es5-d040",
+   "type": "drill",
+   "block": "4.5",
+   "blockTitle": "Выбери правильное слово",
+   "kind": "choice",
+   "prompt": "¿Tienen ___ para el bebé?",
+   "answer": "trona",
+   "options": [
+    "trona",
+    "silla"
+   ]
+  },
+  {
+   "id": "es5-d041",
+   "type": "drill",
+   "block": "4.5",
+   "blockTitle": "Выбери правильное слово",
+   "kind": "choice",
+   "prompt": "El vuelo sale con ___.",
+   "answer": "retraso",
+   "options": [
+    "retraso",
+    "tarde"
+   ]
+  },
+  {
+   "id": "es5-d042",
+   "type": "drill",
+   "block": "4.5",
+   "blockTitle": "Выбери правильное слово",
+   "kind": "choice",
+   "prompt": "Me bajo en la ___.",
+   "answer": "próxima",
+   "options": [
+    "próxima",
+    "próximo"
+   ]
+  },
+  {
+   "id": "es5-d043",
+   "type": "drill",
+   "block": "4.6",
+   "blockTitle": "Понимание коротких фраз",
+   "kind": "open",
+   "prompt": "«Tiene que pedir cita previa.»",
+   "answer": "Нужна предварительная запись — попроси её: Quería pedir cita."
+  },
+  {
+   "id": "es5-d044",
+   "type": "drill",
+   "block": "4.6",
+   "blockTitle": "Понимание коротких фраз",
+   "kind": "open",
+   "prompt": "«¿Se lo pongo para llevar o para tomar aquí?»",
+   "answer": "Спрашивают, с собой или здесь — ответь Para llevar / Para tomar aquí."
+  },
+  {
+   "id": "es5-d045",
+   "type": "drill",
+   "block": "4.6",
+   "blockTitle": "Понимание коротких фраз",
+   "kind": "open",
+   "prompt": "«Sale de la vía cuatro, con diez minutos de retraso.»",
+   "answer": "Поезд с четвёртого пути, опаздывает на десять минут."
+  },
+  {
+   "id": "es5-d046",
+   "type": "drill",
+   "block": "4.6",
+   "blockTitle": "Понимание коротких фраз",
+   "kind": "open",
+   "prompt": "«Su hija se ha dejado el abrigo en clase.»",
+   "answer": "Дочь забыла куртку в классе — надо вернуться за ней."
+  },
+  {
+   "id": "es5-d047",
+   "type": "drill",
+   "block": "4.6",
+   "blockTitle": "Понимание коротких фраз",
+   "kind": "open",
+   "prompt": "«Le dejo el paquete en el buzón.»",
+   "answer": "Посылку оставят в почтовом ящике."
+  },
+  {
+   "id": "es5-d048",
+   "type": "drill",
+   "block": "4.6",
+   "blockTitle": "Понимание коротких фраз",
+   "kind": "open",
+   "prompt": "«¿Me deja su DNI?»",
+   "answer": "Просят документ — дай DNI или NIE."
+  },
+  {
+   "id": "es5-d049",
+   "type": "drill",
+   "block": "4.6",
+   "blockTitle": "Понимание коротких фраз",
+   "kind": "open",
+   "prompt": "«Ahora mismo no queda, vuelva mañana.»",
+   "answer": "Сейчас нет в наличии, приходи завтра."
+  },
+  {
+   "id": "es5-d050",
+   "type": "drill",
+   "block": "4.6",
+   "blockTitle": "Понимание коротких фраз",
+   "kind": "open",
+   "prompt": "«Le llamamos cuando esté listo.»",
+   "answer": "Позвонят, когда будет готово, — оставь номер телефона."
+  }
+ ],
+ "notes": [
+  {
+   "id": "es5-n001",
+   "type": "note",
+   "title": "«¿Me pone...?» — так в Испании заказывают",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "У стойки и в магазине почти не говорят "
+      },
+      {
+       "t": "quiero",
+       "s": "es"
+      },
+      {
+       "t": ": это звучит резко. Рабочие формулы:"
+      }
+     ]
+    },
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "¿Me pone un café?",
+         "s": "es"
+        },
+        {
+         "t": " — в баре, у стойки (на «вы»);"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Me pones una caña?",
+         "s": "es"
+        },
+        {
+         "t": " — то же самое на «ты», если бармен свой;"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Me da una bolsa?",
+         "s": "es"
+        },
+        {
+         "t": " — в магазине, когда что-то дают в руки;"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Nos trae la cuenta?",
+         "s": "es"
+        },
+        {
+         "t": " — официанту за столом, когда что-то приносят."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Quiero",
+       "s": "es"
+      },
+      {
+       "t": " остаётся для случаев, где важно само намерение: "
+      },
+      {
+       "t": "Quiero facturar esta maleta.",
+       "s": "es"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-n002",
+   "type": "note",
+   "title": "Cita previa — без неё во многие места не попасть",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Банк, поликлиника, мэрия, часто и почта работают только по записи. Две фразы решают всё:"
+      }
+     ]
+    },
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "¿Hace falta cita previa?",
+         "s": "es"
+        },
+        {
+         "t": " — Нужна запись?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "Quería pedir cita.",
+         "s": "es"
+        },
+        {
+         "t": " — Хочу записаться."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Quería",
+       "s": "es"
+      },
+      {
+       "t": " (а не "
+      },
+      {
+       "t": "quiero",
+       "s": "es"
+      },
+      {
+       "t": ") — стандартная вежливая форма при обращении в учреждении."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-n003",
+   "type": "note",
+   "title": "tú или usted",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Tú",
+       "s": "es"
+      },
+      {
+       "t": " — в баре, магазине, с соседями, с воспитателями в садике, с ровесниками. "
+      },
+      {
+       "t": "Usted",
+       "s": "es"
+      },
+      {
+       "t": " — с пожилыми, в банке, у врача, в учреждении, с полицией. Если ответили на "
+      },
+      {
+       "t": "tú",
+       "s": "es"
+      },
+      {
+       "t": " или сказали "
+      },
+      {
+       "t": "puedes tutearme",
+       "s": "es"
+      },
+      {
+       "t": ", переходи на "
+      },
+      {
+       "t": "tú",
+       "s": "es"
+      },
+      {
+       "t": " сразу."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-n004",
+   "type": "note",
+   "title": "-ito / -ita смягчает речь",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Про ребёнка и в бытовых просьбах уменьшительные звучат естественно, а не по-детски: "
+      },
+      {
+       "t": "está malita",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "un poquito",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "la sillita",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "un ratito",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "espera un momentito",
+       "s": "es"
+      },
+      {
+       "t": "."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-n005",
+   "type": "note",
+   "title": "«a por» — только Испания",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Voy a por el pan.",
+       "s": "es"
+      },
+      {
+       "t": " "
+      },
+      {
+       "t": "Vengo a por mi hija.",
+       "s": "es"
+      },
+      {
+       "t": " В Латинской Америке так не говорят (там "
+      },
+      {
+       "t": "voy por el pan",
+       "s": "es"
+      },
+      {
+       "t": "), но в Испании это норма."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-n006",
+   "type": "note",
+   "title": "Испания ↔ Латинская Америка",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "table",
+     "head": [
+      [
+       {
+        "t": "Испания"
+       }
+      ],
+      [
+       {
+        "t": "Латинская Америка"
+       }
+      ]
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "coger (el autobús, un taxi)"
+        }
+       ],
+       [
+        {
+         "t": "tomar — в ряде стран "
+        },
+        {
+         "t": "coger",
+         "s": "es"
+        },
+        {
+         "t": " вульгарно"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "el móvil"
+        }
+       ],
+       [
+        {
+         "t": "el celular"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "el coche"
+        }
+       ],
+       [
+        {
+         "t": "el carro / el auto"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "el billete"
+        }
+       ],
+       [
+        {
+         "t": "el boleto / el pasaje"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "el zumo"
+        }
+       ],
+       [
+        {
+         "t": "el jugo"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "el ordenador"
+        }
+       ],
+       [
+        {
+         "t": "la computadora"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "aparcar"
+        }
+       ],
+       [
+        {
+         "t": "estacionar / parquear"
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "vale"
+        }
+       ],
+       [
+        {
+         "t": "dale / listo / okey"
+        }
+       ]
+      ]
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Внутри Испании этих различий можно не держать в голове — важно только не удивляться, услышав второй вариант от знакомых из Латинской Америки."
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "excluded": [
+  "прошедшее время как система — конструкции se ha estropeado, ha comido, he perdido даны готовыми блоками, разбор pretérito perfecto и indefinido идёт отдельно;",
+  "сослагательное наклонение (cuando lleguemos, si tuviera) — поэтому в примерах его почти нет;",
+  "рабочая лексика (собеседование, договор, задачи, созвоны) — это отдельный блок, а не бытовая рутина;",
+  "бюрократия сверх минимума: empadronamiento, Seguridad Social, Hacienda, extranjería — большая тема, её лучше брать одной ситуацией целиком;",
+  "подробная медицинская лексика (симптомы, анализы, диагнозы) — здесь только то, что нужно в аптеке и при записи к врачу;",
+  "еда по названиям блюд и продуктов — базовые продукты уже в Stage 3, а меню читается по месту;",
+  "региональные различия внутри Испании (каталанский, галисийский, баскский) — на бытовое общение по-испански они не влияют."
+ ]
+}

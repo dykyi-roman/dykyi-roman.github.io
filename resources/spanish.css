@@ -1,0 +1,449 @@
+/* Spanish section — hub trainer (pages/spanish.html) and stage references
+   (pages/spanish/*.html). Phone is the primary device: every control is at
+   least 44px tall, the lexicon becomes cards below 700px, and no row of chips
+   ever pushes the page into a horizontal scroll.
+   All colours come from resources/style.css :root — the site is dark-only. */
+
+/* ---------- shared primitives ---------- */
+
+/* Our controls set display:inline-flex / flex, which outranks the UA rule for
+   the hidden attribute — without this a "hidden" Next button stays on screen.
+   Scoped to the page body so the injected site header keeps its own rules. */
+#main-content [hidden] { display: none !important; }
+
+.sp-intro {
+    color: var(--color-text-light);
+    font-size: var(--font-size-small);
+    margin-bottom: var(--spacing-md);
+}
+
+.sp-error {
+    border: 1px solid var(--color-warning);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    color: var(--color-warning);
+    margin-bottom: var(--spacing-md);
+}
+
+.sp-btn,
+.sp-chip,
+.sp-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    min-height: 44px;
+    padding: 8px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size-small);
+    line-height: 1.2;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    /* kill the 300ms tap delay and the grey flash on iOS/Android */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sp-btn:hover,
+.sp-chip:hover,
+.sp-tab:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+.sp-btn:focus-visible,
+.sp-chip:focus-visible,
+.sp-tab:focus-visible,
+.sp-speak:focus-visible,
+.sp-option:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.sp-btn.active,
+.sp-chip.active,
+.sp-tab.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+}
+
+.sp-btn.primary { background: var(--color-primary); border-color: var(--color-primary); color: #fff; }
+.sp-btn.primary:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); color: #fff; }
+.sp-btn[disabled] { opacity: 0.45; cursor: default; }
+.sp-btn[disabled]:hover { border-color: var(--color-border); color: var(--color-text); }
+
+/* ---------- sticky control bar ---------- */
+
+.sp-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--color-background);
+    padding: var(--spacing-sm) 0;
+    margin-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+}
+
+/* A chip row scrolls sideways instead of wrapping into a wall of buttons.
+   The negative margin lets it bleed to the container edge so the last chip
+   does not look clipped, and overscroll-behavior stops the swipe from
+   turning into a browser back-gesture. */
+.sp-chips {
+    display: flex;
+    gap: var(--spacing-xs);
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 2px 0;
+    margin: 0 0 var(--spacing-xs);
+}
+
+.sp-chips::-webkit-scrollbar { display: none; }
+.sp-chips + .sp-chips { margin-top: var(--spacing-xs); }
+
+.sp-chip {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    white-space: nowrap;
+}
+
+/* A rule title like "13. Три спряжения глаголов" would otherwise make a chip
+   wider than the phone screen. */
+.sp-chip-label {
+    display: block;
+    max-width: 62vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.sp-chip small { color: var(--color-text-light); font-size: 0.8em; }
+.sp-chip.active small { color: rgba(255, 255, 255, 0.75); }
+
+.sp-tabs { display: flex; gap: var(--spacing-xs); overflow-x: auto; scrollbar-width: none; }
+.sp-tabs::-webkit-scrollbar { display: none; }
+.sp-tab { flex: 1 0 auto; white-space: nowrap; padding: 8px 10px; }
+
+.sp-panel[hidden] { display: none !important; }
+
+.sp-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin: var(--spacing-md) 0;
+}
+
+.sp-stats {
+    color: var(--color-text-light);
+    font-size: var(--font-size-small);
+    margin: var(--spacing-sm) 0;
+}
+
+.sp-stage-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    min-height: 44px;
+    color: var(--color-primary);
+    font-size: var(--font-size-small);
+    text-decoration: none;
+}
+
+.sp-stage-link:hover { color: var(--color-primary-hover); text-decoration: underline; }
+
+/* ---------- speak button ---------- */
+
+.sp-speak {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--color-text-light);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.sp-speak:hover { color: var(--color-primary); border-color: var(--color-primary); }
+.sp-speak.speaking { color: var(--color-primary); border-color: var(--color-primary); }
+.sp-speak svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* ---------- lexicon ---------- */
+
+.sp-group { margin-bottom: var(--spacing-lg); }
+
+.sp-group-title {
+    font-size: var(--font-size-base);
+    color: var(--color-heading);
+    margin: 0 0 var(--spacing-sm);
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.sp-group-title span { color: var(--color-text-light); font-weight: normal; font-size: var(--font-size-small); }
+
+.sp-lex { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+
+/* Phone layout: one stacked card per entry. The Spanish word leads, the
+   transcription sits under it, translations follow. Four columns at 375px
+   would be unreadable, so the table only appears from 700px up. */
+.sp-lex-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 44px;
+    grid-template-areas:
+        "es    speak"
+        "tr    speak"
+        "ru    ru"
+        "en    en";
+    gap: 2px var(--spacing-sm);
+    align-items: center;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+}
+
+.sp-lex-es {
+    grid-area: es;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-heading);
+    overflow-wrap: anywhere;
+}
+
+.sp-lex-tr { grid-area: tr; font-size: var(--font-size-small); color: var(--color-primary); overflow-wrap: anywhere; }
+.sp-lex-ru { grid-area: ru; font-size: var(--font-size-base); color: var(--color-text); overflow-wrap: anywhere; }
+.sp-lex-en { grid-area: en; font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
+.sp-lex-row .sp-speak { grid-area: speak; align-self: start; }
+
+.sp-lex-row.is-pair .sp-lex-es { color: var(--color-primary); }
+
+/* ---------- examples ---------- */
+
+.sp-ex { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+
+.sp-ex-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 44px;
+    gap: 2px var(--spacing-sm);
+    align-items: center;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+}
+
+.sp-ex-es { font-size: 1.05rem; color: var(--color-heading); overflow-wrap: anywhere; }
+.sp-ex-ru { font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
+.sp-ex-row .sp-speak { grid-row: 1 / span 2; grid-column: 2; }
+.sp-ex-row.is-exchange .sp-ex-es { color: var(--color-info); }
+
+/* ---------- prose notes ---------- */
+
+.sp-note {
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-primary);
+    border-radius: 8px;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    background: var(--color-white);
+}
+
+.sp-note h4 { margin: 0 0 var(--spacing-sm); color: var(--color-heading); font-size: var(--font-size-base); }
+.sp-note p { margin: 0 0 var(--spacing-sm); }
+.sp-note p:last-child, .sp-note ul:last-child, .sp-note ol:last-child { margin-bottom: 0; }
+.sp-note ul, .sp-note ol { margin: 0 0 var(--spacing-sm); padding-left: 1.2em; }
+.sp-note li { margin-bottom: var(--spacing-xs); }
+.sp-note .sp-callout { border-left: 2px solid var(--color-info); padding-left: var(--spacing-sm); color: var(--color-text-light); }
+
+.sp-es { color: var(--color-primary); font-weight: 600; }
+.sp-b { font-weight: 600; color: var(--color-heading); }
+
+/* ---------- wide tables (conjugations) ---------- */
+
+.sp-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: var(--spacing-sm); }
+.sp-table { border-collapse: collapse; width: 100%; font-size: var(--font-size-small); }
+.sp-table th, .sp-table td { border: 1px solid var(--color-border); padding: 8px 10px; text-align: left; white-space: nowrap; }
+.sp-table th { color: var(--color-heading); background: var(--color-white); }
+
+/* ---------- excluded list ---------- */
+
+.sp-excluded { color: var(--color-text-light); font-size: var(--font-size-small); }
+.sp-excluded li { margin-bottom: var(--spacing-xs); }
+
+/* ---------- flashcards ---------- */
+
+.sp-card {
+    position: relative;
+    min-height: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-lg) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-white);
+    text-align: center;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.sp-card-meta { font-size: var(--font-size-small); color: var(--color-text-light); }
+.sp-card-front { font-size: 1.6rem; font-weight: 600; color: var(--color-heading); overflow-wrap: anywhere; }
+.sp-card-tr { font-size: var(--font-size-base); color: var(--color-primary); }
+.sp-card-back { display: none; font-size: 1.2rem; color: var(--color-text); overflow-wrap: anywhere; white-space: pre-line; }
+.sp-card.revealed .sp-card-back { display: block; }
+.sp-card-hint { font-size: var(--font-size-small); color: var(--color-text-light); }
+.sp-card.revealed .sp-card-hint { display: none; }
+
+.sp-card.swipe-good { border-color: var(--color-success); }
+.sp-card.swipe-again { border-color: var(--color-warning); }
+
+.sp-keys { font-size: var(--font-size-small); color: var(--color-text-light); margin-top: var(--spacing-sm); }
+
+/* ---------- quiz / listening ---------- */
+
+.sp-question {
+    font-size: 1.15rem;
+    color: var(--color-heading);
+    margin-bottom: var(--spacing-md);
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+
+.sp-question .sp-es { font-size: 1.3rem; }
+
+.sp-options { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+
+.sp-option {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+    text-align: left;
+    cursor: pointer;
+    overflow-wrap: anywhere;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color var(--transition-fast);
+}
+
+.sp-option:hover { border-color: var(--color-primary); }
+.sp-option.correct { border-color: var(--color-success); color: var(--color-success); }
+.sp-option.wrong { border-color: var(--color-warning); color: var(--color-warning); }
+.sp-option[disabled] { cursor: default; }
+.sp-option[disabled]:hover { border-color: var(--color-border); }
+.sp-option.correct[disabled]:hover { border-color: var(--color-success); }
+.sp-option.wrong[disabled]:hover { border-color: var(--color-warning); }
+
+.sp-progress { font-size: var(--font-size-small); color: var(--color-text-light); margin-bottom: var(--spacing-sm); }
+
+.sp-listen-word {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.sp-listen-word .sp-speak { width: 88px; height: 88px; border-radius: 50%; }
+.sp-listen-word .sp-speak svg { width: 36px; height: 36px; }
+
+/* ---------- browse ---------- */
+
+.sp-search {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    /* 16px exactly: anything smaller makes iOS Safari zoom the page on focus */
+    font-size: 16px;
+}
+
+.sp-search::placeholder { color: var(--color-text-light); }
+
+.sp-select {
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: 16px;
+    flex: 1 1 140px;
+}
+
+.sp-filters { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); margin: var(--spacing-sm) 0; }
+
+.sp-empty { color: var(--color-text-light); padding: var(--spacing-md) 0; }
+
+/* ---------- stage index cards on the hub ---------- */
+
+.sp-stages { display: grid; grid-template-columns: 1fr; gap: var(--spacing-sm); list-style: none; padding: 0; margin: 0; }
+
+.sp-stage-card {
+    display: block;
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+    color: var(--color-text);
+    text-decoration: none;
+    transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.sp-stage-card:hover { border-color: var(--color-primary); transform: translateY(-2px); }
+.sp-stage-card b { display: block; color: var(--color-heading); font-size: var(--font-size-large); margin-bottom: 2px; }
+.sp-stage-card span { display: block; color: var(--color-text-light); font-size: var(--font-size-small); }
+
+/* ---------- 700px and up: the lexicon becomes a real table ---------- */
+
+@media (min-width: 700px) {
+    .sp-lex-row {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr) 44px;
+        grid-template-areas: "es tr ru en speak";
+        align-items: center;
+        gap: var(--spacing-sm);
+    }
+
+    .sp-lex-row .sp-speak { align-self: center; }
+    .sp-ex-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px; }
+    .sp-ex-row .sp-ex-es { grid-column: 1; }
+    .sp-ex-row .sp-ex-ru { grid-column: 2; align-self: center; }
+    .sp-ex-row .sp-speak { grid-row: 1; grid-column: 3; }
+    .sp-stages { grid-template-columns: repeat(2, 1fr); }
+    .sp-tab { flex: 0 0 auto; }
+    .sp-table th, .sp-table td { white-space: normal; }
+}
+
+@media (min-width: 1000px) {
+    .sp-stages { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sp-stage-card:hover { transform: none; }
+    .sp-card { transition: none !important; }
+}

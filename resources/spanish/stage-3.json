@@ -1,0 +1,6305 @@
+{
+ "id": "stage-3",
+ "prefix": "es3",
+ "no": 3,
+ "title": "Core vocabulary",
+ "titleRu": "База слов для живого общения",
+ "goal": "Практическая база из 620 слов и коротких выражений для быстрого перехода к бытовому испанскому.",
+ "url": "spanish/stage-3.html",
+ "intro": [
+  {
+   "k": "p",
+   "spans": [
+    {
+     "t": "Практическая база для быстрого перехода к бытовому испанскому. Список "
+    },
+    {
+     "t": "не является механическим топом частотности",
+     "s": "b"
+    },
+    {
+     "t": ": приоритет отдан словам и коротким выражениям, которые помогают понимать и строить реальные фразы в Испании — дом, семья, школа, кафе, магазин, транспорт, путешествия, работа и бытовые проблемы."
+    }
+   ]
+  },
+  {
+   "k": "p",
+   "spans": [
+    {
+     "t": "Формат: "
+    },
+    {
+     "t": "Spain | English | Русский | Транскрипция",
+     "s": "es"
+    },
+    {
+     "t": "."
+    }
+   ]
+  },
+  {
+   "k": "p",
+   "spans": [
+    {
+     "t": "Транскрипция приблизительная и предназначена только как опора для чтения; она не заменяет аудио. Для глаголов преимущественно используется инфинитив. Для части выражений сохранена естественная разговорная форма."
+    }
+   ]
+  },
+  {
+   "k": "p",
+   "spans": [
+    {
+     "t": "Список не дублирует другие этапы: лексика Stage 1 (пространство, предлоги, указательные слова) и Stage 2 (вопросительные слова, переспрос, реакции) сюда не входит, а всё, что образует частотную пару — прилагательные-антонимы, родственники и профессии по роду ("
+    },
+    {
+     "t": "abuelo / abuela",
+     "s": "es"
+    },
+    {
+     "t": "), парные существительные ("
+    },
+    {
+     "t": "pregunta / respuesta",
+     "s": "es"
+    },
+    {
+     "t": "), глаголы-противоположности ("
+    },
+    {
+     "t": "abrir / cerrar",
+     "s": "es"
+    },
+    {
+     "t": ") и парные наречия времени и направления ("
+    },
+    {
+     "t": "antes / después",
+     "s": "es"
+    },
+    {
+     "t": ") — вынесено в Stage 4. Здесь остаются «одиночки»: слова, у которых частотной пары нет."
+    }
+   ]
+  },
+  {
+   "k": "p",
+   "spans": [
+    {
+     "t": "Всего элементов: "
+    },
+    {
+     "t": "620",
+     "s": "b"
+    },
+    {
+     "t": "."
+    }
+   ]
+  }
+ ],
+ "groups": [],
+ "items": [
+  {
+   "id": "es3-v001",
+   "type": "vocab",
+   "es": "contra",
+   "en": "against",
+   "ru": "против",
+   "tr": "контра",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v002",
+   "type": "vocab",
+   "es": "durante",
+   "en": "during",
+   "ru": "во время",
+   "tr": "дурантэ",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v003",
+   "type": "vocab",
+   "es": "según",
+   "en": "according to",
+   "ru": "согласно",
+   "tr": "сэгун",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v004",
+   "type": "vocab",
+   "es": "porque",
+   "en": "because",
+   "ru": "потому что",
+   "tr": "порке",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v005",
+   "type": "vocab",
+   "es": "aunque",
+   "en": "although",
+   "ru": "хотя",
+   "tr": "аунке",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v006",
+   "type": "vocab",
+   "es": "tampoco",
+   "en": "neither/either",
+   "ru": "тоже нет",
+   "tr": "тампоко",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v007",
+   "type": "vocab",
+   "es": "todavía",
+   "en": "still/yet",
+   "ru": "всё ещё/ещё",
+   "tr": "тодабиа",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v008",
+   "type": "vocab",
+   "es": "muy",
+   "en": "very",
+   "ru": "очень",
+   "tr": "муй",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v009",
+   "type": "vocab",
+   "es": "bastante",
+   "en": "quite/enough",
+   "ru": "довольно/достаточно",
+   "tr": "бастантэ",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v010",
+   "type": "vocab",
+   "es": "demasiado",
+   "en": "too much",
+   "ru": "слишком",
+   "tr": "дэмасиадо",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v011",
+   "type": "vocab",
+   "es": "casi",
+   "en": "almost",
+   "ru": "почти",
+   "tr": "каси",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v012",
+   "type": "vocab",
+   "es": "solo",
+   "en": "only/alone",
+   "ru": "только/один",
+   "tr": "соло",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v013",
+   "type": "vocab",
+   "es": "quizá",
+   "en": "maybe",
+   "ru": "может быть",
+   "tr": "киса",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v014",
+   "type": "vocab",
+   "es": "quizás",
+   "en": "perhaps",
+   "ru": "возможно",
+   "tr": "кисас",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v015",
+   "type": "vocab",
+   "es": "dos",
+   "en": "two",
+   "ru": "два",
+   "tr": "дос",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v016",
+   "type": "vocab",
+   "es": "tres",
+   "en": "three",
+   "ru": "три",
+   "tr": "трэс",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v017",
+   "type": "vocab",
+   "es": "cuatro",
+   "en": "four",
+   "ru": "четыре",
+   "tr": "куатро",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v018",
+   "type": "vocab",
+   "es": "cinco",
+   "en": "five",
+   "ru": "пять",
+   "tr": "синко",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v019",
+   "type": "vocab",
+   "es": "seis",
+   "en": "six",
+   "ru": "шесть",
+   "tr": "сэис",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v020",
+   "type": "vocab",
+   "es": "siete",
+   "en": "seven",
+   "ru": "семь",
+   "tr": "сиэтэ",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v021",
+   "type": "vocab",
+   "es": "ocho",
+   "en": "eight",
+   "ru": "восемь",
+   "tr": "очо",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v022",
+   "type": "vocab",
+   "es": "nueve",
+   "en": "nine",
+   "ru": "девять",
+   "tr": "нуэбэ",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v023",
+   "type": "vocab",
+   "es": "diez",
+   "en": "ten",
+   "ru": "десять",
+   "tr": "диэс",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v024",
+   "type": "vocab",
+   "es": "cuyo",
+   "en": "whose",
+   "ru": "чей",
+   "tr": "куйо",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v025",
+   "type": "vocab",
+   "es": "cuya",
+   "en": "whose",
+   "ru": "чья",
+   "tr": "куйа",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v026",
+   "type": "vocab",
+   "es": "por qué no",
+   "en": "why not",
+   "ru": "почему нет",
+   "tr": "пор ке но",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v027",
+   "type": "vocab",
+   "es": "vale",
+   "en": "okay",
+   "ru": "хорошо/ладно",
+   "tr": "балэ",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v028",
+   "type": "vocab",
+   "es": "claro",
+   "en": "of course/clear",
+   "ru": "конечно/ясно",
+   "tr": "кларо",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v029",
+   "type": "vocab",
+   "es": "pues",
+   "en": "well/then",
+   "ru": "ну/тогда",
+   "tr": "пуэс",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v030",
+   "type": "vocab",
+   "es": "oye",
+   "en": "hey/listen",
+   "ru": "слушай",
+   "tr": "ойэ",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v031",
+   "type": "vocab",
+   "es": "mira",
+   "en": "look",
+   "ru": "смотри",
+   "tr": "мира",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v032",
+   "type": "vocab",
+   "es": "vamos",
+   "en": "let's go/come on",
+   "ru": "пойдём/давай",
+   "tr": "бамос",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v033",
+   "type": "vocab",
+   "es": "venga",
+   "en": "come on/okay",
+   "ru": "давай/ну давай",
+   "tr": "бэнга",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v034",
+   "type": "vocab",
+   "es": "estar",
+   "en": "to be/be located",
+   "ru": "быть/находиться",
+   "tr": "эстар",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v035",
+   "type": "vocab",
+   "es": "haber",
+   "en": "to have/there is",
+   "ru": "иметь/есть",
+   "tr": "абэр",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v036",
+   "type": "vocab",
+   "es": "tener",
+   "en": "to have",
+   "ru": "иметь/у меня есть",
+   "tr": "тэнэр",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v037",
+   "type": "vocab",
+   "es": "hacer",
+   "en": "to do/make",
+   "ru": "делать",
+   "tr": "асэр",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v038",
+   "type": "vocab",
+   "es": "poder",
+   "en": "can/to be able",
+   "ru": "мочь",
+   "tr": "подэр",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v039",
+   "type": "vocab",
+   "es": "querer",
+   "en": "to want/love",
+   "ru": "хотеть/любить",
+   "tr": "керэр",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v040",
+   "type": "vocab",
+   "es": "deber",
+   "en": "must/should",
+   "ru": "должен/следует",
+   "tr": "дэбэр",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v041",
+   "type": "vocab",
+   "es": "saber",
+   "en": "to know",
+   "ru": "знать",
+   "tr": "сабэр",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v042",
+   "type": "vocab",
+   "es": "conocer",
+   "en": "to know/be acquainted",
+   "ru": "знать/быть знакомым",
+   "tr": "коносэр",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v043",
+   "type": "vocab",
+   "es": "llegar",
+   "en": "to arrive",
+   "ru": "прибывать",
+   "tr": "йэгар",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v044",
+   "type": "vocab",
+   "es": "regresar",
+   "en": "to return",
+   "ru": "возвращаться",
+   "tr": "рэгрэсар",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v045",
+   "type": "vocab",
+   "es": "pasar",
+   "en": "to pass/happen",
+   "ru": "проходить/происходить",
+   "tr": "пасар",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v046",
+   "type": "vocab",
+   "es": "quedar",
+   "en": "to stay/remain",
+   "ru": "оставаться/договориться",
+   "tr": "кедар",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v047",
+   "type": "vocab",
+   "es": "tomar",
+   "en": "to take/have",
+   "ru": "брать/принимать",
+   "tr": "томар",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v048",
+   "type": "vocab",
+   "es": "conseguir",
+   "en": "to get/achieve",
+   "ru": "получить/добиться",
+   "tr": "консэгир",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v049",
+   "type": "vocab",
+   "es": "usar",
+   "en": "to use",
+   "ru": "использовать",
+   "tr": "усар",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v050",
+   "type": "vocab",
+   "es": "necesitar",
+   "en": "to need",
+   "ru": "нуждаться/нужен",
+   "tr": "нэсэситар",
+   "group": null,
+   "chunk": "1–50"
+  },
+  {
+   "id": "es3-v051",
+   "type": "vocab",
+   "es": "ayudar",
+   "en": "to help",
+   "ru": "помогать",
+   "tr": "айудар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v052",
+   "type": "vocab",
+   "es": "intentar",
+   "en": "to try",
+   "ru": "пытаться",
+   "tr": "интэнтар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v053",
+   "type": "vocab",
+   "es": "detener",
+   "en": "to stop",
+   "ru": "останавливать",
+   "tr": "дэтэнэр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v054",
+   "type": "vocab",
+   "es": "mover",
+   "en": "to move",
+   "ru": "двигать",
+   "tr": "мобэр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v055",
+   "type": "vocab",
+   "es": "decir",
+   "en": "to say/tell",
+   "ru": "сказать/говорить",
+   "tr": "дэсир",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v056",
+   "type": "vocab",
+   "es": "contestar",
+   "en": "to answer",
+   "ru": "отвечать",
+   "tr": "контэстар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v057",
+   "type": "vocab",
+   "es": "explicar",
+   "en": "to explain",
+   "ru": "объяснять",
+   "tr": "экспликар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v058",
+   "type": "vocab",
+   "es": "repetir",
+   "en": "to repeat",
+   "ru": "повторять",
+   "tr": "рэпэтир",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v059",
+   "type": "vocab",
+   "es": "entender",
+   "en": "to understand",
+   "ru": "понимать",
+   "tr": "энтэндэр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v060",
+   "type": "vocab",
+   "es": "comprender",
+   "en": "to understand",
+   "ru": "понимать",
+   "tr": "компрэндэр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v061",
+   "type": "vocab",
+   "es": "oír",
+   "en": "to hear",
+   "ru": "слышать",
+   "tr": "оир",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v062",
+   "type": "vocab",
+   "es": "ver",
+   "en": "to see",
+   "ru": "видеть",
+   "tr": "бэр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v063",
+   "type": "vocab",
+   "es": "mirar",
+   "en": "to look/watch",
+   "ru": "смотреть",
+   "tr": "мирар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v064",
+   "type": "vocab",
+   "es": "mostrar",
+   "en": "to show",
+   "ru": "показывать",
+   "tr": "мострар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v065",
+   "type": "vocab",
+   "es": "llamar",
+   "en": "to call/name",
+   "ru": "звонить/называть",
+   "tr": "йамар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v066",
+   "type": "vocab",
+   "es": "enviar",
+   "en": "to send",
+   "ru": "отправлять",
+   "tr": "энбиар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v067",
+   "type": "vocab",
+   "es": "costar",
+   "en": "to cost",
+   "ru": "стоить",
+   "tr": "костар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v068",
+   "type": "vocab",
+   "es": "valer",
+   "en": "to be worth",
+   "ru": "стоить/быть ценным",
+   "tr": "балэр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v069",
+   "type": "vocab",
+   "es": "elegir",
+   "en": "to choose",
+   "ru": "выбирать",
+   "tr": "элэхир",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v070",
+   "type": "vocab",
+   "es": "decidir",
+   "en": "to decide",
+   "ru": "решать",
+   "tr": "дэсидир",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v071",
+   "type": "vocab",
+   "es": "cambiar",
+   "en": "to change",
+   "ru": "менять",
+   "tr": "камбиар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v072",
+   "type": "vocab",
+   "es": "esperar",
+   "en": "to wait/hope",
+   "ru": "ждать/надеяться",
+   "tr": "эспэрар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v073",
+   "type": "vocab",
+   "es": "preferir",
+   "en": "to prefer",
+   "ru": "предпочитать",
+   "tr": "прэфэрир",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v074",
+   "type": "vocab",
+   "es": "gustar",
+   "en": "to like",
+   "ru": "нравиться",
+   "tr": "густар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v075",
+   "type": "vocab",
+   "es": "encantar",
+   "en": "to love/delight",
+   "ru": "обожать/очень нравиться",
+   "tr": "энкантар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v076",
+   "type": "vocab",
+   "es": "importar",
+   "en": "to matter",
+   "ru": "иметь значение",
+   "tr": "импортар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v077",
+   "type": "vocab",
+   "es": "preocupar",
+   "en": "to worry",
+   "ru": "беспокоить",
+   "tr": "прэокупар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v078",
+   "type": "vocab",
+   "es": "pensar",
+   "en": "to think",
+   "ru": "думать",
+   "tr": "пэнсар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v079",
+   "type": "vocab",
+   "es": "creer",
+   "en": "to believe",
+   "ru": "верить/считать",
+   "tr": "крээр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v080",
+   "type": "vocab",
+   "es": "parecer",
+   "en": "to seem",
+   "ru": "казаться",
+   "tr": "парэсэр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v081",
+   "type": "vocab",
+   "es": "suponer",
+   "en": "to suppose",
+   "ru": "предполагать",
+   "tr": "супонэр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v082",
+   "type": "vocab",
+   "es": "sentir",
+   "en": "to feel",
+   "ru": "чувствовать",
+   "tr": "сэнтир",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v083",
+   "type": "vocab",
+   "es": "vivir",
+   "en": "to live",
+   "ru": "жить",
+   "tr": "бибир",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v084",
+   "type": "vocab",
+   "es": "estudiar",
+   "en": "to study",
+   "ru": "учиться",
+   "tr": "эстудиар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v085",
+   "type": "vocab",
+   "es": "viajar",
+   "en": "to travel",
+   "ru": "путешествовать",
+   "tr": "биахар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v086",
+   "type": "vocab",
+   "es": "conducir",
+   "en": "to drive",
+   "ru": "водить",
+   "tr": "кондусир",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v087",
+   "type": "vocab",
+   "es": "caminar",
+   "en": "to walk",
+   "ru": "ходить пешком",
+   "tr": "каминар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v088",
+   "type": "vocab",
+   "es": "correr",
+   "en": "to run",
+   "ru": "бегать",
+   "tr": "корэр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v089",
+   "type": "vocab",
+   "es": "girar",
+   "en": "to turn",
+   "ru": "поворачивать",
+   "tr": "хирар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v090",
+   "type": "vocab",
+   "es": "cruzar",
+   "en": "to cross",
+   "ru": "переходить",
+   "tr": "крусар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v091",
+   "type": "vocab",
+   "es": "ducharse",
+   "en": "to shower",
+   "ru": "принимать душ",
+   "tr": "дучарсэ",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v092",
+   "type": "vocab",
+   "es": "lavarse",
+   "en": "to wash",
+   "ru": "мыться",
+   "tr": "лабарсэ",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v093",
+   "type": "vocab",
+   "es": "cocinar",
+   "en": "to cook",
+   "ru": "готовить",
+   "tr": "косинар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v094",
+   "type": "vocab",
+   "es": "comer",
+   "en": "to eat",
+   "ru": "есть",
+   "tr": "комэр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v095",
+   "type": "vocab",
+   "es": "beber",
+   "en": "to drink",
+   "ru": "пить",
+   "tr": "бэбэр",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v096",
+   "type": "vocab",
+   "es": "desayunar",
+   "en": "to have breakfast",
+   "ru": "завтракать",
+   "tr": "дэсайунар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v097",
+   "type": "vocab",
+   "es": "cenar",
+   "en": "to have dinner",
+   "ru": "ужинать",
+   "tr": "сэнар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v098",
+   "type": "vocab",
+   "es": "probar",
+   "en": "to try/taste",
+   "ru": "пробовать",
+   "tr": "пробар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v099",
+   "type": "vocab",
+   "es": "funcionar",
+   "en": "to work/function",
+   "ru": "работать/функционировать",
+   "tr": "фунсионар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v100",
+   "type": "vocab",
+   "es": "lavar",
+   "en": "to wash",
+   "ru": "мыть/стирать",
+   "tr": "лабар",
+   "group": null,
+   "chunk": "51–100"
+  },
+  {
+   "id": "es3-v101",
+   "type": "vocab",
+   "es": "llevarse",
+   "en": "to take away",
+   "ru": "забрать с собой",
+   "tr": "йэбарсэ",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v102",
+   "type": "vocab",
+   "es": "confirmar",
+   "en": "to confirm",
+   "ru": "подтверждать",
+   "tr": "конфирмар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v103",
+   "type": "vocab",
+   "es": "organizar",
+   "en": "to organize",
+   "ru": "организовывать",
+   "tr": "органисар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v104",
+   "type": "vocab",
+   "es": "preparar",
+   "en": "to prepare",
+   "ru": "готовить/подготавливать",
+   "tr": "прэпарар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v105",
+   "type": "vocab",
+   "es": "servir",
+   "en": "to serve",
+   "ru": "служить/подавать",
+   "tr": "сэрбир",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v106",
+   "type": "vocab",
+   "es": "tratar",
+   "en": "to treat/try",
+   "ru": "обращаться/пытаться",
+   "tr": "тратар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v107",
+   "type": "vocab",
+   "es": "contar",
+   "en": "to count/tell",
+   "ru": "считать/рассказывать",
+   "tr": "контар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v108",
+   "type": "vocab",
+   "es": "mantener",
+   "en": "to keep",
+   "ru": "сохранять/поддерживать",
+   "tr": "мантэнэр",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v109",
+   "type": "vocab",
+   "es": "prestar atención",
+   "en": "to pay attention",
+   "ru": "обращать внимание",
+   "tr": "прэстар атэнсион",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v110",
+   "type": "vocab",
+   "es": "comprobar",
+   "en": "to check",
+   "ru": "проверять",
+   "tr": "компробар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v111",
+   "type": "vocab",
+   "es": "revisar",
+   "en": "to review/check",
+   "ru": "проверять/пересматривать",
+   "tr": "рэбисар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v112",
+   "type": "vocab",
+   "es": "rellenar",
+   "en": "to fill in",
+   "ru": "заполнять",
+   "tr": "рэйэнар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v113",
+   "type": "vocab",
+   "es": "firmar",
+   "en": "to sign",
+   "ru": "подписывать",
+   "tr": "фирмар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v114",
+   "type": "vocab",
+   "es": "instalar",
+   "en": "to install",
+   "ru": "устанавливать",
+   "tr": "инсталар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v115",
+   "type": "vocab",
+   "es": "actualizar",
+   "en": "to update",
+   "ru": "обновлять",
+   "tr": "актуалисар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v116",
+   "type": "vocab",
+   "es": "compartir",
+   "en": "to share",
+   "ru": "делиться",
+   "tr": "компартир",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v117",
+   "type": "vocab",
+   "es": "alquilar",
+   "en": "to rent",
+   "ru": "арендовать",
+   "tr": "алкилар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v118",
+   "type": "vocab",
+   "es": "durar",
+   "en": "to last",
+   "ru": "длиться",
+   "tr": "дурар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v119",
+   "type": "vocab",
+   "es": "tardar",
+   "en": "to take time",
+   "ru": "занимать время",
+   "tr": "тардар",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v120",
+   "type": "vocab",
+   "es": "ocurrir",
+   "en": "to happen",
+   "ru": "происходить",
+   "tr": "окурир",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v121",
+   "type": "vocab",
+   "es": "suceder",
+   "en": "to happen",
+   "ru": "случаться",
+   "tr": "сусэдэр",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v122",
+   "type": "vocab",
+   "es": "existir",
+   "en": "to exist",
+   "ru": "существовать",
+   "tr": "эксистир",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v123",
+   "type": "vocab",
+   "es": "persona",
+   "en": "person",
+   "ru": "человек",
+   "tr": "пэрсона",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v124",
+   "type": "vocab",
+   "es": "gente",
+   "en": "people",
+   "ru": "люди",
+   "tr": "хентэ",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v125",
+   "type": "vocab",
+   "es": "bebé",
+   "en": "baby",
+   "ru": "младенец",
+   "tr": "бэбэ",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v126",
+   "type": "vocab",
+   "es": "adulto",
+   "en": "adult",
+   "ru": "взрослый",
+   "tr": "адулто",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v127",
+   "type": "vocab",
+   "es": "señorita",
+   "en": "Miss",
+   "ru": "мисс/девушка",
+   "tr": "сэньорита",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v128",
+   "type": "vocab",
+   "es": "familia",
+   "en": "family",
+   "ru": "семья",
+   "tr": "фамилиа",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v129",
+   "type": "vocab",
+   "es": "pareja",
+   "en": "partner/couple",
+   "ru": "партнёр/пара",
+   "tr": "парэха",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v130",
+   "type": "vocab",
+   "es": "casa",
+   "en": "house/home",
+   "ru": "дом",
+   "tr": "каса",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v131",
+   "type": "vocab",
+   "es": "piso",
+   "en": "flat/apartment",
+   "ru": "квартира",
+   "tr": "писо",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v132",
+   "type": "vocab",
+   "es": "edificio",
+   "en": "building",
+   "ru": "здание",
+   "tr": "эдифисио",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v133",
+   "type": "vocab",
+   "es": "habitación",
+   "en": "room",
+   "ru": "комната",
+   "tr": "абитасион",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v134",
+   "type": "vocab",
+   "es": "dormitorio",
+   "en": "bedroom",
+   "ru": "спальня",
+   "tr": "дормиторио",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v135",
+   "type": "vocab",
+   "es": "salón",
+   "en": "living room",
+   "ru": "гостиная",
+   "tr": "салон",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v136",
+   "type": "vocab",
+   "es": "cocina",
+   "en": "kitchen",
+   "ru": "кухня",
+   "tr": "косина",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v137",
+   "type": "vocab",
+   "es": "baño",
+   "en": "bathroom",
+   "ru": "ванная/туалет",
+   "tr": "баньо",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v138",
+   "type": "vocab",
+   "es": "comedor",
+   "en": "dining room",
+   "ru": "столовая",
+   "tr": "комэдор",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v139",
+   "type": "vocab",
+   "es": "pasillo",
+   "en": "hallway",
+   "ru": "коридор",
+   "tr": "пасийо",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v140",
+   "type": "vocab",
+   "es": "puerta",
+   "en": "door",
+   "ru": "дверь",
+   "tr": "пуэрта",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v141",
+   "type": "vocab",
+   "es": "ventana",
+   "en": "window",
+   "ru": "окно",
+   "tr": "бэнтана",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v142",
+   "type": "vocab",
+   "es": "pared",
+   "en": "wall",
+   "ru": "стена",
+   "tr": "парэд",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v143",
+   "type": "vocab",
+   "es": "escalera",
+   "en": "stairs",
+   "ru": "лестница",
+   "tr": "эскалэра",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v144",
+   "type": "vocab",
+   "es": "ascensor",
+   "en": "lift/elevator",
+   "ru": "лифт",
+   "tr": "ассэнсор",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v145",
+   "type": "vocab",
+   "es": "llave",
+   "en": "key",
+   "ru": "ключ",
+   "tr": "йабэ",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v146",
+   "type": "vocab",
+   "es": "cerradura",
+   "en": "lock",
+   "ru": "замок",
+   "tr": "сэрадура",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v147",
+   "type": "vocab",
+   "es": "mesa",
+   "en": "table",
+   "ru": "стол",
+   "tr": "мэса",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v148",
+   "type": "vocab",
+   "es": "silla",
+   "en": "chair",
+   "ru": "стул",
+   "tr": "сийа",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v149",
+   "type": "vocab",
+   "es": "cama",
+   "en": "bed",
+   "ru": "кровать",
+   "tr": "кама",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v150",
+   "type": "vocab",
+   "es": "sofá",
+   "en": "sofa",
+   "ru": "диван",
+   "tr": "софа",
+   "group": null,
+   "chunk": "101–150"
+  },
+  {
+   "id": "es3-v151",
+   "type": "vocab",
+   "es": "armario",
+   "en": "wardrobe/cabinet",
+   "ru": "шкаф",
+   "tr": "армарио",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v152",
+   "type": "vocab",
+   "es": "cajón",
+   "en": "drawer",
+   "ru": "ящик",
+   "tr": "кахон",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v153",
+   "type": "vocab",
+   "es": "espejo",
+   "en": "mirror",
+   "ru": "зеркало",
+   "tr": "эспэхо",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v154",
+   "type": "vocab",
+   "es": "lámpara",
+   "en": "lamp",
+   "ru": "лампа",
+   "tr": "лампара",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v155",
+   "type": "vocab",
+   "es": "enchufe",
+   "en": "socket/outlet",
+   "ru": "розетка",
+   "tr": "энчуфэ",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v156",
+   "type": "vocab",
+   "es": "interruptor",
+   "en": "switch",
+   "ru": "выключатель",
+   "tr": "интэруптор",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v157",
+   "type": "vocab",
+   "es": "basura",
+   "en": "rubbish",
+   "ru": "мусор",
+   "tr": "басура",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v158",
+   "type": "vocab",
+   "es": "bolsa",
+   "en": "bag",
+   "ru": "сумка/пакет",
+   "tr": "болса",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v159",
+   "type": "vocab",
+   "es": "caja",
+   "en": "box",
+   "ru": "коробка",
+   "tr": "каха",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v160",
+   "type": "vocab",
+   "es": "botella",
+   "en": "bottle",
+   "ru": "бутылка",
+   "tr": "ботэйа",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v161",
+   "type": "vocab",
+   "es": "vaso",
+   "en": "glass",
+   "ru": "стакан",
+   "tr": "басо",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v162",
+   "type": "vocab",
+   "es": "plato",
+   "en": "plate",
+   "ru": "тарелка",
+   "tr": "плато",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v163",
+   "type": "vocab",
+   "es": "cuchara",
+   "en": "spoon",
+   "ru": "ложка",
+   "tr": "кучара",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v164",
+   "type": "vocab",
+   "es": "tenedor",
+   "en": "fork",
+   "ru": "вилка",
+   "tr": "тэнэдор",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v165",
+   "type": "vocab",
+   "es": "cuchillo",
+   "en": "knife",
+   "ru": "нож",
+   "tr": "кучийо",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v166",
+   "type": "vocab",
+   "es": "toalla",
+   "en": "towel",
+   "ru": "полотенце",
+   "tr": "тоайа",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v167",
+   "type": "vocab",
+   "es": "jabón",
+   "en": "soap",
+   "ru": "мыло",
+   "tr": "хабон",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v168",
+   "type": "vocab",
+   "es": "champú",
+   "en": "shampoo",
+   "ru": "шампунь",
+   "tr": "чампу",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v169",
+   "type": "vocab",
+   "es": "papel",
+   "en": "paper/toilet paper",
+   "ru": "бумага",
+   "tr": "папэл",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v170",
+   "type": "vocab",
+   "es": "teléfono",
+   "en": "phone",
+   "ru": "телефон",
+   "tr": "тэлэфоно",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v171",
+   "type": "vocab",
+   "es": "cargador",
+   "en": "charger",
+   "ru": "зарядка",
+   "tr": "каргадор",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v172",
+   "type": "vocab",
+   "es": "agua",
+   "en": "water",
+   "ru": "вода",
+   "tr": "агуа",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v173",
+   "type": "vocab",
+   "es": "café",
+   "en": "coffee",
+   "ru": "кофе",
+   "tr": "кафэ",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v174",
+   "type": "vocab",
+   "es": "té",
+   "en": "tea",
+   "ru": "чай",
+   "tr": "тэ",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v175",
+   "type": "vocab",
+   "es": "leche",
+   "en": "milk",
+   "ru": "молоко",
+   "tr": "лэчэ",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v176",
+   "type": "vocab",
+   "es": "zumo",
+   "en": "juice",
+   "ru": "сок",
+   "tr": "сумо",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v177",
+   "type": "vocab",
+   "es": "cerveza",
+   "en": "beer",
+   "ru": "пиво",
+   "tr": "сэрбэса",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v178",
+   "type": "vocab",
+   "es": "vino",
+   "en": "wine",
+   "ru": "вино",
+   "tr": "бино",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v179",
+   "type": "vocab",
+   "es": "pan",
+   "en": "bread",
+   "ru": "хлеб",
+   "tr": "пан",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v180",
+   "type": "vocab",
+   "es": "arroz",
+   "en": "rice",
+   "ru": "рис",
+   "tr": "арос",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v181",
+   "type": "vocab",
+   "es": "pasta",
+   "en": "pasta",
+   "ru": "паста",
+   "tr": "паста",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v182",
+   "type": "vocab",
+   "es": "pollo",
+   "en": "chicken",
+   "ru": "курица",
+   "tr": "пойо",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v183",
+   "type": "vocab",
+   "es": "marisco",
+   "en": "seafood",
+   "ru": "морепродукты",
+   "tr": "мариско",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v184",
+   "type": "vocab",
+   "es": "huevo",
+   "en": "egg",
+   "ru": "яйцо",
+   "tr": "уэбо",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v185",
+   "type": "vocab",
+   "es": "queso",
+   "en": "cheese",
+   "ru": "сыр",
+   "tr": "кесо",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v186",
+   "type": "vocab",
+   "es": "yogur",
+   "en": "yogurt",
+   "ru": "йогурт",
+   "tr": "йогур",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v187",
+   "type": "vocab",
+   "es": "mantequilla",
+   "en": "butter",
+   "ru": "масло",
+   "tr": "мантэкийа",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v188",
+   "type": "vocab",
+   "es": "aceite",
+   "en": "oil",
+   "ru": "масло растительное",
+   "tr": "асэитэ",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v189",
+   "type": "vocab",
+   "es": "pimienta",
+   "en": "pepper",
+   "ru": "перец",
+   "tr": "пимиэнта",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v190",
+   "type": "vocab",
+   "es": "tomate",
+   "en": "tomato",
+   "ru": "помидор",
+   "tr": "томатэ",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v191",
+   "type": "vocab",
+   "es": "patata",
+   "en": "potato",
+   "ru": "картофель",
+   "tr": "патата",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v192",
+   "type": "vocab",
+   "es": "cebolla",
+   "en": "onion",
+   "ru": "лук",
+   "tr": "сэбойа",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v193",
+   "type": "vocab",
+   "es": "ajo",
+   "en": "garlic",
+   "ru": "чеснок",
+   "tr": "ахо",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v194",
+   "type": "vocab",
+   "es": "lechuga",
+   "en": "lettuce",
+   "ru": "салат",
+   "tr": "лэчуга",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v195",
+   "type": "vocab",
+   "es": "manzana",
+   "en": "apple",
+   "ru": "яблоко",
+   "tr": "мансана",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v196",
+   "type": "vocab",
+   "es": "plátano",
+   "en": "banana",
+   "ru": "банан",
+   "tr": "платано",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v197",
+   "type": "vocab",
+   "es": "naranja",
+   "en": "orange",
+   "ru": "апельсин/оранжевый",
+   "tr": "наранха",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v198",
+   "type": "vocab",
+   "es": "limón",
+   "en": "lemon",
+   "ru": "лимон",
+   "tr": "лимон",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v199",
+   "type": "vocab",
+   "es": "fresa",
+   "en": "strawberry",
+   "ru": "клубника",
+   "tr": "фрэса",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v200",
+   "type": "vocab",
+   "es": "sandía",
+   "en": "watermelon",
+   "ru": "арбуз",
+   "tr": "сандиа",
+   "group": null,
+   "chunk": "151–200"
+  },
+  {
+   "id": "es3-v201",
+   "type": "vocab",
+   "es": "melón",
+   "en": "melon",
+   "ru": "дыня",
+   "tr": "мэлон",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v202",
+   "type": "vocab",
+   "es": "uva",
+   "en": "grape",
+   "ru": "виноград",
+   "tr": "уба",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v203",
+   "type": "vocab",
+   "es": "postre",
+   "en": "dessert",
+   "ru": "десерт",
+   "tr": "пострэ",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v204",
+   "type": "vocab",
+   "es": "helado",
+   "en": "ice cream",
+   "ru": "мороженое",
+   "tr": "эладо",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v205",
+   "type": "vocab",
+   "es": "tarta",
+   "en": "cake/pie",
+   "ru": "торт/пирог",
+   "tr": "тарта",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v206",
+   "type": "vocab",
+   "es": "bocadillo",
+   "en": "sandwich",
+   "ru": "сэндвич",
+   "tr": "бокадийо",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v207",
+   "type": "vocab",
+   "es": "restaurante",
+   "en": "restaurant",
+   "ru": "ресторан",
+   "tr": "рэстаурантэ",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v208",
+   "type": "vocab",
+   "es": "cafetería",
+   "en": "café",
+   "ru": "кафе",
+   "tr": "кафэтэриа",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v209",
+   "type": "vocab",
+   "es": "bar",
+   "en": "bar",
+   "ru": "бар",
+   "tr": "бар",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v210",
+   "type": "vocab",
+   "es": "menú",
+   "en": "menu",
+   "ru": "меню",
+   "tr": "мэну",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v211",
+   "type": "vocab",
+   "es": "carta",
+   "en": "menu",
+   "ru": "меню",
+   "tr": "карта",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v212",
+   "type": "vocab",
+   "es": "ración",
+   "en": "portion",
+   "ru": "порция",
+   "tr": "расион",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v213",
+   "type": "vocab",
+   "es": "tapa",
+   "en": "tapa/snack",
+   "ru": "тапа/закуска",
+   "tr": "тапа",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v214",
+   "type": "vocab",
+   "es": "cuenta",
+   "en": "bill/account",
+   "ru": "счёт",
+   "tr": "куэнта",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v215",
+   "type": "vocab",
+   "es": "reserva",
+   "en": "reservation",
+   "ru": "бронь",
+   "tr": "рэсэрба",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v216",
+   "type": "vocab",
+   "es": "pedido",
+   "en": "order",
+   "ru": "заказ",
+   "tr": "пэдидо",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v217",
+   "type": "vocab",
+   "es": "cubierto",
+   "en": "cutlery/place setting",
+   "ru": "столовый прибор/сервировка",
+   "tr": "кубиэрто",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v218",
+   "type": "vocab",
+   "es": "servilleta",
+   "en": "napkin",
+   "ru": "салфетка",
+   "tr": "сэрбийэта",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v219",
+   "type": "vocab",
+   "es": "taza",
+   "en": "cup",
+   "ru": "чашка",
+   "tr": "таса",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v220",
+   "type": "vocab",
+   "es": "vegetariano",
+   "en": "vegetarian",
+   "ru": "вегетарианский",
+   "tr": "бэхетариано",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v221",
+   "type": "vocab",
+   "es": "vegano",
+   "en": "vegan",
+   "ru": "веганский",
+   "tr": "бэгано",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v222",
+   "type": "vocab",
+   "es": "ingrediente",
+   "en": "ingredient",
+   "ru": "ингредиент",
+   "tr": "ингрэдиэнтэ",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v223",
+   "type": "vocab",
+   "es": "alergia",
+   "en": "allergy",
+   "ru": "аллергия",
+   "tr": "алэрхиа",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v224",
+   "type": "vocab",
+   "es": "recibo",
+   "en": "receipt",
+   "ru": "чек",
+   "tr": "рэсибо",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v225",
+   "type": "vocab",
+   "es": "propina",
+   "en": "tip",
+   "ru": "чаевые",
+   "tr": "пропина",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v226",
+   "type": "vocab",
+   "es": "tienda",
+   "en": "shop/store",
+   "ru": "магазин",
+   "tr": "тиэнда",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v227",
+   "type": "vocab",
+   "es": "supermercado",
+   "en": "supermarket",
+   "ru": "супермаркет",
+   "tr": "супэрмэркадо",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v228",
+   "type": "vocab",
+   "es": "mercado",
+   "en": "market",
+   "ru": "рынок",
+   "tr": "мэркадо",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v229",
+   "type": "vocab",
+   "es": "centro comercial",
+   "en": "shopping centre",
+   "ru": "торговый центр",
+   "tr": "сэнтро комэрсиал",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v230",
+   "type": "vocab",
+   "es": "tienda online",
+   "en": "online shop",
+   "ru": "онлайн-магазин",
+   "tr": "тиэнда онлинэ",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v231",
+   "type": "vocab",
+   "es": "producto",
+   "en": "product",
+   "ru": "товар",
+   "tr": "продукто",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v232",
+   "type": "vocab",
+   "es": "artículo",
+   "en": "item/article",
+   "ru": "товар/предмет",
+   "tr": "артикуло",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v233",
+   "type": "vocab",
+   "es": "precio",
+   "en": "price",
+   "ru": "цена",
+   "tr": "прэсио",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v234",
+   "type": "vocab",
+   "es": "oferta",
+   "en": "offer/sale",
+   "ru": "предложение/скидка",
+   "tr": "офэрта",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v235",
+   "type": "vocab",
+   "es": "descuento",
+   "en": "discount",
+   "ru": "скидка",
+   "tr": "дэскуэнто",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v236",
+   "type": "vocab",
+   "es": "talla",
+   "en": "size",
+   "ru": "размер",
+   "tr": "тайа",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v237",
+   "type": "vocab",
+   "es": "color",
+   "en": "colour",
+   "ru": "цвет",
+   "tr": "колор",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v238",
+   "type": "vocab",
+   "es": "blanco",
+   "en": "white",
+   "ru": "белый",
+   "tr": "бланко",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v239",
+   "type": "vocab",
+   "es": "negro",
+   "en": "black",
+   "ru": "чёрный",
+   "tr": "нэгро",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v240",
+   "type": "vocab",
+   "es": "gris",
+   "en": "grey",
+   "ru": "серый",
+   "tr": "грис",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v241",
+   "type": "vocab",
+   "es": "rojo",
+   "en": "red",
+   "ru": "красный",
+   "tr": "рохо",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v242",
+   "type": "vocab",
+   "es": "azul",
+   "en": "blue",
+   "ru": "синий/голубой",
+   "tr": "асул",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v243",
+   "type": "vocab",
+   "es": "verde",
+   "en": "green",
+   "ru": "зелёный",
+   "tr": "бэрдэ",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v244",
+   "type": "vocab",
+   "es": "amarillo",
+   "en": "yellow",
+   "ru": "жёлтый",
+   "tr": "амарийо",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v245",
+   "type": "vocab",
+   "es": "marrón",
+   "en": "brown",
+   "ru": "коричневый",
+   "tr": "марон",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v246",
+   "type": "vocab",
+   "es": "rosa",
+   "en": "pink",
+   "ru": "розовый",
+   "tr": "роса",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v247",
+   "type": "vocab",
+   "es": "morado",
+   "en": "purple",
+   "ru": "фиолетовый",
+   "tr": "морадо",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v248",
+   "type": "vocab",
+   "es": "marca",
+   "en": "brand",
+   "ru": "бренд",
+   "tr": "марка",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v249",
+   "type": "vocab",
+   "es": "modelo",
+   "en": "model",
+   "ru": "модель",
+   "tr": "модэло",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v250",
+   "type": "vocab",
+   "es": "kilo",
+   "en": "kilogram",
+   "ru": "килограмм",
+   "tr": "кило",
+   "group": null,
+   "chunk": "201–250"
+  },
+  {
+   "id": "es3-v251",
+   "type": "vocab",
+   "es": "gramo",
+   "en": "gram",
+   "ru": "грамм",
+   "tr": "грамо",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v252",
+   "type": "vocab",
+   "es": "litro",
+   "en": "litre",
+   "ru": "литр",
+   "tr": "литро",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v253",
+   "type": "vocab",
+   "es": "euro",
+   "en": "euro",
+   "ru": "евро",
+   "tr": "эуро",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v254",
+   "type": "vocab",
+   "es": "dinero",
+   "en": "money",
+   "ru": "деньги",
+   "tr": "динэро",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v255",
+   "type": "vocab",
+   "es": "cambio",
+   "en": "change",
+   "ru": "сдача/изменение",
+   "tr": "камбио",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v256",
+   "type": "vocab",
+   "es": "moneda",
+   "en": "coin/currency",
+   "ru": "монета/валюта",
+   "tr": "монэда",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v257",
+   "type": "vocab",
+   "es": "factura",
+   "en": "invoice",
+   "ru": "счёт/счёт-фактура",
+   "tr": "фактура",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v258",
+   "type": "vocab",
+   "es": "cajero",
+   "en": "cashier/ATM",
+   "ru": "кассир/банкомат",
+   "tr": "кахэро",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v259",
+   "type": "vocab",
+   "es": "transporte",
+   "en": "transport",
+   "ru": "транспорт",
+   "tr": "транспортэ",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v260",
+   "type": "vocab",
+   "es": "coche",
+   "en": "car",
+   "ru": "машина",
+   "tr": "кочэ",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v261",
+   "type": "vocab",
+   "es": "autobús",
+   "en": "bus",
+   "ru": "автобус",
+   "tr": "аутобус",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v262",
+   "type": "vocab",
+   "es": "tren",
+   "en": "train",
+   "ru": "поезд",
+   "tr": "трэн",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v263",
+   "type": "vocab",
+   "es": "metro",
+   "en": "metro",
+   "ru": "метро",
+   "tr": "мэтро",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v264",
+   "type": "vocab",
+   "es": "tranvía",
+   "en": "tram",
+   "ru": "трамвай",
+   "tr": "транбиа",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v265",
+   "type": "vocab",
+   "es": "taxi",
+   "en": "taxi",
+   "ru": "такси",
+   "tr": "такси",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v266",
+   "type": "vocab",
+   "es": "bicicleta",
+   "en": "bicycle",
+   "ru": "велосипед",
+   "tr": "бисиклэта",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v267",
+   "type": "vocab",
+   "es": "moto",
+   "en": "motorbike",
+   "ru": "мотоцикл",
+   "tr": "мото",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v268",
+   "type": "vocab",
+   "es": "avión",
+   "en": "airplane",
+   "ru": "самолёт",
+   "tr": "абион",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v269",
+   "type": "vocab",
+   "es": "barco",
+   "en": "ship/boat",
+   "ru": "корабль/лодка",
+   "tr": "барко",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v270",
+   "type": "vocab",
+   "es": "aeropuerto",
+   "en": "airport",
+   "ru": "аэропорт",
+   "tr": "аэропуэрто",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v271",
+   "type": "vocab",
+   "es": "estación",
+   "en": "station",
+   "ru": "станция/вокзал",
+   "tr": "эстасион",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v272",
+   "type": "vocab",
+   "es": "parada",
+   "en": "stop",
+   "ru": "остановка",
+   "tr": "парада",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v273",
+   "type": "vocab",
+   "es": "andén",
+   "en": "platform",
+   "ru": "платформа",
+   "tr": "андэн",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v274",
+   "type": "vocab",
+   "es": "billete",
+   "en": "ticket",
+   "ru": "билет",
+   "tr": "бийэтэ",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v275",
+   "type": "vocab",
+   "es": "pasaje",
+   "en": "ticket/fare",
+   "ru": "билет/проезд",
+   "tr": "пасахэ",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v276",
+   "type": "vocab",
+   "es": "asiento",
+   "en": "seat",
+   "ru": "место",
+   "tr": "асиэнто",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v277",
+   "type": "vocab",
+   "es": "horario",
+   "en": "timetable/schedule",
+   "ru": "расписание",
+   "tr": "орарио",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v278",
+   "type": "vocab",
+   "es": "retraso",
+   "en": "delay",
+   "ru": "задержка",
+   "tr": "рэтрасо",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v279",
+   "type": "vocab",
+   "es": "conexión",
+   "en": "connection",
+   "ru": "пересадка/соединение",
+   "tr": "конэксион",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v280",
+   "type": "vocab",
+   "es": "dirección",
+   "en": "direction/address",
+   "ru": "направление/адрес",
+   "tr": "дирэксион",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v281",
+   "type": "vocab",
+   "es": "camino",
+   "en": "way/path",
+   "ru": "дорога/путь",
+   "tr": "камино",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v282",
+   "type": "vocab",
+   "es": "calle",
+   "en": "street",
+   "ru": "улица",
+   "tr": "кайэ",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v283",
+   "type": "vocab",
+   "es": "carretera",
+   "en": "road/highway",
+   "ru": "дорога/трасса",
+   "tr": "карэтэра",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v284",
+   "type": "vocab",
+   "es": "mapa",
+   "en": "map",
+   "ru": "карта",
+   "tr": "мапа",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v285",
+   "type": "vocab",
+   "es": "centro",
+   "en": "centre",
+   "ru": "центр",
+   "tr": "сэнтро",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v286",
+   "type": "vocab",
+   "es": "recto",
+   "en": "straight",
+   "ru": "прямо",
+   "tr": "рэкто",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v287",
+   "type": "vocab",
+   "es": "vuelta",
+   "en": "turn/return",
+   "ru": "поворот/возврат",
+   "tr": "буэлта",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v288",
+   "type": "vocab",
+   "es": "esquina",
+   "en": "corner",
+   "ru": "угол",
+   "tr": "эскина",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v289",
+   "type": "vocab",
+   "es": "puente",
+   "en": "bridge",
+   "ru": "мост",
+   "tr": "пуэнтэ",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v290",
+   "type": "vocab",
+   "es": "túnel",
+   "en": "tunnel",
+   "ru": "туннель",
+   "tr": "тунэл",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v291",
+   "type": "vocab",
+   "es": "frontera",
+   "en": "border",
+   "ru": "граница",
+   "tr": "фронтэра",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v292",
+   "type": "vocab",
+   "es": "hotel",
+   "en": "hotel",
+   "ru": "отель",
+   "tr": "отэл",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v293",
+   "type": "vocab",
+   "es": "recepción",
+   "en": "reception",
+   "ru": "ресепшен",
+   "tr": "рэсэпсион",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v294",
+   "type": "vocab",
+   "es": "pasaporte",
+   "en": "passport",
+   "ru": "паспорт",
+   "tr": "пасапортэ",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v295",
+   "type": "vocab",
+   "es": "equipaje",
+   "en": "luggage",
+   "ru": "багаж",
+   "tr": "экипахэ",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v296",
+   "type": "vocab",
+   "es": "maleta",
+   "en": "suitcase",
+   "ru": "чемодан",
+   "tr": "малэта",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v297",
+   "type": "vocab",
+   "es": "mochila",
+   "en": "backpack",
+   "ru": "рюкзак",
+   "tr": "мочила",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v298",
+   "type": "vocab",
+   "es": "tiempo",
+   "en": "time/weather",
+   "ru": "время/погода",
+   "tr": "тиэмпо",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v299",
+   "type": "vocab",
+   "es": "hora",
+   "en": "hour/time",
+   "ru": "час/время",
+   "tr": "ора",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v300",
+   "type": "vocab",
+   "es": "minuto",
+   "en": "minute",
+   "ru": "минута",
+   "tr": "минуто",
+   "group": null,
+   "chunk": "251–300"
+  },
+  {
+   "id": "es3-v301",
+   "type": "vocab",
+   "es": "segundo",
+   "en": "second",
+   "ru": "секунда",
+   "tr": "сэгундо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v302",
+   "type": "vocab",
+   "es": "semana",
+   "en": "week",
+   "ru": "неделя",
+   "tr": "сэмана",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v303",
+   "type": "vocab",
+   "es": "mes",
+   "en": "month",
+   "ru": "месяц",
+   "tr": "мэс",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v304",
+   "type": "vocab",
+   "es": "año",
+   "en": "year",
+   "ru": "год",
+   "tr": "аньо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v305",
+   "type": "vocab",
+   "es": "fecha",
+   "en": "date",
+   "ru": "дата",
+   "tr": "фэча",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v306",
+   "type": "vocab",
+   "es": "momento",
+   "en": "moment",
+   "ru": "момент",
+   "tr": "момэнто",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v307",
+   "type": "vocab",
+   "es": "ahora",
+   "en": "now",
+   "ru": "сейчас",
+   "tr": "аора",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v308",
+   "type": "vocab",
+   "es": "hoy",
+   "en": "today",
+   "ru": "сегодня",
+   "tr": "ой",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v309",
+   "type": "vocab",
+   "es": "pronto",
+   "en": "soon",
+   "ru": "скоро",
+   "tr": "пронто",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v310",
+   "type": "vocab",
+   "es": "luego",
+   "en": "later/then",
+   "ru": "потом/затем",
+   "tr": "луэго",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v311",
+   "type": "vocab",
+   "es": "lunes",
+   "en": "Monday",
+   "ru": "понедельник",
+   "tr": "лунэс",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v312",
+   "type": "vocab",
+   "es": "martes",
+   "en": "Tuesday",
+   "ru": "вторник",
+   "tr": "мартэс",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v313",
+   "type": "vocab",
+   "es": "miércoles",
+   "en": "Wednesday",
+   "ru": "среда",
+   "tr": "миэрколэс",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v314",
+   "type": "vocab",
+   "es": "jueves",
+   "en": "Thursday",
+   "ru": "четверг",
+   "tr": "хуэбэс",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v315",
+   "type": "vocab",
+   "es": "viernes",
+   "en": "Friday",
+   "ru": "пятница",
+   "tr": "биэрнэс",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v316",
+   "type": "vocab",
+   "es": "sábado",
+   "en": "Saturday",
+   "ru": "суббота",
+   "tr": "сабадо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v317",
+   "type": "vocab",
+   "es": "domingo",
+   "en": "Sunday",
+   "ru": "воскресенье",
+   "tr": "доминго",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v318",
+   "type": "vocab",
+   "es": "enero",
+   "en": "January",
+   "ru": "январь",
+   "tr": "энэро",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v319",
+   "type": "vocab",
+   "es": "febrero",
+   "en": "February",
+   "ru": "февраль",
+   "tr": "фэбрэро",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v320",
+   "type": "vocab",
+   "es": "marzo",
+   "en": "March",
+   "ru": "март",
+   "tr": "марсо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v321",
+   "type": "vocab",
+   "es": "abril",
+   "en": "April",
+   "ru": "апрель",
+   "tr": "абрил",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v322",
+   "type": "vocab",
+   "es": "mayo",
+   "en": "May",
+   "ru": "май",
+   "tr": "майо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v323",
+   "type": "vocab",
+   "es": "junio",
+   "en": "June",
+   "ru": "июнь",
+   "tr": "хунио",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v324",
+   "type": "vocab",
+   "es": "julio",
+   "en": "July",
+   "ru": "июль",
+   "tr": "хулио",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v325",
+   "type": "vocab",
+   "es": "agosto",
+   "en": "August",
+   "ru": "август",
+   "tr": "агосто",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v326",
+   "type": "vocab",
+   "es": "septiembre",
+   "en": "September",
+   "ru": "сентябрь",
+   "tr": "сэптиэмбрэ",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v327",
+   "type": "vocab",
+   "es": "octubre",
+   "en": "October",
+   "ru": "октябрь",
+   "tr": "октубрэ",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v328",
+   "type": "vocab",
+   "es": "noviembre",
+   "en": "November",
+   "ru": "ноябрь",
+   "tr": "нобиэмбрэ",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v329",
+   "type": "vocab",
+   "es": "diciembre",
+   "en": "December",
+   "ru": "декабрь",
+   "tr": "дисиэмбрэ",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v330",
+   "type": "vocab",
+   "es": "suficiente",
+   "en": "enough",
+   "ru": "достаточный",
+   "tr": "суфисиэнтэ",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v331",
+   "type": "vocab",
+   "es": "fresco",
+   "en": "cool/fresh",
+   "ru": "прохладный/свежий",
+   "tr": "фрэско",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v332",
+   "type": "vocab",
+   "es": "gratis",
+   "en": "free of charge",
+   "ru": "бесплатно",
+   "tr": "гратис",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v333",
+   "type": "vocab",
+   "es": "importante",
+   "en": "important",
+   "ru": "важный",
+   "tr": "импортантэ",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v334",
+   "type": "vocab",
+   "es": "necesario",
+   "en": "necessary",
+   "ru": "необходимый",
+   "tr": "нэсэсарио",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v335",
+   "type": "vocab",
+   "es": "especial",
+   "en": "special",
+   "ru": "особенный",
+   "tr": "эспэсиал",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v336",
+   "type": "vocab",
+   "es": "extraño",
+   "en": "strange",
+   "ru": "странный",
+   "tr": "экстраньо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v337",
+   "type": "vocab",
+   "es": "serio",
+   "en": "serious",
+   "ru": "серьёзный",
+   "tr": "сэрио",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v338",
+   "type": "vocab",
+   "es": "listo",
+   "en": "ready/smart",
+   "ru": "готовый/умный",
+   "tr": "листо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v339",
+   "type": "vocab",
+   "es": "preparado",
+   "en": "prepared/ready",
+   "ru": "готовый",
+   "tr": "прэпарадо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v340",
+   "type": "vocab",
+   "es": "dispuesto",
+   "en": "willing",
+   "ru": "готовый/расположенный",
+   "tr": "диспуэсто",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v341",
+   "type": "vocab",
+   "es": "capaz",
+   "en": "capable",
+   "ru": "способный",
+   "tr": "капас",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v342",
+   "type": "vocab",
+   "es": "preocupado",
+   "en": "worried",
+   "ru": "обеспокоенный",
+   "tr": "прэокупадо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v343",
+   "type": "vocab",
+   "es": "sorprendido",
+   "en": "surprised",
+   "ru": "удивлённый",
+   "tr": "сорпрэндидо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v344",
+   "type": "vocab",
+   "es": "asustado",
+   "en": "scared",
+   "ru": "испуганный",
+   "tr": "асустадо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v345",
+   "type": "vocab",
+   "es": "confundido",
+   "en": "confused",
+   "ru": "растерянный",
+   "tr": "конфундидо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v346",
+   "type": "vocab",
+   "es": "perdido",
+   "en": "lost",
+   "ru": "потерянный",
+   "tr": "пэрдидо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v347",
+   "type": "vocab",
+   "es": "interesado",
+   "en": "interested",
+   "ru": "заинтересованный",
+   "tr": "интэрэсадо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v348",
+   "type": "vocab",
+   "es": "cuerpo",
+   "en": "body",
+   "ru": "тело",
+   "tr": "куэрпо",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v349",
+   "type": "vocab",
+   "es": "cabeza",
+   "en": "head",
+   "ru": "голова",
+   "tr": "кабэса",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v350",
+   "type": "vocab",
+   "es": "cara",
+   "en": "face",
+   "ru": "лицо",
+   "tr": "кара",
+   "group": null,
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v351",
+   "type": "vocab",
+   "es": "ojo",
+   "en": "eye",
+   "ru": "глаз",
+   "tr": "охо",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v352",
+   "type": "vocab",
+   "es": "nariz",
+   "en": "nose",
+   "ru": "нос",
+   "tr": "нарис",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v353",
+   "type": "vocab",
+   "es": "boca",
+   "en": "mouth",
+   "ru": "рот",
+   "tr": "бока",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v354",
+   "type": "vocab",
+   "es": "oreja",
+   "en": "ear",
+   "ru": "ухо",
+   "tr": "орэха",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v355",
+   "type": "vocab",
+   "es": "cuello",
+   "en": "neck",
+   "ru": "шея",
+   "tr": "куэйо",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v356",
+   "type": "vocab",
+   "es": "hombro",
+   "en": "shoulder",
+   "ru": "плечо",
+   "tr": "омбро",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v357",
+   "type": "vocab",
+   "es": "brazo",
+   "en": "arm",
+   "ru": "рука",
+   "tr": "брасо",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v358",
+   "type": "vocab",
+   "es": "mano",
+   "en": "hand",
+   "ru": "кисть/рука",
+   "tr": "мано",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v359",
+   "type": "vocab",
+   "es": "dedo",
+   "en": "finger/toe",
+   "ru": "палец",
+   "tr": "дэдо",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v360",
+   "type": "vocab",
+   "es": "pecho",
+   "en": "chest",
+   "ru": "грудь",
+   "tr": "пэчо",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v361",
+   "type": "vocab",
+   "es": "espalda",
+   "en": "back",
+   "ru": "спина",
+   "tr": "эспалда",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v362",
+   "type": "vocab",
+   "es": "barriga",
+   "en": "belly",
+   "ru": "живот",
+   "tr": "барига",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v363",
+   "type": "vocab",
+   "es": "pierna",
+   "en": "leg",
+   "ru": "нога",
+   "tr": "пиэрна",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v364",
+   "type": "vocab",
+   "es": "rodilla",
+   "en": "knee",
+   "ru": "колено",
+   "tr": "родийа",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v365",
+   "type": "vocab",
+   "es": "pie",
+   "en": "foot",
+   "ru": "ступня",
+   "tr": "пиэ",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v366",
+   "type": "vocab",
+   "es": "piel",
+   "en": "skin",
+   "ru": "кожа",
+   "tr": "пиэл",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v367",
+   "type": "vocab",
+   "es": "pelo",
+   "en": "hair",
+   "ru": "волосы",
+   "tr": "пэло",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v368",
+   "type": "vocab",
+   "es": "diente",
+   "en": "tooth",
+   "ru": "зуб",
+   "tr": "диэнтэ",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v369",
+   "type": "vocab",
+   "es": "corazón",
+   "en": "heart",
+   "ru": "сердце",
+   "tr": "корасон",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v370",
+   "type": "vocab",
+   "es": "sangre",
+   "en": "blood",
+   "ru": "кровь",
+   "tr": "сангрэ",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v371",
+   "type": "vocab",
+   "es": "dolor",
+   "en": "pain",
+   "ru": "боль",
+   "tr": "долор",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v372",
+   "type": "vocab",
+   "es": "fiebre",
+   "en": "fever",
+   "ru": "температура/жар",
+   "tr": "фиэбрэ",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v373",
+   "type": "vocab",
+   "es": "resfriado",
+   "en": "cold",
+   "ru": "простуда",
+   "tr": "рэсфриадо",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v374",
+   "type": "vocab",
+   "es": "tos",
+   "en": "cough",
+   "ru": "кашель",
+   "tr": "тос",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v375",
+   "type": "vocab",
+   "es": "hospital",
+   "en": "hospital",
+   "ru": "больница",
+   "tr": "оспитал",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v376",
+   "type": "vocab",
+   "es": "farmacia",
+   "en": "pharmacy",
+   "ru": "аптека",
+   "tr": "фармасиа",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v377",
+   "type": "vocab",
+   "es": "medicina",
+   "en": "medicine",
+   "ru": "лекарство",
+   "tr": "мэдисина",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v378",
+   "type": "vocab",
+   "es": "pastilla",
+   "en": "pill",
+   "ru": "таблетка",
+   "tr": "пастийа",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v379",
+   "type": "vocab",
+   "es": "cita",
+   "en": "appointment",
+   "ru": "запись/приём",
+   "tr": "сита",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v380",
+   "type": "vocab",
+   "es": "ayuda",
+   "en": "help",
+   "ru": "помощь",
+   "tr": "айуда",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v381",
+   "type": "vocab",
+   "es": "emergencia",
+   "en": "emergency",
+   "ru": "экстренная ситуация",
+   "tr": "эмэрхенсиа",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v382",
+   "type": "vocab",
+   "es": "accidente",
+   "en": "accident",
+   "ru": "авария/несчастный случай",
+   "tr": "аксидэнтэ",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v383",
+   "type": "vocab",
+   "es": "herida",
+   "en": "wound",
+   "ru": "рана",
+   "tr": "эрида",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v384",
+   "type": "vocab",
+   "es": "respirar",
+   "en": "to breathe",
+   "ru": "дышать",
+   "tr": "рэспирар",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v385",
+   "type": "vocab",
+   "es": "doler",
+   "en": "to hurt",
+   "ru": "болеть",
+   "tr": "долэр",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v386",
+   "type": "vocab",
+   "es": "escuela",
+   "en": "school",
+   "ru": "школа",
+   "tr": "эскуэла",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v387",
+   "type": "vocab",
+   "es": "colegio",
+   "en": "school",
+   "ru": "школа",
+   "tr": "колэхио",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v388",
+   "type": "vocab",
+   "es": "clase",
+   "en": "class",
+   "ru": "класс/занятие",
+   "tr": "класэ",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v389",
+   "type": "vocab",
+   "es": "aula",
+   "en": "classroom",
+   "ru": "классная комната",
+   "tr": "аула",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v390",
+   "type": "vocab",
+   "es": "tarea",
+   "en": "homework",
+   "ru": "домашнее задание",
+   "tr": "тарэа",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v391",
+   "type": "vocab",
+   "es": "ejercicio",
+   "en": "exercise",
+   "ru": "упражнение",
+   "tr": "эхэрсисио",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v392",
+   "type": "vocab",
+   "es": "examen",
+   "en": "exam",
+   "ru": "экзамен",
+   "tr": "эксамэн",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v393",
+   "type": "vocab",
+   "es": "nota",
+   "en": "grade/note",
+   "ru": "оценка/заметка",
+   "tr": "нота",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v394",
+   "type": "vocab",
+   "es": "libro",
+   "en": "book",
+   "ru": "книга",
+   "tr": "либро",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v395",
+   "type": "vocab",
+   "es": "cuaderno",
+   "en": "notebook",
+   "ru": "тетрадь",
+   "tr": "куадэрно",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v396",
+   "type": "vocab",
+   "es": "lápiz",
+   "en": "pencil",
+   "ru": "карандаш",
+   "tr": "лапис",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v397",
+   "type": "vocab",
+   "es": "bolígrafo",
+   "en": "pen",
+   "ru": "ручка",
+   "tr": "болиграфо",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v398",
+   "type": "vocab",
+   "es": "uniforme",
+   "en": "uniform",
+   "ru": "форма",
+   "tr": "униформэ",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v399",
+   "type": "vocab",
+   "es": "recreo",
+   "en": "break/recess",
+   "ru": "перемена",
+   "tr": "рэкрэо",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v400",
+   "type": "vocab",
+   "es": "llegar tarde",
+   "en": "to arrive late",
+   "ru": "опоздать",
+   "tr": "йэгар тардэ",
+   "group": null,
+   "chunk": "351–400"
+  },
+  {
+   "id": "es3-v401",
+   "type": "vocab",
+   "es": "sueño",
+   "en": "sleepiness/dream",
+   "ru": "сонливость/сон",
+   "tr": "суэньо",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v402",
+   "type": "vocab",
+   "es": "jugar",
+   "en": "to play",
+   "ru": "играть",
+   "tr": "хугар",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v403",
+   "type": "vocab",
+   "es": "crecer",
+   "en": "to grow",
+   "ru": "расти",
+   "tr": "крэсэр",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v404",
+   "type": "vocab",
+   "es": "trabajo",
+   "en": "work/job",
+   "ru": "работа",
+   "tr": "трабахо",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v405",
+   "type": "vocab",
+   "es": "empleo",
+   "en": "employment/job",
+   "ru": "работа/занятость",
+   "tr": "эмплэо",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v406",
+   "type": "vocab",
+   "es": "empresa",
+   "en": "company",
+   "ru": "компания",
+   "tr": "эмпрэса",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v407",
+   "type": "vocab",
+   "es": "oficina",
+   "en": "office",
+   "ru": "офис",
+   "tr": "офисина",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v408",
+   "type": "vocab",
+   "es": "equipo",
+   "en": "team/equipment",
+   "ru": "команда/оборудование",
+   "tr": "экипо",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v409",
+   "type": "vocab",
+   "es": "reunión",
+   "en": "meeting",
+   "ru": "встреча",
+   "tr": "рэунион",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v410",
+   "type": "vocab",
+   "es": "proyecto",
+   "en": "project",
+   "ru": "проект",
+   "tr": "пройэкто",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v411",
+   "type": "vocab",
+   "es": "idea",
+   "en": "idea",
+   "ru": "идея",
+   "tr": "идэа",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v412",
+   "type": "vocab",
+   "es": "plan",
+   "en": "plan",
+   "ru": "план",
+   "tr": "план",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v413",
+   "type": "vocab",
+   "es": "decisión",
+   "en": "decision",
+   "ru": "решение",
+   "tr": "дэсисион",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v414",
+   "type": "vocab",
+   "es": "resultado",
+   "en": "result",
+   "ru": "результат",
+   "tr": "рэсултадо",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v415",
+   "type": "vocab",
+   "es": "plazo",
+   "en": "deadline/time limit",
+   "ru": "срок",
+   "tr": "пласо",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v416",
+   "type": "vocab",
+   "es": "fecha límite",
+   "en": "deadline",
+   "ru": "крайний срок",
+   "tr": "фэча лимитэ",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v417",
+   "type": "vocab",
+   "es": "correo",
+   "en": "email/mail",
+   "ru": "почта/электронное письмо",
+   "tr": "корэо",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v418",
+   "type": "vocab",
+   "es": "mensaje",
+   "en": "message",
+   "ru": "сообщение",
+   "tr": "мэнсахэ",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v419",
+   "type": "vocab",
+   "es": "llamada",
+   "en": "call",
+   "ru": "звонок",
+   "tr": "йамада",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v420",
+   "type": "vocab",
+   "es": "archivo",
+   "en": "file",
+   "ru": "файл",
+   "tr": "арчибо",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v421",
+   "type": "vocab",
+   "es": "documento",
+   "en": "document",
+   "ru": "документ",
+   "tr": "докумэнто",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v422",
+   "type": "vocab",
+   "es": "página",
+   "en": "page",
+   "ru": "страница",
+   "tr": "пахина",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v423",
+   "type": "vocab",
+   "es": "enlace",
+   "en": "link",
+   "ru": "ссылка",
+   "tr": "энласэ",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v424",
+   "type": "vocab",
+   "es": "contraseña",
+   "en": "password",
+   "ru": "пароль",
+   "tr": "контрасэньа",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v425",
+   "type": "vocab",
+   "es": "usuario",
+   "en": "user",
+   "ru": "пользователь",
+   "tr": "усуарио",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v426",
+   "type": "vocab",
+   "es": "sistema",
+   "en": "system",
+   "ru": "система",
+   "tr": "систэма",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v427",
+   "type": "vocab",
+   "es": "aplicación",
+   "en": "application",
+   "ru": "приложение",
+   "tr": "апликасион",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v428",
+   "type": "vocab",
+   "es": "programa",
+   "en": "program",
+   "ru": "программа",
+   "tr": "програма",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v429",
+   "type": "vocab",
+   "es": "código",
+   "en": "code",
+   "ru": "код",
+   "tr": "кодиго",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v430",
+   "type": "vocab",
+   "es": "servidor",
+   "en": "server",
+   "ru": "сервер",
+   "tr": "сэрбидор",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v431",
+   "type": "vocab",
+   "es": "red",
+   "en": "network",
+   "ru": "сеть",
+   "tr": "рэд",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v432",
+   "type": "vocab",
+   "es": "datos",
+   "en": "data",
+   "ru": "данные",
+   "tr": "датос",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v433",
+   "type": "vocab",
+   "es": "base de datos",
+   "en": "database",
+   "ru": "база данных",
+   "tr": "басэ дэ датос",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v434",
+   "type": "vocab",
+   "es": "error",
+   "en": "error",
+   "ru": "ошибка",
+   "tr": "эрор",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v435",
+   "type": "vocab",
+   "es": "versión",
+   "en": "version",
+   "ru": "версия",
+   "tr": "бэрсион",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v436",
+   "type": "vocab",
+   "es": "prueba",
+   "en": "test",
+   "ru": "тест",
+   "tr": "пруэба",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v437",
+   "type": "vocab",
+   "es": "producción",
+   "en": "production",
+   "ru": "продакшен",
+   "tr": "продуксион",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v438",
+   "type": "vocab",
+   "es": "desarrollo",
+   "en": "development",
+   "ru": "разработка",
+   "tr": "дэсаройо",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v439",
+   "type": "vocab",
+   "es": "presentar",
+   "en": "to present",
+   "ru": "представлять",
+   "tr": "прэсэнтар",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v440",
+   "type": "vocab",
+   "es": "palabra",
+   "en": "word",
+   "ru": "слово",
+   "tr": "палабра",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v441",
+   "type": "vocab",
+   "es": "frase",
+   "en": "phrase/sentence",
+   "ru": "фраза/предложение",
+   "tr": "фрасэ",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v442",
+   "type": "vocab",
+   "es": "conversación",
+   "en": "conversation",
+   "ru": "разговор",
+   "tr": "конбэрсасион",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v443",
+   "type": "vocab",
+   "es": "idioma",
+   "en": "language",
+   "ru": "язык",
+   "tr": "идиома",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v444",
+   "type": "vocab",
+   "es": "español",
+   "en": "Spanish",
+   "ru": "испанский",
+   "tr": "эспаньол",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v445",
+   "type": "vocab",
+   "es": "inglés",
+   "en": "English",
+   "ru": "английский",
+   "tr": "инглэс",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v446",
+   "type": "vocab",
+   "es": "voz",
+   "en": "voice",
+   "ru": "голос",
+   "tr": "бос",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v447",
+   "type": "vocab",
+   "es": "sonido",
+   "en": "sound",
+   "ru": "звук",
+   "tr": "сонидо",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v448",
+   "type": "vocab",
+   "es": "número",
+   "en": "number",
+   "ru": "номер",
+   "tr": "нумэро",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v449",
+   "type": "vocab",
+   "es": "contacto",
+   "en": "contact",
+   "ru": "контакт",
+   "tr": "контакто",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v450",
+   "type": "vocab",
+   "es": "favor",
+   "en": "favour",
+   "ru": "услуга/одолжение",
+   "tr": "фабор",
+   "group": null,
+   "chunk": "401–450"
+  },
+  {
+   "id": "es3-v451",
+   "type": "vocab",
+   "es": "permiso",
+   "en": "permission",
+   "ru": "разрешение",
+   "tr": "пэрмисо",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v452",
+   "type": "vocab",
+   "es": "razón",
+   "en": "reason",
+   "ru": "причина",
+   "tr": "расон",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v453",
+   "type": "vocab",
+   "es": "acuerdo",
+   "en": "agreement",
+   "ru": "согласие/договорённость",
+   "tr": "акуэрдо",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v454",
+   "type": "vocab",
+   "es": "opinión",
+   "en": "opinion",
+   "ru": "мнение",
+   "tr": "опинион",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v455",
+   "type": "vocab",
+   "es": "ejemplo",
+   "en": "example",
+   "ru": "пример",
+   "tr": "эхэмпло",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v456",
+   "type": "vocab",
+   "es": "información",
+   "en": "information",
+   "ru": "информация",
+   "tr": "информасион",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v457",
+   "type": "vocab",
+   "es": "explicación",
+   "en": "explanation",
+   "ru": "объяснение",
+   "tr": "экспликасион",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v458",
+   "type": "vocab",
+   "es": "noticia",
+   "en": "news",
+   "ru": "новость",
+   "tr": "нотисиа",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v459",
+   "type": "vocab",
+   "es": "historia",
+   "en": "story/history",
+   "ru": "история",
+   "tr": "историа",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v460",
+   "type": "vocab",
+   "es": "situación",
+   "en": "situation",
+   "ru": "ситуация",
+   "tr": "ситуасион",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v461",
+   "type": "vocab",
+   "es": "opción",
+   "en": "option",
+   "ru": "вариант",
+   "tr": "опсион",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v462",
+   "type": "vocab",
+   "es": "posibilidad",
+   "en": "possibility",
+   "ru": "возможность",
+   "tr": "посибилидад",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v463",
+   "type": "vocab",
+   "es": "necesidad",
+   "en": "need",
+   "ru": "необходимость",
+   "tr": "нэсэсидад",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v464",
+   "type": "vocab",
+   "es": "oportunidad",
+   "en": "opportunity",
+   "ru": "возможность/шанс",
+   "tr": "опортунидад",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v465",
+   "type": "vocab",
+   "es": "atención",
+   "en": "attention",
+   "ru": "внимание",
+   "tr": "атэнсион",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v466",
+   "type": "vocab",
+   "es": "cuidado",
+   "en": "care",
+   "ru": "осторожность/забота",
+   "tr": "куидадо",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v467",
+   "type": "vocab",
+   "es": "calor",
+   "en": "heat",
+   "ru": "жара/тепло",
+   "tr": "калор",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v468",
+   "type": "vocab",
+   "es": "viento",
+   "en": "wind",
+   "ru": "ветер",
+   "tr": "биэнто",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v469",
+   "type": "vocab",
+   "es": "nube",
+   "en": "cloud",
+   "ru": "облако",
+   "tr": "нубэ",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v470",
+   "type": "vocab",
+   "es": "playa",
+   "en": "beach",
+   "ru": "пляж",
+   "tr": "плайа",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v471",
+   "type": "vocab",
+   "es": "río",
+   "en": "river",
+   "ru": "река",
+   "tr": "рио",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v472",
+   "type": "vocab",
+   "es": "lago",
+   "en": "lake",
+   "ru": "озеро",
+   "tr": "лаго",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v473",
+   "type": "vocab",
+   "es": "bosque",
+   "en": "forest",
+   "ru": "лес",
+   "tr": "боске",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v474",
+   "type": "vocab",
+   "es": "parque",
+   "en": "park",
+   "ru": "парк",
+   "tr": "парке",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v475",
+   "type": "vocab",
+   "es": "jardín",
+   "en": "garden",
+   "ru": "сад",
+   "tr": "хардин",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v476",
+   "type": "vocab",
+   "es": "árbol",
+   "en": "tree",
+   "ru": "дерево",
+   "tr": "арбол",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v477",
+   "type": "vocab",
+   "es": "flor",
+   "en": "flower",
+   "ru": "цветок",
+   "tr": "флор",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v478",
+   "type": "vocab",
+   "es": "planta",
+   "en": "plant",
+   "ru": "растение",
+   "tr": "планта",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v479",
+   "type": "vocab",
+   "es": "arena",
+   "en": "sand",
+   "ru": "песок",
+   "tr": "арэна",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v480",
+   "type": "vocab",
+   "es": "piedra",
+   "en": "stone",
+   "ru": "камень",
+   "tr": "пиэдра",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v481",
+   "type": "vocab",
+   "es": "isla",
+   "en": "island",
+   "ru": "остров",
+   "tr": "исла",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v482",
+   "type": "vocab",
+   "es": "campo",
+   "en": "countryside/field",
+   "ru": "поле/сельская местность",
+   "tr": "кампо",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v483",
+   "type": "vocab",
+   "es": "temperatura",
+   "en": "temperature",
+   "ru": "температура",
+   "tr": "тэмпэратура",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v484",
+   "type": "vocab",
+   "es": "grado",
+   "en": "degree",
+   "ru": "градус",
+   "tr": "градо",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v485",
+   "type": "vocab",
+   "es": "cosa",
+   "en": "thing",
+   "ru": "вещь",
+   "tr": "коса",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v486",
+   "type": "vocab",
+   "es": "objeto",
+   "en": "object",
+   "ru": "предмет",
+   "tr": "обхэто",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v487",
+   "type": "vocab",
+   "es": "ropa",
+   "en": "clothes",
+   "ru": "одежда",
+   "tr": "ропа",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v488",
+   "type": "vocab",
+   "es": "camisa",
+   "en": "shirt",
+   "ru": "рубашка",
+   "tr": "камиса",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v489",
+   "type": "vocab",
+   "es": "camiseta",
+   "en": "T-shirt",
+   "ru": "футболка",
+   "tr": "камисэта",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v490",
+   "type": "vocab",
+   "es": "pantalón",
+   "en": "trousers",
+   "ru": "брюки",
+   "tr": "панталон",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v491",
+   "type": "vocab",
+   "es": "falda",
+   "en": "skirt",
+   "ru": "юбка",
+   "tr": "фалда",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v492",
+   "type": "vocab",
+   "es": "vestido",
+   "en": "dress",
+   "ru": "платье",
+   "tr": "бэстидо",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v493",
+   "type": "vocab",
+   "es": "zapatos",
+   "en": "shoes",
+   "ru": "обувь",
+   "tr": "сапатос",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v494",
+   "type": "vocab",
+   "es": "calcetines",
+   "en": "socks",
+   "ru": "носки",
+   "tr": "калсэтинэс",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v495",
+   "type": "vocab",
+   "es": "chaqueta",
+   "en": "jacket",
+   "ru": "куртка",
+   "tr": "чакета",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v496",
+   "type": "vocab",
+   "es": "abrigo",
+   "en": "coat",
+   "ru": "пальто",
+   "tr": "абриго",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v497",
+   "type": "vocab",
+   "es": "gorra",
+   "en": "cap",
+   "ru": "кепка",
+   "tr": "гора",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v498",
+   "type": "vocab",
+   "es": "sombrero",
+   "en": "hat",
+   "ru": "шляпа",
+   "tr": "сомбрэро",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v499",
+   "type": "vocab",
+   "es": "paraguas",
+   "en": "umbrella",
+   "ru": "зонт",
+   "tr": "парагуас",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v500",
+   "type": "vocab",
+   "es": "gafas",
+   "en": "glasses",
+   "ru": "очки",
+   "tr": "гафас",
+   "group": null,
+   "chunk": "451–500"
+  },
+  {
+   "id": "es3-v501",
+   "type": "vocab",
+   "es": "reloj",
+   "en": "watch/clock",
+   "ru": "часы",
+   "tr": "рэлох",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v502",
+   "type": "vocab",
+   "es": "cartera",
+   "en": "wallet",
+   "ru": "кошелёк",
+   "tr": "картэра",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v503",
+   "type": "vocab",
+   "es": "bolso",
+   "en": "handbag",
+   "ru": "сумочка",
+   "tr": "болсо",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v504",
+   "type": "vocab",
+   "es": "foto",
+   "en": "photo",
+   "ru": "фото",
+   "tr": "фото",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v505",
+   "type": "vocab",
+   "es": "cámara",
+   "en": "camera",
+   "ru": "камера",
+   "tr": "камара",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v506",
+   "type": "vocab",
+   "es": "ordenador",
+   "en": "computer",
+   "ru": "компьютер",
+   "tr": "ордэнадор",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v507",
+   "type": "vocab",
+   "es": "portátil",
+   "en": "laptop",
+   "ru": "ноутбук",
+   "tr": "портатил",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v508",
+   "type": "vocab",
+   "es": "pantalla",
+   "en": "screen",
+   "ru": "экран",
+   "tr": "пантайа",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v509",
+   "type": "vocab",
+   "es": "teclado",
+   "en": "keyboard",
+   "ru": "клавиатура",
+   "tr": "тэкладо",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v510",
+   "type": "vocab",
+   "es": "ratón",
+   "en": "mouse",
+   "ru": "мышь",
+   "tr": "ратон",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v511",
+   "type": "vocab",
+   "es": "internet",
+   "en": "internet",
+   "ru": "интернет",
+   "tr": "интэрнэт",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v512",
+   "type": "vocab",
+   "es": "cable",
+   "en": "cable",
+   "ru": "кабель",
+   "tr": "каблэ",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v513",
+   "type": "vocab",
+   "es": "batería",
+   "en": "battery",
+   "ru": "батарея",
+   "tr": "батэриа",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v514",
+   "type": "vocab",
+   "es": "barrio",
+   "en": "neighbourhood",
+   "ru": "район",
+   "tr": "барио",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v515",
+   "type": "vocab",
+   "es": "avenida",
+   "en": "avenue",
+   "ru": "проспект",
+   "tr": "абэнида",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v516",
+   "type": "vocab",
+   "es": "plaza",
+   "en": "square",
+   "ru": "площадь",
+   "tr": "пласа",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v517",
+   "type": "vocab",
+   "es": "banco",
+   "en": "bank",
+   "ru": "банк",
+   "tr": "банко",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v518",
+   "type": "vocab",
+   "es": "ayuntamiento",
+   "en": "town hall",
+   "ru": "мэрия",
+   "tr": "айунтамиэнто",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v519",
+   "type": "vocab",
+   "es": "policía",
+   "en": "police",
+   "ru": "полиция",
+   "tr": "полисиа",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v520",
+   "type": "vocab",
+   "es": "centro de salud",
+   "en": "health centre",
+   "ru": "медцентр",
+   "tr": "сэнтро дэ салуд",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v521",
+   "type": "vocab",
+   "es": "biblioteca",
+   "en": "library",
+   "ru": "библиотека",
+   "tr": "библиотэка",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v522",
+   "type": "vocab",
+   "es": "museo",
+   "en": "museum",
+   "ru": "музей",
+   "tr": "мусэо",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v523",
+   "type": "vocab",
+   "es": "iglesia",
+   "en": "church",
+   "ru": "церковь",
+   "tr": "иглэсиа",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v524",
+   "type": "vocab",
+   "es": "universidad",
+   "en": "university",
+   "ru": "университет",
+   "tr": "унибэрсидад",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v525",
+   "type": "vocab",
+   "es": "gasolinera",
+   "en": "petrol station",
+   "ru": "заправка",
+   "tr": "гасолинэра",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v526",
+   "type": "vocab",
+   "es": "gimnasio",
+   "en": "gym",
+   "ru": "спортзал",
+   "tr": "химнасио",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v527",
+   "type": "vocab",
+   "es": "piscina",
+   "en": "swimming pool",
+   "ru": "бассейн",
+   "tr": "писсина",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v528",
+   "type": "vocab",
+   "es": "servicio",
+   "en": "service/toilet",
+   "ru": "сервис/туалет",
+   "tr": "сэрбисио",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v529",
+   "type": "vocab",
+   "es": "formulario",
+   "en": "form",
+   "ru": "форма/бланк",
+   "tr": "формуларио",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v530",
+   "type": "vocab",
+   "es": "firma",
+   "en": "signature",
+   "ru": "подпись",
+   "tr": "фирма",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v531",
+   "type": "vocab",
+   "es": "peligro",
+   "en": "danger",
+   "ru": "опасность",
+   "tr": "пэлигро",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v532",
+   "type": "vocab",
+   "es": "ambulancia",
+   "en": "ambulance",
+   "ru": "скорая помощь",
+   "tr": "амбулансиа",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v533",
+   "type": "vocab",
+   "es": "bomberos",
+   "en": "firefighters",
+   "ru": "пожарные",
+   "tr": "бомбэрос",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v534",
+   "type": "vocab",
+   "es": "robo",
+   "en": "theft",
+   "ru": "кража",
+   "tr": "робо",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v535",
+   "type": "vocab",
+   "es": "pérdida",
+   "en": "loss",
+   "ru": "потеря",
+   "tr": "пэрдида",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v536",
+   "type": "vocab",
+   "es": "daño",
+   "en": "damage",
+   "ru": "повреждение",
+   "tr": "даньо",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v537",
+   "type": "vocab",
+   "es": "fallo",
+   "en": "failure/fault",
+   "ru": "сбой/неисправность",
+   "tr": "файо",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v538",
+   "type": "vocab",
+   "es": "humo",
+   "en": "smoke",
+   "ru": "дым",
+   "tr": "умо",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v539",
+   "type": "vocab",
+   "es": "fuego",
+   "en": "fire",
+   "ru": "огонь",
+   "tr": "фуэго",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v540",
+   "type": "vocab",
+   "es": "fuga",
+   "en": "leak",
+   "ru": "утечка",
+   "tr": "фуга",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v541",
+   "type": "vocab",
+   "es": "roto",
+   "en": "broken",
+   "ru": "сломанный",
+   "tr": "рото",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v542",
+   "type": "vocab",
+   "es": "bloqueado",
+   "en": "blocked",
+   "ru": "заблокированный",
+   "tr": "блокеадо",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v543",
+   "type": "vocab",
+   "es": "urgente",
+   "en": "urgent",
+   "ru": "срочный",
+   "tr": "урхентэ",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v544",
+   "type": "vocab",
+   "es": "necesito ayuda",
+   "en": "I need help",
+   "ru": "мне нужна помощь",
+   "tr": "нэсэсито айуда",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v545",
+   "type": "vocab",
+   "es": "no funciona",
+   "en": "it doesn't work",
+   "ru": "не работает",
+   "tr": "но фунсиона",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v546",
+   "type": "vocab",
+   "es": "está roto",
+   "en": "it is broken",
+   "ru": "сломано",
+   "tr": "эста рото",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v547",
+   "type": "vocab",
+   "es": "he perdido",
+   "en": "I lost",
+   "ru": "я потерял",
+   "tr": "э пэрдидо",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v548",
+   "type": "vocab",
+   "es": "no encuentro",
+   "en": "I can't find",
+   "ru": "я не могу найти",
+   "tr": "но энкуэнтро",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v549",
+   "type": "vocab",
+   "es": "¿qué ha pasado?",
+   "en": "what happened?",
+   "ru": "что произошло?",
+   "tr": "¿ке а пасадо?",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v550",
+   "type": "vocab",
+   "es": "¿puede ayudarme?",
+   "en": "can you help me?",
+   "ru": "можете мне помочь?",
+   "tr": "¿пуэдэ айудармэ?",
+   "group": null,
+   "chunk": "501–550"
+  },
+  {
+   "id": "es3-v551",
+   "type": "vocab",
+   "es": "llame a la policía",
+   "en": "call the police",
+   "ru": "вызовите полицию",
+   "tr": "йамэ а ла полисиа",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v552",
+   "type": "vocab",
+   "es": "normalmente",
+   "en": "normally",
+   "ru": "обычно",
+   "tr": "нормалмэнтэ",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v553",
+   "type": "vocab",
+   "es": "generalmente",
+   "en": "generally",
+   "ru": "обычно",
+   "tr": "хенэралмэнтэ",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v554",
+   "type": "vocab",
+   "es": "realmente",
+   "en": "really",
+   "ru": "действительно",
+   "tr": "рэалмэнтэ",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v555",
+   "type": "vocab",
+   "es": "probablemente",
+   "en": "probably",
+   "ru": "вероятно",
+   "tr": "пробаблэмэнтэ",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v556",
+   "type": "vocab",
+   "es": "especialmente",
+   "en": "especially",
+   "ru": "особенно",
+   "tr": "эспэсиалмэнтэ",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v557",
+   "type": "vocab",
+   "es": "solamente",
+   "en": "only",
+   "ru": "только",
+   "tr": "соламэнтэ",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v558",
+   "type": "vocab",
+   "es": "simplemente",
+   "en": "simply",
+   "ru": "просто",
+   "tr": "симплэмэнтэ",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v559",
+   "type": "vocab",
+   "es": "exactamente",
+   "en": "exactly",
+   "ru": "точно",
+   "tr": "эксактамэнтэ",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v560",
+   "type": "vocab",
+   "es": "aproximadamente",
+   "en": "approximately",
+   "ru": "примерно",
+   "tr": "апроксимадамэнтэ",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v561",
+   "type": "vocab",
+   "es": "incluso",
+   "en": "even",
+   "ru": "даже",
+   "tr": "инклусо",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v562",
+   "type": "vocab",
+   "es": "además",
+   "en": "besides",
+   "ru": "кроме того",
+   "tr": "адэмас",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v563",
+   "type": "vocab",
+   "es": "seguramente",
+   "en": "surely",
+   "ru": "наверное",
+   "tr": "сэгурамэнтэ",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v564",
+   "type": "vocab",
+   "es": "otra vez",
+   "en": "again",
+   "ru": "ещё раз",
+   "tr": "отра бэс",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v565",
+   "type": "vocab",
+   "es": "de nuevo",
+   "en": "again",
+   "ru": "снова",
+   "tr": "дэ нуэбо",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v566",
+   "type": "vocab",
+   "es": "alrededor",
+   "en": "around",
+   "ru": "вокруг",
+   "tr": "алрэдэдор",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v567",
+   "type": "vocab",
+   "es": "buenos días",
+   "en": "good morning",
+   "ru": "доброе утро/добрый день",
+   "tr": "буэнос диас",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v568",
+   "type": "vocab",
+   "es": "buenas tardes",
+   "en": "good afternoon/evening",
+   "ru": "добрый день/вечер",
+   "tr": "буэнас тардэс",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v569",
+   "type": "vocab",
+   "es": "buenas noches",
+   "en": "good evening/night",
+   "ru": "добрый вечер/спокойной ночи",
+   "tr": "буэнас ночэс",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v570",
+   "type": "vocab",
+   "es": "hasta luego",
+   "en": "see you later",
+   "ru": "до скорого",
+   "tr": "аста луэго",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v571",
+   "type": "vocab",
+   "es": "hasta mañana",
+   "en": "see you tomorrow",
+   "ru": "до завтра",
+   "tr": "аста маньана",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v572",
+   "type": "vocab",
+   "es": "por favor",
+   "en": "please",
+   "ru": "пожалуйста",
+   "tr": "пор фабор",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v573",
+   "type": "vocab",
+   "es": "lo siento",
+   "en": "I'm sorry",
+   "ru": "мне жаль/извините",
+   "tr": "ло сиэнто",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v574",
+   "type": "vocab",
+   "es": "está bien",
+   "en": "it's okay",
+   "ru": "всё хорошо",
+   "tr": "эста биэн",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v575",
+   "type": "vocab",
+   "es": "de acuerdo",
+   "en": "agreed/okay",
+   "ru": "договорились/хорошо",
+   "tr": "дэ акуэрдо",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v576",
+   "type": "vocab",
+   "es": "por supuesto",
+   "en": "of course",
+   "ru": "конечно",
+   "tr": "пор супуэсто",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v577",
+   "type": "vocab",
+   "es": "vale, perfecto",
+   "en": "okay, perfect",
+   "ru": "хорошо, отлично",
+   "tr": "балэ, пэрфэкто",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v578",
+   "type": "vocab",
+   "es": "no lo sé",
+   "en": "I don't know",
+   "ru": "я не знаю",
+   "tr": "но ло сэ",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v579",
+   "type": "vocab",
+   "es": "más despacio",
+   "en": "more slowly",
+   "ru": "помедленнее",
+   "tr": "мас дэспасио",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v580",
+   "type": "vocab",
+   "es": "¿cómo se escribe?",
+   "en": "how is it written?",
+   "ru": "как это пишется?",
+   "tr": "¿комо сэ эскрибэ?",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v581",
+   "type": "vocab",
+   "es": "¿me puede ayudar?",
+   "en": "can you help me?",
+   "ru": "можете мне помочь?",
+   "tr": "¿мэ пуэдэ айудар?",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v582",
+   "type": "vocab",
+   "es": "¿puedo pagar con tarjeta?",
+   "en": "can I pay by card?",
+   "ru": "можно оплатить картой?",
+   "tr": "¿пуэдо пагар кон тархэта?",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v583",
+   "type": "vocab",
+   "es": "¿cuánto cuesta?",
+   "en": "how much does it cost?",
+   "ru": "сколько это стоит?",
+   "tr": "¿куанто куэста?",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v584",
+   "type": "vocab",
+   "es": "¿dónde está el baño?",
+   "en": "where is the bathroom?",
+   "ru": "где туалет?",
+   "tr": "¿дондэ эста эл баньо?",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v585",
+   "type": "vocab",
+   "es": "¿dónde está...?",
+   "en": "where is...?",
+   "ru": "где находится...?",
+   "tr": "¿дондэ эста...?",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v586",
+   "type": "vocab",
+   "es": "quiero esto",
+   "en": "I want this",
+   "ru": "я хочу это",
+   "tr": "киэро эсто",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v587",
+   "type": "vocab",
+   "es": "necesito esto",
+   "en": "I need this",
+   "ru": "мне нужно это",
+   "tr": "нэсэсито эсто",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v588",
+   "type": "vocab",
+   "es": "puedo pagar",
+   "en": "I can pay",
+   "ru": "я могу заплатить",
+   "tr": "пуэдо пагар",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v589",
+   "type": "vocab",
+   "es": "no puedo",
+   "en": "I can't",
+   "ru": "я не могу",
+   "tr": "но пуэдо",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v590",
+   "type": "vocab",
+   "es": "tengo una pregunta",
+   "en": "I have a question",
+   "ru": "у меня вопрос",
+   "tr": "тэнго уна прэгунта",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v591",
+   "type": "vocab",
+   "es": "tengo un problema",
+   "en": "I have a problem",
+   "ru": "у меня проблема",
+   "tr": "тэнго ун проблэма",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v592",
+   "type": "vocab",
+   "es": "no hay problema",
+   "en": "no problem",
+   "ru": "нет проблем",
+   "tr": "но ай проблэма",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v593",
+   "type": "vocab",
+   "es": "todo bien",
+   "en": "all good",
+   "ru": "всё хорошо",
+   "tr": "тодо биэн",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v594",
+   "type": "vocab",
+   "es": "muy bien",
+   "en": "very well",
+   "ru": "очень хорошо",
+   "tr": "муй биэн",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v595",
+   "type": "vocab",
+   "es": "más o menos",
+   "en": "so-so",
+   "ru": "более-менее",
+   "tr": "мас о мэнос",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v596",
+   "type": "vocab",
+   "es": "añadir",
+   "en": "add",
+   "ru": "добавлять",
+   "tr": "аньадир",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v597",
+   "type": "vocab",
+   "es": "alcanzar",
+   "en": "reach",
+   "ru": "достигать",
+   "tr": "алкансар",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v598",
+   "type": "vocab",
+   "es": "aprovechar",
+   "en": "make the most of",
+   "ru": "пользоваться/извлекать пользу",
+   "tr": "апробэчар",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v599",
+   "type": "vocab",
+   "es": "avisar",
+   "en": "notify",
+   "ru": "предупреждать",
+   "tr": "абисар",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v600",
+   "type": "vocab",
+   "es": "avanzar",
+   "en": "move forward",
+   "ru": "продвигаться",
+   "tr": "абансар",
+   "group": null,
+   "chunk": "551–600"
+  },
+  {
+   "id": "es3-v601",
+   "type": "vocab",
+   "es": "caer",
+   "en": "fall",
+   "ru": "падать",
+   "tr": "каэр",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v602",
+   "type": "vocab",
+   "es": "construir",
+   "en": "build",
+   "ru": "строить",
+   "tr": "конструир",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v603",
+   "type": "vocab",
+   "es": "contactar",
+   "en": "contact",
+   "ru": "связываться",
+   "tr": "контактар",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v604",
+   "type": "vocab",
+   "es": "continuar",
+   "en": "continue",
+   "ru": "продолжать",
+   "tr": "континуар",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v605",
+   "type": "vocab",
+   "es": "corregir",
+   "en": "correct",
+   "ru": "исправлять",
+   "tr": "корэхир",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v606",
+   "type": "vocab",
+   "es": "cumplir",
+   "en": "fulfil/meet",
+   "ru": "выполнять",
+   "tr": "кумплир",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v607",
+   "type": "vocab",
+   "es": "depender",
+   "en": "depend",
+   "ru": "зависеть",
+   "tr": "дэпэндэр",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v608",
+   "type": "vocab",
+   "es": "describir",
+   "en": "describe",
+   "ru": "описывать",
+   "tr": "дэскрибир",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v609",
+   "type": "vocab",
+   "es": "descubrir",
+   "en": "discover",
+   "ru": "обнаруживать",
+   "tr": "дэскубрир",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v610",
+   "type": "vocab",
+   "es": "discutir",
+   "en": "discuss/argue",
+   "ru": "обсуждать/спорить",
+   "tr": "дискутир",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v611",
+   "type": "vocab",
+   "es": "evitar",
+   "en": "avoid",
+   "ru": "избегать",
+   "tr": "эбитар",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v612",
+   "type": "vocab",
+   "es": "finalizar",
+   "en": "finish",
+   "ru": "завершать",
+   "tr": "финалисар",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v613",
+   "type": "vocab",
+   "es": "imaginar",
+   "en": "imagine",
+   "ru": "представлять",
+   "tr": "имахинар",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v614",
+   "type": "vocab",
+   "es": "incluir",
+   "en": "include",
+   "ru": "включать",
+   "tr": "инклуир",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v615",
+   "type": "vocab",
+   "es": "indicar",
+   "en": "indicate",
+   "ru": "указывать",
+   "tr": "индикар",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v616",
+   "type": "vocab",
+   "es": "informar",
+   "en": "inform",
+   "ru": "информировать",
+   "tr": "информар",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v617",
+   "type": "vocab",
+   "es": "invitar",
+   "en": "invite",
+   "ru": "приглашать",
+   "tr": "инбитар",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v618",
+   "type": "vocab",
+   "es": "mandar",
+   "en": "send/order",
+   "ru": "отправлять/приказывать",
+   "tr": "мандар",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v619",
+   "type": "vocab",
+   "es": "medir",
+   "en": "measure",
+   "ru": "измерять",
+   "tr": "мэдир",
+   "group": null,
+   "chunk": "601–620"
+  },
+  {
+   "id": "es3-v620",
+   "type": "vocab",
+   "es": "participar",
+   "en": "participate",
+   "ru": "участвовать",
+   "tr": "партисипар",
+   "group": null,
+   "chunk": "601–620"
+  }
+ ],
+ "notes": [],
+ "excluded": []
+}

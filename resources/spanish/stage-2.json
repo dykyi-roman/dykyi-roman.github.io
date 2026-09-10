@@ -1,0 +1,1301 @@
+{
+ "id": "stage-2",
+ "prefix": "es2",
+ "no": 2,
+ "title": "Questions and dialogue",
+ "titleRu": "Вопросительные слова и навигация в диалоге",
+ "goal": "научиться быстро задавать простые вопросы, понимать ключевую информацию, управлять диалогом и ориентироваться в обычном разговоре в Испании.",
+ "url": "spanish/stage-2.html",
+ "intro": [],
+ "groups": [
+  {
+   "kind": "example",
+   "name": "Что / кто"
+  },
+  {
+   "kind": "example",
+   "name": "Где / куда / откуда"
+  },
+  {
+   "kind": "example",
+   "name": "Когда / сколько времени"
+  },
+  {
+   "kind": "example",
+   "name": "Как / почему / зачем"
+  },
+  {
+   "kind": "example",
+   "name": "Сколько / какой / который"
+  },
+  {
+   "kind": "example",
+   "name": "Чей / с кем / для кого"
+  },
+  {
+   "kind": "example",
+   "name": "Вопросы, которые помогают в реальном разговоре"
+  },
+  {
+   "kind": "example",
+   "name": "Фразы, если не понял ответ"
+  },
+  {
+   "kind": "example",
+   "name": "Реакция на ответ и поддержание диалога"
+  }
+ ],
+ "items": [
+  {
+   "id": "es2-v001",
+   "type": "vocab",
+   "es": "qué",
+   "en": "what / which",
+   "ru": "что / какой",
+   "tr": "ке́",
+   "group": null
+  },
+  {
+   "id": "es2-v002",
+   "type": "vocab",
+   "es": "quién",
+   "en": "who",
+   "ru": "кто",
+   "tr": "кье́н",
+   "group": null
+  },
+  {
+   "id": "es2-v003",
+   "type": "vocab",
+   "es": "quiénes",
+   "en": "who",
+   "ru": "кто (мн. ч.)",
+   "tr": "кье́нес",
+   "group": null
+  },
+  {
+   "id": "es2-v004",
+   "type": "vocab",
+   "es": "dónde",
+   "en": "where",
+   "ru": "где",
+   "tr": "до́нде",
+   "group": null
+  },
+  {
+   "id": "es2-v005",
+   "type": "vocab",
+   "es": "a dónde",
+   "en": "where to",
+   "ru": "куда",
+   "tr": "а до́нде",
+   "group": null
+  },
+  {
+   "id": "es2-v006",
+   "type": "vocab",
+   "es": "de dónde",
+   "en": "where from",
+   "ru": "откуда",
+   "tr": "де до́нде",
+   "group": null
+  },
+  {
+   "id": "es2-v007",
+   "type": "vocab",
+   "es": "cuándo",
+   "en": "when",
+   "ru": "когда",
+   "tr": "куа́ндо",
+   "group": null
+  },
+  {
+   "id": "es2-v008",
+   "type": "vocab",
+   "es": "cómo",
+   "en": "how",
+   "ru": "как",
+   "tr": "ко́мо",
+   "group": null
+  },
+  {
+   "id": "es2-v009",
+   "type": "vocab",
+   "es": "por qué",
+   "en": "why",
+   "ru": "почему",
+   "tr": "пор ке́",
+   "group": null
+  },
+  {
+   "id": "es2-v010",
+   "type": "vocab",
+   "es": "para qué",
+   "en": "what for / why",
+   "ru": "зачем / для чего",
+   "tr": "па́ра ке́",
+   "group": null
+  },
+  {
+   "id": "es2-v011",
+   "type": "vocab",
+   "es": "cuánto",
+   "en": "how much",
+   "ru": "сколько",
+   "tr": "куа́нто",
+   "group": null
+  },
+  {
+   "id": "es2-v012",
+   "type": "vocab",
+   "es": "cuánta",
+   "en": "how much",
+   "ru": "сколько",
+   "tr": "куа́нта",
+   "group": null
+  },
+  {
+   "id": "es2-v013",
+   "type": "vocab",
+   "es": "cuántos",
+   "en": "how many",
+   "ru": "сколько",
+   "tr": "куа́нтос",
+   "group": null
+  },
+  {
+   "id": "es2-v014",
+   "type": "vocab",
+   "es": "cuántas",
+   "en": "how many",
+   "ru": "сколько",
+   "tr": "куа́нтас",
+   "group": null
+  },
+  {
+   "id": "es2-v015",
+   "type": "vocab",
+   "es": "cuál",
+   "en": "which / what",
+   "ru": "какой / который",
+   "tr": "куа́ль",
+   "group": null
+  },
+  {
+   "id": "es2-v016",
+   "type": "vocab",
+   "es": "cuáles",
+   "en": "which ones",
+   "ru": "какие / которые",
+   "tr": "куа́лес",
+   "group": null
+  },
+  {
+   "id": "es2-v017",
+   "type": "vocab",
+   "es": "de quién",
+   "en": "whose",
+   "ru": "чей / чья / чьё",
+   "tr": "де кье́н",
+   "group": null
+  },
+  {
+   "id": "es2-v018",
+   "type": "vocab",
+   "es": "con quién",
+   "en": "with whom",
+   "ru": "с кем",
+   "tr": "кон кье́н",
+   "group": null
+  },
+  {
+   "id": "es2-v019",
+   "type": "vocab",
+   "es": "para quién",
+   "en": "for whom",
+   "ru": "для кого",
+   "tr": "па́ра кье́н",
+   "group": null
+  },
+  {
+   "id": "es2-v020",
+   "type": "vocab",
+   "es": "por dónde",
+   "en": "which way / through where",
+   "ru": "каким путём / через где",
+   "tr": "пор до́нде",
+   "group": null
+  },
+  {
+   "id": "es2-v021",
+   "type": "vocab",
+   "es": "desde dónde",
+   "en": "from where",
+   "ru": "откуда / с какого места",
+   "tr": "де́сде до́нде",
+   "group": null
+  },
+  {
+   "id": "es2-v022",
+   "type": "vocab",
+   "es": "hacia dónde",
+   "en": "towards where",
+   "ru": "в какую сторону / куда",
+   "tr": "а́сья до́нде",
+   "group": null
+  },
+  {
+   "id": "es2-v023",
+   "type": "vocab",
+   "es": "hasta dónde",
+   "en": "up to where / how far",
+   "ru": "до куда / насколько далеко",
+   "tr": "а́ста до́нде",
+   "group": null
+  },
+  {
+   "id": "es2-v024",
+   "type": "vocab",
+   "es": "a qué hora",
+   "en": "at what time",
+   "ru": "во сколько",
+   "tr": "а ке́ о́ра",
+   "group": null
+  },
+  {
+   "id": "es2-v025",
+   "type": "vocab",
+   "es": "cuánto tiempo",
+   "en": "how long / how much time",
+   "ru": "сколько времени",
+   "tr": "куа́нто тье́мпо",
+   "group": null
+  },
+  {
+   "id": "es2-v026",
+   "type": "vocab",
+   "es": "desde cuándo",
+   "en": "since when",
+   "ru": "с каких пор / с какого времени",
+   "tr": "де́сде куа́ндо",
+   "group": null
+  },
+  {
+   "id": "es2-v027",
+   "type": "vocab",
+   "es": "hasta cuándo",
+   "en": "until when",
+   "ru": "до каких пор / до какого времени",
+   "tr": "а́ста куа́ндо",
+   "group": null
+  },
+  {
+   "id": "es2-v028",
+   "type": "vocab",
+   "es": "qué tipo de",
+   "en": "what kind of",
+   "ru": "какой / какого типа",
+   "tr": "ке ти́по де",
+   "group": null
+  },
+  {
+   "id": "es2-v029",
+   "type": "vocab",
+   "es": "qué + sustantivo",
+   "en": "what / which",
+   "ru": "какой / что за",
+   "tr": "ке + существи́тельное",
+   "group": null
+  },
+  {
+   "id": "es2-v030",
+   "type": "vocab",
+   "es": "qué pasa",
+   "en": "what's happening / what's wrong",
+   "ru": "что происходит / что случилось",
+   "tr": "ке́ па́са",
+   "group": null
+  },
+  {
+   "id": "es2-v031",
+   "type": "vocab",
+   "es": "qué significa",
+   "en": "what does it mean",
+   "ru": "что это значит",
+   "tr": "ке́ сигнифи́ка",
+   "group": null
+  },
+  {
+   "id": "es2-v032",
+   "type": "vocab",
+   "es": "cómo se dice",
+   "en": "how do you say",
+   "ru": "как сказать",
+   "tr": "ко́мо се ди́се*",
+   "group": null
+  },
+  {
+   "id": "es2-v033",
+   "type": "vocab",
+   "es": "cómo se llama",
+   "en": "what is it called / what's the name",
+   "ru": "как это называется / как его зовут",
+   "tr": "ко́мо се йа́ма",
+   "group": null
+  },
+  {
+   "id": "es2-v034",
+   "type": "vocab",
+   "es": "qué quieres decir",
+   "en": "what do you mean",
+   "ru": "что ты имеешь в виду",
+   "tr": "ке́ кье́рес деси́р",
+   "group": null
+  },
+  {
+   "id": "es2-v035",
+   "type": "vocab",
+   "es": "¿Cómo?",
+   "en": "what? / pardon?",
+   "ru": "что? / простите?",
+   "tr": "ко́мо",
+   "group": null
+  },
+  {
+   "id": "es2-v036",
+   "type": "vocab",
+   "es": "¿Perdón?",
+   "en": "pardon? / sorry?",
+   "ru": "простите? / что?",
+   "tr": "пердо́н",
+   "group": null
+  },
+  {
+   "id": "es2-v037",
+   "type": "vocab",
+   "es": "puedes repetir",
+   "en": "can you repeat",
+   "ru": "можешь повторить",
+   "tr": "пуэ́дес репети́р",
+   "group": null
+  },
+  {
+   "id": "es2-v038",
+   "type": "vocab",
+   "es": "puede repetir",
+   "en": "can you repeat",
+   "ru": "можете повторить",
+   "tr": "пуэ́де репети́р",
+   "group": null
+  },
+  {
+   "id": "es2-v039",
+   "type": "vocab",
+   "es": "puedes hablar más despacio",
+   "en": "can you speak more slowly",
+   "ru": "можешь говорить медленнее",
+   "tr": "пуэ́дес абла́р мас деспа́сьо*",
+   "group": null
+  },
+  {
+   "id": "es2-v040",
+   "type": "vocab",
+   "es": "no he entendido",
+   "en": "I didn't understand",
+   "ru": "я не понял",
+   "tr": "но э́ энтенди́до",
+   "group": null
+  },
+  {
+   "id": "es2-v041",
+   "type": "vocab",
+   "es": "qué tal",
+   "en": "how are things / how are you",
+   "ru": "как дела? / как оно?",
+   "tr": "ке́ таль",
+   "group": null
+  },
+  {
+   "id": "es2-v042",
+   "type": "vocab",
+   "es": "hay",
+   "en": "there is / there are",
+   "ru": "есть / имеется",
+   "tr": "ай",
+   "group": null
+  },
+  {
+   "id": "es2-v043",
+   "type": "vocab",
+   "es": "cuánto es",
+   "en": "how much is it / how much is the total",
+   "ru": "сколько с меня? / сколько всего?",
+   "tr": "куа́нто эс",
+   "group": null
+  },
+  {
+   "id": "es2-v044",
+   "type": "vocab",
+   "es": "cuánto vale",
+   "en": "how much does it cost",
+   "ru": "сколько стоит?",
+   "tr": "куа́нто ба́ле",
+   "group": null
+  },
+  {
+   "id": "es2-v045",
+   "type": "vocab",
+   "es": "y tú",
+   "en": "and you",
+   "ru": "а ты?",
+   "tr": "и ту́",
+   "group": null
+  },
+  {
+   "id": "es2-v046",
+   "type": "vocab",
+   "es": "en serio",
+   "en": "seriously / really",
+   "ru": "серьёзно?",
+   "tr": "эн се́рьо",
+   "group": null
+  },
+  {
+   "id": "es2-v047",
+   "type": "vocab",
+   "es": "de verdad",
+   "en": "really / truly",
+   "ru": "правда? / действительно?",
+   "tr": "де берда́д",
+   "group": null
+  },
+  {
+   "id": "es2-v048",
+   "type": "vocab",
+   "es": "ah, sí",
+   "en": "oh, really? / oh, yes",
+   "ru": "а, правда? / да?",
+   "tr": "а си́",
+   "group": null
+  },
+  {
+   "id": "es2-v049",
+   "type": "vocab",
+   "es": "¿verdad?",
+   "en": "right? / isn't it?",
+   "ru": "правда? / да ведь?",
+   "tr": "берда́д",
+   "group": null
+  },
+  {
+   "id": "es2-v050",
+   "type": "vocab",
+   "es": "¿no?",
+   "en": "right? / isn't it?",
+   "ru": "да? / не так ли?",
+   "tr": "но",
+   "group": null
+  },
+  {
+   "id": "es2-x001",
+   "type": "phrase",
+   "es": "¿Qué es esto?",
+   "ru": "Что это?",
+   "group": "Что / кто"
+  },
+  {
+   "id": "es2-x002",
+   "type": "phrase",
+   "es": "¿Qué quieres?",
+   "ru": "Что ты хочешь?",
+   "group": "Что / кто"
+  },
+  {
+   "id": "es2-x003",
+   "type": "phrase",
+   "es": "¿Qué necesitas?",
+   "ru": "Что тебе нужно?",
+   "group": "Что / кто"
+  },
+  {
+   "id": "es2-x004",
+   "type": "phrase",
+   "es": "¿Quién es?",
+   "ru": "Кто это?",
+   "group": "Что / кто"
+  },
+  {
+   "id": "es2-x005",
+   "type": "phrase",
+   "es": "¿Quién viene?",
+   "ru": "Кто приходит?",
+   "group": "Что / кто"
+  },
+  {
+   "id": "es2-x006",
+   "type": "phrase",
+   "es": "¿Quiénes son?",
+   "ru": "Кто они?",
+   "group": "Что / кто"
+  },
+  {
+   "id": "es2-x007",
+   "type": "phrase",
+   "es": "¿Dónde está el baño?",
+   "ru": "Где туалет?",
+   "group": "Где / куда / откуда"
+  },
+  {
+   "id": "es2-x008",
+   "type": "phrase",
+   "es": "¿A dónde vas?",
+   "ru": "Куда ты идёшь?",
+   "group": "Где / куда / откуда"
+  },
+  {
+   "id": "es2-x009",
+   "type": "phrase",
+   "es": "¿De dónde eres?",
+   "ru": "Ты откуда?",
+   "group": "Где / куда / откуда"
+  },
+  {
+   "id": "es2-x010",
+   "type": "phrase",
+   "es": "¿Por dónde se entra?",
+   "ru": "Через какой вход заходят?",
+   "group": "Где / куда / откуда"
+  },
+  {
+   "id": "es2-x011",
+   "type": "phrase",
+   "es": "¿Desde dónde sale el autobús?",
+   "ru": "Откуда отправляется автобус?",
+   "group": "Где / куда / откуда"
+  },
+  {
+   "id": "es2-x012",
+   "type": "phrase",
+   "es": "¿Hacia dónde vamos?",
+   "ru": "В какую сторону мы идём?",
+   "group": "Где / куда / откуда"
+  },
+  {
+   "id": "es2-x013",
+   "type": "phrase",
+   "es": "¿Hasta dónde llega este autobús?",
+   "ru": "До куда идёт этот автобус?",
+   "group": "Где / куда / откуда"
+  },
+  {
+   "id": "es2-x014",
+   "type": "phrase",
+   "es": "¿Hay un baño por aquí?",
+   "ru": "Здесь есть туалет поблизости?",
+   "group": "Где / куда / откуда"
+  },
+  {
+   "id": "es2-x015",
+   "type": "phrase",
+   "es": "¿Cuándo llegas?",
+   "ru": "Когда ты приезжаешь?",
+   "group": "Когда / сколько времени"
+  },
+  {
+   "id": "es2-x016",
+   "type": "phrase",
+   "es": "¿A qué hora empieza?",
+   "ru": "Во сколько начинается?",
+   "group": "Когда / сколько времени"
+  },
+  {
+   "id": "es2-x017",
+   "type": "phrase",
+   "es": "¿Cuánto tiempo falta?",
+   "ru": "Сколько времени осталось?",
+   "group": "Когда / сколько времени"
+  },
+  {
+   "id": "es2-x018",
+   "type": "phrase",
+   "es": "¿Desde cuándo estás aquí?",
+   "ru": "Как давно ты здесь?",
+   "group": "Когда / сколько времени"
+  },
+  {
+   "id": "es2-x019",
+   "type": "phrase",
+   "es": "¿Hasta cuándo está abierto?",
+   "ru": "До каких пор это открыто?",
+   "group": "Когда / сколько времени"
+  },
+  {
+   "id": "es2-x020",
+   "type": "phrase",
+   "es": "¿Cómo estás?",
+   "ru": "Как ты?",
+   "group": "Как / почему / зачем"
+  },
+  {
+   "id": "es2-x021",
+   "type": "phrase",
+   "es": "¿Cómo llegamos?",
+   "ru": "Как нам добраться?",
+   "group": "Как / почему / зачем"
+  },
+  {
+   "id": "es2-x022",
+   "type": "phrase",
+   "es": "¿Por qué estás aquí?",
+   "ru": "Почему ты здесь?",
+   "group": "Как / почему / зачем"
+  },
+  {
+   "id": "es2-x023",
+   "type": "phrase",
+   "es": "¿Para qué sirve esto?",
+   "ru": "Для чего это?",
+   "group": "Как / почему / зачем"
+  },
+  {
+   "id": "es2-x024",
+   "type": "phrase",
+   "es": "¿Cómo se hace?",
+   "ru": "Как это делается?",
+   "group": "Как / почему / зачем"
+  },
+  {
+   "id": "es2-x025",
+   "type": "phrase",
+   "es": "¿Cuánto cuesta?",
+   "ru": "Сколько это стоит?",
+   "group": "Сколько / какой / который"
+  },
+  {
+   "id": "es2-x026",
+   "type": "phrase",
+   "es": "¿Cuánto es?",
+   "ru": "Сколько с меня? / Сколько всего?",
+   "group": "Сколько / какой / который"
+  },
+  {
+   "id": "es2-x027",
+   "type": "phrase",
+   "es": "¿Cuánto vale?",
+   "ru": "Сколько стоит?",
+   "group": "Сколько / какой / который"
+  },
+  {
+   "id": "es2-x028",
+   "type": "phrase",
+   "es": "¿Cuántos años tiene tu hija?",
+   "ru": "Сколько лет твоей дочери?",
+   "group": "Сколько / какой / который"
+  },
+  {
+   "id": "es2-x029",
+   "type": "phrase",
+   "es": "¿Cuántas personas vienen?",
+   "ru": "Сколько человек приходит?",
+   "group": "Сколько / какой / который"
+  },
+  {
+   "id": "es2-x030",
+   "type": "phrase",
+   "es": "¿Qué tipo de café quieres?",
+   "ru": "Какой кофе ты хочешь?",
+   "group": "Сколько / какой / который"
+  },
+  {
+   "id": "es2-x031",
+   "type": "phrase",
+   "es": "¿Qué autobús cogemos?",
+   "ru": "На какой автобус мы садимся?",
+   "group": "Сколько / какой / который"
+  },
+  {
+   "id": "es2-x032",
+   "type": "phrase",
+   "es": "¿Cuál quieres?",
+   "ru": "Какой ты хочешь?",
+   "group": "Сколько / какой / который"
+  },
+  {
+   "id": "es2-x033",
+   "type": "phrase",
+   "es": "¿Cuáles son tuyos?",
+   "ru": "Какие твои?",
+   "group": "Сколько / какой / который"
+  },
+  {
+   "id": "es2-x034",
+   "type": "phrase",
+   "es": "¿De quién es este móvil?",
+   "ru": "Чей это телефон?",
+   "group": "Чей / с кем / для кого"
+  },
+  {
+   "id": "es2-x035",
+   "type": "phrase",
+   "es": "¿Con quién vas?",
+   "ru": "С кем ты идёшь?",
+   "group": "Чей / с кем / для кого"
+  },
+  {
+   "id": "es2-x036",
+   "type": "phrase",
+   "es": "¿Para quién es esto?",
+   "ru": "Для кого это?",
+   "group": "Чей / с кем / для кого"
+  },
+  {
+   "id": "es2-x037",
+   "type": "phrase",
+   "es": "¿Qué tal?",
+   "ru": "Как дела? / Как оно?",
+   "group": "Вопросы, которые помогают в реальном разговоре"
+  },
+  {
+   "id": "es2-x038",
+   "type": "phrase",
+   "es": "¿Qué pasa?",
+   "ru": "Что случилось?",
+   "group": "Вопросы, которые помогают в реальном разговоре"
+  },
+  {
+   "id": "es2-x039",
+   "type": "phrase",
+   "es": "¿Qué significa esto?",
+   "ru": "Что это значит?",
+   "group": "Вопросы, которые помогают в реальном разговоре"
+  },
+  {
+   "id": "es2-x040",
+   "type": "phrase",
+   "es": "¿Cómo se dice esto en español?",
+   "ru": "Как это сказать по-испански?",
+   "group": "Вопросы, которые помогают в реальном разговоре"
+  },
+  {
+   "id": "es2-x041",
+   "type": "phrase",
+   "es": "¿Cómo se llama este sitio?",
+   "ru": "Как называется это место?",
+   "group": "Вопросы, которые помогают в реальном разговоре"
+  },
+  {
+   "id": "es2-x042",
+   "type": "phrase",
+   "es": "¿Qué quieres decir?",
+   "ru": "Что ты имеешь в виду?",
+   "group": "Вопросы, которые помогают в реальном разговоре"
+  },
+  {
+   "id": "es2-x043",
+   "type": "phrase",
+   "es": "¿Cómo?",
+   "ru": "Что? / Простите?",
+   "group": "Фразы, если не понял ответ"
+  },
+  {
+   "id": "es2-x044",
+   "type": "phrase",
+   "es": "¿Perdón?",
+   "ru": "Простите? / Что?",
+   "group": "Фразы, если не понял ответ"
+  },
+  {
+   "id": "es2-x045",
+   "type": "phrase",
+   "es": "¿Puedes repetir?",
+   "ru": "Можешь повторить?",
+   "group": "Фразы, если не понял ответ"
+  },
+  {
+   "id": "es2-x046",
+   "type": "phrase",
+   "es": "¿Puede repetir?",
+   "ru": "Можете повторить?",
+   "group": "Фразы, если не понял ответ"
+  },
+  {
+   "id": "es2-x047",
+   "type": "phrase",
+   "es": "¿Puedes hablar más despacio, por favor?",
+   "ru": "Можешь говорить медленнее, пожалуйста?",
+   "group": "Фразы, если не понял ответ"
+  },
+  {
+   "id": "es2-x048",
+   "type": "phrase",
+   "es": "No he entendido.",
+   "ru": "Я не понял.",
+   "group": "Фразы, если не понял ответ"
+  },
+  {
+   "id": "es2-x049",
+   "type": "phrase",
+   "es": "¿Y tú?",
+   "ru": "А ты?",
+   "group": "Реакция на ответ и поддержание диалога"
+  },
+  {
+   "id": "es2-x050",
+   "type": "phrase",
+   "es": "¿En serio?",
+   "ru": "Серьёзно?",
+   "group": "Реакция на ответ и поддержание диалога"
+  },
+  {
+   "id": "es2-x051",
+   "type": "phrase",
+   "es": "¿De verdad?",
+   "ru": "Правда? / Действительно?",
+   "group": "Реакция на ответ и поддержание диалога"
+  },
+  {
+   "id": "es2-x052",
+   "type": "phrase",
+   "es": "¿Ah, sí?",
+   "ru": "А, правда? / Да?",
+   "group": "Реакция на ответ и поддержание диалога"
+  },
+  {
+   "id": "es2-x053",
+   "type": "phrase",
+   "es": "Es aquí, ¿verdad?",
+   "ru": "Это здесь, правда?",
+   "group": "Реакция на ответ и поддержание диалога"
+  },
+  {
+   "id": "es2-x054",
+   "type": "phrase",
+   "es": "Es aquí, ¿no?",
+   "ru": "Это здесь, да?",
+   "group": "Реакция на ответ и поддержание диалога"
+  }
+ ],
+ "notes": [
+  {
+   "id": "es2-n001",
+   "type": "note",
+   "title": null,
+   "section": "vocab",
+   "group": null,
+   "blocks": [
+    {
+     "k": "note",
+     "spans": [
+      {
+       "t": "Примечание по транскрипции:",
+       "s": "b"
+      },
+      {
+       "t": " для Español de España учитывай, что "
+      },
+      {
+       "t": "c",
+       "s": "es"
+      },
+      {
+       "t": " перед "
+      },
+      {
+       "t": "e/i",
+       "s": "es"
+      },
+      {
+       "t": " и "
+      },
+      {
+       "t": "z",
+       "s": "es"
+      },
+      {
+       "t": " обычно произносятся как межзубный звук "
+      },
+      {
+       "t": "[θ]",
+       "s": "b"
+      },
+      {
+       "t": ", близкий к английскому *th* в *think*. Поэтому транскрипция некоторых слов здесь приблизительная. Например, "
+      },
+      {
+       "t": "cómo se dice",
+       "s": "es"
+      },
+      {
+       "t": " в Испании ближе к "
+      },
+      {
+       "t": "«ко́мо се ди́θе»",
+       "s": "b"
+      },
+      {
+       "t": ", а не «ди́се». Не пытайся сейчас отдельно изучать фонетику — достаточно узнавать и правильно слышать этот звук."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-n002",
+   "type": "note",
+   "title": "Минимальный набор для закрепления",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "В первую очередь нужно автоматически узнавать и использовать:"
+      }
+     ]
+    },
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "¿Qué...?",
+         "s": "es"
+        },
+        {
+         "t": " — Что? / какой?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Quién...?",
+         "s": "es"
+        },
+        {
+         "t": " — Кто?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Dónde...?",
+         "s": "es"
+        },
+        {
+         "t": " — Где?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿A dónde...?",
+         "s": "es"
+        },
+        {
+         "t": " — Куда?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿De dónde...?",
+         "s": "es"
+        },
+        {
+         "t": " — Откуда?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Cuándo...?",
+         "s": "es"
+        },
+        {
+         "t": " — Когда?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Cómo...?",
+         "s": "es"
+        },
+        {
+         "t": " — Как?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Por qué...?",
+         "s": "es"
+        },
+        {
+         "t": " — Почему?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Para qué...?",
+         "s": "es"
+        },
+        {
+         "t": " — Зачем?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Cuánto...?",
+         "s": "es"
+        },
+        {
+         "t": " — Сколько?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Cuál...?",
+         "s": "es"
+        },
+        {
+         "t": " — Какой? / который?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿De quién...?",
+         "s": "es"
+        },
+        {
+         "t": " — Чей?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Con quién...?",
+         "s": "es"
+        },
+        {
+         "t": " — С кем?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿A qué hora...?",
+         "s": "es"
+        },
+        {
+         "t": " — Во сколько?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Cuánto tiempo...?",
+         "s": "es"
+        },
+        {
+         "t": " — Сколько времени?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Hay...?",
+         "s": "es"
+        },
+        {
+         "t": " — Есть ли...?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Qué tal?",
+         "s": "es"
+        },
+        {
+         "t": " — Как дела?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Cómo? / ¿Perdón?",
+         "s": "es"
+        },
+        {
+         "t": " — Что? / Простите?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Puedes repetir?",
+         "s": "es"
+        },
+        {
+         "t": " — Можешь повторить?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Puedes hablar más despacio?",
+         "s": "es"
+        },
+        {
+         "t": " — Можешь говорить медленнее?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "No he entendido.",
+         "s": "es"
+        },
+        {
+         "t": " — Я не понял."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Y tú?",
+         "s": "es"
+        },
+        {
+         "t": " — А ты?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿En serio? / ¿De verdad?",
+         "s": "es"
+        },
+        {
+         "t": " — Серьёзно? / Правда?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Ah, sí?",
+         "s": "es"
+        },
+        {
+         "t": " — Правда?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Verdad? / ¿No?",
+         "s": "es"
+        },
+        {
+         "t": " — Правда? / Да?"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-n003",
+   "type": "note",
+   "title": "Практическое замечание",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Stage 2 теперь должен учить не только "
+      },
+      {
+       "t": "задавать вопрос",
+       "s": "b"
+      },
+      {
+       "t": ", но и "
+      },
+      {
+       "t": "удерживать разговор после ответа",
+       "s": "b"
+      },
+      {
+       "t": "."
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Последовательность должна быть такой:"
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "задать вопрос → понять ответ → попросить повторить / замедлить речь → уточнить → отреагировать.",
+       "s": "b"
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Это важнее, чем просто выучить большой список вопросительных слов."
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "excluded": [
+  "полноценное изучение грамматики вопросительных предложений;",
+  "времена глаголов;",
+  "сложные относительные конструкции;",
+  "редкие вопросительные слова;",
+  "длинные диалоговые шаблоны, которые относятся к Stage 3."
+ ]
+}

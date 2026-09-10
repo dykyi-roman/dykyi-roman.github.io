@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../resources/analytics.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spanish - Dykyi Roman | Practice Spanish for life in Spain</title>
+    <meta name="description" content="Spanish trainer: flashcards with spaced repetition, quiz, listening and search over five stages of practical Castilian Spanish — 1050 words and 460 everyday phrases.">
+    <meta name="author" content="Dykyi Roman">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Spanish - Dykyi Roman">
+    <meta property="og:description" content="Flashcards, quiz, listening and search over five stages of practical Spanish for everyday life in Spain.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dykyi-roman.github.io/pages/spanish.html">
+    <link rel="icon" href="../icon.ico" type="image/x-icon">
+    <link rel="canonical" href="https://dykyi-roman.github.io/pages/spanish.html">
+    <link rel="stylesheet" type="text/css" href="../resources/style.css">
+    <link rel="stylesheet" href="../resources/spanish.css">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+<div class="container">
+    <!-- Include header from external file -->
+    <div id="header-container"></div>
+    <script>
+        fetch('../headers.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading header:', error));
+    </script>
+
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html">Home</a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">Spanish</span>
+    </nav>
+
+    <main id="main-content">
+        <h2>Spanish</h2>
+        <p class="sp-intro">
+            Practical Castilian Spanish for everyday life in Spain — five stages, from space and
+            direction to school runs, cafés and rented flats. Pick a stage, then drill it with
+            flashcards, a quiz, listening or plain search. Progress is kept in this browser.
+        </p>
+
+        <div class="sp-error" id="sp-error" hidden></div>
+        <p class="sp-intro" id="sp-loading">Loading the Spanish base…</p>
+
+        <div id="sp-app" data-base="../resources/spanish/" hidden>
+            <div class="sp-bar">
+                <div class="sp-chips" id="sp-stages" role="group" aria-label="Stage"></div>
+                <div class="sp-tabs" id="sp-modes" role="tablist" aria-label="Practice mode"></div>
+            </div>
+
+            <p class="sp-stats" id="sp-scope-note"></p>
+            <p id="sp-open-stage-wrap" hidden><a class="sp-stage-link" id="sp-open-stage" href="#"></a></p>
+            <p class="sp-stats" id="sp-tts-note" hidden>
+                This browser has no speech synthesis, so the listening mode and the play buttons are hidden.
+            </p>
+
+            <!-- Flashcards -->
+            <section class="sp-panel" id="panel-cards" role="tabpanel" aria-label="Flashcards" hidden>
+                <div class="sp-actions">
+                    <button type="button" class="sp-btn" id="sp-dir" title="Swap the card direction">ES → RU</button>
+                    <button type="button" class="sp-btn" id="sp-card-new">+10 new</button>
+                    <button type="button" class="sp-btn" id="sp-card-ahead">Practice ahead</button>
+                </div>
+                <p class="sp-stats" id="sp-cards-stats"></p>
+
+                <div class="sp-card" id="sp-card" hidden>
+                    <div class="sp-card-meta" id="sp-card-meta"></div>
+                    <div class="sp-card-front" id="sp-card-front"></div>
+                    <div class="sp-card-tr" id="sp-card-tr" hidden></div>
+                    <div id="sp-card-speak" style="display: flex; justify-content: center;"></div>
+                    <div class="sp-card-back" id="sp-card-back"></div>
+                    <div class="sp-card-hint">Tap the card to see the answer</div>
+                </div>
+
+                <p class="sp-empty" id="sp-cards-empty" hidden>
+                    Nothing is due right now. Add new cards or practise ahead.
+                </p>
+
+                <div class="sp-actions">
+                    <button type="button" class="sp-btn" id="sp-card-reveal">Show answer</button>
+                    <button type="button" class="sp-btn" id="sp-card-again" disabled>Again</button>
+                    <button type="button" class="sp-btn primary" id="sp-card-good" disabled>Good</button>
+                </div>
+                <p class="sp-keys">Swipe left for Again, right for Good · keyboard: Space, 1, 2</p>
+            </section>
+
+            <!-- Quiz -->
+            <section class="sp-panel" id="panel-quiz" role="tabpanel" aria-label="Quiz" hidden>
+                <div id="sp-quiz-start">
+                    <p class="sp-stats" id="sp-quiz-stats"></p>
+                    <div class="sp-actions">
+                        <button type="button" class="sp-btn primary" id="sp-quiz-begin">Start a round of 10</button>
+                    </div>
+                </div>
+
+                <div id="sp-quiz-round" hidden>
+                    <p class="sp-progress" id="sp-quiz-progress"></p>
+                    <div class="sp-question" id="sp-quiz-question"></div>
+                    <div class="sp-options" id="sp-quiz-options"></div>
+                    <div class="sp-actions">
+                        <button type="button" class="sp-btn primary" id="sp-quiz-next" hidden>Next</button>
+                    </div>
+                </div>
+
+                <div id="sp-quiz-done" hidden>
+                    <p class="sp-question" id="sp-quiz-score"></p>
+                    <div class="sp-actions">
+                        <button type="button" class="sp-btn primary" id="sp-quiz-again">Another round</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Listening -->
+            <section class="sp-panel" id="panel-listen" role="tabpanel" aria-label="Listening" hidden>
+                <div id="sp-listen-body">
+                    <p class="sp-progress">Listen and pick the meaning</p>
+                    <div class="sp-listen-word" id="sp-listen-word"></div>
+                    <div class="sp-actions">
+                        <button type="button" class="sp-btn" id="sp-listen-slow">Slower</button>
+                        <button type="button" class="sp-btn primary" id="sp-listen-next" hidden>Next</button>
+                    </div>
+                    <div class="sp-options" id="sp-listen-options"></div>
+                    <p class="sp-es" id="sp-listen-answer" hidden></p>
+                </div>
+                <p class="sp-empty" id="sp-listen-empty" hidden>Not enough items in this stage.</p>
+            </section>
+
+            <!-- Browse -->
+            <section class="sp-panel" id="panel-browse" role="tabpanel" aria-label="Browse" hidden>
+                <label class="visually-hidden" for="sp-browse-search">Search</label>
+                <input type="search" class="sp-search" id="sp-browse-search"
+                       placeholder="Search in Spanish, English or Russian…" autocomplete="off">
+
+                <div class="sp-filters">
+                    <label class="visually-hidden" for="sp-browse-type">Type</label>
+                    <select class="sp-select" id="sp-browse-type">
+                        <option value="">All types</option>
+                        <option value="vocab">Words</option>
+                        <option value="pair">Pairs</option>
+                        <option value="phrase">Phrases</option>
+                        <option value="exchange">Exchanges</option>
+                        <option value="drill">Drills</option>
+                    </select>
+                    <label class="visually-hidden" for="sp-browse-group">Group</label>
+                    <select class="sp-select" id="sp-browse-group"></select>
+                    <button type="button" class="sp-btn" id="sp-browse-reset">Reset</button>
+                </div>
+
+                <div class="sp-actions">
+                    <span class="sp-stats" id="sp-browse-count"></span>
+                    <button type="button" class="sp-btn" id="sp-browse-json">Export JSON</button>
+                    <button type="button" class="sp-btn" id="sp-browse-csv">Export CSV</button>
+                </div>
+
+                <div class="sp-lex" id="sp-browse-list"></div>
+                <p class="sp-empty" id="sp-browse-empty" hidden>Nothing matches.</p>
+                <div class="sp-actions">
+                    <button type="button" class="sp-btn" id="sp-browse-more" hidden></button>
+                </div>
+            </section>
+
+            <h3 style="margin-top: var(--spacing-lg);">All stages</h3>
+            <ul class="sp-stages" id="sp-stage-index"></ul>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2010-<span class="current-year"></span> Dykyi Roman</p>
+        <div class="footer-links">
+            <a href="https://github.com/dykyi-roman" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/roman-dykyi-43428543/" target="_blank">LinkedIn</a>
+            <a href="mailto:mr.dukuy@gmail.com">Email</a>
+        </div>
+    </footer>
+</div>
+<script src="../resources/back-to-top.js"></script>
+<script src="../resources/spanish-core.js"></script>
+<script src="../resources/spanish.js"></script>
+<script>
+    document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+</script>
+</body>
+</html>

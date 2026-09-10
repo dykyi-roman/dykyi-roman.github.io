@@ -1550,6 +1550,38 @@ const countriesData = {
             notes: 'Adriatic coast and Ottoman towns',
             instagram: [],
             facebook: []
+        },
+        {
+            flag: '🇵🇹',
+            name: 'Portugal',
+            visitDate: '2026-09',
+            duration: '7 days',
+            rating: '⭐⭐⭐⭐',
+            highlights: {
+                'Lisbon': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Porto': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Sintra': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Guimarães': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Cascais': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
+            notes: 'Atlantic coast and historic towns',
+            instagram: [],
+            facebook: []
         }
     ],
     northAmerica: [],
@@ -1561,7 +1593,6 @@ const countriesData = {
 // Wishlist countries - places to visit in the future
 const wishlistCountries = {
     europe: [
-        {flag: '🇵🇹', name: 'Portugal', wishIcon: '🌟'},
         {flag: '🇨🇭', name: 'Switzerland', wishIcon: '🌟'},
         {flag: '🇮🇪', name: 'Ireland', wishIcon: '🌟'},
         {flag: '🇬🇧', name: 'United Kingdom', wishIcon: '🌟'},
@@ -2316,7 +2347,11 @@ function initMap() {
             {lat: 46.9480, lng: 7.4474, title: "Bern (Wishlist)", wishlist: true},
         ],
         "Portugal": [
-            {lat: 38.7223, lng: -9.1393, title: "Lisbon (Wishlist)", wishlist: true},
+            {lat: 38.7222524, lng: -9.1393366, title: "Lisbon"},
+            {lat: 41.1494512, lng: -8.6107884, title: "Porto"},
+            {lat: 38.8029127, lng: -9.3816495, title: "Sintra"},
+            {lat: 41.4424396, lng: -8.2957337, title: "Guimarães"},
+            {lat: 38.6979, lng: -9.42146, title: "Cascais"},
         ],
         "Jordan": [
             {lat: 30.3285, lng: 35.4444, title: "Petra (Wishlist)", wishlist: true},
@@ -2370,6 +2405,7 @@ function initMap() {
         "Hungary": "europe",
         "Vatican": "europe",
         "Albania": "europe",
+        "Portugal": "europe",
         "UAE": "asia",
         "Nepal": "asia",
         "India": "asia",
@@ -2436,7 +2472,6 @@ function initMap() {
         "Honduras": "wishlist",
         "Nicaragua": "wishlist",
         "Switzerland": "wishlist",
-        "Portugal": "wishlist",
         "Jordan": "wishlist",
         "South Africa": "wishlist",
         "Namibia": "wishlist",

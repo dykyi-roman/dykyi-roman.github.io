@@ -1,0 +1,6055 @@
+{
+ "id": "stage-4",
+ "prefix": "es4",
+ "no": 4,
+ "title": "Opposites and pairs",
+ "titleRu": "Мир парами: противоположности, род и действия",
+ "goal": "быстро описывать людей, вещи, еду, места и действия — и понимать, когда так описывают тебя.",
+ "url": "spanish/stage-4.html",
+ "intro": [
+  {
+   "k": "p",
+   "spans": [
+    {
+     "t": "Каждая строка таблицы — готовая пара. Учить их надо парами: так слово вспоминается вдвое быстрее, а в разговоре сразу есть чем ответить. Пар три вида: противоположности ("
+    },
+    {
+     "t": "caro / barato",
+     "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "abrir / cerrar",
+     "s": "es"
+    },
+    {
+     "t": "), род ("
+    },
+    {
+     "t": "abuelo / abuela",
+     "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "camarero / camarera",
+     "s": "es"
+    },
+    {
+     "t": ") и связка вопрос-ответ ("
+    },
+    {
+     "t": "pregunta / respuesta",
+     "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "muchas gracias / de nada",
+     "s": "es"
+    },
+    {
+     "t": ")."
+    }
+   ]
+  },
+  {
+   "k": "p",
+   "spans": [
+    {
+     "t": "Всего пар: "
+    },
+    {
+     "t": "175",
+     "s": "b"
+    },
+    {
+     "t": "."
+    }
+   ]
+  }
+ ],
+ "groups": [
+  {
+   "kind": "vocab",
+   "name": "Признак и оценка"
+  },
+  {
+   "kind": "vocab",
+   "name": "Люди: род и родство"
+  },
+  {
+   "kind": "vocab",
+   "name": "Вещи, еда, места"
+  },
+  {
+   "kind": "vocab",
+   "name": "Действия"
+  },
+  {
+   "kind": "vocab",
+   "name": "Время и направление"
+  },
+  {
+   "kind": "vocab",
+   "name": "Реплики"
+  },
+  {
+   "kind": "example",
+   "name": "Размер и форма"
+  },
+  {
+   "kind": "example",
+   "name": "Верх и низ"
+  },
+  {
+   "kind": "example",
+   "name": "Количество"
+  },
+  {
+   "kind": "example",
+   "name": "Еда и температура"
+  },
+  {
+   "kind": "example",
+   "name": "Цена"
+  },
+  {
+   "kind": "example",
+   "name": "Оценка"
+  },
+  {
+   "kind": "example",
+   "name": "Скорость и сложность"
+  },
+  {
+   "kind": "example",
+   "name": "Состояние вещей и мест"
+  },
+  {
+   "kind": "example",
+   "name": "Люди"
+  },
+  {
+   "kind": "example",
+   "name": "Настроение"
+  },
+  {
+   "kind": "example",
+   "name": "Впечатление"
+  },
+  {
+   "kind": "example",
+   "name": "Семья и знакомые"
+  },
+  {
+   "kind": "example",
+   "name": "Вещи, еда и места"
+  },
+  {
+   "kind": "example",
+   "name": "Действия"
+  },
+  {
+   "kind": "example",
+   "name": "Время и направление"
+  },
+  {
+   "kind": "example",
+   "name": "Реплики"
+  }
+ ],
+ "items": [
+  {
+   "id": "es4-p001",
+   "type": "pair",
+   "es": "arriba / abajo",
+   "en": "up / down",
+   "ru": "наверху / внизу",
+   "tr": "ари́ба / аба́хо",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "arriba",
+    "en": "up",
+    "ru": "наверху",
+    "tr": "ари́ба"
+   },
+   "b": {
+    "es": "abajo",
+    "en": "down",
+    "ru": "внизу",
+    "tr": "аба́хо"
+   }
+  },
+  {
+   "id": "es4-p002",
+   "type": "pair",
+   "es": "grande / pequeño",
+   "en": "big / small",
+   "ru": "большой / маленький",
+   "tr": "гра́нде / пеке́ньо",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "grande",
+    "en": "big",
+    "ru": "большой",
+    "tr": "гра́нде"
+   },
+   "b": {
+    "es": "pequeño",
+    "en": "small",
+    "ru": "маленький",
+    "tr": "пеке́ньо"
+   }
+  },
+  {
+   "id": "es4-p003",
+   "type": "pair",
+   "es": "alto / bajo",
+   "en": "tall, high / short, low",
+   "ru": "высокий / низкий",
+   "tr": "а́льто / ба́хо",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "alto",
+    "en": "tall, high",
+    "ru": "высокий",
+    "tr": "а́льто"
+   },
+   "b": {
+    "es": "bajo",
+    "en": "short, low",
+    "ru": "низкий",
+    "tr": "ба́хо"
+   }
+  },
+  {
+   "id": "es4-p004",
+   "type": "pair",
+   "es": "largo / corto",
+   "en": "long / short",
+   "ru": "длинный / короткий",
+   "tr": "ла́рго / ко́рто",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "largo",
+    "en": "long",
+    "ru": "длинный",
+    "tr": "ла́рго"
+   },
+   "b": {
+    "es": "corto",
+    "en": "short",
+    "ru": "короткий",
+    "tr": "ко́рто"
+   }
+  },
+  {
+   "id": "es4-p005",
+   "type": "pair",
+   "es": "ancho / estrecho",
+   "en": "wide / narrow",
+   "ru": "широкий / узкий",
+   "tr": "а́нчо / эстре́чо",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "ancho",
+    "en": "wide",
+    "ru": "широкий",
+    "tr": "а́нчо"
+   },
+   "b": {
+    "es": "estrecho",
+    "en": "narrow",
+    "ru": "узкий",
+    "tr": "эстре́чо"
+   }
+  },
+  {
+   "id": "es4-p006",
+   "type": "pair",
+   "es": "mucho / poco",
+   "en": "a lot / little",
+   "ru": "много / мало",
+   "tr": "му́чо / по́ко",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "mucho",
+    "en": "a lot",
+    "ru": "много",
+    "tr": "му́чо"
+   },
+   "b": {
+    "es": "poco",
+    "en": "little",
+    "ru": "мало",
+    "tr": "по́ко"
+   }
+  },
+  {
+   "id": "es4-p007",
+   "type": "pair",
+   "es": "caliente / frío",
+   "en": "hot / cold",
+   "ru": "горячий / холодный",
+   "tr": "калье́нте / фри́о",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "caliente",
+    "en": "hot",
+    "ru": "горячий",
+    "tr": "калье́нте"
+   },
+   "b": {
+    "es": "frío",
+    "en": "cold",
+    "ru": "холодный",
+    "tr": "фри́о"
+   }
+  },
+  {
+   "id": "es4-p008",
+   "type": "pair",
+   "es": "húmedo / seco",
+   "en": "humid / dry",
+   "ru": "влажный / сухой",
+   "tr": "у́медо / се́ко",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "húmedo",
+    "en": "humid",
+    "ru": "влажный",
+    "tr": "у́медо"
+   },
+   "b": {
+    "es": "seco",
+    "en": "dry",
+    "ru": "сухой",
+    "tr": "се́ко"
+   }
+  },
+  {
+   "id": "es4-p009",
+   "type": "pair",
+   "es": "dulce / salado",
+   "en": "sweet / salty",
+   "ru": "сладкий / солёный",
+   "tr": "ду́льсе / сала́до",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "dulce",
+    "en": "sweet",
+    "ru": "сладкий",
+    "tr": "ду́льсе"
+   },
+   "b": {
+    "es": "salado",
+    "en": "salty",
+    "ru": "солёный",
+    "tr": "сала́до"
+   }
+  },
+  {
+   "id": "es4-p010",
+   "type": "pair",
+   "es": "picante / suave",
+   "en": "spicy / mild",
+   "ru": "острый / неострый",
+   "tr": "пика́нте / суа́бе",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "picante",
+    "en": "spicy",
+    "ru": "острый",
+    "tr": "пика́нте"
+   },
+   "b": {
+    "es": "suave",
+    "en": "mild",
+    "ru": "неострый",
+    "tr": "суа́бе"
+   }
+  },
+  {
+   "id": "es4-p011",
+   "type": "pair",
+   "es": "caro / barato",
+   "en": "expensive / cheap",
+   "ru": "дорогой / дешёвый",
+   "tr": "ка́ро / бара́то",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "caro",
+    "en": "expensive",
+    "ru": "дорогой",
+    "tr": "ка́ро"
+   },
+   "b": {
+    "es": "barato",
+    "en": "cheap",
+    "ru": "дешёвый",
+    "tr": "бара́то"
+   }
+  },
+  {
+   "id": "es4-p012",
+   "type": "pair",
+   "es": "bueno / malo",
+   "en": "good / bad",
+   "ru": "хороший / плохой",
+   "tr": "буэ́но / ма́ло",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "bueno",
+    "en": "good",
+    "ru": "хороший",
+    "tr": "буэ́но"
+   },
+   "b": {
+    "es": "malo",
+    "en": "bad",
+    "ru": "плохой",
+    "tr": "ма́ло"
+   }
+  },
+  {
+   "id": "es4-p013",
+   "type": "pair",
+   "es": "mejor / peor",
+   "en": "better / worse",
+   "ru": "лучше / хуже",
+   "tr": "мехо́р / пео́р",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "mejor",
+    "en": "better",
+    "ru": "лучше",
+    "tr": "мехо́р"
+   },
+   "b": {
+    "es": "peor",
+    "en": "worse",
+    "ru": "хуже",
+    "tr": "пео́р"
+   }
+  },
+  {
+   "id": "es4-p014",
+   "type": "pair",
+   "es": "bien / mal",
+   "en": "well / badly",
+   "ru": "хорошо / плохо",
+   "tr": "бье́н / маль",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "bien",
+    "en": "well",
+    "ru": "хорошо",
+    "tr": "бье́н"
+   },
+   "b": {
+    "es": "mal",
+    "en": "badly",
+    "ru": "плохо",
+    "tr": "маль"
+   }
+  },
+  {
+   "id": "es4-p015",
+   "type": "pair",
+   "es": "correcto / incorrecto",
+   "en": "correct / incorrect",
+   "ru": "правильный / неправильный",
+   "tr": "корре́кто / инкорре́кто",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "correcto",
+    "en": "correct",
+    "ru": "правильный",
+    "tr": "корре́кто"
+   },
+   "b": {
+    "es": "incorrecto",
+    "en": "incorrect",
+    "ru": "неправильный",
+    "tr": "инкорре́кто"
+   }
+  },
+  {
+   "id": "es4-p016",
+   "type": "pair",
+   "es": "rápido / lento",
+   "en": "fast / slow",
+   "ru": "быстрый / медленный",
+   "tr": "ра́пидо / ле́нто",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "rápido",
+    "en": "fast",
+    "ru": "быстрый",
+    "tr": "ра́пидо"
+   },
+   "b": {
+    "es": "lento",
+    "en": "slow",
+    "ru": "медленный",
+    "tr": "ле́нто"
+   }
+  },
+  {
+   "id": "es4-p017",
+   "type": "pair",
+   "es": "nuevo / viejo",
+   "en": "new / old",
+   "ru": "новый / старый",
+   "tr": "нуэ́бо / бье́хо",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "nuevo",
+    "en": "new",
+    "ru": "новый",
+    "tr": "нуэ́бо"
+   },
+   "b": {
+    "es": "viejo",
+    "en": "old",
+    "ru": "старый",
+    "tr": "бье́хо"
+   }
+  },
+  {
+   "id": "es4-p018",
+   "type": "pair",
+   "es": "joven / mayor",
+   "en": "young / elderly",
+   "ru": "молодой / пожилой",
+   "tr": "хо́бен / майо́р",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "joven",
+    "en": "young",
+    "ru": "молодой",
+    "tr": "хо́бен"
+   },
+   "b": {
+    "es": "mayor",
+    "en": "elderly",
+    "ru": "пожилой",
+    "tr": "майо́р"
+   }
+  },
+  {
+   "id": "es4-p019",
+   "type": "pair",
+   "es": "limpio / sucio",
+   "en": "clean / dirty",
+   "ru": "чистый / грязный",
+   "tr": "ли́мпьо / су́сьо",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "limpio",
+    "en": "clean",
+    "ru": "чистый",
+    "tr": "ли́мпьо"
+   },
+   "b": {
+    "es": "sucio",
+    "en": "dirty",
+    "ru": "грязный",
+    "tr": "су́сьо"
+   }
+  },
+  {
+   "id": "es4-p020",
+   "type": "pair",
+   "es": "lleno / vacío",
+   "en": "full / empty",
+   "ru": "полный / пустой",
+   "tr": "йе́но / баси́о",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "lleno",
+    "en": "full",
+    "ru": "полный",
+    "tr": "йе́но"
+   },
+   "b": {
+    "es": "vacío",
+    "en": "empty",
+    "ru": "пустой",
+    "tr": "баси́о"
+   }
+  },
+  {
+   "id": "es4-p021",
+   "type": "pair",
+   "es": "abierto / cerrado",
+   "en": "open / closed",
+   "ru": "открыто / закрыто",
+   "tr": "абье́рто / серра́до",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "abierto",
+    "en": "open",
+    "ru": "открыто",
+    "tr": "абье́рто"
+   },
+   "b": {
+    "es": "cerrado",
+    "en": "closed",
+    "ru": "закрыто",
+    "tr": "серра́до"
+   }
+  },
+  {
+   "id": "es4-p022",
+   "type": "pair",
+   "es": "fácil / difícil",
+   "en": "easy / difficult",
+   "ru": "лёгкий / сложный",
+   "tr": "фа́силь / дифи́силь",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "fácil",
+    "en": "easy",
+    "ru": "лёгкий",
+    "tr": "фа́силь"
+   },
+   "b": {
+    "es": "difícil",
+    "en": "difficult",
+    "ru": "сложный",
+    "tr": "дифи́силь"
+   }
+  },
+  {
+   "id": "es4-p023",
+   "type": "pair",
+   "es": "posible / imposible",
+   "en": "possible / impossible",
+   "ru": "возможный / невозможный",
+   "tr": "поси́бле / импоси́бле",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "posible",
+    "en": "possible",
+    "ru": "возможный",
+    "tr": "поси́бле"
+   },
+   "b": {
+    "es": "imposible",
+    "en": "impossible",
+    "ru": "невозможный",
+    "tr": "импоси́бле"
+   }
+  },
+  {
+   "id": "es4-p024",
+   "type": "pair",
+   "es": "seguro / peligroso",
+   "en": "safe / dangerous",
+   "ru": "безопасный / опасный",
+   "tr": "сегу́ро / пелигро́со",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "seguro",
+    "en": "safe",
+    "ru": "безопасный",
+    "tr": "сегу́ро"
+   },
+   "b": {
+    "es": "peligroso",
+    "en": "dangerous",
+    "ru": "опасный",
+    "tr": "пелигро́со"
+   }
+  },
+  {
+   "id": "es4-p025",
+   "type": "pair",
+   "es": "fuerte / débil",
+   "en": "strong / weak",
+   "ru": "сильный / слабый",
+   "tr": "фуэ́рте / де́биль",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "fuerte",
+    "en": "strong",
+    "ru": "сильный",
+    "tr": "фуэ́рте"
+   },
+   "b": {
+    "es": "débil",
+    "en": "weak",
+    "ru": "слабый",
+    "tr": "де́биль"
+   }
+  },
+  {
+   "id": "es4-p026",
+   "type": "pair",
+   "es": "sano / enfermo",
+   "en": "healthy / ill",
+   "ru": "здоровый / больной",
+   "tr": "са́но / энфе́рмо",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "sano",
+    "en": "healthy",
+    "ru": "здоровый",
+    "tr": "са́но"
+   },
+   "b": {
+    "es": "enfermo",
+    "en": "ill",
+    "ru": "больной",
+    "tr": "энфе́рмо"
+   }
+  },
+  {
+   "id": "es4-p027",
+   "type": "pair",
+   "es": "descansado / cansado",
+   "en": "rested / tired",
+   "ru": "отдохнувший / уставший",
+   "tr": "десканса́до / канса́до",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "descansado",
+    "en": "rested",
+    "ru": "отдохнувший",
+    "tr": "десканса́до"
+   },
+   "b": {
+    "es": "cansado",
+    "en": "tired",
+    "ru": "уставший",
+    "tr": "канса́до"
+   }
+  },
+  {
+   "id": "es4-p028",
+   "type": "pair",
+   "es": "contento / enfadado",
+   "en": "pleased / angry",
+   "ru": "довольный / злой",
+   "tr": "конте́нто / энфада́до",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "contento",
+    "en": "pleased",
+    "ru": "довольный",
+    "tr": "конте́нто"
+   },
+   "b": {
+    "es": "enfadado",
+    "en": "angry",
+    "ru": "злой",
+    "tr": "энфада́до"
+   }
+  },
+  {
+   "id": "es4-p029",
+   "type": "pair",
+   "es": "feliz / triste",
+   "en": "happy / sad",
+   "ru": "счастливый / грустный",
+   "tr": "фели́с / три́сте",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "feliz",
+    "en": "happy",
+    "ru": "счастливый",
+    "tr": "фели́с"
+   },
+   "b": {
+    "es": "triste",
+    "en": "sad",
+    "ru": "грустный",
+    "tr": "три́сте"
+   }
+  },
+  {
+   "id": "es4-p030",
+   "type": "pair",
+   "es": "tranquilo / nervioso",
+   "en": "calm / nervous",
+   "ru": "спокойный / нервный",
+   "tr": "транки́ло / нербьо́со",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "tranquilo",
+    "en": "calm",
+    "ru": "спокойный",
+    "tr": "транки́ло"
+   },
+   "b": {
+    "es": "nervioso",
+    "en": "nervous",
+    "ru": "нервный",
+    "tr": "нербьо́со"
+   }
+  },
+  {
+   "id": "es4-p031",
+   "type": "pair",
+   "es": "libre / ocupado",
+   "en": "free / busy, taken",
+   "ru": "свободный / занятый",
+   "tr": "ли́бре / окупа́до",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "libre",
+    "en": "free",
+    "ru": "свободный",
+    "tr": "ли́бре"
+   },
+   "b": {
+    "es": "ocupado",
+    "en": "busy, taken",
+    "ru": "занятый",
+    "tr": "окупа́до"
+   }
+  },
+  {
+   "id": "es4-p032",
+   "type": "pair",
+   "es": "interesante / aburrido",
+   "en": "interesting / boring",
+   "ru": "интересный / скучный",
+   "tr": "интереса́нте / абурри́до",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "interesante",
+    "en": "interesting",
+    "ru": "интересный",
+    "tr": "интереса́нте"
+   },
+   "b": {
+    "es": "aburrido",
+    "en": "boring",
+    "ru": "скучный",
+    "tr": "абурри́до"
+   }
+  },
+  {
+   "id": "es4-p033",
+   "type": "pair",
+   "es": "normal / raro",
+   "en": "normal / strange",
+   "ru": "обычный / странный",
+   "tr": "норма́ль / ра́ро",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "normal",
+    "en": "normal",
+    "ru": "обычный",
+    "tr": "норма́ль"
+   },
+   "b": {
+    "es": "raro",
+    "en": "strange",
+    "ru": "странный",
+    "tr": "ра́ро"
+   }
+  },
+  {
+   "id": "es4-p034",
+   "type": "pair",
+   "es": "igual / diferente",
+   "en": "the same / different",
+   "ru": "одинаковый / другой",
+   "tr": "игуа́ль / дифере́нте",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "igual",
+    "en": "the same",
+    "ru": "одинаковый",
+    "tr": "игуа́ль"
+   },
+   "b": {
+    "es": "diferente",
+    "en": "different",
+    "ru": "другой",
+    "tr": "дифере́нте"
+   }
+  },
+  {
+   "id": "es4-p035",
+   "type": "pair",
+   "es": "público / privado",
+   "en": "public / private",
+   "ru": "общественный / частный",
+   "tr": "пу́блико / приба́до",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "público",
+    "en": "public",
+    "ru": "общественный",
+    "tr": "пу́блико"
+   },
+   "b": {
+    "es": "privado",
+    "en": "private",
+    "ru": "частный",
+    "tr": "приба́до"
+   }
+  },
+  {
+   "id": "es4-p036",
+   "type": "pair",
+   "es": "claro / oscuro",
+   "en": "light / dark",
+   "ru": "светлый / тёмный",
+   "tr": "кла́ро / оску́ро",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "claro",
+    "en": "light",
+    "ru": "светлый",
+    "tr": "кла́ро"
+   },
+   "b": {
+    "es": "oscuro",
+    "en": "dark",
+    "ru": "тёмный",
+    "tr": "оску́ро"
+   }
+  },
+  {
+   "id": "es4-p037",
+   "type": "pair",
+   "es": "gordo / delgado",
+   "en": "fat / thin",
+   "ru": "толстый / худой",
+   "tr": "го́рдо / дельга́до",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "gordo",
+    "en": "fat",
+    "ru": "толстый",
+    "tr": "го́рдо"
+   },
+   "b": {
+    "es": "delgado",
+    "en": "thin",
+    "ru": "худой",
+    "tr": "дельга́до"
+   }
+  },
+  {
+   "id": "es4-p038",
+   "type": "pair",
+   "es": "guapo / feo",
+   "en": "good-looking / ugly",
+   "ru": "красивый / некрасивый",
+   "tr": "гуа́по / фе́о",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "guapo",
+    "en": "good-looking",
+    "ru": "красивый",
+    "tr": "гуа́по"
+   },
+   "b": {
+    "es": "feo",
+    "en": "ugly",
+    "ru": "некрасивый",
+    "tr": "фе́о"
+   }
+  },
+  {
+   "id": "es4-p039",
+   "type": "pair",
+   "es": "rico / pobre",
+   "en": "rich, tasty / poor",
+   "ru": "богатый, вкусный / бедный",
+   "tr": "ри́ко / по́бре",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "rico",
+    "en": "rich, tasty",
+    "ru": "богатый, вкусный",
+    "tr": "ри́ко"
+   },
+   "b": {
+    "es": "pobre",
+    "en": "poor",
+    "ru": "бедный",
+    "tr": "по́бре"
+   }
+  },
+  {
+   "id": "es4-p040",
+   "type": "pair",
+   "es": "blando / duro",
+   "en": "soft / hard",
+   "ru": "мягкий / твёрдый",
+   "tr": "бла́ндо / ду́ро",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "blando",
+    "en": "soft",
+    "ru": "мягкий",
+    "tr": "бла́ндо"
+   },
+   "b": {
+    "es": "duro",
+    "en": "hard",
+    "ru": "твёрдый",
+    "tr": "ду́ро"
+   }
+  },
+  {
+   "id": "es4-p041",
+   "type": "pair",
+   "es": "ligero / pesado",
+   "en": "light / heavy",
+   "ru": "лёгкий / тяжёлый",
+   "tr": "лихе́ро / песа́до",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "ligero",
+    "en": "light",
+    "ru": "лёгкий",
+    "tr": "лихе́ро"
+   },
+   "b": {
+    "es": "pesado",
+    "en": "heavy",
+    "ru": "тяжёлый",
+    "tr": "песа́до"
+   }
+  },
+  {
+   "id": "es4-p042",
+   "type": "pair",
+   "es": "silencioso / ruidoso",
+   "en": "quiet / noisy",
+   "ru": "тихий / шумный",
+   "tr": "силенсьо́со / руидо́со",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "silencioso",
+    "en": "quiet",
+    "ru": "тихий",
+    "tr": "силенсьо́со"
+   },
+   "b": {
+    "es": "ruidoso",
+    "en": "noisy",
+    "ru": "шумный",
+    "tr": "руидо́со"
+   }
+  },
+  {
+   "id": "es4-p043",
+   "type": "pair",
+   "es": "simpático / antipático",
+   "en": "nice / unpleasant",
+   "ru": "приятный / неприятный",
+   "tr": "симпа́тико / антипа́тико",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "simpático",
+    "en": "nice",
+    "ru": "приятный",
+    "tr": "симпа́тико"
+   },
+   "b": {
+    "es": "antipático",
+    "en": "unpleasant",
+    "ru": "неприятный",
+    "tr": "антипа́тико"
+   }
+  },
+  {
+   "id": "es4-p044",
+   "type": "pair",
+   "es": "educado / maleducado",
+   "en": "polite / rude",
+   "ru": "воспитанный / невоспитанный",
+   "tr": "эдука́до / маледука́до",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "educado",
+    "en": "polite",
+    "ru": "воспитанный",
+    "tr": "эдука́до"
+   },
+   "b": {
+    "es": "maleducado",
+    "en": "rude",
+    "ru": "невоспитанный",
+    "tr": "маледука́до"
+   }
+  },
+  {
+   "id": "es4-p045",
+   "type": "pair",
+   "es": "inteligente / tonto",
+   "en": "clever / stupid",
+   "ru": "умный / глупый",
+   "tr": "интелихе́нте / то́нто",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "inteligente",
+    "en": "clever",
+    "ru": "умный",
+    "tr": "интелихе́нте"
+   },
+   "b": {
+    "es": "tonto",
+    "en": "stupid",
+    "ru": "глупый",
+    "tr": "то́нто"
+   }
+  },
+  {
+   "id": "es4-p046",
+   "type": "pair",
+   "es": "soltero / casado",
+   "en": "single / married",
+   "ru": "холостой / женатый",
+   "tr": "сольте́ро / каса́до",
+   "group": "Признак и оценка",
+   "pairKind": "opposite",
+   "a": {
+    "es": "soltero",
+    "en": "single",
+    "ru": "холостой",
+    "tr": "сольте́ро"
+   },
+   "b": {
+    "es": "casado",
+    "en": "married",
+    "ru": "женатый",
+    "tr": "каса́до"
+   }
+  },
+  {
+   "id": "es4-p047",
+   "type": "pair",
+   "es": "hombre / mujer",
+   "en": "man / woman",
+   "ru": "мужчина / женщина",
+   "tr": "о́мбре / мухе́р",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "hombre",
+    "en": "man",
+    "ru": "мужчина",
+    "tr": "о́мбре"
+   },
+   "b": {
+    "es": "mujer",
+    "en": "woman",
+    "ru": "женщина",
+    "tr": "мухе́р"
+   }
+  },
+  {
+   "id": "es4-p048",
+   "type": "pair",
+   "es": "chico / chica",
+   "en": "boy, guy / girl",
+   "ru": "парень / девушка",
+   "tr": "чи́ко / чи́ка",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "chico",
+    "en": "boy, guy",
+    "ru": "парень",
+    "tr": "чи́ко"
+   },
+   "b": {
+    "es": "chica",
+    "en": "girl",
+    "ru": "девушка",
+    "tr": "чи́ка"
+   }
+  },
+  {
+   "id": "es4-p049",
+   "type": "pair",
+   "es": "niño / niña",
+   "en": "boy / girl",
+   "ru": "мальчик / девочка",
+   "tr": "ни́ньо / ни́нья",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "niño",
+    "en": "boy",
+    "ru": "мальчик",
+    "tr": "ни́ньо"
+   },
+   "b": {
+    "es": "niña",
+    "en": "girl",
+    "ru": "девочка",
+    "tr": "ни́нья"
+   }
+  },
+  {
+   "id": "es4-p050",
+   "type": "pair",
+   "es": "señor / señora",
+   "en": "sir, Mr. / madam, Mrs.",
+   "ru": "господин / госпожа",
+   "tr": "сеньо́р / сеньо́ра",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "señor",
+    "en": "sir, Mr.",
+    "ru": "господин",
+    "tr": "сеньо́р"
+   },
+   "b": {
+    "es": "señora",
+    "en": "madam, Mrs.",
+    "ru": "госпожа",
+    "tr": "сеньо́ра"
+   }
+  },
+  {
+   "id": "es4-p051",
+   "type": "pair",
+   "es": "amigo / amiga",
+   "en": "friend (m) / friend (f)",
+   "ru": "друг / подруга",
+   "tr": "ами́го / ами́га",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "amigo",
+    "en": "friend (m)",
+    "ru": "друг",
+    "tr": "ами́го"
+   },
+   "b": {
+    "es": "amiga",
+    "en": "friend (f)",
+    "ru": "подруга",
+    "tr": "ами́га"
+   }
+  },
+  {
+   "id": "es4-p052",
+   "type": "pair",
+   "es": "vecino / vecina",
+   "en": "neighbour (m) / neighbour (f)",
+   "ru": "сосед / соседка",
+   "tr": "беси́но / беси́на",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "vecino",
+    "en": "neighbour (m)",
+    "ru": "сосед",
+    "tr": "беси́но"
+   },
+   "b": {
+    "es": "vecina",
+    "en": "neighbour (f)",
+    "ru": "соседка",
+    "tr": "беси́на"
+   }
+  },
+  {
+   "id": "es4-p053",
+   "type": "pair",
+   "es": "compañero / compañera",
+   "en": "colleague (m) / colleague (f)",
+   "ru": "коллега, товарищ (м / ж)",
+   "tr": "компанье́ро / компанье́ра",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "compañero",
+    "en": "colleague (m)",
+    "ru": "коллега, товарищ (м",
+    "tr": "компанье́ро"
+   },
+   "b": {
+    "es": "compañera",
+    "en": "colleague (f)",
+    "ru": "ж)",
+    "tr": "компанье́ра"
+   }
+  },
+  {
+   "id": "es4-p054",
+   "type": "pair",
+   "es": "padre / madre",
+   "en": "father / mother",
+   "ru": "отец / мать",
+   "tr": "па́дре / ма́дре",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "padre",
+    "en": "father",
+    "ru": "отец",
+    "tr": "па́дре"
+   },
+   "b": {
+    "es": "madre",
+    "en": "mother",
+    "ru": "мать",
+    "tr": "ма́дре"
+   }
+  },
+  {
+   "id": "es4-p055",
+   "type": "pair",
+   "es": "papá / mamá",
+   "en": "dad / mum",
+   "ru": "папа / мама",
+   "tr": "папа́ / мама́",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "papá",
+    "en": "dad",
+    "ru": "папа",
+    "tr": "папа́"
+   },
+   "b": {
+    "es": "mamá",
+    "en": "mum",
+    "ru": "мама",
+    "tr": "мама́"
+   }
+  },
+  {
+   "id": "es4-p056",
+   "type": "pair",
+   "es": "hijo / hija",
+   "en": "son / daughter",
+   "ru": "сын / дочь",
+   "tr": "и́хо / и́ха",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "hijo",
+    "en": "son",
+    "ru": "сын",
+    "tr": "и́хо"
+   },
+   "b": {
+    "es": "hija",
+    "en": "daughter",
+    "ru": "дочь",
+    "tr": "и́ха"
+   }
+  },
+  {
+   "id": "es4-p057",
+   "type": "pair",
+   "es": "hermano / hermana",
+   "en": "brother / sister",
+   "ru": "брат / сестра",
+   "tr": "эрма́но / эрма́на",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "hermano",
+    "en": "brother",
+    "ru": "брат",
+    "tr": "эрма́но"
+   },
+   "b": {
+    "es": "hermana",
+    "en": "sister",
+    "ru": "сестра",
+    "tr": "эрма́на"
+   }
+  },
+  {
+   "id": "es4-p058",
+   "type": "pair",
+   "es": "marido / esposa",
+   "en": "husband / wife",
+   "ru": "муж / жена",
+   "tr": "мари́до / эспо́са",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "marido",
+    "en": "husband",
+    "ru": "муж",
+    "tr": "мари́до"
+   },
+   "b": {
+    "es": "esposa",
+    "en": "wife",
+    "ru": "жена",
+    "tr": "эспо́са"
+   }
+  },
+  {
+   "id": "es4-p059",
+   "type": "pair",
+   "es": "novio / novia",
+   "en": "boyfriend / girlfriend",
+   "ru": "парень / девушка",
+   "tr": "но́бьо / но́бья",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "novio",
+    "en": "boyfriend",
+    "ru": "парень",
+    "tr": "но́бьо"
+   },
+   "b": {
+    "es": "novia",
+    "en": "girlfriend",
+    "ru": "девушка",
+    "tr": "но́бья"
+   }
+  },
+  {
+   "id": "es4-p060",
+   "type": "pair",
+   "es": "abuelo / abuela",
+   "en": "grandfather / grandmother",
+   "ru": "дедушка / бабушка",
+   "tr": "абуэ́ло / абуэ́ла",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "abuelo",
+    "en": "grandfather",
+    "ru": "дедушка",
+    "tr": "абуэ́ло"
+   },
+   "b": {
+    "es": "abuela",
+    "en": "grandmother",
+    "ru": "бабушка",
+    "tr": "абуэ́ла"
+   }
+  },
+  {
+   "id": "es4-p061",
+   "type": "pair",
+   "es": "nieto / nieta",
+   "en": "grandson / granddaughter",
+   "ru": "внук / внучка",
+   "tr": "нье́то / нье́та",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "nieto",
+    "en": "grandson",
+    "ru": "внук",
+    "tr": "нье́то"
+   },
+   "b": {
+    "es": "nieta",
+    "en": "granddaughter",
+    "ru": "внучка",
+    "tr": "нье́та"
+   }
+  },
+  {
+   "id": "es4-p062",
+   "type": "pair",
+   "es": "tío / tía",
+   "en": "uncle / aunt",
+   "ru": "дядя / тётя",
+   "tr": "ти́о / ти́а",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "tío",
+    "en": "uncle",
+    "ru": "дядя",
+    "tr": "ти́о"
+   },
+   "b": {
+    "es": "tía",
+    "en": "aunt",
+    "ru": "тётя",
+    "tr": "ти́а"
+   }
+  },
+  {
+   "id": "es4-p063",
+   "type": "pair",
+   "es": "sobrino / sobrina",
+   "en": "nephew / niece",
+   "ru": "племянник / племянница",
+   "tr": "собри́но / собри́на",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "sobrino",
+    "en": "nephew",
+    "ru": "племянник",
+    "tr": "собри́но"
+   },
+   "b": {
+    "es": "sobrina",
+    "en": "niece",
+    "ru": "племянница",
+    "tr": "собри́на"
+   }
+  },
+  {
+   "id": "es4-p064",
+   "type": "pair",
+   "es": "primo / prima",
+   "en": "cousin (m) / cousin (f)",
+   "ru": "двоюродный брат / сестра",
+   "tr": "при́мо / при́ма",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "primo",
+    "en": "cousin (m)",
+    "ru": "двоюродный брат",
+    "tr": "при́мо"
+   },
+   "b": {
+    "es": "prima",
+    "en": "cousin (f)",
+    "ru": "сестра",
+    "tr": "при́ма"
+   }
+  },
+  {
+   "id": "es4-p065",
+   "type": "pair",
+   "es": "suegro / suegra",
+   "en": "father-in-law / mother-in-law",
+   "ru": "свёкор, тесть / свекровь, тёща",
+   "tr": "суэ́гро / суэ́гра",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "suegro",
+    "en": "father-in-law",
+    "ru": "свёкор, тесть",
+    "tr": "суэ́гро"
+   },
+   "b": {
+    "es": "suegra",
+    "en": "mother-in-law",
+    "ru": "свекровь, тёща",
+    "tr": "суэ́гра"
+   }
+  },
+  {
+   "id": "es4-p066",
+   "type": "pair",
+   "es": "cuñado / cuñada",
+   "en": "brother-in-law / sister-in-law",
+   "ru": "свояк, деверь / свояченица, золовка",
+   "tr": "кунья́до / кунья́да",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "cuñado",
+    "en": "brother-in-law",
+    "ru": "свояк, деверь",
+    "tr": "кунья́до"
+   },
+   "b": {
+    "es": "cuñada",
+    "en": "sister-in-law",
+    "ru": "свояченица, золовка",
+    "tr": "кунья́да"
+   }
+  },
+  {
+   "id": "es4-p067",
+   "type": "pair",
+   "es": "yerno / nuera",
+   "en": "son-in-law / daughter-in-law",
+   "ru": "зять / невестка",
+   "tr": "йе́рно / нуэ́ра",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "yerno",
+    "en": "son-in-law",
+    "ru": "зять",
+    "tr": "йе́рно"
+   },
+   "b": {
+    "es": "nuera",
+    "en": "daughter-in-law",
+    "ru": "невестка",
+    "tr": "нуэ́ра"
+   }
+  },
+  {
+   "id": "es4-p068",
+   "type": "pair",
+   "es": "profesor / profesora",
+   "en": "teacher (m) / teacher (f)",
+   "ru": "учитель / учительница",
+   "tr": "професо́р / професо́ра",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "profesor",
+    "en": "teacher (m)",
+    "ru": "учитель",
+    "tr": "професо́р"
+   },
+   "b": {
+    "es": "profesora",
+    "en": "teacher (f)",
+    "ru": "учительница",
+    "tr": "професо́ра"
+   }
+  },
+  {
+   "id": "es4-p069",
+   "type": "pair",
+   "es": "alumno / alumna",
+   "en": "pupil (m) / pupil (f)",
+   "ru": "ученик / ученица",
+   "tr": "алу́мно / алу́мна",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "alumno",
+    "en": "pupil (m)",
+    "ru": "ученик",
+    "tr": "алу́мно"
+   },
+   "b": {
+    "es": "alumna",
+    "en": "pupil (f)",
+    "ru": "ученица",
+    "tr": "алу́мна"
+   }
+  },
+  {
+   "id": "es4-p070",
+   "type": "pair",
+   "es": "camarero / camarera",
+   "en": "waiter / waitress",
+   "ru": "официант / официантка",
+   "tr": "камаре́ро / камаре́ра",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "camarero",
+    "en": "waiter",
+    "ru": "официант",
+    "tr": "камаре́ро"
+   },
+   "b": {
+    "es": "camarera",
+    "en": "waitress",
+    "ru": "официантка",
+    "tr": "камаре́ра"
+   }
+  },
+  {
+   "id": "es4-p071",
+   "type": "pair",
+   "es": "dependiente / dependienta",
+   "en": "shop assistant (m) / (f)",
+   "ru": "продавец / продавщица",
+   "tr": "депендье́нте / депендье́нта",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "dependiente",
+    "en": "shop assistant (m)",
+    "ru": "продавец",
+    "tr": "депендье́нте"
+   },
+   "b": {
+    "es": "dependienta",
+    "en": "(f)",
+    "ru": "продавщица",
+    "tr": "депендье́нта"
+   }
+  },
+  {
+   "id": "es4-p072",
+   "type": "pair",
+   "es": "médico / médica",
+   "en": "doctor (m) / doctor (f)",
+   "ru": "врач (м / ж)",
+   "tr": "ме́дико / ме́дика",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "médico",
+    "en": "doctor (m)",
+    "ru": "врач (м",
+    "tr": "ме́дико"
+   },
+   "b": {
+    "es": "médica",
+    "en": "doctor (f)",
+    "ru": "ж)",
+    "tr": "ме́дика"
+   }
+  },
+  {
+   "id": "es4-p073",
+   "type": "pair",
+   "es": "enfermero / enfermera",
+   "en": "nurse (m) / nurse (f)",
+   "ru": "медбрат / медсестра",
+   "tr": "энферме́ро / энферме́ра",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "enfermero",
+    "en": "nurse (m)",
+    "ru": "медбрат",
+    "tr": "энферме́ро"
+   },
+   "b": {
+    "es": "enfermera",
+    "en": "nurse (f)",
+    "ru": "медсестра",
+    "tr": "энферме́ра"
+   }
+  },
+  {
+   "id": "es4-p074",
+   "type": "pair",
+   "es": "abogado / abogada",
+   "en": "lawyer (m) / lawyer (f)",
+   "ru": "адвокат (м / ж)",
+   "tr": "абога́до / абога́да",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "abogado",
+    "en": "lawyer (m)",
+    "ru": "адвокат (м",
+    "tr": "абога́до"
+   },
+   "b": {
+    "es": "abogada",
+    "en": "lawyer (f)",
+    "ru": "ж)",
+    "tr": "абога́да"
+   }
+  },
+  {
+   "id": "es4-p075",
+   "type": "pair",
+   "es": "jefe / jefa",
+   "en": "boss (m) / boss (f)",
+   "ru": "начальник / начальница",
+   "tr": "хе́фе / хе́фа",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "jefe",
+    "en": "boss (m)",
+    "ru": "начальник",
+    "tr": "хе́фе"
+   },
+   "b": {
+    "es": "jefa",
+    "en": "boss (f)",
+    "ru": "начальница",
+    "tr": "хе́фа"
+   }
+  },
+  {
+   "id": "es4-p076",
+   "type": "pair",
+   "es": "dueño / dueña",
+   "en": "owner (m) / owner (f)",
+   "ru": "хозяин / хозяйка",
+   "tr": "дуэ́ньо / дуэ́нья",
+   "group": "Люди: род и родство",
+   "pairKind": "gender",
+   "a": {
+    "es": "dueño",
+    "en": "owner (m)",
+    "ru": "хозяин",
+    "tr": "дуэ́ньо"
+   },
+   "b": {
+    "es": "dueña",
+    "en": "owner (f)",
+    "ru": "хозяйка",
+    "tr": "дуэ́нья"
+   }
+  },
+  {
+   "id": "es4-p077",
+   "type": "pair",
+   "es": "pregunta / respuesta",
+   "en": "question / answer",
+   "ru": "вопрос / ответ",
+   "tr": "прегу́нта / респуэ́ста",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "pregunta",
+    "en": "question",
+    "ru": "вопрос",
+    "tr": "прегу́нта"
+   },
+   "b": {
+    "es": "respuesta",
+    "en": "answer",
+    "ru": "ответ",
+    "tr": "респуэ́ста"
+   }
+  },
+  {
+   "id": "es4-p078",
+   "type": "pair",
+   "es": "entrada / salida",
+   "en": "entrance / exit",
+   "ru": "вход / выход",
+   "tr": "энтра́да / сали́да",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "entrada",
+    "en": "entrance",
+    "ru": "вход",
+    "tr": "энтра́да"
+   },
+   "b": {
+    "es": "salida",
+    "en": "exit",
+    "ru": "выход",
+    "tr": "сали́да"
+   }
+  },
+  {
+   "id": "es4-p079",
+   "type": "pair",
+   "es": "llegada / salida",
+   "en": "arrival / departure",
+   "ru": "прибытие / отправление",
+   "tr": "йега́да / сали́да",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "llegada",
+    "en": "arrival",
+    "ru": "прибытие",
+    "tr": "йега́да"
+   },
+   "b": {
+    "es": "salida",
+    "en": "departure",
+    "ru": "отправление",
+    "tr": "сали́да"
+   }
+  },
+  {
+   "id": "es4-p080",
+   "type": "pair",
+   "es": "origen / destino",
+   "en": "origin / destination",
+   "ru": "пункт отправления / пункт назначения",
+   "tr": "о́рихен / дести́но",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "origen",
+    "en": "origin",
+    "ru": "пункт отправления",
+    "tr": "о́рихен"
+   },
+   "b": {
+    "es": "destino",
+    "en": "destination",
+    "ru": "пункт назначения",
+    "tr": "дести́но"
+   }
+  },
+  {
+   "id": "es4-p081",
+   "type": "pair",
+   "es": "verdad / mentira",
+   "en": "truth / lie",
+   "ru": "правда / ложь",
+   "tr": "берда́д / менти́ра",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "verdad",
+    "en": "truth",
+    "ru": "правда",
+    "tr": "берда́д"
+   },
+   "b": {
+    "es": "mentira",
+    "en": "lie",
+    "ru": "ложь",
+    "tr": "менти́ра"
+   }
+  },
+  {
+   "id": "es4-p082",
+   "type": "pair",
+   "es": "problema / solución",
+   "en": "problem / solution",
+   "ru": "проблема / решение",
+   "tr": "пробле́ма / солусьо́н",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "problema",
+    "en": "problem",
+    "ru": "проблема",
+    "tr": "пробле́ма"
+   },
+   "b": {
+    "es": "solución",
+    "en": "solution",
+    "ru": "решение",
+    "tr": "солусьо́н"
+   }
+  },
+  {
+   "id": "es4-p083",
+   "type": "pair",
+   "es": "salud / enfermedad",
+   "en": "health / illness",
+   "ru": "здоровье / болезнь",
+   "tr": "салу́д / энфермеда́д",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "salud",
+    "en": "health",
+    "ru": "здоровье",
+    "tr": "салу́д"
+   },
+   "b": {
+    "es": "enfermedad",
+    "en": "illness",
+    "ru": "болезнь",
+    "tr": "энфермеда́д"
+   }
+  },
+  {
+   "id": "es4-p084",
+   "type": "pair",
+   "es": "hambre / sed",
+   "en": "hunger / thirst",
+   "ru": "голод / жажда",
+   "tr": "а́мбре / сед",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "hambre",
+    "en": "hunger",
+    "ru": "голод",
+    "tr": "а́мбре"
+   },
+   "b": {
+    "es": "sed",
+    "en": "thirst",
+    "ru": "жажда",
+    "tr": "сед"
+   }
+  },
+  {
+   "id": "es4-p085",
+   "type": "pair",
+   "es": "desayuno / cena",
+   "en": "breakfast / dinner",
+   "ru": "завтрак / ужин",
+   "tr": "десайу́но / се́на",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "desayuno",
+    "en": "breakfast",
+    "ru": "завтрак",
+    "tr": "десайу́но"
+   },
+   "b": {
+    "es": "cena",
+    "en": "dinner",
+    "ru": "ужин",
+    "tr": "се́на"
+   }
+  },
+  {
+   "id": "es4-p086",
+   "type": "pair",
+   "es": "comida / bebida",
+   "en": "food / drink",
+   "ru": "еда / напиток",
+   "tr": "коми́да / беби́да",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "comida",
+    "en": "food",
+    "ru": "еда",
+    "tr": "коми́да"
+   },
+   "b": {
+    "es": "bebida",
+    "en": "drink",
+    "ru": "напиток",
+    "tr": "беби́да"
+   }
+  },
+  {
+   "id": "es4-p087",
+   "type": "pair",
+   "es": "carne / pescado",
+   "en": "meat / fish",
+   "ru": "мясо / рыба",
+   "tr": "ка́рне / песка́до",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "carne",
+    "en": "meat",
+    "ru": "мясо",
+    "tr": "ка́рне"
+   },
+   "b": {
+    "es": "pescado",
+    "en": "fish",
+    "ru": "рыба",
+    "tr": "песка́до"
+   }
+  },
+  {
+   "id": "es4-p088",
+   "type": "pair",
+   "es": "fruta / verdura",
+   "en": "fruit / vegetable",
+   "ru": "фрукт / овощ",
+   "tr": "фру́та / берду́ра",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "fruta",
+    "en": "fruit",
+    "ru": "фрукт",
+    "tr": "фру́та"
+   },
+   "b": {
+    "es": "verdura",
+    "en": "vegetable",
+    "ru": "овощ",
+    "tr": "берду́ра"
+   }
+  },
+  {
+   "id": "es4-p089",
+   "type": "pair",
+   "es": "sal / azúcar",
+   "en": "salt / sugar",
+   "ru": "соль / сахар",
+   "tr": "саль / асу́кар",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "sal",
+    "en": "salt",
+    "ru": "соль",
+    "tr": "саль"
+   },
+   "b": {
+    "es": "azúcar",
+    "en": "sugar",
+    "ru": "сахар",
+    "tr": "асу́кар"
+   }
+  },
+  {
+   "id": "es4-p090",
+   "type": "pair",
+   "es": "efectivo / tarjeta",
+   "en": "cash / card",
+   "ru": "наличные / карта",
+   "tr": "эфекти́бо / тархе́та",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "efectivo",
+    "en": "cash",
+    "ru": "наличные",
+    "tr": "эфекти́бо"
+   },
+   "b": {
+    "es": "tarjeta",
+    "en": "card",
+    "ru": "карта",
+    "tr": "тархе́та"
+   }
+  },
+  {
+   "id": "es4-p091",
+   "type": "pair",
+   "es": "crédito / débito",
+   "en": "credit / debit",
+   "ru": "кредит / дебет",
+   "tr": "кре́дито / де́бито",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "crédito",
+    "en": "credit",
+    "ru": "кредит",
+    "tr": "кре́дито"
+   },
+   "b": {
+    "es": "débito",
+    "en": "debit",
+    "ru": "дебет",
+    "tr": "де́бито"
+   }
+  },
+  {
+   "id": "es4-p092",
+   "type": "pair",
+   "es": "calidad / cantidad",
+   "en": "quality / quantity",
+   "ru": "качество / количество",
+   "tr": "калида́д / кантида́д",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "calidad",
+    "en": "quality",
+    "ru": "качество",
+    "tr": "калида́д"
+   },
+   "b": {
+    "es": "cantidad",
+    "en": "quantity",
+    "ru": "количество",
+    "tr": "кантида́д"
+   }
+  },
+  {
+   "id": "es4-p093",
+   "type": "pair",
+   "es": "luz / sombra",
+   "en": "light / shade",
+   "ru": "свет / тень",
+   "tr": "лус / со́мбра",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "luz",
+    "en": "light",
+    "ru": "свет",
+    "tr": "лус"
+   },
+   "b": {
+    "es": "sombra",
+    "en": "shade",
+    "ru": "тень",
+    "tr": "со́мбра"
+   }
+  },
+  {
+   "id": "es4-p094",
+   "type": "pair",
+   "es": "suelo / techo",
+   "en": "floor / ceiling",
+   "ru": "пол / потолок",
+   "tr": "суэ́ло / те́чо",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "suelo",
+    "en": "floor",
+    "ru": "пол",
+    "tr": "суэ́ло"
+   },
+   "b": {
+    "es": "techo",
+    "en": "ceiling",
+    "ru": "потолок",
+    "tr": "те́чо"
+   }
+  },
+  {
+   "id": "es4-p095",
+   "type": "pair",
+   "es": "aire acondicionado / calefacción",
+   "en": "air conditioning / heating",
+   "ru": "кондиционер / отопление",
+   "tr": "а́ире акондисьона́до / калефаксьо́н",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "aire acondicionado",
+    "en": "air conditioning",
+    "ru": "кондиционер",
+    "tr": "а́ире акондисьона́до"
+   },
+   "b": {
+    "es": "calefacción",
+    "en": "heating",
+    "ru": "отопление",
+    "tr": "калефаксьо́н"
+   }
+  },
+  {
+   "id": "es4-p096",
+   "type": "pair",
+   "es": "cielo / tierra",
+   "en": "sky / earth",
+   "ru": "небо / земля",
+   "tr": "сье́ло / тье́рра",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "cielo",
+    "en": "sky",
+    "ru": "небо",
+    "tr": "сье́ло"
+   },
+   "b": {
+    "es": "tierra",
+    "en": "earth",
+    "ru": "земля",
+    "tr": "тье́рра"
+   }
+  },
+  {
+   "id": "es4-p097",
+   "type": "pair",
+   "es": "mar / montaña",
+   "en": "sea / mountains",
+   "ru": "море / горы",
+   "tr": "мар / монта́нья",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "mar",
+    "en": "sea",
+    "ru": "море",
+    "tr": "мар"
+   },
+   "b": {
+    "es": "montaña",
+    "en": "mountains",
+    "ru": "горы",
+    "tr": "монта́нья"
+   }
+  },
+  {
+   "id": "es4-p098",
+   "type": "pair",
+   "es": "ciudad / pueblo",
+   "en": "city / town, village",
+   "ru": "город / городок, деревня",
+   "tr": "сьюда́д / пуэ́бло",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "ciudad",
+    "en": "city",
+    "ru": "город",
+    "tr": "сьюда́д"
+   },
+   "b": {
+    "es": "pueblo",
+    "en": "town, village",
+    "ru": "городок, деревня",
+    "tr": "пуэ́бло"
+   }
+  },
+  {
+   "id": "es4-p099",
+   "type": "pair",
+   "es": "sol / lluvia",
+   "en": "sun / rain",
+   "ru": "солнце / дождь",
+   "tr": "соль / йу́бья",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "sol",
+    "en": "sun",
+    "ru": "солнце",
+    "tr": "соль"
+   },
+   "b": {
+    "es": "lluvia",
+    "en": "rain",
+    "ru": "дождь",
+    "tr": "йу́бья"
+   }
+  },
+  {
+   "id": "es4-p100",
+   "type": "pair",
+   "es": "nombre / apellido",
+   "en": "first name / surname",
+   "ru": "имя / фамилия",
+   "tr": "но́мбре / апейи́до",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "nombre",
+    "en": "first name",
+    "ru": "имя",
+    "tr": "но́мбре"
+   },
+   "b": {
+    "es": "apellido",
+    "en": "surname",
+    "ru": "фамилия",
+    "tr": "апейи́до"
+   }
+  },
+  {
+   "id": "es4-p101",
+   "type": "pair",
+   "es": "principio / final",
+   "en": "beginning / end",
+   "ru": "начало / конец",
+   "tr": "принси́пьо / фина́ль",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "principio",
+    "en": "beginning",
+    "ru": "начало",
+    "tr": "принси́пьо"
+   },
+   "b": {
+    "es": "final",
+    "en": "end",
+    "ru": "конец",
+    "tr": "фина́ль"
+   }
+  },
+  {
+   "id": "es4-p102",
+   "type": "pair",
+   "es": "éxito / fracaso",
+   "en": "success / failure",
+   "ru": "успех / неудача",
+   "tr": "э́ксито / фрака́со",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "éxito",
+    "en": "success",
+    "ru": "успех",
+    "tr": "э́ксито"
+   },
+   "b": {
+    "es": "fracaso",
+    "en": "failure",
+    "ru": "неудача",
+    "tr": "фрака́со"
+   }
+  },
+  {
+   "id": "es4-p103",
+   "type": "pair",
+   "es": "ingresos / gastos",
+   "en": "income / expenses",
+   "ru": "доходы / расходы",
+   "tr": "ингре́сос / га́стос",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "ingresos",
+    "en": "income",
+    "ru": "доходы",
+    "tr": "ингре́сос"
+   },
+   "b": {
+    "es": "gastos",
+    "en": "expenses",
+    "ru": "расходы",
+    "tr": "га́стос"
+   }
+  },
+  {
+   "id": "es4-p104",
+   "type": "pair",
+   "es": "alquiler / compra",
+   "en": "rent / purchase",
+   "ru": "аренда / покупка",
+   "tr": "алкиле́р / ко́мпра",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "alquiler",
+    "en": "rent",
+    "ru": "аренда",
+    "tr": "алкиле́р"
+   },
+   "b": {
+    "es": "compra",
+    "en": "purchase",
+    "ru": "покупка",
+    "tr": "ко́мпра"
+   }
+  },
+  {
+   "id": "es4-p105",
+   "type": "pair",
+   "es": "ventaja / desventaja",
+   "en": "advantage / drawback",
+   "ru": "плюс / минус",
+   "tr": "бента́ха / десбента́ха",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "ventaja",
+    "en": "advantage",
+    "ru": "плюс",
+    "tr": "бента́ха"
+   },
+   "b": {
+    "es": "desventaja",
+    "en": "drawback",
+    "ru": "минус",
+    "tr": "десбента́ха"
+   }
+  },
+  {
+   "id": "es4-p106",
+   "type": "pair",
+   "es": "ruido / silencio",
+   "en": "noise / silence",
+   "ru": "шум / тишина",
+   "tr": "руи́до / силе́нсьо",
+   "group": "Вещи, еда, места",
+   "pairKind": "contrast",
+   "a": {
+    "es": "ruido",
+    "en": "noise",
+    "ru": "шум",
+    "tr": "руи́до"
+   },
+   "b": {
+    "es": "silencio",
+    "en": "silence",
+    "ru": "тишина",
+    "tr": "силе́нсьо"
+   }
+  },
+  {
+   "id": "es4-p107",
+   "type": "pair",
+   "es": "empezar / terminar",
+   "en": "to start / to finish",
+   "ru": "начинать / заканчивать",
+   "tr": "эмпеса́р / термина́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "empezar",
+    "en": "to start",
+    "ru": "начинать",
+    "tr": "эмпеса́р"
+   },
+   "b": {
+    "es": "terminar",
+    "en": "to finish",
+    "ru": "заканчивать",
+    "tr": "термина́р"
+   }
+  },
+  {
+   "id": "es4-p108",
+   "type": "pair",
+   "es": "comenzar / acabar",
+   "en": "to begin / to end",
+   "ru": "начинать / завершать",
+   "tr": "коменса́р / акаба́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "comenzar",
+    "en": "to begin",
+    "ru": "начинать",
+    "tr": "коменса́р"
+   },
+   "b": {
+    "es": "acabar",
+    "en": "to end",
+    "ru": "завершать",
+    "tr": "акаба́р"
+   }
+  },
+  {
+   "id": "es4-p109",
+   "type": "pair",
+   "es": "seguir / parar",
+   "en": "to continue / to stop",
+   "ru": "продолжать / останавливаться",
+   "tr": "сеги́р / пара́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "seguir",
+    "en": "to continue",
+    "ru": "продолжать",
+    "tr": "сеги́р"
+   },
+   "b": {
+    "es": "parar",
+    "en": "to stop",
+    "ru": "останавливаться",
+    "tr": "пара́р"
+   }
+  },
+  {
+   "id": "es4-p110",
+   "type": "pair",
+   "es": "abrir / cerrar",
+   "en": "to open / to close",
+   "ru": "открывать / закрывать",
+   "tr": "абри́р / серра́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "abrir",
+    "en": "to open",
+    "ru": "открывать",
+    "tr": "абри́р"
+   },
+   "b": {
+    "es": "cerrar",
+    "en": "to close",
+    "ru": "закрывать",
+    "tr": "серра́р"
+   }
+  },
+  {
+   "id": "es4-p111",
+   "type": "pair",
+   "es": "encender / apagar",
+   "en": "to turn on / to turn off",
+   "ru": "включать / выключать",
+   "tr": "энсенде́р / апага́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "encender",
+    "en": "to turn on",
+    "ru": "включать",
+    "tr": "энсенде́р"
+   },
+   "b": {
+    "es": "apagar",
+    "en": "to turn off",
+    "ru": "выключать",
+    "tr": "апага́р"
+   }
+  },
+  {
+   "id": "es4-p112",
+   "type": "pair",
+   "es": "subir / bajar",
+   "en": "to go up / to go down",
+   "ru": "подниматься / спускаться",
+   "tr": "суби́р / баха́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "subir",
+    "en": "to go up",
+    "ru": "подниматься",
+    "tr": "суби́р"
+   },
+   "b": {
+    "es": "bajar",
+    "en": "to go down",
+    "ru": "спускаться",
+    "tr": "баха́р"
+   }
+  },
+  {
+   "id": "es4-p113",
+   "type": "pair",
+   "es": "levantarse / sentarse",
+   "en": "to get up / to sit down",
+   "ru": "вставать / садиться",
+   "tr": "лебанта́рсе / сента́рсе",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "levantarse",
+    "en": "to get up",
+    "ru": "вставать",
+    "tr": "лебанта́рсе"
+   },
+   "b": {
+    "es": "sentarse",
+    "en": "to sit down",
+    "ru": "садиться",
+    "tr": "сента́рсе"
+   }
+  },
+  {
+   "id": "es4-p114",
+   "type": "pair",
+   "es": "dormir / despertar",
+   "en": "to sleep / to wake up",
+   "ru": "спать / просыпаться",
+   "tr": "дорми́р / десперта́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "dormir",
+    "en": "to sleep",
+    "ru": "спать",
+    "tr": "дорми́р"
+   },
+   "b": {
+    "es": "despertar",
+    "en": "to wake up",
+    "ru": "просыпаться",
+    "tr": "десперта́р"
+   }
+  },
+  {
+   "id": "es4-p115",
+   "type": "pair",
+   "es": "trabajar / descansar",
+   "en": "to work / to rest",
+   "ru": "работать / отдыхать",
+   "tr": "трабаха́р / десканса́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "trabajar",
+    "en": "to work",
+    "ru": "работать",
+    "tr": "трабаха́р"
+   },
+   "b": {
+    "es": "descansar",
+    "en": "to rest",
+    "ru": "отдыхать",
+    "tr": "десканса́р"
+   }
+  },
+  {
+   "id": "es4-p116",
+   "type": "pair",
+   "es": "comprar / vender",
+   "en": "to buy / to sell",
+   "ru": "покупать / продавать",
+   "tr": "компра́р / бенде́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "comprar",
+    "en": "to buy",
+    "ru": "покупать",
+    "tr": "компра́р"
+   },
+   "b": {
+    "es": "vender",
+    "en": "to sell",
+    "ru": "продавать",
+    "tr": "бенде́р"
+   }
+  },
+  {
+   "id": "es4-p117",
+   "type": "pair",
+   "es": "pagar / cobrar",
+   "en": "to pay / to charge",
+   "ru": "платить / получать оплату",
+   "tr": "пага́р / кобра́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "pagar",
+    "en": "to pay",
+    "ru": "платить",
+    "tr": "пага́р"
+   },
+   "b": {
+    "es": "cobrar",
+    "en": "to charge",
+    "ru": "получать оплату",
+    "tr": "кобра́р"
+   }
+  },
+  {
+   "id": "es4-p118",
+   "type": "pair",
+   "es": "ahorrar / gastar",
+   "en": "to save / to spend",
+   "ru": "экономить / тратить",
+   "tr": "аорра́р / гаста́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "ahorrar",
+    "en": "to save",
+    "ru": "экономить",
+    "tr": "аорра́р"
+   },
+   "b": {
+    "es": "gastar",
+    "en": "to spend",
+    "ru": "тратить",
+    "tr": "гаста́р"
+   }
+  },
+  {
+   "id": "es4-p119",
+   "type": "pair",
+   "es": "ganar / perder",
+   "en": "to win / to lose",
+   "ru": "выигрывать / проигрывать",
+   "tr": "гана́р / перде́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "ganar",
+    "en": "to win",
+    "ru": "выигрывать",
+    "tr": "гана́р"
+   },
+   "b": {
+    "es": "perder",
+    "en": "to lose",
+    "ru": "проигрывать",
+    "tr": "перде́р"
+   }
+  },
+  {
+   "id": "es4-p120",
+   "type": "pair",
+   "es": "dar / recibir",
+   "en": "to give / to receive",
+   "ru": "давать / получать",
+   "tr": "дар / ресиби́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "dar",
+    "en": "to give",
+    "ru": "давать",
+    "tr": "дар"
+   },
+   "b": {
+    "es": "recibir",
+    "en": "to receive",
+    "ru": "получать",
+    "tr": "ресиби́р"
+   }
+  },
+  {
+   "id": "es4-p121",
+   "type": "pair",
+   "es": "llevar / traer",
+   "en": "to take there / to bring here",
+   "ru": "нести туда / приносить сюда",
+   "tr": "йеба́р / трае́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "llevar",
+    "en": "to take there",
+    "ru": "нести туда",
+    "tr": "йеба́р"
+   },
+   "b": {
+    "es": "traer",
+    "en": "to bring here",
+    "ru": "приносить сюда",
+    "tr": "трае́р"
+   }
+  },
+  {
+   "id": "es4-p122",
+   "type": "pair",
+   "es": "poner / quitar",
+   "en": "to put / to take away",
+   "ru": "класть / убирать",
+   "tr": "поне́р / кита́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "poner",
+    "en": "to put",
+    "ru": "класть",
+    "tr": "поне́р"
+   },
+   "b": {
+    "es": "quitar",
+    "en": "to take away",
+    "ru": "убирать",
+    "tr": "кита́р"
+   }
+  },
+  {
+   "id": "es4-p123",
+   "type": "pair",
+   "es": "meter / sacar",
+   "en": "to put in / to take out",
+   "ru": "засовывать / вынимать",
+   "tr": "мете́р / сака́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "meter",
+    "en": "to put in",
+    "ru": "засовывать",
+    "tr": "мете́р"
+   },
+   "b": {
+    "es": "sacar",
+    "en": "to take out",
+    "ru": "вынимать",
+    "tr": "сака́р"
+   }
+  },
+  {
+   "id": "es4-p124",
+   "type": "pair",
+   "es": "coger / dejar",
+   "en": "to take / to leave",
+   "ru": "брать / оставлять",
+   "tr": "кохе́р / деха́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "coger",
+    "en": "to take",
+    "ru": "брать",
+    "tr": "кохе́р"
+   },
+   "b": {
+    "es": "dejar",
+    "en": "to leave",
+    "ru": "оставлять",
+    "tr": "деха́р"
+   }
+  },
+  {
+   "id": "es4-p125",
+   "type": "pair",
+   "es": "prestar / devolver",
+   "en": "to lend / to give back",
+   "ru": "одалживать / возвращать",
+   "tr": "преста́р / дебольбе́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "prestar",
+    "en": "to lend",
+    "ru": "одалживать",
+    "tr": "преста́р"
+   },
+   "b": {
+    "es": "devolver",
+    "en": "to give back",
+    "ru": "возвращать",
+    "tr": "дебольбе́р"
+   }
+  },
+  {
+   "id": "es4-p126",
+   "type": "pair",
+   "es": "recoger / entregar",
+   "en": "to pick up / to hand over",
+   "ru": "забирать / отдавать",
+   "tr": "рекохе́р / энтрега́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "recoger",
+    "en": "to pick up",
+    "ru": "забирать",
+    "tr": "рекохе́р"
+   },
+   "b": {
+    "es": "entregar",
+    "en": "to hand over",
+    "ru": "отдавать",
+    "tr": "энтрега́р"
+   }
+  },
+  {
+   "id": "es4-p127",
+   "type": "pair",
+   "es": "buscar / encontrar",
+   "en": "to look for / to find",
+   "ru": "искать / находить",
+   "tr": "буска́р / энконтра́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "buscar",
+    "en": "to look for",
+    "ru": "искать",
+    "tr": "буска́р"
+   },
+   "b": {
+    "es": "encontrar",
+    "en": "to find",
+    "ru": "находить",
+    "tr": "энконтра́р"
+   }
+  },
+  {
+   "id": "es4-p128",
+   "type": "pair",
+   "es": "preguntar / responder",
+   "en": "to ask / to answer",
+   "ru": "спрашивать / отвечать",
+   "tr": "прегунта́р / респонде́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "preguntar",
+    "en": "to ask",
+    "ru": "спрашивать",
+    "tr": "прегунта́р"
+   },
+   "b": {
+    "es": "responder",
+    "en": "to answer",
+    "ru": "отвечать",
+    "tr": "респонде́р"
+   }
+  },
+  {
+   "id": "es4-p129",
+   "type": "pair",
+   "es": "hablar / escuchar",
+   "en": "to speak / to listen",
+   "ru": "говорить / слушать",
+   "tr": "абла́р / эскуча́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "hablar",
+    "en": "to speak",
+    "ru": "говорить",
+    "tr": "абла́р"
+   },
+   "b": {
+    "es": "escuchar",
+    "en": "to listen",
+    "ru": "слушать",
+    "tr": "эскуча́р"
+   }
+  },
+  {
+   "id": "es4-p130",
+   "type": "pair",
+   "es": "enseñar / aprender",
+   "en": "to teach / to learn",
+   "ru": "учить / учиться",
+   "tr": "энсенья́р / апренде́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "enseñar",
+    "en": "to teach",
+    "ru": "учить",
+    "tr": "энсенья́р"
+   },
+   "b": {
+    "es": "aprender",
+    "en": "to learn",
+    "ru": "учиться",
+    "tr": "апренде́р"
+   }
+  },
+  {
+   "id": "es4-p131",
+   "type": "pair",
+   "es": "leer / escribir",
+   "en": "to read / to write",
+   "ru": "читать / писать",
+   "tr": "лее́р / эскриби́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "leer",
+    "en": "to read",
+    "ru": "читать",
+    "tr": "лее́р"
+   },
+   "b": {
+    "es": "escribir",
+    "en": "to write",
+    "ru": "писать",
+    "tr": "эскриби́р"
+   }
+  },
+  {
+   "id": "es4-p132",
+   "type": "pair",
+   "es": "recordar / olvidar",
+   "en": "to remember / to forget",
+   "ru": "помнить / забывать",
+   "tr": "рекорда́р / ольбида́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "recordar",
+    "en": "to remember",
+    "ru": "помнить",
+    "tr": "рекорда́р"
+   },
+   "b": {
+    "es": "olvidar",
+    "en": "to forget",
+    "ru": "забывать",
+    "tr": "ольбида́р"
+   }
+  },
+  {
+   "id": "es4-p133",
+   "type": "pair",
+   "es": "aceptar / rechazar",
+   "en": "to accept / to reject",
+   "ru": "принимать / отказывать",
+   "tr": "асепта́р / речаса́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "aceptar",
+    "en": "to accept",
+    "ru": "принимать",
+    "tr": "асепта́р"
+   },
+   "b": {
+    "es": "rechazar",
+    "en": "to reject",
+    "ru": "отказывать",
+    "tr": "речаса́р"
+   }
+  },
+  {
+   "id": "es4-p134",
+   "type": "pair",
+   "es": "permitir / prohibir",
+   "en": "to allow / to forbid",
+   "ru": "разрешать / запрещать",
+   "tr": "пермити́р / проиби́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "permitir",
+    "en": "to allow",
+    "ru": "разрешать",
+    "tr": "пермити́р"
+   },
+   "b": {
+    "es": "prohibir",
+    "en": "to forbid",
+    "ru": "запрещать",
+    "tr": "проиби́р"
+   }
+  },
+  {
+   "id": "es4-p135",
+   "type": "pair",
+   "es": "reservar / cancelar",
+   "en": "to book / to cancel",
+   "ru": "бронировать / отменять",
+   "tr": "ресерба́р / кансела́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "reservar",
+    "en": "to book",
+    "ru": "бронировать",
+    "tr": "ресерба́р"
+   },
+   "b": {
+    "es": "cancelar",
+    "en": "to cancel",
+    "ru": "отменять",
+    "tr": "кансела́р"
+   }
+  },
+  {
+   "id": "es4-p136",
+   "type": "pair",
+   "es": "conectar / desconectar",
+   "en": "to connect / to disconnect",
+   "ru": "подключать / отключать",
+   "tr": "конекта́р / десконекта́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "conectar",
+    "en": "to connect",
+    "ru": "подключать",
+    "tr": "конекта́р"
+   },
+   "b": {
+    "es": "desconectar",
+    "en": "to disconnect",
+    "ru": "отключать",
+    "tr": "десконекта́р"
+   }
+  },
+  {
+   "id": "es4-p137",
+   "type": "pair",
+   "es": "cargar / descargar",
+   "en": "to upload / to download",
+   "ru": "загружать / скачивать",
+   "tr": "карга́р / дескарга́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "cargar",
+    "en": "to upload",
+    "ru": "загружать",
+    "tr": "карга́р"
+   },
+   "b": {
+    "es": "descargar",
+    "en": "to download",
+    "ru": "скачивать",
+    "tr": "дескарга́р"
+   }
+  },
+  {
+   "id": "es4-p138",
+   "type": "pair",
+   "es": "crear / borrar",
+   "en": "to create / to delete",
+   "ru": "создавать / удалять",
+   "tr": "креа́р / борра́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "crear",
+    "en": "to create",
+    "ru": "создавать",
+    "tr": "креа́р"
+   },
+   "b": {
+    "es": "borrar",
+    "en": "to delete",
+    "ru": "удалять",
+    "tr": "борра́р"
+   }
+  },
+  {
+   "id": "es4-p139",
+   "type": "pair",
+   "es": "faltar / sobrar",
+   "en": "to be missing / to be left over",
+   "ru": "не хватать / быть в избытке",
+   "tr": "фальта́р / собра́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "faltar",
+    "en": "to be missing",
+    "ru": "не хватать",
+    "tr": "фальта́р"
+   },
+   "b": {
+    "es": "sobrar",
+    "en": "to be left over",
+    "ru": "быть в избытке",
+    "tr": "собра́р"
+   }
+  },
+  {
+   "id": "es4-p140",
+   "type": "pair",
+   "es": "quedarse / irse",
+   "en": "to stay / to leave",
+   "ru": "остаться / уйти",
+   "tr": "кеда́рсе / и́рсе",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "quedarse",
+    "en": "to stay",
+    "ru": "остаться",
+    "tr": "кеда́рсе"
+   },
+   "b": {
+    "es": "irse",
+    "en": "to leave",
+    "ru": "уйти",
+    "tr": "и́рсе"
+   }
+  },
+  {
+   "id": "es4-p141",
+   "type": "pair",
+   "es": "reír / llorar",
+   "en": "to laugh / to cry",
+   "ru": "смеяться / плакать",
+   "tr": "реи́р / йора́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "reír",
+    "en": "to laugh",
+    "ru": "смеяться",
+    "tr": "реи́р"
+   },
+   "b": {
+    "es": "llorar",
+    "en": "to cry",
+    "ru": "плакать",
+    "tr": "йора́р"
+   }
+  },
+  {
+   "id": "es4-p142",
+   "type": "pair",
+   "es": "vestirse / desnudarse",
+   "en": "to get dressed / to undress",
+   "ru": "одеваться / раздеваться",
+   "tr": "бести́рсе / деснуда́рсе",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "vestirse",
+    "en": "to get dressed",
+    "ru": "одеваться",
+    "tr": "бести́рсе"
+   },
+   "b": {
+    "es": "desnudarse",
+    "en": "to undress",
+    "ru": "раздеваться",
+    "tr": "деснуда́рсе"
+   }
+  },
+  {
+   "id": "es4-p143",
+   "type": "pair",
+   "es": "ensuciar / limpiar",
+   "en": "to make dirty / to clean",
+   "ru": "пачкать / убирать",
+   "tr": "энсусья́р / лимпья́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "ensuciar",
+    "en": "to make dirty",
+    "ru": "пачкать",
+    "tr": "энсусья́р"
+   },
+   "b": {
+    "es": "limpiar",
+    "en": "to clean",
+    "ru": "убирать",
+    "tr": "лимпья́р"
+   }
+  },
+  {
+   "id": "es4-p144",
+   "type": "pair",
+   "es": "romper / arreglar",
+   "en": "to break / to fix",
+   "ru": "ломать / чинить",
+   "tr": "ромпе́р / аррегла́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "romper",
+    "en": "to break",
+    "ru": "ломать",
+    "tr": "ромпе́р"
+   },
+   "b": {
+    "es": "arreglar",
+    "en": "to fix",
+    "ru": "чинить",
+    "tr": "аррегла́р"
+   }
+  },
+  {
+   "id": "es4-p145",
+   "type": "pair",
+   "es": "mejorar / empeorar",
+   "en": "to get better / to get worse",
+   "ru": "улучшаться / ухудшаться",
+   "tr": "мехора́р / эмпеора́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "mejorar",
+    "en": "to get better",
+    "ru": "улучшаться",
+    "tr": "мехора́р"
+   },
+   "b": {
+    "es": "empeorar",
+    "en": "to get worse",
+    "ru": "ухудшаться",
+    "tr": "эмпеора́р"
+   }
+  },
+  {
+   "id": "es4-p146",
+   "type": "pair",
+   "es": "ingresar / retirar",
+   "en": "to deposit / to withdraw",
+   "ru": "внести / снять (деньги)",
+   "tr": "ингреса́р / ретира́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "ingresar",
+    "en": "to deposit",
+    "ru": "внести",
+    "tr": "ингреса́р"
+   },
+   "b": {
+    "es": "retirar",
+    "en": "to withdraw",
+    "ru": "снять (деньги)",
+    "tr": "ретира́р"
+   }
+  },
+  {
+   "id": "es4-p147",
+   "type": "pair",
+   "es": "aprobar / suspender",
+   "en": "to pass / to fail",
+   "ru": "сдать / не сдать (экзамен)",
+   "tr": "апроба́р / суспенде́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "aprobar",
+    "en": "to pass",
+    "ru": "сдать",
+    "tr": "апроба́р"
+   },
+   "b": {
+    "es": "suspender",
+    "en": "to fail",
+    "ru": "не сдать (экзамен)",
+    "tr": "суспенде́р"
+   }
+  },
+  {
+   "id": "es4-p148",
+   "type": "pair",
+   "es": "pedir / ofrecer",
+   "en": "to ask for / to offer",
+   "ru": "просить / предлагать",
+   "tr": "педи́р / офресе́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "pedir",
+    "en": "to ask for",
+    "ru": "просить",
+    "tr": "педи́р"
+   },
+   "b": {
+    "es": "ofrecer",
+    "en": "to offer",
+    "ru": "предлагать",
+    "tr": "офресе́р"
+   }
+  },
+  {
+   "id": "es4-p149",
+   "type": "pair",
+   "es": "tirar / guardar",
+   "en": "to throw away / to keep",
+   "ru": "выбросить / сохранить",
+   "tr": "тира́р / гуарда́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "tirar",
+    "en": "to throw away",
+    "ru": "выбросить",
+    "tr": "тира́р"
+   },
+   "b": {
+    "es": "guardar",
+    "en": "to keep",
+    "ru": "сохранить",
+    "tr": "гуарда́р"
+   }
+  },
+  {
+   "id": "es4-p150",
+   "type": "pair",
+   "es": "nacer / morir",
+   "en": "to be born / to die",
+   "ru": "родиться / умереть",
+   "tr": "насе́р / мори́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "nacer",
+    "en": "to be born",
+    "ru": "родиться",
+    "tr": "насе́р"
+   },
+   "b": {
+    "es": "morir",
+    "en": "to die",
+    "ru": "умереть",
+    "tr": "мори́р"
+   }
+  },
+  {
+   "id": "es4-p151",
+   "type": "pair",
+   "es": "despegar / aterrizar",
+   "en": "to take off / to land",
+   "ru": "взлетать / приземляться",
+   "tr": "деспега́р / атерриса́р",
+   "group": "Действия",
+   "pairKind": "opposite",
+   "a": {
+    "es": "despegar",
+    "en": "to take off",
+    "ru": "взлетать",
+    "tr": "деспега́р"
+   },
+   "b": {
+    "es": "aterrizar",
+    "en": "to land",
+    "ru": "приземляться",
+    "tr": "атерриса́р"
+   }
+  },
+  {
+   "id": "es4-p152",
+   "type": "pair",
+   "es": "siempre / nunca",
+   "en": "always / never",
+   "ru": "всегда / никогда",
+   "tr": "сье́мпре / ну́нка",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "siempre",
+    "en": "always",
+    "ru": "всегда",
+    "tr": "сье́мпре"
+   },
+   "b": {
+    "es": "nunca",
+    "en": "never",
+    "ru": "никогда",
+    "tr": "ну́нка"
+   }
+  },
+  {
+   "id": "es4-p153",
+   "type": "pair",
+   "es": "más / menos",
+   "en": "more / less",
+   "ru": "больше / меньше",
+   "tr": "мас / ме́нос",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "más",
+    "en": "more",
+    "ru": "больше",
+    "tr": "мас"
+   },
+   "b": {
+    "es": "menos",
+    "en": "less",
+    "ru": "меньше",
+    "tr": "ме́нос"
+   }
+  },
+  {
+   "id": "es4-p154",
+   "type": "pair",
+   "es": "antes / después",
+   "en": "before / after",
+   "ru": "до / после",
+   "tr": "а́нтес / деспуэ́с",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "antes",
+    "en": "before",
+    "ru": "до",
+    "tr": "а́нтес"
+   },
+   "b": {
+    "es": "después",
+    "en": "after",
+    "ru": "после",
+    "tr": "деспуэ́с"
+   }
+  },
+  {
+   "id": "es4-p155",
+   "type": "pair",
+   "es": "temprano / tarde",
+   "en": "early / late",
+   "ru": "рано / поздно",
+   "tr": "темпра́но / та́рде",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "temprano",
+    "en": "early",
+    "ru": "рано",
+    "tr": "темпра́но"
+   },
+   "b": {
+    "es": "tarde",
+    "en": "late",
+    "ru": "поздно",
+    "tr": "та́рде"
+   }
+  },
+  {
+   "id": "es4-p156",
+   "type": "pair",
+   "es": "ayer / mañana",
+   "en": "yesterday / tomorrow",
+   "ru": "вчера / завтра",
+   "tr": "айе́р / манья́на",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "ayer",
+    "en": "yesterday",
+    "ru": "вчера",
+    "tr": "айе́р"
+   },
+   "b": {
+    "es": "mañana",
+    "en": "tomorrow",
+    "ru": "завтра",
+    "tr": "манья́на"
+   }
+  },
+  {
+   "id": "es4-p157",
+   "type": "pair",
+   "es": "primero / último",
+   "en": "first / last",
+   "ru": "первый / последний",
+   "tr": "приме́ро / у́льтимо",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "primero",
+    "en": "first",
+    "ru": "первый",
+    "tr": "приме́ро"
+   },
+   "b": {
+    "es": "último",
+    "en": "last",
+    "ru": "последний",
+    "tr": "у́льтимо"
+   }
+  },
+  {
+   "id": "es4-p158",
+   "type": "pair",
+   "es": "próximo / pasado",
+   "en": "next / last, past",
+   "ru": "следующий / прошлый",
+   "tr": "про́ксимо / паса́до",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "próximo",
+    "en": "next",
+    "ru": "следующий",
+    "tr": "про́ксимо"
+   },
+   "b": {
+    "es": "pasado",
+    "en": "last, past",
+    "ru": "прошлый",
+    "tr": "паса́до"
+   }
+  },
+  {
+   "id": "es4-p159",
+   "type": "pair",
+   "es": "día / noche",
+   "en": "day / night",
+   "ru": "день / ночь",
+   "tr": "ди́а / но́че",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "día",
+    "en": "day",
+    "ru": "день",
+    "tr": "ди́а"
+   },
+   "b": {
+    "es": "noche",
+    "en": "night",
+    "ru": "ночь",
+    "tr": "но́че"
+   }
+  },
+  {
+   "id": "es4-p160",
+   "type": "pair",
+   "es": "verano / invierno",
+   "en": "summer / winter",
+   "ru": "лето / зима",
+   "tr": "бера́но / инбье́рно",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "verano",
+    "en": "summer",
+    "ru": "лето",
+    "tr": "бера́но"
+   },
+   "b": {
+    "es": "invierno",
+    "en": "winter",
+    "ru": "зима",
+    "tr": "инбье́рно"
+   }
+  },
+  {
+   "id": "es4-p161",
+   "type": "pair",
+   "es": "primavera / otoño",
+   "en": "spring / autumn",
+   "ru": "весна / осень",
+   "tr": "примабе́ра / ото́ньо",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "primavera",
+    "en": "spring",
+    "ru": "весна",
+    "tr": "примабе́ра"
+   },
+   "b": {
+    "es": "otoño",
+    "en": "autumn",
+    "ru": "осень",
+    "tr": "ото́ньо"
+   }
+  },
+  {
+   "id": "es4-p162",
+   "type": "pair",
+   "es": "izquierda / derecha",
+   "en": "left / right",
+   "ru": "лево / право",
+   "tr": "искье́рда / дере́ча",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "izquierda",
+    "en": "left",
+    "ru": "лево",
+    "tr": "искье́рда"
+   },
+   "b": {
+    "es": "derecha",
+    "en": "right",
+    "ru": "право",
+    "tr": "дере́ча"
+   }
+  },
+  {
+   "id": "es4-p163",
+   "type": "pair",
+   "es": "norte / sur",
+   "en": "north / south",
+   "ru": "север / юг",
+   "tr": "но́рте / сур",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "norte",
+    "en": "north",
+    "ru": "север",
+    "tr": "но́рте"
+   },
+   "b": {
+    "es": "sur",
+    "en": "south",
+    "ru": "юг",
+    "tr": "сур"
+   }
+  },
+  {
+   "id": "es4-p164",
+   "type": "pair",
+   "es": "este / oeste",
+   "en": "east / west",
+   "ru": "восток / запад",
+   "tr": "э́сте / оэ́сте",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "este",
+    "en": "east",
+    "ru": "восток",
+    "tr": "э́сте"
+   },
+   "b": {
+    "es": "oeste",
+    "en": "west",
+    "ru": "запад",
+    "tr": "оэ́сте"
+   }
+  },
+  {
+   "id": "es4-p165",
+   "type": "pair",
+   "es": "juntos / separados",
+   "en": "together / separately",
+   "ru": "вместе / отдельно",
+   "tr": "ху́нтос / сепара́дос",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "juntos",
+    "en": "together",
+    "ru": "вместе",
+    "tr": "ху́нтос"
+   },
+   "b": {
+    "es": "separados",
+    "en": "separately",
+    "ru": "отдельно",
+    "tr": "сепара́дос"
+   }
+  },
+  {
+   "id": "es4-p166",
+   "type": "pair",
+   "es": "por aquí / por allí",
+   "en": "this way / that way",
+   "ru": "сюда / туда",
+   "tr": "пор аки́ / пор айи́",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "por aquí",
+    "en": "this way",
+    "ru": "сюда",
+    "tr": "пор аки́"
+   },
+   "b": {
+    "es": "por allí",
+    "en": "that way",
+    "ru": "туда",
+    "tr": "пор айи́"
+   }
+  },
+  {
+   "id": "es4-p167",
+   "type": "pair",
+   "es": "adelante / atrás",
+   "en": "forward / back",
+   "ru": "вперёд / назад",
+   "tr": "адела́нте / атра́с",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "adelante",
+    "en": "forward",
+    "ru": "вперёд",
+    "tr": "адела́нте"
+   },
+   "b": {
+    "es": "atrás",
+    "en": "back",
+    "ru": "назад",
+    "tr": "атра́с"
+   }
+  },
+  {
+   "id": "es4-p168",
+   "type": "pair",
+   "es": "entre semana / fin de semana",
+   "en": "on weekdays / at the weekend",
+   "ru": "в будни / на выходных",
+   "tr": "э́нтре сема́на / фин де сема́на",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "entre semana",
+    "en": "on weekdays",
+    "ru": "в будни",
+    "tr": "э́нтре сема́на"
+   },
+   "b": {
+    "es": "fin de semana",
+    "en": "at the weekend",
+    "ru": "на выходных",
+    "tr": "фин де сема́на"
+   }
+  },
+  {
+   "id": "es4-p169",
+   "type": "pair",
+   "es": "a tiempo / con retraso",
+   "en": "on time / delayed",
+   "ru": "вовремя / с опозданием",
+   "tr": "а тье́мпо / кон ретра́со",
+   "group": "Время и направление",
+   "pairKind": "opposite",
+   "a": {
+    "es": "a tiempo",
+    "en": "on time",
+    "ru": "вовремя",
+    "tr": "а тье́мпо"
+   },
+   "b": {
+    "es": "con retraso",
+    "en": "delayed",
+    "ru": "с опозданием",
+    "tr": "кон ретра́со"
+   }
+  },
+  {
+   "id": "es4-p170",
+   "type": "pair",
+   "es": "hola / adiós",
+   "en": "hello / goodbye",
+   "ru": "привет / до свидания",
+   "tr": "о́ла / адьо́с",
+   "group": "Реплики",
+   "pairKind": "response",
+   "a": {
+    "es": "hola",
+    "en": "hello",
+    "ru": "привет",
+    "tr": "о́ла"
+   },
+   "b": {
+    "es": "adiós",
+    "en": "goodbye",
+    "ru": "до свидания",
+    "tr": "адьо́с"
+   }
+  },
+  {
+   "id": "es4-p171",
+   "type": "pair",
+   "es": "claro que sí / claro que no",
+   "en": "of course / of course not",
+   "ru": "конечно да / конечно нет",
+   "tr": "кла́ро ке си / кла́ро ке но",
+   "group": "Реплики",
+   "pairKind": "response",
+   "a": {
+    "es": "claro que sí",
+    "en": "of course",
+    "ru": "конечно да",
+    "tr": "кла́ро ке си"
+   },
+   "b": {
+    "es": "claro que no",
+    "en": "of course not",
+    "ru": "конечно нет",
+    "tr": "кла́ро ке но"
+   }
+  },
+  {
+   "id": "es4-p172",
+   "type": "pair",
+   "es": "entiendo / no entiendo",
+   "en": "I understand / I don't understand",
+   "ru": "понимаю / не понимаю",
+   "tr": "энтье́ндо / но энтье́ндо",
+   "group": "Реплики",
+   "pairKind": "response",
+   "a": {
+    "es": "entiendo",
+    "en": "I understand",
+    "ru": "понимаю",
+    "tr": "энтье́ндо"
+   },
+   "b": {
+    "es": "no entiendo",
+    "en": "I don't understand",
+    "ru": "не понимаю",
+    "tr": "но энтье́ндо"
+   }
+  },
+  {
+   "id": "es4-p173",
+   "type": "pair",
+   "es": "muchas gracias / de nada",
+   "en": "thank you very much / you're welcome",
+   "ru": "большое спасибо / не за что",
+   "tr": "му́час гра́сьяс / де на́да",
+   "group": "Реплики",
+   "pairKind": "response",
+   "a": {
+    "es": "muchas gracias",
+    "en": "thank you very much",
+    "ru": "большое спасибо",
+    "tr": "му́час гра́сьяс"
+   },
+   "b": {
+    "es": "de nada",
+    "en": "you're welcome",
+    "ru": "не за что",
+    "tr": "де на́да"
+   }
+  },
+  {
+   "id": "es4-p174",
+   "type": "pair",
+   "es": "perdón / no pasa nada",
+   "en": "sorry / no problem",
+   "ru": "извините / ничего страшного",
+   "tr": "пердо́н / но па́са на́да",
+   "group": "Реплики",
+   "pairKind": "response",
+   "a": {
+    "es": "perdón",
+    "en": "sorry",
+    "ru": "извините",
+    "tr": "пердо́н"
+   },
+   "b": {
+    "es": "no pasa nada",
+    "en": "no problem",
+    "ru": "ничего страшного",
+    "tr": "но па́са на́да"
+   }
+  },
+  {
+   "id": "es4-p175",
+   "type": "pair",
+   "es": "¿algo más? / nada más",
+   "en": "anything else? / nothing else",
+   "ru": "что-нибудь ещё? / больше ничего",
+   "tr": "¿а́льго мас? / на́да мас",
+   "group": "Реплики",
+   "pairKind": "response",
+   "a": {
+    "es": "¿algo más?",
+    "en": "anything else?",
+    "ru": "что-нибудь ещё?",
+    "tr": "¿а́льго мас?"
+   },
+   "b": {
+    "es": "nada más",
+    "en": "nothing else",
+    "ru": "больше ничего",
+    "tr": "на́да мас"
+   }
+  },
+  {
+   "id": "es4-x001",
+   "type": "phrase",
+   "es": "Es muy grande.",
+   "ru": "Это очень большое.",
+   "group": "Размер и форма"
+  },
+  {
+   "id": "es4-x002",
+   "type": "phrase",
+   "es": "¿Tienes una talla más pequeña?",
+   "ru": "Есть размер поменьше?",
+   "group": "Размер и форма"
+  },
+  {
+   "id": "es4-x003",
+   "type": "phrase",
+   "es": "Mi hija todavía es pequeña.",
+   "ru": "Моя дочь ещё маленькая.",
+   "group": "Размер и форма"
+  },
+  {
+   "id": "es4-x004",
+   "type": "phrase",
+   "es": "El pasillo es estrecho.",
+   "ru": "Коридор узкий.",
+   "group": "Размер и форма"
+  },
+  {
+   "id": "es4-x005",
+   "type": "phrase",
+   "es": "Es una calle ancha.",
+   "ru": "Это широкая улица.",
+   "group": "Размер и форма"
+  },
+  {
+   "id": "es4-x006",
+   "type": "phrase",
+   "es": "El café es corto.",
+   "ru": "Кофе маленький.",
+   "group": "Размер и форма"
+  },
+  {
+   "id": "es4-x007",
+   "type": "phrase",
+   "es": "Está arriba.",
+   "ru": "Это наверху.",
+   "group": "Верх и низ"
+  },
+  {
+   "id": "es4-x008",
+   "type": "phrase",
+   "es": "Vivo arriba, en el tercero.",
+   "ru": "Я живу наверху, на третьем.",
+   "group": "Верх и низ"
+  },
+  {
+   "id": "es4-x009",
+   "type": "phrase",
+   "es": "La farmacia está abajo.",
+   "ru": "Аптека внизу.",
+   "group": "Верх и низ"
+  },
+  {
+   "id": "es4-x010",
+   "type": "phrase",
+   "es": "Voy abajo un momento.",
+   "ru": "Я спущусь на минуту.",
+   "group": "Верх и низ"
+  },
+  {
+   "id": "es4-x011",
+   "type": "phrase",
+   "es": "Hay mucha gente.",
+   "ru": "Тут много народу.",
+   "group": "Количество"
+  },
+  {
+   "id": "es4-x012",
+   "type": "phrase",
+   "es": "Hoy hay poca gente.",
+   "ru": "Сегодня мало народу.",
+   "group": "Количество"
+  },
+  {
+   "id": "es4-x013",
+   "type": "phrase",
+   "es": "Mucho mejor, gracias.",
+   "ru": "Намного лучше, спасибо.",
+   "group": "Количество"
+  },
+  {
+   "id": "es4-x014",
+   "type": "phrase",
+   "es": "Poco a poco.",
+   "ru": "Потихоньку.",
+   "group": "Количество"
+  },
+  {
+   "id": "es4-x015",
+   "type": "phrase",
+   "es": "Es un poco raro.",
+   "ru": "Это немного странно.",
+   "group": "Количество"
+  },
+  {
+   "id": "es4-x016",
+   "type": "phrase",
+   "es": "El café está frío.",
+   "ru": "Кофе холодный.",
+   "group": "Еда и температура"
+  },
+  {
+   "id": "es4-x017",
+   "type": "phrase",
+   "es": "¿Lo quieres caliente?",
+   "ru": "Хочешь горячим?",
+   "group": "Еда и температура"
+  },
+  {
+   "id": "es4-x018",
+   "type": "phrase",
+   "es": "Está muy salado.",
+   "ru": "Очень солёно.",
+   "group": "Еда и температура"
+  },
+  {
+   "id": "es4-x019",
+   "type": "phrase",
+   "es": "¿Tienen algo dulce?",
+   "ru": "Есть что-нибудь сладкое?",
+   "group": "Еда и температура"
+  },
+  {
+   "id": "es4-x020",
+   "type": "phrase",
+   "es": "Para la niña, algo suave.",
+   "ru": "Ребёнку что-нибудь неострое.",
+   "group": "Еда и температура"
+  },
+  {
+   "id": "es4-x021",
+   "type": "phrase",
+   "es": "Está demasiado picante.",
+   "ru": "Слишком остро.",
+   "group": "Еда и температура"
+  },
+  {
+   "id": "es4-x022",
+   "type": "phrase",
+   "es": "El pan está seco.",
+   "ru": "Хлеб чёрствый.",
+   "group": "Еда и температура"
+  },
+  {
+   "id": "es4-x023",
+   "type": "phrase",
+   "es": "Aquí es muy húmedo.",
+   "ru": "Здесь очень влажно.",
+   "group": "Еда и температура"
+  },
+  {
+   "id": "es4-x024",
+   "type": "phrase",
+   "es": "Es muy caro.",
+   "ru": "Это очень дорого.",
+   "group": "Цена"
+  },
+  {
+   "id": "es4-x025",
+   "type": "phrase",
+   "es": "¿Hay algo más barato?",
+   "ru": "Есть что-нибудь подешевле?",
+   "group": "Цена"
+  },
+  {
+   "id": "es4-x026",
+   "type": "phrase",
+   "es": "Es caro, pero es bueno.",
+   "ru": "Дорого, но хорошо.",
+   "group": "Цена"
+  },
+  {
+   "id": "es4-x027",
+   "type": "phrase",
+   "es": "Está bien, gracias.",
+   "ru": "Хорошо, спасибо.",
+   "group": "Оценка"
+  },
+  {
+   "id": "es4-x028",
+   "type": "phrase",
+   "es": "Me siento mal.",
+   "ru": "Мне плохо.",
+   "group": "Оценка"
+  },
+  {
+   "id": "es4-x029",
+   "type": "phrase",
+   "es": "Este es mejor.",
+   "ru": "Этот лучше.",
+   "group": "Оценка"
+  },
+  {
+   "id": "es4-x030",
+   "type": "phrase",
+   "es": "Hoy estoy peor.",
+   "ru": "Сегодня мне хуже.",
+   "group": "Оценка"
+  },
+  {
+   "id": "es4-x031",
+   "type": "phrase",
+   "es": "Es mi mejor amigo.",
+   "ru": "Это мой лучший друг.",
+   "group": "Оценка"
+  },
+  {
+   "id": "es4-x032",
+   "type": "phrase",
+   "es": "¿Es correcto así?",
+   "ru": "Так правильно?",
+   "group": "Оценка"
+  },
+  {
+   "id": "es4-x033",
+   "type": "phrase",
+   "es": "El número es incorrecto.",
+   "ru": "Номер неправильный.",
+   "group": "Оценка"
+  },
+  {
+   "id": "es4-x034",
+   "type": "phrase",
+   "es": "Vas muy rápido.",
+   "ru": "Ты идёшь очень быстро.",
+   "group": "Скорость и сложность"
+  },
+  {
+   "id": "es4-x035",
+   "type": "phrase",
+   "es": "Más lento, por favor.",
+   "ru": "Помедленнее, пожалуйста.",
+   "group": "Скорость и сложность"
+  },
+  {
+   "id": "es4-x036",
+   "type": "phrase",
+   "es": "Es fácil.",
+   "ru": "Это просто.",
+   "group": "Скорость и сложность"
+  },
+  {
+   "id": "es4-x037",
+   "type": "phrase",
+   "es": "Para mí es difícil.",
+   "ru": "Мне это сложно.",
+   "group": "Скорость и сложность"
+  },
+  {
+   "id": "es4-x038",
+   "type": "phrase",
+   "es": "¿Es posible cambiar la fecha?",
+   "ru": "Можно поменять дату?",
+   "group": "Скорость и сложность"
+  },
+  {
+   "id": "es4-x039",
+   "type": "phrase",
+   "es": "Hoy es imposible.",
+   "ru": "Сегодня невозможно.",
+   "group": "Скорость и сложность"
+  },
+  {
+   "id": "es4-x040",
+   "type": "phrase",
+   "es": "La tienda está cerrada.",
+   "ru": "Магазин закрыт.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x041",
+   "type": "phrase",
+   "es": "¿Está abierto los domingos?",
+   "ru": "По воскресеньям открыто?",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x042",
+   "type": "phrase",
+   "es": "La mesa está libre.",
+   "ru": "Стол свободен.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x043",
+   "type": "phrase",
+   "es": "Está ocupado.",
+   "ru": "Занято.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x044",
+   "type": "phrase",
+   "es": "El vaso está vacío.",
+   "ru": "Стакан пустой.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x045",
+   "type": "phrase",
+   "es": "El autobús va lleno.",
+   "ru": "Автобус набит.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x046",
+   "type": "phrase",
+   "es": "El coche está sucio.",
+   "ru": "Машина грязная.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x047",
+   "type": "phrase",
+   "es": "La habitación está limpia.",
+   "ru": "Комната чистая.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x048",
+   "type": "phrase",
+   "es": "Es un móvil nuevo.",
+   "ru": "Это новый телефон.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x049",
+   "type": "phrase",
+   "es": "Es un edificio muy viejo.",
+   "ru": "Это очень старое здание.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x050",
+   "type": "phrase",
+   "es": "Es un parking público.",
+   "ru": "Это общественная парковка.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x051",
+   "type": "phrase",
+   "es": "Es una clase privada.",
+   "ru": "Это частное занятие.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x052",
+   "type": "phrase",
+   "es": "Quiero un azul más claro.",
+   "ru": "Хочу синий посветлее.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x053",
+   "type": "phrase",
+   "es": "El piso es un poco oscuro.",
+   "ru": "Квартира немного тёмная.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x054",
+   "type": "phrase",
+   "es": "La maleta es muy pesada.",
+   "ru": "Чемодан очень тяжёлый.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x055",
+   "type": "phrase",
+   "es": "Es una chaqueta ligera.",
+   "ru": "Это лёгкая куртка.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x056",
+   "type": "phrase",
+   "es": "El colchón es muy duro.",
+   "ru": "Матрас очень жёсткий.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x057",
+   "type": "phrase",
+   "es": "Es un hotel silencioso.",
+   "ru": "Отель тихий.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x058",
+   "type": "phrase",
+   "es": "La calle es muy ruidosa.",
+   "ru": "Улица очень шумная.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x059",
+   "type": "phrase",
+   "es": "Está rico.",
+   "ru": "Вкусно.",
+   "group": "Состояние вещей и мест"
+  },
+  {
+   "id": "es4-x060",
+   "type": "phrase",
+   "es": "Es muy joven.",
+   "ru": "Он совсем молодой.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x061",
+   "type": "phrase",
+   "es": "Es una señora mayor.",
+   "ru": "Это пожилая женщина.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x062",
+   "type": "phrase",
+   "es": "Mi hija está enferma.",
+   "ru": "Моя дочь болеет.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x063",
+   "type": "phrase",
+   "es": "Ya está sano.",
+   "ru": "Он уже здоров.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x064",
+   "type": "phrase",
+   "es": "Estoy cansado.",
+   "ru": "Я устал.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x065",
+   "type": "phrase",
+   "es": "Hoy estoy descansado.",
+   "ru": "Сегодня я отдохнувший.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x066",
+   "type": "phrase",
+   "es": "Es un niño fuerte.",
+   "ru": "Это крепкий ребёнок.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x067",
+   "type": "phrase",
+   "es": "Hoy me siento débil.",
+   "ru": "Сегодня я чувствую себя слабым.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x068",
+   "type": "phrase",
+   "es": "Es muy simpática.",
+   "ru": "Она очень приятная.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x069",
+   "type": "phrase",
+   "es": "El vecino es antipático.",
+   "ru": "Сосед неприветливый.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x070",
+   "type": "phrase",
+   "es": "¡Qué guapa!",
+   "ru": "Какая красивая!",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x071",
+   "type": "phrase",
+   "es": "La niña es muy educada.",
+   "ru": "Девочка очень воспитанная.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x072",
+   "type": "phrase",
+   "es": "No seas maleducado.",
+   "ru": "Не хами.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x073",
+   "type": "phrase",
+   "es": "Es un niño muy inteligente.",
+   "ru": "Это очень умный ребёнок.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x074",
+   "type": "phrase",
+   "es": "Estoy casado.",
+   "ru": "Я женат.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x075",
+   "type": "phrase",
+   "es": "Está soltera.",
+   "ru": "Она не замужем.",
+   "group": "Люди"
+  },
+  {
+   "id": "es4-x076",
+   "type": "phrase",
+   "es": "Estoy contento.",
+   "ru": "Я доволен.",
+   "group": "Настроение"
+  },
+  {
+   "id": "es4-x077",
+   "type": "phrase",
+   "es": "¿Estás enfadado conmigo?",
+   "ru": "Ты на меня злишься?",
+   "group": "Настроение"
+  },
+  {
+   "id": "es4-x078",
+   "type": "phrase",
+   "es": "Está triste.",
+   "ru": "Ему грустно.",
+   "group": "Настроение"
+  },
+  {
+   "id": "es4-x079",
+   "type": "phrase",
+   "es": "Estoy muy feliz.",
+   "ru": "Я очень счастлив.",
+   "group": "Настроение"
+  },
+  {
+   "id": "es4-x080",
+   "type": "phrase",
+   "es": "Tranquilo, no pasa nada.",
+   "ru": "Спокойно, ничего страшного.",
+   "group": "Настроение"
+  },
+  {
+   "id": "es4-x081",
+   "type": "phrase",
+   "es": "Está nerviosa por el examen.",
+   "ru": "Она нервничает из-за экзамена.",
+   "group": "Настроение"
+  },
+  {
+   "id": "es4-x082",
+   "type": "phrase",
+   "es": "Es muy interesante.",
+   "ru": "Это очень интересно.",
+   "group": "Впечатление"
+  },
+  {
+   "id": "es4-x083",
+   "type": "phrase",
+   "es": "La película es aburrida.",
+   "ru": "Фильм скучный.",
+   "group": "Впечатление"
+  },
+  {
+   "id": "es4-x084",
+   "type": "phrase",
+   "es": "Aquí es seguro.",
+   "ru": "Здесь безопасно.",
+   "group": "Впечатление"
+  },
+  {
+   "id": "es4-x085",
+   "type": "phrase",
+   "es": "Es peligroso para los niños.",
+   "ru": "Это опасно для детей.",
+   "group": "Впечатление"
+  },
+  {
+   "id": "es4-x086",
+   "type": "phrase",
+   "es": "Aquí es normal.",
+   "ru": "Здесь это нормально.",
+   "group": "Впечатление"
+  },
+  {
+   "id": "es4-x087",
+   "type": "phrase",
+   "es": "Es igual.",
+   "ru": "Без разницы.",
+   "group": "Впечатление"
+  },
+  {
+   "id": "es4-x088",
+   "type": "phrase",
+   "es": "Es diferente.",
+   "ru": "Это другое.",
+   "group": "Впечатление"
+  },
+  {
+   "id": "es4-x089",
+   "type": "phrase",
+   "es": "Es mi hija.",
+   "ru": "Это моя дочь.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x090",
+   "type": "phrase",
+   "es": "Mi marido no habla español.",
+   "ru": "Мой муж не говорит по-испански.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x091",
+   "type": "phrase",
+   "es": "Mis abuelos viven lejos.",
+   "ru": "Мои дедушка с бабушкой живут далеко.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x092",
+   "type": "phrase",
+   "es": "¿Tienes hermanos?",
+   "ru": "У тебя есть братья или сёстры?",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x093",
+   "type": "phrase",
+   "es": "Es la profesora de mi hija.",
+   "ru": "Это учительница моей дочери.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x094",
+   "type": "phrase",
+   "es": "Somos vecinos.",
+   "ru": "Мы соседи.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x095",
+   "type": "phrase",
+   "es": "Es un amigo de mi novia.",
+   "ru": "Это друг моей девушки.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x096",
+   "type": "phrase",
+   "es": "Perdone, señora.",
+   "ru": "Простите, сеньора.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x097",
+   "type": "phrase",
+   "es": "¡Camarero, la cuenta!",
+   "ru": "Официант, счёт!",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x098",
+   "type": "phrase",
+   "es": "Es mi suegra.",
+   "ru": "Это моя свекровь.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x099",
+   "type": "phrase",
+   "es": "Mi cuñado vive aquí.",
+   "ru": "Мой свояк живёт здесь.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x100",
+   "type": "phrase",
+   "es": "Tengo dos sobrinos.",
+   "ru": "У меня два племянника.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x101",
+   "type": "phrase",
+   "es": "Es la dueña del piso.",
+   "ru": "Это хозяйка квартиры.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x102",
+   "type": "phrase",
+   "es": "La médica dice que no es grave.",
+   "ru": "Врач говорит, ничего серьёзного.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x103",
+   "type": "phrase",
+   "es": "Habla con la dependienta.",
+   "ru": "Поговори с продавщицей.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x104",
+   "type": "phrase",
+   "es": "Mi jefa está de vacaciones.",
+   "ru": "Моя начальница в отпуске.",
+   "group": "Семья и знакомые"
+  },
+  {
+   "id": "es4-x105",
+   "type": "phrase",
+   "es": "Tengo una pregunta.",
+   "ru": "У меня вопрос.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x106",
+   "type": "phrase",
+   "es": "Esa es la respuesta.",
+   "ru": "Вот это ответ.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x107",
+   "type": "phrase",
+   "es": "La entrada está por allí.",
+   "ru": "Вход вон там.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x108",
+   "type": "phrase",
+   "es": "¿Dónde está la salida?",
+   "ru": "Где выход?",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x109",
+   "type": "phrase",
+   "es": "La salida es a las ocho, la llegada a las diez.",
+   "ru": "Отправление в восемь, прибытие в десять.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x110",
+   "type": "phrase",
+   "es": "¿Carne o pescado?",
+   "ru": "Мясо или рыба?",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x111",
+   "type": "phrase",
+   "es": "Sin sal, por favor.",
+   "ru": "Без соли, пожалуйста.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x112",
+   "type": "phrase",
+   "es": "¿Puedo pagar en efectivo?",
+   "ru": "Можно заплатить наличными?",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x113",
+   "type": "phrase",
+   "es": "Con tarjeta, mejor.",
+   "ru": "Лучше картой.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x114",
+   "type": "phrase",
+   "es": "Tengo hambre.",
+   "ru": "Я голоден.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x115",
+   "type": "phrase",
+   "es": "Tengo sed.",
+   "ru": "Я хочу пить.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x116",
+   "type": "phrase",
+   "es": "¿Vamos al mar o a la montaña?",
+   "ru": "Едем на море или в горы?",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x117",
+   "type": "phrase",
+   "es": "Vivimos en un pueblo pequeño.",
+   "ru": "Мы живём в маленьком городке.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x118",
+   "type": "phrase",
+   "es": "Aquí hay mucha sombra.",
+   "ru": "Здесь много тени.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x119",
+   "type": "phrase",
+   "es": "Hoy hace sol.",
+   "ru": "Сегодня солнечно.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x120",
+   "type": "phrase",
+   "es": "Mañana hay lluvia.",
+   "ru": "Завтра дождь.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x121",
+   "type": "phrase",
+   "es": "¿Cuál es su apellido?",
+   "ru": "Какая у вас фамилия?",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x122",
+   "type": "phrase",
+   "es": "No funciona la calefacción.",
+   "ru": "Не работает отопление.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x123",
+   "type": "phrase",
+   "es": "¿Puede poner el aire acondicionado?",
+   "ru": "Можете включить кондиционер?",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x124",
+   "type": "phrase",
+   "es": "¿Cuánto es el alquiler?",
+   "ru": "Сколько стоит аренда?",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x125",
+   "type": "phrase",
+   "es": "Al principio fue difícil.",
+   "ru": "Сначала было сложно.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x126",
+   "type": "phrase",
+   "es": "Al final todo salió bien.",
+   "ru": "В итоге всё вышло хорошо.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x127",
+   "type": "phrase",
+   "es": "Aquí hay mucho ruido.",
+   "ru": "Здесь очень шумно.",
+   "group": "Вещи, еда и места"
+  },
+  {
+   "id": "es4-x128",
+   "type": "phrase",
+   "es": "¿A qué hora abren?",
+   "ru": "Во сколько открываете?",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x129",
+   "type": "phrase",
+   "es": "Cierran a las dos.",
+   "ru": "Закрываются в два.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x130",
+   "type": "phrase",
+   "es": "Empezamos a las nueve y terminamos a las cinco.",
+   "ru": "Начинаем в девять, заканчиваем в пять.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x131",
+   "type": "phrase",
+   "es": "¿Puedes apagar la luz?",
+   "ru": "Можешь выключить свет?",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x132",
+   "type": "phrase",
+   "es": "Enciende la tele.",
+   "ru": "Включи телевизор.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x133",
+   "type": "phrase",
+   "es": "Sube, te espero arriba.",
+   "ru": "Поднимайся, я жду наверху.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x134",
+   "type": "phrase",
+   "es": "Bajo en dos minutos.",
+   "ru": "Спускаюсь через две минуты.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x135",
+   "type": "phrase",
+   "es": "¿Aquí venden pan?",
+   "ru": "Здесь продают хлеб?",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x136",
+   "type": "phrase",
+   "es": "¿Cuánto me va a cobrar?",
+   "ru": "Сколько с меня?",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x137",
+   "type": "phrase",
+   "es": "Te lo devuelvo mañana.",
+   "ru": "Верну тебе завтра.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x138",
+   "type": "phrase",
+   "es": "¿Me lo puedes prestar?",
+   "ru": "Можешь мне одолжить?",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x139",
+   "type": "phrase",
+   "es": "Recojo a la niña a las cuatro.",
+   "ru": "Забираю дочь в четыре.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x140",
+   "type": "phrase",
+   "es": "Hay que entregar el formulario hoy.",
+   "ru": "Бланк надо сдать сегодня.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x141",
+   "type": "phrase",
+   "es": "No lo encuentro, lo estoy buscando.",
+   "ru": "Не нахожу, ищу.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x142",
+   "type": "phrase",
+   "es": "No recuerdo el número.",
+   "ru": "Не помню номер.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x143",
+   "type": "phrase",
+   "es": "Se me ha olvidado.",
+   "ru": "Я забыл.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x144",
+   "type": "phrase",
+   "es": "Quiero reservar una mesa.",
+   "ru": "Хочу забронировать стол.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x145",
+   "type": "phrase",
+   "es": "Tengo que cancelar la cita.",
+   "ru": "Мне нужно отменить запись.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x146",
+   "type": "phrase",
+   "es": "Está prohibido aparcar aquí.",
+   "ru": "Здесь запрещено парковаться.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x147",
+   "type": "phrase",
+   "es": "¿Me dejas el cargador?",
+   "ru": "Дашь зарядку?",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x148",
+   "type": "phrase",
+   "es": "Coge una silla.",
+   "ru": "Возьми стул.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x149",
+   "type": "phrase",
+   "es": "Falta una silla.",
+   "ru": "Не хватает стула.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x150",
+   "type": "phrase",
+   "es": "Sobra comida.",
+   "ru": "Еды осталось много.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x151",
+   "type": "phrase",
+   "es": "¿Nos quedamos o nos vamos?",
+   "ru": "Остаёмся или уходим?",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x152",
+   "type": "phrase",
+   "es": "La niña está llorando.",
+   "ru": "Дочь плачет.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x153",
+   "type": "phrase",
+   "es": "Se ha roto.",
+   "ru": "Сломалось.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x154",
+   "type": "phrase",
+   "es": "¿Puede arreglarlo?",
+   "ru": "Можете это починить?",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x155",
+   "type": "phrase",
+   "es": "Vístete, que llegamos tarde.",
+   "ru": "Одевайся, мы опаздываем.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x156",
+   "type": "phrase",
+   "es": "Quiero ingresar dinero.",
+   "ru": "Хочу внести деньги.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x157",
+   "type": "phrase",
+   "es": "He aprobado el examen.",
+   "ru": "Я сдал экзамен.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x158",
+   "type": "phrase",
+   "es": "Ha suspendido mates.",
+   "ru": "Он не сдал математику.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x159",
+   "type": "phrase",
+   "es": "¿Puedo pedir la cuenta?",
+   "ru": "Можно попросить счёт?",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x160",
+   "type": "phrase",
+   "es": "No tires eso, guárdalo.",
+   "ru": "Не выбрасывай, сохрани.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x161",
+   "type": "phrase",
+   "es": "El avión despega a las diez.",
+   "ru": "Самолёт взлетает в десять.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x162",
+   "type": "phrase",
+   "es": "Mi hija nació aquí.",
+   "ru": "Моя дочь родилась здесь.",
+   "group": "Действия"
+  },
+  {
+   "id": "es4-x163",
+   "type": "phrase",
+   "es": "Antes de comer.",
+   "ru": "До еды.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x164",
+   "type": "phrase",
+   "es": "Después de comer.",
+   "ru": "После еды.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x165",
+   "type": "phrase",
+   "es": "Siempre llego temprano.",
+   "ru": "Я всегда прихожу рано.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x166",
+   "type": "phrase",
+   "es": "Nunca llego tarde.",
+   "ru": "Я никогда не опаздываю.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x167",
+   "type": "phrase",
+   "es": "Ayer llovió, mañana hace sol.",
+   "ru": "Вчера был дождь, завтра солнце.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x168",
+   "type": "phrase",
+   "es": "Es la primera vez.",
+   "ru": "Это первый раз.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x169",
+   "type": "phrase",
+   "es": "Es la última vez.",
+   "ru": "Это последний раз.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x170",
+   "type": "phrase",
+   "es": "La semana próxima.",
+   "ru": "На следующей неделе.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x171",
+   "type": "phrase",
+   "es": "La semana pasada.",
+   "ru": "На прошлой неделе.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x172",
+   "type": "phrase",
+   "es": "Por la mañana, no por la tarde.",
+   "ru": "Утром, не днём.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x173",
+   "type": "phrase",
+   "es": "El baño está a la derecha.",
+   "ru": "Туалет справа.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x174",
+   "type": "phrase",
+   "es": "Vamos por aquí.",
+   "ru": "Пойдём сюда.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x175",
+   "type": "phrase",
+   "es": "En verano hace mucho calor.",
+   "ru": "Летом очень жарко.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x176",
+   "type": "phrase",
+   "es": "Vamos juntos.",
+   "ru": "Пойдём вместе.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x177",
+   "type": "phrase",
+   "es": "Pagamos separados.",
+   "ru": "Платим раздельно.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x178",
+   "type": "phrase",
+   "es": "Entre semana trabajo.",
+   "ru": "В будни я работаю.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x179",
+   "type": "phrase",
+   "es": "El fin de semana vamos a la playa.",
+   "ru": "На выходных едем на пляж.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x180",
+   "type": "phrase",
+   "es": "El tren llegó a tiempo.",
+   "ru": "Поезд пришёл вовремя.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x181",
+   "type": "phrase",
+   "es": "Viene con retraso.",
+   "ru": "Идёт с опозданием.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x182",
+   "type": "phrase",
+   "es": "Un paso atrás, por favor.",
+   "ru": "Шаг назад, пожалуйста.",
+   "group": "Время и направление"
+  },
+  {
+   "id": "es4-x183",
+   "type": "phrase",
+   "es": "Hola, buenos días.",
+   "ru": "Привет, добрый день.",
+   "group": "Реплики"
+  },
+  {
+   "id": "es4-x184",
+   "type": "phrase",
+   "es": "Adiós, hasta mañana.",
+   "ru": "До свидания, до завтра.",
+   "group": "Реплики"
+  },
+  {
+   "id": "es4-x185",
+   "type": "exchange",
+   "es": "¿Vienes? — Claro que sí.",
+   "ru": "Идёшь? — Конечно.",
+   "group": "Реплики"
+  },
+  {
+   "id": "es4-x186",
+   "type": "phrase",
+   "es": "Perdón, no entiendo.",
+   "ru": "Извините, я не понимаю.",
+   "group": "Реплики"
+  },
+  {
+   "id": "es4-x187",
+   "type": "phrase",
+   "es": "Ah, ahora entiendo.",
+   "ru": "А, теперь понимаю.",
+   "group": "Реплики"
+  },
+  {
+   "id": "es4-x188",
+   "type": "exchange",
+   "es": "Muchas gracias. — De nada.",
+   "ru": "Большое спасибо. — Не за что.",
+   "group": "Реплики"
+  },
+  {
+   "id": "es4-x189",
+   "type": "phrase",
+   "es": "Bueno, vamos.",
+   "ru": "Ну, пойдём.",
+   "group": "Реплики"
+  },
+  {
+   "id": "es4-x190",
+   "type": "exchange",
+   "es": "Perdón. — No pasa nada.",
+   "ru": "Извините. — Ничего страшного.",
+   "group": "Реплики"
+  },
+  {
+   "id": "es4-x191",
+   "type": "exchange",
+   "es": "¿Algo más? — Nada más, gracias.",
+   "ru": "Что-нибудь ещё? — Больше ничего, спасибо.",
+   "group": "Реплики"
+  }
+ ],
+ "notes": [
+  {
+   "id": "es4-n001",
+   "type": "note",
+   "title": null,
+   "section": "vocab",
+   "group": "Признак и оценка",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "claro",
+       "s": "es"
+      },
+      {
+       "t": " здесь — «светлый» ("
+      },
+      {
+       "t": "azul claro",
+       "s": "es"
+      },
+      {
+       "t": "); то же слово как «конечно, ясно» осталось в Stage 3, это омонимы."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es4-n002",
+   "type": "note",
+   "title": null,
+   "section": "vocab",
+   "group": "Люди: род и родство",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Порядок строк: сначала люди вообще, затем семья, затем роли и профессии. Множественное число мужского рода покрывает смешанную группу: "
+      },
+      {
+       "t": "mis hermanos",
+       "s": "es"
+      },
+      {
+       "t": " — «братья» и «братья с сёстрами», "
+      },
+      {
+       "t": "mis padres",
+       "s": "es"
+      },
+      {
+       "t": " — родители, "
+      },
+      {
+       "t": "mis abuelos",
+       "s": "es"
+      },
+      {
+       "t": " — дедушка с бабушкой, "
+      },
+      {
+       "t": "mis tíos",
+       "s": "es"
+      },
+      {
+       "t": " — дядя с тётей, "
+      },
+      {
+       "t": "mis hijos",
+       "s": "es"
+      },
+      {
+       "t": " — дети."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es4-n003",
+   "type": "note",
+   "title": null,
+   "section": "vocab",
+   "group": "Вещи, еда, места",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "salida",
+       "s": "es"
+      },
+      {
+       "t": " попадает в две пары: "
+      },
+      {
+       "t": "entrada / salida",
+       "s": "es"
+      },
+      {
+       "t": " — про двери, "
+      },
+      {
+       "t": "llegada / salida",
+       "s": "es"
+      },
+      {
+       "t": " — про транспорт и расписание."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es4-n004",
+   "type": "note",
+   "title": null,
+   "section": "vocab",
+   "group": "Время и направление",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "mañana",
+       "s": "es"
+      },
+      {
+       "t": " — и «завтра», и «утро» ("
+      },
+      {
+       "t": "por la mañana",
+       "s": "es"
+      },
+      {
+       "t": "); "
+      },
+      {
+       "t": "tarde",
+       "s": "es"
+      },
+      {
+       "t": " — и «поздно», и «день, вечер» ("
+      },
+      {
+       "t": "por la tarde",
+       "s": "es"
+      },
+      {
+       "t": "). Что имеется в виду, показывает предлог. "
+      },
+      {
+       "t": "este",
+       "s": "es"
+      },
+      {
+       "t": " здесь — «восток»; то же слово в значении «этот» стоит в Stage 1, это омонимы."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es4-n005",
+   "type": "note",
+   "title": "Окончание меняется по роду и числу",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Слова на "
+      },
+      {
+       "t": "-o",
+       "s": "es"
+      },
+      {
+       "t": " меняются: "
+      },
+      {
+       "t": "-o",
+       "s": "es"
+      },
+      {
+       "t": " / "
+      },
+      {
+       "t": "-a",
+       "s": "es"
+      },
+      {
+       "t": " / "
+      },
+      {
+       "t": "-os",
+       "s": "es"
+      },
+      {
+       "t": " / "
+      },
+      {
+       "t": "-as",
+       "s": "es"
+      },
+      {
+       "t": "."
+      }
+     ]
+    },
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "El café está frío.",
+         "s": "es"
+        },
+        {
+         "t": " — Кофе холодный."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "La sopa está fría.",
+         "s": "es"
+        },
+        {
+         "t": " — Суп холодный."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "Los platos están fríos.",
+         "s": "es"
+        },
+        {
+         "t": " — Тарелки холодные."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Слова на "
+      },
+      {
+       "t": "-e",
+       "s": "es"
+      },
+      {
+       "t": " и на согласный по роду не меняются, только по числу: "
+      },
+      {
+       "t": "grande / grandes",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "fácil / fáciles",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "feliz / felices",
+       "s": "es"
+      },
+      {
+       "t": "."
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Отдельно: "
+      },
+      {
+       "t": "bueno / malo",
+       "s": "es"
+      },
+      {
+       "t": " — прилагательные («хороший стол»), "
+      },
+      {
+       "t": "bien / mal",
+       "s": "es"
+      },
+      {
+       "t": " — наречия («работает хорошо»). Поэтому "
+      },
+      {
+       "t": "Es un buen café",
+       "s": "es"
+      },
+      {
+       "t": " (хороший кофе), но "
+      },
+      {
+       "t": "El café está bien",
+       "s": "es"
+      },
+      {
+       "t": " (кофе нормальный)."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es4-n006",
+   "type": "note",
+   "title": "Люди: -o для мужчины, -a для женщины",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Тот же механизм работает на людях, и это самый быстрый способ удвоить словарь: "
+      },
+      {
+       "t": "niño / niña",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "abuelo / abuela",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "amigo / amiga",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "vecino / vecina",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "primo / prima",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "camarero / camarera",
+       "s": "es"
+      },
+      {
+       "t": ". Согласный на конце просто получает "
+      },
+      {
+       "t": "-a",
+       "s": "es"
+      },
+      {
+       "t": ": "
+      },
+      {
+       "t": "profesor / profesora",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "señor / señora",
+       "s": "es"
+      },
+      {
+       "t": "."
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Не по шаблону — учить как есть: "
+      },
+      {
+       "t": "hombre / mujer",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "padre / madre",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "marido / esposa",
+       "s": "es"
+      },
+      {
+       "t": "."
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Артикль меняется вместе с окончанием: "
+      },
+      {
+       "t": "el",
+       "s": "es"
+      },
+      {
+       "t": " hijo / "
+      },
+      {
+       "t": "la",
+       "s": "es"
+      },
+      {
+       "t": " hija, "
+      },
+      {
+       "t": "el",
+       "s": "es"
+      },
+      {
+       "t": " abuelo / "
+      },
+      {
+       "t": "la",
+       "s": "es"
+      },
+      {
+       "t": " abuela."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es4-n007",
+   "type": "note",
+   "title": "Направление внутри пары глаголов",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Часть пар различается не действием, а направлением относительно говорящего:"
+      }
+     ]
+    },
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "llevar",
+         "s": "es"
+        },
+        {
+         "t": " — нести, везти *отсюда туда*: "
+        },
+        {
+         "t": "Llevo a la niña al colegio.",
+         "s": "es"
+        },
+        {
+         "t": " — Я вожу дочь в школу."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "traer",
+         "s": "es"
+        },
+        {
+         "t": " — нести *оттуда сюда*: "
+        },
+        {
+         "t": "¿Me traes agua?",
+         "s": "es"
+        },
+        {
+         "t": " — Принесёшь мне воды?"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Так же работают "
+      },
+      {
+       "t": "poner / quitar",
+       "s": "es"
+      },
+      {
+       "t": " (положить / убрать), "
+      },
+      {
+       "t": "meter / sacar",
+       "s": "es"
+      },
+      {
+       "t": " (внутрь / наружу), "
+      },
+      {
+       "t": "subir / bajar",
+       "s": "es"
+      },
+      {
+       "t": " (вверх / вниз)."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es4-n008",
+   "type": "note",
+   "title": "ser или estar",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "ser",
+         "s": "es"
+        },
+        {
+         "t": " — постоянное свойство: "
+        },
+        {
+         "t": "Es caro.",
+         "s": "es"
+        },
+        {
+         "t": " — Это дорогая вещь. "
+        },
+        {
+         "t": "Mi hija es tranquila.",
+         "s": "es"
+        },
+        {
+         "t": " — Дочь спокойная по характеру."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "estar",
+         "s": "es"
+        },
+        {
+         "t": " — состояние прямо сейчас: "
+        },
+        {
+         "t": "Está cerrado.",
+         "s": "es"
+        },
+        {
+         "t": " — Сейчас закрыто. "
+        },
+        {
+         "t": "Mi hija está tranquila.",
+         "s": "es"
+        },
+        {
+         "t": " — Дочь сейчас спокойна."
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Некоторые пары меняют смысл целиком:"
+      }
+     ]
+    },
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "Es bueno.",
+         "s": "es"
+        },
+        {
+         "t": " — Он хороший. / "
+        },
+        {
+         "t": "Está bueno.",
+         "s": "es"
+        },
+        {
+         "t": " — Это вкусно."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "Es malo.",
+         "s": "es"
+        },
+        {
+         "t": " — Он плохой. / "
+        },
+        {
+         "t": "Está malo.",
+         "s": "es"
+        },
+        {
+         "t": " — Он приболел / это испортилось."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "Es aburrido.",
+         "s": "es"
+        },
+        {
+         "t": " — Он скучный. / "
+        },
+        {
+         "t": "Está aburrido.",
+         "s": "es"
+        },
+        {
+         "t": " — Ему скучно."
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "excluded": [
+  "сравнительные конструкции целиком (más ... que, tan ... como, el más ...);",
+  "превосходная степень на -ísimo;",
+  "цвета и материалы — они относятся к Stage 5 (магазин, одежда);",
+  "пространственные пары delante / detrás, cerca / lejos, dentro / fuera — они уже в Stage 1; там же формы направления a la derecha / a la izquierda, а здесь только сами izquierda / derecha;",
+  "тематические наборы, которые парами не работают: части тела, дни недели, месяцы, числа, посуда, одежда — они остаются в Stage 3;",
+  "синонимы к уже вынесенным словам (contestar к responder, comprender к entender, finalizar к terminar, continuar к seguir, enviar к mandar) — тоже Stage 3;",
+  "одиночные прилагательные без пары (importante, necesario, listo, perdido, preocupado, gratis, fresco и др.) — они остаются в общем списке Stage 3;",
+  "ситуационные связки кафе, кассы и стойки (para llevar, ida y vuelta, el primero / el segundo, café con leche / cortado) — они в Stage 5;",
+  "базовые связки, которые уже стоят в Stage 1: sí / no, con / sin, algo / nada, alguien / nadie, entrar / salir, ir / venir, también, ya;",
+  "относительные cuyo / cuya — формально пара по роду, но это грамматика, а не описание мира;",
+  "оценочная разговорная лексика (genial, fatal, guay) — после того, как база закреплена."
+ ]
+}

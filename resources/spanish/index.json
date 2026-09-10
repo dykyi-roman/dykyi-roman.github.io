@@ -1,0 +1,104 @@
+{
+ "version": 1,
+ "updated": "2026-09-10",
+ "stages": [
+  {
+   "id": "stage-1",
+   "prefix": "es1",
+   "no": 1,
+   "title": "Space and direction",
+   "titleRu": "Пространство, направление и базовые связки",
+   "goal": "понимать и строить простые фразы о местоположении, направлении и движении в повседневной жизни в Испании.",
+   "url": "spanish/stage-1.html",
+   "file": "stage-1.json",
+   "counts": {
+    "vocab": 112,
+    "pair": 0,
+    "phrase": 52,
+    "exchange": 0,
+    "drill": 0
+   },
+   "notes": 2
+  },
+  {
+   "id": "stage-2",
+   "prefix": "es2",
+   "no": 2,
+   "title": "Questions and dialogue",
+   "titleRu": "Вопросительные слова и навигация в диалоге",
+   "goal": "научиться быстро задавать простые вопросы, понимать ключевую информацию, управлять диалогом и ориентироваться в обычном разговоре в Испании.",
+   "url": "spanish/stage-2.html",
+   "file": "stage-2.json",
+   "counts": {
+    "vocab": 50,
+    "pair": 0,
+    "phrase": 54,
+    "exchange": 0,
+    "drill": 0
+   },
+   "notes": 3
+  },
+  {
+   "id": "stage-3",
+   "prefix": "es3",
+   "no": 3,
+   "title": "Core vocabulary",
+   "titleRu": "База слов для живого общения",
+   "goal": "Практическая база из 620 слов и коротких выражений для быстрого перехода к бытовому испанскому.",
+   "url": "spanish/stage-3.html",
+   "file": "stage-3.json",
+   "counts": {
+    "vocab": 620,
+    "pair": 0,
+    "phrase": 0,
+    "exchange": 0,
+    "drill": 0
+   },
+   "notes": 0
+  },
+  {
+   "id": "stage-4",
+   "prefix": "es4",
+   "no": 4,
+   "title": "Opposites and pairs",
+   "titleRu": "Мир парами: противоположности, род и действия",
+   "goal": "быстро описывать людей, вещи, еду, места и действия — и понимать, когда так описывают тебя.",
+   "url": "spanish/stage-4.html",
+   "file": "stage-4.json",
+   "counts": {
+    "vocab": 0,
+    "pair": 175,
+    "phrase": 187,
+    "exchange": 4,
+    "drill": 0
+   },
+   "notes": 8
+  },
+  {
+   "id": "stage-5",
+   "prefix": "es5",
+   "no": 5,
+   "title": "Everyday situations",
+   "titleRu": "Личная рутина и реальные ситуации",
+   "goal": "уверенно говорить в тех ситуациях, которые повторяются каждую неделю — школа и садик, кафе и супермаркет, аэропорт и поезд, аптека, банк, доставка, аренда, соседи, звонки.",
+   "url": "spanish/stage-5.html",
+   "file": "stage-5.json",
+   "counts": {
+    "vocab": 124,
+    "pair": 0,
+    "phrase": 123,
+    "exchange": 1,
+    "drill": 50
+   },
+   "notes": 6
+  }
+ ],
+ "rules": {
+  "id": "rules",
+  "title": "Spanish rules",
+  "titleRu": "Правила фонетики и грамматики (Castellano)",
+  "url": "spanish/rules.html",
+  "file": "rules.json",
+  "sections": 31
+ }
+}
