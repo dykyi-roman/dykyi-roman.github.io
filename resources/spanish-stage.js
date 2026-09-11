@@ -2,7 +2,8 @@
    - a stage page when #sp-root carries data-stage="N"
    - the phonetics/grammar page when it carries data-rules
    Both get a sticky two-row chip index that stays put on a phone instead of
-   collapsing into a floating overlay. */
+   collapsing into a floating overlay; the index and the rules renderer itself
+   live in spanish-core.js, because the hub renders the rules in a tab too. */
 
 (function () {
     'use strict';
@@ -24,50 +25,6 @@
         }
         section.appendChild(h);
         return section;
-    }
-
-    /* ---------- chip index with scroll spy ---------- */
-
-    function buildIndex(bar, entries, mainOnly) {
-        var rows = {};
-        if (mainOnly) entries = entries.filter(function (e) { return e.row === 'main'; });
-        entries.forEach(function (entry) {
-            if (!rows[entry.row]) {
-                rows[entry.row] = SP.el('div', 'sp-chips');
-                bar.appendChild(rows[entry.row]);
-            }
-            var chip = SP.el('a', 'sp-chip');
-            chip.appendChild(SP.el('span', 'sp-chip-label', entry.label));
-            chip.href = '#' + entry.target;
-            chip.title = entry.label;
-            chip.dataset.target = entry.target;
-            rows[entry.row].appendChild(chip);
-            entry.chip = chip;
-        });
-
-        if (!('IntersectionObserver' in window)) return;
-
-        var byTarget = {};
-        entries.forEach(function (e) { byTarget[e.target] = e; });
-
-        var observer = new IntersectionObserver(function (records) {
-            records.forEach(function (record) {
-                var entry = byTarget[record.target.id];
-                if (!entry || !record.isIntersecting) return;
-                entries.forEach(function (other) {
-                    if (other.row === entry.row) other.chip.classList.toggle('active', other === entry);
-                });
-                // Keep the highlighted chip reachable without hunting for it.
-                var strip = entry.chip.parentNode;
-                var left = entry.chip.offsetLeft - strip.clientWidth / 2 + entry.chip.clientWidth / 2;
-                strip.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
-            });
-        }, { rootMargin: '-88px 0px -70% 0px', threshold: 0 });
-
-        entries.forEach(function (entry) {
-            var node = document.getElementById(entry.target);
-            if (node) observer.observe(node);
-        });
     }
 
     /* ---------- lazily rendered list ---------- */
@@ -106,7 +63,11 @@
         SP.clear(root);
 
         var head = SP.el('header');
-        head.appendChild(SP.el('h2', null, 'Stage ' + stage.no + ' — ' + stage.title));
+        var title = SP.el('h2');
+        var icon = SP.iconSpan(stage.icon);
+        if (icon) title.appendChild(icon);
+        title.appendChild(document.createTextNode('Stage ' + stage.no + ' — ' + stage.title));
+        head.appendChild(title);
         head.appendChild(SP.el('p', 'sp-intro', stage.titleRu));
         if (stage.goal) head.appendChild(SP.el('p', 'sp-intro', 'Цель: ' + stage.goal));
         SP.renderBlocks(head, stage.intro);
@@ -183,7 +144,8 @@
                     var title = SP.el('h4', 'sp-group-title', name + ' ');
                     title.appendChild(SP.el('span', null, exByGroup[name].length));
                     block.appendChild(title);
-                    index.push({ row: 'sub', label: name, target: block.id });
+                    var listed = index.some(function (e) { return e.row === 'sub' && e.label === name; });
+                    if (!listed) index.push({ row: 'sub', label: name, target: block.id });
                 }
                 var list = SP.el('div', 'sp-ex');
                 exByGroup[name].forEach(function (item) { list.appendChild(SP.renderExRow(item)); });
@@ -272,41 +234,8 @@
             body.appendChild(exclSection);
         }
 
-        buildIndex(bar, index, root.dataset.index === 'sections');
+        SP.buildIndex(bar, index, root.dataset.index === 'sections');
         document.title = 'Stage ' + stage.no + ': ' + stage.title + ' - Spanish | Dykyi Roman';
-    }
-
-    /* ---------- rules page ---------- */
-
-    function renderRules(root, rules) {
-        var index = [];
-        SP.clear(root);
-
-        var head = SP.el('header');
-        head.appendChild(SP.el('h2', null, rules.titleRu));
-        SP.renderBlocks(head, rules.intro);
-        root.appendChild(head);
-
-        var bar = SP.el('div', 'sp-bar');
-        root.appendChild(bar);
-
-        var body = SP.el('div');
-        root.appendChild(body);
-
-        rules.sections.forEach(function (section) {
-            var block = SP.el('section', 'sp-group');
-            block.id = section.id;
-            block.appendChild(SP.el('h3', 'sp-group-title', section.no + '. ' + section.title));
-            SP.renderBlocks(block, section.blocks);
-            (section.parts || []).forEach(function (part) {
-                block.appendChild(SP.el('h4', null, part.title));
-                SP.renderBlocks(block, part.blocks);
-            });
-            body.appendChild(block);
-            index.push({ row: 'main', label: section.no + '. ' + section.title, target: section.id });
-        });
-
-        buildIndex(bar, index, root.dataset.index === 'sections');
     }
 
     /* ---------- boot ---------- */
@@ -318,8 +247,14 @@
         SP.base = root.dataset.base || '../../resources/spanish/';
 
         if (root.dataset.rules !== undefined) {
-            SP.loadRules().then(function (rules) { renderRules(root, rules); })
-                .catch(function (e) { SP.showError('sp-error', e); });
+            // The manifest rides along only for the icon; both files are small
+            // and the two requests overlap.
+            Promise.all([SP.loadRules(), SP.loadManifest()]).then(function (both) {
+                SP.renderRules(root, both[0], {
+                    mainOnly: root.dataset.index === 'sections',
+                    icon: both[1].rules ? both[1].rules.icon : ''
+                });
+            }).catch(function (e) { SP.showError('sp-error', e); });
             return;
         }
 

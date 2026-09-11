@@ -1,11 +1,11 @@
 {
  "id": "stage-3",
  "prefix": "es3",
- "no": 3,
- "title": "Core vocabulary",
- "titleRu": "База слов для живого общения",
+ "no": 2,
+ "title": "Words",
+ "titleRu": "Словарная база",
  "goal": "Практическая база из 628 слов и коротких выражений для быстрого перехода к бытовому испанскому.",
- "url": "spanish/stage-3.html",
+ "url": "spanish/stage-2.html",
  "intro": [
   {
    "k": "p",
@@ -6378,6 +6378,54 @@
    "tr": "аль фондо",
    "group": null,
    "chunk": "621–628"
+  },
+  {
+   "id": "es3-v629",
+   "type": "vocab",
+   "es": "ir",
+   "en": "to go",
+   "ru": "идти / ехать",
+   "tr": "ир"
+  },
+  {
+   "id": "es3-v630",
+   "type": "vocab",
+   "es": "venir",
+   "en": "to come",
+   "ru": "приходить / приезжать",
+   "tr": "бэни́р"
+  },
+  {
+   "id": "es3-v631",
+   "type": "vocab",
+   "es": "entrar",
+   "en": "to enter / go in",
+   "ru": "входить / заходить",
+   "tr": "энтра́р"
+  },
+  {
+   "id": "es3-v632",
+   "type": "vocab",
+   "es": "salir",
+   "en": "to go out / leave",
+   "ru": "выходить / уходить",
+   "tr": "сали́р"
+  },
+  {
+   "id": "es3-v633",
+   "type": "vocab",
+   "es": "volver",
+   "en": "to return / come back",
+   "ru": "возвращаться",
+   "tr": "больбе́р"
+  },
+  {
+   "id": "es3-v634",
+   "type": "vocab",
+   "es": "ser",
+   "en": "to be",
+   "ru": "быть",
+   "tr": "сэр"
   }
  ],
  "notes": [],

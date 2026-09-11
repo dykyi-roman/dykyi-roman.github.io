@@ -2,7 +2,7 @@
  "id": "stage-5",
  "prefix": "es5",
  "no": 5,
- "title": "Everyday situations",
+ "title": "Situations",
  "titleRu": "Личная рутина и реальные ситуации",
  "goal": "уверенно говорить в тех ситуациях, которые повторяются каждую неделю — школа и садик, кафе и супермаркет, аэропорт и поезд, аптека, банк, доставка, аренда, соседи, звонки.",
  "url": "spanish/stage-5.html",
@@ -103,104 +103,44 @@
  ],
  "groups": [
   {
-   "kind": "vocab",
+   "kind": "topic",
    "name": "Семья, школа и садик"
   },
   {
-   "kind": "vocab",
+   "kind": "topic",
    "name": "Кафе, ресторан и бар"
   },
   {
-   "kind": "vocab",
+   "kind": "topic",
    "name": "Супермаркет и покупки"
   },
   {
-   "kind": "vocab",
+   "kind": "topic",
    "name": "Аэропорт"
   },
   {
-   "kind": "vocab",
+   "kind": "topic",
    "name": "Поезд, автобус, такси и машина"
   },
   {
-   "kind": "vocab",
+   "kind": "topic",
    "name": "Отель"
   },
   {
-   "kind": "vocab",
+   "kind": "topic",
    "name": "Врач и аптека"
   },
   {
-   "kind": "vocab",
+   "kind": "topic",
    "name": "Банк, почта и доставка"
   },
   {
-   "kind": "vocab",
+   "kind": "topic",
    "name": "Дом, аренда и соседи"
   },
   {
-   "kind": "vocab",
+   "kind": "topic",
    "name": "Звонки, сообщения и договорённости"
-  },
-  {
-   "kind": "example",
-   "name": "Школа и садик"
-  },
-  {
-   "kind": "example",
-   "name": "Ребёнок заболел"
-  },
-  {
-   "kind": "example",
-   "name": "Бар и ресторан"
-  },
-  {
-   "kind": "example",
-   "name": "Заказ и особые пожелания"
-  },
-  {
-   "kind": "example",
-   "name": "Счёт и оплата"
-  },
-  {
-   "kind": "example",
-   "name": "Супермаркет"
-  },
-  {
-   "kind": "example",
-   "name": "Аэропорт"
-  },
-  {
-   "kind": "example",
-   "name": "Поезд и автобус"
-  },
-  {
-   "kind": "example",
-   "name": "Такси и машина"
-  },
-  {
-   "kind": "example",
-   "name": "Отель"
-  },
-  {
-   "kind": "example",
-   "name": "Аптека и врач"
-  },
-  {
-   "kind": "example",
-   "name": "Банк, почта и доставка"
-  },
-  {
-   "kind": "example",
-   "name": "Аренда и бытовые проблемы"
-  },
-  {
-   "kind": "example",
-   "name": "Соседи"
-  },
-  {
-   "kind": "example",
-   "name": "Звонки и сообщения"
   }
  ],
  "items": [
@@ -1325,371 +1265,371 @@
    "type": "phrase",
    "es": "¿A qué hora hay que recogerla?",
    "ru": "Во сколько её нужно забирать?",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x002",
    "type": "phrase",
    "es": "Hoy la recojo yo.",
    "ru": "Сегодня забираю её я.",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x003",
    "type": "phrase",
    "es": "Vengo a por mi hija.",
    "ru": "Я за дочкой.",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x004",
    "type": "phrase",
    "es": "Se me ha olvidado el babi.",
    "ru": "Я забыл халатик.",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x005",
    "type": "phrase",
    "es": "Se ha dejado la mochila en clase.",
    "ru": "Она забыла рюкзак в классе.",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x006",
    "type": "phrase",
    "es": "¿Ha comido bien hoy?",
    "ru": "Она сегодня хорошо поела?",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x007",
    "type": "phrase",
    "es": "¿Cómo se ha portado?",
    "ru": "Как она себя вела?",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x008",
    "type": "phrase",
    "es": "Perdona el retraso, había mucho tráfico.",
    "ru": "Извини за опоздание, были пробки.",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x009",
    "type": "phrase",
    "es": "Mañana llega un poco más tarde.",
    "ru": "Завтра она придёт чуть позже.",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x010",
    "type": "phrase",
    "es": "¿Hay deberes para mañana?",
    "ru": "На завтра есть домашка?",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x011",
    "type": "phrase",
    "es": "¿Se queda hoy al comedor?",
    "ru": "Она сегодня остаётся на обед?",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x012",
    "type": "phrase",
    "es": "¿Cuándo es la reunión de padres?",
    "ru": "Когда родительское собрание?",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x013",
    "type": "phrase",
    "es": "Quería hablar con la tutora.",
    "ru": "Я хотел бы поговорить с классным руководителем.",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x014",
    "type": "phrase",
    "es": "¿Puedo pedir una tutoría?",
    "ru": "Можно записаться на встречу с учителем?",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x015",
    "type": "phrase",
    "es": "Hay que firmar la autorización de la excursión.",
    "ru": "Нужно подписать разрешение на экскурсию.",
-   "group": "Школа и садик"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x016",
    "type": "phrase",
    "es": "Hoy no va al cole, está malita.",
    "ru": "Сегодня она не идёт в школу, приболела.",
-   "group": "Ребёнок заболел"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x017",
    "type": "phrase",
    "es": "Tiene fiebre desde ayer.",
    "ru": "У неё температура со вчера.",
-   "group": "Ребёнок заболел"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x018",
    "type": "phrase",
    "es": "Le duele la tripa.",
    "ru": "У неё болит живот.",
-   "group": "Ребёнок заболел"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x019",
    "type": "phrase",
    "es": "Ha vomitado esta noche.",
    "ru": "Ночью её вырвало.",
-   "group": "Ребёнок заболел"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x020",
    "type": "phrase",
    "es": "Voy a recogerla ahora, se ha puesto mala.",
    "ru": "Я сейчас её заберу, ей стало плохо.",
-   "group": "Ребёнок заболел"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x021",
    "type": "phrase",
    "es": "Mañana justifico la falta.",
    "ru": "Завтра оправдаю пропуск.",
-   "group": "Ребёнок заболел"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x022",
    "type": "phrase",
    "es": "¿Le puedo dar algo para la fiebre?",
    "ru": "Можно дать ей что-нибудь от температуры?",
-   "group": "Ребёнок заболел"
+   "group": "Семья, школа и садик"
   },
   {
    "id": "es5-x023",
    "type": "phrase",
    "es": "¿Tienen mesa para tres?",
    "ru": "У вас есть стол на троих?",
-   "group": "Бар и ресторан"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x024",
    "type": "phrase",
    "es": "Tengo una reserva a nombre de Roman.",
    "ru": "У меня бронь на имя Roman.",
-   "group": "Бар и ресторан"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x025",
    "type": "phrase",
    "es": "¿Podemos sentarnos en la terraza?",
    "ru": "Можно сесть на террасе?",
-   "group": "Бар и ресторан"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x026",
    "type": "phrase",
    "es": "¿Nos trae una trona, por favor?",
    "ru": "Принесите, пожалуйста, детский стульчик.",
-   "group": "Бар и ресторан"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x027",
    "type": "phrase",
    "es": "¿Me pone una caña, por favor?",
    "ru": "Мне маленькое пиво, пожалуйста.",
-   "group": "Бар и ресторан"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x028",
    "type": "phrase",
    "es": "¿Qué hay hoy de menú?",
    "ru": "Что сегодня в комплексном обеде?",
-   "group": "Бар и ресторан"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x029",
    "type": "phrase",
    "es": "De primero, sopa; de segundo, pollo.",
    "ru": "На первое суп, на второе курица.",
-   "group": "Бар и ресторан"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x030",
    "type": "exchange",
    "es": "¿Y de beber? — Agua, por favor.",
    "ru": "А пить? — Воду, пожалуйста.",
-   "group": "Бар и ресторан"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x031",
    "type": "phrase",
    "es": "Una ración y media ración.",
    "ru": "Одну порцию и полпорции.",
-   "group": "Бар и ресторан"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x032",
    "type": "phrase",
    "es": "¿Esto qué lleva?",
    "ru": "Что здесь в составе?",
-   "group": "Заказ и особые пожелания"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x033",
    "type": "phrase",
    "es": "¿Lleva leche?",
    "ru": "Там есть молоко?",
-   "group": "Заказ и особые пожелания"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x034",
    "type": "phrase",
    "es": "Sin cebolla, por favor.",
    "ru": "Без лука, пожалуйста.",
-   "group": "Заказ и особые пожелания"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x035",
    "type": "phrase",
    "es": "Mi hija es alérgica a los frutos secos.",
    "ru": "У дочери аллергия на орехи.",
-   "group": "Заказ и особые пожелания"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x036",
    "type": "phrase",
    "es": "¿Tienen algo para niños?",
    "ru": "Есть что-нибудь для детей?",
-   "group": "Заказ и особые пожелания"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x037",
    "type": "phrase",
    "es": "Para la niña, algo sin picante.",
    "ru": "Ребёнку что-нибудь неострое.",
-   "group": "Заказ и особые пожелания"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x038",
    "type": "phrase",
    "es": "Un café con leche para llevar.",
    "ru": "Кофе с молоком с собой.",
-   "group": "Заказ и особые пожелания"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x039",
    "type": "phrase",
    "es": "¿Para tomar aquí o para llevar?",
    "ru": "Здесь или с собой?",
-   "group": "Заказ и особые пожелания"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x040",
    "type": "phrase",
    "es": "¿Nos trae la cuenta, por favor?",
    "ru": "Принесите счёт, пожалуйста.",
-   "group": "Счёт и оплата"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x041",
    "type": "phrase",
    "es": "Esto no lo he pedido.",
    "ru": "Я этого не заказывал.",
-   "group": "Счёт и оплата"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x042",
    "type": "phrase",
    "es": "Creo que hay un error en la cuenta.",
    "ru": "Кажется, в счёте ошибка.",
-   "group": "Счёт и оплата"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x043",
    "type": "phrase",
    "es": "¿Se puede pagar con tarjeta?",
    "ru": "Картой можно?",
-   "group": "Счёт и оплата"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x044",
    "type": "phrase",
    "es": "Lo pago yo.",
    "ru": "Я плачу.",
-   "group": "Счёт и оплата"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x045",
    "type": "phrase",
    "es": "Pagamos a medias.",
    "ru": "Платим пополам.",
-   "group": "Счёт и оплата"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x046",
    "type": "phrase",
    "es": "¿Me da el ticket, por favor?",
    "ru": "Дайте чек, пожалуйста.",
-   "group": "Счёт и оплата"
+   "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-x047",
    "type": "phrase",
    "es": "¿Dónde está el pan?",
    "ru": "Где хлеб?",
-   "group": "Супермаркет"
+   "group": "Супермаркет и покупки"
   },
   {
    "id": "es5-x048",
    "type": "phrase",
    "es": "¿Me pone medio kilo de jamón?",
    "ru": "Полкило хамона, пожалуйста.",
-   "group": "Супермаркет"
+   "group": "Супермаркет и покупки"
   },
   {
    "id": "es5-x049",
    "type": "phrase",
    "es": "¿Esto está en oferta?",
    "ru": "Это по акции?",
-   "group": "Супермаркет"
+   "group": "Супермаркет и покупки"
   },
   {
    "id": "es5-x050",
    "type": "phrase",
    "es": "¿Me da una bolsa, por favor?",
    "ru": "Дайте пакет, пожалуйста.",
-   "group": "Супермаркет"
+   "group": "Супермаркет и покупки"
   },
   {
    "id": "es5-x051",
    "type": "phrase",
    "es": "¿Hasta qué hora abren?",
    "ru": "До скольких вы работаете?",
-   "group": "Супермаркет"
+   "group": "Супермаркет и покупки"
   },
   {
    "id": "es5-x052",
    "type": "phrase",
    "es": "¿Dónde está el probador?",
    "ru": "Где примерочная?",
-   "group": "Супермаркет"
+   "group": "Супермаркет и покупки"
   },
   {
    "id": "es5-x053",
    "type": "phrase",
    "es": "¿Lo puedo devolver si no le vale?",
    "ru": "Можно вернуть, если не подойдёт?",
-   "group": "Супермаркет"
+   "group": "Супермаркет и покупки"
   },
   {
    "id": "es5-x054",
@@ -1752,112 +1692,112 @@
    "type": "phrase",
    "es": "Dos billetes para Valencia, ida y vuelta.",
    "ru": "Два билета до Валенсии, туда-обратно.",
-   "group": "Поезд и автобус"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x063",
    "type": "phrase",
    "es": "¿De qué vía sale el tren?",
    "ru": "С какого пути отходит поезд?",
-   "group": "Поезд и автобус"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x064",
    "type": "phrase",
    "es": "¿Este tren para en Sitges?",
    "ru": "Этот поезд останавливается в Ситжесе?",
-   "group": "Поезд и автобус"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x065",
    "type": "phrase",
    "es": "¿Hay que hacer transbordo?",
    "ru": "Нужна пересадка?",
-   "group": "Поезд и автобус"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x066",
    "type": "phrase",
    "es": "¿Este autobús va al centro?",
    "ru": "Этот автобус идёт в центр?",
-   "group": "Поезд и автобус"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x067",
    "type": "phrase",
    "es": "¿Cuántas paradas faltan?",
    "ru": "Сколько остановок осталось?",
-   "group": "Поезд и автобус"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x068",
    "type": "phrase",
    "es": "Me bajo en la próxima.",
    "ru": "Я выхожу на следующей.",
-   "group": "Поезд и автобус"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x069",
    "type": "phrase",
    "es": "¿Puedo recargar la tarjeta aquí?",
    "ru": "Здесь можно пополнить проездной?",
-   "group": "Поезд и автобус"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x070",
    "type": "phrase",
    "es": "El tren lleva veinte minutos de retraso.",
    "ru": "Поезд опаздывает на двадцать минут.",
-   "group": "Поезд и автобус"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x071",
    "type": "phrase",
    "es": "¿Me lleva a esta dirección?",
    "ru": "Отвезёте по этому адресу?",
-   "group": "Такси и машина"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x072",
    "type": "phrase",
    "es": "¿Cuánto sería hasta el aeropuerto?",
    "ru": "Сколько будет до аэропорта?",
-   "group": "Такси и машина"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x073",
    "type": "phrase",
    "es": "¿Tiene sillita para niños?",
    "ru": "У вас есть детское кресло?",
-   "group": "Такси и машина"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x074",
    "type": "phrase",
    "es": "Vamos con prisa, tenemos un vuelo.",
    "ru": "Мы спешим, у нас самолёт.",
-   "group": "Такси и машина"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x075",
    "type": "phrase",
    "es": "Pare aquí, por favor.",
    "ru": "Остановите здесь, пожалуйста.",
-   "group": "Такси и машина"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x076",
    "type": "phrase",
    "es": "¿Dónde puedo aparcar por aquí?",
    "ru": "Где здесь можно припарковаться?",
-   "group": "Такси и машина"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x077",
    "type": "phrase",
    "es": "Lleno, por favor.",
    "ru": "Полный бак, пожалуйста.",
-   "group": "Такси и машина"
+   "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-x078",
@@ -1920,56 +1860,56 @@
    "type": "phrase",
    "es": "¿Tiene algo para la tos?",
    "ru": "Есть что-нибудь от кашля?",
-   "group": "Аптека и врач"
+   "group": "Врач и аптека"
   },
   {
    "id": "es5-x087",
    "type": "phrase",
    "es": "Es para una niña de tres años.",
    "ru": "Это для трёхлетнего ребёнка.",
-   "group": "Аптека и врач"
+   "group": "Врач и аптека"
   },
   {
    "id": "es5-x088",
    "type": "phrase",
    "es": "¿Hace falta receta?",
    "ru": "Нужен рецепт?",
-   "group": "Аптека и врач"
+   "group": "Врач и аптека"
   },
   {
    "id": "es5-x089",
    "type": "phrase",
    "es": "¿Cuál es la farmacia de guardia hoy?",
    "ru": "Какая аптека сегодня дежурная?",
-   "group": "Аптека и врач"
+   "group": "Врач и аптека"
   },
   {
    "id": "es5-x090",
    "type": "phrase",
    "es": "Quería pedir cita con el médico de cabecera.",
    "ru": "Хочу записаться к терапевту.",
-   "group": "Аптека и врач"
+   "group": "Врач и аптека"
   },
   {
    "id": "es5-x091",
    "type": "phrase",
    "es": "¿Tienen cita para esta semana?",
    "ru": "Есть запись на эту неделю?",
-   "group": "Аптека и врач"
+   "group": "Врач и аптека"
   },
   {
    "id": "es5-x092",
    "type": "phrase",
    "es": "Me encuentro mal desde ayer.",
    "ru": "Мне плохо со вчера.",
-   "group": "Аптека и врач"
+   "group": "Врач и аптека"
   },
   {
    "id": "es5-x093",
    "type": "phrase",
    "es": "¿Dónde están las urgencias?",
    "ru": "Где приёмный покой?",
-   "group": "Аптека и врач"
+   "group": "Врач и аптека"
   },
   {
    "id": "es5-x094",
@@ -2039,154 +1979,154 @@
    "type": "phrase",
    "es": "Busco piso de alquiler en esta zona.",
    "ru": "Ищу квартиру в аренду в этом районе.",
-   "group": "Аренда и бытовые проблемы"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x104",
    "type": "phrase",
    "es": "¿Cuánto es la fianza?",
    "ru": "Какой залог?",
-   "group": "Аренда и бытовые проблемы"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x105",
    "type": "phrase",
    "es": "¿La comunidad está incluida?",
    "ru": "Коммунальные включены?",
-   "group": "Аренда и бытовые проблемы"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x106",
    "type": "phrase",
    "es": "¿Los suministros van aparte?",
    "ru": "Свет и вода отдельно?",
-   "group": "Аренда и бытовые проблемы"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x107",
    "type": "phrase",
    "es": "Se ha estropeado la caldera.",
    "ru": "Сломался котёл.",
-   "group": "Аренда и бытовые проблемы"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x108",
    "type": "phrase",
    "es": "Hay una fuga de agua en el baño.",
    "ru": "В ванной течёт вода.",
-   "group": "Аренда и бытовые проблемы"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x109",
    "type": "phrase",
    "es": "No hay agua caliente.",
    "ru": "Нет горячей воды.",
-   "group": "Аренда и бытовые проблемы"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x110",
    "type": "phrase",
    "es": "¿Puede venir un fontanero hoy?",
    "ru": "Сантехник может прийти сегодня?",
-   "group": "Аренда и бытовые проблемы"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x111",
    "type": "phrase",
    "es": "El ascensor no funciona otra vez.",
    "ru": "Лифт снова не работает.",
-   "group": "Аренда и бытовые проблемы"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x112",
    "type": "phrase",
    "es": "¿Cuándo pasan a arreglarlo?",
    "ru": "Когда придут чинить?",
-   "group": "Аренда и бытовые проблемы"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x113",
    "type": "phrase",
    "es": "Hola, soy el vecino del cuarto.",
    "ru": "Здравствуйте, я сосед с четвёртого.",
-   "group": "Соседи"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x114",
    "type": "phrase",
    "es": "Perdona por el ruido de ayer.",
    "ru": "Извини за вчерашний шум.",
-   "group": "Соседи"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x115",
    "type": "phrase",
    "es": "¿Dónde están los contenedores?",
    "ru": "Где мусорные контейнеры?",
-   "group": "Соседи"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x116",
    "type": "phrase",
    "es": "¿Me puedes abrir el portal?",
    "ru": "Можешь открыть подъезд?",
-   "group": "Соседи"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x117",
    "type": "phrase",
    "es": "Hay reunión de la comunidad el jueves.",
    "ru": "В четверг собрание жильцов.",
-   "group": "Соседи"
+   "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-x118",
    "type": "phrase",
    "es": "¿Me llamas luego?",
    "ru": "Позвонишь потом?",
-   "group": "Звонки и сообщения"
+   "group": "Звонки, сообщения и договорённости"
   },
   {
    "id": "es5-x119",
    "type": "phrase",
    "es": "Ahora no puedo hablar, te llamo en diez minutos.",
    "ru": "Сейчас не могу говорить, перезвоню через десять минут.",
-   "group": "Звонки и сообщения"
+   "group": "Звонки, сообщения и договорённости"
   },
   {
    "id": "es5-x120",
    "type": "phrase",
    "es": "No te oigo bien, se corta.",
    "ru": "Плохо слышно, связь рвётся.",
-   "group": "Звонки и сообщения"
+   "group": "Звонки, сообщения и договорённости"
   },
   {
    "id": "es5-x121",
    "type": "phrase",
    "es": "Te mando un wasap con la dirección.",
    "ru": "Скину адрес в вотсап.",
-   "group": "Звонки и сообщения"
+   "group": "Звонки, сообщения и договорённости"
   },
   {
    "id": "es5-x122",
    "type": "phrase",
    "es": "Tengo una llamada perdida tuya.",
    "ru": "У меня от тебя пропущенный.",
-   "group": "Звонки и сообщения"
+   "group": "Звонки, сообщения и договорённости"
   },
   {
    "id": "es5-x123",
    "type": "phrase",
    "es": "¿Quedamos a las seis?",
    "ru": "Встретимся в шесть?",
-   "group": "Звонки и сообщения"
+   "group": "Звонки, сообщения и договорённости"
   },
   {
    "id": "es5-x124",
    "type": "phrase",
    "es": "Voy de camino, llego en cinco.",
    "ru": "Я в пути, буду через пять минут.",
-   "group": "Звонки и сообщения"
+   "group": "Звонки, сообщения и договорённости"
   },
   {
    "id": "es5-d001",

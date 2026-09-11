@@ -40,7 +40,6 @@
     <main id="main-content">
         <h2>Spanish</h2>
         <div class="sp-error" id="sp-error" hidden></div>
-        <p class="sp-stats" id="sp-loading">Loading the Spanish base…</p>
 
         <div id="sp-app" data-base="../resources/spanish/" hidden>
             <div class="sp-bar">
@@ -48,31 +47,12 @@
                 <div class="sp-tabs" id="sp-modes" role="tablist" aria-label="Practice mode"></div>
             </div>
 
-            <p class="sp-stats" id="sp-scope-note"></p>
-            <p id="sp-open-stage-wrap" hidden><a class="sp-stage-link" id="sp-open-stage" href="#"></a></p>
-            <p class="sp-stats" id="sp-tts-note" hidden>
-                This browser has no speech synthesis, so the listening mode and the play buttons are hidden.
-            </p>
-
             <!-- Browse -->
             <section class="sp-panel" id="panel-browse" role="tabpanel" aria-label="Browse" hidden>
                 <div class="sp-filters">
-                    <label class="visually-hidden" for="sp-browse-type">Type</label>
-                    <select class="sp-select" id="sp-browse-type">
-                        <option value="">All types</option>
-                        <option value="vocab">Words</option>
-                        <option value="pair">Pairs</option>
-                        <option value="phrase">Phrases</option>
-                        <option value="exchange">Exchanges</option>
-                        <option value="drill">Drills</option>
-                    </select>
-                    <label class="visually-hidden" for="sp-browse-group">Group</label>
+                    <label class="visually-hidden" for="sp-browse-group">Topic</label>
                     <select class="sp-select" id="sp-browse-group"></select>
                     <button type="button" class="sp-btn" id="sp-browse-reset">Reset</button>
-                </div>
-
-                <div class="sp-actions">
-                    <span class="sp-stats" id="sp-browse-count"></span>
                     <button type="button" class="sp-btn quiet" id="sp-browse-csv"
                             title="Download what is listed below as CSV">Export CSV</button>
                 </div>
@@ -91,8 +71,6 @@
                     <button type="button" class="sp-btn" id="sp-card-new">+10 new</button>
                     <button type="button" class="sp-btn" id="sp-card-ahead">Practice ahead</button>
                 </div>
-                <p class="sp-stats" id="sp-cards-stats"></p>
-
                 <div class="sp-card" id="sp-card" hidden>
                     <div class="sp-card-meta" id="sp-card-meta"></div>
                     <div class="sp-card-front" id="sp-card-front"></div>
@@ -117,7 +95,9 @@
             <!-- Quiz -->
             <section class="sp-panel" id="panel-quiz" role="tabpanel" aria-label="Quiz" hidden>
                 <div id="sp-quiz-start">
-                    <p class="sp-stats" id="sp-quiz-stats"></p>
+                    <p class="sp-empty" id="sp-quiz-empty" hidden>
+                        Not enough items in this stage to build a quiz.
+                    </p>
                     <div class="sp-actions">
                         <button type="button" class="sp-btn primary" id="sp-quiz-begin">Start a round of 10</button>
                     </div>
@@ -155,8 +135,8 @@
                 <p class="sp-empty" id="sp-listen-empty" hidden>Not enough items in this stage.</p>
             </section>
 
-            <h3 style="margin-top: var(--spacing-lg);">All stages</h3>
-            <ul class="sp-stages" id="sp-stage-index"></ul>
+            <!-- Rules -->
+            <section class="sp-panel" id="panel-rules" role="tabpanel" aria-label="Rules" hidden></section>
         </div>
     </main>
 

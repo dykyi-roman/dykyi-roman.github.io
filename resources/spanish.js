@@ -1,6 +1,7 @@
 /* The Spanish trainer on pages/spanish.html.
-   A stage chip picks the pool; four modes work over it — a browsable list,
-   Leitner flashcards, a multiple-choice quiz and a listening drill.
+   A stage chip picks the pool; five modes work over it — a browsable list,
+   Leitner flashcards, a multiple-choice quiz, a listening drill and the
+   phonetics/grammar rules, rendered in place rather than on their own page.
    Progress lives under its own localStorage keys and never touches the ones
    resources/learn.js owns. */
 
@@ -9,12 +10,20 @@
 
     var SP = window.SP;
 
-    var MODES = ['browse', 'cards', 'quiz', 'listen'];   // the browse list leads and opens by default
+    var MODES = ['browse', 'cards', 'quiz', 'listen', 'rules'];   // the browse list leads and opens by default
     var BOX_INTERVALS = { 1: 0, 2: 1, 3: 3, 4: 7, 5: 21 };
     var NEW_PER_BATCH = 10;
     var QUIZ_LENGTH = 10;
     var BROWSE_PAGE = 100;
     var BROWSE_STEP = 200;
+
+    // Inside one topic the entries read words first, then pairs, then live
+    // phrases and dialogues, with the drills last.
+    var TYPE_ORDER = { vocab: 0, pair: 1, phrase: 2, exchange: 3, drill: 4 };
+
+    function typeRank(type) {
+        return TYPE_ORDER[type] === undefined ? 9 : TYPE_ORDER[type];
+    }
 
     var PREFS_KEY = 'spanishPrefs';
     var CARDS_KEY = 'spanishCards';
@@ -48,12 +57,8 @@
     }
 
     function loadScope() {
-        var entries = selectedEntries();
-        byId('sp-scope-note').textContent = 'Loading ' + entries.length + ' stage' + (entries.length > 1 ? 's' : '') + '…';
-        return SP.loadStages(entries).then(function (stages) {
+        return SP.loadStages(selectedEntries()).then(function (stages) {
             rebuildPools(stages);
-            byId('sp-scope-note').textContent =
-                pool.length + ' study items · ' + allItems.length + ' entries in total';
             return stages;
         });
     }
@@ -64,51 +69,67 @@
         var strip = byId('sp-stages');
         SP.clear(strip);
 
-        // The rules are reference, not a study scope, so the first chip is a
-        // plain link out to the phonetics-and-grammar page.
+        // Rules are reference rather than a study scope, but they keep the slot
+        // they have always had at the head of the row — now a button that opens
+        // the panel in place instead of a link off the page.
         if (manifest.rules) {
-            var rulesChip = SP.el('a', 'sp-chip');
-            rulesChip.href = manifest.rules.url;
+            var rulesChip = SP.el('button', 'sp-chip');
+            rulesChip.type = 'button';
+            rulesChip.id = 'sp-rules-chip';
             rulesChip.title = manifest.rules.titleRu;
+            var rulesIcon = SP.iconSpan(manifest.rules.icon);
+            if (rulesIcon) rulesChip.appendChild(rulesIcon);
             rulesChip.appendChild(SP.el('span', 'sp-chip-label', 'Rules'));
-            rulesChip.appendChild(SP.el('small', null, ' ↗'));
+            rulesChip.addEventListener('click', function () { enterMode('rules'); });
             strip.appendChild(rulesChip);
         }
 
-        var options = [{ key: 'all', label: 'All stages', sub: '' }].concat(
-            manifest.stages.map(function (s) {
-                var n = 0;
-                Object.keys(s.counts).forEach(function (k) { n += s.counts[k]; });
-                return { key: String(s.no), label: 'Stage ' + s.no, sub: String(n), entry: s };
-            })
-        );
+        // The stages follow and "All stages" closes the row: it is the widest
+        // scope, not the starting point.
+        var options = manifest.stages.map(function (s) {
+            var n = 0;
+            Object.keys(s.counts).forEach(function (k) { n += s.counts[k]; });
+            return { key: String(s.no), label: s.title, sub: String(n), icon: s.icon, no: s.no };
+        }).concat([{ key: 'all', label: 'All stages', sub: '' }]);
 
         options.forEach(function (option) {
-            var chip = SP.el('button', 'sp-chip' + (prefs.stage === option.key ? ' active' : ''));
+            var chip = SP.el('button', 'sp-chip');
             chip.type = 'button';
+            chip.dataset.stage = option.key;
+            var icon = SP.iconSpan(option.icon);
+            if (icon) chip.appendChild(icon);
             chip.appendChild(SP.el('span', 'sp-chip-label', option.label));
             if (option.sub) chip.appendChild(SP.el('small', null, ' ' + option.sub));
+            if (option.no) {
+                chip.setAttribute('aria-label',
+                    'Stage ' + option.no + ': ' + option.label + ', ' + option.sub + ' entries');
+            }
             chip.addEventListener('click', function () {
                 if (prefs.stage === option.key) return;
                 prefs.stage = option.key;
                 savePrefs();
                 renderStageChips();
-                loadScope().then(function () { enterMode(currentMode, true); })
+                // Picking a scope means you want to study it, so step out of
+                // the rules — otherwise the click would change nothing on screen.
+                var next = currentMode === 'rules' ? 'browse' : currentMode;
+                loadScope().then(function () { enterMode(next, true); })
                     .catch(function (e) { SP.showError('sp-error', e); });
             });
             strip.appendChild(chip);
         });
 
-        var link = byId('sp-open-stage');
-        var wrap = byId('sp-open-stage-wrap');
-        var current = manifest.stages.filter(function (s) { return String(s.no) === String(prefs.stage); })[0];
-        if (current) {
-            wrap.hidden = false;
-            link.href = current.url;
-            link.textContent = 'Open Stage ' + current.no + ': ' + current.title + ' →';
-        } else {
-            wrap.hidden = true;
-        }
+        syncChipActive();
+    }
+
+    // One highlight per row: reading the rules is not a scope, so while that
+    // panel is open the stage chips stay quiet and Rules carries the mark.
+    function syncChipActive() {
+        var readingRules = currentMode === 'rules';
+        var rules = byId('sp-rules-chip');
+        if (rules) rules.classList.toggle('active', readingRules);
+        document.querySelectorAll('#sp-stages .sp-chip[data-stage]').forEach(function (chip) {
+            chip.classList.toggle('active', !readingRules && chip.dataset.stage === String(prefs.stage));
+        });
     }
 
     function renderModeTabs() {
@@ -116,6 +137,7 @@
         SP.clear(strip);
         var labels = { browse: 'Browse', cards: 'Flashcards', quiz: 'Quiz', listen: 'Listening' };
         MODES.forEach(function (mode) {
+            if (mode === 'rules') return;          // its button sits in the chip row
             if (mode === 'listen' && !SP.tts.available()) return;
             var tab = SP.el('button', 'sp-tab', labels[mode]);
             tab.type = 'button';
@@ -137,6 +159,7 @@
             tab.classList.toggle('active', active);
             tab.setAttribute('aria-selected', String(active));
         });
+        syncChipActive();
         MODES.forEach(function (name) {
             var panel = byId('panel-' + name);
             if (panel) panel.hidden = name !== mode;
@@ -147,6 +170,7 @@
         if (mode === 'browse') initBrowse();
         else if (mode === 'quiz') initQuiz();
         else if (mode === 'listen') initListen();
+        else if (mode === 'rules') initRules();
         else initCards();
     }
 
@@ -200,22 +224,9 @@
         cardsIndex = 0;
     }
 
-    function cardStatsText() {
-        var known = 0, learning = 0;
-        pool.forEach(function (item) {
-            var record = cardsState.cards[item.id];
-            if (!record) return;
-            if (record.b >= 4) known += 1; else learning += 1;
-        });
-        var left = Math.max(0, cardsQueue.length - cardsIndex);
-        return left + ' in this round · ' + learning + ' learning · ' + known + ' known · ' +
-            (pool.length - known - learning) + ' untouched';
-    }
-
     function showCard() {
         var card = byId('sp-card');
         var empty = byId('sp-cards-empty');
-        byId('sp-cards-stats').textContent = cardStatsText();
 
         var item = cardsQueue[cardsIndex];
         if (!item) {
@@ -526,15 +537,13 @@
         byId('sp-quiz-start').hidden = false;
         byId('sp-quiz-round').hidden = true;
         byId('sp-quiz-done').hidden = true;
-        byId('sp-quiz-stats').textContent = quizStats.answered
-            ? quizStats.rounds + ' rounds · ' + quizStats.correct + '/' + quizStats.answered + ' correct'
-            : 'No rounds yet.';
+        byId('sp-quiz-empty').hidden = true;
     }
 
     function startQuiz() {
         quizQuestions = makeQuestions(QUIZ_LENGTH);
         if (!quizQuestions.length) {
-            byId('sp-quiz-stats').textContent = 'Not enough items in this stage to build a quiz.';
+            byId('sp-quiz-empty').hidden = false;
             return;
         }
         quizIndex = 0;
@@ -693,34 +702,58 @@
     var browseFiltered = [];
 
     function initBrowse() {
-        var groups = {};
-        allItems.forEach(function (item) { if (item.group) groups[item.group] = true; });
+        // Topic names are unique across the stages, so the option value is the
+        // bare name; the optgroup only says where it comes from, which matters
+        // once the scope is "All stages" and the list runs to 45 topics.
+        var seen = {};
+        var byStage = [];
+        allItems.forEach(function (item) {
+            if (!item.group || seen[item.group]) return;
+            seen[item.group] = true;
+            var bucket = byStage.filter(function (b) { return b.stage === item.stage; })[0];
+            if (!bucket) { bucket = { stage: item.stage, names: [] }; byStage.push(bucket); }
+            bucket.names.push(item.group);
+        });
 
         var groupSelect = byId('sp-browse-group');
         var previous = groupSelect.value;
         SP.clear(groupSelect);
-        var allOption = SP.el('option', null, 'All groups');
+        var allOption = SP.el('option', null, 'All topics');
         allOption.value = '';
         groupSelect.appendChild(allOption);
-        Object.keys(groups).sort().forEach(function (name) {
-            var option = SP.el('option', null, name);
-            option.value = name;
-            groupSelect.appendChild(option);
+        byStage.forEach(function (bucket) {
+            var host = groupSelect;
+            if (byStage.length > 1) {
+                host = SP.el('optgroup');
+                host.label = 'Stage ' + bucket.stage;
+                groupSelect.appendChild(host);
+            }
+            bucket.names.forEach(function (name) {
+                var option = SP.el('option', null, name);
+                option.value = name;
+                host.appendChild(option);
+            });
         });
-        groupSelect.value = groups[previous] ? previous : '';
+        groupSelect.value = seen[previous] ? previous : '';
 
         applyBrowse();
     }
 
     function applyBrowse() {
-        var type = byId('sp-browse-type').value;
         var group = byId('sp-browse-group').value;
 
-        browseFiltered = allItems.filter(function (item) {
-            if (type && item.type !== type) return false;
-            if (group && item.group !== group) return false;
-            return true;
-        });
+        // allItems keeps the file order, which interleaves a few exchanges
+        // among the phrases; sorting by type makes every topic read the same
+        // way. The original index is the tie-breaker, so the sort is stable.
+        browseFiltered = allItems
+            .filter(function (item) { return !group || item.group === group; })
+            .map(function (item, i) { return { item: item, i: i }; })
+            .sort(function (a, b) {
+                if (a.item.stage !== b.item.stage) return a.item.stage - b.item.stage;
+                var rank = typeRank(a.item.type) - typeRank(b.item.type);
+                return rank !== 0 ? rank : a.i - b.i;
+            })
+            .map(function (row) { return row.item; });
 
         browseShown = BROWSE_PAGE;
         renderBrowse();
@@ -729,7 +762,6 @@
     function renderBrowse() {
         var list = byId('sp-browse-list');
         SP.clear(list);
-        byId('sp-browse-count').textContent = browseFiltered.length + ' entries';
         byId('sp-browse-empty').hidden = browseFiltered.length !== 0;
 
         var slice = browseFiltered.slice(0, browseShown);
@@ -782,10 +814,8 @@
     }
 
     function initBrowseControls() {
-        byId('sp-browse-type').addEventListener('change', applyBrowse);
         byId('sp-browse-group').addEventListener('change', applyBrowse);
         byId('sp-browse-reset').addEventListener('click', function () {
-            byId('sp-browse-type').value = '';
             byId('sp-browse-group').value = '';
             applyBrowse();
         });
@@ -796,17 +826,25 @@
         byId('sp-browse-csv').addEventListener('click', exportCsv);
     }
 
+    /* ---------- rules ---------- */
+
+    var rulesRendered = false;
+
+    function initRules() {
+        if (rulesRendered) return;
+        SP.loadRules().then(function (rules) {
+            // h3, because the page already spends its h2 on the "Spanish" title.
+            SP.renderRules(byId('panel-rules'), rules, { heading: 'h3', icon: manifest.rules.icon });
+            rulesRendered = true;
+        }).catch(function (e) { SP.showError('sp-error', e); });
+    }
+
     /* ---------- boot ---------- */
 
     function boot() {
         var root = byId('sp-app');
         if (!root || !SP) return;
         SP.base = root.dataset.base || '../resources/spanish/';
-
-        if (!SP.tts.available()) {
-            var hint = byId('sp-tts-note');
-            if (hint) hint.hidden = false;
-        }
 
         initCardControls();
         initQuizControls();
@@ -817,15 +855,12 @@
             manifest = data;
             renderStageChips();
             renderModeTabs();
-            renderStageIndex();
             return loadScope();
         }).then(function () {
             root.hidden = false;
-            byId('sp-loading').hidden = true;
             var fromHash = location.hash.slice(1);
             enterMode(MODES.indexOf(fromHash) !== -1 ? fromHash : 'browse', true);
         }).catch(function (e) {
-            byId('sp-loading').hidden = true;
             SP.showError('sp-error', e);
         });
 
@@ -833,33 +868,6 @@
             var mode = location.hash.slice(1);
             if (MODES.indexOf(mode) !== -1 && mode !== currentMode) enterMode(mode);
         });
-    }
-
-    function renderStageIndex() {
-        var list = byId('sp-stage-index');
-        SP.clear(list);
-        manifest.stages.forEach(function (stage) {
-            var total = 0;
-            Object.keys(stage.counts).forEach(function (k) { total += stage.counts[k]; });
-            var li = SP.el('li');
-            var card = SP.el('a', 'sp-stage-card');
-            card.href = stage.url;
-            card.appendChild(SP.el('b', null, 'Stage ' + stage.no + ' — ' + stage.title));
-            card.appendChild(SP.el('span', null, stage.titleRu));
-            card.appendChild(SP.el('span', null, total + ' entries'));
-            li.appendChild(card);
-            list.appendChild(li);
-        });
-        if (manifest.rules) {
-            var li2 = SP.el('li');
-            var card2 = SP.el('a', 'sp-stage-card');
-            card2.href = manifest.rules.url;
-            card2.appendChild(SP.el('b', null, 'Phonetics and grammar'));
-            card2.appendChild(SP.el('span', null, manifest.rules.titleRu));
-            card2.appendChild(SP.el('span', null, manifest.rules.sections + ' sections'));
-            li2.appendChild(card2);
-            list.appendChild(li2);
-        }
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

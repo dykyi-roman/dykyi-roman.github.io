@@ -2,7 +2,7 @@
  "id": "stage-1",
  "prefix": "es1",
  "no": 1,
- "title": "Space and direction",
+ "title": "Direction",
  "titleRu": "Пространство, направление и базовые связки",
  "goal": "понимать и строить простые фразы о местоположении, направлении и движении в повседневной жизни в Испании.",
  "url": "spanish/stage-1.html",
@@ -39,318 +39,12 @@
  ],
  "items": [
   {
-   "id": "es1-v001",
-   "type": "vocab",
-   "es": "aquí",
-   "en": "here",
-   "ru": "здесь",
-   "tr": "аки́",
-   "group": null
-  },
-  {
-   "id": "es1-v002",
-   "type": "vocab",
-   "es": "ahí",
-   "en": "there",
-   "ru": "там / вон там",
-   "tr": "а-и́",
-   "group": null
-  },
-  {
-   "id": "es1-v003",
-   "type": "vocab",
-   "es": "allí",
-   "en": "there / over there",
-   "ru": "там / вон там",
-   "tr": "айи́",
-   "group": null
-  },
-  {
-   "id": "es1-v004",
-   "type": "vocab",
-   "es": "delante",
-   "en": "in front",
-   "ru": "впереди / перед",
-   "tr": "дела́нте",
-   "group": null
-  },
-  {
-   "id": "es1-v005",
-   "type": "vocab",
-   "es": "detrás",
-   "en": "behind",
-   "ru": "сзади / за",
-   "tr": "детра́с",
-   "group": null
-  },
-  {
-   "id": "es1-v006",
-   "type": "vocab",
-   "es": "encima",
-   "en": "on top / above",
-   "ru": "сверху / на",
-   "tr": "энси́ма",
-   "group": null
-  },
-  {
-   "id": "es1-v009",
-   "type": "vocab",
-   "es": "debajo",
-   "en": "underneath / below",
-   "ru": "под",
-   "tr": "деба́хо",
-   "group": null
-  },
-  {
-   "id": "es1-v012",
-   "type": "vocab",
-   "es": "enfrente",
-   "en": "opposite / across",
-   "ru": "напротив",
-   "tr": "энфрэ́нте",
-   "group": null
-  },
-  {
-   "id": "es1-v013",
-   "type": "vocab",
-   "es": "al lado de",
-   "en": "next to / beside",
-   "ru": "рядом с",
-   "tr": "аль ла́до де",
-   "group": null
-  },
-  {
-   "id": "es1-v014",
-   "type": "vocab",
-   "es": "entre",
-   "en": "between",
-   "ru": "между",
-   "tr": "э́нтре",
-   "group": null
-  },
-  {
-   "id": "es1-v015",
-   "type": "vocab",
-   "es": "delante de",
-   "en": "in front of",
-   "ru": "перед",
-   "tr": "дела́нте де",
-   "group": null
-  },
-  {
-   "id": "es1-v016",
-   "type": "vocab",
-   "es": "detrás de",
-   "en": "behind",
-   "ru": "за / позади",
-   "tr": "детра́с де",
-   "group": null
-  },
-  {
-   "id": "es1-v017",
-   "type": "vocab",
-   "es": "cerca de",
-   "en": "near",
-   "ru": "рядом с / недалеко от",
-   "tr": "се́рка де",
-   "group": null
-  },
-  {
-   "id": "es1-v018",
-   "type": "vocab",
-   "es": "lejos de",
-   "en": "far from",
-   "ru": "далеко от",
-   "tr": "ле́хос де",
-   "group": null
-  },
-  {
-   "id": "es1-v023",
-   "type": "vocab",
-   "es": "en",
-   "en": "in / on / at",
-   "ru": "в / на",
-   "tr": "эн",
-   "group": null
-  },
-  {
    "id": "es1-v024",
    "type": "vocab",
    "es": "a",
    "en": "to",
    "ru": "в / к",
    "tr": "а",
-   "group": null
-  },
-  {
-   "id": "es1-v025",
-   "type": "vocab",
-   "es": "de",
-   "en": "from / of",
-   "ru": "из / от",
-   "tr": "де",
-   "group": null
-  },
-  {
-   "id": "es1-v026",
-   "type": "vocab",
-   "es": "con",
-   "en": "with",
-   "ru": "с",
-   "tr": "кон",
-   "group": null
-  },
-  {
-   "id": "es1-v027",
-   "type": "vocab",
-   "es": "sin",
-   "en": "without",
-   "ru": "без",
-   "tr": "син",
-   "group": null
-  },
-  {
-   "id": "es1-v028",
-   "type": "vocab",
-   "es": "por",
-   "en": "through / along / by",
-   "ru": "через / по",
-   "tr": "пор",
-   "group": null
-  },
-  {
-   "id": "es1-v029",
-   "type": "vocab",
-   "es": "para",
-   "en": "for / to",
-   "ru": "для / чтобы",
-   "tr": "па́ра",
-   "group": null
-  },
-  {
-   "id": "es1-v030",
-   "type": "vocab",
-   "es": "sobre",
-   "en": "on / about",
-   "ru": "на / о",
-   "tr": "со́бре",
-   "group": null
-  },
-  {
-   "id": "es1-v031",
-   "type": "vocab",
-   "es": "hasta",
-   "en": "until / up to",
-   "ru": "до",
-   "tr": "а́ста",
-   "group": null
-  },
-  {
-   "id": "es1-v032",
-   "type": "vocab",
-   "es": "hacia",
-   "en": "towards",
-   "ru": "в сторону / к",
-   "tr": "а́сья",
-   "group": null
-  },
-  {
-   "id": "es1-v033",
-   "type": "vocab",
-   "es": "este",
-   "en": "this",
-   "ru": "этот",
-   "tr": "э́сте",
-   "group": null
-  },
-  {
-   "id": "es1-v034",
-   "type": "vocab",
-   "es": "esta",
-   "en": "this",
-   "ru": "эта",
-   "tr": "э́ста",
-   "group": null
-  },
-  {
-   "id": "es1-v035",
-   "type": "vocab",
-   "es": "ese",
-   "en": "that",
-   "ru": "тот / этот",
-   "tr": "э́се",
-   "group": null
-  },
-  {
-   "id": "es1-v036",
-   "type": "vocab",
-   "es": "esa",
-   "en": "that",
-   "ru": "та / эта",
-   "tr": "э́са",
-   "group": null
-  },
-  {
-   "id": "es1-v037",
-   "type": "vocab",
-   "es": "esto",
-   "en": "this / this thing",
-   "ru": "это",
-   "tr": "э́сто",
-   "group": null
-  },
-  {
-   "id": "es1-v038",
-   "type": "vocab",
-   "es": "eso",
-   "en": "that / that thing",
-   "ru": "это / то",
-   "tr": "э́со",
-   "group": null
-  },
-  {
-   "id": "es1-v039",
-   "type": "vocab",
-   "es": "ir",
-   "en": "to go",
-   "ru": "идти / ехать",
-   "tr": "ир",
-   "group": null
-  },
-  {
-   "id": "es1-v040",
-   "type": "vocab",
-   "es": "venir",
-   "en": "to come",
-   "ru": "приходить / приезжать",
-   "tr": "бэни́р",
-   "group": null
-  },
-  {
-   "id": "es1-v041",
-   "type": "vocab",
-   "es": "entrar",
-   "en": "to enter / go in",
-   "ru": "входить / заходить",
-   "tr": "энтра́р",
-   "group": null
-  },
-  {
-   "id": "es1-v042",
-   "type": "vocab",
-   "es": "salir",
-   "en": "to go out / leave",
-   "ru": "выходить / уходить",
-   "tr": "сали́р",
-   "group": null
-  },
-  {
-   "id": "es1-v043",
-   "type": "vocab",
-   "es": "volver",
-   "en": "to return / come back",
-   "ru": "возвращаться",
-   "tr": "больбе́р",
    "group": null
   },
   {
@@ -372,12 +66,21 @@
    "group": null
   },
   {
-   "id": "es1-v046",
+   "id": "es1-v023",
    "type": "vocab",
-   "es": "pero",
-   "en": "but",
-   "ru": "но",
-   "tr": "пе́ро",
+   "es": "en",
+   "en": "in / on / at",
+   "ru": "в / на",
+   "tr": "эн",
+   "group": null
+  },
+  {
+   "id": "es1-v025",
+   "type": "vocab",
+   "es": "de",
+   "en": "from / of",
+   "ru": "из / от",
+   "tr": "де",
    "group": null
   },
   {
@@ -417,39 +120,12 @@
    "group": null
   },
   {
-   "id": "es1-v051",
-   "type": "vocab",
-   "es": "usted",
-   "en": "you formal",
-   "ru": "Вы",
-   "tr": "устэд",
-   "group": null
-  },
-  {
    "id": "es1-v052",
    "type": "vocab",
    "es": "él",
    "en": "he",
    "ru": "он",
    "tr": "эл",
-   "group": null
-  },
-  {
-   "id": "es1-v053",
-   "type": "vocab",
-   "es": "ella",
-   "en": "she",
-   "ru": "она",
-   "tr": "эйа",
-   "group": null
-  },
-  {
-   "id": "es1-v054",
-   "type": "vocab",
-   "es": "nosotros",
-   "en": "we",
-   "ru": "мы",
-   "tr": "носотрос",
    "group": null
   },
   {
@@ -480,15 +156,6 @@
    "group": null
   },
   {
-   "id": "es1-v058",
-   "type": "vocab",
-   "es": "nos",
-   "en": "us",
-   "ru": "нам/нас",
-   "tr": "нос",
-   "group": null
-  },
-  {
    "id": "es1-v059",
    "type": "vocab",
    "es": "os",
@@ -513,24 +180,6 @@
    "en": "it/her",
    "ru": "это/её",
    "tr": "ла",
-   "group": null
-  },
-  {
-   "id": "es1-v062",
-   "type": "vocab",
-   "es": "los",
-   "en": "them",
-   "ru": "их",
-   "tr": "лос",
-   "group": null
-  },
-  {
-   "id": "es1-v063",
-   "type": "vocab",
-   "es": "las",
-   "en": "them",
-   "ru": "их",
-   "tr": "лас",
    "group": null
   },
   {
@@ -570,105 +219,6 @@
    "group": null
   },
   {
-   "id": "es1-v068",
-   "type": "vocab",
-   "es": "nuestro",
-   "en": "our",
-   "ru": "наш",
-   "tr": "нуэстро",
-   "group": null
-  },
-  {
-   "id": "es1-v069",
-   "type": "vocab",
-   "es": "vuestro",
-   "en": "your plural Spain",
-   "ru": "ваш",
-   "tr": "буэстро",
-   "group": null
-  },
-  {
-   "id": "es1-v070",
-   "type": "vocab",
-   "es": "mío",
-   "en": "mine",
-   "ru": "мой/моё",
-   "tr": "мио",
-   "group": null
-  },
-  {
-   "id": "es1-v071",
-   "type": "vocab",
-   "es": "tuyo",
-   "en": "yours",
-   "ru": "твой/твоё",
-   "tr": "туйо",
-   "group": null
-  },
-  {
-   "id": "es1-v072",
-   "type": "vocab",
-   "es": "suyo",
-   "en": "his/hers/theirs",
-   "ru": "его/её/их",
-   "tr": "суйо",
-   "group": null
-  },
-  {
-   "id": "es1-v073",
-   "type": "vocab",
-   "es": "estos",
-   "en": "these",
-   "ru": "эти",
-   "tr": "эстос",
-   "group": null
-  },
-  {
-   "id": "es1-v074",
-   "type": "vocab",
-   "es": "estas",
-   "en": "these",
-   "ru": "эти",
-   "tr": "эстас",
-   "group": null
-  },
-  {
-   "id": "es1-v075",
-   "type": "vocab",
-   "es": "esos",
-   "en": "those",
-   "ru": "те",
-   "tr": "эсос",
-   "group": null
-  },
-  {
-   "id": "es1-v076",
-   "type": "vocab",
-   "es": "esas",
-   "en": "those",
-   "ru": "те",
-   "tr": "эсас",
-   "group": null
-  },
-  {
-   "id": "es1-v077",
-   "type": "vocab",
-   "es": "aquel",
-   "en": "that over there",
-   "ru": "вон тот",
-   "tr": "акел",
-   "group": null
-  },
-  {
-   "id": "es1-v078",
-   "type": "vocab",
-   "es": "aquella",
-   "en": "that over there",
-   "ru": "вон та",
-   "tr": "акейа",
-   "group": null
-  },
-  {
    "id": "es1-v079",
    "type": "vocab",
    "es": "ah",
@@ -705,21 +255,111 @@
    "group": null
   },
   {
-   "id": "es1-v083",
-   "type": "vocab",
-   "es": "ser",
-   "en": "to be",
-   "ru": "быть",
-   "tr": "сэр",
-   "group": null
-  },
-  {
    "id": "es1-v084",
    "type": "vocab",
    "es": "ya",
    "en": "already",
    "ru": "уже",
    "tr": "йа",
+   "group": null
+  },
+  {
+   "id": "es1-v002",
+   "type": "vocab",
+   "es": "ahí",
+   "en": "there",
+   "ru": "там / вон там",
+   "tr": "а-и́",
+   "group": null
+  },
+  {
+   "id": "es1-v026",
+   "type": "vocab",
+   "es": "con",
+   "en": "with",
+   "ru": "с",
+   "tr": "кон",
+   "group": null
+  },
+  {
+   "id": "es1-v027",
+   "type": "vocab",
+   "es": "sin",
+   "en": "without",
+   "ru": "без",
+   "tr": "син",
+   "group": null
+  },
+  {
+   "id": "es1-v028",
+   "type": "vocab",
+   "es": "por",
+   "en": "through / along / by",
+   "ru": "через / по",
+   "tr": "пор",
+   "group": null
+  },
+  {
+   "id": "es1-v035",
+   "type": "vocab",
+   "es": "ese",
+   "en": "that",
+   "ru": "тот / этот",
+   "tr": "э́се",
+   "group": null
+  },
+  {
+   "id": "es1-v036",
+   "type": "vocab",
+   "es": "esa",
+   "en": "that",
+   "ru": "та / эта",
+   "tr": "э́са",
+   "group": null
+  },
+  {
+   "id": "es1-v038",
+   "type": "vocab",
+   "es": "eso",
+   "en": "that / that thing",
+   "ru": "это / то",
+   "tr": "э́со",
+   "group": null
+  },
+  {
+   "id": "es1-v058",
+   "type": "vocab",
+   "es": "nos",
+   "en": "us",
+   "ru": "нам/нас",
+   "tr": "нос",
+   "group": null
+  },
+  {
+   "id": "es1-v062",
+   "type": "vocab",
+   "es": "los",
+   "en": "them",
+   "ru": "их",
+   "tr": "лос",
+   "group": null
+  },
+  {
+   "id": "es1-v063",
+   "type": "vocab",
+   "es": "las",
+   "en": "them",
+   "ru": "их",
+   "tr": "лас",
+   "group": null
+  },
+  {
+   "id": "es1-v070",
+   "type": "vocab",
+   "es": "mío",
+   "en": "mine",
+   "ru": "мой/моё",
+   "tr": "мио",
    "group": null
   },
   {
@@ -732,12 +372,120 @@
    "group": null
   },
   {
-   "id": "es1-v086",
+   "id": "es1-v111",
    "type": "vocab",
-   "es": "entonces",
-   "en": "then",
-   "ru": "тогда/затем",
-   "tr": "энтонсэс",
+   "es": "uno",
+   "en": "one",
+   "ru": "один",
+   "tr": "уно",
+   "group": null
+  },
+  {
+   "id": "es1-v001",
+   "type": "vocab",
+   "es": "aquí",
+   "en": "here",
+   "ru": "здесь",
+   "tr": "аки́",
+   "group": null
+  },
+  {
+   "id": "es1-v003",
+   "type": "vocab",
+   "es": "allí",
+   "en": "there / over there",
+   "ru": "там / вон там",
+   "tr": "айи́",
+   "group": null
+  },
+  {
+   "id": "es1-v029",
+   "type": "vocab",
+   "es": "para",
+   "en": "for / to",
+   "ru": "для / чтобы",
+   "tr": "па́ра",
+   "group": null
+  },
+  {
+   "id": "es1-v033",
+   "type": "vocab",
+   "es": "este",
+   "en": "this",
+   "ru": "этот",
+   "tr": "э́сте",
+   "group": null
+  },
+  {
+   "id": "es1-v034",
+   "type": "vocab",
+   "es": "esta",
+   "en": "this",
+   "ru": "эта",
+   "tr": "э́ста",
+   "group": null
+  },
+  {
+   "id": "es1-v037",
+   "type": "vocab",
+   "es": "esto",
+   "en": "this / this thing",
+   "ru": "это",
+   "tr": "э́сто",
+   "group": null
+  },
+  {
+   "id": "es1-v046",
+   "type": "vocab",
+   "es": "pero",
+   "en": "but",
+   "ru": "но",
+   "tr": "пе́ро",
+   "group": null
+  },
+  {
+   "id": "es1-v053",
+   "type": "vocab",
+   "es": "ella",
+   "en": "she",
+   "ru": "она",
+   "tr": "эйа",
+   "group": null
+  },
+  {
+   "id": "es1-v071",
+   "type": "vocab",
+   "es": "tuyo",
+   "en": "yours",
+   "ru": "твой/твоё",
+   "tr": "туйо",
+   "group": null
+  },
+  {
+   "id": "es1-v072",
+   "type": "vocab",
+   "es": "suyo",
+   "en": "his/hers/theirs",
+   "ru": "его/её/их",
+   "tr": "суйо",
+   "group": null
+  },
+  {
+   "id": "es1-v075",
+   "type": "vocab",
+   "es": "esos",
+   "en": "those",
+   "ru": "те",
+   "tr": "эсос",
+   "group": null
+  },
+  {
+   "id": "es1-v076",
+   "type": "vocab",
+   "es": "esas",
+   "en": "those",
+   "ru": "те",
+   "tr": "эсас",
    "group": null
   },
   {
@@ -750,48 +498,12 @@
    "group": null
   },
   {
-   "id": "es1-v088",
-   "type": "vocab",
-   "es": "desde",
-   "en": "from/since",
-   "ru": "из/с",
-   "tr": "дэсдэ",
-   "group": null
-  },
-  {
    "id": "es1-v089",
    "type": "vocab",
    "es": "allá",
    "en": "over there",
    "ru": "там/вон там",
    "tr": "айа",
-   "group": null
-  },
-  {
-   "id": "es1-v090",
-   "type": "vocab",
-   "es": "vosotros",
-   "en": "you plural Spain",
-   "ru": "вы",
-   "tr": "босотрос",
-   "group": null
-  },
-  {
-   "id": "es1-v091",
-   "type": "vocab",
-   "es": "ellos",
-   "en": "they",
-   "ru": "они",
-   "tr": "эйос",
-   "group": null
-  },
-  {
-   "id": "es1-v092",
-   "type": "vocab",
-   "es": "ustedes",
-   "en": "you plural",
-   "ru": "вы",
-   "tr": "устэдэс",
    "group": null
   },
   {
@@ -813,24 +525,6 @@
    "group": null
   },
   {
-   "id": "es1-v095",
-   "type": "vocab",
-   "es": "todos",
-   "en": "all",
-   "ru": "все",
-   "tr": "тодос",
-   "group": null
-  },
-  {
-   "id": "es1-v096",
-   "type": "vocab",
-   "es": "todas",
-   "en": "all",
-   "ru": "все",
-   "tr": "тодас",
-   "group": null
-  },
-  {
    "id": "es1-v097",
    "type": "vocab",
    "es": "otro",
@@ -849,93 +543,12 @@
    "group": null
   },
   {
-   "id": "es1-v099",
-   "type": "vocab",
-   "es": "alguno",
-   "en": "some/any",
-   "ru": "какой-то/некоторый",
-   "tr": "алгуно",
-   "group": null
-  },
-  {
-   "id": "es1-v100",
-   "type": "vocab",
-   "es": "alguna",
-   "en": "some/any",
-   "ru": "какая-то",
-   "tr": "алгуна",
-   "group": null
-  },
-  {
-   "id": "es1-v101",
-   "type": "vocab",
-   "es": "algunos",
-   "en": "some",
-   "ru": "некоторые",
-   "tr": "алгунос",
-   "group": null
-  },
-  {
-   "id": "es1-v102",
-   "type": "vocab",
-   "es": "ninguno",
-   "en": "none/no",
-   "ru": "ни один/никакой",
-   "tr": "нингуно",
-   "group": null
-  },
-  {
-   "id": "es1-v103",
-   "type": "vocab",
-   "es": "cualquiera",
-   "en": "any/whatever",
-   "ru": "любой",
-   "tr": "куалкиэра",
-   "group": null
-  },
-  {
    "id": "es1-v104",
    "type": "vocab",
    "es": "cada",
    "en": "each/every",
    "ru": "каждый",
    "tr": "када",
-   "group": null
-  },
-  {
-   "id": "es1-v105",
-   "type": "vocab",
-   "es": "ambos",
-   "en": "both",
-   "ru": "оба",
-   "tr": "амбос",
-   "group": null
-  },
-  {
-   "id": "es1-v106",
-   "type": "vocab",
-   "es": "mismo",
-   "en": "same/self",
-   "ru": "тот же/сам",
-   "tr": "мисмо",
-   "group": null
-  },
-  {
-   "id": "es1-v107",
-   "type": "vocab",
-   "es": "alguien",
-   "en": "someone",
-   "ru": "кто-то",
-   "tr": "алгиэн",
-   "group": null
-  },
-  {
-   "id": "es1-v108",
-   "type": "vocab",
-   "es": "nadie",
-   "en": "nobody",
-   "ru": "никто",
-   "tr": "надиэ",
    "group": null
   },
   {
@@ -957,12 +570,255 @@
    "group": null
   },
   {
-   "id": "es1-v111",
+   "id": "es1-v014",
    "type": "vocab",
-   "es": "uno",
-   "en": "one",
-   "ru": "один",
-   "tr": "уно",
+   "es": "entre",
+   "en": "between",
+   "ru": "между",
+   "tr": "э́нтре",
+   "group": null
+  },
+  {
+   "id": "es1-v030",
+   "type": "vocab",
+   "es": "sobre",
+   "en": "on / about",
+   "ru": "на / о",
+   "tr": "со́бре",
+   "group": null
+  },
+  {
+   "id": "es1-v031",
+   "type": "vocab",
+   "es": "hasta",
+   "en": "until / up to",
+   "ru": "до",
+   "tr": "а́ста",
+   "group": null
+  },
+  {
+   "id": "es1-v032",
+   "type": "vocab",
+   "es": "hacia",
+   "en": "towards",
+   "ru": "в сторону / к",
+   "tr": "а́сья",
+   "group": null
+  },
+  {
+   "id": "es1-v051",
+   "type": "vocab",
+   "es": "usted",
+   "en": "you formal",
+   "ru": "Вы",
+   "tr": "устэд",
+   "group": null
+  },
+  {
+   "id": "es1-v073",
+   "type": "vocab",
+   "es": "estos",
+   "en": "these",
+   "ru": "эти",
+   "tr": "эстос",
+   "group": null
+  },
+  {
+   "id": "es1-v074",
+   "type": "vocab",
+   "es": "estas",
+   "en": "these",
+   "ru": "эти",
+   "tr": "эстас",
+   "group": null
+  },
+  {
+   "id": "es1-v077",
+   "type": "vocab",
+   "es": "aquel",
+   "en": "that over there",
+   "ru": "вон тот",
+   "tr": "акел",
+   "group": null
+  },
+  {
+   "id": "es1-v088",
+   "type": "vocab",
+   "es": "desde",
+   "en": "from/since",
+   "ru": "из/с",
+   "tr": "дэсдэ",
+   "group": null
+  },
+  {
+   "id": "es1-v091",
+   "type": "vocab",
+   "es": "ellos",
+   "en": "they",
+   "ru": "они",
+   "tr": "эйос",
+   "group": null
+  },
+  {
+   "id": "es1-v095",
+   "type": "vocab",
+   "es": "todos",
+   "en": "all",
+   "ru": "все",
+   "tr": "тодос",
+   "group": null
+  },
+  {
+   "id": "es1-v096",
+   "type": "vocab",
+   "es": "todas",
+   "en": "all",
+   "ru": "все",
+   "tr": "тодас",
+   "group": null
+  },
+  {
+   "id": "es1-v105",
+   "type": "vocab",
+   "es": "ambos",
+   "en": "both",
+   "ru": "оба",
+   "tr": "амбос",
+   "group": null
+  },
+  {
+   "id": "es1-v106",
+   "type": "vocab",
+   "es": "mismo",
+   "en": "same/self",
+   "ru": "тот же/сам",
+   "tr": "мисмо",
+   "group": null
+  },
+  {
+   "id": "es1-v108",
+   "type": "vocab",
+   "es": "nadie",
+   "en": "nobody",
+   "ru": "никто",
+   "tr": "надиэ",
+   "group": null
+  },
+  {
+   "id": "es1-v005",
+   "type": "vocab",
+   "es": "detrás",
+   "en": "behind",
+   "ru": "сзади / за",
+   "tr": "детра́с",
+   "group": null
+  },
+  {
+   "id": "es1-v006",
+   "type": "vocab",
+   "es": "encima",
+   "en": "on top / above",
+   "ru": "сверху / на",
+   "tr": "энси́ма",
+   "group": null
+  },
+  {
+   "id": "es1-v009",
+   "type": "vocab",
+   "es": "debajo",
+   "en": "underneath / below",
+   "ru": "под",
+   "tr": "деба́хо",
+   "group": null
+  },
+  {
+   "id": "es1-v099",
+   "type": "vocab",
+   "es": "alguno",
+   "en": "some/any",
+   "ru": "какой-то/некоторый",
+   "tr": "алгуно",
+   "group": null
+  },
+  {
+   "id": "es1-v100",
+   "type": "vocab",
+   "es": "alguna",
+   "en": "some/any",
+   "ru": "какая-то",
+   "tr": "алгуна",
+   "group": null
+  },
+  {
+   "id": "es1-v004",
+   "type": "vocab",
+   "es": "delante",
+   "en": "in front",
+   "ru": "впереди / перед",
+   "tr": "дела́нте",
+   "group": null
+  },
+  {
+   "id": "es1-v068",
+   "type": "vocab",
+   "es": "nuestro",
+   "en": "our",
+   "ru": "наш",
+   "tr": "нуэстро",
+   "group": null
+  },
+  {
+   "id": "es1-v069",
+   "type": "vocab",
+   "es": "vuestro",
+   "en": "your plural Spain",
+   "ru": "ваш",
+   "tr": "буэстро",
+   "group": null
+  },
+  {
+   "id": "es1-v078",
+   "type": "vocab",
+   "es": "aquella",
+   "en": "that over there",
+   "ru": "вон та",
+   "tr": "акейа",
+   "group": null
+  },
+  {
+   "id": "es1-v092",
+   "type": "vocab",
+   "es": "ustedes",
+   "en": "you plural",
+   "ru": "вы",
+   "tr": "устэдэс",
+   "group": null
+  },
+  {
+   "id": "es1-v101",
+   "type": "vocab",
+   "es": "algunos",
+   "en": "some",
+   "ru": "некоторые",
+   "tr": "алгунос",
+   "group": null
+  },
+  {
+   "id": "es1-v102",
+   "type": "vocab",
+   "es": "ninguno",
+   "en": "none/no",
+   "ru": "ни один/никакой",
+   "tr": "нингуно",
+   "group": null
+  },
+  {
+   "id": "es1-v107",
+   "type": "vocab",
+   "es": "alguien",
+   "en": "someone",
+   "ru": "кто-то",
+   "tr": "алгиэн",
    "group": null
   },
   {
@@ -972,6 +828,96 @@
    "en": "also",
    "ru": "тоже/также",
    "tr": "тамбиэн",
+   "group": null
+  },
+  {
+   "id": "es1-v012",
+   "type": "vocab",
+   "es": "enfrente",
+   "en": "opposite / across",
+   "ru": "напротив",
+   "tr": "энфрэ́нте",
+   "group": null
+  },
+  {
+   "id": "es1-v017",
+   "type": "vocab",
+   "es": "cerca de",
+   "en": "near",
+   "ru": "рядом с / недалеко от",
+   "tr": "се́рка де",
+   "group": null
+  },
+  {
+   "id": "es1-v018",
+   "type": "vocab",
+   "es": "lejos de",
+   "en": "far from",
+   "ru": "далеко от",
+   "tr": "ле́хос де",
+   "group": null
+  },
+  {
+   "id": "es1-v054",
+   "type": "vocab",
+   "es": "nosotros",
+   "en": "we",
+   "ru": "мы",
+   "tr": "носотрос",
+   "group": null
+  },
+  {
+   "id": "es1-v086",
+   "type": "vocab",
+   "es": "entonces",
+   "en": "then",
+   "ru": "тогда/затем",
+   "tr": "энтонсэс",
+   "group": null
+  },
+  {
+   "id": "es1-v090",
+   "type": "vocab",
+   "es": "vosotros",
+   "en": "you all",
+   "ru": "вы все",
+   "tr": "босотрос",
+   "group": null
+  },
+  {
+   "id": "es1-v016",
+   "type": "vocab",
+   "es": "detrás de",
+   "en": "behind",
+   "ru": "за / позади",
+   "tr": "детра́с де",
+   "group": null
+  },
+  {
+   "id": "es1-v013",
+   "type": "vocab",
+   "es": "al lado de",
+   "en": "next to / beside",
+   "ru": "рядом с",
+   "tr": "аль ла́до де",
+   "group": null
+  },
+  {
+   "id": "es1-v015",
+   "type": "vocab",
+   "es": "delante de",
+   "en": "in front of",
+   "ru": "перед",
+   "tr": "дела́нте де",
+   "group": null
+  },
+  {
+   "id": "es1-v103",
+   "type": "vocab",
+   "es": "cualquiera",
+   "en": "any/whatever",
+   "ru": "любой",
+   "tr": "куалкиэра",
    "group": null
   },
   {

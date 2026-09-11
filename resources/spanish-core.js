@@ -70,6 +70,7 @@
     SP.base = '../resources/spanish/';   // overridden by each page before load()
     SP.manifest = null;
     SP.stages = {};                      // id -> parsed stage, cached in memory
+    SP.rules = null;                     // parsed rules.json, cached in memory
 
     function fetchJson(url) {
         // GitHub Pages serves max-age=600; without no-cache a fresh publish
@@ -103,6 +104,7 @@
             item.stageId = stage.id;
         });
         (stage.notes || []).forEach(function (note) { note.stage = stage.no; });
+        stage.icon = entry.icon;        // lives in the manifest, injected like item.stage
         return stage;
     }
 
@@ -120,7 +122,11 @@
     };
 
     SP.loadRules = function () {
-        return fetchJson(SP.base + 'rules.json');
+        if (SP.rules) return Promise.resolve(SP.rules);
+        return fetchJson(SP.base + 'rules.json').then(function (data) {
+            SP.rules = data;
+            return data;
+        });
     };
 
     /* ---------- item helpers ---------- */
@@ -158,6 +164,15 @@
     };
 
     SP.clear = function (node) { while (node && node.firstChild) node.removeChild(node.firstChild); };
+
+    // A stage's thematic mark. Decoration only — the title beside it already
+    // says which stage this is — so it is hidden from assistive tech.
+    SP.iconSpan = function (icon) {
+        if (!icon) return null;
+        var span = SP.el('span', 'sp-icon', icon);
+        span.setAttribute('aria-hidden', 'true');
+        return span;
+    };
 
     /* ---------- speech ---------- */
 
@@ -316,14 +331,101 @@
         return box;
     };
 
+    /* ---------- chip index with scroll spy ---------- */
+
+    // Shared by the reference pages and by the Rules tab on the hub: one chip
+    // strip per entry.row, with an observer that keeps the visible section lit.
+    SP.buildIndex = function (bar, entries, mainOnly) {
+        var rows = {};
+        if (mainOnly) entries = entries.filter(function (e) { return e.row === 'main'; });
+        entries.forEach(function (entry) {
+            if (!rows[entry.row]) {
+                rows[entry.row] = SP.el('div', 'sp-chips');
+                bar.appendChild(rows[entry.row]);
+            }
+            var chip = SP.el('a', 'sp-chip');
+            chip.appendChild(SP.el('span', 'sp-chip-label', entry.label));
+            chip.href = '#' + entry.target;
+            chip.title = entry.label;
+            chip.dataset.target = entry.target;
+            rows[entry.row].appendChild(chip);
+            entry.chip = chip;
+        });
+
+        if (!('IntersectionObserver' in window)) return;
+
+        var byTarget = {};
+        entries.forEach(function (e) { byTarget[e.target] = e; });
+
+        var observer = new IntersectionObserver(function (records) {
+            records.forEach(function (record) {
+                var entry = byTarget[record.target.id];
+                if (!entry || !record.isIntersecting) return;
+                entries.forEach(function (other) {
+                    if (other.row === entry.row) other.chip.classList.toggle('active', other === entry);
+                });
+                // Keep the highlighted chip reachable without hunting for it.
+                var strip = entry.chip.parentNode;
+                var left = entry.chip.offsetLeft - strip.clientWidth / 2 + entry.chip.clientWidth / 2;
+                strip.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+            });
+        }, { rootMargin: '-88px 0px -70% 0px', threshold: 0 });
+
+        entries.forEach(function (entry) {
+            var node = document.getElementById(entry.target);
+            if (node) observer.observe(node);
+        });
+    };
+
+    /* ---------- rules (phonetics and grammar) ---------- */
+
+    // Rendered both as its own page and as a tab on the hub, so the top heading
+    // level is a parameter: h2 where it is the only title on the page, h3 inside
+    // the hub panel, whose h2 is already taken by the page title.
+    SP.renderRules = function (host, rules, options) {
+        var opts = options || {};
+        var index = [];
+        SP.clear(host);
+
+        var head = SP.el('header');
+        var title = SP.el(opts.heading || 'h2');
+        var icon = SP.iconSpan(opts.icon);
+        if (icon) title.appendChild(icon);
+        title.appendChild(document.createTextNode(rules.titleRu));
+        head.appendChild(title);
+        SP.renderBlocks(head, rules.intro);
+        host.appendChild(head);
+
+        var bar = SP.el('div', 'sp-bar');
+        host.appendChild(bar);
+
+        var body = SP.el('div');
+        host.appendChild(body);
+
+        rules.sections.forEach(function (section) {
+            var block = SP.el('section', 'sp-group');
+            block.id = section.id;
+            block.appendChild(SP.el('h3', 'sp-group-title', section.no + '. ' + section.title));
+            SP.renderBlocks(block, section.blocks);
+            (section.parts || []).forEach(function (part) {
+                block.appendChild(SP.el('h4', null, part.title));
+                SP.renderBlocks(block, part.blocks);
+            });
+            body.appendChild(block);
+            index.push({ row: 'main', label: section.no + '. ' + section.title, target: section.id });
+        });
+
+        SP.buildIndex(bar, index, opts.mainOnly);
+    };
+
     /* ---------- item rows ---------- */
 
     SP.renderLexRow = function (item) {
         var row = SP.el('div', 'sp-lex-row' + (item.type === 'pair' ? ' is-pair' : ''));
         row.appendChild(SP.el('div', 'sp-lex-es', item.es));
         row.appendChild(SP.el('div', 'sp-lex-tr', item.tr || ''));
-        row.appendChild(SP.el('div', 'sp-lex-ru', item.ru || ''));
         row.appendChild(SP.el('div', 'sp-lex-en', item.en || ''));
+        row.appendChild(SP.el('div', 'sp-lex-ru', item.ru || ''));
         var speak = SP.speakButton(item.es);
         if (speak) row.appendChild(speak);
         return row;

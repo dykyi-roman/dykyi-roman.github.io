@@ -136,6 +136,11 @@
     white-space: nowrap;
 }
 
+/* Thematic marks on the chips and stage headings. Chips are flex, so their
+   gap already spaces the icon; a heading needs the margin spelled out. */
+.sp-icon { flex: 0 0 auto; font-style: normal; }
+h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
+
 .sp-chip small { color: var(--color-text-light); font-size: 0.8em; }
 .sp-chip.active small { color: rgba(255, 255, 255, 0.75); }
 
@@ -145,30 +150,20 @@
 
 .sp-panel[hidden] { display: none !important; }
 
+/* The rules renderer brings its own .sp-bar. Inside a panel the hub's own bar
+   is already sticky at the top, so the nested one stays put instead of
+   fighting it for the same strip of screen. */
+.sp-panel .sp-bar { position: static; border-bottom: 0; margin-bottom: var(--spacing-sm); }
+
+/* Anchored sections must clear the sticky bar they are jumped to from. */
+.sp-group[id], .sp-section[id] { scroll-margin-top: 96px; }
+
 .sp-actions {
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-xs);
     margin: var(--spacing-md) 0;
 }
-
-.sp-stats {
-    color: var(--color-text-light);
-    font-size: var(--font-size-small);
-    margin: var(--spacing-sm) 0;
-}
-
-.sp-stage-link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    min-height: 44px;
-    color: var(--color-primary);
-    font-size: var(--font-size-small);
-    text-decoration: none;
-}
-
-.sp-stage-link:hover { color: var(--color-primary-hover); text-decoration: underline; }
 
 /* ---------- speak button ---------- */
 
@@ -219,8 +214,8 @@
     grid-template-areas:
         "es    speak"
         "tr    speak"
-        "ru    ru"
-        "en    en";
+        "en    en"
+        "ru    ru";
     gap: 2px var(--spacing-sm);
     align-items: center;
     padding: var(--spacing-sm);
@@ -399,31 +394,12 @@
 
 .sp-empty { color: var(--color-text-light); padding: var(--spacing-md) 0; }
 
-/* ---------- stage index cards on the hub ---------- */
-
-.sp-stages { display: grid; grid-template-columns: 1fr; gap: var(--spacing-sm); list-style: none; padding: 0; margin: 0; }
-
-.sp-stage-card {
-    display: block;
-    padding: var(--spacing-md);
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    background: var(--color-white);
-    color: var(--color-text);
-    text-decoration: none;
-    transition: border-color var(--transition-fast), transform var(--transition-fast);
-}
-
-.sp-stage-card:hover { border-color: var(--color-primary); transform: translateY(-2px); }
-.sp-stage-card b { display: block; color: var(--color-heading); font-size: var(--font-size-large); margin-bottom: 2px; }
-.sp-stage-card span { display: block; color: var(--color-text-light); font-size: var(--font-size-small); }
-
 /* ---------- 700px and up: the lexicon becomes a real table ---------- */
 
 @media (min-width: 700px) {
     .sp-lex-row {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1.2fr) minmax(0, 1fr) 44px;
-        grid-template-areas: "es tr ru en speak";
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) 44px;
+        grid-template-areas: "es tr en ru speak";
         align-items: center;
         gap: var(--spacing-sm);
     }
@@ -433,16 +409,10 @@
     .sp-ex-row .sp-ex-es { grid-column: 1; }
     .sp-ex-row .sp-ex-ru { grid-column: 2; align-self: center; }
     .sp-ex-row .sp-speak { grid-row: 1; grid-column: 3; }
-    .sp-stages { grid-template-columns: repeat(2, 1fr); }
     .sp-tab { flex: 0 0 auto; }
     .sp-table th, .sp-table td { white-space: normal; }
 }
 
-@media (min-width: 1000px) {
-    .sp-stages { grid-template-columns: repeat(3, 1fr); }
-}
-
 @media (prefers-reduced-motion: reduce) {
-    .sp-stage-card:hover { transform: none; }
     .sp-card { transition: none !important; }
 }
