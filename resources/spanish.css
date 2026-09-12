@@ -286,6 +286,8 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-table { border-collapse: collapse; width: 100%; font-size: var(--font-size-small); }
 .sp-table th, .sp-table td { border: 1px solid var(--color-border); padding: 8px 10px; text-align: left; white-space: nowrap; }
 .sp-table th { color: var(--color-heading); background: var(--color-white); }
+/* ключ правила объединён на все свои строки-примеры */
+.sp-table td[rowspan] { vertical-align: middle; }
 
 /* ---------- excluded list ---------- */
 

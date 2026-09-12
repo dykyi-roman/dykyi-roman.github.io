@@ -283,6 +283,30 @@
         return parent;
     };
 
+    function cellKey(cell) {
+        return (cell || []).map(function (span) {
+            if (!span || span.t === undefined) return '';
+            return (span.s || '') + '\u0001' + span.t;
+        }).join('\u0002');
+    }
+
+    // Ключ правила повторяется в каждой строке своих примеров — на экране он нужен один раз.
+    // Считаем, сколько строк подряд делят первую ячейку: 0 означает «строка без своей первой ячейки».
+    function firstColumnSpans(rows) {
+        var spans = rows.map(function () { return 0; });
+        var head = -1;
+        rows.forEach(function (row, i) {
+            var key = cellKey(row && row[0]);
+            if (head >= 0 && key && key === cellKey(rows[head][0])) {
+                spans[head]++;
+                return;
+            }
+            head = i;
+            spans[i] = 1;
+        });
+        return spans;
+    }
+
     function renderTable(block) {
         var wrap = SP.el('div', 'sp-table-wrap');
         var table = SP.el('table', 'sp-table');
@@ -293,10 +317,21 @@
             thead.appendChild(hr);
             table.appendChild(thead);
         }
+        var rows = block.rows || [];
+        var spans = firstColumnSpans(rows);
         var tbody = SP.el('tbody');
-        (block.rows || []).forEach(function (row) {
+        rows.forEach(function (row, i) {
             var tr = SP.el('tr');
-            row.forEach(function (cell) { SP.renderSpans(tr.appendChild(SP.el('td')), cell); });
+            row.forEach(function (cell, col) {
+                if (col === 0) {
+                    if (!spans[i]) return;
+                    var td = SP.el('td');
+                    if (spans[i] > 1) td.rowSpan = spans[i];
+                    SP.renderSpans(tr.appendChild(td), cell);
+                    return;
+                }
+                SP.renderSpans(tr.appendChild(SP.el('td')), cell);
+            });
             tbody.appendChild(tr);
         });
         table.appendChild(tbody);
