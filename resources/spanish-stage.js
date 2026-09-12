@@ -247,13 +247,8 @@
         SP.base = root.dataset.base || '../../resources/spanish/';
 
         if (root.dataset.rules !== undefined) {
-            // The manifest rides along only for the icon; both files are small
-            // and the two requests overlap.
-            Promise.all([SP.loadRules(), SP.loadManifest()]).then(function (both) {
-                SP.renderRules(root, both[0], {
-                    mainOnly: root.dataset.index === 'sections',
-                    icon: both[1].rules ? both[1].rules.icon : ''
-                });
+            SP.loadRules().then(function (rules) {
+                SP.renderRules(root, rules, { mainOnly: root.dataset.index === 'sections' });
             }).catch(function (e) { SP.showError('sp-error', e); });
             return;
         }

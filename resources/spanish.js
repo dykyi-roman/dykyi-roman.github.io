@@ -833,8 +833,7 @@
     function initRules() {
         if (rulesRendered) return;
         SP.loadRules().then(function (rules) {
-            // h3, because the page already spends its h2 on the "Spanish" title.
-            SP.renderRules(byId('panel-rules'), rules, { heading: 'h3', icon: manifest.rules.icon });
+            SP.renderRules(byId('panel-rules'), rules);
             rulesRendered = true;
         }).catch(function (e) { SP.showError('sp-error', e); });
     }

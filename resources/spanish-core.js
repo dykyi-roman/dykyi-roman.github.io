@@ -379,20 +379,16 @@
 
     /* ---------- rules (phonetics and grammar) ---------- */
 
-    // Rendered both as its own page and as a tab on the hub, so the top heading
-    // level is a parameter: h2 where it is the only title on the page, h3 inside
-    // the hub panel, whose h2 is already taken by the page title.
+    // Rendered both as its own page and as a tab on the hub. It carries no title
+    // of its own: on the page the breadcrumb and the tab say what this is, and
+    // inside the hub panel a heading only repeated the Rules chip above it.
+    // The single option is opts.mainOnly, which keeps the chip index to one row.
     SP.renderRules = function (host, rules, options) {
         var opts = options || {};
         var index = [];
         SP.clear(host);
 
         var head = SP.el('header');
-        var title = SP.el(opts.heading || 'h2');
-        var icon = SP.iconSpan(opts.icon);
-        if (icon) title.appendChild(icon);
-        title.appendChild(document.createTextNode(rules.titleRu));
-        head.appendChild(title);
         SP.renderBlocks(head, rules.intro);
         host.appendChild(head);
 
