@@ -351,16 +351,19 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     background: rgba(220, 118, 3, 0.07);
 }
 
-/* Their meaning, though, is covered: the point of a word you know or are
-   working on is to recall it, so the translation is a bar until the row is
-   tapped — and a second tap covers it again. The drawn dashes sit inside those
-   boxes and go under the bar with them. */
-.sp-lex-row.is-learned:not(.is-revealed) .sp-lex-en,
-.sp-lex-row.is-learned:not(.is-revealed) .sp-lex-ru,
-.sp-ex-row.is-learned:not(.is-revealed) .sp-ex-ru,
-.sp-lex-row.is-pending:not(.is-revealed) .sp-lex-en,
-.sp-lex-row.is-pending:not(.is-revealed) .sp-lex-ru,
-.sp-ex-row.is-pending:not(.is-revealed) .sp-ex-ru {
+/* One side of them, though, is covered: the point of a word you know or are
+   working on is to recall it, so that side is a bar until the row is tapped —
+   and a second tap covers it again. Which side is the reader's pick, carried
+   by data-sp-cover on <html> (SP.cover): the meaning by default, or the Spanish
+   with its transliteration, to practise the other way round. A drill covers
+   its answer either way — its prompt is the question, whatever language it is
+   in. The drawn brackets and dashes sit inside those boxes and go under the
+   bar with them. */
+html:not([data-sp-cover="spanish"]) .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) :is(.sp-lex-en, .sp-lex-ru),
+html:not([data-sp-cover="spanish"]) .sp-ex-row:is(.is-learned, .is-pending):not(.is-revealed) .sp-ex-ru,
+html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) :is(.sp-lex-es, .sp-lex-tr),
+html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pending):not(.is-revealed) .sp-ex-es,
+.sp-ex-row.is-drill:is(.is-learned, .is-pending):not(.is-revealed) .sp-ex-ru {
     color: transparent;
     background: rgba(255, 255, 255, 0.07);
     border-radius: 4px;
@@ -653,9 +656,6 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 /* Exactly 16px, like .sp-select: anything smaller and iOS zooms the page when
    the field takes focus. */
 .sp-search {
-    /* A line of its own on a phone — squeezed between the topic filter and
-       Reset it fits about three letters. From 700px up it shares the row. */
-    flex: 1 1 100%;
     min-width: 0;
     min-height: 44px;
     padding: 10px 12px;
@@ -670,10 +670,16 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-search::placeholder { color: var(--color-text-light); }
 .sp-search:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 
-/* In a sticky bar — the hub's and a stage page's alike — it has the strip to
-   itself, above the chips. */
-.sp-bar .sp-search { width: 100%; flex: 0 0 auto; margin-bottom: var(--spacing-xs); }
-#sp-search-host { display: flex; }
+/* In a sticky bar — the hub's and a stage page's alike — it runs above the
+   chips, sharing the strip only with the switch of the side a covered row
+   hides. */
+.sp-search-row { display: flex; gap: var(--spacing-xs); margin-bottom: var(--spacing-xs); }
+.sp-search-row .sp-search { flex: 1 1 auto; }
+
+/* The downloads and the copy button wrap as one block. Laid out one by one, a
+   phone wide enough to take the downloads beside Reset (430px) would leave
+   the copy button alone on the line below. */
+.sp-outputs { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-xs); }
 
 /* The three export slices travel together and wrap as one block, so the row
    never breaks between a count and what it counts. */
@@ -703,7 +709,67 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     stroke-linejoin: round;
 }
 
+/* Below 700px that block has the line under the topic filter to itself, and
+   it is not a wide one: the label drops its verb and the quiet buttons most
+   of their side padding. That leaves room for a three-digit pending count on
+   a 360px screen — with the full label a 393px iPhone had not a pixel to
+   spare, and the copy button dropped to a line of its own. */
+@media (max-width: 699px) {
+    .sp-export-verb { display: none; }
+    .sp-btn.quiet { padding: 4px 6px; }
+}
+
 .sp-empty { color: var(--color-text-light); padding: var(--spacing-md) 0; }
+
+/* ---------- the side a covered row hides ---------- */
+
+/* One control of two segments, in row order — ES, then EN — and the lit one
+   is the side that is hidden, which is what the crossed-out eye before them
+   says. It keeps the 44px of every other control in the bar. */
+.sp-cover {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: stretch;
+    min-height: 44px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+    overflow: hidden;
+}
+
+.sp-cover-icon {
+    flex: 0 0 auto;
+    align-self: center;
+    width: 18px;
+    height: 18px;
+    margin: 0 8px 0 10px;
+    fill: none;
+    stroke: var(--color-text-light);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.sp-cover-btn {
+    min-width: 44px;
+    padding: 0 10px;
+    border: 0;
+    border-left: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size-small);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.sp-cover-btn:hover { color: var(--color-primary); }
+.sp-cover-btn.active { background: var(--color-primary); color: #fff; }
+/* Drawn inside: the control clips what spills past its rounded corners. */
+.sp-cover-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -4px; }
+.sp-cover-btn.active:focus-visible { outline-color: #fff; }
 
 /* ---------- 700px and up: the lexicon becomes a real table ---------- */
 
@@ -732,7 +798,6 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     }
 
     .sp-lex-row .sp-speak { align-self: center; }
-    .sp-search { flex: 1 1 220px; }
     .sp-lex-row.has-mark .sp-mark { align-self: center; }
     .sp-ex-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px; }
     .sp-ex-row .sp-ex-es { grid-column: 1; }

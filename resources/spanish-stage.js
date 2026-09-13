@@ -208,10 +208,16 @@
         SP.renderBlocks(head, stage.intro);
         root.appendChild(head);
 
+        // The search shares its strip with the switch of the side a covered
+        // row hides, as it does on the hub — every list on the page has rows
+        // to cover, and the bar is where the switch stays in reach.
         var bar = SP.el('div', 'sp-bar');
         var search = SP.searchBox('Search this stage', draw);
+        var searchRow = SP.el('div', 'sp-search-row');
         var chips = SP.el('div');
-        bar.appendChild(search.node);
+        searchRow.appendChild(search.node);
+        searchRow.appendChild(SP.coverSwitch());
+        bar.appendChild(searchRow);
         bar.appendChild(chips);
         root.appendChild(bar);
 

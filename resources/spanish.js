@@ -179,6 +179,7 @@
             tab.setAttribute('aria-selected', String(active));
         });
         syncChipActive();
+        if (coverSwitch) coverSwitch.hidden = mode !== 'browse';
         MODES.forEach(function (name) {
             var panel = byId('panel-' + name);
             if (panel) panel.hidden = name !== mode;
@@ -781,12 +782,14 @@
     }
 
     // A drill browses as its prompt with the answer beside it; everything else
-    // uses the shared row renderers. `mark` is the learned toggle.
+    // uses the shared row renderers. `mark` is the learned toggle. The drill
+    // is flagged because it covers its answer whichever side is picked: its
+    // prompt is the question, Russian or Spanish.
     function browseRow(item, mark) {
         if (item.type === 'phrase' || item.type === 'exchange') return SP.renderExRow(item, mark);
         if (item.type !== 'drill') return SP.renderLexRow(item, mark);
 
-        var row = SP.el('div', 'sp-ex-row');
+        var row = SP.el('div', 'sp-ex-row is-drill');
         row.appendChild(SP.el('div', 'sp-ex-es', item.prompt));
         row.appendChild(SP.el('div', 'sp-ex-ru', item.answer));
         var speak = SP.speakButton(item.answer);
@@ -1133,6 +1136,18 @@
         applyBrowse();
     }
 
+    /* ---------- the side a covered row hides ---------- */
+
+    // It shares the strip with the search, so it stays in reach however far
+    // the list is scrolled, and it shows only over the browse list: no other
+    // mode has rows to cover, and the flashcards keep a direction of their own.
+    var coverSwitch = null;
+
+    function initCoverSwitch() {
+        coverSwitch = SP.coverSwitch();
+        byId('sp-search-host').appendChild(coverSwitch);
+    }
+
     /* ---------- rules ---------- */
 
     var rulesRendered = false;
@@ -1153,6 +1168,7 @@
         SP.base = root.dataset.base || '../resources/spanish/';
 
         initSearch();
+        initCoverSwitch();
         initCardControls();
         initQuizControls();
         initListenControls();

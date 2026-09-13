@@ -176,6 +176,54 @@
         onFold: function (fn) { foldListeners.push(fn); }
     };
 
+    /* ---------- the side a covered row hides ---------- */
+
+    // A row in Learned or Pending covers one side of itself until it is tapped:
+    // the meaning (English and Russian) by default, or the Spanish with its
+    // transliteration, to practise the other way round. It is one choice for
+    // the whole section, kept in a cookie so the hub and every stage page open
+    // on the side picked last, and carried by an attribute on <html>, so the
+    // switch repaints every list on the page without redrawing any of them.
+    var COVER_COOKIE = 'spanishCover';
+    var COVER_SIDES = ['meaning', 'spanish'];
+    var coverSide = readCookie(COVER_COOKIE);
+
+    if (COVER_SIDES.indexOf(coverSide) === -1) {
+        coverSide = 'meaning';
+    } else {
+        // Safari caps a cookie written from script at seven days, whatever
+        // max-age asks for, so every visit writes it again to keep it alive.
+        writeCookie(COVER_COOKIE, coverSide);
+    }
+
+    function paintCover() {
+        if (typeof document !== 'undefined') document.documentElement.setAttribute('data-sp-cover', coverSide);
+    }
+
+    paintCover();
+
+    var coverListeners = [];
+
+    SP.cover = {
+        side: function () { return coverSide; },
+
+        set: function (side) {
+            if (COVER_SIDES.indexOf(side) === -1 || side === coverSide) return;
+            coverSide = side;
+            writeCookie(COVER_COOKIE, side);
+            paintCover();
+            // Another side to recall starts the round over: whatever was
+            // uncovered under the old choice is covered under the new one.
+            document.querySelectorAll('.has-mark.is-revealed').forEach(function (row) {
+                row.classList.remove('is-revealed');
+            });
+            document.querySelectorAll('.has-mark.is-learned, .has-mark.is-pending').forEach(revealTitle);
+            coverListeners.forEach(function (fn) { fn(side); });
+        },
+
+        onChange: function (fn) { coverListeners.push(fn); }
+    };
+
     /* ---------- data loading ---------- */
 
     SP.base = '../resources/spanish/';   // overridden by each page before load()
@@ -493,6 +541,26 @@
         return svg;
     };
 
+    // A crossed-out eye: the lit segment beside it is the side that is hidden.
+    function eyeOffIcon() {
+        var svg = document.createElementNS(SVG_NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('class', 'sp-cover-icon');
+        var eye = document.createElementNS(SVG_NS, 'path');
+        eye.setAttribute('d', 'M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z');
+        var pupil = document.createElementNS(SVG_NS, 'circle');
+        pupil.setAttribute('cx', '12');
+        pupil.setAttribute('cy', '12');
+        pupil.setAttribute('r', '3');
+        var slash = document.createElementNS(SVG_NS, 'path');
+        slash.setAttribute('d', 'M4 4l16 16');
+        svg.appendChild(eye);
+        svg.appendChild(pupil);
+        svg.appendChild(slash);
+        return svg;
+    }
+
     function chevronIcon() {
         var svg = document.createElementNS(SVG_NS, 'svg');
         svg.setAttribute('viewBox', '0 0 24 24');
@@ -566,7 +634,10 @@
 
     function revealTitle(row) {
         if (!covered(row)) { row.removeAttribute('title'); return; }
-        row.title = row.classList.contains('is-revealed') ? 'Hide the translation' : 'Show the translation';
+        // A drill covers its answer on either side; any other row, the side picked.
+        var what = row.classList.contains('is-drill') ? 'answer'
+            : (coverSide === 'spanish' ? 'Spanish' : 'translation');
+        row.title = (row.classList.contains('is-revealed') ? 'Hide the ' : 'Show the ') + what;
     }
 
     function attachReveal(row) {
@@ -584,8 +655,8 @@
 
     // Which of the three sections a row belongs to, in one place: learned wins
     // over pending, so a word that is in both shows once, at the top. A row in
-    // either of them covers its translation until it is tapped, and takes the
-    // focus so a keyboard can do the same.
+    // either of them covers one side (SP.cover) until it is tapped, and takes
+    // the focus so a keyboard can do the same.
     SP.setRowState = function (row, learned, pending) {
         row.classList.toggle('is-learned', learned);
         row.classList.toggle('is-pending', !learned && pending);
@@ -657,6 +728,43 @@
             if (onChange) onChange(on);
         });
         return btn;
+    };
+
+    // The switch between the two sides a covered row can hide: one control of
+    // two segments in row order, the lit one naming the side that is hidden.
+    // Every copy follows SP.cover, so no two on a page can disagree.
+    var COVER_OPTIONS = [
+        { side: 'spanish', label: 'ES', hint: 'Hide the Spanish and its transliteration' },
+        { side: 'meaning', label: 'EN', hint: 'Hide the English and Russian' }
+    ];
+
+    SP.coverSwitch = function () {
+        var group = SP.el('div', 'sp-cover');
+        group.setAttribute('role', 'group');
+        group.setAttribute('aria-label', 'What Learned and Pending rows hide');
+        group.appendChild(eyeOffIcon());
+
+        var buttons = COVER_OPTIONS.map(function (option) {
+            var btn = SP.el('button', 'sp-cover-btn', option.label);
+            btn.type = 'button';
+            btn.title = option.hint;
+            btn.setAttribute('aria-label', option.label + ' — ' + option.hint);
+            btn.addEventListener('click', function () { SP.cover.set(option.side); });
+            group.appendChild(btn);
+            return btn;
+        });
+
+        function sync(side) {
+            COVER_OPTIONS.forEach(function (option, i) {
+                var on = option.side === side;
+                buttons[i].classList.toggle('active', on);
+                buttons[i].setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+        }
+
+        sync(SP.cover.side());
+        SP.cover.onChange(sync);
+        return group;
     };
 
     /* ---------- prose rendering ---------- */
