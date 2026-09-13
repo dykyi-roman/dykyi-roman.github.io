@@ -57,6 +57,7 @@
 .sp-chip:focus-visible,
 .sp-tab:focus-visible,
 .sp-speak:focus-visible,
+.sp-mark:focus-visible,
 .sp-option:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
@@ -189,6 +190,81 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-speak.speaking { color: var(--color-primary); border-color: var(--color-primary); }
 .sp-speak svg { width: 20px; height: 20px; fill: currentColor; }
 
+/* ---------- learned checkbox and divider ---------- */
+
+/* The same 44px target as the speak button, but with no border of its own:
+   the drawn box is the control. The tick appears at half strength on hover,
+   so it is clear what the button will do before it is pressed. */
+.sp-mark {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--color-text-light);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--transition-fast);
+}
+
+.sp-mark svg { width: 22px; height: 22px; }
+.sp-mark rect { fill: none; stroke: currentColor; stroke-width: 1.6; }
+
+.sp-mark .sp-tick {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+}
+
+.sp-mark:hover { color: var(--color-primary); }
+.sp-mark:hover .sp-tick { opacity: 0.45; }
+.sp-mark.is-on, .sp-mark.is-on:hover { color: var(--color-success); }
+.sp-mark.is-on .sp-tick { opacity: 1; }
+
+/* The boundary between what is learned and what is left. Hidden by the
+   renderer while one of the two sides is empty. */
+.sp-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-sm) 0;
+    color: var(--color-text-light);
+    font-size: var(--font-size-small);
+}
+
+.sp-divider::before,
+.sp-divider::after {
+    content: "";
+    flex: 1 1 auto;
+    border-top: 1px dashed var(--color-border);
+}
+
+.sp-divider-label { flex: 0 0 auto; white-space: nowrap; }
+
+/* A learned entry keeps its text at full strength — the block leads the list
+   to be re-read — and is marked by the tinted edge instead. The tint fades in,
+   so the row that jumps above the divider is seen changing rather than just
+   disappearing from under the finger. */
+.sp-lex-row,
+.sp-ex-row { transition: background var(--transition-normal), border-color var(--transition-normal); }
+
+.sp-lex-row.is-learned,
+.sp-ex-row.is-learned {
+    border-left: 3px solid var(--color-success);
+    padding-left: calc(var(--spacing-sm) - 2px);
+    background: rgba(76, 175, 80, 0.06);
+}
+
 /* ---------- lexicon ---------- */
 
 .sp-group { margin-bottom: var(--spacing-lg); }
@@ -239,6 +315,19 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-lex-row.is-pair .sp-lex-es { color: var(--color-primary); }
 
+/* The checkbox sits beside the speak button, so the card gains a second
+   control column on its right edge; the translations keep spanning the row. */
+.sp-lex-row.has-mark {
+    grid-template-columns: minmax(0, 1fr) 44px 44px;
+    grid-template-areas:
+        "es    speak mark"
+        "tr    speak mark"
+        "en    en    en"
+        "ru    ru    ru";
+}
+
+.sp-lex-row.has-mark .sp-mark { grid-area: mark; align-self: start; }
+
 /* ---------- examples ---------- */
 
 .sp-ex { display: flex; flex-direction: column; gap: var(--spacing-xs); }
@@ -258,6 +347,29 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-ex-ru { font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
 .sp-ex-row .sp-speak { grid-row: 1 / span 2; grid-column: 2; }
 .sp-ex-row.is-exchange .sp-ex-es { color: var(--color-info); }
+
+.sp-ex-row.has-mark { grid-template-columns: minmax(0, 1fr) 44px 44px; }
+.sp-ex-row.has-mark .sp-ex-es { grid-row: 1; grid-column: 1; }
+.sp-ex-row.has-mark .sp-ex-ru { grid-row: 2; grid-column: 1; }
+.sp-ex-row.has-mark .sp-speak { grid-row: 1 / span 2; grid-column: 2; }
+.sp-ex-row.has-mark .sp-mark { grid-row: 1 / span 2; grid-column: 3; align-self: start; }
+
+/* ---------- drills ---------- */
+
+/* Two zones, so the numbering runs on across the divider via <ol start>. */
+.sp-drills { margin: 0; padding-left: 1.4em; }
+.sp-drill { margin-bottom: var(--spacing-sm); }
+.sp-drill-answer { margin-top: 4px; }
+
+.sp-drill-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    margin-top: 6px;
+}
+
+.sp-drill.is-learned { color: var(--color-text-light); }
+.sp-drill.is-learned::marker { color: var(--color-success); }
 
 /* ---------- prose notes ---------- */
 
@@ -406,15 +518,27 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
         gap: var(--spacing-sm);
     }
 
+    .sp-lex-row.has-mark {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) 44px 44px;
+        grid-template-areas: "es tr en ru speak mark";
+    }
+
     .sp-lex-row .sp-speak { align-self: center; }
+    .sp-lex-row.has-mark .sp-mark { align-self: center; }
     .sp-ex-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px; }
     .sp-ex-row .sp-ex-es { grid-column: 1; }
     .sp-ex-row .sp-ex-ru { grid-column: 2; align-self: center; }
     .sp-ex-row .sp-speak { grid-row: 1; grid-column: 3; }
+    .sp-ex-row.has-mark { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px 44px; }
+    .sp-ex-row.has-mark .sp-ex-es { grid-row: 1; grid-column: 1; }
+    .sp-ex-row.has-mark .sp-ex-ru { grid-row: 1; grid-column: 2; align-self: center; }
+    .sp-ex-row.has-mark .sp-speak { grid-row: 1; grid-column: 3; }
+    .sp-ex-row.has-mark .sp-mark { grid-row: 1; grid-column: 4; align-self: center; }
     .sp-tab { flex: 0 0 auto; }
     .sp-table th, .sp-table td { white-space: normal; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .sp-card { transition: none !important; }
+    .sp-lex-row, .sp-ex-row, .sp-mark .sp-tick { transition: none !important; }
 }

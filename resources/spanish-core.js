@@ -65,6 +65,40 @@
         try { localStorage.setItem(key, JSON.stringify(state)); } catch (e) { /* private mode / quota */ }
     };
 
+    /* ---------- learned marks ---------- */
+
+    // A hand-set "I already know this one" flag, kept apart from the Leitner
+    // boxes of spanishCards: it is a judgement call by the reader, not a review
+    // schedule, so it never expires. Marks are never pruned either — a stage
+    // outside the current scope is not loaded, so dropping ids unknown to the
+    // page would wipe the progress of every stage it did not fetch.
+    var LEARNED_KEY = 'spanishLearned';
+    var learnedState = null;
+
+    function learnedIds() {
+        if (!learnedState) {
+            learnedState = SP.loadState(LEARNED_KEY, 1) || { v: 1, ids: {} };
+            if (!learnedState.ids) learnedState.ids = {};
+        }
+        return learnedState.ids;
+    }
+
+    SP.learned = {
+        has: function (id) { return !!learnedIds()[id]; },
+
+        // The value is the day it was marked. Nothing reads it yet, but it
+        // costs what a boolean costs and answers "since when".
+        set: function (id, on) {
+            var ids = learnedIds();
+            if (on) ids[id] = SP.todayStr();
+            else delete ids[id];
+            SP.saveState(LEARNED_KEY, learnedState);
+            return on;
+        },
+
+        toggle: function (id) { return SP.learned.set(id, !SP.learned.has(id)); }
+    };
+
     /* ---------- data loading ---------- */
 
     SP.base = '../resources/spanish/';   // overridden by each page before load()
@@ -271,6 +305,68 @@
         return btn;
     };
 
+    /* ---------- learned toggle ---------- */
+
+    function checkIcon() {
+        var svg = document.createElementNS(SVG_NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('aria-hidden', 'true');
+        var box = document.createElementNS(SVG_NS, 'rect');
+        box.setAttribute('x', '3');
+        box.setAttribute('y', '3');
+        box.setAttribute('width', '18');
+        box.setAttribute('height', '18');
+        box.setAttribute('rx', '4');
+        var tick = document.createElementNS(SVG_NS, 'path');
+        tick.setAttribute('class', 'sp-tick');
+        tick.setAttribute('d', 'M7 12.4l3.4 3.4L17.2 9');
+        svg.appendChild(box);
+        svg.appendChild(tick);
+        return svg;
+    }
+
+    // The one wording of the boundary caption, shared by every list that has
+    // one — the hub's browse and each list on a stage page.
+    SP.learnedCaption = function (learned, total) {
+        return learned + ' learned · ' + (total - learned) + ' left';
+    };
+
+    // Closes a row with the toggle, beside the speak button, and flags the row
+    // so the CSS gives its grid the extra control column. Call it last: the
+    // button goes at the tail of the row, in the DOM as on the screen.
+    SP.attachMark = function (row, mark) {
+        if (!mark) return row;
+        row.classList.add('has-mark');
+        row.appendChild(mark);
+        return row;
+    };
+
+    // The 44px checkbox that marks an entry as learned. A button with
+    // aria-pressed rather than a real checkbox, so it sits beside .sp-speak
+    // with the same shape and the same touch target.
+    SP.markButton = function (item, onChange) {
+        var btn = SP.el('button', 'sp-mark');
+        btn.type = 'button';
+        btn.setAttribute('aria-label', 'Mark as learned');
+        btn.appendChild(checkIcon());
+
+        function sync(on) {
+            btn.classList.toggle('is-on', on);
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            btn.title = on ? 'Learned — click to unmark' : 'Mark as learned';
+        }
+
+        sync(SP.learned.has(item.id));
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var on = SP.learned.toggle(item.id);
+            sync(on);
+            if (onChange) onChange(on);
+        });
+        return btn;
+    };
+
     /* ---------- prose rendering ---------- */
 
     SP.renderSpans = function (parent, spans) {
@@ -451,7 +547,9 @@
 
     /* ---------- item rows ---------- */
 
-    SP.renderLexRow = function (item) {
+    // `mark` is the optional learned-toggle built by SP.markButton — every
+    // browsable list passes one, the flashcard face does not.
+    SP.renderLexRow = function (item, mark) {
         var row = SP.el('div', 'sp-lex-row' + (item.type === 'pair' ? ' is-pair' : ''));
         row.appendChild(SP.el('div', 'sp-lex-es', item.es));
         row.appendChild(SP.el('div', 'sp-lex-tr', item.tr || ''));
@@ -459,16 +557,16 @@
         row.appendChild(SP.el('div', 'sp-lex-ru', item.ru || ''));
         var speak = SP.speakButton(item.es);
         if (speak) row.appendChild(speak);
-        return row;
+        return SP.attachMark(row, mark);
     };
 
-    SP.renderExRow = function (item) {
+    SP.renderExRow = function (item, mark) {
         var row = SP.el('div', 'sp-ex-row' + (item.type === 'exchange' ? ' is-exchange' : ''));
         row.appendChild(SP.el('div', 'sp-ex-es', item.es));
         row.appendChild(SP.el('div', 'sp-ex-ru', item.ru || ''));
         var speak = SP.speakButton(item.es);
         if (speak) row.appendChild(speak);
-        return row;
+        return SP.attachMark(row, mark);
     };
 
     /* ---------- error surface ---------- */

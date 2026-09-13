@@ -3,7 +3,10 @@
    - the phonetics/grammar page when it carries data-rules
    Both get a sticky two-row chip index that stays put on a phone instead of
    collapsing into a floating overlay; the index and the rules renderer itself
-   live in spanish-core.js, because the hub renders the rules in a tab too. */
+   live in spanish-core.js, because the hub renders the rules in a tab too.
+   Every list on a stage page — words, live examples and drills alike — carries
+   the learned checkbox and keeps what is already learned above the divider.
+   The rules page has no items and so has no checkboxes. */
 
 (function () {
     'use strict';
@@ -27,33 +30,129 @@
         return section;
     }
 
-    /* ---------- lazily rendered list ---------- */
+    /* ---------- lists that keep the learned entries on top ---------- */
 
-    function renderList(parent, items, makeRow) {
-        var list = SP.el('div', 'sp-lex');
-        parent.appendChild(list);
+    // Every list is drawn as two zones with a labelled divider between them:
+    // what is already marked as learned leads, the rest follows. Marking a row
+    // moves it across the divider straight away — the order holds without a
+    // reload, and the row lands just above the divider, the closest spot to
+    // where it was, so the page barely shifts under the finger.
+    // Long lists are still drawn a page at a time: stage 2 runs to 634 words.
+    //
+    // opts.zone  () -> the container for one zone (div.sp-lex, div.sp-ex, ol)
+    // opts.row   (item, mark) -> the row element
+    // opts.pageSize / opts.pageStep  omitted means "draw everything at once"
+    function renderMarkedList(parent, items, opts) {
+        var pageSize = opts.pageSize || items.length;
+        var pageStep = opts.pageStep || pageSize;
+
+        var learnedZone = opts.zone();
+        var divider = SP.el('div', 'sp-divider');
+        var caption = SP.el('span', 'sp-divider-label');
+        divider.appendChild(caption);
+        var restZone = opts.zone();
+        parent.appendChild(learnedZone);
+        parent.appendChild(divider);
+        parent.appendChild(restZone);
+
+        var learned = items.filter(function (item) { return SP.learned.has(item.id); });
+        var rest = items.filter(function (item) { return !SP.learned.has(item.id); });
+        var ordered = learned.concat(rest);
+        var boundary = learned.length;      // where the divider sits in `ordered`
+        var count = learned.length;         // moves with every mark
+
+        function sync() {
+            caption.textContent = SP.learnedCaption(count, items.length);
+            // With nothing on one side of it the divider separates nothing.
+            divider.hidden = count === 0 || count === items.length;
+            // An ordered zone (the drills) keeps one running numbering.
+            if (restZone.tagName === 'OL') restZone.start = count + 1;
+        }
+
+        function move(row, on) {
+            count += on ? 1 : -1;
+            if (on) learnedZone.appendChild(row);
+            else restZone.insertBefore(row, restZone.firstChild);
+            sync();
+        }
+
+        function buildRow(item) {
+            var row;
+            var mark = SP.markButton(item, function (on) {
+                row.classList.toggle('is-learned', on);
+                move(row, on);
+            });
+            row = opts.row(item, mark);
+            if (SP.learned.has(item.id)) row.classList.add('is-learned');
+            return row;
+        }
+
         var shown = 0;
-
         var more = SP.el('button', 'sp-btn');
         more.type = 'button';
 
+        // `ordered` is a snapshot, so a row marked meanwhile does not disturb
+        // the boundary the remaining pages are split by.
         function draw() {
-            var next = Math.min(items.length, shown + (shown === 0 ? PAGE_SIZE : PAGE_STEP));
-            var frag = document.createDocumentFragment();
-            for (var i = shown; i < next; i++) frag.appendChild(makeRow(items[i]));
-            list.appendChild(frag);
+            var next = Math.min(ordered.length, shown + (shown === 0 ? pageSize : pageStep));
+            var learnedFrag = document.createDocumentFragment();
+            var restFrag = document.createDocumentFragment();
+            for (var i = shown; i < next; i++) {
+                (i < boundary ? learnedFrag : restFrag).appendChild(buildRow(ordered[i]));
+            }
+            learnedZone.appendChild(learnedFrag);
+            restZone.appendChild(restFrag);
             shown = next;
-            if (shown >= items.length) {
+            if (shown >= ordered.length) {
                 more.hidden = true;
             } else {
                 more.hidden = false;
-                more.textContent = 'Show ' + Math.min(PAGE_STEP, items.length - shown) + ' more (' + (items.length - shown) + ' left)';
+                more.textContent = 'Show ' + Math.min(pageStep, ordered.length - shown) + ' more (' + (ordered.length - shown) + ' left)';
             }
         }
 
         more.addEventListener('click', draw);
         draw();
+        sync();
         if (!more.hidden) parent.appendChild(more);
+    }
+
+    function lexZone() { return SP.el('div', 'sp-lex'); }
+    function exZone() { return SP.el('div', 'sp-ex'); }
+    function drillZone() { return SP.el('ol', 'sp-drills'); }
+
+    // A drill keeps its answer folded away; the learned checkbox joins the
+    // answer and speak buttons rather than the text, so the list marker and
+    // the prompt stay on one line.
+    function drillRow(item, mark) {
+        var li = SP.el('li', 'sp-drill');
+        li.appendChild(SP.el('span', null, item.prompt));
+
+        if (item.kind === 'choice' && item.options) {
+            li.appendChild(document.createTextNode(' '));
+            li.appendChild(SP.el('span', 'sp-es', '(' + item.options.join(' / ') + ')'));
+        }
+
+        var answer = SP.el('div', 'sp-es sp-drill-answer');
+        answer.textContent = item.answer;
+        answer.hidden = true;
+
+        var reveal = SP.el('button', 'sp-btn', 'Show answer');
+        reveal.type = 'button';
+        reveal.addEventListener('click', function () {
+            answer.hidden = !answer.hidden;
+            reveal.textContent = answer.hidden ? 'Show answer' : 'Hide answer';
+        });
+
+        var actions = SP.el('div', 'sp-drill-actions');
+        actions.appendChild(reveal);
+        var speak = SP.speakButton(item.answer, 'Listen to the answer');
+        if (speak) actions.appendChild(speak);
+        if (mark) actions.appendChild(mark);
+
+        li.appendChild(answer);
+        li.appendChild(actions);
+        return li;
     }
 
     /* ---------- stage page ---------- */
@@ -107,7 +206,12 @@
                     block.appendChild(title);
                     index.push({ row: 'sub', label: name, target: block.id });
                 }
-                renderList(block, byGroup[name], SP.renderLexRow);
+                renderMarkedList(block, byGroup[name], {
+                    zone: lexZone,
+                    row: SP.renderLexRow,
+                    pageSize: PAGE_SIZE,
+                    pageStep: PAGE_STEP
+                });
                 if (notesByGroup[name]) block.appendChild(SP.renderNote(notesByGroup[name]));
                 lexSection.appendChild(block);
             });
@@ -147,9 +251,7 @@
                     var listed = index.some(function (e) { return e.row === 'sub' && e.label === name; });
                     if (!listed) index.push({ row: 'sub', label: name, target: block.id });
                 }
-                var list = SP.el('div', 'sp-ex');
-                exByGroup[name].forEach(function (item) { list.appendChild(SP.renderExRow(item)); });
-                block.appendChild(list);
+                renderMarkedList(block, exByGroup[name], { zone: exZone, row: SP.renderExRow });
                 if (exNotes[name]) block.appendChild(SP.renderNote(exNotes[name]));
                 exSection.appendChild(block);
             });
@@ -172,44 +274,7 @@
             blocks.forEach(function (key) {
                 var group = SP.el('div', 'sp-group');
                 group.appendChild(SP.el('h4', 'sp-group-title', key + ' ' + byBlock[key][0].blockTitle));
-                var list = SP.el('ol');
-                list.style.paddingLeft = '1.4em';
-                byBlock[key].forEach(function (item) {
-                    var li = SP.el('li');
-                    li.style.marginBottom = 'var(--spacing-sm)';
-                    li.appendChild(SP.el('span', null, item.prompt));
-
-                    if (item.kind === 'choice' && item.options) {
-                        li.appendChild(document.createTextNode(' '));
-                        li.appendChild(SP.el('span', 'sp-es', '(' + item.options.join(' / ') + ')'));
-                    }
-
-                    var answer = SP.el('div', 'sp-es');
-                    answer.textContent = item.answer;
-                    answer.hidden = true;
-                    answer.style.marginTop = '4px';
-
-                    var reveal = SP.el('button', 'sp-btn', 'Show answer');
-                    reveal.type = 'button';
-                    reveal.style.marginTop = '6px';
-                    reveal.addEventListener('click', function () {
-                        answer.hidden = !answer.hidden;
-                        reveal.textContent = answer.hidden ? 'Show answer' : 'Hide answer';
-                    });
-
-                    var row = SP.el('div');
-                    row.style.display = 'flex';
-                    row.style.alignItems = 'center';
-                    row.style.gap = 'var(--spacing-xs)';
-                    row.appendChild(reveal);
-                    var speak = SP.speakButton(item.answer, 'Listen to the answer');
-                    if (speak) row.appendChild(speak);
-
-                    li.appendChild(answer);
-                    li.appendChild(row);
-                    list.appendChild(li);
-                });
-                group.appendChild(list);
+                renderMarkedList(group, byBlock[key], { zone: drillZone, row: drillRow });
                 drillSection.appendChild(group);
             });
             body.appendChild(drillSection);

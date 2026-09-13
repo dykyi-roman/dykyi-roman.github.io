@@ -759,36 +759,78 @@
         renderBrowse();
     }
 
+    // A drill browses as its prompt with the answer beside it; everything else
+    // uses the shared row renderers. `mark` is the learned toggle.
+    function browseRow(item, mark) {
+        if (item.type === 'phrase' || item.type === 'exchange') return SP.renderExRow(item, mark);
+        if (item.type !== 'drill') return SP.renderLexRow(item, mark);
+
+        var row = SP.el('div', 'sp-ex-row');
+        row.appendChild(SP.el('div', 'sp-ex-es', item.prompt));
+        row.appendChild(SP.el('div', 'sp-ex-ru', item.answer));
+        var speak = SP.speakButton(item.answer);
+        if (speak) row.appendChild(speak);
+        return SP.attachMark(row, mark);
+    }
+
+    // The list reads learned first, then a divider, then the rest — the same
+    // order a stage page shows, over the same marks. `browseFiltered` keeps the
+    // plain (stage, type, file) order, so the CSV export is unaffected and the
+    // split is recomputed on every render, marks included.
     function renderBrowse() {
         var list = byId('sp-browse-list');
         SP.clear(list);
         byId('sp-browse-empty').hidden = browseFiltered.length !== 0;
 
-        var slice = browseFiltered.slice(0, browseShown);
+        var learned = browseFiltered.filter(function (item) { return SP.learned.has(item.id); });
+        var rest = browseFiltered.filter(function (item) { return !SP.learned.has(item.id); });
+        var ordered = learned.concat(rest);
+        var count = learned.length;
+
+        var divider = SP.el('div', 'sp-divider');
+        var caption = SP.el('span', 'sp-divider-label');
+        divider.appendChild(caption);
+
+        function sync() {
+            caption.textContent = SP.learnedCaption(count, browseFiltered.length);
+            divider.hidden = count === 0 || count === browseFiltered.length;
+        }
+
+        function makeRow(item) {
+            var row;
+            var mark = SP.markButton(item, function (on) {
+                row.classList.toggle('is-learned', on);
+                count += on ? 1 : -1;
+                // Marked goes just above the divider, unmarked just below it:
+                // the closest spot on the other side of the boundary.
+                list.insertBefore(row, on ? divider : divider.nextSibling);
+                sync();
+            });
+            row = browseRow(item, mark);
+            if (SP.learned.has(item.id)) row.classList.add('is-learned');
+            return row;
+        }
+
+        var slice = ordered.slice(0, browseShown);
         var frag = document.createDocumentFragment();
-        slice.forEach(function (item) {
-            if (item.type === 'drill') {
-                var row = SP.el('div', 'sp-ex-row');
-                row.appendChild(SP.el('div', 'sp-ex-es', item.prompt));
-                row.appendChild(SP.el('div', 'sp-ex-ru', item.answer));
-                var speak = SP.speakButton(item.answer);
-                if (speak) row.appendChild(speak);
-                frag.appendChild(row);
-            } else if (item.type === 'phrase' || item.type === 'exchange') {
-                frag.appendChild(SP.renderExRow(item));
-            } else {
-                frag.appendChild(SP.renderLexRow(item));
-            }
+        slice.forEach(function (item, i) {
+            if (i === learned.length) frag.appendChild(divider);
+            frag.appendChild(makeRow(item));
         });
+        // The boundary can sit past the drawn rows: the divider then closes the
+        // page, and the next one redraws it in place. It stays in the DOM
+        // either way, because marking moves rows relative to it.
+        if (learned.length >= slice.length) frag.appendChild(divider);
         list.appendChild(frag);
+        sync();
 
         var more = byId('sp-browse-more');
-        if (browseShown >= browseFiltered.length) {
+        if (browseShown >= ordered.length) {
             more.hidden = true;
         } else {
             more.hidden = false;
-            more.textContent = 'Show ' + Math.min(BROWSE_STEP, browseFiltered.length - browseShown) +
-                ' more (' + (browseFiltered.length - browseShown) + ' left)';
+            more.textContent = 'Show ' + Math.min(BROWSE_STEP, ordered.length - browseShown) +
+                ' more (' + (ordered.length - browseShown) + ' left)';
         }
     }
 
