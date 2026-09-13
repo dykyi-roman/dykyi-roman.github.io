@@ -6,7 +6,7 @@
    "id": "stage-1",
    "prefix": "es1",
    "no": 1,
-   "title": "Direction",
+   "title": "Bind",
    "titleRu": "Пространство, направление и базовые связки",
    "icon": "🧭",
    "goal": "понимать и строить простые фразы о местоположении, направлении и движении в повседневной жизни в Испании.",
@@ -32,7 +32,7 @@
    "url": "spanish/stage-2.html",
    "file": "stage-3.json",
    "counts": {
-    "vocab": 634,
+    "vocab": 635,
     "pair": 0,
     "phrase": 0,
     "exchange": 0,
@@ -41,33 +41,14 @@
    "notes": 0
   },
   {
-   "id": "stage-2",
-   "prefix": "es2",
-   "no": 3,
-   "title": "Questions",
-   "titleRu": "Вопросы и диалог",
-   "icon": "❓",
-   "goal": "научиться быстро задавать простые вопросы, понимать ключевую информацию, управлять диалогом и ориентироваться в обычном разговоре в Испании.",
-   "url": "spanish/stage-3.html",
-   "file": "stage-2.json",
-   "counts": {
-    "vocab": 50,
-    "pair": 0,
-    "phrase": 54,
-    "exchange": 0,
-    "drill": 0
-   },
-   "notes": 3
-  },
-  {
    "id": "stage-4",
    "prefix": "es4",
-   "no": 4,
+   "no": 3,
    "title": "Pairs",
    "titleRu": "Мир парами: противоположности, род и действия",
    "icon": "⚖️",
    "goal": "быстро описывать людей, вещи, еду, места и действия — и понимать, когда так описывают тебя.",
-   "url": "spanish/stage-4.html",
+   "url": "spanish/stage-3.html",
    "file": "stage-4.json",
    "counts": {
     "vocab": 0,
@@ -77,6 +58,25 @@
     "drill": 0
    },
    "notes": 8
+  },
+  {
+   "id": "stage-2",
+   "prefix": "es2",
+   "no": 4,
+   "title": "Questions",
+   "titleRu": "Вопросы и диалог",
+   "icon": "❓",
+   "goal": "научиться быстро задавать простые вопросы, понимать ключевую информацию, управлять диалогом и ориентироваться в обычном разговоре в Испании.",
+   "url": "spanish/stage-4.html",
+   "file": "stage-2.json",
+   "counts": {
+    "vocab": 50,
+    "pair": 0,
+    "phrase": 54,
+    "exchange": 0,
+    "drill": 0
+   },
+   "notes": 3
   },
   {
    "id": "stage-5",

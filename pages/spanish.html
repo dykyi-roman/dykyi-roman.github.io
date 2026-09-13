@@ -43,6 +43,7 @@
 
         <div id="sp-app" data-base="../resources/spanish/" hidden>
             <div class="sp-bar">
+                <div id="sp-search-host"></div>
                 <div class="sp-chips" id="sp-stages" role="group" aria-label="Stage"></div>
                 <div class="sp-tabs" id="sp-modes" role="tablist" aria-label="Practice mode"></div>
             </div>
@@ -62,9 +63,11 @@
                         <button type="button" class="sp-btn quiet" id="sp-browse-csv-left"
                                 title="Download only what is not learned yet">Left</button>
                     </div>
-                    <span class="sp-sep" aria-hidden="true"></span>
-                    <button type="button" class="sp-btn quiet" id="sp-browse-copy"
-                            title="Copy the marked entries to the clipboard"><span class="sp-copy-label">Favorites</span></button>
+                    <div class="sp-copy-group">
+                        <span class="sp-sep" aria-hidden="true"></span>
+                        <button type="button" class="sp-btn quiet" id="sp-browse-copy"
+                                title="Copy the pending list to the clipboard"><span class="sp-copy-label">Pending</span></button>
+                    </div>
                 </div>
 
                 <div class="sp-lex" id="sp-browse-list"></div>

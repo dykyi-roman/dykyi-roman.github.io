@@ -65,62 +65,109 @@
         try { localStorage.setItem(key, JSON.stringify(state)); } catch (e) { /* private mode / quota */ }
     };
 
-    /* ---------- learned and favorites ---------- */
+    /* ---------- learned and pending ---------- */
 
     // Two different things, deliberately apart:
-    //   learned    a hand-kept list in resources/spanish/learned.json — the same
-    //              kind of source the words themselves come from, so it reads
-    //              the same on every device and is reviewable in the repo;
-    //   favorites  what this browser has starred, in localStorage — private to
-    //              the device, changed with one tap, gone with the site data.
-    // Favorites were called "learned" before the list existed; a record left
-    // under the old key is adopted once, so nobody loses their marks.
-    var FAV_KEY = 'spanishFavorites';
-    var LEGACY_FAV_KEY = 'spanishLearned';
-    var favState = null;
+    //   learned   a hand-kept list in resources/spanish/learned.json — the same
+    //             kind of source the words themselves come from, so it reads
+    //             the same on every device and is reviewable in the repo;
+    //   pending   what this browser has ticked off as still to do, in
+    //             localStorage — private to the device, changed with one tap,
+    //             gone with the site data.
+    // The pending list has been renamed twice (learned, then favorites), so a
+    // record left under either old key is adopted once; both branches can go
+    // when they have had time to run everywhere.
+    var PENDING_KEY = 'spanishPending';
+    var LEGACY_PENDING_KEYS = ['spanishFavorites', 'spanishLearned'];
+    var pendingState = null;
 
-    function favRecord() {
-        if (!favState) {
-            favState = SP.loadState(FAV_KEY, 1);
-            if (!favState) {
-                var legacy = SP.loadState(LEGACY_FAV_KEY, 1);
-                favState = { v: 1, ids: (legacy && legacy.ids) || {}, fold: {} };
-                if (legacy) SP.saveState(FAV_KEY, favState);
+    function pendingRecord() {
+        if (!pendingState) {
+            pendingState = SP.loadState(PENDING_KEY, 1);
+            if (!pendingState) {
+                var legacy = null;
+                LEGACY_PENDING_KEYS.forEach(function (key) { legacy = legacy || SP.loadState(key, 1); });
+                pendingState = { v: 1, ids: (legacy && legacy.ids) || {}, fold: (legacy && legacy.fold) || {} };
+                if (legacy) SP.saveState(PENDING_KEY, pendingState);
             }
-            if (!favState.ids) favState.ids = {};
-            if (!favState.fold) favState.fold = {};
+            if (!pendingState.ids) pendingState.ids = {};
+            if (!pendingState.fold) pendingState.fold = {};
+            // localStorage leads, as it does in projects/business — the cookie
+            // speaks only when it has nothing to say, which is exactly the case
+            // the mirror exists for: site data cleared, cookie still there.
+            if (!Object.keys(pendingState.fold).length) {
+                var fromCookie = foldFromCookie();
+                if (fromCookie) {
+                    pendingState.fold = fromCookie;
+                    SP.saveState(PENDING_KEY, pendingState);   // the two stores converge again
+                }
+            }
         }
-        return favState;
+        return pendingState;
     }
 
-    SP.favorites = {
+    SP.pending = {
         // Never pruned: a stage outside the current scope is not loaded, so
         // dropping ids unknown to the page would wipe what it did not fetch.
-        has: function (id) { return !!favRecord().ids[id]; },
+        has: function (id) { return !!pendingRecord().ids[id]; },
 
-        // The value is the day it was starred. Nothing reads it yet, but it
+        // The value is the day it was marked. Nothing reads it yet, but it
         // costs what a boolean costs and answers "since when".
         set: function (id, on) {
-            var ids = favRecord().ids;
+            var ids = pendingRecord().ids;
             if (on) ids[id] = SP.todayStr();
             else delete ids[id];
-            SP.saveState(FAV_KEY, favState);
+            SP.saveState(PENDING_KEY, pendingState);
             return on;
         },
 
-        toggle: function (id) { return SP.favorites.set(id, !SP.favorites.has(id)); }
+        toggle: function (id) { return SP.pending.set(id, !SP.pending.has(id)); }
     };
+
+    /* ---------- the fold, kept in a cookie as well ---------- */
+
+    // Whether a section is folded is written to both stores, the way
+    // projects/business keeps its parameters: the two are cleared by different
+    // things, so a preference kept in both survives more than it would in
+    // either. Only the fold is mirrored — the marks would outgrow the ~4KB a
+    // cookie holds, and localStorage carries those alone.
+    var FOLD_COOKIE = 'spanishFold';
+
+    function readCookie(name) {
+        if (typeof document === 'undefined') return '';
+        try {
+            var m = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+            return m ? decodeURIComponent(m[1]) : '';
+        } catch (e) { return ''; }
+    }
+
+    function writeCookie(name, value) {
+        try {
+            document.cookie = name + '=' + encodeURIComponent(value) +
+                '; path=/; max-age=31536000; SameSite=Lax';
+        } catch (e) { /* cookies off, or a file:// page, where Chrome drops them */ }
+    }
+
+    function foldFromCookie() {
+        var raw = readCookie(FOLD_COOKIE);
+        if (!raw) return null;
+        try {
+            var fold = JSON.parse(raw);
+            return fold && typeof fold === 'object' && !Array.isArray(fold) ? fold : null;
+        } catch (e) { return null; }
+    }
 
     // Folding a section is one switch for the whole page: every list subscribes
     // and redraws itself, so no two lists can disagree about what is showing.
     var foldListeners = [];
 
     SP.view = {
-        folded: function (kind) { return !!favRecord().fold[kind]; },
+        folded: function (kind) { return !!pendingRecord().fold[kind]; },
 
         setFolded: function (kind, on) {
-            favRecord().fold[kind] = !!on;
-            SP.saveState(FAV_KEY, favState);
+            pendingRecord().fold[kind] = !!on;
+            SP.saveState(PENDING_KEY, pendingState);
+            writeCookie(FOLD_COOKIE, JSON.stringify(pendingState.fold));
             foldListeners.forEach(function (fn) { fn(kind, !!on); });
         },
 
@@ -240,6 +287,56 @@
         return item.type === 'vocab' || item.type === 'pair' || item.type === 'phrase' || item.type === 'exchange';
     };
 
+    /* ---------- search ---------- */
+
+    // Accents are a spelling detail, not a search term: "esta" has to find
+    // "está" and "solo" has to find "sólo", so both sides are folded down to
+    // bare letters before they meet.
+    SP.normalize = function (text) {
+        return String(text === undefined || text === null ? '' : text)
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '');
+    };
+
+    // Everything an entry can be found by, folded once and kept on the item:
+    // the pool is rebuilt on every keystroke, and 1552 items would otherwise be
+    // re-folded each time.
+    function searchText(item) {
+        if (item._search === undefined) {
+            item._search = SP.normalize([
+                item.es, item.tr, item.en, item.ru, item.prompt, item.answer, item.group
+            ].filter(Boolean).join(' '));
+        }
+        return item._search;
+    }
+
+    // `query` must come from SP.normalize — the caller folds it once per pass
+    // rather than once per item.
+    SP.matches = function (item, query) {
+        if (!query) return true;
+        return searchText(item).indexOf(query) !== -1;
+    };
+
+    // A search field that reports every change, settled so a fast typist does
+    // not redraw a long list on every letter.
+    SP.searchBox = function (placeholder, onChange) {
+        var input = SP.el('input', 'sp-search');
+        input.type = 'search';
+        input.placeholder = placeholder;
+        input.setAttribute('aria-label', placeholder);
+        var timer = null;
+        input.addEventListener('input', function () {
+            clearTimeout(timer);
+            timer = setTimeout(onChange, 140);
+        });
+        return {
+            node: input,
+            query: function () { return SP.normalize(input.value.trim()); },
+            clear: function () { input.value = ''; }
+        };
+    };
+
     /* ---------- DOM helpers ---------- */
 
     SP.el = function (tag, cls, text) {
@@ -357,7 +454,7 @@
         return btn;
     };
 
-    /* ---------- section headers and the favorite star ---------- */
+    /* ---------- section headers and the pending checkbox ---------- */
 
     function checkIcon() {
         var svg = document.createElementNS(SVG_NS, 'svg');
@@ -408,8 +505,8 @@
     }
 
     // Every list is split into the same three sections, in this order.
-    SP.SECTIONS = ['learned', 'favorites', 'left'];
-    SP.SECTION_LABEL = { learned: 'Learned', favorites: 'Favorites', left: 'Left' };
+    SP.SECTIONS = ['learned', 'pending', 'left'];
+    SP.SECTION_LABEL = { learned: 'Learned', pending: 'Pending', left: 'Left' };
 
     // The header of one section: a dashed line naming what follows and how much
     // of it there is. The first two fold — the rest of the list is what you are
@@ -464,7 +561,7 @@
     };
 
     function covered(row) {
-        return row.classList.contains('is-learned') || row.classList.contains('is-favorite');
+        return row.classList.contains('is-learned') || row.classList.contains('is-pending');
     }
 
     function revealTitle(row) {
@@ -486,12 +583,12 @@
     }
 
     // Which of the three sections a row belongs to, in one place: learned wins
-    // over starred, so a word that is both shows once, at the top. A row in
+    // over pending, so a word that is in both shows once, at the top. A row in
     // either of them covers its translation until it is tapped, and takes the
     // focus so a keyboard can do the same.
-    SP.setRowState = function (row, learned, favorite) {
+    SP.setRowState = function (row, learned, pending) {
         row.classList.toggle('is-learned', learned);
-        row.classList.toggle('is-favorite', !learned && favorite);
+        row.classList.toggle('is-pending', !learned && pending);
         if (covered(row)) {
             row.tabIndex = 0;
         } else {
@@ -502,8 +599,33 @@
         return row;
     };
 
+    // In a search the three sections can be far apart on the screen — and a
+    // single match can be the only row under its header — so a found row says
+    // on itself which list it is in.
+    SP.setSectionTag = function (tag, kind) {
+        if (!tag) return tag;
+        tag.className = 'sp-tag is-' + kind;
+        tag.textContent = SP.SECTION_LABEL[kind];
+        return tag;
+    };
+
+    SP.sectionTag = function (kind) {
+        return SP.setSectionTag(SP.el('span'), kind);
+    };
+
+    // Where a row carries it: right after the Spanish, the one part every kind
+    // of row has. It cannot be a child of the row itself — above 700px the
+    // lexicon row is a grid whose cells are spoken for.
+    SP.tagRow = function (row, kind) {
+        var head = row.querySelector('.sp-lex-es') || row.querySelector('.sp-ex-es');
+        if (!head) return null;
+        var tag = SP.sectionTag(kind);
+        head.appendChild(tag);
+        return tag;
+    };
+
     // A learned row carries no checkbox: it is already at the top, and marking
-    // it as a favorite on top of that moves nothing. It keeps the column all
+    // it as pending on top of that moves nothing. It keeps the column all
     // the same, so the table stays lined up across the sections.
     SP.markSpacer = function () {
         var span = SP.el('span', 'sp-mark is-empty');
@@ -511,26 +633,26 @@
         return span;
     };
 
-    // The 44px checkbox that puts an entry in favorites. A button with
+    // The 44px checkbox that puts an entry in the pending list. A button with
     // aria-pressed rather than a real checkbox, so it sits beside .sp-speak
     // with the same shape and the same touch target.
     SP.markButton = function (item, onChange) {
         var btn = SP.el('button', 'sp-mark');
         btn.type = 'button';
-        btn.setAttribute('aria-label', 'Add to favorites');
+        btn.setAttribute('aria-label', 'Mark as pending');
         btn.appendChild(checkIcon());
 
         function sync(on) {
             btn.classList.toggle('is-on', on);
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-            btn.title = on ? 'In favorites — click to remove' : 'Add to favorites';
+            btn.title = on ? 'Pending — click to unmark' : 'Mark as pending';
         }
 
-        sync(SP.favorites.has(item.id));
+        sync(SP.pending.has(item.id));
         btn.addEventListener('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
-            var on = SP.favorites.toggle(item.id);
+            var on = SP.pending.toggle(item.id);
             sync(on);
             if (onChange) onChange(on);
         });
@@ -653,7 +775,7 @@
             entry.chip = chip;
         });
 
-        if (!('IntersectionObserver' in window)) return;
+        if (!('IntersectionObserver' in window)) return null;
 
         var byTarget = {};
         entries.forEach(function (e) { byTarget[e.target] = e; });
@@ -676,6 +798,10 @@
             var node = document.getElementById(entry.target);
             if (node) observer.observe(node);
         });
+
+        // Handed back so a page that rebuilds its index — a stage page does,
+        // on every search — can disconnect the one it is replacing.
+        return observer;
     };
 
     /* ---------- rules (phonetics and grammar) ---------- */

@@ -66,6 +66,18 @@ let totalItems = 0;
 
     if (stage.id !== entry.id) fail(entry.file + ': id "' + stage.id + '" does not match manifest "' + entry.id + '"');
     if (stage.prefix !== entry.prefix) fail(entry.file + ': prefix mismatch');
+
+    // The presentation of a stage is written twice — in the manifest, which
+    // draws the hub's chips, and in the stage file itself, which is what a
+    // stage page prints in its h2 and title. Renaming or renumbering one and
+    // not the other leaves the chip and the page disagreeing, and nothing else
+    // notices, so it is checked here.
+    ['no', 'title', 'titleRu', 'url'].forEach(k => {
+        if (stage[k] !== entry[k]) {
+            fail(entry.file + ': "' + k + '" is ' + JSON.stringify(stage[k]) +
+                ' but index.json says ' + JSON.stringify(entry[k]));
+        }
+    });
     if (!Array.isArray(stage.items) || stage.items.length === 0) fail(entry.file + ': no items');
 
     const counts = {};

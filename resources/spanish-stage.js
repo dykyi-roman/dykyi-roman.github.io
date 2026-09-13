@@ -5,8 +5,8 @@
    collapsing into a floating overlay; the index and the rules renderer itself
    live in spanish-core.js, because the hub renders the rules in a tab too.
    Every list on a stage page — words, live examples and drills alike — carries
-   the favorite star and is split into Learned, Favorites and the rest.
-   The rules page has no items and so has no stars. */
+   the pending checkbox and is split into Learned, Pending and the rest.
+   The rules page has no items and so has no checkboxes. */
 
 (function () {
     'use strict';
@@ -30,14 +30,14 @@
         return section;
     }
 
-    /* ---------- lists split into learned, favorites and the rest ---------- */
+    /* ---------- lists split into learned, pending and the rest ---------- */
 
     // Every list is drawn as three sections in the same order: what the learned
-    // list holds, what this browser has starred, then everything else. Each
-    // section has a header naming it and counting it, and the first two fold.
-    // Starring a row moves it across on the spot — the order holds without a
-    // reload — and a learned row does not move at all, because it is already
-    // above. Folded, a section is not drawn rather than hidden with CSS:
+    // list holds, what this browser has marked as pending, then everything
+    // else. Each section has a header naming it and counting it, and the first
+    // two fold. Marking a row moves it across on the spot — the order holds
+    // without a reload — and a learned row does not move at all, because it is
+    // already above. Folded, a section is not drawn rather than hidden with CSS:
     // otherwise a page of a long list could be spent on rows nobody sees.
     // Long lists are still drawn a page at a time: stage 2 runs to 634 words.
     //
@@ -61,12 +61,12 @@
         more.type = 'button';
         parent.appendChild(more);
 
-        var counts = { learned: 0, favorites: 0, left: 0 };
+        var counts = { learned: 0, pending: 0, left: 0 };
         var plan = [];        // [{item, kind}] — what this pass draws, in order
         var shown = 0;
 
         function sync() {
-            var above = counts.learned + counts.favorites;
+            var above = counts.learned + counts.pending;
             SP.SECTIONS.forEach(function (kind) {
                 heads[kind].sync(counts[kind]);
                 // An empty section needs no header, and the rest of the list
@@ -82,30 +82,36 @@
             });
         }
 
-        function move(row, item, starred) {
-            // A learned word stays put: the star only decorates it.
+        function move(row, item, marked) {
+            // A learned word stays put: the checkbox only decorates it.
             if (SP.learned.has(item.id)) return;
-            counts.favorites += starred ? 1 : -1;
-            counts.left += starred ? -1 : 1;
-            if (starred && SP.view.folded('favorites')) row.remove();
-            else if (starred) zones.favorites.appendChild(row);
+            counts.pending += marked ? 1 : -1;
+            counts.left += marked ? -1 : 1;
+            if (marked && SP.view.folded('pending')) row.remove();
+            else if (marked) zones.pending.appendChild(row);
             else zones.left.insertBefore(row, zones.left.firstChild);
             sync();
         }
 
         function buildRow(item) {
-            var row;
+            var row, tag;
             var learned = SP.learned.has(item.id);
             var mark = learned ? SP.markSpacer() : SP.markButton(item, function (on) {
                 SP.setRowState(row, learned, on);
+                SP.setSectionTag(tag, on ? 'pending' : 'left');
                 move(row, item, on);
             });
             row = opts.row(item, mark);
-            SP.setRowState(row, learned, SP.favorites.has(item.id));
+            SP.setRowState(row, learned, SP.pending.has(item.id));
+            // Only in a search: browsing whole, the header above the row says
+            // the same thing and the tag would just repeat it on every line.
+            if (opts.tagged) {
+                tag = SP.tagRow(row, learned ? 'learned' : (SP.pending.has(item.id) ? 'pending' : 'left'));
+            }
             return row;
         }
 
-        // `plan` is a snapshot, so a row starred meanwhile does not disturb the
+        // `plan` is a snapshot, so a row marked meanwhile does not disturb the
         // sections the remaining pages are drawn into.
         function draw() {
             var next = Math.min(plan.length, shown + (shown === 0 ? pageSize : pageStep));
@@ -125,10 +131,10 @@
         // A full redraw from the lists as they stand — the first render and
         // every fold after it.
         function build() {
-            var buckets = { learned: [], favorites: [], left: [] };
+            var buckets = { learned: [], pending: [], left: [] };
             items.forEach(function (item) {
                 var kind = SP.learned.has(item.id) ? 'learned'
-                    : (SP.favorites.has(item.id) ? 'favorites' : 'left');
+                    : (SP.pending.has(item.id) ? 'pending' : 'left');
                 buckets[kind].push(item);
             });
             plan = [];
@@ -189,7 +195,6 @@
     /* ---------- stage page ---------- */
 
     function renderStage(root, stage) {
-        var index = [];
         SP.clear(root);
 
         var head = SP.el('header');
@@ -204,13 +209,45 @@
         root.appendChild(head);
 
         var bar = SP.el('div', 'sp-bar');
+        var search = SP.searchBox('Search this stage', draw);
+        var chips = SP.el('div');
+        bar.appendChild(search.node);
+        bar.appendChild(chips);
         root.appendChild(bar);
 
         var body = SP.el('div');
         root.appendChild(body);
 
+        // The chip index is rebuilt with the body, so the strip always names
+        // the sections that are actually on screen; the observer of the index
+        // it replaces is disconnected rather than left watching removed nodes.
+        var spy = null;
+
+        function draw() {
+            var query = search.query();
+            SP.clear(body);
+            SP.clear(chips);
+            if (spy) { spy.disconnect(); spy = null; }
+            var index = renderSections(body, stage, query);
+            if (!index.length) {
+                body.appendChild(SP.el('p', 'sp-empty', 'Nothing matches.'));
+                return;
+            }
+            spy = SP.buildIndex(chips, index, root.dataset.index === 'sections');
+        }
+
+        draw();
+        document.title = 'Stage ' + stage.no + ': ' + stage.title + ' - Spanish | Dykyi Roman';
+    }
+
+    // Everything below the header, for the whole stage or for what a search
+    // leaves of it. Returns the chip index of the sections it drew.
+    function renderSections(body, stage, query) {
+        var index = [];
+        var items = stage.items.filter(function (item) { return SP.matches(item, query); });
+
         /* lexicon */
-        var lex = stage.items.filter(function (i) { return i.type === 'vocab' || i.type === 'pair'; });
+        var lex = items.filter(function (i) { return i.type === 'vocab' || i.type === 'pair'; });
         if (lex.length) {
             var lexSection = sectionShell('sec-lex', 'Лексика', lex.length);
             index.push({ row: 'main', label: 'Лексика', target: 'sec-lex' });
@@ -240,6 +277,7 @@
                 renderMarkedList(block, byGroup[name], {
                     zone: lexZone,
                     row: SP.renderLexRow,
+                    tagged: !!query,
                     pageSize: PAGE_SIZE,
                     pageStep: PAGE_STEP
                 });
@@ -254,7 +292,7 @@
         }
 
         /* examples */
-        var ex = stage.items.filter(function (i) { return i.type === 'phrase' || i.type === 'exchange'; });
+        var ex = items.filter(function (i) { return i.type === 'phrase' || i.type === 'exchange'; });
         if (ex.length) {
             var exSection = sectionShell('sec-ex', 'Живые примеры', ex.length);
             index.push({ row: 'main', label: 'Примеры', target: 'sec-ex' });
@@ -282,7 +320,7 @@
                     var listed = index.some(function (e) { return e.row === 'sub' && e.label === name; });
                     if (!listed) index.push({ row: 'sub', label: name, target: block.id });
                 }
-                renderMarkedList(block, exByGroup[name], { zone: exZone, row: SP.renderExRow });
+                renderMarkedList(block, exByGroup[name], { zone: exZone, row: SP.renderExRow, tagged: !!query });
                 if (exNotes[name]) block.appendChild(SP.renderNote(exNotes[name]));
                 exSection.appendChild(block);
             });
@@ -290,7 +328,7 @@
         }
 
         /* drills */
-        var drills = stage.items.filter(function (i) { return i.type === 'drill'; });
+        var drills = items.filter(function (i) { return i.type === 'drill'; });
         if (drills.length) {
             var drillSection = sectionShell('sec-drills', 'Закрепление', drills.length);
             index.push({ row: 'main', label: 'Закрепление', target: 'sec-drills' });
@@ -305,14 +343,14 @@
             blocks.forEach(function (key) {
                 var group = SP.el('div', 'sp-group');
                 group.appendChild(SP.el('h4', 'sp-group-title', key + ' ' + byBlock[key][0].blockTitle));
-                renderMarkedList(group, byBlock[key], { zone: drillZone, row: drillRow });
+                renderMarkedList(group, byBlock[key], { zone: drillZone, row: drillRow, tagged: !!query });
                 drillSection.appendChild(group);
             });
             body.appendChild(drillSection);
         }
 
-        /* notes */
-        var generalNotes = (stage.notes || []).filter(function (n) { return n.section === 'notes'; });
+        /* notes — prose, not entries, so a search leaves them out */
+        var generalNotes = query ? [] : (stage.notes || []).filter(function (n) { return n.section === 'notes'; });
         if (generalNotes.length) {
             var noteSection = sectionShell('sec-notes', 'Что надо запомнить', generalNotes.length);
             index.push({ row: 'main', label: 'Заметки', target: 'sec-notes' });
@@ -321,7 +359,7 @@
         }
 
         /* exclusions */
-        if (stage.excluded && stage.excluded.length) {
+        if (!query && stage.excluded && stage.excluded.length) {
             var exclSection = sectionShell('sec-excluded', 'Что сознательно не входит в этап', stage.excluded.length);
             index.push({ row: 'main', label: 'Не входит', target: 'sec-excluded' });
             var ul = SP.el('ul', 'sp-excluded');
@@ -330,8 +368,7 @@
             body.appendChild(exclSection);
         }
 
-        SP.buildIndex(bar, index, root.dataset.index === 'sections');
-        document.title = 'Stage ' + stage.no + ': ' + stage.title + ' - Spanish | Dykyi Roman';
+        return index;
     }
 
     /* ---------- boot ---------- */

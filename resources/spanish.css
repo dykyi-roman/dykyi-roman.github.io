@@ -237,7 +237,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-mark:hover { color: var(--color-primary); }
 .sp-mark:hover .sp-tick { opacity: 0.45; }
-/* Ticked, it carries the colour of the Favorites section it puts the row in —
+/* Ticked, it carries the colour of the Pending section it puts the row in —
    green is what the learned list is drawn in. */
 .sp-mark.is-on, .sp-mark.is-on:hover { color: var(--color-primary); }
 .sp-mark.is-on .sp-tick { opacity: 1; }
@@ -292,6 +292,13 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-divider.is-quiet:hover { color: var(--color-text-light); }
 
+/* The seam that opens a stage: solid rather than dashed, and in the reading
+   colour, so a run of entries inside it stays the lighter mark. */
+.sp-divider.is-stage { color: var(--color-text); min-height: 40px; }
+.sp-divider.is-stage:hover { color: var(--color-text); }
+.sp-divider.is-stage .sp-divider-label { font-weight: 600; }
+.sp-divider.is-stage::before, .sp-divider.is-stage::after { border-top-style: solid; }
+
 /* Points down while the block is open, right while it is folded. */
 .sp-chevron {
     flex: 0 0 auto;
@@ -309,23 +316,23 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 /* An entry in one of the two top sections keeps its Spanish at full strength
    and is told apart by the tinted edge: green for the learned list, the site's
-   own orange for a starred one. The tint fades in, so a row that jumps into
+   own orange for a pending one. The tint fades in, so a row that jumps into
    another section is seen changing rather than vanishing under the finger. */
 .sp-lex-row,
 .sp-ex-row { transition: background var(--transition-normal), border-color var(--transition-normal); }
 
 .sp-lex-row.is-learned,
 .sp-ex-row.is-learned,
-.sp-lex-row.is-favorite,
-.sp-ex-row.is-favorite {
+.sp-lex-row.is-pending,
+.sp-ex-row.is-pending {
     border-left: 3px solid var(--color-success);
     padding-left: calc(var(--spacing-sm) - 2px);
     background: rgba(76, 175, 80, 0.06);
     cursor: pointer;
 }
 
-.sp-lex-row.is-favorite,
-.sp-ex-row.is-favorite {
+.sp-lex-row.is-pending,
+.sp-ex-row.is-pending {
     border-left-color: var(--color-primary);
     background: rgba(220, 118, 3, 0.07);
 }
@@ -337,9 +344,9 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-lex-row.is-learned:not(.is-revealed) .sp-lex-en,
 .sp-lex-row.is-learned:not(.is-revealed) .sp-lex-ru,
 .sp-ex-row.is-learned:not(.is-revealed) .sp-ex-ru,
-.sp-lex-row.is-favorite:not(.is-revealed) .sp-lex-en,
-.sp-lex-row.is-favorite:not(.is-revealed) .sp-lex-ru,
-.sp-ex-row.is-favorite:not(.is-revealed) .sp-ex-ru {
+.sp-lex-row.is-pending:not(.is-revealed) .sp-lex-en,
+.sp-lex-row.is-pending:not(.is-revealed) .sp-lex-ru,
+.sp-ex-row.is-pending:not(.is-revealed) .sp-ex-ru {
     color: transparent;
     background: rgba(255, 255, 255, 0.07);
     border-radius: 4px;
@@ -348,8 +355,8 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-lex-row.is-learned:focus-visible,
 .sp-ex-row.is-learned:focus-visible,
-.sp-lex-row.is-favorite:focus-visible,
-.sp-ex-row.is-favorite:focus-visible {
+.sp-lex-row.is-pending:focus-visible,
+.sp-ex-row.is-pending:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
@@ -426,6 +433,26 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-lex-row.has-mark .sp-mark { grid-area: mark; align-self: start; }
 
+/* The list a found row belongs to, worn by the row itself — a search can put
+   one match under a header far up the screen. Only drawn while searching. */
+.sp-tag {
+    display: inline-block;
+    margin-left: var(--spacing-xs);
+    padding: 1px 7px;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.sp-tag.is-learned { color: var(--color-success); }
+.sp-tag.is-pending { color: var(--color-primary); }
+.sp-tag.is-left { color: var(--color-text-light); }
+
 /* ---------- examples ---------- */
 
 .sp-ex { display: flex; flex-direction: column; gap: var(--spacing-xs); }
@@ -466,9 +493,9 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     margin-top: 6px;
 }
 
-.sp-drill.is-learned, .sp-drill.is-favorite { color: var(--color-text-light); }
+.sp-drill.is-learned, .sp-drill.is-pending { color: var(--color-text-light); }
 .sp-drill.is-learned::marker { color: var(--color-success); }
-.sp-drill.is-favorite::marker { color: var(--color-primary); }
+.sp-drill.is-pending::marker { color: var(--color-primary); }
 
 /* ---------- prose notes ---------- */
 
@@ -605,13 +632,41 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-filters { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); margin: var(--spacing-sm) 0; }
 
+/* Exactly 16px, like .sp-select: anything smaller and iOS zooms the page when
+   the field takes focus. */
+.sp-search {
+    /* A line of its own on a phone — squeezed between the topic filter and
+       Reset it fits about three letters. From 700px up it shares the row. */
+    flex: 1 1 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: 16px;
+}
+
+.sp-search::placeholder { color: var(--color-text-light); }
+.sp-search:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+/* In a sticky bar — the hub's and a stage page's alike — it has the strip to
+   itself, above the chips. */
+.sp-bar .sp-search { width: 100%; flex: 0 0 auto; margin-bottom: var(--spacing-xs); }
+#sp-search-host { display: flex; }
+
 /* The three export slices travel together and wrap as one block, so the row
    never breaks between a count and what it counts. */
 .sp-export { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-xs); }
 .sp-export-label { color: var(--color-text-light); font-size: 0.8rem; }
 
 /* Downloading a file and copying to the clipboard are two different errands;
-   the rule between them says so. */
+   the rule between them says so. They travel as one group, so a wrap never
+   leaves the rule dangling at the end of a line. */
+.sp-copy-group { display: flex; align-items: center; gap: var(--spacing-xs); }
+
 .sp-sep {
     align-self: stretch;
     width: 1px;
@@ -659,6 +714,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     }
 
     .sp-lex-row .sp-speak { align-self: center; }
+    .sp-search { flex: 1 1 220px; }
     .sp-lex-row.has-mark .sp-mark { align-self: center; }
     .sp-ex-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px; }
     .sp-ex-row .sp-ex-es { grid-column: 1; }

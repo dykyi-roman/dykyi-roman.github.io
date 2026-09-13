@@ -111,6 +111,9 @@
             }
             chip.addEventListener('click', function () {
                 if (prefs.stage === option.key) return;
+                // Picking a stage by hand is a decision of its own: the search
+                // no longer has a scope to hand back.
+                searchReturn = null;
                 prefs.stage = option.key;
                 savePrefs();
                 renderStageChips();
@@ -149,7 +152,10 @@
             tab.dataset.mode = mode;
             tab.setAttribute('role', 'tab');
             strip.appendChild(tab);
-            tab.addEventListener('click', function () { enterMode(mode); });
+            tab.addEventListener('click', function () {
+                if (searchReturn) searchReturn.mode = mode;   // this is where to come back to now
+                enterMode(mode);
+            });
         });
     }
 
@@ -705,6 +711,7 @@
 
     var browseShown = BROWSE_PAGE;
     var browseFiltered = [];
+    var browseSearch = null;
 
     function initBrowse() {
         // Topic names are unique across the stages, so the option value is the
@@ -746,12 +753,13 @@
 
     function applyBrowse() {
         var group = byId('sp-browse-group').value;
+        var query = browseSearch ? browseSearch.query() : '';
 
         // allItems keeps the file order, which interleaves a few exchanges
         // among the phrases; sorting by type makes every topic read the same
         // way. The original index is the tie-breaker, so the sort is stable.
         browseFiltered = allItems
-            .filter(function (item) { return !group || item.group === group; })
+            .filter(function (item) { return (!group || item.group === group) && SP.matches(item, query); })
             .map(function (item, i) { return { item: item, i: i }; })
             .sort(function (a, b) {
                 if (a.item.stage !== b.item.stage) return a.item.stage - b.item.stage;
@@ -778,26 +786,41 @@
         return SP.attachMark(row, mark);
     }
 
-    // The seam between two runs of the sorted list: a quiet dashed line naming
-    // what starts below it, and the stage too when that is what changed.
-    function runDivider(item, previous) {
-        var label = RUN_LABEL[item.type] || (SP.TYPE_LABEL[item.type] || item.type);
-        if (!previous || previous.stage !== item.stage) label = 'Stage ' + item.stage + ' · ' + label;
+    // Two kinds of seam in the sorted list. The heavier one opens a stage and
+    // names it — with a search running, results come from anywhere, so this is
+    // what says where a match was found. The lighter one marks where one run of
+    // entries turns into the next inside that stage.
+    function stageInfo(no) {
+        return (manifest.stages || []).filter(function (st) { return st.no === no; })[0];
+    }
+
+    function stageDivider(item) {
+        var stage = stageInfo(item.stage);
+        var node = SP.el('div', 'sp-divider is-quiet is-stage');
+        var icon = SP.iconSpan(stage && stage.icon);
+        if (icon) node.appendChild(icon);
+        node.appendChild(SP.el('span', 'sp-divider-label',
+            'Stage ' + item.stage + (stage ? ' · ' + stage.title : '')));
+        return node;
+    }
+
+    function runDivider(item) {
         var node = SP.el('div', 'sp-divider is-quiet');
-        node.appendChild(SP.el('span', 'sp-divider-label', label));
+        node.appendChild(SP.el('span', 'sp-divider-label',
+            RUN_LABEL[item.type] || SP.TYPE_LABEL[item.type] || item.type));
         return node;
     }
 
     function runKey(item) { return item.stage + '/' + typeRank(item.type); }
 
-    // Learned wins over starred, so a word that is both shows once, at the top.
+    // Learned wins over pending, so a word in both shows once, at the top.
     function sectionOf(item) {
         if (SP.learned.has(item.id)) return 'learned';
-        return SP.favorites.has(item.id) ? 'favorites' : 'left';
+        return SP.pending.has(item.id) ? 'pending' : 'left';
     }
 
     // The list is the same three sections a stage page shows, over the same
-    // lists: Learned from the file, Favorites from this browser, then the rest.
+    // lists: Learned from the file, Pending from this browser, then the rest.
     // `browseFiltered` keeps the plain (stage, type, file) order, so the CSV
     // export is unaffected and the split is recomputed on every render, stars
     // included. A folded section is left undrawn rather than hidden, so a page
@@ -805,9 +828,11 @@
     function renderBrowse() {
         var list = byId('sp-browse-list');
         SP.clear(list);
-        byId('sp-browse-empty').hidden = browseFiltered.length !== 0;
+        var empty = byId('sp-browse-empty');
+        empty.hidden = browseFiltered.length !== 0;
+        empty.textContent = browseSearch && browseSearch.query() ? 'Nothing matches that search.' : 'Nothing matches.';
 
-        var buckets = { learned: [], favorites: [], left: [] };
+        var buckets = { learned: [], pending: [], left: [] };
         browseFiltered.forEach(function (item) {
             buckets[sectionOf(item)].push(item);
         });
@@ -824,7 +849,7 @@
         });
 
         function sync() {
-            var above = counts.learned + counts.favorites;
+            var above = counts.learned + counts.pending;
             SP.SECTIONS.forEach(function (kind) {
                 heads[kind].sync(counts[kind]);
                 heads[kind].node.hidden = kind === 'left' ? above === 0 : counts[kind] === 0;
@@ -832,24 +857,28 @@
             syncExportButtons();
         }
 
+        var query = browseSearch ? browseSearch.query() : '';
+
         function makeRow(item) {
-            var row;
+            var row, tag;
             var learned = SP.learned.has(item.id);
             var mark = learned ? SP.markSpacer() : SP.markButton(item, function (on) {
                 SP.setRowState(row, learned, on);
-                counts.favorites += on ? 1 : -1;
+                SP.setSectionTag(tag, on ? 'pending' : 'left');
+                counts.pending += on ? 1 : -1;
                 counts.left += on ? -1 : 1;
-                // Starred goes to the end of Favorites, unstarred to the top of
-                // the rest — the closest spot on the other side of the header.
-                // With Favorites folded there is nowhere to move to, so the row
-                // simply leaves.
-                if (on && SP.view.folded('favorites')) row.remove();
-                else if (on) zones.favorites.appendChild(row);
+                // Marked goes to the end of Pending, unmarked to the top of the
+                // rest — the closest spot on the other side of the header. With
+                // Pending folded there is nowhere to move to, so the row simply
+                // leaves.
+                if (on && SP.view.folded('pending')) row.remove();
+                else if (on) zones.pending.appendChild(row);
                 else zones.left.insertBefore(row, zones.left.firstChild);
                 sync();
             });
             row = browseRow(item, mark);
-            SP.setRowState(row, learned, SP.favorites.has(item.id));
+            SP.setRowState(row, learned, SP.pending.has(item.id));
+            if (query) tag = SP.tagRow(row, sectionOf(item));
             return row;
         }
 
@@ -859,11 +888,19 @@
             buckets[kind].forEach(function (item) { plan.push({ item: item, kind: kind }); });
         });
 
+        // A stage is named whenever the list can hold more than one of them —
+        // and always while a search is running, even when everything found came
+        // from a single stage: the whole point is to see where it was found.
+        var stages = {};
+        browseFiltered.forEach(function (item) { stages[item.stage] = true; });
+        var nameStages = Object.keys(stages).length > 1 || !!query;
+
         var previous = {};
         plan.slice(0, browseShown).forEach(function (entry) {
             var zone = zones[entry.kind];
             var prev = previous[entry.kind];
-            if (prev && runKey(prev) !== runKey(entry.item)) zone.appendChild(runDivider(entry.item, prev));
+            if (nameStages && (!prev || prev.stage !== entry.item.stage)) zone.appendChild(stageDivider(entry.item));
+            else if (prev && runKey(prev) !== runKey(entry.item)) zone.appendChild(runDivider(entry.item));
             zone.appendChild(makeRow(entry.item));
             previous[entry.kind] = entry.item;
         });
@@ -908,23 +945,23 @@
         // would take the icon with it.
         var copy = byId('sp-browse-copy');
         if (copy && !copyTimer) {
-            var starred = bySection('favorites').length;
-            copyLabel('Favorites (' + starred + ')');
+            var marked = bySection('pending').length;
+            copyLabel('Pending (' + marked + ')');
             copy.setAttribute('aria-label',
-                'Copy favorites to the clipboard, ' + starred + (starred === 1 ? ' entry' : ' entries'));
-            copy.disabled = starred === 0;
+                'Copy the pending list to the clipboard, ' + marked + (marked === 1 ? ' entry' : ' entries'));
+            copy.disabled = marked === 0;
         }
     }
 
-    /* ---------- favorites to the clipboard ---------- */
+    /* ---------- the pending list to the clipboard ---------- */
 
-    // Favorites are not a file to keep but a handful of entries to take
-    // somewhere else — a note, a chat, a prompt — so they are copied as plain
+    // The pending list is not a file to keep but a handful of entries to take
+    // somewhere else — a note, a chat, a prompt — so it is copied as plain
     // lines rather than downloaded as a table.
     var copyTimer = null;
 
-    function favoriteText() {
-        return bySection('favorites').map(function (item) {
+    function pendingText() {
+        return bySection('pending').map(function (item) {
             if (item.type === 'drill') return item.prompt + ' — ' + item.answer;
             return item.es + (item.ru ? ' — ' + item.ru : '');
         }).join('\n');
@@ -963,10 +1000,10 @@
         copyTimer = setTimeout(function () { copyTimer = null; syncExportButtons(); }, 1800);
     }
 
-    function copyFavorites() {
-        var rows = bySection('favorites');
+    function copyPending() {
+        var rows = bySection('pending');
         if (!rows.length) return;
-        copyText(favoriteText())
+        copyText(pendingText())
             .then(function () { flashCopy('Copied ' + rows.length); })
             .catch(function () { flashCopy('Could not copy'); });
     }
@@ -975,15 +1012,15 @@
         var rows = (EXPORTS[which] || EXPORTS.all).rows();
         if (!rows.length) return;
         // Both lists ride along as the last two columns, so an exported "all"
-        // says which of its rows are learned and which are starred; the four
+        // says which of its rows are learned and which are pending; the four
         // lexicon keys keep the order they have in the JSON.
-        var head = ['id', 'stage', 'type', 'group', 'es', 'en', 'ru', 'tr', 'learned', 'favorite'];
+        var head = ['id', 'stage', 'type', 'group', 'es', 'en', 'ru', 'tr', 'learned', 'pending'];
         var lines = [head.join(',')];
         rows.forEach(function (item) {
             lines.push(head.map(function (key) {
                 var value = item[key];
                 if (key === 'learned') value = SP.learned.has(item.id) ? 'yes' : '';
-                if (key === 'favorite') value = SP.favorites.has(item.id) ? 'yes' : '';
+                if (key === 'pending') value = SP.pending.has(item.id) ? 'yes' : '';
                 if (value === undefined || value === null) value = '';
                 return '"' + String(value).replace(/"/g, '""') + '"';
             }).join(','));
@@ -1010,6 +1047,7 @@
         byId('sp-browse-group').addEventListener('change', applyBrowse);
         byId('sp-browse-reset').addEventListener('click', function () {
             byId('sp-browse-group').value = '';
+            browseSearch.clear();
             applyBrowse();
         });
         byId('sp-browse-more').addEventListener('click', function () {
@@ -1022,7 +1060,60 @@
         });
         var copy = byId('sp-browse-copy');
         copy.insertBefore(SP.copyIcon(), copy.firstChild);
-        copy.addEventListener('click', copyFavorites);
+        copy.addEventListener('click', copyPending);
+    }
+
+    /* ---------- search across every stage ---------- */
+
+    // The field sits above the stage chips, not inside the browse filters,
+    // because it is not a filter of the current scope but a way out of it:
+    // a search looks through every stage at once. Rules are prose, not
+    // entries, and stay out of it.
+    // Where the search took over from, so closing the field can hand it back.
+    var searchReturn = null;
+
+    function initSearch() {
+        browseSearch = SP.searchBox('Search every stage', onSearch);
+        byId('sp-search-host').appendChild(browseSearch.node);
+        // The ✕ of a type="search" field fires `input` in every browser that
+        // draws one, but Safari also fires `search` — and only that one on Esc.
+        browseSearch.node.addEventListener('search', onSearch);
+    }
+
+    function goTo(stage, mode) {
+        if (prefs.stage === stage) { enterMode(mode, true); return; }
+        prefs.stage = stage;
+        savePrefs();
+        renderStageChips();
+        loadScope()
+            .then(function () { enterMode(mode, true); })
+            .catch(function (e) { SP.showError('sp-error', e); });
+    }
+
+    function onSearch() {
+        var query = browseSearch.query();
+
+        if (query && !searchReturn) searchReturn = { stage: prefs.stage, mode: currentMode };
+
+        // Closing the field puts back the stage and the mode the search took
+        // over from, rather than leaving the reader in All stages / Browse.
+        if (!query && searchReturn) {
+            var back = searchReturn;
+            searchReturn = null;
+            goTo(back.stage, back.mode);
+            return;
+        }
+
+        // Searching widens the scope rather than searching inside it, and the
+        // chips say so. Loading the stages that were never fetched is what
+        // makes the search global, so the list waits for them. Results live in
+        // the browse list, so typing brings it forward.
+        if (query && (prefs.stage !== 'all' || currentMode !== 'browse')) {
+            goTo('all', 'browse');
+            return;
+        }
+
+        applyBrowse();
     }
 
     /* ---------- rules ---------- */
@@ -1044,6 +1135,7 @@
         if (!root || !SP) return;
         SP.base = root.dataset.base || '../resources/spanish/';
 
+        initSearch();
         initCardControls();
         initQuizControls();
         initListenControls();
