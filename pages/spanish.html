@@ -53,8 +53,18 @@
                     <label class="visually-hidden" for="sp-browse-group">Topic</label>
                     <select class="sp-select" id="sp-browse-group"></select>
                     <button type="button" class="sp-btn" id="sp-browse-reset">Reset</button>
-                    <button type="button" class="sp-btn quiet" id="sp-browse-csv"
-                            title="Download what is listed below as CSV">Export CSV</button>
+                    <div class="sp-export">
+                        <span class="sp-export-label">Export CSV</span>
+                        <button type="button" class="sp-btn quiet" id="sp-browse-csv-all"
+                                title="Download everything listed below">All</button>
+                        <button type="button" class="sp-btn quiet" id="sp-browse-csv-learned"
+                                title="Download only what the learned list holds">Learned</button>
+                        <button type="button" class="sp-btn quiet" id="sp-browse-csv-left"
+                                title="Download only what is not learned yet">Left</button>
+                    </div>
+                    <span class="sp-sep" aria-hidden="true"></span>
+                    <button type="button" class="sp-btn quiet" id="sp-browse-copy"
+                            title="Copy the marked entries to the clipboard"><span class="sp-copy-label">Favorites</span></button>
                 </div>
 
                 <div class="sp-lex" id="sp-browse-list"></div>

@@ -217,6 +217,8 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-mark svg { width: 22px; height: 22px; }
 .sp-mark rect { fill: none; stroke: currentColor; stroke-width: 1.6; }
 
+/* The tick shows at half strength on hover, so it is clear what the button
+   will do before it is pressed. */
 .sp-mark .sp-tick {
     fill: none;
     stroke: currentColor;
@@ -227,9 +229,17 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     transition: opacity var(--transition-fast);
 }
 
+/* The empty cell a learned row leaves where the checkbox would be: it holds
+   the column open, and in a drill's row of buttons there is no column to hold,
+   so there it is simply not there. */
+.sp-mark.is-empty { cursor: default; pointer-events: none; }
+.sp-drill-actions .sp-mark.is-empty { display: none; }
+
 .sp-mark:hover { color: var(--color-primary); }
 .sp-mark:hover .sp-tick { opacity: 0.45; }
-.sp-mark.is-on, .sp-mark.is-on:hover { color: var(--color-success); }
+/* Ticked, it carries the colour of the Favorites section it puts the row in —
+   green is what the learned list is drawn in. */
+.sp-mark.is-on, .sp-mark.is-on:hover { color: var(--color-primary); }
 .sp-mark.is-on .sp-tick { opacity: 1; }
 
 /* The boundary between what is learned and what is left, and the button that
@@ -263,7 +273,24 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 }
 
 .sp-divider:hover { color: var(--color-primary); }
-.sp-divider-label { flex: 0 0 auto; white-space: nowrap; }
+
+.sp-divider-label {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* The same line without the fold: the header of the rest of the list, and the
+   seam where one run of the sorted browse list turns into the next — words,
+   then the sentences after them. Quieter and shorter, and not a button. */
+.sp-divider.is-quiet {
+    min-height: 32px;
+    cursor: default;
+}
+
+.sp-divider.is-quiet:hover { color: var(--color-text-light); }
 
 /* Points down while the block is open, right while it is folded. */
 .sp-chevron {
@@ -280,18 +307,51 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-divider[aria-expanded="false"] .sp-chevron { transform: rotate(-90deg); }
 
-/* A learned entry keeps its text at full strength — the block leads the list
-   to be re-read — and is marked by the tinted edge instead. The tint fades in,
-   so the row that jumps above the divider is seen changing rather than just
-   disappearing from under the finger. */
+/* An entry in one of the two top sections keeps its Spanish at full strength
+   and is told apart by the tinted edge: green for the learned list, the site's
+   own orange for a starred one. The tint fades in, so a row that jumps into
+   another section is seen changing rather than vanishing under the finger. */
 .sp-lex-row,
 .sp-ex-row { transition: background var(--transition-normal), border-color var(--transition-normal); }
 
 .sp-lex-row.is-learned,
-.sp-ex-row.is-learned {
+.sp-ex-row.is-learned,
+.sp-lex-row.is-favorite,
+.sp-ex-row.is-favorite {
     border-left: 3px solid var(--color-success);
     padding-left: calc(var(--spacing-sm) - 2px);
     background: rgba(76, 175, 80, 0.06);
+    cursor: pointer;
+}
+
+.sp-lex-row.is-favorite,
+.sp-ex-row.is-favorite {
+    border-left-color: var(--color-primary);
+    background: rgba(220, 118, 3, 0.07);
+}
+
+/* Their meaning, though, is covered: the point of a word you know or are
+   working on is to recall it, so the translation is a bar until the row is
+   tapped — and a second tap covers it again. The drawn dashes sit inside those
+   boxes and go under the bar with them. */
+.sp-lex-row.is-learned:not(.is-revealed) .sp-lex-en,
+.sp-lex-row.is-learned:not(.is-revealed) .sp-lex-ru,
+.sp-ex-row.is-learned:not(.is-revealed) .sp-ex-ru,
+.sp-lex-row.is-favorite:not(.is-revealed) .sp-lex-en,
+.sp-lex-row.is-favorite:not(.is-revealed) .sp-lex-ru,
+.sp-ex-row.is-favorite:not(.is-revealed) .sp-ex-ru {
+    color: transparent;
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 4px;
+    user-select: none;
+}
+
+.sp-lex-row.is-learned:focus-visible,
+.sp-ex-row.is-learned:focus-visible,
+.sp-lex-row.is-favorite:focus-visible,
+.sp-ex-row.is-favorite:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 
 /* ---------- lexicon ---------- */
@@ -310,17 +370,14 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-lex { display: flex; flex-direction: column; gap: var(--spacing-xs); }
 
-/* Phone layout: one stacked card per entry. The Spanish word leads, the
-   transcription sits under it, translations follow. Four columns at 375px
-   would be unreadable, so the table only appears from 700px up. */
+/* Phone layout: one card per entry whose four texts read as a single line —
+   "y (и) — and / и" — wrapping only when they must. Stacked, every word cost
+   four rows and a lot of scrolling; the real four-column table still appears
+   from 700px up. */
 .sp-lex-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 44px;
-    grid-template-areas:
-        "es    speak"
-        "tr    speak"
-        "en    en"
-        "ru    ru";
+    grid-template-areas: "text speak";
     gap: 2px var(--spacing-sm);
     align-items: center;
     padding: var(--spacing-sm);
@@ -329,30 +386,42 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     background: var(--color-white);
 }
 
+.sp-lex-text {
+    grid-area: text;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 6px;
+    min-width: 0;
+}
+
 .sp-lex-es {
-    grid-area: es;
     font-size: 1.15rem;
     font-weight: 600;
     color: var(--color-heading);
     overflow-wrap: anywhere;
 }
 
-.sp-lex-tr { grid-area: tr; font-size: var(--font-size-small); color: var(--color-primary); overflow-wrap: anywhere; }
-.sp-lex-ru { grid-area: ru; font-size: var(--font-size-base); color: var(--color-text); overflow-wrap: anywhere; }
-.sp-lex-en { grid-area: en; font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
+.sp-lex-tr { font-size: var(--font-size-small); color: var(--color-primary); overflow-wrap: anywhere; }
+.sp-lex-ru { font-size: var(--font-size-base); color: var(--color-text); overflow-wrap: anywhere; }
+.sp-lex-en { font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
 .sp-lex-row .sp-speak { grid-area: speak; align-self: start; }
+
+/* The punctuation of that line is drawn, not stored: the JSON carries none and
+   the table from 700px up must show none. Each translation is bracketed
+   because the glosses have slashes of their own — "en (эн) — [in / on / at] —
+   [в / на]" — and without the brackets it is not clear where one ends. */
+.sp-lex-tr::before { content: "("; }
+.sp-lex-tr::after { content: ")"; }
+.sp-lex-en::before, .sp-lex-ru::before { content: "— ["; }
+.sp-lex-en::after, .sp-lex-ru::after { content: "]"; }
 
 .sp-lex-row.is-pair .sp-lex-es { color: var(--color-primary); }
 
-/* The checkbox sits beside the speak button, so the card gains a second
-   control column on its right edge; the translations keep spanning the row. */
+/* With the checkbox the card gains a second control column on its right edge. */
 .sp-lex-row.has-mark {
     grid-template-columns: minmax(0, 1fr) 44px 44px;
-    grid-template-areas:
-        "es    speak mark"
-        "tr    speak mark"
-        "en    en    en"
-        "ru    ru    ru";
+    grid-template-areas: "text speak mark";
 }
 
 .sp-lex-row.has-mark .sp-mark { grid-area: mark; align-self: start; }
@@ -397,8 +466,9 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     margin-top: 6px;
 }
 
-.sp-drill.is-learned { color: var(--color-text-light); }
+.sp-drill.is-learned, .sp-drill.is-favorite { color: var(--color-text-light); }
 .sp-drill.is-learned::marker { color: var(--color-success); }
+.sp-drill.is-favorite::marker { color: var(--color-primary); }
 
 /* ---------- prose notes ---------- */
 
@@ -535,6 +605,31 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-filters { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); margin: var(--spacing-sm) 0; }
 
+/* The three export slices travel together and wrap as one block, so the row
+   never breaks between a count and what it counts. */
+.sp-export { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-xs); }
+.sp-export-label { color: var(--color-text-light); font-size: 0.8rem; }
+
+/* Downloading a file and copying to the clipboard are two different errands;
+   the rule between them says so. */
+.sp-sep {
+    align-self: stretch;
+    width: 1px;
+    margin: 6px 2px;
+    background: var(--color-border);
+}
+
+.sp-copy-icon {
+    flex: 0 0 auto;
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 .sp-empty { color: var(--color-text-light); padding: var(--spacing-md) 0; }
 
 /* ---------- 700px and up: the lexicon becomes a real table ---------- */
@@ -546,6 +641,17 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
         align-items: center;
         gap: var(--spacing-sm);
     }
+
+    /* The wrapper steps aside so its four children are the grid items again,
+       and the drawn punctuation of the phone line goes with it. */
+    .sp-lex-text { display: contents; }
+    .sp-lex-es { grid-area: es; }
+    .sp-lex-tr { grid-area: tr; }
+    .sp-lex-en { grid-area: en; }
+    .sp-lex-ru { grid-area: ru; }
+    .sp-lex-tr::before, .sp-lex-tr::after,
+    .sp-lex-en::before, .sp-lex-en::after,
+    .sp-lex-ru::before, .sp-lex-ru::after { content: none; }
 
     .sp-lex-row.has-mark {
         grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) 44px 44px;

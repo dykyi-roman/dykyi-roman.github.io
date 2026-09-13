@@ -21,6 +21,11 @@
     // phrases and dialogues, with the drills last.
     var TYPE_ORDER = { vocab: 0, pair: 1, phrase: 2, exchange: 3, drill: 4 };
 
+    // What a run of one type is called where it starts. The browse list is one
+    // flat list, so without these the words simply turn into sentences
+    // somewhere in the middle with nothing to mark the seam.
+    var RUN_LABEL = { vocab: 'Words', pair: 'Pairs', phrase: 'Phrases', exchange: 'Exchanges', drill: 'Drills' };
+
     function typeRank(type) {
         return TYPE_ORDER[type] === undefined ? 9 : TYPE_ORDER[type];
     }
@@ -773,87 +778,222 @@
         return SP.attachMark(row, mark);
     }
 
-    // The list reads learned first, then a divider, then the rest — the same
-    // order a stage page shows, over the same marks. `browseFiltered` keeps the
-    // plain (stage, type, file) order, so the CSV export is unaffected and the
-    // split is recomputed on every render, marks included. Folded, the learned
-    // rows are left undrawn rather than hidden, so a page is never spent on
-    // rows nobody sees.
+    // The seam between two runs of the sorted list: a quiet dashed line naming
+    // what starts below it, and the stage too when that is what changed.
+    function runDivider(item, previous) {
+        var label = RUN_LABEL[item.type] || (SP.TYPE_LABEL[item.type] || item.type);
+        if (!previous || previous.stage !== item.stage) label = 'Stage ' + item.stage + ' · ' + label;
+        var node = SP.el('div', 'sp-divider is-quiet');
+        node.appendChild(SP.el('span', 'sp-divider-label', label));
+        return node;
+    }
+
+    function runKey(item) { return item.stage + '/' + typeRank(item.type); }
+
+    // Learned wins over starred, so a word that is both shows once, at the top.
+    function sectionOf(item) {
+        if (SP.learned.has(item.id)) return 'learned';
+        return SP.favorites.has(item.id) ? 'favorites' : 'left';
+    }
+
+    // The list is the same three sections a stage page shows, over the same
+    // lists: Learned from the file, Favorites from this browser, then the rest.
+    // `browseFiltered` keeps the plain (stage, type, file) order, so the CSV
+    // export is unaffected and the split is recomputed on every render, stars
+    // included. A folded section is left undrawn rather than hidden, so a page
+    // is never spent on rows nobody sees.
     function renderBrowse() {
         var list = byId('sp-browse-list');
         SP.clear(list);
         byId('sp-browse-empty').hidden = browseFiltered.length !== 0;
 
-        var folded = SP.learned.folded();
-        var learned = browseFiltered.filter(function (item) { return SP.learned.has(item.id); });
-        var rest = browseFiltered.filter(function (item) { return !SP.learned.has(item.id); });
-        var ordered = folded ? rest : learned.concat(rest);
-        var boundary = folded ? 0 : learned.length;
-        var count = learned.length;
+        var buckets = { learned: [], favorites: [], left: [] };
+        browseFiltered.forEach(function (item) {
+            buckets[sectionOf(item)].push(item);
+        });
 
-        var divider = SP.learnedDivider();
+        var counts = {};
+        var heads = {};
+        var zones = {};
+        SP.SECTIONS.forEach(function (kind) {
+            counts[kind] = buckets[kind].length;
+            heads[kind] = SP.sectionDivider(kind);
+            zones[kind] = SP.el('div', 'sp-lex');
+            list.appendChild(heads[kind].node);
+            list.appendChild(zones[kind]);
+        });
 
         function sync() {
-            divider.sync(count, browseFiltered.length);
-            divider.node.hidden = count === 0;
+            var above = counts.learned + counts.favorites;
+            SP.SECTIONS.forEach(function (kind) {
+                heads[kind].sync(counts[kind]);
+                heads[kind].node.hidden = kind === 'left' ? above === 0 : counts[kind] === 0;
+            });
+            syncExportButtons();
         }
 
         function makeRow(item) {
             var row;
-            var mark = SP.markButton(item, function (on) {
-                row.classList.toggle('is-learned', on);
-                count += on ? 1 : -1;
-                // Marked goes just above the divider, unmarked just below it:
-                // the closest spot on the other side of the boundary. While the
-                // learned block is folded there is no other side to move to, so
-                // the row simply leaves.
-                if (on && folded) row.remove();
-                else list.insertBefore(row, on ? divider.node : divider.node.nextSibling);
+            var learned = SP.learned.has(item.id);
+            var mark = learned ? SP.markSpacer() : SP.markButton(item, function (on) {
+                SP.setRowState(row, learned, on);
+                counts.favorites += on ? 1 : -1;
+                counts.left += on ? -1 : 1;
+                // Starred goes to the end of Favorites, unstarred to the top of
+                // the rest — the closest spot on the other side of the header.
+                // With Favorites folded there is nowhere to move to, so the row
+                // simply leaves.
+                if (on && SP.view.folded('favorites')) row.remove();
+                else if (on) zones.favorites.appendChild(row);
+                else zones.left.insertBefore(row, zones.left.firstChild);
                 sync();
             });
             row = browseRow(item, mark);
-            if (SP.learned.has(item.id)) row.classList.add('is-learned');
+            SP.setRowState(row, learned, SP.favorites.has(item.id));
             return row;
         }
 
-        var slice = ordered.slice(0, browseShown);
-        var frag = document.createDocumentFragment();
-        slice.forEach(function (item, i) {
-            if (i === boundary) frag.appendChild(divider.node);
-            frag.appendChild(makeRow(item));
+        var plan = [];
+        SP.SECTIONS.forEach(function (kind) {
+            if (SP.view.folded(kind)) return;
+            buckets[kind].forEach(function (item) { plan.push({ item: item, kind: kind }); });
         });
-        // The boundary can sit past the drawn rows: the divider then closes the
-        // page, and the next one redraws it in place. It stays in the DOM
-        // either way, because marking moves rows relative to it.
-        if (boundary >= slice.length) frag.appendChild(divider.node);
-        list.appendChild(frag);
+
+        var previous = {};
+        plan.slice(0, browseShown).forEach(function (entry) {
+            var zone = zones[entry.kind];
+            var prev = previous[entry.kind];
+            if (prev && runKey(prev) !== runKey(entry.item)) zone.appendChild(runDivider(entry.item, prev));
+            zone.appendChild(makeRow(entry.item));
+            previous[entry.kind] = entry.item;
+        });
         sync();
 
         var more = byId('sp-browse-more');
-        if (browseShown >= ordered.length) {
+        if (browseShown >= plan.length) {
             more.hidden = true;
         } else {
             more.hidden = false;
-            more.textContent = 'Show ' + Math.min(BROWSE_STEP, ordered.length - browseShown) +
-                ' more (' + (ordered.length - browseShown) + ' left)';
+            more.textContent = 'Show ' + Math.min(BROWSE_STEP, plan.length - browseShown) +
+                ' more (' + (plan.length - browseShown) + ' left)';
         }
     }
 
-    function exportCsv() {
-        var head = ['id', 'stage', 'type', 'group', 'es', 'en', 'ru', 'tr'];
+    /* ---------- CSV export ---------- */
+
+    // Three slices of whatever the filters currently show: everything, only
+    // what is marked as learned, only what is left. All three follow the stage
+    // scope and the topic filter — the buttons say how many rows that is.
+    var EXPORTS = {
+        all: { label: 'All', rows: function () { return browseFiltered; } },
+        learned: { label: 'Learned', rows: function () { return bySection('learned'); } },
+        left: { label: 'Left', rows: function () { return bySection('left'); } }
+    };
+
+    function bySection(kind) {
+        return browseFiltered.filter(function (item) { return sectionOf(item) === kind; });
+    }
+
+    function syncExportButtons() {
+        Object.keys(EXPORTS).forEach(function (key) {
+            var btn = byId('sp-browse-csv-' + key);
+            if (!btn) return;
+            var n = EXPORTS[key].rows().length;
+            btn.textContent = EXPORTS[key].label + ' (' + n + ')';
+            btn.disabled = n === 0;
+        });
+
+        // Left alone while it is showing what just happened. Only the label
+        // beside the icon is written, never the button itself — textContent
+        // would take the icon with it.
+        var copy = byId('sp-browse-copy');
+        if (copy && !copyTimer) {
+            var starred = bySection('favorites').length;
+            copyLabel('Favorites (' + starred + ')');
+            copy.setAttribute('aria-label',
+                'Copy favorites to the clipboard, ' + starred + (starred === 1 ? ' entry' : ' entries'));
+            copy.disabled = starred === 0;
+        }
+    }
+
+    /* ---------- favorites to the clipboard ---------- */
+
+    // Favorites are not a file to keep but a handful of entries to take
+    // somewhere else — a note, a chat, a prompt — so they are copied as plain
+    // lines rather than downloaded as a table.
+    var copyTimer = null;
+
+    function favoriteText() {
+        return bySection('favorites').map(function (item) {
+            if (item.type === 'drill') return item.prompt + ' — ' + item.answer;
+            return item.es + (item.ru ? ' — ' + item.ru : '');
+        }).join('\n');
+    }
+
+    function copyText(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(text);
+        // Older browsers, and any context where the async clipboard is blocked.
+        return new Promise(function (resolve, reject) {
+            var area = document.createElement('textarea');
+            area.value = text;
+            area.setAttribute('readonly', '');
+            area.style.position = 'fixed';
+            area.style.top = '0';
+            area.style.opacity = '0';
+            document.body.appendChild(area);
+            area.select();
+            var ok = false;
+            try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+            document.body.removeChild(area);
+            if (ok) resolve(); else reject(new Error('copy was refused'));
+        });
+    }
+
+    // Copying leaves no trace on screen, so the button says what happened and
+    // goes back to its label a moment later.
+    function copyLabel(text) {
+        var label = document.querySelector('#sp-browse-copy .sp-copy-label');
+        if (label) label.textContent = text;
+    }
+
+    function flashCopy(message) {
+        if (!byId('sp-browse-copy')) return;
+        clearTimeout(copyTimer);
+        copyLabel(message);
+        copyTimer = setTimeout(function () { copyTimer = null; syncExportButtons(); }, 1800);
+    }
+
+    function copyFavorites() {
+        var rows = bySection('favorites');
+        if (!rows.length) return;
+        copyText(favoriteText())
+            .then(function () { flashCopy('Copied ' + rows.length); })
+            .catch(function () { flashCopy('Could not copy'); });
+    }
+
+    function exportCsv(which) {
+        var rows = (EXPORTS[which] || EXPORTS.all).rows();
+        if (!rows.length) return;
+        // Both lists ride along as the last two columns, so an exported "all"
+        // says which of its rows are learned and which are starred; the four
+        // lexicon keys keep the order they have in the JSON.
+        var head = ['id', 'stage', 'type', 'group', 'es', 'en', 'ru', 'tr', 'learned', 'favorite'];
         var lines = [head.join(',')];
-        browseFiltered.forEach(function (item) {
+        rows.forEach(function (item) {
             lines.push(head.map(function (key) {
-                var value = item[key] === undefined || item[key] === null ? '' : String(item[key]);
-                return '"' + value.replace(/"/g, '""') + '"';
+                var value = item[key];
+                if (key === 'learned') value = SP.learned.has(item.id) ? 'yes' : '';
+                if (key === 'favorite') value = SP.favorites.has(item.id) ? 'yes' : '';
+                if (value === undefined || value === null) value = '';
+                return '"' + String(value).replace(/"/g, '""') + '"';
             }).join(','));
         });
         // The BOM keeps Excel from reading the Cyrillic as mojibake.
-        var blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv' });
+        var blob = new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv' });
         var url = URL.createObjectURL(blob);
         var link = document.createElement('a');
         link.href = url;
-        link.download = 'spanish-' + SP.todayStr() + '.csv';
+        link.download = 'spanish-' + which + '-' + SP.todayStr() + '.csv';
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -863,7 +1003,7 @@
     function initBrowseControls() {
         // Registered once: folding is page-wide, and re-registering on every
         // render would redraw the list as many times as it had been drawn.
-        SP.learned.onFold(function () {
+        SP.view.onFold(function () {
             browseShown = BROWSE_PAGE;
             renderBrowse();
         });
@@ -876,7 +1016,13 @@
             browseShown += BROWSE_STEP;
             renderBrowse();
         });
-        byId('sp-browse-csv').addEventListener('click', exportCsv);
+        Object.keys(EXPORTS).forEach(function (key) {
+            var btn = byId('sp-browse-csv-' + key);
+            if (btn) btn.addEventListener('click', function () { exportCsv(key); });
+        });
+        var copy = byId('sp-browse-copy');
+        copy.insertBefore(SP.copyIcon(), copy.firstChild);
+        copy.addEventListener('click', copyFavorites);
     }
 
     /* ---------- rules ---------- */
@@ -903,8 +1049,8 @@
         initListenControls();
         initBrowseControls();
 
-        SP.loadManifest().then(function (data) {
-            manifest = data;
+        Promise.all([SP.loadManifest(), SP.loadLearned()]).then(function (loaded) {
+            manifest = loaded[0];
             renderStageChips();
             renderModeTabs();
             return loadScope();

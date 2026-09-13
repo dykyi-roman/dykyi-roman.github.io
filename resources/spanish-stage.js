@@ -5,8 +5,8 @@
    collapsing into a floating overlay; the index and the rules renderer itself
    live in spanish-core.js, because the hub renders the rules in a tab too.
    Every list on a stage page — words, live examples and drills alike — carries
-   the learned checkbox and keeps what is already learned above the divider.
-   The rules page has no items and so has no checkboxes. */
+   the favorite star and is split into Learned, Favorites and the rest.
+   The rules page has no items and so has no stars. */
 
 (function () {
     'use strict';
@@ -30,108 +30,121 @@
         return section;
     }
 
-    /* ---------- lists that keep the learned entries on top ---------- */
+    /* ---------- lists split into learned, favorites and the rest ---------- */
 
-    // Every list is drawn as two zones with a divider between them: what is
-    // already marked as learned leads, the rest follows. Marking a row moves it
-    // across the divider straight away — the order holds without a reload, and
-    // the row lands just above the divider, the closest spot to where it was,
-    // so the page barely shifts under the finger.
-    // The divider also folds the learned block away. Folded, those rows are not
-    // drawn at all rather than hidden with CSS: otherwise a page of a long list
-    // could be spent entirely on rows nobody sees. Folding is page-wide, so the
-    // list redraws itself from SP.learned.onFold.
+    // Every list is drawn as three sections in the same order: what the learned
+    // list holds, what this browser has starred, then everything else. Each
+    // section has a header naming it and counting it, and the first two fold.
+    // Starring a row moves it across on the spot — the order holds without a
+    // reload — and a learned row does not move at all, because it is already
+    // above. Folded, a section is not drawn rather than hidden with CSS:
+    // otherwise a page of a long list could be spent on rows nobody sees.
     // Long lists are still drawn a page at a time: stage 2 runs to 634 words.
     //
-    // opts.zone  () -> the container for one zone (div.sp-lex, div.sp-ex, ol)
+    // opts.zone  () -> the container for one section (div.sp-lex, div.sp-ex, ol)
     // opts.row   (item, mark) -> the row element
     // opts.pageSize / opts.pageStep  omitted means "draw everything at once"
     function renderMarkedList(parent, items, opts) {
         var pageSize = opts.pageSize || items.length;
         var pageStep = opts.pageStep || pageSize;
 
-        var learnedZone = opts.zone();
-        var divider = SP.learnedDivider();
-        var restZone = opts.zone();
-        parent.appendChild(learnedZone);
-        parent.appendChild(divider.node);
-        parent.appendChild(restZone);
+        var heads = {};
+        var zones = {};
+        SP.SECTIONS.forEach(function (kind) {
+            heads[kind] = SP.sectionDivider(kind);
+            zones[kind] = opts.zone();
+            parent.appendChild(heads[kind].node);
+            parent.appendChild(zones[kind]);
+        });
 
         var more = SP.el('button', 'sp-btn');
         more.type = 'button';
         parent.appendChild(more);
 
-        var count = 0;        // learned entries, moves with every mark
-        var ordered = [];     // what this pass draws, in order
-        var boundary = 0;     // where the divider sits in `ordered`
+        var counts = { learned: 0, favorites: 0, left: 0 };
+        var plan = [];        // [{item, kind}] — what this pass draws, in order
         var shown = 0;
 
         function sync() {
-            divider.sync(count, items.length);
-            divider.node.hidden = count === 0;
-            // An ordered zone (the drills) keeps one running numbering; folded,
-            // the learned ones are gone, so the rest starts from one again.
-            if (restZone.tagName === 'OL') restZone.start = SP.learned.folded() ? 1 : count + 1;
+            var above = counts.learned + counts.favorites;
+            SP.SECTIONS.forEach(function (kind) {
+                heads[kind].sync(counts[kind]);
+                // An empty section needs no header, and the rest of the list
+                // needs one only once something sits above it.
+                heads[kind].node.hidden = kind === 'left' ? above === 0 : counts[kind] === 0;
+            });
+            // An ordered section (the drills) numbers what is on screen, running
+            // on from one section into the next.
+            var n = 1;
+            SP.SECTIONS.forEach(function (kind) {
+                if (zones[kind].tagName === 'OL') zones[kind].start = n;
+                if (!SP.view.folded(kind)) n += counts[kind];
+            });
         }
 
-        function move(row, on) {
-            count += on ? 1 : -1;
-            // Marked while the learned block is folded, a row joins what is not
-            // on screen — so it leaves rather than moves.
-            if (on && SP.learned.folded()) row.remove();
-            else if (on) learnedZone.appendChild(row);
-            else restZone.insertBefore(row, restZone.firstChild);
+        function move(row, item, starred) {
+            // A learned word stays put: the star only decorates it.
+            if (SP.learned.has(item.id)) return;
+            counts.favorites += starred ? 1 : -1;
+            counts.left += starred ? -1 : 1;
+            if (starred && SP.view.folded('favorites')) row.remove();
+            else if (starred) zones.favorites.appendChild(row);
+            else zones.left.insertBefore(row, zones.left.firstChild);
             sync();
         }
 
         function buildRow(item) {
             var row;
-            var mark = SP.markButton(item, function (on) {
-                row.classList.toggle('is-learned', on);
-                move(row, on);
+            var learned = SP.learned.has(item.id);
+            var mark = learned ? SP.markSpacer() : SP.markButton(item, function (on) {
+                SP.setRowState(row, learned, on);
+                move(row, item, on);
             });
             row = opts.row(item, mark);
-            if (SP.learned.has(item.id)) row.classList.add('is-learned');
+            SP.setRowState(row, learned, SP.favorites.has(item.id));
             return row;
         }
 
-        // `ordered` is a snapshot, so a row marked meanwhile does not disturb
-        // the boundary the remaining pages are split by.
+        // `plan` is a snapshot, so a row starred meanwhile does not disturb the
+        // sections the remaining pages are drawn into.
         function draw() {
-            var next = Math.min(ordered.length, shown + (shown === 0 ? pageSize : pageStep));
-            var learnedFrag = document.createDocumentFragment();
-            var restFrag = document.createDocumentFragment();
-            for (var i = shown; i < next; i++) {
-                (i < boundary ? learnedFrag : restFrag).appendChild(buildRow(ordered[i]));
-            }
-            learnedZone.appendChild(learnedFrag);
-            restZone.appendChild(restFrag);
+            var next = Math.min(plan.length, shown + (shown === 0 ? pageSize : pageStep));
+            var frags = {};
+            SP.SECTIONS.forEach(function (kind) { frags[kind] = document.createDocumentFragment(); });
+            for (var i = shown; i < next; i++) frags[plan[i].kind].appendChild(buildRow(plan[i].item));
+            SP.SECTIONS.forEach(function (kind) { zones[kind].appendChild(frags[kind]); });
             shown = next;
-            if (shown >= ordered.length) {
+            if (shown >= plan.length) {
                 more.hidden = true;
             } else {
                 more.hidden = false;
-                more.textContent = 'Show ' + Math.min(pageStep, ordered.length - shown) + ' more (' + (ordered.length - shown) + ' left)';
+                more.textContent = 'Show ' + Math.min(pageStep, plan.length - shown) + ' more (' + (plan.length - shown) + ' left)';
             }
         }
 
-        // A full redraw from the marks as they stand — the first render and
+        // A full redraw from the lists as they stand — the first render and
         // every fold after it.
         function build() {
-            SP.clear(learnedZone);
-            SP.clear(restZone);
-            var learned = items.filter(function (item) { return SP.learned.has(item.id); });
-            var rest = items.filter(function (item) { return !SP.learned.has(item.id); });
-            count = learned.length;
-            ordered = SP.learned.folded() ? rest : learned.concat(rest);
-            boundary = SP.learned.folded() ? 0 : learned.length;
+            var buckets = { learned: [], favorites: [], left: [] };
+            items.forEach(function (item) {
+                var kind = SP.learned.has(item.id) ? 'learned'
+                    : (SP.favorites.has(item.id) ? 'favorites' : 'left');
+                buckets[kind].push(item);
+            });
+            plan = [];
+            SP.SECTIONS.forEach(function (kind) {
+                SP.clear(zones[kind]);
+                counts[kind] = buckets[kind].length;
+                if (SP.view.folded(kind)) return;
+                buckets[kind].forEach(function (item) { plan.push({ item: item, kind: kind }); });
+            });
             shown = 0;
             draw();
             sync();
         }
 
         more.addEventListener('click', draw);
-        SP.learned.onFold(build);
+        SP.view.onFold(build);
         build();
     }
 
@@ -337,7 +350,10 @@
         }
 
         var no = Number(root.dataset.stage);
-        SP.loadManifest().then(function (manifest) {
+        // The learned list is needed before the first row is drawn, so it goes
+        // alongside the manifest rather than after it.
+        Promise.all([SP.loadManifest(), SP.loadLearned()]).then(function (loaded) {
+            var manifest = loaded[0];
             var entry = manifest.stages.filter(function (s) { return s.no === no; })[0];
             if (!entry) throw new Error('stage ' + no + ' is not in index.json');
             return SP.loadStage(entry);

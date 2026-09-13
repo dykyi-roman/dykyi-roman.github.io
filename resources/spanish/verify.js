@@ -51,6 +51,7 @@ if (!manifest) { report(); return; }
 if (!Array.isArray(manifest.stages) || manifest.stages.length === 0) fail('index.json: no stages');
 
 const seenIds = Object.create(null);
+const itemEs = Object.create(null);   // id -> its Spanish, for the learned.json cross-check
 let totalItems = 0;
 
 (manifest.stages || []).forEach(entry => {
@@ -78,6 +79,7 @@ let totalItems = 0;
         if (!item.type) { fail(at + ': no type'); return; }
         if (seenIds[item.id]) { fail('duplicate id ' + item.id + ' (' + seenIds[item.id] + ' and ' + entry.file + ')'); }
         seenIds[item.id] = entry.file;
+        itemEs[item.id] = item.es || item.prompt || '';
 
         if (item.id.indexOf(stage.prefix + '-') !== 0) fail(at + ': id does not start with prefix "' + stage.prefix + '-"');
         if (item.stage !== undefined) fail(at + ': "stage" must not be stored per item — the loader injects it');
@@ -154,6 +156,30 @@ if (rules) {
         fail('index.json: rules count ' + manifest.rules.sections + ' but rules.json has ' + rules.sections.length);
     }
     checkStrings(rules, 'rules.json');
+}
+
+/* ---------- learned.json: the hand-kept list of what is learned ---------- */
+
+// It holds ids, not words, so a word can be reworded without losing its place
+// in the list. The value beside each id is the Spanish it points at — there to
+// be read by a human, and checked here so the two cannot drift apart.
+const learned = read('learned.json');
+if (learned) {
+    if (!learned.ids || typeof learned.ids !== 'object' || Array.isArray(learned.ids)) {
+        fail('learned.json: "ids" must be an object of id -> Spanish');
+    } else {
+        const learnedIds = Object.keys(learned.ids);
+        learnedIds.forEach(id => {
+            if (!seenIds[id]) { fail('learned.json: unknown id ' + id); return; }
+            const es = learned.ids[id];
+            if (typeof es !== 'string' || !es) { fail('learned.json: ' + id + ' has no Spanish beside it'); return; }
+            if (es !== itemEs[id]) {
+                fail('learned.json: ' + id + ' says ' + JSON.stringify(es) + ' but the item is ' + JSON.stringify(itemEs[id]));
+            }
+        });
+        checkStrings(learned, 'learned.json');
+        notes.push(learnedIds.length + ' learned');
+    }
 }
 
 notes.push(totalItems + ' items, ' + Object.keys(seenIds).length + ' unique ids across ' + manifest.stages.length + ' stages + rules');

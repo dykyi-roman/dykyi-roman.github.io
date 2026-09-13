@@ -65,54 +65,63 @@
         try { localStorage.setItem(key, JSON.stringify(state)); } catch (e) { /* private mode / quota */ }
     };
 
-    /* ---------- learned marks ---------- */
+    /* ---------- learned and favorites ---------- */
 
-    // A hand-set "I already know this one" flag, kept apart from the Leitner
-    // boxes of spanishCards: it is a judgement call by the reader, not a review
-    // schedule, so it never expires. Marks are never pruned either — a stage
-    // outside the current scope is not loaded, so dropping ids unknown to the
-    // page would wipe the progress of every stage it did not fetch.
-    var LEARNED_KEY = 'spanishLearned';
-    var learnedState = null;
+    // Two different things, deliberately apart:
+    //   learned    a hand-kept list in resources/spanish/learned.json — the same
+    //              kind of source the words themselves come from, so it reads
+    //              the same on every device and is reviewable in the repo;
+    //   favorites  what this browser has starred, in localStorage — private to
+    //              the device, changed with one tap, gone with the site data.
+    // Favorites were called "learned" before the list existed; a record left
+    // under the old key is adopted once, so nobody loses their marks.
+    var FAV_KEY = 'spanishFavorites';
+    var LEGACY_FAV_KEY = 'spanishLearned';
+    var favState = null;
 
-    function learnedIds() {
-        if (!learnedState) {
-            learnedState = SP.loadState(LEARNED_KEY, 1) || { v: 1, ids: {} };
-            if (!learnedState.ids) learnedState.ids = {};
+    function favRecord() {
+        if (!favState) {
+            favState = SP.loadState(FAV_KEY, 1);
+            if (!favState) {
+                var legacy = SP.loadState(LEGACY_FAV_KEY, 1);
+                favState = { v: 1, ids: (legacy && legacy.ids) || {}, fold: {} };
+                if (legacy) SP.saveState(FAV_KEY, favState);
+            }
+            if (!favState.ids) favState.ids = {};
+            if (!favState.fold) favState.fold = {};
         }
-        return learnedState.ids;
+        return favState;
     }
 
-    // Folding the learned block away is one switch for the whole page, kept in
-    // the same record as the marks: every list subscribes and redraws itself,
-    // so no two lists can disagree about whether learned entries are showing.
-    var foldListeners = [];
+    SP.favorites = {
+        // Never pruned: a stage outside the current scope is not loaded, so
+        // dropping ids unknown to the page would wipe what it did not fetch.
+        has: function (id) { return !!favRecord().ids[id]; },
 
-    SP.learned = {
-        has: function (id) { return !!learnedIds()[id]; },
-
-        // The value is the day it was marked. Nothing reads it yet, but it
+        // The value is the day it was starred. Nothing reads it yet, but it
         // costs what a boolean costs and answers "since when".
         set: function (id, on) {
-            var ids = learnedIds();
+            var ids = favRecord().ids;
             if (on) ids[id] = SP.todayStr();
             else delete ids[id];
-            SP.saveState(LEARNED_KEY, learnedState);
+            SP.saveState(FAV_KEY, favState);
             return on;
         },
 
-        toggle: function (id) { return SP.learned.set(id, !SP.learned.has(id)); },
+        toggle: function (id) { return SP.favorites.set(id, !SP.favorites.has(id)); }
+    };
 
-        folded: function () {
-            learnedIds();                   // makes sure the record is loaded
-            return !!learnedState.folded;
-        },
+    // Folding a section is one switch for the whole page: every list subscribes
+    // and redraws itself, so no two lists can disagree about what is showing.
+    var foldListeners = [];
 
-        setFolded: function (on) {
-            learnedIds();
-            learnedState.folded = !!on;
-            SP.saveState(LEARNED_KEY, learnedState);
-            foldListeners.forEach(function (fn) { fn(!!on); });
+    SP.view = {
+        folded: function (kind) { return !!favRecord().fold[kind]; },
+
+        setFolded: function (kind, on) {
+            favRecord().fold[kind] = !!on;
+            SP.saveState(FAV_KEY, favState);
+            foldListeners.forEach(function (fn) { fn(kind, !!on); });
         },
 
         // Register once per list: a list that re-registers on every render
@@ -182,6 +191,28 @@
             SP.rules = data;
             return data;
         });
+    };
+
+    // The learned list is small, has no stage of its own and is wanted by every
+    // page, so it loads beside the manifest rather than with a stage.
+    var learnedIds = null;
+
+    SP.loadLearned = function () {
+        if (learnedIds) return Promise.resolve(learnedIds);
+        return fetchJson(SP.base + 'learned.json').then(function (data) {
+            learnedIds = (data && data.ids) || {};
+            return learnedIds;
+        }).catch(function (e) {
+            // A progress file that failed to load must not take the page with
+            // it: the words still read fine with an empty Learned section.
+            console.error('learned.json did not load — ' + e.message);
+            learnedIds = {};
+            return learnedIds;
+        });
+    };
+
+    SP.learned = {
+        has: function (id) { return !!(learnedIds && learnedIds[id]); }
     };
 
     /* ---------- item helpers ---------- */
@@ -326,7 +357,7 @@
         return btn;
     };
 
-    /* ---------- learned toggle ---------- */
+    /* ---------- section headers and the favorite star ---------- */
 
     function checkIcon() {
         var svg = document.createElementNS(SVG_NS, 'svg');
@@ -346,10 +377,23 @@
         return svg;
     }
 
-    // The one wording of the boundary caption, shared by every list that has
-    // one — the hub's browse and each list on a stage page.
-    SP.learnedCaption = function (learned, total) {
-        return learned + ' learned · ' + (total - learned) + ' left';
+    // Two sheets, the usual sign for "copy".
+    SP.copyIcon = function () {
+        var svg = document.createElementNS(SVG_NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('class', 'sp-copy-icon');
+        var front = document.createElementNS(SVG_NS, 'rect');
+        front.setAttribute('x', '9');
+        front.setAttribute('y', '9');
+        front.setAttribute('width', '12');
+        front.setAttribute('height', '12');
+        front.setAttribute('rx', '2');
+        var back = document.createElementNS(SVG_NS, 'path');
+        back.setAttribute('d', 'M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1');
+        svg.appendChild(back);
+        svg.appendChild(front);
+        return svg;
     };
 
     function chevronIcon() {
@@ -363,64 +407,130 @@
         return svg;
     }
 
-    // The boundary between what is learned and what is left, and the control
-    // that folds the learned block away. Returns the node plus the one call
-    // that keeps its caption true.
-    SP.learnedDivider = function () {
-        var btn = SP.el('button', 'sp-divider');
-        btn.type = 'button';
-        btn.appendChild(chevronIcon());
-        var label = SP.el('span', 'sp-divider-label');
-        btn.appendChild(label);
+    // Every list is split into the same three sections, in this order.
+    SP.SECTIONS = ['learned', 'favorites', 'left'];
+    SP.SECTION_LABEL = { learned: 'Learned', favorites: 'Favorites', left: 'Left' };
+
+    // The header of one section: a dashed line naming what follows and how much
+    // of it there is. The first two fold — the rest of the list is what you are
+    // working through, so it has nothing to fold away. Returns the node plus
+    // the one call that keeps the caption true.
+    SP.sectionDivider = function (kind) {
+        var foldable = kind !== 'left';
+        var node = SP.el(foldable ? 'button' : 'div', 'sp-divider' + (foldable ? '' : ' is-quiet'));
+        var label;
+
+        if (foldable) {
+            node.type = 'button';
+            node.appendChild(chevronIcon());
+        }
+        label = SP.el('span', 'sp-divider-label');
+        node.appendChild(label);
 
         function syncState() {
-            var folded = SP.learned.folded();
-            btn.setAttribute('aria-expanded', folded ? 'false' : 'true');
-            btn.title = folded ? 'Show what is learned' : 'Hide what is learned';
+            if (!foldable) return;
+            var folded = SP.view.folded(kind);
+            node.setAttribute('aria-expanded', folded ? 'false' : 'true');
+            node.title = (folded ? 'Show ' : 'Hide ') + SP.SECTION_LABEL[kind].toLowerCase();
         }
 
-        syncState();
-        btn.addEventListener('click', function () { SP.learned.setFolded(!SP.learned.folded()); });
+        if (foldable) {
+            syncState();
+            node.addEventListener('click', function () { SP.view.setFolded(kind, !SP.view.folded(kind)); });
+        }
 
         return {
-            node: btn,
-            sync: function (learned, total) {
-                label.textContent = SP.learnedCaption(learned, total);
+            node: node,
+            sync: function (count) {
+                label.textContent = SP.SECTION_LABEL[kind] + ' · ' + count;
                 syncState();
             }
         };
     };
 
-    // Closes a row with the toggle, beside the speak button, and flags the row
+    // Closes a row with the checkbox, beside the speak button, and flags the row
     // so the CSS gives its grid the extra control column. Call it last: the
     // button goes at the tail of the row, in the DOM as on the screen.
+    // A row that can be marked is also a row you can test yourself on, so the
+    // reveal listener goes on here too — it does nothing until the row is in
+    // one of the two top sections, and the mark and speak buttons stop the
+    // click before it reaches the row.
     SP.attachMark = function (row, mark) {
         if (!mark) return row;
         row.classList.add('has-mark');
         row.appendChild(mark);
+        attachReveal(row);
         return row;
     };
 
-    // The 44px checkbox that marks an entry as learned. A button with
+    function covered(row) {
+        return row.classList.contains('is-learned') || row.classList.contains('is-favorite');
+    }
+
+    function revealTitle(row) {
+        if (!covered(row)) { row.removeAttribute('title'); return; }
+        row.title = row.classList.contains('is-revealed') ? 'Hide the translation' : 'Show the translation';
+    }
+
+    function attachReveal(row) {
+        function toggle(e) {
+            if (!covered(row)) return;
+            e.preventDefault();
+            row.classList.toggle('is-revealed');
+            revealTitle(row);
+        }
+        row.addEventListener('click', toggle);
+        row.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') toggle(e);
+        });
+    }
+
+    // Which of the three sections a row belongs to, in one place: learned wins
+    // over starred, so a word that is both shows once, at the top. A row in
+    // either of them covers its translation until it is tapped, and takes the
+    // focus so a keyboard can do the same.
+    SP.setRowState = function (row, learned, favorite) {
+        row.classList.toggle('is-learned', learned);
+        row.classList.toggle('is-favorite', !learned && favorite);
+        if (covered(row)) {
+            row.tabIndex = 0;
+        } else {
+            row.classList.remove('is-revealed');
+            row.removeAttribute('tabindex');
+        }
+        revealTitle(row);
+        return row;
+    };
+
+    // A learned row carries no checkbox: it is already at the top, and marking
+    // it as a favorite on top of that moves nothing. It keeps the column all
+    // the same, so the table stays lined up across the sections.
+    SP.markSpacer = function () {
+        var span = SP.el('span', 'sp-mark is-empty');
+        span.setAttribute('aria-hidden', 'true');
+        return span;
+    };
+
+    // The 44px checkbox that puts an entry in favorites. A button with
     // aria-pressed rather than a real checkbox, so it sits beside .sp-speak
     // with the same shape and the same touch target.
     SP.markButton = function (item, onChange) {
         var btn = SP.el('button', 'sp-mark');
         btn.type = 'button';
-        btn.setAttribute('aria-label', 'Mark as learned');
+        btn.setAttribute('aria-label', 'Add to favorites');
         btn.appendChild(checkIcon());
 
         function sync(on) {
             btn.classList.toggle('is-on', on);
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-            btn.title = on ? 'Learned — click to unmark' : 'Mark as learned';
+            btn.title = on ? 'In favorites — click to remove' : 'Add to favorites';
         }
 
-        sync(SP.learned.has(item.id));
+        sync(SP.favorites.has(item.id));
         btn.addEventListener('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
-            var on = SP.learned.toggle(item.id);
+            var on = SP.favorites.toggle(item.id);
             sync(on);
             if (onChange) onChange(on);
         });
@@ -611,10 +721,19 @@
     // browsable list passes one, the flashcard face does not.
     SP.renderLexRow = function (item, mark) {
         var row = SP.el('div', 'sp-lex-row' + (item.type === 'pair' ? ' is-pair' : ''));
-        row.appendChild(SP.el('div', 'sp-lex-es', item.es));
-        row.appendChild(SP.el('div', 'sp-lex-tr', item.tr || ''));
-        row.appendChild(SP.el('div', 'sp-lex-en', item.en || ''));
-        row.appendChild(SP.el('div', 'sp-lex-ru', item.ru || ''));
+
+        // On a phone the four texts read as one wrapping line — "y (и) — and /
+        // и" — so they sit in a box of their own; from 700px up that box is
+        // display:contents and they go back to being four grid columns.
+        // A field is left out when it is empty rather than added blank: the
+        // brackets and dashes between them are drawn by CSS from what is there.
+        var text = SP.el('div', 'sp-lex-text');
+        text.appendChild(SP.el('div', 'sp-lex-es', item.es));
+        if (item.tr) text.appendChild(SP.el('div', 'sp-lex-tr', item.tr));
+        if (item.en) text.appendChild(SP.el('div', 'sp-lex-en', item.en));
+        if (item.ru) text.appendChild(SP.el('div', 'sp-lex-ru', item.ru));
+        row.appendChild(text);
+
         var speak = SP.speakButton(item.es);
         if (speak) row.appendChild(speak);
         return SP.attachMark(row, mark);
