@@ -318,27 +318,6 @@
     color: var(--color-text) !important;
 }
 
-/* Skip to content link for accessibility */
-.skip-link {
-    position: absolute;
-    top: -40px;
-    left: 0;
-    background: var(--color-primary);
-    color: white;
-    padding: 8px 16px;
-    z-index: 10000;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 0 0 4px 0;
-    transition: top 0.3s ease;
-}
-
-.skip-link:focus {
-    top: 0;
-    outline: 2px solid var(--color-primary-hover);
-    outline-offset: 2px;
-}
-
 /* Visually hidden class for accessibility */
 .visually-hidden {
     position: absolute;
@@ -1894,7 +1873,6 @@ body.has-chat .back-to-top {
 @media print {
     /* Hide non-essential elements */
     .back-to-top,
-    .skip-link,
     .social-icons,
     .header-links,
     .plane-icon,
