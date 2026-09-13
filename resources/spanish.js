@@ -82,6 +82,9 @@
             rulesChip.type = 'button';
             rulesChip.id = 'sp-rules-chip';
             rulesChip.title = manifest.rules.titleRu;
+            // In portrait the label is hidden and only the icon is left, so the
+            // name has to be spelled out for anything that reads the page.
+            rulesChip.setAttribute('aria-label', 'Rules');
             var rulesIcon = SP.iconSpan(manifest.rules.icon);
             if (rulesIcon) rulesChip.appendChild(rulesIcon);
             rulesChip.appendChild(SP.el('span', 'sp-chip-label', 'Rules'));
@@ -95,7 +98,7 @@
             var n = 0;
             Object.keys(s.counts).forEach(function (k) { n += s.counts[k]; });
             return { key: String(s.no), label: s.title, sub: String(n), icon: s.icon, no: s.no };
-        }).concat([{ key: 'all', label: 'All stages', sub: '' }]);
+        }).concat([{ key: 'all', label: 'All stages', short: 'All', sub: '' }]);
 
         options.forEach(function (option) {
             var chip = SP.el('button', 'sp-chip');
@@ -104,10 +107,15 @@
             var icon = SP.iconSpan(option.icon);
             if (icon) chip.appendChild(icon);
             chip.appendChild(SP.el('span', 'sp-chip-label', option.label));
+            // "All stages" is the one chip with no icon to fall back on, so it
+            // carries a short label for the portrait row instead.
+            if (option.short) chip.appendChild(SP.el('span', 'sp-chip-short', option.short));
             if (option.sub) chip.appendChild(SP.el('small', null, ' ' + option.sub));
             if (option.no) {
                 chip.setAttribute('aria-label',
                     'Stage ' + option.no + ': ' + option.label + ', ' + option.sub + ' entries');
+            } else {
+                chip.setAttribute('aria-label', option.label);
             }
             chip.addEventListener('click', function () {
                 if (prefs.stage === option.key) return;
@@ -936,7 +944,14 @@
             var btn = byId('sp-browse-csv-' + key);
             if (!btn) return;
             var n = EXPORTS[key].rows().length;
-            btn.textContent = EXPORTS[key].label + ' (' + n + ')';
+            // The three slices sit on one line with the filters, the topic
+            // select and the copy button, so they carry the name alone; how
+            // many rows each holds is in the tooltip and the accessible name.
+            btn.textContent = EXPORTS[key].label;
+            btn.title = (btn.dataset.title || btn.title) + ' — ' + n +
+                (n === 1 ? ' entry' : ' entries');
+            btn.setAttribute('aria-label', EXPORTS[key].label + ', ' + n +
+                (n === 1 ? ' entry' : ' entries'));
             btn.disabled = n === 0;
         });
 
@@ -1056,7 +1071,9 @@
         });
         Object.keys(EXPORTS).forEach(function (key) {
             var btn = byId('sp-browse-csv-' + key);
-            if (btn) btn.addEventListener('click', function () { exportCsv(key); });
+            if (!btn) return;
+            btn.dataset.title = btn.title;      // the count is appended to this, not to itself
+            btn.addEventListener('click', function () { exportCsv(key); });
         });
         var copy = byId('sp-browse-copy');
         copy.insertBefore(SP.copyIcon(), copy.firstChild);

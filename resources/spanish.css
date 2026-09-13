@@ -146,6 +146,20 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-chip small { color: var(--color-text-light); font-size: 0.8em; }
 .sp-chip.active small { color: rgba(255, 255, 255, 0.75); }
 
+/* The stage row is seven chips long. Held upright, a phone has no room for
+   their names, so there it keeps the icons alone — every stage has one, and
+   the one chip that does not ("All stages") shows a short label in its place.
+   The names stay in aria-label, and the row still scrolls if it has to. */
+.sp-chip-short { display: none; }
+
+@media (max-width: 699px) and (orientation: portrait) {
+    #sp-stages .sp-chip { padding: 8px 10px; }
+    #sp-stages .sp-chip-label,
+    #sp-stages .sp-chip small { display: none; }
+    #sp-stages .sp-chip-short { display: block; }
+    #sp-stages .sp-icon { font-size: 1.15rem; }
+}
+
 .sp-tabs { display: flex; gap: var(--spacing-xs); overflow-x: auto; scrollbar-width: none; }
 .sp-tabs::-webkit-scrollbar { display: none; }
 .sp-tab { flex: 1 0 auto; white-space: nowrap; padding: 8px 10px; }
@@ -619,6 +633,10 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 /* ---------- browse ---------- */
 
 .sp-select {
+    /* Without this the select refuses to shrink below its widest option — a
+       topic name like "Звонки, сообщения и договорённости" — and pushes the
+       exports onto a line of their own, or off a phone screen entirely. */
+    min-width: 0;
     min-height: 44px;
     padding: 10px 12px;
     border: 1px solid var(--color-border);
