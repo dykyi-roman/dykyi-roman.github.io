@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>fold test</title></head><body>
+<pre id="out">running…</pre>
+<script>
+var ids = {};
+['es1-v045','es1-v023','es1-x002','es5-v001'].forEach(function (id) { ids[id] = '2026-09-13'; });
+localStorage.setItem('spanishLearned', JSON.stringify({ v: 1, ids: ids }));
+localStorage.removeItem('spanishPrefs');
+var out = [];
+function show() { document.getElementById('out').textContent = out.join('\n\n'); }
+
+function open(src, cb) {
+  var f = document.createElement('iframe');
+  f.style.cssText = 'width:1100px;height:800px;border:0';
+  f.src = src;
+  f.addEventListener('load', function () { setTimeout(function () { cb(f, f.contentDocument); }, 2200); });
+  document.body.appendChild(f);
+}
+
+function listState(doc, sel) {
+  var list = doc.querySelector(sel);
+  var items = [].map.call(list.children, function (el) {
+    if (el.classList.contains('sp-divider')) {
+      return '--[' + el.querySelector('.sp-divider-label').textContent +
+        ' expanded=' + el.getAttribute('aria-expanded') + (el.hidden ? ' HIDDEN' : '') + ']--';
+    }
+    var t = el.querySelector('.sp-lex-es') || el.querySelector('.sp-ex-es');
+    return (el.classList.contains('is-learned') ? '*' : '') + (t ? t.textContent : el.className);
+  });
+  return items.slice(0, 6).join(' | ') + '  (rows: ' + list.children.length + ')';
+}
+
+open('spanish.html', function (f, doc) {
+  out.push('HUB before fold\n  ' + listState(doc, '#sp-browse-list')); show();
+  doc.querySelector('#sp-browse-list .sp-divider').click();
+  out.push('HUB after fold\n  ' + listState(doc, '#sp-browse-list') +
+    '\n  storage: ' + localStorage.getItem('spanishLearned')); show();
+  // mark a row while folded — it should leave the list
+  var first = doc.querySelector('#sp-browse-list .sp-lex-row, #sp-browse-list .sp-ex-row');
+  var word = first.querySelector('.sp-lex-es').textContent;
+  first.querySelector('.sp-mark').click();
+  out.push('HUB marked "' + word + '" while folded\n  ' + listState(doc, '#sp-browse-list')); show();
+  f.remove();
+
+  // a stage page must open folded too, and fold every list at once
+  open('spanish/stage-1.html', function (f2, doc2) {
+    var lex = doc2.querySelector('#sec-lex .sp-group');
+    var ex = doc2.querySelector('#sec-ex .sp-group');
+    out.push('STAGE opened (folded flag persisted)\n  lex: ' + listState(doc2, '#sec-lex .sp-lex') +
+      '\n  lex divider: ' + lex.querySelector('.sp-divider').getAttribute('aria-expanded') +
+      '\n  ex: ' + listState(doc2, '#sec-ex .sp-ex') +
+      '\n  more: "' + lex.querySelector('.sp-btn').textContent + '"'); show();
+    doc2.querySelector('#sec-lex .sp-divider').click();
+    out.push('STAGE after unfold (one click, both sections)\n  lex: ' + listState(doc2, '#sec-lex .sp-lex') +
+      '\n  ex: ' + listState(doc2, '#sec-ex .sp-ex') +
+      '\n  ex divider expanded: ' + ex.querySelector('.sp-divider').getAttribute('aria-expanded') +
+      '\n  more: "' + lex.querySelector('.sp-btn').textContent + '"' +
+      '\n  storage: ' + localStorage.getItem('spanishLearned')); show();
+  });
+});
+</script>
+</body></html>

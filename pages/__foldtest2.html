@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>fold test 2</title></head><body>
+<pre id="out">running…</pre>
+<script>
+var ids = {};
+['es3-v001','es3-v002','es3-v003','es5-d001','es5-d002'].forEach(function (id) { ids[id] = '2026-09-13'; });
+localStorage.setItem('spanishLearned', JSON.stringify({ v: 1, ids: ids, folded: true }));
+var out = [];
+function show() { document.getElementById('out').textContent = out.join('\n\n'); }
+function open(src, cb) {
+  var f = document.createElement('iframe');
+  f.style.cssText = 'width:1100px;height:800px;border:0';
+  f.src = src;
+  f.addEventListener('load', function () { setTimeout(function () { cb(f, f.contentDocument); }, 2500); });
+  document.body.appendChild(f);
+}
+function group(block) {
+  var zones = block.querySelectorAll('.sp-lex, .sp-ex, .sp-drills');
+  var d = block.querySelector('.sp-divider');
+  return 'learnedZone=' + zones[0].children.length + ' restZone=' + zones[1].children.length +
+    ' start=' + (zones[1].getAttribute('start') || '-') +
+    ' divider["' + d.querySelector('.sp-divider-label').textContent + '" expanded=' + d.getAttribute('aria-expanded') +
+    (d.hidden ? ' HIDDEN' : '') + '] more="' + (block.querySelector('.sp-btn') || {}).textContent + '"';
+}
+// stage 2 = 634 words, three of them learned, opened folded
+open('spanish/stage-2.html', function (f, doc) {
+  var block = doc.querySelector('#sec-lex .sp-group');
+  out.push('STAGE 2 folded\n  ' + group(block)); show();
+  doc.querySelector('#sec-lex .sp-divider').click();
+  out.push('STAGE 2 unfolded\n  ' + group(block)); show();
+  f.remove();
+  localStorage.setItem('spanishLearned', JSON.stringify({ v: 1, ids: ids, folded: true }));
+  open('spanish/stage-5.html', function (f2, doc2) {
+    var dr = doc2.querySelector('#sec-drills .sp-group');
+    var firstNum = dr.querySelectorAll('.sp-drills')[1].children[0];
+    out.push('STAGE 5 drills folded\n  ' + group(dr) +
+      '\n  first visible drill: ' + firstNum.textContent.slice(0, 40)); show();
+    doc2.querySelector('#sec-drills .sp-divider').click();
+    out.push('STAGE 5 drills unfolded\n  ' + group(dr)); show();
+  });
+});
+</script>
+</body></html>
