@@ -32,11 +32,15 @@
 
     /* ---------- lists that keep the learned entries on top ---------- */
 
-    // Every list is drawn as two zones with a labelled divider between them:
-    // what is already marked as learned leads, the rest follows. Marking a row
-    // moves it across the divider straight away — the order holds without a
-    // reload, and the row lands just above the divider, the closest spot to
-    // where it was, so the page barely shifts under the finger.
+    // Every list is drawn as two zones with a divider between them: what is
+    // already marked as learned leads, the rest follows. Marking a row moves it
+    // across the divider straight away — the order holds without a reload, and
+    // the row lands just above the divider, the closest spot to where it was,
+    // so the page barely shifts under the finger.
+    // The divider also folds the learned block away. Folded, those rows are not
+    // drawn at all rather than hidden with CSS: otherwise a page of a long list
+    // could be spent entirely on rows nobody sees. Folding is page-wide, so the
+    // list redraws itself from SP.learned.onFold.
     // Long lists are still drawn a page at a time: stage 2 runs to 634 words.
     //
     // opts.zone  () -> the container for one zone (div.sp-lex, div.sp-ex, ol)
@@ -47,31 +51,35 @@
         var pageStep = opts.pageStep || pageSize;
 
         var learnedZone = opts.zone();
-        var divider = SP.el('div', 'sp-divider');
-        var caption = SP.el('span', 'sp-divider-label');
-        divider.appendChild(caption);
+        var divider = SP.learnedDivider();
         var restZone = opts.zone();
         parent.appendChild(learnedZone);
-        parent.appendChild(divider);
+        parent.appendChild(divider.node);
         parent.appendChild(restZone);
 
-        var learned = items.filter(function (item) { return SP.learned.has(item.id); });
-        var rest = items.filter(function (item) { return !SP.learned.has(item.id); });
-        var ordered = learned.concat(rest);
-        var boundary = learned.length;      // where the divider sits in `ordered`
-        var count = learned.length;         // moves with every mark
+        var more = SP.el('button', 'sp-btn');
+        more.type = 'button';
+        parent.appendChild(more);
+
+        var count = 0;        // learned entries, moves with every mark
+        var ordered = [];     // what this pass draws, in order
+        var boundary = 0;     // where the divider sits in `ordered`
+        var shown = 0;
 
         function sync() {
-            caption.textContent = SP.learnedCaption(count, items.length);
-            // With nothing on one side of it the divider separates nothing.
-            divider.hidden = count === 0 || count === items.length;
-            // An ordered zone (the drills) keeps one running numbering.
-            if (restZone.tagName === 'OL') restZone.start = count + 1;
+            divider.sync(count, items.length);
+            divider.node.hidden = count === 0;
+            // An ordered zone (the drills) keeps one running numbering; folded,
+            // the learned ones are gone, so the rest starts from one again.
+            if (restZone.tagName === 'OL') restZone.start = SP.learned.folded() ? 1 : count + 1;
         }
 
         function move(row, on) {
             count += on ? 1 : -1;
-            if (on) learnedZone.appendChild(row);
+            // Marked while the learned block is folded, a row joins what is not
+            // on screen — so it leaves rather than moves.
+            if (on && SP.learned.folded()) row.remove();
+            else if (on) learnedZone.appendChild(row);
             else restZone.insertBefore(row, restZone.firstChild);
             sync();
         }
@@ -86,10 +94,6 @@
             if (SP.learned.has(item.id)) row.classList.add('is-learned');
             return row;
         }
-
-        var shown = 0;
-        var more = SP.el('button', 'sp-btn');
-        more.type = 'button';
 
         // `ordered` is a snapshot, so a row marked meanwhile does not disturb
         // the boundary the remaining pages are split by.
@@ -111,10 +115,24 @@
             }
         }
 
+        // A full redraw from the marks as they stand — the first render and
+        // every fold after it.
+        function build() {
+            SP.clear(learnedZone);
+            SP.clear(restZone);
+            var learned = items.filter(function (item) { return SP.learned.has(item.id); });
+            var rest = items.filter(function (item) { return !SP.learned.has(item.id); });
+            count = learned.length;
+            ordered = SP.learned.folded() ? rest : learned.concat(rest);
+            boundary = SP.learned.folded() ? 0 : learned.length;
+            shown = 0;
+            draw();
+            sync();
+        }
+
         more.addEventListener('click', draw);
-        draw();
-        sync();
-        if (!more.hidden) parent.appendChild(more);
+        SP.learned.onFold(build);
+        build();
     }
 
     function lexZone() { return SP.el('div', 'sp-lex'); }

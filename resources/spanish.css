@@ -58,6 +58,7 @@
 .sp-tab:focus-visible,
 .sp-speak:focus-visible,
 .sp-mark:focus-visible,
+.sp-divider:focus-visible,
 .sp-option:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
@@ -231,15 +232,27 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-mark.is-on, .sp-mark.is-on:hover { color: var(--color-success); }
 .sp-mark.is-on .sp-tick { opacity: 1; }
 
-/* The boundary between what is learned and what is left. Hidden by the
-   renderer while one of the two sides is empty. */
+/* The boundary between what is learned and what is left, and the button that
+   folds the learned block away. Hidden by the renderer while nothing is
+   learned. A full-width control: the dashed line is its own touch target. */
 .sp-divider {
     display: flex;
     align-items: center;
     gap: var(--spacing-sm);
-    margin: var(--spacing-sm) 0;
+    width: 100%;
+    min-height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
     color: var(--color-text-light);
+    font-family: var(--font-family);
     font-size: var(--font-size-small);
+    line-height: 1.2;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--transition-fast);
 }
 
 .sp-divider::before,
@@ -249,7 +262,23 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     border-top: 1px dashed var(--color-border);
 }
 
+.sp-divider:hover { color: var(--color-primary); }
 .sp-divider-label { flex: 0 0 auto; white-space: nowrap; }
+
+/* Points down while the block is open, right while it is folded. */
+.sp-chevron {
+    flex: 0 0 auto;
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform var(--transition-fast);
+}
+
+.sp-divider[aria-expanded="false"] .sp-chevron { transform: rotate(-90deg); }
 
 /* A learned entry keeps its text at full strength — the block leads the list
    to be re-read — and is marked by the tinted edge instead. The tint fades in,
@@ -540,5 +569,5 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 @media (prefers-reduced-motion: reduce) {
     .sp-card { transition: none !important; }
-    .sp-lex-row, .sp-ex-row, .sp-mark .sp-tick { transition: none !important; }
+    .sp-lex-row, .sp-ex-row, .sp-mark .sp-tick, .sp-chevron { transition: none !important; }
 }

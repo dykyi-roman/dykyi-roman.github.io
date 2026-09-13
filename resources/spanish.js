@@ -776,24 +776,26 @@
     // The list reads learned first, then a divider, then the rest — the same
     // order a stage page shows, over the same marks. `browseFiltered` keeps the
     // plain (stage, type, file) order, so the CSV export is unaffected and the
-    // split is recomputed on every render, marks included.
+    // split is recomputed on every render, marks included. Folded, the learned
+    // rows are left undrawn rather than hidden, so a page is never spent on
+    // rows nobody sees.
     function renderBrowse() {
         var list = byId('sp-browse-list');
         SP.clear(list);
         byId('sp-browse-empty').hidden = browseFiltered.length !== 0;
 
+        var folded = SP.learned.folded();
         var learned = browseFiltered.filter(function (item) { return SP.learned.has(item.id); });
         var rest = browseFiltered.filter(function (item) { return !SP.learned.has(item.id); });
-        var ordered = learned.concat(rest);
+        var ordered = folded ? rest : learned.concat(rest);
+        var boundary = folded ? 0 : learned.length;
         var count = learned.length;
 
-        var divider = SP.el('div', 'sp-divider');
-        var caption = SP.el('span', 'sp-divider-label');
-        divider.appendChild(caption);
+        var divider = SP.learnedDivider();
 
         function sync() {
-            caption.textContent = SP.learnedCaption(count, browseFiltered.length);
-            divider.hidden = count === 0 || count === browseFiltered.length;
+            divider.sync(count, browseFiltered.length);
+            divider.node.hidden = count === 0;
         }
 
         function makeRow(item) {
@@ -802,8 +804,11 @@
                 row.classList.toggle('is-learned', on);
                 count += on ? 1 : -1;
                 // Marked goes just above the divider, unmarked just below it:
-                // the closest spot on the other side of the boundary.
-                list.insertBefore(row, on ? divider : divider.nextSibling);
+                // the closest spot on the other side of the boundary. While the
+                // learned block is folded there is no other side to move to, so
+                // the row simply leaves.
+                if (on && folded) row.remove();
+                else list.insertBefore(row, on ? divider.node : divider.node.nextSibling);
                 sync();
             });
             row = browseRow(item, mark);
@@ -814,13 +819,13 @@
         var slice = ordered.slice(0, browseShown);
         var frag = document.createDocumentFragment();
         slice.forEach(function (item, i) {
-            if (i === learned.length) frag.appendChild(divider);
+            if (i === boundary) frag.appendChild(divider.node);
             frag.appendChild(makeRow(item));
         });
         // The boundary can sit past the drawn rows: the divider then closes the
         // page, and the next one redraws it in place. It stays in the DOM
         // either way, because marking moves rows relative to it.
-        if (learned.length >= slice.length) frag.appendChild(divider);
+        if (boundary >= slice.length) frag.appendChild(divider.node);
         list.appendChild(frag);
         sync();
 
@@ -856,6 +861,12 @@
     }
 
     function initBrowseControls() {
+        // Registered once: folding is page-wide, and re-registering on every
+        // render would redraw the list as many times as it had been drawn.
+        SP.learned.onFold(function () {
+            browseShown = BROWSE_PAGE;
+            renderBrowse();
+        });
         byId('sp-browse-group').addEventListener('change', applyBrowse);
         byId('sp-browse-reset').addEventListener('click', function () {
             byId('sp-browse-group').value = '';

@@ -83,6 +83,11 @@
         return learnedState.ids;
     }
 
+    // Folding the learned block away is one switch for the whole page, kept in
+    // the same record as the marks: every list subscribes and redraws itself,
+    // so no two lists can disagree about whether learned entries are showing.
+    var foldListeners = [];
+
     SP.learned = {
         has: function (id) { return !!learnedIds()[id]; },
 
@@ -96,7 +101,23 @@
             return on;
         },
 
-        toggle: function (id) { return SP.learned.set(id, !SP.learned.has(id)); }
+        toggle: function (id) { return SP.learned.set(id, !SP.learned.has(id)); },
+
+        folded: function () {
+            learnedIds();                   // makes sure the record is loaded
+            return !!learnedState.folded;
+        },
+
+        setFolded: function (on) {
+            learnedIds();
+            learnedState.folded = !!on;
+            SP.saveState(LEARNED_KEY, learnedState);
+            foldListeners.forEach(function (fn) { fn(!!on); });
+        },
+
+        // Register once per list: a list that re-registers on every render
+        // would pile up listeners and redraw itself many times over.
+        onFold: function (fn) { foldListeners.push(fn); }
     };
 
     /* ---------- data loading ---------- */
@@ -329,6 +350,45 @@
     // one — the hub's browse and each list on a stage page.
     SP.learnedCaption = function (learned, total) {
         return learned + ' learned · ' + (total - learned) + ' left';
+    };
+
+    function chevronIcon() {
+        var svg = document.createElementNS(SVG_NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('class', 'sp-chevron');
+        var path = document.createElementNS(SVG_NS, 'path');
+        path.setAttribute('d', 'M6 9.5l6 6 6-6');
+        svg.appendChild(path);
+        return svg;
+    }
+
+    // The boundary between what is learned and what is left, and the control
+    // that folds the learned block away. Returns the node plus the one call
+    // that keeps its caption true.
+    SP.learnedDivider = function () {
+        var btn = SP.el('button', 'sp-divider');
+        btn.type = 'button';
+        btn.appendChild(chevronIcon());
+        var label = SP.el('span', 'sp-divider-label');
+        btn.appendChild(label);
+
+        function syncState() {
+            var folded = SP.learned.folded();
+            btn.setAttribute('aria-expanded', folded ? 'false' : 'true');
+            btn.title = folded ? 'Show what is learned' : 'Hide what is learned';
+        }
+
+        syncState();
+        btn.addEventListener('click', function () { SP.learned.setFolded(!SP.learned.folded()); });
+
+        return {
+            node: btn,
+            sync: function (learned, total) {
+                label.textContent = SP.learnedCaption(learned, total);
+                syncState();
+            }
+        };
     };
 
     // Closes a row with the toggle, beside the speak button, and flags the row
