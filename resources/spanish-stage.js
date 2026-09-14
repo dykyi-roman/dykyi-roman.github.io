@@ -194,7 +194,8 @@
 
         var actions = SP.el('div', 'sp-drill-actions');
         actions.appendChild(reveal);
-        var speak = SP.speakButton(item.answer, 'Listen to the answer');
+        var spoken = SP.spokenText(item);
+        var speak = SP.speakButton(spoken, spoken === item.answer ? 'Listen to the answer' : 'Listen to the Spanish');
         if (speak) actions.appendChild(speak);
         if (mark) actions.appendChild(mark);
 

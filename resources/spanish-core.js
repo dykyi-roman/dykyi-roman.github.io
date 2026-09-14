@@ -375,10 +375,20 @@
         drill: 'Drill'
     };
 
-    // What gets spoken for an item — always the Spanish side.
+    // What gets spoken for an item — always the Spanish side. A drill runs
+    // either way round: a Russian prompt with a Spanish answer, or a Spanish
+    // line to translate or understand with a Russian answer. Whichever side
+    // carries no Cyrillic is the Spanish one; a drill with none has nothing to
+    // say, and its speak button is simply left out.
+    var CYRILLIC = /[Ѐ-ӿ]/;
+
     SP.spokenText = function (item) {
         if (!item) return '';
-        if (item.type === 'drill') return item.answer || '';
+        if (item.type === 'drill') {
+            if (item.answer && !CYRILLIC.test(item.answer)) return item.answer;
+            if (item.prompt && !CYRILLIC.test(item.prompt)) return item.prompt;
+            return '';
+        }
         return item.es || '';
     };
 

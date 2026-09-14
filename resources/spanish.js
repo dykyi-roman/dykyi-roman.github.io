@@ -808,7 +808,7 @@
         var row = SP.el('div', 'sp-ex-row is-drill');
         row.appendChild(SP.el('div', 'sp-ex-es', item.prompt));
         row.appendChild(SP.el('div', 'sp-ex-ru', item.answer));
-        var speak = SP.speakButton(item.answer);
+        var speak = SP.speakButton(SP.spokenText(item));
         if (speak) row.appendChild(speak);
         return SP.attachMark(row, mark);
     }

@@ -13,9 +13,9 @@
    "url": "spanish/stage-1.html",
    "file": "stage-1.json",
    "counts": {
-    "vocab": 96,
+    "vocab": 99,
     "pair": 0,
-    "phrase": 52,
+    "phrase": 50,
     "exchange": 0,
     "drill": 0
    },
@@ -28,17 +28,17 @@
    "title": "Words",
    "titleRu": "Словарная база",
    "icon": "📚",
-   "goal": "Практическая база из 679 слов и коротких выражений для быстрого перехода к бытовому испанскому.",
+   "goal": "быстро собрать словарь для бытовых разговоров в Испании — дом, еда, покупки, дорога, здоровье, школа, работа — и узнавать эти слова на слух.",
    "url": "spanish/stage-2.html",
    "file": "stage-3.json",
    "counts": {
-    "vocab": 679,
+    "vocab": 663,
     "pair": 0,
     "phrase": 0,
     "exchange": 0,
     "drill": 0
    },
-   "notes": 0
+   "notes": 3
   },
   {
    "id": "stage-4",
@@ -52,12 +52,12 @@
    "file": "stage-4.json",
    "counts": {
     "vocab": 0,
-    "pair": 172,
-    "phrase": 187,
+    "pair": 176,
+    "phrase": 191,
     "exchange": 4,
     "drill": 0
    },
-   "notes": 8
+   "notes": 9
   },
   {
    "id": "stage-2",
@@ -70,13 +70,13 @@
    "url": "spanish/stage-4.html",
    "file": "stage-2.json",
    "counts": {
-    "vocab": 50,
+    "vocab": 27,
     "pair": 0,
-    "phrase": 54,
+    "phrase": 65,
     "exchange": 0,
     "drill": 0
    },
-   "notes": 3
+   "notes": 2
   },
   {
    "id": "stage-5",
@@ -89,8 +89,8 @@
    "url": "spanish/stage-5.html",
    "file": "stage-5.json",
    "counts": {
-    "vocab": 124,
-    "pair": 0,
+    "vocab": 121,
+    "pair": 6,
     "phrase": 123,
     "exchange": 1,
     "drill": 50
@@ -105,7 +105,7 @@
   "icon": "📐",
   "url": "spanish/rules.html",
   "file": "rules.json",
-  "sections": 31
+  "sections": 39
  },
  "patterns": {
   "id": "patterns",
@@ -113,6 +113,6 @@
   "titleRu": "Разговорные конструкции: формула, смысл и два примера",
   "icon": "🧩",
   "file": "patterns.json",
-  "count": 50
+  "count": 56
  }
 }

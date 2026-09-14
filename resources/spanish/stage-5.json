@@ -14,46 +14,46 @@
      "t": "Базовые существительные ("
     },
     {
-     "t": "billete",
+     "t": "el billete",
      "s": "es"
     },
     {
      "t": ", "
     },
     {
-     "t": "maleta",
+     "t": "la maleta",
      "s": "es"
     },
     {
      "t": ", "
     },
     {
-     "t": "farmacia",
+     "t": "la farmacia",
      "s": "es"
     },
     {
      "t": ", "
     },
     {
-     "t": "cuenta",
+     "t": "la cuenta",
      "s": "es"
     },
     {
      "t": ", "
     },
     {
-     "t": "vecino",
+     "t": "el hotel",
      "s": "es"
     },
     {
-     "t": ", "
+     "t": ") уже есть в Words, а люди ("
     },
     {
-     "t": "hotel",
+     "t": "el vecino",
      "s": "es"
     },
     {
-     "t": ") уже есть в Stage 3, а признаки ("
+     "t": ") и признаки ("
     },
     {
      "t": "caro",
@@ -74,7 +74,7 @@
      "s": "es"
     },
     {
-     "t": ") — в Stage 4. Поэтому здесь собрано другое: "
+     "t": ") — в Pairs. Поэтому здесь собрано другое: "
     },
     {
      "t": "ситуационные связки и готовые фразы",
@@ -82,21 +82,6 @@
     },
     {
      "t": ", то, что в Испании реально произносят у школьных ворот, у барной стойки, на перроне, в аптеке и по телефону. Порядок разделов повторяет порядок дня: ребёнок → еда → дорога → быт."
-    }
-   ]
-  },
-  {
-   "k": "p",
-   "spans": [
-    {
-     "t": "Всего элементов: "
-    },
-    {
-     "t": "124",
-     "s": "b"
-    },
-    {
-     "t": "."
     }
    ]
   }
@@ -150,7 +135,7 @@
    "es": "el cole",
    "en": "school (informal)",
    "ru": "школа (разг.)",
-   "tr": "эль ко́ле",
+   "tr": "эл ко́лэ",
    "group": "Семья, школа и садик"
   },
   {
@@ -159,7 +144,7 @@
    "es": "la guardería",
    "en": "nursery, daycare",
    "ru": "ясли / садик",
-   "tr": "ла гардери́а",
+   "tr": "ла гуардэри́а",
    "group": "Семья, школа и садик"
   },
   {
@@ -168,17 +153,30 @@
    "es": "la escuela infantil",
    "en": "preschool",
    "ru": "детский сад",
-   "tr": "ла эскуэ́ла инфанти́ль",
+   "tr": "ла эскуэ́ла инфанти́л",
    "group": "Семья, школа и садик"
   },
   {
-   "id": "es5-v004",
-   "type": "vocab",
+   "id": "es5-p001",
+   "type": "pair",
    "es": "el tutor / la tutora",
-   "en": "class teacher",
-   "ru": "классный руководитель",
-   "tr": "эль туто́р / ла туто́ра",
-   "group": "Семья, школа и садик"
+   "en": "class teacher (m) / class teacher (f)",
+   "ru": "классный руководитель / классная руководительница",
+   "tr": "эл туто́р / ла туто́ра",
+   "group": "Семья, школа и садик",
+   "pairKind": "gender",
+   "a": {
+    "es": "el tutor",
+    "en": "class teacher (m)",
+    "ru": "классный руководитель",
+    "tr": "эл туто́р"
+   },
+   "b": {
+    "es": "la tutora",
+    "en": "class teacher (f)",
+    "ru": "классная руководительница",
+    "tr": "ла туто́ра"
+   }
   },
   {
    "id": "es5-v005",
@@ -195,16 +193,7 @@
    "es": "la reunión de padres",
    "en": "parents' meeting",
    "ru": "родительское собрание",
-   "tr": "ла реунио́н де па́дрес",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-v007",
-   "type": "vocab",
-   "es": "el recreo",
-   "en": "break, recess",
-   "ru": "перемена",
-   "tr": "эль рекре́о",
+   "tr": "ла ррэуньо́н дэ па́дрэс",
    "group": "Семья, школа и садик"
   },
   {
@@ -212,8 +201,8 @@
    "type": "vocab",
    "es": "los deberes",
    "en": "homework",
-   "ru": "домашнее задание",
-   "tr": "лос дебе́рес",
+   "ru": "домашнее задание (в школе)",
+   "tr": "лос дэбэ́рэс",
    "group": "Семья, школа и садик"
   },
   {
@@ -222,7 +211,7 @@
    "es": "la merienda",
    "en": "afternoon snack",
    "ru": "полдник",
-   "tr": "ла мерье́нда",
+   "tr": "ла мэрье́нда",
    "group": "Семья, школа и садик"
   },
   {
@@ -231,7 +220,7 @@
    "es": "el comedor",
    "en": "school canteen",
    "ru": "школьная столовая",
-   "tr": "эль комедо́р",
+   "tr": "эл комэдо́р",
    "group": "Семья, школа и садик"
   },
   {
@@ -240,7 +229,7 @@
    "es": "las extraescolares",
    "en": "after-school activities",
    "ru": "кружки / секции",
-   "tr": "лас экстраэскола́рес",
+   "tr": "лас экстраэскола́рэс",
    "group": "Семья, школа и садик"
   },
   {
@@ -249,7 +238,7 @@
    "es": "la excursión",
    "en": "school trip",
    "ru": "экскурсия",
-   "tr": "ла экскурсио́н",
+   "tr": "ла экскурсьо́н",
    "group": "Семья, школа и садик"
   },
   {
@@ -258,7 +247,7 @@
    "es": "el babi",
    "en": "school smock",
    "ru": "халатик (в садик)",
-   "tr": "эль ба́би",
+   "tr": "эл ба́би",
    "group": "Семья, школа и садик"
   },
   {
@@ -267,7 +256,7 @@
    "es": "la autorización",
    "en": "permission slip",
    "ru": "разрешение (подписать)",
-   "tr": "ла ауторисасио́н",
+   "tr": "ла ауторисасьо́н",
    "group": "Семья, школа и садик"
   },
   {
@@ -282,28 +271,28 @@
   {
    "id": "es5-v016",
    "type": "vocab",
-   "es": "recoger",
-   "en": "to pick up",
-   "ru": "забирать",
-   "tr": "рекохе́р",
+   "es": "recoger a los niños",
+   "en": "to pick up the children",
+   "ru": "забирать детей (из школы)",
+   "tr": "ррэкохэ́р а лос ни́ньос",
    "group": "Семья, школа и садик"
   },
   {
    "id": "es5-v017",
    "type": "vocab",
-   "es": "dejar",
-   "en": "to drop off, to leave",
-   "ru": "завозить / оставлять",
-   "tr": "деха́р",
+   "es": "dejar a los niños en el cole",
+   "en": "to drop the children off at school",
+   "ru": "отводить детей в школу",
+   "tr": "дэха́р а лос ни́ньос эн эл ко́лэ",
    "group": "Семья, школа и садик"
   },
   {
    "id": "es5-v018",
    "type": "vocab",
-   "es": "faltar",
-   "en": "to be absent, to be missing",
-   "ru": "пропускать / не хватать",
-   "tr": "фальта́р",
+   "es": "faltar a clase",
+   "en": "to miss school",
+   "ru": "пропускать уроки",
+   "tr": "фалта́р а кла́сэ",
    "group": "Семья, школа и садик"
   },
   {
@@ -312,7 +301,7 @@
    "es": "justificar la falta",
    "en": "to excuse an absence",
    "ru": "оправдать пропуск",
-   "tr": "хустифика́р ла фа́льта",
+   "tr": "хустифика́р ла фа́лта",
    "group": "Семья, школа и садик"
   },
   {
@@ -330,16 +319,16 @@
    "es": "ponerse malo",
    "en": "to get ill",
    "ru": "заболеть",
-   "tr": "поне́рсе ма́ло",
+   "tr": "понэ́рсэ ма́ло",
    "group": "Семья, школа и садик"
   },
   {
    "id": "es5-v022",
    "type": "vocab",
-   "es": "le duele la tripa",
-   "en": "his/her tummy hurts",
-   "ru": "у неё болит живот",
-   "tr": "ле дуэ́ле ла три́па",
+   "es": "la tripa",
+   "en": "tummy",
+   "ru": "живот (разг.)",
+   "tr": "ла три́па",
    "group": "Семья, школа и садик"
   },
   {
@@ -352,57 +341,52 @@
    "group": "Семья, школа и садик"
   },
   {
-   "id": "es5-v024",
-   "type": "vocab",
-   "es": "la carta",
-   "en": "menu",
-   "ru": "меню (карта)",
-   "tr": "ла ка́рта",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
    "id": "es5-v025",
    "type": "vocab",
    "es": "el menú del día",
    "en": "set lunch menu",
    "ru": "комплексный обед",
-   "tr": "эль мену́ дель ди́а",
+   "tr": "эл мэну́ дэл ди́а",
    "group": "Кафе, ресторан и бар"
   },
   {
-   "id": "es5-v026",
-   "type": "vocab",
+   "id": "es5-p006",
+   "type": "pair",
    "es": "el primero / el segundo",
-   "en": "first / second course",
-   "ru": "первое / второе",
-   "tr": "эль приме́ро / эль сегу́ндо",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-v027",
-   "type": "vocab",
-   "es": "el postre",
-   "en": "dessert",
-   "ru": "десерт",
-   "tr": "эль по́стре",
-   "group": "Кафе, ресторан и бар"
+   "en": "first course / second course",
+   "ru": "первое (блюдо) / второе (блюдо)",
+   "tr": "эл примэ́ро / эл сэгу́ндо",
+   "group": "Кафе, ресторан и бар",
+   "pairKind": "contrast",
+   "a": {
+    "es": "el primero",
+    "en": "first course",
+    "ru": "первое (блюдо)",
+    "tr": "эл примэ́ро"
+   },
+   "b": {
+    "es": "el segundo",
+    "en": "second course",
+    "ru": "второе (блюдо)",
+    "tr": "эл сэгу́ндо"
+   }
   },
   {
    "id": "es5-v028",
    "type": "vocab",
-   "es": "la ración / la media ración",
-   "en": "full / half portion",
-   "ru": "порция / полпорции",
-   "tr": "ла расио́н / ла ме́диа расио́н",
+   "es": "la media ración",
+   "en": "half portion",
+   "ru": "полпорции",
+   "tr": "ла мэ́дья ррасьо́н",
    "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-v029",
    "type": "vocab",
-   "es": "la tapa / el pincho",
-   "en": "small snack, tapa",
-   "ru": "закуска",
-   "tr": "ла та́па / эль пи́нчо",
+   "es": "el pincho",
+   "en": "pincho, a small snack on bread",
+   "ru": "пинчо, закуска на хлебе",
+   "tr": "эл пи́нчо",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -417,10 +401,19 @@
   {
    "id": "es5-v031",
    "type": "vocab",
-   "es": "el café con leche / el cortado",
-   "en": "white coffee / macchiato",
-   "ru": "кофе с молоком / кортадо",
-   "tr": "эль кафе́ кон ле́че / эль корта́до",
+   "es": "el café con leche",
+   "en": "white coffee",
+   "ru": "кофе с молоком",
+   "tr": "эл кафэ́ кон лэ́чэ",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v125",
+   "type": "vocab",
+   "es": "el cortado",
+   "en": "espresso with a dash of milk",
+   "ru": "кортадо (эспрессо с каплей молока)",
+   "tr": "эл корта́до",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -429,7 +422,7 @@
    "es": "la terraza",
    "en": "outdoor terrace",
    "ru": "терраса",
-   "tr": "ла терра́са",
+   "tr": "ла тэрра́са",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -456,7 +449,7 @@
    "es": "el menú infantil",
    "en": "kids' menu",
    "ru": "детское меню",
-   "tr": "эль мену́ инфанти́ль",
+   "tr": "эл мэну́ инфанти́л",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -465,7 +458,7 @@
    "es": "para llevar",
    "en": "takeaway",
    "ru": "с собой",
-   "tr": "па́ра йеба́р",
+   "tr": "па́ра йэба́р",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -483,7 +476,7 @@
    "es": "¿me pone...?",
    "en": "can I have...?",
    "ru": "дайте, пожалуйста",
-   "tr": "ме по́не",
+   "tr": "мэ по́нэ",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -492,7 +485,7 @@
    "es": "¿nos trae...?",
    "en": "could you bring us...?",
    "ru": "принесите нам",
-   "tr": "нос тра́е",
+   "tr": "нос тра́э",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -501,16 +494,25 @@
    "es": "¿qué lleva?",
    "en": "what is in it?",
    "ru": "что в составе?",
-   "tr": "ке йе́ба",
+   "tr": "кэ йэ́ба",
    "group": "Кафе, ресторан и бар"
   },
   {
    "id": "es5-v041",
    "type": "vocab",
-   "es": "sin gluten / sin lactosa",
-   "en": "gluten-free / lactose-free",
-   "ru": "без глютена / без лактозы",
-   "tr": "син глу́тен / син лакто́са",
+   "es": "sin gluten",
+   "en": "gluten-free",
+   "ru": "без глютена",
+   "tr": "син глу́тэн",
+   "group": "Кафе, ресторан и бар"
+  },
+  {
+   "id": "es5-v126",
+   "type": "vocab",
+   "es": "sin lactosa",
+   "en": "lactose-free",
+   "ru": "без лактозы",
+   "tr": "син лакто́са",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -519,7 +521,7 @@
    "es": "ser alérgico a",
    "en": "to be allergic to",
    "ru": "иметь аллергию на",
-   "tr": "сер але́рхико а",
+   "tr": "сэр алэ́рхико а",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -528,7 +530,7 @@
    "es": "los frutos secos",
    "en": "nuts",
    "ru": "орехи",
-   "tr": "лос фру́тос се́кос",
+   "tr": "лос фру́тос сэ́кос",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -537,7 +539,7 @@
    "es": "la reserva a nombre de",
    "en": "booking under the name of",
    "ru": "бронь на имя",
-   "tr": "ла ресе́рба а но́мбре де",
+   "tr": "ла ррэсэ́рба а но́мбрэ дэ",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -546,7 +548,7 @@
    "es": "pagar a medias",
    "en": "to split the bill",
    "ru": "платить пополам",
-   "tr": "пага́р а ме́диас",
+   "tr": "пага́р а мэ́дьяс",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -554,8 +556,8 @@
    "type": "vocab",
    "es": "el súper",
    "en": "supermarket",
-   "ru": "супермаркет",
-   "tr": "эль су́пер",
+   "ru": "супермаркет (разг.)",
+   "tr": "эл су́пэр",
    "group": "Супермаркет и покупки"
   },
   {
@@ -568,30 +570,30 @@
    "group": "Супермаркет и покупки"
   },
   {
-   "id": "es5-v048",
-   "type": "vocab",
-   "es": "la bolsa",
-   "en": "bag",
-   "ru": "пакет",
-   "tr": "ла бо́льса",
-   "group": "Супермаркет и покупки"
-  },
-  {
    "id": "es5-v049",
    "type": "vocab",
    "es": "a granel",
    "en": "loose, by weight",
    "ru": "на развес",
-   "tr": "а гране́ль",
+   "tr": "а гранэ́л",
    "group": "Супермаркет и покупки"
   },
   {
    "id": "es5-v050",
    "type": "vocab",
-   "es": "medio kilo / un cuarto",
-   "en": "half a kilo / a quarter",
-   "ru": "полкило / четверть кило",
-   "tr": "ме́дио ки́ло / ун куа́рто",
+   "es": "medio kilo",
+   "en": "half a kilo",
+   "ru": "полкило",
+   "tr": "мэ́дьо ки́ло",
+   "group": "Супермаркет и покупки"
+  },
+  {
+   "id": "es5-v127",
+   "type": "vocab",
+   "es": "un cuarto de kilo",
+   "en": "a quarter of a kilo",
+   "ru": "четверть кило",
+   "tr": "ун куа́рто дэ ки́ло",
    "group": "Супермаркет и покупки"
   },
   {
@@ -600,7 +602,7 @@
    "es": "la fecha de caducidad",
    "en": "expiry date",
    "ru": "срок годности",
-   "tr": "ла фе́ча де кадусида́д",
+   "tr": "ла фэ́ча дэ кадусида́д",
    "group": "Супермаркет и покупки"
   },
   {
@@ -609,7 +611,7 @@
    "es": "estar en oferta",
    "en": "to be on sale",
    "ru": "быть по акции",
-   "tr": "эста́р эн офе́рта",
+   "tr": "эста́р эн офэ́рта",
    "group": "Супермаркет и покупки"
   },
   {
@@ -618,7 +620,7 @@
    "es": "el probador",
    "en": "fitting room",
    "ru": "примерочная",
-   "tr": "эль пробадо́р",
+   "tr": "эл пробадо́р",
    "group": "Супермаркет и покупки"
   },
   {
@@ -627,7 +629,7 @@
    "es": "el ticket",
    "en": "receipt",
    "ru": "чек",
-   "tr": "эль ти́кет",
+   "tr": "эл ти́кэт",
    "group": "Супермаркет и покупки"
   },
   {
@@ -636,7 +638,7 @@
    "es": "la tarjeta de embarque",
    "en": "boarding pass",
    "ru": "посадочный талон",
-   "tr": "ла тархе́та де эмба́рке",
+   "tr": "ла тархэ́та дэ эмба́ркэ",
    "group": "Аэропорт"
   },
   {
@@ -645,7 +647,7 @@
    "es": "el mostrador de facturación",
    "en": "check-in desk",
    "ru": "стойка регистрации",
-   "tr": "эль мострадо́р де фактурасио́н",
+   "tr": "эл мострадо́р дэ фактурасьо́н",
    "group": "Аэропорт"
   },
   {
@@ -654,7 +656,7 @@
    "es": "facturar la maleta",
    "en": "to check in a suitcase",
    "ru": "сдать чемодан в багаж",
-   "tr": "фактура́р ла мале́та",
+   "tr": "фактура́р ла малэ́та",
    "group": "Аэропорт"
   },
   {
@@ -663,7 +665,7 @@
    "es": "el equipaje de mano",
    "en": "hand luggage",
    "ru": "ручная кладь",
-   "tr": "эль экипа́хе де ма́но",
+   "tr": "эл экипа́хэ дэ ма́но",
    "group": "Аэропорт"
   },
   {
@@ -672,7 +674,7 @@
    "es": "la puerta de embarque",
    "en": "boarding gate",
    "ru": "выход на посадку",
-   "tr": "ла пуэ́рта де эмба́рке",
+   "tr": "ла пуэ́рта дэ эмба́ркэ",
    "group": "Аэропорт"
   },
   {
@@ -681,7 +683,7 @@
    "es": "el control de seguridad",
    "en": "security check",
    "ru": "контроль безопасности",
-   "tr": "эль контро́ль де сегурида́д",
+   "tr": "эл контро́л дэ сэгурида́д",
    "group": "Аэропорт"
   },
   {
@@ -690,17 +692,30 @@
    "es": "la recogida de equipajes",
    "en": "baggage claim",
    "ru": "выдача багажа",
-   "tr": "ла рекохи́да де экипа́хес",
+   "tr": "ла ррэкохи́да дэ экипа́хэс",
    "group": "Аэропорт"
   },
   {
-   "id": "es5-v062",
-   "type": "vocab",
+   "id": "es5-p004",
+   "type": "pair",
    "es": "el vuelo directo / la escala",
    "en": "direct flight / layover",
    "ru": "прямой рейс / пересадка (в самолёте)",
-   "tr": "эль буэ́ло дире́кто / ла эска́ла",
-   "group": "Аэропорт"
+   "tr": "эл буэ́ло дирэ́кто / ла эска́ла",
+   "group": "Аэропорт",
+   "pairKind": "contrast",
+   "a": {
+    "es": "el vuelo directo",
+    "en": "direct flight",
+    "ru": "прямой рейс",
+    "tr": "эл буэ́ло дирэ́кто"
+   },
+   "b": {
+    "es": "la escala",
+    "en": "layover",
+    "ru": "пересадка (в самолёте)",
+    "tr": "ла эска́ла"
+   }
   },
   {
    "id": "es5-v063",
@@ -708,25 +723,47 @@
    "es": "el carrito (del bebé)",
    "en": "pushchair",
    "ru": "детская коляска",
-   "tr": "эль карри́то дель бебе́",
+   "tr": "эл карри́то дэл бэбэ́",
    "group": "Аэропорт"
   },
   {
-   "id": "es5-v064",
-   "type": "vocab",
+   "id": "es5-p003",
+   "type": "pair",
    "es": "ida y vuelta / solo ida",
    "en": "return / one way",
-   "ru": "туда-обратно / в одну сторону",
-   "tr": "и́да и буэ́льта / со́ло и́да",
-   "group": "Поезд, автобус, такси и машина"
+   "ru": "туда и обратно / в одну сторону",
+   "tr": "и́да и буэ́лта / со́ло и́да",
+   "group": "Поезд, автобус, такси и машина",
+   "pairKind": "contrast",
+   "a": {
+    "es": "ida y vuelta",
+    "en": "return",
+    "ru": "туда и обратно",
+    "tr": "и́да и буэ́лта"
+   },
+   "b": {
+    "es": "solo ida",
+    "en": "one way",
+    "ru": "в одну сторону",
+    "tr": "со́ло и́да"
+   }
   },
   {
    "id": "es5-v065",
    "type": "vocab",
-   "es": "el asiento de ventanilla / de pasillo",
-   "en": "window / aisle seat",
-   "ru": "место у окна / у прохода",
-   "tr": "эль асье́нто де бентани́йа / де паси́йо",
+   "es": "el asiento de ventanilla",
+   "en": "window seat",
+   "ru": "место у окна",
+   "tr": "эл асье́нто дэ бэнтани́йа",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v128",
+   "type": "vocab",
+   "es": "el asiento de pasillo",
+   "en": "aisle seat",
+   "ru": "место у прохода",
+   "tr": "эл асье́нто дэ паси́йо",
    "group": "Поезд, автобус, такси и машина"
   },
   {
@@ -744,7 +781,7 @@
    "es": "hacer transbordo",
    "en": "to change trains",
    "ru": "делать пересадку",
-   "tr": "асе́р трансбо́рдо",
+   "tr": "асэ́р трансбо́рдо",
    "group": "Поезд, автобус, такси и машина"
   },
   {
@@ -762,16 +799,25 @@
    "es": "bajarse en",
    "en": "to get off at",
    "ru": "выходить на",
-   "tr": "баха́рсе эн",
+   "tr": "баха́рсэ эн",
    "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-v070",
    "type": "vocab",
-   "es": "el bono / la tarjeta de transporte",
-   "en": "travel pass",
-   "ru": "проездной",
-   "tr": "эль бо́но / ла тархе́та де транспо́рте",
+   "es": "el bono",
+   "en": "multi-trip travel pass",
+   "ru": "проездной (на несколько поездок)",
+   "tr": "эл бо́но",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v129",
+   "type": "vocab",
+   "es": "la tarjeta de transporte",
+   "en": "transport card",
+   "ru": "транспортная карта",
+   "tr": "ла тархэ́та дэ транспо́ртэ",
    "group": "Поезд, автобус, такси и машина"
   },
   {
@@ -780,16 +826,16 @@
    "es": "recargar",
    "en": "to top up",
    "ru": "пополнить",
-   "tr": "рекарга́р",
+   "tr": "ррэкарга́р",
    "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-v072",
    "type": "vocab",
-   "es": "validar / picar el billete",
+   "es": "validar el billete",
    "en": "to validate a ticket",
-   "ru": "пробить билет",
-   "tr": "балида́р / пика́р эль бийе́те",
+   "ru": "пробить билет (разг.: picar el billete)",
+   "tr": "балида́р эл бийэ́тэ",
    "group": "Поезд, автобус, такси и машина"
   },
   {
@@ -798,7 +844,7 @@
    "es": "llevar retraso",
    "en": "to be running late",
    "ru": "опаздывать (о транспорте)",
-   "tr": "йеба́р ретра́со",
+   "tr": "йэба́р ррэтра́со",
    "group": "Поезд, автобус, такси и машина"
   },
   {
@@ -807,16 +853,25 @@
    "es": "la sillita (infantil)",
    "en": "child car seat",
    "ru": "детское кресло",
-   "tr": "ла сийи́та инфанти́ль",
+   "tr": "ла сийи́та инфанти́л",
    "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-v075",
    "type": "vocab",
-   "es": "aparcar / el aparcamiento",
-   "en": "to park / car park",
-   "ru": "парковаться / парковка",
-   "tr": "апарка́р / эль апаркамье́нто",
+   "es": "aparcar",
+   "en": "to park",
+   "ru": "парковаться",
+   "tr": "апарка́р",
+   "group": "Поезд, автобус, такси и машина"
+  },
+  {
+   "id": "es5-v130",
+   "type": "vocab",
+   "es": "el aparcamiento",
+   "en": "car park",
+   "ru": "парковка",
+   "tr": "эл апаркамье́нто",
    "group": "Поезд, автобус, такси и машина"
   },
   {
@@ -825,25 +880,16 @@
    "es": "el peaje",
    "en": "toll road",
    "ru": "платная дорога",
-   "tr": "эль пеа́хе",
+   "tr": "эл пэа́хэ",
    "group": "Поезд, автобус, такси и машина"
   },
   {
    "id": "es5-v077",
    "type": "vocab",
-   "es": "la gasolinera / repostar",
-   "en": "petrol station / to fill up",
-   "ru": "заправка / заправиться",
-   "tr": "ла гасолине́ра / репоста́р",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-v078",
-   "type": "vocab",
-   "es": "lleno, por favor",
-   "en": "fill it up, please",
-   "ru": "полный бак, пожалуйста",
-   "tr": "йе́но пор фабо́р",
+   "es": "repostar",
+   "en": "to fill up (the car)",
+   "ru": "заправиться",
+   "tr": "ррэпоста́р",
    "group": "Поезд, автобус, такси и машина"
   },
   {
@@ -852,7 +898,7 @@
    "es": "la habitación doble",
    "en": "double room",
    "ru": "двухместный номер",
-   "tr": "ла абитасио́н до́бле",
+   "tr": "ла абитасьо́н до́блэ",
    "group": "Отель"
   },
   {
@@ -865,22 +911,26 @@
    "group": "Отель"
   },
   {
-   "id": "es5-v081",
-   "type": "vocab",
-   "es": "el desayuno incluido",
-   "en": "breakfast included",
-   "ru": "завтрак включён",
-   "tr": "эль десайу́но инклуи́до",
-   "group": "Отель"
-  },
-  {
-   "id": "es5-v082",
-   "type": "vocab",
-   "es": "la entrada / la salida",
-   "en": "check-in / check-out",
-   "ru": "заезд / выезд",
-   "tr": "ла энтра́да / ла сали́да",
-   "group": "Отель"
+   "id": "es5-p005",
+   "type": "pair",
+   "es": "la hora de entrada / la hora de salida",
+   "en": "check-in time / check-out time",
+   "ru": "время заезда / время выезда",
+   "tr": "ла о́ра дэ энтра́да / ла о́ра дэ сали́да",
+   "group": "Отель",
+   "pairKind": "contrast",
+   "a": {
+    "es": "la hora de entrada",
+    "en": "check-in time",
+    "ru": "время заезда",
+    "tr": "ла о́ра дэ энтра́да"
+   },
+   "b": {
+    "es": "la hora de salida",
+    "en": "check-out time",
+    "ru": "время выезда",
+    "tr": "ла о́ра дэ сали́да"
+   }
   },
   {
    "id": "es5-v083",
@@ -888,16 +938,16 @@
    "es": "dejar las maletas",
    "en": "to leave the luggage",
    "ru": "оставить чемоданы",
-   "tr": "деха́р лас мале́тас",
+   "tr": "дэха́р лас малэ́тас",
    "group": "Отель"
   },
   {
    "id": "es5-v084",
    "type": "vocab",
-   "es": "la toalla / las sábanas",
-   "en": "towel / bed sheets",
-   "ru": "полотенце / постельное бельё",
-   "tr": "ла тоа́йа / лас са́банас",
+   "es": "las sábanas",
+   "en": "bed sheets",
+   "ru": "постельное бельё",
+   "tr": "лас са́банас",
    "group": "Отель"
   },
   {
@@ -906,7 +956,7 @@
    "es": "la cita previa",
    "en": "prior appointment",
    "ru": "предварительная запись",
-   "tr": "ла си́та пре́биа",
+   "tr": "ла си́та прэ́бья",
    "group": "Врач и аптека"
   },
   {
@@ -915,7 +965,7 @@
    "es": "pedir cita",
    "en": "to make an appointment",
    "ru": "записаться",
-   "tr": "педи́р си́та",
+   "tr": "пэди́р си́та",
    "group": "Врач и аптека"
   },
   {
@@ -924,16 +974,16 @@
    "es": "el médico de cabecera",
    "en": "family doctor, GP",
    "ru": "семейный врач",
-   "tr": "эль ме́дико де кабесе́ра",
+   "tr": "эл мэ́дико дэ кабэсэ́ра",
    "group": "Врач и аптека"
   },
   {
    "id": "es5-v088",
    "type": "vocab",
-   "es": "urgencias",
+   "es": "las urgencias",
    "en": "emergency room, A&E",
    "ru": "неотложка / приёмный покой",
-   "tr": "урхе́нсиас",
+   "tr": "лас урхэ́нсьяс",
    "group": "Врач и аптека"
   },
   {
@@ -942,7 +992,7 @@
    "es": "la tarjeta sanitaria",
    "en": "health card",
    "ru": "медицинская карта",
-   "tr": "ла тархе́та санита́риа",
+   "tr": "ла тархэ́та санита́рья",
    "group": "Врач и аптека"
   },
   {
@@ -951,7 +1001,7 @@
    "es": "la receta",
    "en": "prescription",
    "ru": "рецепт",
-   "tr": "ла ресе́та",
+   "tr": "ла ррэсэ́та",
    "group": "Врач и аптека"
   },
   {
@@ -960,25 +1010,34 @@
    "es": "la farmacia de guardia",
    "en": "duty pharmacy (24 h)",
    "ru": "дежурная аптека",
-   "tr": "ла фарма́сиа де гуа́рдиа",
+   "tr": "ла фарма́сья дэ гуа́рдья",
    "group": "Врач и аптека"
   },
   {
    "id": "es5-v092",
    "type": "vocab",
-   "es": "el jarabe / las pastillas",
-   "en": "syrup / pills",
-   "ru": "сироп / таблетки",
-   "tr": "эль хара́бе / лас пасти́йас",
+   "es": "el jarabe",
+   "en": "syrup (medicine)",
+   "ru": "сироп (лекарство)",
+   "tr": "эл хара́бэ",
    "group": "Врач и аптека"
   },
   {
    "id": "es5-v093",
    "type": "vocab",
-   "es": "el DNI / el NIE",
-   "en": "ID card / foreigner's ID number",
-   "ru": "документ / номер иностранца",
-   "tr": "эль де-эне-и́ / эль ни́е",
+   "es": "el DNI",
+   "en": "Spanish ID card",
+   "ru": "удостоверение личности (DNI)",
+   "tr": "эл дэ-энэ-и́",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v131",
+   "type": "vocab",
+   "es": "el NIE",
+   "en": "foreigner's ID number",
+   "ru": "номер иностранца (NIE)",
+   "tr": "эл ни́э",
    "group": "Банк, почта и доставка"
   },
   {
@@ -987,7 +1046,7 @@
    "es": "el cajero (automático)",
    "en": "cash machine, ATM",
    "ru": "банкомат",
-   "tr": "эль кахе́ро аутома́тико",
+   "tr": "эл кахэ́ро аутома́тико",
    "group": "Банк, почта и доставка"
   },
   {
@@ -996,7 +1055,7 @@
    "es": "sacar dinero",
    "en": "to withdraw money",
    "ru": "снять деньги",
-   "tr": "сака́р дине́ро",
+   "tr": "сака́р динэ́ро",
    "group": "Банк, почта и доставка"
   },
   {
@@ -1005,7 +1064,7 @@
    "es": "la transferencia",
    "en": "bank transfer",
    "ru": "перевод",
-   "tr": "ла трансфере́нсиа",
+   "tr": "ла трансфэрэ́нсья",
    "group": "Банк, почта и доставка"
   },
   {
@@ -1014,7 +1073,7 @@
    "es": "la comisión",
    "en": "fee, charge",
    "ru": "комиссия",
-   "tr": "ла комисио́н",
+   "tr": "ла комисьо́н",
    "group": "Банк, почта и доставка"
   },
   {
@@ -1023,16 +1082,25 @@
    "es": "el recibo domiciliado",
    "en": "direct debit",
    "ru": "автоплатёж",
-   "tr": "эль реси́бо домисилиа́до",
+   "tr": "эл ррэси́бо домисилья́до",
    "group": "Банк, почта и доставка"
   },
   {
    "id": "es5-v099",
    "type": "vocab",
-   "es": "el paquete / el envío",
-   "en": "parcel / shipment",
-   "ru": "посылка / отправление",
-   "tr": "эль паке́те / эль энби́о",
+   "es": "el paquete",
+   "en": "parcel",
+   "ru": "посылка",
+   "tr": "эл пакэ́тэ",
+   "group": "Банк, почта и доставка"
+  },
+  {
+   "id": "es5-v132",
+   "type": "vocab",
+   "es": "el envío",
+   "en": "shipment, delivery",
+   "ru": "отправление, доставка",
+   "tr": "эл энби́о",
    "group": "Банк, почта и доставка"
   },
   {
@@ -1041,7 +1109,7 @@
    "es": "el punto de recogida",
    "en": "pick-up point",
    "ru": "пункт выдачи",
-   "tr": "эль пу́нто де рекохи́да",
+   "tr": "эл пу́нто дэ ррэкохи́да",
    "group": "Банк, почта и доставка"
   },
   {
@@ -1050,7 +1118,7 @@
    "es": "el repartidor",
    "en": "delivery driver",
    "ru": "курьер",
-   "tr": "эль репартидо́р",
+   "tr": "эл ррэпартидо́р",
    "group": "Банк, почта и доставка"
   },
   {
@@ -1059,7 +1127,7 @@
    "es": "el aviso",
    "en": "notice, slip",
    "ru": "уведомление",
-   "tr": "эль аби́со",
+   "tr": "эл аби́со",
    "group": "Банк, почта и доставка"
   },
   {
@@ -1068,16 +1136,25 @@
    "es": "el buzón",
    "en": "letterbox",
    "ru": "почтовый ящик",
-   "tr": "эль бусо́н",
+   "tr": "эл бусо́н",
    "group": "Банк, почта и доставка"
   },
   {
    "id": "es5-v104",
    "type": "vocab",
-   "es": "el portal / la portería",
-   "en": "building entrance / concierge desk",
-   "ru": "подъезд / консьерж",
-   "tr": "эль порта́ль / ла портери́а",
+   "es": "el portal",
+   "en": "building entrance",
+   "ru": "подъезд",
+   "tr": "эл порта́л",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v133",
+   "type": "vocab",
+   "es": "la portería",
+   "en": "concierge desk",
+   "ru": "консьерж, вахта",
+   "tr": "ла портэри́а",
    "group": "Дом, аренда и соседи"
   },
   {
@@ -1086,26 +1163,30 @@
    "es": "el timbre",
    "en": "doorbell",
    "ru": "дверной звонок",
-   "tr": "эль ти́мбре",
+   "tr": "эл ти́мбрэ",
    "group": "Дом, аренда и соседи"
   },
   {
-   "id": "es5-v106",
-   "type": "vocab",
-   "es": "el ascensor",
-   "en": "lift, elevator",
-   "ru": "лифт",
-   "tr": "эль ассенсо́р",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-v107",
-   "type": "vocab",
+   "id": "es5-p002",
+   "type": "pair",
    "es": "el casero / la casera",
    "en": "landlord / landlady",
    "ru": "арендодатель / арендодательница",
-   "tr": "эль касе́ро / ла касе́ра",
-   "group": "Дом, аренда и соседи"
+   "tr": "эл касэ́ро / ла касэ́ра",
+   "group": "Дом, аренда и соседи",
+   "pairKind": "gender",
+   "a": {
+    "es": "el casero",
+    "en": "landlord",
+    "ru": "арендодатель",
+    "tr": "эл касэ́ро"
+   },
+   "b": {
+    "es": "la casera",
+    "en": "landlady",
+    "ru": "арендодательница",
+    "tr": "ла касэ́ра"
+   }
   },
   {
    "id": "es5-v108",
@@ -1113,7 +1194,7 @@
    "es": "la fianza",
    "en": "deposit",
    "ru": "залог",
-   "tr": "ла фиа́нса",
+   "tr": "ла фья́нса",
    "group": "Дом, аренда и соседи"
   },
   {
@@ -1122,16 +1203,16 @@
    "es": "el contrato de alquiler",
    "en": "rental contract",
    "ru": "договор аренды",
-   "tr": "эль контра́то де алкиле́р",
+   "tr": "эл контра́то дэ алкилэ́р",
    "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-v110",
    "type": "vocab",
    "es": "la comunidad (de vecinos)",
-   "en": "building charges, residents' association",
-   "ru": "коммунальные / жильцы дома",
-   "tr": "ла комунида́д де беси́нос",
+   "en": "community fees, residents' association",
+   "ru": "плата за содержание дома / жильцы дома",
+   "tr": "ла комунида́д дэ бэси́нос",
    "group": "Дом, аренда и соседи"
   },
   {
@@ -1140,7 +1221,7 @@
    "es": "los suministros (luz, agua, gas)",
    "en": "utilities",
    "ru": "свет, вода, газ",
-   "tr": "лос сумини́строс",
+   "tr": "лос сумини́строс лус а́гуа гас",
    "group": "Дом, аренда и соседи"
   },
   {
@@ -1149,16 +1230,25 @@
    "es": "la avería",
    "en": "breakdown, fault",
    "ru": "поломка",
-   "tr": "ла абери́а",
+   "tr": "ла абэри́а",
    "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-v113",
    "type": "vocab",
-   "es": "el fontanero / el electricista",
-   "en": "plumber / electrician",
-   "ru": "сантехник / электрик",
-   "tr": "эль фонтане́ро / эль электриси́ста",
+   "es": "el fontanero",
+   "en": "plumber",
+   "ru": "сантехник",
+   "tr": "эл фонтанэ́ро",
+   "group": "Дом, аренда и соседи"
+  },
+  {
+   "id": "es5-v134",
+   "type": "vocab",
+   "es": "el electricista",
+   "en": "electrician",
+   "ru": "электрик",
+   "tr": "эл элэктриси́ста",
    "group": "Дом, аренда и соседи"
   },
   {
@@ -1166,8 +1256,8 @@
    "type": "vocab",
    "es": "se ha estropeado",
    "en": "it has broken down",
-   "ru": "сломалось",
-   "tr": "се а эстропеа́до",
+   "ru": "сломалось (о технике)",
+   "tr": "сэ а эстропэа́до",
    "group": "Дом, аренда и соседи"
   },
   {
@@ -1176,7 +1266,7 @@
    "es": "la fuga de agua",
    "en": "water leak",
    "ru": "протечка",
-   "tr": "ла фу́га де а́гуа",
+   "tr": "ла фу́га дэ а́гуа",
    "group": "Дом, аренда и соседи"
   },
   {
@@ -1185,25 +1275,25 @@
    "es": "el contenedor",
    "en": "rubbish container",
    "ru": "мусорный контейнер",
-   "tr": "эль контенедо́р",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-v117",
-   "type": "vocab",
-   "es": "el ruido",
-   "en": "noise",
-   "ru": "шум",
-   "tr": "эль руи́до",
+   "tr": "эл контэнэдо́р",
    "group": "Дом, аренда и соседи"
   },
   {
    "id": "es5-v118",
    "type": "vocab",
-   "es": "te llamo / te escribo",
-   "en": "I'll call / text you",
-   "ru": "я позвоню / напишу",
-   "tr": "те йа́мо / те эскри́бо",
+   "es": "te llamo",
+   "en": "I'll call you",
+   "ru": "я позвоню",
+   "tr": "тэ йа́мо",
+   "group": "Звонки, сообщения и договорённости"
+  },
+  {
+   "id": "es5-v135",
+   "type": "vocab",
+   "es": "te escribo",
+   "en": "I'll text you",
+   "ru": "я напишу",
+   "tr": "тэ эскри́бо",
    "group": "Звонки, сообщения и договорённости"
   },
   {
@@ -1221,7 +1311,7 @@
    "es": "no te oigo bien",
    "en": "I can't hear you well",
    "ru": "плохо тебя слышу",
-   "tr": "но те о́йго бье́н",
+   "tr": "но тэ о́йго бьен",
    "group": "Звонки, сообщения и договорённости"
   },
   {
@@ -1230,7 +1320,7 @@
    "es": "se corta",
    "en": "the line is breaking up",
    "ru": "связь обрывается",
-   "tr": "се ко́рта",
+   "tr": "сэ ко́рта",
    "group": "Звонки, сообщения и договорённости"
   },
   {
@@ -1239,7 +1329,7 @@
    "es": "la llamada perdida",
    "en": "missed call",
    "ru": "пропущенный звонок",
-   "tr": "ла йама́да перди́да",
+   "tr": "ла йама́да пэрди́да",
    "group": "Звонки, сообщения и договорённости"
   },
   {
@@ -1248,7 +1338,7 @@
    "es": "quedar (con alguien)",
    "en": "to arrange to meet",
    "ru": "договориться о встрече",
-   "tr": "кеда́р",
+   "tr": "кэда́р кон а́лгьен",
    "group": "Звонки, сообщения и договорённости"
   },
   {
@@ -1257,7 +1347,7 @@
    "es": "ir de camino",
    "en": "to be on the way",
    "ru": "быть в пути",
-   "tr": "ир де ками́но",
+   "tr": "ир дэ ками́но",
    "group": "Звонки, сообщения и договорённости"
   },
   {
@@ -1515,8 +1605,8 @@
   {
    "id": "es5-x037",
    "type": "phrase",
-   "es": "Para la niña, algo sin picante.",
-   "ru": "Ребёнку что-нибудь неострое.",
+   "es": "Sin picante, por favor, es para la niña.",
+   "ru": "Без острого, пожалуйста, это для ребёнка.",
    "group": "Кафе, ресторан и бар"
   },
   {
@@ -1802,8 +1892,8 @@
   {
    "id": "es5-x078",
    "type": "phrase",
-   "es": "Tengo una reserva a nombre de Roman.",
-   "ru": "У меня бронь на имя Roman.",
+   "es": "Tengo una reserva para dos noches.",
+   "ru": "У меня бронь на две ночи.",
    "group": "Отель"
   },
   {
@@ -1992,7 +2082,7 @@
    "id": "es5-x105",
    "type": "phrase",
    "es": "¿La comunidad está incluida?",
-   "ru": "Коммунальные включены?",
+   "ru": "Плата за содержание дома включена?",
    "group": "Дом, аренда и соседи"
   },
   {
@@ -2131,8 +2221,8 @@
   {
    "id": "es5-d001",
    "type": "drill",
-   "block": "4.1",
-   "blockTitle": "Короткие вопросы",
+   "block": "1.",
+   "blockTitle": "Как сказать",
    "kind": "open",
    "prompt": "Как попросить в баре маленькое пиво?",
    "answer": "¿Me pone una caña, por favor?"
@@ -2140,8 +2230,8 @@
   {
    "id": "es5-d002",
    "type": "drill",
-   "block": "4.1",
-   "blockTitle": "Короткие вопросы",
+   "block": "1.",
+   "blockTitle": "Как сказать",
    "kind": "open",
    "prompt": "Как сказать «с собой»?",
    "answer": "Para llevar."
@@ -2149,8 +2239,8 @@
   {
    "id": "es5-d003",
    "type": "drill",
-   "block": "4.1",
-   "blockTitle": "Короткие вопросы",
+   "block": "1.",
+   "blockTitle": "Как сказать",
    "kind": "open",
    "prompt": "Как спросить состав блюда?",
    "answer": "¿Esto qué lleva?"
@@ -2158,8 +2248,8 @@
   {
    "id": "es5-d004",
    "type": "drill",
-   "block": "4.1",
-   "blockTitle": "Короткие вопросы",
+   "block": "1.",
+   "blockTitle": "Как сказать",
    "kind": "open",
    "prompt": "Как сказать, что у тебя бронь на имя Roman?",
    "answer": "Tengo una reserva a nombre de Roman."
@@ -2167,8 +2257,8 @@
   {
    "id": "es5-d005",
    "type": "drill",
-   "block": "4.1",
-   "blockTitle": "Короткие вопросы",
+   "block": "1.",
+   "blockTitle": "Как сказать",
    "kind": "open",
    "prompt": "Как попросить счёт?",
    "answer": "¿Nos trae la cuenta, por favor?"
@@ -2176,8 +2266,8 @@
   {
    "id": "es5-d006",
    "type": "drill",
-   "block": "4.1",
-   "blockTitle": "Короткие вопросы",
+   "block": "1.",
+   "blockTitle": "Как сказать",
    "kind": "open",
    "prompt": "Как сказать «я за дочкой»?",
    "answer": "Vengo a por mi hija."
@@ -2185,8 +2275,8 @@
   {
    "id": "es5-d007",
    "type": "drill",
-   "block": "4.1",
-   "blockTitle": "Короткие вопросы",
+   "block": "1.",
+   "blockTitle": "Как сказать",
    "kind": "open",
    "prompt": "Как спросить, включён ли завтрак?",
    "answer": "¿El desayuno está incluido?"
@@ -2194,8 +2284,8 @@
   {
    "id": "es5-d008",
    "type": "drill",
-   "block": "4.1",
-   "blockTitle": "Короткие вопросы",
+   "block": "1.",
+   "blockTitle": "Как сказать",
    "kind": "open",
    "prompt": "Как сказать, что лифт не работает?",
    "answer": "El ascensor no funciona."
@@ -2203,7 +2293,7 @@
   {
    "id": "es5-d009",
    "type": "drill",
-   "block": "4.2",
+   "block": "2.",
    "blockTitle": "Перевод с русского на испанский",
    "kind": "open",
    "prompt": "Во сколько нужно её забирать?",
@@ -2212,7 +2302,7 @@
   {
    "id": "es5-d010",
    "type": "drill",
-   "block": "4.2",
+   "block": "2.",
    "blockTitle": "Перевод с русского на испанский",
    "kind": "open",
    "prompt": "Сегодня она не идёт в школу, приболела.",
@@ -2221,7 +2311,7 @@
   {
    "id": "es5-d011",
    "type": "drill",
-   "block": "4.2",
+   "block": "2.",
    "blockTitle": "Перевод с русского на испанский",
    "kind": "open",
    "prompt": "Принесите, пожалуйста, детский стульчик.",
@@ -2230,7 +2320,7 @@
   {
    "id": "es5-d012",
    "type": "drill",
-   "block": "4.2",
+   "block": "2.",
    "blockTitle": "Перевод с русского на испанский",
    "kind": "open",
    "prompt": "Кофе с молоком с собой.",
@@ -2239,7 +2329,7 @@
   {
    "id": "es5-d013",
    "type": "drill",
-   "block": "4.2",
+   "block": "2.",
    "blockTitle": "Перевод с русского на испанский",
    "kind": "open",
    "prompt": "У дочери аллергия на орехи.",
@@ -2248,7 +2338,7 @@
   {
    "id": "es5-d014",
    "type": "drill",
-   "block": "4.2",
+   "block": "2.",
    "blockTitle": "Перевод с русского на испанский",
    "kind": "open",
    "prompt": "С какого пути отходит поезд?",
@@ -2257,7 +2347,7 @@
   {
    "id": "es5-d015",
    "type": "drill",
-   "block": "4.2",
+   "block": "2.",
    "blockTitle": "Перевод с русского на испанский",
    "kind": "open",
    "prompt": "В ванной течёт вода.",
@@ -2266,7 +2356,7 @@
   {
    "id": "es5-d016",
    "type": "drill",
-   "block": "4.2",
+   "block": "2.",
    "blockTitle": "Перевод с русского на испанский",
    "kind": "open",
    "prompt": "Нужна предварительная запись?",
@@ -2275,7 +2365,7 @@
   {
    "id": "es5-d017",
    "type": "drill",
-   "block": "4.3",
+   "block": "3.",
    "blockTitle": "Перевод с испанского на русский",
    "kind": "open",
    "prompt": "¿Se queda hoy al comedor?",
@@ -2284,7 +2374,7 @@
   {
    "id": "es5-d018",
    "type": "drill",
-   "block": "4.3",
+   "block": "3.",
    "blockTitle": "Перевод с испанского на русский",
    "kind": "open",
    "prompt": "¿Esto qué lleva?",
@@ -2293,7 +2383,7 @@
   {
    "id": "es5-d019",
    "type": "drill",
-   "block": "4.3",
+   "block": "3.",
    "blockTitle": "Перевод с испанского на русский",
    "kind": "open",
    "prompt": "El tren lleva veinte minutos de retraso.",
@@ -2302,7 +2392,7 @@
   {
    "id": "es5-d020",
    "type": "drill",
-   "block": "4.3",
+   "block": "3.",
    "blockTitle": "Перевод с испанского на русский",
    "kind": "open",
    "prompt": "¿Hay que hacer transbordo?",
@@ -2311,7 +2401,7 @@
   {
    "id": "es5-d021",
    "type": "drill",
-   "block": "4.3",
+   "block": "3.",
    "blockTitle": "Перевод с испанского на русский",
    "kind": "open",
    "prompt": "¿La habitación tiene cuna?",
@@ -2320,7 +2410,7 @@
   {
    "id": "es5-d022",
    "type": "drill",
-   "block": "4.3",
+   "block": "3.",
    "blockTitle": "Перевод с испанского на русский",
    "kind": "open",
    "prompt": "¿Hace falta receta?",
@@ -2329,7 +2419,7 @@
   {
    "id": "es5-d023",
    "type": "drill",
-   "block": "4.3",
+   "block": "3.",
    "blockTitle": "Перевод с испанского на русский",
    "kind": "open",
    "prompt": "Se ha estropeado la caldera.",
@@ -2338,7 +2428,7 @@
   {
    "id": "es5-d024",
    "type": "drill",
-   "block": "4.3",
+   "block": "3.",
    "blockTitle": "Перевод с испанского на русский",
    "kind": "open",
    "prompt": "Ahora no puedo hablar, te llamo luego.",
@@ -2347,7 +2437,7 @@
   {
    "id": "es5-d025",
    "type": "drill",
-   "block": "4.4",
+   "block": "4.",
    "blockTitle": "Мини-ситуации",
    "kind": "open",
    "prompt": "Пришёл с дочкой в кафе: нужен стол на террасе и детский стульчик.",
@@ -2356,7 +2446,7 @@
   {
    "id": "es5-d026",
    "type": "drill",
-   "block": "4.4",
+   "block": "4.",
    "blockTitle": "Мини-ситуации",
    "kind": "open",
    "prompt": "Дочь проснулась с температурой — предупреждаешь школу.",
@@ -2365,7 +2455,7 @@
   {
    "id": "es5-d027",
    "type": "drill",
-   "block": "4.4",
+   "block": "4.",
    "blockTitle": "Мини-ситуации",
    "kind": "open",
    "prompt": "В аэропорту: у тебя только ручная кладь, хочешь узнать выход на посадку.",
@@ -2374,16 +2464,16 @@
   {
    "id": "es5-d028",
    "type": "drill",
-   "block": "4.4",
+   "block": "4.",
    "blockTitle": "Мини-ситуации",
    "kind": "open",
    "prompt": "Поезд опаздывает, а у тебя пересадка — спрашиваешь у сотрудника.",
-   "answer": "El tren lleva retraso y tengo que hacer transbordo. ¿Llego?"
+   "answer": "El tren lleva retraso y tengo que hacer transbordo. ¿Me da tiempo?"
   },
   {
    "id": "es5-d029",
    "type": "drill",
-   "block": "4.4",
+   "block": "4.",
    "blockTitle": "Мини-ситуации",
    "kind": "open",
    "prompt": "Курьер не дозвонился, посылку надо забрать в пункте выдачи.",
@@ -2392,7 +2482,7 @@
   {
    "id": "es5-d030",
    "type": "drill",
-   "block": "4.4",
+   "block": "4.",
    "blockTitle": "Мини-ситуации",
    "kind": "open",
    "prompt": "В квартире нет горячей воды — пишешь арендодателю.",
@@ -2401,7 +2491,7 @@
   {
    "id": "es5-d031",
    "type": "drill",
-   "block": "4.4",
+   "block": "4.",
    "blockTitle": "Мини-ситуации",
    "kind": "open",
    "prompt": "В такси с ребёнком: нужно детское кресло и чек.",
@@ -2410,7 +2500,7 @@
   {
    "id": "es5-d032",
    "type": "drill",
-   "block": "4.4",
+   "block": "4.",
    "blockTitle": "Мини-ситуации",
    "kind": "open",
    "prompt": "В ресторане принесли не то блюдо.",
@@ -2419,7 +2509,7 @@
   {
    "id": "es5-d033",
    "type": "drill",
-   "block": "4.5",
+   "block": "5.",
    "blockTitle": "Выбери правильное слово",
    "kind": "choice",
    "prompt": "¿Me ___ una caña?",
@@ -2432,7 +2522,7 @@
   {
    "id": "es5-d034",
    "type": "drill",
-   "block": "4.5",
+   "block": "5.",
    "blockTitle": "Выбери правильное слово",
    "kind": "choice",
    "prompt": "Vengo ___ mi hija.",
@@ -2445,7 +2535,7 @@
   {
    "id": "es5-d035",
    "type": "drill",
-   "block": "4.5",
+   "block": "5.",
    "blockTitle": "Выбери правильное слово",
    "kind": "choice",
    "prompt": "La niña está ___.",
@@ -2458,7 +2548,7 @@
   {
    "id": "es5-d036",
    "type": "drill",
-   "block": "4.5",
+   "block": "5.",
    "blockTitle": "Выбери правильное слово",
    "kind": "choice",
    "prompt": "¿Hace falta ___?",
@@ -2471,7 +2561,7 @@
   {
    "id": "es5-d037",
    "type": "drill",
-   "block": "4.5",
+   "block": "5.",
    "blockTitle": "Выбери правильное слово",
    "kind": "choice",
    "prompt": "Un café ___ llevar.",
@@ -2484,7 +2574,7 @@
   {
    "id": "es5-d038",
    "type": "drill",
-   "block": "4.5",
+   "block": "5.",
    "blockTitle": "Выбери правильное слово",
    "kind": "choice",
    "prompt": "¿De qué ___ sale el tren?",
@@ -2497,7 +2587,7 @@
   {
    "id": "es5-d039",
    "type": "drill",
-   "block": "4.5",
+   "block": "5.",
    "blockTitle": "Выбери правильное слово",
    "kind": "choice",
    "prompt": "¿El desayuno está ___?",
@@ -2510,7 +2600,7 @@
   {
    "id": "es5-d040",
    "type": "drill",
-   "block": "4.5",
+   "block": "5.",
    "blockTitle": "Выбери правильное слово",
    "kind": "choice",
    "prompt": "¿Tienen ___ para el bebé?",
@@ -2523,7 +2613,7 @@
   {
    "id": "es5-d041",
    "type": "drill",
-   "block": "4.5",
+   "block": "5.",
    "blockTitle": "Выбери правильное слово",
    "kind": "choice",
    "prompt": "El vuelo sale con ___.",
@@ -2536,7 +2626,7 @@
   {
    "id": "es5-d042",
    "type": "drill",
-   "block": "4.5",
+   "block": "5.",
    "blockTitle": "Выбери правильное слово",
    "kind": "choice",
    "prompt": "Me bajo en la ___.",
@@ -2549,7 +2639,7 @@
   {
    "id": "es5-d043",
    "type": "drill",
-   "block": "4.6",
+   "block": "6.",
    "blockTitle": "Понимание коротких фраз",
    "kind": "open",
    "prompt": "«Tiene que pedir cita previa.»",
@@ -2558,7 +2648,7 @@
   {
    "id": "es5-d044",
    "type": "drill",
-   "block": "4.6",
+   "block": "6.",
    "blockTitle": "Понимание коротких фраз",
    "kind": "open",
    "prompt": "«¿Se lo pongo para llevar o para tomar aquí?»",
@@ -2567,7 +2657,7 @@
   {
    "id": "es5-d045",
    "type": "drill",
-   "block": "4.6",
+   "block": "6.",
    "blockTitle": "Понимание коротких фраз",
    "kind": "open",
    "prompt": "«Sale de la vía cuatro, con diez minutos de retraso.»",
@@ -2576,7 +2666,7 @@
   {
    "id": "es5-d046",
    "type": "drill",
-   "block": "4.6",
+   "block": "6.",
    "blockTitle": "Понимание коротких фраз",
    "kind": "open",
    "prompt": "«Su hija se ha dejado el abrigo en clase.»",
@@ -2585,7 +2675,7 @@
   {
    "id": "es5-d047",
    "type": "drill",
-   "block": "4.6",
+   "block": "6.",
    "blockTitle": "Понимание коротких фраз",
    "kind": "open",
    "prompt": "«Le dejo el paquete en el buzón.»",
@@ -2594,7 +2684,7 @@
   {
    "id": "es5-d048",
    "type": "drill",
-   "block": "4.6",
+   "block": "6.",
    "blockTitle": "Понимание коротких фраз",
    "kind": "open",
    "prompt": "«¿Me deja su DNI?»",
@@ -2603,7 +2693,7 @@
   {
    "id": "es5-d049",
    "type": "drill",
-   "block": "4.6",
+   "block": "6.",
    "blockTitle": "Понимание коротких фраз",
    "kind": "open",
    "prompt": "«Ahora mismo no queda, vuelva mañana.»",
@@ -2612,7 +2702,7 @@
   {
    "id": "es5-d050",
    "type": "drill",
-   "block": "4.6",
+   "block": "6.",
    "blockTitle": "Понимание коротких фраз",
    "kind": "open",
    "prompt": "«Le llamamos cuando esté listo.»",
@@ -3041,12 +3131,12 @@
   }
  ],
  "excluded": [
-  "прошедшее время как система — конструкции se ha estropeado, ha comido, he perdido даны готовыми блоками, разбор pretérito perfecto и indefinido идёт отдельно;",
-  "сослагательное наклонение (cuando lleguemos, si tuviera) — поэтому в примерах его почти нет;",
+  "прошедшее время как система — конструкции se ha estropeado, ha comido, he perdido даны готовыми блоками: Pretérito Perfecto разобран в правилах, Indefinido — позже;",
+  "сослагательное наклонение целиком (cuando lleguemos, si tuviera) — в примерах его почти нет, а частые формулы с ним собраны в правилах;",
   "рабочая лексика (собеседование, договор, задачи, созвоны) — это отдельный блок, а не бытовая рутина;",
   "бюрократия сверх минимума: empadronamiento, Seguridad Social, Hacienda, extranjería — большая тема, её лучше брать одной ситуацией целиком;",
   "подробная медицинская лексика (симптомы, анализы, диагнозы) — здесь только то, что нужно в аптеке и при записи к врачу;",
-  "еда по названиям блюд и продуктов — базовые продукты уже в Stage 3, а меню читается по месту;",
+  "еда по названиям блюд и продуктов — базовые продукты уже в Words, а меню читается по месту;",
   "региональные различия внутри Испании (каталанский, галисийский, баскский) — на бытовое общение по-испански они не влияют."
  ]
 }

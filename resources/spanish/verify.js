@@ -21,7 +21,10 @@ function read(file) {
 
 const TEXT_KEYS = ['es', 'en', 'ru', 'tr', 'prompt', 'answer', 'title', 'titleRu', 'goal', 't', 'set', 'name',
     'how', 'lit', 'trap', 'gist'];
-const BAD_MARKUP = /<[a-z/!][^>]*>|&[a-zA-Z]+;|&#x?[0-9a-fA-F]+;|\*\*/;
+// A single asterisk counts too: "*th*" left over from the markdown is shown
+// to the reader as it is, stars and all. Emphasis is a span with s: 'b'.
+const BAD_MARKUP = /<[a-z/!][^>]*>|&[a-zA-Z]+;|&#x?[0-9a-fA-F]+;|\*/;
+const CYRILLIC = /[Ѐ-ӿ]/;
 
 // Walk every string in a structure and reject HTML, entities and stray markdown.
 function checkStrings(node, where) {
@@ -36,6 +39,19 @@ function checkStrings(node, where) {
             if (TEXT_KEYS.indexOf(k) !== -1 || typeof node[k] === 'object') checkStrings(node[k], where + '.' + k);
         });
     }
+}
+
+// The stages have been renumbered twice, and every "Stage 3" written into the
+// prose went on pointing at whatever took that number. Prose names a stage by
+// its title instead, which survives a renumbering.
+function checkStageNumbers(node, where) {
+    if (node === null || node === undefined) return;
+    if (typeof node === 'string') {
+        if (/\bStage\s*\d/.test(node)) fail(where + ': names a stage by its number — ' + JSON.stringify(node.slice(0, 80)));
+        return;
+    }
+    if (Array.isArray(node)) { node.forEach((v, i) => checkStageNumbers(v, where + '[' + i + ']')); return; }
+    if (typeof node === 'object') Object.keys(node).forEach(k => checkStageNumbers(node[k], where + '.' + k));
 }
 
 const REQUIRED = {
@@ -55,7 +71,53 @@ const seenIds = Object.create(null);
 const itemEs = Object.create(null);   // id -> its Spanish, for the learned.json cross-check
 const setEs = Object.create(null);    // id -> its Spanish, for every word of a Reference table
 const lexIds = Object.create(null);   // Spanish word -> ids of the lexicon entries that carry it
+const groupFile = Object.create(null); // topic name -> the stage file that declares it
+const lexForms = Object.create(null);  // normalized word of a lexicon entry -> ids
+const lineForms = Object.create(null); // normalized phrase or exchange -> ids
+const meanings = Object.create(null);  // normalized Russian side -> ids
 let totalItems = 0;
+
+// Spelled the same once case, punctuation and a leading article are set aside.
+// Brackets stay: "el cajero (automático)" is not the "cajero" of a till.
+function spanishKey(text) {
+    return String(text || '').toLowerCase()
+        .replace(/[¿?¡!.,…:;«»"]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim()
+        .replace(/^(el|la|los|las|un|una|unos|unas) /, '');
+}
+
+function meaningKey(text) {
+    return String(text || '').toLowerCase().replace(/[?!.…]+$/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function remember(map, key, id) {
+    if (!key) return;
+    (map[key] = map[key] || []).push(id);
+}
+
+// The transcription follows the rules page: "э" for e, a hard "л", the stress
+// marked with U+0301 on every word of two syllables or more. A word whose two
+// vowels stand apart, or that has three, is sure to have two syllables; two
+// vowels side by side may be one (pues, cuál), so those are let through.
+const TR_VOWEL = /[аэиоуыеёяю]/;
+
+function checkTranscription(tr, at) {
+    if (typeof tr !== 'string' || !tr) return;
+    if (/[A-Za-z¿?¡!*]/.test(tr)) fail(at + ': transcription carries Latin letters or punctuation — ' + JSON.stringify(tr));
+    if (/[бвгджзклмнпрстфхцчшщ]е/.test(tr)) fail(at + ': transcription writes "е" after a consonant, where it takes "э" — ' + JSON.stringify(tr));
+    // "ль" before a vowel is l gliding into i (julio — ху́льо), not a soft l.
+    if (/ль(?![яеёиюо])/.test(tr)) fail(at + ': transcription softens l into "ль" — ' + JSON.stringify(tr));
+    tr.split(/[\s/]+/).filter(Boolean).forEach(token => {
+        const plain = token.replace(/́/g, '');
+        const marks = (token.match(/́/g) || []).length;
+        const vowels = [];
+        Array.from(plain).forEach((ch, i) => { if (TR_VOWEL.test(ch)) vowels.push(i); });
+        const syllables = vowels.length >= 3 || (vowels.length === 2 && vowels[1] - vowels[0] > 1);
+        if (syllables && marks === 0) fail(at + ': "' + token + '" has no stress mark');
+        if (marks > 1) fail(at + ': "' + token + '" has more than one stress mark');
+    });
+}
 
 function wordKey(es) { return es.trim().toLowerCase(); }
 
@@ -83,11 +145,27 @@ function wordKey(es) { return es.trim().toLowerCase(); }
                 ' but index.json says ' + JSON.stringify(entry[k]));
         }
     });
+    // The goal and the number of notes are mirrored into the manifest as well.
+    if (stage.goal !== entry.goal) {
+        fail(entry.file + ': "goal" is ' + JSON.stringify(stage.goal) + ' but index.json says ' + JSON.stringify(entry.goal));
+    }
+    if ((stage.notes || []).length !== entry.notes) {
+        fail(entry.file + ': has ' + (stage.notes || []).length + ' notes but index.json says ' + entry.notes);
+    }
     if (!Array.isArray(stage.items) || stage.items.length === 0) fail(entry.file + ': no items');
 
     const counts = {};
     const groups = {};
     (stage.groups || []).forEach(g => { groups[g.name] = true; });
+
+    // The hub's topic filter keys its options by the bare name, so a name two
+    // stages share would fold two topics into one option.
+    Object.keys(groups).forEach(name => {
+        if (groupFile[name] && groupFile[name] !== entry.file) {
+            fail(entry.file + ': topic "' + name + '" is also declared in ' + groupFile[name]);
+        }
+        groupFile[name] = entry.file;
+    });
 
     // The closed sets Reference draws as tables. Declared once, like the
     // groups, and the order they are declared in is the order they are drawn.
@@ -123,6 +201,25 @@ function wordKey(es) { return es.trim().toLowerCase(); }
             });
             if (item.a && item.b && item.a.es === item.b.es) fail(at + ': both pair sides are the same word');
             if (!item.pairKind) fail(at + ': pair has no pairKind');
+
+            // The halves are the whole pair cut at " / ". A bracket holding a
+            // slash of its own ("врач (м / ж)") is cut in two that way, and each
+            // half then reads as nonsense wherever it is shown on its own.
+            if (item.a && item.b) {
+                ['es', 'en', 'ru', 'tr'].forEach(k => {
+                    if (item[k] !== item.a[k] + ' / ' + item.b[k]) {
+                        fail(at + ': "' + k + '" is not a.' + k + ' + " / " + b.' + k);
+                    }
+                    [item.a[k], item.b[k]].forEach(half => {
+                        if (typeof half !== 'string') return;
+                        const open = (half.match(/\(/g) || []).length;
+                        const close = (half.match(/\)/g) || []).length;
+                        if (open !== close || half.trim().charAt(0) === '(') {
+                            fail(at + ': half "' + k + '" is a broken piece of the pair — ' + JSON.stringify(half));
+                        }
+                    });
+                });
+            }
         }
 
         if (item.type === 'drill') {
@@ -132,6 +229,11 @@ function wordKey(es) { return es.trim().toLowerCase(); }
                 if (item.prompt.indexOf('___') === -1) fail(at + ': choice drill prompt has no ___ gap');
             } else if (item.kind !== 'open') {
                 fail(at + ': unknown drill kind "' + item.kind + '"');
+            }
+            // A drill is spoken from whichever side is Spanish — the answer of a
+            // Russian prompt, the prompt of a Russian answer — so one must be.
+            if (CYRILLIC.test(item.prompt) && CYRILLIC.test(item.answer)) {
+                fail(at + ': both the prompt and the answer are Russian, so there is nothing to speak');
             }
         }
 
@@ -156,6 +258,16 @@ function wordKey(es) { return es.trim().toLowerCase(); }
         }
         if (item.set) setEs[item.id] = item.es || '';
 
+        if (item.type === 'vocab') checkTranscription(item.tr, at);
+        if (item.type === 'pair') [item.a, item.b].forEach(half => checkTranscription(half && half.tr, at));
+
+        // What the duplicate checks below compare: every word a lexicon entry
+        // stands for, every sentence, and the Russian a card is answered with.
+        if (item.type === 'vocab') String(item.es || '').split(' / ').forEach(form => remember(lexForms, spanishKey(form), item.id));
+        if (item.type === 'pair') [item.a && item.a.es, item.b && item.b.es].forEach(form => remember(lexForms, spanishKey(form), item.id));
+        if (item.type === 'phrase' || item.type === 'exchange') remember(lineForms, spanishKey(item.es), item.id);
+        if (REQUIRED[item.type] && item.type !== 'drill') remember(meanings, meaningKey(item.ru), item.id);
+
         counts[item.type] = (counts[item.type] || 0) + 1;
         totalItems += 1;
     });
@@ -178,6 +290,7 @@ function wordKey(es) { return es.trim().toLowerCase(); }
     });
 
     checkStrings(stage, entry.file);
+    checkStageNumbers({ goal: stage.goal, intro: stage.intro, notes: stage.notes, excluded: stage.excluded }, entry.file);
 });
 
 /* ---------- what to learn first: the top ranks and their examples ---------- */
@@ -254,6 +367,7 @@ if (rules) {
         fail('index.json: rules count ' + manifest.rules.sections + ' but rules.json has ' + rules.sections.length);
     }
     checkStrings(rules, 'rules.json');
+    checkStageNumbers(rules, 'rules.json');
     if (ranked) notes.push(ranked + ' rules in the top list');
 }
 
@@ -323,6 +437,7 @@ if (patterns) {
         }
     });
     checkStrings(patterns, 'patterns.json');
+    checkStageNumbers(patterns, 'patterns.json');
     notes.push(count + ' patterns, ' + ranked + ' in the top list');
 }
 
@@ -337,6 +452,31 @@ setIds.forEach(id => {
     if (others.length) fail(id + ' ("' + setEs[id] + '") is in a set but also lives in ' + others.join(', '));
 });
 if (setIds.length) notes.push(setIds.length + ' in sets');
+
+/* ---------- no entry twice ---------- */
+
+// The same word in two cards splits its progress between two Leitner boxes,
+// and two cards with the same Russian cannot be answered from the Russian
+// side: "там" is ahí and allí alike. Homonyms — one spelling, two words — are
+// the exception, and are listed by name.
+const HOMONYMS = ['claro', 'salida', 'verdad', 'cómo', 'perdón', 'no', 'este', 'caja', 'comedor',
+    'primero', 'segundo', 'cuarto', 'tirar', 'seco'];
+
+function distinct(ids) { return ids.filter((id, i) => ids.indexOf(id) === i); }
+
+Object.keys(lexForms).forEach(key => {
+    const ids = distinct(lexForms[key]);
+    if (ids.length > 1 && HOMONYMS.indexOf(key) === -1) fail('"' + key + '" is a word of more than one entry: ' + ids.join(', '));
+    if (lineForms[key] && HOMONYMS.indexOf(key) === -1) fail('"' + key + '" is both a word (' + ids.join(', ') + ') and a phrase (' + lineForms[key].join(', ') + ')');
+});
+Object.keys(lineForms).forEach(key => {
+    const ids = distinct(lineForms[key]);
+    if (ids.length > 1) fail('the phrase "' + key + '" is written more than once: ' + ids.join(', '));
+});
+Object.keys(meanings).forEach(key => {
+    const ids = distinct(meanings[key]);
+    if (ids.length > 1) fail('"' + key + '" is the Russian of more than one entry: ' + ids.join(', '));
+});
 
 /* ---------- learned.json: the hand-kept list of what is learned ---------- */
 
