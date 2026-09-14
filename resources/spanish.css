@@ -443,10 +443,11 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 
 .sp-lex-row.is-pair .sp-lex-es { color: var(--color-primary); }
 
-/* With the checkbox the card gains a second control column on its right edge. */
+/* With the checkbox the card gains a control column on its left edge — away
+   from the speak button, so a tap aimed at one cannot land on the other. */
 .sp-lex-row.has-mark {
-    grid-template-columns: minmax(0, 1fr) 44px 44px;
-    grid-template-areas: "text speak mark";
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    grid-template-areas: "mark text speak";
 }
 
 .sp-lex-row.has-mark .sp-mark { grid-area: mark; align-self: start; }
@@ -492,11 +493,11 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 .sp-ex-row .sp-speak { grid-row: 1 / span 2; grid-column: 2; }
 .sp-ex-row.is-exchange .sp-ex-es { color: var(--color-info); }
 
-.sp-ex-row.has-mark { grid-template-columns: minmax(0, 1fr) 44px 44px; }
-.sp-ex-row.has-mark .sp-ex-es { grid-row: 1; grid-column: 1; }
-.sp-ex-row.has-mark .sp-ex-ru { grid-row: 2; grid-column: 1; }
-.sp-ex-row.has-mark .sp-speak { grid-row: 1 / span 2; grid-column: 2; }
-.sp-ex-row.has-mark .sp-mark { grid-row: 1 / span 2; grid-column: 3; align-self: start; }
+.sp-ex-row.has-mark { grid-template-columns: 44px minmax(0, 1fr) 44px; }
+.sp-ex-row.has-mark .sp-mark { grid-row: 1 / span 2; grid-column: 1; align-self: start; }
+.sp-ex-row.has-mark .sp-ex-es { grid-row: 1; grid-column: 2; }
+.sp-ex-row.has-mark .sp-ex-ru { grid-row: 2; grid-column: 2; }
+.sp-ex-row.has-mark .sp-speak { grid-row: 1 / span 2; grid-column: 3; }
 
 /* ---------- patterns (the hub's Patterns panel) ---------- */
 
@@ -981,8 +982,8 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
     .sp-lex-ru::before, .sp-lex-ru::after { content: none; }
 
     .sp-lex-row.has-mark {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) 44px 44px;
-        grid-template-areas: "es tr en ru speak mark";
+        grid-template-columns: 44px minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) 44px;
+        grid-template-areas: "mark es tr en ru speak";
     }
 
     .sp-lex-row .sp-speak { align-self: center; }
@@ -991,11 +992,11 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
     .sp-ex-row .sp-ex-es { grid-column: 1; }
     .sp-ex-row .sp-ex-ru { grid-column: 2; align-self: center; }
     .sp-ex-row .sp-speak { grid-row: 1; grid-column: 3; }
-    .sp-ex-row.has-mark { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px 44px; }
-    .sp-ex-row.has-mark .sp-ex-es { grid-row: 1; grid-column: 1; }
-    .sp-ex-row.has-mark .sp-ex-ru { grid-row: 1; grid-column: 2; align-self: center; }
-    .sp-ex-row.has-mark .sp-speak { grid-row: 1; grid-column: 3; }
-    .sp-ex-row.has-mark .sp-mark { grid-row: 1; grid-column: 4; align-self: center; }
+    .sp-ex-row.has-mark { grid-template-columns: 44px minmax(0, 1fr) minmax(0, 1fr) 44px; }
+    .sp-ex-row.has-mark .sp-mark { grid-row: 1; grid-column: 1; align-self: center; }
+    .sp-ex-row.has-mark .sp-ex-es { grid-row: 1; grid-column: 2; }
+    .sp-ex-row.has-mark .sp-ex-ru { grid-row: 1; grid-column: 3; align-self: center; }
+    .sp-ex-row.has-mark .sp-speak { grid-row: 1; grid-column: 4; }
     .sp-tab { flex: 0 0 auto; }
     .sp-table th, .sp-table td { white-space: normal; }
 

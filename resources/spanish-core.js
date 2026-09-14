@@ -757,9 +757,10 @@
         return node;
     };
 
-    // Closes a row with the checkbox, beside the speak button, and flags the row
-    // so the CSS gives its grid the extra control column. Call it last: the
-    // button goes at the tail of the row, in the DOM as on the screen.
+    // Opens a row with the checkbox and flags the row so the CSS gives its grid
+    // the extra control column. The checkbox leads the row, in the DOM as on the
+    // screen, as far from the speak button as the row allows: side by side at
+    // the tail, a tap meant for the speaker could unmark the word.
     // A row that can be marked is also a row you can test yourself on, so the
     // reveal listener goes on here too — it does nothing until the row is in
     // Learned or Pending, and the mark and speak buttons stop the click before
@@ -767,7 +768,7 @@
     SP.attachMark = function (row, mark) {
         if (!mark) return row;
         row.classList.add('has-mark');
-        row.appendChild(mark);
+        row.insertBefore(mark, row.firstChild);
         attachReveal(row);
         return row;
     };
@@ -871,8 +872,8 @@
     };
 
     // The 44px checkbox that puts an entry in the pending list. A button with
-    // aria-pressed rather than a real checkbox, so it sits beside .sp-speak
-    // with the same shape and the same touch target.
+    // aria-pressed rather than a real checkbox, so it has the shape and the
+    // touch target of .sp-speak at the other end of the row.
     SP.markButton = function (item, onChange) {
         var btn = SP.el('button', 'sp-mark');
         btn.type = 'button';

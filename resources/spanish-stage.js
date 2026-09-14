@@ -171,7 +171,8 @@
 
     // A drill keeps its answer folded away; the learned checkbox joins the
     // answer and speak buttons rather than the text, so the list marker and
-    // the prompt stay on one line.
+    // the prompt stay on one line. It leads that row, with the answer button
+    // between it and the speaker, so a tap on one does not hit the other.
     function drillRow(item, mark) {
         var li = SP.el('li', 'sp-drill');
         li.appendChild(SP.el('span', null, item.prompt));
@@ -193,11 +194,11 @@
         });
 
         var actions = SP.el('div', 'sp-drill-actions');
+        if (mark) actions.appendChild(mark);
         actions.appendChild(reveal);
         var spoken = SP.spokenText(item);
         var speak = SP.speakButton(spoken, spoken === item.answer ? 'Listen to the answer' : 'Listen to the Spanish');
         if (speak) actions.appendChild(speak);
-        if (mark) actions.appendChild(mark);
 
         li.appendChild(answer);
         li.appendChild(actions);
