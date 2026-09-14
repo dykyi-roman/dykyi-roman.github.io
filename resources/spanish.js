@@ -1218,13 +1218,6 @@
         return node;
     }
 
-    function patternNote(kind, label, text) {
-        var p = SP.el('p', 'sp-pat-note is-' + kind);
-        p.appendChild(SP.el('span', 'sp-pat-label', label));
-        p.appendChild(document.createTextNode(text));
-        return p;
-    }
-
     function patternExample(line) {
         var row = SP.el('div', 'sp-pat-ex');
         SP.renderFramed(row.appendChild(SP.el('div', 'sp-pat-ex-es')), line);
@@ -1234,11 +1227,10 @@
         return row;
     }
 
-    // One pattern as a card: the formula and its meaning on top, then how to
-    // build it, what it says word for word and — where Russian logic leads
-    // astray — the trap, with two examples beside them. From 700px up the
-    // explanation and the examples stand side by side, the way the columns of
-    // a table row would. The id is what the top list links to.
+    // One pattern as a card: the formula and its meaning on top, the trap where
+    // Russian logic leads astray, then the two examples. The file's how and lit
+    // stay there for whoever edits it and are not drawn. The id is what the
+    // top list links to.
     function patternCard(item, topTotal) {
         var card = SP.el('div', 'sp-pat');
         card.id = item.id;
@@ -1247,20 +1239,9 @@
         renderFormula(head.appendChild(SP.el('div', 'sp-pat-es')), item.es);
         head.appendChild(SP.el('div', 'sp-pat-ru', item.ru));
         if (item.top) head.appendChild(SP.topBadge(item.top, topTotal));
-        if (item.trap) {
-            // The trap note below says it in words; the mark is for the eye.
-            var flag = SP.el('span', 'sp-badge is-trap', '⚠');
-            flag.title = 'Русская логика здесь подводит';
-            flag.setAttribute('aria-hidden', 'true');
-            head.appendChild(flag);
-        }
         card.appendChild(head);
 
-        var info = SP.el('div', 'sp-pat-info');
-        info.appendChild(patternNote('how', 'Как работает', item.how));
-        if (item.lit) info.appendChild(patternNote('lit', 'Буквально', item.lit));
-        if (item.trap) info.appendChild(patternNote('trap', 'Русская логика другая', item.trap));
-        card.appendChild(info);
+        if (item.trap) card.appendChild(SP.el('p', 'sp-pat-trap', item.trap));
 
         var examples = SP.el('div', 'sp-pat-exs');
         (item.ex || []).forEach(function (line) { examples.appendChild(patternExample(line)); });

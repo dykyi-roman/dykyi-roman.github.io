@@ -500,11 +500,11 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 
 /* ---------- patterns (the hub's Patterns panel) ---------- */
 
-/* One formula per card, the cards of a theme stacked in a .sp-lex. On a phone
-   its parts stack — the formula and the meaning, how it works, then the
-   examples under a dashed rule; from 700px up the explanation and the
-   examples stand side by side (see the block at the end), the way the columns
-   of a table row would. */
+/* One formula per card, the cards of a theme stacked in a .sp-lex: the formula
+   and the meaning, the trap where there is one, then the two examples under a
+   dashed rule. On a phone an example stacks its Spanish over its Russian; from
+   700px up the two stand side by side (see the block at the end), the way an
+   example row of the lists reads. */
 .sp-pat {
     display: grid;
     gap: var(--spacing-xs);
@@ -532,38 +532,26 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 .sp-pat-ru { color: var(--color-heading); overflow-wrap: anywhere; }
 .sp-pat-ru::before { content: "→"; margin-right: 6px; color: var(--color-text-light); }
 
-/* The badges sit at the far end of the card's head. */
-.sp-pat-head .sp-badge:first-of-type { margin-left: auto; }
+/* The ★ badge sits at the far end of the card's head. */
+.sp-pat-head .sp-badge { margin-left: auto; }
 
 /* A card is a link target of the top list, so it clears the sticky bar. */
 .sp-pat[id] { scroll-margin-top: 96px; }
 
-.sp-pat-info { display: grid; gap: 4px; align-content: start; }
-
-.sp-pat-note {
+/* Where Russian logic leads astray: no label and no mark, only the edge in
+   the warning colour sets it apart from the meaning above it. */
+.sp-pat-trap {
     margin: 0;
+    padding-left: var(--spacing-xs);
+    border-left: 2px solid var(--color-warning);
     font-size: var(--font-size-small);
     color: var(--color-text);
     overflow-wrap: anywhere;
 }
 
-.sp-pat-label {
-    margin-right: 6px;
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-text-light);
-}
-
-.sp-pat-note.is-lit { color: var(--color-text-light); }
-.sp-pat-note.is-trap { padding-left: var(--spacing-xs); border-left: 2px solid var(--color-warning); }
-.sp-pat-note.is-trap .sp-pat-label { color: var(--color-warning); }
-
 .sp-pat-exs {
     display: grid;
     gap: 4px;
-    align-content: start;
     padding-top: var(--spacing-xs);
     border-top: 1px dashed var(--color-border);
 }
@@ -584,7 +572,7 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 /* The words that carry the point inside an example. */
 .sp-frame { color: var(--color-primary); font-weight: 600; }
 
-/* ★ N — a place among those to learn first; ⚠ — Russian logic leads astray. */
+/* ★ N — a place among those to learn first. */
 .sp-badge {
     display: inline-block;
     align-self: center;
@@ -600,7 +588,6 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 }
 
 .sp-badge.is-top { color: var(--color-info); }
-.sp-badge.is-trap { color: var(--color-warning); }
 
 /* Beside a section title of the rules. The title styles every span in it as
    a quiet count, so the badge restates its own colour and size. */
@@ -1012,18 +999,11 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
     .sp-tab { flex: 0 0 auto; }
     .sp-table th, .sp-table td { white-space: normal; }
 
-    /* A pattern card reads like a table row: how it works on the left, the
-       examples on the right, the formula across both. */
-    .sp-pat { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--spacing-md); }
-    .sp-pat-head { grid-column: 1 / -1; }
-    .sp-pat-info { grid-column: 1; }
-    .sp-pat-exs {
-        grid-column: 2;
-        padding-top: 0;
-        padding-left: var(--spacing-md);
-        border-top: 0;
-        border-left: 1px dashed var(--color-border);
-    }
+    /* An example of a pattern reads like an example row of the lists: the
+       Spanish and the Russian side by side, the speak button after them. */
+    .sp-pat-ex { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px; }
+    .sp-pat-ex-ru { grid-column: 2; grid-row: 1; }
+    .sp-pat-ex .sp-speak { grid-column: 3; grid-row: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
