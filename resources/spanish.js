@@ -816,26 +816,17 @@
     }
 
     function runDivider(item) {
-        var node = SP.el('div', 'sp-divider is-quiet');
-        node.appendChild(SP.el('span', 'sp-divider-label',
-            RUN_LABEL[item.type] || SP.TYPE_LABEL[item.type] || item.type));
-        return node;
+        return SP.quietDivider(RUN_LABEL[item.type] || SP.TYPE_LABEL[item.type] || item.type);
     }
 
     function runKey(item) { return item.stage + '/' + typeRank(item.type); }
 
-    // Learned wins over pending, so a word in both shows once, at the top.
-    function sectionOf(item) {
-        if (SP.learned.has(item.id)) return 'learned';
-        return SP.pending.has(item.id) ? 'pending' : 'left';
-    }
-
-    // The list is the same three sections a stage page shows, over the same
-    // lists: Learned from the file, Pending from this browser, then the rest.
-    // `browseFiltered` keeps the plain (stage, type, file) order, so the CSV
-    // export is unaffected and the split is recomputed on every render, stars
-    // included. A folded section is left undrawn rather than hidden, so a page
-    // is never spent on rows nobody sees.
+    // The list is the same four sections a stage page shows, over the same
+    // lists: the tables of the stage's sets, Learned from the file, Pending
+    // from this browser, then the rest. `browseFiltered` keeps the plain
+    // (stage, type, file) order, so the CSV export is unaffected and the split
+    // is recomputed on every render, stars included. A folded section is left
+    // undrawn rather than hidden, so a page is never spent on rows nobody sees.
     function renderBrowse() {
         var list = byId('sp-browse-list');
         SP.clear(list);
@@ -843,10 +834,16 @@
         empty.hidden = browseFiltered.length !== 0;
         empty.textContent = browseSearch && browseSearch.query() ? 'Nothing matches that search.' : 'Nothing matches.';
 
-        var buckets = { learned: [], pending: [], left: [] };
+        var buckets = {};
+        SP.SECTIONS.forEach(function (kind) { buckets[kind] = []; });
         browseFiltered.forEach(function (item) {
-            buckets[sectionOf(item)].push(item);
+            buckets[SP.sectionOf(item)].push(item);
         });
+        // Reference reads table by table. Learned comes in this page load's
+        // order, still a run at a time, so the seams below go on marking the
+        // stages and the types.
+        buckets.reference = SP.orderBySet(buckets.reference);
+        buckets.learned = SP.learned.shuffle(buckets.learned, runKey);
 
         var counts = {};
         var heads = {};
@@ -860,11 +857,7 @@
         });
 
         function sync() {
-            var above = counts.learned + counts.pending;
-            SP.SECTIONS.forEach(function (kind) {
-                heads[kind].sync(counts[kind]);
-                heads[kind].node.hidden = kind === 'left' ? above === 0 : counts[kind] === 0;
-            });
+            SP.syncSectionHeads(heads, counts);
             syncExportButtons();
         }
 
@@ -872,9 +865,12 @@
 
         function makeRow(item) {
             var row, tag;
-            var learned = SP.learned.has(item.id);
-            var mark = learned ? SP.markSpacer() : SP.markButton(item, function (on) {
-                SP.setRowState(row, learned, on);
+            var kind = SP.sectionOf(item);
+            // Neither a table row nor a learned row can move, so neither has
+            // a checkbox to move it with.
+            var fixed = kind === 'reference' || kind === 'learned';
+            var mark = fixed ? SP.markSpacer() : SP.markButton(item, function (on) {
+                SP.setRowState(row, false, on);
                 SP.setSectionTag(tag, on ? 'pending' : 'left');
                 counts.pending += on ? 1 : -1;
                 counts.left += on ? -1 : 1;
@@ -888,8 +884,8 @@
                 sync();
             });
             row = browseRow(item, mark);
-            SP.setRowState(row, learned, SP.pending.has(item.id));
-            if (query) tag = SP.tagRow(row, sectionOf(item));
+            SP.setRowState(row, kind === 'learned', kind === 'pending');
+            if (query) tag = SP.tagRow(row, kind);
             return row;
         }
 
@@ -910,8 +906,15 @@
         plan.slice(0, browseShown).forEach(function (entry) {
             var zone = zones[entry.kind];
             var prev = previous[entry.kind];
-            if (nameStages && (!prev || prev.stage !== entry.item.stage)) zone.appendChild(stageDivider(entry.item));
-            else if (prev && runKey(prev) !== runKey(entry.item)) zone.appendChild(runDivider(entry.item));
+            var newStage = nameStages && (!prev || prev.stage !== entry.item.stage);
+            if (newStage) zone.appendChild(stageDivider(entry.item));
+            if (entry.kind === 'reference') {
+                // Every table opens under its own name, the first one too: the
+                // header above names the section, not the table.
+                if (newStage || !prev || prev.set !== entry.item.set) zone.appendChild(SP.quietDivider(entry.item.set));
+            } else if (!newStage && prev && runKey(prev) !== runKey(entry.item)) {
+                zone.appendChild(runDivider(entry.item));
+            }
             zone.appendChild(makeRow(entry.item));
             previous[entry.kind] = entry.item;
         });
@@ -931,7 +934,9 @@
 
     // Three slices of whatever the filters currently show: everything, only
     // what is marked as learned, only what is left. All three follow the stage
-    // scope and the topic filter — the buttons say how many rows that is.
+    // scope and the topic filter — the buttons say how many rows that is. The
+    // words of a Reference table live in that section alone, so only the
+    // first slice carries them.
     var EXPORTS = {
         all: { label: 'All', rows: function () { return browseFiltered; } },
         learned: { label: 'Learned', rows: function () { return bySection('learned'); } },
@@ -939,7 +944,7 @@
     };
 
     function bySection(kind) {
-        return browseFiltered.filter(function (item) { return sectionOf(item) === kind; });
+        return browseFiltered.filter(function (item) { return SP.sectionOf(item) === kind; });
     }
 
     function syncExportButtons() {
@@ -948,12 +953,15 @@
             if (!btn) return;
             var n = EXPORTS[key].rows().length;
             // The three slices sit on one line with the filters, the topic
-            // select and the copy button, so they carry the name alone; how
-            // many rows each holds is in the tooltip and the accessible name.
-            btn.textContent = EXPORTS[key].label;
+            // select and the copy button, so they carry a download icon and
+            // the name alone; that the file is a CSV, and how many rows each
+            // holds, is in the tooltip and the accessible name. Only the name
+            // is written — textContent on the button would take the icon too.
+            var name = btn.querySelector('.sp-export-name');
+            if (name) name.textContent = EXPORTS[key].label;
             btn.title = (btn.dataset.title || btn.title) + ' — ' + n +
                 (n === 1 ? ' entry' : ' entries');
-            btn.setAttribute('aria-label', EXPORTS[key].label + ', ' + n +
+            btn.setAttribute('aria-label', 'Download ' + EXPORTS[key].label + ' as CSV, ' + n +
                 (n === 1 ? ' entry' : ' entries'));
             btn.disabled = n === 0;
         });
@@ -1076,6 +1084,7 @@
             var btn = byId('sp-browse-csv-' + key);
             if (!btn) return;
             btn.dataset.title = btn.title;      // the count is appended to this, not to itself
+            btn.insertBefore(SP.downloadIcon(), btn.firstChild);
             btn.addEventListener('click', function () { exportCsv(key); });
         });
         var copy = byId('sp-browse-copy');
@@ -1095,9 +1104,9 @@
     function initSearch() {
         browseSearch = SP.searchBox('Search every stage', onSearch);
         byId('sp-search-host').appendChild(browseSearch.node);
-        // The ✕ of a type="search" field fires `input` in every browser that
-        // draws one, but Safari also fires `search` — and only that one on Esc.
-        browseSearch.node.addEventListener('search', onSearch);
+        // The ✕ reports through onSearch itself, but Esc empties the field too,
+        // and Safari tells of that with `search` alone — no `input` event.
+        browseSearch.input.addEventListener('search', onSearch);
     }
 
     function goTo(stage, mode) {

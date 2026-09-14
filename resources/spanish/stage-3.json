@@ -4,7 +4,7 @@
  "no": 2,
  "title": "Words",
  "titleRu": "Словарная база",
- "goal": "Практическая база из 628 слов и коротких выражений для быстрого перехода к бытовому испанскому.",
+ "goal": "Практическая база из 679 слов и коротких выражений для быстрого перехода к бытовому испанскому.",
  "url": "spanish/stage-2.html",
  "intro": [
   {
@@ -85,10 +85,25 @@
    "k": "p",
    "spans": [
     {
+     "t": "Закрытые наборы — дни недели, месяцы, времена года, цвета, числа и порядковые числа — собраны в свёрнутый раздел "
+    },
+    {
+     "t": "Reference",
+     "s": "b"
+    },
+    {
+     "t": " над списком: такие слова учат таблицей целиком, а не по одному, поэтому в остальных разделах их нет."
+    }
+   ]
+  },
+  {
+   "k": "p",
+   "spans": [
+    {
      "t": "Всего элементов: "
     },
     {
-     "t": "628",
+     "t": "679",
      "s": "b"
     },
     {
@@ -98,6 +113,26 @@
   }
  ],
  "groups": [],
+ "sets": [
+  {
+   "name": "Дни недели"
+  },
+  {
+   "name": "Месяцы"
+  },
+  {
+   "name": "Времена года"
+  },
+  {
+   "name": "Цвета"
+  },
+  {
+   "name": "Числа"
+  },
+  {
+   "name": "Порядковые числа"
+  }
+ ],
  "items": [
   {
    "id": "es3-v001",
@@ -230,14 +265,24 @@
    "chunk": "1–50"
   },
   {
-   "id": "es3-v014",
+   "id": "es3-v637",
    "type": "vocab",
-   "es": "quizás",
-   "en": "perhaps",
-   "ru": "возможно",
-   "tr": "кисас",
+   "es": "cero",
+   "en": "zero",
+   "ru": "ноль",
+   "tr": "сэро",
    "group": null,
-   "chunk": "1–50"
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v636",
+   "type": "vocab",
+   "es": "uno",
+   "en": "one",
+   "ru": "один",
+   "tr": "уно",
+   "group": null,
+   "set": "Числа"
   },
   {
    "id": "es3-v015",
@@ -247,6 +292,7 @@
    "ru": "два",
    "tr": "дос",
    "group": null,
+   "set": "Числа",
    "chunk": "1–50"
   },
   {
@@ -257,6 +303,7 @@
    "ru": "три",
    "tr": "трэс",
    "group": null,
+   "set": "Числа",
    "chunk": "1–50"
   },
   {
@@ -267,6 +314,7 @@
    "ru": "четыре",
    "tr": "куатро",
    "group": null,
+   "set": "Числа",
    "chunk": "1–50"
   },
   {
@@ -277,6 +325,7 @@
    "ru": "пять",
    "tr": "синко",
    "group": null,
+   "set": "Числа",
    "chunk": "1–50"
   },
   {
@@ -287,6 +336,7 @@
    "ru": "шесть",
    "tr": "сэис",
    "group": null,
+   "set": "Числа",
    "chunk": "1–50"
   },
   {
@@ -297,6 +347,7 @@
    "ru": "семь",
    "tr": "сиэтэ",
    "group": null,
+   "set": "Числа",
    "chunk": "1–50"
   },
   {
@@ -307,6 +358,7 @@
    "ru": "восемь",
    "tr": "очо",
    "group": null,
+   "set": "Числа",
    "chunk": "1–50"
   },
   {
@@ -317,6 +369,7 @@
    "ru": "девять",
    "tr": "нуэбэ",
    "group": null,
+   "set": "Числа",
    "chunk": "1–50"
   },
   {
@@ -327,7 +380,419 @@
    "ru": "десять",
    "tr": "диэс",
    "group": null,
+   "set": "Числа",
    "chunk": "1–50"
+  },
+  {
+   "id": "es3-v638",
+   "type": "vocab",
+   "es": "once",
+   "en": "eleven",
+   "ru": "одиннадцать",
+   "tr": "онсэ",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v639",
+   "type": "vocab",
+   "es": "doce",
+   "en": "twelve",
+   "ru": "двенадцать",
+   "tr": "досэ",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v640",
+   "type": "vocab",
+   "es": "trece",
+   "en": "thirteen",
+   "ru": "тринадцать",
+   "tr": "трэсэ",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v641",
+   "type": "vocab",
+   "es": "catorce",
+   "en": "fourteen",
+   "ru": "четырнадцать",
+   "tr": "каторсэ",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v642",
+   "type": "vocab",
+   "es": "quince",
+   "en": "fifteen",
+   "ru": "пятнадцать",
+   "tr": "кинсэ",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v643",
+   "type": "vocab",
+   "es": "dieciséis",
+   "en": "sixteen",
+   "ru": "шестнадцать",
+   "tr": "диэсисэис",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v644",
+   "type": "vocab",
+   "es": "diecisiete",
+   "en": "seventeen",
+   "ru": "семнадцать",
+   "tr": "диэсисиэтэ",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v645",
+   "type": "vocab",
+   "es": "dieciocho",
+   "en": "eighteen",
+   "ru": "восемнадцать",
+   "tr": "диэсиочо",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v646",
+   "type": "vocab",
+   "es": "diecinueve",
+   "en": "nineteen",
+   "ru": "девятнадцать",
+   "tr": "диэсинуэбэ",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v647",
+   "type": "vocab",
+   "es": "veinte",
+   "en": "twenty",
+   "ru": "двадцать",
+   "tr": "бэинтэ",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v648",
+   "type": "vocab",
+   "es": "veintiuno",
+   "en": "twenty-one",
+   "ru": "двадцать один",
+   "tr": "бэинтиуно",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v649",
+   "type": "vocab",
+   "es": "treinta",
+   "en": "thirty",
+   "ru": "тридцать",
+   "tr": "трэинта",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v650",
+   "type": "vocab",
+   "es": "treinta y uno",
+   "en": "thirty-one",
+   "ru": "тридцать один",
+   "tr": "трэинта и уно",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v651",
+   "type": "vocab",
+   "es": "cuarenta",
+   "en": "forty",
+   "ru": "сорок",
+   "tr": "куарэнта",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v652",
+   "type": "vocab",
+   "es": "cincuenta",
+   "en": "fifty",
+   "ru": "пятьдесят",
+   "tr": "синкуэнта",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v653",
+   "type": "vocab",
+   "es": "sesenta",
+   "en": "sixty",
+   "ru": "шестьдесят",
+   "tr": "сэсэнта",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v654",
+   "type": "vocab",
+   "es": "setenta",
+   "en": "seventy",
+   "ru": "семьдесят",
+   "tr": "сэтэнта",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v655",
+   "type": "vocab",
+   "es": "ochenta",
+   "en": "eighty",
+   "ru": "восемьдесят",
+   "tr": "очэнта",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v656",
+   "type": "vocab",
+   "es": "noventa",
+   "en": "ninety",
+   "ru": "девяносто",
+   "tr": "нобэнта",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v657",
+   "type": "vocab",
+   "es": "cien",
+   "en": "one hundred",
+   "ru": "сто",
+   "tr": "сиэн",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v658",
+   "type": "vocab",
+   "es": "ciento uno",
+   "en": "one hundred and one",
+   "ru": "сто один",
+   "tr": "сиэнто уно",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v659",
+   "type": "vocab",
+   "es": "doscientos",
+   "en": "two hundred",
+   "ru": "двести",
+   "tr": "доссиэнтос",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v660",
+   "type": "vocab",
+   "es": "trescientos",
+   "en": "three hundred",
+   "ru": "триста",
+   "tr": "трэссиэнтос",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v661",
+   "type": "vocab",
+   "es": "cuatrocientos",
+   "en": "four hundred",
+   "ru": "четыреста",
+   "tr": "куатросиэнтос",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v662",
+   "type": "vocab",
+   "es": "quinientos",
+   "en": "five hundred",
+   "ru": "пятьсот",
+   "tr": "киниэнтос",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v663",
+   "type": "vocab",
+   "es": "seiscientos",
+   "en": "six hundred",
+   "ru": "шестьсот",
+   "tr": "сэиссиэнтос",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v664",
+   "type": "vocab",
+   "es": "setecientos",
+   "en": "seven hundred",
+   "ru": "семьсот",
+   "tr": "сэтэсиэнтос",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v665",
+   "type": "vocab",
+   "es": "ochocientos",
+   "en": "eight hundred",
+   "ru": "восемьсот",
+   "tr": "очосиэнтос",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v666",
+   "type": "vocab",
+   "es": "novecientos",
+   "en": "nine hundred",
+   "ru": "девятьсот",
+   "tr": "нобэсиэнтос",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v667",
+   "type": "vocab",
+   "es": "mil",
+   "en": "one thousand",
+   "ru": "тысяча",
+   "tr": "мил",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v668",
+   "type": "vocab",
+   "es": "un millón",
+   "en": "one million",
+   "ru": "миллион",
+   "tr": "ун мийон",
+   "group": null,
+   "set": "Числа"
+  },
+  {
+   "id": "es3-v673",
+   "type": "vocab",
+   "es": "primero",
+   "en": "first",
+   "ru": "первый",
+   "tr": "примэро",
+   "group": null,
+   "set": "Порядковые числа"
+  },
+  {
+   "id": "es3-v301",
+   "type": "vocab",
+   "es": "segundo",
+   "en": "second",
+   "ru": "второй / секунда",
+   "tr": "сэгундо",
+   "group": null,
+   "set": "Порядковые числа",
+   "chunk": "301–350"
+  },
+  {
+   "id": "es3-v674",
+   "type": "vocab",
+   "es": "tercero",
+   "en": "third",
+   "ru": "третий",
+   "tr": "тэрсэро",
+   "group": null,
+   "set": "Порядковые числа"
+  },
+  {
+   "id": "es3-v675",
+   "type": "vocab",
+   "es": "cuarto",
+   "en": "fourth",
+   "ru": "четвёртый",
+   "tr": "куарто",
+   "group": null,
+   "set": "Порядковые числа"
+  },
+  {
+   "id": "es3-v676",
+   "type": "vocab",
+   "es": "quinto",
+   "en": "fifth",
+   "ru": "пятый",
+   "tr": "кинто",
+   "group": null,
+   "set": "Порядковые числа"
+  },
+  {
+   "id": "es3-v677",
+   "type": "vocab",
+   "es": "sexto",
+   "en": "sixth",
+   "ru": "шестой",
+   "tr": "сэксто",
+   "group": null,
+   "set": "Порядковые числа"
+  },
+  {
+   "id": "es3-v678",
+   "type": "vocab",
+   "es": "séptimo",
+   "en": "seventh",
+   "ru": "седьмой",
+   "tr": "сэптимо",
+   "group": null,
+   "set": "Порядковые числа"
+  },
+  {
+   "id": "es3-v679",
+   "type": "vocab",
+   "es": "octavo",
+   "en": "eighth",
+   "ru": "восьмой",
+   "tr": "октабо",
+   "group": null,
+   "set": "Порядковые числа"
+  },
+  {
+   "id": "es3-v680",
+   "type": "vocab",
+   "es": "noveno",
+   "en": "ninth",
+   "ru": "девятый",
+   "tr": "нобэно",
+   "group": null,
+   "set": "Порядковые числа"
+  },
+  {
+   "id": "es3-v681",
+   "type": "vocab",
+   "es": "décimo",
+   "en": "tenth",
+   "ru": "десятый",
+   "tr": "дэсимо",
+   "group": null,
+   "set": "Порядковые числа"
   },
   {
    "id": "es3-v024",
@@ -402,10 +867,10 @@
   {
    "id": "es3-v031",
    "type": "vocab",
-   "es": "mira",
-   "en": "look",
-   "ru": "смотри",
-   "tr": "мира",
+   "es": "mira / mirar",
+   "en": "look / to look, watch",
+   "ru": "смотри / смотреть",
+   "tr": "мира / мирар",
    "group": null,
    "chunk": "1–50"
   },
@@ -600,16 +1065,6 @@
    "chunk": "1–50"
   },
   {
-   "id": "es3-v051",
-   "type": "vocab",
-   "es": "ayudar",
-   "en": "to help",
-   "ru": "помогать",
-   "tr": "айудар",
-   "group": null,
-   "chunk": "51–100"
-  },
-  {
    "id": "es3-v052",
    "type": "vocab",
    "es": "intentar",
@@ -716,16 +1171,6 @@
    "en": "to see",
    "ru": "видеть",
    "tr": "бэр",
-   "group": null,
-   "chunk": "51–100"
-  },
-  {
-   "id": "es3-v063",
-   "type": "vocab",
-   "es": "mirar",
-   "en": "to look/watch",
-   "ru": "смотреть",
-   "tr": "мирар",
    "group": null,
    "chunk": "51–100"
   },
@@ -2060,16 +2505,6 @@
    "chunk": "151–200"
   },
   {
-   "id": "es3-v197",
-   "type": "vocab",
-   "es": "naranja",
-   "en": "orange",
-   "ru": "апельсин/оранжевый",
-   "tr": "наранха",
-   "group": null,
-   "chunk": "151–200"
-  },
-  {
    "id": "es3-v198",
    "type": "vocab",
    "es": "limón",
@@ -2467,6 +2902,7 @@
    "ru": "цвет",
    "tr": "колор",
    "group": null,
+   "set": "Цвета",
    "chunk": "201–250"
   },
   {
@@ -2477,6 +2913,7 @@
    "ru": "белый",
    "tr": "бланко",
    "group": null,
+   "set": "Цвета",
    "chunk": "201–250"
   },
   {
@@ -2487,6 +2924,7 @@
    "ru": "чёрный",
    "tr": "нэгро",
    "group": null,
+   "set": "Цвета",
    "chunk": "201–250"
   },
   {
@@ -2497,6 +2935,7 @@
    "ru": "серый",
    "tr": "грис",
    "group": null,
+   "set": "Цвета",
    "chunk": "201–250"
   },
   {
@@ -2507,6 +2946,7 @@
    "ru": "красный",
    "tr": "рохо",
    "group": null,
+   "set": "Цвета",
    "chunk": "201–250"
   },
   {
@@ -2517,6 +2957,7 @@
    "ru": "синий/голубой",
    "tr": "асул",
    "group": null,
+   "set": "Цвета",
    "chunk": "201–250"
   },
   {
@@ -2527,6 +2968,7 @@
    "ru": "зелёный",
    "tr": "бэрдэ",
    "group": null,
+   "set": "Цвета",
    "chunk": "201–250"
   },
   {
@@ -2537,7 +2979,19 @@
    "ru": "жёлтый",
    "tr": "амарийо",
    "group": null,
+   "set": "Цвета",
    "chunk": "201–250"
+  },
+  {
+   "id": "es3-v197",
+   "type": "vocab",
+   "es": "naranja",
+   "en": "orange",
+   "ru": "оранжевый / апельсин",
+   "tr": "наранха",
+   "group": null,
+   "set": "Цвета",
+   "chunk": "151–200"
   },
   {
    "id": "es3-v245",
@@ -2547,6 +3001,7 @@
    "ru": "коричневый",
    "tr": "марон",
    "group": null,
+   "set": "Цвета",
    "chunk": "201–250"
   },
   {
@@ -2557,6 +3012,7 @@
    "ru": "розовый",
    "tr": "роса",
    "group": null,
+   "set": "Цвета",
    "chunk": "201–250"
   },
   {
@@ -2567,6 +3023,7 @@
    "ru": "фиолетовый",
    "tr": "морадо",
    "group": null,
+   "set": "Цвета",
    "chunk": "201–250"
   },
   {
@@ -3100,16 +3557,6 @@
    "chunk": "251–300"
   },
   {
-   "id": "es3-v301",
-   "type": "vocab",
-   "es": "segundo",
-   "en": "second",
-   "ru": "секунда",
-   "tr": "сэгундо",
-   "group": null,
-   "chunk": "301–350"
-  },
-  {
    "id": "es3-v302",
    "type": "vocab",
    "es": "semana",
@@ -3207,6 +3654,7 @@
    "ru": "понедельник",
    "tr": "лунэс",
    "group": null,
+   "set": "Дни недели",
    "chunk": "301–350"
   },
   {
@@ -3217,6 +3665,7 @@
    "ru": "вторник",
    "tr": "мартэс",
    "group": null,
+   "set": "Дни недели",
    "chunk": "301–350"
   },
   {
@@ -3227,6 +3676,7 @@
    "ru": "среда",
    "tr": "миэрколэс",
    "group": null,
+   "set": "Дни недели",
    "chunk": "301–350"
   },
   {
@@ -3237,6 +3687,7 @@
    "ru": "четверг",
    "tr": "хуэбэс",
    "group": null,
+   "set": "Дни недели",
    "chunk": "301–350"
   },
   {
@@ -3247,6 +3698,7 @@
    "ru": "пятница",
    "tr": "биэрнэс",
    "group": null,
+   "set": "Дни недели",
    "chunk": "301–350"
   },
   {
@@ -3257,6 +3709,7 @@
    "ru": "суббота",
    "tr": "сабадо",
    "group": null,
+   "set": "Дни недели",
    "chunk": "301–350"
   },
   {
@@ -3267,6 +3720,7 @@
    "ru": "воскресенье",
    "tr": "доминго",
    "group": null,
+   "set": "Дни недели",
    "chunk": "301–350"
   },
   {
@@ -3277,6 +3731,7 @@
    "ru": "январь",
    "tr": "энэро",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
   },
   {
@@ -3287,6 +3742,7 @@
    "ru": "февраль",
    "tr": "фэбрэро",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
   },
   {
@@ -3297,6 +3753,7 @@
    "ru": "март",
    "tr": "марсо",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
   },
   {
@@ -3307,6 +3764,7 @@
    "ru": "апрель",
    "tr": "абрил",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
   },
   {
@@ -3317,6 +3775,7 @@
    "ru": "май",
    "tr": "майо",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
   },
   {
@@ -3327,6 +3786,7 @@
    "ru": "июнь",
    "tr": "хунио",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
   },
   {
@@ -3337,6 +3797,7 @@
    "ru": "июль",
    "tr": "хулио",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
   },
   {
@@ -3347,6 +3808,7 @@
    "ru": "август",
    "tr": "агосто",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
   },
   {
@@ -3357,6 +3819,7 @@
    "ru": "сентябрь",
    "tr": "сэптиэмбрэ",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
   },
   {
@@ -3367,6 +3830,7 @@
    "ru": "октябрь",
    "tr": "октубрэ",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
   },
   {
@@ -3377,6 +3841,7 @@
    "ru": "ноябрь",
    "tr": "нобиэмбрэ",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
   },
   {
@@ -3387,7 +3852,57 @@
    "ru": "декабрь",
    "tr": "дисиэмбрэ",
    "group": null,
+   "set": "Месяцы",
    "chunk": "301–350"
+  },
+  {
+   "id": "es3-v669",
+   "type": "vocab",
+   "es": "primavera",
+   "en": "spring",
+   "ru": "весна",
+   "tr": "примабэра",
+   "group": null,
+   "set": "Времена года"
+  },
+  {
+   "id": "es3-v670",
+   "type": "vocab",
+   "es": "verano",
+   "en": "summer",
+   "ru": "лето",
+   "tr": "бэрано",
+   "group": null,
+   "set": "Времена года"
+  },
+  {
+   "id": "es3-v671",
+   "type": "vocab",
+   "es": "otoño",
+   "en": "autumn",
+   "ru": "осень",
+   "tr": "отоньо",
+   "group": null,
+   "set": "Времена года"
+  },
+  {
+   "id": "es3-v672",
+   "type": "vocab",
+   "es": "invierno",
+   "en": "winter",
+   "ru": "зима",
+   "tr": "инбиэрно",
+   "group": null,
+   "set": "Времена года"
+  },
+  {
+   "id": "es3-v682",
+   "type": "vocab",
+   "es": "último",
+   "en": "last",
+   "ru": "последний",
+   "tr": "ультимо",
+   "group": null
   },
   {
    "id": "es3-v330",

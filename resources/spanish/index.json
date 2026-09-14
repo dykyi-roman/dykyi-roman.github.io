@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-10",
+ "updated": "2026-09-14",
  "stages": [
   {
    "id": "stage-1",
@@ -13,7 +13,7 @@
    "url": "spanish/stage-1.html",
    "file": "stage-1.json",
    "counts": {
-    "vocab": 98,
+    "vocab": 96,
     "pair": 0,
     "phrase": 52,
     "exchange": 0,
@@ -28,11 +28,11 @@
    "title": "Words",
    "titleRu": "Словарная база",
    "icon": "📚",
-   "goal": "Практическая база из 628 слов и коротких выражений для быстрого перехода к бытовому испанскому.",
+   "goal": "Практическая база из 679 слов и коротких выражений для быстрого перехода к бытовому испанскому.",
    "url": "spanish/stage-2.html",
    "file": "stage-3.json",
    "counts": {
-    "vocab": 635,
+    "vocab": 679,
     "pair": 0,
     "phrase": 0,
     "exchange": 0,
@@ -52,7 +52,7 @@
    "file": "stage-4.json",
    "counts": {
     "vocab": 0,
-    "pair": 175,
+    "pair": 172,
     "phrase": 187,
     "exchange": 4,
     "drill": 0

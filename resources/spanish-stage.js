@@ -4,9 +4,11 @@
    Both get a sticky two-row chip index that stays put on a phone instead of
    collapsing into a floating overlay; the index and the rules renderer itself
    live in spanish-core.js, because the hub renders the rules in a tab too.
-   Every list on a stage page — words, live examples and drills alike — carries
-   the pending checkbox and is split into Learned, Pending and the rest.
-   The rules page has no items and so has no checkboxes. */
+   Every list on a stage page — words, live examples and drills alike — is split
+   into Reference, Learned, Pending and the rest, and every row below the first
+   two carries the pending checkbox. Only a stage whose words belong to sets
+   has anything in Reference. The rules page has no items and so has no
+   checkboxes. */
 
 (function () {
     'use strict';
@@ -30,16 +32,18 @@
         return section;
     }
 
-    /* ---------- lists split into learned, pending and the rest ---------- */
+    /* ---------- lists split into reference, learned, pending and the rest ---------- */
 
-    // Every list is drawn as three sections in the same order: what the learned
-    // list holds, what this browser has marked as pending, then everything
-    // else. Each section has a header naming it and counting it, and the first
-    // two fold. Marking a row moves it across on the spot — the order holds
-    // without a reload — and a learned row does not move at all, because it is
-    // already above. Folded, a section is not drawn rather than hidden with CSS:
-    // otherwise a page of a long list could be spent on rows nobody sees.
-    // Long lists are still drawn a page at a time: stage 2 runs to 634 words.
+    // Every list is drawn as four sections in the same order: the tables of
+    // the stage's sets, what the learned list holds, what this browser has
+    // marked as pending, then everything else. Each section has a header
+    // naming it and counting it, and all but the last fold — Reference until
+    // it is first opened. Marking a row moves it across on the spot — the order
+    // holds without a reload — while a table row and a learned row do not move
+    // at all, because both are already above. Folded, a section is not drawn
+    // rather than hidden with CSS: otherwise a page of a long list could be
+    // spent on rows nobody sees. Long lists are still drawn a page at a time:
+    // stage 2 runs to 679 words.
     //
     // opts.zone  () -> the container for one section (div.sp-lex, div.sp-ex, ol)
     // opts.row   (item, mark) -> the row element
@@ -50,9 +54,11 @@
 
         var heads = {};
         var zones = {};
+        var counts = {};
         SP.SECTIONS.forEach(function (kind) {
             heads[kind] = SP.sectionDivider(kind);
             zones[kind] = opts.zone();
+            counts[kind] = 0;
             parent.appendChild(heads[kind].node);
             parent.appendChild(zones[kind]);
         });
@@ -61,18 +67,12 @@
         more.type = 'button';
         parent.appendChild(more);
 
-        var counts = { learned: 0, pending: 0, left: 0 };
         var plan = [];        // [{item, kind}] — what this pass draws, in order
         var shown = 0;
+        var lastSet = null;   // the table the last Reference row drawn belongs to
 
         function sync() {
-            var above = counts.learned + counts.pending;
-            SP.SECTIONS.forEach(function (kind) {
-                heads[kind].sync(counts[kind]);
-                // An empty section needs no header, and the rest of the list
-                // needs one only once something sits above it.
-                heads[kind].node.hidden = kind === 'left' ? above === 0 : counts[kind] === 0;
-            });
+            SP.syncSectionHeads(heads, counts);
             // An ordered section (the drills) numbers what is on screen, running
             // on from one section into the next.
             var n = 1;
@@ -95,19 +95,20 @@
 
         function buildRow(item) {
             var row, tag;
-            var learned = SP.learned.has(item.id);
-            var mark = learned ? SP.markSpacer() : SP.markButton(item, function (on) {
-                SP.setRowState(row, learned, on);
+            var kind = SP.sectionOf(item);
+            // Neither a table row nor a learned row can move, so neither has
+            // a checkbox to move it with.
+            var fixed = kind === 'reference' || kind === 'learned';
+            var mark = fixed ? SP.markSpacer() : SP.markButton(item, function (on) {
+                SP.setRowState(row, false, on);
                 SP.setSectionTag(tag, on ? 'pending' : 'left');
                 move(row, item, on);
             });
             row = opts.row(item, mark);
-            SP.setRowState(row, learned, SP.pending.has(item.id));
+            SP.setRowState(row, kind === 'learned', kind === 'pending');
             // Only in a search: browsing whole, the header above the row says
             // the same thing and the tag would just repeat it on every line.
-            if (opts.tagged) {
-                tag = SP.tagRow(row, learned ? 'learned' : (SP.pending.has(item.id) ? 'pending' : 'left'));
-            }
+            if (opts.tagged) tag = SP.tagRow(row, kind);
             return row;
         }
 
@@ -117,7 +118,15 @@
             var next = Math.min(plan.length, shown + (shown === 0 ? pageSize : pageStep));
             var frags = {};
             SP.SECTIONS.forEach(function (kind) { frags[kind] = document.createDocumentFragment(); });
-            for (var i = shown; i < next; i++) frags[plan[i].kind].appendChild(buildRow(plan[i].item));
+            for (var i = shown; i < next; i++) {
+                var entry = plan[i];
+                // Every table of Reference opens under its own name.
+                if (entry.kind === 'reference' && entry.item.set !== lastSet) {
+                    lastSet = entry.item.set;
+                    frags.reference.appendChild(SP.quietDivider(lastSet));
+                }
+                frags[entry.kind].appendChild(buildRow(entry.item));
+            }
             SP.SECTIONS.forEach(function (kind) { zones[kind].appendChild(frags[kind]); });
             shown = next;
             if (shown >= plan.length) {
@@ -131,12 +140,13 @@
         // A full redraw from the lists as they stand — the first render and
         // every fold after it.
         function build() {
-            var buckets = { learned: [], pending: [], left: [] };
-            items.forEach(function (item) {
-                var kind = SP.learned.has(item.id) ? 'learned'
-                    : (SP.pending.has(item.id) ? 'pending' : 'left');
-                buckets[kind].push(item);
-            });
+            var buckets = {};
+            SP.SECTIONS.forEach(function (kind) { buckets[kind] = []; });
+            items.forEach(function (item) { buckets[SP.sectionOf(item)].push(item); });
+            // Reference reads table by table; Learned comes in the order this
+            // page load dealt it, not the file's.
+            buckets.reference = SP.orderBySet(buckets.reference);
+            buckets.learned = SP.learned.shuffle(buckets.learned);
             plan = [];
             SP.SECTIONS.forEach(function (kind) {
                 SP.clear(zones[kind]);
@@ -145,6 +155,7 @@
                 buckets[kind].forEach(function (item) { plan.push({ item: item, kind: kind }); });
             });
             shown = 0;
+            lastSet = null;
             draw();
             sync();
         }

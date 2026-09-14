@@ -372,15 +372,6 @@
    "group": null
   },
   {
-   "id": "es1-v111",
-   "type": "vocab",
-   "es": "uno",
-   "en": "one",
-   "ru": "один",
-   "tr": "уно",
-   "group": null
-  },
-  {
    "id": "es1-v001",
    "type": "vocab",
    "es": "aquí",
@@ -405,24 +396,6 @@
    "en": "for / to",
    "ru": "для / чтобы",
    "tr": "па́ра",
-   "group": null
-  },
-  {
-   "id": "es1-v033",
-   "type": "vocab",
-   "es": "este",
-   "en": "this",
-   "ru": "этот",
-   "tr": "э́сте",
-   "group": null
-  },
-  {
-   "id": "es1-v034",
-   "type": "vocab",
-   "es": "esta",
-   "en": "this",
-   "ru": "эта",
-   "tr": "э́ста",
    "group": null
   },
   {
@@ -871,7 +844,7 @@
    "type": "vocab",
    "es": "entonces",
    "en": "then",
-   "ru": "тогда/затем",
+   "ru": "поэтому/тогда/затем",
    "tr": "энтонсэс",
    "group": null
   },
@@ -918,6 +891,15 @@
    "en": "any/whatever",
    "ru": "любой",
    "tr": "куалкиэра",
+   "group": null
+  },
+  {
+   "id": "es1-v033",
+   "type": "vocab",
+   "es": "este / esta",
+   "en": "this",
+   "ru": "этот / эта",
+   "tr": "э́сте / э́ста",
    "group": null
   },
   {

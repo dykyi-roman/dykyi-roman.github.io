@@ -1,14 +1,13 @@
 {
  "version": 1,
- "updated": "2026-09-13",
+ "updated": "2026-09-14",
  "comment": "Words considered learned. Hand-kept, like the stage files: this list is the same on every device, unlike the starred favourites, which live in the browser. The value of each entry is the Spanish it points at — documentation for whoever edits this by hand, and checked against the stage files by verify.js.",
  "ids": {
   "es1-v047": "si",
   "es1-v049": "yo",
   "es1-v027": "sin",
   "es1-v026": "con",
-  "es1-v033": "este",
-  "es1-v034": "esta",
+  "es1-v033": "este / esta",
   "es3-v130": "casa",
   "es3-v008": "muy",
   "es3-v012": "solo",

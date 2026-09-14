@@ -19,7 +19,7 @@ function read(file) {
     catch (e) { fail(file + ': invalid JSON — ' + e.message); return null; }
 }
 
-const TEXT_KEYS = ['es', 'en', 'ru', 'tr', 'prompt', 'answer', 'title', 'titleRu', 'goal', 't'];
+const TEXT_KEYS = ['es', 'en', 'ru', 'tr', 'prompt', 'answer', 'title', 'titleRu', 'goal', 't', 'set', 'name'];
 const BAD_MARKUP = /<[a-z/!][^>]*>|&[a-zA-Z]+;|&#x?[0-9a-fA-F]+;|\*\*/;
 
 // Walk every string in a structure and reject HTML, entities and stray markdown.
@@ -52,7 +52,11 @@ if (!Array.isArray(manifest.stages) || manifest.stages.length === 0) fail('index
 
 const seenIds = Object.create(null);
 const itemEs = Object.create(null);   // id -> its Spanish, for the learned.json cross-check
+const setEs = Object.create(null);    // id -> its Spanish, for every word of a Reference table
+const lexIds = Object.create(null);   // Spanish word -> ids of the lexicon entries that carry it
 let totalItems = 0;
+
+function wordKey(es) { return es.trim().toLowerCase(); }
 
 (manifest.stages || []).forEach(entry => {
     ['id', 'prefix', 'no', 'title', 'titleRu', 'url', 'file', 'counts'].forEach(k => {
@@ -84,6 +88,15 @@ let totalItems = 0;
     const groups = {};
     (stage.groups || []).forEach(g => { groups[g.name] = true; });
 
+    // The closed sets Reference draws as tables. Declared once, like the
+    // groups, and the order they are declared in is the order they are drawn.
+    const sets = {};
+    (stage.sets || []).forEach((set, i) => {
+        if (!set || typeof set.name !== 'string' || set.name.trim() === '') fail(entry.file + ': set #' + i + ' has no name');
+        else if (sets[set.name]) fail(entry.file + ': set "' + set.name + '" is declared twice');
+        else sets[set.name] = true;
+    });
+
     (stage.items || []).forEach((item, i) => {
         const at = entry.file + ' item ' + (item.id || '#' + i);
 
@@ -95,6 +108,7 @@ let totalItems = 0;
 
         if (item.id.indexOf(stage.prefix + '-') !== 0) fail(at + ': id does not start with prefix "' + stage.prefix + '-"');
         if (item.stage !== undefined) fail(at + ': "stage" must not be stored per item — the loader injects it');
+        if (item.setRank !== undefined) fail(at + ': "setRank" must not be stored per item — the loader injects it');
 
         const required = REQUIRED[item.type];
         if (!required) { fail(at + ': unknown type "' + item.type + '"'); return; }
@@ -128,6 +142,18 @@ let totalItems = 0;
         }
 
         if (item.group && !groups[item.group]) fail(at + ': group "' + item.group + '" is not declared in stage.groups');
+        if (item.set && !sets[item.set]) fail(at + ': set "' + item.set + '" is not declared in stage.sets');
+
+        // Every Spanish word a lexicon entry stands for, a pair's halves
+        // included — what a word of a set must not share with anything else.
+        if (item.type === 'vocab' || item.type === 'pair') {
+            [item.es, item.a && item.a.es, item.b && item.b.es].forEach(es => {
+                if (typeof es !== 'string' || !es.trim()) return;
+                const key = wordKey(es);
+                (lexIds[key] = lexIds[key] || []).push(item.id);
+            });
+        }
+        if (item.set) setEs[item.id] = item.es || '';
 
         counts[item.type] = (counts[item.type] || 0) + 1;
         totalItems += 1;
@@ -170,6 +196,18 @@ if (rules) {
     checkStrings(rules, 'rules.json');
 }
 
+/* ---------- a word of a set lives in its table and nowhere else ---------- */
+
+// Reference gathers the closed sets — days, months, numbers — into tables so
+// that their words are not also scattered through the lists. The same Spanish
+// in another entry, or in either half of a pair, in any stage, is a duplicate.
+const setIds = Object.keys(setEs);
+setIds.forEach(id => {
+    const others = (lexIds[wordKey(setEs[id])] || []).filter(other => other !== id);
+    if (others.length) fail(id + ' ("' + setEs[id] + '") is in a set but also lives in ' + others.join(', '));
+});
+if (setIds.length) notes.push(setIds.length + ' in sets');
+
 /* ---------- learned.json: the hand-kept list of what is learned ---------- */
 
 // It holds ids, not words, so a word can be reworded without losing its place
@@ -187,6 +225,9 @@ if (learned) {
             if (typeof es !== 'string' || !es) { fail('learned.json: ' + id + ' has no Spanish beside it'); return; }
             if (es !== itemEs[id]) {
                 fail('learned.json: ' + id + ' says ' + JSON.stringify(es) + ' but the item is ' + JSON.stringify(itemEs[id]));
+            }
+            if (setEs[id] !== undefined) {
+                fail('learned.json: ' + id + ' belongs to a set — Reference wins, so it would never show as learned');
             }
         });
         checkStrings(learned, 'learned.json');

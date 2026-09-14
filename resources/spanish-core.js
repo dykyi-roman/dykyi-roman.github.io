@@ -161,8 +161,16 @@
     // and redraws itself, so no two lists can disagree about what is showing.
     var foldListeners = [];
 
+    // How a section opens while nothing is on record for it. Reference holds
+    // tables that are looked up rather than worked through, so it starts folded
+    // away; the first fold or unfold is recorded like any other and wins.
+    var FOLDED_BY_DEFAULT = { reference: true };
+
     SP.view = {
-        folded: function (kind) { return !!pendingRecord().fold[kind]; },
+        folded: function (kind) {
+            var fold = pendingRecord().fold;
+            return fold[kind] === undefined ? !!FOLDED_BY_DEFAULT[kind] : !!fold[kind];
+        },
 
         setFolded: function (kind, on) {
             pendingRecord().fold[kind] = !!on;
@@ -255,12 +263,18 @@
     function buildStage(stage, entry) {
         if (!stage || !Array.isArray(stage.items)) throw new Error(entry.file + ': no items');
         var seen = Object.create(null);
+        // A table's place among the stage's sets is the order Reference draws
+        // them in; a set the stage forgot to declare goes after the rest.
+        var sets = stage.sets || [];
+        var setRank = Object.create(null);
+        sets.forEach(function (set, i) { setRank[set.name] = i; });
         stage.items.forEach(function (item) {
             if (!item.id || !item.type) throw new Error(entry.file + ': incomplete item');
             if (seen[item.id]) throw new Error(entry.file + ': duplicate id ' + item.id);
             seen[item.id] = true;
             item.stage = stage.no;          // injected, never stored in the file
             item.stageId = stage.id;
+            if (item.set) item.setRank = item.set in setRank ? setRank[item.set] : sets.length;
         });
         (stage.notes || []).forEach(function (note) { note.stage = stage.no; });
         stage.icon = entry.icon;        // lives in the manifest, injected like item.stage
@@ -306,8 +320,37 @@
         });
     };
 
+    // Each learned id draws its place in the Learned section once per page load.
+    var learnedPlace = Object.create(null);
+
+    function placeOf(id) {
+        if (!(id in learnedPlace)) learnedPlace[id] = Math.random();
+        return learnedPlace[id];
+    }
+
     SP.learned = {
-        has: function (id) { return !!(learnedIds && learnedIds[id]); }
+        has: function (id) { return !!(learnedIds && learnedIds[id]); },
+
+        // A copy of `items` in the order this page load dealt them. Learned rows
+        // are covered for recall, and in the order of the file a row's
+        // neighbours would give its answer away, so every load deals them
+        // afresh — but only once: while the page is open a redraw (a fold, a
+        // filter, "Show more", a search) keeps every row where it was. `runOf`,
+        // when given, keeps each run of the incoming order together and
+        // shuffles only inside it: the hub's list has a seam at every change of
+        // stage and type, and a shuffle across them would put one between
+        // almost every two rows.
+        shuffle: function (items, runOf) {
+            var runs = Object.create(null);
+            var next = 0;
+            return items.map(function (item) {
+                var run = runOf ? runOf(item) : '';
+                if (!(run in runs)) runs[run] = next++;
+                return { item: item, run: runs[run], place: placeOf(item.id) };
+            }).sort(function (a, b) {
+                return a.run - b.run || a.place - b.place;
+            }).map(function (entry) { return entry.item; });
+        }
     };
 
     /* ---------- item helpers ---------- */
@@ -353,7 +396,7 @@
     function searchText(item) {
         if (item._search === undefined) {
             item._search = SP.normalize([
-                item.es, item.tr, item.en, item.ru, item.prompt, item.answer, item.group
+                item.es, item.tr, item.en, item.ru, item.prompt, item.answer, item.group, item.set
             ].filter(Boolean).join(' '));
         }
         return item._search;
@@ -368,7 +411,13 @@
 
     // A search field that reports every change, settled so a fast typist does
     // not redraw a long list on every letter.
+    // It draws its own ✕. The one a type="search" field comes with shows only
+    // while the field has the focus or the pointer — on a phone, only while the
+    // keyboard is up, so once that is put away the results have nothing left
+    // to close them with. This one stays for as long as there is text (the CSS
+    // hides it by :placeholder-shown), and the native one is hidden.
     SP.searchBox = function (placeholder, onChange) {
+        var box = SP.el('div', 'sp-search-box');
         var input = SP.el('input', 'sp-search');
         input.type = 'search';
         input.placeholder = placeholder;
@@ -378,8 +427,33 @@
             clearTimeout(timer);
             timer = setTimeout(onChange, 140);
         });
+
+        var clearBtn = SP.el('button', 'sp-search-clear');
+        clearBtn.type = 'button';
+        clearBtn.title = 'Clear the search';
+        clearBtn.setAttribute('aria-label', 'Clear the search');
+        clearBtn.appendChild(crossIcon());
+
+        // A tap leaves the focus where it was: with the keyboard up it stays up
+        // for the next word, and once put away it is not brought back.
+        var hadFocus = false;
+        clearBtn.addEventListener('pointerdown', function () { hadFocus = document.activeElement === input; });
+        clearBtn.addEventListener('mousedown', function (e) { e.preventDefault(); });
+        clearBtn.addEventListener('click', function (e) {
+            clearTimeout(timer);
+            input.value = '';
+            // Pressed from the keyboard (detail 0), the button has just hidden
+            // itself from under the focus, so the focus goes back to the field.
+            if (hadFocus || e.detail === 0) input.focus();
+            hadFocus = false;
+            onChange();
+        });
+
+        box.appendChild(input);
+        box.appendChild(clearBtn);
         return {
-            node: input,
+            node: box,
+            input: input,
             query: function () { return SP.normalize(input.value.trim()); },
             clear: function () { input.value = ''; }
         };
@@ -541,6 +615,21 @@
         return svg;
     };
 
+    // An arrow dropping into a tray, the usual sign for "download".
+    SP.downloadIcon = function () {
+        var svg = document.createElementNS(SVG_NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('class', 'sp-download-icon');
+        var arrow = document.createElementNS(SVG_NS, 'path');
+        arrow.setAttribute('d', 'M12 3v12M7 10l5 5 5-5');
+        var tray = document.createElementNS(SVG_NS, 'path');
+        tray.setAttribute('d', 'M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3');
+        svg.appendChild(arrow);
+        svg.appendChild(tray);
+        return svg;
+    };
+
     // A crossed-out eye: the lit segment beside it is the side that is hidden.
     function eyeOffIcon() {
         var svg = document.createElementNS(SVG_NS, 'svg');
@@ -561,6 +650,17 @@
         return svg;
     }
 
+    // The ✕ that empties the search field.
+    function crossIcon() {
+        var svg = document.createElementNS(SVG_NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('aria-hidden', 'true');
+        var path = document.createElementNS(SVG_NS, 'path');
+        path.setAttribute('d', 'M6 6l12 12M18 6L6 18');
+        svg.appendChild(path);
+        return svg;
+    }
+
     function chevronIcon() {
         var svg = document.createElementNS(SVG_NS, 'svg');
         svg.setAttribute('viewBox', '0 0 24 24');
@@ -572,14 +672,16 @@
         return svg;
     }
 
-    // Every list is split into the same three sections, in this order.
-    SP.SECTIONS = ['learned', 'pending', 'left'];
-    SP.SECTION_LABEL = { learned: 'Learned', pending: 'Pending', left: 'Left' };
+    // Every list is split into the same four sections, in this order. Reference
+    // is the stage's closed sets — days, months, numbers — drawn as tables; the
+    // other three hold the words worked through one by one.
+    SP.SECTIONS = ['reference', 'learned', 'pending', 'left'];
+    SP.SECTION_LABEL = { reference: 'Reference', learned: 'Learned', pending: 'Pending', left: 'Left' };
 
     // The header of one section: a dashed line naming what follows and how much
-    // of it there is. The first two fold — the rest of the list is what you are
-    // working through, so it has nothing to fold away. Returns the node plus
-    // the one call that keeps the caption true.
+    // of it there is. All but the last fold — the rest of the list is what you
+    // are working through, so it has nothing to fold away. Returns the node
+    // plus the one call that keeps the caption true.
     SP.sectionDivider = function (kind) {
         var foldable = kind !== 'left';
         var node = SP.el(foldable ? 'button' : 'div', 'sp-divider' + (foldable ? '' : ' is-quiet'));
@@ -613,13 +715,33 @@
         };
     };
 
+    // Keeps the headers of one list true: each counts its section, an empty
+    // section shows none, and the rest of the list gets one only once something
+    // sits above it — Left comes last, so everything before it is above.
+    SP.syncSectionHeads = function (heads, counts) {
+        var above = 0;
+        SP.SECTIONS.forEach(function (kind) {
+            heads[kind].sync(counts[kind]);
+            heads[kind].node.hidden = kind === 'left' ? above === 0 : counts[kind] === 0;
+            above += counts[kind];
+        });
+    };
+
+    // The same line without the fold, naming what follows it: a table inside
+    // Reference, or on the hub a run of one type of entry.
+    SP.quietDivider = function (label) {
+        var node = SP.el('div', 'sp-divider is-quiet');
+        node.appendChild(SP.el('span', 'sp-divider-label', label));
+        return node;
+    };
+
     // Closes a row with the checkbox, beside the speak button, and flags the row
     // so the CSS gives its grid the extra control column. Call it last: the
     // button goes at the tail of the row, in the DOM as on the screen.
     // A row that can be marked is also a row you can test yourself on, so the
     // reveal listener goes on here too — it does nothing until the row is in
-    // one of the two top sections, and the mark and speak buttons stop the
-    // click before it reaches the row.
+    // Learned or Pending, and the mark and speak buttons stop the click before
+    // it reaches the row.
     SP.attachMark = function (row, mark) {
         if (!mark) return row;
         row.classList.add('has-mark');
@@ -653,10 +775,31 @@
         });
     }
 
-    // Which of the three sections a row belongs to, in one place: learned wins
-    // over pending, so a word that is in both shows once, at the top. A row in
-    // either of them covers one side (SP.cover) until it is tapped, and takes
-    // the focus so a keyboard can do the same.
+    // Which section an entry is drawn in, decided here and nowhere else. A word
+    // of one of the stage's sets lives in Reference alone, whatever the two
+    // lists say about it: it is a row of a table, not a word to tick off.
+    // Otherwise learned wins over pending, so a word in both shows once, at
+    // the top.
+    SP.sectionOf = function (item) {
+        if (item.set) return 'reference';
+        if (SP.learned.has(item.id)) return 'learned';
+        return SP.pending.has(item.id) ? 'pending' : 'left';
+    };
+
+    // Reference reads table by table, in the order the stage declares its sets,
+    // and each table in the order of the file. The index in the incoming order
+    // breaks the ties, so the sort is stable.
+    SP.orderBySet = function (items) {
+        return items.map(function (item, i) {
+            return { item: item, i: i };
+        }).sort(function (a, b) {
+            return a.item.stage - b.item.stage || a.item.setRank - b.item.setRank || a.i - b.i;
+        }).map(function (entry) { return entry.item; });
+    };
+
+    // Paints a row for the section it is in. A row in Learned or Pending covers
+    // one side (SP.cover) until it is tapped, and takes the focus so a keyboard
+    // can do the same; a Reference row covers nothing, as the rest does not.
     SP.setRowState = function (row, learned, pending) {
         row.classList.toggle('is-learned', learned);
         row.classList.toggle('is-pending', !learned && pending);
@@ -670,9 +813,9 @@
         return row;
     };
 
-    // In a search the three sections can be far apart on the screen — and a
-    // single match can be the only row under its header — so a found row says
-    // on itself which list it is in.
+    // In a search the sections can be far apart on the screen — and a single
+    // match can be the only row under its header — so a found row says on
+    // itself which list it is in.
     SP.setSectionTag = function (tag, kind) {
         if (!tag) return tag;
         tag.className = 'sp-tag is-' + kind;
@@ -696,8 +839,9 @@
     };
 
     // A learned row carries no checkbox: it is already at the top, and marking
-    // it as pending on top of that moves nothing. It keeps the column all
-    // the same, so the table stays lined up across the sections.
+    // it as pending on top of that moves nothing. Nor does a row of a Reference
+    // table, which is not a word to tick off. Either keeps the column all the
+    // same, so the table stays lined up across the sections.
     SP.markSpacer = function () {
         var span = SP.el('span', 'sp-mark is-empty');
         span.setAttribute('aria-hidden', 'true');

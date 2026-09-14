@@ -64,7 +64,7 @@
      "t": "Всего пар: "
     },
     {
-     "t": "175",
+     "t": "172",
      "s": "b"
     },
     {
@@ -3597,28 +3597,6 @@
    }
   },
   {
-   "id": "es4-p157",
-   "type": "pair",
-   "es": "primero / último",
-   "en": "first / last",
-   "ru": "первый / последний",
-   "tr": "приме́ро / у́льтимо",
-   "group": "Время и направление",
-   "pairKind": "opposite",
-   "a": {
-    "es": "primero",
-    "en": "first",
-    "ru": "первый",
-    "tr": "приме́ро"
-   },
-   "b": {
-    "es": "último",
-    "en": "last",
-    "ru": "последний",
-    "tr": "у́льтимо"
-   }
-  },
-  {
    "id": "es4-p158",
    "type": "pair",
    "es": "próximo / pasado",
@@ -3660,50 +3638,6 @@
     "en": "night",
     "ru": "ночь",
     "tr": "но́че"
-   }
-  },
-  {
-   "id": "es4-p160",
-   "type": "pair",
-   "es": "verano / invierno",
-   "en": "summer / winter",
-   "ru": "лето / зима",
-   "tr": "бера́но / инбье́рно",
-   "group": "Время и направление",
-   "pairKind": "opposite",
-   "a": {
-    "es": "verano",
-    "en": "summer",
-    "ru": "лето",
-    "tr": "бера́но"
-   },
-   "b": {
-    "es": "invierno",
-    "en": "winter",
-    "ru": "зима",
-    "tr": "инбье́рно"
-   }
-  },
-  {
-   "id": "es4-p161",
-   "type": "pair",
-   "es": "primavera / otoño",
-   "en": "spring / autumn",
-   "ru": "весна / осень",
-   "tr": "примабе́ра / ото́ньо",
-   "group": "Время и направление",
-   "pairKind": "opposite",
-   "a": {
-    "es": "primavera",
-    "en": "spring",
-    "ru": "весна",
-    "tr": "примабе́ра"
-   },
-   "b": {
-    "es": "otoño",
-    "en": "autumn",
-    "ru": "осень",
-    "tr": "ото́ньо"
    }
   },
   {

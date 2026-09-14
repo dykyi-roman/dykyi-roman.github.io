@@ -296,9 +296,10 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     letter-spacing: 0.06em;
 }
 
-/* The same line without the fold: the header of the rest of the list, and the
-   seam where one run of the sorted browse list turns into the next — words,
-   then the sentences after them. Quieter and shorter, and not a button. */
+/* The same line without the fold: the header of the rest of the list, the name
+   of each table inside Reference, and the seam where one run of the sorted
+   browse list turns into the next — words, then the sentences after them.
+   Quieter and shorter, and not a button. */
 .sp-divider.is-quiet {
     min-height: 32px;
     cursor: default;
@@ -466,6 +467,7 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
     white-space: nowrap;
 }
 
+.sp-tag.is-reference { color: var(--color-info); }
 .sp-tag.is-learned { color: var(--color-success); }
 .sp-tag.is-pending { color: var(--color-primary); }
 .sp-tag.is-left { color: var(--color-text-light); }
@@ -670,21 +672,64 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 .sp-search::placeholder { color: var(--color-text-light); }
 .sp-search:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 
+/* The field brings its own ✕ (SP.searchBox). The native one shows only while
+   the field has the focus or the pointer, so on a phone it went away with the
+   keyboard; it is hidden, or a desktop would draw two. Ours stays for as long
+   as there is text — :placeholder-shown is what says there is none, so no way
+   of emptying the field can leave it behind — over the right end of the
+   field, whose padding keeps the text from running under it. */
+.sp-search-box { position: relative; display: flex; min-width: 0; }
+.sp-search-box .sp-search { flex: 1 1 auto; padding-right: 44px; }
+.sp-search::-webkit-search-cancel-button { -webkit-appearance: none; display: none; }
+
+.sp-search-clear {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 0 8px 8px 0;
+    background: transparent;
+    color: var(--color-text-light);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: color var(--transition-fast);
+}
+
+.sp-search:placeholder-shown + .sp-search-clear { display: none; }
+.sp-search-clear:hover { color: var(--color-primary); }
+.sp-search-clear:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -4px; }
+
+.sp-search-clear svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+}
+
 /* In a sticky bar — the hub's and a stage page's alike — it runs above the
    chips, sharing the strip only with the switch of the side a covered row
    hides. */
 .sp-search-row { display: flex; gap: var(--spacing-xs); margin-bottom: var(--spacing-xs); }
-.sp-search-row .sp-search { flex: 1 1 auto; }
+.sp-search-row .sp-search-box { flex: 1 1 auto; }
 
 /* The downloads and the copy button wrap as one block. Laid out one by one, a
    phone wide enough to take the downloads beside Reset (430px) would leave
    the copy button alone on the line below. */
 .sp-outputs { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-xs); }
 
-/* The three export slices travel together and wrap as one block, so the row
-   never breaks between a count and what it counts. */
+/* The three export slices travel together and wrap as one block. Each is a
+   download icon and the name of its slice, with no "Export CSV" caption before
+   them: the icon says what the buttons do, and the tooltip says it is a CSV. */
 .sp-export { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-xs); }
-.sp-export-label { color: var(--color-text-light); font-size: 0.8rem; }
 
 /* Downloading a file and copying to the clipboard are two different errands;
    the rule between them says so. They travel as one group, so a wrap never
@@ -698,7 +743,8 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
     background: var(--color-border);
 }
 
-.sp-copy-icon {
+.sp-copy-icon,
+.sp-download-icon {
     flex: 0 0 auto;
     width: 15px;
     height: 15px;
@@ -710,13 +756,13 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 }
 
 /* Below 700px that block has the line under the topic filter to itself, and
-   it is not a wide one: the label drops its verb and the quiet buttons most
-   of their side padding. That leaves room for a three-digit pending count on
-   a 360px screen — with the full label a 393px iPhone had not a pixel to
-   spare, and the copy button dropped to a line of its own. */
+   it is not a wide one: the quiet buttons give up most of their side padding
+   and draw the icon closer to the label. That leaves room for a three-digit
+   pending count on a 360px screen — at the full 5px gap the four icons cost
+   two pixels too many there, and the copy button dropped to a line of its
+   own. */
 @media (max-width: 699px) {
-    .sp-export-verb { display: none; }
-    .sp-btn.quiet { padding: 4px 6px; }
+    .sp-btn.quiet { padding: 4px 6px; gap: 3px; }
 }
 
 .sp-empty { color: var(--color-text-light); padding: var(--spacing-md) 0; }
