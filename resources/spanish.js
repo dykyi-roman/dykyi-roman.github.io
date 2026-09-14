@@ -1,16 +1,22 @@
 /* The Spanish trainer on pages/spanish.html.
-   A stage chip picks the pool; five modes work over it — a browsable list,
-   Leitner flashcards, a multiple-choice quiz, a listening drill and the
-   phonetics/grammar rules, rendered in place rather than on their own page.
-   Progress lives under its own localStorage keys and never touches the ones
-   resources/learn.js owns. */
+   A stage chip picks the pool; four modes work over it — a browsable list,
+   Leitner flashcards, a multiple-choice quiz and a listening drill. Two more
+   are reference and stand outside any scope: the phonetics/grammar rules and
+   the conversational patterns, each rendered in place behind a chip of its
+   own. Progress lives under its own localStorage keys and never touches the
+   ones resources/learn.js owns. */
 
 (function () {
     'use strict';
 
     var SP = window.SP;
 
-    var MODES = ['browse', 'cards', 'quiz', 'listen', 'rules'];   // the browse list leads and opens by default
+    var MODES = ['browse', 'cards', 'quiz', 'listen', 'rules', 'patterns'];   // the browse list leads and opens by default
+
+    // The modes read rather than studied. Their buttons head the chip row, not
+    // the tab strip, and while one is open no stage chip is lit.
+    var REFERENCE_MODES = { rules: true, patterns: true };
+
     var BOX_INTERVALS = { 1: 0, 2: 1, 3: 3, 4: 7, 5: 21 };
     var NEW_PER_BATCH = 10;
     var QUIZ_LENGTH = 10;
@@ -70,27 +76,32 @@
 
     /* ---------- chips and tabs ---------- */
 
+    // A chip that opens a reference panel in place rather than a scope.
+    function referenceChip(mode, entry, label) {
+        var chip = SP.el('button', 'sp-chip');
+        chip.type = 'button';
+        chip.id = 'sp-' + mode + '-chip';
+        chip.title = entry.titleRu;
+        // In portrait the label is hidden and only the icon is left, so the
+        // name has to be spelled out for anything that reads the page.
+        chip.setAttribute('aria-label', label);
+        var icon = SP.iconSpan(entry.icon);
+        if (icon) chip.appendChild(icon);
+        chip.appendChild(SP.el('span', 'sp-chip-label', label));
+        chip.addEventListener('click', function () { enterMode(mode); });
+        return chip;
+    }
+
     function renderStageChips() {
         var strip = byId('sp-stages');
         SP.clear(strip);
 
         // Rules are reference rather than a study scope, but they keep the slot
         // they have always had at the head of the row — now a button that opens
-        // the panel in place instead of a link off the page.
-        if (manifest.rules) {
-            var rulesChip = SP.el('button', 'sp-chip');
-            rulesChip.type = 'button';
-            rulesChip.id = 'sp-rules-chip';
-            rulesChip.title = manifest.rules.titleRu;
-            // In portrait the label is hidden and only the icon is left, so the
-            // name has to be spelled out for anything that reads the page.
-            rulesChip.setAttribute('aria-label', 'Rules');
-            var rulesIcon = SP.iconSpan(manifest.rules.icon);
-            if (rulesIcon) rulesChip.appendChild(rulesIcon);
-            rulesChip.appendChild(SP.el('span', 'sp-chip-label', 'Rules'));
-            rulesChip.addEventListener('click', function () { enterMode('rules'); });
-            strip.appendChild(rulesChip);
-        }
+        // the panel in place instead of a link off the page. The patterns are
+        // reference of the same kind and take the slot right after them.
+        if (manifest.rules) strip.appendChild(referenceChip('rules', manifest.rules, 'Rules'));
+        if (manifest.patterns) strip.appendChild(referenceChip('patterns', manifest.patterns, 'Patterns'));
 
         // The stages follow and "All stages" closes the row: it is the widest
         // scope, not the starting point.
@@ -126,8 +137,9 @@
                 savePrefs();
                 renderStageChips();
                 // Picking a scope means you want to study it, so step out of
-                // the rules — otherwise the click would change nothing on screen.
-                var next = currentMode === 'rules' ? 'browse' : currentMode;
+                // the rules or the patterns — otherwise the click would change
+                // nothing on screen.
+                var next = REFERENCE_MODES[currentMode] ? 'browse' : currentMode;
                 loadScope().then(function () { enterMode(next, true); })
                     .catch(function (e) { SP.showError('sp-error', e); });
             });
@@ -137,14 +149,17 @@
         syncChipActive();
     }
 
-    // One highlight per row: reading the rules is not a scope, so while that
-    // panel is open the stage chips stay quiet and Rules carries the mark.
+    // One highlight per row: reading the rules or the patterns is not a scope,
+    // so while such a panel is open the stage chips stay quiet and its own
+    // chip carries the mark.
     function syncChipActive() {
-        var readingRules = currentMode === 'rules';
-        var rules = byId('sp-rules-chip');
-        if (rules) rules.classList.toggle('active', readingRules);
+        var reading = !!REFERENCE_MODES[currentMode];
+        Object.keys(REFERENCE_MODES).forEach(function (mode) {
+            var chip = byId('sp-' + mode + '-chip');
+            if (chip) chip.classList.toggle('active', currentMode === mode);
+        });
         document.querySelectorAll('#sp-stages .sp-chip[data-stage]').forEach(function (chip) {
-            chip.classList.toggle('active', !readingRules && chip.dataset.stage === String(prefs.stage));
+            chip.classList.toggle('active', !reading && chip.dataset.stage === String(prefs.stage));
         });
     }
 
@@ -153,7 +168,7 @@
         SP.clear(strip);
         var labels = { browse: 'Browse', cards: 'Flashcards', quiz: 'Quiz', listen: 'Listening' };
         MODES.forEach(function (mode) {
-            if (mode === 'rules') return;          // its button sits in the chip row
+            if (REFERENCE_MODES[mode]) return;     // its button sits in the chip row
             if (mode === 'listen' && !SP.tts.available()) return;
             var tab = SP.el('button', 'sp-tab', labels[mode]);
             tab.type = 'button';
@@ -191,6 +206,7 @@
         else if (mode === 'quiz') initQuiz();
         else if (mode === 'listen') initListen();
         else if (mode === 'rules') initRules();
+        else if (mode === 'patterns') initPatterns();
         else initCards();
     }
 
@@ -1096,8 +1112,8 @@
 
     // The field sits above the stage chips, not inside the browse filters,
     // because it is not a filter of the current scope but a way out of it:
-    // a search looks through every stage at once. Rules are prose, not
-    // entries, and stay out of it.
+    // a search looks through every stage at once. Rules and patterns are
+    // reference, not entries, and stay out of it.
     // Where the search took over from, so closing the field can hand it back.
     var searchReturn = null;
 
@@ -1167,6 +1183,151 @@
             SP.renderRules(byId('panel-rules'), rules);
             rulesRendered = true;
         }).catch(function (e) { SP.showError('sp-error', e); });
+    }
+
+    /* ---------- patterns ---------- */
+
+    // Conversational patterns — no …, sino …; acabar de + глагол — kept in
+    // patterns.json and read like the rules: theme by theme, each pattern a
+    // card, then the look-alike patterns side by side and the ones to learn
+    // first. A chip index of the themes heads the panel, as the rules have.
+    var patternsRendered = false;
+
+    function initPatterns() {
+        if (patternsRendered) return;
+        SP.loadPatterns().then(function (data) {
+            renderPatterns(byId('panel-patterns'), data);
+            patternsRendered = true;
+        }).catch(function (e) { SP.showError('sp-error', e); });
+    }
+
+    // A formula reads as fixed Spanish with slots in it: "no + A, sino + B",
+    // "llevar + время + -ando / -iendo". A slot is a lone capital letter or a
+    // Cyrillic word; the Spanish around it is what gets learned as it is, so
+    // that is the part lit up. The joiners and brackets stay plain.
+    var FORMULA_WORD = /([^\s+,.…¿?¡!\/()]+)/;
+    var SLOT = /^(?:[A-Z]|[\u0400-\u04FF][\u0400-\u04FF-]*)$/;
+
+    function renderFormula(node, text) {
+        // split() with a capture puts the words at the odd places.
+        String(text).split(FORMULA_WORD).forEach(function (part, i) {
+            if (!part) return;
+            if (i % 2 === 0) node.appendChild(document.createTextNode(part));
+            else node.appendChild(SP.el('span', SLOT.test(part) ? 'sp-slot' : 'sp-fixed', part));
+        });
+        return node;
+    }
+
+    function patternNote(kind, label, text) {
+        var p = SP.el('p', 'sp-pat-note is-' + kind);
+        p.appendChild(SP.el('span', 'sp-pat-label', label));
+        p.appendChild(document.createTextNode(text));
+        return p;
+    }
+
+    function patternExample(line) {
+        var row = SP.el('div', 'sp-pat-ex');
+        SP.renderFramed(row.appendChild(SP.el('div', 'sp-pat-ex-es')), line);
+        row.appendChild(SP.el('div', 'sp-pat-ex-ru', line.ru));
+        var speak = SP.speakButton(line.es);
+        if (speak) row.appendChild(speak);
+        return row;
+    }
+
+    // One pattern as a card: the formula and its meaning on top, then how to
+    // build it, what it says word for word and — where Russian logic leads
+    // astray — the trap, with two examples beside them. From 700px up the
+    // explanation and the examples stand side by side, the way the columns of
+    // a table row would. The id is what the top list links to.
+    function patternCard(item, topTotal) {
+        var card = SP.el('div', 'sp-pat');
+        card.id = item.id;
+
+        var head = SP.el('div', 'sp-pat-head');
+        renderFormula(head.appendChild(SP.el('div', 'sp-pat-es')), item.es);
+        head.appendChild(SP.el('div', 'sp-pat-ru', item.ru));
+        if (item.top) head.appendChild(SP.topBadge(item.top, topTotal));
+        if (item.trap) {
+            // The trap note below says it in words; the mark is for the eye.
+            var flag = SP.el('span', 'sp-badge is-trap', '⚠');
+            flag.title = 'Русская логика здесь подводит';
+            flag.setAttribute('aria-hidden', 'true');
+            head.appendChild(flag);
+        }
+        card.appendChild(head);
+
+        var info = SP.el('div', 'sp-pat-info');
+        info.appendChild(patternNote('how', 'Как работает', item.how));
+        if (item.lit) info.appendChild(patternNote('lit', 'Буквально', item.lit));
+        if (item.trap) info.appendChild(patternNote('trap', 'Русская логика другая', item.trap));
+        card.appendChild(info);
+
+        var examples = SP.el('div', 'sp-pat-exs');
+        (item.ex || []).forEach(function (line) { examples.appendChild(patternExample(line)); });
+        card.appendChild(examples);
+        return card;
+    }
+
+    function patternSection(id, title) {
+        var section = SP.el('section', 'sp-group');
+        section.id = id;
+        section.appendChild(SP.el('h3', 'sp-group-title', title));
+        return section;
+    }
+
+    // No intro above the index: the chip that opens the panel already names
+    // it, and the marks explain themselves in their tooltips.
+    function renderPatterns(host, data) {
+        var index = [];
+        SP.clear(host);
+
+        var bar = SP.el('div', 'sp-bar');
+        host.appendChild(bar);
+
+        var body = SP.el('div');
+        host.appendChild(body);
+
+        // The top list is gathered first: every star on a card names its place
+        // out of how many.
+        var top = [];
+        data.themes.forEach(function (theme) {
+            theme.items.forEach(function (item) { if (item.top) top.push(item); });
+        });
+        top.sort(function (a, b) { return a.top - b.top; });
+
+        data.themes.forEach(function (theme) {
+            var label = theme.no + '. ' + theme.title;
+            var section = patternSection(theme.id, label);
+            var cards = SP.el('div', 'sp-lex');
+            theme.items.forEach(function (item) { cards.appendChild(patternCard(item, top.length)); });
+            section.appendChild(cards);
+            body.appendChild(section);
+            index.push({ row: 'main', label: label, target: theme.id });
+        });
+
+        if (data.contrasts && data.contrasts.length) {
+            var contrasts = patternSection('esp-contrasts', 'Похожие шаблоны: в чём разница');
+            data.contrasts.forEach(function (note) { contrasts.appendChild(SP.renderNote(note)); });
+            body.appendChild(contrasts);
+            index.push({ row: 'main', label: 'Сравнения', target: contrasts.id });
+        }
+
+        if (top.length) {
+            var topLabel = 'ТОП-' + top.length;
+            var topSection = patternSection('esp-top', topLabel + ': выучить первыми');
+            topSection.appendChild(SP.renderTopList(top.map(function (item) {
+                return {
+                    name: renderFormula(SP.el('span', 'sp-pat-es'), item.es),
+                    href: '#' + item.id,
+                    meaning: item.ru,
+                    short: item.short
+                };
+            })));
+            body.appendChild(topSection);
+            index.push({ row: 'main', label: topLabel, target: topSection.id });
+        }
+
+        SP.buildIndex(bar, index, true);
     }
 
     /* ---------- boot ---------- */

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-10",
+ "updated": "2026-09-14",
  "title": "Spanish rules",
  "titleRu": "Правила фонетики и грамматики (Castellano)",
  "intro": [
@@ -2977,6 +2977,16 @@
    "id": "esr-g009",
    "no": 9,
    "title": "Род существительных и артикли",
+   "top": 10,
+   "gist": "у каждого слова свой род, и учить его надо сразу с артиклем: el problema, la mano",
+   "short": {
+    "es": "Un café y una tostada, por favor.",
+    "ru": "Кофе и тост, пожалуйста.",
+    "frame": [
+     "Un",
+     "una"
+    ]
+   },
    "blocks": [
     {
      "k": "p",
@@ -3850,6 +3860,15 @@
    "id": "esr-g013",
    "no": 13,
    "title": "Три спряжения глаголов",
+   "top": 1,
+   "gist": "окончание глагола говорит, кто действует: hablo, hablas, habla — «я» и «ты» можно не произносить",
+   "short": {
+    "es": "Vivo en Valencia.",
+    "ru": "Я живу в Валенсии.",
+    "frame": [
+     "Vivo"
+    ]
+   },
    "blocks": [
     {
      "k": "p",
@@ -4260,6 +4279,15 @@
    "id": "esr-g014",
    "no": 14,
    "title": "4 ключевых неправильных глагола",
+   "top": 2,
+   "gist": "ser, estar, tener и ir — самые частые глаголы, их формы учатся наизусть: soy, estoy, tengo, voy",
+   "short": {
+    "es": "Tengo una reunión a las diez.",
+    "ru": "У меня встреча в десять.",
+    "frame": [
+     "Tengo"
+    ]
+   },
    "blocks": [
     {
      "k": "table",
@@ -4650,6 +4678,16 @@
    "id": "esr-g015",
    "no": 15,
    "title": "SER и ESTAR",
+   "top": 4,
+   "gist": "ser — кто это и какой по сути, estar — где он и в каком состоянии сейчас",
+   "short": {
+    "es": "Soy programador, pero hoy estoy cansado.",
+    "ru": "Я программист, но сегодня устал.",
+    "frame": [
+     "Soy",
+     "estoy"
+    ]
+   },
    "blocks": [],
    "parts": [
     {
@@ -4883,6 +4921,15 @@
    "id": "esr-g016",
    "no": 16,
    "title": "HAY, ESTAR и SER — три разных значения",
+   "top": 5,
+   "gist": "hay — «есть, имеется» о чём-то новом, está — «находится» о том, что уже известно",
+   "short": {
+    "es": "¿Hay una farmacia cerca?",
+    "ru": "Рядом есть аптека?",
+    "frame": [
+     "Hay"
+    ]
+   },
    "blocks": [
     {
      "k": "ul",
@@ -5464,6 +5511,15 @@
    "id": "esr-g019",
    "no": 19,
    "title": "Вопросы и вопросительные слова",
+   "top": 6,
+   "gist": "qué, quién, dónde, cuándo, cuánto, cómo — всегда с тильдой, а порядок слов часто как в утверждении",
+   "short": {
+    "es": "¿Dónde está el baño?",
+    "ru": "Где туалет?",
+    "frame": [
+     "Dónde"
+    ]
+   },
    "blocks": [
     {
      "k": "p",
@@ -6733,6 +6789,15 @@
    "id": "esr-g025",
    "no": 25,
    "title": "GUSTAR и похожие конструкции",
+   "top": 8,
+   "gist": "нравится то, что стоит после глагола: me gusta — одно, me gustan — много; кому — me, te, le",
+   "short": {
+    "es": "Me gustan las fresas.",
+    "ru": "Мне нравится клубника.",
+    "frame": [
+     "Me gustan"
+    ]
+   },
    "blocks": [
     {
      "k": "p",
@@ -6888,6 +6953,16 @@
    "id": "esr-g026",
    "no": 26,
    "title": "Модальные и частотные конструкции + infinitivo",
+   "top": 3,
+   "gist": "quiero, puedo, necesito и глагол в начальной форме — так просят и предлагают любое действие",
+   "short": {
+    "es": "¿Puedo pagar con tarjeta?",
+    "ru": "Можно заплатить картой?",
+    "frame": [
+     "Puedo",
+     "pagar"
+    ]
+   },
    "blocks": [
     {
      "k": "p",
@@ -7028,6 +7103,15 @@
    "id": "esr-g027",
    "no": 27,
    "title": "Hay que / Tener que / Deber",
+   "top": 9,
+   "gist": "tengo que — «мне надо», hay que — «надо вообще, всем»",
+   "short": {
+    "es": "Tengo que irme.",
+    "ru": "Мне пора идти.",
+    "frame": [
+     "Tengo que"
+    ]
+   },
    "blocks": [
     {
      "k": "ul",
@@ -7210,6 +7294,15 @@
    "id": "esr-g028",
    "no": 28,
    "title": "Ближайшее будущее: IR A + infinitivo",
+   "top": 7,
+   "gist": "voy a и глагол в начальной форме — «собираюсь, буду»: главное будущее в разговоре",
+   "short": {
+    "es": "Voy a llamar al médico.",
+    "ru": "Я позвоню врачу.",
+    "frame": [
+     "Voy a"
+    ]
+   },
    "blocks": [
     {
      "k": "p",

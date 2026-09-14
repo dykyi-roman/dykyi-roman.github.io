@@ -238,6 +238,7 @@
     SP.manifest = null;
     SP.stages = {};                      // id -> parsed stage, cached in memory
     SP.rules = null;                     // parsed rules.json, cached in memory
+    SP.patterns = null;                  // parsed patterns.json, cached in memory
 
     function fetchJson(url) {
         // GitHub Pages serves max-age=600; without no-cache a fresh publish
@@ -298,6 +299,17 @@
         if (SP.rules) return Promise.resolve(SP.rules);
         return fetchJson(SP.base + 'rules.json').then(function (data) {
             SP.rules = data;
+            return data;
+        });
+    };
+
+    SP.loadPatterns = function () {
+        if (SP.patterns) return Promise.resolve(SP.patterns);
+        return fetchJson(SP.base + 'patterns.json').then(function (data) {
+            if (!data || !Array.isArray(data.themes) || data.themes.length === 0) {
+                throw new Error('patterns.json: no themes');
+            }
+            SP.patterns = data;
             return data;
         });
     };
@@ -1056,12 +1068,87 @@
         return observer;
     };
 
+    /* ---------- what to learn first ---------- */
+
+    // The rules and the patterns each pick the entries to start with. The
+    // pick is marked twice: a star with the rank on the entry itself, and a
+    // numbered list closing the panel.
+
+    // An example lights up the words that carry the point, so the sentence
+    // shows the frame your own words go into. `line.frame` lists them in
+    // order, each matched as a whole word — the "a" of "prefiero … a …" is not
+    // the one in "playa". resources/spanish/verify.js runs the same search
+    // over the files, so a frame that lights nothing fails there.
+    var LETTER = /[A-Za-z\u00C0-\u024F]/;
+
+    function findWord(text, word, from) {
+        var at = text.indexOf(word, from);
+        while (at !== -1) {
+            if (!LETTER.test(text.charAt(at - 1)) && !LETTER.test(text.charAt(at + word.length))) return at;
+            at = text.indexOf(word, at + 1);
+        }
+        return -1;
+    }
+
+    SP.renderFramed = function (node, line) {
+        var text = line.es;
+        var pos = 0;
+        (line.frame || []).forEach(function (word) {
+            var at = findWord(text, word, pos);
+            if (at === -1) return;
+            if (at > pos) node.appendChild(document.createTextNode(text.slice(pos, at)));
+            node.appendChild(SP.el('span', 'sp-frame', word));
+            pos = at + word.length;
+        });
+        if (pos < text.length) node.appendChild(document.createTextNode(text.slice(pos)));
+        return node;
+    };
+
+    // ★ N — the entry's place among the `total` to learn first.
+    SP.topBadge = function (rank, total) {
+        var badge = SP.el('span', 'sp-badge is-top', '★ ' + rank);
+        badge.title = 'ТОП-' + total + ', №' + rank + ' — учить первыми';
+        badge.setAttribute('aria-label', badge.title);
+        return badge;
+    };
+
+    // One row per entry, in rank order: its name (a link to it when `href` is
+    // given) → what it comes down to → one short example, which can be heard.
+    // rows: [{ name: Node, href?, meaning, short: {es, ru, frame} }]
+    SP.renderTopList = function (rows) {
+        var list = SP.el('ol', 'sp-top');
+        rows.forEach(function (row) {
+            var li = SP.el('li', 'sp-top-row');
+            var text = SP.el('div', 'sp-top-text');
+            var name = row.name;
+            if (row.href) {
+                var link = SP.el('a', 'sp-top-link');
+                link.href = row.href;
+                link.appendChild(name);
+                name = link;
+            }
+            text.appendChild(name);
+            text.appendChild(SP.el('span', 'sp-top-meaning', row.meaning));
+            var example = text.appendChild(SP.el('span', 'sp-top-ex'));
+            SP.renderFramed(example.appendChild(SP.el('span', 'sp-top-es')), row.short);
+            example.appendChild(SP.el('span', 'sp-top-ru', row.short.ru));
+            li.appendChild(text);
+            var speak = SP.speakButton(row.short.es);
+            if (speak) li.appendChild(speak);
+            list.appendChild(li);
+        });
+        return list;
+    };
+
     /* ---------- rules (phonetics and grammar) ---------- */
 
     // Rendered both as its own page and as a tab on the hub. It carries no title
     // of its own: on the page the breadcrumb and the tab say what this is, and
     // inside the hub panel a heading only repeated the Rules chip above it.
     // The single option is opts.mainOnly, which keeps the chip index to one row.
+    // The sections to learn first carry a `top` rank: a star beside their
+    // title, and a list of them — each with its gist and a short example —
+    // closing the page, reachable from its own chip.
     SP.renderRules = function (host, rules, options) {
         var opts = options || {};
         var index = [];
@@ -1077,10 +1164,14 @@
         var body = SP.el('div');
         host.appendChild(body);
 
+        var top = rules.sections.filter(function (section) { return section.top; })
+            .sort(function (a, b) { return a.top - b.top; });
+
         rules.sections.forEach(function (section) {
             var block = SP.el('section', 'sp-group');
             block.id = section.id;
-            block.appendChild(SP.el('h3', 'sp-group-title', section.no + '. ' + section.title));
+            var title = block.appendChild(SP.el('h3', 'sp-group-title', section.no + '. ' + section.title));
+            if (section.top) title.appendChild(SP.topBadge(section.top, top.length));
             SP.renderBlocks(block, section.blocks);
             (section.parts || []).forEach(function (part) {
                 block.appendChild(SP.el('h4', null, part.title));
@@ -1089,6 +1180,23 @@
             body.appendChild(block);
             index.push({ row: 'main', label: section.no + '. ' + section.title, target: section.id });
         });
+
+        if (top.length) {
+            var label = 'ТОП-' + top.length;
+            var first = SP.el('section', 'sp-group');
+            first.id = 'esr-top';
+            first.appendChild(SP.el('h3', 'sp-group-title', label + ': выучить первыми'));
+            first.appendChild(SP.renderTopList(top.map(function (section) {
+                return {
+                    name: SP.el('span', 'sp-top-title', section.no + '. ' + section.title),
+                    href: '#' + section.id,
+                    meaning: section.gist,
+                    short: section.short
+                };
+            })));
+            body.appendChild(first);
+            index.push({ row: 'main', label: label, target: first.id });
+        }
 
         SP.buildIndex(bar, index, opts.mainOnly);
     };

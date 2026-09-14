@@ -19,7 +19,8 @@ function read(file) {
     catch (e) { fail(file + ': invalid JSON — ' + e.message); return null; }
 }
 
-const TEXT_KEYS = ['es', 'en', 'ru', 'tr', 'prompt', 'answer', 'title', 'titleRu', 'goal', 't', 'set', 'name'];
+const TEXT_KEYS = ['es', 'en', 'ru', 'tr', 'prompt', 'answer', 'title', 'titleRu', 'goal', 't', 'set', 'name',
+    'how', 'lit', 'trap', 'gist'];
 const BAD_MARKUP = /<[a-z/!][^>]*>|&[a-zA-Z]+;|&#x?[0-9a-fA-F]+;|\*\*/;
 
 // Walk every string in a structure and reject HTML, entities and stray markdown.
@@ -179,21 +180,150 @@ function wordKey(es) { return es.trim().toLowerCase(); }
     checkStrings(stage, entry.file);
 });
 
+/* ---------- what to learn first: the top ranks and their examples ---------- */
+
+// The rules and the patterns each mark the entries to start with by a `top`
+// rank, and give each a short example whose `frame` names the words it lights
+// up. Those words must really be in it — in order and as whole words, the
+// same search the page runs — or the highlight silently lights nothing. The
+// list is numbered by the ranks, so they run from 1 with no gap.
+const LETTER = /[A-Za-z\u00C0-\u024F]/;
+
+function findWord(text, word, from) {
+    let at = text.indexOf(word, from);
+    while (at !== -1) {
+        if (!LETTER.test(text.charAt(at - 1)) && !LETTER.test(text.charAt(at + word.length))) return at;
+        at = text.indexOf(word, at + 1);
+    }
+    return -1;
+}
+
+function checkLine(line, at) {
+    if (!line || typeof line.es !== 'string' || !line.es.trim() || typeof line.ru !== 'string' || !line.ru.trim()) {
+        fail(at + ': needs both "es" and "ru"');
+        return;
+    }
+    if (!Array.isArray(line.frame) || line.frame.length === 0) { fail(at + ': "frame" lists no words'); return; }
+    let pos = 0;
+    line.frame.forEach(word => {
+        const found = typeof word === 'string' && word ? findWord(line.es, word, pos) : -1;
+        if (found === -1) fail(at + ': frame word ' + JSON.stringify(word) + ' is not in ' + JSON.stringify(line.es) + ' (in order, as a whole word)');
+        else pos = found + word.length;
+    });
+}
+
+// `ranks` maps a rank to the id holding it, filled by claimRank.
+function claimRank(ranks, entry, at) {
+    if (!Number.isInteger(entry.top) || entry.top < 1) { fail(at + ': "top" must be a rank from 1'); return; }
+    if (ranks[entry.top]) fail(at + ': top rank ' + entry.top + ' is also held by ' + ranks[entry.top]);
+    else ranks[entry.top] = entry.id;
+}
+
+function checkRanks(ranks, file) {
+    const sorted = Object.keys(ranks).map(Number).sort((a, b) => a - b);
+    const gap = sorted.findIndex((rank, i) => rank !== i + 1);
+    if (gap !== -1) fail(file + ': top ranks must run 1..' + sorted.length + ' — ' + (gap + 1) + ' is missing');
+    return sorted.length;
+}
+
 const rules = read(manifest.rules ? manifest.rules.file : 'rules.json');
 if (rules) {
+    const topRanks = {};
     if (!Array.isArray(rules.sections) || rules.sections.length === 0) fail('rules.json: no sections');
     (rules.sections || []).forEach(section => {
         if (!section.id) fail('rules.json: section without id');
         else if (seenIds[section.id]) fail('duplicate id ' + section.id);
         else seenIds[section.id] = 'rules.json';
+        if (section.id === 'esr-top') fail('rules.json: id "esr-top" is taken by the anchor of the top list');
         if (!section.title) fail('rules.json: section ' + section.id + ' has no title');
         const body = (section.blocks || []).length + (section.parts || []).length;
         if (body === 0) fail('rules.json: section ' + section.id + ' is empty');
+
+        // A section to learn first says what it comes down to and shows it.
+        const at = 'rules.json section ' + section.id;
+        if (section.top !== undefined) {
+            claimRank(topRanks, section, at);
+            if (typeof section.gist !== 'string' || section.gist.trim() === '') fail(at + ': a top section needs a "gist"');
+            checkLine(section.short, at + ' short');
+        } else if (section.gist !== undefined || section.short !== undefined) {
+            fail(at + ': "gist" and "short" belong to the top list, but the section has no "top" rank');
+        }
     });
+    const ranked = checkRanks(topRanks, 'rules.json');
     if (manifest.rules && manifest.rules.sections !== rules.sections.length) {
         fail('index.json: rules count ' + manifest.rules.sections + ' but rules.json has ' + rules.sections.length);
     }
     checkStrings(rules, 'rules.json');
+    if (ranked) notes.push(ranked + ' rules in the top list');
+}
+
+/* ---------- patterns.json: the conversational patterns ---------- */
+
+// Reference like the rules, read theme by theme in the hub's Patterns panel.
+// Each pattern is a formula with its meaning, an explanation and exactly two
+// examples lit up the same way as the short example of the top list.
+const PANEL_IDS = ['esp-contrasts', 'esp-top'];   // anchors the panel draws for itself
+
+const patterns = manifest.patterns ? read(manifest.patterns.file) : null;
+if (patterns) {
+    const claim = (id, at) => {
+        if (!id) { fail(at + ': no id'); return; }
+        if (seenIds[id]) fail('duplicate id ' + id + ' (' + seenIds[id] + ' and patterns.json)');
+        else seenIds[id] = 'patterns.json';
+        if (id.indexOf('esp-') !== 0) fail(at + ': id does not start with "esp-"');
+        if (PANEL_IDS.indexOf(id) !== -1) fail(at + ': id "' + id + '" is taken by an anchor of the panel');
+    };
+    let count = 0;
+    const topRanks = {};
+
+    if (!Array.isArray(patterns.themes) || patterns.themes.length === 0) fail('patterns.json: no themes');
+    (patterns.themes || []).forEach((theme, t) => {
+        const at = 'patterns.json theme ' + (theme.id || '#' + t);
+        claim(theme.id, at);
+        if (!theme.title) fail(at + ': no title');
+        if (theme.no !== t + 1) fail(at + ': "no" is ' + theme.no + ' but the theme is #' + (t + 1));
+        if (!Array.isArray(theme.items) || theme.items.length === 0) { fail(at + ': no items'); return; }
+
+        theme.items.forEach((item, i) => {
+            const where = 'patterns.json item ' + (item.id || theme.id + '#' + i);
+            claim(item.id, where);
+            count += 1;
+            ['es', 'ru', 'how'].forEach(k => {
+                if (typeof item[k] !== 'string' || item[k].trim() === '') fail(where + ': "' + k + '" is empty');
+            });
+            ['lit', 'trap'].forEach(k => {
+                if (item[k] !== undefined && (typeof item[k] !== 'string' || item[k].trim() === '')) fail(where + ': "' + k + '" is empty');
+            });
+            if (!Array.isArray(item.ex) || item.ex.length !== 2) fail(where + ': needs exactly two examples in "ex"');
+            else item.ex.forEach((line, n) => checkLine(line, where + ' ex[' + n + ']'));
+
+            if (item.top !== undefined) {
+                claimRank(topRanks, item, where);
+                checkLine(item.short, where + ' short');
+            } else if (item.short !== undefined) {
+                fail(where + ': "short" belongs to the top list, but the pattern has no "top" rank');
+            }
+        });
+    });
+    const ranked = checkRanks(topRanks, 'patterns.json');
+
+    (patterns.contrasts || []).forEach((note, i) => {
+        const at = 'patterns.json contrast ' + (note.id || '#' + i);
+        claim(note.id, at);
+        if (!note.title) fail(at + ': no title');
+        if (!Array.isArray(note.blocks) || note.blocks.length === 0) fail(at + ': no blocks');
+    });
+
+    if (manifest.patterns.count !== count) {
+        fail('index.json: patterns count ' + manifest.patterns.count + ' but patterns.json has ' + count);
+    }
+    ['title', 'titleRu'].forEach(k => {
+        if (patterns[k] !== manifest.patterns[k]) {
+            fail('patterns.json: "' + k + '" is ' + JSON.stringify(patterns[k]) + ' but index.json says ' + JSON.stringify(manifest.patterns[k]));
+        }
+    });
+    checkStrings(patterns, 'patterns.json');
+    notes.push(count + ' patterns, ' + ranked + ' in the top list');
 }
 
 /* ---------- a word of a set lives in its table and nowhere else ---------- */
@@ -235,7 +365,8 @@ if (learned) {
     }
 }
 
-notes.push(totalItems + ' items, ' + Object.keys(seenIds).length + ' unique ids across ' + manifest.stages.length + ' stages + rules');
+notes.push(totalItems + ' items, ' + Object.keys(seenIds).length + ' unique ids across ' + manifest.stages.length +
+    ' stages + rules' + (patterns ? ' + patterns' : ''));
 
 function report() {
     notes.forEach(n => console.log('  ' + n));

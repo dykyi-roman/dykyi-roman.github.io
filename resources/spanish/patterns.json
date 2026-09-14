@@ -1,0 +1,2981 @@
+{
+ "version": 1,
+ "updated": "2026-09-14",
+ "title": "Spanish patterns",
+ "titleRu": "Разговорные конструкции: формула, смысл и два примера",
+ "themes": [
+  {
+   "id": "esp-t01",
+   "no": 1,
+   "title": "Противопоставление и исправление",
+   "items": [
+    {
+     "id": "esp-c001",
+     "es": "no + A, sino + B",
+     "ru": "не A, а B",
+     "how": "Сначала говоришь, что неверно, потом — что верно: второе заменяет первое. Работает только после no. Если после sino идёт целое действие со своим глаголом, добавь que: No lo compré, sino que lo alquilé.",
+     "lit": "«не A, если не B» — sino выросло из si no",
+     "trap": "Русское «а» хочется перевести через pero. Но pero — это «но»: первая часть остаётся верной. «Не кофе, а чай» — только sino.",
+     "ex": [
+      {
+       "es": "No quiero café, sino té.",
+       "ru": "Я хочу не кофе, а чай.",
+       "frame": [
+        "No",
+        "sino"
+       ]
+      },
+      {
+       "es": "La cita no es hoy, sino mañana.",
+       "ru": "Приём не сегодня, а завтра.",
+       "frame": [
+        "no",
+        "sino"
+       ]
+      }
+     ],
+     "top": 1,
+     "short": {
+      "es": "No es mío, sino tuyo.",
+      "ru": "Не моё, а твоё.",
+      "frame": [
+       "No",
+       "sino"
+      ]
+     }
+    },
+    {
+     "id": "esp-c002",
+     "es": "A no, pero B sí",
+     "ru": "A — нет, а B — да",
+     "how": "Коротко противопоставляешь две вещи: глагол второй раз не повторяешь, вместо него ставишь sí или no. Работает и наоборот: A sí, pero B no.",
+     "lit": "«A нет, но B да»",
+     "ex": [
+      {
+       "es": "Hoy no puedo, pero mañana sí.",
+       "ru": "Сегодня не могу, а завтра смогу.",
+       "frame": [
+        "no",
+        "pero",
+        "sí"
+       ]
+      },
+      {
+       "es": "A mi hijo le gusta la verdura, pero la fruta no.",
+       "ru": "Сыну нравятся овощи, а фрукты — нет.",
+       "frame": [
+        "pero",
+        "no"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c003",
+     "es": "aunque + A, B",
+     "ru": "хотя A, (всё равно) B",
+     "how": "Называешь препятствие и говоришь, что оно не мешает. После aunque — целая фраза с глаголом, половины можно менять местами. Если препятствия пока нет и оно только возможно («даже если пойдёт дождь»), глагол меняет форму: aunque llueve — дождь идёт, aunque llueva — даже если пойдёт.",
+     "ex": [
+      {
+       "es": "Aunque está lejos, vamos andando.",
+       "ru": "Хотя это далеко, идём пешком.",
+       "frame": [
+        "Aunque"
+       ]
+      },
+      {
+       "es": "Aunque llueva, salimos.",
+       "ru": "Даже если пойдёт дождь, выходим.",
+       "frame": [
+        "Aunque"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c004",
+     "es": "a pesar de + A",
+     "ru": "несмотря на A",
+     "how": "То же «несмотря ни на что», но после a pesar de — слово или глагол в начальной форме, а не целая фраза. Для целой фразы — aunque или a pesar de que.",
+     "lit": "«к огорчению от A» — pesar значит «печаль»",
+     "ex": [
+      {
+       "es": "A pesar del tráfico, llegamos a tiempo.",
+       "ru": "Несмотря на пробки, мы приехали вовремя.",
+       "frame": [
+        "A pesar del"
+       ]
+      },
+      {
+       "es": "A pesar de estar cansada, fue al gimnasio.",
+       "ru": "Несмотря на усталость, она пошла в спортзал.",
+       "frame": [
+        "A pesar de"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-t02",
+   "no": 2,
+   "title": "Добавление",
+   "items": [
+    {
+     "id": "esp-c005",
+     "es": "no solo + A, sino también + B",
+     "ru": "не только A, но и B",
+     "how": "К первому добавляешь второе, более важное или неожиданное. Обе половины держатся вместе: no solo … sino también.",
+     "lit": "«не только A, а также B»",
+     "trap": "Русское «но и» тянет к pero también — так не говорят. После no solo — только sino también.",
+     "ex": [
+      {
+       "es": "El piso no solo es barato, sino también muy céntrico.",
+       "ru": "Квартира не только дешёвая, но и в самом центре.",
+       "frame": [
+        "no solo",
+        "sino también"
+       ]
+      },
+      {
+       "es": "En el cole no solo aprenden inglés, sino también chino.",
+       "ru": "В школе учат не только английский, но и китайский.",
+       "frame": [
+        "no solo",
+        "sino también"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c006",
+     "es": "tanto + A + como + B",
+     "ru": "и A, и B",
+     "how": "Объединяешь две вещи и подчёркиваешь, что обе в силе. Между ними всегда como, а не y. Если это люди, которые что-то делают, глагол ставится во множественном числе.",
+     "lit": "«столько A, сколько B»",
+     "ex": [
+      {
+       "es": "Aceptamos tanto efectivo como tarjeta.",
+       "ru": "Принимаем и наличные, и карты.",
+       "frame": [
+        "tanto",
+        "como"
+       ]
+      },
+      {
+       "es": "Tanto mi mujer como yo trabajamos por la mañana.",
+       "ru": "И жена, и я работаем по утрам.",
+       "frame": [
+        "Tanto",
+        "como"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c007",
+     "es": "yo también / yo tampoco",
+     "ru": "я тоже / я тоже не",
+     "how": "Соглашаешься с тем, что сказал другой. На утверждение — también, на отрицание — tampoco. После me gusta, me encanta, me apetece отвечают через a mí: a mí también, a mí tampoco.",
+     "lit": "tampoco — «так же мало»: tan + poco",
+     "trap": "«Я тоже не» — не yo también no, а одно слово tampoco. И на Me encanta нельзя ответить yo también — только a mí también.",
+     "ex": [
+      {
+       "es": "No tengo hambre. — Yo tampoco.",
+       "ru": "Я не голоден. — Я тоже.",
+       "frame": [
+        "Yo tampoco"
+       ]
+      },
+      {
+       "es": "Me encanta este barrio. — A mí también.",
+       "ru": "Мне очень нравится этот район. — Мне тоже.",
+       "frame": [
+        "A mí también"
+       ]
+      }
+     ],
+     "top": 8,
+     "short": {
+      "es": "No puedo. — Yo tampoco.",
+      "ru": "Не могу. — Я тоже.",
+      "frame": [
+       "Yo tampoco"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "esp-t03",
+   "no": 3,
+   "title": "Выбор",
+   "items": [
+    {
+     "id": "esp-c008",
+     "es": "prefiero + A + a + B",
+     "ru": "лучше A, чем B",
+     "how": "Говоришь, что выбираешь. Отвергнутый вариант идёт после a (a + el = al). С действиями: prefiero + глагол в начальной форме + a + глагол.",
+     "lit": "«предпочитаю A к B»",
+     "trap": "Русское «чем» тянет к que, но после preferir нужно a: Prefiero el té al café.",
+     "ex": [
+      {
+       "es": "Prefiero la playa a la montaña.",
+       "ru": "Я больше люблю пляж, чем горы.",
+       "frame": [
+        "Prefiero",
+        "a"
+       ]
+      },
+      {
+       "es": "Prefiero ir andando a coger el autobús.",
+       "ru": "Лучше пройдусь пешком, чем поеду на автобусе.",
+       "frame": [
+        "Prefiero",
+        "a"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c009",
+     "es": "en vez de + A, B",
+     "ru": "вместо A — B",
+     "how": "Делаешь одно вместо другого. После de — слово или глагол в начальной форме: «вместо того чтобы поехать» — en vez de ir. То же самое значит en lugar de.",
+     "lit": "«в очередь A»; en lugar de — «на месте A»",
+     "ex": [
+      {
+       "es": "En vez de coger el coche, vamos andando.",
+       "ru": "Вместо того чтобы брать машину, идём пешком.",
+       "frame": [
+        "En vez de"
+       ]
+      },
+      {
+       "es": "¿Me pones agua en vez de vino?",
+       "ru": "Можно мне воду вместо вина?",
+       "frame": [
+        "en vez de"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c010",
+     "es": "mejor + A",
+     "ru": "(давай) лучше A",
+     "how": "Мягко предлагаешь другой вариант. После mejor — обычная фраза, «давай» отдельно не переводится: «Давай лучше завтра» — Mejor mañana. Короткий вежливый отказ — Mejor no.",
+     "ex": [
+      {
+       "es": "Mejor quedamos mañana, hoy estoy muy cansado.",
+       "ru": "Давай лучше встретимся завтра, сегодня я очень устал.",
+       "frame": [
+        "Mejor"
+       ]
+      },
+      {
+       "es": "¿Pedimos postre? — Mejor no.",
+       "ru": "Возьмём десерт? — Лучше не надо.",
+       "frame": [
+        "Mejor no"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-t04",
+   "no": 4,
+   "title": "Сравнение",
+   "items": [
+    {
+     "id": "esp-c011",
+     "es": "más + A + que + B",
+     "ru": "более A, чем B",
+     "how": "Сравниваешь две вещи: más — «больше», menos — «меньше». «Лучше» и «хуже» — отдельные слова: mejor que, peor que.",
+     "lit": "«больше A, что B»",
+     "trap": "Перед числом «чем» — не que, а de: «больше ста евро» — más de cien euros.",
+     "ex": [
+      {
+       "es": "Aquí el café es más barato que en el centro.",
+       "ru": "Здесь кофе дешевле, чем в центре.",
+       "frame": [
+        "más",
+        "que"
+       ]
+      },
+      {
+       "es": "La reparación cuesta más de cien euros.",
+       "ru": "Ремонт стоит больше ста евро.",
+       "frame": [
+        "más de"
+       ]
+      }
+     ],
+     "top": 18,
+     "short": {
+      "es": "Es más caro que aquí.",
+      "ru": "Это дороже, чем здесь.",
+      "frame": [
+       "más",
+       "que"
+      ]
+     }
+    },
+    {
+     "id": "esp-c012",
+     "es": "tan + A + como + B",
+     "ru": "такой же A, как B",
+     "how": "Говоришь, что две вещи одинаковы. Чаще всего — с отрицанием: no es tan … como — «не такой уж …, как». Перед предметом вместо tan стоит tanto, и оно меняется: tanta gente, tantos coches.",
+     "lit": "«так A, как B»",
+     "ex": [
+      {
+       "es": "No es tan caro como pensaba.",
+       "ru": "Это не так дорого, как я думал.",
+       "frame": [
+        "tan",
+        "como"
+       ]
+      },
+      {
+       "es": "Hoy no hay tanta gente como ayer.",
+       "ru": "Сегодня не так много народу, как вчера.",
+       "frame": [
+        "tanta",
+        "como"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c013",
+     "es": "cuanto más + A, más + B",
+     "ru": "чем больше A, тем больше B",
+     "how": "Две вещи растут вместе. В обеих половинах — más, menos или mejor, а «тем» отдельным словом не переводится. Готовая короткая фраза: cuanto antes, mejor — «чем скорее, тем лучше».",
+     "lit": "«сколько больше A, больше B»",
+     "ex": [
+      {
+       "es": "Cuanto más practicas, más fácil es.",
+       "ru": "Чем больше практикуешься, тем проще.",
+       "frame": [
+        "Cuanto más",
+        "más"
+       ]
+      },
+      {
+       "es": "Cuanto menos azúcar, mejor.",
+       "ru": "Чем меньше сахара, тем лучше.",
+       "frame": [
+        "Cuanto menos",
+        "mejor"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c014",
+     "es": "el / la + más + A + de + B",
+     "ru": "самый A в B",
+     "how": "Выбираешь «самый» из группы: артикль, más и признак. Если называешь предмет, он встаёт между артиклем и más: el bar más barato. Где выбираешь — через de.",
+     "lit": "«тот более A из B»",
+     "trap": "«Самый дешёвый в районе» — не en el barrio, а del barrio: группа всегда через de.",
+     "ex": [
+      {
+       "es": "Es el bar más barato del barrio.",
+       "ru": "Это самый дешёвый бар в районе.",
+       "frame": [
+        "el",
+        "más",
+        "del"
+       ]
+      },
+      {
+       "es": "Mi hija es la más alta de su clase.",
+       "ru": "Моя дочь самая высокая в классе.",
+       "frame": [
+        "la más",
+        "de"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-t05",
+   "no": 5,
+   "title": "Причина и следствие",
+   "items": [
+    {
+     "id": "esp-c015",
+     "es": "A, por eso + B",
+     "ru": "A, поэтому B",
+     "how": "Сначала причина, потом вывод из неё — его и открывает por eso. Если наоборот, сначала вывод, а потом причина, нужен porque.",
+     "lit": "«по этому»",
+     "ex": [
+      {
+       "es": "Hay mucho tráfico, por eso vamos en metro.",
+       "ru": "Много пробок, поэтому едем на метро.",
+       "frame": [
+        "por eso"
+       ]
+      },
+      {
+       "es": "Hoy es fiesta, por eso está todo cerrado.",
+       "ru": "Сегодня праздник, поэтому всё закрыто.",
+       "frame": [
+        "por eso"
+       ]
+      }
+     ],
+     "top": 20,
+     "short": {
+      "es": "Llueve, por eso no salgo.",
+      "ru": "Идёт дождь, поэтому не выхожу.",
+      "frame": [
+       "por eso"
+      ]
+     }
+    },
+    {
+     "id": "esp-c016",
+     "es": "como + A, B",
+     "ru": "так как A, (то) B",
+     "how": "Причина в самом начале фразы: como первым словом, дальше причина, после запятой — что из неё вышло.",
+     "lit": "«как A, B»",
+     "trap": "Это не «как» из сравнения, а «так как». И наоборот: в начале фразы испанцы говорят como, а porque ставят после вывода.",
+     "ex": [
+      {
+       "es": "Como no tenía llaves, llamé al timbre.",
+       "ru": "Так как у меня не было ключей, я позвонил в дверь.",
+       "frame": [
+        "Como"
+       ]
+      },
+      {
+       "es": "Como llueve, nos quedamos en casa.",
+       "ru": "Раз идёт дождь, остаёмся дома.",
+       "frame": [
+        "Como"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c017",
+     "es": "para + глагол / para que + A",
+     "ru": "чтобы",
+     "how": "Цель. Если действие делает тот же человек — para и глагол в начальной форме. Если другой — para que, и глагол меняет форму: para que lo sepas, para que puedas.",
+     "lit": "«для + действие» / «для того, что A»",
+     "trap": "Русское «чтобы» одно, а испанских два. «Звоню, чтобы записаться» — para pedir cita, а «оставлю ключи, чтобы ты вошёл» — para que entres, не para que entras.",
+     "ex": [
+      {
+       "es": "Llamo para pedir cita con el médico.",
+       "ru": "Звоню, чтобы записаться к врачу.",
+       "frame": [
+        "para"
+       ]
+      },
+      {
+       "es": "Te dejo las llaves para que puedas entrar.",
+       "ru": "Оставляю тебе ключи, чтобы ты мог войти.",
+       "frame": [
+        "para que"
+       ]
+      }
+     ],
+     "top": 14,
+     "short": {
+      "es": "Te llamo para confirmar.",
+      "ru": "Звоню подтвердить.",
+      "frame": [
+       "para"
+      ]
+     }
+    },
+    {
+     "id": "esp-c018",
+     "es": "es que + A",
+     "ru": "просто…, дело в том, что A",
+     "how": "Объясняешь или мягко оправдываешься: es que в начале фразы. Без него отказ звучит сухо — No puedo, а с ним по-человечески — Es que no puedo. В Испании слышно на каждом шагу.",
+     "lit": "«это то, что A»",
+     "ex": [
+      {
+       "es": "¿No vienes? — Es que tengo que trabajar.",
+       "ru": "Ты не придёшь? — Просто мне надо работать.",
+       "frame": [
+        "Es que"
+       ]
+      },
+      {
+       "es": "Perdona, es que no te he oído.",
+       "ru": "Прости, я просто тебя не расслышал.",
+       "frame": [
+        "es que"
+       ]
+      }
+     ],
+     "top": 13,
+     "short": {
+      "es": "Es que no puedo.",
+      "ru": "Просто не могу.",
+      "frame": [
+       "Es que"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "esp-t06",
+   "no": 6,
+   "title": "Условие",
+   "items": [
+    {
+     "id": "esp-c019",
+     "es": "si + A (настоящее), B",
+     "ru": "если A, (то) B",
+     "how": "Реальное условие. После si глагол в настоящем времени, даже когда речь о будущем. Во второй половине — настоящее, будущее или просьба.",
+     "trap": "По-русски «если придёшь» — будущее, а после si будущее нельзя: Si vienes, а не Si vendrás.",
+     "ex": [
+      {
+       "es": "Si llueve, vamos al cine.",
+       "ru": "Если пойдёт дождь, пойдём в кино.",
+       "frame": [
+        "Si"
+       ]
+      },
+      {
+       "es": "Si tienes un momento, llámame.",
+       "ru": "Если будет минутка, позвони мне.",
+       "frame": [
+        "Si"
+       ]
+      }
+     ],
+     "top": 2,
+     "short": {
+      "es": "Si puedes, ven.",
+      "ru": "Если можешь, приходи.",
+      "frame": [
+       "Si"
+      ]
+     }
+    },
+    {
+     "id": "esp-c020",
+     "es": "si + A (-ra), B (-ría)",
+     "ru": "если бы A, то B",
+     "how": "Нереальное или маловероятное условие. В первой половине глагол на -ra: tuviera, pudiera, fuera. Во второй — на -ría: tendría, podría, iría.",
+     "trap": "Русское «бы» одно на всю фразу, а в испанском меняются оба глагола. И после si нельзя форму на -ría: не si tendría, а si tuviera.",
+     "ex": [
+      {
+       "es": "Si tuviera más tiempo, iría al gimnasio.",
+       "ru": "Если бы у меня было больше времени, я бы ходил в спортзал.",
+       "frame": [
+        "Si tuviera",
+        "iría"
+       ]
+      },
+      {
+       "es": "Si fuera más barato, lo compraría.",
+       "ru": "Если бы было дешевле, я бы купил.",
+       "frame": [
+        "Si fuera",
+        "compraría"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c021",
+     "es": "por si + A",
+     "ru": "на случай, если A",
+     "how": "Делаешь что-то заранее — вдруг пригодится. После por si глагол в обычном настоящем времени. Без продолжения — готовое por si acaso, «на всякий случай».",
+     "lit": "«для если A»",
+     "ex": [
+      {
+       "es": "Coge el paraguas, por si llueve.",
+       "ru": "Возьми зонт, вдруг пойдёт дождь.",
+       "frame": [
+        "por si"
+       ]
+      },
+      {
+       "es": "Llévate una chaqueta, por si acaso.",
+       "ru": "Возьми куртку на всякий случай.",
+       "frame": [
+        "por si acaso"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c022",
+     "es": "A, si no, B",
+     "ru": "A, а то (иначе) B",
+     "how": "Предупреждаешь, что будет, если не сделать A. Si no стоит между половинами и пишется в два слова: это «если нет».",
+     "lit": "«A, если нет — B»",
+     "ex": [
+      {
+       "es": "Date prisa, si no, perdemos el tren.",
+       "ru": "Поторопись, а то опоздаем на поезд.",
+       "frame": [
+        "si no"
+       ]
+      },
+      {
+       "es": "Reserva mesa, si no, no hay sitio.",
+       "ru": "Забронируй столик, иначе мест не будет.",
+       "frame": [
+        "si no"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-t07",
+   "no": 7,
+   "title": "Время",
+   "items": [
+    {
+     "id": "esp-c023",
+     "es": "hace + время",
+     "ru": "(время) назад",
+     "how": "Сколько времени прошло с тех пор. Hace ставится перед сроком: hace un mes, hace dos días. Вся связка может стоять в начале или в конце фразы.",
+     "lit": "«делает месяц» — время «сделалось»",
+     "trap": "По-русски «назад» идёт после срока, по-испански hace — перед ним: не un mes hace, а hace un mes.",
+     "ex": [
+      {
+       "es": "Llegamos a España hace un año.",
+       "ru": "Мы приехали в Испанию год назад.",
+       "frame": [
+        "hace"
+       ]
+      },
+      {
+       "es": "Te llamé hace diez minutos.",
+       "ru": "Я звонил тебе десять минут назад.",
+       "frame": [
+        "hace"
+       ]
+      }
+     ],
+     "top": 3,
+     "short": {
+      "es": "Lo compré hace un mes.",
+      "ru": "Купил месяц назад.",
+      "frame": [
+       "hace"
+      ]
+     }
+    },
+    {
+     "id": "esp-c024",
+     "es": "dentro de + время",
+     "ru": "через (время)",
+     "how": "Когда что-то случится, если считать от сейчас: dentro de + срок. Только про время — «через дорогу» так не скажешь.",
+     "lit": "«внутри часа»",
+     "trap": "«Через час» тянет сказать después de una hora, но это «спустя час после чего-то». От сейчас — dentro de una hora.",
+     "ex": [
+      {
+       "es": "El autobús llega dentro de cinco minutos.",
+       "ru": "Автобус придёт через пять минут.",
+       "frame": [
+        "dentro de"
+       ]
+      },
+      {
+       "es": "Tengo cita dentro de dos semanas.",
+       "ru": "У меня приём через две недели.",
+       "frame": [
+        "dentro de"
+       ]
+      }
+     ],
+     "top": 4,
+     "short": {
+      "es": "Vuelvo dentro de una hora.",
+      "ru": "Вернусь через час.",
+      "frame": [
+       "dentro de"
+      ]
+     }
+    },
+    {
+     "id": "esp-c025",
+     "es": "llevar + время + -ando / -iendo",
+     "ru": "уже (время) делаю",
+     "how": "Как долго что-то длится до сих пор. Llevar меняется по лицу (llevo, llevas, lleva), потом срок, потом глагол на -ando/-iendo. Можно и без глагола: Llevo dos años aquí.",
+     "lit": "«несу полчаса, ожидая»",
+     "trap": "«Уже год живу» — не ya vivo un año. Испанцы «несут» время: Llevo un año viviendo aquí.",
+     "ex": [
+      {
+       "es": "Llevo media hora esperando el autobús.",
+       "ru": "Я уже полчаса жду автобус.",
+       "frame": [
+        "Llevo",
+        "esperando"
+       ]
+      },
+      {
+       "es": "¿Cuánto tiempo llevas viviendo en Valencia?",
+       "ru": "Сколько ты уже живёшь в Валенсии?",
+       "frame": [
+        "llevas",
+        "viviendo"
+       ]
+      }
+     ],
+     "top": 17,
+     "short": {
+      "es": "Llevo una hora esperando.",
+      "ru": "Жду уже час.",
+      "frame": [
+       "Llevo",
+       "esperando"
+      ]
+     }
+    },
+    {
+     "id": "esp-c026",
+     "es": "ya no / todavía no + глагол",
+     "ru": "больше не / ещё не",
+     "how": "Ya no — что-то было, а теперь закончилось. Todavía no — ещё не случилось, но ожидается. Вместо todavía можно сказать aún, это одно и то же.",
+     "lit": "ya no — «уже нет», todavía no — «всё ещё нет»",
+     "trap": "«Ещё» тянет к más, «уже» — к ya. Но «ещё не» — это todavía no, а «больше не» — ya no, не más no.",
+     "ex": [
+      {
+       "es": "Ya no vivo en el centro.",
+       "ru": "Я больше не живу в центре.",
+       "frame": [
+        "Ya no"
+       ]
+      },
+      {
+       "es": "Todavía no he pagado el alquiler.",
+       "ru": "Я ещё не заплатил за квартиру.",
+       "frame": [
+        "Todavía no"
+       ]
+      }
+     ],
+     "top": 7,
+     "short": {
+      "es": "¿Has comido? — Todavía no.",
+      "ru": "Поел? — Ещё нет.",
+      "frame": [
+       "Todavía no"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "esp-t08",
+   "no": 8,
+   "title": "Количество и степень",
+   "items": [
+    {
+     "id": "esp-c027",
+     "es": "muy + признак / глагол + mucho",
+     "ru": "очень",
+     "how": "Muy — перед признаком: muy caro, muy bien. Mucho — после глагола: me gusta mucho, trabaja mucho. Перед предметом mucho меняется: mucha gente, muchos días.",
+     "lit": "mucho — «много»: «нравится много»",
+     "trap": "Русское «очень» одно, а испанских два. Muy me gusta — ошибка: Me gusta mucho.",
+     "ex": [
+      {
+       "es": "Este piso es muy luminoso.",
+       "ru": "Эта квартира очень светлая.",
+       "frame": [
+        "muy"
+       ]
+      },
+      {
+       "es": "Me gusta mucho vivir aquí.",
+       "ru": "Мне очень нравится здесь жить.",
+       "frame": [
+        "mucho"
+       ]
+      }
+     ],
+     "top": 9,
+     "short": {
+      "es": "Me gusta mucho, pero es muy caro.",
+      "ru": "Очень нравится, но очень дорого.",
+      "frame": [
+       "mucho",
+       "muy"
+      ]
+     }
+    },
+    {
+     "id": "esp-c028",
+     "es": "unos / unas + число",
+     "ru": "примерно N",
+     "how": "Unos или unas перед числом делают его приблизительным: unos — если предмет мужского рода, unas — если женского. Про часы говорят иначе: sobre las ocho — «около восьми».",
+     "lit": "«какие-то двадцать»",
+     "ex": [
+      {
+       "es": "Cuesta unos veinte euros.",
+       "ru": "Стоит около двадцати евро.",
+       "frame": [
+        "unos"
+       ]
+      },
+      {
+       "es": "Tardamos unas dos horas en llegar.",
+       "ru": "Мы добираемся примерно за два часа.",
+       "frame": [
+        "unas"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c029",
+     "es": "N veces al día / a la semana",
+     "ru": "N раз в день / в неделю",
+     "how": "Как часто. Число, veces, потом a и период с артиклем: al día, a la semana, al mes, al año. Один раз — una vez.",
+     "lit": "«три раза к дню»",
+     "trap": "«В день», «в неделю» — не en el día, а al día, a la semana. Врач так и скажет: tres veces al día.",
+     "ex": [
+      {
+       "es": "Tómalo tres veces al día.",
+       "ru": "Принимай это три раза в день.",
+       "frame": [
+        "veces al día"
+       ]
+      },
+      {
+       "es": "Voy al gimnasio dos veces a la semana.",
+       "ru": "Хожу в спортзал два раза в неделю.",
+       "frame": [
+        "veces a la semana"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c030",
+     "es": "todo el + A / todos los + A",
+     "ru": "весь A / каждый A",
+     "how": "Todo el, toda la и единственное число — «весь, целый»: todo el día. Todos los, todas las и множественное — «каждый»: todos los días. Артикль обязателен.",
+     "lit": "todos los días — «все дни»",
+     "trap": "«Каждый день» по-испански — «все дни»: todos los días. А todo el día — это «весь день», совсем другое.",
+     "ex": [
+      {
+       "es": "Hoy he estado en casa todo el día.",
+       "ru": "Сегодня я весь день был дома.",
+       "frame": [
+        "todo el"
+       ]
+      },
+      {
+       "es": "Llevo a los niños al cole todos los días.",
+       "ru": "Каждый день вожу детей в школу.",
+       "frame": [
+        "todos los"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-t09",
+   "no": 9,
+   "title": "Последовательность действий",
+   "items": [
+    {
+     "id": "esp-c031",
+     "es": "antes de / después de + глагол",
+     "ru": "перед тем как / после того как",
+     "how": "Порядок двух действий одного человека. После de — глагол в начальной форме (salir, comer), хотя по-русски там целая фраза.",
+     "lit": "«прежде выйти», «после поесть»",
+     "ex": [
+      {
+       "es": "Antes de salir, apaga la luz.",
+       "ru": "Перед тем как выйти, выключи свет.",
+       "frame": [
+        "Antes de"
+       ]
+      },
+      {
+       "es": "Después de comer, damos un paseo.",
+       "ru": "После обеда прогуляемся.",
+       "frame": [
+        "Después de"
+       ]
+      }
+     ],
+     "top": 15,
+     "short": {
+      "es": "Lávate las manos antes de comer.",
+      "ru": "Помой руки перед едой.",
+      "frame": [
+       "antes de"
+      ]
+     }
+    },
+    {
+     "id": "esp-c032",
+     "es": "cuando + A (llegues), B",
+     "ru": "когда (потом) A, B",
+     "how": "Когда речь о будущем, после cuando глагол меняет форму: llegues, puedas, tengas, termine. Если о привычном или прошлом — обычная форма: Cuando llego a casa, ceno.",
+     "trap": "«Когда приедешь» — будущее, а по-испански ни будущее, ни настоящее: не cuando llegarás и не cuando llegas, а cuando llegues.",
+     "ex": [
+      {
+       "es": "Cuando llegues, avísame.",
+       "ru": "Когда приедешь, дай знать.",
+       "frame": [
+        "Cuando llegues"
+       ]
+      },
+      {
+       "es": "Cuando termine el trabajo, te llamo.",
+       "ru": "Когда закончу работу, позвоню тебе.",
+       "frame": [
+        "Cuando termine"
+       ]
+      }
+     ],
+     "top": 16,
+     "short": {
+      "es": "Cuando puedas, llámame.",
+      "ru": "Как сможешь, позвони.",
+      "frame": [
+       "Cuando puedas"
+      ]
+     }
+    },
+    {
+     "id": "esp-c033",
+     "es": "hasta que + A",
+     "ru": "пока не A",
+     "how": "Действие длится до какого-то момента. Если момент ещё впереди, глагол меняет форму, как после cuando: hasta que vuelva, hasta que termine.",
+     "lit": "«до того, что A»",
+     "trap": "В русском «пока не» есть «не», в испанском его нет. «Жди, пока я не вернусь» — Espera hasta que vuelva, без no.",
+     "ex": [
+      {
+       "es": "Espera aquí hasta que vuelva.",
+       "ru": "Жди здесь, пока я не вернусь.",
+       "frame": [
+        "hasta que"
+       ]
+      },
+      {
+       "es": "No me voy hasta que me atiendan.",
+       "ru": "Я не уйду, пока меня не примут.",
+       "frame": [
+        "hasta que"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c034",
+     "es": "acabar de + глагол",
+     "ru": "только что (сделал)",
+     "how": "Действие случилось совсем недавно. Acabar меняется по лицу (acabo, acabas, acaba), дальше de и глагол в начальной форме.",
+     "lit": "«заканчиваю прийти»",
+     "trap": "«Только что» по-русски — наречие, а по-испански — глагол: Acabo de llegar, а не solo que llegué.",
+     "ex": [
+      {
+       "es": "Acabo de llegar a casa.",
+       "ru": "Я только что пришёл домой.",
+       "frame": [
+        "Acabo de"
+       ]
+      },
+      {
+       "es": "El médico acaba de salir.",
+       "ru": "Врач только что вышел.",
+       "frame": [
+        "acaba de"
+       ]
+      }
+     ],
+     "top": 5,
+     "short": {
+      "es": "Acabo de verlo.",
+      "ru": "Только что его видел.",
+      "frame": [
+       "Acabo de"
+      ]
+     }
+    },
+    {
+     "id": "esp-c035",
+     "es": "volver a + глагол",
+     "ru": "снова, ещё раз (сделать)",
+     "how": "Действие повторяется. Volver меняется по лицу (vuelvo, vuelves, vuelve), дальше a и глагол в начальной форме. С отрицанием — «больше никогда»: No vuelvo a ir. Otra vez тоже верно, но volver a звучит естественнее.",
+     "lit": "«возвращаюсь к тому, чтобы позвонить»",
+     "ex": [
+      {
+       "es": "¿Puedes volver a llamar más tarde?",
+       "ru": "Можешь перезвонить попозже?",
+       "frame": [
+        "volver a"
+       ]
+      },
+      {
+       "es": "He vuelto a perder las llaves.",
+       "ru": "Я опять потерял ключи.",
+       "frame": [
+        "vuelto a"
+       ]
+      }
+     ],
+     "top": 6,
+     "short": {
+      "es": "¿Me lo vuelves a decir?",
+      "ru": "Повторишь ещё раз?",
+      "frame": [
+       "vuelves a"
+      ]
+     }
+    },
+    {
+     "id": "esp-c036",
+     "es": "seguir + -ando / dejar de + глагол",
+     "ru": "продолжать / перестать",
+     "how": "Пара противоположностей. Seguir и глагол на -ando/-iendo — действие всё ещё идёт. Dejar de и глагол в начальной форме — действие прекратилось.",
+     "lit": "«следую, живя» / «оставляю от курить»",
+     "trap": "«Продолжаю работать» — не sigo trabajar, а sigo trabajando. А «перестал курить» — dejé de fumar, обязательно с de.",
+     "ex": [
+      {
+       "es": "Sigue lloviendo, espera un poco.",
+       "ru": "Всё ещё идёт дождь, подожди немного.",
+       "frame": [
+        "Sigue",
+        "lloviendo"
+       ]
+      },
+      {
+       "es": "He dejado de comer azúcar.",
+       "ru": "Я перестал есть сахар.",
+       "frame": [
+        "dejado de"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-t10",
+   "no": 10,
+   "title": "Мнение и уточнение",
+   "items": [
+    {
+     "id": "esp-c037",
+     "es": "creo que + A / no creo que + A",
+     "ru": "думаю, что / не думаю, что",
+     "how": "Высказываешь мнение. После creo que — обычная форма глагола. После no creo que глагол меняет форму: venga, sea, tenga, llegue.",
+     "lit": "«верю, что A»",
+     "ex": [
+      {
+       "es": "Creo que la farmacia está abierta.",
+       "ru": "Думаю, аптека открыта.",
+       "frame": [
+        "Creo que"
+       ]
+      },
+      {
+       "es": "No creo que llegue a tiempo.",
+       "ru": "Не думаю, что он успеет.",
+       "frame": [
+        "No creo que"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c038",
+     "es": "¿qué te parece + A?",
+     "ru": "как тебе A? / как насчёт A?",
+     "how": "Спрашиваешь мнение или предлагаешь вариант. О предмете — ¿qué te parece + слово?, об идее — ¿qué te parece si + глагол? Ответ: Me parece bien, Me parece caro. На «вы» — ¿qué le parece?",
+     "lit": "«что тебе кажется A?»",
+     "ex": [
+      {
+       "es": "¿Qué te parece el piso?",
+       "ru": "Как тебе квартира?",
+       "frame": [
+        "Qué te parece"
+       ]
+      },
+      {
+       "es": "¿Qué te parece si comemos fuera?",
+       "ru": "Как насчёт того, чтобы поесть в ресторане?",
+       "frame": [
+        "Qué te parece si"
+       ]
+      }
+     ],
+     "top": 19,
+     "short": {
+      "es": "¿Qué te parece mañana?",
+      "ru": "Как насчёт завтра?",
+      "frame": [
+       "Qué te parece"
+      ]
+     }
+    },
+    {
+     "id": "esp-c039",
+     "es": "a lo mejor + A",
+     "ru": "может быть, A",
+     "how": "Предположение. A lo mejor в начале, дальше обычная фраза с глаголом в обычной форме. В разговоре встречается постоянно.",
+     "lit": "«в лучшем (случае)»",
+     "trap": "Похоже на «в лучшем случае», но значит просто «может быть» — даже про плохое: A lo mejor llueve.",
+     "ex": [
+      {
+       "es": "A lo mejor llego un poco tarde.",
+       "ru": "Может, я немного опоздаю.",
+       "frame": [
+        "A lo mejor"
+       ]
+      },
+      {
+       "es": "A lo mejor está cerrado los domingos.",
+       "ru": "Может быть, по воскресеньям закрыто.",
+       "frame": [
+        "A lo mejor"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c040",
+     "es": "lo que + глагол + es + A",
+     "ru": "что (нужно), так это A",
+     "how": "Выделяешь главное: lo que и глагол — «то, что нужно», «то, чего не понимаю», потом es и сама суть. По-русски то же делают интонацией.",
+     "lit": "«то, что мне нужно, есть A»",
+     "ex": [
+      {
+       "es": "Lo que necesito es dormir.",
+       "ru": "Что мне нужно, так это выспаться.",
+       "frame": [
+        "Lo que",
+        "es"
+       ]
+      },
+      {
+       "es": "Lo que no entiendo es el contrato.",
+       "ru": "Чего я не понимаю, так это договор.",
+       "frame": [
+        "Lo que",
+        "es"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-t11",
+   "no": 11,
+   "title": "Отрицание",
+   "items": [
+    {
+     "id": "esp-c041",
+     "es": "ni + A + ni + B",
+     "ru": "ни A, ни B",
+     "how": "Отрицаешь обе вещи сразу. Если ni … ni стоит после глагола, перед глаголом нужно no: No bebo ni café ni té.",
+     "trap": "Если ni … ni в начале фразы, no перед глаголом уже не ставят: «ни она, ни я не знаем» — Ni ella ni yo lo sabemos, без no.",
+     "ex": [
+      {
+       "es": "No bebo ni café ni té.",
+       "ru": "Я не пью ни кофе, ни чай.",
+       "frame": [
+        "No",
+        "ni",
+        "ni"
+       ]
+      },
+      {
+       "es": "Ni mi mujer ni yo hablamos catalán.",
+       "ru": "Ни жена, ни я не говорим по-каталански.",
+       "frame": [
+        "Ni",
+        "ni"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c042",
+     "es": "sin + глагол",
+     "ru": "не делая, не сделав",
+     "how": "Одно действие произошло без другого. После sin — глагол в начальной форме, отдельное «не» не нужно.",
+     "lit": "«без заплатить»",
+     "ex": [
+      {
+       "es": "Se fue sin pagar.",
+       "ru": "Он ушёл, не заплатив.",
+       "frame": [
+        "sin"
+       ]
+      },
+      {
+       "es": "No firmes nada sin leerlo.",
+       "ru": "Ничего не подписывай, не прочитав.",
+       "frame": [
+        "sin"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c043",
+     "es": "no + глагол + hasta + A",
+     "ru": "только (не раньше) A",
+     "how": "Говоришь, что раньше какого-то момента ничего не будет: no перед глаголом, hasta перед моментом. Так объявляют часы работы и сроки.",
+     "lit": "«не открывает до десяти»",
+     "trap": "«Откроется только в десять» тянет к solo, а испанцы говорят через отрицание: No abre hasta las diez.",
+     "ex": [
+      {
+       "es": "La farmacia no abre hasta las diez.",
+       "ru": "Аптека откроется только в десять.",
+       "frame": [
+        "no",
+        "hasta"
+       ]
+      },
+      {
+       "es": "No me pagan hasta final de mes.",
+       "ru": "Мне заплатят только в конце месяца.",
+       "frame": [
+        "No",
+        "hasta"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c044",
+     "es": "no es que + A, es que + B",
+     "ru": "не то чтобы A, просто B",
+     "how": "Отводишь неверное объяснение и даёшь настоящее. После no es que глагол меняет форму (quiera, sea, tenga), после es que — обычная форма.",
+     "lit": "«не то, что A, а то, что B»",
+     "ex": [
+      {
+       "es": "No es que no quiera, es que no puedo.",
+       "ru": "Не то чтобы не хочу — просто не могу.",
+       "frame": [
+        "No es que",
+        "es que"
+       ]
+      },
+      {
+       "es": "No es que sea caro, es que no lo necesito.",
+       "ru": "Не то чтобы дорого — просто мне это не нужно.",
+       "frame": [
+        "No es que",
+        "es que"
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-t12",
+   "no": 12,
+   "title": "Повседневные разговорные конструкции",
+   "items": [
+    {
+     "id": "esp-c045",
+     "es": "¿me pones + A?",
+     "ru": "можно мне A? (в баре, на рынке)",
+     "how": "Так заказывают в баре и просят взвесить на рынке: кому — me, дальше что. На «вы» — ¿me pone…? В конце обычно por favor.",
+     "lit": "«ты мне поставишь A?»",
+     "ex": [
+      {
+       "es": "¿Me pones un café con leche, por favor?",
+       "ru": "Можно мне кофе с молоком, пожалуйста?",
+       "frame": [
+        "Me pones"
+       ]
+      },
+      {
+       "es": "¿Me pone medio kilo de tomates?",
+       "ru": "Взвесьте мне полкило помидоров.",
+       "frame": [
+        "Me pone"
+       ]
+      }
+     ],
+     "top": 10,
+     "short": {
+      "es": "¿Me pones una caña?",
+      "ru": "Можно мне пива?",
+      "frame": [
+       "Me pones"
+      ]
+     }
+    },
+    {
+     "id": "esp-c046",
+     "es": "¿te importa si + глагол?",
+     "ru": "ничего, если я…?",
+     "how": "Вежливо спрашиваешь разрешения: после si глагол в настоящем времени. На «вы» — ¿le importa si…? Попросить другого: ¿te importa + глагол в начальной форме? — «тебе не трудно…?»",
+     "lit": "«тебе важно, если я…?»",
+     "trap": "Ответ «да, пожалуйста» — это No, no me importa, «мне не важно». Sí здесь значит «да, я против».",
+     "ex": [
+      {
+       "es": "¿Te importa si abro la ventana?",
+       "ru": "Ничего, если я открою окно?",
+       "frame": [
+        "Te importa si"
+       ]
+      },
+      {
+       "es": "¿Le importa cerrar la puerta?",
+       "ru": "Вам не трудно закрыть дверь?",
+       "frame": [
+        "Le importa"
+       ]
+      }
+     ],
+     "top": 12,
+     "short": {
+      "es": "¿Te importa si me siento?",
+      "ru": "Можно я сяду?",
+      "frame": [
+       "Te importa si"
+      ]
+     }
+    },
+    {
+     "id": "esp-c047",
+     "es": "¿te apetece + A?",
+     "ru": "хочешь A? / не хочешь…?",
+     "how": "Предлагаешь что-то приятное — мягче, чем ¿quieres…? Дальше — предмет или действие в начальной форме. Ответ: Me apetece или No me apetece.",
+     "lit": "«тебе желается A?»",
+     "trap": "Строится как gustar: кому хочется — me, te, le apetece, а не yo apetezco. Если хочется многого — apetecen.",
+     "ex": [
+      {
+       "es": "¿Te apetece un café?",
+       "ru": "Хочешь кофе?",
+       "frame": [
+        "Te apetece"
+       ]
+      },
+      {
+       "es": "Hoy no me apetece salir.",
+       "ru": "Сегодня мне не хочется никуда выходить.",
+       "frame": [
+        "me apetece"
+       ]
+      }
+     ],
+     "top": 11,
+     "short": {
+      "es": "¿Te apetece ir a la playa?",
+      "ru": "Хочешь на пляж?",
+      "frame": [
+       "Te apetece"
+      ]
+     }
+    },
+    {
+     "id": "esp-c048",
+     "es": "¿y si + глагол?",
+     "ru": "а может…? / а что если…?",
+     "how": "Предлагаешь идею. Глагол после si в настоящем времени, хотя речь о будущем: ¿Y si pedimos…?, не ¿y si pediremos?",
+     "lit": "«и если…?»",
+     "ex": [
+      {
+       "es": "¿Y si pedimos una pizza?",
+       "ru": "А может, закажем пиццу?",
+       "frame": [
+        "Y si"
+       ]
+      },
+      {
+       "es": "¿Y si vamos en metro?",
+       "ru": "А что если поехать на метро?",
+       "frame": [
+        "Y si"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c049",
+     "es": "me da + igual / pena / miedo",
+     "ru": "мне всё равно / жаль / страшно",
+     "how": "Говоришь о своём чувстве: me da и само чувство — igual, pena, miedo, vergüenza. Кому — me, te, le. Отчего — дальше: Me da miedo conducir.",
+     "lit": "«мне даёт страх»",
+     "ex": [
+      {
+       "es": "¿Té o café? — Me da igual.",
+       "ru": "Чай или кофе? — Мне всё равно.",
+       "frame": [
+        "Me da igual"
+       ]
+      },
+      {
+       "es": "Me da pena irme tan pronto.",
+       "ru": "Жаль уходить так рано.",
+       "frame": [
+        "Me da pena"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "esp-c050",
+     "es": "¡que + глагол (tengas, aproveche)!",
+     "ru": "желаю…, пусть… (пожелание)",
+     "how": "Короткие пожелания начинаются с que, а глагол стоит в особой форме: tengas, aproveche, te mejores, vaya bien. Это остаток от «желаю, чтобы…».",
+     "lit": "«(желаю,) чтобы пошло на пользу»",
+     "ex": [
+      {
+       "es": "¡Que aproveche!",
+       "ru": "Приятного аппетита!",
+       "frame": [
+        "Que aproveche"
+       ]
+      },
+      {
+       "es": "¡Que te mejores pronto!",
+       "ru": "Скорее выздоравливай!",
+       "frame": [
+        "Que te mejores"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "contrasts": [
+  {
+   "id": "esp-n001",
+   "title": "sino или pero",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Обе стоят после отрицания, но "
+      },
+      {
+       "t": "sino",
+       "s": "es"
+      },
+      {
+       "t": " заменяет первую половину, а "
+      },
+      {
+       "t": "pero",
+       "s": "es"
+      },
+      {
+       "t": " оставляет её верной и добавляет вторую. Русское «а» при сравнении двух людей или вещей — это "
+      },
+      {
+       "t": "y",
+       "s": "es"
+      },
+      {
+       "t": ", а не "
+      },
+      {
+       "t": "sino",
+       "s": "es"
+      },
+      {
+       "t": "."
+      }
+     ]
+    },
+    {
+     "k": "table",
+     "head": [
+      [
+       {
+        "t": "Шаблон"
+       }
+      ],
+      [
+       {
+        "t": "Смысл"
+       }
+      ],
+      [
+       {
+        "t": "Пример"
+       }
+      ],
+      [
+       {
+        "t": "Перевод"
+       }
+      ]
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "no …, sino …",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "не A, а B — первое неверно"
+        }
+       ],
+       [
+        {
+         "t": "No es mi hijo, sino mi sobrino.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Это не мой сын, а мой племянник."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "no …, pero …",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "не A, но B — первое верно"
+        }
+       ],
+       [
+        {
+         "t": "No es caro, pero no me gusta.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Не дорого, но мне не нравится."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "A y B",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "«а» при сравнении"
+        }
+       ],
+       [
+        {
+         "t": "Yo trabajo y ella estudia.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Я работаю, а она учится."
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-n002",
+   "title": "porque, por eso или como",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Все три — о причине, разница в том, где она стоит. "
+      },
+      {
+       "t": "porque",
+       "s": "es"
+      },
+      {
+       "t": " — перед причиной, после вывода. "
+      },
+      {
+       "t": "por eso",
+       "s": "es"
+      },
+      {
+       "t": " — перед выводом, после причины. "
+      },
+      {
+       "t": "como",
+       "s": "es"
+      },
+      {
+       "t": " — в самом начале фразы, перед причиной."
+      }
+     ]
+    },
+    {
+     "k": "table",
+     "head": [
+      [
+       {
+        "t": "Шаблон"
+       }
+      ],
+      [
+       {
+        "t": "Смысл"
+       }
+      ],
+      [
+       {
+        "t": "Пример"
+       }
+      ],
+      [
+       {
+        "t": "Перевод"
+       }
+      ]
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "porque",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "потому что — дальше причина"
+        }
+       ],
+       [
+        {
+         "t": "No voy porque estoy malo.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Не иду, потому что заболел."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "por eso",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "поэтому — дальше вывод"
+        }
+       ],
+       [
+        {
+         "t": "Estoy malo, por eso no voy.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Я заболел, поэтому не иду."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "como",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "так как — причина в начале"
+        }
+       ],
+       [
+        {
+         "t": "Como estoy malo, no voy.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Так как я заболел, не иду."
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-n003",
+   "title": "aunque или a pesar de",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Смысл один — «несмотря ни на что», разница в том, что идёт дальше. После "
+      },
+      {
+       "t": "aunque",
+       "s": "es"
+      },
+      {
+       "t": " — целая фраза с глаголом. После "
+      },
+      {
+       "t": "a pesar de",
+       "s": "es"
+      },
+      {
+       "t": " — слово или глагол в начальной форме. Мостик между ними — "
+      },
+      {
+       "t": "a pesar de que",
+       "s": "es"
+      },
+      {
+       "t": " и фраза."
+      }
+     ]
+    },
+    {
+     "k": "table",
+     "head": [
+      [
+       {
+        "t": "Шаблон"
+       }
+      ],
+      [
+       {
+        "t": "Смысл"
+       }
+      ],
+      [
+       {
+        "t": "Пример"
+       }
+      ],
+      [
+       {
+        "t": "Перевод"
+       }
+      ]
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "aunque + фраза",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "хотя …"
+        }
+       ],
+       [
+        {
+         "t": "Aunque hace frío, salimos.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Хотя холодно, выходим."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "a pesar de + слово",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "несмотря на …"
+        }
+       ],
+       [
+        {
+         "t": "A pesar del frío, salimos.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Несмотря на холод, выходим."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "a pesar de + глагол",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "хоть и …"
+        }
+       ],
+       [
+        {
+         "t": "A pesar de estar cansado, salgo.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Хоть я и устал, выхожу."
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-n004",
+   "title": "también или tampoco",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Оба значат «тоже». "
+      },
+      {
+       "t": "también",
+       "s": "es"
+      },
+      {
+       "t": " соглашается с утверждением, "
+      },
+      {
+       "t": "tampoco",
+       "s": "es"
+      },
+      {
+       "t": " — с отрицанием. После "
+      },
+      {
+       "t": "me gusta",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "me encanta",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "me apetece",
+       "s": "es"
+      },
+      {
+       "t": " отвечают не через "
+      },
+      {
+       "t": "yo",
+       "s": "es"
+      },
+      {
+       "t": ", а через "
+      },
+      {
+       "t": "a mí",
+       "s": "es"
+      },
+      {
+       "t": "."
+      }
+     ]
+    },
+    {
+     "k": "table",
+     "head": [
+      [
+       {
+        "t": "Шаблон"
+       }
+      ],
+      [
+       {
+        "t": "Смысл"
+       }
+      ],
+      [
+       {
+        "t": "Пример"
+       }
+      ],
+      [
+       {
+        "t": "Перевод"
+       }
+      ]
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "también",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "тоже — в ответ на «да»"
+        }
+       ],
+       [
+        {
+         "t": "Tengo hambre. — Yo también.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Я голоден. — Я тоже."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "tampoco",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "тоже не — в ответ на «нет»"
+        }
+       ],
+       [
+        {
+         "t": "No tengo hambre. — Yo tampoco.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Я не голоден. — Я тоже."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "a mí también",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "мне тоже"
+        }
+       ],
+       [
+        {
+         "t": "Me gusta. — A mí también.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Мне нравится. — Мне тоже."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "a mí tampoco",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "мне тоже нет"
+        }
+       ],
+       [
+        {
+         "t": "No me gusta. — A mí tampoco.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Мне не нравится. — Мне тоже."
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-n005",
+   "title": "ya или todavía",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "ya",
+       "s": "es"
+      },
+      {
+       "t": " — момент уже наступил. "
+      },
+      {
+       "t": "todavía",
+       "s": "es"
+      },
+      {
+       "t": " — ещё длится или ещё впереди. С "
+      },
+      {
+       "t": "no",
+       "s": "es"
+      },
+      {
+       "t": " смысл переворачивается: "
+      },
+      {
+       "t": "ya no",
+       "s": "es"
+      },
+      {
+       "t": " — «больше не», "
+      },
+      {
+       "t": "todavía no",
+       "s": "es"
+      },
+      {
+       "t": " — «ещё не»."
+      }
+     ]
+    },
+    {
+     "k": "table",
+     "head": [
+      [
+       {
+        "t": "Шаблон"
+       }
+      ],
+      [
+       {
+        "t": "Смысл"
+       }
+      ],
+      [
+       {
+        "t": "Пример"
+       }
+      ],
+      [
+       {
+        "t": "Перевод"
+       }
+      ]
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "ya",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "уже"
+        }
+       ],
+       [
+        {
+         "t": "Ya he pagado.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Я уже заплатил."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "ya no",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "больше не"
+        }
+       ],
+       [
+        {
+         "t": "Ya no trabajo allí.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Я там больше не работаю."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "todavía",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "всё ещё"
+        }
+       ],
+       [
+        {
+         "t": "Todavía está abierto.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Ещё открыто."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "todavía no",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "ещё не"
+        }
+       ],
+       [
+        {
+         "t": "Todavía no han llegado.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Они ещё не пришли."
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-n006",
+   "title": "es … или está …: одно слово, два смысла",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "С "
+      },
+      {
+       "t": "ser",
+       "s": "es"
+      },
+      {
+       "t": " признак говорит, какой человек или предмет сам по себе. С "
+      },
+      {
+       "t": "estar",
+       "s": "es"
+      },
+      {
+       "t": " — в каком он состоянии сейчас или каким кажется. У некоторых слов из-за этого меняется весь смысл."
+      }
+     ]
+    },
+    {
+     "k": "table",
+     "head": [
+      [
+       {
+        "t": "Шаблон"
+       }
+      ],
+      [
+       {
+        "t": "Смысл"
+       }
+      ],
+      [
+       {
+        "t": "Пример"
+       }
+      ],
+      [
+       {
+        "t": "Перевод"
+       }
+      ]
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "es aburrido",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "он скучный человек"
+        }
+       ],
+       [
+        {
+         "t": "Mi jefe es aburrido.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Мой начальник — скучный человек."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "está aburrido",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "ему скучно"
+        }
+       ],
+       [
+        {
+         "t": "El niño está aburrido.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Ребёнку скучно."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "es listo",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "умный"
+        }
+       ],
+       [
+        {
+         "t": "Tu hijo es muy listo.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Твой сын очень умный."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "está listo",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "готов"
+        }
+       ],
+       [
+        {
+         "t": "La comida está lista.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Еда готова."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "es rico",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "богатый"
+        }
+       ],
+       [
+        {
+         "t": "Es un barrio rico.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Это богатый район."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "está rico",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "вкусный"
+        }
+       ],
+       [
+        {
+         "t": "El gazpacho está rico.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Гаспачо вкусное."
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-n007",
+   "title": "sino или si no",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "На слух одинаково, а по смыслу — разные слова. "
+      },
+      {
+       "t": "sino",
+       "s": "es"
+      },
+      {
+       "t": " пишется слитно и значит «а» после отрицания. "
+      },
+      {
+       "t": "si no",
+       "s": "es"
+      },
+      {
+       "t": " пишется раздельно и значит «если не» или «а то»."
+      }
+     ]
+    },
+    {
+     "k": "table",
+     "head": [
+      [
+       {
+        "t": "Шаблон"
+       }
+      ],
+      [
+       {
+        "t": "Смысл"
+       }
+      ],
+      [
+       {
+        "t": "Пример"
+       }
+      ],
+      [
+       {
+        "t": "Перевод"
+       }
+      ]
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "sino",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "а — после no"
+        }
+       ],
+       [
+        {
+         "t": "No es hoy, sino mañana.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Не сегодня, а завтра."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "si no",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "если не"
+        }
+       ],
+       [
+        {
+         "t": "Si no puedes, avísame.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Если не можешь, предупреди."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "si no",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "а то, иначе"
+        }
+       ],
+       [
+        {
+         "t": "Corre, si no, lo perdemos.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Беги, а то опоздаем."
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-n008",
+   "title": "si или cuando",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "si",
+       "s": "es"
+      },
+      {
+       "t": " — «если»: может, и не случится. "
+      },
+      {
+       "t": "cuando",
+       "s": "es"
+      },
+      {
+       "t": " — «когда»: точно случится. Про будущее после "
+      },
+      {
+       "t": "si",
+       "s": "es"
+      },
+      {
+       "t": " глагол стоит в настоящем времени, а после "
+      },
+      {
+       "t": "cuando",
+       "s": "es"
+      },
+      {
+       "t": " — в особой форме."
+      }
+     ]
+    },
+    {
+     "k": "table",
+     "head": [
+      [
+       {
+        "t": "Шаблон"
+       }
+      ],
+      [
+       {
+        "t": "Смысл"
+       }
+      ],
+      [
+       {
+        "t": "Пример"
+       }
+      ],
+      [
+       {
+        "t": "Перевод"
+       }
+      ]
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "si + настоящее",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "если (может быть)"
+        }
+       ],
+       [
+        {
+         "t": "Si vienes, te espero.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Если придёшь, я тебя подожду."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "cuando + особая форма",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "когда (потом)"
+        }
+       ],
+       [
+        {
+         "t": "Cuando vengas, te espero.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Когда придёшь, я тебя подожду."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "cuando + настоящее",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "когда (обычно)"
+        }
+       ],
+       [
+        {
+         "t": "Cuando llego a casa, ceno.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Когда прихожу домой, ужинаю."
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-n009",
+   "title": "hace или dentro de",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Оба считают время от сейчас и стоят перед сроком: "
+      },
+      {
+       "t": "hace",
+       "s": "es"
+      },
+      {
+       "t": " — назад, в прошлое, "
+      },
+      {
+       "t": "dentro de",
+       "s": "es"
+      },
+      {
+       "t": " — вперёд, в будущее. "
+      },
+      {
+       "t": "desde hace",
+       "s": "es"
+      },
+      {
+       "t": " — «уже столько времени и до сих пор»."
+      }
+     ]
+    },
+    {
+     "k": "table",
+     "head": [
+      [
+       {
+        "t": "Шаблон"
+       }
+      ],
+      [
+       {
+        "t": "Смысл"
+       }
+      ],
+      [
+       {
+        "t": "Пример"
+       }
+      ],
+      [
+       {
+        "t": "Перевод"
+       }
+      ]
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "hace + срок",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "… назад"
+        }
+       ],
+       [
+        {
+         "t": "Vine hace una semana.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Я приехал неделю назад."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "dentro de + срок",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "через …"
+        }
+       ],
+       [
+        {
+         "t": "Vuelvo dentro de una semana.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Вернусь через неделю."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "desde hace + срок",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "уже … (и сейчас)"
+        }
+       ],
+       [
+        {
+         "t": "Vivo aquí desde hace un año.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Я живу здесь уже год."
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "esp-n010",
+   "title": "tan или tanto",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Оба — для сравнения «так же, как». "
+      },
+      {
+       "t": "tan",
+       "s": "es"
+      },
+      {
+       "t": " стоит перед признаком и не меняется. "
+      },
+      {
+       "t": "tanto",
+       "s": "es"
+      },
+      {
+       "t": " стоит перед предметом и меняется по роду и числу, а после глагола остаётся "
+      },
+      {
+       "t": "tanto",
+       "s": "es"
+      },
+      {
+       "t": "."
+      }
+     ]
+    },
+    {
+     "k": "table",
+     "head": [
+      [
+       {
+        "t": "Шаблон"
+       }
+      ],
+      [
+       {
+        "t": "Смысл"
+       }
+      ],
+      [
+       {
+        "t": "Пример"
+       }
+      ],
+      [
+       {
+        "t": "Перевод"
+       }
+      ]
+     ],
+     "rows": [
+      [
+       [
+        {
+         "t": "tan + признак",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "такой же"
+        }
+       ],
+       [
+        {
+         "t": "No es tan caro como allí.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Не так дорого, как там."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "tanto + предмет",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "столько же"
+        }
+       ],
+       [
+        {
+         "t": "No tengo tanto tiempo como tú.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "У меня нет столько времени, сколько у тебя."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "tanta, tantos, tantas",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "по роду и числу"
+        }
+       ],
+       [
+        {
+         "t": "Hay tanta gente como ayer.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Народу столько же, сколько вчера."
+        }
+       ]
+      ],
+      [
+       [
+        {
+         "t": "глагол + tanto",
+         "s": "b"
+        }
+       ],
+       [
+        {
+         "t": "так же много"
+        }
+       ],
+       [
+        {
+         "t": "No trabajo tanto como antes.",
+         "s": "es"
+        }
+       ],
+       [
+        {
+         "t": "Я не работаю так много, как раньше."
+        }
+       ]
+      ]
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -498,6 +498,161 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 .sp-ex-row.has-mark .sp-speak { grid-row: 1 / span 2; grid-column: 2; }
 .sp-ex-row.has-mark .sp-mark { grid-row: 1 / span 2; grid-column: 3; align-self: start; }
 
+/* ---------- patterns (the hub's Patterns panel) ---------- */
+
+/* One formula per card, the cards of a theme stacked in a .sp-lex. On a phone
+   its parts stack — the formula and the meaning, how it works, then the
+   examples under a dashed rule; from 700px up the explanation and the
+   examples stand side by side (see the block at the end), the way the columns
+   of a table row would. */
+.sp-pat {
+    display: grid;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+}
+
+.sp-pat-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px var(--spacing-sm);
+}
+
+/* The formula: the fixed Spanish is what gets learned as it is, so it carries
+   the colour; a slot (A, B, глагол) is the place your own words go. */
+.sp-pat-es { font-size: 1.15rem; font-weight: 600; color: var(--color-text-light); overflow-wrap: anywhere; }
+.sp-pat-es .sp-fixed { color: var(--color-primary); }
+.sp-pat-es .sp-slot { color: var(--color-heading); font-style: italic; font-weight: 400; }
+
+/* The arrow between formula and meaning is drawn, as the lexicon's
+   punctuation is: the JSON holds the two texts and nothing between them. */
+.sp-pat-ru { color: var(--color-heading); overflow-wrap: anywhere; }
+.sp-pat-ru::before { content: "→"; margin-right: 6px; color: var(--color-text-light); }
+
+/* The badges sit at the far end of the card's head. */
+.sp-pat-head .sp-badge:first-of-type { margin-left: auto; }
+
+/* A card is a link target of the top list, so it clears the sticky bar. */
+.sp-pat[id] { scroll-margin-top: 96px; }
+
+.sp-pat-info { display: grid; gap: 4px; align-content: start; }
+
+.sp-pat-note {
+    margin: 0;
+    font-size: var(--font-size-small);
+    color: var(--color-text);
+    overflow-wrap: anywhere;
+}
+
+.sp-pat-label {
+    margin-right: 6px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+}
+
+.sp-pat-note.is-lit { color: var(--color-text-light); }
+.sp-pat-note.is-trap { padding-left: var(--spacing-xs); border-left: 2px solid var(--color-warning); }
+.sp-pat-note.is-trap .sp-pat-label { color: var(--color-warning); }
+
+.sp-pat-exs {
+    display: grid;
+    gap: 4px;
+    align-content: start;
+    padding-top: var(--spacing-xs);
+    border-top: 1px dashed var(--color-border);
+}
+
+.sp-pat-ex {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 44px;
+    gap: 0 var(--spacing-sm);
+    align-items: center;
+}
+
+.sp-pat-ex-es { grid-column: 1; color: var(--color-heading); overflow-wrap: anywhere; }
+.sp-pat-ex-ru { grid-column: 1; font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
+.sp-pat-ex .sp-speak { grid-column: 2; grid-row: 1 / span 2; }
+
+/* ---------- what to learn first (rules and patterns) ---------- */
+
+/* The words that carry the point inside an example. */
+.sp-frame { color: var(--color-primary); font-weight: 600; }
+
+/* ★ N — a place among those to learn first; ⚠ — Russian logic leads astray. */
+.sp-badge {
+    display: inline-block;
+    align-self: center;
+    padding: 0 7px;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: normal;
+    line-height: 1.5;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: default;
+}
+
+.sp-badge.is-top { color: var(--color-info); }
+.sp-badge.is-trap { color: var(--color-warning); }
+
+/* Beside a section title of the rules. The title styles every span in it as
+   a quiet count, so the badge restates its own colour and size. */
+.sp-group-title .sp-badge { margin-left: var(--spacing-xs); font-size: 0.72rem; }
+.sp-group-title .sp-badge.is-top { color: var(--color-info); }
+
+/* The list itself: name → gist → one short example, numbered by a counter
+   because a grid row is no longer a list item with a marker of its own. */
+.sp-top { margin: 0; padding: 0; list-style: none; counter-reset: sp-top; }
+
+.sp-top-row {
+    display: grid;
+    grid-template-columns: 2em minmax(0, 1fr) 44px;
+    gap: var(--spacing-sm);
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px dashed var(--color-border);
+}
+
+.sp-top-row::before {
+    counter-increment: sp-top;
+    content: counter(sp-top) ".";
+    color: var(--color-text-light);
+    font-size: var(--font-size-small);
+    text-align: right;
+}
+
+.sp-top-text {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 2px 6px;
+    min-width: 0;
+}
+
+/* The name leads to the entry itself — a card, or a section of the rules. */
+.sp-top-link { text-decoration: none; overflow-wrap: anywhere; }
+.sp-top-link:hover { text-decoration: underline; }
+.sp-top-link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.sp-top-text .sp-pat-es { font-size: 1rem; }
+.sp-top-title { color: var(--color-heading); font-weight: 600; }
+
+/* The arrows and the dash are drawn, as the rest of the section's
+   punctuation is. */
+.sp-top-meaning { color: var(--color-text); overflow-wrap: anywhere; }
+.sp-top-meaning::before,
+.sp-top-ex::before { content: "→"; margin-right: 6px; color: var(--color-text-light); }
+.sp-top-ex { overflow-wrap: anywhere; }
+.sp-top-es { color: var(--color-heading); }
+.sp-top-ru { font-size: var(--font-size-small); color: var(--color-text-light); }
+.sp-top-ru::before { content: " — "; }
+
 /* ---------- drills ---------- */
 
 /* Two zones, so the numbering runs on across the divider via <ol start>. */
@@ -856,6 +1011,19 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
     .sp-ex-row.has-mark .sp-mark { grid-row: 1; grid-column: 4; align-self: center; }
     .sp-tab { flex: 0 0 auto; }
     .sp-table th, .sp-table td { white-space: normal; }
+
+    /* A pattern card reads like a table row: how it works on the left, the
+       examples on the right, the formula across both. */
+    .sp-pat { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--spacing-md); }
+    .sp-pat-head { grid-column: 1 / -1; }
+    .sp-pat-info { grid-column: 1; }
+    .sp-pat-exs {
+        grid-column: 2;
+        padding-top: 0;
+        padding-left: var(--spacing-md);
+        border-top: 0;
+        border-left: 1px dashed var(--color-border);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

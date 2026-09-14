@@ -106,5 +106,13 @@
   "url": "spanish/rules.html",
   "file": "rules.json",
   "sections": 31
+ },
+ "patterns": {
+  "id": "patterns",
+  "title": "Spanish patterns",
+  "titleRu": "Разговорные конструкции: формула, смысл и два примера",
+  "icon": "🧩",
+  "file": "patterns.json",
+  "count": 50
  }
 }
