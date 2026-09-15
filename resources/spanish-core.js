@@ -222,10 +222,10 @@
             paintCover();
             // Another side to recall starts the round over: whatever was
             // uncovered under the old choice is covered under the new one.
-            document.querySelectorAll('.has-mark.is-revealed').forEach(function (row) {
+            document.querySelectorAll('.is-revealed').forEach(function (row) {
                 row.classList.remove('is-revealed');
             });
-            document.querySelectorAll('.has-mark.is-learned, .has-mark.is-pending').forEach(revealTitle);
+            document.querySelectorAll(':is(.sp-lex-row, .sp-ex-row):is(.is-learned, .is-pending)').forEach(revealTitle);
             coverListeners.forEach(function (fn) { fn(side); });
         },
 
@@ -602,7 +602,8 @@
 
     // chatgpt.com/?q= opens a new chat with the prompt already sent. The prompt
     // is in Russian, like the glosses, and asks for what a row cannot hold.
-    var ASK_URL = 'https://chatgpt.com/?q=';
+    var ASK_HOME = 'https://chatgpt.com/';
+    var ASK_URL = ASK_HOME + '?q=';
 
     function askPrompt(text, kind) {
         return kind === 'phrase'
@@ -610,32 +611,42 @@
             : 'Испанское слово «' + text + '». Объясни по-русски: значение и оттенки, произношение, род и основные формы, 2–3 примера употребления с переводом.';
     }
 
-    function askIcon() {
-        var svg = document.createElementNS(SVG_NS, 'svg');
-        svg.setAttribute('viewBox', '0 0 24 24');
-        svg.setAttribute('aria-hidden', 'true');
-        var path = document.createElementNS(SVG_NS, 'path');
-        path.setAttribute('d', 'M19 2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h4l3 3 3-3h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-6 16h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 11.9 13 12.5 13 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z');
-        svg.appendChild(path);
-        return svg;
-    }
-
-    // A button rather than a link: a link would print the Spanish in the status
-    // bar on hover, and a covered row is meant to keep it hidden. For the same
-    // reason the title names the action, not the word. kind: 'word' | 'phrase'.
+    // A real link, not window.open: on a phone with the ChatGPT app installed
+    // the system hands a tapped link to the app, while window.open first made a
+    // tab of its own and left it behind empty. On a touch screen the link opens
+    // in place for the same reason — without the app, Back returns here; with a
+    // mouse it takes a new tab.
+    // Until it is pressed the link points at the bare chatgpt.com, and it goes
+    // back there once the pointer or the focus leaves: the full address would
+    // print the Spanish in the status bar on hover, and a covered row is meant
+    // to keep it hidden. For the same reason the title names the action, not
+    // the word. The icon is images/chatgpt.svg, painted by the CSS as a mask so
+    // it takes the button's colour. kind: 'word' | 'phrase'.
     SP.askButton = function (text, kind) {
         if (!text) return null;
-        var btn = SP.el('button', 'sp-ask');
-        btn.type = 'button';
-        btn.title = 'Ask ChatGPT';
-        btn.setAttribute('aria-label', 'Ask ChatGPT about: ' + text);
-        btn.appendChild(askIcon());
-        btn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            window.open(ASK_URL + encodeURIComponent(askPrompt(text, kind)), '_blank', 'noopener');
-        });
-        return btn;
+        var link = SP.el('a', 'sp-ask');
+        var url = ASK_URL + encodeURIComponent(askPrompt(text, kind));
+        link.href = ASK_HOME;
+        if (!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches)) {
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+        }
+        link.title = 'Ask ChatGPT';
+        link.setAttribute('aria-label', 'Ask ChatGPT about: ' + text);
+        var icon = link.appendChild(SP.el('span', 'sp-ask-icon'));
+        icon.setAttribute('aria-hidden', 'true');
+
+        function arm() { link.href = url; }
+        function disarm() { link.href = ASK_HOME; }
+        // pointerdown covers the middle click and the context menu; click
+        // covers the keyboard. The link follows whatever href holds once the
+        // click listeners have run. The click must not reach the row: its
+        // reveal toggle calls preventDefault and would cancel the navigation.
+        link.addEventListener('pointerdown', arm);
+        link.addEventListener('click', function (e) { e.stopPropagation(); arm(); });
+        link.addEventListener('pointerleave', disarm);
+        link.addEventListener('blur', disarm);
+        return link;
     };
 
     // The tail of a list row: the speaker, then the question. One grid cell for
@@ -815,15 +826,17 @@
     // the extra control column. The checkbox leads the row, in the DOM as on the
     // screen, as far from the speak button as the row allows: side by side at
     // the tail, a tap meant for the speaker could unmark the word.
-    // A row that can be marked is also a row you can test yourself on, so the
-    // reveal listener goes on here too — it does nothing until the row is in
-    // Learned or Pending, and the mark and speak buttons stop the click before
-    // it reaches the row.
+    // A learned row and a row of a Reference table pass no checkbox and get no
+    // column: there is nothing to tick, and an empty cell only pushed the text
+    // away from the edge. Every list row is still a row you can test yourself
+    // on, so the reveal listener goes on regardless — it does nothing until the
+    // row is in Learned or Pending, and the mark and speak buttons stop the
+    // click before it reaches the row.
     SP.attachMark = function (row, mark) {
+        attachReveal(row);
         if (!mark) return row;
         row.classList.add('has-mark');
         row.insertBefore(mark, row.firstChild);
-        attachReveal(row);
         return row;
     };
 
@@ -915,15 +928,6 @@
         return tag;
     };
 
-    // A learned row carries no checkbox: it is already at the top, and marking
-    // it as pending on top of that moves nothing. Nor does a row of a Reference
-    // table, which is not a word to tick off. Either keeps the column all the
-    // same, so the table stays lined up across the sections.
-    SP.markSpacer = function () {
-        var span = SP.el('span', 'sp-mark is-empty');
-        span.setAttribute('aria-hidden', 'true');
-        return span;
-    };
 
     // The 44px checkbox that puts an entry in the pending list. A button with
     // aria-pressed rather than a real checkbox, so it has the shape and the

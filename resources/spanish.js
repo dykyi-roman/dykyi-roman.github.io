@@ -882,9 +882,9 @@
             var row, tag;
             var kind = SP.sectionOf(item);
             // Neither a table row nor a learned row can move, so neither has
-            // a checkbox to move it with.
+            // a checkbox to move it with — nor an empty column where it would be.
             var fixed = kind === 'reference' || kind === 'learned';
-            var mark = fixed ? SP.markSpacer() : SP.markButton(item, function (on) {
+            var mark = fixed ? null : SP.markButton(item, function (on) {
                 SP.setRowState(row, false, on);
                 SP.setSectionTag(tag, on ? 'pending' : 'left');
                 counts.pending += on ? 1 : -1;

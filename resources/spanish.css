@@ -206,8 +206,25 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-speak:hover,
 .sp-ask:hover { color: var(--color-primary); border-color: var(--color-primary); }
 .sp-speak.speaking { color: var(--color-primary); border-color: var(--color-primary); }
-.sp-speak svg,
-.sp-ask svg { width: 20px; height: 20px; fill: currentColor; }
+.sp-speak svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* The ask button is a link, so it sheds what the site gives every link: the
+   drawn underline, the visited colour and the dashed focus ring. */
+.sp-ask { box-sizing: border-box; }
+.sp-ask:visited { color: var(--color-text-light); }
+.sp-ask:visited:hover { color: var(--color-primary); }
+.sp-ask::after { content: none; }
+.sp-ask:focus:not(:focus-visible) { outline: none; }
+
+/* The ChatGPT mark is a file of its own, painted as a mask so it takes the
+   colour of the button like the inline icons do. */
+.sp-ask-icon {
+    width: 20px;
+    height: 20px;
+    background-color: currentColor;
+    -webkit-mask: url("../images/chatgpt.svg") center / contain no-repeat;
+    mask: url("../images/chatgpt.svg") center / contain no-repeat;
+}
 
 /* The tail cell of a list row: the speaker, then the ChatGPT question. */
 .sp-tools { display: flex; align-items: center; gap: 4px; }
@@ -249,12 +266,6 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     opacity: 0;
     transition: opacity var(--transition-fast);
 }
-
-/* The empty cell a learned row leaves where the checkbox would be: it holds
-   the column open, and in a drill's row of buttons there is no column to hold,
-   so there it is simply not there. */
-.sp-mark.is-empty { cursor: default; pointer-events: none; }
-.sp-drill-actions .sp-mark.is-empty { display: none; }
 
 .sp-mark:hover { color: var(--color-primary); }
 .sp-mark:hover .sp-tick { opacity: 0.45; }
