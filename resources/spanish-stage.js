@@ -199,6 +199,8 @@
         var spoken = SP.spokenText(item);
         var speak = SP.speakButton(spoken, spoken === item.answer ? 'Listen to the answer' : 'Listen to the Spanish');
         if (speak) actions.appendChild(speak);
+        var ask = SP.askButton(spoken, 'phrase');
+        if (ask) actions.appendChild(ask);
 
         li.appendChild(answer);
         li.appendChild(actions);

@@ -598,6 +598,60 @@
         return btn;
     };
 
+    /* ---------- asking ChatGPT ---------- */
+
+    // chatgpt.com/?q= opens a new chat with the prompt already sent. The prompt
+    // is in Russian, like the glosses, and asks for what a row cannot hold.
+    var ASK_URL = 'https://chatgpt.com/?q=';
+
+    function askPrompt(text, kind) {
+        return kind === 'phrase'
+            ? 'Испанская фраза «' + text + '». Объясни по-русски: смысл, из чего она построена грамматически, когда так говорят, 2–3 похожих примера с переводом.'
+            : 'Испанское слово «' + text + '». Объясни по-русски: значение и оттенки, произношение, род и основные формы, 2–3 примера употребления с переводом.';
+    }
+
+    function askIcon() {
+        var svg = document.createElementNS(SVG_NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('aria-hidden', 'true');
+        var path = document.createElementNS(SVG_NS, 'path');
+        path.setAttribute('d', 'M19 2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h4l3 3 3-3h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-6 16h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 11.9 13 12.5 13 14h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z');
+        svg.appendChild(path);
+        return svg;
+    }
+
+    // A button rather than a link: a link would print the Spanish in the status
+    // bar on hover, and a covered row is meant to keep it hidden. For the same
+    // reason the title names the action, not the word. kind: 'word' | 'phrase'.
+    SP.askButton = function (text, kind) {
+        if (!text) return null;
+        var btn = SP.el('button', 'sp-ask');
+        btn.type = 'button';
+        btn.title = 'Ask ChatGPT';
+        btn.setAttribute('aria-label', 'Ask ChatGPT about: ' + text);
+        btn.appendChild(askIcon());
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            window.open(ASK_URL + encodeURIComponent(askPrompt(text, kind)), '_blank', 'noopener');
+        });
+        return btn;
+    };
+
+    // The tail of a list row: the speaker, then the question. One grid cell for
+    // both, so the row keeps a single column for its controls. The keys stop
+    // here too — the row's own Enter/Space toggles the cover and would
+    // otherwise cancel the button the key was meant for.
+    SP.rowTools = function (text, kind) {
+        var tools = SP.el('div', 'sp-tools');
+        var speak = SP.speakButton(text);
+        if (speak) tools.appendChild(speak);
+        var ask = SP.askButton(text, kind);
+        if (ask) tools.appendChild(ask);
+        tools.addEventListener('keydown', function (e) { e.stopPropagation(); });
+        return tools;
+    };
+
     /* ---------- section headers and the pending checkbox ---------- */
 
     function checkIcon() {
@@ -1231,8 +1285,7 @@
         if (item.ru) text.appendChild(SP.el('div', 'sp-lex-ru', item.ru));
         row.appendChild(text);
 
-        var speak = SP.speakButton(item.es);
-        if (speak) row.appendChild(speak);
+        row.appendChild(SP.rowTools(item.es, 'word'));
         return SP.attachMark(row, mark);
     };
 
@@ -1240,8 +1293,7 @@
         var row = SP.el('div', 'sp-ex-row' + (item.type === 'exchange' ? ' is-exchange' : ''));
         row.appendChild(SP.el('div', 'sp-ex-es', item.es));
         row.appendChild(SP.el('div', 'sp-ex-ru', item.ru || ''));
-        var speak = SP.speakButton(item.es);
-        if (speak) row.appendChild(speak);
+        row.appendChild(SP.rowTools(item.es, 'phrase'));
         return SP.attachMark(row, mark);
     };
 

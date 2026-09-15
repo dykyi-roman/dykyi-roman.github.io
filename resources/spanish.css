@@ -57,6 +57,7 @@
 .sp-chip:focus-visible,
 .sp-tab:focus-visible,
 .sp-speak:focus-visible,
+.sp-ask:focus-visible,
 .sp-mark:focus-visible,
 .sp-divider:focus-visible,
 .sp-option:focus-visible {
@@ -181,9 +182,10 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     margin: var(--spacing-md) 0;
 }
 
-/* ---------- speak button ---------- */
+/* ---------- speak and ask buttons ---------- */
 
-.sp-speak {
+.sp-speak,
+.sp-ask {
     flex: 0 0 auto;
     width: 44px;
     height: 44px;
@@ -201,9 +203,14 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.sp-speak:hover { color: var(--color-primary); border-color: var(--color-primary); }
+.sp-speak:hover,
+.sp-ask:hover { color: var(--color-primary); border-color: var(--color-primary); }
 .sp-speak.speaking { color: var(--color-primary); border-color: var(--color-primary); }
-.sp-speak svg { width: 20px; height: 20px; fill: currentColor; }
+.sp-speak svg,
+.sp-ask svg { width: 20px; height: 20px; fill: currentColor; }
+
+/* The tail cell of a list row: the speaker, then the ChatGPT question. */
+.sp-tools { display: flex; align-items: center; gap: 4px; }
 
 /* ---------- learned checkbox and divider ---------- */
 
@@ -401,8 +408,8 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
    from 700px up. */
 .sp-lex-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 44px;
-    grid-template-areas: "text speak";
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "text tools";
     gap: 2px var(--spacing-sm);
     align-items: center;
     padding: var(--spacing-sm);
@@ -430,7 +437,7 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 .sp-lex-tr { font-size: var(--font-size-small); color: var(--color-primary); overflow-wrap: anywhere; }
 .sp-lex-ru { font-size: var(--font-size-base); color: var(--color-text); overflow-wrap: anywhere; }
 .sp-lex-en { font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
-.sp-lex-row .sp-speak { grid-area: speak; align-self: start; }
+.sp-lex-row .sp-tools { grid-area: tools; align-self: start; }
 
 /* The punctuation of that line is drawn, not stored: the JSON carries none and
    the table from 700px up must show none. Each translation is bracketed
@@ -446,8 +453,8 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 /* With the checkbox the card gains a control column on its left edge — away
    from the speak button, so a tap aimed at one cannot land on the other. */
 .sp-lex-row.has-mark {
-    grid-template-columns: 44px minmax(0, 1fr) 44px;
-    grid-template-areas: "mark text speak";
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    grid-template-areas: "mark text tools";
 }
 
 .sp-lex-row.has-mark .sp-mark { grid-area: mark; align-self: start; }
@@ -479,7 +486,7 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 
 .sp-ex-row {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 44px;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 2px var(--spacing-sm);
     align-items: center;
     padding: var(--spacing-sm);
@@ -490,14 +497,14 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 
 .sp-ex-es { font-size: 1.05rem; color: var(--color-heading); overflow-wrap: anywhere; }
 .sp-ex-ru { font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
-.sp-ex-row .sp-speak { grid-row: 1 / span 2; grid-column: 2; }
+.sp-ex-row .sp-tools { grid-row: 1 / span 2; grid-column: 2; }
 .sp-ex-row.is-exchange .sp-ex-es { color: var(--color-info); }
 
-.sp-ex-row.has-mark { grid-template-columns: 44px minmax(0, 1fr) 44px; }
+.sp-ex-row.has-mark { grid-template-columns: 44px minmax(0, 1fr) auto; }
 .sp-ex-row.has-mark .sp-mark { grid-row: 1 / span 2; grid-column: 1; align-self: start; }
 .sp-ex-row.has-mark .sp-ex-es { grid-row: 1; grid-column: 2; }
 .sp-ex-row.has-mark .sp-ex-ru { grid-row: 2; grid-column: 2; }
-.sp-ex-row.has-mark .sp-speak { grid-row: 1 / span 2; grid-column: 3; }
+.sp-ex-row.has-mark .sp-tools { grid-row: 1 / span 2; grid-column: 3; }
 
 /* ---------- patterns (the hub's Patterns panel) ---------- */
 
@@ -964,8 +971,8 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
 
 @media (min-width: 700px) {
     .sp-lex-row {
-        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) 44px;
-        grid-template-areas: "es tr en ru speak";
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) auto;
+        grid-template-areas: "es tr en ru tools";
         align-items: center;
         gap: var(--spacing-sm);
     }
@@ -982,21 +989,21 @@ html[data-sp-cover="spanish"] .sp-ex-row:not(.is-drill):is(.is-learned, .is-pend
     .sp-lex-ru::before, .sp-lex-ru::after { content: none; }
 
     .sp-lex-row.has-mark {
-        grid-template-columns: 44px minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) 44px;
-        grid-template-areas: "mark es tr en ru speak";
+        grid-template-columns: 44px minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) auto;
+        grid-template-areas: "mark es tr en ru tools";
     }
 
-    .sp-lex-row .sp-speak { align-self: center; }
+    .sp-lex-row .sp-tools { align-self: center; }
     .sp-lex-row.has-mark .sp-mark { align-self: center; }
-    .sp-ex-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 44px; }
+    .sp-ex-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
     .sp-ex-row .sp-ex-es { grid-column: 1; }
     .sp-ex-row .sp-ex-ru { grid-column: 2; align-self: center; }
-    .sp-ex-row .sp-speak { grid-row: 1; grid-column: 3; }
-    .sp-ex-row.has-mark { grid-template-columns: 44px minmax(0, 1fr) minmax(0, 1fr) 44px; }
+    .sp-ex-row .sp-tools { grid-row: 1; grid-column: 3; }
+    .sp-ex-row.has-mark { grid-template-columns: 44px minmax(0, 1fr) minmax(0, 1fr) auto; }
     .sp-ex-row.has-mark .sp-mark { grid-row: 1; grid-column: 1; align-self: center; }
     .sp-ex-row.has-mark .sp-ex-es { grid-row: 1; grid-column: 2; }
     .sp-ex-row.has-mark .sp-ex-ru { grid-row: 1; grid-column: 3; align-self: center; }
-    .sp-ex-row.has-mark .sp-speak { grid-row: 1; grid-column: 4; }
+    .sp-ex-row.has-mark .sp-tools { grid-row: 1; grid-column: 4; }
     .sp-tab { flex: 0 0 auto; }
     .sp-table th, .sp-table td { white-space: normal; }
 
