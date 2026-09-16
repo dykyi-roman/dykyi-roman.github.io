@@ -232,8 +232,9 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 /* ---------- learned checkbox and divider ---------- */
 
 /* The same 44px target as the speak button, but with no border of its own:
-   the drawn box is the control. The tick appears at half strength on hover,
-   so it is clear what the button will do before it is pressed. */
+   the drawn box is the control. Where a pointer can hover, the tick appears at
+   half strength under it, so it is clear what the button will do before it is
+   pressed. */
 .sp-mark {
     flex: 0 0 auto;
     width: 44px;
@@ -255,8 +256,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-mark svg { width: 22px; height: 22px; }
 .sp-mark rect { fill: none; stroke: currentColor; stroke-width: 1.6; }
 
-/* The tick shows at half strength on hover, so it is clear what the button
-   will do before it is pressed. */
+/* Invisible until the button is ticked — or, on a pointer device, hovered. */
 .sp-mark .sp-tick {
     fill: none;
     stroke: currentColor;
@@ -267,8 +267,15 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     transition: opacity var(--transition-fast);
 }
 
-.sp-mark:hover { color: var(--color-primary); }
-.sp-mark:hover .sp-tick { opacity: 0.45; }
+/* The hover preview is for a pointer only. A touch screen has no hover to
+   speak of: the state sticks to whatever last sat under the finger and is not
+   recomputed when the page reflows — and a tick reflows the page at that very
+   moment, since the row leaves for Pending and the next word takes its place.
+   The ghost tick then lands on that word and reads as a second, wrong mark. */
+@media (hover: hover) {
+    .sp-mark:hover { color: var(--color-primary); }
+    .sp-mark:hover .sp-tick { opacity: 0.45; }
+}
 /* Ticked, it carries the colour of the Pending section it puts the row in —
    green is what the learned list is drawn in. */
 .sp-mark.is-on, .sp-mark.is-on:hover { color: var(--color-primary); }
