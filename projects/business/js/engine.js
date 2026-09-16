@@ -133,12 +133,13 @@ function hourLabels(open, close) {
 }
 
 /* ================================= ДЕФОЛТЫ ================================= */
-/* Набор просчитан и сходится (см. verify.js): выручка 45 681 € нетто, food
-   cost 28,6 % (без упаковки), ФОТ 34,3 %, prime cost 64,2 %, чистая прибыль
-   4 733 € (10,4 %), окупаемость 25,7 мес, денежная точка безубыточности 119
-   гостей в день (18,6 % загрузки). Пессимистичный сценарий на этих же числах
-   уходит в убыток — это осознанно, чтобы сразу было видно, что модель
-   чувствительна. Меняете дефолты — обновите числа здесь и в README. */
+/* Набор просчитан и сходится (см. verify.js): выручка 33 465 € нетто, food
+   cost 29,1 % (без упаковки), ФОТ 26,8 % (с четырнадцатью выплатами),
+   prime cost 56,7 %, чистая прибыль 5 053 € (15,1 %), окупаемость 24,9 мес,
+   денежная точка безубыточности 58 гостей в день (19,6 % загрузки).
+   Пессимистичный сценарий остаётся в плюсе — 87 € против 5 053 € базовых, и
+   потому проверка в verify.js смотрит на размер потери, а не на знак. Меняете
+   дефолты — обновите числа здесь и в README. */
 function defaults() {
   return {
     schemaVersion: SCHEMA_VERSION,
@@ -155,57 +156,63 @@ function defaults() {
       { id: "wed", name: "Wed", open: true, prof: "wd" },
       { id: "thu", name: "Thu", open: true, prof: "wd" },
       { id: "fri", name: "Fri", open: true, prof: "wd" },
-      { id: "sat", name: "Sat", open: true, prof: "we" },
-      { id: "sun", name: "Sun", open: true, prof: "we" }
+      { id: "sat", name: "Sat", open: true, prof: "wd" },
+      { id: "sun", name: "Sun", open: true, prof: "wd" }
     ],
     openWd: 8, closeWd: 20,                   /* 12 часов, будни */
     openWe: 9, closeWe: 21,                   /* 12 часов, выходные */
-    closedDaysYear: 0,                        /* отпуск и праздники */
+    closedDaysYear: 10,                       /* отпуск и праздники */
 
     /* --- зал ------------------------------------------------------------ */
-    seats: 40,
+    seats: 20,
     visitMin: 45,                             /* → 1,333 оборота на место в час */
-    lastOrderBuffer: 0,                       /* стоп-приём за N минут до закрытия */
-    /* Загрузка зала по часам, % занятых мест. Будни 08…19, выходные 09…20. */
-    occWd: [15, 25, 30, 22, 34, 46, 42, 26, 22, 21, 17, 10],
-    occWe: [13, 25, 34, 42, 46, 42, 32, 27, 27, 24, 19, 13],
+    lastOrderBuffer: 60,                      /* стоп-приём за N минут до закрытия */
+    /* Загрузка зала по часам, % занятых мест. Будни 08…19, выходные 09…20.
+       Все семь дней стоят на будним профиле, поэтому ряд occWe и часы выходных
+       в расчёт сейчас не входят вовсе — они ждут, когда у субботы сменят профиль. */
+    occWd: [12, 12, 16, 32, 51, 41, 41, 41, 41, 41, 41, 41],
+    occWe: [12, 12, 16, 32, 51, 51, 51, 51, 51, 51, 51, 51],
 
     /* --- вынос и доставка ----------------------------------------------- */
-    taOrders: 40, taCheck: 4.20, taPack: 0.35, taFc: "",   /* fc пусто = как в меню */
+    taOrders: 10, taCheck: 4.20, taPack: 0.35, taFc: "",   /* fc пусто = как в меню */
     dlOrders: 10, dlCheck: 12.00, dlPack: 0.60, dlFc: "", dlComm: 28,
 
     /* --- меню ------------------------------------------------------------ */
     /* spend — средняя трата ОДНОГО гостя на эту категорию, в ценах меню. */
     menu: [
-      { id: "coffee", name: "Coffee and drinks",       spend: 2.80, fc: 22 },
-      { id: "bakery", name: "Bakery and desserts",     spend: 1.80, fc: 32 },
-      { id: "food",   name: "Breakfasts and sandwiches", spend: 2.60, fc: 31 },
-      { id: "booze",  name: "Wine and beer",           spend: 0.80, fc: 28 }
+      { id: "coffee", name: "Coffee and drinks",         spend: 3.00, fc: 20 },
+      { id: "bakery", name: "Bakery and desserts",       spend: 3.00, fc: 32 },
+      { id: "food",   name: "Breakfasts and sandwiches", spend: 5.00, fc: 31 }
     ],
     waste: 3,                                 /* потери и списания, % ОТ СЕБЕСТОИМОСТИ */
 
     /* --- персонал -------------------------------------------------------- */
     /* pay: "hour" — amt это ставка в час, "month" — оклад брутто в месяц. */
     staff: [
-      { id: "barista", name: "Barista",        n: 2, pay: "hour",  amt: 10.5, hrs: 8, shifts: 21.7 },
-      { id: "waiter",  name: "Waiter",         n: 1, pay: "hour",  amt: 9.5,  hrs: 8, shifts: 21.7 },
-      { id: "cook",    name: "Cook",           n: 1, pay: "month", amt: 1900, hrs: 8, shifts: 21.7 },
-      { id: "helper",  name: "Kitchen helper", n: 1, pay: "hour",  amt: 9.0,  hrs: 6, shifts: 21.7 },
-      { id: "manager", name: "Manager",        n: 1, pay: "month", amt: 2000, hrs: 8, shifts: 21.7 },
-      /* Без этой строки EBITDA систематически завышена: собственник работает
-         бесплатно только в презентации, не в жизни. Выключается галочкой. */
-      { id: "owner",   name: "Owner's salary", n: 1, pay: "month", amt: 1500, hrs: 8, shifts: 21.7 }
+      { id: "waiter",  name: "Waiter",               n: 1, pay: "hour",  amt: 9.5,  hrs: 8, shifts: 21.7 },
+      { id: "cook",    name: "Cook",                 n: 1, pay: "month", amt: 1900, hrs: 8, shifts: 21.7 },
+      { id: "helper",  name: "Kitchen helper",       n: 1, pay: "hour",  amt: 9.0,  hrs: 6, shifts: 21.7 },
+      /* Залом управляет сам собственник, и его труд оплачен этой строкой. Без
+         неё EBITDA систематически завышена: бесплатно собственник работает
+         только в презентации, не в жизни. */
+      { id: "manager", name: "Manager (owner's pay)", n: 1, pay: "month", amt: 1500, hrs: 8, shifts: 21.7 }
     ],
     payrollTax: 32,                           /* соцвзносы работодателя сверх брутто */
+    pagas: 14,                                /* выплат в году: 12 окладов + 2 extra */
 
     /* --- постоянные расходы, в месяц ------------------------------------- */
     fixed: [
-      { id: "rent",   name: "Rent",                    v: 4200 },
+      { id: "rent",   name: "Rent",                    v: 2010 },
       { id: "util",   name: "Utilities",               v: 850 },
       { id: "inet",   name: "Internet and phone",      v: 60 },
       { id: "pos",    name: "POS and software",        v: 120 },
       { id: "mktg",   name: "Marketing",               v: 400 },
-      { id: "acct",   name: "Accounting",              v: 250 },
+      /* Аутсорс бухгалтерии почти везде продают двумя частями: фиксированный
+         пакет (налоги и учёт) и кадровый модуль, который считают за каждого
+         сотрудника. Поэтому и строк две: седьмой человек в штате поднимет
+         вторую, а не первую, и в смете это видно сразу. */
+      { id: "acct",   name: "Accounting",              v: 200 },
+      { id: "payr",   name: "Payroll administration",  v: 70 },
       { id: "clean",  name: "Cleaning and supplies",   v: 180 },
       { id: "trash",  name: "Waste removal",           v: 90 },
       { id: "ins",    name: "Insurance",               v: 90 },
@@ -245,6 +252,10 @@ function defaults() {
       { id: "dep",     name: "Lease deposit",              v: 8400,  dep: false, years: 0 },
       { id: "stock",   name: "Opening inventory",          v: 5000,  dep: false, years: 0 },
       { id: "launch",  name: "Launch marketing",           v: 5000,  dep: false, years: 0 },
+      /* Подбор команды — расход на запуск, а не актив: интервью нельзя продать
+         и нельзя изнашивать, поэтому dep: false. Деньги здесь сгорают, в
+         отличие от депозита и резерва, которые просто заморожены. */
+      { id: "hire",    name: "Recruitment and hiring",     v: 2500,  dep: false, years: 0 },
       { id: "reserve", name: "Working capital reserve",     v: 20000, dep: false, years: 0 }
     ],
 
@@ -402,6 +413,12 @@ function calc(p) {
   var grossProfit = revNet - cogs;
 
   /* --- персонал --------------------------------------------------------- */
+  /* Оклад в таблице месячный, а выплачивают его в году чаще двенадцати раз:
+     две дополнительные выплаты — норма испанской хостелерии и половины Европы.
+     Множитель ложится ТОЛЬКО на окладные строки: почасовая ставка обычно уже
+     несёт их в себе (prorrateo), и второй раз их начислять нельзя. Параметра
+     нет вовсе — считаем по двенадцати, как до его появления. */
+  var pagasK = clamp(num(p.pagas) || 12, 12, 24) / 12;
   var payrollGross = 0, staffHours = 0;
   (p.staff || []).forEach(function (r) {
     var n = Math.max(0, num(r.n));
@@ -409,7 +426,7 @@ function calc(p) {
     var hrs = Math.max(0, num(r.hrs));
     var sh = Math.max(0, num(r.shifts));
     if (r.pay === "month") {
-      payrollGross += n * amt;
+      payrollGross += n * amt * pagasK;
       staffHours += n * hrs * sh;
     } else {
       payrollGross += n * amt * hrs * sh;

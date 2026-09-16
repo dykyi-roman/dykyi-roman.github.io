@@ -107,9 +107,12 @@
     }
 
     SP.pending = {
-        // Never pruned: a stage outside the current scope is not loaded, so
-        // dropping ids unknown to the page would wipe what it did not fetch.
-        has: function (id) { return !!pendingRecord().ids[id]; },
+        // A word that has been learned is no longer one to do, so it is not
+        // pending however this browser once marked it: the mark is stale, not
+        // a second opinion. Answered here rather than at each call site, so
+        // the sections, the counts, the copy button and the CSV column all
+        // agree without asking twice.
+        has: function (id) { return !!pendingRecord().ids[id] && !SP.learned.has(id); },
 
         // The value is the day it was marked. Nothing reads it yet, but it
         // costs what a boolean costs and answers "since when".
@@ -121,7 +124,26 @@
             return on;
         },
 
-        toggle: function (id) { return SP.pending.set(id, !SP.pending.has(id)); }
+        toggle: function (id) { return SP.pending.set(id, !SP.pending.has(id)); },
+
+        // Not pruned against the items on screen — a stage outside the current
+        // scope is not loaded, so dropping ids unknown to the page would wipe
+        // what it did not fetch. The learned list is the one thing that can be
+        // pruned against: it loads whole on every page, so an id in it is known
+        // for certain. Called when learned.json arrives, since until then
+        // nothing knows which marks are the stale ones; a list that failed to
+        // load is empty and drops nothing.
+        prune: function () {
+            var ids = pendingRecord().ids;
+            var dropped = 0;
+            Object.keys(ids).forEach(function (id) {
+                if (!SP.learned.has(id)) return;
+                delete ids[id];
+                dropped++;
+            });
+            if (dropped) SP.saveState(PENDING_KEY, pendingState);
+            return dropped;
+        }
     };
 
     /* ---------- the fold, kept in a cookie as well ---------- */
@@ -322,6 +344,9 @@
         if (learnedIds) return Promise.resolve(learnedIds);
         return fetchJson(SP.base + 'learned.json').then(function (data) {
             learnedIds = (data && data.ids) || {};
+            // The list has just told us which marks are stale; drop them now
+            // rather than carry them until the word leaves the file again.
+            SP.pending.prune();
             return learnedIds;
         }).catch(function (e) {
             // A progress file that failed to load must not take the page with
@@ -868,8 +893,8 @@
     // Which section an entry is drawn in, decided here and nowhere else. A word
     // of one of the stage's sets lives in Reference alone, whatever the two
     // lists say about it: it is a row of a table, not a word to tick off.
-    // Otherwise learned wins over pending, so a word in both shows once, at
-    // the top.
+    // Otherwise learned is asked first — and SP.pending.has already answers
+    // false for a learned id, so the two lists cannot disagree about a word.
     SP.sectionOf = function (item) {
         if (item.set) return 'reference';
         if (SP.learned.has(item.id)) return 'learned';

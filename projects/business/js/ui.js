@@ -230,7 +230,10 @@ var FIELDS = {
   ],
   "f-staff": [
     { k: "payrollTax", t: "num", label: ["cf.f.payrollTax", "Payroll taxes"], unit: U_PCT, step: 1, min: 0,
-      hint: ["cf.f.payrollTax.hint", "Employer contributions on top of gross pay."] }
+      hint: ["cf.f.payrollTax.hint", "Employer contributions on top of gross pay."] },
+    { k: "pagas", t: "num", label: ["cf.f.pagas", "Pay cheques per year"], step: 1, min: 12, max: 24,
+      hint: ["cf.f.pagas.hint", "Twelve monthly runs plus any extra ones — 14 is the norm in Spanish hospitality. " +
+        "Applied to salaried rows only: an hourly rate usually carries them already."] }
   ],
   "f-tax": [
     { title: ["cf.f.title.variable", "Variable costs"] },

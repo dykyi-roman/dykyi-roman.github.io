@@ -121,9 +121,14 @@ ok("при себестоимости выше выручки точки без�
    calc((function () {
      var q = defaults(); q.waste = 20; q.menu.forEach(function (m) { m.fc = 95 }); return q;
    })()).bepCash.status === "impossible");
+/* Ту же цену пишем через запятую — средний чек обязан не дрогнуть. Значение
+   берём из самих дефолтов, чтобы проверка пережила их следующую правку. */
 ok("запятая распознаётся как разделитель",
-   near(calc((function () { var q = defaults(); q.menu[0].spend = "2,80"; return q; })()).avgCheck,
-        R.avgCheck));
+   near(calc((function () {
+     var q = defaults();
+     q.menu[0].spend = q.menu[0].spend.toFixed(2).replace(".", ",");
+     return q;
+   })()).avgCheck, R.avgCheck));
 
 /* ---------------------------------------------------- 5. сценарии + торнадо */
 console.log("\n5. Сценарии и чувствительность");
@@ -133,8 +138,13 @@ console.log("   пессимистичный " + n(S.pes.netProfit) + " | баз
 ok("монотонность чистой прибыли",
    S.pes.netProfit < S.base.netProfit && S.base.netProfit < S.opt.netProfit);
 ok("базовый сценарий совпадает с прямым расчётом", near(S.base.netProfit, R.netProfit));
-ok("пессимистичный уходит в убыток (проверка guard'а окупаемости)", S.pes.netProfit < 0,
-   n(S.pes.netProfit) + " €, окупаемость " + (S.pes.payback === null ? "не окупается" : n(S.pes.payback, 1)));
+/* На прежних дефолтах пессимистичный сценарий уходил в убыток; после правки
+   параметров он остаётся в плюсе, поэтому проверяем не знак, а размер потери —
+   guard окупаемости при убытке проверен в секции 4 на аренде 100 000. */
+ok("пессимистичный сценарий съедает больше половины прибыли",
+   S.pes.netProfit < S.base.netProfit * 0.5,
+   n(S.pes.netProfit) + " € против " + n(S.base.netProfit) + " €, окупаемость " +
+   (S.pes.payback === null ? "не окупается" : n(S.pes.payback, 1)));
 
 var T = sensitivity(P);
 console.log("   торнадо (по убыванию влияния на чистую прибыль):");
@@ -170,7 +180,7 @@ function importInto(src) {
 
 var edited = defaults();
 edited.cur = "$";
-edited.menu.splice(3, 1);                                   /* удалили категорию */
+edited.menu.splice(2, 1);                                   /* удалили категорию */
 edited.menu[0].spend = 3.5;
 edited.fixed.forEach(function (f) { if (f.id === "rent") f.v = 5000; });
 edited.staff.push({ id: "st_new", name: "Кондитер", n: 1, pay: "month", amt: 1600, hrs: 8, shifts: 21.7 });
@@ -185,9 +195,9 @@ ok("неизменённые блоки в дифф не попали", !("capex
 var back = importInto(diff);
 ok("импорт восстанавливает состояние один в один",
    JSON.stringify(back) === JSON.stringify(edited));
-ok("удалённая строка меню не воскресает", back.menu.length === 3,
+ok("удалённая строка меню не воскресает", back.menu.length === 2,
    back.menu.map(function (m) { return m.name; }).join(", "));
-ok("добавленная роль сохранилась", back.staff.length === 7 && back.staff[6].name === "Кондитер");
+ok("добавленная роль сохранилась", back.staff.length === 5 && back.staff[4].name === "Кондитер");
 ok("расчёт по восстановленным параметрам совпадает",
    near(calc(back).netProfit, calc(edited).netProfit));
 
@@ -287,7 +297,7 @@ ok("dep=true при years=0 не меняет DA и даёт предупреж�
 var Rnr = calc(withOpt(function (q) { q.fixed = q.fixed.filter(function (r) { return r.id !== "rent"; }); }));
 ok("без строки rent: KPI аренды и «аренда+коммуналка» = null, смета посчитана",
    Rnr.rent === null && Rnr.kpi.rent === null && Rnr.kpi.occupancy === null &&
-   near(Rnr.fixed, R.fixed - 4200));
+   near(Rnr.fixed, R.fixed - 2010));
 ok("с дефолтной сметой KPI «аренда + коммуналка» считается",
    near(R.kpi.occupancy, (R.rent + R.utilities) / R.revNet * 100, 1e-9), n(R.kpi.occupancy, 1) + "%");
 
@@ -327,6 +337,30 @@ ok("импорт: множители base приводятся к единице
 var Rz = calc(withOpt(function (q) { q.menu.forEach(function (m) { m.spend = 0; }); }));
 ok("нулевой чек: предупреждение про чек без «BEP недостижима»",
    hasWarn(Rz, "cf.warn.zeroCheck") && !hasWarn(Rz, "cf.warn.bepUnreachable"));
+
+/* 7.12 Разовый подбор персонала — расход запуска, а не актив: в инвестициях он
+   есть, в амортизации его быть не должно. Поставленная здесь галочка «аморти-
+   зировать» растянула бы интервью на годы и занизила бы окупаемость. */
+var Rhr = calc(withOpt(function (q) {
+  q.capex = q.capex.filter(function (c) { return c.id !== "hire"; });
+}));
+ok("подбор персонала входит в инвестиции, но не в амортизацию",
+   near(Rhr.investment, R.investment - 2500) && near(Rhr.da, R.da),
+   n(R.investment) + " → " + n(Rhr.investment) + ", DA " + n(R.da, 2) + " без изменений");
+
+/* 7.13 Дополнительные выплаты поднимают только окладные строки: в почасовой
+   ставке они, как правило, уже разнесены, и второе начисление было бы двойным
+   счётом. Часы смен от числа выплат не зависят вовсе. */
+var R12 = calc(withOpt(function (q) { q.pagas = 12; }));
+var salaried = defaults().staff.reduce(function (s, r) {
+  return s + (r.pay === "month" ? r.n * r.amt : 0);
+}, 0);
+ok("14 выплат добавляют к окладам ровно две, почасовые не трогают",
+   near(R.payrollGross - R12.payrollGross, salaried * 2 / 12) && near(R.staffHours, R12.staffHours),
+   "+" + n(R.payrollGross - R12.payrollGross) + " € в месяц");
+ok("без параметра pagas считается по двенадцати выплатам",
+   near(calc(withOpt(function (q) { delete q.pagas; })).payrollGross, R12.payrollGross),
+   n(R12.payrollGross) + " €");
 
 /* ------------------------------------------------------------------- итог -- */
 console.log("\n" + (fails ? "✗ провалено " + fails + " из " + checks

@@ -103,13 +103,14 @@
         if (manifest.rules) strip.appendChild(referenceChip('rules', manifest.rules, 'Rules'));
         if (manifest.patterns) strip.appendChild(referenceChip('patterns', manifest.patterns, 'Patterns'));
 
-        // The stages follow and "All stages" closes the row: it is the widest
-        // scope, not the starting point.
+        // The stages follow and "All" closes the row: it is the widest scope,
+        // not the starting point. Its chip is labelled like the stages beside
+        // it — one word, no icon — and spells itself out in its aria-label.
         var options = manifest.stages.map(function (s) {
             var n = 0;
             Object.keys(s.counts).forEach(function (k) { n += s.counts[k]; });
             return { key: String(s.no), label: s.title, sub: String(n), icon: s.icon, no: s.no };
-        }).concat([{ key: 'all', label: 'All stages', short: 'All', sub: '' }]);
+        }).concat([{ key: 'all', label: 'All', short: 'All', sub: '', aria: 'All stages' }]);
 
         options.forEach(function (option) {
             var chip = SP.el('button', 'sp-chip');
@@ -118,7 +119,7 @@
             var icon = SP.iconSpan(option.icon);
             if (icon) chip.appendChild(icon);
             chip.appendChild(SP.el('span', 'sp-chip-label', option.label));
-            // "All stages" is the one chip with no icon to fall back on, so it
+            // "All" is the one chip with no icon to fall back on, so it
             // carries a short label for the portrait row instead.
             if (option.short) chip.appendChild(SP.el('span', 'sp-chip-short', option.short));
             if (option.sub) chip.appendChild(SP.el('small', null, ' ' + option.sub));
@@ -126,7 +127,7 @@
                 chip.setAttribute('aria-label',
                     'Stage ' + option.no + ': ' + option.label + ', ' + option.sub + ' entries');
             } else {
-                chip.setAttribute('aria-label', option.label);
+                chip.setAttribute('aria-label', option.aria || option.label);
             }
             chip.addEventListener('click', function () {
                 if (prefs.stage === option.key) return;
@@ -741,7 +742,7 @@
     function initBrowse() {
         // Topic names are unique across the stages, so the option value is the
         // bare name; the optgroup only says where it comes from, which matters
-        // once the scope is "All stages" and the list runs to 45 topics.
+        // once the scope is "All" and the list runs to 45 topics.
         var seen = {};
         var byStage = [];
         allItems.forEach(function (item) {
@@ -1140,7 +1141,7 @@
         if (query && !searchReturn) searchReturn = { stage: prefs.stage, mode: currentMode };
 
         // Closing the field puts back the stage and the mode the search took
-        // over from, rather than leaving the reader in All stages / Browse.
+        // over from, rather than leaving the reader in All / Browse.
         if (!query && searchReturn) {
             var back = searchReturn;
             searchReturn = null;

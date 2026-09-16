@@ -149,7 +149,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 /* The stage row is seven chips long. Held upright, a phone has no room for
    their names, so there it keeps the icons alone — every stage has one, and
-   the one chip that does not ("All stages") shows a short label in its place.
+   the one chip that does not ("All") shows a short label in its place.
    The names stay in aria-label, and the row still scrolls if it has to. */
 .sp-chip-short { display: none; }
 
