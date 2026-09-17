@@ -233,14 +233,24 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 /* A pair carries four controls — the chevron, a speaker per word and the ask
    link — and in one line they would leave a 360px phone about sixty pixels of
    text. Two by two they take the width of two buttons, which is what every
-   other row's tail already costs, and the reading order still runs chevron,
-   first word, second word, ask. From 700px up there is room for one line. */
+   other row's tail already costs. The two speakers share the bottom line: they
+   are one control split in two, one reading each half of "arriba / abajo", and
+   laid out in flow order they fell on either side of the square — one at the
+   top, one at the bottom — reading as two unrelated buttons. They are locked
+   to the second row instead, and the chevron and the ask link fill the free
+   cells of the first by auto-placement, so the DOM keeps the order every other
+   row has and the desktop line prints — chevron, speakers, ask — and the tab
+   order still runs chevron, first word, second word, ask. That is the one
+   place where the visual order differs from the DOM, and it is deliberate.
+   From 700px up there is room for one line. */
 @media (max-width: 699px) {
     .sp-lex-row.is-pair > .sp-tools {
         display: grid;
         grid-template-columns: repeat(2, auto);
         justify-content: end;
     }
+
+    .sp-lex-row.is-pair > .sp-tools > .sp-speak { grid-row: 2; }
 }
 
 /* The chevron that opens a word's usage examples. Narrower than the two
@@ -493,8 +503,16 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-lex-tr { font-size: var(--font-size-small); color: var(--color-primary); overflow-wrap: anywhere; }
 /* The English is the bright side of the line and the Russian the quiet one:
    the gloss you read at a glance is the English, and the Russian is there to
-   settle a doubt. */
-.sp-lex-ru { font-size: var(--font-size-base); color: var(--color-text-light); overflow-wrap: anywhere; }
+   settle a doubt. The Russian sits a step below even the site's light text —
+   a fifth of the way into the card's background, which keeps it above the
+   4.5:1 contrast of AA — the plain variable stays as the fallback for a
+   browser without color-mix. */
+.sp-lex-ru {
+    font-size: var(--font-size-base);
+    color: var(--color-text-light);
+    color: color-mix(in srgb, var(--color-text-light) 80%, var(--color-white));
+    overflow-wrap: anywhere;
+}
 .sp-lex-en { font-size: var(--font-size-small); color: var(--color-text); overflow-wrap: anywhere; }
 .sp-lex-row > .sp-tools { grid-area: tools; align-self: start; }
 
