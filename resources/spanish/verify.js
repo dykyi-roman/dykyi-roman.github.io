@@ -25,6 +25,10 @@ const TEXT_KEYS = ['es', 'en', 'ru', 'tr', 'prompt', 'answer', 'title', 'titleRu
 // to the reader as it is, stars and all. Emphasis is a span with s: 'b'.
 const BAD_MARKUP = /<[a-z/!][^>]*>|&[a-zA-Z]+;|&#x?[0-9a-fA-F]+;|\*/;
 const CYRILLIC = /[Ѐ-ӿ]/;
+// What counts as being inside a word, for findWord below. It lives up here
+// because checkLine is called from the item loop as well as from the rules and
+// the patterns, and a const declared further down is not in scope by then.
+const LETTER = /[A-Za-z\u00C0-\u024F]/;
 
 // Walk every string in a structure and reject HTML, entities and stray markdown.
 function checkStrings(node, where) {
@@ -54,11 +58,13 @@ function checkStageNumbers(node, where) {
     if (typeof node === 'object') Object.keys(node).forEach(k => checkStageNumbers(node[k], where + '.' + k));
 }
 
+// Where a note can be drawn. The Живые примеры section is gone, so a note
+// either belongs to a topic of the lexicon or stands on its own at the end.
+const NOTE_SECTIONS = ['vocab', 'notes'];
+
 const REQUIRED = {
     vocab: ['es', 'en', 'ru', 'tr'],
     pair: ['es', 'en', 'ru', 'tr'],
-    phrase: ['es', 'ru'],
-    exchange: ['es', 'ru'],
     drill: ['prompt', 'answer']
 };
 
@@ -73,9 +79,12 @@ const setEs = Object.create(null);    // id -> its Spanish, for every word of a 
 const lexIds = Object.create(null);   // Spanish word -> ids of the lexicon entries that carry it
 const groupFile = Object.create(null); // topic name -> the stage file that declares it
 const lexForms = Object.create(null);  // normalized word of a lexicon entry -> ids
-const lineForms = Object.create(null); // normalized phrase or exchange -> ids
+const exLines = Object.create(null);   // normalized usage example -> ids of the words carrying it
 const meanings = Object.create(null);  // normalized Russian side -> ids
 let totalItems = 0;
+let totalWords = 0;      // vocab and pair, the entries a panel of examples can hang under
+let wordsWithEx = 0;
+let wordsWithThree = 0;
 
 // Spelled the same once case, punctuation and a leading article are set aside.
 // Brackets stay: "el cajero (automático)" is not the "cajero" of a till.
@@ -155,6 +164,8 @@ function wordKey(es) { return es.trim().toLowerCase(); }
     if (!Array.isArray(stage.items) || stage.items.length === 0) fail(entry.file + ': no items');
 
     const counts = {};
+    const usedGroups = {};
+    const usedSets = {};
     const groups = {};
     (stage.groups || []).forEach(g => { groups[g.name] = true; });
 
@@ -237,15 +248,37 @@ function wordKey(es) { return es.trim().toLowerCase(); }
             }
         }
 
-        if (item.type === 'exchange' && item.es.indexOf(' — ') === -1) {
-            fail(at + ': exchange has no " — " turn separator — it is probably a plain phrase');
-        }
-        if (item.type === 'phrase' && item.es.indexOf(' — ') !== -1) {
-            fail(at + ': phrase contains " — " — it is probably an exchange');
-        }
-
         if (item.group && !groups[item.group]) fail(at + ': group "' + item.group + '" is not declared in stage.groups');
         if (item.set && !sets[item.set]) fail(at + ': set "' + item.set + '" is not declared in stage.sets');
+        if (item.group) usedGroups[item.group] = true;
+        if (item.set) usedSets[item.set] = true;
+
+        // The usage examples nested under a word — the {es, ru, frame} line the
+        // patterns already use, with the frame left optional. They are
+        // illustrations, not entries: they carry no id, they never become a
+        // card, and they deliberately stay out of `meanings` and `lexForms`
+        // below, where three thousand of them would collide on the first day.
+        if (item.ex !== undefined) {
+            if (item.type !== 'vocab' && item.type !== 'pair') fail(at + ': only a word carries "ex"');
+            else if (!Array.isArray(item.ex) || item.ex.length === 0) fail(at + ': "ex" must list between one and three examples');
+            else if (item.ex.length > 3) fail(at + ': "ex" has ' + item.ex.length + ' examples — three is the most the panel shows');
+            else {
+                const ownKey = spanishKey(item.es);
+                const here = {};
+                item.ex.forEach((line, k) => {
+                    checkLine(line, at + ' ex[' + k + ']', true);
+                    const key = spanishKey(line && line.es);
+                    if (!key) return;
+                    if (key === ownKey) fail(at + ' ex[' + k + ']: the example is the word itself, not a use of it');
+                    if (here[key] !== undefined) fail(at + ' ex[' + k + ']: repeats ex[' + here[key] + ']');
+                    else here[key] = k;
+                    remember(exLines, key, item.id);
+                });
+                wordsWithEx += 1;
+                if (item.ex.length === 3) wordsWithThree += 1;
+            }
+        }
+        if (item.type === 'vocab' || item.type === 'pair') totalWords += 1;
 
         // Every Spanish word a lexicon entry stands for, a pair's halves
         // included — what a word of a set must not share with anything else.
@@ -262,11 +295,10 @@ function wordKey(es) { return es.trim().toLowerCase(); }
         if (item.type === 'pair') [item.a, item.b].forEach(half => checkTranscription(half && half.tr, at));
 
         // What the duplicate checks below compare: every word a lexicon entry
-        // stands for, every sentence, and the Russian a card is answered with.
+        // stands for, and the Russian a card is answered with.
         if (item.type === 'vocab') String(item.es || '').split(' / ').forEach(form => remember(lexForms, spanishKey(form), item.id));
         if (item.type === 'pair') [item.a && item.a.es, item.b && item.b.es].forEach(form => remember(lexForms, spanishKey(form), item.id));
-        if (item.type === 'phrase' || item.type === 'exchange') remember(lineForms, spanishKey(item.es), item.id);
-        if (REQUIRED[item.type] && item.type !== 'drill') remember(meanings, meaningKey(item.ru), item.id);
+        if (item.type === 'vocab' || item.type === 'pair') remember(meanings, meaningKey(item.ru), item.id);
 
         counts[item.type] = (counts[item.type] || 0) + 1;
         totalItems += 1;
@@ -281,12 +313,27 @@ function wordKey(es) { return es.trim().toLowerCase(); }
         if (entry.counts[type] === undefined) fail('index.json: stage ' + entry.id + ' does not count type "' + type + '"');
     });
 
+    // The other direction of the group check above. A topic nobody carries
+    // draws no heading and fills no option in the hub's filter — it is simply
+    // rot, and it is exactly what a stage is left with when its phrases move
+    // into the words they illustrate and take their topics with them.
+    Object.keys(groups).forEach(name => {
+        if (!usedGroups[name]) fail(entry.file + ': topic "' + name + '" is declared but no item carries it');
+    });
+    Object.keys(sets).forEach(name => {
+        if (!usedSets[name]) fail(entry.file + ': set "' + name + '" is declared but no item carries it');
+    });
+
     (stage.notes || []).forEach((note, i) => {
         const at = entry.file + ' note ' + (note.id || '#' + i);
         if (!note.id) fail(at + ': no id');
         else if (seenIds[note.id]) fail('duplicate id ' + note.id);
         else seenIds[note.id] = entry.file;
         if (!Array.isArray(note.blocks) || note.blocks.length === 0) fail(at + ': no blocks');
+        // A note is drawn by its section, and an unknown one is drawn nowhere:
+        // it leaves the page without anything being reported.
+        if (NOTE_SECTIONS.indexOf(note.section) === -1) fail(at + ': unknown section ' + JSON.stringify(note.section));
+        if (note.group && !groups[note.group]) fail(at + ': group "' + note.group + '" is not declared in stage.groups');
     });
 
     checkStrings(stage, entry.file);
@@ -300,7 +347,6 @@ function wordKey(es) { return es.trim().toLowerCase(); }
 // up. Those words must really be in it — in order and as whole words, the
 // same search the page runs — or the highlight silently lights nothing. The
 // list is numbered by the ranks, so they run from 1 with no gap.
-const LETTER = /[A-Za-z\u00C0-\u024F]/;
 
 function findWord(text, word, from) {
     let at = text.indexOf(word, from);
@@ -311,11 +357,18 @@ function findWord(text, word, from) {
     return -1;
 }
 
-function checkLine(line, at) {
+// `frameOptional` is for the usage examples of a word: a pattern is built from
+// fixed words that are always literally in its examples, but a word is not —
+// a verb is conjugated ("ser" is nowhere in "Ella es alta"), and an entry like
+// "nosotros / nosotras" has two forms and no single one to point at. Where the
+// learned word does appear as written, the frame lights it up; where it does
+// not, the line goes without rather than not being written at all.
+function checkLine(line, at, frameOptional) {
     if (!line || typeof line.es !== 'string' || !line.es.trim() || typeof line.ru !== 'string' || !line.ru.trim()) {
         fail(at + ': needs both "es" and "ru"');
         return;
     }
+    if (line.frame === undefined && frameOptional) return;
     if (!Array.isArray(line.frame) || line.frame.length === 0) { fail(at + ': "frame" lists no words'); return; }
     let pos = 0;
     line.frame.forEach(word => {
@@ -467,11 +520,13 @@ function distinct(ids) { return ids.filter((id, i) => ids.indexOf(id) === i); }
 Object.keys(lexForms).forEach(key => {
     const ids = distinct(lexForms[key]);
     if (ids.length > 1 && HOMONYMS.indexOf(key) === -1) fail('"' + key + '" is a word of more than one entry: ' + ids.join(', '));
-    if (lineForms[key] && HOMONYMS.indexOf(key) === -1) fail('"' + key + '" is both a word (' + ids.join(', ') + ') and a phrase (' + lineForms[key].join(', ') + ')');
 });
-Object.keys(lineForms).forEach(key => {
-    const ids = distinct(lineForms[key]);
-    if (ids.length > 1) fail('the phrase "' + key + '" is written more than once: ' + ids.join(', '));
+// No sentence is written twice. Three thousand usage examples put in by hand
+// repeat themselves otherwise, and one sentence illustrating two words teaches
+// neither of them.
+Object.keys(exLines).forEach(key => {
+    const ids = distinct(exLines[key]);
+    if (ids.length > 1) fail('the example "' + key + '" is used by more than one word: ' + ids.join(', '));
 });
 Object.keys(meanings).forEach(key => {
     const ids = distinct(meanings[key]);
@@ -505,6 +560,8 @@ if (learned) {
     }
 }
 
+notes.push(wordsWithEx + ' of ' + totalWords + ' words carry examples (' + wordsWithThree +
+    ' with three), ' + Object.keys(exLines).length + ' example sentences');
 notes.push(totalItems + ' items, ' + Object.keys(seenIds).length + ' unique ids across ' + manifest.stages.length +
     ' stages + rules' + (patterns ? ' + patterns' : ''));
 

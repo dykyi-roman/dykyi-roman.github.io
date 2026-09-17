@@ -89,31 +89,31 @@
  ],
  "groups": [
   {
-   "kind": "example",
+   "kind": "topic",
    "name": "Место"
   },
   {
-   "kind": "example",
+   "kind": "topic",
    "name": "Навигация"
   },
   {
-   "kind": "example",
+   "kind": "topic",
    "name": "Предлоги"
   },
   {
-   "kind": "example",
+   "kind": "topic",
    "name": "Указание"
   },
   {
-   "kind": "example",
-   "name": "Движение"
+   "kind": "topic",
+   "name": "Местоимения"
   },
   {
-   "kind": "example",
-   "name": "Где находится: estar"
+   "kind": "topic",
+   "name": "Притяжательные"
   },
   {
-   "kind": "example",
+   "kind": "topic",
    "name": "Связки"
   }
  ],
@@ -125,7 +125,27 @@
    "en": "to",
    "ru": "в / к",
    "tr": "а",
-   "group": null
+   "group": "Предлоги",
+   "ex": [
+    {
+     "es": "Voy a casa.",
+     "ru": "Я иду домой.",
+     "frame": [
+      "a"
+     ]
+    },
+    {
+     "es": "Voy al centro.",
+     "ru": "Я еду в центр."
+    },
+    {
+     "es": "¿Vas a la playa mañana?",
+     "ru": "Ты завтра идёшь на пляж?",
+     "frame": [
+      "a"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v044",
@@ -134,7 +154,30 @@
    "en": "and",
    "ru": "и",
    "tr": "и",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "Mi mujer y mi hija están aquí.",
+     "ru": "Моя жена и дочь здесь.",
+     "frame": [
+      "y"
+     ]
+    },
+    {
+     "es": "Un café y un zumo, por favor.",
+     "ru": "Кофе и сок, пожалуйста.",
+     "frame": [
+      "y"
+     ]
+    },
+    {
+     "es": "¿Y tú?",
+     "ru": "А ты?",
+     "frame": [
+      "Y"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v045",
@@ -143,7 +186,30 @@
    "en": "or",
    "ru": "или",
    "tr": "о",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "¿Café o té?",
+     "ru": "Кофе или чай?",
+     "frame": [
+      "o"
+     ]
+    },
+    {
+     "es": "Hoy o mañana, me da igual.",
+     "ru": "Сегодня или завтра — мне всё равно.",
+     "frame": [
+      "o"
+     ]
+    },
+    {
+     "es": "¿Pagas con tarjeta o en efectivo?",
+     "ru": "Платишь картой или наличными?",
+     "frame": [
+      "o"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v023",
@@ -152,7 +218,30 @@
    "en": "in / on / at",
    "ru": "в / на",
    "tr": "эн",
-   "group": null
+   "group": "Предлоги",
+   "ex": [
+    {
+     "es": "Estoy en casa.",
+     "ru": "Я дома.",
+     "frame": [
+      "en"
+     ]
+    },
+    {
+     "es": "El móvil está en la mochila.",
+     "ru": "Телефон в рюкзаке.",
+     "frame": [
+      "en"
+     ]
+    },
+    {
+     "es": "Nos vemos en el parque.",
+     "ru": "Увидимся в парке.",
+     "frame": [
+      "en"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v025",
@@ -161,7 +250,30 @@
    "en": "from / of",
    "ru": "из / от",
    "tr": "дэ",
-   "group": null
+   "group": "Предлоги",
+   "ex": [
+    {
+     "es": "Soy de Ucrania.",
+     "ru": "Я из Украины.",
+     "frame": [
+      "de"
+     ]
+    },
+    {
+     "es": "Es el coche de mi hermana.",
+     "ru": "Это машина моей сестры.",
+     "frame": [
+      "de"
+     ]
+    },
+    {
+     "es": "Vengo de trabajar.",
+     "ru": "Я возвращаюсь с работы.",
+     "frame": [
+      "de"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v047",
@@ -170,7 +282,30 @@
    "en": "if",
    "ru": "если",
    "tr": "си",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "Si llueve, no vamos.",
+     "ru": "Если будет дождь, не пойдём.",
+     "frame": [
+      "Si"
+     ]
+    },
+    {
+     "es": "Avísame si llegas tarde.",
+     "ru": "Предупреди, если опоздаешь.",
+     "frame": [
+      "si"
+     ]
+    },
+    {
+     "es": "Si quieres, te acompaño.",
+     "ru": "Если хочешь, я пойду с тобой.",
+     "frame": [
+      "Si"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v048",
@@ -179,7 +314,32 @@
    "en": "neither/nor",
    "ru": "ни",
    "tr": "ни",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "No tengo ni tiempo ni ganas.",
+     "ru": "У меня нет ни времени, ни желания.",
+     "frame": [
+      "ni",
+      "ni"
+     ]
+    },
+    {
+     "es": "Ni sí ni no.",
+     "ru": "Ни да ни нет.",
+     "frame": [
+      "Ni",
+      "ni"
+     ]
+    },
+    {
+     "es": "No vino ni llamó.",
+     "ru": "Он не пришёл и не позвонил.",
+     "frame": [
+      "ni"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v049",
@@ -188,7 +348,30 @@
    "en": "I",
    "ru": "я",
    "tr": "йо",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Yo trabajo por la mañana.",
+     "ru": "Я работаю утром.",
+     "frame": [
+      "Yo"
+     ]
+    },
+    {
+     "es": "¿Yo? No lo sabía.",
+     "ru": "Я? Я не знал.",
+     "frame": [
+      "Yo"
+     ]
+    },
+    {
+     "es": "Yo pago, tú invitas la próxima.",
+     "ru": "Плачу я, в следующий раз ты.",
+     "frame": [
+      "Yo"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v050",
@@ -197,7 +380,30 @@
    "en": "you informal",
    "ru": "ты",
    "tr": "ту",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "¿Tú qué opinas?",
+     "ru": "А ты что думаешь?",
+     "frame": [
+      "Tú"
+     ]
+    },
+    {
+     "es": "Tú vas primero.",
+     "ru": "Ты идёшь первым.",
+     "frame": [
+      "Tú"
+     ]
+    },
+    {
+     "es": "¿Vienes tú también?",
+     "ru": "Ты тоже придёшь?",
+     "frame": [
+      "tú"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v052",
@@ -206,7 +412,30 @@
    "en": "he",
    "ru": "он",
    "tr": "эл",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Él vive aquí.",
+     "ru": "Он живёт здесь.",
+     "frame": [
+      "Él"
+     ]
+    },
+    {
+     "es": "Es de él.",
+     "ru": "Это его.",
+     "frame": [
+      "él"
+     ]
+    },
+    {
+     "es": "Él no habla ruso.",
+     "ru": "Он не говорит по-русски.",
+     "frame": [
+      "Él"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v055",
@@ -215,7 +444,30 @@
    "en": "me",
    "ru": "мне, меня (перед глаголом)",
    "tr": "мэ",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Me llamo Román.",
+     "ru": "Меня зовут Роман.",
+     "frame": [
+      "Me"
+     ]
+    },
+    {
+     "es": "¿Me ayudas?",
+     "ru": "Поможешь мне?",
+     "frame": [
+      "Me"
+     ]
+    },
+    {
+     "es": "No me gusta el pescado.",
+     "ru": "Я не люблю рыбу.",
+     "frame": [
+      "me"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v056",
@@ -224,7 +476,30 @@
    "en": "you",
    "ru": "тебе, тебя (перед глаголом)",
    "tr": "тэ",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Te espero abajo.",
+     "ru": "Жду тебя внизу.",
+     "frame": [
+      "Te"
+     ]
+    },
+    {
+     "es": "¿Te lo envío hoy?",
+     "ru": "Отправить тебе это сегодня?",
+     "frame": [
+      "Te"
+     ]
+    },
+    {
+     "es": "No te preocupes.",
+     "ru": "Не волнуйся.",
+     "frame": [
+      "te"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v059",
@@ -233,7 +508,30 @@
    "en": "you (plural, informal)",
    "ru": "вам, вас (на ты, многим)",
    "tr": "ос",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Os espero en la puerta.",
+     "ru": "Жду вас у двери.",
+     "frame": [
+      "Os"
+     ]
+    },
+    {
+     "es": "¿Os ayudo con las maletas?",
+     "ru": "Помочь вам с чемоданами?",
+     "frame": [
+      "Os"
+     ]
+    },
+    {
+     "es": "Os llamo luego.",
+     "ru": "Я вам потом позвоню.",
+     "frame": [
+      "Os"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v060",
@@ -242,7 +540,30 @@
    "en": "it/him",
    "ru": "это/его",
    "tr": "ло",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "No lo sé.",
+     "ru": "Я не знаю.",
+     "frame": [
+      "lo"
+     ]
+    },
+    {
+     "es": "Lo compro mañana.",
+     "ru": "Куплю это завтра.",
+     "frame": [
+      "Lo"
+     ]
+    },
+    {
+     "es": "¿Lo has visto?",
+     "ru": "Ты это видел?",
+     "frame": [
+      "Lo"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v061",
@@ -251,7 +572,30 @@
    "en": "it/her",
    "ru": "это/её",
    "tr": "ла",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "La conozco bien.",
+     "ru": "Я её хорошо знаю.",
+     "frame": [
+      "La"
+     ]
+    },
+    {
+     "es": "¿La llamo yo?",
+     "ru": "Мне ей позвонить?",
+     "frame": [
+      "La"
+     ]
+    },
+    {
+     "es": "No la encuentro.",
+     "ru": "Я её не нахожу.",
+     "frame": [
+      "la"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v064",
@@ -260,7 +604,30 @@
    "en": "oneself/itself",
    "ru": "себя/ся",
    "tr": "сэ",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Se llama Marta.",
+     "ru": "Её зовут Марта.",
+     "frame": [
+      "Se"
+     ]
+    },
+    {
+     "es": "Aquí se come muy bien.",
+     "ru": "Здесь очень хорошо кормят.",
+     "frame": [
+      "se"
+     ]
+    },
+    {
+     "es": "La puerta se cierra sola.",
+     "ru": "Дверь закрывается сама.",
+     "frame": [
+      "se"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v079",
@@ -269,7 +636,30 @@
    "en": "ah",
    "ru": "а/ага",
    "tr": "а",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "Ah, vale.",
+     "ru": "А, понятно.",
+     "frame": [
+      "Ah"
+     ]
+    },
+    {
+     "es": "¿Ah, sí?",
+     "ru": "А, правда?",
+     "frame": [
+      "Ah"
+     ]
+    },
+    {
+     "es": "Ah, ahora lo entiendo.",
+     "ru": "А, теперь понял.",
+     "frame": [
+      "Ah"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v080",
@@ -278,7 +668,30 @@
    "en": "oh",
    "ru": "о",
    "tr": "о",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "Oh, qué pena.",
+     "ru": "О, как жаль.",
+     "frame": [
+      "Oh"
+     ]
+    },
+    {
+     "es": "Oh, no me digas.",
+     "ru": "О, да ты что.",
+     "frame": [
+      "Oh"
+     ]
+    },
+    {
+     "es": "Oh, perdona.",
+     "ru": "Ой, извини.",
+     "frame": [
+      "Oh"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v081",
@@ -287,7 +700,30 @@
    "en": "yes",
    "ru": "да",
    "tr": "си",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "Sí, claro.",
+     "ru": "Да, конечно.",
+     "frame": [
+      "Sí"
+     ]
+    },
+    {
+     "es": "Sí, está abierto.",
+     "ru": "Да, открыто.",
+     "frame": [
+      "Sí"
+     ]
+    },
+    {
+     "es": "Creo que sí.",
+     "ru": "Думаю, да.",
+     "frame": [
+      "sí"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v082",
@@ -296,7 +732,30 @@
    "en": "no",
    "ru": "нет",
    "tr": "но",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "No, gracias.",
+     "ru": "Нет, спасибо.",
+     "frame": [
+      "No"
+     ]
+    },
+    {
+     "es": "Hoy no trabajo.",
+     "ru": "Сегодня я не работаю.",
+     "frame": [
+      "no"
+     ]
+    },
+    {
+     "es": "¿Por qué no?",
+     "ru": "Почему нет?",
+     "frame": [
+      "no"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v084",
@@ -305,7 +764,30 @@
    "en": "already",
    "ru": "уже",
    "tr": "йа",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "Ya está.",
+     "ru": "Готово.",
+     "frame": [
+      "Ya"
+     ]
+    },
+    {
+     "es": "Ya he comido.",
+     "ru": "Я уже поел.",
+     "frame": [
+      "Ya"
+     ]
+    },
+    {
+     "es": "¿Ya has llegado?",
+     "ru": "Ты уже приехал?",
+     "frame": [
+      "Ya"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v121",
@@ -314,7 +796,30 @@
    "en": "me (after a preposition)",
    "ru": "мне, меня (после предлога: para mí)",
    "tr": "ми",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Es para mí.",
+     "ru": "Это для меня.",
+     "frame": [
+      "mí"
+     ]
+    },
+    {
+     "es": "A mí me gusta.",
+     "ru": "Мне нравится.",
+     "frame": [
+      "mí"
+     ]
+    },
+    {
+     "es": "¿Vienes conmigo o sin mí?",
+     "ru": "Ты идёшь со мной или без меня?",
+     "frame": [
+      "mí"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v122",
@@ -323,7 +828,30 @@
    "en": "you (after a preposition)",
    "ru": "тебе, тебя (после предлога: para ti)",
    "tr": "ти",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Esto es para ti.",
+     "ru": "Это для тебя.",
+     "frame": [
+      "ti"
+     ]
+    },
+    {
+     "es": "A ti te toca.",
+     "ru": "Твоя очередь.",
+     "frame": [
+      "ti"
+     ]
+    },
+    {
+     "es": "Lo hago por ti.",
+     "ru": "Я делаю это ради тебя.",
+     "frame": [
+      "ti"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v002",
@@ -332,7 +860,30 @@
    "en": "there",
    "ru": "там (рядом с тобой)",
    "tr": "аи́",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Está ahí.",
+     "ru": "Это там.",
+     "frame": [
+      "ahí"
+     ]
+    },
+    {
+     "es": "Déjalo ahí, gracias.",
+     "ru": "Оставь это там, спасибо.",
+     "frame": [
+      "ahí"
+     ]
+    },
+    {
+     "es": "¿Qué hay ahí dentro?",
+     "ru": "Что там внутри?",
+     "frame": [
+      "ahí"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v026",
@@ -341,7 +892,30 @@
    "en": "with",
    "ru": "с",
    "tr": "кон",
-   "group": null
+   "group": "Предлоги",
+   "ex": [
+    {
+     "es": "Voy con mi familia.",
+     "ru": "Я иду с семьёй.",
+     "frame": [
+      "con"
+     ]
+    },
+    {
+     "es": "Un café con leche, por favor.",
+     "ru": "Кофе с молоком, пожалуйста.",
+     "frame": [
+      "con"
+     ]
+    },
+    {
+     "es": "¿Con quién hablo?",
+     "ru": "С кем я говорю?",
+     "frame": [
+      "Con"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v027",
@@ -350,7 +924,30 @@
    "en": "without",
    "ru": "без",
    "tr": "син",
-   "group": null
+   "group": "Предлоги",
+   "ex": [
+    {
+     "es": "Café sin azúcar, por favor.",
+     "ru": "Кофе без сахара, пожалуйста.",
+     "frame": [
+      "sin"
+     ]
+    },
+    {
+     "es": "He salido sin las llaves.",
+     "ru": "Я вышел без ключей.",
+     "frame": [
+      "sin"
+     ]
+    },
+    {
+     "es": "Sin cita no atienden.",
+     "ru": "Без записи не принимают.",
+     "frame": [
+      "Sin"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v028",
@@ -359,7 +956,30 @@
    "en": "through / along / by",
    "ru": "через / по",
    "tr": "пор",
-   "group": null
+   "group": "Предлоги",
+   "ex": [
+    {
+     "es": "Paseamos por el centro.",
+     "ru": "Мы гуляем по центру.",
+     "frame": [
+      "por"
+     ]
+    },
+    {
+     "es": "Gracias por todo.",
+     "ru": "Спасибо за всё.",
+     "frame": [
+      "por"
+     ]
+    },
+    {
+     "es": "Te llamo por la tarde.",
+     "ru": "Я позвоню тебе во второй половине дня.",
+     "frame": [
+      "por"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v038",
@@ -368,7 +988,30 @@
    "en": "that / that thing",
    "ru": "это / то",
    "tr": "э́со",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "¿Qué es eso?",
+     "ru": "Что это там?",
+     "frame": [
+      "eso"
+     ]
+    },
+    {
+     "es": "No quiero eso.",
+     "ru": "Я не хочу то.",
+     "frame": [
+      "eso"
+     ]
+    },
+    {
+     "es": "Eso es todo, gracias.",
+     "ru": "Это всё, спасибо.",
+     "frame": [
+      "Eso"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v058",
@@ -377,7 +1020,30 @@
    "en": "us",
    "ru": "нам/нас",
    "tr": "нос",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Nos vemos mañana.",
+     "ru": "Увидимся завтра.",
+     "frame": [
+      "Nos"
+     ]
+    },
+    {
+     "es": "¿Nos trae la cuenta?",
+     "ru": "Принесёте нам счёт?",
+     "frame": [
+      "Nos"
+     ]
+    },
+    {
+     "es": "No nos han avisado.",
+     "ru": "Нас не предупредили.",
+     "frame": [
+      "nos"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v085",
@@ -386,7 +1052,30 @@
    "en": "still/yet",
    "ru": "ещё",
    "tr": "ау́н",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "Aún no ha llegado.",
+     "ru": "Он ещё не приехал.",
+     "frame": [
+      "Aún"
+     ]
+    },
+    {
+     "es": "¿Aún estás en el trabajo?",
+     "ru": "Ты ещё на работе?",
+     "frame": [
+      "Aún"
+     ]
+    },
+    {
+     "es": "Aún queda pan.",
+     "ru": "Хлеб ещё остался.",
+     "frame": [
+      "Aún"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v001",
@@ -395,7 +1084,30 @@
    "en": "here",
    "ru": "здесь",
    "tr": "аки́",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Estoy aquí.",
+     "ru": "Я здесь.",
+     "frame": [
+      "aquí"
+     ]
+    },
+    {
+     "es": "Firma aquí, por favor.",
+     "ru": "Распишитесь здесь, пожалуйста.",
+     "frame": [
+      "aquí"
+     ]
+    },
+    {
+     "es": "Es aquí, ¿verdad?",
+     "ru": "Это здесь, правда?",
+     "frame": [
+      "aquí"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v003",
@@ -404,7 +1116,30 @@
    "en": "there / over there",
    "ru": "там (вдали)",
    "tr": "айи́",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "El baño está allí.",
+     "ru": "Туалет вон там.",
+     "frame": [
+      "allí"
+     ]
+    },
+    {
+     "es": "Nos vemos allí a las ocho.",
+     "ru": "Встретимся там в восемь.",
+     "frame": [
+      "allí"
+     ]
+    },
+    {
+     "es": "Allí no hay nadie.",
+     "ru": "Там никого нет.",
+     "frame": [
+      "Allí"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v029",
@@ -413,7 +1148,31 @@
    "en": "for / to",
    "ru": "для / чтобы",
    "tr": "па́ра",
-   "group": null
+   "group": "Предлоги",
+   "ex": [
+    {
+     "es": "Esto es para mi hija.",
+     "ru": "Это для моей дочери.",
+     "frame": [
+      "para"
+     ]
+    },
+    {
+     "es": "¿Para llevar o para tomar aquí?",
+     "ru": "С собой или здесь?",
+     "frame": [
+      "Para",
+      "para"
+     ]
+    },
+    {
+     "es": "Necesito una cita para el lunes.",
+     "ru": "Мне нужна запись на понедельник.",
+     "frame": [
+      "para"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v037",
@@ -422,7 +1181,30 @@
    "en": "this / this thing",
    "ru": "это",
    "tr": "э́сто",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "¿Qué es esto?",
+     "ru": "Что это?",
+     "frame": [
+      "esto"
+     ]
+    },
+    {
+     "es": "Quiero esto, por favor.",
+     "ru": "Я хочу вот это, пожалуйста.",
+     "frame": [
+      "esto"
+     ]
+    },
+    {
+     "es": "Esto no funciona.",
+     "ru": "Это не работает.",
+     "frame": [
+      "Esto"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v046",
@@ -431,7 +1213,30 @@
    "en": "but",
    "ru": "но",
    "tr": "пэ́ро",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "Está cerca, pero está cerrado.",
+     "ru": "Это близко, но закрыто.",
+     "frame": [
+      "pero"
+     ]
+    },
+    {
+     "es": "Me gusta, pero es caro.",
+     "ru": "Мне нравится, но дорого.",
+     "frame": [
+      "pero"
+     ]
+    },
+    {
+     "es": "Perdona, pero no puedo.",
+     "ru": "Извини, но я не могу.",
+     "frame": [
+      "pero"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v053",
@@ -440,7 +1245,30 @@
    "en": "she",
    "ru": "она",
    "tr": "э́йа",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Ella trabaja en el hospital.",
+     "ru": "Она работает в больнице.",
+     "frame": [
+      "Ella"
+     ]
+    },
+    {
+     "es": "Voy con ella.",
+     "ru": "Я иду с ней.",
+     "frame": [
+      "ella"
+     ]
+    },
+    {
+     "es": "Pregúntale a ella.",
+     "ru": "Спроси у неё.",
+     "frame": [
+      "ella"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v087",
@@ -449,7 +1277,30 @@
    "en": "like / as",
    "ru": "как (сравнение: como tú)",
    "tr": "ко́мо",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "Es como tú dices.",
+     "ru": "Всё так, как ты говоришь.",
+     "frame": [
+      "como"
+     ]
+    },
+    {
+     "es": "Sabe como el pollo.",
+     "ru": "На вкус как курица.",
+     "frame": [
+      "como"
+     ]
+    },
+    {
+     "es": "Hazlo como quieras.",
+     "ru": "Делай как хочешь.",
+     "frame": [
+      "como"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v089",
@@ -458,7 +1309,30 @@
    "en": "over there, that way",
    "ru": "туда, там (далеко)",
    "tr": "айа́",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Vamos allá.",
+     "ru": "Пойдём туда.",
+     "frame": [
+      "allá"
+     ]
+    },
+    {
+     "es": "Allá hace mucho calor.",
+     "ru": "Там очень жарко.",
+     "frame": [
+      "Allá"
+     ]
+    },
+    {
+     "es": "Más allá está el mar.",
+     "ru": "Дальше — море.",
+     "frame": [
+      "allá"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v104",
@@ -467,7 +1341,30 @@
    "en": "each/every",
    "ru": "каждый",
    "tr": "ка́да",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Voy al gimnasio cada semana.",
+     "ru": "Я хожу в зал каждую неделю.",
+     "frame": [
+      "cada"
+     ]
+    },
+    {
+     "es": "Cada niño tiene su sitio.",
+     "ru": "У каждого ребёнка своё место.",
+     "frame": [
+      "Cada"
+     ]
+    },
+    {
+     "es": "El autobús pasa cada diez minutos.",
+     "ru": "Автобус ходит каждые десять минут.",
+     "frame": [
+      "cada"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v109",
@@ -476,7 +1373,30 @@
    "en": "something",
    "ru": "что-то",
    "tr": "а́лго",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "¿Quieres algo de beber?",
+     "ru": "Хочешь что-нибудь выпить?",
+     "frame": [
+      "algo"
+     ]
+    },
+    {
+     "es": "Algo no va bien.",
+     "ru": "Что-то идёт не так.",
+     "frame": [
+      "Algo"
+     ]
+    },
+    {
+     "es": "Necesito algo para la tos.",
+     "ru": "Мне нужно что-то от кашля.",
+     "frame": [
+      "algo"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v110",
@@ -485,7 +1405,30 @@
    "en": "nothing",
    "ru": "ничего",
    "tr": "на́да",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "No quiero nada, gracias.",
+     "ru": "Мне ничего не нужно, спасибо.",
+     "frame": [
+      "nada"
+     ]
+    },
+    {
+     "es": "No pasa nada.",
+     "ru": "Ничего страшного.",
+     "frame": [
+      "nada"
+     ]
+    },
+    {
+     "es": "Aquí no hay nada.",
+     "ru": "Здесь ничего нет.",
+     "frame": [
+      "nada"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v014",
@@ -494,7 +1437,30 @@
    "en": "between",
    "ru": "между",
    "tr": "э́нтрэ",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Está entre los dos.",
+     "ru": "Это между двумя.",
+     "frame": [
+      "entre"
+     ]
+    },
+    {
+     "es": "La farmacia está entre el banco y el bar.",
+     "ru": "Аптека между банком и баром.",
+     "frame": [
+      "entre"
+     ]
+    },
+    {
+     "es": "Entre semana trabajo en casa.",
+     "ru": "В будни я работаю дома.",
+     "frame": [
+      "Entre"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v030",
@@ -503,7 +1469,30 @@
    "en": "on / about",
    "ru": "на / о",
    "tr": "со́брэ",
-   "group": null
+   "group": "Предлоги",
+   "ex": [
+    {
+     "es": "El móvil está sobre la mesa.",
+     "ru": "Телефон на столе.",
+     "frame": [
+      "sobre"
+     ]
+    },
+    {
+     "es": "Hablamos sobre el colegio.",
+     "ru": "Мы говорили о школе.",
+     "frame": [
+      "sobre"
+     ]
+    },
+    {
+     "es": "Deja el paquete sobre la silla.",
+     "ru": "Оставь пакет на стуле.",
+     "frame": [
+      "sobre"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v031",
@@ -512,7 +1501,30 @@
    "en": "until / up to",
    "ru": "до",
    "tr": "а́ста",
-   "group": null
+   "group": "Навигация",
+   "ex": [
+    {
+     "es": "Voy hasta la estación.",
+     "ru": "Я еду до станции.",
+     "frame": [
+      "hasta"
+     ]
+    },
+    {
+     "es": "Está abierto hasta las diez.",
+     "ru": "Открыто до десяти.",
+     "frame": [
+      "hasta"
+     ]
+    },
+    {
+     "es": "¿Hasta qué hora abren?",
+     "ru": "До скольких вы работаете?",
+     "frame": [
+      "Hasta"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v032",
@@ -521,7 +1533,30 @@
    "en": "towards",
    "ru": "в сторону / к",
    "tr": "а́сья",
-   "group": null
+   "group": "Навигация",
+   "ex": [
+    {
+     "es": "Vamos hacia el centro.",
+     "ru": "Мы идём в сторону центра.",
+     "frame": [
+      "hacia"
+     ]
+    },
+    {
+     "es": "Camina hacia la plaza.",
+     "ru": "Иди в сторону площади.",
+     "frame": [
+      "hacia"
+     ]
+    },
+    {
+     "es": "El tren va hacia el norte.",
+     "ru": "Поезд идёт на север.",
+     "frame": [
+      "hacia"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v051",
@@ -530,7 +1565,30 @@
    "en": "you (formal)",
    "ru": "вы (вежливо, одному)",
    "tr": "устэ́д",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "¿Usted es el médico?",
+     "ru": "Вы врач?",
+     "frame": [
+      "Usted"
+     ]
+    },
+    {
+     "es": "Pase usted primero.",
+     "ru": "Проходите, пожалуйста.",
+     "frame": [
+      "usted"
+     ]
+    },
+    {
+     "es": "Esto es para usted.",
+     "ru": "Это для вас.",
+     "frame": [
+      "usted"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v088",
@@ -539,7 +1597,30 @@
    "en": "from/since",
    "ru": "из/с",
    "tr": "дэ́сдэ",
-   "group": null
+   "group": "Предлоги",
+   "ex": [
+    {
+     "es": "Trabajo desde casa.",
+     "ru": "Я работаю из дома.",
+     "frame": [
+      "desde"
+     ]
+    },
+    {
+     "es": "Vivo aquí desde enero.",
+     "ru": "Я живу здесь с января.",
+     "frame": [
+      "desde"
+     ]
+    },
+    {
+     "es": "¿Desde dónde llamas?",
+     "ru": "Откуда ты звонишь?",
+     "frame": [
+      "Desde"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v105",
@@ -548,7 +1629,30 @@
    "en": "both",
    "ru": "оба",
    "tr": "а́мбос",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Ambos trabajan aquí.",
+     "ru": "Они оба здесь работают.",
+     "frame": [
+      "Ambos"
+     ]
+    },
+    {
+     "es": "Me gustan ambos.",
+     "ru": "Мне нравятся оба.",
+     "frame": [
+      "ambos"
+     ]
+    },
+    {
+     "es": "Ambos coches son del mismo año.",
+     "ru": "Обе машины одного года.",
+     "frame": [
+      "Ambos"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v106",
@@ -557,7 +1661,30 @@
    "en": "same/self",
    "ru": "тот же/сам",
    "tr": "ми́смо",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Vivimos en el mismo edificio.",
+     "ru": "Мы живём в одном доме.",
+     "frame": [
+      "mismo"
+     ]
+    },
+    {
+     "es": "Es lo mismo.",
+     "ru": "Это одно и то же.",
+     "frame": [
+      "mismo"
+     ]
+    },
+    {
+     "es": "Yo mismo lo hago.",
+     "ru": "Я сам это сделаю.",
+     "frame": [
+      "mismo"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v108",
@@ -566,7 +1693,30 @@
    "en": "nobody",
    "ru": "никто",
    "tr": "на́дье",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "No hay nadie.",
+     "ru": "Никого нет.",
+     "frame": [
+      "nadie"
+     ]
+    },
+    {
+     "es": "Nadie me lo dijo.",
+     "ru": "Мне никто об этом не сказал.",
+     "frame": [
+      "Nadie"
+     ]
+    },
+    {
+     "es": "No conozco a nadie aquí.",
+     "ru": "Я здесь никого не знаю.",
+     "frame": [
+      "nadie"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v113",
@@ -575,7 +1725,30 @@
    "en": "far",
    "ru": "далеко",
    "tr": "лэ́хос",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Está lejos.",
+     "ru": "Это далеко.",
+     "frame": [
+      "lejos"
+     ]
+    },
+    {
+     "es": "No, no está lejos.",
+     "ru": "Нет, это недалеко.",
+     "frame": [
+      "lejos"
+     ]
+    },
+    {
+     "es": "Mi trabajo está lejos.",
+     "ru": "Моя работа далеко.",
+     "frame": [
+      "lejos"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v114",
@@ -584,7 +1757,30 @@
    "en": "near / close",
    "ru": "близко",
    "tr": "сэ́рка",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Está cerca.",
+     "ru": "Это близко.",
+     "frame": [
+      "cerca"
+     ]
+    },
+    {
+     "es": "¿El metro está cerca?",
+     "ru": "Метро близко?",
+     "frame": [
+      "cerca"
+     ]
+    },
+    {
+     "es": "Vivo muy cerca.",
+     "ru": "Я живу совсем рядом.",
+     "frame": [
+      "cerca"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v115",
@@ -593,7 +1789,30 @@
    "en": "outside",
    "ru": "снаружи",
    "tr": "фуэ́ра",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Está fuera.",
+     "ru": "Это снаружи.",
+     "frame": [
+      "fuera"
+     ]
+    },
+    {
+     "es": "Te espero fuera.",
+     "ru": "Жду тебя на улице.",
+     "frame": [
+      "fuera"
+     ]
+    },
+    {
+     "es": "Hoy comemos fuera.",
+     "ru": "Сегодня едим не дома.",
+     "frame": [
+      "fuera"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v005",
@@ -602,7 +1821,30 @@
    "en": "behind",
    "ru": "сзади / за",
    "tr": "дэтра́с",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Está detrás.",
+     "ru": "Это сзади.",
+     "frame": [
+      "detrás"
+     ]
+    },
+    {
+     "es": "La salida está detrás.",
+     "ru": "Выход сзади.",
+     "frame": [
+      "detrás"
+     ]
+    },
+    {
+     "es": "Yo voy detrás.",
+     "ru": "Я пойду сзади.",
+     "frame": [
+      "detrás"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v006",
@@ -611,7 +1853,30 @@
    "en": "on top / above",
    "ru": "сверху / на",
    "tr": "энси́ма",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Está encima de la mesa.",
+     "ru": "Это на столе.",
+     "frame": [
+      "encima"
+     ]
+    },
+    {
+     "es": "Ponlo encima, por favor.",
+     "ru": "Положи это сверху, пожалуйста.",
+     "frame": [
+      "encima"
+     ]
+    },
+    {
+     "es": "El gato duerme encima del sofá.",
+     "ru": "Кот спит на диване.",
+     "frame": [
+      "encima"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v009",
@@ -620,7 +1885,30 @@
    "en": "underneath / below",
    "ru": "под",
    "tr": "дэба́хо",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Está debajo de la mesa.",
+     "ru": "Это под столом.",
+     "frame": [
+      "debajo"
+     ]
+    },
+    {
+     "es": "Mira debajo de la cama.",
+     "ru": "Посмотри под кроватью.",
+     "frame": [
+      "debajo"
+     ]
+    },
+    {
+     "es": "Las llaves están debajo.",
+     "ru": "Ключи снизу.",
+     "frame": [
+      "debajo"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v116",
@@ -629,7 +1917,30 @@
    "en": "inside",
    "ru": "внутри",
    "tr": "дэ́нтро",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Está dentro.",
+     "ru": "Это внутри.",
+     "frame": [
+      "dentro"
+     ]
+    },
+    {
+     "es": "Los niños están dentro.",
+     "ru": "Дети внутри.",
+     "frame": [
+      "dentro"
+     ]
+    },
+    {
+     "es": "¿Puedo esperar dentro?",
+     "ru": "Можно подождать внутри?",
+     "frame": [
+      "dentro"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v004",
@@ -638,7 +1949,30 @@
    "en": "in front",
    "ru": "впереди / перед",
    "tr": "дэла́нтэ",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Estoy delante.",
+     "ru": "Я впереди.",
+     "frame": [
+      "delante"
+     ]
+    },
+    {
+     "es": "La parada está delante.",
+     "ru": "Остановка впереди.",
+     "frame": [
+      "delante"
+     ]
+    },
+    {
+     "es": "Pasa tú delante.",
+     "ru": "Проходи вперёд.",
+     "frame": [
+      "delante"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v092",
@@ -647,7 +1981,30 @@
    "en": "you (plural, formal)",
    "ru": "вы (вежливо, многим)",
    "tr": "устэ́дэс",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "¿Ustedes son de aquí?",
+     "ru": "Вы местные?",
+     "frame": [
+      "Ustedes"
+     ]
+    },
+    {
+     "es": "Ustedes pueden pasar.",
+     "ru": "Вы можете проходить.",
+     "frame": [
+      "Ustedes"
+     ]
+    },
+    {
+     "es": "Esta mesa es para ustedes.",
+     "ru": "Этот стол для вас.",
+     "frame": [
+      "ustedes"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v107",
@@ -656,7 +2013,30 @@
    "en": "someone",
    "ru": "кто-то",
    "tr": "а́лгьен",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "¿Hay alguien en casa?",
+     "ru": "Дома кто-нибудь есть?",
+     "frame": [
+      "alguien"
+     ]
+    },
+    {
+     "es": "Alguien ha llamado.",
+     "ru": "Кто-то звонил.",
+     "frame": [
+      "Alguien"
+     ]
+    },
+    {
+     "es": "Necesito que alguien me ayude.",
+     "ru": "Мне нужно, чтобы кто-нибудь помог.",
+     "frame": [
+      "alguien"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v112",
@@ -665,7 +2045,30 @@
    "en": "also",
    "ru": "тоже/также",
    "tr": "тамбье́н",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "Yo también.",
+     "ru": "Я тоже.",
+     "frame": [
+      "también"
+     ]
+    },
+    {
+     "es": "Ella también viene.",
+     "ru": "Она тоже придёт.",
+     "frame": [
+      "también"
+     ]
+    },
+    {
+     "es": "También necesito pan.",
+     "ru": "Мне ещё нужен хлеб.",
+     "frame": [
+      "También"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v123",
@@ -674,7 +2077,30 @@
    "en": "with me",
    "ru": "со мной",
    "tr": "конми́го",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "¿Vienes conmigo?",
+     "ru": "Пойдёшь со мной?",
+     "frame": [
+      "conmigo"
+     ]
+    },
+    {
+     "es": "No lo tengo conmigo.",
+     "ru": "У меня его с собой нет.",
+     "frame": [
+      "conmigo"
+     ]
+    },
+    {
+     "es": "Habla conmigo, por favor.",
+     "ru": "Поговори со мной, пожалуйста.",
+     "frame": [
+      "conmigo"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v124",
@@ -683,7 +2109,30 @@
    "en": "with you",
    "ru": "с тобой",
    "tr": "конти́го",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Voy contigo.",
+     "ru": "Я иду с тобой.",
+     "frame": [
+      "contigo"
+     ]
+    },
+    {
+     "es": "¿Llevas el DNI contigo?",
+     "ru": "У тебя с собой DNI?",
+     "frame": [
+      "contigo"
+     ]
+    },
+    {
+     "es": "Quiero hablar contigo.",
+     "ru": "Я хочу с тобой поговорить.",
+     "frame": [
+      "contigo"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v057",
@@ -692,7 +2141,30 @@
    "en": "to him, to her / to them",
    "ru": "ему, ей / им",
    "tr": "лэ / лэс",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Le he escrito un mensaje.",
+     "ru": "Я написал ему сообщение.",
+     "frame": [
+      "Le"
+     ]
+    },
+    {
+     "es": "Les damos las gracias.",
+     "ru": "Мы их благодарим.",
+     "frame": [
+      "Les"
+     ]
+    },
+    {
+     "es": "¿Le pregunto a la profesora?",
+     "ru": "Мне спросить у учительницы?",
+     "frame": [
+      "Le"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v065",
@@ -701,7 +2173,30 @@
    "en": "my",
    "ru": "мой, моя / мои (перед словом)",
    "tr": "ми / мис",
-   "group": null
+   "group": "Притяжательные",
+   "ex": [
+    {
+     "es": "Mi hija va al colegio.",
+     "ru": "Моя дочь ходит в школу.",
+     "frame": [
+      "Mi"
+     ]
+    },
+    {
+     "es": "Mis padres viven lejos.",
+     "ru": "Мои родители живут далеко.",
+     "frame": [
+      "Mis"
+     ]
+    },
+    {
+     "es": "Es mi turno.",
+     "ru": "Моя очередь.",
+     "frame": [
+      "mi"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v066",
@@ -710,7 +2205,30 @@
    "en": "your",
    "ru": "твой, твоя / твои (перед словом)",
    "tr": "ту / тус",
-   "group": null
+   "group": "Притяжательные",
+   "ex": [
+    {
+     "es": "¿Cuál es tu dirección?",
+     "ru": "Какой у тебя адрес?",
+     "frame": [
+      "tu"
+     ]
+    },
+    {
+     "es": "Tus llaves están aquí.",
+     "ru": "Твои ключи здесь.",
+     "frame": [
+      "Tus"
+     ]
+    },
+    {
+     "es": "Tu café está listo.",
+     "ru": "Твой кофе готов.",
+     "frame": [
+      "Tu"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v067",
@@ -719,7 +2237,30 @@
    "en": "his, her, their, your (formal)",
    "ru": "его, её, их, ваш (перед словом)",
    "tr": "су / сус",
-   "group": null
+   "group": "Притяжательные",
+   "ex": [
+    {
+     "es": "Su casa está cerca del parque.",
+     "ru": "Их дом рядом с парком.",
+     "frame": [
+      "Su"
+     ]
+    },
+    {
+     "es": "Sus hijos van al mismo colegio.",
+     "ru": "Их дети ходят в одну школу.",
+     "frame": [
+      "Sus"
+     ]
+    },
+    {
+     "es": "¿Me da su DNI?",
+     "ru": "Дайте, пожалуйста, ваш DNI.",
+     "frame": [
+      "su"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v012",
@@ -728,7 +2269,30 @@
    "en": "opposite / across",
    "ru": "напротив",
    "tr": "энфрэ́нтэ",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "El supermercado está enfrente.",
+     "ru": "Супермаркет напротив.",
+     "frame": [
+      "enfrente"
+     ]
+    },
+    {
+     "es": "El baño está enfrente del parque.",
+     "ru": "Туалет напротив парка.",
+     "frame": [
+      "enfrente"
+     ]
+    },
+    {
+     "es": "¿Está enfrente o al lado?",
+     "ru": "Это напротив или рядом?",
+     "frame": [
+      "enfrente"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v017",
@@ -737,7 +2301,30 @@
    "en": "near",
    "ru": "рядом с / недалеко от",
    "tr": "сэ́рка дэ",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Vivo cerca de la playa.",
+     "ru": "Я живу рядом с пляжем.",
+     "frame": [
+      "cerca de"
+     ]
+    },
+    {
+     "es": "¿Hay un cajero cerca de aquí?",
+     "ru": "Тут рядом есть банкомат?",
+     "frame": [
+      "cerca de"
+     ]
+    },
+    {
+     "es": "El hotel está cerca de la estación.",
+     "ru": "Отель рядом со станцией.",
+     "frame": [
+      "cerca de"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v018",
@@ -746,7 +2333,30 @@
    "en": "far from",
    "ru": "далеко от",
    "tr": "лэ́хос дэ",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Vivo lejos de la oficina.",
+     "ru": "Я живу далеко от офиса.",
+     "frame": [
+      "lejos de"
+     ]
+    },
+    {
+     "es": "No está lejos de aquí.",
+     "ru": "Это недалеко отсюда.",
+     "frame": [
+      "lejos de"
+     ]
+    },
+    {
+     "es": "El aeropuerto está lejos de la ciudad.",
+     "ru": "Аэропорт далеко от города.",
+     "frame": [
+      "lejos de"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v086",
@@ -755,7 +2365,30 @@
    "en": "then",
    "ru": "поэтому/тогда/затем",
    "tr": "энто́нсэс",
-   "group": null
+   "group": "Связки",
+   "ex": [
+    {
+     "es": "Entonces nos vemos mañana.",
+     "ru": "Тогда увидимся завтра.",
+     "frame": [
+      "Entonces"
+     ]
+    },
+    {
+     "es": "Está cerrado, entonces volvemos luego.",
+     "ru": "Закрыто, значит вернёмся позже.",
+     "frame": [
+      "entonces"
+     ]
+    },
+    {
+     "es": "¿Entonces qué hacemos?",
+     "ru": "И что тогда делаем?",
+     "frame": [
+      "Entonces"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v120",
@@ -764,7 +2397,30 @@
    "en": "at the back / at the end",
    "ru": "в конце / в глубине",
    "tr": "ал фо́ндо",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "El baño está al fondo a la derecha.",
+     "ru": "Туалет в конце справа.",
+     "frame": [
+      "al fondo"
+     ]
+    },
+    {
+     "es": "Hay una mesa libre al fondo.",
+     "ru": "В глубине есть свободный стол.",
+     "frame": [
+      "al fondo"
+     ]
+    },
+    {
+     "es": "Los probadores están al fondo.",
+     "ru": "Примерочные в глубине зала.",
+     "frame": [
+      "al fondo"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v035",
@@ -773,7 +2429,30 @@
    "en": "that",
    "ru": "тот / та",
    "tr": "э́сэ / э́са",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Ese coche es mío.",
+     "ru": "Та машина моя.",
+     "frame": [
+      "Ese"
+     ]
+    },
+    {
+     "es": "Esa mesa está libre.",
+     "ru": "Тот стол свободен.",
+     "frame": [
+      "Esa"
+     ]
+    },
+    {
+     "es": "¿Me pasas ese, por favor?",
+     "ru": "Передашь мне тот, пожалуйста?",
+     "frame": [
+      "ese"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v062",
@@ -782,7 +2461,30 @@
    "en": "them (m / f)",
    "ru": "их (о людях и вещах)",
    "tr": "лос / лас",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Los veo el domingo.",
+     "ru": "Я увижу их в воскресенье.",
+     "frame": [
+      "Los"
+     ]
+    },
+    {
+     "es": "Las dejo en la mesa.",
+     "ru": "Оставлю их на столе.",
+     "frame": [
+      "Las"
+     ]
+    },
+    {
+     "es": "No los conozco.",
+     "ru": "Я их не знаю.",
+     "frame": [
+      "los"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v070",
@@ -791,7 +2493,30 @@
    "en": "mine",
    "ru": "мой / моя (сам по себе: es mío)",
    "tr": "ми́о / ми́а",
-   "group": null
+   "group": "Притяжательные",
+   "ex": [
+    {
+     "es": "Este sitio es mío.",
+     "ru": "Это место моё.",
+     "frame": [
+      "mío"
+     ]
+    },
+    {
+     "es": "La culpa es mía.",
+     "ru": "Это моя вина.",
+     "frame": [
+      "mía"
+     ]
+    },
+    {
+     "es": "¿Es tuyo o mío?",
+     "ru": "Это твоё или моё?",
+     "frame": [
+      "mío"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v016",
@@ -800,7 +2525,30 @@
    "en": "behind",
    "ru": "за / позади",
    "tr": "дэтра́с дэ",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "El parque está detrás del colegio.",
+     "ru": "Парк за школой.",
+     "frame": [
+      "detrás"
+     ]
+    },
+    {
+     "es": "Estoy detrás de ti.",
+     "ru": "Я за тобой.",
+     "frame": [
+      "detrás de"
+     ]
+    },
+    {
+     "es": "Aparca detrás de aquel coche.",
+     "ru": "Припаркуйся за той машиной.",
+     "frame": [
+      "detrás de"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v013",
@@ -809,7 +2557,30 @@
    "en": "next to / beside",
    "ru": "рядом с",
    "tr": "ал ла́до дэ",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "El hotel está al lado del restaurante.",
+     "ru": "Отель рядом с рестораном.",
+     "frame": [
+      "al lado"
+     ]
+    },
+    {
+     "es": "Siéntate al lado de la ventana.",
+     "ru": "Сядь у окна.",
+     "frame": [
+      "al lado de"
+     ]
+    },
+    {
+     "es": "¿Quién vive al lado?",
+     "ru": "Кто живёт по соседству?",
+     "frame": [
+      "al lado"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v015",
@@ -818,7 +2589,30 @@
    "en": "in front of",
    "ru": "перед",
    "tr": "дэла́нтэ дэ",
-   "group": null
+   "group": "Место",
+   "ex": [
+    {
+     "es": "Te espero delante del cine.",
+     "ru": "Жду тебя перед кинотеатром.",
+     "frame": [
+      "delante"
+     ]
+    },
+    {
+     "es": "Hay una cola delante de la caja.",
+     "ru": "Перед кассой очередь.",
+     "frame": [
+      "delante de"
+     ]
+    },
+    {
+     "es": "No fumes delante de los niños.",
+     "ru": "Не кури при детях.",
+     "frame": [
+      "delante de"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v103",
@@ -827,7 +2621,30 @@
    "en": "any/whatever",
    "ru": "любой",
    "tr": "куалкье́ра",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Cualquiera puede entrar.",
+     "ru": "Войти может любой.",
+     "frame": [
+      "Cualquiera"
+     ]
+    },
+    {
+     "es": "Me vale cualquiera.",
+     "ru": "Мне подойдёт любой.",
+     "frame": [
+      "cualquiera"
+     ]
+    },
+    {
+     "es": "Pregunta a cualquiera de ellos.",
+     "ru": "Спроси любого из них.",
+     "frame": [
+      "cualquiera"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v119",
@@ -836,7 +2653,30 @@
    "en": "straight ahead",
    "ru": "прямо (по дороге)",
    "tr": "то́до ррэ́кто",
-   "group": null
+   "group": "Навигация",
+   "ex": [
+    {
+     "es": "Sigue todo recto.",
+     "ru": "Иди прямо.",
+     "frame": [
+      "todo recto"
+     ]
+    },
+    {
+     "es": "Todo recto y luego a la derecha.",
+     "ru": "Прямо, потом направо.",
+     "frame": [
+      "Todo recto"
+     ]
+    },
+    {
+     "es": "¿Voy todo recto?",
+     "ru": "Мне идти прямо?",
+     "frame": [
+      "todo recto"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v071",
@@ -845,7 +2685,30 @@
    "en": "yours",
    "ru": "твой / твоя (сам по себе: es tuyo)",
    "tr": "ту́йо / ту́йа",
-   "group": null
+   "group": "Притяжательные",
+   "ex": [
+    {
+     "es": "¿Este abrigo es tuyo?",
+     "ru": "Это твоё пальто?",
+     "frame": [
+      "tuyo"
+     ]
+    },
+    {
+     "es": "La idea fue tuya.",
+     "ru": "Идея была твоя.",
+     "frame": [
+      "tuya"
+     ]
+    },
+    {
+     "es": "Un amigo tuyo ha llamado.",
+     "ru": "Звонил твой друг.",
+     "frame": [
+      "tuyo"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v072",
@@ -854,7 +2717,30 @@
    "en": "his, hers, theirs, yours (formal)",
    "ru": "его, её, их, ваш (сам по себе: es suyo)",
    "tr": "су́йо / су́йа",
-   "group": null
+   "group": "Притяжательные",
+   "ex": [
+    {
+     "es": "La maleta azul es suya.",
+     "ru": "Синий чемодан её.",
+     "frame": [
+      "suya"
+     ]
+    },
+    {
+     "es": "El error fue suyo.",
+     "ru": "Ошибка была их.",
+     "frame": [
+      "suyo"
+     ]
+    },
+    {
+     "es": "¿Es suyo este paraguas?",
+     "ru": "Это ваш зонт?",
+     "frame": [
+      "suyo"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v075",
@@ -863,7 +2749,30 @@
    "en": "those",
    "ru": "те",
    "tr": "э́сос / э́сас",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Esos zapatos son caros.",
+     "ru": "Те туфли дорогие.",
+     "frame": [
+      "Esos"
+     ]
+    },
+    {
+     "es": "Esas sillas están ocupadas.",
+     "ru": "Те стулья заняты.",
+     "frame": [
+      "Esas"
+     ]
+    },
+    {
+     "es": "¿De quién son esos?",
+     "ru": "Чьи вон те?",
+     "frame": [
+      "esos"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v093",
@@ -872,7 +2781,30 @@
    "en": "all, everything",
    "ru": "весь, всё / вся",
    "tr": "то́до / то́да",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Todo está bien.",
+     "ru": "Всё хорошо.",
+     "frame": [
+      "Todo"
+     ]
+    },
+    {
+     "es": "He trabajado toda la semana.",
+     "ru": "Я работал всю неделю.",
+     "frame": [
+      "toda"
+     ]
+    },
+    {
+     "es": "Lo he entendido todo.",
+     "ru": "Я всё понял.",
+     "frame": [
+      "todo"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v097",
@@ -881,7 +2813,30 @@
    "en": "other, another",
    "ru": "другой, ещё один / другая, ещё одна",
    "tr": "о́тро / о́тра",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "¿Me pones otro café?",
+     "ru": "Сделаешь мне ещё кофе?",
+     "frame": [
+      "otro"
+     ]
+    },
+    {
+     "es": "Quiero otra talla.",
+     "ru": "Я хочу другой размер.",
+     "frame": [
+      "otra"
+     ]
+    },
+    {
+     "es": "Lo dejamos para otro día.",
+     "ru": "Отложим на другой день.",
+     "frame": [
+      "otro"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v033",
@@ -890,7 +2845,30 @@
    "en": "this",
    "ru": "этот / эта",
    "tr": "э́стэ / э́ста",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Este es mi sitio.",
+     "ru": "Это моё место.",
+     "frame": [
+      "Este"
+     ]
+    },
+    {
+     "es": "Esta puerta está abierta.",
+     "ru": "Эта дверь открыта.",
+     "frame": [
+      "Esta"
+     ]
+    },
+    {
+     "es": "Me llevo este, gracias.",
+     "ru": "Я возьму этот, спасибо.",
+     "frame": [
+      "este"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v117",
@@ -899,7 +2877,30 @@
    "en": "to / on the right",
    "ru": "направо / справа",
    "tr": "а ла дэрэ́ча",
-   "group": null
+   "group": "Навигация",
+   "ex": [
+    {
+     "es": "El banco está a la derecha.",
+     "ru": "Банк справа.",
+     "frame": [
+      "a la derecha"
+     ]
+    },
+    {
+     "es": "Gira a la derecha en el semáforo.",
+     "ru": "Поверни направо на светофоре.",
+     "frame": [
+      "a la derecha"
+     ]
+    },
+    {
+     "es": "La tercera puerta a la derecha.",
+     "ru": "Третья дверь справа.",
+     "frame": [
+      "a la derecha"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v073",
@@ -908,7 +2909,30 @@
    "en": "these",
    "ru": "эти",
    "tr": "э́стос / э́стас",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Estos son mis hijos.",
+     "ru": "Это мои дети.",
+     "frame": [
+      "Estos"
+     ]
+    },
+    {
+     "es": "Estas llaves no son mías.",
+     "ru": "Эти ключи не мои.",
+     "frame": [
+      "Estas"
+     ]
+    },
+    {
+     "es": "Me quedo con estos.",
+     "ru": "Я возьму эти.",
+     "frame": [
+      "estos"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v091",
@@ -917,7 +2941,30 @@
    "en": "they (m / f)",
    "ru": "они",
    "tr": "э́йос / э́йас",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Ellos llegan a las seis.",
+     "ru": "Они приезжают в шесть.",
+     "frame": [
+      "Ellos"
+     ]
+    },
+    {
+     "es": "Ellas trabajan juntas.",
+     "ru": "Они работают вместе.",
+     "frame": [
+      "Ellas"
+     ]
+    },
+    {
+     "es": "Voy con ellos.",
+     "ru": "Я иду с ними.",
+     "frame": [
+      "ellos"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v095",
@@ -926,7 +2973,30 @@
    "en": "all, everyone",
    "ru": "все",
    "tr": "то́дос / то́дас",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Todos están aquí.",
+     "ru": "Все здесь.",
+     "frame": [
+      "Todos"
+     ]
+    },
+    {
+     "es": "Vienen todas mis amigas.",
+     "ru": "Придут все мои подруги.",
+     "frame": [
+      "todas"
+     ]
+    },
+    {
+     "es": "Abren todos los días.",
+     "ru": "Они работают каждый день.",
+     "frame": [
+      "todos"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v118",
@@ -935,7 +3005,30 @@
    "en": "to / on the left",
    "ru": "налево / слева",
    "tr": "а ла искье́рда",
-   "group": null
+   "group": "Навигация",
+   "ex": [
+    {
+     "es": "Gira a la izquierda.",
+     "ru": "Поверни налево.",
+     "frame": [
+      "a la izquierda"
+     ]
+    },
+    {
+     "es": "El ascensor está a la izquierda.",
+     "ru": "Лифт слева.",
+     "frame": [
+      "a la izquierda"
+     ]
+    },
+    {
+     "es": "Al salir, a la izquierda.",
+     "ru": "На выходе — налево.",
+     "frame": [
+      "a la izquierda"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v077",
@@ -944,7 +3037,30 @@
    "en": "that (over there)",
    "ru": "вон тот / вон та",
    "tr": "акэ́л / акэ́йа",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Aquel edificio es el hospital.",
+     "ru": "Вон то здание — больница.",
+     "frame": [
+      "Aquel"
+     ]
+    },
+    {
+     "es": "Aquella tienda ya está cerrada.",
+     "ru": "Вон тот магазин уже закрыт.",
+     "frame": [
+      "Aquella"
+     ]
+    },
+    {
+     "es": "¿Ves aquel semáforo?",
+     "ru": "Видишь вон тот светофор?",
+     "frame": [
+      "aquel"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v099",
@@ -953,7 +3069,30 @@
    "en": "some, any",
    "ru": "какой-то, некоторый / какая-то",
    "tr": "алгу́но / алгу́на",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "¿Hay alguna farmacia abierta?",
+     "ru": "Есть какая-нибудь открытая аптека?",
+     "frame": [
+      "alguna"
+     ]
+    },
+    {
+     "es": "Alguno de ellos lo sabe.",
+     "ru": "Кто-то из них это знает.",
+     "frame": [
+      "Alguno"
+     ]
+    },
+    {
+     "es": "¿Tienes alguna pregunta?",
+     "ru": "У тебя есть вопросы?",
+     "frame": [
+      "alguna"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v068",
@@ -962,7 +3101,30 @@
    "en": "our",
    "ru": "наш / наша",
    "tr": "нуэ́стро / нуэ́стра",
-   "group": null
+   "group": "Притяжательные",
+   "ex": [
+    {
+     "es": "Nuestro piso está en el tercero.",
+     "ru": "Наша квартира на третьем этаже.",
+     "frame": [
+      "Nuestro"
+     ]
+    },
+    {
+     "es": "Nuestra hija tiene seis años.",
+     "ru": "Нашей дочери шесть лет.",
+     "frame": [
+      "Nuestra"
+     ]
+    },
+    {
+     "es": "La mesa del fondo es nuestra.",
+     "ru": "Стол в глубине наш.",
+     "frame": [
+      "nuestra"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v069",
@@ -971,7 +3133,30 @@
    "en": "your (plural, informal)",
    "ru": "ваш / ваша (на ты, многим)",
    "tr": "буэ́стро / буэ́стра",
-   "group": null
+   "group": "Притяжательные",
+   "ex": [
+    {
+     "es": "¿Cuál es vuestro piso?",
+     "ru": "Какая ваша квартира?",
+     "frame": [
+      "vuestro"
+     ]
+    },
+    {
+     "es": "Vuestra mesa está lista.",
+     "ru": "Ваш стол готов.",
+     "frame": [
+      "Vuestra"
+     ]
+    },
+    {
+     "es": "¿Es vuestro este coche?",
+     "ru": "Это ваша машина?",
+     "frame": [
+      "vuestro"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v101",
@@ -980,7 +3165,30 @@
    "en": "some",
    "ru": "некоторые",
    "tr": "алгу́нос / алгу́нас",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "Algunos días trabajo en casa.",
+     "ru": "В некоторые дни я работаю дома.",
+     "frame": [
+      "Algunos"
+     ]
+    },
+    {
+     "es": "Algunas tiendas cierran a las dos.",
+     "ru": "Некоторые магазины закрываются в два.",
+     "frame": [
+      "Algunas"
+     ]
+    },
+    {
+     "es": "Solo quedan algunos.",
+     "ru": "Осталось всего несколько.",
+     "frame": [
+      "algunos"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v102",
@@ -989,7 +3197,30 @@
    "en": "none, no",
    "ru": "ни один, никакой / ни одна, никакая",
    "tr": "нингу́но / нингу́на",
-   "group": null
+   "group": "Указание",
+   "ex": [
+    {
+     "es": "No hay ninguna mesa libre.",
+     "ru": "Нет ни одного свободного стола.",
+     "frame": [
+      "ninguna"
+     ]
+    },
+    {
+     "es": "Ninguno de los dos vino.",
+     "ru": "Ни один из двоих не пришёл.",
+     "frame": [
+      "Ninguno"
+     ]
+    },
+    {
+     "es": "No tengo ninguna prisa.",
+     "ru": "Я совсем не тороплюсь.",
+     "frame": [
+      "ninguna"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v054",
@@ -998,7 +3229,30 @@
    "en": "we",
    "ru": "мы",
    "tr": "носо́трос / носо́трас",
-   "group": null
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "Nosotros vivimos en Valencia.",
+     "ru": "Мы живём в Валенсии.",
+     "frame": [
+      "Nosotros"
+     ]
+    },
+    {
+     "es": "Nosotras vamos en tren.",
+     "ru": "Мы едем на поезде.",
+     "frame": [
+      "Nosotras"
+     ]
+    },
+    {
+     "es": "Ven con nosotros.",
+     "ru": "Идём с нами.",
+     "frame": [
+      "nosotros"
+     ]
+    }
+   ]
   },
   {
    "id": "es1-v090",
@@ -1007,357 +3261,30 @@
    "en": "you (plural, informal)",
    "ru": "вы (на ты, многим)",
    "tr": "босо́трос / босо́трас",
-   "group": null
-  },
-  {
-   "id": "es1-x001",
-   "type": "phrase",
-   "es": "Estoy aquí.",
-   "ru": "Я здесь.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x002",
-   "type": "phrase",
-   "es": "Está ahí.",
-   "ru": "Это там.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x003",
-   "type": "phrase",
-   "es": "El baño está allí.",
-   "ru": "Туалет вон там.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x004",
-   "type": "phrase",
-   "es": "Está dentro.",
-   "ru": "Это внутри.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x005",
-   "type": "phrase",
-   "es": "Está fuera.",
-   "ru": "Это снаружи.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x006",
-   "type": "phrase",
-   "es": "Estoy delante.",
-   "ru": "Я впереди.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x007",
-   "type": "phrase",
-   "es": "Está detrás.",
-   "ru": "Это сзади.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x008",
-   "type": "phrase",
-   "es": "Está encima de la mesa.",
-   "ru": "Это на столе.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x009",
-   "type": "phrase",
-   "es": "Está debajo de la mesa.",
-   "ru": "Это под столом.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x010",
-   "type": "phrase",
-   "es": "Está cerca.",
-   "ru": "Это близко.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x011",
-   "type": "phrase",
-   "es": "Está lejos.",
-   "ru": "Это далеко.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x012",
-   "type": "phrase",
-   "es": "El supermercado está enfrente.",
-   "ru": "Супермаркет напротив.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x013",
-   "type": "phrase",
-   "es": "El baño está enfrente del parque.",
-   "ru": "Туалет напротив парка.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x014",
-   "type": "phrase",
-   "es": "El baño está al fondo a la derecha.",
-   "ru": "Туалет в конце справа.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x015",
-   "type": "phrase",
-   "es": "El hotel está al lado del restaurante.",
-   "ru": "Отель рядом с рестораном.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x016",
-   "type": "phrase",
-   "es": "Está entre los dos.",
-   "ru": "Это между двумя.",
-   "group": "Место"
-  },
-  {
-   "id": "es1-x017",
-   "type": "phrase",
-   "es": "El banco está a la derecha.",
-   "ru": "Банк справа.",
-   "group": "Навигация"
-  },
-  {
-   "id": "es1-x018",
-   "type": "phrase",
-   "es": "Gira a la izquierda.",
-   "ru": "Поверни налево.",
-   "group": "Навигация"
-  },
-  {
-   "id": "es1-x019",
-   "type": "phrase",
-   "es": "Sigue todo recto.",
-   "ru": "Иди прямо.",
-   "group": "Навигация"
-  },
-  {
-   "id": "es1-x020",
-   "type": "phrase",
-   "es": "Vamos hacia el centro.",
-   "ru": "Мы идём в сторону центра.",
-   "group": "Навигация"
-  },
-  {
-   "id": "es1-x021",
-   "type": "phrase",
-   "es": "Voy hasta la estación.",
-   "ru": "Я иду до станции.",
-   "group": "Навигация"
-  },
-  {
-   "id": "es1-x022",
-   "type": "phrase",
-   "es": "Voy al centro.",
-   "ru": "Я иду в центр.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x023",
-   "type": "phrase",
-   "es": "El hotel está al lado del parque.",
-   "ru": "Отель рядом с парком.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x024",
-   "type": "phrase",
-   "es": "Voy al restaurante.",
-   "ru": "Я иду в ресторан.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x025",
-   "type": "phrase",
-   "es": "Está enfrente del supermercado.",
-   "ru": "Это напротив супермаркета.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x026",
-   "type": "phrase",
-   "es": "Estoy en casa.",
-   "ru": "Я дома.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x027",
-   "type": "phrase",
-   "es": "Voy a casa.",
-   "ru": "Я иду домой.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x028",
-   "type": "phrase",
-   "es": "Soy de Ucrania.",
-   "ru": "Я из Украины.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x029",
-   "type": "phrase",
-   "es": "Voy con mi familia.",
-   "ru": "Я иду с моей семьёй.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x030",
-   "type": "phrase",
-   "es": "Café sin azúcar, por favor.",
-   "ru": "Кофе без сахара, пожалуйста.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x031",
-   "type": "phrase",
-   "es": "Paseamos por el centro.",
-   "ru": "Мы гуляем по центру.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x032",
-   "type": "phrase",
-   "es": "Esto es para mi hija.",
-   "ru": "Это для моей дочери.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x033",
-   "type": "phrase",
-   "es": "El móvil está sobre la mesa.",
-   "ru": "Телефон на столе.",
-   "group": "Предлоги"
-  },
-  {
-   "id": "es1-x035",
-   "type": "phrase",
-   "es": "Este es mi sitio.",
-   "ru": "Это моё место.",
-   "group": "Указание"
-  },
-  {
-   "id": "es1-x036",
-   "type": "phrase",
-   "es": "Esta puerta está abierta.",
-   "ru": "Эта дверь открыта.",
-   "group": "Указание"
-  },
-  {
-   "id": "es1-x037",
-   "type": "phrase",
-   "es": "Ese coche es mío.",
-   "ru": "Та машина моя.",
-   "group": "Указание"
-  },
-  {
-   "id": "es1-x038",
-   "type": "phrase",
-   "es": "Esa mesa está libre.",
-   "ru": "Тот стол свободен.",
-   "group": "Указание"
-  },
-  {
-   "id": "es1-x039",
-   "type": "phrase",
-   "es": "¿Qué es esto?",
-   "ru": "Что это?",
-   "group": "Указание"
-  },
-  {
-   "id": "es1-x040",
-   "type": "phrase",
-   "es": "Quiero esto.",
-   "ru": "Я хочу это.",
-   "group": "Указание"
-  },
-  {
-   "id": "es1-x041",
-   "type": "phrase",
-   "es": "¿Qué es eso?",
-   "ru": "Что это / что это там?",
-   "group": "Указание"
-  },
-  {
-   "id": "es1-x042",
-   "type": "phrase",
-   "es": "No quiero eso.",
-   "ru": "Я не хочу это / то.",
-   "group": "Указание"
-  },
-  {
-   "id": "es1-x044",
-   "type": "phrase",
-   "es": "Ven aquí.",
-   "ru": "Иди сюда.",
-   "group": "Движение"
-  },
-  {
-   "id": "es1-x045",
-   "type": "phrase",
-   "es": "Puedes entrar.",
-   "ru": "Можешь войти.",
-   "group": "Движение"
-  },
-  {
-   "id": "es1-x046",
-   "type": "phrase",
-   "es": "Salgo ahora.",
-   "ru": "Я выхожу сейчас.",
-   "group": "Движение"
-  },
-  {
-   "id": "es1-x047",
-   "type": "phrase",
-   "es": "Vuelvo mañana.",
-   "ru": "Я вернусь завтра.",
-   "group": "Движение"
-  },
-  {
-   "id": "es1-x048",
-   "type": "phrase",
-   "es": "¿Dónde estás?",
-   "ru": "Где ты?",
-   "group": "Где находится: estar"
-  },
-  {
-   "id": "es1-x049",
-   "type": "phrase",
-   "es": "¿Dónde está la parada?",
-   "ru": "Где остановка?",
-   "group": "Где находится: estar"
-  },
-  {
-   "id": "es1-x050",
-   "type": "phrase",
-   "es": "Mi mujer y mi hija están aquí.",
-   "ru": "Моя жена и моя дочь здесь.",
-   "group": "Связки"
-  },
-  {
-   "id": "es1-x051",
-   "type": "phrase",
-   "es": "¿Café o té?",
-   "ru": "Кофе или чай?",
-   "group": "Связки"
-  },
-  {
-   "id": "es1-x052",
-   "type": "phrase",
-   "es": "Está cerca, pero está cerrado.",
-   "ru": "Это близко, но закрыто.",
-   "group": "Связки"
+   "group": "Местоимения",
+   "ex": [
+    {
+     "es": "¿Vosotros venís mañana?",
+     "ru": "Вы завтра придёте?",
+     "frame": [
+      "Vosotros"
+     ]
+    },
+    {
+     "es": "Vosotras tenéis razón.",
+     "ru": "Вы правы.",
+     "frame": [
+      "Vosotras"
+     ]
+    },
+    {
+     "es": "Esto es para vosotros.",
+     "ru": "Это для вас.",
+     "frame": [
+      "vosotros"
+     ]
+    }
+   ]
   }
  ],
  "notes": [
@@ -1365,7 +3292,7 @@
    "id": "es1-n001",
    "type": "note",
    "title": "Предлоги",
-   "section": "example",
+   "section": "vocab",
    "blocks": [
     {
      "k": "note",
@@ -1450,13 +3377,14 @@
       }
      ]
     }
-   ]
+   ],
+   "group": "Предлоги"
   },
   {
    "id": "es1-n002",
    "type": "note",
    "title": "Где находится: estar",
-   "section": "example",
+   "section": "notes",
    "blocks": [
     {
      "k": "note",

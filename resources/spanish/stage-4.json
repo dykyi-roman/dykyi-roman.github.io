@@ -124,7 +124,31 @@
     "en": "down",
     "ru": "внизу",
     "tr": "аба́хо"
-   }
+   },
+   "ex": [
+    {
+     "es": "Vivo arriba, en el tercero.",
+     "ru": "Я живу наверху, на третьем.",
+     "frame": [
+      "arriba"
+     ]
+    },
+    {
+     "es": "La farmacia está abajo.",
+     "ru": "Аптека внизу.",
+     "frame": [
+      "abajo"
+     ]
+    },
+    {
+     "es": "Arriba hace más calor que abajo.",
+     "ru": "Наверху жарче, чем внизу.",
+     "frame": [
+      "Arriba",
+      "abajo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p002",
@@ -146,7 +170,31 @@
     "en": "small",
     "ru": "маленький",
     "tr": "пэкэ́ньо"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es muy grande.",
+     "ru": "Это очень большое.",
+     "frame": [
+      "grande"
+     ]
+    },
+    {
+     "es": "¿Tienes una talla más pequeña?",
+     "ru": "Есть размер поменьше?",
+     "frame": [
+      "pequeña"
+     ]
+    },
+    {
+     "es": "La casa es grande, pero el jardín es pequeño.",
+     "ru": "Дом большой, а сад маленький.",
+     "frame": [
+      "grande",
+      "pequeño"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p003",
@@ -168,7 +216,31 @@
     "en": "short, low",
     "ru": "низкий",
     "tr": "ба́хо"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mi hijo es muy alto para su edad.",
+     "ru": "Мой сын очень высокий для своего возраста.",
+     "frame": [
+      "alto"
+     ]
+    },
+    {
+     "es": "El techo es bajo en esta habitación.",
+     "ru": "В этой комнате низкий потолок.",
+     "frame": [
+      "bajo"
+     ]
+    },
+    {
+     "es": "Ella es alta y él es bajo.",
+     "ru": "Она высокая, а он низкий.",
+     "frame": [
+      "alta",
+      "bajo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p004",
@@ -190,7 +262,31 @@
     "en": "short",
     "ru": "короткий",
     "tr": "ко́рто"
-   }
+   },
+   "ex": [
+    {
+     "es": "El viaje es largo, lleva agua.",
+     "ru": "Дорога долгая, возьми воду.",
+     "frame": [
+      "largo"
+     ]
+    },
+    {
+     "es": "La falda es muy corta.",
+     "ru": "Юбка очень короткая.",
+     "frame": [
+      "corta"
+     ]
+    },
+    {
+     "es": "Prefiero el pelo corto al pelo largo.",
+     "ru": "Короткие волосы мне нравятся больше длинных.",
+     "frame": [
+      "corto",
+      "largo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p005",
@@ -212,7 +308,31 @@
     "en": "narrow",
     "ru": "узкий",
     "tr": "эстрэ́чо"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es una calle ancha.",
+     "ru": "Это широкая улица.",
+     "frame": [
+      "ancha"
+     ]
+    },
+    {
+     "es": "El pasillo es estrecho.",
+     "ru": "Коридор узкий.",
+     "frame": [
+      "estrecho"
+     ]
+    },
+    {
+     "es": "La cama es ancha, pero la habitación es estrecha.",
+     "ru": "Кровать широкая, а комната узкая.",
+     "frame": [
+      "ancha",
+      "estrecha"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p006",
@@ -234,7 +354,31 @@
     "en": "little",
     "ru": "мало",
     "tr": "по́ко"
-   }
+   },
+   "ex": [
+    {
+     "es": "Hay mucha gente.",
+     "ru": "Тут много народу.",
+     "frame": [
+      "mucha"
+     ]
+    },
+    {
+     "es": "Hoy hay poca gente.",
+     "ru": "Сегодня мало народу.",
+     "frame": [
+      "poca"
+     ]
+    },
+    {
+     "es": "Duermo poco y trabajo mucho.",
+     "ru": "Сплю мало, работаю много.",
+     "frame": [
+      "poco",
+      "mucho"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p007",
@@ -256,7 +400,31 @@
     "en": "cold",
     "ru": "холодный",
     "tr": "фри́о"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Lo quieres caliente?",
+     "ru": "Хочешь горячим?",
+     "frame": [
+      "caliente"
+     ]
+    },
+    {
+     "es": "El café está frío.",
+     "ru": "Кофе холодный.",
+     "frame": [
+      "frío"
+     ]
+    },
+    {
+     "es": "La sopa está caliente y la bebida, fría.",
+     "ru": "Суп горячий, а напиток холодный.",
+     "frame": [
+      "caliente",
+      "fría"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p008",
@@ -278,7 +446,31 @@
     "en": "dry",
     "ru": "сухой",
     "tr": "сэ́ко"
-   }
+   },
+   "ex": [
+    {
+     "es": "El clima aquí es muy húmedo.",
+     "ru": "Климат здесь очень влажный.",
+     "frame": [
+      "húmedo"
+     ]
+    },
+    {
+     "es": "El pan está seco.",
+     "ru": "Хлеб чёрствый.",
+     "frame": [
+      "seco"
+     ]
+    },
+    {
+     "es": "El aire es húmedo en la costa y seco en el interior.",
+     "ru": "На побережье воздух влажный, а внутри страны сухой.",
+     "frame": [
+      "húmedo",
+      "seco"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p009",
@@ -300,7 +492,31 @@
     "en": "salty",
     "ru": "солёный",
     "tr": "сала́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Tienen algo dulce?",
+     "ru": "Есть что-нибудь сладкое?",
+     "frame": [
+      "dulce"
+     ]
+    },
+    {
+     "es": "Está muy salado.",
+     "ru": "Очень солёно.",
+     "frame": [
+      "salado"
+     ]
+    },
+    {
+     "es": "Prefiero lo salado a lo dulce.",
+     "ru": "Солёное мне нравится больше сладкого.",
+     "frame": [
+      "salado",
+      "dulce"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p010",
@@ -322,7 +538,31 @@
     "en": "mild",
     "ru": "неострый",
     "tr": "суа́бэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "Sin picante, por favor, es para la niña.",
+     "ru": "Без острого, пожалуйста, это для ребёнка.",
+     "frame": [
+      "picante"
+     ]
+    },
+    {
+     "es": "Para la niña, algo suave.",
+     "ru": "Ребёнку что-нибудь неострое.",
+     "frame": [
+      "suave"
+     ]
+    },
+    {
+     "es": "Lo quiero suave, no picante.",
+     "ru": "Хочу неострое, не острое.",
+     "frame": [
+      "suave",
+      "picante"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p011",
@@ -344,7 +584,30 @@
     "en": "cheap",
     "ru": "дешёвый",
     "tr": "бара́то"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es muy caro.",
+     "ru": "Это очень дорого.",
+     "frame": [
+      "caro"
+     ]
+    },
+    {
+     "es": "¿Hay algo más barato?",
+     "ru": "Есть что-нибудь подешевле?",
+     "frame": [
+      "barato"
+     ]
+    },
+    {
+     "es": "Es caro, pero es bueno.",
+     "ru": "Дорого, но хорошо.",
+     "frame": [
+      "caro"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p012",
@@ -366,7 +629,31 @@
     "en": "bad",
     "ru": "плохой",
     "tr": "ма́ло"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es un buen restaurante.",
+     "ru": "Это хороший ресторан.",
+     "frame": [
+      "buen"
+     ]
+    },
+    {
+     "es": "El tiempo es malo hoy.",
+     "ru": "Погода сегодня плохая.",
+     "frame": [
+      "malo"
+     ]
+    },
+    {
+     "es": "La comida es buena, el servicio es malo.",
+     "ru": "Еда хорошая, обслуживание плохое.",
+     "frame": [
+      "buena",
+      "malo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p013",
@@ -388,7 +675,31 @@
     "en": "worse",
     "ru": "хуже",
     "tr": "пэо́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Este es mejor.",
+     "ru": "Этот лучше.",
+     "frame": [
+      "mejor"
+     ]
+    },
+    {
+     "es": "Hoy estoy peor.",
+     "ru": "Сегодня мне хуже.",
+     "frame": [
+      "peor"
+     ]
+    },
+    {
+     "es": "El segundo día fue mejor, el tercero peor.",
+     "ru": "Второй день был лучше, третий хуже.",
+     "frame": [
+      "mejor",
+      "peor"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p014",
@@ -410,7 +721,31 @@
     "en": "badly",
     "ru": "плохо",
     "tr": "мал"
-   }
+   },
+   "ex": [
+    {
+     "es": "Está bien, gracias.",
+     "ru": "Хорошо, спасибо.",
+     "frame": [
+      "bien"
+     ]
+    },
+    {
+     "es": "Me encuentro mal desde ayer.",
+     "ru": "Мне плохо со вчера.",
+     "frame": [
+      "mal"
+     ]
+    },
+    {
+     "es": "Habla bien inglés, pero escribe mal.",
+     "ru": "По-английски он говорит хорошо, а пишет плохо.",
+     "frame": [
+      "bien",
+      "mal"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p015",
@@ -432,7 +767,31 @@
     "en": "incorrect",
     "ru": "неправильный",
     "tr": "инкоррэ́кто"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Es correcto así?",
+     "ru": "Так правильно?",
+     "frame": [
+      "correcto"
+     ]
+    },
+    {
+     "es": "El número es incorrecto.",
+     "ru": "Номер неправильный.",
+     "frame": [
+      "incorrecto"
+     ]
+    },
+    {
+     "es": "La dirección es correcta, el código incorrecto.",
+     "ru": "Адрес верный, индекс неправильный.",
+     "frame": [
+      "correcta",
+      "incorrecto"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p016",
@@ -454,7 +813,31 @@
     "en": "slow",
     "ru": "медленный",
     "tr": "лэ́нто"
-   }
+   },
+   "ex": [
+    {
+     "es": "Vas muy rápido.",
+     "ru": "Ты идёшь очень быстро.",
+     "frame": [
+      "rápido"
+     ]
+    },
+    {
+     "es": "Más lento, por favor.",
+     "ru": "Помедленнее, пожалуйста.",
+     "frame": [
+      "lento"
+     ]
+    },
+    {
+     "es": "El tren es rápido, el autobús lento.",
+     "ru": "Поезд быстрый, автобус медленный.",
+     "frame": [
+      "rápido",
+      "lento"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p022",
@@ -476,7 +859,31 @@
     "en": "difficult",
     "ru": "сложный",
     "tr": "дифи́сил"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es fácil.",
+     "ru": "Это просто.",
+     "frame": [
+      "fácil"
+     ]
+    },
+    {
+     "es": "Para mí es difícil.",
+     "ru": "Мне это сложно.",
+     "frame": [
+      "difícil"
+     ]
+    },
+    {
+     "es": "Leer es fácil, hablar es difícil.",
+     "ru": "Читать легко, говорить трудно.",
+     "frame": [
+      "fácil",
+      "difícil"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p023",
@@ -498,7 +905,31 @@
     "en": "impossible",
     "ru": "невозможный",
     "tr": "импоси́блэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Es posible cambiar la fecha?",
+     "ru": "Можно поменять дату?",
+     "frame": [
+      "posible"
+     ]
+    },
+    {
+     "es": "Hoy es imposible.",
+     "ru": "Сегодня невозможно.",
+     "frame": [
+      "imposible"
+     ]
+    },
+    {
+     "es": "Es posible el martes, imposible el lunes.",
+     "ru": "Во вторник можно, в понедельник никак.",
+     "frame": [
+      "posible",
+      "imposible"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p024",
@@ -520,7 +951,31 @@
     "en": "dangerous",
     "ru": "опасный",
     "tr": "пэлигро́со"
-   }
+   },
+   "ex": [
+    {
+     "es": "Aquí es seguro.",
+     "ru": "Здесь безопасно.",
+     "frame": [
+      "seguro"
+     ]
+    },
+    {
+     "es": "Es peligroso para los niños.",
+     "ru": "Это опасно для детей.",
+     "frame": [
+      "peligroso"
+     ]
+    },
+    {
+     "es": "De día es seguro, de noche es peligroso.",
+     "ru": "Днём безопасно, ночью опасно.",
+     "frame": [
+      "seguro",
+      "peligroso"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p032",
@@ -542,7 +997,31 @@
     "en": "boring",
     "ru": "скучный",
     "tr": "абурри́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es muy interesante.",
+     "ru": "Это очень интересно.",
+     "frame": [
+      "interesante"
+     ]
+    },
+    {
+     "es": "La película es aburrida.",
+     "ru": "Фильм скучный.",
+     "frame": [
+      "aburrida"
+     ]
+    },
+    {
+     "es": "El libro es interesante, la clase aburrida.",
+     "ru": "Книга интересная, занятие скучное.",
+     "frame": [
+      "interesante",
+      "aburrida"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p033",
@@ -564,7 +1043,31 @@
     "en": "strange",
     "ru": "странный",
     "tr": "рра́ро"
-   }
+   },
+   "ex": [
+    {
+     "es": "Aquí es normal.",
+     "ru": "Здесь это нормально.",
+     "frame": [
+      "normal"
+     ]
+    },
+    {
+     "es": "Es un poco raro.",
+     "ru": "Это немного странно.",
+     "frame": [
+      "raro"
+     ]
+    },
+    {
+     "es": "Es normal en verano, raro en invierno.",
+     "ru": "Летом это нормально, зимой странно.",
+     "frame": [
+      "normal",
+      "raro"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p034",
@@ -586,7 +1089,31 @@
     "en": "different",
     "ru": "другой",
     "tr": "дифэрэ́нтэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es igual.",
+     "ru": "Без разницы.",
+     "frame": [
+      "igual"
+     ]
+    },
+    {
+     "es": "Es diferente.",
+     "ru": "Это другое.",
+     "frame": [
+      "diferente"
+     ]
+    },
+    {
+     "es": "El precio es igual, el tamaño diferente.",
+     "ru": "Цена та же, размер другой.",
+     "frame": [
+      "igual",
+      "diferente"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p039",
@@ -608,7 +1135,31 @@
     "en": "poor",
     "ru": "бедный",
     "tr": "по́брэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "Está rico.",
+     "ru": "Вкусно.",
+     "frame": [
+      "rico"
+     ]
+    },
+    {
+     "es": "El barrio es pobre pero tranquilo.",
+     "ru": "Район бедный, но спокойный.",
+     "frame": [
+      "pobre"
+     ]
+    },
+    {
+     "es": "El país es rico, la gente es pobre.",
+     "ru": "Страна богатая, а люди бедные.",
+     "frame": [
+      "rico",
+      "pobre"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p017",
@@ -630,7 +1181,31 @@
     "en": "old",
     "ru": "старый",
     "tr": "бье́хо"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es un móvil nuevo.",
+     "ru": "Это новый телефон.",
+     "frame": [
+      "nuevo"
+     ]
+    },
+    {
+     "es": "Es un edificio muy viejo.",
+     "ru": "Это очень старое здание.",
+     "frame": [
+      "viejo"
+     ]
+    },
+    {
+     "es": "El coche es viejo, pero el motor es nuevo.",
+     "ru": "Машина старая, но двигатель новый.",
+     "frame": [
+      "viejo",
+      "nuevo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p019",
@@ -652,7 +1227,31 @@
     "en": "dirty",
     "ru": "грязный",
     "tr": "су́сьо"
-   }
+   },
+   "ex": [
+    {
+     "es": "La habitación está limpia.",
+     "ru": "Комната чистая.",
+     "frame": [
+      "limpia"
+     ]
+    },
+    {
+     "es": "El coche está sucio.",
+     "ru": "Машина грязная.",
+     "frame": [
+      "sucio"
+     ]
+    },
+    {
+     "es": "El salón está limpio, la cocina sucia.",
+     "ru": "Гостиная чистая, кухня грязная.",
+     "frame": [
+      "limpio",
+      "sucia"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p020",
@@ -674,7 +1273,31 @@
     "en": "empty",
     "ru": "пустой",
     "tr": "баси́о"
-   }
+   },
+   "ex": [
+    {
+     "es": "El autobús va lleno.",
+     "ru": "Автобус набит.",
+     "frame": [
+      "lleno"
+     ]
+    },
+    {
+     "es": "El vaso está vacío.",
+     "ru": "Стакан пустой.",
+     "frame": [
+      "vacío"
+     ]
+    },
+    {
+     "es": "El depósito está lleno y la nevera vacía.",
+     "ru": "Бак полный, а холодильник пустой.",
+     "frame": [
+      "lleno",
+      "vacía"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p021",
@@ -696,7 +1319,31 @@
     "en": "closed",
     "ru": "закрыто",
     "tr": "сэрра́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Está abierto los domingos?",
+     "ru": "По воскресеньям открыто?",
+     "frame": [
+      "abierto"
+     ]
+    },
+    {
+     "es": "La tienda está cerrada.",
+     "ru": "Магазин закрыт.",
+     "frame": [
+      "cerrada"
+     ]
+    },
+    {
+     "es": "La farmacia está abierta, el banco cerrado.",
+     "ru": "Аптека открыта, банк закрыт.",
+     "frame": [
+      "abierta",
+      "cerrado"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p031",
@@ -718,7 +1365,31 @@
     "en": "busy, taken",
     "ru": "занятый",
     "tr": "окупа́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "La mesa está libre.",
+     "ru": "Стол свободен.",
+     "frame": [
+      "libre"
+     ]
+    },
+    {
+     "es": "Está ocupado.",
+     "ru": "Занято.",
+     "frame": [
+      "ocupado"
+     ]
+    },
+    {
+     "es": "Este baño está ocupado, el otro libre.",
+     "ru": "Этот туалет занят, другой свободен.",
+     "frame": [
+      "ocupado",
+      "libre"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p035",
@@ -740,7 +1411,31 @@
     "en": "private",
     "ru": "частный",
     "tr": "приба́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es un parking público.",
+     "ru": "Это общественная парковка.",
+     "frame": [
+      "público"
+     ]
+    },
+    {
+     "es": "Es una clase privada.",
+     "ru": "Это частное занятие.",
+     "frame": [
+      "privada"
+     ]
+    },
+    {
+     "es": "El colegio público es gratis, el privado no.",
+     "ru": "Государственная школа бесплатна, частная нет.",
+     "frame": [
+      "público",
+      "privado"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p036",
@@ -762,7 +1457,31 @@
     "en": "dark",
     "ru": "тёмный",
     "tr": "оску́ро"
-   }
+   },
+   "ex": [
+    {
+     "es": "Quiero un azul más claro.",
+     "ru": "Хочу синий посветлее.",
+     "frame": [
+      "claro"
+     ]
+    },
+    {
+     "es": "El piso es un poco oscuro.",
+     "ru": "Квартира немного тёмная.",
+     "frame": [
+      "oscuro"
+     ]
+    },
+    {
+     "es": "De día está claro, de noche oscuro.",
+     "ru": "Днём светло, ночью темно.",
+     "frame": [
+      "claro",
+      "oscuro"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p040",
@@ -784,7 +1503,31 @@
     "en": "hard",
     "ru": "твёрдый",
     "tr": "ду́ро"
-   }
+   },
+   "ex": [
+    {
+     "es": "El pan está blando todavía.",
+     "ru": "Хлеб ещё мягкий.",
+     "frame": [
+      "blando"
+     ]
+    },
+    {
+     "es": "El colchón es muy duro.",
+     "ru": "Матрас очень жёсткий.",
+     "frame": [
+      "duro"
+     ]
+    },
+    {
+     "es": "Prefiero la almohada blanda, no dura.",
+     "ru": "Мне нравится мягкая подушка, не жёсткая.",
+     "frame": [
+      "blanda",
+      "dura"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p041",
@@ -806,7 +1549,31 @@
     "en": "heavy",
     "ru": "тяжёлый",
     "tr": "пэса́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es una chaqueta ligera.",
+     "ru": "Это лёгкая куртка.",
+     "frame": [
+      "ligera"
+     ]
+    },
+    {
+     "es": "La maleta es muy pesada.",
+     "ru": "Чемодан очень тяжёлый.",
+     "frame": [
+      "pesada"
+     ]
+    },
+    {
+     "es": "Una cena ligera es mejor que una pesada.",
+     "ru": "Лёгкий ужин лучше тяжёлого.",
+     "frame": [
+      "ligera",
+      "pesada"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p042",
@@ -828,7 +1595,31 @@
     "en": "noisy",
     "ru": "шумный",
     "tr": "рруидо́со"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es un hotel silencioso.",
+     "ru": "Отель тихий.",
+     "frame": [
+      "silencioso"
+     ]
+    },
+    {
+     "es": "La calle es muy ruidosa.",
+     "ru": "Улица очень шумная.",
+     "frame": [
+      "ruidosa"
+     ]
+    },
+    {
+     "es": "El patio es silencioso, la fachada ruidosa.",
+     "ru": "Со двора тихо, с фасада шумно.",
+     "frame": [
+      "silencioso",
+      "ruidosa"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p178",
@@ -850,7 +1641,31 @@
     "en": "dry",
     "ru": "сухой",
     "tr": "сэ́ко"
-   }
+   },
+   "ex": [
+    {
+     "es": "El suelo está mojado, cuidado.",
+     "ru": "Пол мокрый, осторожно.",
+     "frame": [
+      "mojado"
+     ]
+    },
+    {
+     "es": "La toalla ya está seca.",
+     "ru": "Полотенце уже сухое.",
+     "frame": [
+      "seca"
+     ]
+    },
+    {
+     "es": "El pelo está seco, la ropa mojada.",
+     "ru": "Волосы сухие, одежда мокрая.",
+     "frame": [
+      "seco",
+      "mojada"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p179",
@@ -872,7 +1687,31 @@
     "en": "switched off",
     "ru": "выключенный",
     "tr": "апага́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Has dejado la luz encendida?",
+     "ru": "Ты оставил свет включённым?",
+     "frame": [
+      "encendida"
+     ]
+    },
+    {
+     "es": "El horno está apagado.",
+     "ru": "Духовка выключена.",
+     "frame": [
+      "apagado"
+     ]
+    },
+    {
+     "es": "La luz está encendida, la tele apagada.",
+     "ru": "Свет включён, телевизор выключен.",
+     "frame": [
+      "encendida",
+      "apagada"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p018",
@@ -894,7 +1733,31 @@
     "en": "elderly",
     "ru": "пожилой",
     "tr": "майо́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es muy joven.",
+     "ru": "Он совсем молодой.",
+     "frame": [
+      "joven"
+     ]
+    },
+    {
+     "es": "Es una señora mayor.",
+     "ru": "Это пожилая женщина.",
+     "frame": [
+      "mayor"
+     ]
+    },
+    {
+     "es": "Mi hermano es joven, mi padre es mayor.",
+     "ru": "Мой брат молодой, отец пожилой.",
+     "frame": [
+      "joven",
+      "mayor"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p025",
@@ -916,7 +1779,31 @@
     "en": "weak",
     "ru": "слабый",
     "tr": "дэ́бил"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es un niño fuerte.",
+     "ru": "Это крепкий ребёнок.",
+     "frame": [
+      "fuerte"
+     ]
+    },
+    {
+     "es": "Hoy me siento débil.",
+     "ru": "Сегодня я чувствую себя слабым.",
+     "frame": [
+      "débil"
+     ]
+    },
+    {
+     "es": "La señal es fuerte aquí y débil en el patio.",
+     "ru": "Сигнал здесь сильный, а во дворе слабый.",
+     "frame": [
+      "fuerte",
+      "débil"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p026",
@@ -938,7 +1825,31 @@
     "en": "ill",
     "ru": "больной",
     "tr": "энфэ́рмо"
-   }
+   },
+   "ex": [
+    {
+     "es": "Ya está sano.",
+     "ru": "Он уже здоров.",
+     "frame": [
+      "sano"
+     ]
+    },
+    {
+     "es": "Mi hija está enferma.",
+     "ru": "Моя дочь болеет.",
+     "frame": [
+      "enferma"
+     ]
+    },
+    {
+     "es": "Come sano y no estarás enfermo.",
+     "ru": "Ешь здоровую еду и не будешь болеть.",
+     "frame": [
+      "sano",
+      "enfermo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p027",
@@ -960,7 +1871,31 @@
     "en": "tired",
     "ru": "уставший",
     "tr": "канса́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "Hoy estoy descansado.",
+     "ru": "Сегодня я хорошо отдохнул.",
+     "frame": [
+      "descansado"
+     ]
+    },
+    {
+     "es": "Estoy cansado.",
+     "ru": "Я устал.",
+     "frame": [
+      "cansado"
+     ]
+    },
+    {
+     "es": "El lunes estoy descansado, el viernes cansado.",
+     "ru": "В понедельник я отдохнувший, в пятницу уставший.",
+     "frame": [
+      "descansado",
+      "cansado"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p028",
@@ -982,7 +1917,31 @@
     "en": "angry",
     "ru": "злой",
     "tr": "энфада́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "Estoy contento.",
+     "ru": "Я доволен.",
+     "frame": [
+      "contento"
+     ]
+    },
+    {
+     "es": "¿Estás enfadado conmigo?",
+     "ru": "Ты на меня злишься?",
+     "frame": [
+      "enfadado"
+     ]
+    },
+    {
+     "es": "Está contento con la nota y enfadado con el profesor.",
+     "ru": "Он доволен оценкой и зол на учителя.",
+     "frame": [
+      "contento",
+      "enfadado"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p029",
@@ -1004,7 +1963,31 @@
     "en": "sad",
     "ru": "грустный",
     "tr": "три́стэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "Estoy muy feliz.",
+     "ru": "Я очень счастлив.",
+     "frame": [
+      "feliz"
+     ]
+    },
+    {
+     "es": "Está triste.",
+     "ru": "Ему грустно.",
+     "frame": [
+      "triste"
+     ]
+    },
+    {
+     "es": "La película es triste, pero el final es feliz.",
+     "ru": "Фильм грустный, но конец счастливый.",
+     "frame": [
+      "triste",
+      "feliz"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p030",
@@ -1026,7 +2009,31 @@
     "en": "nervous",
     "ru": "нервный",
     "tr": "нэрбьо́со"
-   }
+   },
+   "ex": [
+    {
+     "es": "Tranquilo, no pasa nada.",
+     "ru": "Спокойно, ничего страшного.",
+     "frame": [
+      "Tranquilo"
+     ]
+    },
+    {
+     "es": "Está nerviosa por el examen.",
+     "ru": "Она нервничает из-за экзамена.",
+     "frame": [
+      "nerviosa"
+     ]
+    },
+    {
+     "es": "Antes del examen está nervioso, después tranquilo.",
+     "ru": "До экзамена он нервный, после спокойный.",
+     "frame": [
+      "nervioso",
+      "tranquilo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p037",
@@ -1048,7 +2055,31 @@
     "en": "thin",
     "ru": "худой",
     "tr": "дэлга́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "El perro está un poco gordo.",
+     "ru": "Собака немного толстая.",
+     "frame": [
+      "gordo"
+     ]
+    },
+    {
+     "es": "Es alta y delgada.",
+     "ru": "Она высокая и худая.",
+     "frame": [
+      "delgada"
+     ]
+    },
+    {
+     "es": "Estaba gordo y ahora está delgado.",
+     "ru": "Он был полным, а теперь худой.",
+     "frame": [
+      "gordo",
+      "delgado"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p038",
@@ -1070,7 +2101,31 @@
     "en": "ugly",
     "ru": "некрасивый",
     "tr": "фэ́о"
-   }
+   },
+   "ex": [
+    {
+     "es": "¡Qué guapa!",
+     "ru": "Какая красивая!",
+     "frame": [
+      "guapa"
+     ]
+    },
+    {
+     "es": "El edificio es feo por fuera.",
+     "ru": "Здание снаружи некрасивое.",
+     "frame": [
+      "feo"
+     ]
+    },
+    {
+     "es": "Guapo o feo, es buena persona.",
+     "ru": "Красивый или нет, он хороший человек.",
+     "frame": [
+      "Guapo",
+      "feo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p043",
@@ -1092,7 +2147,31 @@
     "en": "unpleasant",
     "ru": "неприятный",
     "tr": "антипа́тико"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es muy simpática.",
+     "ru": "Она очень приятная.",
+     "frame": [
+      "simpática"
+     ]
+    },
+    {
+     "es": "El vecino es antipático.",
+     "ru": "Сосед неприветливый.",
+     "frame": [
+      "antipático"
+     ]
+    },
+    {
+     "es": "La camarera es simpática, el jefe antipático.",
+     "ru": "Официантка приятная, начальник неприятный.",
+     "frame": [
+      "simpática",
+      "antipático"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p044",
@@ -1114,7 +2193,31 @@
     "en": "rude",
     "ru": "невоспитанный",
     "tr": "малэдука́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "La niña es muy educada.",
+     "ru": "Девочка очень воспитанная.",
+     "frame": [
+      "educada"
+     ]
+    },
+    {
+     "es": "No seas maleducado.",
+     "ru": "Не хами.",
+     "frame": [
+      "maleducado"
+     ]
+    },
+    {
+     "es": "Es educado con los mayores y maleducado con los niños.",
+     "ru": "Со старшими он вежлив, с детьми груб.",
+     "frame": [
+      "educado",
+      "maleducado"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p045",
@@ -1136,7 +2239,31 @@
     "en": "stupid",
     "ru": "глупый",
     "tr": "то́нто"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es un niño muy inteligente.",
+     "ru": "Это очень умный ребёнок.",
+     "frame": [
+      "inteligente"
+     ]
+    },
+    {
+     "es": "No es tonto, solo está cansado.",
+     "ru": "Он не глупый, просто устал.",
+     "frame": [
+      "tonto"
+     ]
+    },
+    {
+     "es": "Fue una idea inteligente, no una pregunta tonta.",
+     "ru": "Это была умная идея, а не глупый вопрос.",
+     "frame": [
+      "inteligente",
+      "tonta"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p046",
@@ -1158,7 +2285,31 @@
     "en": "married",
     "ru": "женатый",
     "tr": "каса́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "Está soltera.",
+     "ru": "Она не замужем.",
+     "frame": [
+      "soltera"
+     ]
+    },
+    {
+     "es": "Estoy casado.",
+     "ru": "Я женат.",
+     "frame": [
+      "casado"
+     ]
+    },
+    {
+     "es": "Antes estaba soltero, ahora está casado.",
+     "ru": "Раньше он был холост, теперь женат.",
+     "frame": [
+      "soltero",
+      "casado"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p047",
@@ -1180,7 +2331,31 @@
     "en": "woman",
     "ru": "женщина",
     "tr": "ла мухэ́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Hay un hombre en la puerta.",
+     "ru": "У двери стоит мужчина.",
+     "frame": [
+      "hombre"
+     ]
+    },
+    {
+     "es": "Esa mujer trabaja en el banco.",
+     "ru": "Та женщина работает в банке.",
+     "frame": [
+      "mujer"
+     ]
+    },
+    {
+     "es": "Un hombre y una mujer preguntaron por ti.",
+     "ru": "Мужчина и женщина спрашивали тебя.",
+     "frame": [
+      "hombre",
+      "mujer"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p048",
@@ -1202,7 +2377,31 @@
     "en": "girl",
     "ru": "девушка (молодая)",
     "tr": "ла чи́ка"
-   }
+   },
+   "ex": [
+    {
+     "es": "El chico de la tienda es muy amable.",
+     "ru": "Парень из магазина очень любезный.",
+     "frame": [
+      "chico"
+     ]
+    },
+    {
+     "es": "La chica de recepción habla inglés.",
+     "ru": "Девушка на ресепшене говорит по-английски.",
+     "frame": [
+      "chica"
+     ]
+    },
+    {
+     "es": "Vino un chico y luego una chica.",
+     "ru": "Пришёл парень, потом девушка.",
+     "frame": [
+      "chico",
+      "chica"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p049",
@@ -1224,7 +2423,31 @@
     "en": "girl",
     "ru": "девочка",
     "tr": "ла ни́нья"
-   }
+   },
+   "ex": [
+    {
+     "es": "El niño tiene cuatro años.",
+     "ru": "Ребёнку четыре года.",
+     "frame": [
+      "niño"
+     ]
+    },
+    {
+     "es": "La niña va al colegio sola.",
+     "ru": "Девочка ходит в школу сама.",
+     "frame": [
+      "niña"
+     ]
+    },
+    {
+     "es": "Tengo un niño y una niña.",
+     "ru": "У меня мальчик и девочка.",
+     "frame": [
+      "niño",
+      "niña"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p050",
@@ -1246,7 +2469,31 @@
     "en": "madam, Mrs.",
     "ru": "госпожа",
     "tr": "ла сэньо́ра"
-   }
+   },
+   "ex": [
+    {
+     "es": "Perdone, señor, ¿tiene hora?",
+     "ru": "Извините, вы не подскажете время?",
+     "frame": [
+      "señor"
+     ]
+    },
+    {
+     "es": "Perdone, señora.",
+     "ru": "Простите, сеньора.",
+     "frame": [
+      "señora"
+     ]
+    },
+    {
+     "es": "El señor y la señora Pérez viven arriba.",
+     "ru": "Сеньор и сеньора Перес живут наверху.",
+     "frame": [
+      "señor",
+      "señora"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p051",
@@ -1268,7 +2515,31 @@
     "en": "friend (f)",
     "ru": "подруга",
     "tr": "ла ами́га"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es un amigo de mi novia.",
+     "ru": "Это друг моей девушки.",
+     "frame": [
+      "amigo"
+     ]
+    },
+    {
+     "es": "Mi amiga viene el domingo.",
+     "ru": "Моя подруга приедет в воскресенье.",
+     "frame": [
+      "amiga"
+     ]
+    },
+    {
+     "es": "Un amigo y una amiga me ayudaron.",
+     "ru": "Друг и подруга мне помогли.",
+     "frame": [
+      "amigo",
+      "amiga"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p052",
@@ -1290,7 +2561,31 @@
     "en": "neighbour (f)",
     "ru": "соседка",
     "tr": "ла бэси́на"
-   }
+   },
+   "ex": [
+    {
+     "es": "Hola, soy el vecino del cuarto.",
+     "ru": "Здравствуйте, я сосед с четвёртого.",
+     "frame": [
+      "vecino"
+     ]
+    },
+    {
+     "es": "La vecina del tercero tiene perro.",
+     "ru": "У соседки с третьего этажа собака.",
+     "frame": [
+      "vecina"
+     ]
+    },
+    {
+     "es": "El vecino saluda, la vecina no.",
+     "ru": "Сосед здоровается, соседка нет.",
+     "frame": [
+      "vecino",
+      "vecina"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p053",
@@ -1312,7 +2607,31 @@
     "en": "colleague (f)",
     "ru": "коллега, одноклассница",
     "tr": "ла компаньэ́ра"
-   }
+   },
+   "ex": [
+    {
+     "es": "Un compañero de trabajo me lo dijo.",
+     "ru": "Мне сказал коллега с работы.",
+     "frame": [
+      "compañero"
+     ]
+    },
+    {
+     "es": "Mi compañera de clase es italiana.",
+     "ru": "Моя одноклассница итальянка.",
+     "frame": [
+      "compañera"
+     ]
+    },
+    {
+     "es": "Habla con tu compañero o con tu compañera.",
+     "ru": "Поговори со своим коллегой или коллегой.",
+     "frame": [
+      "compañero",
+      "compañera"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p054",
@@ -1334,7 +2653,31 @@
     "en": "mother",
     "ru": "мать",
     "tr": "ла ма́дрэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mi padre trabaja en el campo.",
+     "ru": "Мой отец работает в поле.",
+     "frame": [
+      "padre"
+     ]
+    },
+    {
+     "es": "La madre del niño está fuera.",
+     "ru": "Мать ребёнка вышла.",
+     "frame": [
+      "madre"
+     ]
+    },
+    {
+     "es": "Firman el padre o la madre.",
+     "ru": "Подписывает отец или мать.",
+     "frame": [
+      "padre",
+      "madre"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p055",
@@ -1356,7 +2699,31 @@
     "en": "mum",
     "ru": "мама",
     "tr": "ла мама́"
-   }
+   },
+   "ex": [
+    {
+     "es": "Papá llega a las seis.",
+     "ru": "Папа придёт в шесть.",
+     "frame": [
+      "Papá"
+     ]
+    },
+    {
+     "es": "Mamá está en la cocina.",
+     "ru": "Мама на кухне.",
+     "frame": [
+      "Mamá"
+     ]
+    },
+    {
+     "es": "Pregúntale a papá o a mamá.",
+     "ru": "Спроси у папы или у мамы.",
+     "frame": [
+      "papá",
+      "mamá"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p056",
@@ -1378,7 +2745,31 @@
     "en": "daughter",
     "ru": "дочь",
     "tr": "ла и́ха"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mi hijo estudia en Madrid.",
+     "ru": "Мой сын учится в Мадриде.",
+     "frame": [
+      "hijo"
+     ]
+    },
+    {
+     "es": "Es mi hija.",
+     "ru": "Это моя дочь.",
+     "frame": [
+      "hija"
+     ]
+    },
+    {
+     "es": "Tengo un hijo y una hija.",
+     "ru": "У меня сын и дочь.",
+     "frame": [
+      "hijo",
+      "hija"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p057",
@@ -1400,7 +2791,31 @@
     "en": "sister",
     "ru": "сестра",
     "tr": "ла эрма́на"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Tienes hermanos?",
+     "ru": "У тебя есть братья или сёстры?",
+     "frame": [
+      "hermanos"
+     ]
+    },
+    {
+     "es": "Mi hermana vive en Sevilla.",
+     "ru": "Моя сестра живёт в Севилье.",
+     "frame": [
+      "hermana"
+     ]
+    },
+    {
+     "es": "Mi hermano es mayor y mi hermana menor.",
+     "ru": "Мой брат старше, а сестра младше.",
+     "frame": [
+      "hermano",
+      "hermana"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p058",
@@ -1422,7 +2837,31 @@
     "en": "wife",
     "ru": "жена",
     "tr": "ла эспо́са"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mi marido no habla español.",
+     "ru": "Мой муж не говорит по-испански.",
+     "frame": [
+      "marido"
+     ]
+    },
+    {
+     "es": "Su esposa es profesora.",
+     "ru": "Его жена учительница.",
+     "frame": [
+      "esposa"
+     ]
+    },
+    {
+     "es": "Vienen el marido y la esposa.",
+     "ru": "Придут муж и жена.",
+     "frame": [
+      "marido",
+      "esposa"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p059",
@@ -1444,7 +2883,31 @@
     "en": "girlfriend",
     "ru": "девушка (подруга), невеста",
     "tr": "ла но́бья"
-   }
+   },
+   "ex": [
+    {
+     "es": "Su novio trabaja en el hospital.",
+     "ru": "Её парень работает в больнице.",
+     "frame": [
+      "novio"
+     ]
+    },
+    {
+     "es": "Voy con mi novia al cine.",
+     "ru": "Я иду с девушкой в кино.",
+     "frame": [
+      "novia"
+     ]
+    },
+    {
+     "es": "El novio llegó antes que la novia.",
+     "ru": "Жених приехал раньше невесты.",
+     "frame": [
+      "novio",
+      "novia"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p060",
@@ -1466,7 +2929,31 @@
     "en": "grandmother",
     "ru": "бабушка",
     "tr": "ла абуэ́ла"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mis abuelos viven lejos.",
+     "ru": "Мои дедушка с бабушкой живут далеко.",
+     "frame": [
+      "abuelos"
+     ]
+    },
+    {
+     "es": "La abuela cuida a los niños.",
+     "ru": "Бабушка сидит с детьми.",
+     "frame": [
+      "abuela"
+     ]
+    },
+    {
+     "es": "El abuelo lee y la abuela cocina.",
+     "ru": "Дедушка читает, бабушка готовит.",
+     "frame": [
+      "abuelo",
+      "abuela"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p061",
@@ -1488,7 +2975,31 @@
     "en": "granddaughter",
     "ru": "внучка",
     "tr": "ла нье́та"
-   }
+   },
+   "ex": [
+    {
+     "es": "Su nieto tiene diez años.",
+     "ru": "Их внуку десять лет.",
+     "frame": [
+      "nieto"
+     ]
+    },
+    {
+     "es": "La nieta vive con ellos.",
+     "ru": "Внучка живёт с ними.",
+     "frame": [
+      "nieta"
+     ]
+    },
+    {
+     "es": "Tienen un nieto y dos nietas.",
+     "ru": "У них внук и две внучки.",
+     "frame": [
+      "nieto",
+      "nietas"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p062",
@@ -1510,7 +3021,31 @@
     "en": "aunt",
     "ru": "тётя",
     "tr": "ла ти́а"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mi tío vive en Barcelona.",
+     "ru": "Мой дядя живёт в Барселоне.",
+     "frame": [
+      "tío"
+     ]
+    },
+    {
+     "es": "La tía viene en agosto.",
+     "ru": "Тётя приедет в августе.",
+     "frame": [
+      "tía"
+     ]
+    },
+    {
+     "es": "El tío y la tía traen a los primos.",
+     "ru": "Дядя с тётей привезут двоюродных.",
+     "frame": [
+      "tío",
+      "tía"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p063",
@@ -1532,7 +3067,31 @@
     "en": "niece",
     "ru": "племянница",
     "tr": "ла собри́на"
-   }
+   },
+   "ex": [
+    {
+     "es": "Tengo dos sobrinos.",
+     "ru": "У меня два племянника.",
+     "frame": [
+      "sobrinos"
+     ]
+    },
+    {
+     "es": "Mi sobrina cumple años hoy.",
+     "ru": "У племянницы сегодня день рождения.",
+     "frame": [
+      "sobrina"
+     ]
+    },
+    {
+     "es": "El sobrino y la sobrina son gemelos.",
+     "ru": "Племянник и племянница — близнецы.",
+     "frame": [
+      "sobrino",
+      "sobrina"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p064",
@@ -1554,7 +3113,31 @@
     "en": "cousin (f)",
     "ru": "двоюродная сестра",
     "tr": "ла при́ма"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mi primo trabaja conmigo.",
+     "ru": "Мой двоюродный брат работает со мной.",
+     "frame": [
+      "primo"
+     ]
+    },
+    {
+     "es": "La prima llega el viernes.",
+     "ru": "Двоюродная сестра приедет в пятницу.",
+     "frame": [
+      "prima"
+     ]
+    },
+    {
+     "es": "Tengo un primo aquí y una prima fuera.",
+     "ru": "У меня здесь двоюродный брат, а сестра за границей.",
+     "frame": [
+      "primo",
+      "prima"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p065",
@@ -1576,7 +3159,31 @@
     "en": "mother-in-law",
     "ru": "свекровь, тёща",
     "tr": "ла суэ́гра"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mi suegro es de Madrid.",
+     "ru": "Мой тесть из Мадрида.",
+     "frame": [
+      "suegro"
+     ]
+    },
+    {
+     "es": "Es mi suegra.",
+     "ru": "Это моя свекровь.",
+     "frame": [
+      "suegra"
+     ]
+    },
+    {
+     "es": "El suegro y la suegra comen con nosotros.",
+     "ru": "Тесть с тёщей обедают с нами.",
+     "frame": [
+      "suegro",
+      "suegra"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p066",
@@ -1598,7 +3205,31 @@
     "en": "sister-in-law",
     "ru": "золовка, свояченица, невестка (жена брата)",
     "tr": "ла кунья́да"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mi cuñado vive aquí.",
+     "ru": "Мой шурин живёт здесь.",
+     "frame": [
+      "cuñado"
+     ]
+    },
+    {
+     "es": "Su cuñada trabaja en el banco.",
+     "ru": "Его золовка работает в банке.",
+     "frame": [
+      "cuñada"
+     ]
+    },
+    {
+     "es": "El cuñado y la cuñada vienen mañana.",
+     "ru": "Шурин с золовкой приедут завтра.",
+     "frame": [
+      "cuñado",
+      "cuñada"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p067",
@@ -1620,7 +3251,31 @@
     "en": "daughter-in-law",
     "ru": "невестка",
     "tr": "ла нуэ́ра"
-   }
+   },
+   "ex": [
+    {
+     "es": "Su yerno es abogado.",
+     "ru": "Их зять адвокат.",
+     "frame": [
+      "yerno"
+     ]
+    },
+    {
+     "es": "La nuera habla ruso.",
+     "ru": "Невестка говорит по-русски.",
+     "frame": [
+      "nuera"
+     ]
+    },
+    {
+     "es": "El yerno y la nuera viven fuera.",
+     "ru": "Зять с невесткой живут за границей.",
+     "frame": [
+      "yerno",
+      "nuera"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p068",
@@ -1642,7 +3297,31 @@
     "en": "teacher (f)",
     "ru": "учительница",
     "tr": "ла профэсо́ра"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es la profesora de mi hija.",
+     "ru": "Это учительница моей дочери.",
+     "frame": [
+      "profesora"
+     ]
+    },
+    {
+     "es": "El profesor de inglés está enfermo.",
+     "ru": "Учитель английского болеет.",
+     "frame": [
+      "profesor"
+     ]
+    },
+    {
+     "es": "El profesor explica y la profesora corrige.",
+     "ru": "Учитель объясняет, учительница проверяет.",
+     "frame": [
+      "profesor",
+      "profesora"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p069",
@@ -1664,7 +3343,31 @@
     "en": "pupil (f)",
     "ru": "ученица",
     "tr": "ла алу́мна"
-   }
+   },
+   "ex": [
+    {
+     "es": "El alumno nuevo es ucraniano.",
+     "ru": "Новый ученик украинец.",
+     "frame": [
+      "alumno"
+     ]
+    },
+    {
+     "es": "La alumna ha sacado mejor nota.",
+     "ru": "Ученица получила оценку лучше.",
+     "frame": [
+      "alumna"
+     ]
+    },
+    {
+     "es": "Cada alumno y cada alumna tiene su sitio.",
+     "ru": "У каждого ученика и ученицы своё место.",
+     "frame": [
+      "alumno",
+      "alumna"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p070",
@@ -1686,7 +3389,31 @@
     "en": "waitress",
     "ru": "официантка",
     "tr": "ла камарэ́ра"
-   }
+   },
+   "ex": [
+    {
+     "es": "¡Camarero, la cuenta!",
+     "ru": "Официант, счёт!",
+     "frame": [
+      "Camarero"
+     ]
+    },
+    {
+     "es": "La camarera nos trae el pan.",
+     "ru": "Официантка несёт нам хлеб.",
+     "frame": [
+      "camarera"
+     ]
+    },
+    {
+     "es": "El camarero cobra, la camarera sirve.",
+     "ru": "Официант принимает оплату, официантка подаёт.",
+     "frame": [
+      "camarero",
+      "camarera"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p071",
@@ -1708,7 +3435,31 @@
     "en": "shop assistant (f)",
     "ru": "продавщица",
     "tr": "ла дэпэндье́нта"
-   }
+   },
+   "ex": [
+    {
+     "es": "Habla con la dependienta.",
+     "ru": "Поговори с продавщицей.",
+     "frame": [
+      "dependienta"
+     ]
+    },
+    {
+     "es": "El dependiente no sabía el precio.",
+     "ru": "Продавец не знал цену.",
+     "frame": [
+      "dependiente"
+     ]
+    },
+    {
+     "es": "El dependiente cobra y la dependienta ayuda.",
+     "ru": "Продавец пробивает, продавщица помогает.",
+     "frame": [
+      "dependiente",
+      "dependienta"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p072",
@@ -1730,7 +3481,31 @@
     "en": "doctor (f)",
     "ru": "врач (ж.)",
     "tr": "ла мэ́дика"
-   }
+   },
+   "ex": [
+    {
+     "es": "La médica dice que no es grave.",
+     "ru": "Врач говорит, ничего серьёзного.",
+     "frame": [
+      "médica"
+     ]
+    },
+    {
+     "es": "El médico me ha dado la baja.",
+     "ru": "Врач дал мне больничный.",
+     "frame": [
+      "médico"
+     ]
+    },
+    {
+     "es": "El médico pasa por la mañana, la médica por la tarde.",
+     "ru": "Врач принимает утром, врачиха днём.",
+     "frame": [
+      "médico",
+      "médica"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p073",
@@ -1752,7 +3527,31 @@
     "en": "nurse (f)",
     "ru": "медсестра",
     "tr": "ла энфэрмэ́ра"
-   }
+   },
+   "ex": [
+    {
+     "es": "La enfermera me puso la vacuna.",
+     "ru": "Медсестра сделала мне прививку.",
+     "frame": [
+      "enfermera"
+     ]
+    },
+    {
+     "es": "El enfermero viene enseguida.",
+     "ru": "Медбрат сейчас подойдёт.",
+     "frame": [
+      "enfermero"
+     ]
+    },
+    {
+     "es": "El enfermero toma la tensión y la enfermera saca sangre.",
+     "ru": "Медбрат меряет давление, медсестра берёт кровь.",
+     "frame": [
+      "enfermero",
+      "enfermera"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p074",
@@ -1774,7 +3573,31 @@
     "en": "lawyer (f)",
     "ru": "адвокат (ж.)",
     "tr": "ла абога́да"
-   }
+   },
+   "ex": [
+    {
+     "es": "Necesito un abogado.",
+     "ru": "Мне нужен адвокат.",
+     "frame": [
+      "abogado"
+     ]
+    },
+    {
+     "es": "La abogada revisa el contrato.",
+     "ru": "Адвокат проверяет договор.",
+     "frame": [
+      "abogada"
+     ]
+    },
+    {
+     "es": "El abogado firma y la abogada presenta.",
+     "ru": "Адвокат подписывает, а адвокатесса подаёт.",
+     "frame": [
+      "abogado",
+      "abogada"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p075",
@@ -1796,7 +3619,31 @@
     "en": "boss (f)",
     "ru": "начальница",
     "tr": "ла хэ́фа"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mi jefa está de vacaciones.",
+     "ru": "Моя начальница в отпуске.",
+     "frame": [
+      "jefa"
+     ]
+    },
+    {
+     "es": "El jefe llega a las nueve.",
+     "ru": "Начальник приходит в девять.",
+     "frame": [
+      "jefe"
+     ]
+    },
+    {
+     "es": "El jefe decide y la jefa organiza.",
+     "ru": "Начальник решает, начальница организует.",
+     "frame": [
+      "jefe",
+      "jefa"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p076",
@@ -1818,7 +3665,31 @@
     "en": "owner (f)",
     "ru": "хозяйка",
     "tr": "ла дуэ́нья"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es la dueña del piso.",
+     "ru": "Это хозяйка квартиры.",
+     "frame": [
+      "dueña"
+     ]
+    },
+    {
+     "es": "El dueño del bar es gallego.",
+     "ru": "Хозяин бара галисиец.",
+     "frame": [
+      "dueño"
+     ]
+    },
+    {
+     "es": "El dueño abre y la dueña cierra.",
+     "ru": "Хозяин открывает, хозяйка закрывает.",
+     "frame": [
+      "dueño",
+      "dueña"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p077",
@@ -1840,7 +3711,31 @@
     "en": "answer",
     "ru": "ответ",
     "tr": "ла ррэспуэ́ста"
-   }
+   },
+   "ex": [
+    {
+     "es": "Tengo una pregunta.",
+     "ru": "У меня вопрос.",
+     "frame": [
+      "pregunta"
+     ]
+    },
+    {
+     "es": "Esa es la respuesta.",
+     "ru": "Вот это ответ.",
+     "frame": [
+      "respuesta"
+     ]
+    },
+    {
+     "es": "La pregunta es fácil, la respuesta difícil.",
+     "ru": "Вопрос простой, ответ сложный.",
+     "frame": [
+      "pregunta",
+      "respuesta"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p078",
@@ -1862,7 +3757,31 @@
     "en": "exit",
     "ru": "выход",
     "tr": "ла сали́да"
-   }
+   },
+   "ex": [
+    {
+     "es": "La entrada está por allí.",
+     "ru": "Вход вон там.",
+     "frame": [
+      "entrada"
+     ]
+    },
+    {
+     "es": "¿Dónde está la salida?",
+     "ru": "Где выход?",
+     "frame": [
+      "salida"
+     ]
+    },
+    {
+     "es": "La entrada es por delante, la salida por detrás.",
+     "ru": "Вход спереди, выход сзади.",
+     "frame": [
+      "entrada",
+      "salida"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p079",
@@ -1884,7 +3803,31 @@
     "en": "departure",
     "ru": "отправление",
     "tr": "ла сали́да"
-   }
+   },
+   "ex": [
+    {
+     "es": "La llegada está en la pantalla.",
+     "ru": "Прибытие на экране.",
+     "frame": [
+      "llegada"
+     ]
+    },
+    {
+     "es": "Mira la hora de salida en el billete.",
+     "ru": "Посмотри время отправления в билете.",
+     "frame": [
+      "salida"
+     ]
+    },
+    {
+     "es": "La salida es a las ocho, la llegada a las diez.",
+     "ru": "Отправление в восемь, прибытие в десять.",
+     "frame": [
+      "salida",
+      "llegada"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p080",
@@ -1906,7 +3849,31 @@
     "en": "destination",
     "ru": "пункт назначения",
     "tr": "эл дэсти́но"
-   }
+   },
+   "ex": [
+    {
+     "es": "El origen del vuelo es Kiev.",
+     "ru": "Пункт вылета — Киев.",
+     "frame": [
+      "origen"
+     ]
+    },
+    {
+     "es": "El destino es Valencia.",
+     "ru": "Пункт назначения — Валенсия.",
+     "frame": [
+      "destino"
+     ]
+    },
+    {
+     "es": "Escribe el origen y el destino.",
+     "ru": "Впиши пункт отправления и назначения.",
+     "frame": [
+      "origen",
+      "destino"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p081",
@@ -1928,7 +3895,31 @@
     "en": "lie",
     "ru": "ложь",
     "tr": "ла мэнти́ра"
-   }
+   },
+   "ex": [
+    {
+     "es": "Dime la verdad.",
+     "ru": "Скажи мне правду.",
+     "frame": [
+      "verdad"
+     ]
+    },
+    {
+     "es": "Eso es mentira.",
+     "ru": "Это неправда.",
+     "frame": [
+      "mentira"
+     ]
+    },
+    {
+     "es": "Prefiero una verdad dura a una mentira fácil.",
+     "ru": "Горькая правда лучше лёгкой лжи.",
+     "frame": [
+      "verdad",
+      "mentira"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p082",
@@ -1950,7 +3941,31 @@
     "en": "solution",
     "ru": "решение",
     "tr": "ла солусьо́н"
-   }
+   },
+   "ex": [
+    {
+     "es": "Tenemos un problema con el agua.",
+     "ru": "У нас проблема с водой.",
+     "frame": [
+      "problema"
+     ]
+    },
+    {
+     "es": "Hay una solución fácil.",
+     "ru": "Есть простое решение.",
+     "frame": [
+      "solución"
+     ]
+    },
+    {
+     "es": "Cada problema tiene su solución.",
+     "ru": "У каждой проблемы есть решение.",
+     "frame": [
+      "problema",
+      "solución"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p083",
@@ -1972,7 +3987,31 @@
     "en": "illness",
     "ru": "болезнь",
     "tr": "ла энфэрмэда́д"
-   }
+   },
+   "ex": [
+    {
+     "es": "La salud es lo primero.",
+     "ru": "Здоровье прежде всего.",
+     "frame": [
+      "salud"
+     ]
+    },
+    {
+     "es": "Es una enfermedad común.",
+     "ru": "Это распространённая болезнь.",
+     "frame": [
+      "enfermedad"
+     ]
+    },
+    {
+     "es": "Con salud se trabaja, con enfermedad no.",
+     "ru": "Со здоровьем работается, с болезнью нет.",
+     "frame": [
+      "salud",
+      "enfermedad"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p084",
@@ -1994,7 +4033,31 @@
     "en": "thirst",
     "ru": "жажда",
     "tr": "ла сэд"
-   }
+   },
+   "ex": [
+    {
+     "es": "Tengo hambre.",
+     "ru": "Я голоден.",
+     "frame": [
+      "hambre"
+     ]
+    },
+    {
+     "es": "Tengo sed.",
+     "ru": "Я хочу пить.",
+     "frame": [
+      "sed"
+     ]
+    },
+    {
+     "es": "Con este calor hay más sed que hambre.",
+     "ru": "В такую жару пить хочется больше, чем есть.",
+     "frame": [
+      "sed",
+      "hambre"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p085",
@@ -2016,7 +4079,31 @@
     "en": "dinner",
     "ru": "ужин",
     "tr": "ла сэ́на"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿El desayuno está incluido?",
+     "ru": "Завтрак включён?",
+     "frame": [
+      "desayuno"
+     ]
+    },
+    {
+     "es": "La cena es ligera en casa.",
+     "ru": "Дома ужин лёгкий.",
+     "frame": [
+      "cena"
+     ]
+    },
+    {
+     "es": "El desayuno es fuerte y la cena ligera.",
+     "ru": "Завтрак плотный, а ужин лёгкий.",
+     "frame": [
+      "desayuno",
+      "cena"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p086",
@@ -2038,7 +4125,31 @@
     "en": "drink",
     "ru": "напиток",
     "tr": "ла бэби́да"
-   }
+   },
+   "ex": [
+    {
+     "es": "La comida está muy rica.",
+     "ru": "Еда очень вкусная.",
+     "frame": [
+      "comida"
+     ]
+    },
+    {
+     "es": "¿Qué bebida quieres?",
+     "ru": "Какой напиток будешь?",
+     "frame": [
+      "bebida"
+     ]
+    },
+    {
+     "es": "El menú incluye comida y bebida.",
+     "ru": "В обед входят еда и напиток.",
+     "frame": [
+      "comida",
+      "bebida"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p087",
@@ -2060,7 +4171,32 @@
     "en": "fish",
     "ru": "рыба",
     "tr": "эл пэска́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Carne o pescado?",
+     "ru": "Мясо или рыба?",
+     "frame": [
+      "Carne",
+      "pescado"
+     ]
+    },
+    {
+     "es": "El pescado está fresco.",
+     "ru": "Рыба свежая.",
+     "frame": [
+      "pescado"
+     ]
+    },
+    {
+     "es": "Como carne dos veces y pescado una.",
+     "ru": "Мясо я ем дважды, рыбу раз.",
+     "frame": [
+      "carne",
+      "pescado"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p088",
@@ -2082,7 +4218,31 @@
     "en": "vegetable",
     "ru": "овощ",
     "tr": "ла бэрду́ра"
-   }
+   },
+   "ex": [
+    {
+     "es": "La fruta está en el mercado.",
+     "ru": "Фрукты на рынке.",
+     "frame": [
+      "fruta"
+     ]
+    },
+    {
+     "es": "Come más verdura.",
+     "ru": "Ешь больше овощей.",
+     "frame": [
+      "verdura"
+     ]
+    },
+    {
+     "es": "Compro fruta y verdura los sábados.",
+     "ru": "Фрукты и овощи я покупаю по субботам.",
+     "frame": [
+      "fruta",
+      "verdura"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p089",
@@ -2104,7 +4264,31 @@
     "en": "sugar",
     "ru": "сахар",
     "tr": "эл асу́кар"
-   }
+   },
+   "ex": [
+    {
+     "es": "Sin sal, por favor.",
+     "ru": "Без соли, пожалуйста.",
+     "frame": [
+      "sal"
+     ]
+    },
+    {
+     "es": "El azúcar está en el armario.",
+     "ru": "Сахар в шкафу.",
+     "frame": [
+      "azúcar"
+     ]
+    },
+    {
+     "es": "Poca sal y nada de azúcar.",
+     "ru": "Мало соли и никакого сахара.",
+     "frame": [
+      "sal",
+      "azúcar"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p090",
@@ -2126,7 +4310,31 @@
     "en": "card",
     "ru": "карта",
     "tr": "ла тархэ́та"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Puedo pagar en efectivo?",
+     "ru": "Можно заплатить наличными?",
+     "frame": [
+      "efectivo"
+     ]
+    },
+    {
+     "es": "¿Se puede pagar con tarjeta?",
+     "ru": "Картой можно?",
+     "frame": [
+      "tarjeta"
+     ]
+    },
+    {
+     "es": "En efectivo o con tarjeta, como quiera.",
+     "ru": "Наличными или картой, как хотите.",
+     "frame": [
+      "efectivo",
+      "tarjeta"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p091",
@@ -2148,7 +4356,31 @@
     "en": "debit",
     "ru": "дебет",
     "tr": "эл дэ́бито"
-   }
+   },
+   "ex": [
+    {
+     "es": "Es una tarjeta de crédito.",
+     "ru": "Это кредитная карта.",
+     "frame": [
+      "crédito"
+     ]
+    },
+    {
+     "es": "Prefiero el débito.",
+     "ru": "Я предпочитаю дебетовую.",
+     "frame": [
+      "débito"
+     ]
+    },
+    {
+     "es": "¿Crédito o débito?",
+     "ru": "Кредитная или дебетовая?",
+     "frame": [
+      "Crédito",
+      "débito"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p092",
@@ -2170,7 +4402,31 @@
     "en": "quantity",
     "ru": "количество",
     "tr": "ла кантида́д"
-   }
+   },
+   "ex": [
+    {
+     "es": "La calidad es buena.",
+     "ru": "Качество хорошее.",
+     "frame": [
+      "calidad"
+     ]
+    },
+    {
+     "es": "La cantidad no importa.",
+     "ru": "Количество неважно.",
+     "frame": [
+      "cantidad"
+     ]
+    },
+    {
+     "es": "Mejor calidad que cantidad.",
+     "ru": "Лучше качество, чем количество.",
+     "frame": [
+      "calidad",
+      "cantidad"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p093",
@@ -2192,7 +4448,31 @@
     "en": "shade",
     "ru": "тень",
     "tr": "ла со́мбра"
-   }
+   },
+   "ex": [
+    {
+     "es": "No hay luz en el pasillo.",
+     "ru": "В коридоре нет света.",
+     "frame": [
+      "luz"
+     ]
+    },
+    {
+     "es": "Aquí hay mucha sombra.",
+     "ru": "Здесь много тени.",
+     "frame": [
+      "sombra"
+     ]
+    },
+    {
+     "es": "Prefiero la sombra a la luz del mediodía.",
+     "ru": "Тень мне милее полуденного света.",
+     "frame": [
+      "sombra",
+      "luz"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p094",
@@ -2214,7 +4494,31 @@
     "en": "ceiling",
     "ru": "потолок",
     "tr": "эл тэ́чо"
-   }
+   },
+   "ex": [
+    {
+     "es": "El suelo está frío.",
+     "ru": "Пол холодный.",
+     "frame": [
+      "suelo"
+     ]
+    },
+    {
+     "es": "El techo tiene una mancha.",
+     "ru": "На потолке пятно.",
+     "frame": [
+      "techo"
+     ]
+    },
+    {
+     "es": "Del suelo al techo hay tres metros.",
+     "ru": "От пола до потолка три метра.",
+     "frame": [
+      "suelo",
+      "techo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p095",
@@ -2236,7 +4540,31 @@
     "en": "heating",
     "ru": "отопление",
     "tr": "ла калэфаксьо́н"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Puede poner el aire acondicionado?",
+     "ru": "Можете включить кондиционер?",
+     "frame": [
+      "aire acondicionado"
+     ]
+    },
+    {
+     "es": "No funciona la calefacción.",
+     "ru": "Не работает отопление.",
+     "frame": [
+      "calefacción"
+     ]
+    },
+    {
+     "es": "En verano el aire acondicionado, en invierno la calefacción.",
+     "ru": "Летом кондиционер, зимой отопление.",
+     "frame": [
+      "aire acondicionado",
+      "calefacción"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p096",
@@ -2258,7 +4586,31 @@
     "en": "earth",
     "ru": "земля",
     "tr": "ла тье́рра"
-   }
+   },
+   "ex": [
+    {
+     "es": "El cielo está despejado.",
+     "ru": "Небо ясное.",
+     "frame": [
+      "cielo"
+     ]
+    },
+    {
+     "es": "La tierra del jardín está seca.",
+     "ru": "Земля в саду сухая.",
+     "frame": [
+      "tierra"
+     ]
+    },
+    {
+     "es": "El avión sube al cielo y baja a tierra.",
+     "ru": "Самолёт поднимается в небо и садится на землю.",
+     "frame": [
+      "cielo",
+      "tierra"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p097",
@@ -2280,7 +4632,32 @@
     "en": "mountains",
     "ru": "горы",
     "tr": "ла монта́нья"
-   }
+   },
+   "ex": [
+    {
+     "es": "El mar está a diez minutos.",
+     "ru": "Море в десяти минутах.",
+     "frame": [
+      "mar"
+     ]
+    },
+    {
+     "es": "¿Vamos al mar o a la montaña?",
+     "ru": "Едем на море или в горы?",
+     "frame": [
+      "mar",
+      "montaña"
+     ]
+    },
+    {
+     "es": "En verano al mar, en invierno a la montaña.",
+     "ru": "Летом на море, зимой в горы.",
+     "frame": [
+      "mar",
+      "montaña"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p098",
@@ -2302,7 +4679,31 @@
     "en": "town, village",
     "ru": "городок, деревня",
     "tr": "эл пуэ́бло"
-   }
+   },
+   "ex": [
+    {
+     "es": "Vivimos en un pueblo pequeño.",
+     "ru": "Мы живём в маленьком городке.",
+     "frame": [
+      "pueblo"
+     ]
+    },
+    {
+     "es": "La ciudad es ruidosa.",
+     "ru": "Город шумный.",
+     "frame": [
+      "ciudad"
+     ]
+    },
+    {
+     "es": "Trabajo en la ciudad y duermo en el pueblo.",
+     "ru": "Работаю в городе, а сплю в городке.",
+     "frame": [
+      "ciudad",
+      "pueblo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p099",
@@ -2324,7 +4725,31 @@
     "en": "rain",
     "ru": "дождь",
     "tr": "ла йу́бья"
-   }
+   },
+   "ex": [
+    {
+     "es": "Hoy hace sol.",
+     "ru": "Сегодня солнечно.",
+     "frame": [
+      "sol"
+     ]
+    },
+    {
+     "es": "Con esta lluvia no salimos.",
+     "ru": "В такой дождь мы не выходим.",
+     "frame": [
+      "lluvia"
+     ]
+    },
+    {
+     "es": "Después de la lluvia sale el sol.",
+     "ru": "После дождя выходит солнце.",
+     "frame": [
+      "lluvia",
+      "sol"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p100",
@@ -2346,7 +4771,31 @@
     "en": "surname",
     "ru": "фамилия",
     "tr": "эл апэйи́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Me dice su nombre, por favor?",
+     "ru": "Назовите, пожалуйста, ваше имя.",
+     "frame": [
+      "nombre"
+     ]
+    },
+    {
+     "es": "¿Cuál es su apellido?",
+     "ru": "Какая у вас фамилия?",
+     "frame": [
+      "apellido"
+     ]
+    },
+    {
+     "es": "Escriba nombre y apellido.",
+     "ru": "Впишите имя и фамилию.",
+     "frame": [
+      "nombre",
+      "apellido"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p101",
@@ -2368,7 +4817,31 @@
     "en": "end",
     "ru": "конец",
     "tr": "эл фина́л"
-   }
+   },
+   "ex": [
+    {
+     "es": "Al principio fue difícil.",
+     "ru": "Сначала было сложно.",
+     "frame": [
+      "principio"
+     ]
+    },
+    {
+     "es": "Al final todo salió bien.",
+     "ru": "В итоге всё вышло хорошо.",
+     "frame": [
+      "final"
+     ]
+    },
+    {
+     "es": "Del principio al final son dos horas.",
+     "ru": "От начала до конца два часа.",
+     "frame": [
+      "principio",
+      "final"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p102",
@@ -2390,7 +4863,31 @@
     "en": "failure",
     "ru": "неудача",
     "tr": "эл фрака́со"
-   }
+   },
+   "ex": [
+    {
+     "es": "Fue un éxito.",
+     "ru": "Это был успех.",
+     "frame": [
+      "éxito"
+     ]
+    },
+    {
+     "es": "El proyecto fue un fracaso.",
+     "ru": "Проект провалился.",
+     "frame": [
+      "fracaso"
+     ]
+    },
+    {
+     "es": "Del fracaso se aprende más que del éxito.",
+     "ru": "Неудача учит больше, чем успех.",
+     "frame": [
+      "fracaso",
+      "éxito"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p103",
@@ -2412,7 +4909,31 @@
     "en": "expenses",
     "ru": "расходы",
     "tr": "лос га́стос"
-   }
+   },
+   "ex": [
+    {
+     "es": "Los ingresos suben en verano.",
+     "ru": "Летом доходы растут.",
+     "frame": [
+      "ingresos"
+     ]
+    },
+    {
+     "es": "Los gastos son fijos.",
+     "ru": "Расходы постоянные.",
+     "frame": [
+      "gastos"
+     ]
+    },
+    {
+     "es": "Apunta los ingresos y los gastos.",
+     "ru": "Записывай доходы и расходы.",
+     "frame": [
+      "ingresos",
+      "gastos"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p104",
@@ -2434,7 +4955,31 @@
     "en": "purchase",
     "ru": "покупка",
     "tr": "ла ко́мпра"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Cuánto es el alquiler?",
+     "ru": "Сколько стоит аренда?",
+     "frame": [
+      "alquiler"
+     ]
+    },
+    {
+     "es": "La compra sale más cara al principio.",
+     "ru": "Покупка выходит дороже вначале.",
+     "frame": [
+      "compra"
+     ]
+    },
+    {
+     "es": "El alquiler sube, la compra no.",
+     "ru": "Аренда растёт, покупка нет.",
+     "frame": [
+      "alquiler",
+      "compra"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p105",
@@ -2456,7 +5001,31 @@
     "en": "drawback",
     "ru": "минус",
     "tr": "ла дэсбэнта́ха"
-   }
+   },
+   "ex": [
+    {
+     "es": "Tiene una ventaja clara.",
+     "ru": "У этого явный плюс.",
+     "frame": [
+      "ventaja"
+     ]
+    },
+    {
+     "es": "La única desventaja es el precio.",
+     "ru": "Единственный минус — цена.",
+     "frame": [
+      "desventaja"
+     ]
+    },
+    {
+     "es": "Cada opción tiene su ventaja y su desventaja.",
+     "ru": "У каждого варианта свой плюс и свой минус.",
+     "frame": [
+      "ventaja",
+      "desventaja"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p106",
@@ -2478,7 +5047,31 @@
     "en": "silence",
     "ru": "тишина",
     "tr": "эл силэ́нсьо"
-   }
+   },
+   "ex": [
+    {
+     "es": "Perdona por el ruido de ayer.",
+     "ru": "Извини за вчерашний шум.",
+     "frame": [
+      "ruido"
+     ]
+    },
+    {
+     "es": "Necesito silencio para trabajar.",
+     "ru": "Мне нужна тишина, чтобы работать.",
+     "frame": [
+      "silencio"
+     ]
+    },
+    {
+     "es": "Del ruido de la calle al silencio del patio.",
+     "ru": "От уличного шума к тишине двора.",
+     "frame": [
+      "ruido",
+      "silencio"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p107",
@@ -2500,7 +5093,31 @@
     "en": "to finish",
     "ru": "заканчивать",
     "tr": "тэрмина́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿A qué hora empieza el embarque?",
+     "ru": "Во сколько начинается посадка?",
+     "frame": [
+      "empieza"
+     ]
+    },
+    {
+     "es": "Termino a las seis.",
+     "ru": "Я заканчиваю в шесть.",
+     "frame": [
+      "Termino"
+     ]
+    },
+    {
+     "es": "Empezamos a las nueve y terminamos a las cinco.",
+     "ru": "Начинаем в девять, заканчиваем в пять.",
+     "frame": [
+      "Empezamos",
+      "terminamos"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p108",
@@ -2522,7 +5139,31 @@
     "en": "to end",
     "ru": "завершать",
     "tr": "акаба́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "La obra comienza en mayo.",
+     "ru": "Стройка начинается в мае.",
+     "frame": [
+      "comienza"
+     ]
+    },
+    {
+     "es": "Se ha acabado el pan.",
+     "ru": "Хлеб закончился.",
+     "frame": [
+      "acabado"
+     ]
+    },
+    {
+     "es": "Comienza a las ocho y acaba a las diez.",
+     "ru": "Начинается в восемь и завершается в десять.",
+     "frame": [
+      "Comienza",
+      "acaba"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p109",
@@ -2544,7 +5185,31 @@
     "en": "to stop",
     "ru": "останавливаться",
     "tr": "пара́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Sigue recto hasta el semáforo.",
+     "ru": "Иди прямо до светофора.",
+     "frame": [
+      "Sigue"
+     ]
+    },
+    {
+     "es": "Para aquí, por favor.",
+     "ru": "Останови здесь, пожалуйста.",
+     "frame": [
+      "Para"
+     ]
+    },
+    {
+     "es": "Sigue hasta la plaza y para allí.",
+     "ru": "Иди до площади и там остановись.",
+     "frame": [
+      "Sigue",
+      "para"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p110",
@@ -2566,7 +5231,31 @@
     "en": "to close",
     "ru": "закрывать",
     "tr": "сэрра́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿A qué hora abren?",
+     "ru": "Во сколько открываете?",
+     "frame": [
+      "abren"
+     ]
+    },
+    {
+     "es": "Cierran a las dos.",
+     "ru": "Закрываются в два.",
+     "frame": [
+      "Cierran"
+     ]
+    },
+    {
+     "es": "Abren a las nueve y cierran a las dos.",
+     "ru": "Открывают в девять, закрывают в два.",
+     "frame": [
+      "Abren",
+      "cierran"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p111",
@@ -2588,7 +5277,31 @@
     "en": "to turn off",
     "ru": "выключать",
     "tr": "апага́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Enciende la tele.",
+     "ru": "Включи телевизор.",
+     "frame": [
+      "Enciende"
+     ]
+    },
+    {
+     "es": "¿Puedes apagar la luz?",
+     "ru": "Можешь выключить свет?",
+     "frame": [
+      "apagar"
+     ]
+    },
+    {
+     "es": "Enciende la luz y apaga la tele.",
+     "ru": "Включи свет и выключи телевизор.",
+     "frame": [
+      "Enciende",
+      "apaga"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p112",
@@ -2610,7 +5323,31 @@
     "en": "to go down",
     "ru": "спускаться",
     "tr": "баха́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Sube, te espero arriba.",
+     "ru": "Поднимайся, я жду наверху.",
+     "frame": [
+      "Sube"
+     ]
+    },
+    {
+     "es": "Bajo en dos minutos.",
+     "ru": "Спускаюсь через две минуты.",
+     "frame": [
+      "Bajo"
+     ]
+    },
+    {
+     "es": "Subo por la escalera y bajo en ascensor.",
+     "ru": "Поднимаюсь по лестнице, спускаюсь на лифте.",
+     "frame": [
+      "Subo",
+      "bajo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p113",
@@ -2632,7 +5369,31 @@
     "en": "to sit down",
     "ru": "садиться",
     "tr": "сэнта́рсэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "Levántate, ya es tarde.",
+     "ru": "Вставай, уже поздно.",
+     "frame": [
+      "Levántate"
+     ]
+    },
+    {
+     "es": "Siéntate aquí, por favor.",
+     "ru": "Сядь сюда, пожалуйста.",
+     "frame": [
+      "Siéntate"
+     ]
+    },
+    {
+     "es": "Se levanta temprano y se sienta a trabajar.",
+     "ru": "Он встаёт рано и садится работать.",
+     "frame": [
+      "levanta",
+      "sienta"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p114",
@@ -2654,7 +5415,31 @@
     "en": "to wake up",
     "ru": "просыпаться",
     "tr": "дэспэрта́рсэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "No duermo bien con este calor.",
+     "ru": "В такую жару я плохо сплю.",
+     "frame": [
+      "duermo"
+     ]
+    },
+    {
+     "es": "Me despierto a las seis sin despertador.",
+     "ru": "Я просыпаюсь в шесть без будильника.",
+     "frame": [
+      "despierto"
+     ]
+    },
+    {
+     "es": "Duerme poco y se despierta pronto.",
+     "ru": "Он мало спит и рано просыпается.",
+     "frame": [
+      "Duerme",
+      "despierta"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p115",
@@ -2676,7 +5461,31 @@
     "en": "to rest",
     "ru": "отдыхать",
     "tr": "дэсканса́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Trabajo hasta las seis.",
+     "ru": "Я работаю до шести.",
+     "frame": [
+      "Trabajo"
+     ]
+    },
+    {
+     "es": "Descansa un rato.",
+     "ru": "Отдохни немного.",
+     "frame": [
+      "Descansa"
+     ]
+    },
+    {
+     "es": "Trabajo de lunes a viernes y descanso el domingo.",
+     "ru": "Работаю с понедельника по пятницу, отдыхаю в воскресенье.",
+     "frame": [
+      "Trabajo",
+      "descanso"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p116",
@@ -2698,7 +5507,31 @@
     "en": "to sell",
     "ru": "продавать",
     "tr": "бэндэ́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Compré el billete por internet.",
+     "ru": "Я купил билет через интернет.",
+     "frame": [
+      "Compré"
+     ]
+    },
+    {
+     "es": "¿Aquí venden pan?",
+     "ru": "Здесь продают хлеб?",
+     "frame": [
+      "venden"
+     ]
+    },
+    {
+     "es": "Compro barato y vendo caro.",
+     "ru": "Покупаю дёшево, продаю дорого.",
+     "frame": [
+      "Compro",
+      "vendo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p117",
@@ -2720,7 +5553,31 @@
     "en": "to charge",
     "ru": "получать оплату",
     "tr": "кобра́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Cómo va a pagar?",
+     "ru": "Как будете платить?",
+     "frame": [
+      "pagar"
+     ]
+    },
+    {
+     "es": "¿Cuánto me va a cobrar?",
+     "ru": "Сколько с меня?",
+     "frame": [
+      "cobrar"
+     ]
+    },
+    {
+     "es": "Pago hoy y me cobran mañana.",
+     "ru": "Я плачу сегодня, а списывают завтра.",
+     "frame": [
+      "Pago",
+      "cobran"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p118",
@@ -2742,7 +5599,31 @@
     "en": "to spend",
     "ru": "тратить",
     "tr": "гаста́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Ahorro para el verano.",
+     "ru": "Я коплю на лето.",
+     "frame": [
+      "Ahorro"
+     ]
+    },
+    {
+     "es": "Gastamos mucho este mes.",
+     "ru": "В этом месяце мы много потратили.",
+     "frame": [
+      "Gastamos"
+     ]
+    },
+    {
+     "es": "Ahorro en casa y gasto en viajes.",
+     "ru": "Экономлю дома, трачу на поездки.",
+     "frame": [
+      "Ahorro",
+      "gasto"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p119",
@@ -2764,7 +5645,31 @@
     "en": "to lose",
     "ru": "проигрывать",
     "tr": "пэрдэ́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Ganamos el partido.",
+     "ru": "Мы выиграли матч.",
+     "frame": [
+      "Ganamos"
+     ]
+    },
+    {
+     "es": "Perdimos dos horas en la cola.",
+     "ru": "Мы потеряли два часа в очереди.",
+     "frame": [
+      "Perdimos"
+     ]
+    },
+    {
+     "es": "Se gana poco y se pierde tiempo.",
+     "ru": "Зарабатываешь мало, а времени теряешь много.",
+     "frame": [
+      "gana",
+      "pierde"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p120",
@@ -2786,7 +5691,31 @@
     "en": "to receive",
     "ru": "получать",
     "tr": "ррэсиби́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Dame el número, por favor.",
+     "ru": "Дай мне номер, пожалуйста.",
+     "frame": [
+      "Dame"
+     ]
+    },
+    {
+     "es": "He recibido el paquete.",
+     "ru": "Я получил посылку.",
+     "frame": [
+      "recibido"
+     ]
+    },
+    {
+     "es": "Doy más de lo que recibo.",
+     "ru": "Я отдаю больше, чем получаю.",
+     "frame": [
+      "Doy",
+      "recibo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p121",
@@ -2808,7 +5737,31 @@
     "en": "to bring here",
     "ru": "приносить сюда",
     "tr": "траэ́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Llevo a la niña al colegio.",
+     "ru": "Я вожу дочь в школу.",
+     "frame": [
+      "Llevo"
+     ]
+    },
+    {
+     "es": "Tráeme un vaso de agua.",
+     "ru": "Принеси мне стакан воды.",
+     "frame": [
+      "Tráeme"
+     ]
+    },
+    {
+     "es": "Llevo el pan y traigo el vino.",
+     "ru": "Хлеб отношу я, вино приношу тоже я.",
+     "frame": [
+      "Llevo",
+      "traigo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p122",
@@ -2830,7 +5783,31 @@
     "en": "to take away",
     "ru": "убирать",
     "tr": "кита́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Pon la mesa, por favor.",
+     "ru": "Накрой на стол, пожалуйста.",
+     "frame": [
+      "Pon"
+     ]
+    },
+    {
+     "es": "Quita eso de ahí.",
+     "ru": "Убери это оттуда.",
+     "frame": [
+      "Quita"
+     ]
+    },
+    {
+     "es": "Pongo la ropa y quito la mesa.",
+     "ru": "Я развешиваю бельё и убираю со стола.",
+     "frame": [
+      "Pongo",
+      "quito"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p123",
@@ -2852,7 +5829,31 @@
     "en": "to take out",
     "ru": "вынимать",
     "tr": "сака́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mete la ropa en la lavadora.",
+     "ru": "Засунь бельё в стиральную машину.",
+     "frame": [
+      "Mete"
+     ]
+    },
+    {
+     "es": "Saca el dinero del cajero.",
+     "ru": "Сними деньги в банкомате.",
+     "frame": [
+      "Saca"
+     ]
+    },
+    {
+     "es": "Mete la mano y saca un papel.",
+     "ru": "Сунь руку и вытащи бумажку.",
+     "frame": [
+      "Mete",
+      "saca"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p124",
@@ -2874,7 +5875,31 @@
     "en": "to leave",
     "ru": "оставлять",
     "tr": "дэха́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Coge una silla.",
+     "ru": "Возьми стул.",
+     "frame": [
+      "Coge"
+     ]
+    },
+    {
+     "es": "¿Me dejas el cargador?",
+     "ru": "Дашь зарядку?",
+     "frame": [
+      "dejas"
+     ]
+    },
+    {
+     "es": "Coge lo que quieras y deja el resto.",
+     "ru": "Бери что хочешь, остальное оставь.",
+     "frame": [
+      "Coge",
+      "deja"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p125",
@@ -2896,7 +5921,31 @@
     "en": "to give back",
     "ru": "возвращать",
     "tr": "дэболбэ́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Me lo puedes prestar?",
+     "ru": "Можешь мне одолжить?",
+     "frame": [
+      "prestar"
+     ]
+    },
+    {
+     "es": "¿Lo puedo devolver si no le vale?",
+     "ru": "Можно вернуть, если не подойдёт?",
+     "frame": [
+      "devolver"
+     ]
+    },
+    {
+     "es": "Me prestó el coche y se lo devolví lleno.",
+     "ru": "Он одолжил мне машину, я вернул её с полным баком.",
+     "frame": [
+      "prestó",
+      "devolví"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p126",
@@ -2918,7 +5967,31 @@
     "en": "to hand over",
     "ru": "отдавать",
     "tr": "энтрэга́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Recojo a la niña a las cuatro.",
+     "ru": "Забираю дочь в четыре.",
+     "frame": [
+      "Recojo"
+     ]
+    },
+    {
+     "es": "Hay que entregar el formulario hoy.",
+     "ru": "Бланк надо сдать сегодня.",
+     "frame": [
+      "entregar"
+     ]
+    },
+    {
+     "es": "Entrego el trabajo y recojo el certificado.",
+     "ru": "Сдаю работу и забираю справку.",
+     "frame": [
+      "Entrego",
+      "recojo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p127",
@@ -2940,7 +6013,31 @@
     "en": "to find",
     "ru": "находить",
     "tr": "энконтра́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Busco la llave del portal.",
+     "ru": "Я ищу ключ от подъезда.",
+     "frame": [
+      "Busco"
+     ]
+    },
+    {
+     "es": "Encontré el sitio sin problema.",
+     "ru": "Я нашёл место без проблем.",
+     "frame": [
+      "Encontré"
+     ]
+    },
+    {
+     "es": "No lo encuentro, lo estoy buscando.",
+     "ru": "Не нахожу, ищу.",
+     "frame": [
+      "encuentro",
+      "buscando"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p128",
@@ -2962,7 +6059,31 @@
     "en": "to answer",
     "ru": "отвечать",
     "tr": "ррэспондэ́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Pregúntale al portero.",
+     "ru": "Спроси у консьержа.",
+     "frame": [
+      "Pregúntale"
+     ]
+    },
+    {
+     "es": "Todavía no me ha respondido.",
+     "ru": "Он мне ещё не ответил.",
+     "frame": [
+      "respondido"
+     ]
+    },
+    {
+     "es": "Yo pregunto y tú respondes.",
+     "ru": "Я спрашиваю, ты отвечаешь.",
+     "frame": [
+      "pregunto",
+      "respondes"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p129",
@@ -2984,7 +6105,31 @@
     "en": "to listen",
     "ru": "слушать",
     "tr": "эскуча́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Hablo despacio para que me entiendas.",
+     "ru": "Я говорю медленно, чтобы ты понял.",
+     "frame": [
+      "Hablo"
+     ]
+    },
+    {
+     "es": "Escucha bien esta parte.",
+     "ru": "Послушай внимательно эту часть.",
+     "frame": [
+      "Escucha"
+     ]
+    },
+    {
+     "es": "Habla menos y escucha más.",
+     "ru": "Говори меньше, слушай больше.",
+     "frame": [
+      "Habla",
+      "escucha"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p130",
@@ -3006,7 +6151,31 @@
     "en": "to learn",
     "ru": "учиться",
     "tr": "апрэндэ́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mi mujer enseña español.",
+     "ru": "Моя жена преподаёт испанский.",
+     "frame": [
+      "enseña"
+     ]
+    },
+    {
+     "es": "Aprendo rápido cuando practico.",
+     "ru": "Я быстро учусь, когда практикуюсь.",
+     "frame": [
+      "Aprendo"
+     ]
+    },
+    {
+     "es": "Enseña lo que aprende.",
+     "ru": "Он учит тому, чему учится сам.",
+     "frame": [
+      "Enseña",
+      "aprende"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p131",
@@ -3028,7 +6197,31 @@
     "en": "to write",
     "ru": "писать",
     "tr": "эскриби́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Leo el periódico por la mañana.",
+     "ru": "Я читаю газету по утрам.",
+     "frame": [
+      "Leo"
+     ]
+    },
+    {
+     "es": "Escríbeme cuando llegues.",
+     "ru": "Напиши мне, когда доедешь.",
+     "frame": [
+      "Escríbeme"
+     ]
+    },
+    {
+     "es": "Leo bien, pero escribo mal.",
+     "ru": "Читаю хорошо, а пишу плохо.",
+     "frame": [
+      "Leo",
+      "escribo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p132",
@@ -3050,7 +6243,31 @@
     "en": "to forget",
     "ru": "забывать",
     "tr": "олбида́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "No recuerdo el número.",
+     "ru": "Не помню номер.",
+     "frame": [
+      "recuerdo"
+     ]
+    },
+    {
+     "es": "Se me ha olvidado.",
+     "ru": "Я забыл.",
+     "frame": [
+      "olvidado"
+     ]
+    },
+    {
+     "es": "Recuerdo la cara, olvido el nombre.",
+     "ru": "Лицо помню, имя забываю.",
+     "frame": [
+      "Recuerdo",
+      "olvido"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p133",
@@ -3072,7 +6289,31 @@
     "en": "to reject",
     "ru": "отказывать",
     "tr": "ррэчаса́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Aceptan tarjeta aquí.",
+     "ru": "Здесь принимают карту.",
+     "frame": [
+      "Aceptan"
+     ]
+    },
+    {
+     "es": "Rechazaron mi solicitud.",
+     "ru": "Мою заявку отклонили.",
+     "frame": [
+      "Rechazaron"
+     ]
+    },
+    {
+     "es": "Acepto el cambio y rechazo la comisión.",
+     "ru": "Обмен принимаю, комиссию нет.",
+     "frame": [
+      "Acepto",
+      "rechazo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p134",
@@ -3094,7 +6335,31 @@
     "en": "to forbid",
     "ru": "запрещать",
     "tr": "проиби́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "No permiten perros dentro.",
+     "ru": "С собаками внутрь нельзя.",
+     "frame": [
+      "permiten"
+     ]
+    },
+    {
+     "es": "Está prohibido aparcar aquí.",
+     "ru": "Здесь запрещено парковаться.",
+     "frame": [
+      "prohibido"
+     ]
+    },
+    {
+     "es": "Aquí permiten fumar y allí lo prohíben.",
+     "ru": "Здесь курить разрешают, а там запрещают.",
+     "frame": [
+      "permiten",
+      "prohíben"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p135",
@@ -3116,7 +6381,31 @@
     "en": "to cancel",
     "ru": "отменять",
     "tr": "кансэла́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Quiero reservar una mesa.",
+     "ru": "Хочу забронировать стол.",
+     "frame": [
+      "reservar"
+     ]
+    },
+    {
+     "es": "Tengo que cancelar la cita.",
+     "ru": "Мне нужно отменить запись.",
+     "frame": [
+      "cancelar"
+     ]
+    },
+    {
+     "es": "Reservo hoy y cancelo si llueve.",
+     "ru": "Бронирую сегодня, отменю, если будет дождь.",
+     "frame": [
+      "Reservo",
+      "cancelo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p136",
@@ -3138,7 +6427,31 @@
     "en": "to disconnect",
     "ru": "отключать",
     "tr": "дэсконэкта́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Conecta el cable aquí.",
+     "ru": "Подключи кабель сюда.",
+     "frame": [
+      "Conecta"
+     ]
+    },
+    {
+     "es": "Desconecta el router un minuto.",
+     "ru": "Отключи роутер на минуту.",
+     "frame": [
+      "Desconecta"
+     ]
+    },
+    {
+     "es": "Conecto el portátil y desconecto el móvil.",
+     "ru": "Подключаю ноутбук и отключаю телефон.",
+     "frame": [
+      "Conecto",
+      "desconecto"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p137",
@@ -3160,7 +6473,31 @@
     "en": "to download, to unload",
     "ru": "скачивать, разгружать",
     "tr": "дэскарга́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Cargo el móvil por la noche.",
+     "ru": "Я заряжаю телефон ночью.",
+     "frame": [
+      "Cargo"
+     ]
+    },
+    {
+     "es": "Descarga el archivo antes de salir.",
+     "ru": "Скачай файл перед выходом.",
+     "frame": [
+      "Descarga"
+     ]
+    },
+    {
+     "es": "Cargo la batería y descargo las fotos.",
+     "ru": "Заряжаю батарею и скачиваю фотографии.",
+     "frame": [
+      "Cargo",
+      "descargo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p138",
@@ -3182,7 +6519,31 @@
     "en": "to delete",
     "ru": "удалять",
     "tr": "борра́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Crea una cuenta nueva.",
+     "ru": "Создай новый аккаунт.",
+     "frame": [
+      "Crea"
+     ]
+    },
+    {
+     "es": "Borra ese mensaje.",
+     "ru": "Удали это сообщение.",
+     "frame": [
+      "Borra"
+     ]
+    },
+    {
+     "es": "Creo la carpeta y borro los duplicados.",
+     "ru": "Создаю папку и удаляю дубликаты.",
+     "frame": [
+      "Creo",
+      "borro"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p139",
@@ -3204,7 +6565,31 @@
     "en": "to be left over",
     "ru": "быть в избытке",
     "tr": "собра́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Falta una silla.",
+     "ru": "Не хватает стула.",
+     "frame": [
+      "Falta"
+     ]
+    },
+    {
+     "es": "Sobra comida.",
+     "ru": "Еды осталось много.",
+     "frame": [
+      "Sobra"
+     ]
+    },
+    {
+     "es": "Falta pan y sobra queso.",
+     "ru": "Хлеба не хватает, сыра много.",
+     "frame": [
+      "Falta",
+      "sobra"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p140",
@@ -3226,7 +6611,31 @@
     "en": "to leave",
     "ru": "уйти",
     "tr": "и́рсэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "Me quedo un rato más.",
+     "ru": "Я побуду ещё немного.",
+     "frame": [
+      "quedo"
+     ]
+    },
+    {
+     "es": "Se fue sin decir nada.",
+     "ru": "Он ушёл, ничего не сказав.",
+     "frame": [
+      "fue"
+     ]
+    },
+    {
+     "es": "¿Nos quedamos o nos vamos?",
+     "ru": "Остаёмся или уходим?",
+     "frame": [
+      "quedamos",
+      "vamos"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p141",
@@ -3248,7 +6657,31 @@
     "en": "to cry",
     "ru": "плакать",
     "tr": "йора́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Nos reímos toda la tarde.",
+     "ru": "Мы смеялись весь вечер.",
+     "frame": [
+      "reímos"
+     ]
+    },
+    {
+     "es": "La niña está llorando.",
+     "ru": "Дочь плачет.",
+     "frame": [
+      "llorando"
+     ]
+    },
+    {
+     "es": "Primero llora y luego se ríe.",
+     "ru": "Сначала плачет, потом смеётся.",
+     "frame": [
+      "llora",
+      "ríe"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p142",
@@ -3270,7 +6703,31 @@
     "en": "to undress",
     "ru": "раздеваться",
     "tr": "дэснуда́рсэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "Vístete, que llegamos tarde.",
+     "ru": "Одевайся, мы опаздываем.",
+     "frame": [
+      "Vístete"
+     ]
+    },
+    {
+     "es": "El niño se desnuda solo.",
+     "ru": "Ребёнок раздевается сам.",
+     "frame": [
+      "desnuda"
+     ]
+    },
+    {
+     "es": "Se viste rápido y se desnuda despacio.",
+     "ru": "Одевается быстро, раздевается медленно.",
+     "frame": [
+      "viste",
+      "desnuda"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p143",
@@ -3292,7 +6749,31 @@
     "en": "to clean",
     "ru": "убирать",
     "tr": "лимпья́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "No ensucies el suelo.",
+     "ru": "Не пачкай пол.",
+     "frame": [
+      "ensucies"
+     ]
+    },
+    {
+     "es": "Limpio la cocina los sábados.",
+     "ru": "Я убираю кухню по субботам.",
+     "frame": [
+      "Limpio"
+     ]
+    },
+    {
+     "es": "Ensucia en un minuto y limpia en una hora.",
+     "ru": "Пачкает за минуту, убирает за час.",
+     "frame": [
+      "Ensucia",
+      "limpia"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p144",
@@ -3314,7 +6795,31 @@
     "en": "to fix",
     "ru": "чинить",
     "tr": "аррэгла́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Se ha roto.",
+     "ru": "Сломалось.",
+     "frame": [
+      "roto"
+     ]
+    },
+    {
+     "es": "¿Puede arreglarlo?",
+     "ru": "Можете это починить?",
+     "frame": [
+      "arreglarlo"
+     ]
+    },
+    {
+     "es": "Rompe todo y luego lo arregla.",
+     "ru": "Всё ломает, а потом чинит.",
+     "frame": [
+      "Rompe",
+      "arregla"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p145",
@@ -3336,7 +6841,31 @@
     "en": "to get worse",
     "ru": "ухудшаться",
     "tr": "эмпэора́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "El tiempo mejora mañana.",
+     "ru": "Завтра погода улучшится.",
+     "frame": [
+      "mejora"
+     ]
+    },
+    {
+     "es": "La situación ha empeorado.",
+     "ru": "Ситуация ухудшилась.",
+     "frame": [
+      "empeorado"
+     ]
+    },
+    {
+     "es": "Mejora de día y empeora de noche.",
+     "ru": "Днём лучше, ночью хуже.",
+     "frame": [
+      "Mejora",
+      "empeora"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p146",
@@ -3358,7 +6887,31 @@
     "en": "to withdraw",
     "ru": "снять (деньги)",
     "tr": "ррэтира́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Quiero ingresar dinero.",
+     "ru": "Хочу внести деньги.",
+     "frame": [
+      "ingresar"
+     ]
+    },
+    {
+     "es": "Retiré cien euros del cajero.",
+     "ru": "Я снял сто евро в банкомате.",
+     "frame": [
+      "Retiré"
+     ]
+    },
+    {
+     "es": "Ingreso el sueldo y retiro para la compra.",
+     "ru": "Зарплату вношу, снимаю на продукты.",
+     "frame": [
+      "Ingreso",
+      "retiro"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p147",
@@ -3380,7 +6933,31 @@
     "en": "to fail",
     "ru": "не сдать (экзамен)",
     "tr": "суспэндэ́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "He aprobado el examen.",
+     "ru": "Я сдал экзамен.",
+     "frame": [
+      "aprobado"
+     ]
+    },
+    {
+     "es": "Ha suspendido mates.",
+     "ru": "Он не сдал математику.",
+     "frame": [
+      "suspendido"
+     ]
+    },
+    {
+     "es": "Aprobó en junio y suspendió en septiembre.",
+     "ru": "В июне сдал, в сентябре завалил.",
+     "frame": [
+      "Aprobó",
+      "suspendió"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p148",
@@ -3402,7 +6979,31 @@
     "en": "to offer",
     "ru": "предлагать",
     "tr": "офрэсэ́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Esto no lo he pedido.",
+     "ru": "Я этого не заказывал.",
+     "frame": [
+      "pedido"
+     ]
+    },
+    {
+     "es": "Me ofrecieron otro trabajo.",
+     "ru": "Мне предложили другую работу.",
+     "frame": [
+      "ofrecieron"
+     ]
+    },
+    {
+     "es": "Pido poco y ofrezco mucho.",
+     "ru": "Прошу мало, предлагаю много.",
+     "frame": [
+      "Pido",
+      "ofrezco"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p149",
@@ -3424,7 +7025,31 @@
     "en": "to keep",
     "ru": "сохранить",
     "tr": "гуарда́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Tira el papel a la basura.",
+     "ru": "Выброси бумагу в мусор.",
+     "frame": [
+      "Tira"
+     ]
+    },
+    {
+     "es": "Guarda las fotos en el ordenador.",
+     "ru": "Сохрани фотографии на компьютере.",
+     "frame": [
+      "Guarda"
+     ]
+    },
+    {
+     "es": "No tires eso, guárdalo.",
+     "ru": "Не выбрасывай, сохрани.",
+     "frame": [
+      "tires",
+      "guárdalo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p150",
@@ -3446,7 +7071,31 @@
     "en": "to die",
     "ru": "умереть",
     "tr": "мори́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Mi hija nació aquí.",
+     "ru": "Моя дочь родилась здесь.",
+     "frame": [
+      "nació"
+     ]
+    },
+    {
+     "es": "Su abuelo murió en invierno.",
+     "ru": "Его дедушка умер зимой.",
+     "frame": [
+      "murió"
+     ]
+    },
+    {
+     "es": "Nació en Kiev y murió en Madrid.",
+     "ru": "Родился в Киеве, умер в Мадриде.",
+     "frame": [
+      "Nació",
+      "murió"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p151",
@@ -3468,7 +7117,31 @@
     "en": "to land",
     "ru": "приземляться",
     "tr": "атэрриса́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "El avión despega a las diez.",
+     "ru": "Самолёт взлетает в десять.",
+     "frame": [
+      "despega"
+     ]
+    },
+    {
+     "es": "Aterrizamos con media hora de retraso.",
+     "ru": "Мы сели с получасовым опозданием.",
+     "frame": [
+      "Aterrizamos"
+     ]
+    },
+    {
+     "es": "Despega en Valencia y aterriza en Roma.",
+     "ru": "Вылетает из Валенсии и садится в Риме.",
+     "frame": [
+      "Despega",
+      "aterriza"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p176",
@@ -3490,7 +7163,31 @@
     "en": "to pull",
     "ru": "тянуть (на себя)",
     "tr": "тира́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "Empuja la puerta con cuidado.",
+     "ru": "Толкай дверь осторожно.",
+     "frame": [
+      "Empuja"
+     ]
+    },
+    {
+     "es": "Tira de la manilla hacia ti.",
+     "ru": "Тяни ручку на себя.",
+     "frame": [
+      "Tira"
+     ]
+    },
+    {
+     "es": "¿Empujo o tiro?",
+     "ru": "Толкать или тянуть?",
+     "frame": [
+      "Empujo",
+      "tiro"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p177",
@@ -3512,7 +7209,31 @@
     "en": "to hang up",
     "ru": "положить трубку",
     "tr": "колга́р"
-   }
+   },
+   "ex": [
+    {
+     "es": "No puedo coger el teléfono, te llamo luego.",
+     "ru": "Не могу взять трубку, перезвоню позже.",
+     "frame": [
+      "coger el teléfono"
+     ]
+    },
+    {
+     "es": "Colgó sin despedirse.",
+     "ru": "Он бросил трубку, не попрощавшись.",
+     "frame": [
+      "Colgó"
+     ]
+    },
+    {
+     "es": "Coge el teléfono y no cuelgues.",
+     "ru": "Возьми трубку и не клади её.",
+     "frame": [
+      "Coge el teléfono",
+      "cuelgues"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p152",
@@ -3534,7 +7255,31 @@
     "en": "never",
     "ru": "никогда",
     "tr": "ну́нка"
-   }
+   },
+   "ex": [
+    {
+     "es": "Siempre llego temprano.",
+     "ru": "Я всегда прихожу рано.",
+     "frame": [
+      "Siempre"
+     ]
+    },
+    {
+     "es": "Nunca llego tarde.",
+     "ru": "Я никогда не опаздываю.",
+     "frame": [
+      "Nunca"
+     ]
+    },
+    {
+     "es": "Siempre desayuno, nunca ceno tarde.",
+     "ru": "Я всегда завтракаю и никогда не ужинаю поздно.",
+     "frame": [
+      "Siempre",
+      "nunca"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p153",
@@ -3556,7 +7301,31 @@
     "en": "less",
     "ru": "меньше",
     "tr": "мэ́нос"
-   }
+   },
+   "ex": [
+    {
+     "es": "Quiero más pan.",
+     "ru": "Я хочу ещё хлеба.",
+     "frame": [
+      "más"
+     ]
+    },
+    {
+     "es": "Cuesta menos de lo que pensaba.",
+     "ru": "Стоит меньше, чем я думал.",
+     "frame": [
+      "menos"
+     ]
+    },
+    {
+     "es": "Más trabajo y menos tiempo.",
+     "ru": "Больше работы и меньше времени.",
+     "frame": [
+      "Más",
+      "menos"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p154",
@@ -3578,7 +7347,31 @@
     "en": "after",
     "ru": "после",
     "tr": "дэспуэ́с"
-   }
+   },
+   "ex": [
+    {
+     "es": "Antes de comer.",
+     "ru": "До еды.",
+     "frame": [
+      "Antes"
+     ]
+    },
+    {
+     "es": "Después de comer.",
+     "ru": "После еды.",
+     "frame": [
+      "Después"
+     ]
+    },
+    {
+     "es": "Antes llamo y después voy.",
+     "ru": "Сначала звоню, потом иду.",
+     "frame": [
+      "Antes",
+      "después"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p155",
@@ -3600,7 +7393,31 @@
     "en": "late",
     "ru": "поздно",
     "tr": "та́рдэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "Hoy me levanto temprano.",
+     "ru": "Сегодня я встаю рано.",
+     "frame": [
+      "temprano"
+     ]
+    },
+    {
+     "es": "Llegamos tarde otra vez.",
+     "ru": "Мы снова опоздали.",
+     "frame": [
+      "tarde"
+     ]
+    },
+    {
+     "es": "Temprano en verano, tarde en invierno.",
+     "ru": "Летом рано, зимой поздно.",
+     "frame": [
+      "Temprano",
+      "tarde"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p156",
@@ -3622,7 +7439,31 @@
     "en": "tomorrow",
     "ru": "завтра",
     "tr": "манья́на"
-   }
+   },
+   "ex": [
+    {
+     "es": "Ayer no vino nadie.",
+     "ru": "Вчера никто не пришёл.",
+     "frame": [
+      "Ayer"
+     ]
+    },
+    {
+     "es": "Mañana te llamo.",
+     "ru": "Завтра я тебе позвоню.",
+     "frame": [
+      "Mañana"
+     ]
+    },
+    {
+     "es": "Ayer llovió, mañana hace sol.",
+     "ru": "Вчера был дождь, завтра солнце.",
+     "frame": [
+      "Ayer",
+      "mañana"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p158",
@@ -3644,7 +7485,31 @@
     "en": "last, past",
     "ru": "прошлый",
     "tr": "паса́до"
-   }
+   },
+   "ex": [
+    {
+     "es": "La semana próxima.",
+     "ru": "На следующей неделе.",
+     "frame": [
+      "próxima"
+     ]
+    },
+    {
+     "es": "La semana pasada.",
+     "ru": "На прошлой неделе.",
+     "frame": [
+      "pasada"
+     ]
+    },
+    {
+     "es": "El mes pasado llovió, el próximo no sé.",
+     "ru": "В прошлом месяце шёл дождь, про следующий не знаю.",
+     "frame": [
+      "pasado",
+      "próximo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p159",
@@ -3666,7 +7531,31 @@
     "en": "night",
     "ru": "ночь",
     "tr": "ла но́чэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "Trabajo de día.",
+     "ru": "Я работаю днём.",
+     "frame": [
+      "día"
+     ]
+    },
+    {
+     "es": "De noche todo está cerrado.",
+     "ru": "Ночью всё закрыто.",
+     "frame": [
+      "noche"
+     ]
+    },
+    {
+     "es": "De día hace calor y de noche frío.",
+     "ru": "Днём жарко, а ночью холодно.",
+     "frame": [
+      "día",
+      "noche"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p162",
@@ -3688,7 +7577,31 @@
     "en": "right",
     "ru": "право",
     "tr": "ла дэрэ́ча"
-   }
+   },
+   "ex": [
+    {
+     "es": "La escalera queda a la izquierda.",
+     "ru": "Лестница слева.",
+     "frame": [
+      "izquierda"
+     ]
+    },
+    {
+     "es": "El baño está a la derecha.",
+     "ru": "Туалет справа.",
+     "frame": [
+      "derecha"
+     ]
+    },
+    {
+     "es": "A la izquierda el banco, a la derecha la farmacia.",
+     "ru": "Слева банк, справа аптека.",
+     "frame": [
+      "izquierda",
+      "derecha"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p163",
@@ -3710,7 +7623,31 @@
     "en": "south",
     "ru": "юг",
     "tr": "эл сур"
-   }
+   },
+   "ex": [
+    {
+     "es": "El norte es más verde.",
+     "ru": "Север зеленее.",
+     "frame": [
+      "norte"
+     ]
+    },
+    {
+     "es": "En el sur hace más calor.",
+     "ru": "На юге жарче.",
+     "frame": [
+      "sur"
+     ]
+    },
+    {
+     "es": "Del norte al sur son mil kilómetros.",
+     "ru": "С севера на юг тысяча километров.",
+     "frame": [
+      "norte",
+      "sur"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p164",
@@ -3732,7 +7669,31 @@
     "en": "west",
     "ru": "запад",
     "tr": "эл оэ́стэ"
-   }
+   },
+   "ex": [
+    {
+     "es": "El sol sale por el este.",
+     "ru": "Солнце встаёт на востоке.",
+     "frame": [
+      "este"
+     ]
+    },
+    {
+     "es": "La ventana da al oeste.",
+     "ru": "Окно выходит на запад.",
+     "frame": [
+      "oeste"
+     ]
+    },
+    {
+     "es": "El este es más húmedo que el oeste.",
+     "ru": "Восток влажнее запада.",
+     "frame": [
+      "este",
+      "oeste"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p165",
@@ -3754,7 +7715,31 @@
     "en": "separately",
     "ru": "отдельно",
     "tr": "сэпара́дос"
-   }
+   },
+   "ex": [
+    {
+     "es": "Vamos juntos.",
+     "ru": "Пойдём вместе.",
+     "frame": [
+      "juntos"
+     ]
+    },
+    {
+     "es": "Pagamos separados.",
+     "ru": "Платим раздельно.",
+     "frame": [
+      "separados"
+     ]
+    },
+    {
+     "es": "Venimos juntos y volvemos separados.",
+     "ru": "Приходим вместе, а возвращаемся порознь.",
+     "frame": [
+      "juntos",
+      "separados"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p166",
@@ -3776,7 +7761,31 @@
     "en": "that way",
     "ru": "туда",
     "tr": "пор айи́"
-   }
+   },
+   "ex": [
+    {
+     "es": "Vamos por aquí.",
+     "ru": "Пойдём сюда.",
+     "frame": [
+      "por aquí"
+     ]
+    },
+    {
+     "es": "Se sale por allí.",
+     "ru": "Выход вон там.",
+     "frame": [
+      "por allí"
+     ]
+    },
+    {
+     "es": "Por aquí se llega antes que por allí.",
+     "ru": "Здесь дойдёшь быстрее, чем там.",
+     "frame": [
+      "Por aquí",
+      "por allí"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p167",
@@ -3798,7 +7807,31 @@
     "en": "back",
     "ru": "назад",
     "tr": "атра́с"
-   }
+   },
+   "ex": [
+    {
+     "es": "Sigue adelante dos calles.",
+     "ru": "Иди вперёд два квартала.",
+     "frame": [
+      "adelante"
+     ]
+    },
+    {
+     "es": "Un paso atrás, por favor.",
+     "ru": "Шаг назад, пожалуйста.",
+     "frame": [
+      "atrás"
+     ]
+    },
+    {
+     "es": "Un paso adelante y dos atrás.",
+     "ru": "Шаг вперёд и два назад.",
+     "frame": [
+      "adelante",
+      "atrás"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p168",
@@ -3820,7 +7853,31 @@
     "en": "at the weekend",
     "ru": "на выходных",
     "tr": "эл фин дэ сэма́на"
-   }
+   },
+   "ex": [
+    {
+     "es": "Entre semana trabajo.",
+     "ru": "В будни я работаю.",
+     "frame": [
+      "Entre semana"
+     ]
+    },
+    {
+     "es": "El fin de semana vamos a la playa.",
+     "ru": "На выходных едем на пляж.",
+     "frame": [
+      "fin de semana"
+     ]
+    },
+    {
+     "es": "Entre semana en casa, el fin de semana fuera.",
+     "ru": "В будни дома, на выходных за городом.",
+     "frame": [
+      "Entre semana",
+      "fin de semana"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p169",
@@ -3842,7 +7899,31 @@
     "en": "delayed",
     "ru": "с опозданием",
     "tr": "кон ррэтра́со"
-   }
+   },
+   "ex": [
+    {
+     "es": "El tren llegó a tiempo.",
+     "ru": "Поезд пришёл вовремя.",
+     "frame": [
+      "a tiempo"
+     ]
+    },
+    {
+     "es": "El vuelo sale con retraso.",
+     "ru": "Рейс задерживается.",
+     "frame": [
+      "con retraso"
+     ]
+    },
+    {
+     "es": "Salió a tiempo y llegó con retraso.",
+     "ru": "Вышел вовремя, а пришёл с опозданием.",
+     "frame": [
+      "a tiempo",
+      "con retraso"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p170",
@@ -3864,7 +7945,31 @@
     "en": "goodbye",
     "ru": "до свидания",
     "tr": "адьо́с"
-   }
+   },
+   "ex": [
+    {
+     "es": "Hola, buenos días.",
+     "ru": "Привет, добрый день.",
+     "frame": [
+      "Hola"
+     ]
+    },
+    {
+     "es": "Adiós, hasta mañana.",
+     "ru": "До свидания, до завтра.",
+     "frame": [
+      "Adiós"
+     ]
+    },
+    {
+     "es": "Dice hola al entrar y adiós al salir.",
+     "ru": "Он здоровается на входе и прощается на выходе.",
+     "frame": [
+      "hola",
+      "adiós"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p171",
@@ -3886,7 +7991,31 @@
     "en": "of course not",
     "ru": "конечно нет",
     "tr": "кла́ро кэ но"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Vienes? — Claro que sí.",
+     "ru": "Идёшь? — Конечно.",
+     "frame": [
+      "Claro que sí"
+     ]
+    },
+    {
+     "es": "¿Te molesta? — Claro que no.",
+     "ru": "Тебе мешает? — Конечно нет.",
+     "frame": [
+      "Claro que no"
+     ]
+    },
+    {
+     "es": "A veces claro que sí, a veces claro que no.",
+     "ru": "Иногда да, иногда нет.",
+     "frame": [
+      "claro que sí",
+      "claro que no"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p172",
@@ -3908,7 +8037,31 @@
     "en": "I don't understand",
     "ru": "не понимаю",
     "tr": "но энтье́ндо"
-   }
+   },
+   "ex": [
+    {
+     "es": "Entiendo, gracias.",
+     "ru": "Понимаю, спасибо.",
+     "frame": [
+      "Entiendo"
+     ]
+    },
+    {
+     "es": "Perdón, no entiendo.",
+     "ru": "Извините, я не понимаю.",
+     "frame": [
+      "no entiendo"
+     ]
+    },
+    {
+     "es": "Entiendo la pregunta, no entiendo la respuesta.",
+     "ru": "Вопрос я понимаю, ответ — нет.",
+     "frame": [
+      "Entiendo",
+      "no entiendo"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p173",
@@ -3930,7 +8083,31 @@
     "en": "you're welcome",
     "ru": "не за что",
     "tr": "дэ на́да"
-   }
+   },
+   "ex": [
+    {
+     "es": "Muchas gracias por la ayuda.",
+     "ru": "Большое спасибо за помощь.",
+     "frame": [
+      "Muchas gracias"
+     ]
+    },
+    {
+     "es": "De nada, hasta luego.",
+     "ru": "Не за что, до скорого.",
+     "frame": [
+      "De nada"
+     ]
+    },
+    {
+     "es": "Muchas gracias. — De nada.",
+     "ru": "Большое спасибо. — Не за что.",
+     "frame": [
+      "Muchas gracias",
+      "De nada"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p174",
@@ -3952,7 +8129,31 @@
     "en": "no problem",
     "ru": "ничего страшного",
     "tr": "но па́са на́да"
-   }
+   },
+   "ex": [
+    {
+     "es": "Perdón, ¿puedo pasar?",
+     "ru": "Извините, можно пройти?",
+     "frame": [
+      "Perdón"
+     ]
+    },
+    {
+     "es": "No pasa nada, de verdad.",
+     "ru": "Ничего страшного, правда.",
+     "frame": [
+      "No pasa nada"
+     ]
+    },
+    {
+     "es": "Perdón. — No pasa nada.",
+     "ru": "Извините. — Ничего страшного.",
+     "frame": [
+      "Perdón",
+      "No pasa nada"
+     ]
+    }
+   ]
   },
   {
    "id": "es4-p175",
@@ -3974,1372 +8175,31 @@
     "en": "nothing else",
     "ru": "больше ничего",
     "tr": "на́да мас"
-   }
-  },
-  {
-   "id": "es4-x001",
-   "type": "phrase",
-   "es": "Es muy grande.",
-   "ru": "Это очень большое.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x002",
-   "type": "phrase",
-   "es": "¿Tienes una talla más pequeña?",
-   "ru": "Есть размер поменьше?",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x003",
-   "type": "phrase",
-   "es": "Mi hija todavía es pequeña.",
-   "ru": "Моя дочь ещё маленькая.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x004",
-   "type": "phrase",
-   "es": "El pasillo es estrecho.",
-   "ru": "Коридор узкий.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x005",
-   "type": "phrase",
-   "es": "Es una calle ancha.",
-   "ru": "Это широкая улица.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x006",
-   "type": "phrase",
-   "es": "La falda es muy corta.",
-   "ru": "Юбка очень короткая.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x007",
-   "type": "phrase",
-   "es": "Está arriba.",
-   "ru": "Это наверху.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x008",
-   "type": "phrase",
-   "es": "Vivo arriba, en el tercero.",
-   "ru": "Я живу наверху, на третьем.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x009",
-   "type": "phrase",
-   "es": "La farmacia está abajo.",
-   "ru": "Аптека внизу.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x010",
-   "type": "phrase",
-   "es": "Voy abajo un momento.",
-   "ru": "Я спущусь на минуту.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x011",
-   "type": "phrase",
-   "es": "Hay mucha gente.",
-   "ru": "Тут много народу.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x012",
-   "type": "phrase",
-   "es": "Hoy hay poca gente.",
-   "ru": "Сегодня мало народу.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x013",
-   "type": "phrase",
-   "es": "Mucho mejor, gracias.",
-   "ru": "Намного лучше, спасибо.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x014",
-   "type": "phrase",
-   "es": "Poco a poco.",
-   "ru": "Потихоньку.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x015",
-   "type": "phrase",
-   "es": "Es un poco raro.",
-   "ru": "Это немного странно.",
-   "group": "Размер и количество"
-  },
-  {
-   "id": "es4-x016",
-   "type": "phrase",
-   "es": "El café está frío.",
-   "ru": "Кофе холодный.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x017",
-   "type": "phrase",
-   "es": "¿Lo quieres caliente?",
-   "ru": "Хочешь горячим?",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x018",
-   "type": "phrase",
-   "es": "Está muy salado.",
-   "ru": "Очень солёно.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x019",
-   "type": "phrase",
-   "es": "¿Tienen algo dulce?",
-   "ru": "Есть что-нибудь сладкое?",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x020",
-   "type": "phrase",
-   "es": "Para la niña, algo suave.",
-   "ru": "Ребёнку что-нибудь неострое.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x021",
-   "type": "phrase",
-   "es": "Está demasiado picante.",
-   "ru": "Слишком остро.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x022",
-   "type": "phrase",
-   "es": "El pan está seco.",
-   "ru": "Хлеб чёрствый.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x023",
-   "type": "phrase",
-   "es": "El clima aquí es muy húmedo.",
-   "ru": "Климат здесь очень влажный.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x024",
-   "type": "phrase",
-   "es": "Es muy caro.",
-   "ru": "Это очень дорого.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x025",
-   "type": "phrase",
-   "es": "¿Hay algo más barato?",
-   "ru": "Есть что-нибудь подешевле?",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x026",
-   "type": "phrase",
-   "es": "Es caro, pero es bueno.",
-   "ru": "Дорого, но хорошо.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x027",
-   "type": "phrase",
-   "es": "Está bien, gracias.",
-   "ru": "Хорошо, спасибо.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x028",
-   "type": "phrase",
-   "es": "Me siento mal.",
-   "ru": "Мне плохо.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x029",
-   "type": "phrase",
-   "es": "Este es mejor.",
-   "ru": "Этот лучше.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x030",
-   "type": "phrase",
-   "es": "Hoy estoy peor.",
-   "ru": "Сегодня мне хуже.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x031",
-   "type": "phrase",
-   "es": "Es mi mejor amigo.",
-   "ru": "Это мой лучший друг.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x032",
-   "type": "phrase",
-   "es": "¿Es correcto así?",
-   "ru": "Так правильно?",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x033",
-   "type": "phrase",
-   "es": "El número es incorrecto.",
-   "ru": "Номер неправильный.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x034",
-   "type": "phrase",
-   "es": "Vas muy rápido.",
-   "ru": "Ты идёшь очень быстро.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x035",
-   "type": "phrase",
-   "es": "Más lento, por favor.",
-   "ru": "Помедленнее, пожалуйста.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x036",
-   "type": "phrase",
-   "es": "Es fácil.",
-   "ru": "Это просто.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x037",
-   "type": "phrase",
-   "es": "Para mí es difícil.",
-   "ru": "Мне это сложно.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x038",
-   "type": "phrase",
-   "es": "¿Es posible cambiar la fecha?",
-   "ru": "Можно поменять дату?",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x039",
-   "type": "phrase",
-   "es": "Hoy es imposible.",
-   "ru": "Сегодня невозможно.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x059",
-   "type": "phrase",
-   "es": "Está rico.",
-   "ru": "Вкусно.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x082",
-   "type": "phrase",
-   "es": "Es muy interesante.",
-   "ru": "Это очень интересно.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x083",
-   "type": "phrase",
-   "es": "La película es aburrida.",
-   "ru": "Фильм скучный.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x084",
-   "type": "phrase",
-   "es": "Aquí es seguro.",
-   "ru": "Здесь безопасно.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x085",
-   "type": "phrase",
-   "es": "Es peligroso para los niños.",
-   "ru": "Это опасно для детей.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x086",
-   "type": "phrase",
-   "es": "Aquí es normal.",
-   "ru": "Здесь это нормально.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x087",
-   "type": "phrase",
-   "es": "Es igual.",
-   "ru": "Без разницы.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x088",
-   "type": "phrase",
-   "es": "Es diferente.",
-   "ru": "Это другое.",
-   "group": "Оценка и впечатление"
-  },
-  {
-   "id": "es4-x040",
-   "type": "phrase",
-   "es": "La tienda está cerrada.",
-   "ru": "Магазин закрыт.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x041",
-   "type": "phrase",
-   "es": "¿Está abierto los domingos?",
-   "ru": "По воскресеньям открыто?",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x042",
-   "type": "phrase",
-   "es": "La mesa está libre.",
-   "ru": "Стол свободен.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x043",
-   "type": "phrase",
-   "es": "Está ocupado.",
-   "ru": "Занято.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x044",
-   "type": "phrase",
-   "es": "El vaso está vacío.",
-   "ru": "Стакан пустой.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x045",
-   "type": "phrase",
-   "es": "El autobús va lleno.",
-   "ru": "Автобус набит.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x046",
-   "type": "phrase",
-   "es": "El coche está sucio.",
-   "ru": "Машина грязная.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x047",
-   "type": "phrase",
-   "es": "La habitación está limpia.",
-   "ru": "Комната чистая.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x048",
-   "type": "phrase",
-   "es": "Es un móvil nuevo.",
-   "ru": "Это новый телефон.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x049",
-   "type": "phrase",
-   "es": "Es un edificio muy viejo.",
-   "ru": "Это очень старое здание.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x050",
-   "type": "phrase",
-   "es": "Es un parking público.",
-   "ru": "Это общественная парковка.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x051",
-   "type": "phrase",
-   "es": "Es una clase privada.",
-   "ru": "Это частное занятие.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x052",
-   "type": "phrase",
-   "es": "Quiero un azul más claro.",
-   "ru": "Хочу синий посветлее.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x053",
-   "type": "phrase",
-   "es": "El piso es un poco oscuro.",
-   "ru": "Квартира немного тёмная.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x054",
-   "type": "phrase",
-   "es": "La maleta es muy pesada.",
-   "ru": "Чемодан очень тяжёлый.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x055",
-   "type": "phrase",
-   "es": "Es una chaqueta ligera.",
-   "ru": "Это лёгкая куртка.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x056",
-   "type": "phrase",
-   "es": "El colchón es muy duro.",
-   "ru": "Матрас очень жёсткий.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x057",
-   "type": "phrase",
-   "es": "Es un hotel silencioso.",
-   "ru": "Отель тихий.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x058",
-   "type": "phrase",
-   "es": "La calle es muy ruidosa.",
-   "ru": "Улица очень шумная.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x194",
-   "type": "phrase",
-   "es": "La ropa todavía está mojada.",
-   "ru": "Одежда ещё мокрая.",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x195",
-   "type": "phrase",
-   "es": "¿Has dejado la luz encendida?",
-   "ru": "Ты оставил свет включённым?",
-   "group": "Вещи и места: состояние"
-  },
-  {
-   "id": "es4-x060",
-   "type": "phrase",
-   "es": "Es muy joven.",
-   "ru": "Он совсем молодой.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x061",
-   "type": "phrase",
-   "es": "Es una señora mayor.",
-   "ru": "Это пожилая женщина.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x062",
-   "type": "phrase",
-   "es": "Mi hija está enferma.",
-   "ru": "Моя дочь болеет.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x063",
-   "type": "phrase",
-   "es": "Ya está sano.",
-   "ru": "Он уже здоров.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x064",
-   "type": "phrase",
-   "es": "Estoy cansado.",
-   "ru": "Я устал.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x065",
-   "type": "phrase",
-   "es": "Hoy estoy descansado.",
-   "ru": "Сегодня я хорошо отдохнул.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x066",
-   "type": "phrase",
-   "es": "Es un niño fuerte.",
-   "ru": "Это крепкий ребёнок.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x067",
-   "type": "phrase",
-   "es": "Hoy me siento débil.",
-   "ru": "Сегодня я чувствую себя слабым.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x068",
-   "type": "phrase",
-   "es": "Es muy simpática.",
-   "ru": "Она очень приятная.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x069",
-   "type": "phrase",
-   "es": "El vecino es antipático.",
-   "ru": "Сосед неприветливый.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x070",
-   "type": "phrase",
-   "es": "¡Qué guapa!",
-   "ru": "Какая красивая!",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x071",
-   "type": "phrase",
-   "es": "La niña es muy educada.",
-   "ru": "Девочка очень воспитанная.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x072",
-   "type": "phrase",
-   "es": "No seas maleducado.",
-   "ru": "Не хами.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x073",
-   "type": "phrase",
-   "es": "Es un niño muy inteligente.",
-   "ru": "Это очень умный ребёнок.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x074",
-   "type": "phrase",
-   "es": "Estoy casado.",
-   "ru": "Я женат.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x075",
-   "type": "phrase",
-   "es": "Está soltera.",
-   "ru": "Она не замужем.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x076",
-   "type": "phrase",
-   "es": "Estoy contento.",
-   "ru": "Я доволен.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x077",
-   "type": "phrase",
-   "es": "¿Estás enfadado conmigo?",
-   "ru": "Ты на меня злишься?",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x078",
-   "type": "phrase",
-   "es": "Está triste.",
-   "ru": "Ему грустно.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x079",
-   "type": "phrase",
-   "es": "Estoy muy feliz.",
-   "ru": "Я очень счастлив.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x080",
-   "type": "phrase",
-   "es": "Tranquilo, no pasa nada.",
-   "ru": "Спокойно, ничего страшного.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x081",
-   "type": "phrase",
-   "es": "Está nerviosa por el examen.",
-   "ru": "Она нервничает из-за экзамена.",
-   "group": "Люди: характер и состояние"
-  },
-  {
-   "id": "es4-x089",
-   "type": "phrase",
-   "es": "Es mi hija.",
-   "ru": "Это моя дочь.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x090",
-   "type": "phrase",
-   "es": "Mi marido no habla español.",
-   "ru": "Мой муж не говорит по-испански.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x091",
-   "type": "phrase",
-   "es": "Mis abuelos viven lejos.",
-   "ru": "Мои дедушка с бабушкой живут далеко.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x092",
-   "type": "phrase",
-   "es": "¿Tienes hermanos?",
-   "ru": "У тебя есть братья или сёстры?",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x093",
-   "type": "phrase",
-   "es": "Es la profesora de mi hija.",
-   "ru": "Это учительница моей дочери.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x094",
-   "type": "phrase",
-   "es": "Somos vecinos.",
-   "ru": "Мы соседи.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x095",
-   "type": "phrase",
-   "es": "Es un amigo de mi novia.",
-   "ru": "Это друг моей девушки.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x096",
-   "type": "phrase",
-   "es": "Perdone, señora.",
-   "ru": "Простите, сеньора.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x097",
-   "type": "phrase",
-   "es": "¡Camarero, la cuenta!",
-   "ru": "Официант, счёт!",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x098",
-   "type": "phrase",
-   "es": "Es mi suegra.",
-   "ru": "Это моя свекровь.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x099",
-   "type": "phrase",
-   "es": "Mi cuñado vive aquí.",
-   "ru": "Мой шурин живёт здесь.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x100",
-   "type": "phrase",
-   "es": "Tengo dos sobrinos.",
-   "ru": "У меня два племянника.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x101",
-   "type": "phrase",
-   "es": "Es la dueña del piso.",
-   "ru": "Это хозяйка квартиры.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x102",
-   "type": "phrase",
-   "es": "La médica dice que no es grave.",
-   "ru": "Врач говорит, ничего серьёзного.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x103",
-   "type": "phrase",
-   "es": "Habla con la dependienta.",
-   "ru": "Поговори с продавщицей.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x104",
-   "type": "phrase",
-   "es": "Mi jefa está de vacaciones.",
-   "ru": "Моя начальница в отпуске.",
-   "group": "Люди: род и родство"
-  },
-  {
-   "id": "es4-x105",
-   "type": "phrase",
-   "es": "Tengo una pregunta.",
-   "ru": "У меня вопрос.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x106",
-   "type": "phrase",
-   "es": "Esa es la respuesta.",
-   "ru": "Вот это ответ.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x107",
-   "type": "phrase",
-   "es": "La entrada está por allí.",
-   "ru": "Вход вон там.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x108",
-   "type": "phrase",
-   "es": "¿Dónde está la salida?",
-   "ru": "Где выход?",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x109",
-   "type": "phrase",
-   "es": "La salida es a las ocho, la llegada a las diez.",
-   "ru": "Отправление в восемь, прибытие в десять.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x110",
-   "type": "phrase",
-   "es": "¿Carne o pescado?",
-   "ru": "Мясо или рыба?",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x111",
-   "type": "phrase",
-   "es": "Sin sal, por favor.",
-   "ru": "Без соли, пожалуйста.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x112",
-   "type": "phrase",
-   "es": "¿Puedo pagar en efectivo?",
-   "ru": "Можно заплатить наличными?",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x113",
-   "type": "phrase",
-   "es": "Con tarjeta, mejor.",
-   "ru": "Лучше картой.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x114",
-   "type": "phrase",
-   "es": "Tengo hambre.",
-   "ru": "Я голоден.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x115",
-   "type": "phrase",
-   "es": "Tengo sed.",
-   "ru": "Я хочу пить.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x116",
-   "type": "phrase",
-   "es": "¿Vamos al mar o a la montaña?",
-   "ru": "Едем на море или в горы?",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x117",
-   "type": "phrase",
-   "es": "Vivimos en un pueblo pequeño.",
-   "ru": "Мы живём в маленьком городке.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x118",
-   "type": "phrase",
-   "es": "Aquí hay mucha sombra.",
-   "ru": "Здесь много тени.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x119",
-   "type": "phrase",
-   "es": "Hoy hace sol.",
-   "ru": "Сегодня солнечно.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x120",
-   "type": "phrase",
-   "es": "Con esta lluvia no salimos.",
-   "ru": "В такой дождь мы не выходим.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x121",
-   "type": "phrase",
-   "es": "¿Cuál es su apellido?",
-   "ru": "Какая у вас фамилия?",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x122",
-   "type": "phrase",
-   "es": "No funciona la calefacción.",
-   "ru": "Не работает отопление.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x123",
-   "type": "phrase",
-   "es": "¿Puede poner el aire acondicionado?",
-   "ru": "Можете включить кондиционер?",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x124",
-   "type": "phrase",
-   "es": "¿Cuánto es el alquiler?",
-   "ru": "Сколько стоит аренда?",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x125",
-   "type": "phrase",
-   "es": "Al principio fue difícil.",
-   "ru": "Сначала было сложно.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x126",
-   "type": "phrase",
-   "es": "Al final todo salió bien.",
-   "ru": "В итоге всё вышло хорошо.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x127",
-   "type": "phrase",
-   "es": "Aquí hay mucho ruido.",
-   "ru": "Здесь очень шумно.",
-   "group": "Понятия: вещи, еда, места"
-  },
-  {
-   "id": "es4-x128",
-   "type": "phrase",
-   "es": "¿A qué hora abren?",
-   "ru": "Во сколько открываете?",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x129",
-   "type": "phrase",
-   "es": "Cierran a las dos.",
-   "ru": "Закрываются в два.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x130",
-   "type": "phrase",
-   "es": "Empezamos a las nueve y terminamos a las cinco.",
-   "ru": "Начинаем в девять, заканчиваем в пять.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x131",
-   "type": "phrase",
-   "es": "¿Puedes apagar la luz?",
-   "ru": "Можешь выключить свет?",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x132",
-   "type": "phrase",
-   "es": "Enciende la tele.",
-   "ru": "Включи телевизор.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x133",
-   "type": "phrase",
-   "es": "Sube, te espero arriba.",
-   "ru": "Поднимайся, я жду наверху.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x134",
-   "type": "phrase",
-   "es": "Bajo en dos minutos.",
-   "ru": "Спускаюсь через две минуты.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x135",
-   "type": "phrase",
-   "es": "¿Aquí venden pan?",
-   "ru": "Здесь продают хлеб?",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x136",
-   "type": "phrase",
-   "es": "¿Cuánto me va a cobrar?",
-   "ru": "Сколько с меня?",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x137",
-   "type": "phrase",
-   "es": "Te lo devuelvo mañana.",
-   "ru": "Верну тебе завтра.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x138",
-   "type": "phrase",
-   "es": "¿Me lo puedes prestar?",
-   "ru": "Можешь мне одолжить?",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x139",
-   "type": "phrase",
-   "es": "Recojo a la niña a las cuatro.",
-   "ru": "Забираю дочь в четыре.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x140",
-   "type": "phrase",
-   "es": "Hay que entregar el formulario hoy.",
-   "ru": "Бланк надо сдать сегодня.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x141",
-   "type": "phrase",
-   "es": "No lo encuentro, lo estoy buscando.",
-   "ru": "Не нахожу, ищу.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x142",
-   "type": "phrase",
-   "es": "No recuerdo el número.",
-   "ru": "Не помню номер.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x143",
-   "type": "phrase",
-   "es": "Se me ha olvidado.",
-   "ru": "Я забыл.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x144",
-   "type": "phrase",
-   "es": "Quiero reservar una mesa.",
-   "ru": "Хочу забронировать стол.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x145",
-   "type": "phrase",
-   "es": "Tengo que cancelar la cita.",
-   "ru": "Мне нужно отменить запись.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x146",
-   "type": "phrase",
-   "es": "Está prohibido aparcar aquí.",
-   "ru": "Здесь запрещено парковаться.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x147",
-   "type": "phrase",
-   "es": "¿Me dejas el cargador?",
-   "ru": "Дашь зарядку?",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x148",
-   "type": "phrase",
-   "es": "Coge una silla.",
-   "ru": "Возьми стул.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x149",
-   "type": "phrase",
-   "es": "Falta una silla.",
-   "ru": "Не хватает стула.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x150",
-   "type": "phrase",
-   "es": "Sobra comida.",
-   "ru": "Еды осталось много.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x151",
-   "type": "phrase",
-   "es": "¿Nos quedamos o nos vamos?",
-   "ru": "Остаёмся или уходим?",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x152",
-   "type": "phrase",
-   "es": "La niña está llorando.",
-   "ru": "Дочь плачет.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x153",
-   "type": "phrase",
-   "es": "Se ha roto.",
-   "ru": "Сломалось.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x154",
-   "type": "phrase",
-   "es": "¿Puede arreglarlo?",
-   "ru": "Можете это починить?",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x155",
-   "type": "phrase",
-   "es": "Vístete, que llegamos tarde.",
-   "ru": "Одевайся, мы опаздываем.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x156",
-   "type": "phrase",
-   "es": "Quiero ingresar dinero.",
-   "ru": "Хочу внести деньги.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x157",
-   "type": "phrase",
-   "es": "He aprobado el examen.",
-   "ru": "Я сдал экзамен.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x158",
-   "type": "phrase",
-   "es": "Ha suspendido mates.",
-   "ru": "Он не сдал математику.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x159",
-   "type": "phrase",
-   "es": "¿Puedo pedir la cuenta?",
-   "ru": "Можно попросить счёт?",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x160",
-   "type": "phrase",
-   "es": "No tires eso, guárdalo.",
-   "ru": "Не выбрасывай, сохрани.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x161",
-   "type": "phrase",
-   "es": "El avión despega a las diez.",
-   "ru": "Самолёт взлетает в десять.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x162",
-   "type": "phrase",
-   "es": "Mi hija nació aquí.",
-   "ru": "Моя дочь родилась здесь.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x192",
-   "type": "phrase",
-   "es": "¿Empujo o tiro?",
-   "ru": "Толкать или тянуть?",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x193",
-   "type": "phrase",
-   "es": "No puedo coger el teléfono, te llamo luego.",
-   "ru": "Не могу взять трубку, перезвоню позже.",
-   "group": "Действия"
-  },
-  {
-   "id": "es4-x163",
-   "type": "phrase",
-   "es": "Antes de comer.",
-   "ru": "До еды.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x164",
-   "type": "phrase",
-   "es": "Después de comer.",
-   "ru": "После еды.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x165",
-   "type": "phrase",
-   "es": "Siempre llego temprano.",
-   "ru": "Я всегда прихожу рано.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x166",
-   "type": "phrase",
-   "es": "Nunca llego tarde.",
-   "ru": "Я никогда не опаздываю.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x167",
-   "type": "phrase",
-   "es": "Ayer llovió, mañana hace sol.",
-   "ru": "Вчера был дождь, завтра солнце.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x168",
-   "type": "phrase",
-   "es": "Es la primera vez.",
-   "ru": "Это первый раз.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x169",
-   "type": "phrase",
-   "es": "Es la última vez.",
-   "ru": "Это последний раз.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x170",
-   "type": "phrase",
-   "es": "La semana próxima.",
-   "ru": "На следующей неделе.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x171",
-   "type": "phrase",
-   "es": "La semana pasada.",
-   "ru": "На прошлой неделе.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x172",
-   "type": "phrase",
-   "es": "Por la mañana, no por la tarde.",
-   "ru": "Утром, не днём.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x173",
-   "type": "phrase",
-   "es": "El baño está a la derecha.",
-   "ru": "Туалет справа.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x174",
-   "type": "phrase",
-   "es": "Vamos por aquí.",
-   "ru": "Пойдём сюда.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x175",
-   "type": "phrase",
-   "es": "En verano hace mucho calor.",
-   "ru": "Летом очень жарко.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x176",
-   "type": "phrase",
-   "es": "Vamos juntos.",
-   "ru": "Пойдём вместе.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x177",
-   "type": "phrase",
-   "es": "Pagamos separados.",
-   "ru": "Платим раздельно.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x178",
-   "type": "phrase",
-   "es": "Entre semana trabajo.",
-   "ru": "В будни я работаю.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x179",
-   "type": "phrase",
-   "es": "El fin de semana vamos a la playa.",
-   "ru": "На выходных едем на пляж.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x180",
-   "type": "phrase",
-   "es": "El tren llegó a tiempo.",
-   "ru": "Поезд пришёл вовремя.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x181",
-   "type": "phrase",
-   "es": "Viene con retraso.",
-   "ru": "Идёт с опозданием.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x182",
-   "type": "phrase",
-   "es": "Un paso atrás, por favor.",
-   "ru": "Шаг назад, пожалуйста.",
-   "group": "Время и направление"
-  },
-  {
-   "id": "es4-x183",
-   "type": "phrase",
-   "es": "Hola, buenos días.",
-   "ru": "Привет, добрый день.",
-   "group": "Реплики"
-  },
-  {
-   "id": "es4-x184",
-   "type": "phrase",
-   "es": "Adiós, hasta mañana.",
-   "ru": "До свидания, до завтра.",
-   "group": "Реплики"
-  },
-  {
-   "id": "es4-x185",
-   "type": "exchange",
-   "es": "¿Vienes? — Claro que sí.",
-   "ru": "Идёшь? — Конечно.",
-   "group": "Реплики"
-  },
-  {
-   "id": "es4-x186",
-   "type": "phrase",
-   "es": "Perdón, no entiendo.",
-   "ru": "Извините, я не понимаю.",
-   "group": "Реплики"
-  },
-  {
-   "id": "es4-x187",
-   "type": "phrase",
-   "es": "Ah, ahora entiendo.",
-   "ru": "А, теперь понимаю.",
-   "group": "Реплики"
-  },
-  {
-   "id": "es4-x188",
-   "type": "exchange",
-   "es": "Muchas gracias. — De nada.",
-   "ru": "Большое спасибо. — Не за что.",
-   "group": "Реплики"
-  },
-  {
-   "id": "es4-x189",
-   "type": "phrase",
-   "es": "Bueno, vamos.",
-   "ru": "Ну, пойдём.",
-   "group": "Реплики"
-  },
-  {
-   "id": "es4-x190",
-   "type": "exchange",
-   "es": "Perdón. — No pasa nada.",
-   "ru": "Извините. — Ничего страшного.",
-   "group": "Реплики"
-  },
-  {
-   "id": "es4-x191",
-   "type": "exchange",
-   "es": "¿Algo más? — Nada más, gracias.",
-   "ru": "Что-нибудь ещё? — Больше ничего, спасибо.",
-   "group": "Реплики"
+   },
+   "ex": [
+    {
+     "es": "¿Algo más para beber?",
+     "ru": "Ещё что-нибудь выпить?",
+     "frame": [
+      "Algo más"
+     ]
+    },
+    {
+     "es": "Nada más, así está bien.",
+     "ru": "Больше ничего, так хорошо.",
+     "frame": [
+      "Nada más"
+     ]
+    },
+    {
+     "es": "¿Algo más? — Nada más, gracias.",
+     "ru": "Что-нибудь ещё? — Больше ничего, спасибо.",
+     "frame": [
+      "Algo más",
+      "Nada más"
+     ]
+    }
+   ]
   }
  ],
  "notes": [

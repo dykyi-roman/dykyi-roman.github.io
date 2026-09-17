@@ -24,13 +24,13 @@
     var BROWSE_STEP = 200;
 
     // Inside one topic the entries read words first, then pairs, then live
-    // phrases and dialogues, with the drills last.
-    var TYPE_ORDER = { vocab: 0, pair: 1, phrase: 2, exchange: 3, drill: 4 };
+    // then the drills last.
+    var TYPE_ORDER = { vocab: 0, pair: 1, drill: 2 };
 
     // What a run of one type is called where it starts. The browse list is one
     // flat list, so without these the words simply turn into sentences
     // somewhere in the middle with nothing to mark the seam.
-    var RUN_LABEL = { vocab: 'Words', pair: 'Pairs', phrase: 'Phrases', exchange: 'Exchanges', drill: 'Drills' };
+    var RUN_LABEL = { vocab: 'Words', pair: 'Pairs', drill: 'Drills' };
 
     function typeRank(type) {
         return TYPE_ORDER[type] === undefined ? 9 : TYPE_ORDER[type];
@@ -96,58 +96,62 @@
         var strip = byId('sp-stages');
         SP.clear(strip);
 
-        // Rules are reference rather than a study scope, but they keep the slot
-        // they have always had at the head of the row — now a button that opens
-        // the panel in place instead of a link off the page. The patterns are
-        // reference of the same kind and take the slot right after them.
+        // "All" opens the row rather than closing it: it is the scope most
+        // often wanted — the search works across every stage — and at the tail
+        // of seven chips it took a sideways scroll to reach on a phone. Its
+        // chip is labelled like the stages behind it, one word, and since it is
+        // the one chip with no icon it carries a short label for the portrait
+        // row and spells itself out in its aria-label.
+        strip.appendChild(stageChip({ key: 'all', label: 'All', short: 'All', sub: '', aria: 'All stages' }));
+
+        // Rules and the patterns are reference rather than a study scope, and
+        // they keep their slots at the head of the row, now behind All — each a
+        // button that opens its panel in place instead of a link off the page.
         if (manifest.rules) strip.appendChild(referenceChip('rules', manifest.rules, 'Rules'));
         if (manifest.patterns) strip.appendChild(referenceChip('patterns', manifest.patterns, 'Patterns'));
 
-        // The stages follow and "All" closes the row: it is the widest scope,
-        // not the starting point. Its chip is labelled like the stages beside
-        // it — one word, no icon — and spells itself out in its aria-label.
-        var options = manifest.stages.map(function (s) {
+        manifest.stages.forEach(function (s) {
             var n = 0;
             Object.keys(s.counts).forEach(function (k) { n += s.counts[k]; });
-            return { key: String(s.no), label: s.title, sub: String(n), icon: s.icon, no: s.no };
-        }).concat([{ key: 'all', label: 'All', short: 'All', sub: '', aria: 'All stages' }]);
-
-        options.forEach(function (option) {
-            var chip = SP.el('button', 'sp-chip');
-            chip.type = 'button';
-            chip.dataset.stage = option.key;
-            var icon = SP.iconSpan(option.icon);
-            if (icon) chip.appendChild(icon);
-            chip.appendChild(SP.el('span', 'sp-chip-label', option.label));
-            // "All" is the one chip with no icon to fall back on, so it
-            // carries a short label for the portrait row instead.
-            if (option.short) chip.appendChild(SP.el('span', 'sp-chip-short', option.short));
-            if (option.sub) chip.appendChild(SP.el('small', null, ' ' + option.sub));
-            if (option.no) {
-                chip.setAttribute('aria-label',
-                    'Stage ' + option.no + ': ' + option.label + ', ' + option.sub + ' entries');
-            } else {
-                chip.setAttribute('aria-label', option.aria || option.label);
-            }
-            chip.addEventListener('click', function () {
-                if (prefs.stage === option.key) return;
-                // Picking a stage by hand is a decision of its own: the search
-                // no longer has a scope to hand back.
-                searchReturn = null;
-                prefs.stage = option.key;
-                savePrefs();
-                renderStageChips();
-                // Picking a scope means you want to study it, so step out of
-                // the rules or the patterns — otherwise the click would change
-                // nothing on screen.
-                var next = REFERENCE_MODES[currentMode] ? 'browse' : currentMode;
-                loadScope().then(function () { enterMode(next, true); })
-                    .catch(function (e) { SP.showError('sp-error', e); });
-            });
-            strip.appendChild(chip);
+            strip.appendChild(stageChip({ key: String(s.no), label: s.title, sub: String(n), icon: s.icon, no: s.no }));
         });
 
         syncChipActive();
+    }
+
+    function stageChip(option) {
+        var chip = SP.el('button', 'sp-chip');
+        chip.type = 'button';
+        chip.dataset.stage = option.key;
+        var icon = SP.iconSpan(option.icon);
+        if (icon) chip.appendChild(icon);
+        chip.appendChild(SP.el('span', 'sp-chip-label', option.label));
+        // "All" is the one chip with no icon to fall back on, so it
+        // carries a short label for the portrait row instead.
+        if (option.short) chip.appendChild(SP.el('span', 'sp-chip-short', option.short));
+        if (option.sub) chip.appendChild(SP.el('small', null, ' ' + option.sub));
+        if (option.no) {
+            chip.setAttribute('aria-label',
+                'Stage ' + option.no + ': ' + option.label + ', ' + option.sub + ' entries');
+        } else {
+            chip.setAttribute('aria-label', option.aria || option.label);
+        }
+        chip.addEventListener('click', function () {
+            if (prefs.stage === option.key) return;
+            // Picking a stage by hand is a decision of its own: the search
+            // no longer has a scope to hand back.
+            searchReturn = null;
+            prefs.stage = option.key;
+            savePrefs();
+            renderStageChips();
+            // Picking a scope means you want to study it, so step out of
+            // the rules or the patterns — otherwise the click would change
+            // nothing on screen.
+            var next = REFERENCE_MODES[currentMode] ? 'browse' : currentMode;
+            loadScope().then(function () { enterMode(next, true); })
+                .catch(function (e) { SP.showError('sp-error', e); });
+        });
+        return chip;
     }
 
     // One highlight per row: reading the rules or the patterns is not a scope,
@@ -518,7 +522,6 @@
 
     function makeQuestions(count) {
         var words = pool.filter(function (i) { return i.type === 'vocab' || i.type === 'pair'; });
-        var phrases = pool.filter(function (i) { return i.type === 'phrase' || i.type === 'exchange'; });
         var pairs = pairEntries();
         var drills = allItems.filter(function (i) { return i.type === 'drill' && i.kind === 'choice'; });
 
@@ -526,9 +529,6 @@
         if (words.length >= 4) {
             generators.push({ weight: words.length, make: function () { return makeMeaningQuestion(SP.pick(words), words); } });
             generators.push({ weight: words.length, make: function () { return makeProductionQuestion(SP.pick(words), words); } });
-        }
-        if (phrases.length >= 4) {
-            generators.push({ weight: phrases.length, make: function () { return makeMeaningQuestion(SP.pick(phrases), phrases); } });
         }
         if (pairs.length >= 4) {
             generators.push({ weight: pairs.length, make: function () { return makePairQuestion(SP.pick(pairs), pairs); } });
@@ -781,8 +781,8 @@
         var group = byId('sp-browse-group').value;
         var query = browseSearch ? browseSearch.query() : '';
 
-        // allItems keeps the file order, which interleaves a few exchanges
-        // among the phrases; sorting by type makes every topic read the same
+        // allItems keeps the file order; sorting by type makes every topic read
+        // the same
         // way. The original index is the tie-breaker, so the sort is stable.
         browseFiltered = allItems
             .filter(function (item) { return (!group || item.group === group) && SP.matches(item, query); })
@@ -798,17 +798,16 @@
         renderBrowse();
     }
 
-    // A drill browses as its prompt with the answer beside it; everything else
-    // uses the shared row renderers. `mark` is the learned toggle. The drill
-    // is flagged because it covers its answer whichever side is picked: its
+    // A word or a pair is drawn by the shared renderer; a drill browses as its
+    // prompt with the answer beside it, in a row shape of its own. `mark` is the
+    // learned toggle. A drill covers its answer whichever side is picked: its
     // prompt is the question, Russian or Spanish.
     function browseRow(item, mark) {
-        if (item.type === 'phrase' || item.type === 'exchange') return SP.renderExRow(item, mark);
         if (item.type !== 'drill') return SP.renderLexRow(item, mark);
 
-        var row = SP.el('div', 'sp-ex-row is-drill');
-        row.appendChild(SP.el('div', 'sp-ex-es', item.prompt));
-        row.appendChild(SP.el('div', 'sp-ex-ru', item.answer));
+        var row = SP.el('div', 'sp-drill-row');
+        row.appendChild(SP.el('div', 'sp-drill-es', item.prompt));
+        row.appendChild(SP.el('div', 'sp-drill-ru', item.answer));
         row.appendChild(SP.rowTools(SP.spokenText(item), 'phrase'));
         return SP.attachMark(row, mark);
     }
@@ -901,6 +900,11 @@
             });
             row = browseRow(item, mark);
             SP.setRowState(row, kind === 'learned', kind === 'pending');
+            // Found by something folded away inside it, the row would otherwise
+            // come up with nothing on it that matches — so the panel opens.
+            if (query && !SP.matchesOwn(item, query) && SP.matchesExample(item, query)) {
+                SP.setExamplesOpen(row, true);
+            }
             if (query) tag = SP.tagRow(row, kind);
             return row;
         }
@@ -1056,11 +1060,18 @@
         // Both lists ride along as the last two columns, so an exported "all"
         // says which of its rows are learned and which are pending; the four
         // lexicon keys keep the order they have in the JSON.
-        var head = ['id', 'stage', 'type', 'group', 'es', 'en', 'ru', 'tr', 'learned', 'pending'];
+        var head = ['id', 'stage', 'type', 'group', 'es', 'en', 'ru', 'tr', 'learned', 'pending', 'examples'];
         var lines = [head.join(',')];
         rows.forEach(function (item) {
             lines.push(head.map(function (key) {
                 var value = item[key];
+                // The examples are the only place the old phrase rows survive,
+                // so they go out in a column of their own rather than not at
+                // all. It goes last: the ten columns before it keep the index
+                // any script reading this file by position already expects.
+                if (key === 'examples') value = (item.ex || []).map(function (line) {
+                    return line.es + ' \u2014 ' + line.ru;
+                }).join(' | ');
                 if (key === 'learned') value = SP.learned.has(item.id) ? 'yes' : '';
                 if (key === 'pending') value = SP.pending.has(item.id) ? 'yes' : '';
                 if (value === undefined || value === null) value = '';
@@ -1218,13 +1229,15 @@
         return node;
     }
 
+    // A pattern's example carries the speaker alone. The ask link a list row
+    // gives its example has a word above it to ask about; here there is only
+    // the formula, which the card already explains.
     function patternExample(line) {
-        var row = SP.el('div', 'sp-pat-ex');
-        SP.renderFramed(row.appendChild(SP.el('div', 'sp-pat-ex-es')), line);
-        row.appendChild(SP.el('div', 'sp-pat-ex-ru', line.ru));
         var speak = SP.speakButton(line.es);
-        if (speak) row.appendChild(speak);
-        return row;
+        if (!speak) return SP.exampleLine(line, null);
+        var tools = SP.el('div', 'sp-tools');
+        tools.appendChild(speak);
+        return SP.exampleLine(line, tools);
     }
 
     // One pattern as a card: the formula and its meaning on top, the trap where
@@ -1243,7 +1256,7 @@
 
         if (item.trap) card.appendChild(SP.el('p', 'sp-pat-trap', item.trap));
 
-        var examples = SP.el('div', 'sp-pat-exs');
+        var examples = SP.el('div', 'sp-exlines');
         (item.ex || []).forEach(function (line) { examples.appendChild(patternExample(line)); });
         card.appendChild(examples);
         return card;

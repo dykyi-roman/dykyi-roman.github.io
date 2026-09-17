@@ -106,6 +106,12 @@
             });
             row = opts.row(item, mark);
             SP.setRowState(row, kind === 'learned', kind === 'pending');
+            // Found by something folded away inside it, the row would come up
+            // with nothing on it that matches — so the panel holding the match
+            // opens itself.
+            if (opts.query && !SP.matchesOwn(item, opts.query) && SP.matchesExample(item, opts.query)) {
+                SP.setExamplesOpen(row, true);
+            }
             // Only in a search: browsing whole, the header above the row says
             // the same thing and the tag would just repeat it on every line.
             if (opts.tagged) tag = SP.tagRow(row, kind);
@@ -166,7 +172,6 @@
     }
 
     function lexZone() { return SP.el('div', 'sp-lex'); }
-    function exZone() { return SP.el('div', 'sp-ex'); }
     function drillZone() { return SP.el('ol', 'sp-drills'); }
 
     // A drill keeps its answer folded away; the learned checkbox joins the
@@ -299,6 +304,7 @@
                     zone: lexZone,
                     row: SP.renderLexRow,
                     tagged: !!query,
+                    query: query,
                     pageSize: PAGE_SIZE,
                     pageStep: PAGE_STEP
                 });
@@ -312,41 +318,6 @@
             body.appendChild(lexSection);
         }
 
-        /* examples */
-        var ex = items.filter(function (i) { return i.type === 'phrase' || i.type === 'exchange'; });
-        if (ex.length) {
-            var exSection = sectionShell('sec-ex', 'Живые примеры', ex.length);
-            index.push({ row: 'main', label: 'Примеры', target: 'sec-ex' });
-
-            var exGroups = [];
-            var exByGroup = {};
-            ex.forEach(function (item) {
-                var key = item.group || '';
-                if (!exByGroup[key]) { exByGroup[key] = []; exGroups.push(key); }
-                exByGroup[key].push(item);
-            });
-
-            var exNotes = {};
-            (stage.notes || []).forEach(function (note) {
-                if (note.section === 'example') exNotes[note.title] = note;
-            });
-
-            exGroups.forEach(function (name, i) {
-                var block = SP.el('div', 'sp-group');
-                if (name) {
-                    block.id = 'ex-' + i;
-                    var title = SP.el('h4', 'sp-group-title', name + ' ');
-                    title.appendChild(SP.el('span', null, exByGroup[name].length));
-                    block.appendChild(title);
-                    var listed = index.some(function (e) { return e.row === 'sub' && e.label === name; });
-                    if (!listed) index.push({ row: 'sub', label: name, target: block.id });
-                }
-                renderMarkedList(block, exByGroup[name], { zone: exZone, row: SP.renderExRow, tagged: !!query });
-                if (exNotes[name]) block.appendChild(SP.renderNote(exNotes[name]));
-                exSection.appendChild(block);
-            });
-            body.appendChild(exSection);
-        }
 
         /* drills */
         var drills = items.filter(function (i) { return i.type === 'drill'; });

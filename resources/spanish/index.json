@@ -15,7 +15,7 @@
    "counts": {
     "vocab": 99,
     "pair": 0,
-    "phrase": 50,
+    "phrase": 0,
     "exchange": 0,
     "drill": 0
    },
@@ -32,7 +32,7 @@
    "url": "spanish/stage-2.html",
    "file": "stage-3.json",
    "counts": {
-    "vocab": 663,
+    "vocab": 664,
     "pair": 0,
     "phrase": 0,
     "exchange": 0,
@@ -53,8 +53,8 @@
    "counts": {
     "vocab": 0,
     "pair": 176,
-    "phrase": 191,
-    "exchange": 4,
+    "phrase": 0,
+    "exchange": 0,
     "drill": 0
    },
    "notes": 9
@@ -72,7 +72,7 @@
    "counts": {
     "vocab": 27,
     "pair": 0,
-    "phrase": 65,
+    "phrase": 0,
     "exchange": 0,
     "drill": 0
    },
@@ -91,8 +91,8 @@
    "counts": {
     "vocab": 121,
     "pair": 6,
-    "phrase": 123,
-    "exchange": 1,
+    "phrase": 0,
+    "exchange": 0,
     "drill": 50
    },
    "notes": 6

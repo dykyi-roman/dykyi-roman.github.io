@@ -243,11 +243,17 @@
             writeCookie(COVER_COOKIE, side);
             paintCover();
             // Another side to recall starts the round over: whatever was
-            // uncovered under the old choice is covered under the new one.
+            // uncovered under the old choice is covered under the new one. An
+            // open panel of examples spells out both sides, so it goes too —
+            // otherwise the new cover would draw a bar over a word whose answer
+            // is still written out underneath it.
+            document.querySelectorAll('.sp-lex-row.is-open').forEach(function (row) {
+                SP.setExamplesOpen(row, false);
+            });
             document.querySelectorAll('.is-revealed').forEach(function (row) {
                 row.classList.remove('is-revealed');
             });
-            document.querySelectorAll(':is(.sp-lex-row, .sp-ex-row):is(.is-learned, .is-pending)').forEach(revealTitle);
+            document.querySelectorAll(':is(.sp-lex-row, .sp-drill-row):is(.is-learned, .is-pending)').forEach(revealTitle);
             coverListeners.forEach(function (fn) { fn(side); });
         },
 
@@ -395,8 +401,6 @@
     SP.TYPE_LABEL = {
         vocab: 'Word',
         pair: 'Pair',
-        phrase: 'Phrase',
-        exchange: 'Exchange',
         drill: 'Drill'
     };
 
@@ -422,7 +426,7 @@
 
     // Items that make sense as a card or a quiz question.
     SP.isStudyable = function (item) {
-        return item.type === 'vocab' || item.type === 'pair' || item.type === 'phrase' || item.type === 'exchange';
+        return item.type === 'vocab' || item.type === 'pair';
     };
 
     /* ---------- search ---------- */
@@ -449,11 +453,38 @@
         return item._search;
     }
 
+    // The examples are searched apart from the rest. They are what the phrase
+    // items became, so this is the only place that text still lives — and the
+    // hub needs to know a match came from here alone, to open the panel that
+    // holds it. Folded once and kept, like the line above.
+    function exampleText(item) {
+        if (item._searchEx === undefined) {
+            item._searchEx = SP.normalize((item.ex || []).map(function (line) {
+                return line.es + ' ' + line.ru;
+            }).join(' '));
+        }
+        return item._searchEx;
+    }
+
     // `query` must come from SP.normalize — the caller folds it once per pass
     // rather than once per item.
     SP.matches = function (item, query) {
         if (!query) return true;
+        return SP.matchesOwn(item, query) || SP.matchesExample(item, query);
+    };
+
+    // True when the query is found in what the row itself shows.
+    SP.matchesOwn = function (item, query) {
+        if (!query) return true;
         return searchText(item).indexOf(query) !== -1;
+    };
+
+    // True when the query is found in the examples of a word. The caller uses
+    // it to tell a row that matched on its own text from one that matched on
+    // something folded away inside it.
+    SP.matchesExample = function (item, query) {
+        if (!query || !item.ex || !item.ex.length) return false;
+        return exampleText(item).indexOf(query) !== -1;
     };
 
     // A search field that reports every change, settled so a fast typist does
@@ -678,10 +709,21 @@
     // both, so the row keeps a single column for its controls. The keys stop
     // here too — the row's own Enter/Space toggles the cover and would
     // otherwise cancel the button the key was meant for.
-    SP.rowTools = function (text, kind) {
+    // `lead` is an optional control drawn before the speaker — the chevron that
+    // opens a word's usage examples. It rides in this cell rather than beside
+    // it because the cell already stops a keydown from reaching the row's
+    // reveal toggle, which is exactly what a second button in a row needs.
+    // `voices` is what the speakers read, when that is not the row's own text:
+    // a pair is two words, so it gets a speaker each rather than one that reads
+    // the slash out loud. They follow the order the row prints them in, and
+    // each names its own word in its accessible label.
+    SP.rowTools = function (text, kind, lead, voices) {
         var tools = SP.el('div', 'sp-tools');
-        var speak = SP.speakButton(text);
-        if (speak) tools.appendChild(speak);
+        if (lead) tools.appendChild(lead);
+        (voices && voices.length ? voices : [text]).forEach(function (one) {
+            var speak = SP.speakButton(one);
+            if (speak) tools.appendChild(speak);
+        });
         var ask = SP.askButton(text, kind);
         if (ask) tools.appendChild(ask);
         tools.addEventListener('keydown', function (e) { e.stopPropagation(); });
@@ -872,7 +914,7 @@
     function revealTitle(row) {
         if (!covered(row)) { row.removeAttribute('title'); return; }
         // A drill covers its answer on either side; any other row, the side picked.
-        var what = row.classList.contains('is-drill') ? 'answer'
+        var what = row.classList.contains('sp-drill-row') ? 'answer'
             : (coverSide === 'spanish' ? 'Spanish' : 'translation');
         row.title = (row.classList.contains('is-revealed') ? 'Hide the ' : 'Show the ') + what;
     }
@@ -920,6 +962,11 @@
         row.classList.toggle('is-pending', !learned && pending);
         if (covered(row)) {
             row.tabIndex = 0;
+            // A row that starts hiding a side puts its hints away with it: an
+            // open panel writes out both sides, so a word just ticked into
+            // Pending would move there with its answer still on the screen.
+            SP.setExamplesOpen(row, false);
+            row.classList.remove('is-revealed');
         } else {
             row.classList.remove('is-revealed');
             row.removeAttribute('tabindex');
@@ -927,6 +974,37 @@
         revealTitle(row);
         return row;
     };
+
+    // Opens or closes a word's examples — the one place that state is changed,
+    // so the covered side and the checkbox can close a panel without knowing
+    // how it was opened. The panel fills itself on the first open: a page holds
+    // a hundred rows, and three speak buttons each for panels nobody opens is
+    // three hundred listeners bought for nothing.
+    //
+    // Opening also reveals the row. The examples spell out the Spanish and the
+    // Russian alike, so leaving the word itself under a bar would be hiding an
+    // answer that is already on the screen.
+    SP.setExamplesOpen = function (row, on) {
+        if (!on && !row.classList.contains('is-open')) return;
+        var btn = row.querySelector('.sp-ex-toggle');
+        var panel = row.querySelector('.sp-exlines');
+        if (!btn || !panel) return;
+        if (on && panel.fill) { panel.fill(); panel.fill = null; }
+        row.classList.toggle('is-open', on);
+        btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+        panel.hidden = !on;
+        // Only a covered row has anything to reveal; on any other, the class
+        // would be a leftover waiting to show a side that is about to be hidden.
+        if (on && covered(row)) row.classList.add('is-revealed');
+        exampleTitle(btn, on);
+        revealTitle(row);
+    };
+
+    function exampleTitle(btn, on) {
+        var label = on ? 'Hide the examples' : 'Show the examples';
+        btn.title = label;
+        btn.setAttribute('aria-label', label);
+    }
 
     // In a search the sections can be far apart on the screen — and a single
     // match can be the only row under its header — so a found row says on
@@ -946,7 +1024,7 @@
     // of row has. It cannot be a child of the row itself — above 700px the
     // lexicon row is a grid whose cells are spoken for.
     SP.tagRow = function (row, kind) {
-        var head = row.querySelector('.sp-lex-es') || row.querySelector('.sp-ex-es');
+        var head = row.querySelector('.sp-lex-es') || row.querySelector('.sp-drill-es');
         if (!head) return null;
         var tag = SP.sectionTag(kind);
         head.appendChild(tag);
@@ -1198,6 +1276,19 @@
         return node;
     };
 
+    // One example under a parent entry — a pattern's formula or a word of the
+    // lists. The Spanish over the Russian on a phone, side by side from 700px
+    // up, with whatever tail the caller hands it: a lone speaker for a pattern,
+    // the full speak-and-ask pair for a word, whose phrase the reader may well
+    // want explained.
+    SP.exampleLine = function (line, tools) {
+        var row = SP.el('div', 'sp-exline');
+        SP.renderFramed(row.appendChild(SP.el('div', 'sp-exline-es')), line);
+        row.appendChild(SP.el('div', 'sp-exline-ru', line.ru));
+        if (tools) row.appendChild(tools);
+        return row;
+    };
+
     // ★ N — the entry's place among the `total` to learn first.
     SP.topBadge = function (rank, total) {
         var badge = SP.el('span', 'sp-badge is-top', '★ ' + rank);
@@ -1299,8 +1390,40 @@
 
     // `mark` is the optional learned-toggle built by SP.markButton — every
     // browsable list passes one, the flashcard face does not.
+    // A word that carries examples gets a chevron at the head of its tools and
+    // a panel under it. A word without them is built exactly as before: no
+    // control, and no third button narrowing the text line on a phone.
+    var exSeq = 0;
+
+    function examplesToggle(item, row) {
+        var panel = SP.el('div', 'sp-exlines');
+        panel.id = 'sp-ex-' + (exSeq += 1);
+        panel.hidden = true;
+        panel.fill = function () {
+            item.ex.forEach(function (line) {
+                panel.appendChild(SP.exampleLine(line, SP.rowTools(line.es, 'phrase')));
+            });
+        };
+
+        var btn = SP.el('button', 'sp-ex-toggle');
+        btn.type = 'button';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-controls', panel.id);
+        exampleTitle(btn, false);
+        btn.appendChild(chevronIcon());
+        // The click has to stop here: the whole row is a reveal toggle, and the
+        // panel does its own revealing.
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            SP.setExamplesOpen(row, !row.classList.contains('is-open'));
+        });
+        return { button: btn, panel: panel };
+    }
+
     SP.renderLexRow = function (item, mark) {
         var row = SP.el('div', 'sp-lex-row' + (item.type === 'pair' ? ' is-pair' : ''));
+        var ex = item.ex && item.ex.length ? examplesToggle(item, row) : null;
 
         // On a phone the four texts read as one wrapping line — "y (и) — and /
         // и" — so they sit in a box of their own; from 700px up that box is
@@ -1314,15 +1437,11 @@
         if (item.ru) text.appendChild(SP.el('div', 'sp-lex-ru', item.ru));
         row.appendChild(text);
 
-        row.appendChild(SP.rowTools(item.es, 'word'));
-        return SP.attachMark(row, mark);
-    };
-
-    SP.renderExRow = function (item, mark) {
-        var row = SP.el('div', 'sp-ex-row' + (item.type === 'exchange' ? ' is-exchange' : ''));
-        row.appendChild(SP.el('div', 'sp-ex-es', item.es));
-        row.appendChild(SP.el('div', 'sp-ex-ru', item.ru || ''));
-        row.appendChild(SP.rowTools(item.es, 'phrase'));
+        var halves = item.type === 'pair' && item.a && item.b && item.a.es && item.b.es
+            ? [item.a.es, item.b.es]
+            : null;
+        row.appendChild(SP.rowTools(item.es, 'word', ex && ex.button, halves));
+        if (ex) row.appendChild(ex.panel);
         return SP.attachMark(row, mark);
     };
 

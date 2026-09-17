@@ -136,7 +136,30 @@
    "en": "school (informal)",
    "ru": "школа (разг.)",
    "tr": "эл ко́лэ",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "El cole empieza a las nueve.",
+     "ru": "Школа начинается в девять.",
+     "frame": [
+      "cole"
+     ]
+    },
+    {
+     "es": "La salida del cole es a las cinco.",
+     "ru": "Из школы выходят в пять.",
+     "frame": [
+      "cole"
+     ]
+    },
+    {
+     "es": "¿Vas tú al cole hoy?",
+     "ru": "Ты сегодня идёшь в школу?",
+     "frame": [
+      "cole"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v002",
@@ -145,7 +168,30 @@
    "en": "nursery, daycare",
    "ru": "ясли / садик",
    "tr": "ла гуардэри́а",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "El niño va a la guardería por la mañana.",
+     "ru": "Ребёнок ходит в ясли утром.",
+     "frame": [
+      "guardería"
+     ]
+    },
+    {
+     "es": "La guardería cierra en agosto.",
+     "ru": "Ясли закрыты в августе.",
+     "frame": [
+      "guardería"
+     ]
+    },
+    {
+     "es": "¿Hay plaza en la guardería?",
+     "ru": "В яслях есть места?",
+     "frame": [
+      "guardería"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v003",
@@ -154,7 +200,30 @@
    "en": "preschool",
    "ru": "детский сад",
    "tr": "ла эскуэ́ла инфанти́л",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "La escuela infantil es pública.",
+     "ru": "Детский сад государственный.",
+     "frame": [
+      "escuela infantil"
+     ]
+    },
+    {
+     "es": "Lo apuntamos a la escuela infantil.",
+     "ru": "Мы записали его в детский сад.",
+     "frame": [
+      "escuela infantil"
+     ]
+    },
+    {
+     "es": "La escuela infantil abre a las siete y media.",
+     "ru": "Детский сад открывается в полвосьмого.",
+     "frame": [
+      "escuela infantil"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-p001",
@@ -176,7 +245,31 @@
     "en": "class teacher (f)",
     "ru": "классная руководительница",
     "tr": "ла туто́ра"
-   }
+   },
+   "ex": [
+    {
+     "es": "El tutor nos escribió un correo.",
+     "ru": "Классный руководитель написал нам письмо.",
+     "frame": [
+      "tutor"
+     ]
+    },
+    {
+     "es": "Quería hablar con la tutora.",
+     "ru": "Я хотел бы поговорить с классным руководителем.",
+     "frame": [
+      "tutora"
+     ]
+    },
+    {
+     "es": "El tutor de mi hijo y la tutora de mi hija.",
+     "ru": "Руководитель у сына и руководительница у дочери.",
+     "frame": [
+      "tutor",
+      "tutora"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v005",
@@ -185,7 +278,30 @@
    "en": "parent–teacher meeting",
    "ru": "встреча с учителем",
    "tr": "ла тутори́а",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "¿Puedo pedir una tutoría?",
+     "ru": "Можно записаться на встречу с учителем?",
+     "frame": [
+      "tutoría"
+     ]
+    },
+    {
+     "es": "La tutoría es el martes a las cinco.",
+     "ru": "Встреча с учителем во вторник в пять.",
+     "frame": [
+      "tutoría"
+     ]
+    },
+    {
+     "es": "En la tutoría hablamos de las notas.",
+     "ru": "На встрече мы говорили об оценках.",
+     "frame": [
+      "tutoría"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v006",
@@ -194,7 +310,30 @@
    "en": "parents' meeting",
    "ru": "родительское собрание",
    "tr": "ла ррэуньо́н дэ па́дрэс",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "¿Cuándo es la reunión de padres?",
+     "ru": "Когда родительское собрание?",
+     "frame": [
+      "reunión de padres"
+     ]
+    },
+    {
+     "es": "La reunión de padres dura una hora.",
+     "ru": "Родительское собрание длится час.",
+     "frame": [
+      "reunión de padres"
+     ]
+    },
+    {
+     "es": "No pude ir a la reunión de padres.",
+     "ru": "Я не смог пойти на родительское собрание.",
+     "frame": [
+      "reunión de padres"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v008",
@@ -203,7 +342,30 @@
    "en": "homework",
    "ru": "домашнее задание (в школе)",
    "tr": "лос дэбэ́рэс",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "¿Hay deberes para mañana?",
+     "ru": "На завтра есть домашка?",
+     "frame": [
+      "deberes"
+     ]
+    },
+    {
+     "es": "Ya ha hecho los deberes.",
+     "ru": "Она уже сделала домашку.",
+     "frame": [
+      "deberes"
+     ]
+    },
+    {
+     "es": "Los deberes son de mates.",
+     "ru": "Домашка по математике.",
+     "frame": [
+      "deberes"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v009",
@@ -212,7 +374,30 @@
    "en": "afternoon snack",
    "ru": "полдник",
    "tr": "ла мэрье́нда",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Lleva la merienda en la mochila.",
+     "ru": "Полдник у неё в рюкзаке.",
+     "frame": [
+      "merienda"
+     ]
+    },
+    {
+     "es": "La merienda es a las cinco.",
+     "ru": "Полдник в пять.",
+     "frame": [
+      "merienda"
+     ]
+    },
+    {
+     "es": "Prepara la merienda para el parque.",
+     "ru": "Собери полдник в парк.",
+     "frame": [
+      "merienda"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v010",
@@ -221,7 +406,30 @@
    "en": "school canteen",
    "ru": "школьная столовая",
    "tr": "эл комэдо́р",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "¿Se queda hoy al comedor?",
+     "ru": "Она сегодня остаётся на обед?",
+     "frame": [
+      "comedor"
+     ]
+    },
+    {
+     "es": "El comedor cuesta cinco euros al día.",
+     "ru": "Школьная столовая стоит пять евро в день.",
+     "frame": [
+      "comedor"
+     ]
+    },
+    {
+     "es": "Come en el comedor los lunes.",
+     "ru": "По понедельникам она ест в столовой.",
+     "frame": [
+      "comedor"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v011",
@@ -230,7 +438,30 @@
    "en": "after-school activities",
    "ru": "кружки / секции",
    "tr": "лас экстраэскола́рэс",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Las extraescolares empiezan en octubre.",
+     "ru": "Кружки начинаются в октябре.",
+     "frame": [
+      "extraescolares"
+     ]
+    },
+    {
+     "es": "¿A qué extraescolares va?",
+     "ru": "На какие кружки он ходит?",
+     "frame": [
+      "extraescolares"
+     ]
+    },
+    {
+     "es": "Las extraescolares son de cuatro a cinco.",
+     "ru": "Кружки с четырёх до пяти.",
+     "frame": [
+      "extraescolares"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v012",
@@ -239,7 +470,30 @@
    "en": "school trip",
    "ru": "экскурсия",
    "tr": "ла экскурсьо́н",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "La excursión es el viernes.",
+     "ru": "Экскурсия в пятницу.",
+     "frame": [
+      "excursión"
+     ]
+    },
+    {
+     "es": "La excursión cuesta ocho euros.",
+     "ru": "Экскурсия стоит восемь евро.",
+     "frame": [
+      "excursión"
+     ]
+    },
+    {
+     "es": "¿A dónde van de excursión?",
+     "ru": "Куда они едут на экскурсию?",
+     "frame": [
+      "excursión"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v013",
@@ -248,7 +502,30 @@
    "en": "school smock",
    "ru": "халатик (в садик)",
    "tr": "эл ба́би",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Se me ha olvidado el babi.",
+     "ru": "Я забыл халатик.",
+     "frame": [
+      "babi"
+     ]
+    },
+    {
+     "es": "El babi está sucio.",
+     "ru": "Халатик грязный.",
+     "frame": [
+      "babi"
+     ]
+    },
+    {
+     "es": "Ponle el babi antes de entrar.",
+     "ru": "Надень на него халатик перед входом.",
+     "frame": [
+      "babi"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v014",
@@ -257,7 +534,30 @@
    "en": "permission slip",
    "ru": "разрешение (подписать)",
    "tr": "ла ауторисасьо́н",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Hay que firmar la autorización de la excursión.",
+     "ru": "Нужно подписать разрешение на экскурсию.",
+     "frame": [
+      "autorización"
+     ]
+    },
+    {
+     "es": "Sin autorización no puede ir.",
+     "ru": "Без разрешения он не поедет.",
+     "frame": [
+      "autorización"
+     ]
+    },
+    {
+     "es": "Traigo la autorización firmada.",
+     "ru": "Я принёс подписанное разрешение.",
+     "frame": [
+      "autorización"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v015",
@@ -266,7 +566,30 @@
    "en": "school notice",
    "ru": "уведомление от школы",
    "tr": "ла сиркула́р",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Ha llegado una circular del cole.",
+     "ru": "Пришло уведомление из школы.",
+     "frame": [
+      "circular"
+     ]
+    },
+    {
+     "es": "La circular dice que mañana no hay clase.",
+     "ru": "В уведомлении сказано, что завтра занятий нет.",
+     "frame": [
+      "circular"
+     ]
+    },
+    {
+     "es": "¿Has leído la circular?",
+     "ru": "Ты прочитал уведомление?",
+     "frame": [
+      "circular"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v016",
@@ -275,7 +598,30 @@
    "en": "to pick up the children",
    "ru": "забирать детей (из школы)",
    "tr": "ррэкохэ́р а лос ни́ньос",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Hoy la recojo yo.",
+     "ru": "Сегодня забираю её я.",
+     "frame": [
+      "recojo"
+     ]
+    },
+    {
+     "es": "¿A qué hora hay que recogerla?",
+     "ru": "Во сколько её нужно забирать?",
+     "frame": [
+      "recogerla"
+     ]
+    },
+    {
+     "es": "Voy a recoger a los niños ahora.",
+     "ru": "Я сейчас поеду забирать детей.",
+     "frame": [
+      "recoger a los niños"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v017",
@@ -284,7 +630,30 @@
    "en": "to drop the children off at school",
    "ru": "отводить детей в школу",
    "tr": "дэха́р а лос ни́ньос эн эл ко́лэ",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Dejo a los niños en el cole a las nueve.",
+     "ru": "Я отвожу детей в школу в девять.",
+     "frame": [
+      "Dejo a los niños en el cole"
+     ]
+    },
+    {
+     "es": "¿Puedes dejar a los niños en el cole mañana?",
+     "ru": "Можешь завтра отвезти детей в школу?",
+     "frame": [
+      "dejar a los niños en el cole"
+     ]
+    },
+    {
+     "es": "Después de dejar a los niños voy a trabajar.",
+     "ru": "Отвезя детей, я еду на работу.",
+     "frame": [
+      "dejar a los niños"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v018",
@@ -293,7 +662,30 @@
    "en": "to miss school",
    "ru": "пропускать уроки",
    "tr": "фалта́р а кла́сэ",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Hoy falta a clase.",
+     "ru": "Сегодня он пропускает уроки.",
+     "frame": [
+      "falta a clase"
+     ]
+    },
+    {
+     "es": "No puede faltar a clase sin justificar.",
+     "ru": "Нельзя пропускать уроки без оправдания.",
+     "frame": [
+      "faltar a clase"
+     ]
+    },
+    {
+     "es": "Ha faltado a clase dos días.",
+     "ru": "Он пропустил два дня.",
+     "frame": [
+      "faltado a clase"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v019",
@@ -302,7 +694,30 @@
    "en": "to excuse an absence",
    "ru": "оправдать пропуск",
    "tr": "хустифика́р ла фа́лта",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Mañana justifico la falta.",
+     "ru": "Завтра оправдаю пропуск.",
+     "frame": [
+      "justifico la falta"
+     ]
+    },
+    {
+     "es": "Hay que justificar la falta por escrito.",
+     "ru": "Пропуск нужно оправдать письменно.",
+     "frame": [
+      "justificar la falta"
+     ]
+    },
+    {
+     "es": "¿Cómo se justifica la falta?",
+     "ru": "Как оправдать пропуск?",
+     "frame": [
+      "justifica la falta"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v020",
@@ -311,7 +726,30 @@
    "en": "to be a bit ill (of a child)",
    "ru": "приболеть (о ребёнке)",
    "tr": "эста́р мали́то / мали́та",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Hoy no va al cole, está malita.",
+     "ru": "Сегодня она не идёт в школу, приболела.",
+     "frame": [
+      "está malita"
+     ]
+    },
+    {
+     "es": "El niño está malito desde ayer.",
+     "ru": "Ребёнок приболел со вчера.",
+     "frame": [
+      "está malito"
+     ]
+    },
+    {
+     "es": "Si está malita, se queda en casa.",
+     "ru": "Если приболела, остаётся дома.",
+     "frame": [
+      "está malita"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v021",
@@ -320,7 +758,30 @@
    "en": "to get ill",
    "ru": "заболеть",
    "tr": "понэ́рсэ ма́ло",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Voy a recogerla ahora, se ha puesto mala.",
+     "ru": "Я сейчас её заберу, ей стало плохо.",
+     "frame": [
+      "se ha puesto mala"
+     ]
+    },
+    {
+     "es": "Se ha puesto malo en clase.",
+     "ru": "Ему стало плохо на уроке.",
+     "frame": [
+      "Se ha puesto malo"
+     ]
+    },
+    {
+     "es": "Si se pone malo, llámame.",
+     "ru": "Если ему станет плохо, позвони мне.",
+     "frame": [
+      "se pone malo"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v022",
@@ -329,7 +790,30 @@
    "en": "tummy",
    "ru": "живот (разг.)",
    "tr": "ла три́па",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Le duele la tripa.",
+     "ru": "У неё болит живот.",
+     "frame": [
+      "tripa"
+     ]
+    },
+    {
+     "es": "Se ha dado en la tripa.",
+     "ru": "Она ударилась животом.",
+     "frame": [
+      "tripa"
+     ]
+    },
+    {
+     "es": "Tiene la tripa llena.",
+     "ru": "Она наелась.",
+     "frame": [
+      "tripa"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v023",
@@ -338,7 +822,30 @@
    "en": "(to go) to get",
    "ru": "за (кем-то / чем-то)",
    "tr": "а пор",
-   "group": "Семья, школа и садик"
+   "group": "Семья, школа и садик",
+   "ex": [
+    {
+     "es": "Vengo a por mi hija.",
+     "ru": "Я за дочкой.",
+     "frame": [
+      "a por"
+     ]
+    },
+    {
+     "es": "Voy a por pan.",
+     "ru": "Я за хлебом.",
+     "frame": [
+      "a por"
+     ]
+    },
+    {
+     "es": "Baja a por el paquete.",
+     "ru": "Спустись за посылкой.",
+     "frame": [
+      "a por"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v025",
@@ -347,7 +854,30 @@
    "en": "set lunch menu",
    "ru": "комплексный обед",
    "tr": "эл мэну́ дэл ди́а",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "El menú del día cuesta trece euros.",
+     "ru": "Комплексный обед стоит тринадцать евро.",
+     "frame": [
+      "menú del día"
+     ]
+    },
+    {
+     "es": "El menú del día incluye postre.",
+     "ru": "В комплексный обед входит десерт.",
+     "frame": [
+      "menú del día"
+     ]
+    },
+    {
+     "es": "¿Qué hay hoy de menú?",
+     "ru": "Что сегодня в комплексном обеде?",
+     "frame": [
+      "menú"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-p006",
@@ -369,7 +899,31 @@
     "en": "second course",
     "ru": "второе (блюдо)",
     "tr": "эл сэгу́ндо"
-   }
+   },
+   "ex": [
+    {
+     "es": "¿Qué quiere de primero?",
+     "ru": "Что будете на первое?",
+     "frame": [
+      "primero"
+     ]
+    },
+    {
+     "es": "De segundo hay pescado.",
+     "ru": "На второе рыба.",
+     "frame": [
+      "segundo"
+     ]
+    },
+    {
+     "es": "De primero, sopa; de segundo, pollo.",
+     "ru": "На первое суп, на второе курица.",
+     "frame": [
+      "primero",
+      "segundo"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v028",
@@ -378,7 +932,30 @@
    "en": "half portion",
    "ru": "полпорции",
    "tr": "ла мэ́дья ррасьо́н",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "Una ración y media ración.",
+     "ru": "Одну порцию и полпорции.",
+     "frame": [
+      "media ración"
+     ]
+    },
+    {
+     "es": "¿Hacen media ración?",
+     "ru": "Полпорции делаете?",
+     "frame": [
+      "media ración"
+     ]
+    },
+    {
+     "es": "Para la niña, media ración.",
+     "ru": "Ребёнку полпорции.",
+     "frame": [
+      "media ración"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v029",
@@ -387,7 +964,30 @@
    "en": "pincho, a small snack on bread",
    "ru": "пинчо, закуска на хлебе",
    "tr": "эл пи́нчо",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "Un pincho de tortilla, por favor.",
+     "ru": "Пинчо с тортильей, пожалуйста.",
+     "frame": [
+      "pincho"
+     ]
+    },
+    {
+     "es": "Los pinchos están en la barra.",
+     "ru": "Пинчо на барной стойке.",
+     "frame": [
+      "pinchos"
+     ]
+    },
+    {
+     "es": "¿Cuánto vale el pincho?",
+     "ru": "Сколько стоит пинчо?",
+     "frame": [
+      "pincho"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v030",
@@ -396,7 +996,30 @@
    "en": "small draught beer",
    "ru": "маленькое разливное пиво",
    "tr": "ла ка́нья",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "¿Me pone una caña, por favor?",
+     "ru": "Мне маленькое пиво, пожалуйста.",
+     "frame": [
+      "caña"
+     ]
+    },
+    {
+     "es": "Dos cañas y un agua.",
+     "ru": "Два маленьких пива и воду.",
+     "frame": [
+      "cañas"
+     ]
+    },
+    {
+     "es": "La caña cuesta dos euros.",
+     "ru": "Маленькое пиво стоит два евро.",
+     "frame": [
+      "caña"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v031",
@@ -405,7 +1028,30 @@
    "en": "white coffee",
    "ru": "кофе с молоком",
    "tr": "эл кафэ́ кон лэ́чэ",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "Un café con leche para llevar.",
+     "ru": "Кофе с молоком с собой.",
+     "frame": [
+      "café con leche"
+     ]
+    },
+    {
+     "es": "Me tomo un café con leche por la mañana.",
+     "ru": "Утром я пью кофе с молоком.",
+     "frame": [
+      "café con leche"
+     ]
+    },
+    {
+     "es": "¿El café con leche es grande?",
+     "ru": "Кофе с молоком большой?",
+     "frame": [
+      "café con leche"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v125",
@@ -414,7 +1060,30 @@
    "en": "espresso with a dash of milk",
    "ru": "кортадо (эспрессо с каплей молока)",
    "tr": "эл корта́до",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "Un cortado, por favor.",
+     "ru": "Кортадо, пожалуйста.",
+     "frame": [
+      "cortado"
+     ]
+    },
+    {
+     "es": "El cortado lleva menos leche.",
+     "ru": "В кортадо меньше молока.",
+     "frame": [
+      "cortado"
+     ]
+    },
+    {
+     "es": "Prefiero cortado a café solo.",
+     "ru": "Кортадо мне нравится больше эспрессо.",
+     "frame": [
+      "cortado"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v032",
@@ -423,7 +1092,30 @@
    "en": "outdoor terrace",
    "ru": "терраса",
    "tr": "ла тэрра́са",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "¿Podemos sentarnos en la terraza?",
+     "ru": "Можно сесть на террасе?",
+     "frame": [
+      "terraza"
+     ]
+    },
+    {
+     "es": "La terraza está llena.",
+     "ru": "Терраса занята.",
+     "frame": [
+      "terraza"
+     ]
+    },
+    {
+     "es": "En la terraza se puede fumar.",
+     "ru": "На террасе можно курить.",
+     "frame": [
+      "terraza"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v033",
@@ -432,7 +1124,30 @@
    "en": "bar counter",
    "ru": "барная стойка",
    "tr": "ла ба́рра",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "En la barra es más barato.",
+     "ru": "У стойки дешевле.",
+     "frame": [
+      "barra"
+     ]
+    },
+    {
+     "es": "Pide en la barra, por favor.",
+     "ru": "Заказывай у стойки, пожалуйста.",
+     "frame": [
+      "barra"
+     ]
+    },
+    {
+     "es": "No hay sitio en la barra.",
+     "ru": "У стойки нет места.",
+     "frame": [
+      "barra"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v034",
@@ -441,7 +1156,30 @@
    "en": "high chair",
    "ru": "детский стульчик",
    "tr": "ла тро́на",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "¿Nos trae una trona, por favor?",
+     "ru": "Принесите, пожалуйста, детский стульчик.",
+     "frame": [
+      "trona"
+     ]
+    },
+    {
+     "es": "La trona está sucia.",
+     "ru": "Детский стульчик грязный.",
+     "frame": [
+      "trona"
+     ]
+    },
+    {
+     "es": "No tienen trona en esta terraza.",
+     "ru": "На этой террасе нет детского стульчика.",
+     "frame": [
+      "trona"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v035",
@@ -450,7 +1188,30 @@
    "en": "kids' menu",
    "ru": "детское меню",
    "tr": "эл мэну́ инфанти́л",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "¿Tienen menú infantil?",
+     "ru": "У вас есть детское меню?",
+     "frame": [
+      "menú infantil"
+     ]
+    },
+    {
+     "es": "El menú infantil lleva postre.",
+     "ru": "В детское меню входит десерт.",
+     "frame": [
+      "menú infantil"
+     ]
+    },
+    {
+     "es": "Para la niña, el menú infantil.",
+     "ru": "Ребёнку детское меню.",
+     "frame": [
+      "menú infantil"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v036",
@@ -459,7 +1220,30 @@
    "en": "takeaway",
    "ru": "с собой",
    "tr": "па́ра йэба́р",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "Un café para llevar, por favor.",
+     "ru": "Кофе с собой, пожалуйста.",
+     "frame": [
+      "para llevar"
+     ]
+    },
+    {
+     "es": "¿Es para llevar?",
+     "ru": "Это с собой?",
+     "frame": [
+      "para llevar"
+     ]
+    },
+    {
+     "es": "Lo quiero para llevar.",
+     "ru": "Я хочу с собой.",
+     "frame": [
+      "para llevar"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v037",
@@ -468,7 +1252,30 @@
    "en": "to eat in",
    "ru": "здесь (не с собой)",
    "tr": "па́ра тома́р аки́",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "¿Para tomar aquí o para llevar?",
+     "ru": "Здесь или с собой?",
+     "frame": [
+      "Para tomar aquí"
+     ]
+    },
+    {
+     "es": "Es para tomar aquí.",
+     "ru": "Это здесь.",
+     "frame": [
+      "para tomar aquí"
+     ]
+    },
+    {
+     "es": "Para tomar aquí, por favor.",
+     "ru": "Здесь, пожалуйста.",
+     "frame": [
+      "Para tomar aquí"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v038",
@@ -477,7 +1284,30 @@
    "en": "can I have...?",
    "ru": "дайте, пожалуйста",
    "tr": "мэ по́нэ",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "¿Me pone un café con leche?",
+     "ru": "Сделайте кофе с молоком, пожалуйста.",
+     "frame": [
+      "Me pone"
+     ]
+    },
+    {
+     "es": "¿Me pone dos pinchos?",
+     "ru": "Дайте два пинчо, пожалуйста.",
+     "frame": [
+      "Me pone"
+     ]
+    },
+    {
+     "es": "¿Me pone medio kilo de tomates?",
+     "ru": "Дайте полкило помидоров, пожалуйста.",
+     "frame": [
+      "Me pone"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v039",
@@ -486,7 +1316,30 @@
    "en": "could you bring us...?",
    "ru": "принесите нам",
    "tr": "нос тра́э",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "¿Nos trae la cuenta, por favor?",
+     "ru": "Принесите счёт, пожалуйста.",
+     "frame": [
+      "Nos trae"
+     ]
+    },
+    {
+     "es": "¿Nos trae la carta?",
+     "ru": "Принесёте меню?",
+     "frame": [
+      "Nos trae"
+     ]
+    },
+    {
+     "es": "¿Nos trae dos vasos de agua?",
+     "ru": "Принесёте два стакана воды?",
+     "frame": [
+      "Nos trae"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v040",
@@ -495,7 +1348,30 @@
    "en": "what is in it?",
    "ru": "что в составе?",
    "tr": "кэ йэ́ба",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "¿Esto qué lleva?",
+     "ru": "Что здесь в составе?",
+     "frame": [
+      "qué lleva"
+     ]
+    },
+    {
+     "es": "¿Qué lleva la salsa?",
+     "ru": "Что в соусе?",
+     "frame": [
+      "Qué lleva"
+     ]
+    },
+    {
+     "es": "No sé qué lleva este plato.",
+     "ru": "Не знаю, что в этом блюде.",
+     "frame": [
+      "qué lleva"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v041",
@@ -504,7 +1380,30 @@
    "en": "gluten-free",
    "ru": "без глютена",
    "tr": "син глу́тэн",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "¿Tienen pan sin gluten?",
+     "ru": "У вас есть хлеб без глютена?",
+     "frame": [
+      "sin gluten"
+     ]
+    },
+    {
+     "es": "Es celíaca, necesita sin gluten.",
+     "ru": "У неё целиакия, ей нужно без глютена.",
+     "frame": [
+      "sin gluten"
+     ]
+    },
+    {
+     "es": "La cerveza sin gluten es más cara.",
+     "ru": "Пиво без глютена дороже.",
+     "frame": [
+      "sin gluten"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v126",
@@ -513,7 +1412,30 @@
    "en": "lactose-free",
    "ru": "без лактозы",
    "tr": "син лакто́са",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "Un café con leche sin lactosa.",
+     "ru": "Кофе с безлактозным молоком.",
+     "frame": [
+      "sin lactosa"
+     ]
+    },
+    {
+     "es": "¿Hay yogur sin lactosa?",
+     "ru": "Есть безлактозный йогурт?",
+     "frame": [
+      "sin lactosa"
+     ]
+    },
+    {
+     "es": "El helado sin lactosa está al fondo.",
+     "ru": "Безлактозное мороженое в глубине.",
+     "frame": [
+      "sin lactosa"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v042",
@@ -522,7 +1444,30 @@
    "en": "to be allergic to",
    "ru": "иметь аллергию на",
    "tr": "сэр алэ́рхико а",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "Mi hija es alérgica a los frutos secos.",
+     "ru": "У дочери аллергия на орехи.",
+     "frame": [
+      "es alérgica a"
+     ]
+    },
+    {
+     "es": "Soy alérgico a la penicilina.",
+     "ru": "У меня аллергия на пенициллин.",
+     "frame": [
+      "Soy alérgico a"
+     ]
+    },
+    {
+     "es": "¿Es alérgico a algo?",
+     "ru": "У вас на что-нибудь аллергия?",
+     "frame": [
+      "Es alérgico a"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v043",
@@ -531,7 +1476,30 @@
    "en": "nuts",
    "ru": "орехи",
    "tr": "лос фру́тос сэ́кос",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "Los frutos secos están en el estante de arriba.",
+     "ru": "Орехи на верхней полке.",
+     "frame": [
+      "frutos secos"
+     ]
+    },
+    {
+     "es": "Este pastel lleva frutos secos.",
+     "ru": "В этом пирожном есть орехи.",
+     "frame": [
+      "frutos secos"
+     ]
+    },
+    {
+     "es": "Compro frutos secos en el mercado.",
+     "ru": "Орехи я покупаю на рынке.",
+     "frame": [
+      "frutos secos"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v044",
@@ -540,7 +1508,30 @@
    "en": "booking under the name of",
    "ru": "бронь на имя",
    "tr": "ла ррэсэ́рба а но́мбрэ дэ",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "Tengo una reserva a nombre de Roman.",
+     "ru": "У меня бронь на имя Roman.",
+     "frame": [
+      "reserva a nombre de"
+     ]
+    },
+    {
+     "es": "La reserva a nombre de Pérez es para las nueve.",
+     "ru": "Бронь на имя Перес на девять.",
+     "frame": [
+      "reserva a nombre de"
+     ]
+    },
+    {
+     "es": "¿Hay una reserva a nombre de mi mujer?",
+     "ru": "Есть бронь на имя моей жены?",
+     "frame": [
+      "reserva a nombre de"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v045",
@@ -549,7 +1540,30 @@
    "en": "to split the bill",
    "ru": "платить пополам",
    "tr": "пага́р а мэ́дьяс",
-   "group": "Кафе, ресторан и бар"
+   "group": "Кафе, ресторан и бар",
+   "ex": [
+    {
+     "es": "Pagamos a medias.",
+     "ru": "Платим пополам.",
+     "frame": [
+      "Pagamos a medias"
+     ]
+    },
+    {
+     "es": "Prefiero pagar a medias.",
+     "ru": "Я предпочитаю платить пополам.",
+     "frame": [
+      "pagar a medias"
+     ]
+    },
+    {
+     "es": "Siempre pagamos a medias.",
+     "ru": "Мы всегда платим пополам.",
+     "frame": [
+      "pagamos a medias"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v046",
@@ -558,7 +1572,30 @@
    "en": "supermarket",
    "ru": "супермаркет (разг.)",
    "tr": "эл су́пэр",
-   "group": "Супермаркет и покупки"
+   "group": "Супермаркет и покупки",
+   "ex": [
+    {
+     "es": "Voy al súper a por leche.",
+     "ru": "Я в супермаркет за молоком.",
+     "frame": [
+      "súper"
+     ]
+    },
+    {
+     "es": "El súper cierra a las diez.",
+     "ru": "Супермаркет закрывается в десять.",
+     "frame": [
+      "súper"
+     ]
+    },
+    {
+     "es": "En el súper hay cola.",
+     "ru": "В супермаркете очередь.",
+     "frame": [
+      "súper"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v047",
@@ -567,7 +1604,30 @@
    "en": "checkout",
    "ru": "касса",
    "tr": "ла ка́ха",
-   "group": "Супермаркет и покупки"
+   "group": "Супермаркет и покупки",
+   "ex": [
+    {
+     "es": "Hay cola en la caja.",
+     "ru": "На кассе очередь.",
+     "frame": [
+      "caja"
+     ]
+    },
+    {
+     "es": "La caja cuatro está libre.",
+     "ru": "Четвёртая касса свободна.",
+     "frame": [
+      "caja"
+     ]
+    },
+    {
+     "es": "Pague en la caja, por favor.",
+     "ru": "Платите на кассе, пожалуйста.",
+     "frame": [
+      "caja"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v049",
@@ -576,7 +1636,30 @@
    "en": "loose, by weight",
    "ru": "на развес",
    "tr": "а гранэ́л",
-   "group": "Супермаркет и покупки"
+   "group": "Супермаркет и покупки",
+   "ex": [
+    {
+     "es": "Compro el arroz a granel.",
+     "ru": "Рис я покупаю на развес.",
+     "frame": [
+      "a granel"
+     ]
+    },
+    {
+     "es": "¿Venden a granel?",
+     "ru": "У вас есть на развес?",
+     "frame": [
+      "a granel"
+     ]
+    },
+    {
+     "es": "A granel sale más barato.",
+     "ru": "На развес выходит дешевле.",
+     "frame": [
+      "A granel"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v050",
@@ -585,7 +1668,30 @@
    "en": "half a kilo",
    "ru": "полкило",
    "tr": "мэ́дьо ки́ло",
-   "group": "Супермаркет и покупки"
+   "group": "Супермаркет и покупки",
+   "ex": [
+    {
+     "es": "¿Me pone medio kilo de jamón?",
+     "ru": "Полкило хамона, пожалуйста.",
+     "frame": [
+      "medio kilo"
+     ]
+    },
+    {
+     "es": "Medio kilo de queso, por favor.",
+     "ru": "Полкило сыра, пожалуйста.",
+     "frame": [
+      "Medio kilo"
+     ]
+    },
+    {
+     "es": "Con medio kilo es suficiente.",
+     "ru": "Полкило хватит.",
+     "frame": [
+      "medio kilo"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v127",
@@ -594,7 +1700,30 @@
    "en": "a quarter of a kilo",
    "ru": "четверть кило",
    "tr": "ун куа́рто дэ ки́ло",
-   "group": "Супермаркет и покупки"
+   "group": "Супермаркет и покупки",
+   "ex": [
+    {
+     "es": "Un cuarto de kilo de jamón.",
+     "ru": "Четверть кило хамона.",
+     "frame": [
+      "cuarto de kilo"
+     ]
+    },
+    {
+     "es": "¿Me pone un cuarto de kilo?",
+     "ru": "Дайте четверть кило, пожалуйста.",
+     "frame": [
+      "cuarto de kilo"
+     ]
+    },
+    {
+     "es": "Con un cuarto de kilo basta.",
+     "ru": "Четверти кило хватит.",
+     "frame": [
+      "cuarto de kilo"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v051",
@@ -603,7 +1732,30 @@
    "en": "expiry date",
    "ru": "срок годности",
    "tr": "ла фэ́ча дэ кадусида́д",
-   "group": "Супермаркет и покупки"
+   "group": "Супермаркет и покупки",
+   "ex": [
+    {
+     "es": "Mira la fecha de caducidad.",
+     "ru": "Посмотри срок годности.",
+     "frame": [
+      "fecha de caducidad"
+     ]
+    },
+    {
+     "es": "La fecha de caducidad ya pasó.",
+     "ru": "Срок годности уже вышел.",
+     "frame": [
+      "fecha de caducidad"
+     ]
+    },
+    {
+     "es": "¿Dónde está la fecha de caducidad?",
+     "ru": "Где срок годности?",
+     "frame": [
+      "fecha de caducidad"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v052",
@@ -612,7 +1764,30 @@
    "en": "to be on sale",
    "ru": "быть по акции",
    "tr": "эста́р эн офэ́рта",
-   "group": "Супермаркет и покупки"
+   "group": "Супермаркет и покупки",
+   "ex": [
+    {
+     "es": "¿Esto está en oferta?",
+     "ru": "Это по акции?",
+     "frame": [
+      "está en oferta"
+     ]
+    },
+    {
+     "es": "El aceite está en oferta.",
+     "ru": "Масло по акции.",
+     "frame": [
+      "está en oferta"
+     ]
+    },
+    {
+     "es": "Si está en oferta, llevo dos.",
+     "ru": "Если по акции, возьму две.",
+     "frame": [
+      "está en oferta"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v053",
@@ -621,7 +1796,30 @@
    "en": "fitting room",
    "ru": "примерочная",
    "tr": "эл пробадо́р",
-   "group": "Супермаркет и покупки"
+   "group": "Супермаркет и покупки",
+   "ex": [
+    {
+     "es": "¿Dónde está el probador?",
+     "ru": "Где примерочная?",
+     "frame": [
+      "probador"
+     ]
+    },
+    {
+     "es": "El probador está al fondo.",
+     "ru": "Примерочная в глубине.",
+     "frame": [
+      "probador"
+     ]
+    },
+    {
+     "es": "Solo hay un probador libre.",
+     "ru": "Свободна только одна примерочная.",
+     "frame": [
+      "probador"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v054",
@@ -630,7 +1828,30 @@
    "en": "receipt",
    "ru": "чек",
    "tr": "эл ти́кэт",
-   "group": "Супермаркет и покупки"
+   "group": "Супермаркет и покупки",
+   "ex": [
+    {
+     "es": "¿Me da el ticket, por favor?",
+     "ru": "Дайте чек, пожалуйста.",
+     "frame": [
+      "ticket"
+     ]
+    },
+    {
+     "es": "Guarda el ticket para cambiarlo.",
+     "ru": "Сохрани чек, чтобы обменять.",
+     "frame": [
+      "ticket"
+     ]
+    },
+    {
+     "es": "He perdido el ticket.",
+     "ru": "Я потерял чек.",
+     "frame": [
+      "ticket"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v055",
@@ -639,7 +1860,30 @@
    "en": "boarding pass",
    "ru": "посадочный талон",
    "tr": "ла тархэ́та дэ эмба́ркэ",
-   "group": "Аэропорт"
+   "group": "Аэропорт",
+   "ex": [
+    {
+     "es": "Enséñeme la tarjeta de embarque.",
+     "ru": "Покажите посадочный талон.",
+     "frame": [
+      "tarjeta de embarque"
+     ]
+    },
+    {
+     "es": "La tarjeta de embarque está en el móvil.",
+     "ru": "Посадочный талон в телефоне.",
+     "frame": [
+      "tarjeta de embarque"
+     ]
+    },
+    {
+     "es": "He impreso la tarjeta de embarque.",
+     "ru": "Я распечатал посадочный талон.",
+     "frame": [
+      "tarjeta de embarque"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v056",
@@ -648,7 +1892,30 @@
    "en": "check-in desk",
    "ru": "стойка регистрации",
    "tr": "эл мострадо́р дэ фактурасьо́н",
-   "group": "Аэропорт"
+   "group": "Аэропорт",
+   "ex": [
+    {
+     "es": "¿Dónde está el mostrador de facturación?",
+     "ru": "Где стойка регистрации?",
+     "frame": [
+      "mostrador de facturación"
+     ]
+    },
+    {
+     "es": "El mostrador de facturación cierra en diez minutos.",
+     "ru": "Стойка регистрации закрывается через десять минут.",
+     "frame": [
+      "mostrador de facturación"
+     ]
+    },
+    {
+     "es": "Hay cola en el mostrador de facturación.",
+     "ru": "На стойке регистрации очередь.",
+     "frame": [
+      "mostrador de facturación"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v057",
@@ -657,7 +1924,30 @@
    "en": "to check in a suitcase",
    "ru": "сдать чемодан в багаж",
    "tr": "фактура́р ла малэ́та",
-   "group": "Аэропорт"
+   "group": "Аэропорт",
+   "ex": [
+    {
+     "es": "Quiero facturar esta maleta.",
+     "ru": "Я хочу сдать этот чемодан.",
+     "frame": [
+      "facturar"
+     ]
+    },
+    {
+     "es": "¿Hay que facturar la maleta?",
+     "ru": "Чемодан надо сдавать в багаж?",
+     "frame": [
+      "facturar la maleta"
+     ]
+    },
+    {
+     "es": "Facturé la maleta en el mostrador.",
+     "ru": "Я сдал чемодан на стойке.",
+     "frame": [
+      "Facturé la maleta"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v058",
@@ -666,7 +1956,30 @@
    "en": "hand luggage",
    "ru": "ручная кладь",
    "tr": "эл экипа́хэ дэ ма́но",
-   "group": "Аэропорт"
+   "group": "Аэропорт",
+   "ex": [
+    {
+     "es": "Solo llevo equipaje de mano.",
+     "ru": "У меня только ручная кладь.",
+     "frame": [
+      "equipaje de mano"
+     ]
+    },
+    {
+     "es": "El equipaje de mano va debajo del asiento.",
+     "ru": "Ручная кладь идёт под сиденье.",
+     "frame": [
+      "equipaje de mano"
+     ]
+    },
+    {
+     "es": "¿Cuánto pesa el equipaje de mano?",
+     "ru": "Сколько весит ручная кладь?",
+     "frame": [
+      "equipaje de mano"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v059",
@@ -675,7 +1988,30 @@
    "en": "boarding gate",
    "ru": "выход на посадку",
    "tr": "ла пуэ́рта дэ эмба́ркэ",
-   "group": "Аэропорт"
+   "group": "Аэропорт",
+   "ex": [
+    {
+     "es": "¿Cuál es la puerta de embarque?",
+     "ru": "Какой выход на посадку?",
+     "frame": [
+      "puerta de embarque"
+     ]
+    },
+    {
+     "es": "La puerta de embarque ha cambiado.",
+     "ru": "Выход на посадку поменяли.",
+     "frame": [
+      "puerta de embarque"
+     ]
+    },
+    {
+     "es": "Vamos a la puerta de embarque.",
+     "ru": "Идём на выход к посадке.",
+     "frame": [
+      "puerta de embarque"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v060",
@@ -684,7 +2020,30 @@
    "en": "security check",
    "ru": "контроль безопасности",
    "tr": "эл контро́л дэ сэгурида́д",
-   "group": "Аэропорт"
+   "group": "Аэропорт",
+   "ex": [
+    {
+     "es": "El control de seguridad está a la izquierda.",
+     "ru": "Контроль безопасности слева.",
+     "frame": [
+      "control de seguridad"
+     ]
+    },
+    {
+     "es": "Hay mucha cola en el control de seguridad.",
+     "ru": "На контроле большая очередь.",
+     "frame": [
+      "control de seguridad"
+     ]
+    },
+    {
+     "es": "Saca el portátil en el control de seguridad.",
+     "ru": "Достань ноутбук на контроле.",
+     "frame": [
+      "control de seguridad"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v061",
@@ -693,7 +2052,30 @@
    "en": "baggage claim",
    "ru": "выдача багажа",
    "tr": "ла ррэкохи́да дэ экипа́хэс",
-   "group": "Аэропорт"
+   "group": "Аэропорт",
+   "ex": [
+    {
+     "es": "La recogida de equipajes está abajo.",
+     "ru": "Выдача багажа внизу.",
+     "frame": [
+      "recogida de equipajes"
+     ]
+    },
+    {
+     "es": "Te espero en la recogida de equipajes.",
+     "ru": "Жду тебя на выдаче багажа.",
+     "frame": [
+      "recogida de equipajes"
+     ]
+    },
+    {
+     "es": "La cinta de recogida de equipajes es la tres.",
+     "ru": "Лента выдачи багажа третья.",
+     "frame": [
+      "recogida de equipajes"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-p004",
@@ -715,7 +2097,31 @@
     "en": "layover",
     "ru": "пересадка (в самолёте)",
     "tr": "ла эска́ла"
-   }
+   },
+   "ex": [
+    {
+     "es": "Prefiero un vuelo directo.",
+     "ru": "Я предпочитаю прямой рейс.",
+     "frame": [
+      "vuelo directo"
+     ]
+    },
+    {
+     "es": "Tenemos una escala en Madrid.",
+     "ru": "У нас пересадка в Мадриде.",
+     "frame": [
+      "escala"
+     ]
+    },
+    {
+     "es": "El vuelo directo es más caro que el de escala.",
+     "ru": "Прямой рейс дороже рейса с пересадкой.",
+     "frame": [
+      "vuelo directo",
+      "escala"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v063",
@@ -724,7 +2130,30 @@
    "en": "pushchair",
    "ru": "детская коляска",
    "tr": "эл карри́то дэл бэбэ́",
-   "group": "Аэропорт"
+   "group": "Аэропорт",
+   "ex": [
+    {
+     "es": "¿El carrito se factura o lo llevo hasta la puerta?",
+     "ru": "Коляску сдавать или везти до выхода?",
+     "frame": [
+      "carrito"
+     ]
+    },
+    {
+     "es": "El carrito no cabe en el ascensor.",
+     "ru": "Коляска не влезает в лифт.",
+     "frame": [
+      "carrito"
+     ]
+    },
+    {
+     "es": "Plegamos el carrito en la puerta.",
+     "ru": "Коляску складываем у выхода.",
+     "frame": [
+      "carrito"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-p003",
@@ -746,7 +2175,31 @@
     "en": "one way",
     "ru": "в одну сторону",
     "tr": "со́ло и́да"
-   }
+   },
+   "ex": [
+    {
+     "es": "Dos billetes para Valencia, ida y vuelta.",
+     "ru": "Два билета до Валенсии, туда-обратно.",
+     "frame": [
+      "ida y vuelta"
+     ]
+    },
+    {
+     "es": "Quiero solo ida, gracias.",
+     "ru": "Мне в одну сторону, спасибо.",
+     "frame": [
+      "solo ida"
+     ]
+    },
+    {
+     "es": "¿Ida y vuelta o solo ida?",
+     "ru": "Туда-обратно или в одну сторону?",
+     "frame": [
+      "Ida y vuelta",
+      "solo ida"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v065",
@@ -755,7 +2208,30 @@
    "en": "window seat",
    "ru": "место у окна",
    "tr": "эл асье́нто дэ бэнтани́йа",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "¿Queda algún asiento de ventanilla?",
+     "ru": "Осталось место у окна?",
+     "frame": [
+      "asiento de ventanilla"
+     ]
+    },
+    {
+     "es": "El asiento de ventanilla cuesta más.",
+     "ru": "Место у окна стоит дороже.",
+     "frame": [
+      "asiento de ventanilla"
+     ]
+    },
+    {
+     "es": "Me tocó asiento de ventanilla.",
+     "ru": "Мне досталось место у окна.",
+     "frame": [
+      "asiento de ventanilla"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v128",
@@ -764,7 +2240,30 @@
    "en": "aisle seat",
    "ru": "место у прохода",
    "tr": "эл асье́нто дэ паси́йо",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "Prefiero el asiento de pasillo.",
+     "ru": "Я предпочитаю место у прохода.",
+     "frame": [
+      "asiento de pasillo"
+     ]
+    },
+    {
+     "es": "El asiento de pasillo es más cómodo con niños.",
+     "ru": "С детьми удобнее место у прохода.",
+     "frame": [
+      "asiento de pasillo"
+     ]
+    },
+    {
+     "es": "¿Hay asiento de pasillo libre?",
+     "ru": "Есть свободное место у прохода?",
+     "frame": [
+      "asiento de pasillo"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v066",
@@ -773,7 +2272,30 @@
    "en": "track, platform",
    "ru": "путь (на вокзале)",
    "tr": "ла би́а",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "¿De qué vía sale el tren?",
+     "ru": "С какого пути отходит поезд?",
+     "frame": [
+      "vía"
+     ]
+    },
+    {
+     "es": "El tren sale de la vía cuatro.",
+     "ru": "Поезд отходит с четвёртого пути.",
+     "frame": [
+      "vía"
+     ]
+    },
+    {
+     "es": "Han cambiado la vía en el último momento.",
+     "ru": "Путь поменяли в последний момент.",
+     "frame": [
+      "vía"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v067",
@@ -782,7 +2304,30 @@
    "en": "to change trains",
    "ru": "делать пересадку",
    "tr": "асэ́р трансбо́рдо",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "¿Hay que hacer transbordo?",
+     "ru": "Нужна пересадка?",
+     "frame": [
+      "hacer transbordo"
+     ]
+    },
+    {
+     "es": "Hago transbordo en Sants.",
+     "ru": "Я пересаживаюсь в Сантсе.",
+     "frame": [
+      "Hago transbordo"
+     ]
+    },
+    {
+     "es": "Sin hacer transbordo tarda menos.",
+     "ru": "Без пересадки быстрее.",
+     "frame": [
+      "hacer transbordo"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v068",
@@ -791,7 +2336,30 @@
    "en": "next stop",
    "ru": "следующая остановка",
    "tr": "ла про́ксима пара́да",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "La próxima parada es la mía.",
+     "ru": "Следующая остановка моя.",
+     "frame": [
+      "próxima parada"
+     ]
+    },
+    {
+     "es": "¿Cuál es la próxima parada?",
+     "ru": "Какая следующая остановка?",
+     "frame": [
+      "próxima parada"
+     ]
+    },
+    {
+     "es": "En la próxima parada hay ascensor.",
+     "ru": "На следующей остановке есть лифт.",
+     "frame": [
+      "próxima parada"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v069",
@@ -800,7 +2368,30 @@
    "en": "to get off at",
    "ru": "выходить на",
    "tr": "баха́рсэ эн",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "Me bajo en la próxima.",
+     "ru": "Я выхожу на следующей.",
+     "frame": [
+      "Me bajo en"
+     ]
+    },
+    {
+     "es": "¿Dónde me bajo?",
+     "ru": "Где мне выходить?",
+     "frame": [
+      "me bajo"
+     ]
+    },
+    {
+     "es": "Bájate en la tercera parada.",
+     "ru": "Выходи на третьей остановке.",
+     "frame": [
+      "Bájate en"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v070",
@@ -809,7 +2400,30 @@
    "en": "multi-trip travel pass",
    "ru": "проездной (на несколько поездок)",
    "tr": "эл бо́но",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "Compré un bono de diez viajes.",
+     "ru": "Я купил проездной на десять поездок.",
+     "frame": [
+      "bono"
+     ]
+    },
+    {
+     "es": "El bono sale más barato.",
+     "ru": "Проездной выходит дешевле.",
+     "frame": [
+      "bono"
+     ]
+    },
+    {
+     "es": "¿Dónde se compra el bono?",
+     "ru": "Где купить проездной?",
+     "frame": [
+      "bono"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v129",
@@ -818,7 +2432,30 @@
    "en": "transport card",
    "ru": "транспортная карта",
    "tr": "ла тархэ́та дэ транспо́ртэ",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "La tarjeta de transporte vale para el metro y el bus.",
+     "ru": "Транспортная карта работает в метро и в автобусе.",
+     "frame": [
+      "tarjeta de transporte"
+     ]
+    },
+    {
+     "es": "He perdido la tarjeta de transporte.",
+     "ru": "Я потерял транспортную карту.",
+     "frame": [
+      "tarjeta de transporte"
+     ]
+    },
+    {
+     "es": "¿Dónde saco la tarjeta de transporte?",
+     "ru": "Где оформить транспортную карту?",
+     "frame": [
+      "tarjeta de transporte"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v071",
@@ -827,7 +2464,30 @@
    "en": "to top up",
    "ru": "пополнить",
    "tr": "ррэкарга́р",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "¿Puedo recargar la tarjeta aquí?",
+     "ru": "Здесь можно пополнить проездной?",
+     "frame": [
+      "recargar"
+     ]
+    },
+    {
+     "es": "Tengo que recargar el bono.",
+     "ru": "Мне нужно пополнить проездной.",
+     "frame": [
+      "recargar"
+     ]
+    },
+    {
+     "es": "Recarga diez euros, por favor.",
+     "ru": "Пополни на десять евро, пожалуйста.",
+     "frame": [
+      "Recarga"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v072",
@@ -836,7 +2496,30 @@
    "en": "to validate a ticket",
    "ru": "пробить билет (разг.: picar el billete)",
    "tr": "балида́р эл бийэ́тэ",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "No olvides validar el billete.",
+     "ru": "Не забудь пробить билет.",
+     "frame": [
+      "validar el billete"
+     ]
+    },
+    {
+     "es": "¿Dónde se valida el billete?",
+     "ru": "Где пробивают билет?",
+     "frame": [
+      "valida el billete"
+     ]
+    },
+    {
+     "es": "Validé el billete al entrar.",
+     "ru": "Я пробил билет на входе.",
+     "frame": [
+      "Validé el billete"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v073",
@@ -845,7 +2528,30 @@
    "en": "to be running late",
    "ru": "опаздывать (о транспорте)",
    "tr": "йэба́р ррэтра́со",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "El tren lleva veinte minutos de retraso.",
+     "ru": "Поезд опаздывает на двадцать минут.",
+     "frame": [
+      "lleva"
+     ]
+    },
+    {
+     "es": "El avión lleva retraso.",
+     "ru": "Самолёт опаздывает.",
+     "frame": [
+      "lleva retraso"
+     ]
+    },
+    {
+     "es": "Si lleva retraso, avisan por megafonía.",
+     "ru": "Если опаздывает, объявляют по громкой связи.",
+     "frame": [
+      "lleva retraso"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v074",
@@ -854,7 +2560,30 @@
    "en": "child car seat",
    "ru": "детское кресло",
    "tr": "ла сийи́та инфанти́л",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "¿Tiene sillita para niños?",
+     "ru": "У вас есть детское кресло?",
+     "frame": [
+      "sillita"
+     ]
+    },
+    {
+     "es": "La sillita va detrás.",
+     "ru": "Детское кресло ставится сзади.",
+     "frame": [
+      "sillita"
+     ]
+    },
+    {
+     "es": "Sin sillita no puede ir en el coche.",
+     "ru": "Без детского кресла в машине нельзя.",
+     "frame": [
+      "sillita"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v075",
@@ -863,7 +2592,30 @@
    "en": "to park",
    "ru": "парковаться",
    "tr": "апарка́р",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "¿Dónde puedo aparcar por aquí?",
+     "ru": "Где здесь можно припарковаться?",
+     "frame": [
+      "aparcar"
+     ]
+    },
+    {
+     "es": "Aparcar en el centro es imposible.",
+     "ru": "Парковаться в центре невозможно.",
+     "frame": [
+      "Aparcar"
+     ]
+    },
+    {
+     "es": "He aparcado en la esquina.",
+     "ru": "Я припарковался на углу.",
+     "frame": [
+      "aparcado"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v130",
@@ -872,7 +2624,30 @@
    "en": "car park",
    "ru": "парковка",
    "tr": "эл апаркамье́нто",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "El aparcamiento está lleno.",
+     "ru": "Парковка заполнена.",
+     "frame": [
+      "aparcamiento"
+     ]
+    },
+    {
+     "es": "¿Cuánto cuesta el aparcamiento?",
+     "ru": "Сколько стоит парковка?",
+     "frame": [
+      "aparcamiento"
+     ]
+    },
+    {
+     "es": "Hay aparcamiento gratis al lado.",
+     "ru": "Рядом есть бесплатная парковка.",
+     "frame": [
+      "aparcamiento"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v076",
@@ -881,7 +2656,30 @@
    "en": "toll road",
    "ru": "платная дорога",
    "tr": "эл пэа́хэ",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "La autopista tiene peaje.",
+     "ru": "На автостраде есть плата за проезд.",
+     "frame": [
+      "peaje"
+     ]
+    },
+    {
+     "es": "El peaje cuesta ocho euros.",
+     "ru": "Проезд стоит восемь евро.",
+     "frame": [
+      "peaje"
+     ]
+    },
+    {
+     "es": "Evitamos el peaje por la nacional.",
+     "ru": "Мы объезжаем платную дорогу по обычной.",
+     "frame": [
+      "peaje"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v077",
@@ -890,7 +2688,30 @@
    "en": "to fill up (the car)",
    "ru": "заправиться",
    "tr": "ррэпоста́р",
-   "group": "Поезд, автобус, такси и машина"
+   "group": "Поезд, автобус, такси и машина",
+   "ex": [
+    {
+     "es": "Tenemos que repostar antes de salir.",
+     "ru": "Нужно заправиться перед выездом.",
+     "frame": [
+      "repostar"
+     ]
+    },
+    {
+     "es": "Repostamos en la próxima gasolinera.",
+     "ru": "Заправимся на следующей заправке.",
+     "frame": [
+      "Repostamos"
+     ]
+    },
+    {
+     "es": "¿Dónde puedo repostar?",
+     "ru": "Где можно заправиться?",
+     "frame": [
+      "repostar"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v079",
@@ -899,7 +2720,30 @@
    "en": "double room",
    "ru": "двухместный номер",
    "tr": "ла абитасьо́н до́блэ",
-   "group": "Отель"
+   "group": "Отель",
+   "ex": [
+    {
+     "es": "Quiero una habitación doble.",
+     "ru": "Мне нужен двухместный номер.",
+     "frame": [
+      "habitación doble"
+     ]
+    },
+    {
+     "es": "La habitación doble cuesta ochenta euros.",
+     "ru": "Двухместный номер стоит восемьдесят евро.",
+     "frame": [
+      "habitación doble"
+     ]
+    },
+    {
+     "es": "¿Tienen habitación doble libre?",
+     "ru": "Есть свободный двухместный номер?",
+     "frame": [
+      "habitación doble"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v080",
@@ -908,7 +2752,30 @@
    "en": "cot",
    "ru": "детская кроватка",
    "tr": "ла ку́на",
-   "group": "Отель"
+   "group": "Отель",
+   "ex": [
+    {
+     "es": "¿La habitación tiene cuna?",
+     "ru": "В номере есть детская кроватка?",
+     "frame": [
+      "cuna"
+     ]
+    },
+    {
+     "es": "Pedimos una cuna para el bebé.",
+     "ru": "Мы попросили кроватку для малыша.",
+     "frame": [
+      "cuna"
+     ]
+    },
+    {
+     "es": "La cuna no cabe en la habitación.",
+     "ru": "Кроватка не влезает в номер.",
+     "frame": [
+      "cuna"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-p005",
@@ -930,7 +2797,31 @@
     "en": "check-out time",
     "ru": "время выезда",
     "tr": "ла о́ра дэ сали́да"
-   }
+   },
+   "ex": [
+    {
+     "es": "La hora de entrada es a las tres.",
+     "ru": "Заезд в три.",
+     "frame": [
+      "hora de entrada"
+     ]
+    },
+    {
+     "es": "La hora de salida es a las once.",
+     "ru": "Выезд в одиннадцать.",
+     "frame": [
+      "hora de salida"
+     ]
+    },
+    {
+     "es": "La hora de entrada es a las tres y la de salida a las once.",
+     "ru": "Заезд в три, выезд в одиннадцать.",
+     "frame": [
+      "hora de entrada",
+      "salida"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v083",
@@ -939,7 +2830,30 @@
    "en": "to leave the luggage",
    "ru": "оставить чемоданы",
    "tr": "дэха́р лас малэ́тас",
-   "group": "Отель"
+   "group": "Отель",
+   "ex": [
+    {
+     "es": "¿Podemos dejar las maletas hasta las cinco?",
+     "ru": "Можно оставить чемоданы до пяти?",
+     "frame": [
+      "dejar las maletas"
+     ]
+    },
+    {
+     "es": "Dejé las maletas en recepción.",
+     "ru": "Я оставил чемоданы на ресепшене.",
+     "frame": [
+      "Dejé las maletas"
+     ]
+    },
+    {
+     "es": "¿Se pueden dejar las maletas antes de entrar?",
+     "ru": "Можно оставить чемоданы до заселения?",
+     "frame": [
+      "dejar las maletas"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v084",
@@ -948,7 +2862,30 @@
    "en": "bed sheets",
    "ru": "постельное бельё",
    "tr": "лас са́банас",
-   "group": "Отель"
+   "group": "Отель",
+   "ex": [
+    {
+     "es": "Cambian las sábanas cada tres días.",
+     "ru": "Бельё меняют раз в три дня.",
+     "frame": [
+      "sábanas"
+     ]
+    },
+    {
+     "es": "Las sábanas están limpias.",
+     "ru": "Бельё чистое.",
+     "frame": [
+      "sábanas"
+     ]
+    },
+    {
+     "es": "¿Pueden cambiar las sábanas?",
+     "ru": "Можете поменять бельё?",
+     "frame": [
+      "sábanas"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v085",
@@ -957,7 +2894,30 @@
    "en": "prior appointment",
    "ru": "предварительная запись",
    "tr": "ла си́та прэ́бья",
-   "group": "Врач и аптека"
+   "group": "Врач и аптека",
+   "ex": [
+    {
+     "es": "¿Hace falta cita previa?",
+     "ru": "Нужна предварительная запись?",
+     "frame": [
+      "cita previa"
+     ]
+    },
+    {
+     "es": "Sin cita previa no atienden.",
+     "ru": "Без предварительной записи не принимают.",
+     "frame": [
+      "cita previa"
+     ]
+    },
+    {
+     "es": "Pedí cita previa por internet.",
+     "ru": "Я записался через интернет.",
+     "frame": [
+      "cita previa"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v086",
@@ -966,7 +2926,30 @@
    "en": "to make an appointment",
    "ru": "записаться",
    "tr": "пэди́р си́та",
-   "group": "Врач и аптека"
+   "group": "Врач и аптека",
+   "ex": [
+    {
+     "es": "Quería pedir cita con el médico de cabecera.",
+     "ru": "Хочу записаться к терапевту.",
+     "frame": [
+      "pedir cita"
+     ]
+    },
+    {
+     "es": "Hay que pedir cita antes.",
+     "ru": "Записаться нужно заранее.",
+     "frame": [
+      "pedir cita"
+     ]
+    },
+    {
+     "es": "¿Cómo se pide cita?",
+     "ru": "Как записаться?",
+     "frame": [
+      "pide cita"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v087",
@@ -975,7 +2958,30 @@
    "en": "family doctor, GP",
    "ru": "семейный врач",
    "tr": "эл мэ́дико дэ кабэсэ́ра",
-   "group": "Врач и аптека"
+   "group": "Врач и аптека",
+   "ex": [
+    {
+     "es": "Mi médico de cabecera es muy amable.",
+     "ru": "Мой семейный врач очень любезный.",
+     "frame": [
+      "médico de cabecera"
+     ]
+    },
+    {
+     "es": "El médico de cabecera me ha derivado.",
+     "ru": "Семейный врач направил меня к специалисту.",
+     "frame": [
+      "médico de cabecera"
+     ]
+    },
+    {
+     "es": "¿Quién es tu médico de cabecera?",
+     "ru": "Кто твой семейный врач?",
+     "frame": [
+      "médico de cabecera"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v088",
@@ -984,7 +2990,30 @@
    "en": "emergency room, A&E",
    "ru": "неотложка / приёмный покой",
    "tr": "лас урхэ́нсьяс",
-   "group": "Врач и аптека"
+   "group": "Врач и аптека",
+   "ex": [
+    {
+     "es": "¿Dónde están las urgencias?",
+     "ru": "Где приёмный покой?",
+     "frame": [
+      "urgencias"
+     ]
+    },
+    {
+     "es": "Fuimos a urgencias por la noche.",
+     "ru": "Ночью мы поехали в неотложку.",
+     "frame": [
+      "urgencias"
+     ]
+    },
+    {
+     "es": "En urgencias había mucha gente.",
+     "ru": "В приёмном покое было много народу.",
+     "frame": [
+      "urgencias"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v089",
@@ -993,7 +3022,30 @@
    "en": "health card",
    "ru": "медицинская карта",
    "tr": "ла тархэ́та санита́рья",
-   "group": "Врач и аптека"
+   "group": "Врач и аптека",
+   "ex": [
+    {
+     "es": "Traiga la tarjeta sanitaria.",
+     "ru": "Принесите медицинскую карту.",
+     "frame": [
+      "tarjeta sanitaria"
+     ]
+    },
+    {
+     "es": "He perdido la tarjeta sanitaria.",
+     "ru": "Я потерял медицинскую карту.",
+     "frame": [
+      "tarjeta sanitaria"
+     ]
+    },
+    {
+     "es": "Sin tarjeta sanitaria no puedo pedir cita.",
+     "ru": "Без медкарты я не могу записаться.",
+     "frame": [
+      "tarjeta sanitaria"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v090",
@@ -1002,7 +3054,30 @@
    "en": "prescription",
    "ru": "рецепт",
    "tr": "ла ррэсэ́та",
-   "group": "Врач и аптека"
+   "group": "Врач и аптека",
+   "ex": [
+    {
+     "es": "¿Hace falta receta?",
+     "ru": "Нужен рецепт?",
+     "frame": [
+      "receta"
+     ]
+    },
+    {
+     "es": "La receta está en la aplicación.",
+     "ru": "Рецепт в приложении.",
+     "frame": [
+      "receta"
+     ]
+    },
+    {
+     "es": "Sin receta no lo venden.",
+     "ru": "Без рецепта это не продают.",
+     "frame": [
+      "receta"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v091",
@@ -1011,7 +3086,30 @@
    "en": "duty pharmacy (24 h)",
    "ru": "дежурная аптека",
    "tr": "ла фарма́сья дэ гуа́рдья",
-   "group": "Врач и аптека"
+   "group": "Врач и аптека",
+   "ex": [
+    {
+     "es": "¿Cuál es la farmacia de guardia hoy?",
+     "ru": "Какая аптека сегодня дежурная?",
+     "frame": [
+      "farmacia de guardia"
+     ]
+    },
+    {
+     "es": "La farmacia de guardia abre toda la noche.",
+     "ru": "Дежурная аптека работает всю ночь.",
+     "frame": [
+      "farmacia de guardia"
+     ]
+    },
+    {
+     "es": "Busca la farmacia de guardia más cerca.",
+     "ru": "Найди ближайшую дежурную аптеку.",
+     "frame": [
+      "farmacia de guardia"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v092",
@@ -1020,7 +3118,30 @@
    "en": "syrup (medicine)",
    "ru": "сироп (лекарство)",
    "tr": "эл хара́бэ",
-   "group": "Врач и аптека"
+   "group": "Врач и аптека",
+   "ex": [
+    {
+     "es": "Dale una cucharada de jarabe.",
+     "ru": "Дай ей ложку сиропа.",
+     "frame": [
+      "jarabe"
+     ]
+    },
+    {
+     "es": "El jarabe es para la tos.",
+     "ru": "Сироп от кашля.",
+     "frame": [
+      "jarabe"
+     ]
+    },
+    {
+     "es": "El jarabe sabe a fresa.",
+     "ru": "Сироп на вкус как клубника.",
+     "frame": [
+      "jarabe"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v093",
@@ -1029,7 +3150,30 @@
    "en": "Spanish ID card",
    "ru": "удостоверение личности (DNI)",
    "tr": "эл дэ-энэ-и́",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "¿Me enseña el DNI?",
+     "ru": "Покажете DNI?",
+     "frame": [
+      "DNI"
+     ]
+    },
+    {
+     "es": "El DNI caduca en mayo.",
+     "ru": "DNI истекает в мае.",
+     "frame": [
+      "DNI"
+     ]
+    },
+    {
+     "es": "Sin DNI no puede entrar.",
+     "ru": "Без DNI войти нельзя.",
+     "frame": [
+      "DNI"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v131",
@@ -1038,7 +3182,30 @@
    "en": "foreigner's ID number",
    "ru": "номер иностранца (NIE)",
    "tr": "эл ни́э",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "Necesito el NIE para el contrato.",
+     "ru": "Мне нужен NIE для договора.",
+     "frame": [
+      "NIE"
+     ]
+    },
+    {
+     "es": "El NIE tarda un mes.",
+     "ru": "NIE делают месяц.",
+     "frame": [
+      "NIE"
+     ]
+    },
+    {
+     "es": "¿Ya tienes el NIE?",
+     "ru": "У тебя уже есть NIE?",
+     "frame": [
+      "NIE"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v094",
@@ -1047,7 +3214,30 @@
    "en": "cash machine, ATM",
    "ru": "банкомат",
    "tr": "эл кахэ́ро аутома́тико",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "El cajero no me ha dado el dinero.",
+     "ru": "Банкомат не выдал деньги.",
+     "frame": [
+      "cajero"
+     ]
+    },
+    {
+     "es": "Hay un cajero automático en la esquina.",
+     "ru": "На углу есть банкомат.",
+     "frame": [
+      "cajero"
+     ]
+    },
+    {
+     "es": "El cajero está sin papel.",
+     "ru": "В банкомате нет бумаги.",
+     "frame": [
+      "cajero"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v095",
@@ -1056,7 +3246,30 @@
    "en": "to withdraw money",
    "ru": "снять деньги",
    "tr": "сака́р динэ́ро",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "Voy a sacar dinero.",
+     "ru": "Я пойду снять деньги.",
+     "frame": [
+      "sacar dinero"
+     ]
+    },
+    {
+     "es": "Saco dinero una vez al mes.",
+     "ru": "Я снимаю деньги раз в месяц.",
+     "frame": [
+      "Saco dinero"
+     ]
+    },
+    {
+     "es": "No puedo sacar dinero de este cajero.",
+     "ru": "В этом банкомате я не могу снять деньги.",
+     "frame": [
+      "sacar dinero"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v096",
@@ -1065,7 +3278,30 @@
    "en": "bank transfer",
    "ru": "перевод",
    "tr": "ла трансфэрэ́нсья",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "Quería hacer una transferencia.",
+     "ru": "Я хотел бы сделать перевод.",
+     "frame": [
+      "transferencia"
+     ]
+    },
+    {
+     "es": "La transferencia tarda un día.",
+     "ru": "Перевод идёт день.",
+     "frame": [
+      "transferencia"
+     ]
+    },
+    {
+     "es": "¿La transferencia tiene comisión?",
+     "ru": "За перевод есть комиссия?",
+     "frame": [
+      "transferencia"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v097",
@@ -1074,7 +3310,30 @@
    "en": "fee, charge",
    "ru": "комиссия",
    "tr": "ла комисьо́н",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "¿Esta operación tiene comisión?",
+     "ru": "За эту операцию есть комиссия?",
+     "frame": [
+      "comisión"
+     ]
+    },
+    {
+     "es": "La comisión es de tres euros.",
+     "ru": "Комиссия три евро.",
+     "frame": [
+      "comisión"
+     ]
+    },
+    {
+     "es": "Sin comisión si eres cliente.",
+     "ru": "Клиентам без комиссии.",
+     "frame": [
+      "comisión"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v098",
@@ -1083,7 +3342,30 @@
    "en": "direct debit",
    "ru": "автоплатёж",
    "tr": "эл ррэси́бо домисилья́до",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "La luz va por recibo domiciliado.",
+     "ru": "Свет идёт автоплатежом.",
+     "frame": [
+      "recibo domiciliado"
+     ]
+    },
+    {
+     "es": "Tengo el alquiler como recibo domiciliado.",
+     "ru": "Аренда у меня автоплатежом.",
+     "frame": [
+      "recibo domiciliado"
+     ]
+    },
+    {
+     "es": "El recibo domiciliado se cobra el día cinco.",
+     "ru": "Автоплатёж списывается пятого.",
+     "frame": [
+      "recibo domiciliado"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v099",
@@ -1092,7 +3374,30 @@
    "en": "parcel",
    "ru": "посылка",
    "tr": "эл пакэ́тэ",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "Vengo a recoger un paquete.",
+     "ru": "Я за посылкой.",
+     "frame": [
+      "paquete"
+     ]
+    },
+    {
+     "es": "El paquete llegó ayer.",
+     "ru": "Посылка пришла вчера.",
+     "frame": [
+      "paquete"
+     ]
+    },
+    {
+     "es": "¿A nombre de quién está el paquete?",
+     "ru": "На чьё имя посылка?",
+     "frame": [
+      "paquete"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v132",
@@ -1101,7 +3406,30 @@
    "en": "shipment, delivery",
    "ru": "отправление, доставка",
    "tr": "эл энби́о",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "El envío llega en dos días.",
+     "ru": "Доставка идёт два дня.",
+     "frame": [
+      "envío"
+     ]
+    },
+    {
+     "es": "¿Cuánto cuesta el envío a Ucrania?",
+     "ru": "Сколько стоит доставка в Украину?",
+     "frame": [
+      "envío"
+     ]
+    },
+    {
+     "es": "El envío se ha retrasado.",
+     "ru": "Доставка задержалась.",
+     "frame": [
+      "envío"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v100",
@@ -1110,7 +3438,30 @@
    "en": "pick-up point",
    "ru": "пункт выдачи",
    "tr": "эл пу́нто дэ ррэкохи́да",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "¿Me lo pueden dejar en el punto de recogida?",
+     "ru": "Можно оставить в пункте выдачи?",
+     "frame": [
+      "punto de recogida"
+     ]
+    },
+    {
+     "es": "El punto de recogida está en el estanco.",
+     "ru": "Пункт выдачи в табачной лавке.",
+     "frame": [
+      "punto de recogida"
+     ]
+    },
+    {
+     "es": "Recojo el paquete en el punto de recogida.",
+     "ru": "Я забираю посылку в пункте выдачи.",
+     "frame": [
+      "punto de recogida"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v101",
@@ -1119,7 +3470,30 @@
    "en": "delivery driver",
    "ru": "курьер",
    "tr": "эл ррэпартидо́р",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "El repartidor no ha llamado al timbre.",
+     "ru": "Курьер не позвонил в дверь.",
+     "frame": [
+      "repartidor"
+     ]
+    },
+    {
+     "es": "El repartidor viene por la tarde.",
+     "ru": "Курьер приедет после обеда.",
+     "frame": [
+      "repartidor"
+     ]
+    },
+    {
+     "es": "Avisa al repartidor de que no hay ascensor.",
+     "ru": "Предупреди курьера, что лифта нет.",
+     "frame": [
+      "repartidor"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v102",
@@ -1128,7 +3502,30 @@
    "en": "notice, slip",
    "ru": "уведомление",
    "tr": "эл аби́со",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "Tengo un aviso de Correos.",
+     "ru": "У меня уведомление с почты.",
+     "frame": [
+      "aviso"
+     ]
+    },
+    {
+     "es": "Han dejado un aviso en el buzón.",
+     "ru": "В почтовый ящик положили уведомление.",
+     "frame": [
+      "aviso"
+     ]
+    },
+    {
+     "es": "El aviso dice que pase por la oficina.",
+     "ru": "В уведомлении сказано зайти в отделение.",
+     "frame": [
+      "aviso"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v103",
@@ -1137,7 +3534,30 @@
    "en": "letterbox",
    "ru": "почтовый ящик",
    "tr": "эл бусо́н",
-   "group": "Банк, почта и доставка"
+   "group": "Банк, почта и доставка",
+   "ex": [
+    {
+     "es": "Mira en el buzón.",
+     "ru": "Посмотри в почтовом ящике.",
+     "frame": [
+      "buzón"
+     ]
+    },
+    {
+     "es": "El buzón está lleno de publicidad.",
+     "ru": "Ящик забит рекламой.",
+     "frame": [
+      "buzón"
+     ]
+    },
+    {
+     "es": "No tengo llave del buzón.",
+     "ru": "У меня нет ключа от ящика.",
+     "frame": [
+      "buzón"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v104",
@@ -1146,7 +3566,30 @@
    "en": "building entrance",
    "ru": "подъезд",
    "tr": "эл порта́л",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "¿Me puedes abrir el portal?",
+     "ru": "Можешь открыть подъезд?",
+     "frame": [
+      "portal"
+     ]
+    },
+    {
+     "es": "El portal se cierra a las diez.",
+     "ru": "Подъезд закрывается в десять.",
+     "frame": [
+      "portal"
+     ]
+    },
+    {
+     "es": "Te espero en el portal.",
+     "ru": "Жду тебя в подъезде.",
+     "frame": [
+      "portal"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v133",
@@ -1155,7 +3598,30 @@
    "en": "concierge desk",
    "ru": "консьерж, вахта",
    "tr": "ла портэри́а",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "No estaré en casa, déjelo en portería.",
+     "ru": "Меня не будет дома, оставьте у консьержа.",
+     "frame": [
+      "portería"
+     ]
+    },
+    {
+     "es": "La portería cierra a las dos.",
+     "ru": "Вахта закрывается в два.",
+     "frame": [
+      "portería"
+     ]
+    },
+    {
+     "es": "Pregunta en portería.",
+     "ru": "Спроси на вахте.",
+     "frame": [
+      "portería"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v105",
@@ -1164,7 +3630,30 @@
    "en": "doorbell",
    "ru": "дверной звонок",
    "tr": "эл ти́мбрэ",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "El timbre no suena.",
+     "ru": "Звонок не работает.",
+     "frame": [
+      "timbre"
+     ]
+    },
+    {
+     "es": "Llama al timbre dos veces.",
+     "ru": "Позвони в дверь дважды.",
+     "frame": [
+      "timbre"
+     ]
+    },
+    {
+     "es": "Han tocado el timbre.",
+     "ru": "Позвонили в дверь.",
+     "frame": [
+      "timbre"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-p002",
@@ -1186,7 +3675,31 @@
     "en": "landlady",
     "ru": "арендодательница",
     "tr": "ла касэ́ра"
-   }
+   },
+   "ex": [
+    {
+     "es": "El casero sube el alquiler cada año.",
+     "ru": "Арендодатель поднимает аренду каждый год.",
+     "frame": [
+      "casero"
+     ]
+    },
+    {
+     "es": "La casera vive en el mismo edificio.",
+     "ru": "Арендодательница живёт в том же доме.",
+     "frame": [
+      "casera"
+     ]
+    },
+    {
+     "es": "El casero firma y la casera cobra.",
+     "ru": "Арендодатель подписывает, арендодательница получает.",
+     "frame": [
+      "casero",
+      "casera"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v108",
@@ -1195,7 +3708,30 @@
    "en": "deposit",
    "ru": "залог",
    "tr": "ла фья́нса",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "¿Cuánto es la fianza?",
+     "ru": "Какой залог?",
+     "frame": [
+      "fianza"
+     ]
+    },
+    {
+     "es": "La fianza son dos meses.",
+     "ru": "Залог — две аренды.",
+     "frame": [
+      "fianza"
+     ]
+    },
+    {
+     "es": "Nos devolvieron la fianza entera.",
+     "ru": "Нам вернули залог целиком.",
+     "frame": [
+      "fianza"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v109",
@@ -1204,7 +3740,30 @@
    "en": "rental contract",
    "ru": "договор аренды",
    "tr": "эл контра́то дэ алкилэ́р",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "Firmamos el contrato de alquiler el lunes.",
+     "ru": "Мы подписываем договор аренды в понедельник.",
+     "frame": [
+      "contrato de alquiler"
+     ]
+    },
+    {
+     "es": "El contrato de alquiler es por un año.",
+     "ru": "Договор аренды на год.",
+     "frame": [
+      "contrato de alquiler"
+     ]
+    },
+    {
+     "es": "Lee el contrato de alquiler antes de firmar.",
+     "ru": "Прочитай договор аренды до подписания.",
+     "frame": [
+      "contrato de alquiler"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v110",
@@ -1213,7 +3772,30 @@
    "en": "community fees, residents' association",
    "ru": "плата за содержание дома / жильцы дома",
    "tr": "ла комунида́д дэ бэси́нос",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "¿La comunidad está incluida?",
+     "ru": "Плата за содержание дома включена?",
+     "frame": [
+      "comunidad"
+     ]
+    },
+    {
+     "es": "Hay reunión de la comunidad el jueves.",
+     "ru": "В четверг собрание жильцов.",
+     "frame": [
+      "comunidad"
+     ]
+    },
+    {
+     "es": "La comunidad cuesta cuarenta euros al mes.",
+     "ru": "Содержание дома стоит сорок евро в месяц.",
+     "frame": [
+      "comunidad"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v111",
@@ -1222,7 +3804,30 @@
    "en": "utilities",
    "ru": "свет, вода, газ",
    "tr": "лос сумини́строс лус а́гуа гас",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "¿Los suministros van aparte?",
+     "ru": "Свет и вода отдельно?",
+     "frame": [
+      "suministros"
+     ]
+    },
+    {
+     "es": "Los suministros no están incluidos.",
+     "ru": "Коммунальные не включены.",
+     "frame": [
+      "suministros"
+     ]
+    },
+    {
+     "es": "Pagamos los suministros cada dos meses.",
+     "ru": "Коммунальные мы платим раз в два месяца.",
+     "frame": [
+      "suministros"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v112",
@@ -1231,7 +3836,30 @@
    "en": "breakdown, fault",
    "ru": "поломка",
    "tr": "ла абэри́а",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "Hay una avería en el ascensor.",
+     "ru": "В лифте поломка.",
+     "frame": [
+      "avería"
+     ]
+    },
+    {
+     "es": "La avería es de la comunidad.",
+     "ru": "Поломка по линии дома.",
+     "frame": [
+      "avería"
+     ]
+    },
+    {
+     "es": "Han arreglado la avería.",
+     "ru": "Поломку устранили.",
+     "frame": [
+      "avería"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v113",
@@ -1240,7 +3868,30 @@
    "en": "plumber",
    "ru": "сантехник",
    "tr": "эл фонтанэ́ро",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "¿Puede venir un fontanero hoy?",
+     "ru": "Сантехник может прийти сегодня?",
+     "frame": [
+      "fontanero"
+     ]
+    },
+    {
+     "es": "El fontanero llega por la tarde.",
+     "ru": "Сантехник придёт после обеда.",
+     "frame": [
+      "fontanero"
+     ]
+    },
+    {
+     "es": "Llamé al fontanero por la fuga.",
+     "ru": "Я вызвал сантехника из-за протечки.",
+     "frame": [
+      "fontanero"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v134",
@@ -1249,7 +3900,30 @@
    "en": "electrician",
    "ru": "электрик",
    "tr": "эл элэктриси́ста",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "Necesito un electricista.",
+     "ru": "Мне нужен электрик.",
+     "frame": [
+      "electricista"
+     ]
+    },
+    {
+     "es": "El electricista viene mañana.",
+     "ru": "Электрик придёт завтра.",
+     "frame": [
+      "electricista"
+     ]
+    },
+    {
+     "es": "El electricista ha cambiado el interruptor.",
+     "ru": "Электрик поменял выключатель.",
+     "frame": [
+      "electricista"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v114",
@@ -1258,7 +3932,30 @@
    "en": "it has broken down",
    "ru": "сломалось (о технике)",
    "tr": "сэ а эстропэа́до",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "Se ha estropeado la caldera.",
+     "ru": "Сломался котёл.",
+     "frame": [
+      "Se ha estropeado"
+     ]
+    },
+    {
+     "es": "Se ha estropeado el lavavajillas.",
+     "ru": "Сломалась посудомойка.",
+     "frame": [
+      "Se ha estropeado"
+     ]
+    },
+    {
+     "es": "Si se ha estropeado, avisa al casero.",
+     "ru": "Если сломалось, скажи арендодателю.",
+     "frame": [
+      "se ha estropeado"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v115",
@@ -1267,7 +3964,30 @@
    "en": "water leak",
    "ru": "протечка",
    "tr": "ла фу́га дэ а́гуа",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "Hay una fuga de agua en el baño.",
+     "ru": "В ванной течёт вода.",
+     "frame": [
+      "fuga de agua"
+     ]
+    },
+    {
+     "es": "La fuga de agua viene de arriba.",
+     "ru": "Течёт сверху.",
+     "frame": [
+      "fuga de agua"
+     ]
+    },
+    {
+     "es": "Han arreglado la fuga de agua.",
+     "ru": "Протечку устранили.",
+     "frame": [
+      "fuga de agua"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v116",
@@ -1276,7 +3996,30 @@
    "en": "rubbish container",
    "ru": "мусорный контейнер",
    "tr": "эл контэнэдо́р",
-   "group": "Дом, аренда и соседи"
+   "group": "Дом, аренда и соседи",
+   "ex": [
+    {
+     "es": "¿Dónde están los contenedores?",
+     "ru": "Где мусорные контейнеры?",
+     "frame": [
+      "contenedores"
+     ]
+    },
+    {
+     "es": "El contenedor está lleno.",
+     "ru": "Контейнер заполнен.",
+     "frame": [
+      "contenedor"
+     ]
+    },
+    {
+     "es": "Baja la basura al contenedor.",
+     "ru": "Вынеси мусор в контейнер.",
+     "frame": [
+      "contenedor"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v118",
@@ -1285,7 +4028,30 @@
    "en": "I'll call you",
    "ru": "я позвоню",
    "tr": "тэ йа́мо",
-   "group": "Звонки, сообщения и договорённости"
+   "group": "Звонки, сообщения и договорённости",
+   "ex": [
+    {
+     "es": "Ahora no puedo hablar, te llamo en diez minutos.",
+     "ru": "Сейчас не могу говорить, перезвоню через десять минут.",
+     "frame": [
+      "te llamo"
+     ]
+    },
+    {
+     "es": "Te llamo cuando llegue.",
+     "ru": "Позвоню, когда доеду.",
+     "frame": [
+      "Te llamo"
+     ]
+    },
+    {
+     "es": "¿Me llamas luego?",
+     "ru": "Позвонишь потом?",
+     "frame": [
+      "llamas"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v135",
@@ -1294,7 +4060,30 @@
    "en": "I'll text you",
    "ru": "я напишу",
    "tr": "тэ эскри́бо",
-   "group": "Звонки, сообщения и договорённости"
+   "group": "Звонки, сообщения и договорённости",
+   "ex": [
+    {
+     "es": "Te escribo por la tarde.",
+     "ru": "Напишу тебе после обеда.",
+     "frame": [
+      "Te escribo"
+     ]
+    },
+    {
+     "es": "Te escribo la dirección ahora.",
+     "ru": "Сейчас напишу тебе адрес.",
+     "frame": [
+      "Te escribo"
+     ]
+    },
+    {
+     "es": "Si cambia algo, te escribo.",
+     "ru": "Если что-то изменится, напишу.",
+     "frame": [
+      "te escribo"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v119",
@@ -1303,7 +4092,30 @@
    "en": "to send a WhatsApp",
    "ru": "написать в вотсап",
    "tr": "манда́р ун уаса́п",
-   "group": "Звонки, сообщения и договорённости"
+   "group": "Звонки, сообщения и договорённости",
+   "ex": [
+    {
+     "es": "Te mando un wasap con la dirección.",
+     "ru": "Скину адрес в вотсап.",
+     "frame": [
+      "mando un wasap"
+     ]
+    },
+    {
+     "es": "Mándame un wasap cuando salgas.",
+     "ru": "Напиши в вотсап, когда выйдешь.",
+     "frame": [
+      "Mándame un wasap"
+     ]
+    },
+    {
+     "es": "Le mandé un wasap y no contesta.",
+     "ru": "Я написал ему в вотсап, он не отвечает.",
+     "frame": [
+      "mandé un wasap"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v120",
@@ -1312,7 +4124,30 @@
    "en": "I can't hear you well",
    "ru": "плохо тебя слышу",
    "tr": "но тэ о́йго бьен",
-   "group": "Звонки, сообщения и договорённости"
+   "group": "Звонки, сообщения и договорённости",
+   "ex": [
+    {
+     "es": "No te oigo bien, se corta.",
+     "ru": "Плохо слышно, связь рвётся.",
+     "frame": [
+      "No te oigo bien"
+     ]
+    },
+    {
+     "es": "No te oigo bien, ¿puedes repetir?",
+     "ru": "Плохо тебя слышу, можешь повторить?",
+     "frame": [
+      "No te oigo bien"
+     ]
+    },
+    {
+     "es": "Aquí no te oigo bien.",
+     "ru": "Здесь я тебя плохо слышу.",
+     "frame": [
+      "no te oigo bien"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v121",
@@ -1321,7 +4156,30 @@
    "en": "the line is breaking up",
    "ru": "связь обрывается",
    "tr": "сэ ко́рта",
-   "group": "Звонки, сообщения и договорённости"
+   "group": "Звонки, сообщения и договорённости",
+   "ex": [
+    {
+     "es": "Se corta mucho en el metro.",
+     "ru": "В метро сильно рвётся связь.",
+     "frame": [
+      "Se corta"
+     ]
+    },
+    {
+     "es": "Espera, que se corta.",
+     "ru": "Подожди, связь пропадает.",
+     "frame": [
+      "se corta"
+     ]
+    },
+    {
+     "es": "Si se corta, te llamo yo.",
+     "ru": "Если оборвётся, я перезвоню.",
+     "frame": [
+      "se corta"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v122",
@@ -1330,7 +4188,30 @@
    "en": "missed call",
    "ru": "пропущенный звонок",
    "tr": "ла йама́да пэрди́да",
-   "group": "Звонки, сообщения и договорённости"
+   "group": "Звонки, сообщения и договорённости",
+   "ex": [
+    {
+     "es": "Tengo una llamada perdida tuya.",
+     "ru": "У меня от тебя пропущенный.",
+     "frame": [
+      "llamada perdida"
+     ]
+    },
+    {
+     "es": "Vi la llamada perdida tarde.",
+     "ru": "Я поздно увидел пропущенный.",
+     "frame": [
+      "llamada perdida"
+     ]
+    },
+    {
+     "es": "Dos llamadas perdidas del colegio.",
+     "ru": "Два пропущенных из школы.",
+     "frame": [
+      "llamadas perdidas"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v123",
@@ -1339,7 +4220,30 @@
    "en": "to arrange to meet",
    "ru": "договориться о встрече",
    "tr": "кэда́р кон а́лгьен",
-   "group": "Звонки, сообщения и договорённости"
+   "group": "Звонки, сообщения и договорённости",
+   "ex": [
+    {
+     "es": "¿Quedamos a las seis?",
+     "ru": "Встретимся в шесть?",
+     "frame": [
+      "Quedamos"
+     ]
+    },
+    {
+     "es": "He quedado con Ana.",
+     "ru": "Я договорился встретиться с Аной.",
+     "frame": [
+      "quedado"
+     ]
+    },
+    {
+     "es": "Quedamos en la plaza.",
+     "ru": "Встречаемся на площади.",
+     "frame": [
+      "Quedamos"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-v124",
@@ -1348,875 +4252,30 @@
    "en": "to be on the way",
    "ru": "быть в пути",
    "tr": "ир дэ ками́но",
-   "group": "Звонки, сообщения и договорённости"
-  },
-  {
-   "id": "es5-x001",
-   "type": "phrase",
-   "es": "¿A qué hora hay que recogerla?",
-   "ru": "Во сколько её нужно забирать?",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x002",
-   "type": "phrase",
-   "es": "Hoy la recojo yo.",
-   "ru": "Сегодня забираю её я.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x003",
-   "type": "phrase",
-   "es": "Vengo a por mi hija.",
-   "ru": "Я за дочкой.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x004",
-   "type": "phrase",
-   "es": "Se me ha olvidado el babi.",
-   "ru": "Я забыл халатик.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x005",
-   "type": "phrase",
-   "es": "Se ha dejado la mochila en clase.",
-   "ru": "Она забыла рюкзак в классе.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x006",
-   "type": "phrase",
-   "es": "¿Ha comido bien hoy?",
-   "ru": "Она сегодня хорошо поела?",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x007",
-   "type": "phrase",
-   "es": "¿Cómo se ha portado?",
-   "ru": "Как она себя вела?",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x008",
-   "type": "phrase",
-   "es": "Perdona el retraso, había mucho tráfico.",
-   "ru": "Извини за опоздание, были пробки.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x009",
-   "type": "phrase",
-   "es": "Mañana llega un poco más tarde.",
-   "ru": "Завтра она придёт чуть позже.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x010",
-   "type": "phrase",
-   "es": "¿Hay deberes para mañana?",
-   "ru": "На завтра есть домашка?",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x011",
-   "type": "phrase",
-   "es": "¿Se queda hoy al comedor?",
-   "ru": "Она сегодня остаётся на обед?",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x012",
-   "type": "phrase",
-   "es": "¿Cuándo es la reunión de padres?",
-   "ru": "Когда родительское собрание?",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x013",
-   "type": "phrase",
-   "es": "Quería hablar con la tutora.",
-   "ru": "Я хотел бы поговорить с классным руководителем.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x014",
-   "type": "phrase",
-   "es": "¿Puedo pedir una tutoría?",
-   "ru": "Можно записаться на встречу с учителем?",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x015",
-   "type": "phrase",
-   "es": "Hay que firmar la autorización de la excursión.",
-   "ru": "Нужно подписать разрешение на экскурсию.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x016",
-   "type": "phrase",
-   "es": "Hoy no va al cole, está malita.",
-   "ru": "Сегодня она не идёт в школу, приболела.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x017",
-   "type": "phrase",
-   "es": "Tiene fiebre desde ayer.",
-   "ru": "У неё температура со вчера.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x018",
-   "type": "phrase",
-   "es": "Le duele la tripa.",
-   "ru": "У неё болит живот.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x019",
-   "type": "phrase",
-   "es": "Ha vomitado esta noche.",
-   "ru": "Ночью её вырвало.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x020",
-   "type": "phrase",
-   "es": "Voy a recogerla ahora, se ha puesto mala.",
-   "ru": "Я сейчас её заберу, ей стало плохо.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x021",
-   "type": "phrase",
-   "es": "Mañana justifico la falta.",
-   "ru": "Завтра оправдаю пропуск.",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x022",
-   "type": "phrase",
-   "es": "¿Le puedo dar algo para la fiebre?",
-   "ru": "Можно дать ей что-нибудь от температуры?",
-   "group": "Семья, школа и садик"
-  },
-  {
-   "id": "es5-x023",
-   "type": "phrase",
-   "es": "¿Tienen mesa para tres?",
-   "ru": "У вас есть стол на троих?",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x024",
-   "type": "phrase",
-   "es": "Tengo una reserva a nombre de Roman.",
-   "ru": "У меня бронь на имя Roman.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x025",
-   "type": "phrase",
-   "es": "¿Podemos sentarnos en la terraza?",
-   "ru": "Можно сесть на террасе?",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x026",
-   "type": "phrase",
-   "es": "¿Nos trae una trona, por favor?",
-   "ru": "Принесите, пожалуйста, детский стульчик.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x027",
-   "type": "phrase",
-   "es": "¿Me pone una caña, por favor?",
-   "ru": "Мне маленькое пиво, пожалуйста.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x028",
-   "type": "phrase",
-   "es": "¿Qué hay hoy de menú?",
-   "ru": "Что сегодня в комплексном обеде?",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x029",
-   "type": "phrase",
-   "es": "De primero, sopa; de segundo, pollo.",
-   "ru": "На первое суп, на второе курица.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x030",
-   "type": "exchange",
-   "es": "¿Y de beber? — Agua, por favor.",
-   "ru": "А пить? — Воду, пожалуйста.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x031",
-   "type": "phrase",
-   "es": "Una ración y media ración.",
-   "ru": "Одну порцию и полпорции.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x032",
-   "type": "phrase",
-   "es": "¿Esto qué lleva?",
-   "ru": "Что здесь в составе?",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x033",
-   "type": "phrase",
-   "es": "¿Lleva leche?",
-   "ru": "Там есть молоко?",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x034",
-   "type": "phrase",
-   "es": "Sin cebolla, por favor.",
-   "ru": "Без лука, пожалуйста.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x035",
-   "type": "phrase",
-   "es": "Mi hija es alérgica a los frutos secos.",
-   "ru": "У дочери аллергия на орехи.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x036",
-   "type": "phrase",
-   "es": "¿Tienen algo para niños?",
-   "ru": "Есть что-нибудь для детей?",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x037",
-   "type": "phrase",
-   "es": "Sin picante, por favor, es para la niña.",
-   "ru": "Без острого, пожалуйста, это для ребёнка.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x038",
-   "type": "phrase",
-   "es": "Un café con leche para llevar.",
-   "ru": "Кофе с молоком с собой.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x039",
-   "type": "phrase",
-   "es": "¿Para tomar aquí o para llevar?",
-   "ru": "Здесь или с собой?",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x040",
-   "type": "phrase",
-   "es": "¿Nos trae la cuenta, por favor?",
-   "ru": "Принесите счёт, пожалуйста.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x041",
-   "type": "phrase",
-   "es": "Esto no lo he pedido.",
-   "ru": "Я этого не заказывал.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x042",
-   "type": "phrase",
-   "es": "Creo que hay un error en la cuenta.",
-   "ru": "Кажется, в счёте ошибка.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x043",
-   "type": "phrase",
-   "es": "¿Se puede pagar con tarjeta?",
-   "ru": "Картой можно?",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x044",
-   "type": "phrase",
-   "es": "Lo pago yo.",
-   "ru": "Я плачу.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x045",
-   "type": "phrase",
-   "es": "Pagamos a medias.",
-   "ru": "Платим пополам.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x046",
-   "type": "phrase",
-   "es": "¿Me da el ticket, por favor?",
-   "ru": "Дайте чек, пожалуйста.",
-   "group": "Кафе, ресторан и бар"
-  },
-  {
-   "id": "es5-x047",
-   "type": "phrase",
-   "es": "¿Dónde está el pan?",
-   "ru": "Где хлеб?",
-   "group": "Супермаркет и покупки"
-  },
-  {
-   "id": "es5-x048",
-   "type": "phrase",
-   "es": "¿Me pone medio kilo de jamón?",
-   "ru": "Полкило хамона, пожалуйста.",
-   "group": "Супермаркет и покупки"
-  },
-  {
-   "id": "es5-x049",
-   "type": "phrase",
-   "es": "¿Esto está en oferta?",
-   "ru": "Это по акции?",
-   "group": "Супермаркет и покупки"
-  },
-  {
-   "id": "es5-x050",
-   "type": "phrase",
-   "es": "¿Me da una bolsa, por favor?",
-   "ru": "Дайте пакет, пожалуйста.",
-   "group": "Супермаркет и покупки"
-  },
-  {
-   "id": "es5-x051",
-   "type": "phrase",
-   "es": "¿Hasta qué hora abren?",
-   "ru": "До скольких вы работаете?",
-   "group": "Супермаркет и покупки"
-  },
-  {
-   "id": "es5-x052",
-   "type": "phrase",
-   "es": "¿Dónde está el probador?",
-   "ru": "Где примерочная?",
-   "group": "Супермаркет и покупки"
-  },
-  {
-   "id": "es5-x053",
-   "type": "phrase",
-   "es": "¿Lo puedo devolver si no le vale?",
-   "ru": "Можно вернуть, если не подойдёт?",
-   "group": "Супермаркет и покупки"
-  },
-  {
-   "id": "es5-x054",
-   "type": "phrase",
-   "es": "¿Dónde está el mostrador de facturación?",
-   "ru": "Где стойка регистрации?",
-   "group": "Аэропорт"
-  },
-  {
-   "id": "es5-x055",
-   "type": "phrase",
-   "es": "Solo llevo equipaje de mano.",
-   "ru": "У меня только ручная кладь.",
-   "group": "Аэропорт"
-  },
-  {
-   "id": "es5-x056",
-   "type": "phrase",
-   "es": "Quiero facturar esta maleta.",
-   "ru": "Я хочу сдать этот чемодан.",
-   "group": "Аэропорт"
-  },
-  {
-   "id": "es5-x057",
-   "type": "phrase",
-   "es": "¿Cuál es la puerta de embarque?",
-   "ru": "Какой выход на посадку?",
-   "group": "Аэропорт"
-  },
-  {
-   "id": "es5-x058",
-   "type": "phrase",
-   "es": "¿A qué hora empieza el embarque?",
-   "ru": "Во сколько начинается посадка?",
-   "group": "Аэропорт"
-  },
-  {
-   "id": "es5-x059",
-   "type": "phrase",
-   "es": "El vuelo sale con retraso.",
-   "ru": "Рейс задерживается.",
-   "group": "Аэропорт"
-  },
-  {
-   "id": "es5-x060",
-   "type": "phrase",
-   "es": "¿El carrito se factura o lo llevo hasta la puerta?",
-   "ru": "Коляску сдавать или везти до выхода?",
-   "group": "Аэропорт"
-  },
-  {
-   "id": "es5-x061",
-   "type": "phrase",
-   "es": "He perdido el vuelo de enlace.",
-   "ru": "Я опоздал на стыковочный рейс.",
-   "group": "Аэропорт"
-  },
-  {
-   "id": "es5-x062",
-   "type": "phrase",
-   "es": "Dos billetes para Valencia, ida y vuelta.",
-   "ru": "Два билета до Валенсии, туда-обратно.",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x063",
-   "type": "phrase",
-   "es": "¿De qué vía sale el tren?",
-   "ru": "С какого пути отходит поезд?",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x064",
-   "type": "phrase",
-   "es": "¿Este tren para en Sitges?",
-   "ru": "Этот поезд останавливается в Ситжесе?",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x065",
-   "type": "phrase",
-   "es": "¿Hay que hacer transbordo?",
-   "ru": "Нужна пересадка?",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x066",
-   "type": "phrase",
-   "es": "¿Este autobús va al centro?",
-   "ru": "Этот автобус идёт в центр?",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x067",
-   "type": "phrase",
-   "es": "¿Cuántas paradas faltan?",
-   "ru": "Сколько остановок осталось?",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x068",
-   "type": "phrase",
-   "es": "Me bajo en la próxima.",
-   "ru": "Я выхожу на следующей.",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x069",
-   "type": "phrase",
-   "es": "¿Puedo recargar la tarjeta aquí?",
-   "ru": "Здесь можно пополнить проездной?",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x070",
-   "type": "phrase",
-   "es": "El tren lleva veinte minutos de retraso.",
-   "ru": "Поезд опаздывает на двадцать минут.",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x071",
-   "type": "phrase",
-   "es": "¿Me lleva a esta dirección?",
-   "ru": "Отвезёте по этому адресу?",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x072",
-   "type": "phrase",
-   "es": "¿Cuánto sería hasta el aeropuerto?",
-   "ru": "Сколько будет до аэропорта?",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x073",
-   "type": "phrase",
-   "es": "¿Tiene sillita para niños?",
-   "ru": "У вас есть детское кресло?",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x074",
-   "type": "phrase",
-   "es": "Vamos con prisa, tenemos un vuelo.",
-   "ru": "Мы спешим, у нас самолёт.",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x075",
-   "type": "phrase",
-   "es": "Pare aquí, por favor.",
-   "ru": "Остановите здесь, пожалуйста.",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x076",
-   "type": "phrase",
-   "es": "¿Dónde puedo aparcar por aquí?",
-   "ru": "Где здесь можно припарковаться?",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x077",
-   "type": "phrase",
-   "es": "Lleno, por favor.",
-   "ru": "Полный бак, пожалуйста.",
-   "group": "Поезд, автобус, такси и машина"
-  },
-  {
-   "id": "es5-x078",
-   "type": "phrase",
-   "es": "Tengo una reserva para dos noches.",
-   "ru": "У меня бронь на две ночи.",
-   "group": "Отель"
-  },
-  {
-   "id": "es5-x079",
-   "type": "phrase",
-   "es": "¿A qué hora es la entrada?",
-   "ru": "Во сколько заезд?",
-   "group": "Отель"
-  },
-  {
-   "id": "es5-x080",
-   "type": "phrase",
-   "es": "¿Podemos dejar las maletas hasta las cinco?",
-   "ru": "Можно оставить чемоданы до пяти?",
-   "group": "Отель"
-  },
-  {
-   "id": "es5-x081",
-   "type": "phrase",
-   "es": "¿La habitación tiene cuna?",
-   "ru": "В номере есть детская кроватка?",
-   "group": "Отель"
-  },
-  {
-   "id": "es5-x082",
-   "type": "phrase",
-   "es": "¿El desayuno está incluido?",
-   "ru": "Завтрак включён?",
-   "group": "Отель"
-  },
-  {
-   "id": "es5-x083",
-   "type": "phrase",
-   "es": "El aire acondicionado no funciona.",
-   "ru": "Кондиционер не работает.",
-   "group": "Отель"
-  },
-  {
-   "id": "es5-x084",
-   "type": "phrase",
-   "es": "¿Nos puede dar otra toalla?",
-   "ru": "Можно ещё полотенце?",
-   "group": "Отель"
-  },
-  {
-   "id": "es5-x085",
-   "type": "phrase",
-   "es": "¿A qué hora hay que dejar la habitación?",
-   "ru": "Во сколько нужно освободить номер?",
-   "group": "Отель"
-  },
-  {
-   "id": "es5-x086",
-   "type": "phrase",
-   "es": "¿Tiene algo para la tos?",
-   "ru": "Есть что-нибудь от кашля?",
-   "group": "Врач и аптека"
-  },
-  {
-   "id": "es5-x087",
-   "type": "phrase",
-   "es": "Es para una niña de tres años.",
-   "ru": "Это для трёхлетнего ребёнка.",
-   "group": "Врач и аптека"
-  },
-  {
-   "id": "es5-x088",
-   "type": "phrase",
-   "es": "¿Hace falta receta?",
-   "ru": "Нужен рецепт?",
-   "group": "Врач и аптека"
-  },
-  {
-   "id": "es5-x089",
-   "type": "phrase",
-   "es": "¿Cuál es la farmacia de guardia hoy?",
-   "ru": "Какая аптека сегодня дежурная?",
-   "group": "Врач и аптека"
-  },
-  {
-   "id": "es5-x090",
-   "type": "phrase",
-   "es": "Quería pedir cita con el médico de cabecera.",
-   "ru": "Хочу записаться к терапевту.",
-   "group": "Врач и аптека"
-  },
-  {
-   "id": "es5-x091",
-   "type": "phrase",
-   "es": "¿Tienen cita para esta semana?",
-   "ru": "Есть запись на эту неделю?",
-   "group": "Врач и аптека"
-  },
-  {
-   "id": "es5-x092",
-   "type": "phrase",
-   "es": "Me encuentro mal desde ayer.",
-   "ru": "Мне плохо со вчера.",
-   "group": "Врач и аптека"
-  },
-  {
-   "id": "es5-x093",
-   "type": "phrase",
-   "es": "¿Dónde están las urgencias?",
-   "ru": "Где приёмный покой?",
-   "group": "Врач и аптека"
-  },
-  {
-   "id": "es5-x094",
-   "type": "phrase",
-   "es": "¿Hace falta cita previa?",
-   "ru": "Нужна предварительная запись?",
-   "group": "Банк, почта и доставка"
-  },
-  {
-   "id": "es5-x095",
-   "type": "phrase",
-   "es": "Quería hacer una transferencia.",
-   "ru": "Я хотел бы сделать перевод.",
-   "group": "Банк, почта и доставка"
-  },
-  {
-   "id": "es5-x096",
-   "type": "phrase",
-   "es": "¿Esta operación tiene comisión?",
-   "ru": "За эту операцию есть комиссия?",
-   "group": "Банк, почта и доставка"
-  },
-  {
-   "id": "es5-x097",
-   "type": "phrase",
-   "es": "El cajero no me ha dado el dinero.",
-   "ru": "Банкомат не выдал деньги.",
-   "group": "Банк, почта и доставка"
-  },
-  {
-   "id": "es5-x098",
-   "type": "phrase",
-   "es": "Vengo a recoger un paquete.",
-   "ru": "Я за посылкой.",
-   "group": "Банк, почта и доставка"
-  },
-  {
-   "id": "es5-x099",
-   "type": "phrase",
-   "es": "Tengo un aviso de Correos.",
-   "ru": "У меня уведомление с почты.",
-   "group": "Банк, почта и доставка"
-  },
-  {
-   "id": "es5-x100",
-   "type": "phrase",
-   "es": "¿Me lo pueden dejar en el punto de recogida?",
-   "ru": "Можно оставить в пункте выдачи?",
-   "group": "Банк, почта и доставка"
-  },
-  {
-   "id": "es5-x101",
-   "type": "phrase",
-   "es": "No estaré en casa, déjelo en portería.",
-   "ru": "Меня не будет дома, оставьте у консьержа.",
-   "group": "Банк, почта и доставка"
-  },
-  {
-   "id": "es5-x102",
-   "type": "phrase",
-   "es": "El repartidor no ha llamado al timbre.",
-   "ru": "Курьер не позвонил в дверь.",
-   "group": "Банк, почта и доставка"
-  },
-  {
-   "id": "es5-x103",
-   "type": "phrase",
-   "es": "Busco piso de alquiler en esta zona.",
-   "ru": "Ищу квартиру в аренду в этом районе.",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x104",
-   "type": "phrase",
-   "es": "¿Cuánto es la fianza?",
-   "ru": "Какой залог?",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x105",
-   "type": "phrase",
-   "es": "¿La comunidad está incluida?",
-   "ru": "Плата за содержание дома включена?",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x106",
-   "type": "phrase",
-   "es": "¿Los suministros van aparte?",
-   "ru": "Свет и вода отдельно?",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x107",
-   "type": "phrase",
-   "es": "Se ha estropeado la caldera.",
-   "ru": "Сломался котёл.",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x108",
-   "type": "phrase",
-   "es": "Hay una fuga de agua en el baño.",
-   "ru": "В ванной течёт вода.",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x109",
-   "type": "phrase",
-   "es": "No hay agua caliente.",
-   "ru": "Нет горячей воды.",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x110",
-   "type": "phrase",
-   "es": "¿Puede venir un fontanero hoy?",
-   "ru": "Сантехник может прийти сегодня?",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x111",
-   "type": "phrase",
-   "es": "El ascensor no funciona otra vez.",
-   "ru": "Лифт снова не работает.",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x112",
-   "type": "phrase",
-   "es": "¿Cuándo pasan a arreglarlo?",
-   "ru": "Когда придут чинить?",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x113",
-   "type": "phrase",
-   "es": "Hola, soy el vecino del cuarto.",
-   "ru": "Здравствуйте, я сосед с четвёртого.",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x114",
-   "type": "phrase",
-   "es": "Perdona por el ruido de ayer.",
-   "ru": "Извини за вчерашний шум.",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x115",
-   "type": "phrase",
-   "es": "¿Dónde están los contenedores?",
-   "ru": "Где мусорные контейнеры?",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x116",
-   "type": "phrase",
-   "es": "¿Me puedes abrir el portal?",
-   "ru": "Можешь открыть подъезд?",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x117",
-   "type": "phrase",
-   "es": "Hay reunión de la comunidad el jueves.",
-   "ru": "В четверг собрание жильцов.",
-   "group": "Дом, аренда и соседи"
-  },
-  {
-   "id": "es5-x118",
-   "type": "phrase",
-   "es": "¿Me llamas luego?",
-   "ru": "Позвонишь потом?",
-   "group": "Звонки, сообщения и договорённости"
-  },
-  {
-   "id": "es5-x119",
-   "type": "phrase",
-   "es": "Ahora no puedo hablar, te llamo en diez minutos.",
-   "ru": "Сейчас не могу говорить, перезвоню через десять минут.",
-   "group": "Звонки, сообщения и договорённости"
-  },
-  {
-   "id": "es5-x120",
-   "type": "phrase",
-   "es": "No te oigo bien, se corta.",
-   "ru": "Плохо слышно, связь рвётся.",
-   "group": "Звонки, сообщения и договорённости"
-  },
-  {
-   "id": "es5-x121",
-   "type": "phrase",
-   "es": "Te mando un wasap con la dirección.",
-   "ru": "Скину адрес в вотсап.",
-   "group": "Звонки, сообщения и договорённости"
-  },
-  {
-   "id": "es5-x122",
-   "type": "phrase",
-   "es": "Tengo una llamada perdida tuya.",
-   "ru": "У меня от тебя пропущенный.",
-   "group": "Звонки, сообщения и договорённости"
-  },
-  {
-   "id": "es5-x123",
-   "type": "phrase",
-   "es": "¿Quedamos a las seis?",
-   "ru": "Встретимся в шесть?",
-   "group": "Звонки, сообщения и договорённости"
-  },
-  {
-   "id": "es5-x124",
-   "type": "phrase",
-   "es": "Voy de camino, llego en cinco.",
-   "ru": "Я в пути, буду через пять минут.",
-   "group": "Звонки, сообщения и договорённости"
+   "group": "Звонки, сообщения и договорённости",
+   "ex": [
+    {
+     "es": "Voy de camino, llego en cinco.",
+     "ru": "Я в пути, буду через пять минут.",
+     "frame": [
+      "de camino"
+     ]
+    },
+    {
+     "es": "Ya van de camino.",
+     "ru": "Они уже едут.",
+     "frame": [
+      "de camino"
+     ]
+    },
+    {
+     "es": "Estoy de camino al aeropuerto.",
+     "ru": "Я еду в аэропорт.",
+     "frame": [
+      "de camino"
+     ]
+    }
+   ]
   },
   {
    "id": "es5-d001",
