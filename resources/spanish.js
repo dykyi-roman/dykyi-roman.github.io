@@ -67,10 +67,19 @@
         pool = allItems.filter(SP.isStudyable);
     }
 
+    // Every scope switch takes a ticket. A stage body can come back after a
+    // later click has already moved the chips on — two fetches of the same
+    // file can land out of order — and the stale one would then rebuild the
+    // list from a scope nobody is looking at any more: the All chip lit, the
+    // list still one stage. Such a load is dropped, and its caller is told so.
+    var scopeSeq = 0;
+
     function loadScope() {
+        var ticket = (scopeSeq += 1);
         return SP.loadStages(selectedEntries()).then(function (stages) {
+            if (ticket !== scopeSeq) return false;
             rebuildPools(stages);
-            return stages;
+            return true;
         });
     }
 
@@ -137,7 +146,18 @@
             chip.setAttribute('aria-label', option.aria || option.label);
         }
         chip.addEventListener('click', function () {
-            if (prefs.stage === option.key) return;
+            // The scope is already the one selected, so there is nothing to
+            // load — but while the rules or the patterns are open the chip
+            // still means "back to the list", the way the Browse tab does.
+            // Without this the chip of the current scope is a dead button
+            // there, and All, being the default scope, is the one it hits.
+            if (prefs.stage === option.key) {
+                if (REFERENCE_MODES[currentMode]) {
+                    if (searchReturn) searchReturn.mode = 'browse';
+                    enterMode('browse', true);
+                }
+                return;
+            }
             // Picking a stage by hand is a decision of its own: the search
             // no longer has a scope to hand back.
             searchReturn = null;
@@ -148,7 +168,7 @@
             // the rules or the patterns — otherwise the click would change
             // nothing on screen.
             var next = REFERENCE_MODES[currentMode] ? 'browse' : currentMode;
-            loadScope().then(function () { enterMode(next, true); })
+            loadScope().then(function (fresh) { if (fresh) enterMode(next, true); })
                 .catch(function (e) { SP.showError('sp-error', e); });
         });
         return chip;
@@ -1142,7 +1162,7 @@
         savePrefs();
         renderStageChips();
         loadScope()
-            .then(function () { enterMode(mode, true); })
+            .then(function (fresh) { if (fresh) enterMode(mode, true); })
             .catch(function (e) { SP.showError('sp-error', e); });
     }
 

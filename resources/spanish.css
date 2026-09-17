@@ -663,6 +663,14 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-exline-ru { grid-column: 1; font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
 .sp-exline .sp-tools { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
 
+/* A word's examples carry no tail — the word's own row holds the speaker and
+   the question — so their lines are plain text on the full width, the Russian
+   under the Spanish at every size. Dropping the grid is what keeps it that way:
+   the two-column rule from 700px up needs a grid container to mean anything,
+   so it stops at the panel without a second selector to undo it. The patterns
+   keep their side-by-side lines. */
+.sp-lex-row > .sp-exlines .sp-exline { display: block; }
+
 /* ---------- what to learn first (rules and patterns) ---------- */
 
 /* The words that carry the point inside an example. */
@@ -783,6 +791,196 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-table th { color: var(--color-heading); background: var(--color-white); }
 /* ключ правила объединён на все свои строки-примеры */
 .sp-table td[rowspan] { vertical-align: middle; }
+
+/* ---------- rules diagrams: fork ---------- */
+
+/* A fork is a choice, so its branches are cards rather than rows of a table
+   whose first column repeated the key. Each card carries the colour of its
+   place in the row: the palette lives here and nowhere else, the JSON names
+   no colour at all. --color-warning is deliberately not among them — in this
+   code it means a trap, and a neutral third branch must not read as a warning. */
+.sp-fork { display: grid; gap: var(--spacing-sm); margin-bottom: var(--spacing-md); }
+.sp-fork-q { margin: 0; color: var(--color-heading); font-weight: 600; }
+.sp-fork-cols { display: grid; grid-template-columns: 1fr; gap: var(--spacing-sm); }
+
+.sp-fork-col {
+    --sp-accent: var(--color-primary);
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--sp-accent);
+    border-radius: 8px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-white);
+}
+
+.sp-fork-col:nth-child(1) { --sp-accent: var(--color-info); }
+.sp-fork-col:nth-child(2) { --sp-accent: var(--color-primary); }
+.sp-fork-col:nth-child(3) { --sp-accent: var(--color-success); }
+
+.sp-fork-head { display: flex; align-items: center; gap: var(--spacing-sm); }
+.sp-fork-head .sp-speak { margin-left: auto; }
+.sp-fork-key { color: var(--sp-accent); font-weight: 600; font-size: 1.15rem; overflow-wrap: anywhere; }
+.sp-fork-hint { margin: var(--spacing-xs) 0 0; color: var(--color-text-light); font-size: var(--font-size-small); }
+
+.sp-fork-rows {
+    display: grid;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px dashed var(--color-border);
+}
+
+/* One column on every width: inside a narrow card the Spanish and the Russian
+   have no room to sit side by side. */
+.sp-fork-row { display: grid; }
+.sp-fork-label { font-size: 0.8rem; color: var(--color-text-light); }
+.sp-fork-es { color: var(--color-heading); overflow-wrap: anywhere; }
+.sp-fork-ru { font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
+/* The word the frame lights up takes its branch's colour, not the global orange. */
+.sp-fork-col .sp-frame { color: var(--sp-accent); }
+
+/* ---------- rules diagrams: conjugation grid ---------- */
+
+.sp-conj { margin-bottom: var(--spacing-md); }
+.sp-conj-tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--spacing-xs); margin-bottom: var(--spacing-xs); }
+.sp-conj-chips { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); }
+
+/* The column of persons stays put while the forms scroll under it. */
+.sp-conj-table th:first-child,
+.sp-conj-table td:first-child { position: sticky; left: 0; z-index: 1; background: var(--color-white); }
+
+/* A paradigm is read down its short columns, so it takes the width of its
+   forms instead of the 100% every other table stretches to. */
+.sp-conj-table { width: auto; }
+.sp-conj-table th { vertical-align: bottom; }
+.sp-conj-head-name { display: block; }
+.sp-conj-head-inf { display: block; font-weight: 400; font-size: 0.8rem; color: var(--color-text-light); }
+.sp-conj-table th .sp-speak { margin-top: var(--spacing-xs); }
+
+.sp-conj-label { display: block; color: var(--color-heading); }
+/* A gloss is prose and may wrap, though no other cell of the table may. */
+.sp-conj-gloss { display: block; font-size: var(--font-size-small); color: var(--color-text-light); white-space: normal; }
+
+/* The cell is the button, so the whole box is the 44px target. */
+.sp-conj-table td.sp-conj-td { padding: 0; }
+
+.sp-conj-cell {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 8px 10px;
+    border: 0;
+    background: transparent;
+    color: var(--color-text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: background var(--transition-fast);
+}
+
+.sp-conj-stem { color: var(--color-text-light); }
+.sp-conj-end { color: var(--color-primary); font-weight: 600; }
+/* The accent marks what obeys the rule this grid teaches. A form that joins
+   no group is printed plainly — which is how the unchanged nosotros of a
+   stem-changing verb, or the lone conozco among the -go forms, stands out. */
+.sp-conj-cell:not([data-hl]) .sp-conj-end { color: var(--color-text); font-weight: 400; }
+.sp-conj-cell.is-lit { background: rgba(220, 118, 3, 0.18); }
+.sp-conj-cell.is-lit .sp-conj-stem { color: var(--color-text); }
+
+/* Covered, the ending keeps its width: the grid must not re-lay out when the
+   toggle goes on, or every form on screen would jump. */
+.sp-conj.is-hiding .sp-conj-cell:not(.is-shown) .sp-conj-end {
+    color: transparent;
+    border-bottom: 1px dashed var(--color-primary);
+}
+
+.sp-conj-band { color: var(--color-text-light); font-size: 0.8rem; background: rgba(255, 255, 255, 0.04); }
+
+/* Where the columns name verbs, a phone shows one of them at a time and the
+   page keeps its width; the chip row picks which. Where they name persons the
+   grid is not .is-picky and falls back to the table's own sideways scroll.
+   Which it is was decided from the data, in JS; how wide the screen is stays
+   here, because the hub builds its Rules panel while it is still hidden. */
+@media (max-width: 699px) {
+    .sp-conj.is-picky[data-pick="0"] :is(.sp-c1, .sp-c2, .sp-c3, .sp-c4) { display: none; }
+    .sp-conj.is-picky[data-pick="1"] :is(.sp-c0, .sp-c2, .sp-c3, .sp-c4) { display: none; }
+    .sp-conj.is-picky[data-pick="2"] :is(.sp-c0, .sp-c1, .sp-c3, .sp-c4) { display: none; }
+    .sp-conj.is-picky[data-pick="3"] :is(.sp-c0, .sp-c1, .sp-c2, .sp-c4) { display: none; }
+    .sp-conj.is-picky[data-pick="4"] :is(.sp-c0, .sp-c1, .sp-c2, .sp-c3) { display: none; }
+}
+
+/* ---------- rules diagrams: the time axis ---------- */
+
+.sp-axis { display: grid; grid-template-columns: 1fr; gap: var(--spacing-md); margin-bottom: var(--spacing-md); }
+
+.sp-axis-zone {
+    --sp-accent: var(--color-primary);
+    position: relative;
+    border: 1px solid var(--color-border);
+    border-top: 3px solid var(--sp-accent);
+    border-radius: 8px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: var(--color-white);
+}
+
+/* The past is quiet, now is lit, ahead is cool. */
+.sp-axis-zone:nth-child(1) { --sp-accent: var(--color-text-light); }
+.sp-axis-zone:nth-child(2) { --sp-accent: var(--color-primary); }
+.sp-axis-zone:nth-child(3) { --sp-accent: var(--color-info); }
+
+/* Stacked, the zones are joined downwards; side by side, rightwards. */
+.sp-axis-zone:not(:last-child)::after {
+    content: "\2193";
+    position: absolute;
+    left: 50%;
+    bottom: calc(-1 * var(--spacing-md));
+    transform: translateX(-50%);
+    color: var(--color-text-light);
+    line-height: var(--spacing-md);
+}
+
+.sp-axis-title { color: var(--sp-accent); font-weight: 600; }
+.sp-axis-items { display: grid; gap: var(--spacing-xs); margin-top: var(--spacing-sm); }
+
+.sp-axis-item {
+    display: block;
+    border-left: 2px solid var(--sp-accent);
+    padding-left: var(--spacing-sm);
+    font-weight: 400;
+}
+
+a.sp-axis-item::after { content: none; }
+a.sp-axis-item:hover .sp-axis-es { color: var(--color-primary); }
+.sp-axis-es { display: block; color: var(--color-heading); overflow-wrap: anywhere; }
+.sp-axis-ru { display: block; font-size: var(--font-size-small); color: var(--color-text-light); }
+/* Not taught here yet: dashed and dimmed, and not a link. */
+.sp-axis-item.is-next { border-left-style: dashed; opacity: 0.65; }
+
+/* ---------- rules diagrams: the map of the rules ---------- */
+
+.sp-map { display: grid; gap: var(--spacing-md); }
+.sp-map-layer { --sp-accent: var(--color-info); border-left: 3px solid var(--sp-accent); padding-left: var(--spacing-sm); }
+
+/* The three verb layers share one accent, so they read as one block; the last
+   layer is quiet because it is what these rules do not teach yet. */
+.sp-map-layer:nth-child(2) { --sp-accent: var(--color-success); }
+.sp-map-layer:nth-child(3),
+.sp-map-layer:nth-child(4),
+.sp-map-layer:nth-child(5) { --sp-accent: var(--color-primary); }
+.sp-map-layer:nth-child(7) { --sp-accent: var(--color-success); }
+.sp-map-layer:last-child { --sp-accent: var(--color-text-light); }
+
+.sp-map-title { color: var(--color-heading); font-weight: 600; }
+.sp-map-hint { color: var(--color-text-light); font-size: var(--font-size-small); }
+/* Tiles wrap onto as many lines as they need: a strip that scrolled sideways
+   would hide half the map behind a gesture nobody makes on an overview. */
+.sp-map-tiles { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); margin-top: var(--spacing-xs); }
+
+.sp-map-tile { justify-content: flex-start; text-align: left; padding: 6px 10px; max-width: 100%; }
+/* A chip of the index is one ellipsed line; a tile of the map is a title. */
+.sp-map-tile .sp-chip-label { max-width: none; overflow: visible; text-overflow: clip; white-space: normal; }
+.sp-map-no { color: var(--color-text-light); font-size: var(--font-size-small); }
 
 /* ---------- excluded list ---------- */
 
@@ -1099,12 +1297,31 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 
     /* An example of a pattern reads like an example row of the lists: the
        Spanish and the Russian side by side, the speak button after them. */
+    .sp-conj-chips { display: none; }
+    .sp-axis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .sp-axis-zone:not(:last-child)::after {
+        content: "\2192";
+        left: auto;
+        right: calc(-1 * var(--spacing-md));
+        bottom: auto;
+        top: 50%;
+        transform: translateY(-50%);
+        width: var(--spacing-md);
+        text-align: center;
+    }
+    .sp-fork-cols { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); grid-template-rows: auto auto 1fr; }
+    /* Side by side, a hint that runs to two lines in one branch and one in
+       another pushes their examples out of step. Subgrid puts head, hint and
+       rows on shared tracks; without it the cards simply stay as they were. */
+    .sp-fork-col { display: grid; grid-row: span 3; grid-template-rows: subgrid; align-content: start; }
+    .sp-fork-col .sp-fork-rows { align-self: stretch; }
     .sp-exline { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
     .sp-exline-ru { grid-column: 2; grid-row: 1; }
     .sp-exline .sp-tools { grid-column: 3; grid-row: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .sp-conj-cell { transition: none !important; }
     .sp-card { transition: none !important; }
     .sp-lex-row, .sp-drill-row, .sp-mark .sp-tick, .sp-chevron { transition: none !important; }
 }

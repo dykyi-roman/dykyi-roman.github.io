@@ -1163,6 +1163,205 @@
         return wrap;
     }
 
+    /* ---------- rules diagrams ---------- */
+
+    // A fork: the choice a rule comes down to, as two or three columns instead
+    // of a table whose first column repeated the key on every row. A column is
+    // its head word plus the sense it carries; a row is the same {es, ru, frame}
+    // shape the patterns and the usage examples use, so the highlight is free.
+    // The palette lives in CSS, keyed by the column's place — never in JSON.
+    function forkBlock(block) {
+        var root = SP.el('div', 'sp-fork');
+        if (block.q) root.appendChild(SP.el('p', 'sp-fork-q', block.q));
+        var cols = SP.el('div', 'sp-fork-cols');
+        (block.cols || []).forEach(function (col) {
+            var card = SP.el('div', 'sp-fork-col');
+            var head = SP.el('div', 'sp-fork-head');
+            head.appendChild(SP.el('span', 'sp-fork-key', col.es));
+            // One speaker per column, on the head word: what a fork teaches is
+            // the choice between those words, and a speaker on each of nine
+            // rows would turn a narrow column into a list of buttons.
+            var speak = SP.speakButton(col.es);
+            if (speak) head.appendChild(speak);
+            card.appendChild(head);
+            if (col.hint) card.appendChild(SP.el('p', 'sp-fork-hint', col.hint));
+            var rows = SP.el('div', 'sp-fork-rows');
+            (col.rows || []).forEach(function (line) {
+                var row = SP.el('div', 'sp-fork-row');
+                if (line.label) row.appendChild(SP.el('span', 'sp-fork-label', line.label));
+                SP.renderFramed(row.appendChild(SP.el('span', 'sp-fork-es')), line);
+                row.appendChild(SP.el('span', 'sp-fork-ru', line.ru));
+                rows.appendChild(row);
+            });
+            card.appendChild(rows);
+            cols.appendChild(card);
+        });
+        root.appendChild(cols);
+        return root;
+    }
+
+    // A cell of a conjugation grid is either a stem plus an ending or a whole
+    // irregular form. Either way the part that changes goes into .sp-conj-end,
+    // so one rule lights it, hides it and groups it with its twins. The key of
+    // the group is `hl` when the file names it — a group like the -go of hago,
+    // pongo, salgo is not something an ending can be read off.
+    function conjCell(col, cell) {
+        var raw = (cell && typeof cell === 'object') ? cell : { f: cell };
+        var stem = raw.s !== undefined ? raw.s : col.stem;
+        var end = (raw.f === undefined || raw.f === null) ? '' : String(raw.f);
+        stem = stem || '';
+        return { stem: stem, end: end, hl: raw.hl || (stem ? end : ''), form: stem + end };
+    }
+
+    function conjBlock(block) {
+        var root = SP.el('div', 'sp-conj');
+        var cols = block.cols || [];
+
+        // Chips pick one verb at a time on a phone. They earn their place only
+        // when the columns name verbs: where they name persons, the point is
+        // seeing the whole set at once and the table's sideways scroll is right.
+        var picky = cols.length > 1 && cols.every(function (col) { return !!col.inf; });
+        if (picky) {
+            root.classList.add('is-picky');
+            root.dataset.pick = '0';
+        }
+
+        var tools = SP.el('div', 'sp-conj-tools');
+        if (picky) {
+            var chips = SP.el('div', 'sp-conj-chips');
+            cols.forEach(function (col, i) {
+                var chip = SP.el('button', 'sp-btn' + (i === 0 ? ' active' : ''), col.head);
+                chip.type = 'button';
+                chip.dataset.pick = String(i);
+                chip.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+                chips.appendChild(chip);
+            });
+            chips.addEventListener('click', function (e) {
+                var chip = e.target.closest && e.target.closest('.sp-btn');
+                if (!chip || !chips.contains(chip)) return;
+                root.dataset.pick = chip.dataset.pick;
+                Array.prototype.forEach.call(chips.children, function (node) {
+                    var on = node === chip;
+                    node.classList.toggle('active', on);
+                    node.setAttribute('aria-pressed', on ? 'true' : 'false');
+                });
+            });
+            tools.appendChild(chips);
+        }
+        if (block.hide) {
+            // The label comes from the file: it is honestly different from one
+            // grid to the next — endings here, whole forms there.
+            var toggle = SP.el('button', 'sp-btn', block.hide);
+            toggle.type = 'button';
+            toggle.setAttribute('aria-pressed', 'false');
+            toggle.addEventListener('click', function () {
+                var on = !root.classList.contains('is-hiding');
+                root.classList.toggle('is-hiding', on);
+                toggle.classList.toggle('active', on);
+                toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+                Array.prototype.forEach.call(root.querySelectorAll('.sp-conj-cell.is-shown'), function (node) {
+                    node.classList.remove('is-shown');
+                });
+            });
+            tools.appendChild(toggle);
+        }
+        if (tools.firstChild) root.appendChild(tools);
+
+        var wrap = SP.el('div', 'sp-table-wrap');
+        var table = SP.el('table', 'sp-table sp-conj-table');
+        var thead = SP.el('thead');
+        var hr = SP.el('tr');
+        hr.appendChild(SP.el('th', null, block.rowsHead || ''));
+        cols.forEach(function (col, i) {
+            var th = SP.el('th', 'sp-c' + i);
+            th.appendChild(SP.el('span', 'sp-conj-head-name', col.head));
+            if (col.inf) th.appendChild(SP.el('span', 'sp-conj-head-inf', col.inf));
+            var speak = SP.speakButton(col.inf);
+            if (speak) th.appendChild(speak);
+            hr.appendChild(th);
+        });
+        thead.appendChild(hr);
+        table.appendChild(thead);
+
+        var tbody = SP.el('tbody');
+        (block.rows || []).forEach(function (row) {
+            var tr = SP.el('tr');
+            if (row.band !== undefined) {
+                var band = SP.el('td', 'sp-conj-band', row.band);
+                band.colSpan = cols.length + 1;
+                tr.appendChild(band);
+                tbody.appendChild(tr);
+                return;
+            }
+            var label = SP.el('td');
+            label.appendChild(SP.el('span', 'sp-conj-label', row.label));
+            // The gloss rides under the label instead of taking a column of
+            // its own: one column fewer is what fits a phone.
+            if (row.ru) label.appendChild(SP.el('span', 'sp-conj-gloss', row.ru));
+            tr.appendChild(label);
+            cols.forEach(function (col, i) {
+                var td = SP.el('td', 'sp-conj-td sp-c' + i);
+                var parts = conjCell(col, (row.cells || [])[i]);
+                var btn = SP.el('button', 'sp-conj-cell');
+                btn.type = 'button';
+                btn.setAttribute('aria-pressed', 'false');
+                if (parts.hl) btn.dataset.hl = parts.hl;
+                btn.dataset.form = parts.form;
+                if (parts.stem) btn.appendChild(SP.el('span', 'sp-conj-stem', parts.stem));
+                btn.appendChild(SP.el('span', 'sp-conj-end', parts.end));
+                td.appendChild(btn);
+                tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        wrap.appendChild(table);
+        root.appendChild(wrap);
+
+        // One tap answers "tell me about this form": it says the form out loud
+        // and lights every other cell built the same way.
+        root.addEventListener('click', function (e) {
+            var cell = e.target.closest && e.target.closest('.sp-conj-cell');
+            if (!cell || !root.contains(cell)) return;
+            if (root.classList.contains('is-hiding') && !cell.classList.contains('is-shown')) {
+                cell.classList.add('is-shown');
+                SP.tts.speak(cell.dataset.form);
+                return;
+            }
+            var key = cell.dataset.hl || '';
+            var lit = cell.classList.contains('is-lit');
+            Array.prototype.forEach.call(root.querySelectorAll('.sp-conj-cell'), function (node) {
+                var on = !lit && !!key && node.dataset.hl === key;
+                node.classList.toggle('is-lit', on);
+                node.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+            SP.tts.speak(cell.dataset.form);
+        });
+        return root;
+    }
+
+    // The time axis: past, now and ahead, one verb across all of them. An item
+    // either points at the section that teaches it or is marked as still to
+    // come — never both, so the reader sees at a glance where the ground ends.
+    function axisBlock(block) {
+        var root = SP.el('div', 'sp-axis');
+        (block.zones || []).forEach(function (zone) {
+            var box = SP.el('div', 'sp-axis-zone');
+            box.appendChild(SP.el('div', 'sp-axis-title', zone.title));
+            var items = SP.el('div', 'sp-axis-items');
+            (zone.items || []).forEach(function (item) {
+                var node = item.ref ? SP.el('a', 'sp-axis-item') : SP.el('div', 'sp-axis-item is-next');
+                if (item.ref) node.href = '#' + item.ref;
+                node.appendChild(SP.el('span', 'sp-axis-es', item.es));
+                node.appendChild(SP.el('span', 'sp-axis-ru', item.ru));
+                items.appendChild(node);
+            });
+            box.appendChild(items);
+            root.appendChild(box);
+        });
+        return root;
+    }
+
     SP.renderBlocks = function (parent, blocks) {
         (blocks || []).forEach(function (block) {
             if (!block) return;
@@ -1178,6 +1377,12 @@
                 parent.appendChild(list);
             } else if (block.k === 'table') {
                 parent.appendChild(renderTable(block));
+            } else if (block.k === 'fork') {
+                parent.appendChild(forkBlock(block));
+            } else if (block.k === 'conj') {
+                parent.appendChild(conjBlock(block));
+            } else if (block.k === 'axis') {
+                parent.appendChild(axisBlock(block));
             }
         });
         return parent;
@@ -1279,8 +1484,8 @@
     // One example under a parent entry — a pattern's formula or a word of the
     // lists. The Spanish over the Russian on a phone, side by side from 700px
     // up, with whatever tail the caller hands it: a lone speaker for a pattern,
-    // the full speak-and-ask pair for a word, whose phrase the reader may well
-    // want explained.
+    // nothing at all under a word, where the lines are plain text on the full
+    // width and the row above them carries the controls.
     SP.exampleLine = function (line, tools) {
         var row = SP.el('div', 'sp-exline');
         SP.renderFramed(row.appendChild(SP.el('div', 'sp-exline-es')), line);
@@ -1334,6 +1539,40 @@
     // The sections to learn first carry a `top` rank: a star beside their
     // title, and a list of them — each with its gist and a short example —
     // closing the page, reachable from its own chip.
+    // The map of the rules, by layer. It is built here rather than as a block
+    // because every tile needs the number, the title and the star of a section,
+    // and renderBlocks never sees the file those live in — the same reason the
+    // top list is synthesised here too.
+    function mapSection(map, sections, topTotal) {
+        var byId = {};
+        sections.forEach(function (section) { byId[section.id] = section; });
+        var block = SP.el('section', 'sp-group');
+        block.id = 'esr-map';
+        block.appendChild(SP.el('h3', 'sp-group-title', map.title));
+        var layers = SP.el('div', 'sp-map');
+        (map.layers || []).forEach(function (layer) {
+            var box = SP.el('div', 'sp-map-layer');
+            box.appendChild(SP.el('div', 'sp-map-title', layer.title));
+            if (layer.hint) box.appendChild(SP.el('div', 'sp-map-hint', layer.hint));
+            var tiles = SP.el('div', 'sp-map-tiles');
+            (layer.ids || []).forEach(function (id) {
+                var section = byId[id];
+                if (!section) return;
+                var tile = SP.el('a', 'sp-chip sp-map-tile');
+                tile.href = '#' + id;
+                tile.title = section.no + '. ' + section.title;
+                tile.appendChild(SP.el('span', 'sp-map-no', section.no + '.'));
+                tile.appendChild(SP.el('span', 'sp-chip-label', section.title));
+                if (section.top) tile.appendChild(SP.topBadge(section.top, topTotal));
+                tiles.appendChild(tile);
+            });
+            box.appendChild(tiles);
+            layers.appendChild(box);
+        });
+        block.appendChild(layers);
+        return block;
+    }
+
     SP.renderRules = function (host, rules, options) {
         var opts = options || {};
         var index = [];
@@ -1351,6 +1590,12 @@
 
         var top = rules.sections.filter(function (section) { return section.top; })
             .sort(function (a, b) { return a.top - b.top; });
+
+        // Map first, top list last: what is here → the material → where to start.
+        if (rules.map && rules.map.layers && rules.map.layers.length) {
+            body.appendChild(mapSection(rules.map, rules.sections, top.length));
+            index.push({ row: 'main', label: rules.map.chip || rules.map.title, target: 'esr-map' });
+        }
 
         rules.sections.forEach(function (section) {
             var block = SP.el('section', 'sp-group');
@@ -1399,9 +1644,13 @@
         var panel = SP.el('div', 'sp-exlines');
         panel.id = 'sp-ex-' + (exSeq += 1);
         panel.hidden = true;
+        // The lines carry no controls of their own. They are illustrations of
+        // the word above them, not entries: the word's own row already holds
+        // the speaker and the question, and a tail on every line turned a
+        // three-line panel into a column of buttons.
         panel.fill = function () {
             item.ex.forEach(function (line) {
-                panel.appendChild(SP.exampleLine(line, SP.rowTools(line.es, 'phrase')));
+                panel.appendChild(SP.exampleLine(line));
             });
         };
 
