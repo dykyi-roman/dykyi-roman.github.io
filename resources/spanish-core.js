@@ -1921,9 +1921,9 @@
         var row = SP.el('div', 'sp-lex-row' + (item.type === 'pair' ? ' is-pair' : ''));
         var ex = item.ex && item.ex.length ? examplesToggle(item, row, query) : null;
 
-        // On a phone the four texts read as one wrapping line — "y (и) — and /
-        // и" — so they sit in a box of their own; from 700px up that box is
-        // display:contents and they go back to being four grid columns.
+        // On a phone the four texts read as four lines — "y", "(и)", "— [and]",
+        // "— [и]" — so they sit in a box of their own; from 700px up that box
+        // is display:contents and they go back to being four grid columns.
         // A field is left out when it is empty rather than added blank: the
         // brackets and dashes between them are drawn by CSS from what is there.
         var text = SP.el('div', 'sp-lex-text');
