@@ -388,6 +388,33 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-divider.is-stage .sp-divider-label { font-weight: 600; }
 .sp-divider.is-stage::before, .sp-divider.is-stage::after { border-top-style: solid; }
 
+/* The head of a search zone: the top-level seam while a query is live, so it
+   is the loudest of the three — the site's own orange, solid lines, and room
+   above it, because what follows answers a different question than the rows
+   above did. Not a button: a zone lives only as long as the query. */
+.sp-divider.is-zone {
+    min-height: 40px;
+    margin-top: var(--spacing-md);
+    color: var(--color-primary);
+    cursor: default;
+}
+
+.sp-divider.is-zone:hover { color: var(--color-primary); }
+.sp-divider.is-zone .sp-divider-label { font-weight: 700; }
+.sp-divider.is-zone::before, .sp-divider.is-zone::after { border-top-style: solid; }
+
+/* The answer to the question that was asked, when the answer is no: the word
+   typed is in none of the lists, and everything drawn below merely carries its
+   letters. Loud on purpose — it is read instead of the first zone. */
+.sp-noexact {
+    margin: var(--spacing-md) 0 0;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--color-warning);
+}
+
 /* Points down while the block is open, right while it is folded. */
 .sp-chevron {
     flex: 0 0 auto;
@@ -442,6 +469,16 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
     background: rgba(255, 255, 255, 0.07);
     border-radius: 4px;
     user-select: none;
+}
+
+/* A covered side stays covered even when the search found the word there: the
+   painted letters carry a colour of their own, and one word left visible under
+   the bar is the answer given away. */
+html:not([data-sp-cover="spanish"]) .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) :is(.sp-lex-en, .sp-lex-ru) .sp-hit,
+html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) :is(.sp-lex-es, .sp-lex-tr) .sp-hit,
+.sp-drill-row:is(.is-learned, .is-pending):not(.is-revealed) .sp-drill-ru .sp-hit {
+    color: inherit;
+    background: none;
 }
 
 .sp-lex-row.is-learned:focus-visible,
@@ -564,6 +601,27 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
     text-transform: uppercase;
     vertical-align: middle;
     white-space: nowrap;
+}
+
+/* What the query matched, inside the row it was found in. A match can be in
+   any of the four texts or in an example folded under the word, so the letters
+   themselves are painted rather than the field around them: a list of a
+   hundred rows otherwise says nothing about why each one is there. A marker
+   band rather than a colour of its own — orange text is a framed word, green
+   and blue are the section tags, and the Spanish has to stay the colour it is
+   read in. */
+.sp-hit {
+    background: rgba(220, 118, 3, 0.45);
+    color: var(--color-heading);
+    border-radius: 3px;
+    /* padded sideways but pulled back by the same amount: inside a word the
+       band has to breathe without `horario` reading as `hora rio`. */
+    padding: 0 2px;
+    margin: 0 -2px;
+    font-weight: 600;
+    /* a match that falls across a line break keeps the band on both halves */
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
 }
 
 .sp-tag.is-reference { color: var(--color-info); }

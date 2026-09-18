@@ -2,16 +2,16 @@
  "id": "stage-2",
  "prefix": "es2",
  "no": 4,
- "title": "Questions",
- "titleRu": "Вопросы и диалог",
- "goal": "научиться быстро задавать простые вопросы, понимать ключевую информацию, управлять диалогом и ориентироваться в обычном разговоре в Испании.",
+ "title": "Sentence",
+ "titleRu": "Частые фразы: зачины и готовые реплики",
+ "goal": "говорить целыми фразами — начинать разговор, просить, соглашаться и отказываться, переспрашивать, объяснять причину, договариваться и прощаться, — не собирая каждую фразу из слов заново.",
  "url": "spanish/stage-4.html",
  "intro": [
   {
    "k": "p",
    "spans": [
     {
-     "t": "Этот этап учит задавать вопросы и держать разговор после ответа. В лексике — вопросительные слова: они нужны почти в каждой фразе, поэтому их стоит знать наизусть. В примерах — готовые вопросы по темам, переспросы, если ответ непонятен, реакции, которые поддерживают разговор, и вопросы, которые задают тебе самому — в кафе, магазине и учреждениях."
+     "t": "Этап про целые фразы. Слово можно подобрать по ходу, а зачин — нет: его или знаешь наизусть, или молчишь. Здесь сто оборотов, которые в испанском разговоре звучат чаще всего: чем фразу начинают, чем просят, чем соглашаются и отказываются, чем переспрашивают, чем объясняют причину и чем заканчивают разговор."
     }
    ]
   },
@@ -19,923 +19,3300 @@
    "k": "p",
    "spans": [
     {
-     "t": "Вопросительное слово пишется с тильдой ("
+     "t": "Половина записей — зачины, их продолжают своими словами ("
     },
     {
-     "t": "qué",
+     "t": "lo que pasa es que",
      "s": "es"
     },
     {
      "t": ", "
     },
     {
-     "t": "dónde",
+     "t": "¿me puedes ayudar con",
      "s": "es"
     },
     {
      "t": ", "
     },
     {
-     "t": "cuándo",
+     "t": "cuando puedas",
      "s": "es"
     },
     {
-     "t": "), а сам вопрос часто строится как утверждение и отличается только интонацией: "
+     "t": "). Остальные говорят целиком, как есть ("
     },
     {
-     "t": "¿Hablas español?",
+     "t": "menos mal",
      "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "te lo agradezco",
+     "s": "es"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "ya nos contamos",
+     "s": "es"
+    },
+    {
+     "t": "). Под каждой записью — три примера: у зачина они показывают, чем его продолжают, у готовой реплики — в каком месте разговора она уместна."
+    }
+   ]
+  },
+  {
+   "k": "p",
+   "spans": [
+    {
+     "t": "Отдельные слова этих фраз собраны в Words, а схемы со слотами, по которым фразу строят самому, — в разговорных конструкциях. Здесь фраза дана целиком, ровно в том виде, в каком её произносят."
     }
    ]
   }
  ],
  "groups": [
   {
-   "kind": "topic",
-   "name": "Что / кто"
+   "name": "Начало разговора",
+   "kind": "topic"
   },
   {
-   "kind": "topic",
-   "name": "Где / куда / откуда"
+   "name": "Просьбы и предложения",
+   "kind": "topic"
   },
   {
-   "kind": "topic",
-   "name": "Когда / сколько времени"
+   "name": "Согласие, отказ, сомнение",
+   "kind": "topic"
   },
   {
-   "kind": "topic",
-   "name": "Как / почему / зачем"
+   "name": "Когда не понял",
+   "kind": "topic"
   },
   {
-   "kind": "topic",
-   "name": "Сколько / какой / который"
+   "name": "Мнение и оценка",
+   "kind": "topic"
   },
   {
-   "kind": "topic",
-   "name": "Чей / с кем / для кого"
+   "name": "Объяснение и причина",
+   "kind": "topic"
+  },
+  {
+   "name": "Планы и договорённости",
+   "kind": "topic"
+  },
+  {
+   "name": "Реакции и поддержка разговора",
+   "kind": "topic"
+  },
+  {
+   "name": "Извинения и вежливость",
+   "kind": "topic"
+  },
+  {
+   "name": "Конец разговора",
+   "kind": "topic"
   }
  ],
  "items": [
   {
-   "id": "es2-v001",
+   "id": "es2-v043",
    "type": "vocab",
-   "es": "qué",
-   "en": "what / which",
-   "ru": "что / какой",
-   "tr": "кэ",
-   "group": "Что / кто",
+   "es": "oye, una cosa",
+   "en": "hey, one thing",
+   "ru": "слушай, такое дело",
+   "tr": "о́йэ у́на ко́са",
+   "group": "Начало разговора",
    "ex": [
     {
-     "es": "¿Qué quieres?",
-     "ru": "Что ты хочешь?",
+     "es": "Oye, una cosa, ¿has visto mis llaves?",
+     "ru": "Слушай, такое дело: ты не видел мои ключи?",
      "frame": [
-      "Qué"
+      "Oye, una cosa"
      ]
     },
     {
-     "es": "¿Qué pasa?",
-     "ru": "Что случилось?",
+     "es": "Oye, una cosa que se me olvidaba.",
+     "ru": "Слушай, вот что я чуть не забыл.",
      "frame": [
-      "Qué"
+      "Oye, una cosa"
      ]
     },
     {
-     "es": "¿Qué significa esto?",
-     "ru": "Что это значит?",
+     "es": "Oye, una cosa antes de que te vayas.",
+     "ru": "Слушай, одно дело, пока ты не ушёл.",
      "frame": [
-      "Qué"
+      "Oye, una cosa"
      ]
     }
    ]
   },
   {
-   "id": "es2-v002",
+   "id": "es2-v044",
    "type": "vocab",
-   "es": "quién",
-   "en": "who",
-   "ru": "кто",
-   "tr": "кьен",
-   "group": "Что / кто",
+   "es": "perdona que te moleste",
+   "en": "sorry to bother you",
+   "ru": "извини, что отвлекаю",
+   "tr": "пэрдо́на кэ тэ молэ́стэ",
+   "group": "Начало разговора",
    "ex": [
     {
-     "es": "¿Quién es?",
-     "ru": "Кто это?",
+     "es": "Perdona que te moleste a estas horas.",
+     "ru": "Извини, что отвлекаю в такое время.",
      "frame": [
-      "Quién"
+      "Perdona que te moleste"
      ]
     },
     {
-     "es": "¿Quién viene?",
-     "ru": "Кто приходит?",
+     "es": "Perdona que te moleste, ¿tienes un minuto?",
+     "ru": "Извини, что отвлекаю, у тебя есть минута?",
      "frame": [
-      "Quién"
+      "Perdona que te moleste"
      ]
     },
     {
-     "es": "¿Quién es el último?",
-     "ru": "Кто последний?",
+     "es": "Perdona que te moleste otra vez con lo mismo.",
+     "ru": "Извини, что снова отвлекаю с тем же самым.",
      "frame": [
-      "Quién"
+      "Perdona que te moleste"
      ]
     }
    ]
   },
   {
-   "id": "es2-v003",
+   "id": "es2-v045",
    "type": "vocab",
-   "es": "quiénes",
-   "en": "who",
-   "ru": "кто (мн. ч.)",
-   "tr": "кье́нэс",
-   "group": "Что / кто",
+   "es": "¿tienes un momento?",
+   "en": "do you have a moment?",
+   "ru": "у тебя есть минутка?",
+   "tr": "тье́нэс ун момэ́нто",
+   "group": "Начало разговора",
    "ex": [
     {
-     "es": "¿Quiénes son?",
-     "ru": "Кто они?",
+     "es": "¿Tienes un momento? Es rápido.",
+     "ru": "У тебя есть минутка? Это быстро.",
      "frame": [
-      "Quiénes"
+      "Tienes un momento"
      ]
     },
     {
-     "es": "¿Quiénes vienen a la reunión?",
-     "ru": "Кто придёт на встречу?",
+     "es": "¿Tienes un momento para mirar esto?",
+     "ru": "У тебя есть минутка посмотреть на это?",
      "frame": [
-      "Quiénes"
+      "Tienes un momento"
      ]
     },
     {
-     "es": "¿Quiénes son esos niños?",
-     "ru": "Что это за дети?",
+     "es": "¿Tienes un momento o te pillo mal?",
+     "ru": "У тебя есть минутка или я не вовремя?",
      "frame": [
-      "Quiénes"
+      "Tienes un momento"
      ]
     }
    ]
   },
   {
-   "id": "es2-v004",
+   "id": "es2-v046",
    "type": "vocab",
-   "es": "dónde",
-   "en": "where",
-   "ru": "где",
-   "tr": "до́ндэ",
-   "group": "Где / куда / откуда",
+   "es": "te quería preguntar una cosa",
+   "en": "I wanted to ask you something",
+   "ru": "я хотел тебя кое о чём спросить",
+   "tr": "тэ кэри́а прэгунта́р у́на ко́са",
+   "group": "Начало разговора",
    "ex": [
     {
-     "es": "¿Dónde está el baño?",
-     "ru": "Где туалет?",
+     "es": "Te quería preguntar una cosa sobre el piso.",
+     "ru": "Я хотел тебя спросить кое о чём насчёт квартиры.",
      "frame": [
-      "Dónde"
+      "Te quería preguntar una cosa"
      ]
     },
     {
-     "es": "¿Dónde vives?",
-     "ru": "Где ты живёшь?",
+     "es": "Te quería preguntar una cosa, pero no sé cómo.",
+     "ru": "Я хотел тебя кое о чём спросить, но не знаю как.",
      "frame": [
-      "Dónde"
+      "Te quería preguntar una cosa"
      ]
     },
     {
-     "es": "¿Dónde puedo aparcar?",
-     "ru": "Где можно припарковаться?",
+     "es": "Te quería preguntar una cosa desde hace días.",
+     "ru": "Я уже несколько дней хочу тебя кое о чём спросить.",
      "frame": [
-      "Dónde"
+      "Te quería preguntar una cosa"
      ]
     }
    ]
   },
   {
-   "id": "es2-v005",
+   "id": "es2-v047",
    "type": "vocab",
-   "es": "a dónde",
-   "en": "where to",
-   "ru": "куда",
-   "tr": "а до́ндэ",
-   "group": "Где / куда / откуда",
+   "es": "¿qué tal todo?",
+   "en": "how is everything?",
+   "ru": "как вообще дела?",
+   "tr": "кэ тал то́до",
+   "group": "Начало разговора",
    "ex": [
     {
-     "es": "¿A dónde vas?",
-     "ru": "Куда ты идёшь?",
+     "es": "¡Hombre! ¿Qué tal todo?",
+     "ru": "О, привет! Как вообще дела?",
      "frame": [
-      "A dónde"
+      "Qué tal todo"
      ]
     },
     {
-     "es": "¿A dónde va este tren?",
-     "ru": "Куда идёт этот поезд?",
+     "es": "¿Qué tal todo por casa?",
+     "ru": "Как там дома всё?",
      "frame": [
-      "A dónde"
+      "Qué tal todo"
      ]
     },
     {
-     "es": "No sé a dónde ir.",
-     "ru": "Я не знаю, куда идти.",
+     "es": "¿Qué tal todo desde la última vez?",
+     "ru": "Как дела с прошлого раза?",
      "frame": [
-      "a dónde"
+      "Qué tal todo"
      ]
     }
    ]
   },
   {
-   "id": "es2-v006",
+   "id": "es2-v048",
    "type": "vocab",
-   "es": "de dónde",
-   "en": "where from",
-   "ru": "откуда",
-   "tr": "дэ до́ндэ",
-   "group": "Где / куда / откуда",
+   "es": "cuánto tiempo sin verte",
+   "en": "long time no see",
+   "ru": "сколько лет, сколько зим",
+   "tr": "куа́нто тье́мпо син бэ́ртэ",
+   "group": "Начало разговора",
    "ex": [
     {
-     "es": "¿De dónde eres?",
-     "ru": "Ты откуда?",
+     "es": "¡Cuánto tiempo sin verte! ¿Cómo estás?",
+     "ru": "Сколько лет, сколько зим! Как ты?",
      "frame": [
-      "De dónde"
+      "Cuánto tiempo sin verte"
      ]
     },
     {
-     "es": "¿De dónde vienes?",
-     "ru": "Откуда ты идёшь?",
+     "es": "Cuánto tiempo sin verte por aquí.",
+     "ru": "Давно тебя тут не было.",
      "frame": [
-      "De dónde"
+      "Cuánto tiempo sin verte"
      ]
     },
     {
-     "es": "No me dijo de dónde era.",
-     "ru": "Он не сказал, откуда он.",
+     "es": "Cuánto tiempo sin verte, estás igual.",
+     "ru": "Сколько лет, сколько зим, ты совсем не изменился.",
      "frame": [
-      "de dónde"
+      "Cuánto tiempo sin verte"
      ]
     }
    ]
   },
   {
-   "id": "es2-v007",
+   "id": "es2-v049",
    "type": "vocab",
-   "es": "cuándo",
-   "en": "when",
-   "ru": "когда",
-   "tr": "куа́ндо",
-   "group": "Когда / сколько времени",
+   "es": "mira, te cuento",
+   "en": "look, let me tell you",
+   "ru": "смотри, сейчас расскажу",
+   "tr": "ми́ра тэ куэ́нто",
+   "group": "Начало разговора",
    "ex": [
     {
-     "es": "¿Cuándo llegas?",
-     "ru": "Когда ты приезжаешь?",
+     "es": "Mira, te cuento lo que ha pasado.",
+     "ru": "Смотри, рассказываю, что случилось.",
      "frame": [
-      "Cuándo"
+      "Mira, te cuento"
      ]
     },
     {
-     "es": "¿Cuándo abren?",
-     "ru": "Когда открывают?",
+     "es": "Mira, te cuento y me dices qué opinas.",
+     "ru": "Смотри, я расскажу, а ты скажешь, что думаешь.",
      "frame": [
-      "Cuándo"
+      "Mira, te cuento"
      ]
     },
     {
-     "es": "No sé cuándo vuelve.",
-     "ru": "Не знаю, когда он вернётся.",
+     "es": "Mira, te cuento rápido y te dejo.",
+     "ru": "Смотри, расскажу быстро и не буду задерживать.",
      "frame": [
-      "cuándo"
+      "Mira, te cuento"
      ]
     }
    ]
   },
   {
-   "id": "es2-v008",
+   "id": "es2-v050",
    "type": "vocab",
-   "es": "cómo",
-   "en": "how",
-   "ru": "как? (вопрос)",
-   "tr": "ко́мо",
-   "group": "Как / почему / зачем",
+   "es": "¿puedo preguntarte algo?",
+   "en": "can I ask you something?",
+   "ru": "можно тебя кое о чём спросить?",
+   "tr": "пуэ́до прэгунта́ртэ а́лго",
+   "group": "Начало разговора",
    "ex": [
     {
-     "es": "¿Cómo estás?",
-     "ru": "Как ты?",
+     "es": "¿Puedo preguntarte algo sin que te enfades?",
+     "ru": "Можно тебя кое о чём спросить, только не сердись?",
      "frame": [
-      "Cómo"
+      "Puedo preguntarte algo"
      ]
     },
     {
-     "es": "¿Cómo llegamos?",
-     "ru": "Как нам добраться?",
+     "es": "¿Puedo preguntarte algo personal?",
+     "ru": "Можно задать тебе личный вопрос?",
      "frame": [
-      "Cómo"
+      "Puedo preguntarte algo"
      ]
     },
     {
-     "es": "¿Cómo se hace?",
-     "ru": "Как это делается?",
+     "es": "¿Puedo preguntarte algo antes de firmar?",
+     "ru": "Можно кое-что спросить до того, как я подпишу?",
      "frame": [
-      "Cómo"
+      "Puedo preguntarte algo"
      ]
     }
    ]
   },
   {
-   "id": "es2-v009",
+   "id": "es2-v051",
    "type": "vocab",
-   "es": "por qué",
-   "en": "why",
-   "ru": "почему",
-   "tr": "пор кэ",
-   "group": "Как / почему / зачем",
+   "es": "es solo un momento",
+   "en": "it's just a moment",
+   "ru": "это буквально на минуту",
+   "tr": "эс со́ло ун момэ́нто",
+   "group": "Начало разговора",
    "ex": [
     {
-     "es": "¿Por qué estás aquí?",
-     "ru": "Почему ты здесь?",
+     "es": "Espera, es solo un momento.",
+     "ru": "Подожди, это буквально на минуту.",
      "frame": [
-      "Por qué"
+      "es solo un momento"
      ]
     },
     {
-     "es": "¿Por qué está cerrado?",
-     "ru": "Почему закрыто?",
+     "es": "No te robo tiempo, es solo un momento.",
+     "ru": "Я тебя не задержу, это на минуту.",
      "frame": [
-      "Por qué"
+      "es solo un momento"
      ]
     },
     {
-     "es": "No sé por qué tarda tanto.",
-     "ru": "Не знаю, почему так долго.",
+     "es": "Siéntate, es solo un momento.",
+     "ru": "Присядь, это ненадолго.",
      "frame": [
-      "por qué"
+      "es solo un momento"
      ]
     }
    ]
   },
   {
-   "id": "es2-v010",
+   "id": "es2-v052",
    "type": "vocab",
-   "es": "para qué",
-   "en": "what for / why",
-   "ru": "зачем / для чего",
-   "tr": "па́ра кэ",
-   "group": "Как / почему / зачем",
+   "es": "¿qué tal?",
+   "en": "how are things?",
+   "ru": "как оно?",
+   "tr": "кэ тал",
+   "group": "Начало разговора",
    "ex": [
     {
-     "es": "¿Para qué sirve esto?",
-     "ru": "Для чего это?",
+     "es": "¡Hola! ¿Qué tal?",
+     "ru": "Привет! Как оно?",
      "frame": [
-      "Para qué"
+      "Qué tal"
      ]
     },
     {
-     "es": "¿Para qué es este botón?",
-     "ru": "Для чего эта кнопка?",
+     "es": "¿Qué tal? Hacía mucho que no hablábamos.",
+     "ru": "Как оно? Мы давно не общались.",
      "frame": [
-      "Para qué"
+      "Qué tal"
      ]
     },
     {
-     "es": "No sé para qué lo quiere.",
-     "ru": "Не знаю, зачем ему это.",
+     "es": "Buenas, ¿qué tal? Te veo bien.",
+     "ru": "Здравствуй, как оно? Хорошо выглядишь.",
      "frame": [
-      "para qué"
+      "qué tal"
      ]
     }
    ]
   },
   {
-   "id": "es2-v011",
+   "id": "es2-v053",
    "type": "vocab",
-   "es": "cuánto / cuánta",
-   "en": "how much",
-   "ru": "сколько (чего-то: agua, tiempo)",
-   "tr": "куа́нто / куа́нта",
-   "group": "Сколько / какой / который",
+   "es": "¿me puedes ayudar con",
+   "en": "can you help me with",
+   "ru": "можешь мне помочь с",
+   "tr": "мэ пуэ́дэс айуда́р кон",
+   "group": "Просьбы и предложения",
    "ex": [
     {
-     "es": "¿Cuánto cuesta?",
-     "ru": "Сколько это стоит?",
+     "es": "¿Me puedes ayudar con estas bolsas?",
+     "ru": "Можешь мне помочь с этими сумками?",
      "frame": [
-      "Cuánto"
+      "Me puedes ayudar con"
      ]
     },
     {
-     "es": "¿Cuánto es?",
-     "ru": "Сколько с меня?",
+     "es": "¿Me puedes ayudar con el formulario?",
+     "ru": "Можешь мне помочь с бланком?",
      "frame": [
-      "Cuánto"
+      "Me puedes ayudar con"
      ]
     },
     {
-     "es": "¿Cuánta agua queda?",
-     "ru": "Сколько осталось воды?",
+     "es": "¿Me puedes ayudar con una cosa del ordenador?",
+     "ru": "Можешь мне помочь с одной штукой на компьютере?",
      "frame": [
-      "Cuánta"
+      "Me puedes ayudar con"
      ]
     }
    ]
   },
   {
-   "id": "es2-v013",
+   "id": "es2-v054",
    "type": "vocab",
-   "es": "cuántos / cuántas",
-   "en": "how many",
-   "ru": "сколько (штук: personas, días)",
-   "tr": "куа́нтос / куа́нтас",
-   "group": "Сколько / какой / который",
+   "es": "¿te importaría",
+   "en": "would you mind",
+   "ru": "тебя не затруднит",
+   "tr": "тэ импортари́а",
+   "group": "Просьбы и предложения",
    "ex": [
     {
-     "es": "¿Cuántos años tiene tu hija?",
-     "ru": "Сколько лет твоей дочери?",
+     "es": "¿Te importaría esperar cinco minutos?",
+     "ru": "Тебя не затруднит подождать пять минут?",
      "frame": [
-      "Cuántos"
+      "Te importaría"
      ]
     },
     {
-     "es": "¿Cuántas personas vienen?",
-     "ru": "Сколько человек придёт?",
+     "es": "¿Te importaría cerrar la ventana?",
+     "ru": "Тебя не затруднит закрыть окно?",
      "frame": [
-      "Cuántas"
+      "Te importaría"
      ]
     },
     {
-     "es": "¿Cuántos días te quedas?",
-     "ru": "На сколько дней ты остаёшься?",
+     "es": "¿Te importaría que lo dejemos para mañana?",
+     "ru": "Ты не против, если мы отложим это на завтра?",
      "frame": [
-      "Cuántos"
+      "Te importaría"
      ]
     }
    ]
   },
   {
-   "id": "es2-v015",
+   "id": "es2-v055",
    "type": "vocab",
-   "es": "cuál",
-   "en": "which / what",
-   "ru": "какой / который",
-   "tr": "куал",
-   "group": "Сколько / какой / который",
+   "es": "¿podrías",
+   "en": "could you",
+   "ru": "мог бы ты",
+   "tr": "подри́ас",
+   "group": "Просьбы и предложения",
    "ex": [
     {
-     "es": "¿Cuál quieres?",
-     "ru": "Какой ты хочешь?",
+     "es": "¿Podrías hablar un poco más alto?",
+     "ru": "Мог бы ты говорить чуть громче?",
      "frame": [
-      "Cuál"
+      "Podrías"
      ]
     },
     {
-     "es": "¿Cuál es el tuyo?",
-     "ru": "Который твой?",
+     "es": "¿Podrías avisarme cuando llegues?",
+     "ru": "Мог бы ты сообщить мне, когда придёшь?",
      "frame": [
-      "Cuál"
+      "Podrías"
      ]
     },
     {
-     "es": "No sé cuál coger.",
-     "ru": "Не знаю, какой взять.",
+     "es": "¿Podrías echarme una mano un momento?",
+     "ru": "Мог бы ты мне на минуту помочь?",
      "frame": [
-      "cuál"
+      "Podrías"
      ]
     }
    ]
   },
   {
-   "id": "es2-v016",
+   "id": "es2-v056",
    "type": "vocab",
-   "es": "cuáles",
-   "en": "which ones",
-   "ru": "какие / которые",
-   "tr": "куа́лэс",
-   "group": "Сколько / какой / который",
+   "es": "¿me dejas",
+   "en": "will you let me",
+   "ru": "дашь мне",
+   "tr": "мэ дэ́хас",
+   "group": "Просьбы и предложения",
    "ex": [
     {
-     "es": "¿Cuáles son tuyos?",
-     "ru": "Какие твои?",
+     "es": "¿Me dejas el cargador un rato?",
+     "ru": "Дашь мне зарядку на время?",
      "frame": [
-      "Cuáles"
+      "Me dejas"
      ]
     },
     {
-     "es": "¿Cuáles prefieres?",
-     "ru": "Какие тебе больше нравятся?",
+     "es": "¿Me dejas que te explique?",
+     "ru": "Дашь мне объяснить?",
      "frame": [
-      "Cuáles"
+      "Me dejas"
      ]
     },
     {
-     "es": "Dime cuáles faltan.",
-     "ru": "Скажи, каких не хватает.",
+     "es": "¿Me dejas pasar, por favor?",
+     "ru": "Дашь мне пройти, пожалуйста?",
      "frame": [
-      "cuáles"
+      "Me dejas"
      ]
     }
    ]
   },
   {
-   "id": "es2-v017",
+   "id": "es2-v057",
    "type": "vocab",
-   "es": "de quién",
-   "en": "whose",
-   "ru": "чей / чья / чьё",
-   "tr": "дэ кьен",
-   "group": "Чей / с кем / для кого",
+   "es": "necesito que me",
+   "en": "I need you to",
+   "ru": "мне нужно, чтобы ты мне",
+   "tr": "нэсэси́то кэ мэ",
+   "group": "Просьбы и предложения",
    "ex": [
     {
-     "es": "¿De quién es este móvil?",
-     "ru": "Чей это телефон?",
+     "es": "Necesito que me confirmes la hora.",
+     "ru": "Мне нужно, чтобы ты подтвердил время.",
      "frame": [
-      "De quién"
+      "Necesito que me"
      ]
     },
     {
-     "es": "¿De quién es la culpa?",
-     "ru": "Кто виноват?",
+     "es": "Necesito que me escuches un momento.",
+     "ru": "Мне нужно, чтобы ты меня минуту послушал.",
      "frame": [
-      "De quién"
+      "Necesito que me"
      ]
     },
     {
-     "es": "No sé de quién es esta bolsa.",
-     "ru": "Не знаю, чей это пакет.",
+     "es": "Necesito que me lo digas hoy.",
+     "ru": "Мне нужно, чтобы ты сказал мне это сегодня.",
      "frame": [
-      "de quién"
+      "Necesito que me"
      ]
     }
    ]
   },
   {
-   "id": "es2-v018",
+   "id": "es2-v058",
    "type": "vocab",
-   "es": "con quién",
-   "en": "with whom",
-   "ru": "с кем",
-   "tr": "кон кьен",
-   "group": "Чей / с кем / для кого",
+   "es": "¿por qué no vamos a",
+   "en": "why don't we go",
+   "ru": "почему бы нам не пойти",
+   "tr": "пор кэ но ба́мос а",
+   "group": "Просьбы и предложения",
    "ex": [
     {
-     "es": "¿Con quién vas?",
-     "ru": "С кем ты идёшь?",
+     "es": "¿Por qué no vamos a tomar algo?",
+     "ru": "Почему бы нам не пойти чего-нибудь выпить?",
      "frame": [
-      "Con quién"
+      "Por qué no vamos a"
      ]
     },
     {
-     "es": "¿Con quién dejas a los niños?",
-     "ru": "С кем ты оставляешь детей?",
+     "es": "¿Por qué no vamos a la playa el sábado?",
+     "ru": "Почему бы нам не съездить на пляж в субботу?",
      "frame": [
-      "Con quién"
+      "Por qué no vamos a"
      ]
     },
     {
-     "es": "No dijo con quién viene.",
-     "ru": "Он не сказал, с кем придёт.",
+     "es": "¿Por qué no vamos a verlo juntos?",
+     "ru": "Почему бы нам не посмотреть это вместе?",
      "frame": [
-      "con quién"
+      "Por qué no vamos a"
      ]
     }
    ]
   },
   {
-   "id": "es2-v019",
+   "id": "es2-v059",
    "type": "vocab",
-   "es": "para quién",
-   "en": "for whom",
-   "ru": "для кого",
-   "tr": "па́ра кьен",
-   "group": "Чей / с кем / для кого",
+   "es": "si quieres, podemos",
+   "en": "if you want, we can",
+   "ru": "если хочешь, можем",
+   "tr": "си кье́рэс подэ́мос",
+   "group": "Просьбы и предложения",
    "ex": [
     {
-     "es": "¿Para quién es esto?",
-     "ru": "Для кого это?",
+     "es": "Si quieres, podemos quedar antes.",
+     "ru": "Если хочешь, можем встретиться пораньше.",
      "frame": [
-      "Para quién"
+      "Si quieres, podemos"
      ]
     },
     {
-     "es": "¿Para quién trabajas?",
-     "ru": "На кого ты работаешь?",
+     "es": "Si quieres, podemos ir andando.",
+     "ru": "Если хочешь, можем пойти пешком.",
      "frame": [
-      "Para quién"
+      "Si quieres, podemos"
      ]
     },
     {
-     "es": "Pregunta para quién es la cita.",
-     "ru": "Спроси, на кого записан приём.",
+     "es": "Si quieres, podemos dejarlo aquí.",
+     "ru": "Если хочешь, можем на этом остановиться.",
      "frame": [
-      "para quién"
+      "Si quieres, podemos"
      ]
     }
    ]
   },
   {
-   "id": "es2-v020",
+   "id": "es2-v060",
    "type": "vocab",
-   "es": "por dónde",
-   "en": "which way / through where",
-   "ru": "каким путём, где пройти",
-   "tr": "пор до́ндэ",
-   "group": "Где / куда / откуда",
+   "es": "déjame que te",
+   "en": "let me",
+   "ru": "дай я тебе",
+   "tr": "дэ́хамэ кэ тэ",
+   "group": "Просьбы и предложения",
    "ex": [
     {
-     "es": "¿Por dónde se entra?",
-     "ru": "Через какой вход заходят?",
+     "es": "Déjame que te ayude con eso.",
+     "ru": "Дай я тебе с этим помогу.",
      "frame": [
-      "Por dónde"
+      "Déjame que te"
      ]
     },
     {
-     "es": "¿Por dónde se va al centro?",
-     "ru": "Как пройти в центр?",
+     "es": "Déjame que te lo explique otra vez.",
+     "ru": "Дай я тебе это ещё раз объясню.",
      "frame": [
-      "Por dónde"
+      "Déjame que te"
      ]
     },
     {
-     "es": "Pregunta por dónde se sale.",
-     "ru": "Спроси, где выход.",
+     "es": "Déjame que te enseñe una foto.",
+     "ru": "Дай я тебе покажу фотографию.",
      "frame": [
-      "por dónde"
+      "Déjame que te"
      ]
     }
    ]
   },
   {
-   "id": "es2-v021",
+   "id": "es2-v061",
    "type": "vocab",
-   "es": "desde dónde",
-   "en": "from where",
-   "ru": "откуда / с какого места",
-   "tr": "дэ́сдэ до́ндэ",
-   "group": "Где / куда / откуда",
+   "es": "hazme un favor",
+   "en": "do me a favour",
+   "ru": "сделай мне одолжение",
+   "tr": "а́смэ ун фабо́р",
+   "group": "Просьбы и предложения",
    "ex": [
     {
-     "es": "¿Desde dónde sale el autobús?",
-     "ru": "Откуда отправляется автобус?",
+     "es": "Hazme un favor y llama tú.",
+     "ru": "Сделай мне одолжение, позвони ты.",
      "frame": [
-      "Desde dónde"
+      "Hazme un favor"
      ]
     },
     {
-     "es": "¿Desde dónde se ve mejor?",
-     "ru": "Откуда лучше видно?",
+     "es": "Hazme un favor: no digas nada todavía.",
+     "ru": "Сделай мне одолжение: пока ничего не говори.",
      "frame": [
-      "Desde dónde"
+      "Hazme un favor"
      ]
     },
     {
-     "es": "No sé desde dónde salen los taxis.",
-     "ru": "Не знаю, откуда отходят такси.",
+     "es": "Hazme un favor y guarda esto.",
+     "ru": "Сделай мне одолжение, убери это.",
      "frame": [
-      "desde dónde"
+      "Hazme un favor"
      ]
     }
    ]
   },
   {
-   "id": "es2-v022",
+   "id": "es2-v062",
    "type": "vocab",
-   "es": "hacia dónde",
-   "en": "towards where",
-   "ru": "в какую сторону / куда",
-   "tr": "а́сья до́ндэ",
-   "group": "Где / куда / откуда",
+   "es": "¿te vienes?",
+   "en": "are you coming?",
+   "ru": "ты с нами?",
+   "tr": "тэ бье́нэс",
+   "group": "Просьбы и предложения",
    "ex": [
     {
-     "es": "¿Hacia dónde vamos?",
-     "ru": "В какую сторону мы идём?",
+     "es": "Vamos al cine, ¿te vienes?",
+     "ru": "Мы идём в кино, ты с нами?",
      "frame": [
-      "Hacia dónde"
+      "te vienes"
      ]
     },
     {
-     "es": "¿Hacia dónde queda el mar?",
-     "ru": "В какой стороне море?",
+     "es": "¿Te vienes o te quedas?",
+     "ru": "Ты с нами или остаёшься?",
      "frame": [
-      "Hacia dónde"
+      "Te vienes"
      ]
     },
     {
-     "es": "No veo hacia dónde va.",
-     "ru": "Я не вижу, куда он едет.",
+     "es": "¿Te vienes a cenar con nosotros?",
+     "ru": "Пойдёшь с нами ужинать?",
      "frame": [
-      "hacia dónde"
+      "Te vienes"
      ]
     }
    ]
   },
   {
-   "id": "es2-v023",
+   "id": "es2-v063",
    "type": "vocab",
-   "es": "hasta dónde",
-   "en": "up to where / how far",
-   "ru": "докуда, до какого места",
-   "tr": "а́ста до́ндэ",
-   "group": "Где / куда / откуда",
+   "es": "me parece bien",
+   "en": "sounds good to me",
+   "ru": "меня устраивает",
+   "tr": "мэ парэ́сэ бьен",
+   "group": "Согласие, отказ, сомнение",
    "ex": [
     {
-     "es": "¿Hasta dónde llega este autobús?",
-     "ru": "До какой остановки идёт этот автобус?",
+     "es": "Me parece bien, quedamos así.",
+     "ru": "Меня устраивает, так и договоримся.",
      "frame": [
-      "Hasta dónde"
+      "Me parece bien"
      ]
     },
     {
-     "es": "¿Hasta dónde puedo aparcar?",
-     "ru": "Докуда можно парковаться?",
+     "es": "A mí me parece bien el precio.",
+     "ru": "Мне цена кажется нормальной.",
      "frame": [
-      "Hasta dónde"
+      "me parece bien"
      ]
     },
     {
-     "es": "Pregunta hasta dónde llega el billete.",
-     "ru": "Спроси, докуда действует билет.",
+     "es": "Me parece bien, pero pregunta a los demás.",
+     "ru": "Меня устраивает, но спроси остальных.",
      "frame": [
-      "hasta dónde"
+      "Me parece bien"
      ]
     }
    ]
   },
   {
-   "id": "es2-v024",
+   "id": "es2-v064",
    "type": "vocab",
-   "es": "a qué hora",
-   "en": "at what time",
-   "ru": "во сколько",
-   "tr": "а кэ о́ра",
-   "group": "Когда / сколько времени",
+   "es": "por mí, perfecto",
+   "en": "fine by me",
+   "ru": "по мне — отлично",
+   "tr": "пор ми пэрфэ́кто",
+   "group": "Согласие, отказ, сомнение",
    "ex": [
     {
-     "es": "¿A qué hora empieza?",
-     "ru": "Во сколько начинается?",
+     "es": "Por mí, perfecto; nos vemos el jueves.",
+     "ru": "По мне — отлично, увидимся в четверг.",
      "frame": [
-      "A qué hora"
+      "Por mí, perfecto"
      ]
     },
     {
-     "es": "¿A qué hora cierran?",
-     "ru": "Во сколько закрывают?",
+     "es": "Si a ti te va bien, por mí, perfecto.",
+     "ru": "Если тебе удобно, по мне — отлично.",
      "frame": [
-      "A qué hora"
+      "por mí, perfecto"
      ]
     },
     {
-     "es": "Dime a qué hora sales.",
-     "ru": "Скажи, во сколько ты выходишь.",
+     "es": "Por mí, perfecto, no tengo ningún plan.",
+     "ru": "По мне — отлично, у меня никаких планов.",
      "frame": [
-      "a qué hora"
+      "Por mí, perfecto"
      ]
     }
    ]
   },
   {
-   "id": "es2-v025",
+   "id": "es2-v065",
    "type": "vocab",
-   "es": "cuánto tiempo",
-   "en": "how long / how much time",
-   "ru": "сколько времени",
-   "tr": "куа́нто тье́мпо",
-   "group": "Когда / сколько времени",
+   "es": "no estoy seguro",
+   "en": "I'm not sure",
+   "ru": "я не уверен",
+   "tr": "но эсто́й сэгу́ро",
+   "group": "Согласие, отказ, сомнение",
    "ex": [
     {
-     "es": "¿Cuánto tiempo falta?",
-     "ru": "Сколько времени осталось?",
+     "es": "No estoy seguro de que sea hoy.",
+     "ru": "Я не уверен, что это сегодня.",
      "frame": [
-      "Cuánto tiempo"
+      "No estoy seguro"
      ]
     },
     {
-     "es": "¿Cuánto tiempo llevas aquí?",
-     "ru": "Сколько ты уже здесь?",
+     "es": "No estoy seguro, déjame mirarlo.",
+     "ru": "Я не уверен, дай посмотрю.",
      "frame": [
-      "Cuánto tiempo"
+      "No estoy seguro"
      ]
     },
     {
-     "es": "No sé cuánto tiempo tarda.",
-     "ru": "Не знаю, сколько это займёт.",
+     "es": "No estoy seguro del todo, pero creo que sí.",
+     "ru": "Я не совсем уверен, но думаю, что да.",
      "frame": [
-      "cuánto tiempo"
+      "No estoy seguro"
      ]
     }
    ]
   },
   {
-   "id": "es2-v026",
+   "id": "es2-v066",
    "type": "vocab",
-   "es": "desde cuándo",
-   "en": "since when",
-   "ru": "с каких пор / с какого времени",
-   "tr": "дэ́сдэ куа́ндо",
-   "group": "Когда / сколько времени",
+   "es": "lo veo difícil",
+   "en": "I think it will be hard",
+   "ru": "мне это кажется сложным",
+   "tr": "ло бэ́о дифи́сил",
+   "group": "Согласие, отказ, сомнение",
    "ex": [
     {
-     "es": "¿Desde cuándo estás aquí?",
-     "ru": "Как давно ты здесь?",
+     "es": "Lo veo difícil para esta semana.",
+     "ru": "На этой неделе, боюсь, вряд ли.",
      "frame": [
-      "Desde cuándo"
+      "Lo veo difícil"
      ]
     },
     {
-     "es": "¿Desde cuándo está cerrado?",
-     "ru": "С каких пор закрыто?",
+     "es": "Sinceramente, lo veo difícil.",
+     "ru": "Честно говоря, мне это кажется сложным.",
      "frame": [
-      "Desde cuándo"
+      "lo veo difícil"
      ]
     },
     {
-     "es": "Pregunta desde cuándo vive aquí.",
-     "ru": "Спроси, с каких пор он здесь живёт.",
+     "es": "Lo veo difícil sin ayuda.",
+     "ru": "Без помощи это будет сложно.",
      "frame": [
-      "desde cuándo"
+      "Lo veo difícil"
      ]
     }
    ]
   },
   {
-   "id": "es2-v027",
+   "id": "es2-v067",
    "type": "vocab",
-   "es": "hasta cuándo",
-   "en": "until when",
-   "ru": "до каких пор / до какого времени",
-   "tr": "а́ста куа́ндо",
-   "group": "Когда / сколько времени",
+   "es": "prefiero no",
+   "en": "I would rather not",
+   "ru": "я предпочту не",
+   "tr": "прэфье́ро но",
+   "group": "Согласие, отказ, сомнение",
    "ex": [
     {
-     "es": "¿Hasta cuándo está abierto?",
-     "ru": "До каких пор это открыто?",
+     "es": "Prefiero no hablar de eso ahora.",
+     "ru": "Я предпочту сейчас об этом не говорить.",
      "frame": [
-      "Hasta cuándo"
+      "Prefiero no"
      ]
     },
     {
-     "es": "¿Hasta cuándo te quedas?",
-     "ru": "До каких пор ты остаёшься?",
+     "es": "Prefiero no llegar tarde.",
+     "ru": "Я предпочту не опаздывать.",
      "frame": [
-      "Hasta cuándo"
+      "Prefiero no"
      ]
     },
     {
-     "es": "No sé hasta cuándo dura la oferta.",
-     "ru": "Не знаю, до каких пор действует акция.",
+     "es": "Prefiero no decir nada todavía.",
+     "ru": "Я предпочту пока ничего не говорить.",
      "frame": [
-      "hasta cuándo"
+      "Prefiero no"
      ]
     }
    ]
   },
   {
-   "id": "es2-v028",
+   "id": "es2-v068",
    "type": "vocab",
-   "es": "qué tipo de",
-   "en": "what kind of",
-   "ru": "какой / какого типа",
-   "tr": "кэ ти́по дэ",
-   "group": "Сколько / какой / который",
+   "es": "me lo tengo que pensar",
+   "en": "I have to think about it",
+   "ru": "мне надо это обдумать",
+   "tr": "мэ ло тэ́нго кэ пэнса́р",
+   "group": "Согласие, отказ, сомнение",
    "ex": [
     {
-     "es": "¿Qué tipo de café quieres?",
-     "ru": "Какой кофе ты хочешь?",
+     "es": "Me lo tengo que pensar con calma.",
+     "ru": "Мне надо это спокойно обдумать.",
      "frame": [
-      "Qué tipo de"
+      "Me lo tengo que pensar"
      ]
     },
     {
-     "es": "¿Qué tipo de contrato es?",
-     "ru": "Какой это договор?",
+     "es": "Dame un día, me lo tengo que pensar.",
+     "ru": "Дай мне день, мне надо это обдумать.",
      "frame": [
-      "Qué tipo de"
+      "me lo tengo que pensar"
      ]
     },
     {
-     "es": "No dijo qué tipo de problema era.",
-     "ru": "Он не сказал, какого рода проблема.",
+     "es": "Me lo tengo que pensar antes de decidir.",
+     "ru": "Мне надо это обдумать, прежде чем решать.",
      "frame": [
-      "qué tipo de"
+      "Me lo tengo que pensar"
      ]
     }
    ]
   },
   {
-   "id": "es2-v042",
+   "id": "es2-v069",
    "type": "vocab",
-   "es": "hay",
-   "en": "there is / there are",
-   "ru": "есть / имеется",
-   "tr": "ай",
-   "group": "Что / кто",
+   "es": "no me viene bien",
+   "en": "it doesn't work for me",
+   "ru": "мне это неудобно",
+   "tr": "но мэ бье́нэ бьен",
+   "group": "Согласие, отказ, сомнение",
    "ex": [
     {
-     "es": "¿Hay un baño por aquí?",
-     "ru": "Здесь есть туалет поблизости?",
+     "es": "El martes no me viene bien.",
+     "ru": "Вторник мне неудобен.",
      "frame": [
-      "Hay"
+      "no me viene bien"
      ]
     },
     {
-     "es": "¿Hay wifi en el hotel?",
-     "ru": "В отеле есть вайфай?",
+     "es": "No me viene bien tan temprano.",
+     "ru": "Мне неудобно так рано.",
      "frame": [
-      "Hay"
+      "No me viene bien"
      ]
     },
     {
-     "es": "Aquí no hay cobertura.",
-     "ru": "Здесь нет связи.",
+     "es": "Esta semana no me viene bien, ¿y la próxima?",
+     "ru": "На этой неделе мне неудобно, а на следующей?",
      "frame": [
-      "hay"
+      "no me viene bien"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v070",
+   "type": "vocab",
+   "es": "cuenta conmigo",
+   "en": "count on me",
+   "ru": "рассчитывай на меня",
+   "tr": "куэ́нта конми́го",
+   "group": "Согласие, отказ, сомнение",
+   "ex": [
+    {
+     "es": "Cuenta conmigo para la mudanza.",
+     "ru": "Рассчитывай на меня с переездом.",
+     "frame": [
+      "Cuenta conmigo"
+     ]
+    },
+    {
+     "es": "Lo que necesites, cuenta conmigo.",
+     "ru": "Что понадобится — рассчитывай на меня.",
+     "frame": [
+      "cuenta conmigo"
+     ]
+    },
+    {
+     "es": "Cuenta conmigo, allí estaré.",
+     "ru": "Рассчитывай на меня, я буду.",
+     "frame": [
+      "Cuenta conmigo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v071",
+   "type": "vocab",
+   "es": "depende de",
+   "en": "it depends on",
+   "ru": "зависит от",
+   "tr": "дэпэ́ндэ дэ",
+   "group": "Согласие, отказ, сомнение",
+   "ex": [
+    {
+     "es": "Depende de cómo esté el tiempo.",
+     "ru": "Зависит от того, какая будет погода.",
+     "frame": [
+      "Depende de"
+     ]
+    },
+    {
+     "es": "Depende de ti, la verdad.",
+     "ru": "По правде говоря, это зависит от тебя.",
+     "frame": [
+      "Depende de"
+     ]
+    },
+    {
+     "es": "El precio depende de la temporada.",
+     "ru": "Цена зависит от сезона.",
+     "frame": [
+      "depende de"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v072",
+   "type": "vocab",
+   "es": "en principio sí",
+   "en": "in principle yes",
+   "ru": "в принципе да",
+   "tr": "эн принси́пьо си",
+   "group": "Согласие, отказ, сомнение",
+   "ex": [
+    {
+     "es": "En principio sí, salvo que llueva.",
+     "ru": "В принципе да, если только не будет дождя.",
+     "frame": [
+      "En principio sí"
+     ]
+    },
+    {
+     "es": "En principio sí, pero te confirmo mañana.",
+     "ru": "В принципе да, но я подтвержу завтра.",
+     "frame": [
+      "En principio sí"
+     ]
+    },
+    {
+     "es": "En principio sí, ya está todo hablado.",
+     "ru": "В принципе да, всё уже обговорено.",
+     "frame": [
+      "En principio sí"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v073",
+   "type": "vocab",
+   "es": "¿puedes repetir?",
+   "en": "can you repeat?",
+   "ru": "можешь повторить?",
+   "tr": "пуэ́дэс ррэпэти́р",
+   "group": "Когда не понял",
+   "ex": [
+    {
+     "es": "Perdona, ¿puedes repetir?",
+     "ru": "Извини, можешь повторить?",
+     "frame": [
+      "puedes repetir"
+     ]
+    },
+    {
+     "es": "¿Puedes repetir el número, por favor?",
+     "ru": "Можешь повторить номер, пожалуйста?",
+     "frame": [
+      "Puedes repetir"
+     ]
+    },
+    {
+     "es": "No te he oído, ¿puedes repetir?",
+     "ru": "Я тебя не расслышал, можешь повторить?",
+     "frame": [
+      "puedes repetir"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v074",
+   "type": "vocab",
+   "es": "¿puedes hablar más despacio?",
+   "en": "can you speak more slowly?",
+   "ru": "можешь говорить помедленнее?",
+   "tr": "пуэ́дэс абла́р мас дэспа́сьо",
+   "group": "Когда не понял",
+   "ex": [
+    {
+     "es": "¿Puedes hablar más despacio? Estoy aprendiendo.",
+     "ru": "Можешь говорить помедленнее? Я ещё учусь.",
+     "frame": [
+      "Puedes hablar más despacio"
+     ]
+    },
+    {
+     "es": "Por favor, ¿puedes hablar más despacio?",
+     "ru": "Пожалуйста, можешь говорить помедленнее?",
+     "frame": [
+      "puedes hablar más despacio"
+     ]
+    },
+    {
+     "es": "¿Puedes hablar más despacio? Así te entiendo mejor.",
+     "ru": "Можешь говорить помедленнее? Так я тебя лучше понимаю.",
+     "frame": [
+      "Puedes hablar más despacio"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v075",
+   "type": "vocab",
+   "es": "no he entendido",
+   "en": "I didn't understand",
+   "ru": "я не понял",
+   "tr": "но э энтэнди́до",
+   "group": "Когда не понял",
+   "ex": [
+    {
+     "es": "Perdona, no he entendido la última parte.",
+     "ru": "Извини, я не понял последнюю часть.",
+     "frame": [
+      "no he entendido"
+     ]
+    },
+    {
+     "es": "No he entendido nada, lo siento.",
+     "ru": "Я вообще ничего не понял, прости.",
+     "frame": [
+      "No he entendido"
+     ]
+    },
+    {
+     "es": "No he entendido bien la dirección.",
+     "ru": "Я не расслышал адрес.",
+     "frame": [
+      "No he entendido"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v076",
+   "type": "vocab",
+   "es": "no te he oído bien",
+   "en": "I didn't hear you well",
+   "ru": "я тебя плохо расслышал",
+   "tr": "но тэ э ои́до бьен",
+   "group": "Когда не понял",
+   "ex": [
+    {
+     "es": "No te he oído bien, hay mucho ruido.",
+     "ru": "Я тебя плохо расслышал, тут очень шумно.",
+     "frame": [
+      "No te he oído bien"
+     ]
+    },
+    {
+     "es": "Perdona, no te he oído bien por teléfono.",
+     "ru": "Извини, я тебя плохо расслышал по телефону.",
+     "frame": [
+      "no te he oído bien"
+     ]
+    },
+    {
+     "es": "No te he oído bien, ¿lo repites?",
+     "ru": "Я тебя плохо расслышал, повторишь?",
+     "frame": [
+      "No te he oído bien"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v077",
+   "type": "vocab",
+   "es": "¿qué quiere decir",
+   "en": "what does it mean",
+   "ru": "что значит",
+   "tr": "кэ кье́рэ дэси́р",
+   "group": "Когда не понял",
+   "ex": [
+    {
+     "es": "¿Qué quiere decir esta palabra?",
+     "ru": "Что значит это слово?",
+     "frame": [
+      "Qué quiere decir"
+     ]
+    },
+    {
+     "es": "¿Qué quiere decir eso exactamente?",
+     "ru": "Что именно это значит?",
+     "frame": [
+      "Qué quiere decir"
+     ]
+    },
+    {
+     "es": "¿Qué quiere decir el cartel de la puerta?",
+     "ru": "Что значит табличка на двери?",
+     "frame": [
+      "Qué quiere decir"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v078",
+   "type": "vocab",
+   "es": "¿cómo has dicho?",
+   "en": "what did you say?",
+   "ru": "как ты сказал?",
+   "tr": "ко́мо ас ди́чо",
+   "group": "Когда не понял",
+   "ex": [
+    {
+     "es": "¿Cómo has dicho? No te seguía.",
+     "ru": "Как ты сказал? Я отвлёкся.",
+     "frame": [
+      "Cómo has dicho"
+     ]
+    },
+    {
+     "es": "¿Cómo has dicho que se llama?",
+     "ru": "Как, ты сказал, это называется?",
+     "frame": [
+      "Cómo has dicho"
+     ]
+    },
+    {
+     "es": "¿Cómo has dicho? Aquí no se oye nada.",
+     "ru": "Как ты сказал? Тут ничего не слышно.",
+     "frame": [
+      "Cómo has dicho"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v079",
+   "type": "vocab",
+   "es": "se me ha escapado",
+   "en": "it slipped past me",
+   "ru": "я прослушал",
+   "tr": "сэ мэ а эскапа́до",
+   "group": "Когда не понял",
+   "ex": [
+    {
+     "es": "Se me ha escapado lo que has dicho.",
+     "ru": "Я прослушал, что ты сказал.",
+     "frame": [
+      "Se me ha escapado"
+     ]
+    },
+    {
+     "es": "Perdona, se me ha escapado el nombre.",
+     "ru": "Извини, я не уловил имя.",
+     "frame": [
+      "se me ha escapado"
+     ]
+    },
+    {
+     "es": "Se me ha escapado la última frase.",
+     "ru": "Я упустил последнюю фразу.",
+     "frame": [
+      "Se me ha escapado"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v080",
+   "type": "vocab",
+   "es": "espera, que no te sigo",
+   "en": "wait, I'm not following you",
+   "ru": "подожди, я за тобой не успеваю",
+   "tr": "эспэ́ра кэ но тэ си́го",
+   "group": "Когда не понял",
+   "ex": [
+    {
+     "es": "Espera, que no te sigo, vas muy rápido.",
+     "ru": "Подожди, я за тобой не успеваю, ты очень быстро говоришь.",
+     "frame": [
+      "Espera, que no te sigo"
+     ]
+    },
+    {
+     "es": "Espera, que no te sigo; empieza otra vez.",
+     "ru": "Подожди, я не успеваю за тобой, начни заново.",
+     "frame": [
+      "Espera, que no te sigo"
+     ]
+    },
+    {
+     "es": "Espera, que no te sigo con tantos nombres.",
+     "ru": "Подожди, я теряюсь в таком количестве имён.",
+     "frame": [
+      "Espera, que no te sigo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v081",
+   "type": "vocab",
+   "es": "¿me lo puedes escribir?",
+   "en": "can you write it down for me?",
+   "ru": "можешь мне это написать?",
+   "tr": "мэ ло пуэ́дэс эскриби́р",
+   "group": "Когда не понял",
+   "ex": [
+    {
+     "es": "¿Me lo puedes escribir aquí?",
+     "ru": "Можешь мне это здесь написать?",
+     "frame": [
+      "Me lo puedes escribir"
+     ]
+    },
+    {
+     "es": "No lo pillo, ¿me lo puedes escribir?",
+     "ru": "Я не улавливаю, можешь мне это написать?",
+     "frame": [
+      "me lo puedes escribir"
+     ]
+    },
+    {
+     "es": "¿Me lo puedes escribir en un papel?",
+     "ru": "Можешь мне это написать на бумажке?",
+     "frame": [
+      "Me lo puedes escribir"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v082",
+   "type": "vocab",
+   "es": "otra vez, por favor",
+   "en": "again, please",
+   "ru": "ещё раз, пожалуйста",
+   "tr": "о́тра бэс пор фабо́р",
+   "group": "Когда не понял",
+   "ex": [
+    {
+     "es": "Otra vez, por favor, más despacio.",
+     "ru": "Ещё раз, пожалуйста, помедленнее.",
+     "frame": [
+      "Otra vez, por favor"
+     ]
+    },
+    {
+     "es": "No lo he cogido; otra vez, por favor.",
+     "ru": "Я не уловил; ещё раз, пожалуйста.",
+     "frame": [
+      "otra vez, por favor"
+     ]
+    },
+    {
+     "es": "Otra vez, por favor, y te lo apunto.",
+     "ru": "Ещё раз, пожалуйста, и я запишу.",
+     "frame": [
+      "Otra vez, por favor"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v083",
+   "type": "vocab",
+   "es": "a mí me parece que",
+   "en": "it seems to me that",
+   "ru": "мне кажется, что",
+   "tr": "а ми мэ парэ́сэ кэ",
+   "group": "Мнение и оценка",
+   "ex": [
+    {
+     "es": "A mí me parece que es mejor esperar.",
+     "ru": "Мне кажется, что лучше подождать.",
+     "frame": [
+      "A mí me parece que"
+     ]
+    },
+    {
+     "es": "A mí me parece que está muy lejos.",
+     "ru": "Мне кажется, что это очень далеко.",
+     "frame": [
+      "A mí me parece que"
+     ]
+    },
+    {
+     "es": "A mí me parece que se ha olvidado.",
+     "ru": "Мне кажется, что он забыл.",
+     "frame": [
+      "A mí me parece que"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v084",
+   "type": "vocab",
+   "es": "yo diría que",
+   "en": "I would say that",
+   "ru": "я бы сказал, что",
+   "tr": "йо дири́а кэ",
+   "group": "Мнение и оценка",
+   "ex": [
+    {
+     "es": "Yo diría que faltan dos días.",
+     "ru": "Я бы сказал, что осталось два дня.",
+     "frame": [
+      "Yo diría que"
+     ]
+    },
+    {
+     "es": "Yo diría que no merece la pena.",
+     "ru": "Я бы сказал, что оно того не стоит.",
+     "frame": [
+      "Yo diría que"
+     ]
+    },
+    {
+     "es": "Yo diría que hay unas cien personas.",
+     "ru": "Я бы сказал, что там человек сто.",
+     "frame": [
+      "Yo diría que"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v085",
+   "type": "vocab",
+   "es": "la verdad es que",
+   "en": "the truth is that",
+   "ru": "по правде говоря",
+   "tr": "ла бэрда́д эс кэ",
+   "group": "Мнение и оценка",
+   "ex": [
+    {
+     "es": "La verdad es que no me apetece.",
+     "ru": "По правде говоря, мне не хочется.",
+     "frame": [
+      "La verdad es que"
+     ]
+    },
+    {
+     "es": "La verdad es que se me había olvidado.",
+     "ru": "По правде говоря, я об этом забыл.",
+     "frame": [
+      "La verdad es que"
+     ]
+    },
+    {
+     "es": "La verdad es que ha salido mejor de lo que pensaba.",
+     "ru": "По правде говоря, вышло лучше, чем я думал.",
+     "frame": [
+      "La verdad es que"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v086",
+   "type": "vocab",
+   "es": "para mí",
+   "en": "for me",
+   "ru": "по-моему",
+   "tr": "па́ра ми",
+   "group": "Мнение и оценка",
+   "ex": [
+    {
+     "es": "Para mí, es la mejor opción.",
+     "ru": "По-моему, это лучший вариант.",
+     "frame": [
+      "Para mí"
+     ]
+    },
+    {
+     "es": "Para mí, con eso basta.",
+     "ru": "По-моему, этого достаточно.",
+     "frame": [
+      "Para mí"
+     ]
+    },
+    {
+     "es": "Para mí, el primero estaba mejor.",
+     "ru": "По-моему, первый был лучше.",
+     "frame": [
+      "Para mí"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v087",
+   "type": "vocab",
+   "es": "me da la sensación de que",
+   "en": "I get the feeling that",
+   "ru": "у меня ощущение, что",
+   "tr": "мэ да ла сэнсасьо́н дэ кэ",
+   "group": "Мнение и оценка",
+   "ex": [
+    {
+     "es": "Me da la sensación de que no le interesa.",
+     "ru": "У меня ощущение, что ему это неинтересно.",
+     "frame": [
+      "Me da la sensación de que"
+     ]
+    },
+    {
+     "es": "Me da la sensación de que ya lo sabía.",
+     "ru": "У меня ощущение, что он уже знал.",
+     "frame": [
+      "Me da la sensación de que"
+     ]
+    },
+    {
+     "es": "Me da la sensación de que vamos tarde.",
+     "ru": "У меня ощущение, что мы опаздываем.",
+     "frame": [
+      "Me da la sensación de que"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v088",
+   "type": "vocab",
+   "es": "no está mal",
+   "en": "not bad",
+   "ru": "неплохо",
+   "tr": "но эста́ мал",
+   "group": "Мнение и оценка",
+   "ex": [
+    {
+     "es": "No está mal para ser el primer intento.",
+     "ru": "Для первой попытки неплохо.",
+     "frame": [
+      "No está mal"
+     ]
+    },
+    {
+     "es": "El sitio no está mal, pero es caro.",
+     "ru": "Место неплохое, но дорогое.",
+     "frame": [
+      "no está mal"
+     ]
+    },
+    {
+     "es": "No está mal, aunque esperaba más.",
+     "ru": "Неплохо, хотя я ждал большего.",
+     "frame": [
+      "No está mal"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v089",
+   "type": "vocab",
+   "es": "es una pasada",
+   "en": "it's amazing",
+   "ru": "это нечто",
+   "tr": "эс у́на паса́да",
+   "group": "Мнение и оценка",
+   "ex": [
+    {
+     "es": "La vista desde arriba es una pasada.",
+     "ru": "Вид сверху — это нечто.",
+     "frame": [
+      "es una pasada"
+     ]
+    },
+    {
+     "es": "Es una pasada lo bien que cocina.",
+     "ru": "Это нечто, как он готовит.",
+     "frame": [
+      "Es una pasada"
+     ]
+    },
+    {
+     "es": "Es una pasada, tienes que verlo.",
+     "ru": "Это нечто, тебе надо это увидеть.",
+     "frame": [
+      "Es una pasada"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v090",
+   "type": "vocab",
+   "es": "no me convence",
+   "en": "it doesn't convince me",
+   "ru": "меня не убеждает",
+   "tr": "но мэ конбэ́нсэ",
+   "group": "Мнение и оценка",
+   "ex": [
+    {
+     "es": "No me convence del todo la idea.",
+     "ru": "Эта идея меня не до конца убеждает.",
+     "frame": [
+      "No me convence"
+     ]
+    },
+    {
+     "es": "Está bien hecho, pero no me convence.",
+     "ru": "Сделано хорошо, но меня не убеждает.",
+     "frame": [
+      "no me convence"
+     ]
+    },
+    {
+     "es": "No me convence el precio que piden.",
+     "ru": "Меня не убеждает цена, которую просят.",
+     "frame": [
+      "No me convence"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v091",
+   "type": "vocab",
+   "es": "tiene sentido",
+   "en": "it makes sense",
+   "ru": "в этом есть смысл",
+   "tr": "тье́нэ сэнти́до",
+   "group": "Мнение и оценка",
+   "ex": [
+    {
+     "es": "Ahora tiene sentido todo.",
+     "ru": "Теперь всё обретает смысл.",
+     "frame": [
+      "tiene sentido"
+     ]
+    },
+    {
+     "es": "Tiene sentido lo que dices.",
+     "ru": "В том, что ты говоришь, есть смысл.",
+     "frame": [
+      "Tiene sentido"
+     ]
+    },
+    {
+     "es": "No tiene sentido ir hoy.",
+     "ru": "Нет смысла идти сегодня.",
+     "frame": [
+      "tiene sentido"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v092",
+   "type": "vocab",
+   "es": "¿tú qué harías?",
+   "en": "what would you do?",
+   "ru": "а ты бы что сделал?",
+   "tr": "ту кэ ари́ас",
+   "group": "Мнение и оценка",
+   "ex": [
+    {
+     "es": "¿Tú qué harías en mi lugar?",
+     "ru": "А ты бы что сделал на моём месте?",
+     "frame": [
+      "Tú qué harías"
+     ]
+    },
+    {
+     "es": "No sé qué elegir, ¿tú qué harías?",
+     "ru": "Не знаю, что выбрать, а ты бы что сделал?",
+     "frame": [
+      "tú qué harías"
+     ]
+    },
+    {
+     "es": "¿Tú qué harías, decir algo o callarte?",
+     "ru": "А ты бы что сделал — сказал или промолчал?",
+     "frame": [
+      "Tú qué harías"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v093",
+   "type": "vocab",
+   "es": "lo que pasa es que",
+   "en": "the thing is that",
+   "ru": "дело в том, что",
+   "tr": "ло кэ па́са эс кэ",
+   "group": "Объяснение и причина",
+   "ex": [
+    {
+     "es": "Lo que pasa es que hoy no puedo.",
+     "ru": "Дело в том, что сегодня я не могу.",
+     "frame": [
+      "Lo que pasa es que"
+     ]
+    },
+    {
+     "es": "Lo que pasa es que no me avisaron.",
+     "ru": "Дело в том, что меня не предупредили.",
+     "frame": [
+      "Lo que pasa es que"
+     ]
+    },
+    {
+     "es": "Lo que pasa es que el banco cierra a las dos.",
+     "ru": "Дело в том, что банк закрывается в два.",
+     "frame": [
+      "Lo que pasa es que"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v094",
+   "type": "vocab",
+   "es": "el caso es que",
+   "en": "the point is that",
+   "ru": "суть в том, что",
+   "tr": "эл ка́со эс кэ",
+   "group": "Объяснение и причина",
+   "ex": [
+    {
+     "es": "El caso es que se me hizo tarde.",
+     "ru": "Суть в том, что я задержался.",
+     "frame": [
+      "El caso es que"
+     ]
+    },
+    {
+     "es": "El caso es que nadie me dijo nada.",
+     "ru": "Суть в том, что мне никто ничего не сказал.",
+     "frame": [
+      "El caso es que"
+     ]
+    },
+    {
+     "es": "El caso es que al final salió bien.",
+     "ru": "Суть в том, что в итоге всё вышло хорошо.",
+     "frame": [
+      "El caso es que"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v095",
+   "type": "vocab",
+   "es": "por eso te decía",
+   "en": "that's why I was telling you",
+   "ru": "поэтому я тебе и говорил",
+   "tr": "пор э́со тэ дэси́а",
+   "group": "Объяснение и причина",
+   "ex": [
+    {
+     "es": "Por eso te decía que salieras antes.",
+     "ru": "Поэтому я тебе и говорил выйти пораньше.",
+     "frame": [
+      "Por eso te decía"
+     ]
+    },
+    {
+     "es": "Por eso te decía que preguntaras primero.",
+     "ru": "Поэтому я тебе и говорил сначала спросить.",
+     "frame": [
+      "Por eso te decía"
+     ]
+    },
+    {
+     "es": "Por eso te decía lo del horario.",
+     "ru": "Поэтому я тебе и говорил про расписание.",
+     "frame": [
+      "Por eso te decía"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v096",
+   "type": "vocab",
+   "es": "resulta que",
+   "en": "it turns out that",
+   "ru": "оказывается, что",
+   "tr": "ррэсу́лта кэ",
+   "group": "Объяснение и причина",
+   "ex": [
+    {
+     "es": "Resulta que estaba cerrado.",
+     "ru": "Оказывается, было закрыто.",
+     "frame": [
+      "Resulta que"
+     ]
+    },
+    {
+     "es": "Resulta que vivimos en la misma calle.",
+     "ru": "Оказывается, мы живём на одной улице.",
+     "frame": [
+      "Resulta que"
+     ]
+    },
+    {
+     "es": "Resulta que se había equivocado de día.",
+     "ru": "Оказывается, он перепутал день.",
+     "frame": [
+      "Resulta que"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v097",
+   "type": "vocab",
+   "es": "o sea que",
+   "en": "so that means",
+   "ru": "то есть",
+   "tr": "о сэ́а кэ",
+   "group": "Объяснение и причина",
+   "ex": [
+    {
+     "es": "O sea que al final no vienes.",
+     "ru": "То есть в итоге ты не придёшь.",
+     "frame": [
+      "O sea que"
+     ]
+    },
+    {
+     "es": "O sea que hay que pagar aparte.",
+     "ru": "То есть платить надо отдельно.",
+     "frame": [
+      "O sea que"
+     ]
+    },
+    {
+     "es": "O sea que ya está todo listo.",
+     "ru": "То есть всё уже готово.",
+     "frame": [
+      "O sea que"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v098",
+   "type": "vocab",
+   "es": "en realidad",
+   "en": "actually",
+   "ru": "на самом деле",
+   "tr": "эн ррэалида́д",
+   "group": "Объяснение и причина",
+   "ex": [
+    {
+     "es": "En realidad no era tan caro.",
+     "ru": "На самом деле это было не так дорого.",
+     "frame": [
+      "En realidad"
+     ]
+    },
+    {
+     "es": "En realidad me daba igual.",
+     "ru": "На самом деле мне было всё равно.",
+     "frame": [
+      "En realidad"
+     ]
+    },
+    {
+     "es": "Parece grande, pero en realidad es pequeño.",
+     "ru": "Кажется большим, но на самом деле он маленький.",
+     "frame": [
+      "en realidad"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v099",
+   "type": "vocab",
+   "es": "de hecho",
+   "en": "in fact",
+   "ru": "более того",
+   "tr": "дэ э́чо",
+   "group": "Объяснение и причина",
+   "ex": [
+    {
+     "es": "De hecho, ya lo había pagado.",
+     "ru": "Более того, я уже заплатил.",
+     "frame": [
+      "De hecho"
+     ]
+    },
+    {
+     "es": "No me molesta; de hecho, me gusta.",
+     "ru": "Мне это не мешает, более того — нравится.",
+     "frame": [
+      "de hecho"
+     ]
+    },
+    {
+     "es": "De hecho, fue idea suya.",
+     "ru": "Более того, это была его идея.",
+     "frame": [
+      "De hecho"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v100",
+   "type": "vocab",
+   "es": "por lo visto",
+   "en": "apparently",
+   "ru": "судя по всему",
+   "tr": "пор ло би́сто",
+   "group": "Объяснение и причина",
+   "ex": [
+    {
+     "es": "Por lo visto, mañana cambia el tiempo.",
+     "ru": "Судя по всему, завтра погода переменится.",
+     "frame": [
+      "Por lo visto"
+     ]
+    },
+    {
+     "es": "Por lo visto, no había plazas.",
+     "ru": "Судя по всему, мест не было.",
+     "frame": [
+      "Por lo visto"
+     ]
+    },
+    {
+     "es": "Por lo visto, se han mudado.",
+     "ru": "Судя по всему, они переехали.",
+     "frame": [
+      "Por lo visto"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v101",
+   "type": "vocab",
+   "es": "total, que",
+   "en": "so, in short",
+   "ru": "в общем",
+   "tr": "тота́л кэ",
+   "group": "Объяснение и причина",
+   "ex": [
+    {
+     "es": "Total, que nos quedamos en casa.",
+     "ru": "В общем, мы остались дома.",
+     "frame": [
+      "Total, que"
+     ]
+    },
+    {
+     "es": "Total, que perdimos el tren.",
+     "ru": "В общем, мы опоздали на поезд.",
+     "frame": [
+      "Total, que"
+     ]
+    },
+    {
+     "es": "Total, que al final lo hice yo.",
+     "ru": "В общем, в итоге я сделал это сам.",
+     "frame": [
+      "Total, que"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v102",
+   "type": "vocab",
+   "es": "no es por nada, pero",
+   "en": "no offence, but",
+   "ru": "не в обиду, но",
+   "tr": "но эс пор на́да пэ́ро",
+   "group": "Объяснение и причина",
+   "ex": [
+    {
+     "es": "No es por nada, pero vamos muy justos de tiempo.",
+     "ru": "Не в обиду, но времени у нас в обрез.",
+     "frame": [
+      "No es por nada, pero"
+     ]
+    },
+    {
+     "es": "No es por nada, pero creo que te equivocas.",
+     "ru": "Не в обиду, но, по-моему, ты ошибаешься.",
+     "frame": [
+      "No es por nada, pero"
+     ]
+    },
+    {
+     "es": "No es por nada, pero eso ya lo probamos.",
+     "ru": "Не в обиду, но мы это уже пробовали.",
+     "frame": [
+      "No es por nada, pero"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v103",
+   "type": "vocab",
+   "es": "cuando puedas",
+   "en": "when you can",
+   "ru": "когда сможешь",
+   "tr": "куа́ндо пуэ́дас",
+   "group": "Планы и договорённости",
+   "ex": [
+    {
+     "es": "Llámame cuando puedas.",
+     "ru": "Позвони мне, когда сможешь.",
+     "frame": [
+      "cuando puedas"
+     ]
+    },
+    {
+     "es": "Pásate cuando puedas, no hay prisa.",
+     "ru": "Заходи, когда сможешь, спешки нет.",
+     "frame": [
+      "cuando puedas"
+     ]
+    },
+    {
+     "es": "Cuando puedas, mándame la dirección.",
+     "ru": "Когда сможешь, пришли мне адрес.",
+     "frame": [
+      "Cuando puedas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v104",
+   "type": "vocab",
+   "es": "¿cuándo te viene bien?",
+   "en": "when does it suit you?",
+   "ru": "когда тебе удобно?",
+   "tr": "куа́ндо тэ бье́нэ бьен",
+   "group": "Планы и договорённости",
+   "ex": [
+    {
+     "es": "¿Cuándo te viene bien quedar?",
+     "ru": "Когда тебе удобно встретиться?",
+     "frame": [
+      "Cuándo te viene bien"
+     ]
+    },
+    {
+     "es": "Dime, ¿cuándo te viene bien?",
+     "ru": "Скажи, когда тебе удобно?",
+     "frame": [
+      "cuándo te viene bien"
+     ]
+    },
+    {
+     "es": "¿Cuándo te viene bien que pase?",
+     "ru": "Когда тебе удобно, чтобы я зашёл?",
+     "frame": [
+      "Cuándo te viene bien"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v105",
+   "type": "vocab",
+   "es": "quedamos a las",
+   "en": "let's meet at",
+   "ru": "договоримся на",
+   "tr": "кэда́мос а лас",
+   "group": "Планы и договорённости",
+   "ex": [
+    {
+     "es": "Quedamos a las ocho en la plaza.",
+     "ru": "Договоримся на восемь на площади.",
+     "frame": [
+      "Quedamos a las"
+     ]
+    },
+    {
+     "es": "Si te parece, quedamos a las siete.",
+     "ru": "Если тебе подходит, договоримся на семь.",
+     "frame": [
+      "quedamos a las"
+     ]
+    },
+    {
+     "es": "Quedamos a las dos para comer.",
+     "ru": "Договоримся на два, пообедаем.",
+     "frame": [
+      "Quedamos a las"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v106",
+   "type": "vocab",
+   "es": "te aviso",
+   "en": "I'll let you know",
+   "ru": "я тебя предупрежу",
+   "tr": "тэ аби́со",
+   "group": "Планы и договорённости",
+   "ex": [
+    {
+     "es": "Te aviso en cuanto lo sepa.",
+     "ru": "Я тебя предупрежу, как только узнаю.",
+     "frame": [
+      "Te aviso"
+     ]
+    },
+    {
+     "es": "Te aviso si cambia algo.",
+     "ru": "Я тебя предупрежу, если что-то изменится.",
+     "frame": [
+      "Te aviso"
+     ]
+    },
+    {
+     "es": "Te aviso el día antes.",
+     "ru": "Я тебя предупрежу за день.",
+     "frame": [
+      "Te aviso"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v107",
+   "type": "vocab",
+   "es": "ya te digo algo",
+   "en": "I'll get back to you",
+   "ru": "я тебе потом скажу",
+   "tr": "йа тэ ди́го а́лго",
+   "group": "Планы и договорённости",
+   "ex": [
+    {
+     "es": "Lo miro y ya te digo algo.",
+     "ru": "Я посмотрю и потом тебе скажу.",
+     "frame": [
+      "ya te digo algo"
+     ]
+    },
+    {
+     "es": "Ya te digo algo esta tarde.",
+     "ru": "Я тебе скажу сегодня вечером.",
+     "frame": [
+      "Ya te digo algo"
+     ]
+    },
+    {
+     "es": "Déjame consultarlo y ya te digo algo.",
+     "ru": "Дай мне уточнить, и я потом скажу.",
+     "frame": [
+      "ya te digo algo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v108",
+   "type": "vocab",
+   "es": "lo dejamos para",
+   "en": "let's leave it for",
+   "ru": "отложим на",
+   "tr": "ло дэха́мос па́ра",
+   "group": "Планы и договорённости",
+   "ex": [
+    {
+     "es": "Lo dejamos para la semana que viene.",
+     "ru": "Отложим на следующую неделю.",
+     "frame": [
+      "Lo dejamos para"
+     ]
+    },
+    {
+     "es": "Si no te va bien, lo dejamos para otro día.",
+     "ru": "Если тебе неудобно, отложим на другой день.",
+     "frame": [
+      "lo dejamos para"
+     ]
+    },
+    {
+     "es": "Lo dejamos para después de las vacaciones.",
+     "ru": "Отложим на после отпуска.",
+     "frame": [
+      "Lo dejamos para"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v109",
+   "type": "vocab",
+   "es": "si no te importa, mejor",
+   "en": "if you don't mind, better",
+   "ru": "если ты не против, лучше",
+   "tr": "си но тэ импо́рта мэхо́р",
+   "group": "Планы и договорённости",
+   "ex": [
+    {
+     "es": "Si no te importa, mejor quedamos fuera.",
+     "ru": "Если ты не против, лучше встретимся на улице.",
+     "frame": [
+      "Si no te importa, mejor"
+     ]
+    },
+    {
+     "es": "Si no te importa, mejor lo hablamos en persona.",
+     "ru": "Если ты не против, лучше обсудим это лично.",
+     "frame": [
+      "Si no te importa, mejor"
+     ]
+    },
+    {
+     "es": "Si no te importa, mejor un poco más tarde.",
+     "ru": "Если ты не против, лучше чуть попозже.",
+     "frame": [
+      "Si no te importa, mejor"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v110",
+   "type": "vocab",
+   "es": "nos vemos allí",
+   "en": "see you there",
+   "ru": "увидимся там",
+   "tr": "нос бэ́мос айи́",
+   "group": "Планы и договорённости",
+   "ex": [
+    {
+     "es": "Vale, nos vemos allí a las cinco.",
+     "ru": "Хорошо, увидимся там в пять.",
+     "frame": [
+      "nos vemos allí"
+     ]
+    },
+    {
+     "es": "Nos vemos allí directamente.",
+     "ru": "Увидимся сразу там.",
+     "frame": [
+      "Nos vemos allí"
+     ]
+    },
+    {
+     "es": "Tú ve yendo y nos vemos allí.",
+     "ru": "Ты иди, а увидимся там.",
+     "frame": [
+      "nos vemos allí"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v111",
+   "type": "vocab",
+   "es": "¿te va bien el",
+   "en": "does it work for you on",
+   "ru": "тебе подходит",
+   "tr": "тэ ба бьен эл",
+   "group": "Планы и договорённости",
+   "ex": [
+    {
+     "es": "¿Te va bien el jueves por la tarde?",
+     "ru": "Тебе подходит четверг во второй половине дня?",
+     "frame": [
+      "Te va bien el"
+     ]
+    },
+    {
+     "es": "¿Te va bien el mismo sitio de siempre?",
+     "ru": "Тебе подходит то же место, что всегда?",
+     "frame": [
+      "Te va bien el"
+     ]
+    },
+    {
+     "es": "¿Te va bien el horario de mañana?",
+     "ru": "Тебе подходит завтрашнее расписание?",
+     "frame": [
+      "Te va bien el"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v112",
+   "type": "vocab",
+   "es": "sin falta",
+   "en": "without fail",
+   "ru": "обязательно",
+   "tr": "син фа́лта",
+   "group": "Планы и договорённости",
+   "ex": [
+    {
+     "es": "Mañana te lo llevo sin falta.",
+     "ru": "Завтра обязательно тебе это принесу.",
+     "frame": [
+      "sin falta"
+     ]
+    },
+    {
+     "es": "Hay que entregarlo el lunes sin falta.",
+     "ru": "Это надо сдать в понедельник, обязательно.",
+     "frame": [
+      "sin falta"
+     ]
+    },
+    {
+     "es": "Sin falta te llamo esta noche.",
+     "ru": "Обязательно позвоню тебе вечером.",
+     "frame": [
+      "Sin falta"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v113",
+   "type": "vocab",
+   "es": "¿y tú?",
+   "en": "and you?",
+   "ru": "а ты?",
+   "tr": "и ту",
+   "group": "Реакции и поддержка разговора",
+   "ex": [
+    {
+     "es": "Yo estoy bien, ¿y tú?",
+     "ru": "У меня всё хорошо, а ты?",
+     "frame": [
+      "y tú"
+     ]
+    },
+    {
+     "es": "Yo me quedo en casa, ¿y tú?",
+     "ru": "Я остаюсь дома, а ты?",
+     "frame": [
+      "y tú"
+     ]
+    },
+    {
+     "es": "A mí me gusta, ¿y tú qué opinas?",
+     "ru": "Мне нравится, а ты что думаешь?",
+     "frame": [
+      "y tú"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v114",
+   "type": "vocab",
+   "es": "¿en serio?",
+   "en": "seriously?",
+   "ru": "серьёзно?",
+   "tr": "эн сэ́рьо",
+   "group": "Реакции и поддержка разговора",
+   "ex": [
+    {
+     "es": "¿En serio? No me lo creo.",
+     "ru": "Серьёзно? Не верю.",
+     "frame": [
+      "En serio"
+     ]
+    },
+    {
+     "es": "¿En serio te vas a vivir allí?",
+     "ru": "Серьёзно, ты переезжаешь туда жить?",
+     "frame": [
+      "En serio"
+     ]
+    },
+    {
+     "es": "¿En serio ha dicho eso?",
+     "ru": "Серьёзно, он так сказал?",
+     "frame": [
+      "En serio"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v115",
+   "type": "vocab",
+   "es": "¿de verdad?",
+   "en": "really?",
+   "ru": "в самом деле?",
+   "tr": "дэ бэрда́д",
+   "group": "Реакции и поддержка разговора",
+   "ex": [
+    {
+     "es": "¿De verdad? Qué sorpresa.",
+     "ru": "В самом деле? Какая неожиданность.",
+     "frame": [
+      "De verdad"
+     ]
+    },
+    {
+     "es": "¿De verdad no te ha llamado?",
+     "ru": "В самом деле он тебе не позвонил?",
+     "frame": [
+      "De verdad"
+     ]
+    },
+    {
+     "es": "¿De verdad que no quieres nada?",
+     "ru": "В самом деле ничего не хочешь?",
+     "frame": [
+      "De verdad"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v116",
+   "type": "vocab",
+   "es": "¿ah, sí?",
+   "en": "oh, yeah?",
+   "ru": "да ну?",
+   "tr": "а си",
+   "group": "Реакции и поддержка разговора",
+   "ex": [
+    {
+     "es": "¿Ah, sí? Cuéntame más.",
+     "ru": "Да ну? Расскажи подробнее.",
+     "frame": [
+      "Ah, sí"
+     ]
+    },
+    {
+     "es": "¿Ah, sí? Pues no lo sabía.",
+     "ru": "Да ну? А я и не знал.",
+     "frame": [
+      "Ah, sí"
+     ]
+    },
+    {
+     "es": "¿Ah, sí? ¿Y cuándo fue eso?",
+     "ru": "Да ну? И когда это было?",
+     "frame": [
+      "Ah, sí"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v117",
+   "type": "vocab",
+   "es": "qué bien",
+   "en": "how nice",
+   "ru": "как хорошо",
+   "tr": "кэ бьен",
+   "group": "Реакции и поддержка разговора",
+   "ex": [
+    {
+     "es": "¡Qué bien! Me alegro mucho.",
+     "ru": "Как хорошо! Я очень рад.",
+     "frame": [
+      "Qué bien"
+     ]
+    },
+    {
+     "es": "Qué bien que hayas venido.",
+     "ru": "Как хорошо, что ты пришёл.",
+     "frame": [
+      "Qué bien"
+     ]
+    },
+    {
+     "es": "¡Qué bien huele aquí!",
+     "ru": "Как хорошо тут пахнет!",
+     "frame": [
+      "Qué bien"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v118",
+   "type": "vocab",
+   "es": "vaya",
+   "en": "wow / oh dear",
+   "ru": "надо же",
+   "tr": "ба́йа",
+   "group": "Реакции и поддержка разговора",
+   "ex": [
+    {
+     "es": "Vaya, no me lo esperaba.",
+     "ru": "Надо же, я этого не ожидал.",
+     "frame": [
+      "Vaya"
+     ]
+    },
+    {
+     "es": "Vaya, qué mala suerte.",
+     "ru": "Надо же, какое невезение.",
+     "frame": [
+      "Vaya"
+     ]
+    },
+    {
+     "es": "Vaya, se ha ido la luz.",
+     "ru": "Надо же, свет отключили.",
+     "frame": [
+      "Vaya"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v119",
+   "type": "vocab",
+   "es": "menos mal",
+   "en": "thank goodness",
+   "ru": "и слава богу",
+   "tr": "мэ́нос мал",
+   "group": "Реакции и поддержка разговора",
+   "ex": [
+    {
+     "es": "Menos mal que llegaste a tiempo.",
+     "ru": "И слава богу, что ты успел.",
+     "frame": [
+      "Menos mal"
+     ]
+    },
+    {
+     "es": "Menos mal, ya me estaba preocupando.",
+     "ru": "И слава богу, я уже начинал волноваться.",
+     "frame": [
+      "Menos mal"
+     ]
+    },
+    {
+     "es": "Menos mal que lo guardé.",
+     "ru": "И слава богу, что я это сохранил.",
+     "frame": [
+      "Menos mal"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v120",
+   "type": "vocab",
+   "es": "qué pena",
+   "en": "what a pity",
+   "ru": "какая жалость",
+   "tr": "кэ пэ́на",
+   "group": "Реакции и поддержка разговора",
+   "ex": [
+    {
+     "es": "Qué pena que no puedas venir.",
+     "ru": "Какая жалость, что ты не можешь прийти.",
+     "frame": [
+      "Qué pena"
+     ]
+    },
+    {
+     "es": "¡Qué pena! Con lo bien que iba.",
+     "ru": "Какая жалость! А так всё хорошо шло.",
+     "frame": [
+      "Qué pena"
+     ]
+    },
+    {
+     "es": "Qué pena, me habría gustado verlo.",
+     "ru": "Какая жалость, мне бы хотелось это увидеть.",
+     "frame": [
+      "Qué pena"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v121",
+   "type": "vocab",
+   "es": "ya veo",
+   "en": "I see",
+   "ru": "вот как",
+   "tr": "йа бэ́о",
+   "group": "Реакции и поддержка разговора",
+   "ex": [
+    {
+     "es": "Ya veo por dónde vas.",
+     "ru": "Вот как, понимаю, к чему ты клонишь.",
+     "frame": [
+      "Ya veo"
+     ]
+    },
+    {
+     "es": "Ya veo, entonces no hace falta.",
+     "ru": "Вот как, тогда не нужно.",
+     "frame": [
+      "Ya veo"
+     ]
+    },
+    {
+     "es": "Ya veo, tiene más trabajo del que parecía.",
+     "ru": "Вот как, работы тут больше, чем казалось.",
+     "frame": [
+      "Ya veo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v122",
+   "type": "vocab",
+   "es": "anda ya",
+   "en": "come on",
+   "ru": "да брось",
+   "tr": "а́нда йа",
+   "group": "Реакции и поддержка разговора",
+   "ex": [
+    {
+     "es": "¡Anda ya! Eso no puede ser.",
+     "ru": "Да брось! Такого быть не может.",
+     "frame": [
+      "Anda ya"
+     ]
+    },
+    {
+     "es": "Anda ya, si acabas de decir lo contrario.",
+     "ru": "Да брось, ты только что говорил обратное.",
+     "frame": [
+      "Anda ya"
+     ]
+    },
+    {
+     "es": "¡Anda ya, no me tomes el pelo!",
+     "ru": "Да брось, не морочь мне голову!",
+     "frame": [
+      "Anda ya"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v123",
+   "type": "vocab",
+   "es": "perdona el retraso",
+   "en": "sorry for being late",
+   "ru": "извини за опоздание",
+   "tr": "пэрдо́на эл ррэтра́со",
+   "group": "Извинения и вежливость",
+   "ex": [
+    {
+     "es": "Perdona el retraso, me ha pillado un atasco.",
+     "ru": "Извини за опоздание, я попал в пробку.",
+     "frame": [
+      "Perdona el retraso"
+     ]
+    },
+    {
+     "es": "Perdona el retraso, se me fue la hora.",
+     "ru": "Извини за опоздание, я не уследил за временем.",
+     "frame": [
+      "Perdona el retraso"
+     ]
+    },
+    {
+     "es": "Perdona el retraso, el metro iba fatal.",
+     "ru": "Извини за опоздание, метро шло отвратительно.",
+     "frame": [
+      "Perdona el retraso"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v124",
+   "type": "vocab",
+   "es": "no era mi intención",
+   "en": "I did not mean to",
+   "ru": "я не хотел этого",
+   "tr": "но э́ра ми интэнсьо́н",
+   "group": "Извинения и вежливость",
+   "ex": [
+    {
+     "es": "Lo siento, no era mi intención.",
+     "ru": "Прости, я не хотел этого.",
+     "frame": [
+      "no era mi intención"
+     ]
+    },
+    {
+     "es": "No era mi intención molestarte.",
+     "ru": "Я не хотел тебя беспокоить.",
+     "frame": [
+      "No era mi intención"
+     ]
+    },
+    {
+     "es": "No era mi intención que sonara así.",
+     "ru": "Я не хотел, чтобы это прозвучало так.",
+     "frame": [
+      "No era mi intención"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v125",
+   "type": "vocab",
+   "es": "disculpa las molestias",
+   "en": "sorry for the trouble",
+   "ru": "извини за беспокойство",
+   "tr": "диску́лпа лас молэ́стьяс",
+   "group": "Извинения и вежливость",
+   "ex": [
+    {
+     "es": "Disculpa las molestias, ya termino.",
+     "ru": "Извини за беспокойство, я уже заканчиваю.",
+     "frame": [
+      "Disculpa las molestias"
+     ]
+    },
+    {
+     "es": "Disculpa las molestias de ayer.",
+     "ru": "Извини за вчерашнее беспокойство.",
+     "frame": [
+      "Disculpa las molestias"
+     ]
+    },
+    {
+     "es": "Disculpa las molestias, es la última pregunta.",
+     "ru": "Извини за беспокойство, это последний вопрос.",
+     "frame": [
+      "Disculpa las molestias"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v126",
+   "type": "vocab",
+   "es": "te lo agradezco",
+   "en": "I appreciate it",
+   "ru": "я тебе благодарен",
+   "tr": "тэ ло аградэ́ско",
+   "group": "Извинения и вежливость",
+   "ex": [
+    {
+     "es": "Te lo agradezco de verdad.",
+     "ru": "Я тебе искренне благодарен.",
+     "frame": [
+      "Te lo agradezco"
+     ]
+    },
+    {
+     "es": "Te lo agradezco, me has salvado el día.",
+     "ru": "Я тебе благодарен, ты спас мне день.",
+     "frame": [
+      "Te lo agradezco"
+     ]
+    },
+    {
+     "es": "Te lo agradezco mucho, en serio.",
+     "ru": "Я тебе очень благодарен, серьёзно.",
+     "frame": [
+      "Te lo agradezco"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v127",
+   "type": "vocab",
+   "es": "muy amable",
+   "en": "very kind of you",
+   "ru": "очень любезно",
+   "tr": "муй ама́блэ",
+   "group": "Извинения и вежливость",
+   "ex": [
+    {
+     "es": "Muy amable, gracias por la ayuda.",
+     "ru": "Очень любезно, спасибо за помощь.",
+     "frame": [
+      "Muy amable"
+     ]
+    },
+    {
+     "es": "Es usted muy amable.",
+     "ru": "Вы очень любезны.",
+     "frame": [
+      "muy amable"
+     ]
+    },
+    {
+     "es": "Muy amable por avisarme.",
+     "ru": "Очень любезно, что предупредили.",
+     "frame": [
+      "Muy amable"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v128",
+   "type": "vocab",
+   "es": "no te preocupes",
+   "en": "don't worry",
+   "ru": "не волнуйся",
+   "tr": "но тэ прэоку́пэс",
+   "group": "Извинения и вежливость",
+   "ex": [
+    {
+     "es": "No te preocupes, ya está solucionado.",
+     "ru": "Не волнуйся, уже всё решено.",
+     "frame": [
+      "No te preocupes"
+     ]
+    },
+    {
+     "es": "No te preocupes por la hora.",
+     "ru": "Не волнуйся насчёт времени.",
+     "frame": [
+      "No te preocupes"
+     ]
+    },
+    {
+     "es": "No te preocupes, lo hago yo.",
+     "ru": "Не волнуйся, я сам это сделаю.",
+     "frame": [
+      "No te preocupes"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v129",
+   "type": "vocab",
+   "es": "es culpa mía",
+   "en": "it's my fault",
+   "ru": "это моя вина",
+   "tr": "эс ку́лпа ми́а",
+   "group": "Извинения и вежливость",
+   "ex": [
+    {
+     "es": "Es culpa mía, lo apunté mal.",
+     "ru": "Это моя вина, я неправильно записал.",
+     "frame": [
+      "Es culpa mía"
+     ]
+    },
+    {
+     "es": "No es culpa mía, te lo aseguro.",
+     "ru": "Это не моя вина, уверяю тебя.",
+     "frame": [
+      "es culpa mía"
+     ]
+    },
+    {
+     "es": "Es culpa mía por no preguntar antes.",
+     "ru": "Это моя вина, надо было спросить раньше.",
+     "frame": [
+      "Es culpa mía"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v130",
+   "type": "vocab",
+   "es": "¿te he hecho esperar?",
+   "en": "did I keep you waiting?",
+   "ru": "я заставил тебя ждать?",
+   "tr": "тэ э э́чо эспэра́р",
+   "group": "Извинения и вежливость",
+   "ex": [
+    {
+     "es": "¿Te he hecho esperar mucho?",
+     "ru": "Я тебя долго заставил ждать?",
+     "frame": [
+      "Te he hecho esperar"
+     ]
+    },
+    {
+     "es": "Perdona, ¿te he hecho esperar?",
+     "ru": "Извини, я заставил тебя ждать?",
+     "frame": [
+      "te he hecho esperar"
+     ]
+    },
+    {
+     "es": "¿Te he hecho esperar? Venía corriendo.",
+     "ru": "Я заставил тебя ждать? Я бежал.",
+     "frame": [
+      "Te he hecho esperar"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v131",
+   "type": "vocab",
+   "es": "con permiso",
+   "en": "excuse me",
+   "ru": "разрешите",
+   "tr": "кон пэрми́со",
+   "group": "Извинения и вежливость",
+   "ex": [
+    {
+     "es": "Con permiso, ¿puedo pasar?",
+     "ru": "Разрешите, можно пройти?",
+     "frame": [
+      "Con permiso"
+     ]
+    },
+    {
+     "es": "Con permiso, que llego tarde.",
+     "ru": "Разрешите, я опаздываю.",
+     "frame": [
+      "Con permiso"
+     ]
+    },
+    {
+     "es": "Con permiso, voy un momento al baño.",
+     "ru": "Разрешите, я на минуту выйду.",
+     "frame": [
+      "Con permiso"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v132",
+   "type": "vocab",
+   "es": "faltaría más",
+   "en": "of course, no need to ask",
+   "ru": "ну о чём разговор",
+   "tr": "фалтари́а мас",
+   "group": "Извинения и вежливость",
+   "ex": [
+    {
+     "es": "Claro que te ayudo, ¡faltaría más!",
+     "ru": "Конечно помогу, ну о чём разговор!",
+     "frame": [
+      "faltaría más"
+     ]
+    },
+    {
+     "es": "Faltaría más, para eso estamos.",
+     "ru": "Ну о чём разговор, для того и есть друзья.",
+     "frame": [
+      "Faltaría más"
+     ]
+    },
+    {
+     "es": "¡Faltaría más! Siéntate, por favor.",
+     "ru": "Ну о чём разговор! Садись, пожалуйста.",
+     "frame": [
+      "Faltaría más"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v133",
+   "type": "vocab",
+   "es": "te dejo",
+   "en": "I'll let you go",
+   "ru": "не буду задерживать",
+   "tr": "тэ дэ́хо",
+   "group": "Конец разговора",
+   "ex": [
+    {
+     "es": "Te dejo, que tengo una llamada.",
+     "ru": "Не буду задерживать, мне звонят.",
+     "frame": [
+      "Te dejo"
+     ]
+    },
+    {
+     "es": "Te dejo, ya hablamos mañana.",
+     "ru": "Не буду задерживать, поговорим завтра.",
+     "frame": [
+      "Te dejo"
+     ]
+    },
+    {
+     "es": "Te dejo, que estarás ocupado.",
+     "ru": "Не буду задерживать, ты наверняка занят.",
+     "frame": [
+      "Te dejo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v134",
+   "type": "vocab",
+   "es": "tengo que irme",
+   "en": "I have to go",
+   "ru": "мне пора идти",
+   "tr": "тэ́нго кэ и́рмэ",
+   "group": "Конец разговора",
+   "ex": [
+    {
+     "es": "Lo siento, tengo que irme ya.",
+     "ru": "Прости, мне уже пора идти.",
+     "frame": [
+      "tengo que irme"
+     ]
+    },
+    {
+     "es": "Tengo que irme, se me hace tarde.",
+     "ru": "Мне пора идти, я опаздываю.",
+     "frame": [
+      "Tengo que irme"
+     ]
+    },
+    {
+     "es": "Tengo que irme a recoger a los niños.",
+     "ru": "Мне пора идти забирать детей.",
+     "frame": [
+      "Tengo que irme"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v135",
+   "type": "vocab",
+   "es": "nos vemos luego",
+   "en": "see you later",
+   "ru": "увидимся позже",
+   "tr": "нос бэ́мос луэ́го",
+   "group": "Конец разговора",
+   "ex": [
+    {
+     "es": "Vale, nos vemos luego.",
+     "ru": "Хорошо, увидимся позже.",
+     "frame": [
+      "nos vemos luego"
+     ]
+    },
+    {
+     "es": "Nos vemos luego en la oficina.",
+     "ru": "Увидимся позже в офисе.",
+     "frame": [
+      "Nos vemos luego"
+     ]
+    },
+    {
+     "es": "Me voy ya, nos vemos luego.",
+     "ru": "Я пошёл, увидимся позже.",
+     "frame": [
+      "nos vemos luego"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v136",
+   "type": "vocab",
+   "es": "¿hablamos luego?",
+   "en": "shall we talk later?",
+   "ru": "созвонимся позже?",
+   "tr": "абла́мос луэ́го",
+   "group": "Конец разговора",
+   "ex": [
+    {
+     "es": "Ahora no puedo, ¿hablamos luego?",
+     "ru": "Сейчас не могу, созвонимся позже?",
+     "frame": [
+      "hablamos luego"
+     ]
+    },
+    {
+     "es": "¿Hablamos luego con más calma?",
+     "ru": "Созвонимся позже, поспокойнее?",
+     "frame": [
+      "Hablamos luego"
+     ]
+    },
+    {
+     "es": "¿Hablamos luego y lo decidimos?",
+     "ru": "Созвонимся позже и решим?",
+     "frame": [
+      "Hablamos luego"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v137",
+   "type": "vocab",
+   "es": "que vaya bien",
+   "en": "take care, all the best",
+   "ru": "всего доброго",
+   "tr": "кэ ба́йа бьен",
+   "group": "Конец разговора",
+   "ex": [
+    {
+     "es": "¡Que vaya bien el viaje!",
+     "ru": "Пусть поездка пройдёт хорошо!",
+     "frame": [
+      "Que vaya bien"
+     ]
+    },
+    {
+     "es": "Me voy, ¡que vaya bien!",
+     "ru": "Я пошёл, всего доброго!",
+     "frame": [
+      "que vaya bien"
+     ]
+    },
+    {
+     "es": "Que vaya bien mañana en el médico.",
+     "ru": "Пусть завтра у врача всё пройдёт хорошо.",
+     "frame": [
+      "Que vaya bien"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v138",
+   "type": "vocab",
+   "es": "cuídate",
+   "en": "look after yourself",
+   "ru": "береги себя",
+   "tr": "куи́датэ",
+   "group": "Конец разговора",
+   "ex": [
+    {
+     "es": "Cuídate mucho, ¿vale?",
+     "ru": "Береги себя, хорошо?",
+     "frame": [
+      "Cuídate"
+     ]
+    },
+    {
+     "es": "Adiós, cuídate.",
+     "ru": "Пока, береги себя.",
+     "frame": [
+      "cuídate"
+     ]
+    },
+    {
+     "es": "Cuídate y descansa esta noche.",
+     "ru": "Береги себя и отдохни сегодня вечером.",
+     "frame": [
+      "Cuídate"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v139",
+   "type": "vocab",
+   "es": "un placer",
+   "en": "a pleasure",
+   "ru": "было приятно",
+   "tr": "ун пласэ́р",
+   "group": "Конец разговора",
+   "ex": [
+    {
+     "es": "Ha sido un placer conocerte.",
+     "ru": "Было приятно познакомиться.",
+     "frame": [
+      "un placer"
+     ]
+    },
+    {
+     "es": "Un placer, hasta la vista.",
+     "ru": "Было приятно, до встречи.",
+     "frame": [
+      "Un placer"
+     ]
+    },
+    {
+     "es": "Un placer hablar contigo.",
+     "ru": "Было приятно с тобой поговорить.",
+     "frame": [
+      "Un placer"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v140",
+   "type": "vocab",
+   "es": "hasta la próxima",
+   "en": "until next time",
+   "ru": "до следующего раза",
+   "tr": "а́ста ла про́ксима",
+   "group": "Конец разговора",
+   "ex": [
+    {
+     "es": "Gracias por todo, ¡hasta la próxima!",
+     "ru": "Спасибо за всё, до следующего раза!",
+     "frame": [
+      "hasta la próxima"
+     ]
+    },
+    {
+     "es": "Hasta la próxima, que descanses.",
+     "ru": "До следующего раза, отдыхай.",
+     "frame": [
+      "Hasta la próxima"
+     ]
+    },
+    {
+     "es": "Nos ha encantado; hasta la próxima.",
+     "ru": "Нам очень понравилось; до следующего раза.",
+     "frame": [
+      "hasta la próxima"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v141",
+   "type": "vocab",
+   "es": "ya nos contamos",
+   "en": "we'll catch up",
+   "ru": "ещё созвонимся",
+   "tr": "йа нос конта́мос",
+   "group": "Конец разговора",
+   "ex": [
+    {
+     "es": "Venga, ya nos contamos.",
+     "ru": "Ну давай, ещё созвонимся.",
+     "frame": [
+      "ya nos contamos"
+     ]
+    },
+    {
+     "es": "Ya nos contamos con más tiempo.",
+     "ru": "Ещё созвонимся, когда будет побольше времени.",
+     "frame": [
+      "Ya nos contamos"
+     ]
+    },
+    {
+     "es": "Ya nos contamos, que tengo prisa.",
+     "ru": "Ещё созвонимся, а то я спешу.",
+     "frame": [
+      "Ya nos contamos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v142",
+   "type": "vocab",
+   "es": "me alegro de verte",
+   "en": "glad to see you",
+   "ru": "рад тебя видеть",
+   "tr": "мэ алэ́гро дэ бэ́ртэ",
+   "group": "Конец разговора",
+   "ex": [
+    {
+     "es": "Me alegro de verte por aquí.",
+     "ru": "Рад тебя тут видеть.",
+     "frame": [
+      "Me alegro de verte"
+     ]
+    },
+    {
+     "es": "Me alegro de verte tan bien.",
+     "ru": "Рад видеть тебя в такой хорошей форме.",
+     "frame": [
+      "Me alegro de verte"
+     ]
+    },
+    {
+     "es": "Me alegro de verte después de tanto.",
+     "ru": "Рад тебя видеть после такого перерыва.",
+     "frame": [
+      "Me alegro de verte"
      ]
     }
    ]
@@ -943,16 +3320,47 @@
  ],
  "notes": [
   {
-   "id": "es2-n002",
+   "id": "es2-n004",
    "type": "note",
-   "title": "Минимальный набор для закрепления",
+   "title": "Почему зачин важнее словаря",
    "section": "notes",
    "blocks": [
     {
      "k": "p",
      "spans": [
       {
-       "t": "В первую очередь нужно автоматически узнавать и использовать:"
+       "t": "С пятьюстами слов и без зачинов разговор не начинается: пауза перед первой фразой длиннее, чем поиск любого слова внутри неё. Поэтому эти обороты учат не по смыслу, а до автоматизма — как "
+      },
+      {
+       "t": "por favor",
+       "s": "es"
+      },
+      {
+       "t": ", одним куском."
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Практический порядок такой: сначала то, чем разговор начинают и заканчивают, потом переспросы, потом всё остальное. Переспрос важнее красивого мнения — без него собеседника просто не поймёшь, а разговор держится на понимании, а не на словарном запасе."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-n005",
+   "type": "note",
+   "title": "Десять фраз, с которых стоит начать",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Если учить не всё сразу, то эти десять закрывают большую часть бытового разговора:"
       }
      ]
     },
@@ -962,209 +3370,22 @@
       {
        "spans": [
         {
-         "t": "¿Qué...?",
-         "s": "es"
-        },
-        {
-         "t": " — Что? / какой?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Qué autobús...?",
-         "s": "es"
-        },
-        {
-         "t": " — Какой автобус? Перед существительным qué значит «какой»."
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Quién...?",
-         "s": "es"
-        },
-        {
-         "t": " — Кто?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Dónde...?",
-         "s": "es"
-        },
-        {
-         "t": " — Где?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿A dónde...?",
-         "s": "es"
-        },
-        {
-         "t": " — Куда?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿De dónde...?",
-         "s": "es"
-        },
-        {
-         "t": " — Откуда?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Cuándo...?",
-         "s": "es"
-        },
-        {
-         "t": " — Когда?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Cómo...?",
-         "s": "es"
-        },
-        {
-         "t": " — Как?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Por qué...?",
-         "s": "es"
-        },
-        {
-         "t": " — Почему?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Para qué...?",
-         "s": "es"
-        },
-        {
-         "t": " — Зачем?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Cuánto...?",
-         "s": "es"
-        },
-        {
-         "t": " — Сколько?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Cuál...?",
-         "s": "es"
-        },
-        {
-         "t": " — Какой? / который?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿De quién...?",
-         "s": "es"
-        },
-        {
-         "t": " — Чей?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Con quién...?",
-         "s": "es"
-        },
-        {
-         "t": " — С кем?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿A qué hora...?",
-         "s": "es"
-        },
-        {
-         "t": " — Во сколько?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Cuánto tiempo...?",
-         "s": "es"
-        },
-        {
-         "t": " — Сколько времени?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
-         "t": "¿Hay...?",
-         "s": "es"
-        },
-        {
-         "t": " — Есть ли...?"
-        }
-       ]
-      },
-      {
-       "spans": [
-        {
          "t": "¿Qué tal?",
          "s": "es"
         },
         {
-         "t": " — Как дела?"
+         "t": " — и разговор начат."
         }
        ]
       },
       {
        "spans": [
         {
-         "t": "¿Cómo? / ¿Perdón?",
+         "t": "Perdona que te moleste",
          "s": "es"
         },
         {
-         "t": " — Что? / Простите?"
+         "t": " — вежливый вход в чужое время."
         }
        ]
       },
@@ -1175,7 +3396,7 @@
          "s": "es"
         },
         {
-         "t": " — Можешь повторить?"
+         "t": " — самая нужная фраза первого года."
         }
        ]
       },
@@ -1186,119 +3407,75 @@
          "s": "es"
         },
         {
-         "t": " — Можешь говорить медленнее?"
+         "t": " — вторая по нужности."
         }
        ]
       },
       {
        "spans": [
         {
-         "t": "No he entendido.",
+         "t": "Lo que pasa es que",
          "s": "es"
         },
         {
-         "t": " — Я не понял."
+         "t": " — любое объяснение начинается отсюда."
         }
        ]
       },
       {
        "spans": [
         {
-         "t": "¿Y tú?",
+         "t": "Me parece bien",
          "s": "es"
         },
         {
-         "t": " — А ты?"
+         "t": " — согласие без лишних слов."
         }
        ]
       },
       {
        "spans": [
         {
-         "t": "¿En serio? / ¿De verdad?",
+         "t": "No me viene bien",
          "s": "es"
         },
         {
-         "t": " — Серьёзно? / Правда?"
+         "t": " — отказ, который никого не обидит."
         }
        ]
       },
       {
        "spans": [
         {
-         "t": "¿Ah, sí?",
+         "t": "Cuando puedas",
          "s": "es"
         },
         {
-         "t": " — Правда?"
+         "t": " — просьба без давления."
         }
        ]
       },
       {
        "spans": [
         {
-         "t": "¿Verdad? / ¿No?",
+         "t": "Te aviso",
          "s": "es"
         },
         {
-         "t": " — Правда? / Да?"
+         "t": " — договорённость, которую не надо уточнять."
         }
        ]
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es2-n003",
-   "type": "note",
-   "title": "Практическое замечание",
-   "section": "notes",
-   "blocks": [
-    {
-     "k": "p",
-     "spans": [
-      {
-       "t": "Этот этап учит не только "
       },
       {
-       "t": "задавать вопрос",
-       "s": "b"
-      },
-      {
-       "t": ", но и "
-      },
-      {
-       "t": "удерживать разговор после ответа",
-       "s": "b"
-      },
-      {
-       "t": "."
-      }
-     ]
-    },
-    {
-     "k": "p",
-     "spans": [
-      {
-       "t": "Последовательность должна быть такой:"
-      }
-     ]
-    },
-    {
-     "k": "p",
-     "spans": [
-      {
-       "t": "задать вопрос → понять ответ → попросить повторить / замедлить речь → уточнить → отреагировать.",
-       "s": "b"
-      }
-     ]
-    },
-    {
-     "k": "p",
-     "spans": [
-      {
-       "t": "Это важнее, чем просто выучить большой список вопросительных слов."
+       "spans": [
+        {
+         "t": "Te dejo",
+         "s": "es"
+        },
+        {
+         "t": " — выход из разговора без неловкости."
+        }
+       ]
       }
      ]
     }
@@ -1306,10 +3483,10 @@
   }
  ],
  "excluded": [
-  "полноценное изучение грамматики вопросительных предложений;",
-  "времена глаголов;",
-  "сложные относительные конструкции;",
-  "редкие вопросительные слова;",
-  "длинные диалоги по ситуациям — они в Situations."
+  "длинные рассказы и монологи — здесь только реплики;",
+  "схемы со слотами, по которым фразу собирают самому, — они в разговорных конструкциях;",
+  "отдельные слова этих фраз — они в Words;",
+  "формулы на «вы» для учреждений и окошек — они в Situations;",
+  "жаргон и латиноамериканские обороты — здесь Испания."
  ]
 }

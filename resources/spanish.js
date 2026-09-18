@@ -821,13 +821,14 @@
     // A word or a pair is drawn by the shared renderer; a drill browses as its
     // prompt with the answer beside it, in a row shape of its own. `mark` is the
     // learned toggle. A drill covers its answer whichever side is picked: its
-    // prompt is the question, Russian or Spanish.
-    function browseRow(item, mark) {
-        if (item.type !== 'drill') return SP.renderLexRow(item, mark);
+    // prompt is the question, Russian or Spanish. `query` is what the list was
+    // filtered by, painted wherever the row carries it.
+    function browseRow(item, mark, query) {
+        if (item.type !== 'drill') return SP.renderLexRow(item, mark, query);
 
         var row = SP.el('div', 'sp-drill-row');
-        row.appendChild(SP.el('div', 'sp-drill-es', item.prompt));
-        row.appendChild(SP.el('div', 'sp-drill-ru', item.answer));
+        row.appendChild(SP.hilite(SP.el('div', 'sp-drill-es', item.prompt), query));
+        row.appendChild(SP.hilite(SP.el('div', 'sp-drill-ru', item.answer), query));
         row.appendChild(SP.rowTools(SP.spokenText(item), 'phrase'));
         return SP.attachMark(row, mark);
     }
@@ -856,6 +857,35 @@
 
     function runKey(item) { return item.stage + '/' + typeRank(item.type); }
 
+    // What a search leaves, drawn as the three zones of SP.renderZoneList:
+    // the word itself first, then the words that merely begin with it, then
+    // the words that carry it in an example — with NO EXACT MATCH said in
+    // capitals above the rest when the first zone is empty. The four sections
+    // step aside for it: each row still wears its list as a tag, and the order
+    // that matters while searching is how close the match is.
+    function renderBrowseZones(list, query) {
+        var stages = {};
+        browseFiltered.forEach(function (item) { stages[item.stage] = true; });
+        // Flat means flat — but a match can come from any stage, and with two
+        // of them on screen the row alone does not say which.
+        var nameStages = Object.keys(stages).length > 1;
+
+        var res = SP.renderZoneList(list, browseFiltered, query, browseShown, {
+            row: browseRow,
+            zoneFor: function () { return SP.el('div', 'sp-lex'); },
+            seam: function (prev, item) {
+                return nameStages && (!prev || prev.stage !== item.stage) ? stageDivider(item) : null;
+            },
+            onMark: syncExportButtons
+        });
+        syncExportButtons();
+
+        var more = byId('sp-browse-more');
+        var left = res.total - res.drawn;
+        more.hidden = left <= 0;
+        if (left > 0) more.textContent = 'Show ' + Math.min(BROWSE_STEP, left) + ' more (' + left + ' left)';
+    }
+
     // The list is the same four sections a stage page shows, over the same
     // lists: the tables of the stage's sets, Learned from the file, Pending
     // from this browser, then the rest. `browseFiltered` keeps the plain
@@ -868,6 +898,9 @@
         var empty = byId('sp-browse-empty');
         empty.hidden = browseFiltered.length !== 0;
         empty.textContent = browseSearch && browseSearch.query() ? 'Nothing matches that search.' : 'Nothing matches.';
+
+        var searching = browseSearch ? browseSearch.query() : '';
+        if (searching) return renderBrowseZones(list, searching);
 
         var buckets = {};
         SP.SECTIONS.forEach(function (kind) { buckets[kind] = []; });
@@ -896,17 +929,14 @@
             syncExportButtons();
         }
 
-        var query = browseSearch ? browseSearch.query() : '';
-
         function makeRow(item) {
-            var row, tag;
+            var row;
             var kind = SP.sectionOf(item);
             // Neither a table row nor a learned row can move, so neither has
             // a checkbox to move it with — nor an empty column where it would be.
             var fixed = kind === 'reference' || kind === 'learned';
             var mark = fixed ? null : SP.markButton(item, function (on) {
                 SP.setRowState(row, false, on);
-                SP.setSectionTag(tag, on ? 'pending' : 'left');
                 counts.pending += on ? 1 : -1;
                 counts.left += on ? -1 : 1;
                 // Marked goes to the end of Pending, unmarked to the top of the
@@ -918,14 +948,10 @@
                 else zones.left.insertBefore(row, zones.left.firstChild);
                 sync();
             });
+            // No query here: a search is drawn by renderBrowseZones, which
+            // paints the match, opens the panel holding it and tags the row.
             row = browseRow(item, mark);
             SP.setRowState(row, kind === 'learned', kind === 'pending');
-            // Found by something folded away inside it, the row would otherwise
-            // come up with nothing on it that matches — so the panel opens.
-            if (query && !SP.matchesOwn(item, query) && SP.matchesExample(item, query)) {
-                SP.setExamplesOpen(row, true);
-            }
-            if (query) tag = SP.tagRow(row, kind);
             return row;
         }
 
@@ -935,12 +961,11 @@
             buckets[kind].forEach(function (item) { plan.push({ item: item, kind: kind }); });
         });
 
-        // A stage is named whenever the list can hold more than one of them —
-        // and always while a search is running, even when everything found came
-        // from a single stage: the whole point is to see where it was found.
+        // A stage is named whenever the list can hold more than one of them.
+        // (A search names them too — that is renderBrowseZones' seam.)
         var stages = {};
         browseFiltered.forEach(function (item) { stages[item.stage] = true; });
-        var nameStages = Object.keys(stages).length > 1 || !!query;
+        var nameStages = Object.keys(stages).length > 1;
 
         var previous = {};
         plan.slice(0, browseShown).forEach(function (entry) {

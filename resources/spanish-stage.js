@@ -94,27 +94,20 @@
         }
 
         function buildRow(item) {
-            var row, tag;
+            var row;
             var kind = SP.sectionOf(item);
             // Neither a table row nor a learned row can move, so neither has
             // a checkbox to move it with — nor an empty column where it would be.
             var fixed = kind === 'reference' || kind === 'learned';
             var mark = fixed ? null : SP.markButton(item, function (on) {
                 SP.setRowState(row, false, on);
-                SP.setSectionTag(tag, on ? 'pending' : 'left');
                 move(row, item, on);
             });
+            // No query reaches here: a search is drawn by renderFound as the
+            // three zones, which paint the match, open the panel holding it and
+            // tag the row with the list it comes from.
             row = opts.row(item, mark);
             SP.setRowState(row, kind === 'learned', kind === 'pending');
-            // Found by something folded away inside it, the row would come up
-            // with nothing on it that matches — so the panel holding the match
-            // opens itself.
-            if (opts.query && !SP.matchesOwn(item, opts.query) && SP.matchesExample(item, opts.query)) {
-                SP.setExamplesOpen(row, true);
-            }
-            // Only in a search: browsing whole, the header above the row says
-            // the same thing and the tag would just repeat it on every line.
-            if (opts.tagged) tag = SP.tagRow(row, kind);
             return row;
         }
 
@@ -178,18 +171,19 @@
     // answer and speak buttons rather than the text, so the list marker and
     // the prompt stay on one line. It leads that row, with the answer button
     // between it and the speaker, so a tap on one does not hit the other.
-    function drillRow(item, mark) {
+    function drillRow(item, mark, query) {
         var li = SP.el('li', 'sp-drill');
-        li.appendChild(SP.el('span', null, item.prompt));
+        li.appendChild(SP.hilite(SP.el('span', null, item.prompt), query));
 
         if (item.kind === 'choice' && item.options) {
             li.appendChild(document.createTextNode(' '));
-            li.appendChild(SP.el('span', 'sp-es', '(' + item.options.join(' / ') + ')'));
+            li.appendChild(SP.hilite(SP.el('span', 'sp-es', '(' + item.options.join(' / ') + ')'), query));
         }
 
         var answer = SP.el('div', 'sp-es sp-drill-answer');
         answer.textContent = item.answer;
         answer.hidden = true;
+        SP.hilite(answer, query);
 
         var reveal = SP.el('button', 'sp-btn', 'Show answer');
         reveal.type = 'button';
@@ -248,13 +242,21 @@
         // the sections that are actually on screen; the observer of the index
         // it replaces is disconnected rather than left watching removed nodes.
         var spy = null;
+        // How many result rows a search is showing. It lives out here because
+        // "show more" redraws the whole body: a later page can open a zone the
+        // chips do not name yet, and rebuilding both together keeps them true.
+        var shown = PAGE_SIZE;
 
-        function draw() {
+        function draw(keepShown) {
             var query = search.query();
+            if (!keepShown) shown = PAGE_SIZE;
             SP.clear(body);
             SP.clear(chips);
             if (spy) { spy.disconnect(); spy = null; }
-            var index = renderSections(body, stage, query);
+            var index = renderSections(body, stage, query, {
+                shown: shown,
+                more: function () { shown += PAGE_STEP; draw(true); }
+            });
             if (!index.length) {
                 body.appendChild(SP.el('p', 'sp-empty', 'Nothing matches.'));
                 return;
@@ -266,11 +268,53 @@
         document.title = 'Stage ' + stage.no + ': ' + stage.title + ' - Spanish | Dykyi Roman';
     }
 
+    // Words before pairs before drills, the file order breaking the ties — the
+    // order a zone reads in, and the one that keeps each kind of row in one run
+    // so a zone opens one container per kind instead of one per row.
+    var TYPE_RANK = { vocab: 0, pair: 1, drill: 2 };
+
+    function byType(items) {
+        return items.map(function (item, i) { return { item: item, i: i }; })
+            .sort(function (a, b) {
+                var rank = (TYPE_RANK[a.item.type] || 0) - (TYPE_RANK[b.item.type] || 0);
+                return rank !== 0 ? rank : a.i - b.i;
+            })
+            .map(function (entry) { return entry.item; });
+    }
+
+    // What a search leaves of the stage: one list of the three zones — the word
+    // itself, the words that only begin with it, the words that carry it in an
+    // example — flat, with NO EXACT MATCH said above the rest when the first
+    // zone is empty. The topic blocks and the four sections are put away while
+    // a query is live: a topic is not what was asked for, and every row wears
+    // the list it is in as a tag.
+    function renderFound(body, stage, query, search) {
+        var items = byType(stage.items.filter(function (item) { return SP.matches(item, query); }));
+        var res = SP.renderZoneList(body, items, query, search.shown, {
+            row: function (item, mark, q) {
+                return item.type === 'drill' ? drillRow(item, mark, q) : SP.renderLexRow(item, mark, q);
+            },
+            key: function (item) { return item.type === 'drill' ? 'drill' : 'lex'; },
+            zoneFor: function (item) { return item.type === 'drill' ? drillZone() : lexZone(); }
+        });
+
+        var left = res.total - res.drawn;
+        if (res.total && left > 0) {
+            var more = SP.el('button', 'sp-btn');
+            more.type = 'button';
+            more.textContent = 'Show ' + Math.min(PAGE_STEP, left) + ' more (' + left + ' left)';
+            more.addEventListener('click', search.more);
+            body.appendChild(more);
+        }
+        return res.index;
+    }
+
     // Everything below the header, for the whole stage or for what a search
     // leaves of it. Returns the chip index of the sections it drew.
-    function renderSections(body, stage, query) {
+    function renderSections(body, stage, query, search) {
         var index = [];
-        var items = stage.items.filter(function (item) { return SP.matches(item, query); });
+        if (query) return renderFound(body, stage, query, search);
+        var items = stage.items;
 
         /* lexicon */
         var lex = items.filter(function (i) { return i.type === 'vocab' || i.type === 'pair'; });
@@ -303,8 +347,6 @@
                 renderMarkedList(block, byGroup[name], {
                     zone: lexZone,
                     row: SP.renderLexRow,
-                    tagged: !!query,
-                    query: query,
                     pageSize: PAGE_SIZE,
                     pageStep: PAGE_STEP
                 });
@@ -335,14 +377,14 @@
             blocks.forEach(function (key) {
                 var group = SP.el('div', 'sp-group');
                 group.appendChild(SP.el('h4', 'sp-group-title', key + ' ' + byBlock[key][0].blockTitle));
-                renderMarkedList(group, byBlock[key], { zone: drillZone, row: drillRow, tagged: !!query });
+                renderMarkedList(group, byBlock[key], { zone: drillZone, row: drillRow });
                 drillSection.appendChild(group);
             });
             body.appendChild(drillSection);
         }
 
-        /* notes — prose, not entries, so a search leaves them out */
-        var generalNotes = query ? [] : (stage.notes || []).filter(function (n) { return n.section === 'notes'; });
+        /* notes — prose, not entries; a search never reaches here at all */
+        var generalNotes = (stage.notes || []).filter(function (n) { return n.section === 'notes'; });
         if (generalNotes.length) {
             var noteSection = sectionShell('sec-notes', 'Что надо запомнить', generalNotes.length);
             index.push({ row: 'main', label: 'Заметки', target: 'sec-notes' });
@@ -351,7 +393,7 @@
         }
 
         /* exclusions */
-        if (!query && stage.excluded && stage.excluded.length) {
+        if (stage.excluded && stage.excluded.length) {
             var exclSection = sectionShell('sec-excluded', 'Что сознательно не входит в этап', stage.excluded.length);
             index.push({ row: 'main', label: 'Не входит', target: 'sec-excluded' });
             var ul = SP.el('ul', 'sp-excluded');

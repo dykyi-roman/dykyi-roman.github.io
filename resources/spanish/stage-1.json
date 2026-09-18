@@ -3,8 +3,8 @@
  "prefix": "es1",
  "no": 1,
  "title": "Bind",
- "titleRu": "Пространство, направление и базовые связки",
- "goal": "понимать и строить простые фразы о местоположении, направлении и движении в повседневной жизни в Испании.",
+ "titleRu": "Пространство, связки и вопросительные слова",
+ "goal": "понимать и строить простые фразы о местоположении, направлении и движении в повседневной жизни в Испании — и задавать о них простые вопросы.",
  "url": "spanish/stage-1.html",
  "intro": [
   {
@@ -115,6 +115,30 @@
   {
    "kind": "topic",
    "name": "Связки"
+  },
+  {
+   "kind": "topic",
+   "name": "Что / кто"
+  },
+  {
+   "kind": "topic",
+   "name": "Где / куда / откуда"
+  },
+  {
+   "kind": "topic",
+   "name": "Когда / сколько времени"
+  },
+  {
+   "kind": "topic",
+   "name": "Как / почему / зачем"
+  },
+  {
+   "kind": "topic",
+   "name": "Сколько / какой / который"
+  },
+  {
+   "kind": "topic",
+   "name": "Чей / с кем / для кого"
   }
  ],
  "items": [
@@ -1078,6 +1102,70 @@
    ]
   },
   {
+   "id": "es1-v125",
+   "type": "vocab",
+   "es": "qué",
+   "en": "what / which",
+   "ru": "что / какой",
+   "tr": "кэ",
+   "group": "Что / кто",
+   "ex": [
+    {
+     "es": "¿Qué quieres?",
+     "ru": "Что ты хочешь?",
+     "frame": [
+      "Qué"
+     ]
+    },
+    {
+     "es": "¿Qué pasa?",
+     "ru": "Что случилось?",
+     "frame": [
+      "Qué"
+     ]
+    },
+    {
+     "es": "¿Qué significa esto?",
+     "ru": "Что это значит?",
+     "frame": [
+      "Qué"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v151",
+   "type": "vocab",
+   "es": "hay",
+   "en": "there is / there are",
+   "ru": "есть / имеется",
+   "tr": "ай",
+   "group": "Что / кто",
+   "ex": [
+    {
+     "es": "¿Hay un baño por aquí?",
+     "ru": "Здесь есть туалет поблизости?",
+     "frame": [
+      "Hay"
+     ]
+    },
+    {
+     "es": "¿Hay wifi en el hotel?",
+     "ru": "В отеле есть вайфай?",
+     "frame": [
+      "Hay"
+     ]
+    },
+    {
+     "es": "Aquí no hay cobertura.",
+     "ru": "Здесь нет связи.",
+     "frame": [
+      "hay"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es1-v001",
    "type": "vocab",
    "es": "aquí",
@@ -1426,6 +1514,70 @@
      "ru": "Здесь ничего нет.",
      "frame": [
       "nada"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v132",
+   "type": "vocab",
+   "es": "cómo",
+   "en": "how",
+   "ru": "как? (вопрос)",
+   "tr": "ко́мо",
+   "group": "Как / почему / зачем",
+   "ex": [
+    {
+     "es": "¿Cómo estás?",
+     "ru": "Как ты?",
+     "frame": [
+      "Cómo"
+     ]
+    },
+    {
+     "es": "¿Cómo llegamos?",
+     "ru": "Как нам добраться?",
+     "frame": [
+      "Cómo"
+     ]
+    },
+    {
+     "es": "¿Cómo se hace?",
+     "ru": "Как это делается?",
+     "frame": [
+      "Cómo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v137",
+   "type": "vocab",
+   "es": "cuál",
+   "en": "which / what",
+   "ru": "какой / который",
+   "tr": "куал",
+   "group": "Сколько / какой / который",
+   "ex": [
+    {
+     "es": "¿Cuál quieres?",
+     "ru": "Какой ты хочешь?",
+     "frame": [
+      "Cuál"
+     ]
+    },
+    {
+     "es": "¿Cuál es el tuyo?",
+     "ru": "Который твой?",
+     "frame": [
+      "Cuál"
+     ]
+    },
+    {
+     "es": "No sé cuál coger.",
+     "ru": "Не знаю, какой взять.",
+     "frame": [
+      "cuál"
      ]
     }
    ]
@@ -1815,6 +1967,70 @@
    ]
   },
   {
+   "id": "es1-v126",
+   "type": "vocab",
+   "es": "quién",
+   "en": "who",
+   "ru": "кто",
+   "tr": "кьен",
+   "group": "Что / кто",
+   "ex": [
+    {
+     "es": "¿Quién es?",
+     "ru": "Кто это?",
+     "frame": [
+      "Quién"
+     ]
+    },
+    {
+     "es": "¿Quién viene?",
+     "ru": "Кто приходит?",
+     "frame": [
+      "Quién"
+     ]
+    },
+    {
+     "es": "¿Quién es el último?",
+     "ru": "Кто последний?",
+     "frame": [
+      "Quién"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v128",
+   "type": "vocab",
+   "es": "dónde",
+   "en": "where",
+   "ru": "где",
+   "tr": "до́ндэ",
+   "group": "Где / куда / откуда",
+   "ex": [
+    {
+     "es": "¿Dónde está el baño?",
+     "ru": "Где туалет?",
+     "frame": [
+      "Dónde"
+     ]
+    },
+    {
+     "es": "¿Dónde vives?",
+     "ru": "Где ты живёшь?",
+     "frame": [
+      "Dónde"
+     ]
+    },
+    {
+     "es": "¿Dónde puedo aparcar?",
+     "ru": "Где можно припарковаться?",
+     "frame": [
+      "Dónde"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es1-v005",
    "type": "vocab",
    "es": "detrás",
@@ -1938,6 +2154,70 @@
      "ru": "Можно подождать внутри?",
      "frame": [
       "dentro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v131",
+   "type": "vocab",
+   "es": "cuándo",
+   "en": "when",
+   "ru": "когда",
+   "tr": "куа́ндо",
+   "group": "Когда / сколько времени",
+   "ex": [
+    {
+     "es": "¿Cuándo llegas?",
+     "ru": "Когда ты приезжаешь?",
+     "frame": [
+      "Cuándo"
+     ]
+    },
+    {
+     "es": "¿Cuándo abren?",
+     "ru": "Когда открывают?",
+     "frame": [
+      "Cuándo"
+     ]
+    },
+    {
+     "es": "No sé cuándo vuelve.",
+     "ru": "Не знаю, когда он вернётся.",
+     "frame": [
+      "cuándo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v138",
+   "type": "vocab",
+   "es": "cuáles",
+   "en": "which ones",
+   "ru": "какие / которые",
+   "tr": "куа́лэс",
+   "group": "Сколько / какой / который",
+   "ex": [
+    {
+     "es": "¿Cuáles son tuyos?",
+     "ru": "Какие твои?",
+     "frame": [
+      "Cuáles"
+     ]
+    },
+    {
+     "es": "¿Cuáles prefieres?",
+     "ru": "Какие тебе больше нравятся?",
+     "frame": [
+      "Cuáles"
+     ]
+    },
+    {
+     "es": "Dime cuáles faltan.",
+     "ru": "Скажи, каких не хватает.",
+     "frame": [
+      "cuáles"
      ]
     }
    ]
@@ -2130,6 +2410,102 @@
      "ru": "Я хочу с тобой поговорить.",
      "frame": [
       "contigo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v127",
+   "type": "vocab",
+   "es": "quiénes",
+   "en": "who",
+   "ru": "кто (мн. ч.)",
+   "tr": "кье́нэс",
+   "group": "Что / кто",
+   "ex": [
+    {
+     "es": "¿Quiénes son?",
+     "ru": "Кто они?",
+     "frame": [
+      "Quiénes"
+     ]
+    },
+    {
+     "es": "¿Quiénes vienen a la reunión?",
+     "ru": "Кто придёт на встречу?",
+     "frame": [
+      "Quiénes"
+     ]
+    },
+    {
+     "es": "¿Quiénes son esos niños?",
+     "ru": "Что это за дети?",
+     "frame": [
+      "Quiénes"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v129",
+   "type": "vocab",
+   "es": "a dónde",
+   "en": "where to",
+   "ru": "куда",
+   "tr": "а до́ндэ",
+   "group": "Где / куда / откуда",
+   "ex": [
+    {
+     "es": "¿A dónde vas?",
+     "ru": "Куда ты идёшь?",
+     "frame": [
+      "A dónde"
+     ]
+    },
+    {
+     "es": "¿A dónde va este tren?",
+     "ru": "Куда идёт этот поезд?",
+     "frame": [
+      "A dónde"
+     ]
+    },
+    {
+     "es": "No sé a dónde ir.",
+     "ru": "Я не знаю, куда идти.",
+     "frame": [
+      "a dónde"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v133",
+   "type": "vocab",
+   "es": "por qué",
+   "en": "why",
+   "ru": "почему",
+   "tr": "пор кэ",
+   "group": "Как / почему / зачем",
+   "ex": [
+    {
+     "es": "¿Por qué estás aquí?",
+     "ru": "Почему ты здесь?",
+     "frame": [
+      "Por qué"
+     ]
+    },
+    {
+     "es": "¿Por qué está cerrado?",
+     "ru": "Почему закрыто?",
+     "frame": [
+      "Por qué"
+     ]
+    },
+    {
+     "es": "No sé por qué tarda tanto.",
+     "ru": "Не знаю, почему так долго.",
+     "frame": [
+      "por qué"
      ]
     }
    ]
@@ -2423,6 +2799,102 @@
    ]
   },
   {
+   "id": "es1-v130",
+   "type": "vocab",
+   "es": "de dónde",
+   "en": "where from",
+   "ru": "откуда",
+   "tr": "дэ до́ндэ",
+   "group": "Где / куда / откуда",
+   "ex": [
+    {
+     "es": "¿De dónde eres?",
+     "ru": "Ты откуда?",
+     "frame": [
+      "De dónde"
+     ]
+    },
+    {
+     "es": "¿De dónde vienes?",
+     "ru": "Откуда ты идёшь?",
+     "frame": [
+      "De dónde"
+     ]
+    },
+    {
+     "es": "No me dijo de dónde era.",
+     "ru": "Он не сказал, откуда он.",
+     "frame": [
+      "de dónde"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v134",
+   "type": "vocab",
+   "es": "para qué",
+   "en": "what for / why",
+   "ru": "зачем / для чего",
+   "tr": "па́ра кэ",
+   "group": "Как / почему / зачем",
+   "ex": [
+    {
+     "es": "¿Para qué sirve esto?",
+     "ru": "Для чего это?",
+     "frame": [
+      "Para qué"
+     ]
+    },
+    {
+     "es": "¿Para qué es este botón?",
+     "ru": "Для чего эта кнопка?",
+     "frame": [
+      "Para qué"
+     ]
+    },
+    {
+     "es": "No sé para qué lo quiere.",
+     "ru": "Не знаю, зачем ему это.",
+     "frame": [
+      "para qué"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v139",
+   "type": "vocab",
+   "es": "de quién",
+   "en": "whose",
+   "ru": "чей / чья / чьё",
+   "tr": "дэ кьен",
+   "group": "Чей / с кем / для кого",
+   "ex": [
+    {
+     "es": "¿De quién es este móvil?",
+     "ru": "Чей это телефон?",
+     "frame": [
+      "De quién"
+     ]
+    },
+    {
+     "es": "¿De quién es la culpa?",
+     "ru": "Кто виноват?",
+     "frame": [
+      "De quién"
+     ]
+    },
+    {
+     "es": "No sé de quién es esta bolsa.",
+     "ru": "Не знаю, чей это пакет.",
+     "frame": [
+      "de quién"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es1-v035",
    "type": "vocab",
    "es": "ese / esa",
@@ -2551,6 +3023,70 @@
    ]
   },
   {
+   "id": "es1-v140",
+   "type": "vocab",
+   "es": "con quién",
+   "en": "with whom",
+   "ru": "с кем",
+   "tr": "кон кьен",
+   "group": "Чей / с кем / для кого",
+   "ex": [
+    {
+     "es": "¿Con quién vas?",
+     "ru": "С кем ты идёшь?",
+     "frame": [
+      "Con quién"
+     ]
+    },
+    {
+     "es": "¿Con quién dejas a los niños?",
+     "ru": "С кем ты оставляешь детей?",
+     "frame": [
+      "Con quién"
+     ]
+    },
+    {
+     "es": "No dijo con quién viene.",
+     "ru": "Он не сказал, с кем придёт.",
+     "frame": [
+      "con quién"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v142",
+   "type": "vocab",
+   "es": "por dónde",
+   "en": "which way / through where",
+   "ru": "каким путём, где пройти",
+   "tr": "пор до́ндэ",
+   "group": "Где / куда / откуда",
+   "ex": [
+    {
+     "es": "¿Por dónde se entra?",
+     "ru": "Через какой вход заходят?",
+     "frame": [
+      "Por dónde"
+     ]
+    },
+    {
+     "es": "¿Por dónde se va al centro?",
+     "ru": "Как пройти в центр?",
+     "frame": [
+      "Por dónde"
+     ]
+    },
+    {
+     "es": "Pregunta por dónde se sale.",
+     "ru": "Спроси, где выход.",
+     "frame": [
+      "por dónde"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es1-v013",
    "type": "vocab",
    "es": "al lado de",
@@ -2674,6 +3210,70 @@
      "ru": "Мне идти прямо?",
      "frame": [
       "todo recto"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v141",
+   "type": "vocab",
+   "es": "para quién",
+   "en": "for whom",
+   "ru": "для кого",
+   "tr": "па́ра кьен",
+   "group": "Чей / с кем / для кого",
+   "ex": [
+    {
+     "es": "¿Para quién es esto?",
+     "ru": "Для кого это?",
+     "frame": [
+      "Para quién"
+     ]
+    },
+    {
+     "es": "¿Para quién trabajas?",
+     "ru": "На кого ты работаешь?",
+     "frame": [
+      "Para quién"
+     ]
+    },
+    {
+     "es": "Pregunta para quién es la cita.",
+     "ru": "Спроси, на кого записан приём.",
+     "frame": [
+      "para quién"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v146",
+   "type": "vocab",
+   "es": "a qué hora",
+   "en": "at what time",
+   "ru": "во сколько",
+   "tr": "а кэ о́ра",
+   "group": "Когда / сколько времени",
+   "ex": [
+    {
+     "es": "¿A qué hora empieza?",
+     "ru": "Во сколько начинается?",
+     "frame": [
+      "A qué hora"
+     ]
+    },
+    {
+     "es": "¿A qué hora cierran?",
+     "ru": "Во сколько закрывают?",
+     "frame": [
+      "A qué hora"
+     ]
+    },
+    {
+     "es": "Dime a qué hora sales.",
+     "ru": "Скажи, во сколько ты выходишь.",
+     "frame": [
+      "a qué hora"
      ]
     }
    ]
@@ -2871,6 +3471,134 @@
    ]
   },
   {
+   "id": "es1-v143",
+   "type": "vocab",
+   "es": "desde dónde",
+   "en": "from where",
+   "ru": "откуда / с какого места",
+   "tr": "дэ́сдэ до́ндэ",
+   "group": "Где / куда / откуда",
+   "ex": [
+    {
+     "es": "¿Desde dónde sale el autobús?",
+     "ru": "Откуда отправляется автобус?",
+     "frame": [
+      "Desde dónde"
+     ]
+    },
+    {
+     "es": "¿Desde dónde se ve mejor?",
+     "ru": "Откуда лучше видно?",
+     "frame": [
+      "Desde dónde"
+     ]
+    },
+    {
+     "es": "No sé desde dónde salen los taxis.",
+     "ru": "Не знаю, откуда отходят такси.",
+     "frame": [
+      "desde dónde"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v144",
+   "type": "vocab",
+   "es": "hacia dónde",
+   "en": "towards where",
+   "ru": "в какую сторону / куда",
+   "tr": "а́сья до́ндэ",
+   "group": "Где / куда / откуда",
+   "ex": [
+    {
+     "es": "¿Hacia dónde vamos?",
+     "ru": "В какую сторону мы идём?",
+     "frame": [
+      "Hacia dónde"
+     ]
+    },
+    {
+     "es": "¿Hacia dónde queda el mar?",
+     "ru": "В какой стороне море?",
+     "frame": [
+      "Hacia dónde"
+     ]
+    },
+    {
+     "es": "No veo hacia dónde va.",
+     "ru": "Я не вижу, куда он едет.",
+     "frame": [
+      "hacia dónde"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v145",
+   "type": "vocab",
+   "es": "hasta dónde",
+   "en": "up to where / how far",
+   "ru": "докуда, до какого места",
+   "tr": "а́ста до́ндэ",
+   "group": "Где / куда / откуда",
+   "ex": [
+    {
+     "es": "¿Hasta dónde llega este autobús?",
+     "ru": "До какой остановки идёт этот автобус?",
+     "frame": [
+      "Hasta dónde"
+     ]
+    },
+    {
+     "es": "¿Hasta dónde puedo aparcar?",
+     "ru": "Докуда можно парковаться?",
+     "frame": [
+      "Hasta dónde"
+     ]
+    },
+    {
+     "es": "Pregunta hasta dónde llega el billete.",
+     "ru": "Спроси, докуда действует билет.",
+     "frame": [
+      "hasta dónde"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v150",
+   "type": "vocab",
+   "es": "qué tipo de",
+   "en": "what kind of",
+   "ru": "какой / какого типа",
+   "tr": "кэ ти́по дэ",
+   "group": "Сколько / какой / который",
+   "ex": [
+    {
+     "es": "¿Qué tipo de café quieres?",
+     "ru": "Какой кофе ты хочешь?",
+     "frame": [
+      "Qué tipo de"
+     ]
+    },
+    {
+     "es": "¿Qué tipo de contrato es?",
+     "ru": "Какой это договор?",
+     "frame": [
+      "Qué tipo de"
+     ]
+    },
+    {
+     "es": "No dijo qué tipo de problema era.",
+     "ru": "Он не сказал, какого рода проблема.",
+     "frame": [
+      "qué tipo de"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es1-v117",
    "type": "vocab",
    "es": "a la derecha",
@@ -2898,6 +3626,70 @@
      "ru": "Третья дверь справа.",
      "frame": [
       "a la derecha"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v148",
+   "type": "vocab",
+   "es": "desde cuándo",
+   "en": "since when",
+   "ru": "с каких пор / с какого времени",
+   "tr": "дэ́сдэ куа́ндо",
+   "group": "Когда / сколько времени",
+   "ex": [
+    {
+     "es": "¿Desde cuándo estás aquí?",
+     "ru": "Как давно ты здесь?",
+     "frame": [
+      "Desde cuándo"
+     ]
+    },
+    {
+     "es": "¿Desde cuándo está cerrado?",
+     "ru": "С каких пор закрыто?",
+     "frame": [
+      "Desde cuándo"
+     ]
+    },
+    {
+     "es": "Pregunta desde cuándo vive aquí.",
+     "ru": "Спроси, с каких пор он здесь живёт.",
+     "frame": [
+      "desde cuándo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v149",
+   "type": "vocab",
+   "es": "hasta cuándo",
+   "en": "until when",
+   "ru": "до каких пор / до какого времени",
+   "tr": "а́ста куа́ндо",
+   "group": "Когда / сколько времени",
+   "ex": [
+    {
+     "es": "¿Hasta cuándo está abierto?",
+     "ru": "До каких пор это открыто?",
+     "frame": [
+      "Hasta cuándo"
+     ]
+    },
+    {
+     "es": "¿Hasta cuándo te quedas?",
+     "ru": "До каких пор ты остаёшься?",
+     "frame": [
+      "Hasta cuándo"
+     ]
+    },
+    {
+     "es": "No sé hasta cuándo dura la oferta.",
+     "ru": "Не знаю, до каких пор действует акция.",
+     "frame": [
+      "hasta cuándo"
      ]
     }
    ]
@@ -2999,6 +3791,38 @@
    ]
   },
   {
+   "id": "es1-v147",
+   "type": "vocab",
+   "es": "cuánto tiempo",
+   "en": "how long / how much time",
+   "ru": "сколько времени",
+   "tr": "куа́нто тье́мпо",
+   "group": "Когда / сколько времени",
+   "ex": [
+    {
+     "es": "¿Cuánto tiempo falta?",
+     "ru": "Сколько времени осталось?",
+     "frame": [
+      "Cuánto tiempo"
+     ]
+    },
+    {
+     "es": "¿Cuánto tiempo llevas aquí?",
+     "ru": "Сколько ты уже здесь?",
+     "frame": [
+      "Cuánto tiempo"
+     ]
+    },
+    {
+     "es": "No sé cuánto tiempo tarda.",
+     "ru": "Не знаю, сколько это займёт.",
+     "frame": [
+      "cuánto tiempo"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es1-v118",
    "type": "vocab",
    "es": "a la izquierda",
@@ -3090,6 +3914,38 @@
      "ru": "У тебя есть вопросы?",
      "frame": [
       "alguna"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v135",
+   "type": "vocab",
+   "es": "cuánto / cuánta",
+   "en": "how much",
+   "ru": "сколько (чего-то: agua, tiempo)",
+   "tr": "куа́нто / куа́нта",
+   "group": "Сколько / какой / который",
+   "ex": [
+    {
+     "es": "¿Cuánto cuesta?",
+     "ru": "Сколько это стоит?",
+     "frame": [
+      "Cuánto"
+     ]
+    },
+    {
+     "es": "¿Cuánto es?",
+     "ru": "Сколько с меня?",
+     "frame": [
+      "Cuánto"
+     ]
+    },
+    {
+     "es": "¿Cuánta agua queda?",
+     "ru": "Сколько осталось воды?",
+     "frame": [
+      "Cuánta"
      ]
     }
    ]
@@ -3218,6 +4074,38 @@
      "ru": "Я совсем не тороплюсь.",
      "frame": [
       "ninguna"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v136",
+   "type": "vocab",
+   "es": "cuántos / cuántas",
+   "en": "how many",
+   "ru": "сколько (штук: personas, días)",
+   "tr": "куа́нтос / куа́нтас",
+   "group": "Сколько / какой / который",
+   "ex": [
+    {
+     "es": "¿Cuántos años tiene tu hija?",
+     "ru": "Сколько лет твоей дочери?",
+     "frame": [
+      "Cuántos"
+     ]
+    },
+    {
+     "es": "¿Cuántas personas vienen?",
+     "ru": "Сколько человек придёт?",
+     "frame": [
+      "Cuántas"
+     ]
+    },
+    {
+     "es": "¿Cuántos días te quedas?",
+     "ru": "На сколько дней ты остаёшься?",
+     "frame": [
+      "Cuántos"
      ]
     }
    ]
@@ -3427,6 +4315,254 @@
       {
        "t": "¿Hay un baño por aquí?",
        "s": "es"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-n003",
+   "type": "note",
+   "title": "Вопросительные слова: минимальный набор",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Из всей лексики этапа эти слова нужно узнавать и ставить в начало фразы не задумываясь — на них держится почти любой вопрос:"
+      }
+     ]
+    },
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "¿Qué...?",
+         "s": "es"
+        },
+        {
+         "t": " — Что? / какой?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Qué autobús...?",
+         "s": "es"
+        },
+        {
+         "t": " — Какой автобус? Перед существительным qué значит «какой»."
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Quién...?",
+         "s": "es"
+        },
+        {
+         "t": " — Кто?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Dónde...?",
+         "s": "es"
+        },
+        {
+         "t": " — Где?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿A dónde...?",
+         "s": "es"
+        },
+        {
+         "t": " — Куда?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿De dónde...?",
+         "s": "es"
+        },
+        {
+         "t": " — Откуда?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Cuándo...?",
+         "s": "es"
+        },
+        {
+         "t": " — Когда?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Cómo...?",
+         "s": "es"
+        },
+        {
+         "t": " — Как?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Por qué...?",
+         "s": "es"
+        },
+        {
+         "t": " — Почему?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Para qué...?",
+         "s": "es"
+        },
+        {
+         "t": " — Зачем?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Cuánto...?",
+         "s": "es"
+        },
+        {
+         "t": " — Сколько?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Cuál...?",
+         "s": "es"
+        },
+        {
+         "t": " — Какой? / который?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿De quién...?",
+         "s": "es"
+        },
+        {
+         "t": " — Чей?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Con quién...?",
+         "s": "es"
+        },
+        {
+         "t": " — С кем?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿A qué hora...?",
+         "s": "es"
+        },
+        {
+         "t": " — Во сколько?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Cuánto tiempo...?",
+         "s": "es"
+        },
+        {
+         "t": " — Сколько времени?"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "¿Hay...?",
+         "s": "es"
+        },
+        {
+         "t": " — Есть ли...?"
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-n004",
+   "type": "note",
+   "title": "Вопрос — это половина разговора",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Вопросительное слово решает только первую половину задачи. Вторая — "
+      },
+      {
+       "t": "удержать разговор после ответа",
+       "s": "b"
+      },
+      {
+       "t": ":"
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "задать вопрос → понять ответ → попросить повторить / замедлить речь → уточнить → отреагировать.",
+       "s": "b"
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Это важнее, чем выучить большой список вопросительных слов. Готовые реплики для каждого шага собраны в Sentence."
       }
      ]
     }
