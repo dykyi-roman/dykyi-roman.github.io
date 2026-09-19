@@ -257,7 +257,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
    buttons beside it: it is a thin glyph, and a third full 44px target would
    take the wrapping text line of a 360px phone down to about a hundred
    pixels. The height stays 44px, so the touch target does not. */
-.sp-ex-toggle {
+.sp-drawer-toggle {
     flex: 0 0 auto;
     width: 36px;
     height: 44px;
@@ -275,8 +275,8 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.sp-ex-toggle:hover,
-.sp-ex-toggle[aria-expanded="true"] { color: var(--color-primary); border-color: var(--color-primary); }
+.sp-drawer-toggle:hover,
+.sp-drawer-toggle[aria-expanded="true"] { color: var(--color-primary); border-color: var(--color-primary); }
 
 /* ---------- learned checkbox and divider ---------- */
 
@@ -429,7 +429,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 }
 
 .sp-divider[aria-expanded="false"] .sp-chevron,
-.sp-ex-toggle[aria-expanded="false"] .sp-chevron { transform: rotate(-90deg); }
+.sp-drawer-toggle[aria-expanded="false"] .sp-chevron { transform: rotate(-90deg); }
 
 /* An entry in one of the two top sections keeps its Spanish at full strength
    and is told apart by the tinted edge: green for the learned list, the site's
@@ -477,6 +477,14 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 html:not([data-sp-cover="spanish"]) .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) :is(.sp-lex-en, .sp-lex-ru) .sp-hit,
 html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) :is(.sp-lex-es, .sp-lex-tr) .sp-hit,
 .sp-drill-row:is(.is-learned, .is-pending):not(.is-revealed) .sp-drill-ru .sp-hit {
+    color: inherit;
+    background: none;
+}
+
+/* The verb dot goes under the bar with the word it belongs to: it is drawn
+   from currentColor, so inheriting the transparent of the bar puts out the
+   ring and the fill alike. */
+html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) .sp-verb-dot {
     color: inherit;
     background: none;
 }
@@ -577,9 +585,10 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
    rule at the top of this file), so no track and no gutter are made at all.
    1 / -1 counts against the explicit columns, so one line spans all four row
    shapes: two columns, three with the checkbox, five wide, six wide. */
-.sp-lex-row > .sp-exlines {
+.sp-lex-row > .sp-drawer {
     grid-row: 2;
     grid-column: 1 / -1;
+    min-width: 0;
     margin-top: var(--spacing-xs);
 }
 
@@ -719,12 +728,18 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
     overflow-wrap: anywhere;
 }
 
-.sp-exlines {
+.sp-drawer {
     display: grid;
     gap: 4px;
     padding-top: var(--spacing-xs);
     border-top: 1px dashed var(--color-border);
 }
+
+/* A grid item is min-width:auto by default, so a table of long forms — nos
+   despertaremos — would size the card instead of scrolling inside it, and the
+   last tense would sit off the right edge of a phone with nothing to reach it
+   by. The zero has to be repeated down the whole chain: panel, forms, grid. */
+.sp-drawer > * { min-width: 0; }
 
 .sp-exline {
     display: grid;
@@ -743,7 +758,116 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
    the two-column rule from 700px up needs a grid container to mean anything,
    so it stops at the panel without a second selector to undo it. The patterns
    keep their side-by-side lines. */
-.sp-lex-row > .sp-exlines .sp-exline { display: block; }
+.sp-lex-row > .sp-drawer .sp-exline { display: block; }
+
+/* ---------- a verb's forms ---------- */
+
+/* A fold inside the panel rather than a second chevron in the row: the tail of
+   a pair already carries four controls at 360px, and a fifth would take the
+   line. Folded, the head line is still the lesson — the first person of each
+   tense, tengo · tuve · tendré — so a reader who never opens it has still been
+   told the one thing a dictionary entry leaves out. */
+.sp-forms { display: grid; gap: 4px; min-width: 0; }
+.sp-forms > * { min-width: 0; }
+
+.sp-forms-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-xs);
+    width: 100%;
+    min-height: 44px;
+    padding: 4px 6px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--color-text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color var(--transition-fast);
+}
+
+.sp-forms-head:hover,
+.sp-forms-head[aria-expanded="true"] { border-color: var(--color-primary); }
+
+/* Only a pair spells the infinitive out — a word has it written directly
+   above, and repeating it there would be the same line twice. */
+.sp-forms-inf { color: var(--color-primary); font-weight: 600; }
+
+/* The three anchor forms, separated by a drawn dot: the JSON stores the forms
+   alone, so the punctuation cannot drift out of step with what is there. The
+   dot trails its own form rather than leading the next one — on a phone the
+   line wraps, and a leading dot would start the second line. */
+.sp-forms-peek { display: flex; flex: 1 1 auto; flex-wrap: wrap; align-items: baseline; gap: 4px; min-width: 0; }
+.sp-forms-peek-one { color: var(--color-heading); overflow-wrap: anywhere; }
+.sp-forms-peek-one:not(:last-child)::after { content: " ·"; color: var(--color-text-light); }
+
+/* The badge pushes to the far end, and the chevron follows it, so the head
+   line reads forms → what kind → open. */
+.sp-badge.is-verb { margin-left: auto; }
+.sp-badge.is-regular { color: var(--color-success); }
+.sp-badge.is-stem { color: var(--color-caution); }
+.sp-badge.is-irregular { color: var(--color-warning); }
+
+/* The same three colours as a dot beside the word itself, so a list says which
+   verbs need work before anything is opened. Drawn from currentColor alone —
+   both the ring and the fill — which is what lets the covered-side rules below
+   put it out with one declaration. A regular verb carries none. */
+.sp-verb-dot {
+    display: inline-block;
+    flex: 0 0 auto;
+    width: 8px;
+    height: 8px;
+    margin-left: 4px;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    vertical-align: 0.1em;
+}
+
+/* The word and its dot travel together; see wordWithDot in spanish-rows.js. */
+.sp-lex-word { white-space: nowrap; }
+
+.sp-verb-dot.is-stem { color: var(--color-caution); }
+.sp-verb-dot.is-irregular { color: var(--color-warning); background: currentColor; }
+
+.sp-forms-head[aria-expanded="false"] .sp-chevron { transform: rotate(-90deg); }
+
+/* Four columns — the person and three tenses — which is the width this table
+   scrolls sideways within on a phone, like every other table here. */
+.sp-forms-table { font-size: var(--font-size-small); }
+.sp-forms-table td { padding: 0; }
+.sp-forms-table th { vertical-align: bottom; }
+
+.sp-forms-person { color: var(--color-text-light); white-space: nowrap; }
+td.sp-forms-person { padding: 8px 10px; }
+
+.sp-forms-tense { display: block; color: var(--color-heading); }
+.sp-forms-tense-es { display: block; font-size: 0.72rem; font-weight: normal; color: var(--color-text-light); }
+
+/* One tap says the form out loud — the one thing a table of forms on paper
+   cannot do. Built like a conjugation cell in the rules, for the same reason:
+   a whole cell is an easier target than the word inside it. */
+.sp-forms-cell {
+    display: block;
+    width: 100%;
+    min-height: 40px;
+    padding: 8px 10px;
+    border: 0;
+    background: transparent;
+    color: var(--color-text);
+    font: inherit;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: background var(--transition-fast);
+}
+
+.sp-forms-cell:hover { background: var(--color-background); }
 
 /* ---------- what to learn first (rules and patterns) ---------- */
 
@@ -1358,7 +1482,7 @@ a.sp-axis-item:hover .sp-axis-es { color: var(--color-primary); }
 
     .sp-lex-row > .sp-tools { align-self: center; }
     /* Room enough here for the chevron to match the buttons beside it. */
-    .sp-ex-toggle { width: 44px; }
+    .sp-drawer-toggle { width: 44px; }
     .sp-lex-row.has-mark .sp-mark { align-self: center; }
     .sp-drill-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
     .sp-drill-row .sp-drill-es { grid-column: 1; }

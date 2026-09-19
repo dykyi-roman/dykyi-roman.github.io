@@ -1156,11 +1156,11 @@
             var btn = byId('sp-browse-csv-' + key);
             if (!btn) return;
             btn.dataset.title = btn.title;      // the count is appended to this, not to itself
-            btn.insertBefore(SP.downloadIcon(), btn.firstChild);
+            btn.insertBefore(SP.icon.download(), btn.firstChild);
             btn.addEventListener('click', function () { exportCsv(key); });
         });
         var copy = byId('sp-browse-copy');
-        copy.insertBefore(SP.copyIcon(), copy.firstChild);
+        copy.insertBefore(SP.icon.copy(), copy.firstChild);
         copy.addEventListener('click', copyPending);
     }
 
@@ -1301,7 +1301,7 @@
 
         if (item.trap) card.appendChild(SP.el('p', 'sp-pat-trap', item.trap));
 
-        var examples = SP.el('div', 'sp-exlines');
+        var examples = SP.el('div', 'sp-drawer');
         (item.ex || []).forEach(function (line) { examples.appendChild(patternExample(line)); });
         card.appendChild(examples);
         return card;
@@ -1383,7 +1383,9 @@
         initListenControls();
         initBrowseControls();
 
-        Promise.all([SP.loadManifest(), SP.loadLearned()]).then(function (loaded) {
+        // The learned list and the verb forms are both wanted before the first
+        // row is drawn and belong to no stage, so they ride with the manifest.
+        Promise.all([SP.loadManifest(), SP.loadLearned(), SP.loadVerbs()]).then(function (loaded) {
             manifest = loaded[0];
             renderStageChips();
             renderModeTabs();

@@ -240,6 +240,7 @@ const groupFile = Object.create(null); // topic name -> the stage file that decl
 const lexForms = Object.create(null);  // normalized word of a lexicon entry -> ids
 const exLines = Object.create(null);   // normalized usage example -> ids of the words carrying it
 const meanings = Object.create(null);  // normalized Russian side -> ids
+const infinitives = Object.create(null); // infinitive -> the ids that carry it, for verbs.json
 let totalItems = 0;
 let totalWords = 0;      // vocab and pair, the entries a panel of examples can hang under
 let wordsWithEx = 0;
@@ -288,6 +289,11 @@ function checkTranscription(tr, at) {
 }
 
 function wordKey(es) { return es.trim().toLowerCase(); }
+
+// A lone word ending in -ar/-er/-ir, optionally reflexive. Anything the corpus
+// spells that way is a verb and must carry its forms; these are the exceptions.
+const INFINITIVE = /^[a-záéíóúüñ]*(?:ar|er|ir|ír)(?:se)?$/i;   // the star, not a plus: `ir` is all ending
+const NOT_VERBS = ['ayer'];
 
 (manifest.stages || []).forEach(entry => {
     ['id', 'prefix', 'no', 'title', 'titleRu', 'url', 'file', 'counts'].forEach(k => {
@@ -458,6 +464,18 @@ function wordKey(es) { return es.trim().toLowerCase(); }
         if (item.type === 'vocab') String(item.es || '').split(' / ').forEach(form => remember(lexForms, spanishKey(form), item.id));
         if (item.type === 'pair') [item.a && item.a.es, item.b && item.b.es].forEach(form => remember(lexForms, spanishKey(form), item.id));
         if (item.type === 'vocab' || item.type === 'pair') remember(meanings, meaningKey(item.ru), item.id);
+
+        // Every word that looks like an infinitive, so verbs.json can be
+        // checked against the corpus in both directions. A noun carries its
+        // article (el lugar, la mujer), which is what keeps this heuristic
+        // honest — NOT_VERBS below holds the handful that slip through.
+        if (item.type === 'vocab' || item.type === 'pair') {
+            [item.es, item.a && item.a.es, item.b && item.b.es].forEach(es => {
+                if (typeof es !== 'string') return;
+                const word = es.trim();
+                if (INFINITIVE.test(word)) remember(infinitives, word, item.id);
+            });
+        }
 
         counts[item.type] = (counts[item.type] || 0) + 1;
         totalItems += 1;
@@ -737,6 +755,125 @@ Object.keys(meanings).forEach(key => {
     const ids = distinct(meanings[key]);
     if (ids.length > 1) fail('"' + key + '" is the Russian of more than one entry: ' + ids.join(', '));
 });
+
+/* ---------- verbs.json: three tenses of every verb in the corpus ---------- */
+
+// Checked against the corpus in both directions: a verb with no forms would
+// draw an empty fold, and forms for a word that has left the files would sit
+// there unread. The key is the infinitive exactly as the entry spells it, so a
+// reflexive carries its -se here and its pronoun in every form.
+const REFLEXIVE_PRONOUNS = ['me', 'te', 'se', 'nos', 'os', 'se'];
+const SPANISH_FORM = /^[a-záéíóúüñ]+(?: [a-záéíóúüñ]+)?$/;
+
+const verbsEntry = manifest.verbs;
+if (!verbsEntry) {
+    fail('index.json: no "verbs" entry — the forms would never load');
+} else {
+    const verbs = read(verbsEntry.file);
+    if (verbs) {
+        ['title', 'titleRu'].forEach(k => {
+            if (verbs[k] !== verbsEntry[k]) {
+                fail(verbsEntry.file + ': "' + k + '" is ' + JSON.stringify(verbs[k]) +
+                    ' but index.json says ' + JSON.stringify(verbsEntry[k]));
+            }
+        });
+
+        const persons = verbs.persons || [];
+        if (persons.length !== 6) fail(verbsEntry.file + ': needs 6 persons, has ' + persons.length);
+        persons.forEach((person, i) => {
+            ['short', 'full'].forEach(k => {
+                if (!text(person[k])) fail(verbsEntry.file + ': person ' + (i + 1) + ' has no "' + k + '"');
+            });
+        });
+
+        // A tense names the rules section that teaches it, so a table of forms
+        // can never get ahead of what the rules cover.
+        const tenses = verbs.tenses || [];
+        if (tenses.length !== 3) fail(verbsEntry.file + ': needs 3 tenses, has ' + tenses.length);
+        tenses.forEach(tense => {
+            ['key', 'ru', 'es', 'hint', 'ref'].forEach(k => {
+                if (!text(tense[k])) fail(verbsEntry.file + ': tense ' + JSON.stringify(tense.key) + ' has no "' + k + '"');
+            });
+            if (tense.ref && !ruleIds[tense.ref]) {
+                fail(verbsEntry.file + ': tense ' + JSON.stringify(tense.key) + ' points at ' + tense.ref + ', which is not a rules section');
+            }
+        });
+
+        const kinds = Object.create(null);
+        (verbs.kinds || []).forEach(kind => {
+            ['key', 'ru', 'hint'].forEach(k => {
+                if (!text(kind[k])) fail(verbsEntry.file + ': a kind has no "' + k + '"');
+            });
+            if (kinds[kind.key]) fail(verbsEntry.file + ': kind ' + kind.key + ' is declared twice');
+            kinds[kind.key] = true;
+        });
+
+        const list = verbs.verbs || [];
+        if (list.length !== verbsEntry.count) {
+            fail('index.json says ' + verbsEntry.count + ' verbs, ' + verbsEntry.file + ' has ' + list.length);
+        }
+
+        const seenVerbs = Object.create(null);
+        const usedKinds = Object.create(null);
+        let previous = '';
+        list.forEach(verb => {
+            const es = verb.es;
+            const at = verbsEntry.file + ' (' + (es || '?') + ')';
+            if (!text(es)) { fail(at + ': no "es"'); return; }
+            if (seenVerbs[es]) { fail(at + ': listed twice'); return; }
+            seenVerbs[es] = true;
+            // Alphabetical, so a hand edit has one obvious place to go and a
+            // verb cannot be added twice under two different spellings.
+            if (previous && es.localeCompare(previous, 'es') < 0) {
+                fail(at + ': out of alphabetical order — comes after "' + previous + '"');
+            }
+            previous = es;
+
+            if (!INFINITIVE.test(es)) fail(at + ': not an infinitive');
+            if (!kinds[verb.kind]) fail(at + ': unknown kind ' + JSON.stringify(verb.kind));
+            usedKinds[verb.kind] = true;
+
+            if (!infinitives[es]) {
+                fail(at + ': no entry in any stage carries this word');
+            }
+
+            const reflexive = es.endsWith('se') && es !== 'ser';
+            tenses.forEach(tense => {
+                const forms = verb[tense.key];
+                if (!Array.isArray(forms) || forms.length !== 6) {
+                    fail(at + ': "' + tense.key + '" must be 6 forms, has ' + (Array.isArray(forms) ? forms.length : 'none'));
+                    return;
+                }
+                forms.forEach((form, i) => {
+                    if (!text(form)) { fail(at + ': "' + tense.key + '" form ' + (i + 1) + ' is empty'); return; }
+                    if (!SPANISH_FORM.test(form)) fail(at + ': "' + form + '" is not a Spanish form');
+                    // A reflexive is stored with its pronoun and nothing else
+                    // is, so neither can be written the other way by mistake.
+                    const pronoun = REFLEXIVE_PRONOUNS[i] + ' ';
+                    if (reflexive && form.slice(0, pronoun.length) !== pronoun) {
+                        fail(at + ': "' + form + '" should start with "' + pronoun + '"');
+                    }
+                    if (!reflexive && form.indexOf(' ') !== -1) fail(at + ': "' + form + '" is two words but the verb is not reflexive');
+                });
+            });
+        });
+
+        // A kind nobody uses is a label that never reaches the screen.
+        Object.keys(kinds).forEach(key => {
+            if (!usedKinds[key]) fail(verbsEntry.file + ': kind ' + key + ' is declared but carried by no verb');
+        });
+
+        // The other direction: every infinitive in the stages has its forms.
+        Object.keys(infinitives).forEach(es => {
+            if (seenVerbs[es] || NOT_VERBS.indexOf(es) !== -1) return;
+            fail(verbsEntry.file + ': "' + es + '" (' + distinct(infinitives[es]).join(', ') + ') has no forms');
+        });
+
+        checkStrings(verbs, verbsEntry.file);
+        notes.push(list.length + ' verbs with forms (' +
+            Object.keys(kinds).map(key => list.filter(v => v.kind === key).length + ' ' + key).join(', ') + ')');
+    }
+}
 
 /* ---------- learned.json: the hand-kept list of what is learned ---------- */
 

@@ -1,14 +1,15 @@
-/* Shared core for the Spanish section: data loading, storage, speech and the
-   renderers used by both the hub trainer and the stage reference pages.
+/* Foundation of the Spanish section: stored state, data loading, speech and
+   the plain building blocks the other three files draw with. This is the file
+   that creates window.SP, so it loads first; the rest extend it.
+   spanish-core.js -> spanish-search.js -> spanish-prose.js -> spanish-rows.js.
    Everything is built with createElement + textContent — the JSON carries no
-   markup, and nothing here ever assigns innerHTML.
-   Exposes window.SP. */
+   markup, and nothing here ever assigns innerHTML. */
 
 (function () {
     'use strict';
 
     var SP = {};
-
+    window.SP = SP;   // set before anything else: the other three files read it at load
     /* ---------- seeded shuffle (same approach as resources/learn.js) ---------- */
 
     SP.mulberry32 = function (seed) {
@@ -242,18 +243,9 @@
             coverSide = side;
             writeCookie(COVER_COOKIE, side);
             paintCover();
-            // Another side to recall starts the round over: whatever was
-            // uncovered under the old choice is covered under the new one. An
-            // open panel of examples spells out both sides, so it goes too —
-            // otherwise the new cover would draw a bar over a word whose answer
-            // is still written out underneath it.
-            document.querySelectorAll('.sp-lex-row.is-open').forEach(function (row) {
-                SP.setExamplesOpen(row, false);
-            });
-            document.querySelectorAll('.is-revealed').forEach(function (row) {
-                row.classList.remove('is-revealed');
-            });
-            document.querySelectorAll(':is(.sp-lex-row, .sp-drill-row):is(.is-learned, .is-pending)').forEach(revealTitle);
+            // What the change does to the rows already on the screen is the
+            // lists' own business, and they subscribe for it: this file knows
+            // which side is hidden, not what a row is made of.
             coverListeners.forEach(function (fn) { fn(side); });
         },
 
@@ -396,6 +388,56 @@
         }
     };
 
+    /* ---------- verb forms ---------- */
+
+    // Three tenses of every verb in the corpus, six persons each. Like the
+    // learned list it has no stage of its own and is wanted by every page, so
+    // it loads beside the manifest — and, like it, a failure to load costs
+    // nothing but the panel: the words still read fine without their forms.
+    // The key is the infinitive exactly as the entry spells it, so a reflexive
+    // is stored with its pronoun (me ducho) and nothing has to be stripped.
+    var verbData = null;
+    var verbIndex = null;
+
+    SP.loadVerbs = function () {
+        if (verbIndex) return Promise.resolve(verbIndex);
+        return fetchJson(SP.base + 'verbs.json').then(function (data) {
+            verbData = data;
+            verbIndex = Object.create(null);
+            (data.verbs || []).forEach(function (verb) { verbIndex[verb.es] = verb; });
+            return verbIndex;
+        }).catch(function (e) {
+            console.error('verbs.json did not load — ' + e.message);
+            verbData = null;
+            verbIndex = Object.create(null);
+            return verbIndex;
+        });
+    };
+
+    SP.verbs = {
+        get: function (es) { return (verbIndex && es && verbIndex[es]) || null; },
+        persons: function () { return (verbData && verbData.persons) || []; },
+        tenses: function () { return (verbData && verbData.tenses) || []; },
+        kind: function (key) {
+            return ((verbData && verbData.kinds) || []).filter(function (k) { return k.key === key; })[0] || null;
+        }
+    };
+
+    // Which verbs a row can show the forms of: a word carries at most one, a
+    // pair one per half — `abrir / cerrar` is two paradigms, not one. Each is
+    // the entry from verbs.json, so a caller never looks the infinitive up
+    // twice. A row with nothing here draws no forms at all.
+    SP.verbsOf = function (item) {
+        if (!item) return [];
+        if (item.type === 'pair') {
+            return [item.a, item.b].map(function (half) {
+                return half ? SP.verbs.get(half.es) : null;
+            }).filter(Boolean);
+        }
+        var one = SP.verbs.get(item.es);
+        return one ? [one] : [];
+    };
+
     /* ---------- item helpers ---------- */
 
     SP.TYPE_LABEL = {
@@ -429,179 +471,6 @@
         return item.type === 'vocab' || item.type === 'pair';
     };
 
-    /* ---------- search ---------- */
-
-    // Accents are a spelling detail, not a search term: "esta" has to find
-    // "está" and "solo" has to find "sólo", so both sides are folded down to
-    // bare letters before they meet.
-    SP.normalize = function (text) {
-        return String(text === undefined || text === null ? '' : text)
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '');
-    };
-
-    // What the row itself prints, folded once and kept on the item: the pool is
-    // rebuilt on every keystroke, and 1552 items would otherwise be re-folded
-    // each time. The topic and the table name are folded apart from it — they
-    // are searched too, but they are not the word, and a search now says which
-    // of the two it found (SP.hitRank).
-    function searchOwn(item) {
-        if (item._searchOwn === undefined) {
-            item._searchOwn = SP.normalize([
-                item.es, item.tr, item.en, item.ru, item.prompt, item.answer
-            ].filter(Boolean).join(' '));
-        }
-        return item._searchOwn;
-    }
-
-    function searchMeta(item) {
-        if (item._searchMeta === undefined) {
-            item._searchMeta = SP.normalize([item.group, item.set].filter(Boolean).join(' '));
-        }
-        return item._searchMeta;
-    }
-
-    // The examples are searched apart from the rest. They are what the phrase
-    // items became, so this is the only place that text still lives — and the
-    // hub needs to know a match came from here alone, to open the panel that
-    // holds it. Folded once and kept, like the line above.
-    function exampleText(item) {
-        if (item._searchEx === undefined) {
-            item._searchEx = SP.normalize((item.ex || []).map(function (line) {
-                return line.es + ' ' + line.ru;
-            }).join(' '));
-        }
-        return item._searchEx;
-    }
-
-    // A query lands on the start of a word and never in the middle of one:
-    // `hora` is `la hora` and must not drag in `ahora`, the way `час` must not
-    // drag in `сейчас`. The far end is left open on purpose — the field
-    // searches as it is typed, so `hab` still has to reach `hablar`, and a stem
-    // is how a word is looked for anyway. Both sides are folded by then, so a
-    // word is bare lowercase letters and digits.
-    var WORD = /[0-9a-zа-я]/;
-
-    // `whole` asks for the far boundary too — the query is the word and not
-    // just its start, which is what the first zone of a search is made of.
-    function indexOfWord(text, query, from, whole) {
-        var at = text.indexOf(query, from);
-        while (at !== -1) {
-            // charAt(-1) is '', which no letter matches — so the first word of
-            // a text is a word start like any other.
-            if (!WORD.test(text.charAt(at - 1)) && !(whole && WORD.test(text.charAt(at + query.length)))) return at;
-            at = text.indexOf(query, at + 1);
-        }
-        return -1;
-    }
-
-    // `query` must come from SP.normalize — the caller folds it once per pass
-    // rather than once per item.
-    SP.matches = function (item, query) {
-        if (!query) return true;
-        return SP.matchesOwn(item, query) || SP.matchesExample(item, query);
-    };
-
-    // True when the query is found in what the row itself carries — its texts,
-    // its topic or the table it belongs to. Anything else is in the examples.
-    SP.matchesOwn = function (item, query) {
-        if (!query) return true;
-        return indexOfWord(searchOwn(item), query, 0, false) !== -1 ||
-            indexOfWord(searchMeta(item), query, 0, false) !== -1;
-    };
-
-    // True when the query is found in the examples of a word. The caller uses
-    // it to tell a row that matched on its own text from one that matched on
-    // something folded away inside it.
-    SP.matchesExample = function (item, query) {
-        if (!query || !item.ex || !item.ex.length) return false;
-        return indexOfWord(exampleText(item), query, 0, false) !== -1;
-    };
-
-    // The same fold as SP.normalize, kept character by character: `map[i]` is
-    // the source character the i-th folded one came from, so a hit found among
-    // bare letters can be pointed back at the accented ones on the screen. The
-    // closing entry is the length of the text itself — that way a hit running
-    // to the last letter has a bound, and a combining mark the fold dropped
-    // rides inside the hit with the letter it belongs to.
-    function foldMap(text) {
-        var out = '';
-        var map = [];
-        for (var i = 0; i < text.length; i++) {
-            var piece = SP.normalize(text.charAt(i));
-            for (var j = 0; j < piece.length; j++) map.push(i);
-            out += piece;
-        }
-        map.push(text.length);
-        return { text: out, map: map };
-    }
-
-    // Every place the query sits in one piece of text, in that text's own
-    // indexes: [{start, end}]. Only the rows a search has already found are
-    // walked this way, so nothing here is cached.
-    SP.findHits = function (text, query) {
-        var hits = [];
-        if (!query || !text) return hits;
-        var folded = foldMap(String(text));
-        var at = 0;
-        while ((at = indexOfWord(folded.text, query, at, false)) !== -1) {
-            hits.push({ start: folded.map[at], end: folded.map[at + query.length] });
-            at += query.length;
-        }
-        return hits;
-    };
-
-    // A search field that reports every change, settled so a fast typist does
-    // not redraw a long list on every letter.
-    // It draws its own ✕. The one a type="search" field comes with shows only
-    // while the field has the focus or the pointer — on a phone, only while the
-    // keyboard is up, so once that is put away the results have nothing left
-    // to close them with. This one stays for as long as there is text (the CSS
-    // hides it by :placeholder-shown), and the native one is hidden.
-    SP.searchBox = function (placeholder, onChange) {
-        var box = SP.el('div', 'sp-search-box');
-        var input = SP.el('input', 'sp-search');
-        input.type = 'search';
-        input.placeholder = placeholder;
-        input.setAttribute('aria-label', placeholder);
-        var timer = null;
-        input.addEventListener('input', function () {
-            clearTimeout(timer);
-            timer = setTimeout(onChange, 140);
-        });
-
-        var clearBtn = SP.el('button', 'sp-search-clear');
-        clearBtn.type = 'button';
-        clearBtn.title = 'Clear the search';
-        clearBtn.setAttribute('aria-label', 'Clear the search');
-        clearBtn.appendChild(crossIcon());
-
-        // A tap leaves the focus where it was: with the keyboard up it stays up
-        // for the next word, and once put away it is not brought back.
-        var hadFocus = false;
-        clearBtn.addEventListener('pointerdown', function () { hadFocus = document.activeElement === input; });
-        clearBtn.addEventListener('mousedown', function (e) { e.preventDefault(); });
-        clearBtn.addEventListener('click', function (e) {
-            clearTimeout(timer);
-            input.value = '';
-            // Pressed from the keyboard (detail 0), the button has just hidden
-            // itself from under the focus, so the focus goes back to the field.
-            if (hadFocus || e.detail === 0) input.focus();
-            hadFocus = false;
-            onChange();
-        });
-
-        box.appendChild(input);
-        box.appendChild(clearBtn);
-        return {
-            node: box,
-            input: input,
-            query: function () { return SP.normalize(input.value.trim()); },
-            clear: function () { input.value = ''; }
-        };
-    };
-
     /* ---------- DOM helpers ---------- */
 
     SP.el = function (tag, cls, text) {
@@ -623,47 +492,12 @@
     // `pend` would light up the tag of every Pending row. The rows themselves
     // are built with textContent, so this is where the only markup inside them
     // comes from.
-    SP.hilite = function (node, query) {
-        if (!node || !query) return node;
-        walkText(node, function (text) { splitHits(text, query); });
-        return node;
-    };
-
-    function walkText(node, fn) {
-        // The next sibling is taken before the callback runs: a hit replaces
-        // the text node it was found in with a fragment.
-        for (var child = node.firstChild; child;) {
-            var next = child.nextSibling;
-            if (child.nodeType === 3) fn(child);
-            else if (child.nodeType === 1) walkText(child, fn);
-            child = next;
-        }
-    }
-
-    function splitHits(text, query) {
-        var value = text.nodeValue;
-        var hits = SP.findHits(value, query);
-        if (!hits.length) return;
-        var frag = document.createDocumentFragment();
-        var pos = 0;
-        hits.forEach(function (hit) {
-            if (hit.start > pos) frag.appendChild(document.createTextNode(value.slice(pos, hit.start)));
-            frag.appendChild(SP.el('span', 'sp-hit', value.slice(hit.start, hit.end)));
-            pos = hit.end;
-        });
-        if (pos < value.length) frag.appendChild(document.createTextNode(value.slice(pos)));
-        text.parentNode.replaceChild(frag, text);
-    }
-
-    // A stage's thematic mark. Decoration only — the title beside it already
-    // says which stage this is — so it is hidden from assistive tech.
     SP.iconSpan = function (icon) {
         if (!icon) return null;
         var span = SP.el('span', 'sp-icon', icon);
         span.setAttribute('aria-hidden', 'true');
         return span;
     };
-
     /* ---------- speech ---------- */
 
     var SVG_NS = 'http://www.w3.org/2000/svg';
@@ -749,7 +583,7 @@
         var btn = SP.el('button', 'sp-speak');
         btn.type = 'button';
         btn.setAttribute('aria-label', label || ('Listen: ' + text));
-        btn.appendChild(speakerIcon());
+        btn.appendChild(SP.icon.speaker());
         btn.addEventListener('click', function (e) {
             e.stopPropagation();
             e.preventDefault();
@@ -836,8 +670,7 @@
         tools.addEventListener('keydown', function (e) { e.stopPropagation(); });
         return tools;
     };
-
-    /* ---------- section headers and the pending checkbox ---------- */
+    /* ---------- icons ---------- */
 
     function checkIcon() {
         var svg = document.createElementNS(SVG_NS, 'svg');
@@ -858,7 +691,7 @@
     }
 
     // Two sheets, the usual sign for "copy".
-    SP.copyIcon = function () {
+    function copyIcon() {
         var svg = document.createElementNS(SVG_NS, 'svg');
         svg.setAttribute('viewBox', '0 0 24 24');
         svg.setAttribute('aria-hidden', 'true');
@@ -874,10 +707,10 @@
         svg.appendChild(back);
         svg.appendChild(front);
         return svg;
-    };
+    }
 
     // An arrow dropping into a tray, the usual sign for "download".
-    SP.downloadIcon = function () {
+    function downloadIcon() {
         var svg = document.createElementNS(SVG_NS, 'svg');
         svg.setAttribute('viewBox', '0 0 24 24');
         svg.setAttribute('aria-hidden', 'true');
@@ -889,7 +722,7 @@
         svg.appendChild(arrow);
         svg.appendChild(tray);
         return svg;
-    };
+    }
 
     // A crossed-out eye: the lit segment beside it is the side that is hidden.
     function eyeOffIcon() {
@@ -933,1016 +766,22 @@
         return svg;
     }
 
+    // Every glyph the section draws, in one export. They are built here, beside
+    // the speak button that needs the first of them, and wanted all over: the
+    // search field draws the ✕, a list draws the tick and the chevron.
+    SP.icon = {
+        speaker: speakerIcon,
+        check: checkIcon,
+        copy: copyIcon,
+        download: downloadIcon,
+        eyeOff: eyeOffIcon,
+        cross: crossIcon,
+        chevron: chevronIcon
+    };
+
     // Every list is split into the same four sections, in this order. Reference
     // is the stage's closed sets — days, months, numbers — drawn as tables; the
     // other three hold the words worked through one by one.
-    SP.SECTIONS = ['reference', 'learned', 'pending', 'left'];
-    SP.SECTION_LABEL = { reference: 'Reference', learned: 'Learned', pending: 'Pending', left: 'Left' };
-
-    // The header of one section: a dashed line naming what follows and how much
-    // of it there is. All but the last fold — the rest of the list is what you
-    // are working through, so it has nothing to fold away. Returns the node
-    // plus the one call that keeps the caption true.
-    SP.sectionDivider = function (kind) {
-        var foldable = kind !== 'left';
-        var node = SP.el(foldable ? 'button' : 'div', 'sp-divider' + (foldable ? '' : ' is-quiet'));
-        var label;
-
-        if (foldable) {
-            node.type = 'button';
-            node.appendChild(chevronIcon());
-        }
-        label = SP.el('span', 'sp-divider-label');
-        node.appendChild(label);
-
-        function syncState() {
-            if (!foldable) return;
-            var folded = SP.view.folded(kind);
-            node.setAttribute('aria-expanded', folded ? 'false' : 'true');
-            node.title = (folded ? 'Show ' : 'Hide ') + SP.SECTION_LABEL[kind].toLowerCase();
-        }
-
-        if (foldable) {
-            syncState();
-            node.addEventListener('click', function () { SP.view.setFolded(kind, !SP.view.folded(kind)); });
-        }
-
-        return {
-            node: node,
-            sync: function (count) {
-                label.textContent = SP.SECTION_LABEL[kind] + ' · ' + count;
-                syncState();
-            }
-        };
-    };
-
-    // Keeps the headers of one list true: each counts its section, an empty
-    // section shows none, and the rest of the list gets one only once something
-    // sits above it — Left comes last, so everything before it is above.
-    SP.syncSectionHeads = function (heads, counts) {
-        var above = 0;
-        SP.SECTIONS.forEach(function (kind) {
-            heads[kind].sync(counts[kind]);
-            heads[kind].node.hidden = kind === 'left' ? above === 0 : counts[kind] === 0;
-            above += counts[kind];
-        });
-    };
-
-    // The same line without the fold, naming what follows it: a table inside
-    // Reference, or on the hub a run of one type of entry.
-    SP.quietDivider = function (label) {
-        var node = SP.el('div', 'sp-divider is-quiet');
-        node.appendChild(SP.el('span', 'sp-divider-label', label));
-        return node;
-    };
-
-    /* ---------- what a search leaves: three zones ---------- */
-
-    // A search answers a different question than browsing does. Browsing asks
-    // which of my lists a word is in, and the four sections answer it; a search
-    // asks whether this is the word I typed. So what a query leaves is split in
-    // three, in the order they are wanted: the word itself, a longer word that
-    // begins with it (`hora` → `horario`), and a word that carries it only in
-    // the examples folded under it. The sections step aside while a query is
-    // live — every found row already wears the list it is in (SP.tagRow), so
-    // nothing is lost by drawing the zones flat.
-    SP.ZONES = ['exact', 'partial', 'example'];
-    SP.ZONE_LABEL = {
-        exact: 'Exact match',
-        partial: 'Part of another word',
-        example: 'Only in examples'
-    };
-
-    // Which zone an entry belongs to, or null when it does not match at all.
-    // `query` is folded, as everywhere else.
-    SP.hitRank = function (item, query) {
-        if (!query) return null;
-        var own = searchOwn(item);
-        if (indexOfWord(own, query, 0, true) !== -1) return 'exact';
-        if (indexOfWord(own, query, 0, false) !== -1) return 'partial';
-        // Found by its topic or its table, a word is not the word either — it
-        // is a neighbour of it, which is what the middle zone holds.
-        if (indexOfWord(searchMeta(item), query, 0, false) !== -1) return 'partial';
-        return SP.matchesExample(item, query) ? 'example' : null;
-    };
-
-    SP.splitZones = function (items, query) {
-        var zones = {};
-        SP.ZONES.forEach(function (kind) { zones[kind] = []; });
-        items.forEach(function (item) {
-            var kind = SP.hitRank(item, query);
-            if (kind) zones[kind].push(item);
-        });
-        return zones;
-    };
-
-    // The header of a zone: the section line without the fold. A zone is what
-    // this query left, so there is nothing to keep folded away between two
-    // keystrokes.
-    SP.zoneDivider = function (kind, count) {
-        var node = SP.el('div', 'sp-divider is-zone');
-        node.appendChild(SP.el('span', 'sp-divider-label', SP.ZONE_LABEL[kind] + ' · ' + count));
-        return node;
-    };
-
-    // Said in capitals because it is the answer to the question that was asked:
-    // the word itself is in none of the lists, and everything below it is
-    // somewhere the letters merely turned up.
-    SP.noExactNote = function () {
-        return SP.el('p', 'sp-noexact', 'NO EXACT MATCH');
-    };
-
-    // Draws what a search found as those three zones, flat: no section headers
-    // and no topic blocks. `limit` is how many rows this pass may draw in all —
-    // the caller owns the "show more" button, since the hub and a stage page
-    // each have their own — and what comes back says how far it got.
-    //
-    // opts.row(item, mark, query) -> the row element
-    // opts.zoneFor(item)          -> a fresh container for rows of its kind
-    // opts.key(item)              -> which container an item belongs in
-    // opts.seam(prev, item)       -> an optional divider before a row (prev is
-    //                                null for the first row of a zone)
-    // opts.onMark(on)             -> after a checkbox is toggled
-    SP.renderZoneList = function (parent, items, query, limit, opts) {
-        var zones = SP.splitZones(items, query);
-        var total = SP.ZONES.reduce(function (n, kind) { return n + zones[kind].length; }, 0);
-        var drawn = 0;
-        var index = [];
-
-        function zoneRow(item) {
-            var row, tag;
-            var kind = SP.sectionOf(item);
-            // As in a browsing list: a table row and a learned row cannot move,
-            // so neither carries the checkbox that would move it.
-            var fixed = kind === 'reference' || kind === 'learned';
-            var mark = fixed ? null : SP.markButton(item, function (on) {
-                SP.setRowState(row, false, on);
-                SP.setSectionTag(tag, on ? 'pending' : 'left');
-                if (opts.onMark) opts.onMark(on);
-            });
-            row = opts.row(item, mark, query);
-            SP.setRowState(row, kind === 'learned', kind === 'pending');
-            // Found by an example alone, the row would come up with nothing on
-            // it that matches — so the panel holding the match opens itself.
-            if (!SP.matchesOwn(item, query) && SP.matchesExample(item, query)) {
-                SP.setExamplesOpen(row, true);
-            }
-            // A zone says how the word was found, never which list it is in.
-            tag = SP.tagRow(row, kind);
-            return row;
-        }
-
-        SP.ZONES.forEach(function (kind) {
-            var list = zones[kind];
-            // The answer to the question, said once and above everything the
-            // search did find rather than beside the rows that are not it.
-            if (kind === 'exact' && !list.length && total) parent.appendChild(SP.noExactNote());
-            if (!list.length || drawn >= limit) return;
-
-            var head = SP.zoneDivider(kind, list.length);
-            head.id = 'sp-zone-' + kind;
-            parent.appendChild(head);
-            index.push({ row: 'main', label: SP.ZONE_LABEL[kind], target: head.id });
-
-            var box = null;
-            var boxKey = null;
-            var prev = null;
-            for (var i = 0; i < list.length && drawn < limit; i++) {
-                var item = list[i];
-                var key = opts.key ? opts.key(item) : '';
-                // Words and drills are different lists in the markup — one a
-                // div, one an ol — so a zone holding both opens a container per
-                // run rather than one for the zone.
-                if (!box || key !== boxKey) {
-                    box = opts.zoneFor(item);
-                    boxKey = key;
-                    parent.appendChild(box);
-                }
-                var seam = opts.seam ? opts.seam(prev, item) : null;
-                if (seam) box.appendChild(seam);
-                box.appendChild(zoneRow(item));
-                prev = item;
-                drawn += 1;
-            }
-        });
-
-        return { drawn: drawn, total: total, index: index };
-    };
-
-    // Opens a row with the checkbox and flags the row so the CSS gives its grid
-    // the extra control column. The checkbox leads the row, in the DOM as on the
-    // screen, as far from the speak button as the row allows: side by side at
-    // the tail, a tap meant for the speaker could unmark the word.
-    // A learned row and a row of a Reference table pass no checkbox and get no
-    // column: there is nothing to tick, and an empty cell only pushed the text
-    // away from the edge. Every list row is still a row you can test yourself
-    // on, so the reveal listener goes on regardless — it does nothing until the
-    // row is in Learned or Pending, and the mark and speak buttons stop the
-    // click before it reaches the row.
-    SP.attachMark = function (row, mark) {
-        attachReveal(row);
-        if (!mark) return row;
-        row.classList.add('has-mark');
-        row.insertBefore(mark, row.firstChild);
-        return row;
-    };
-
-    function covered(row) {
-        return row.classList.contains('is-learned') || row.classList.contains('is-pending');
-    }
-
-    function revealTitle(row) {
-        if (!covered(row)) { row.removeAttribute('title'); return; }
-        // A drill covers its answer on either side; any other row, the side picked.
-        var what = row.classList.contains('sp-drill-row') ? 'answer'
-            : (coverSide === 'spanish' ? 'Spanish' : 'translation');
-        row.title = (row.classList.contains('is-revealed') ? 'Hide the ' : 'Show the ') + what;
-    }
-
-    function attachReveal(row) {
-        function toggle(e) {
-            if (!covered(row)) return;
-            e.preventDefault();
-            row.classList.toggle('is-revealed');
-            revealTitle(row);
-        }
-        row.addEventListener('click', toggle);
-        row.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') toggle(e);
-        });
-    }
-
-    // Which section an entry is drawn in, decided here and nowhere else. A word
-    // of one of the stage's sets lives in Reference alone, whatever the two
-    // lists say about it: it is a row of a table, not a word to tick off.
-    // Otherwise learned is asked first — and SP.pending.has already answers
-    // false for a learned id, so the two lists cannot disagree about a word.
-    SP.sectionOf = function (item) {
-        if (item.set) return 'reference';
-        if (SP.learned.has(item.id)) return 'learned';
-        return SP.pending.has(item.id) ? 'pending' : 'left';
-    };
-
-    // Reference reads table by table, in the order the stage declares its sets,
-    // and each table in the order of the file. The index in the incoming order
-    // breaks the ties, so the sort is stable.
-    SP.orderBySet = function (items) {
-        return items.map(function (item, i) {
-            return { item: item, i: i };
-        }).sort(function (a, b) {
-            return a.item.stage - b.item.stage || a.item.setRank - b.item.setRank || a.i - b.i;
-        }).map(function (entry) { return entry.item; });
-    };
-
-    // Paints a row for the section it is in. A row in Learned or Pending covers
-    // one side (SP.cover) until it is tapped, and takes the focus so a keyboard
-    // can do the same; a Reference row covers nothing, as the rest does not.
-    SP.setRowState = function (row, learned, pending) {
-        row.classList.toggle('is-learned', learned);
-        row.classList.toggle('is-pending', !learned && pending);
-        if (covered(row)) {
-            row.tabIndex = 0;
-            // A row that starts hiding a side puts its hints away with it: an
-            // open panel writes out both sides, so a word just ticked into
-            // Pending would move there with its answer still on the screen.
-            SP.setExamplesOpen(row, false);
-            row.classList.remove('is-revealed');
-        } else {
-            row.classList.remove('is-revealed');
-            row.removeAttribute('tabindex');
-        }
-        revealTitle(row);
-        return row;
-    };
-
-    // Opens or closes a word's examples — the one place that state is changed,
-    // so the covered side and the checkbox can close a panel without knowing
-    // how it was opened. The panel fills itself on the first open: a page holds
-    // a hundred rows, and three speak buttons each for panels nobody opens is
-    // three hundred listeners bought for nothing.
-    //
-    // Opening also reveals the row. The examples spell out the Spanish and the
-    // Russian alike, so leaving the word itself under a bar would be hiding an
-    // answer that is already on the screen.
-    SP.setExamplesOpen = function (row, on) {
-        if (!on && !row.classList.contains('is-open')) return;
-        var btn = row.querySelector('.sp-ex-toggle');
-        var panel = row.querySelector('.sp-exlines');
-        if (!btn || !panel) return;
-        if (on && panel.fill) { panel.fill(); panel.fill = null; }
-        row.classList.toggle('is-open', on);
-        btn.setAttribute('aria-expanded', on ? 'true' : 'false');
-        panel.hidden = !on;
-        // Only a covered row has anything to reveal; on any other, the class
-        // would be a leftover waiting to show a side that is about to be hidden.
-        if (on && covered(row)) row.classList.add('is-revealed');
-        exampleTitle(btn, on);
-        revealTitle(row);
-    };
-
-    function exampleTitle(btn, on) {
-        var label = on ? 'Hide the examples' : 'Show the examples';
-        btn.title = label;
-        btn.setAttribute('aria-label', label);
-    }
-
-    // In a search the sections can be far apart on the screen — and a single
-    // match can be the only row under its header — so a found row says on
-    // itself which list it is in.
-    SP.setSectionTag = function (tag, kind) {
-        if (!tag) return tag;
-        tag.className = 'sp-tag is-' + kind;
-        tag.textContent = SP.SECTION_LABEL[kind];
-        return tag;
-    };
-
-    SP.sectionTag = function (kind) {
-        return SP.setSectionTag(SP.el('span'), kind);
-    };
-
-    // Where a row carries it: right after the Spanish, the one part every kind
-    // of row has. It cannot be a child of the row itself — above 700px the
-    // lexicon row is a grid whose cells are spoken for.
-    SP.tagRow = function (row, kind) {
-        var head = row.querySelector('.sp-lex-es') || row.querySelector('.sp-drill-es');
-        if (!head) return null;
-        var tag = SP.sectionTag(kind);
-        head.appendChild(tag);
-        return tag;
-    };
-
-
-    // The 44px checkbox that puts an entry in the pending list. A button with
-    // aria-pressed rather than a real checkbox, so it has the shape and the
-    // touch target of .sp-speak at the other end of the row.
-    SP.markButton = function (item, onChange) {
-        var btn = SP.el('button', 'sp-mark');
-        btn.type = 'button';
-        btn.setAttribute('aria-label', 'Mark as pending');
-        btn.appendChild(checkIcon());
-
-        function sync(on) {
-            btn.classList.toggle('is-on', on);
-            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-            btn.title = on ? 'Pending — click to unmark' : 'Mark as pending';
-        }
-
-        sync(SP.pending.has(item.id));
-        btn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            var on = SP.pending.toggle(item.id);
-            sync(on);
-            if (onChange) onChange(on);
-        });
-        return btn;
-    };
-
-    // The switch between the two sides a covered row can hide: one control of
-    // two segments in row order, the lit one naming the side that is hidden.
-    // Every copy follows SP.cover, so no two on a page can disagree.
-    var COVER_OPTIONS = [
-        { side: 'spanish', label: 'ES', hint: 'Hide the Spanish and its transliteration' },
-        { side: 'meaning', label: 'EN', hint: 'Hide the English and Russian' }
-    ];
-
-    SP.coverSwitch = function () {
-        var group = SP.el('div', 'sp-cover');
-        group.setAttribute('role', 'group');
-        group.setAttribute('aria-label', 'What Learned and Pending rows hide');
-        group.appendChild(eyeOffIcon());
-
-        var buttons = COVER_OPTIONS.map(function (option) {
-            var btn = SP.el('button', 'sp-cover-btn', option.label);
-            btn.type = 'button';
-            btn.title = option.hint;
-            btn.setAttribute('aria-label', option.label + ' — ' + option.hint);
-            btn.addEventListener('click', function () { SP.cover.set(option.side); });
-            group.appendChild(btn);
-            return btn;
-        });
-
-        function sync(side) {
-            COVER_OPTIONS.forEach(function (option, i) {
-                var on = option.side === side;
-                buttons[i].classList.toggle('active', on);
-                buttons[i].setAttribute('aria-pressed', on ? 'true' : 'false');
-            });
-        }
-
-        sync(SP.cover.side());
-        SP.cover.onChange(sync);
-        return group;
-    };
-
-    /* ---------- prose rendering ---------- */
-
-    SP.renderSpans = function (parent, spans) {
-        (spans || []).forEach(function (span) {
-            if (!span || span.t === undefined) return;
-            if (span.s === 'es') parent.appendChild(SP.el('span', 'sp-es', span.t));
-            else if (span.s === 'b') parent.appendChild(SP.el('span', 'sp-b', span.t));
-            else parent.appendChild(document.createTextNode(span.t));
-        });
-        return parent;
-    };
-
-    function cellKey(cell) {
-        return (cell || []).map(function (span) {
-            if (!span || span.t === undefined) return '';
-            return (span.s || '') + '\u0001' + span.t;
-        }).join('\u0002');
-    }
-
-    // Ключ правила повторяется в каждой строке своих примеров — на экране он нужен один раз.
-    // Считаем, сколько строк подряд делят первую ячейку: 0 означает «строка без своей первой ячейки».
-    function firstColumnSpans(rows) {
-        var spans = rows.map(function () { return 0; });
-        var head = -1;
-        rows.forEach(function (row, i) {
-            var key = cellKey(row && row[0]);
-            if (head >= 0 && key && key === cellKey(rows[head][0])) {
-                spans[head]++;
-                return;
-            }
-            head = i;
-            spans[i] = 1;
-        });
-        return spans;
-    }
-
-    function renderTable(block) {
-        var wrap = SP.el('div', 'sp-table-wrap');
-        var table = SP.el('table', 'sp-table');
-        if (block.head && block.head.length) {
-            var thead = SP.el('thead');
-            var hr = SP.el('tr');
-            block.head.forEach(function (cell) { SP.renderSpans(hr.appendChild(SP.el('th')), cell); });
-            thead.appendChild(hr);
-            table.appendChild(thead);
-        }
-        var rows = block.rows || [];
-        var spans = firstColumnSpans(rows);
-        var tbody = SP.el('tbody');
-        rows.forEach(function (row, i) {
-            var tr = SP.el('tr');
-            row.forEach(function (cell, col) {
-                if (col === 0) {
-                    if (!spans[i]) return;
-                    var td = SP.el('td');
-                    if (spans[i] > 1) td.rowSpan = spans[i];
-                    SP.renderSpans(tr.appendChild(td), cell);
-                    return;
-                }
-                SP.renderSpans(tr.appendChild(SP.el('td')), cell);
-            });
-            tbody.appendChild(tr);
-        });
-        table.appendChild(tbody);
-        wrap.appendChild(table);
-        return wrap;
-    }
-
-    /* ---------- rules diagrams ---------- */
-
-    // A fork: the choice a rule comes down to, as two or three columns instead
-    // of a table whose first column repeated the key on every row. A column is
-    // its head word plus the sense it carries; a row is the same {es, ru, frame}
-    // shape the patterns and the usage examples use, so the highlight is free.
-    // The palette lives in CSS, keyed by the column's place — never in JSON.
-    function forkBlock(block) {
-        var root = SP.el('div', 'sp-fork');
-        if (block.q) root.appendChild(SP.el('p', 'sp-fork-q', block.q));
-        var cols = SP.el('div', 'sp-fork-cols');
-        (block.cols || []).forEach(function (col) {
-            var card = SP.el('div', 'sp-fork-col');
-            var head = SP.el('div', 'sp-fork-head');
-            head.appendChild(SP.el('span', 'sp-fork-key', col.es));
-            // One speaker per column, on the head word: what a fork teaches is
-            // the choice between those words, and a speaker on each of nine
-            // rows would turn a narrow column into a list of buttons.
-            var speak = SP.speakButton(col.es);
-            if (speak) head.appendChild(speak);
-            card.appendChild(head);
-            if (col.hint) card.appendChild(SP.el('p', 'sp-fork-hint', col.hint));
-            var rows = SP.el('div', 'sp-fork-rows');
-            (col.rows || []).forEach(function (line) {
-                var row = SP.el('div', 'sp-fork-row');
-                if (line.label) row.appendChild(SP.el('span', 'sp-fork-label', line.label));
-                SP.renderFramed(row.appendChild(SP.el('span', 'sp-fork-es')), line);
-                row.appendChild(SP.el('span', 'sp-fork-ru', line.ru));
-                rows.appendChild(row);
-            });
-            card.appendChild(rows);
-            cols.appendChild(card);
-        });
-        root.appendChild(cols);
-        return root;
-    }
-
-    // A cell of a conjugation grid is either a stem plus an ending or a whole
-    // irregular form. Either way the part that changes goes into .sp-conj-end,
-    // so one rule lights it, hides it and groups it with its twins. The key of
-    // the group is `hl` when the file names it — a group like the -go of hago,
-    // pongo, salgo is not something an ending can be read off.
-    function conjCell(col, cell) {
-        var raw = (cell && typeof cell === 'object') ? cell : { f: cell };
-        var stem = raw.s !== undefined ? raw.s : col.stem;
-        var end = (raw.f === undefined || raw.f === null) ? '' : String(raw.f);
-        stem = stem || '';
-        return { stem: stem, end: end, hl: raw.hl || (stem ? end : ''), form: stem + end };
-    }
-
-    function conjBlock(block) {
-        var root = SP.el('div', 'sp-conj');
-        var cols = block.cols || [];
-
-        // Chips pick one verb at a time on a phone. They earn their place only
-        // when the columns name verbs: where they name persons, the point is
-        // seeing the whole set at once and the table's sideways scroll is right.
-        var picky = cols.length > 1 && cols.every(function (col) { return !!col.inf; });
-        if (picky) {
-            root.classList.add('is-picky');
-            root.dataset.pick = '0';
-        }
-
-        var tools = SP.el('div', 'sp-conj-tools');
-        if (picky) {
-            var chips = SP.el('div', 'sp-conj-chips');
-            cols.forEach(function (col, i) {
-                var chip = SP.el('button', 'sp-btn' + (i === 0 ? ' active' : ''), col.head);
-                chip.type = 'button';
-                chip.dataset.pick = String(i);
-                chip.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
-                chips.appendChild(chip);
-            });
-            chips.addEventListener('click', function (e) {
-                var chip = e.target.closest && e.target.closest('.sp-btn');
-                if (!chip || !chips.contains(chip)) return;
-                root.dataset.pick = chip.dataset.pick;
-                Array.prototype.forEach.call(chips.children, function (node) {
-                    var on = node === chip;
-                    node.classList.toggle('active', on);
-                    node.setAttribute('aria-pressed', on ? 'true' : 'false');
-                });
-            });
-            tools.appendChild(chips);
-        }
-        if (block.hide) {
-            // The label comes from the file: it is honestly different from one
-            // grid to the next — endings here, whole forms there.
-            var toggle = SP.el('button', 'sp-btn', block.hide);
-            toggle.type = 'button';
-            toggle.setAttribute('aria-pressed', 'false');
-            toggle.addEventListener('click', function () {
-                var on = !root.classList.contains('is-hiding');
-                root.classList.toggle('is-hiding', on);
-                toggle.classList.toggle('active', on);
-                toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
-                Array.prototype.forEach.call(root.querySelectorAll('.sp-conj-cell.is-shown'), function (node) {
-                    node.classList.remove('is-shown');
-                });
-            });
-            tools.appendChild(toggle);
-        }
-        if (tools.firstChild) root.appendChild(tools);
-
-        var wrap = SP.el('div', 'sp-table-wrap');
-        var table = SP.el('table', 'sp-table sp-conj-table');
-        var thead = SP.el('thead');
-        var hr = SP.el('tr');
-        hr.appendChild(SP.el('th', null, block.rowsHead || ''));
-        cols.forEach(function (col, i) {
-            var th = SP.el('th', 'sp-c' + i);
-            th.appendChild(SP.el('span', 'sp-conj-head-name', col.head));
-            if (col.inf) th.appendChild(SP.el('span', 'sp-conj-head-inf', col.inf));
-            var speak = SP.speakButton(col.inf);
-            if (speak) th.appendChild(speak);
-            hr.appendChild(th);
-        });
-        thead.appendChild(hr);
-        table.appendChild(thead);
-
-        var tbody = SP.el('tbody');
-        (block.rows || []).forEach(function (row) {
-            var tr = SP.el('tr');
-            if (row.band !== undefined) {
-                var band = SP.el('td', 'sp-conj-band', row.band);
-                band.colSpan = cols.length + 1;
-                tr.appendChild(band);
-                tbody.appendChild(tr);
-                return;
-            }
-            var label = SP.el('td');
-            label.appendChild(SP.el('span', 'sp-conj-label', row.label));
-            // The gloss rides under the label instead of taking a column of
-            // its own: one column fewer is what fits a phone.
-            if (row.ru) label.appendChild(SP.el('span', 'sp-conj-gloss', row.ru));
-            tr.appendChild(label);
-            cols.forEach(function (col, i) {
-                var td = SP.el('td', 'sp-conj-td sp-c' + i);
-                var parts = conjCell(col, (row.cells || [])[i]);
-                var btn = SP.el('button', 'sp-conj-cell');
-                btn.type = 'button';
-                btn.setAttribute('aria-pressed', 'false');
-                if (parts.hl) btn.dataset.hl = parts.hl;
-                btn.dataset.form = parts.form;
-                if (parts.stem) btn.appendChild(SP.el('span', 'sp-conj-stem', parts.stem));
-                btn.appendChild(SP.el('span', 'sp-conj-end', parts.end));
-                td.appendChild(btn);
-                tr.appendChild(td);
-            });
-            tbody.appendChild(tr);
-        });
-        table.appendChild(tbody);
-        wrap.appendChild(table);
-        root.appendChild(wrap);
-
-        // One tap answers "tell me about this form": it says the form out loud
-        // and lights every other cell built the same way.
-        root.addEventListener('click', function (e) {
-            var cell = e.target.closest && e.target.closest('.sp-conj-cell');
-            if (!cell || !root.contains(cell)) return;
-            if (root.classList.contains('is-hiding') && !cell.classList.contains('is-shown')) {
-                cell.classList.add('is-shown');
-                SP.tts.speak(cell.dataset.form);
-                return;
-            }
-            var key = cell.dataset.hl || '';
-            var lit = cell.classList.contains('is-lit');
-            Array.prototype.forEach.call(root.querySelectorAll('.sp-conj-cell'), function (node) {
-                var on = !lit && !!key && node.dataset.hl === key;
-                node.classList.toggle('is-lit', on);
-                node.setAttribute('aria-pressed', on ? 'true' : 'false');
-            });
-            SP.tts.speak(cell.dataset.form);
-        });
-        return root;
-    }
-
-    // The time axis: past, now and ahead, one verb across all of them. An item
-    // either points at the section that teaches it or is marked as still to
-    // come — never both, so the reader sees at a glance where the ground ends.
-    function axisBlock(block) {
-        var root = SP.el('div', 'sp-axis');
-        (block.zones || []).forEach(function (zone) {
-            var box = SP.el('div', 'sp-axis-zone');
-            box.appendChild(SP.el('div', 'sp-axis-title', zone.title));
-            var items = SP.el('div', 'sp-axis-items');
-            (zone.items || []).forEach(function (item) {
-                var node = item.ref ? SP.el('a', 'sp-axis-item') : SP.el('div', 'sp-axis-item is-next');
-                if (item.ref) node.href = '#' + item.ref;
-                node.appendChild(SP.el('span', 'sp-axis-es', item.es));
-                node.appendChild(SP.el('span', 'sp-axis-ru', item.ru));
-                items.appendChild(node);
-            });
-            box.appendChild(items);
-            root.appendChild(box);
-        });
-        return root;
-    }
-
-    SP.renderBlocks = function (parent, blocks) {
-        (blocks || []).forEach(function (block) {
-            if (!block) return;
-            if (block.k === 'p') {
-                SP.renderSpans(parent.appendChild(SP.el('p')), block.spans);
-            } else if (block.k === 'note') {
-                SP.renderSpans(parent.appendChild(SP.el('p', 'sp-callout')), block.spans);
-            } else if (block.k === 'ul' || block.k === 'ol') {
-                var list = SP.el(block.k === 'ul' ? 'ul' : 'ol');
-                (block.items || []).forEach(function (item) {
-                    SP.renderSpans(list.appendChild(SP.el('li')), item.spans);
-                });
-                parent.appendChild(list);
-            } else if (block.k === 'table') {
-                parent.appendChild(renderTable(block));
-            } else if (block.k === 'fork') {
-                parent.appendChild(forkBlock(block));
-            } else if (block.k === 'conj') {
-                parent.appendChild(conjBlock(block));
-            } else if (block.k === 'axis') {
-                parent.appendChild(axisBlock(block));
-            }
-        });
-        return parent;
-    };
-
-    SP.renderNote = function (note) {
-        var box = SP.el('div', 'sp-note');
-        if (note.title) box.appendChild(SP.el('h4', null, note.title));
-        SP.renderBlocks(box, note.blocks);
-        return box;
-    };
-
-    /* ---------- chip index with scroll spy ---------- */
-
-    // Shared by the reference pages and by the Rules tab on the hub: one chip
-    // strip per entry.row, with an observer that keeps the visible section lit.
-    SP.buildIndex = function (bar, entries, mainOnly) {
-        var rows = {};
-        if (mainOnly) entries = entries.filter(function (e) { return e.row === 'main'; });
-        entries.forEach(function (entry) {
-            if (!rows[entry.row]) {
-                rows[entry.row] = SP.el('div', 'sp-chips');
-                bar.appendChild(rows[entry.row]);
-            }
-            var chip = SP.el('a', 'sp-chip');
-            chip.appendChild(SP.el('span', 'sp-chip-label', entry.label));
-            chip.href = '#' + entry.target;
-            chip.title = entry.label;
-            chip.dataset.target = entry.target;
-            rows[entry.row].appendChild(chip);
-            entry.chip = chip;
-        });
-
-        if (!('IntersectionObserver' in window)) return null;
-
-        var byTarget = {};
-        entries.forEach(function (e) { byTarget[e.target] = e; });
-
-        var observer = new IntersectionObserver(function (records) {
-            records.forEach(function (record) {
-                var entry = byTarget[record.target.id];
-                if (!entry || !record.isIntersecting) return;
-                entries.forEach(function (other) {
-                    if (other.row === entry.row) other.chip.classList.toggle('active', other === entry);
-                });
-                // Keep the highlighted chip reachable without hunting for it.
-                var strip = entry.chip.parentNode;
-                var left = entry.chip.offsetLeft - strip.clientWidth / 2 + entry.chip.clientWidth / 2;
-                strip.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
-            });
-        }, { rootMargin: '-88px 0px -70% 0px', threshold: 0 });
-
-        entries.forEach(function (entry) {
-            var node = document.getElementById(entry.target);
-            if (node) observer.observe(node);
-        });
-
-        // Handed back so a page that rebuilds its index — a stage page does,
-        // on every search — can disconnect the one it is replacing.
-        return observer;
-    };
-
-    /* ---------- what to learn first ---------- */
-
-    // The rules and the patterns each pick the entries to start with. The
-    // pick is marked twice: a star with the rank on the entry itself, and a
-    // numbered list closing the panel.
-
-    // An example lights up the words that carry the point, so the sentence
-    // shows the frame your own words go into. `line.frame` lists them in
-    // order, each matched as a whole word — the "a" of "prefiero … a …" is not
-    // the one in "playa". resources/spanish/verify.js runs the same search
-    // over the files, so a frame that lights nothing fails there.
-    var LETTER = /[A-Za-z\u00C0-\u024F]/;
-
-    function findWord(text, word, from) {
-        var at = text.indexOf(word, from);
-        while (at !== -1) {
-            if (!LETTER.test(text.charAt(at - 1)) && !LETTER.test(text.charAt(at + word.length))) return at;
-            at = text.indexOf(word, at + 1);
-        }
-        return -1;
-    }
-
-    SP.renderFramed = function (node, line) {
-        var text = line.es;
-        var pos = 0;
-        (line.frame || []).forEach(function (word) {
-            var at = findWord(text, word, pos);
-            if (at === -1) return;
-            if (at > pos) node.appendChild(document.createTextNode(text.slice(pos, at)));
-            node.appendChild(SP.el('span', 'sp-frame', word));
-            pos = at + word.length;
-        });
-        if (pos < text.length) node.appendChild(document.createTextNode(text.slice(pos)));
-        return node;
-    };
-
-    // One example under a parent entry — a pattern's formula or a word of the
-    // lists. The Spanish over the Russian on a phone, side by side from 700px
-    // up, with whatever tail the caller hands it: a lone speaker for a pattern,
-    // nothing at all under a word, where the lines are plain text on the full
-    // width and the row above them carries the controls.
-    SP.exampleLine = function (line, tools) {
-        var row = SP.el('div', 'sp-exline');
-        SP.renderFramed(row.appendChild(SP.el('div', 'sp-exline-es')), line);
-        row.appendChild(SP.el('div', 'sp-exline-ru', line.ru));
-        if (tools) row.appendChild(tools);
-        return row;
-    };
-
-    // ★ N — the entry's place among the `total` to learn first.
-    SP.topBadge = function (rank, total) {
-        var badge = SP.el('span', 'sp-badge is-top', '★ ' + rank);
-        badge.title = 'ТОП-' + total + ', №' + rank + ' — учить первыми';
-        badge.setAttribute('aria-label', badge.title);
-        return badge;
-    };
-
-    // One row per entry, in rank order: its name (a link to it when `href` is
-    // given) → what it comes down to → one short example, which can be heard.
-    // rows: [{ name: Node, href?, meaning, short: {es, ru, frame} }]
-    SP.renderTopList = function (rows) {
-        var list = SP.el('ol', 'sp-top');
-        rows.forEach(function (row) {
-            var li = SP.el('li', 'sp-top-row');
-            var text = SP.el('div', 'sp-top-text');
-            var name = row.name;
-            if (row.href) {
-                var link = SP.el('a', 'sp-top-link');
-                link.href = row.href;
-                link.appendChild(name);
-                name = link;
-            }
-            text.appendChild(name);
-            text.appendChild(SP.el('span', 'sp-top-meaning', row.meaning));
-            var example = text.appendChild(SP.el('span', 'sp-top-ex'));
-            SP.renderFramed(example.appendChild(SP.el('span', 'sp-top-es')), row.short);
-            example.appendChild(SP.el('span', 'sp-top-ru', row.short.ru));
-            li.appendChild(text);
-            var speak = SP.speakButton(row.short.es);
-            if (speak) li.appendChild(speak);
-            list.appendChild(li);
-        });
-        return list;
-    };
-
-    /* ---------- rules (phonetics and grammar) ---------- */
-
-    // Rendered both as its own page and as a tab on the hub. It carries no title
-    // of its own: on the page the breadcrumb and the tab say what this is, and
-    // inside the hub panel a heading only repeated the Rules chip above it.
-    // The single option is opts.mainOnly, which keeps the chip index to one row.
-    // The sections to learn first carry a `top` rank: a star beside their
-    // title, and a list of them — each with its gist and a short example —
-    // closing the page, reachable from its own chip.
-    // The map of the rules, by layer. It is built here rather than as a block
-    // because every tile needs the number, the title and the star of a section,
-    // and renderBlocks never sees the file those live in — the same reason the
-    // top list is synthesised here too.
-    function mapSection(map, sections, topTotal) {
-        var byId = {};
-        sections.forEach(function (section) { byId[section.id] = section; });
-        var block = SP.el('section', 'sp-group');
-        block.id = 'esr-map';
-        block.appendChild(SP.el('h3', 'sp-group-title', map.title));
-        var layers = SP.el('div', 'sp-map');
-        (map.layers || []).forEach(function (layer) {
-            var box = SP.el('div', 'sp-map-layer');
-            box.appendChild(SP.el('div', 'sp-map-title', layer.title));
-            if (layer.hint) box.appendChild(SP.el('div', 'sp-map-hint', layer.hint));
-            var tiles = SP.el('div', 'sp-map-tiles');
-            (layer.ids || []).forEach(function (id) {
-                var section = byId[id];
-                if (!section) return;
-                var tile = SP.el('a', 'sp-chip sp-map-tile');
-                tile.href = '#' + id;
-                tile.title = section.no + '. ' + section.title;
-                tile.appendChild(SP.el('span', 'sp-map-no', section.no + '.'));
-                tile.appendChild(SP.el('span', 'sp-chip-label', section.title));
-                if (section.top) tile.appendChild(SP.topBadge(section.top, topTotal));
-                tiles.appendChild(tile);
-            });
-            box.appendChild(tiles);
-            layers.appendChild(box);
-        });
-        block.appendChild(layers);
-        return block;
-    }
-
-    SP.renderRules = function (host, rules, options) {
-        var opts = options || {};
-        var index = [];
-        SP.clear(host);
-
-        var head = SP.el('header');
-        SP.renderBlocks(head, rules.intro);
-        host.appendChild(head);
-
-        var bar = SP.el('div', 'sp-bar');
-        host.appendChild(bar);
-
-        var body = SP.el('div');
-        host.appendChild(body);
-
-        var top = rules.sections.filter(function (section) { return section.top; })
-            .sort(function (a, b) { return a.top - b.top; });
-
-        // Map first, top list last: what is here → the material → where to start.
-        if (rules.map && rules.map.layers && rules.map.layers.length) {
-            body.appendChild(mapSection(rules.map, rules.sections, top.length));
-            index.push({ row: 'main', label: rules.map.chip || rules.map.title, target: 'esr-map' });
-        }
-
-        rules.sections.forEach(function (section) {
-            var block = SP.el('section', 'sp-group');
-            block.id = section.id;
-            var title = block.appendChild(SP.el('h3', 'sp-group-title', section.no + '. ' + section.title));
-            if (section.top) title.appendChild(SP.topBadge(section.top, top.length));
-            SP.renderBlocks(block, section.blocks);
-            (section.parts || []).forEach(function (part) {
-                block.appendChild(SP.el('h4', null, part.title));
-                SP.renderBlocks(block, part.blocks);
-            });
-            body.appendChild(block);
-            index.push({ row: 'main', label: section.no + '. ' + section.title, target: section.id });
-        });
-
-        if (top.length) {
-            var label = 'ТОП-' + top.length;
-            var first = SP.el('section', 'sp-group');
-            first.id = 'esr-top';
-            first.appendChild(SP.el('h3', 'sp-group-title', label + ': выучить первыми'));
-            first.appendChild(SP.renderTopList(top.map(function (section) {
-                return {
-                    name: SP.el('span', 'sp-top-title', section.no + '. ' + section.title),
-                    href: '#' + section.id,
-                    meaning: section.gist,
-                    short: section.short
-                };
-            })));
-            body.appendChild(first);
-            index.push({ row: 'main', label: label, target: first.id });
-        }
-
-        SP.buildIndex(bar, index, opts.mainOnly);
-    };
-
-    /* ---------- item rows ---------- */
-
-    // `mark` is the optional learned-toggle built by SP.markButton — every
-    // browsable list passes one, the flashcard face does not.
-    // A word that carries examples gets a chevron at the head of its tools and
-    // a panel under it. A word without them is built exactly as before: no
-    // control, and no third button narrowing the text line on a phone.
-    var exSeq = 0;
-
-    function examplesToggle(item, row, query) {
-        var panel = SP.el('div', 'sp-exlines');
-        panel.id = 'sp-ex-' + (exSeq += 1);
-        panel.hidden = true;
-        // The lines carry no controls of their own. They are illustrations of
-        // the word above them, not entries: the word's own row already holds
-        // the speaker and the question, and a tail on every line turned a
-        // three-line panel into a column of buttons.
-        // A word found by an example opens this panel by itself, so the match
-        // inside it is painted here as well — it is the only thing on the row
-        // that carries what was searched for.
-        panel.fill = function () {
-            item.ex.forEach(function (line) {
-                panel.appendChild(SP.hilite(SP.exampleLine(line), query));
-            });
-        };
-
-        var btn = SP.el('button', 'sp-ex-toggle');
-        btn.type = 'button';
-        btn.setAttribute('aria-expanded', 'false');
-        btn.setAttribute('aria-controls', panel.id);
-        exampleTitle(btn, false);
-        btn.appendChild(chevronIcon());
-        // The click has to stop here: the whole row is a reveal toggle, and the
-        // panel does its own revealing.
-        btn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            SP.setExamplesOpen(row, !row.classList.contains('is-open'));
-        });
-        return { button: btn, panel: panel };
-    }
-
-    // `query` is the folded search the list was drawn for, if any: what it
-    // matched is painted in the texts below. It arrives already folded, from
-    // the same SP.normalize the filter used, so the row cannot light up
-    // anything the filter would not have found.
-    SP.renderLexRow = function (item, mark, query) {
-        var row = SP.el('div', 'sp-lex-row' + (item.type === 'pair' ? ' is-pair' : ''));
-        var ex = item.ex && item.ex.length ? examplesToggle(item, row, query) : null;
-
-        // On a phone the four texts read as four lines — "y", "(и)", "— [and]",
-        // "— [и]" — so they sit in a box of their own; from 700px up that box
-        // is display:contents and they go back to being four grid columns.
-        // A field is left out when it is empty rather than added blank: the
-        // brackets and dashes between them are drawn by CSS from what is there.
-        var text = SP.el('div', 'sp-lex-text');
-        text.appendChild(SP.el('div', 'sp-lex-es', item.es));
-        if (item.tr) text.appendChild(SP.el('div', 'sp-lex-tr', item.tr));
-        if (item.en) text.appendChild(SP.el('div', 'sp-lex-en', item.en));
-        if (item.ru) text.appendChild(SP.el('div', 'sp-lex-ru', item.ru));
-        // Before the row goes on the page and before the section tag is hung
-        // on the Spanish: the tag is added by the caller, and it is text too.
-        SP.hilite(text, query);
-        row.appendChild(text);
-
-        var halves = item.type === 'pair' && item.a && item.b && item.a.es && item.b.es
-            ? [item.a.es, item.b.es]
-            : null;
-        row.appendChild(SP.rowTools(item.es, 'word', ex && ex.button, halves));
-        if (ex) row.appendChild(ex.panel);
-        return SP.attachMark(row, mark);
-    };
 
     /* ---------- error surface ---------- */
 
@@ -1958,5 +797,4 @@
         if (error) console.error(error);
     };
 
-    window.SP = SP;
 })();

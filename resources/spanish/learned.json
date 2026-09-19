@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-18",
+ "updated": "2026-09-19",
  "comment": "Words considered learned. Hand-kept, like the stage files: this list is the same on every device, unlike the pending marks, which live in the browser. The value of each entry is the Spanish it points at — documentation for whoever edits this by hand, and checked against the stage files by verify.js.",
  "ids": {
   "es1-v047": "si",
@@ -142,6 +142,7 @@
   "es1-v148": "desde cuándo",
   "es1-v149": "hasta cuándo",
   "es1-v150": "qué tipo de",
-  "es1-v151": "hay"
+  "es1-v151": "hay",
+  "es3-v047": "tomar"
  }
 }

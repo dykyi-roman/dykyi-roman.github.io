@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-18",
+ "updated": "2026-09-19",
  "stages": [
   {
    "id": "stage-1",
@@ -105,7 +105,7 @@
   "icon": "📐",
   "url": "spanish/rules.html",
   "file": "rules.json",
-  "sections": 39
+  "sections": 41
  },
  "patterns": {
   "id": "patterns",
@@ -114,5 +114,13 @@
   "icon": "🧩",
   "file": "patterns.json",
   "count": 56
+ },
+ "verbs": {
+  "id": "verbs",
+  "title": "Spanish verb forms",
+  "titleRu": "Формы глаголов: настоящее, прошедшее и будущее",
+  "icon": "🔀",
+  "file": "verbs.json",
+  "count": 218
  }
 }

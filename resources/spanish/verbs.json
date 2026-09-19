@@ -1,0 +1,1554 @@
+{
+ "version": 1,
+ "updated": "2026-09-19",
+ "title": "Spanish verb forms",
+ "titleRu": "Формы глаголов: настоящее, прошедшее и будущее",
+ "icon": "🔀",
+ "comment": "Три времени каждого глагола корпуса, по шесть лиц. Правится руками, как стадии: генератора нет. Ключ — инфинитив, ровно тот, что стоит в es у слова (или у половины пары), поэтому возвратные хранятся с местоимением: me ducho. verify.js сверяет список с корпусом в обе стороны.",
+ "persons": [
+  { "short": "yo", "full": "yo" },
+  { "short": "tú", "full": "tú" },
+  { "short": "él", "full": "él / ella / usted" },
+  { "short": "nos.", "full": "nosotros / nosotras" },
+  { "short": "vos.", "full": "vosotros / vosotras" },
+  { "short": "ellos", "full": "ellos / ellas / ustedes" }
+ ],
+ "tenses": [
+  { "key": "pres", "ru": "Сейчас", "es": "Presente", "hint": "вообще и прямо сейчас", "ref": "esr-g013" },
+  { "key": "pret", "ru": "Прошлое", "es": "Pretérito indefinido", "hint": "вчера, в 2020 — законченное действие", "ref": "esr-g040" },
+  { "key": "fut", "ru": "Будущее", "es": "Futuro simple", "hint": "завтра, когда-нибудь", "ref": "esr-g041" }
+ ],
+ "kinds": [
+  { "key": "regular", "ru": "правильный", "hint": "окончания своей группы, корень не меняется" },
+  { "key": "stem", "ru": "меняется корень", "hint": "в корне чередуется гласная: e→ie, o→ue, e→i" },
+  { "key": "irregular", "ru": "неправильный", "hint": "есть формы, которые не выводятся — их запоминают" }
+ ],
+ "verbs": [
+  {
+   "es": "abrir",
+   "kind": "regular",
+   "pres": ["abro", "abres", "abre", "abrimos", "abrís", "abren"],
+   "pret": ["abrí", "abriste", "abrió", "abrimos", "abristeis", "abrieron"],
+   "fut": ["abriré", "abrirás", "abrirá", "abriremos", "abriréis", "abrirán"]
+  },
+  {
+   "es": "acabar",
+   "kind": "regular",
+   "pres": ["acabo", "acabas", "acaba", "acabamos", "acabáis", "acaban"],
+   "pret": ["acabé", "acabaste", "acabó", "acabamos", "acabasteis", "acabaron"],
+   "fut": ["acabaré", "acabarás", "acabará", "acabaremos", "acabaréis", "acabarán"]
+  },
+  {
+   "es": "aceptar",
+   "kind": "regular",
+   "pres": ["acepto", "aceptas", "acepta", "aceptamos", "aceptáis", "aceptan"],
+   "pret": ["acepté", "aceptaste", "aceptó", "aceptamos", "aceptasteis", "aceptaron"],
+   "fut": ["aceptaré", "aceptarás", "aceptará", "aceptaremos", "aceptaréis", "aceptarán"]
+  },
+  {
+   "es": "actualizar",
+   "kind": "regular",
+   "pres": ["actualizo", "actualizas", "actualiza", "actualizamos", "actualizáis", "actualizan"],
+   "pret": ["actualicé", "actualizaste", "actualizó", "actualizamos", "actualizasteis", "actualizaron"],
+   "fut": ["actualizaré", "actualizarás", "actualizará", "actualizaremos", "actualizaréis", "actualizarán"]
+  },
+  {
+   "es": "ahorrar",
+   "kind": "regular",
+   "pres": ["ahorro", "ahorras", "ahorra", "ahorramos", "ahorráis", "ahorran"],
+   "pret": ["ahorré", "ahorraste", "ahorró", "ahorramos", "ahorrasteis", "ahorraron"],
+   "fut": ["ahorraré", "ahorrarás", "ahorrará", "ahorraremos", "ahorraréis", "ahorrarán"]
+  },
+  {
+   "es": "alcanzar",
+   "kind": "regular",
+   "pres": ["alcanzo", "alcanzas", "alcanza", "alcanzamos", "alcanzáis", "alcanzan"],
+   "pret": ["alcancé", "alcanzaste", "alcanzó", "alcanzamos", "alcanzasteis", "alcanzaron"],
+   "fut": ["alcanzaré", "alcanzarás", "alcanzará", "alcanzaremos", "alcanzaréis", "alcanzarán"]
+  },
+  {
+   "es": "alquilar",
+   "kind": "regular",
+   "pres": ["alquilo", "alquilas", "alquila", "alquilamos", "alquiláis", "alquilan"],
+   "pret": ["alquilé", "alquilaste", "alquiló", "alquilamos", "alquilasteis", "alquilaron"],
+   "fut": ["alquilaré", "alquilarás", "alquilará", "alquilaremos", "alquilaréis", "alquilarán"]
+  },
+  {
+   "es": "añadir",
+   "kind": "regular",
+   "pres": ["añado", "añades", "añade", "añadimos", "añadís", "añaden"],
+   "pret": ["añadí", "añadiste", "añadió", "añadimos", "añadisteis", "añadieron"],
+   "fut": ["añadiré", "añadirás", "añadirá", "añadiremos", "añadiréis", "añadirán"]
+  },
+  {
+   "es": "apagar",
+   "kind": "regular",
+   "pres": ["apago", "apagas", "apaga", "apagamos", "apagáis", "apagan"],
+   "pret": ["apagué", "apagaste", "apagó", "apagamos", "apagasteis", "apagaron"],
+   "fut": ["apagaré", "apagarás", "apagará", "apagaremos", "apagaréis", "apagarán"]
+  },
+  {
+   "es": "aparcar",
+   "kind": "regular",
+   "pres": ["aparco", "aparcas", "aparca", "aparcamos", "aparcáis", "aparcan"],
+   "pret": ["aparqué", "aparcaste", "aparcó", "aparcamos", "aparcasteis", "aparcaron"],
+   "fut": ["aparcaré", "aparcarás", "aparcará", "aparcaremos", "aparcaréis", "aparcarán"]
+  },
+  {
+   "es": "aprender",
+   "kind": "regular",
+   "pres": ["aprendo", "aprendes", "aprende", "aprendemos", "aprendéis", "aprenden"],
+   "pret": ["aprendí", "aprendiste", "aprendió", "aprendimos", "aprendisteis", "aprendieron"],
+   "fut": ["aprenderé", "aprenderás", "aprenderá", "aprenderemos", "aprenderéis", "aprenderán"]
+  },
+  {
+   "es": "aprobar",
+   "kind": "stem",
+   "pres": ["apruebo", "apruebas", "aprueba", "aprobamos", "aprobáis", "aprueban"],
+   "pret": ["aprobé", "aprobaste", "aprobó", "aprobamos", "aprobasteis", "aprobaron"],
+   "fut": ["aprobaré", "aprobarás", "aprobará", "aprobaremos", "aprobaréis", "aprobarán"]
+  },
+  {
+   "es": "aprovechar",
+   "kind": "regular",
+   "pres": ["aprovecho", "aprovechas", "aprovecha", "aprovechamos", "aprovecháis", "aprovechan"],
+   "pret": ["aproveché", "aprovechaste", "aprovechó", "aprovechamos", "aprovechasteis", "aprovecharon"],
+   "fut": ["aprovecharé", "aprovecharás", "aprovechará", "aprovecharemos", "aprovecharéis", "aprovecharán"]
+  },
+  {
+   "es": "arreglar",
+   "kind": "regular",
+   "pres": ["arreglo", "arreglas", "arregla", "arreglamos", "arregláis", "arreglan"],
+   "pret": ["arreglé", "arreglaste", "arregló", "arreglamos", "arreglasteis", "arreglaron"],
+   "fut": ["arreglaré", "arreglarás", "arreglará", "arreglaremos", "arreglaréis", "arreglarán"]
+  },
+  {
+   "es": "aterrizar",
+   "kind": "regular",
+   "pres": ["aterrizo", "aterrizas", "aterriza", "aterrizamos", "aterrizáis", "aterrizan"],
+   "pret": ["aterricé", "aterrizaste", "aterrizó", "aterrizamos", "aterrizasteis", "aterrizaron"],
+   "fut": ["aterrizaré", "aterrizarás", "aterrizará", "aterrizaremos", "aterrizaréis", "aterrizarán"]
+  },
+  {
+   "es": "avanzar",
+   "kind": "regular",
+   "pres": ["avanzo", "avanzas", "avanza", "avanzamos", "avanzáis", "avanzan"],
+   "pret": ["avancé", "avanzaste", "avanzó", "avanzamos", "avanzasteis", "avanzaron"],
+   "fut": ["avanzaré", "avanzarás", "avanzará", "avanzaremos", "avanzaréis", "avanzarán"]
+  },
+  {
+   "es": "avisar",
+   "kind": "regular",
+   "pres": ["aviso", "avisas", "avisa", "avisamos", "avisáis", "avisan"],
+   "pret": ["avisé", "avisaste", "avisó", "avisamos", "avisasteis", "avisaron"],
+   "fut": ["avisaré", "avisarás", "avisará", "avisaremos", "avisaréis", "avisarán"]
+  },
+  {
+   "es": "bajar",
+   "kind": "regular",
+   "pres": ["bajo", "bajas", "baja", "bajamos", "bajáis", "bajan"],
+   "pret": ["bajé", "bajaste", "bajó", "bajamos", "bajasteis", "bajaron"],
+   "fut": ["bajaré", "bajarás", "bajará", "bajaremos", "bajaréis", "bajarán"]
+  },
+  {
+   "es": "beber",
+   "kind": "regular",
+   "pres": ["bebo", "bebes", "bebe", "bebemos", "bebéis", "beben"],
+   "pret": ["bebí", "bebiste", "bebió", "bebimos", "bebisteis", "bebieron"],
+   "fut": ["beberé", "beberás", "beberá", "beberemos", "beberéis", "beberán"]
+  },
+  {
+   "es": "borrar",
+   "kind": "regular",
+   "pres": ["borro", "borras", "borra", "borramos", "borráis", "borran"],
+   "pret": ["borré", "borraste", "borró", "borramos", "borrasteis", "borraron"],
+   "fut": ["borraré", "borrarás", "borrará", "borraremos", "borraréis", "borrarán"]
+  },
+  {
+   "es": "buscar",
+   "kind": "regular",
+   "pres": ["busco", "buscas", "busca", "buscamos", "buscáis", "buscan"],
+   "pret": ["busqué", "buscaste", "buscó", "buscamos", "buscasteis", "buscaron"],
+   "fut": ["buscaré", "buscarás", "buscará", "buscaremos", "buscaréis", "buscarán"]
+  },
+  {
+   "es": "caer",
+   "kind": "irregular",
+   "pres": ["caigo", "caes", "cae", "caemos", "caéis", "caen"],
+   "pret": ["caí", "caíste", "cayó", "caímos", "caísteis", "cayeron"],
+   "fut": ["caeré", "caerás", "caerá", "caeremos", "caeréis", "caerán"]
+  },
+  {
+   "es": "cambiar",
+   "kind": "regular",
+   "pres": ["cambio", "cambias", "cambia", "cambiamos", "cambiáis", "cambian"],
+   "pret": ["cambié", "cambiaste", "cambió", "cambiamos", "cambiasteis", "cambiaron"],
+   "fut": ["cambiaré", "cambiarás", "cambiará", "cambiaremos", "cambiaréis", "cambiarán"]
+  },
+  {
+   "es": "caminar",
+   "kind": "regular",
+   "pres": ["camino", "caminas", "camina", "caminamos", "camináis", "caminan"],
+   "pret": ["caminé", "caminaste", "caminó", "caminamos", "caminasteis", "caminaron"],
+   "fut": ["caminaré", "caminarás", "caminará", "caminaremos", "caminaréis", "caminarán"]
+  },
+  {
+   "es": "cancelar",
+   "kind": "regular",
+   "pres": ["cancelo", "cancelas", "cancela", "cancelamos", "canceláis", "cancelan"],
+   "pret": ["cancelé", "cancelaste", "canceló", "cancelamos", "cancelasteis", "cancelaron"],
+   "fut": ["cancelaré", "cancelarás", "cancelará", "cancelaremos", "cancelaréis", "cancelarán"]
+  },
+  {
+   "es": "cargar",
+   "kind": "regular",
+   "pres": ["cargo", "cargas", "carga", "cargamos", "cargáis", "cargan"],
+   "pret": ["cargué", "cargaste", "cargó", "cargamos", "cargasteis", "cargaron"],
+   "fut": ["cargaré", "cargarás", "cargará", "cargaremos", "cargaréis", "cargarán"]
+  },
+  {
+   "es": "cenar",
+   "kind": "regular",
+   "pres": ["ceno", "cenas", "cena", "cenamos", "cenáis", "cenan"],
+   "pret": ["cené", "cenaste", "cenó", "cenamos", "cenasteis", "cenaron"],
+   "fut": ["cenaré", "cenarás", "cenará", "cenaremos", "cenaréis", "cenarán"]
+  },
+  {
+   "es": "cerrar",
+   "kind": "stem",
+   "pres": ["cierro", "cierras", "cierra", "cerramos", "cerráis", "cierran"],
+   "pret": ["cerré", "cerraste", "cerró", "cerramos", "cerrasteis", "cerraron"],
+   "fut": ["cerraré", "cerrarás", "cerrará", "cerraremos", "cerraréis", "cerrarán"]
+  },
+  {
+   "es": "cobrar",
+   "kind": "regular",
+   "pres": ["cobro", "cobras", "cobra", "cobramos", "cobráis", "cobran"],
+   "pret": ["cobré", "cobraste", "cobró", "cobramos", "cobrasteis", "cobraron"],
+   "fut": ["cobraré", "cobrarás", "cobrará", "cobraremos", "cobraréis", "cobrarán"]
+  },
+  {
+   "es": "cocinar",
+   "kind": "regular",
+   "pres": ["cocino", "cocinas", "cocina", "cocinamos", "cocináis", "cocinan"],
+   "pret": ["cociné", "cocinaste", "cocinó", "cocinamos", "cocinasteis", "cocinaron"],
+   "fut": ["cocinaré", "cocinarás", "cocinará", "cocinaremos", "cocinaréis", "cocinarán"]
+  },
+  {
+   "es": "coger",
+   "kind": "regular",
+   "pres": ["cojo", "coges", "coge", "cogemos", "cogéis", "cogen"],
+   "pret": ["cogí", "cogiste", "cogió", "cogimos", "cogisteis", "cogieron"],
+   "fut": ["cogeré", "cogerás", "cogerá", "cogeremos", "cogeréis", "cogerán"]
+  },
+  {
+   "es": "colgar",
+   "kind": "stem",
+   "pres": ["cuelgo", "cuelgas", "cuelga", "colgamos", "colgáis", "cuelgan"],
+   "pret": ["colgué", "colgaste", "colgó", "colgamos", "colgasteis", "colgaron"],
+   "fut": ["colgaré", "colgarás", "colgará", "colgaremos", "colgaréis", "colgarán"]
+  },
+  {
+   "es": "comenzar",
+   "kind": "stem",
+   "pres": ["comienzo", "comienzas", "comienza", "comenzamos", "comenzáis", "comienzan"],
+   "pret": ["comencé", "comenzaste", "comenzó", "comenzamos", "comenzasteis", "comenzaron"],
+   "fut": ["comenzaré", "comenzarás", "comenzará", "comenzaremos", "comenzaréis", "comenzarán"]
+  },
+  {
+   "es": "comer",
+   "kind": "regular",
+   "pres": ["como", "comes", "come", "comemos", "coméis", "comen"],
+   "pret": ["comí", "comiste", "comió", "comimos", "comisteis", "comieron"],
+   "fut": ["comeré", "comerás", "comerá", "comeremos", "comeréis", "comerán"]
+  },
+  {
+   "es": "compartir",
+   "kind": "regular",
+   "pres": ["comparto", "compartes", "comparte", "compartimos", "compartís", "comparten"],
+   "pret": ["compartí", "compartiste", "compartió", "compartimos", "compartisteis", "compartieron"],
+   "fut": ["compartiré", "compartirás", "compartirá", "compartiremos", "compartiréis", "compartirán"]
+  },
+  {
+   "es": "comprar",
+   "kind": "regular",
+   "pres": ["compro", "compras", "compra", "compramos", "compráis", "compran"],
+   "pret": ["compré", "compraste", "compró", "compramos", "comprasteis", "compraron"],
+   "fut": ["compraré", "comprarás", "comprará", "compraremos", "compraréis", "comprarán"]
+  },
+  {
+   "es": "comprender",
+   "kind": "regular",
+   "pres": ["comprendo", "comprendes", "comprende", "comprendemos", "comprendéis", "comprenden"],
+   "pret": ["comprendí", "comprendiste", "comprendió", "comprendimos", "comprendisteis", "comprendieron"],
+   "fut": ["comprenderé", "comprenderás", "comprenderá", "comprenderemos", "comprenderéis", "comprenderán"]
+  },
+  {
+   "es": "comprobar",
+   "kind": "stem",
+   "pres": ["compruebo", "compruebas", "comprueba", "comprobamos", "comprobáis", "comprueban"],
+   "pret": ["comprobé", "comprobaste", "comprobó", "comprobamos", "comprobasteis", "comprobaron"],
+   "fut": ["comprobaré", "comprobarás", "comprobará", "comprobaremos", "comprobaréis", "comprobarán"]
+  },
+  {
+   "es": "conducir",
+   "kind": "irregular",
+   "pres": ["conduzco", "conduces", "conduce", "conducimos", "conducís", "conducen"],
+   "pret": ["conduje", "condujiste", "condujo", "condujimos", "condujisteis", "condujeron"],
+   "fut": ["conduciré", "conducirás", "conducirá", "conduciremos", "conduciréis", "conducirán"]
+  },
+  {
+   "es": "conectar",
+   "kind": "regular",
+   "pres": ["conecto", "conectas", "conecta", "conectamos", "conectáis", "conectan"],
+   "pret": ["conecté", "conectaste", "conectó", "conectamos", "conectasteis", "conectaron"],
+   "fut": ["conectaré", "conectarás", "conectará", "conectaremos", "conectaréis", "conectarán"]
+  },
+  {
+   "es": "confirmar",
+   "kind": "regular",
+   "pres": ["confirmo", "confirmas", "confirma", "confirmamos", "confirmáis", "confirman"],
+   "pret": ["confirmé", "confirmaste", "confirmó", "confirmamos", "confirmasteis", "confirmaron"],
+   "fut": ["confirmaré", "confirmarás", "confirmará", "confirmaremos", "confirmaréis", "confirmarán"]
+  },
+  {
+   "es": "conocer",
+   "kind": "irregular",
+   "pres": ["conozco", "conoces", "conoce", "conocemos", "conocéis", "conocen"],
+   "pret": ["conocí", "conociste", "conoció", "conocimos", "conocisteis", "conocieron"],
+   "fut": ["conoceré", "conocerás", "conocerá", "conoceremos", "conoceréis", "conocerán"]
+  },
+  {
+   "es": "conseguir",
+   "kind": "stem",
+   "pres": ["consigo", "consigues", "consigue", "conseguimos", "conseguís", "consiguen"],
+   "pret": ["conseguí", "conseguiste", "consiguió", "conseguimos", "conseguisteis", "consiguieron"],
+   "fut": ["conseguiré", "conseguirás", "conseguirá", "conseguiremos", "conseguiréis", "conseguirán"]
+  },
+  {
+   "es": "construir",
+   "kind": "stem",
+   "pres": ["construyo", "construyes", "construye", "construimos", "construís", "construyen"],
+   "pret": ["construí", "construiste", "construyó", "construimos", "construisteis", "construyeron"],
+   "fut": ["construiré", "construirás", "construirá", "construiremos", "construiréis", "construirán"]
+  },
+  {
+   "es": "contactar",
+   "kind": "regular",
+   "pres": ["contacto", "contactas", "contacta", "contactamos", "contactáis", "contactan"],
+   "pret": ["contacté", "contactaste", "contactó", "contactamos", "contactasteis", "contactaron"],
+   "fut": ["contactaré", "contactarás", "contactará", "contactaremos", "contactaréis", "contactarán"]
+  },
+  {
+   "es": "contar",
+   "kind": "stem",
+   "pres": ["cuento", "cuentas", "cuenta", "contamos", "contáis", "cuentan"],
+   "pret": ["conté", "contaste", "contó", "contamos", "contasteis", "contaron"],
+   "fut": ["contaré", "contarás", "contará", "contaremos", "contaréis", "contarán"]
+  },
+  {
+   "es": "contestar",
+   "kind": "regular",
+   "pres": ["contesto", "contestas", "contesta", "contestamos", "contestáis", "contestan"],
+   "pret": ["contesté", "contestaste", "contestó", "contestamos", "contestasteis", "contestaron"],
+   "fut": ["contestaré", "contestarás", "contestará", "contestaremos", "contestaréis", "contestarán"]
+  },
+  {
+   "es": "continuar",
+   "kind": "stem",
+   "pres": ["continúo", "continúas", "continúa", "continuamos", "continuáis", "continúan"],
+   "pret": ["continué", "continuaste", "continuó", "continuamos", "continuasteis", "continuaron"],
+   "fut": ["continuaré", "continuarás", "continuará", "continuaremos", "continuaréis", "continuarán"]
+  },
+  {
+   "es": "corregir",
+   "kind": "stem",
+   "pres": ["corrijo", "corriges", "corrige", "corregimos", "corregís", "corrigen"],
+   "pret": ["corregí", "corregiste", "corrigió", "corregimos", "corregisteis", "corrigieron"],
+   "fut": ["corregiré", "corregirás", "corregirá", "corregiremos", "corregiréis", "corregirán"]
+  },
+  {
+   "es": "correr",
+   "kind": "regular",
+   "pres": ["corro", "corres", "corre", "corremos", "corréis", "corren"],
+   "pret": ["corrí", "corriste", "corrió", "corrimos", "corristeis", "corrieron"],
+   "fut": ["correré", "correrás", "correrá", "correremos", "correréis", "correrán"]
+  },
+  {
+   "es": "costar",
+   "kind": "stem",
+   "pres": ["cuesto", "cuestas", "cuesta", "costamos", "costáis", "cuestan"],
+   "pret": ["costé", "costaste", "costó", "costamos", "costasteis", "costaron"],
+   "fut": ["costaré", "costarás", "costará", "costaremos", "costaréis", "costarán"]
+  },
+  {
+   "es": "crear",
+   "kind": "regular",
+   "pres": ["creo", "creas", "crea", "creamos", "creáis", "crean"],
+   "pret": ["creé", "creaste", "creó", "creamos", "creasteis", "crearon"],
+   "fut": ["crearé", "crearás", "creará", "crearemos", "crearéis", "crearán"]
+  },
+  {
+   "es": "crecer",
+   "kind": "irregular",
+   "pres": ["crezco", "creces", "crece", "crecemos", "crecéis", "crecen"],
+   "pret": ["crecí", "creciste", "creció", "crecimos", "crecisteis", "crecieron"],
+   "fut": ["creceré", "crecerás", "crecerá", "creceremos", "creceréis", "crecerán"]
+  },
+  {
+   "es": "creer",
+   "kind": "regular",
+   "pres": ["creo", "crees", "cree", "creemos", "creéis", "creen"],
+   "pret": ["creí", "creíste", "creyó", "creímos", "creísteis", "creyeron"],
+   "fut": ["creeré", "creerás", "creerá", "creeremos", "creeréis", "creerán"]
+  },
+  {
+   "es": "cruzar",
+   "kind": "regular",
+   "pres": ["cruzo", "cruzas", "cruza", "cruzamos", "cruzáis", "cruzan"],
+   "pret": ["crucé", "cruzaste", "cruzó", "cruzamos", "cruzasteis", "cruzaron"],
+   "fut": ["cruzaré", "cruzarás", "cruzará", "cruzaremos", "cruzaréis", "cruzarán"]
+  },
+  {
+   "es": "cumplir",
+   "kind": "regular",
+   "pres": ["cumplo", "cumples", "cumple", "cumplimos", "cumplís", "cumplen"],
+   "pret": ["cumplí", "cumpliste", "cumplió", "cumplimos", "cumplisteis", "cumplieron"],
+   "fut": ["cumpliré", "cumplirás", "cumplirá", "cumpliremos", "cumpliréis", "cumplirán"]
+  },
+  {
+   "es": "dar",
+   "kind": "irregular",
+   "pres": ["doy", "das", "da", "damos", "dais", "dan"],
+   "pret": ["di", "diste", "dio", "dimos", "disteis", "dieron"],
+   "fut": ["daré", "darás", "dará", "daremos", "daréis", "darán"]
+  },
+  {
+   "es": "deber",
+   "kind": "regular",
+   "pres": ["debo", "debes", "debe", "debemos", "debéis", "deben"],
+   "pret": ["debí", "debiste", "debió", "debimos", "debisteis", "debieron"],
+   "fut": ["deberé", "deberás", "deberá", "deberemos", "deberéis", "deberán"]
+  },
+  {
+   "es": "decidir",
+   "kind": "regular",
+   "pres": ["decido", "decides", "decide", "decidimos", "decidís", "deciden"],
+   "pret": ["decidí", "decidiste", "decidió", "decidimos", "decidisteis", "decidieron"],
+   "fut": ["decidiré", "decidirás", "decidirá", "decidiremos", "decidiréis", "decidirán"]
+  },
+  {
+   "es": "decir",
+   "kind": "irregular",
+   "pres": ["digo", "dices", "dice", "decimos", "decís", "dicen"],
+   "pret": ["dije", "dijiste", "dijo", "dijimos", "dijisteis", "dijeron"],
+   "fut": ["diré", "dirás", "dirá", "diremos", "diréis", "dirán"]
+  },
+  {
+   "es": "dejar",
+   "kind": "regular",
+   "pres": ["dejo", "dejas", "deja", "dejamos", "dejáis", "dejan"],
+   "pret": ["dejé", "dejaste", "dejó", "dejamos", "dejasteis", "dejaron"],
+   "fut": ["dejaré", "dejarás", "dejará", "dejaremos", "dejaréis", "dejarán"]
+  },
+  {
+   "es": "depender",
+   "kind": "regular",
+   "pres": ["dependo", "dependes", "depende", "dependemos", "dependéis", "dependen"],
+   "pret": ["dependí", "dependiste", "dependió", "dependimos", "dependisteis", "dependieron"],
+   "fut": ["dependeré", "dependerás", "dependerá", "dependeremos", "dependeréis", "dependerán"]
+  },
+  {
+   "es": "desayunar",
+   "kind": "regular",
+   "pres": ["desayuno", "desayunas", "desayuna", "desayunamos", "desayunáis", "desayunan"],
+   "pret": ["desayuné", "desayunaste", "desayunó", "desayunamos", "desayunasteis", "desayunaron"],
+   "fut": ["desayunaré", "desayunarás", "desayunará", "desayunaremos", "desayunaréis", "desayunarán"]
+  },
+  {
+   "es": "descansar",
+   "kind": "regular",
+   "pres": ["descanso", "descansas", "descansa", "descansamos", "descansáis", "descansan"],
+   "pret": ["descansé", "descansaste", "descansó", "descansamos", "descansasteis", "descansaron"],
+   "fut": ["descansaré", "descansarás", "descansará", "descansaremos", "descansaréis", "descansarán"]
+  },
+  {
+   "es": "descargar",
+   "kind": "regular",
+   "pres": ["descargo", "descargas", "descarga", "descargamos", "descargáis", "descargan"],
+   "pret": ["descargué", "descargaste", "descargó", "descargamos", "descargasteis", "descargaron"],
+   "fut": ["descargaré", "descargarás", "descargará", "descargaremos", "descargaréis", "descargarán"]
+  },
+  {
+   "es": "desconectar",
+   "kind": "regular",
+   "pres": ["desconecto", "desconectas", "desconecta", "desconectamos", "desconectáis", "desconectan"],
+   "pret": ["desconecté", "desconectaste", "desconectó", "desconectamos", "desconectasteis", "desconectaron"],
+   "fut": ["desconectaré", "desconectarás", "desconectará", "desconectaremos", "desconectaréis", "desconectarán"]
+  },
+  {
+   "es": "describir",
+   "kind": "regular",
+   "pres": ["describo", "describes", "describe", "describimos", "describís", "describen"],
+   "pret": ["describí", "describiste", "describió", "describimos", "describisteis", "describieron"],
+   "fut": ["describiré", "describirás", "describirá", "describiremos", "describiréis", "describirán"]
+  },
+  {
+   "es": "descubrir",
+   "kind": "regular",
+   "pres": ["descubro", "descubres", "descubre", "descubrimos", "descubrís", "descubren"],
+   "pret": ["descubrí", "descubriste", "descubrió", "descubrimos", "descubristeis", "descubrieron"],
+   "fut": ["descubriré", "descubrirás", "descubrirá", "descubriremos", "descubriréis", "descubrirán"]
+  },
+  {
+   "es": "desnudarse",
+   "kind": "regular",
+   "pres": ["me desnudo", "te desnudas", "se desnuda", "nos desnudamos", "os desnudáis", "se desnudan"],
+   "pret": ["me desnudé", "te desnudaste", "se desnudó", "nos desnudamos", "os desnudasteis", "se desnudaron"],
+   "fut": ["me desnudaré", "te desnudarás", "se desnudará", "nos desnudaremos", "os desnudaréis", "se desnudarán"]
+  },
+  {
+   "es": "despegar",
+   "kind": "regular",
+   "pres": ["despego", "despegas", "despega", "despegamos", "despegáis", "despegan"],
+   "pret": ["despegué", "despegaste", "despegó", "despegamos", "despegasteis", "despegaron"],
+   "fut": ["despegaré", "despegarás", "despegará", "despegaremos", "despegaréis", "despegarán"]
+  },
+  {
+   "es": "despertarse",
+   "kind": "stem",
+   "pres": ["me despierto", "te despiertas", "se despierta", "nos despertamos", "os despertáis", "se despiertan"],
+   "pret": ["me desperté", "te despertaste", "se despertó", "nos despertamos", "os despertasteis", "se despertaron"],
+   "fut": ["me despertaré", "te despertarás", "se despertará", "nos despertaremos", "os despertaréis", "se despertarán"]
+  },
+  {
+   "es": "detener",
+   "kind": "irregular",
+   "pres": ["detengo", "detienes", "detiene", "detenemos", "detenéis", "detienen"],
+   "pret": ["detuve", "detuviste", "detuvo", "detuvimos", "detuvisteis", "detuvieron"],
+   "fut": ["detendré", "detendrás", "detendrá", "detendremos", "detendréis", "detendrán"]
+  },
+  {
+   "es": "devolver",
+   "kind": "stem",
+   "pres": ["devuelvo", "devuelves", "devuelve", "devolvemos", "devolvéis", "devuelven"],
+   "pret": ["devolví", "devolviste", "devolvió", "devolvimos", "devolvisteis", "devolvieron"],
+   "fut": ["devolveré", "devolverás", "devolverá", "devolveremos", "devolveréis", "devolverán"]
+  },
+  {
+   "es": "discutir",
+   "kind": "regular",
+   "pres": ["discuto", "discutes", "discute", "discutimos", "discutís", "discuten"],
+   "pret": ["discutí", "discutiste", "discutió", "discutimos", "discutisteis", "discutieron"],
+   "fut": ["discutiré", "discutirás", "discutirá", "discutiremos", "discutiréis", "discutirán"]
+  },
+  {
+   "es": "doler",
+   "kind": "stem",
+   "pres": ["duelo", "dueles", "duele", "dolemos", "doléis", "duelen"],
+   "pret": ["dolí", "doliste", "dolió", "dolimos", "dolisteis", "dolieron"],
+   "fut": ["doleré", "dolerás", "dolerá", "doleremos", "doleréis", "dolerán"]
+  },
+  {
+   "es": "dormir",
+   "kind": "stem",
+   "pres": ["duermo", "duermes", "duerme", "dormimos", "dormís", "duermen"],
+   "pret": ["dormí", "dormiste", "durmió", "dormimos", "dormisteis", "durmieron"],
+   "fut": ["dormiré", "dormirás", "dormirá", "dormiremos", "dormiréis", "dormirán"]
+  },
+  {
+   "es": "ducharse",
+   "kind": "regular",
+   "pres": ["me ducho", "te duchas", "se ducha", "nos duchamos", "os ducháis", "se duchan"],
+   "pret": ["me duché", "te duchaste", "se duchó", "nos duchamos", "os duchasteis", "se ducharon"],
+   "fut": ["me ducharé", "te ducharás", "se duchará", "nos ducharemos", "os ducharéis", "se ducharán"]
+  },
+  {
+   "es": "durar",
+   "kind": "regular",
+   "pres": ["duro", "duras", "dura", "duramos", "duráis", "duran"],
+   "pret": ["duré", "duraste", "duró", "duramos", "durasteis", "duraron"],
+   "fut": ["duraré", "durarás", "durará", "duraremos", "duraréis", "durarán"]
+  },
+  {
+   "es": "elegir",
+   "kind": "stem",
+   "pres": ["elijo", "eliges", "elige", "elegimos", "elegís", "eligen"],
+   "pret": ["elegí", "elegiste", "eligió", "elegimos", "elegisteis", "eligieron"],
+   "fut": ["elegiré", "elegirás", "elegirá", "elegiremos", "elegiréis", "elegirán"]
+  },
+  {
+   "es": "empeorar",
+   "kind": "regular",
+   "pres": ["empeoro", "empeoras", "empeora", "empeoramos", "empeoráis", "empeoran"],
+   "pret": ["empeoré", "empeoraste", "empeoró", "empeoramos", "empeorasteis", "empeoraron"],
+   "fut": ["empeoraré", "empeorarás", "empeorará", "empeoraremos", "empeoraréis", "empeorarán"]
+  },
+  {
+   "es": "empezar",
+   "kind": "stem",
+   "pres": ["empiezo", "empiezas", "empieza", "empezamos", "empezáis", "empiezan"],
+   "pret": ["empecé", "empezaste", "empezó", "empezamos", "empezasteis", "empezaron"],
+   "fut": ["empezaré", "empezarás", "empezará", "empezaremos", "empezaréis", "empezarán"]
+  },
+  {
+   "es": "empujar",
+   "kind": "regular",
+   "pres": ["empujo", "empujas", "empuja", "empujamos", "empujáis", "empujan"],
+   "pret": ["empujé", "empujaste", "empujó", "empujamos", "empujasteis", "empujaron"],
+   "fut": ["empujaré", "empujarás", "empujará", "empujaremos", "empujaréis", "empujarán"]
+  },
+  {
+   "es": "encantar",
+   "kind": "regular",
+   "pres": ["encanto", "encantas", "encanta", "encantamos", "encantáis", "encantan"],
+   "pret": ["encanté", "encantaste", "encantó", "encantamos", "encantasteis", "encantaron"],
+   "fut": ["encantaré", "encantarás", "encantará", "encantaremos", "encantaréis", "encantarán"]
+  },
+  {
+   "es": "encender",
+   "kind": "stem",
+   "pres": ["enciendo", "enciendes", "enciende", "encendemos", "encendéis", "encienden"],
+   "pret": ["encendí", "encendiste", "encendió", "encendimos", "encendisteis", "encendieron"],
+   "fut": ["encenderé", "encenderás", "encenderá", "encenderemos", "encenderéis", "encenderán"]
+  },
+  {
+   "es": "encontrar",
+   "kind": "stem",
+   "pres": ["encuentro", "encuentras", "encuentra", "encontramos", "encontráis", "encuentran"],
+   "pret": ["encontré", "encontraste", "encontró", "encontramos", "encontrasteis", "encontraron"],
+   "fut": ["encontraré", "encontrarás", "encontrará", "encontraremos", "encontraréis", "encontrarán"]
+  },
+  {
+   "es": "enseñar",
+   "kind": "regular",
+   "pres": ["enseño", "enseñas", "enseña", "enseñamos", "enseñáis", "enseñan"],
+   "pret": ["enseñé", "enseñaste", "enseñó", "enseñamos", "enseñasteis", "enseñaron"],
+   "fut": ["enseñaré", "enseñarás", "enseñará", "enseñaremos", "enseñaréis", "enseñarán"]
+  },
+  {
+   "es": "ensuciar",
+   "kind": "regular",
+   "pres": ["ensucio", "ensucias", "ensucia", "ensuciamos", "ensuciáis", "ensucian"],
+   "pret": ["ensucié", "ensuciaste", "ensució", "ensuciamos", "ensuciasteis", "ensuciaron"],
+   "fut": ["ensuciaré", "ensuciarás", "ensuciará", "ensuciaremos", "ensuciaréis", "ensuciarán"]
+  },
+  {
+   "es": "entender",
+   "kind": "stem",
+   "pres": ["entiendo", "entiendes", "entiende", "entendemos", "entendéis", "entienden"],
+   "pret": ["entendí", "entendiste", "entendió", "entendimos", "entendisteis", "entendieron"],
+   "fut": ["entenderé", "entenderás", "entenderá", "entenderemos", "entenderéis", "entenderán"]
+  },
+  {
+   "es": "entrar",
+   "kind": "regular",
+   "pres": ["entro", "entras", "entra", "entramos", "entráis", "entran"],
+   "pret": ["entré", "entraste", "entró", "entramos", "entrasteis", "entraron"],
+   "fut": ["entraré", "entrarás", "entrará", "entraremos", "entraréis", "entrarán"]
+  },
+  {
+   "es": "entregar",
+   "kind": "regular",
+   "pres": ["entrego", "entregas", "entrega", "entregamos", "entregáis", "entregan"],
+   "pret": ["entregué", "entregaste", "entregó", "entregamos", "entregasteis", "entregaron"],
+   "fut": ["entregaré", "entregarás", "entregará", "entregaremos", "entregaréis", "entregarán"]
+  },
+  {
+   "es": "enviar",
+   "kind": "stem",
+   "pres": ["envío", "envías", "envía", "enviamos", "enviáis", "envían"],
+   "pret": ["envié", "enviaste", "envió", "enviamos", "enviasteis", "enviaron"],
+   "fut": ["enviaré", "enviarás", "enviará", "enviaremos", "enviaréis", "enviarán"]
+  },
+  {
+   "es": "escribir",
+   "kind": "regular",
+   "pres": ["escribo", "escribes", "escribe", "escribimos", "escribís", "escriben"],
+   "pret": ["escribí", "escribiste", "escribió", "escribimos", "escribisteis", "escribieron"],
+   "fut": ["escribiré", "escribirás", "escribirá", "escribiremos", "escribiréis", "escribirán"]
+  },
+  {
+   "es": "escuchar",
+   "kind": "regular",
+   "pres": ["escucho", "escuchas", "escucha", "escuchamos", "escucháis", "escuchan"],
+   "pret": ["escuché", "escuchaste", "escuchó", "escuchamos", "escuchasteis", "escucharon"],
+   "fut": ["escucharé", "escucharás", "escuchará", "escucharemos", "escucharéis", "escucharán"]
+  },
+  {
+   "es": "esperar",
+   "kind": "regular",
+   "pres": ["espero", "esperas", "espera", "esperamos", "esperáis", "esperan"],
+   "pret": ["esperé", "esperaste", "esperó", "esperamos", "esperasteis", "esperaron"],
+   "fut": ["esperaré", "esperarás", "esperará", "esperaremos", "esperaréis", "esperarán"]
+  },
+  {
+   "es": "estar",
+   "kind": "irregular",
+   "pres": ["estoy", "estás", "está", "estamos", "estáis", "están"],
+   "pret": ["estuve", "estuviste", "estuvo", "estuvimos", "estuvisteis", "estuvieron"],
+   "fut": ["estaré", "estarás", "estará", "estaremos", "estaréis", "estarán"]
+  },
+  {
+   "es": "estudiar",
+   "kind": "regular",
+   "pres": ["estudio", "estudias", "estudia", "estudiamos", "estudiáis", "estudian"],
+   "pret": ["estudié", "estudiaste", "estudió", "estudiamos", "estudiasteis", "estudiaron"],
+   "fut": ["estudiaré", "estudiarás", "estudiará", "estudiaremos", "estudiaréis", "estudiarán"]
+  },
+  {
+   "es": "evitar",
+   "kind": "regular",
+   "pres": ["evito", "evitas", "evita", "evitamos", "evitáis", "evitan"],
+   "pret": ["evité", "evitaste", "evitó", "evitamos", "evitasteis", "evitaron"],
+   "fut": ["evitaré", "evitarás", "evitará", "evitaremos", "evitaréis", "evitarán"]
+  },
+  {
+   "es": "existir",
+   "kind": "regular",
+   "pres": ["existo", "existes", "existe", "existimos", "existís", "existen"],
+   "pret": ["existí", "exististe", "existió", "existimos", "exististeis", "existieron"],
+   "fut": ["existiré", "existirás", "existirá", "existiremos", "existiréis", "existirán"]
+  },
+  {
+   "es": "explicar",
+   "kind": "regular",
+   "pres": ["explico", "explicas", "explica", "explicamos", "explicáis", "explican"],
+   "pret": ["expliqué", "explicaste", "explicó", "explicamos", "explicasteis", "explicaron"],
+   "fut": ["explicaré", "explicarás", "explicará", "explicaremos", "explicaréis", "explicarán"]
+  },
+  {
+   "es": "faltar",
+   "kind": "regular",
+   "pres": ["falto", "faltas", "falta", "faltamos", "faltáis", "faltan"],
+   "pret": ["falté", "faltaste", "faltó", "faltamos", "faltasteis", "faltaron"],
+   "fut": ["faltaré", "faltarás", "faltará", "faltaremos", "faltaréis", "faltarán"]
+  },
+  {
+   "es": "finalizar",
+   "kind": "regular",
+   "pres": ["finalizo", "finalizas", "finaliza", "finalizamos", "finalizáis", "finalizan"],
+   "pret": ["finalicé", "finalizaste", "finalizó", "finalizamos", "finalizasteis", "finalizaron"],
+   "fut": ["finalizaré", "finalizarás", "finalizará", "finalizaremos", "finalizaréis", "finalizarán"]
+  },
+  {
+   "es": "firmar",
+   "kind": "regular",
+   "pres": ["firmo", "firmas", "firma", "firmamos", "firmáis", "firman"],
+   "pret": ["firmé", "firmaste", "firmó", "firmamos", "firmasteis", "firmaron"],
+   "fut": ["firmaré", "firmarás", "firmará", "firmaremos", "firmaréis", "firmarán"]
+  },
+  {
+   "es": "funcionar",
+   "kind": "regular",
+   "pres": ["funciono", "funcionas", "funciona", "funcionamos", "funcionáis", "funcionan"],
+   "pret": ["funcioné", "funcionaste", "funcionó", "funcionamos", "funcionasteis", "funcionaron"],
+   "fut": ["funcionaré", "funcionarás", "funcionará", "funcionaremos", "funcionaréis", "funcionarán"]
+  },
+  {
+   "es": "ganar",
+   "kind": "regular",
+   "pres": ["gano", "ganas", "gana", "ganamos", "ganáis", "ganan"],
+   "pret": ["gané", "ganaste", "ganó", "ganamos", "ganasteis", "ganaron"],
+   "fut": ["ganaré", "ganarás", "ganará", "ganaremos", "ganaréis", "ganarán"]
+  },
+  {
+   "es": "gastar",
+   "kind": "regular",
+   "pres": ["gasto", "gastas", "gasta", "gastamos", "gastáis", "gastan"],
+   "pret": ["gasté", "gastaste", "gastó", "gastamos", "gastasteis", "gastaron"],
+   "fut": ["gastaré", "gastarás", "gastará", "gastaremos", "gastaréis", "gastarán"]
+  },
+  {
+   "es": "girar",
+   "kind": "regular",
+   "pres": ["giro", "giras", "gira", "giramos", "giráis", "giran"],
+   "pret": ["giré", "giraste", "giró", "giramos", "girasteis", "giraron"],
+   "fut": ["giraré", "girarás", "girará", "giraremos", "giraréis", "girarán"]
+  },
+  {
+   "es": "guardar",
+   "kind": "regular",
+   "pres": ["guardo", "guardas", "guarda", "guardamos", "guardáis", "guardan"],
+   "pret": ["guardé", "guardaste", "guardó", "guardamos", "guardasteis", "guardaron"],
+   "fut": ["guardaré", "guardarás", "guardará", "guardaremos", "guardaréis", "guardarán"]
+  },
+  {
+   "es": "gustar",
+   "kind": "regular",
+   "pres": ["gusto", "gustas", "gusta", "gustamos", "gustáis", "gustan"],
+   "pret": ["gusté", "gustaste", "gustó", "gustamos", "gustasteis", "gustaron"],
+   "fut": ["gustaré", "gustarás", "gustará", "gustaremos", "gustaréis", "gustarán"]
+  },
+  {
+   "es": "haber",
+   "kind": "irregular",
+   "pres": ["he", "has", "ha", "hemos", "habéis", "han"],
+   "pret": ["hube", "hubiste", "hubo", "hubimos", "hubisteis", "hubieron"],
+   "fut": ["habré", "habrás", "habrá", "habremos", "habréis", "habrán"]
+  },
+  {
+   "es": "hablar",
+   "kind": "regular",
+   "pres": ["hablo", "hablas", "habla", "hablamos", "habláis", "hablan"],
+   "pret": ["hablé", "hablaste", "habló", "hablamos", "hablasteis", "hablaron"],
+   "fut": ["hablaré", "hablarás", "hablará", "hablaremos", "hablaréis", "hablarán"]
+  },
+  {
+   "es": "hacer",
+   "kind": "irregular",
+   "pres": ["hago", "haces", "hace", "hacemos", "hacéis", "hacen"],
+   "pret": ["hice", "hiciste", "hizo", "hicimos", "hicisteis", "hicieron"],
+   "fut": ["haré", "harás", "hará", "haremos", "haréis", "harán"]
+  },
+  {
+   "es": "imaginar",
+   "kind": "regular",
+   "pres": ["imagino", "imaginas", "imagina", "imaginamos", "imagináis", "imaginan"],
+   "pret": ["imaginé", "imaginaste", "imaginó", "imaginamos", "imaginasteis", "imaginaron"],
+   "fut": ["imaginaré", "imaginarás", "imaginará", "imaginaremos", "imaginaréis", "imaginarán"]
+  },
+  {
+   "es": "importar",
+   "kind": "regular",
+   "pres": ["importo", "importas", "importa", "importamos", "importáis", "importan"],
+   "pret": ["importé", "importaste", "importó", "importamos", "importasteis", "importaron"],
+   "fut": ["importaré", "importarás", "importará", "importaremos", "importaréis", "importarán"]
+  },
+  {
+   "es": "incluir",
+   "kind": "stem",
+   "pres": ["incluyo", "incluyes", "incluye", "incluimos", "incluís", "incluyen"],
+   "pret": ["incluí", "incluiste", "incluyó", "incluimos", "incluisteis", "incluyeron"],
+   "fut": ["incluiré", "incluirás", "incluirá", "incluiremos", "incluiréis", "incluirán"]
+  },
+  {
+   "es": "indicar",
+   "kind": "regular",
+   "pres": ["indico", "indicas", "indica", "indicamos", "indicáis", "indican"],
+   "pret": ["indiqué", "indicaste", "indicó", "indicamos", "indicasteis", "indicaron"],
+   "fut": ["indicaré", "indicarás", "indicará", "indicaremos", "indicaréis", "indicarán"]
+  },
+  {
+   "es": "informar",
+   "kind": "regular",
+   "pres": ["informo", "informas", "informa", "informamos", "informáis", "informan"],
+   "pret": ["informé", "informaste", "informó", "informamos", "informasteis", "informaron"],
+   "fut": ["informaré", "informarás", "informará", "informaremos", "informaréis", "informarán"]
+  },
+  {
+   "es": "ingresar",
+   "kind": "regular",
+   "pres": ["ingreso", "ingresas", "ingresa", "ingresamos", "ingresáis", "ingresan"],
+   "pret": ["ingresé", "ingresaste", "ingresó", "ingresamos", "ingresasteis", "ingresaron"],
+   "fut": ["ingresaré", "ingresarás", "ingresará", "ingresaremos", "ingresaréis", "ingresarán"]
+  },
+  {
+   "es": "instalar",
+   "kind": "regular",
+   "pres": ["instalo", "instalas", "instala", "instalamos", "instaláis", "instalan"],
+   "pret": ["instalé", "instalaste", "instaló", "instalamos", "instalasteis", "instalaron"],
+   "fut": ["instalaré", "instalarás", "instalará", "instalaremos", "instalaréis", "instalarán"]
+  },
+  {
+   "es": "intentar",
+   "kind": "regular",
+   "pres": ["intento", "intentas", "intenta", "intentamos", "intentáis", "intentan"],
+   "pret": ["intenté", "intentaste", "intentó", "intentamos", "intentasteis", "intentaron"],
+   "fut": ["intentaré", "intentarás", "intentará", "intentaremos", "intentaréis", "intentarán"]
+  },
+  {
+   "es": "invitar",
+   "kind": "regular",
+   "pres": ["invito", "invitas", "invita", "invitamos", "invitáis", "invitan"],
+   "pret": ["invité", "invitaste", "invitó", "invitamos", "invitasteis", "invitaron"],
+   "fut": ["invitaré", "invitarás", "invitará", "invitaremos", "invitaréis", "invitarán"]
+  },
+  {
+   "es": "ir",
+   "kind": "irregular",
+   "pres": ["voy", "vas", "va", "vamos", "vais", "van"],
+   "pret": ["fui", "fuiste", "fue", "fuimos", "fuisteis", "fueron"],
+   "fut": ["iré", "irás", "irá", "iremos", "iréis", "irán"]
+  },
+  {
+   "es": "irse",
+   "kind": "irregular",
+   "pres": ["me voy", "te vas", "se va", "nos vamos", "os vais", "se van"],
+   "pret": ["me fui", "te fuiste", "se fue", "nos fuimos", "os fuisteis", "se fueron"],
+   "fut": ["me iré", "te irás", "se irá", "nos iremos", "os iréis", "se irán"]
+  },
+  {
+   "es": "jugar",
+   "kind": "stem",
+   "pres": ["juego", "juegas", "juega", "jugamos", "jugáis", "juegan"],
+   "pret": ["jugué", "jugaste", "jugó", "jugamos", "jugasteis", "jugaron"],
+   "fut": ["jugaré", "jugarás", "jugará", "jugaremos", "jugaréis", "jugarán"]
+  },
+  {
+   "es": "lavar",
+   "kind": "regular",
+   "pres": ["lavo", "lavas", "lava", "lavamos", "laváis", "lavan"],
+   "pret": ["lavé", "lavaste", "lavó", "lavamos", "lavasteis", "lavaron"],
+   "fut": ["lavaré", "lavarás", "lavará", "lavaremos", "lavaréis", "lavarán"]
+  },
+  {
+   "es": "lavarse",
+   "kind": "regular",
+   "pres": ["me lavo", "te lavas", "se lava", "nos lavamos", "os laváis", "se lavan"],
+   "pret": ["me lavé", "te lavaste", "se lavó", "nos lavamos", "os lavasteis", "se lavaron"],
+   "fut": ["me lavaré", "te lavarás", "se lavará", "nos lavaremos", "os lavaréis", "se lavarán"]
+  },
+  {
+   "es": "leer",
+   "kind": "regular",
+   "pres": ["leo", "lees", "lee", "leemos", "leéis", "leen"],
+   "pret": ["leí", "leíste", "leyó", "leímos", "leísteis", "leyeron"],
+   "fut": ["leeré", "leerás", "leerá", "leeremos", "leeréis", "leerán"]
+  },
+  {
+   "es": "levantarse",
+   "kind": "regular",
+   "pres": ["me levanto", "te levantas", "se levanta", "nos levantamos", "os levantáis", "se levantan"],
+   "pret": ["me levanté", "te levantaste", "se levantó", "nos levantamos", "os levantasteis", "se levantaron"],
+   "fut": ["me levantaré", "te levantarás", "se levantará", "nos levantaremos", "os levantaréis", "se levantarán"]
+  },
+  {
+   "es": "limpiar",
+   "kind": "regular",
+   "pres": ["limpio", "limpias", "limpia", "limpiamos", "limpiáis", "limpian"],
+   "pret": ["limpié", "limpiaste", "limpió", "limpiamos", "limpiasteis", "limpiaron"],
+   "fut": ["limpiaré", "limpiarás", "limpiará", "limpiaremos", "limpiaréis", "limpiarán"]
+  },
+  {
+   "es": "llamar",
+   "kind": "regular",
+   "pres": ["llamo", "llamas", "llama", "llamamos", "llamáis", "llaman"],
+   "pret": ["llamé", "llamaste", "llamó", "llamamos", "llamasteis", "llamaron"],
+   "fut": ["llamaré", "llamarás", "llamará", "llamaremos", "llamaréis", "llamarán"]
+  },
+  {
+   "es": "llegar",
+   "kind": "regular",
+   "pres": ["llego", "llegas", "llega", "llegamos", "llegáis", "llegan"],
+   "pret": ["llegué", "llegaste", "llegó", "llegamos", "llegasteis", "llegaron"],
+   "fut": ["llegaré", "llegarás", "llegará", "llegaremos", "llegaréis", "llegarán"]
+  },
+  {
+   "es": "llevar",
+   "kind": "regular",
+   "pres": ["llevo", "llevas", "lleva", "llevamos", "lleváis", "llevan"],
+   "pret": ["llevé", "llevaste", "llevó", "llevamos", "llevasteis", "llevaron"],
+   "fut": ["llevaré", "llevarás", "llevará", "llevaremos", "llevaréis", "llevarán"]
+  },
+  {
+   "es": "llevarse",
+   "kind": "regular",
+   "pres": ["me llevo", "te llevas", "se lleva", "nos llevamos", "os lleváis", "se llevan"],
+   "pret": ["me llevé", "te llevaste", "se llevó", "nos llevamos", "os llevasteis", "se llevaron"],
+   "fut": ["me llevaré", "te llevarás", "se llevará", "nos llevaremos", "os llevaréis", "se llevarán"]
+  },
+  {
+   "es": "llorar",
+   "kind": "regular",
+   "pres": ["lloro", "lloras", "llora", "lloramos", "lloráis", "lloran"],
+   "pret": ["lloré", "lloraste", "lloró", "lloramos", "llorasteis", "lloraron"],
+   "fut": ["lloraré", "llorarás", "llorará", "lloraremos", "lloraréis", "llorarán"]
+  },
+  {
+   "es": "mandar",
+   "kind": "regular",
+   "pres": ["mando", "mandas", "manda", "mandamos", "mandáis", "mandan"],
+   "pret": ["mandé", "mandaste", "mandó", "mandamos", "mandasteis", "mandaron"],
+   "fut": ["mandaré", "mandarás", "mandará", "mandaremos", "mandaréis", "mandarán"]
+  },
+  {
+   "es": "mantener",
+   "kind": "irregular",
+   "pres": ["mantengo", "mantienes", "mantiene", "mantenemos", "mantenéis", "mantienen"],
+   "pret": ["mantuve", "mantuviste", "mantuvo", "mantuvimos", "mantuvisteis", "mantuvieron"],
+   "fut": ["mantendré", "mantendrás", "mantendrá", "mantendremos", "mantendréis", "mantendrán"]
+  },
+  {
+   "es": "medir",
+   "kind": "stem",
+   "pres": ["mido", "mides", "mide", "medimos", "medís", "miden"],
+   "pret": ["medí", "mediste", "midió", "medimos", "medisteis", "midieron"],
+   "fut": ["mediré", "medirás", "medirá", "mediremos", "mediréis", "medirán"]
+  },
+  {
+   "es": "mejorar",
+   "kind": "regular",
+   "pres": ["mejoro", "mejoras", "mejora", "mejoramos", "mejoráis", "mejoran"],
+   "pret": ["mejoré", "mejoraste", "mejoró", "mejoramos", "mejorasteis", "mejoraron"],
+   "fut": ["mejoraré", "mejorarás", "mejorará", "mejoraremos", "mejoraréis", "mejorarán"]
+  },
+  {
+   "es": "meter",
+   "kind": "regular",
+   "pres": ["meto", "metes", "mete", "metemos", "metéis", "meten"],
+   "pret": ["metí", "metiste", "metió", "metimos", "metisteis", "metieron"],
+   "fut": ["meteré", "meterás", "meterá", "meteremos", "meteréis", "meterán"]
+  },
+  {
+   "es": "mirar",
+   "kind": "regular",
+   "pres": ["miro", "miras", "mira", "miramos", "miráis", "miran"],
+   "pret": ["miré", "miraste", "miró", "miramos", "mirasteis", "miraron"],
+   "fut": ["miraré", "mirarás", "mirará", "miraremos", "miraréis", "mirarán"]
+  },
+  {
+   "es": "morir",
+   "kind": "stem",
+   "pres": ["muero", "mueres", "muere", "morimos", "morís", "mueren"],
+   "pret": ["morí", "moriste", "murió", "morimos", "moristeis", "murieron"],
+   "fut": ["moriré", "morirás", "morirá", "moriremos", "moriréis", "morirán"]
+  },
+  {
+   "es": "mostrar",
+   "kind": "stem",
+   "pres": ["muestro", "muestras", "muestra", "mostramos", "mostráis", "muestran"],
+   "pret": ["mostré", "mostraste", "mostró", "mostramos", "mostrasteis", "mostraron"],
+   "fut": ["mostraré", "mostrarás", "mostrará", "mostraremos", "mostraréis", "mostrarán"]
+  },
+  {
+   "es": "mover",
+   "kind": "stem",
+   "pres": ["muevo", "mueves", "mueve", "movemos", "movéis", "mueven"],
+   "pret": ["moví", "moviste", "movió", "movimos", "movisteis", "movieron"],
+   "fut": ["moveré", "moverás", "moverá", "moveremos", "moveréis", "moverán"]
+  },
+  {
+   "es": "nacer",
+   "kind": "irregular",
+   "pres": ["nazco", "naces", "nace", "nacemos", "nacéis", "nacen"],
+   "pret": ["nací", "naciste", "nació", "nacimos", "nacisteis", "nacieron"],
+   "fut": ["naceré", "nacerás", "nacerá", "naceremos", "naceréis", "nacerán"]
+  },
+  {
+   "es": "necesitar",
+   "kind": "regular",
+   "pres": ["necesito", "necesitas", "necesita", "necesitamos", "necesitáis", "necesitan"],
+   "pret": ["necesité", "necesitaste", "necesitó", "necesitamos", "necesitasteis", "necesitaron"],
+   "fut": ["necesitaré", "necesitarás", "necesitará", "necesitaremos", "necesitaréis", "necesitarán"]
+  },
+  {
+   "es": "ocurrir",
+   "kind": "regular",
+   "pres": ["ocurro", "ocurres", "ocurre", "ocurrimos", "ocurrís", "ocurren"],
+   "pret": ["ocurrí", "ocurriste", "ocurrió", "ocurrimos", "ocurristeis", "ocurrieron"],
+   "fut": ["ocurriré", "ocurrirás", "ocurrirá", "ocurriremos", "ocurriréis", "ocurrirán"]
+  },
+  {
+   "es": "ofrecer",
+   "kind": "irregular",
+   "pres": ["ofrezco", "ofreces", "ofrece", "ofrecemos", "ofrecéis", "ofrecen"],
+   "pret": ["ofrecí", "ofreciste", "ofreció", "ofrecimos", "ofrecisteis", "ofrecieron"],
+   "fut": ["ofreceré", "ofrecerás", "ofrecerá", "ofreceremos", "ofreceréis", "ofrecerán"]
+  },
+  {
+   "es": "oír",
+   "kind": "irregular",
+   "pres": ["oigo", "oyes", "oye", "oímos", "oís", "oyen"],
+   "pret": ["oí", "oíste", "oyó", "oímos", "oísteis", "oyeron"],
+   "fut": ["oiré", "oirás", "oirá", "oiremos", "oiréis", "oirán"]
+  },
+  {
+   "es": "olvidar",
+   "kind": "regular",
+   "pres": ["olvido", "olvidas", "olvida", "olvidamos", "olvidáis", "olvidan"],
+   "pret": ["olvidé", "olvidaste", "olvidó", "olvidamos", "olvidasteis", "olvidaron"],
+   "fut": ["olvidaré", "olvidarás", "olvidará", "olvidaremos", "olvidaréis", "olvidarán"]
+  },
+  {
+   "es": "organizar",
+   "kind": "regular",
+   "pres": ["organizo", "organizas", "organiza", "organizamos", "organizáis", "organizan"],
+   "pret": ["organicé", "organizaste", "organizó", "organizamos", "organizasteis", "organizaron"],
+   "fut": ["organizaré", "organizarás", "organizará", "organizaremos", "organizaréis", "organizarán"]
+  },
+  {
+   "es": "pagar",
+   "kind": "regular",
+   "pres": ["pago", "pagas", "paga", "pagamos", "pagáis", "pagan"],
+   "pret": ["pagué", "pagaste", "pagó", "pagamos", "pagasteis", "pagaron"],
+   "fut": ["pagaré", "pagarás", "pagará", "pagaremos", "pagaréis", "pagarán"]
+  },
+  {
+   "es": "parar",
+   "kind": "regular",
+   "pres": ["paro", "paras", "para", "paramos", "paráis", "paran"],
+   "pret": ["paré", "paraste", "paró", "paramos", "parasteis", "pararon"],
+   "fut": ["pararé", "pararás", "parará", "pararemos", "pararéis", "pararán"]
+  },
+  {
+   "es": "parecer",
+   "kind": "irregular",
+   "pres": ["parezco", "pareces", "parece", "parecemos", "parecéis", "parecen"],
+   "pret": ["parecí", "pareciste", "pareció", "parecimos", "parecisteis", "parecieron"],
+   "fut": ["pareceré", "parecerás", "parecerá", "pareceremos", "pareceréis", "parecerán"]
+  },
+  {
+   "es": "participar",
+   "kind": "regular",
+   "pres": ["participo", "participas", "participa", "participamos", "participáis", "participan"],
+   "pret": ["participé", "participaste", "participó", "participamos", "participasteis", "participaron"],
+   "fut": ["participaré", "participarás", "participará", "participaremos", "participaréis", "participarán"]
+  },
+  {
+   "es": "pasar",
+   "kind": "regular",
+   "pres": ["paso", "pasas", "pasa", "pasamos", "pasáis", "pasan"],
+   "pret": ["pasé", "pasaste", "pasó", "pasamos", "pasasteis", "pasaron"],
+   "fut": ["pasaré", "pasarás", "pasará", "pasaremos", "pasaréis", "pasarán"]
+  },
+  {
+   "es": "pedir",
+   "kind": "stem",
+   "pres": ["pido", "pides", "pide", "pedimos", "pedís", "piden"],
+   "pret": ["pedí", "pediste", "pidió", "pedimos", "pedisteis", "pidieron"],
+   "fut": ["pediré", "pedirás", "pedirá", "pediremos", "pediréis", "pedirán"]
+  },
+  {
+   "es": "pensar",
+   "kind": "stem",
+   "pres": ["pienso", "piensas", "piensa", "pensamos", "pensáis", "piensan"],
+   "pret": ["pensé", "pensaste", "pensó", "pensamos", "pensasteis", "pensaron"],
+   "fut": ["pensaré", "pensarás", "pensará", "pensaremos", "pensaréis", "pensarán"]
+  },
+  {
+   "es": "perder",
+   "kind": "stem",
+   "pres": ["pierdo", "pierdes", "pierde", "perdemos", "perdéis", "pierden"],
+   "pret": ["perdí", "perdiste", "perdió", "perdimos", "perdisteis", "perdieron"],
+   "fut": ["perderé", "perderás", "perderá", "perderemos", "perderéis", "perderán"]
+  },
+  {
+   "es": "permitir",
+   "kind": "regular",
+   "pres": ["permito", "permites", "permite", "permitimos", "permitís", "permiten"],
+   "pret": ["permití", "permitiste", "permitió", "permitimos", "permitisteis", "permitieron"],
+   "fut": ["permitiré", "permitirás", "permitirá", "permitiremos", "permitiréis", "permitirán"]
+  },
+  {
+   "es": "poder",
+   "kind": "irregular",
+   "pres": ["puedo", "puedes", "puede", "podemos", "podéis", "pueden"],
+   "pret": ["pude", "pudiste", "pudo", "pudimos", "pudisteis", "pudieron"],
+   "fut": ["podré", "podrás", "podrá", "podremos", "podréis", "podrán"]
+  },
+  {
+   "es": "poner",
+   "kind": "irregular",
+   "pres": ["pongo", "pones", "pone", "ponemos", "ponéis", "ponen"],
+   "pret": ["puse", "pusiste", "puso", "pusimos", "pusisteis", "pusieron"],
+   "fut": ["pondré", "pondrás", "pondrá", "pondremos", "pondréis", "pondrán"]
+  },
+  {
+   "es": "preferir",
+   "kind": "stem",
+   "pres": ["prefiero", "prefieres", "prefiere", "preferimos", "preferís", "prefieren"],
+   "pret": ["preferí", "preferiste", "prefirió", "preferimos", "preferisteis", "prefirieron"],
+   "fut": ["preferiré", "preferirás", "preferirá", "preferiremos", "preferiréis", "preferirán"]
+  },
+  {
+   "es": "preguntar",
+   "kind": "regular",
+   "pres": ["pregunto", "preguntas", "pregunta", "preguntamos", "preguntáis", "preguntan"],
+   "pret": ["pregunté", "preguntaste", "preguntó", "preguntamos", "preguntasteis", "preguntaron"],
+   "fut": ["preguntaré", "preguntarás", "preguntará", "preguntaremos", "preguntaréis", "preguntarán"]
+  },
+  {
+   "es": "preocupar",
+   "kind": "regular",
+   "pres": ["preocupo", "preocupas", "preocupa", "preocupamos", "preocupáis", "preocupan"],
+   "pret": ["preocupé", "preocupaste", "preocupó", "preocupamos", "preocupasteis", "preocuparon"],
+   "fut": ["preocuparé", "preocuparás", "preocupará", "preocuparemos", "preocuparéis", "preocuparán"]
+  },
+  {
+   "es": "preparar",
+   "kind": "regular",
+   "pres": ["preparo", "preparas", "prepara", "preparamos", "preparáis", "preparan"],
+   "pret": ["preparé", "preparaste", "preparó", "preparamos", "preparasteis", "prepararon"],
+   "fut": ["prepararé", "prepararás", "preparará", "prepararemos", "prepararéis", "prepararán"]
+  },
+  {
+   "es": "presentar",
+   "kind": "regular",
+   "pres": ["presento", "presentas", "presenta", "presentamos", "presentáis", "presentan"],
+   "pret": ["presenté", "presentaste", "presentó", "presentamos", "presentasteis", "presentaron"],
+   "fut": ["presentaré", "presentarás", "presentará", "presentaremos", "presentaréis", "presentarán"]
+  },
+  {
+   "es": "prestar",
+   "kind": "regular",
+   "pres": ["presto", "prestas", "presta", "prestamos", "prestáis", "prestan"],
+   "pret": ["presté", "prestaste", "prestó", "prestamos", "prestasteis", "prestaron"],
+   "fut": ["prestaré", "prestarás", "prestará", "prestaremos", "prestaréis", "prestarán"]
+  },
+  {
+   "es": "probar",
+   "kind": "stem",
+   "pres": ["pruebo", "pruebas", "prueba", "probamos", "probáis", "prueban"],
+   "pret": ["probé", "probaste", "probó", "probamos", "probasteis", "probaron"],
+   "fut": ["probaré", "probarás", "probará", "probaremos", "probaréis", "probarán"]
+  },
+  {
+   "es": "prohibir",
+   "kind": "stem",
+   "pres": ["prohíbo", "prohíbes", "prohíbe", "prohibimos", "prohibís", "prohíben"],
+   "pret": ["prohibí", "prohibiste", "prohibió", "prohibimos", "prohibisteis", "prohibieron"],
+   "fut": ["prohibiré", "prohibirás", "prohibirá", "prohibiremos", "prohibiréis", "prohibirán"]
+  },
+  {
+   "es": "quedar",
+   "kind": "regular",
+   "pres": ["quedo", "quedas", "queda", "quedamos", "quedáis", "quedan"],
+   "pret": ["quedé", "quedaste", "quedó", "quedamos", "quedasteis", "quedaron"],
+   "fut": ["quedaré", "quedarás", "quedará", "quedaremos", "quedaréis", "quedarán"]
+  },
+  {
+   "es": "quedarse",
+   "kind": "regular",
+   "pres": ["me quedo", "te quedas", "se queda", "nos quedamos", "os quedáis", "se quedan"],
+   "pret": ["me quedé", "te quedaste", "se quedó", "nos quedamos", "os quedasteis", "se quedaron"],
+   "fut": ["me quedaré", "te quedarás", "se quedará", "nos quedaremos", "os quedaréis", "se quedarán"]
+  },
+  {
+   "es": "querer",
+   "kind": "irregular",
+   "pres": ["quiero", "quieres", "quiere", "queremos", "queréis", "quieren"],
+   "pret": ["quise", "quisiste", "quiso", "quisimos", "quisisteis", "quisieron"],
+   "fut": ["querré", "querrás", "querrá", "querremos", "querréis", "querrán"]
+  },
+  {
+   "es": "quitar",
+   "kind": "regular",
+   "pres": ["quito", "quitas", "quita", "quitamos", "quitáis", "quitan"],
+   "pret": ["quité", "quitaste", "quitó", "quitamos", "quitasteis", "quitaron"],
+   "fut": ["quitaré", "quitarás", "quitará", "quitaremos", "quitaréis", "quitarán"]
+  },
+  {
+   "es": "recargar",
+   "kind": "regular",
+   "pres": ["recargo", "recargas", "recarga", "recargamos", "recargáis", "recargan"],
+   "pret": ["recargué", "recargaste", "recargó", "recargamos", "recargasteis", "recargaron"],
+   "fut": ["recargaré", "recargarás", "recargará", "recargaremos", "recargaréis", "recargarán"]
+  },
+  {
+   "es": "rechazar",
+   "kind": "regular",
+   "pres": ["rechazo", "rechazas", "rechaza", "rechazamos", "rechazáis", "rechazan"],
+   "pret": ["rechacé", "rechazaste", "rechazó", "rechazamos", "rechazasteis", "rechazaron"],
+   "fut": ["rechazaré", "rechazarás", "rechazará", "rechazaremos", "rechazaréis", "rechazarán"]
+  },
+  {
+   "es": "recibir",
+   "kind": "regular",
+   "pres": ["recibo", "recibes", "recibe", "recibimos", "recibís", "reciben"],
+   "pret": ["recibí", "recibiste", "recibió", "recibimos", "recibisteis", "recibieron"],
+   "fut": ["recibiré", "recibirás", "recibirá", "recibiremos", "recibiréis", "recibirán"]
+  },
+  {
+   "es": "recoger",
+   "kind": "regular",
+   "pres": ["recojo", "recoges", "recoge", "recogemos", "recogéis", "recogen"],
+   "pret": ["recogí", "recogiste", "recogió", "recogimos", "recogisteis", "recogieron"],
+   "fut": ["recogeré", "recogerás", "recogerá", "recogeremos", "recogeréis", "recogerán"]
+  },
+  {
+   "es": "recordar",
+   "kind": "stem",
+   "pres": ["recuerdo", "recuerdas", "recuerda", "recordamos", "recordáis", "recuerdan"],
+   "pret": ["recordé", "recordaste", "recordó", "recordamos", "recordasteis", "recordaron"],
+   "fut": ["recordaré", "recordarás", "recordará", "recordaremos", "recordaréis", "recordarán"]
+  },
+  {
+   "es": "regresar",
+   "kind": "regular",
+   "pres": ["regreso", "regresas", "regresa", "regresamos", "regresáis", "regresan"],
+   "pret": ["regresé", "regresaste", "regresó", "regresamos", "regresasteis", "regresaron"],
+   "fut": ["regresaré", "regresarás", "regresará", "regresaremos", "regresaréis", "regresarán"]
+  },
+  {
+   "es": "reír",
+   "kind": "irregular",
+   "pres": ["río", "ríes", "ríe", "reímos", "reís", "ríen"],
+   "pret": ["reí", "reíste", "rio", "reímos", "reísteis", "rieron"],
+   "fut": ["reiré", "reirás", "reirá", "reiremos", "reiréis", "reirán"]
+  },
+  {
+   "es": "rellenar",
+   "kind": "regular",
+   "pres": ["relleno", "rellenas", "rellena", "rellenamos", "rellenáis", "rellenan"],
+   "pret": ["rellené", "rellenaste", "rellenó", "rellenamos", "rellenasteis", "rellenaron"],
+   "fut": ["rellenaré", "rellenarás", "rellenará", "rellenaremos", "rellenaréis", "rellenarán"]
+  },
+  {
+   "es": "repetir",
+   "kind": "stem",
+   "pres": ["repito", "repites", "repite", "repetimos", "repetís", "repiten"],
+   "pret": ["repetí", "repetiste", "repitió", "repetimos", "repetisteis", "repitieron"],
+   "fut": ["repetiré", "repetirás", "repetirá", "repetiremos", "repetiréis", "repetirán"]
+  },
+  {
+   "es": "repostar",
+   "kind": "regular",
+   "pres": ["reposto", "repostas", "reposta", "repostamos", "repostáis", "repostan"],
+   "pret": ["reposté", "repostaste", "repostó", "repostamos", "repostasteis", "repostaron"],
+   "fut": ["repostaré", "repostarás", "repostará", "repostaremos", "repostaréis", "repostarán"]
+  },
+  {
+   "es": "reservar",
+   "kind": "regular",
+   "pres": ["reservo", "reservas", "reserva", "reservamos", "reserváis", "reservan"],
+   "pret": ["reservé", "reservaste", "reservó", "reservamos", "reservasteis", "reservaron"],
+   "fut": ["reservaré", "reservarás", "reservará", "reservaremos", "reservaréis", "reservarán"]
+  },
+  {
+   "es": "respirar",
+   "kind": "regular",
+   "pres": ["respiro", "respiras", "respira", "respiramos", "respiráis", "respiran"],
+   "pret": ["respiré", "respiraste", "respiró", "respiramos", "respirasteis", "respiraron"],
+   "fut": ["respiraré", "respirarás", "respirará", "respiraremos", "respiraréis", "respirarán"]
+  },
+  {
+   "es": "responder",
+   "kind": "regular",
+   "pres": ["respondo", "respondes", "responde", "respondemos", "respondéis", "responden"],
+   "pret": ["respondí", "respondiste", "respondió", "respondimos", "respondisteis", "respondieron"],
+   "fut": ["responderé", "responderás", "responderá", "responderemos", "responderéis", "responderán"]
+  },
+  {
+   "es": "retirar",
+   "kind": "regular",
+   "pres": ["retiro", "retiras", "retira", "retiramos", "retiráis", "retiran"],
+   "pret": ["retiré", "retiraste", "retiró", "retiramos", "retirasteis", "retiraron"],
+   "fut": ["retiraré", "retirarás", "retirará", "retiraremos", "retiraréis", "retirarán"]
+  },
+  {
+   "es": "revisar",
+   "kind": "regular",
+   "pres": ["reviso", "revisas", "revisa", "revisamos", "revisáis", "revisan"],
+   "pret": ["revisé", "revisaste", "revisó", "revisamos", "revisasteis", "revisaron"],
+   "fut": ["revisaré", "revisarás", "revisará", "revisaremos", "revisaréis", "revisarán"]
+  },
+  {
+   "es": "romper",
+   "kind": "regular",
+   "pres": ["rompo", "rompes", "rompe", "rompemos", "rompéis", "rompen"],
+   "pret": ["rompí", "rompiste", "rompió", "rompimos", "rompisteis", "rompieron"],
+   "fut": ["romperé", "romperás", "romperá", "romperemos", "romperéis", "romperán"]
+  },
+  {
+   "es": "saber",
+   "kind": "irregular",
+   "pres": ["sé", "sabes", "sabe", "sabemos", "sabéis", "saben"],
+   "pret": ["supe", "supiste", "supo", "supimos", "supisteis", "supieron"],
+   "fut": ["sabré", "sabrás", "sabrá", "sabremos", "sabréis", "sabrán"]
+  },
+  {
+   "es": "sacar",
+   "kind": "regular",
+   "pres": ["saco", "sacas", "saca", "sacamos", "sacáis", "sacan"],
+   "pret": ["saqué", "sacaste", "sacó", "sacamos", "sacasteis", "sacaron"],
+   "fut": ["sacaré", "sacarás", "sacará", "sacaremos", "sacaréis", "sacarán"]
+  },
+  {
+   "es": "salir",
+   "kind": "irregular",
+   "pres": ["salgo", "sales", "sale", "salimos", "salís", "salen"],
+   "pret": ["salí", "saliste", "salió", "salimos", "salisteis", "salieron"],
+   "fut": ["saldré", "saldrás", "saldrá", "saldremos", "saldréis", "saldrán"]
+  },
+  {
+   "es": "seguir",
+   "kind": "stem",
+   "pres": ["sigo", "sigues", "sigue", "seguimos", "seguís", "siguen"],
+   "pret": ["seguí", "seguiste", "siguió", "seguimos", "seguisteis", "siguieron"],
+   "fut": ["seguiré", "seguirás", "seguirá", "seguiremos", "seguiréis", "seguirán"]
+  },
+  {
+   "es": "sentarse",
+   "kind": "stem",
+   "pres": ["me siento", "te sientas", "se sienta", "nos sentamos", "os sentáis", "se sientan"],
+   "pret": ["me senté", "te sentaste", "se sentó", "nos sentamos", "os sentasteis", "se sentaron"],
+   "fut": ["me sentaré", "te sentarás", "se sentará", "nos sentaremos", "os sentaréis", "se sentarán"]
+  },
+  {
+   "es": "sentir",
+   "kind": "stem",
+   "pres": ["siento", "sientes", "siente", "sentimos", "sentís", "sienten"],
+   "pret": ["sentí", "sentiste", "sintió", "sentimos", "sentisteis", "sintieron"],
+   "fut": ["sentiré", "sentirás", "sentirá", "sentiremos", "sentiréis", "sentirán"]
+  },
+  {
+   "es": "ser",
+   "kind": "irregular",
+   "pres": ["soy", "eres", "es", "somos", "sois", "son"],
+   "pret": ["fui", "fuiste", "fue", "fuimos", "fuisteis", "fueron"],
+   "fut": ["seré", "serás", "será", "seremos", "seréis", "serán"]
+  },
+  {
+   "es": "servir",
+   "kind": "stem",
+   "pres": ["sirvo", "sirves", "sirve", "servimos", "servís", "sirven"],
+   "pret": ["serví", "serviste", "sirvió", "servimos", "servisteis", "sirvieron"],
+   "fut": ["serviré", "servirás", "servirá", "serviremos", "serviréis", "servirán"]
+  },
+  {
+   "es": "sobrar",
+   "kind": "regular",
+   "pres": ["sobro", "sobras", "sobra", "sobramos", "sobráis", "sobran"],
+   "pret": ["sobré", "sobraste", "sobró", "sobramos", "sobrasteis", "sobraron"],
+   "fut": ["sobraré", "sobrarás", "sobrará", "sobraremos", "sobraréis", "sobrarán"]
+  },
+  {
+   "es": "subir",
+   "kind": "regular",
+   "pres": ["subo", "subes", "sube", "subimos", "subís", "suben"],
+   "pret": ["subí", "subiste", "subió", "subimos", "subisteis", "subieron"],
+   "fut": ["subiré", "subirás", "subirá", "subiremos", "subiréis", "subirán"]
+  },
+  {
+   "es": "suceder",
+   "kind": "regular",
+   "pres": ["sucedo", "sucedes", "sucede", "sucedemos", "sucedéis", "suceden"],
+   "pret": ["sucedí", "sucediste", "sucedió", "sucedimos", "sucedisteis", "sucedieron"],
+   "fut": ["sucederé", "sucederás", "sucederá", "sucederemos", "sucederéis", "sucederán"]
+  },
+  {
+   "es": "suponer",
+   "kind": "irregular",
+   "pres": ["supongo", "supones", "supone", "suponemos", "suponéis", "suponen"],
+   "pret": ["supuse", "supusiste", "supuso", "supusimos", "supusisteis", "supusieron"],
+   "fut": ["supondré", "supondrás", "supondrá", "supondremos", "supondréis", "supondrán"]
+  },
+  {
+   "es": "suspender",
+   "kind": "regular",
+   "pres": ["suspendo", "suspendes", "suspende", "suspendemos", "suspendéis", "suspenden"],
+   "pret": ["suspendí", "suspendiste", "suspendió", "suspendimos", "suspendisteis", "suspendieron"],
+   "fut": ["suspenderé", "suspenderás", "suspenderá", "suspenderemos", "suspenderéis", "suspenderán"]
+  },
+  {
+   "es": "tardar",
+   "kind": "regular",
+   "pres": ["tardo", "tardas", "tarda", "tardamos", "tardáis", "tardan"],
+   "pret": ["tardé", "tardaste", "tardó", "tardamos", "tardasteis", "tardaron"],
+   "fut": ["tardaré", "tardarás", "tardará", "tardaremos", "tardaréis", "tardarán"]
+  },
+  {
+   "es": "tener",
+   "kind": "irregular",
+   "pres": ["tengo", "tienes", "tiene", "tenemos", "tenéis", "tienen"],
+   "pret": ["tuve", "tuviste", "tuvo", "tuvimos", "tuvisteis", "tuvieron"],
+   "fut": ["tendré", "tendrás", "tendrá", "tendremos", "tendréis", "tendrán"]
+  },
+  {
+   "es": "terminar",
+   "kind": "regular",
+   "pres": ["termino", "terminas", "termina", "terminamos", "termináis", "terminan"],
+   "pret": ["terminé", "terminaste", "terminó", "terminamos", "terminasteis", "terminaron"],
+   "fut": ["terminaré", "terminarás", "terminará", "terminaremos", "terminaréis", "terminarán"]
+  },
+  {
+   "es": "tirar",
+   "kind": "regular",
+   "pres": ["tiro", "tiras", "tira", "tiramos", "tiráis", "tiran"],
+   "pret": ["tiré", "tiraste", "tiró", "tiramos", "tirasteis", "tiraron"],
+   "fut": ["tiraré", "tirarás", "tirará", "tiraremos", "tiraréis", "tirarán"]
+  },
+  {
+   "es": "tomar",
+   "kind": "regular",
+   "pres": ["tomo", "tomas", "toma", "tomamos", "tomáis", "toman"],
+   "pret": ["tomé", "tomaste", "tomó", "tomamos", "tomasteis", "tomaron"],
+   "fut": ["tomaré", "tomarás", "tomará", "tomaremos", "tomaréis", "tomarán"]
+  },
+  {
+   "es": "trabajar",
+   "kind": "regular",
+   "pres": ["trabajo", "trabajas", "trabaja", "trabajamos", "trabajáis", "trabajan"],
+   "pret": ["trabajé", "trabajaste", "trabajó", "trabajamos", "trabajasteis", "trabajaron"],
+   "fut": ["trabajaré", "trabajarás", "trabajará", "trabajaremos", "trabajaréis", "trabajarán"]
+  },
+  {
+   "es": "traer",
+   "kind": "irregular",
+   "pres": ["traigo", "traes", "trae", "traemos", "traéis", "traen"],
+   "pret": ["traje", "trajiste", "trajo", "trajimos", "trajisteis", "trajeron"],
+   "fut": ["traeré", "traerás", "traerá", "traeremos", "traeréis", "traerán"]
+  },
+  {
+   "es": "tratar",
+   "kind": "regular",
+   "pres": ["trato", "tratas", "trata", "tratamos", "tratáis", "tratan"],
+   "pret": ["traté", "trataste", "trató", "tratamos", "tratasteis", "trataron"],
+   "fut": ["trataré", "tratarás", "tratará", "trataremos", "trataréis", "tratarán"]
+  },
+  {
+   "es": "usar",
+   "kind": "regular",
+   "pres": ["uso", "usas", "usa", "usamos", "usáis", "usan"],
+   "pret": ["usé", "usaste", "usó", "usamos", "usasteis", "usaron"],
+   "fut": ["usaré", "usarás", "usará", "usaremos", "usaréis", "usarán"]
+  },
+  {
+   "es": "valer",
+   "kind": "irregular",
+   "pres": ["valgo", "vales", "vale", "valemos", "valéis", "valen"],
+   "pret": ["valí", "valiste", "valió", "valimos", "valisteis", "valieron"],
+   "fut": ["valdré", "valdrás", "valdrá", "valdremos", "valdréis", "valdrán"]
+  },
+  {
+   "es": "vender",
+   "kind": "regular",
+   "pres": ["vendo", "vendes", "vende", "vendemos", "vendéis", "venden"],
+   "pret": ["vendí", "vendiste", "vendió", "vendimos", "vendisteis", "vendieron"],
+   "fut": ["venderé", "venderás", "venderá", "venderemos", "venderéis", "venderán"]
+  },
+  {
+   "es": "venir",
+   "kind": "irregular",
+   "pres": ["vengo", "vienes", "viene", "venimos", "venís", "vienen"],
+   "pret": ["vine", "viniste", "vino", "vinimos", "vinisteis", "vinieron"],
+   "fut": ["vendré", "vendrás", "vendrá", "vendremos", "vendréis", "vendrán"]
+  },
+  {
+   "es": "ver",
+   "kind": "irregular",
+   "pres": ["veo", "ves", "ve", "vemos", "veis", "ven"],
+   "pret": ["vi", "viste", "vio", "vimos", "visteis", "vieron"],
+   "fut": ["veré", "verás", "verá", "veremos", "veréis", "verán"]
+  },
+  {
+   "es": "vestirse",
+   "kind": "stem",
+   "pres": ["me visto", "te vistes", "se viste", "nos vestimos", "os vestís", "se visten"],
+   "pret": ["me vestí", "te vestiste", "se vistió", "nos vestimos", "os vestisteis", "se vistieron"],
+   "fut": ["me vestiré", "te vestirás", "se vestirá", "nos vestiremos", "os vestiréis", "se vestirán"]
+  },
+  {
+   "es": "viajar",
+   "kind": "regular",
+   "pres": ["viajo", "viajas", "viaja", "viajamos", "viajáis", "viajan"],
+   "pret": ["viajé", "viajaste", "viajó", "viajamos", "viajasteis", "viajaron"],
+   "fut": ["viajaré", "viajarás", "viajará", "viajaremos", "viajaréis", "viajarán"]
+  },
+  {
+   "es": "vivir",
+   "kind": "regular",
+   "pres": ["vivo", "vives", "vive", "vivimos", "vivís", "viven"],
+   "pret": ["viví", "viviste", "vivió", "vivimos", "vivisteis", "vivieron"],
+   "fut": ["viviré", "vivirás", "vivirá", "viviremos", "viviréis", "vivirán"]
+  },
+  {
+   "es": "volver",
+   "kind": "stem",
+   "pres": ["vuelvo", "vuelves", "vuelve", "volvemos", "volvéis", "vuelven"],
+   "pret": ["volví", "volviste", "volvió", "volvimos", "volvisteis", "volvieron"],
+   "fut": ["volveré", "volverás", "volverá", "volveremos", "volveréis", "volverán"]
+  }
+ ]
+}

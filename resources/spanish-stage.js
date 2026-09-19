@@ -421,9 +421,9 @@
         }
 
         var no = Number(root.dataset.stage);
-        // The learned list is needed before the first row is drawn, so it goes
-        // alongside the manifest rather than after it.
-        Promise.all([SP.loadManifest(), SP.loadLearned()]).then(function (loaded) {
+        // The learned list and the verb forms are needed before the first row
+        // is drawn, so they go alongside the manifest rather than after it.
+        Promise.all([SP.loadManifest(), SP.loadLearned(), SP.loadVerbs()]).then(function (loaded) {
             var manifest = loaded[0];
             var entry = manifest.stages.filter(function (s) { return s.no === no; })[0];
             if (!entry) throw new Error('stage ' + no + ' is not in index.json');
