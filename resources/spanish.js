@@ -317,11 +317,6 @@
         tr.textContent = prefs.dir === 'es-ru' && item.tr ? item.tr : '';
         tr.hidden = !tr.textContent;
         byId('sp-card-back').textContent = cardBack(item);
-
-        var speakHost = byId('sp-card-speak');
-        SP.clear(speakHost);
-        var speak = SP.speakButton(item.es, 'Listen to the Spanish');
-        if (speak) speakHost.appendChild(speak);
     }
 
     function revealCard() {
@@ -389,10 +384,7 @@
         });
 
         var card = byId('sp-card');
-        card.addEventListener('click', function (e) {
-            if (e.target.closest('.sp-speak')) return;
-            revealCard();
-        });
+        card.addEventListener('click', function () { revealCard(); });
 
         // Swipe: left = Again, right = Good. Buttons stay the primary path.
         var startX = 0, startY = 0, tracking = false;
@@ -474,7 +466,6 @@
             transcription: item.tr || '',
             options: SP.shuffleCopy([answer].concat(others.map(ruKey))),
             answer: answer,
-            speak: item.es,
             item: item
         };
     }
@@ -488,7 +479,6 @@
             russian: SP.meaningOf(item),
             options: SP.shuffleCopy([item.es].concat(others.map(esKey))),
             answer: item.es,
-            speak: item.es,
             item: item
         };
     }
@@ -505,7 +495,6 @@
             transcription: entry.cueTr || '',
             options: SP.shuffleCopy([entry.answer].concat(others.map(function (e) { return e.answer; }))),
             answer: entry.answer,
-            speak: entry.cue,
             item: entry.item
         };
     }
@@ -518,7 +507,6 @@
             spanish: item.prompt,
             options: SP.shuffleCopy(item.options.slice()),
             answer: item.answer,
-            speak: null,
             item: item
         };
     }
@@ -625,15 +613,6 @@
             host.appendChild(tr);
         }
         if (question.russian) host.appendChild(SP.el('div', null, question.russian));
-        if (question.speak) {
-            var speak = SP.speakButton(question.speak, 'Listen');
-            if (speak) {
-                var row = SP.el('div');
-                row.style.marginTop = 'var(--spacing-sm)';
-                row.appendChild(speak);
-                host.appendChild(row);
-            }
-        }
 
         var box = byId(optionsId);
         SP.clear(box);
@@ -713,11 +692,6 @@
             item: item
         };
 
-        var host = byId('sp-listen-word');
-        SP.clear(host);
-        var speak = SP.speakButton(item.es, 'Play the word again');
-        if (speak) host.appendChild(speak);
-
         byId('sp-listen-answer').hidden = true;
         byId('sp-listen-answer').textContent = '';
         byId('sp-listen-next').hidden = true;
@@ -746,8 +720,14 @@
         SP.tts.speak(item.es);
     }
 
+    // The word plays itself when the question is drawn; these two say it
+    // again, at speed and slowly. They are words rather than a speaker glyph —
+    // the section draws none anywhere.
     function initListenControls() {
         byId('sp-listen-next').addEventListener('click', nextListen);
+        byId('sp-listen-again').addEventListener('click', function () {
+            if (listenQuestion) SP.tts.speak(listenQuestion.item.es);
+        });
         byId('sp-listen-slow').addEventListener('click', function () {
             if (listenQuestion) SP.tts.speak(listenQuestion.item.es, { rate: 0.6 });
         });
@@ -911,7 +891,9 @@
         // order, still a run at a time, so the seams below go on marking the
         // stages and the types.
         buckets.reference = SP.orderBySet(buckets.reference);
-        buckets.learned = SP.learned.shuffle(buckets.learned, runKey);
+        // Pinned first, the rest in this page load's shuffle — which does not
+        // move, so unpinning drops a word back exactly where it was.
+        buckets.learned = SP.pin.first(SP.learned.shuffle(buckets.learned, runKey));
 
         var counts = {};
         var heads = {};
@@ -932,10 +914,13 @@
         function makeRow(item) {
             var row;
             var kind = SP.sectionOf(item);
-            // Neither a table row nor a learned row can move, so neither has
-            // a checkbox to move it with — nor an empty column where it would be.
-            var fixed = kind === 'reference' || kind === 'learned';
-            var mark = fixed ? null : SP.markButton(item, function (on) {
+            // A table row has nothing to tick and nothing to move: it is looked
+            // up, not worked through. A learned row has nothing to tick either —
+            // it is already learned — but the column it would have used carries
+            // the arrow that lifts it to the head of its section and back.
+            var mark = null;
+            if (kind === 'learned') mark = SP.pinButton(item.id);
+            else if (kind !== 'reference') mark = SP.markButton(item, function (on) {
                 SP.setRowState(row, false, on);
                 counts.pending += on ? 1 : -1;
                 counts.left += on ? -1 : 1;
@@ -1142,6 +1127,10 @@
             browseShown = BROWSE_PAGE;
             renderBrowse();
         });
+        // Pinning reorders the Learned section, so the list is drawn again —
+        // registered once here, as the fold is, and keeping the page the reader
+        // has already asked for.
+        SP.pin.onChange(renderBrowse);
         byId('sp-browse-group').addEventListener('change', applyBrowse);
         byId('sp-browse-reset').addEventListener('click', function () {
             byId('sp-browse-group').value = '';
@@ -1274,22 +1263,11 @@
         return node;
     }
 
-    // A pattern's example carries the speaker alone. The ask link a list row
-    // gives its example has a word above it to ask about; here there is only
-    // the formula, which the card already explains.
-    function patternExample(line) {
-        var speak = SP.speakButton(line.es);
-        if (!speak) return SP.exampleLine(line, null);
-        var tools = SP.el('div', 'sp-tools');
-        tools.appendChild(speak);
-        return SP.exampleLine(line, tools);
-    }
-
     // One pattern as a card: the formula and its meaning on top, the trap where
     // Russian logic leads astray, then the two examples. The file's how and lit
     // stay there for whoever edits it and are not drawn. The id is what the
     // top list links to.
-    function patternCard(item, topTotal) {
+    function patternCard(item, topTotal, shelf) {
         var card = SP.el('div', 'sp-pat');
         card.id = item.id;
 
@@ -1297,12 +1275,15 @@
         renderFormula(head.appendChild(SP.el('div', 'sp-pat-es')), item.es);
         head.appendChild(SP.el('div', 'sp-pat-ru', item.ru));
         if (item.top) head.appendChild(SP.topBadge(item.top, topTotal));
+        // The pattern being practised goes to the head of the panel and back:
+        // the cards are drawn once, so the arrow moves the card itself.
+        head.appendChild(SP.pinButton(item.id, { node: card, host: shelf }));
         card.appendChild(head);
 
         if (item.trap) card.appendChild(SP.el('p', 'sp-pat-trap', item.trap));
 
         var examples = SP.el('div', 'sp-drawer');
-        (item.ex || []).forEach(function (line) { examples.appendChild(patternExample(line)); });
+        (item.ex || []).forEach(function (line) { examples.appendChild(SP.exampleLine(line, null)); });
         card.appendChild(examples);
         return card;
     }
@@ -1326,6 +1307,13 @@
         var body = SP.el('div');
         host.appendChild(body);
 
+        // Where a pinned card is carried: a shelf at the head of the panel,
+        // a .sp-lex of its own so the cards on it keep the gap they have in a
+        // theme. It takes no room while nothing sits on it.
+        var shelf = SP.el('div', 'sp-lex sp-pin-host');
+        body.appendChild(shelf);
+        var pins = [];      // {key, node} of every card, for the restore below
+
         // The top list is gathered first: every star on a card names its place
         // out of how many.
         var top = [];
@@ -1338,7 +1326,11 @@
             var label = theme.no + '. ' + theme.title;
             var section = patternSection(theme.id, label);
             var cards = SP.el('div', 'sp-lex');
-            theme.items.forEach(function (item) { cards.appendChild(patternCard(item, top.length)); });
+            theme.items.forEach(function (item) {
+                var card = patternCard(item, top.length, shelf);
+                cards.appendChild(card);
+                pins.push({ key: item.id, node: card });
+            });
             section.appendChild(cards);
             body.appendChild(section);
             index.push({ row: 'main', label: label, target: theme.id });
@@ -1365,6 +1357,10 @@
             body.appendChild(topSection);
             index.push({ row: 'main', label: topLabel, target: topSection.id });
         }
+
+        // What was pinned on an earlier visit goes up before the index is
+        // built, so the observer watches the cards where they now stand.
+        SP.pin.pickPinned(pins).forEach(function (entry) { SP.pin.raise(entry.node, shelf); });
 
         SP.buildIndex(bar, index, true);
     }

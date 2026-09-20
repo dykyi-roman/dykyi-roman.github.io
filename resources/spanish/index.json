@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-19",
+ "updated": "2026-09-20",
  "stages": [
   {
    "id": "stage-1",
@@ -32,7 +32,7 @@
    "url": "spanish/stage-2.html",
    "file": "stage-3.json",
    "counts": {
-    "vocab": 664,
+    "vocab": 667,
     "pair": 0,
     "phrase": 0,
     "exchange": 0,
@@ -52,7 +52,7 @@
    "file": "stage-4.json",
    "counts": {
     "vocab": 0,
-    "pair": 176,
+    "pair": 179,
     "phrase": 0,
     "exchange": 0,
     "drill": 0
@@ -70,7 +70,7 @@
    "url": "spanish/stage-4.html",
    "file": "stage-2.json",
    "counts": {
-    "vocab": 100,
+    "vocab": 112,
     "pair": 0,
     "phrase": 0,
     "exchange": 0,
@@ -113,7 +113,7 @@
   "titleRu": "Разговорные конструкции: формула, смысл и два примера",
   "icon": "🧩",
   "file": "patterns.json",
-  "count": 56
+  "count": 57
  },
  "verbs": {
   "id": "verbs",

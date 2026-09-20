@@ -78,6 +78,48 @@
         return wrap;
     }
 
+    // A rule states itself in the prose above and shows itself in the table
+    // below. The table is open on arrival — the examples are what the rule is
+    // read for, and a page that hides them asks for a tap before it teaches
+    // anything — and folds away behind one dashed line for whoever is scanning
+    // the rules rather than reading one. It is the same fold the lists give
+    // their Learned block, down to the divider and the chevron. The state is
+    // not remembered: a rules section is read through once, not worked with
+    // over days like a list of words, so there is nothing here worth keeping.
+    // The captions come from rules.tables, because no Russian word belongs in
+    // this file.
+    var foldSeq = 0;
+
+    function foldedTable(block, captions) {
+        var box = SP.el('div', 'sp-fold');
+        var body = SP.el('div', 'sp-fold-body');
+        body.id = 'sp-fold-' + (foldSeq += 1);
+        body.appendChild(renderTable(block));
+
+        var head = SP.el('button', 'sp-divider sp-fold-head');
+        head.type = 'button';
+        head.setAttribute('aria-controls', body.id);
+        head.appendChild(SP.icon.chevron());
+        head.appendChild(SP.el('span', 'sp-divider-label',
+            captions.label + ' \u00b7 ' + (block.rows || []).length));
+
+        function label(open) {
+            head.setAttribute('aria-expanded', open ? 'true' : 'false');
+            head.title = open ? captions.hide : captions.show;
+        }
+        label(true);
+
+        head.addEventListener('click', function () {
+            var open = body.hidden;
+            body.hidden = !open;
+            label(open);
+        });
+
+        box.appendChild(head);
+        box.appendChild(body);
+        return box;
+    }
+
     /* ---------- rules diagrams ---------- */
 
     // A fork: the choice a rule comes down to, as two or three columns instead
@@ -93,11 +135,6 @@
             var card = SP.el('div', 'sp-fork-col');
             var head = SP.el('div', 'sp-fork-head');
             head.appendChild(SP.el('span', 'sp-fork-key', col.es));
-            // One speaker per column, on the head word: what a fork teaches is
-            // the choice between those words, and a speaker on each of nine
-            // rows would turn a narrow column into a list of buttons.
-            var speak = SP.speakButton(col.es);
-            if (speak) head.appendChild(speak);
             card.appendChild(head);
             if (col.hint) card.appendChild(SP.el('p', 'sp-fork-hint', col.hint));
             var rows = SP.el('div', 'sp-fork-rows');
@@ -191,8 +228,6 @@
             var th = SP.el('th', 'sp-c' + i);
             th.appendChild(SP.el('span', 'sp-conj-head-name', col.head));
             if (col.inf) th.appendChild(SP.el('span', 'sp-conj-head-inf', col.inf));
-            var speak = SP.speakButton(col.inf);
-            if (speak) th.appendChild(speak);
             hr.appendChild(th);
         });
         thead.appendChild(hr);
@@ -277,7 +312,11 @@
         return root;
     }
 
-    SP.renderBlocks = function (parent, blocks) {
+    // opts.tables, when given, folds every table away behind a divider that
+    // its three captions name. Only the rules pass it: a note or a stage's
+    // intro is short enough to read whole.
+    SP.renderBlocks = function (parent, blocks, opts) {
+        var tables = (opts && opts.tables) || null;
         (blocks || []).forEach(function (block) {
             if (!block) return;
             if (block.k === 'p') {
@@ -291,7 +330,7 @@
                 });
                 parent.appendChild(list);
             } else if (block.k === 'table') {
-                parent.appendChild(renderTable(block));
+                parent.appendChild(tables ? foldedTable(block, tables) : renderTable(block));
             } else if (block.k === 'fork') {
                 parent.appendChild(forkBlock(block));
             } else if (block.k === 'conj') {
@@ -418,7 +457,7 @@
     };
 
     // One row per entry, in rank order: its name (a link to it when `href` is
-    // given) → what it comes down to → one short example, which can be heard.
+    // given) → what it comes down to → one short example.
     // rows: [{ name: Node, href?, meaning, short: {es, ru, frame} }]
     SP.renderTopList = function (rows) {
         var list = SP.el('ol', 'sp-top');
@@ -438,8 +477,6 @@
             SP.renderFramed(example.appendChild(SP.el('span', 'sp-top-es')), row.short);
             example.appendChild(SP.el('span', 'sp-top-ru', row.short.ru));
             li.appendChild(text);
-            var speak = SP.speakButton(row.short.es);
-            if (speak) li.appendChild(speak);
             list.appendChild(li);
         });
         return list;
@@ -503,6 +540,13 @@
         var body = SP.el('div');
         host.appendChild(body);
 
+        // Where a pinned section is carried: a shelf of its own at the head of
+        // the body, above the map. A section keeps its margins there, and the
+        // shelf takes no room while nothing sits on it.
+        var shelf = SP.el('div', 'sp-pin-host');
+        body.appendChild(shelf);
+        var pins = [];      // {key, node} of every section, for the restore below
+
         var top = rules.sections.filter(function (section) { return section.top; })
             .sort(function (a, b) { return a.top - b.top; });
 
@@ -515,12 +559,16 @@
         rules.sections.forEach(function (section) {
             var block = SP.el('section', 'sp-group');
             block.id = section.id;
-            var title = block.appendChild(SP.el('h3', 'sp-group-title', section.no + '. ' + section.title));
+            var title = block.appendChild(SP.el('h3', 'sp-group-title has-pin', section.no + '. ' + section.title));
             if (section.top) title.appendChild(SP.topBadge(section.top, top.length));
-            SP.renderBlocks(block, section.blocks);
+            // The rule being worked on goes to the top of the page and back:
+            // the sections are drawn once, so the arrow moves the node itself.
+            title.appendChild(SP.pinButton(section.id, { node: block, host: shelf }));
+            pins.push({ key: section.id, node: block });
+            SP.renderBlocks(block, section.blocks, { tables: rules.tables });
             (section.parts || []).forEach(function (part) {
                 block.appendChild(SP.el('h4', null, part.title));
-                SP.renderBlocks(block, part.blocks);
+                SP.renderBlocks(block, part.blocks, { tables: rules.tables });
             });
             body.appendChild(block);
             index.push({ row: 'main', label: section.no + '. ' + section.title, target: section.id });
@@ -542,6 +590,10 @@
             body.appendChild(first);
             index.push({ row: 'main', label: label, target: first.id });
         }
+
+        // What was pinned on an earlier visit goes up before the index is
+        // built, so the observer watches the sections where they now stand.
+        SP.pin.pickPinned(pins).forEach(function (entry) { SP.pin.raise(entry.node, shelf); });
 
         SP.buildIndex(bar, index, opts.mainOnly);
     };

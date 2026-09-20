@@ -96,10 +96,13 @@
         function buildRow(item) {
             var row;
             var kind = SP.sectionOf(item);
-            // Neither a table row nor a learned row can move, so neither has
-            // a checkbox to move it with — nor an empty column where it would be.
-            var fixed = kind === 'reference' || kind === 'learned';
-            var mark = fixed ? null : SP.markButton(item, function (on) {
+            // A table row has nothing to tick and nothing to move: it is looked
+            // up, not worked through. A learned row has nothing to tick either —
+            // it is already learned — but the column it would have used carries
+            // the arrow that lifts it to the head of its section and back.
+            var mark = null;
+            if (kind === 'learned') mark = SP.pinButton(item.id);
+            else if (kind !== 'reference') mark = SP.markButton(item, function (on) {
                 SP.setRowState(row, false, on);
                 move(row, item, on);
             });
@@ -145,7 +148,9 @@
             // Reference reads table by table; Learned comes in the order this
             // page load dealt it, not the file's.
             buckets.reference = SP.orderBySet(buckets.reference);
-            buckets.learned = SP.learned.shuffle(buckets.learned);
+            // Pinned first, the rest in the order this page load dealt them —
+            // which does not move, so unpinning drops a word back where it was.
+            buckets.learned = SP.pin.first(SP.learned.shuffle(buckets.learned));
             plan = [];
             SP.SECTIONS.forEach(function (kind) {
                 SP.clear(zones[kind]);
@@ -161,6 +166,9 @@
 
         more.addEventListener('click', draw);
         SP.view.onFold(build);
+        // Pinning reorders the Learned section, so the list is built again.
+        // Registered once per list, as the fold is.
+        SP.pin.onChange(build);
         build();
     }
 
@@ -168,9 +176,8 @@
     function drillZone() { return SP.el('ol', 'sp-drills'); }
 
     // A drill keeps its answer folded away; the learned checkbox joins the
-    // answer and speak buttons rather than the text, so the list marker and
-    // the prompt stay on one line. It leads that row, with the answer button
-    // between it and the speaker, so a tap on one does not hit the other.
+    // buttons rather than the text, so the list marker and the prompt stay on
+    // one line. It leads that row, the answer button next to it.
     function drillRow(item, mark, query) {
         var li = SP.el('li', 'sp-drill');
         li.appendChild(SP.hilite(SP.el('span', null, item.prompt), query));
@@ -196,8 +203,6 @@
         if (mark) actions.appendChild(mark);
         actions.appendChild(reveal);
         var spoken = SP.spokenText(item);
-        var speak = SP.speakButton(spoken, spoken === item.answer ? 'Listen to the answer' : 'Listen to the Spanish');
-        if (speak) actions.appendChild(speak);
         var ask = SP.askButton(spoken, 'phrase');
         if (ask) actions.appendChild(ask);
 

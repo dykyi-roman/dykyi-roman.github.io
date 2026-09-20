@@ -17440,6 +17440,38 @@
    ]
   },
   {
+   "id": "es3-v684",
+   "type": "vocab",
+   "es": "bonito",
+   "en": "pretty/nice",
+   "ru": "красивый",
+   "tr": "бони́то",
+   "group": "Состояния и оценки",
+   "ex": [
+    {
+     "es": "Qué bonito es este sitio.",
+     "ru": "Какое красивое место.",
+     "frame": [
+      "bonito"
+     ]
+    },
+    {
+     "es": "Tienes un piso muy bonito.",
+     "ru": "У тебя очень красивая квартира.",
+     "frame": [
+      "bonito"
+     ]
+    },
+    {
+     "es": "Es un regalo bonito y barato.",
+     "ru": "Это красивый и недорогой подарок.",
+     "frame": [
+      "bonito"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es3-v467",
    "type": "vocab",
    "es": "el calor",
@@ -21563,6 +21595,70 @@
      "ru": "Это примерно сто евро.",
      "frame": [
       "más o menos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v685",
+   "type": "vocab",
+   "es": "quiero",
+   "en": "I want",
+   "ru": "я хочу",
+   "tr": "кье́ро",
+   "group": "Готовые фразы",
+   "ex": [
+    {
+     "es": "Quiero hablar contigo un momento.",
+     "ru": "Я хочу минутку с тобой поговорить.",
+     "frame": [
+      "Quiero"
+     ]
+    },
+    {
+     "es": "No quiero molestar.",
+     "ru": "Не хочу мешать.",
+     "frame": [
+      "quiero"
+     ]
+    },
+    {
+     "es": "Quiero dos, por favor.",
+     "ru": "Хочу два, пожалуйста.",
+     "frame": [
+      "Quiero"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v686",
+   "type": "vocab",
+   "es": "necesito",
+   "en": "I need",
+   "ru": "мне нужно",
+   "tr": "нэсэси́то",
+   "group": "Готовые фразы",
+   "ex": [
+    {
+     "es": "Necesito un momento, por favor.",
+     "ru": "Мне нужна минутка, пожалуйста.",
+     "frame": [
+      "Necesito"
+     ]
+    },
+    {
+     "es": "No necesito nada más.",
+     "ru": "Мне больше ничего не нужно.",
+     "frame": [
+      "necesito"
+     ]
+    },
+    {
+     "es": "Necesito cambiar la cita.",
+     "ru": "Мне нужно перенести приём.",
+     "frame": [
+      "Necesito"
      ]
     }
    ]

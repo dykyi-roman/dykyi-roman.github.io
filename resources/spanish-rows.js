@@ -214,7 +214,7 @@
 
     // The 44px checkbox that puts an entry in the pending list. A button with
     // aria-pressed rather than a real checkbox, so it has the shape and the
-    // touch target of .sp-speak at the other end of the row.
+    // touch target of .sp-ask at the other end of the row.
     SP.markButton = function (item, onChange) {
         var btn = SP.el('button', 'sp-mark');
         btn.type = 'button';
@@ -331,10 +331,17 @@
                 var td = SP.el('td');
                 // A button, like a conjugation grid in the rules: one tap says
                 // the form out loud, which is the one thing a table of forms
-                // cannot do on paper.
-                var btn = SP.el('button', 'sp-forms-cell', form);
+                // cannot do on paper. Under the form, in a quieter and smaller
+                // line, how it sounds — derived by SP.translit rather than
+                // stored, so it costs the files nothing. A second line inside
+                // a cell that was already 40px tall; the table itself is a
+                // fold inside a fold, so nothing above it moves.
+                var btn = SP.el('button', 'sp-forms-cell');
                 btn.type = 'button';
                 btn.dataset.form = form;
+                btn.appendChild(SP.el('span', 'sp-forms-form', form));
+                var sound = SP.translit(form);
+                if (sound) btn.appendChild(SP.el('span', 'sp-forms-tr', sound));
                 td.appendChild(btn);
                 tr.appendChild(td);
             });
@@ -407,9 +414,9 @@
 
     // `mark` is the optional learned-toggle built by SP.markButton — every
     // browsable list passes one, the flashcard face does not.
-    // A word with forms or examples gets a chevron at the head of its tools and
+    // A word with forms or examples gets a chevron at the end of its tools and
     // a drawer under it. A word with neither is built exactly as before: no
-    // control, and no third button narrowing the text line on a phone.
+    // control, and no second button narrowing the text line on a phone.
     var drawerSeq = 0;
 
     function drawerToggle(item, row, query, verbs) {
@@ -458,15 +465,16 @@
     // matched is painted in the texts below. It arrives already folded, from
     // the same SP.normalize the filter used, so the row cannot light up
     // anything the filter would not have found.
-    // The mark a verb wears beside the word itself, so its kind is legible
-    // without opening anything: a filled dot for one that has forms to
-    // memorise, a ring for one whose root merely alternates. A regular verb
-    // gets none — what is marked here is what needs attention, and a dot on
-    // two words in three would only be noise. Filled against hollow carries
-    // the same thing as the colour does, for whoever cannot tell the two
-    // apart; the title names the kind in words.
+    // The mark a verb wears beside the word itself. It answers two questions
+    // at once: that this word has a table of forms under its chevron — every
+    // verb carries one, so every verb carries a dot — and how much of that
+    // table has to be memorised. The fill grows with the work: an empty green
+    // ring for a regular verb, a ring with a centre for one whose root merely
+    // alternates, a filled red disc for one that is irregular. Shape carries
+    // what the colour carries, for whoever cannot tell the three apart, and
+    // the title names the kind in words.
     function verbDot(verb) {
-        if (!verb || verb.kind === 'regular') return null;
+        if (!verb) return null;
         var kind = SP.verbs.kind(verb.kind);
         var dot = SP.el('span', 'sp-verb-dot is-' + verb.kind);
         dot.setAttribute('role', 'img');
@@ -530,10 +538,7 @@
         SP.hilite(text, query);
         row.appendChild(text);
 
-        var halves = item.type === 'pair' && item.a && item.b && item.a.es && item.b.es
-            ? [item.a.es, item.b.es]
-            : null;
-        row.appendChild(SP.rowTools(item.es, 'word', ex && ex.button, halves));
+        row.appendChild(SP.rowTools(item.es, 'word', ex && ex.button));
         if (ex) row.appendChild(ex.drawer);
         return SP.attachMark(row, mark);
     };

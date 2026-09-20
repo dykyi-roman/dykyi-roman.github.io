@@ -116,6 +116,11 @@
    "kind": "topic"
   }
  ],
+ "sets": [
+  {
+   "name": "Вопросы"
+  }
+ ],
  "items": [
   {
    "id": "es2-v043",
@@ -3313,6 +3318,429 @@
      "ru": "Рад тебя видеть после такого перерыва.",
      "frame": [
       "Me alegro de verte"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v143",
+   "type": "vocab",
+   "es": "¿Qué es…?",
+   "en": "what is…?",
+   "ru": "что это…?",
+   "tr": "кэ эс",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Qué es esto exactamente?",
+     "ru": "Что это такое?",
+     "frame": [
+      "Qué",
+      "es"
+     ]
+    },
+    {
+     "es": "¿Qué es lo siguiente?",
+     "ru": "Что дальше?",
+     "frame": [
+      "Qué",
+      "es"
+     ]
+    },
+    {
+     "es": "¿Qué es eso que suena?",
+     "ru": "Что это там звучит?",
+     "frame": [
+      "Qué",
+      "es"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v144",
+   "type": "vocab",
+   "es": "¿Quién es…?",
+   "en": "who is…?",
+   "ru": "кто это…?",
+   "tr": "кьен эс",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Quién es el responsable aquí?",
+     "ru": "Кто здесь главный?",
+     "frame": [
+      "Quién",
+      "es"
+     ]
+    },
+    {
+     "es": "¿Quién es esa chica de la foto?",
+     "ru": "Кто эта девушка на фото?",
+     "frame": [
+      "Quién",
+      "es"
+     ]
+    },
+    {
+     "es": "¿Quién es el siguiente?",
+     "ru": "Кто следующий?",
+     "frame": [
+      "Quién",
+      "es"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v145",
+   "type": "vocab",
+   "es": "¿Cuándo es…?",
+   "en": "when is…?",
+   "ru": "когда это…?",
+   "tr": "куа́ндо эс",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Cuándo es la cita?",
+     "ru": "Когда приём?",
+     "frame": [
+      "Cuándo",
+      "es"
+     ]
+    },
+    {
+     "es": "¿Cuándo es la próxima clase?",
+     "ru": "Когда следующее занятие?",
+     "frame": [
+      "Cuándo",
+      "es"
+     ]
+    },
+    {
+     "es": "¿Cuándo es tu cumpleaños?",
+     "ru": "Когда у тебя день рождения?",
+     "frame": [
+      "Cuándo",
+      "es"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v146",
+   "type": "vocab",
+   "es": "¿Por qué es…?",
+   "en": "why is…?",
+   "ru": "почему это…?",
+   "tr": "пор кэ эс",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Por qué es tan caro?",
+     "ru": "Почему так дорого?",
+     "frame": [
+      "Por",
+      "qué",
+      "es"
+     ]
+    },
+    {
+     "es": "¿Por qué es necesario firmar?",
+     "ru": "Почему нужно подписывать?",
+     "frame": [
+      "Por",
+      "qué",
+      "es"
+     ]
+    },
+    {
+     "es": "¿Por qué es diferente el precio?",
+     "ru": "Почему цена другая?",
+     "frame": [
+      "Por",
+      "qué",
+      "es"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v147",
+   "type": "vocab",
+   "es": "¿Qué quieres…?",
+   "en": "what do you want…?",
+   "ru": "что ты хочешь…?",
+   "tr": "кэ кье́рэс",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Qué quieres beber?",
+     "ru": "Что будешь пить?",
+     "frame": [
+      "Qué",
+      "quieres"
+     ]
+    },
+    {
+     "es": "¿Qué quieres hacer hoy?",
+     "ru": "Что хочешь делать сегодня?",
+     "frame": [
+      "Qué",
+      "quieres"
+     ]
+    },
+    {
+     "es": "¿Qué quieres que le diga?",
+     "ru": "Что ему передать?",
+     "frame": [
+      "Qué",
+      "quieres"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v148",
+   "type": "vocab",
+   "es": "¿Dónde está…?",
+   "en": "where is…?",
+   "ru": "где находится…?",
+   "tr": "до́ндэ эста́",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Dónde está la parada del bus?",
+     "ru": "Где автобусная остановка?",
+     "frame": [
+      "Dónde",
+      "está"
+     ]
+    },
+    {
+     "es": "¿Dónde está mi pedido?",
+     "ru": "Где мой заказ?",
+     "frame": [
+      "Dónde",
+      "está"
+     ]
+    },
+    {
+     "es": "¿Dónde está la salida de emergencia?",
+     "ru": "Где запасной выход?",
+     "frame": [
+      "Dónde",
+      "está"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v149",
+   "type": "vocab",
+   "es": "¿Dónde hay…?",
+   "en": "where is there…?",
+   "ru": "где есть…?",
+   "tr": "до́ндэ ай",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Dónde hay un cajero cerca?",
+     "ru": "Где здесь банкомат?",
+     "frame": [
+      "Dónde",
+      "hay"
+     ]
+    },
+    {
+     "es": "¿Dónde hay una farmacia abierta?",
+     "ru": "Где есть открытая аптека?",
+     "frame": [
+      "Dónde",
+      "hay"
+     ]
+    },
+    {
+     "es": "¿Dónde hay sitio para aparcar?",
+     "ru": "Где есть место припарковаться?",
+     "frame": [
+      "Dónde",
+      "hay"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v150",
+   "type": "vocab",
+   "es": "¿Dónde puedo…?",
+   "en": "where can I…?",
+   "ru": "где я могу…?",
+   "tr": "до́ндэ пуэ́до",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Dónde puedo comprar billetes?",
+     "ru": "Где купить билеты?",
+     "frame": [
+      "Dónde",
+      "puedo"
+     ]
+    },
+    {
+     "es": "¿Dónde puedo dejar la maleta?",
+     "ru": "Где можно оставить чемодан?",
+     "frame": [
+      "Dónde",
+      "puedo"
+     ]
+    },
+    {
+     "es": "¿Dónde puedo firmar?",
+     "ru": "Где подписать?",
+     "frame": [
+      "Dónde",
+      "puedo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v151",
+   "type": "vocab",
+   "es": "¿Cómo se dice…?",
+   "en": "how do you say…?",
+   "ru": "как сказать…?",
+   "tr": "ко́мо сэ ди́сэ",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Cómo se dice esto de forma educada?",
+     "ru": "Как это сказать вежливо?",
+     "frame": [
+      "Cómo",
+      "se",
+      "dice"
+     ]
+    },
+    {
+     "es": "¿Cómo se dice eso más corto?",
+     "ru": "Как это сказать короче?",
+     "frame": [
+      "Cómo",
+      "se",
+      "dice"
+     ]
+    },
+    {
+     "es": "¿Cómo se dice cuando llegas tarde?",
+     "ru": "Как говорят, когда опаздываешь?",
+     "frame": [
+      "Cómo",
+      "se",
+      "dice"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v152",
+   "type": "vocab",
+   "es": "¿Cuánto cuesta…?",
+   "en": "how much is…?",
+   "ru": "сколько стоит…?",
+   "tr": "куа́нто куэ́ста",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Cuánto cuesta el billete?",
+     "ru": "Сколько стоит билет?",
+     "frame": [
+      "Cuánto",
+      "cuesta"
+     ]
+    },
+    {
+     "es": "¿Cuánto cuesta enviarlo?",
+     "ru": "Сколько стоит отправить?",
+     "frame": [
+      "Cuánto",
+      "cuesta"
+     ]
+    },
+    {
+     "es": "¿Cuánto cuesta con el descuento?",
+     "ru": "Сколько стоит со скидкой?",
+     "frame": [
+      "Cuánto",
+      "cuesta"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v153",
+   "type": "vocab",
+   "es": "¿Puedo…?",
+   "en": "may I…?",
+   "ru": "могу я…?",
+   "tr": "пуэ́до",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Puedo pasar?",
+     "ru": "Можно пройти?",
+     "frame": [
+      "Puedo"
+     ]
+    },
+    {
+     "es": "¿Puedo probármelo antes?",
+     "ru": "Могу сначала примерить?",
+     "frame": [
+      "Puedo"
+     ]
+    },
+    {
+     "es": "¿Puedo dejarlo para mañana?",
+     "ru": "Могу оставить это на завтра?",
+     "frame": [
+      "Puedo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v154",
+   "type": "vocab",
+   "es": "¿Se puede…?",
+   "en": "is it allowed…?",
+   "ru": "можно…?",
+   "tr": "сэ пуэ́дэ",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Se puede aparcar aquí?",
+     "ru": "Здесь можно парковаться?",
+     "frame": [
+      "Se",
+      "puede"
+     ]
+    },
+    {
+     "es": "¿Se puede pagar a plazos?",
+     "ru": "Можно платить в рассрочку?",
+     "frame": [
+      "Se",
+      "puede"
+     ]
+    },
+    {
+     "es": "¿Se puede entrar con el perro?",
+     "ru": "С собакой можно войти?",
+     "frame": [
+      "Se",
+      "puede"
      ]
     }
    ]

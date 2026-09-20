@@ -498,22 +498,170 @@
         span.setAttribute('aria-hidden', 'true');
         return span;
     };
+    /* ---------- transcription ---------- */
+
+    // The Russian transcription of a Spanish word, derived rather than stored.
+    // It is the same rule the corpus `tr` was written by, which is why it is
+    // code and not another column in the JSON: three tenses of six persons for
+    // 218 verbs is close to four thousand forms, and writing them into
+    // verbs.json would have trebled a file every page already fetches whole.
+    // Derived, they cost nothing until a table is opened.
+    //
+    // The rule, from rules.intro: "э" for e, a hard "л" (never "ль"), "рр" for
+    // rr and for a word-initial r, c and z as "с", g and j before e/i as "х",
+    // a silent h, "ь" or "й" for a gliding i, and U+0301 on the stressed vowel
+    // of every word of two syllables or more. Checked against all 1375 written
+    // transcriptions in the stage files: it reproduces every one of them but
+    // the five loanwords the key itself calls exceptions (online, ticket, DNI,
+    // NIE, wasap), which is why those are written by hand and this is not used
+    // to fill a `tr`.
+    var TR_ACUTE = '\u0301';
+    var TR_VOWELS = 'aeiou\u00e1\u00e9\u00ed\u00f3\u00fa\u00fc';
+    var TR_ACCENTED = '\u00e1\u00e9\u00ed\u00f3\u00fa';
+    var TR_BASE = { '\u00e1': 'a', '\u00e9': 'e', '\u00ed': 'i', '\u00f3': 'o', '\u00fa': 'u' };
+    var TR_PLAIN = {
+        a: '\u0430', e: '\u044d', i: '\u0438', o: '\u043e', u: '\u0443',
+        '\u00e1': '\u0430', '\u00e9': '\u044d', '\u00ed': '\u0438', '\u00f3': '\u043e',
+        '\u00fa': '\u0443', '\u00fc': '\u0443'
+    };
+    // After a gliding i the vowel softens the Russian way — nadie -> на́дье.
+    var TR_SOFT = { '\u0430': '\u044f', '\u044d': '\u0435', '\u043e': '\u043e', '\u0443': '\u044e', '\u0438': '\u0438' };
+    // After ñ it softens too, but e stays "э" — compañero -> компаньэ́ро.
+    var TR_SOFT_N = { '\u0430': '\u044f', '\u044d': '\u044d', '\u043e': '\u043e', '\u0443': '\u044e', '\u0438': '\u0438' };
+    var TR_SIMPLE = { d: '\u0434', f: '\u0444', k: '\u043a', m: '\u043c', n: '\u043d', p: '\u043f', t: '\u0442' };
+    var TR_STRIP = /[^A-Za-z\u00c0-\u024f]+/g;
+
+    function trBase(ch) { return TR_BASE[ch] || ch; }
+    function trVowel(ch) { return !!ch && TR_VOWELS.indexOf(ch) !== -1; }
+    function trStrong(ch) { return !!ch && 'aeo'.indexOf(trBase(ch)) !== -1; }
+
+    // The syllable nuclei, as [start, end) over the letters. Two strong vowels
+    // stand apart (ve-o, ca-er) and so does an accented weak one (dí-a); every
+    // other run of vowels is one diphthong.
+    function trNuclei(letters) {
+        var out = [];
+        var i = 0;
+        while (i < letters.length) {
+            if (!trVowel(letters[i])) { i += 1; continue; }
+            var j = i + 1;
+            while (j < letters.length && trVowel(letters[j])) {
+                var a = letters[j - 1];
+                var b = letters[j];
+                if (trStrong(a) && trStrong(b)) break;
+                if ('\u00ed\u00fa'.indexOf(a) !== -1 || '\u00ed\u00fa'.indexOf(b) !== -1) break;
+                j += 1;
+            }
+            out.push([i, j]);
+            i = j;
+        }
+        return out;
+    }
+
+    // Which letter carries the stress: the written accent if there is one,
+    // otherwise the penultimate syllable for a word ending in a vowel, n or s
+    // and the last one for anything else. Inside a diphthong it falls on the
+    // strong vowel, or on the second of two weak ones.
+    function trStress(letters) {
+        var i;
+        for (i = 0; i < letters.length; i += 1) {
+            if (TR_ACCENTED.indexOf(letters[i]) !== -1) return i;
+        }
+        var nuclei = trNuclei(letters);
+        if (!nuclei.length) return -1;
+        var last = letters[letters.length - 1];
+        var pick = nuclei.length > 1 && 'aeiouns'.indexOf(last) !== -1
+            ? nuclei[nuclei.length - 2]
+            : nuclei[nuclei.length - 1];
+        for (i = pick[0]; i < pick[1]; i += 1) {
+            if (trStrong(letters[i])) return i;
+        }
+        return pick[1] - 1;
+    }
+
+    // Each piece carries where it came from: the index of the Spanish vowel it
+    // renders, so the stress mark lands on the right letter, and a marker that
+    // says the next vowel follows a soft sign — or a silent h, which keeps two
+    // vowels apart (prohibir is pro-i-bir, not пройбир).
+    function trWord(word) {
+        var letters = word.toLowerCase().split('');
+        var n = letters.length;
+        if (!n) return '';
+        var stressed = trStress(letters);
+        var out = [];
+        var i = 0;
+
+        function at(k) { return letters[i + k] || ''; }
+        function push(text, index, soft) { out.push([text, index === undefined ? -1 : index, soft || null]); }
+
+        while (i < n) {
+            var ch = letters[i];
+            var prev = out.length ? out[out.length - 1] : null;
+            if (trVowel(ch)) {
+                var afterConsonant = !!prev && prev[1] < 0 && prev[2] === null;
+                // A gliding i between a consonant and a vowel: hacia -> а́сья.
+                if (ch === 'i' && trVowel(at(1)) && afterConsonant) { push('\u044c', -1, 'i'); i += 1; continue; }
+                // A falling one, after a strong vowel: seis -> сэйс, oigo -> о́йго.
+                // After u it stays a vowel — cuidado is куида́до, not куйдадо.
+                if (ch === 'i' && prev && prev[1] >= 0 && trStrong(letters[prev[1]]) && i !== stressed) {
+                    push('\u0439'); i += 1; continue;
+                }
+                var vowel = TR_PLAIN[ch] || ch;
+                if (prev && prev[2] === 'i') vowel = TR_SOFT[vowel] || vowel;
+                else if (prev && prev[2] === 'n') vowel = TR_SOFT_N[vowel] || vowel;
+                push(vowel, i); i += 1; continue;
+            }
+            if (ch === 'c') {
+                if (at(1) === 'h') { push('\u0447'); i += 2; continue; }
+                push(trBase(at(1)) === 'e' || trBase(at(1)) === 'i' ? '\u0441' : '\u043a'); i += 1; continue;
+            }
+            if (ch === 'q') { push('\u043a'); i += at(1) === 'u' ? 2 : 1; continue; }
+            if (ch === 'g') {
+                if (trBase(at(1)) === 'e' || trBase(at(1)) === 'i') { push('\u0445'); i += 1; continue; }
+                // The u of gue/gui is silent; the ü of güe is not.
+                if (at(1) === 'u' && (trBase(at(2)) === 'e' || trBase(at(2)) === 'i')) { push('\u0433'); i += 2; continue; }
+                push('\u0433'); i += 1; continue;
+            }
+            if (ch === 'h') { push('', -1, 'h'); i += 1; continue; }
+            if (ch === 'j') { push('\u0445'); i += 1; continue; }
+            if (ch === 'l') {
+                if (at(1) === 'l') { push('\u0439'); i += 2; continue; }
+                push('\u043b'); i += 1; continue;
+            }
+            if (ch === 'r') {
+                if (at(1) === 'r') { push('\u0440\u0440'); i += 2; continue; }
+                // Trilled at the start of a word and after l, n, s.
+                push(i === 0 || 'lns'.indexOf(letters[i - 1]) !== -1 ? '\u0440\u0440' : '\u0440'); i += 1; continue;
+            }
+            if (ch === '\u00f1') { push('\u043d\u044c', -1, 'n'); i += 1; continue; }
+            if (ch === 'y') { push(n === 1 ? '\u0438' : '\u0439'); i += 1; continue; }
+            if (ch === 'x') { push('\u043a\u0441'); i += 1; continue; }
+            if (ch === 'z' || ch === 's') { push('\u0441'); i += 1; continue; }
+            if (ch === 'b' || ch === 'v' || ch === 'w') { push('\u0431'); i += 1; continue; }
+            if (TR_SIMPLE[ch]) { push(TR_SIMPLE[ch]); i += 1; continue; }
+            push(ch); i += 1;
+        }
+
+        // A monosyllable carries no mark, which is what the written corpus does.
+        var mark = trNuclei(letters).length > 1;
+        var text = '';
+        out.forEach(function (part) {
+            text += part[0];
+            if (mark && part[1] === stressed) text += TR_ACUTE;
+        });
+        return text;
+    }
+
+    // A word or a short phrase — a reflexive form is "me ducho".
+    SP.translit = function (text) {
+        return String(text || '').trim().split(/\s+/).map(function (part) {
+            var word = part.replace(TR_STRIP, '');
+            return word ? trWord(word) : '';
+        }).filter(Boolean).join(' ');
+    };
+
     /* ---------- speech ---------- */
 
     var SVG_NS = 'http://www.w3.org/2000/svg';
-
-    function speakerIcon() {
-        var svg = document.createElementNS(SVG_NS, 'svg');
-        svg.setAttribute('viewBox', '0 0 24 24');
-        svg.setAttribute('aria-hidden', 'true');
-        var body = document.createElementNS(SVG_NS, 'path');
-        body.setAttribute('d', 'M3 9v6h4l5 5V4L7 9H3z');
-        var wave = document.createElementNS(SVG_NS, 'path');
-        wave.setAttribute('d', 'M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z');
-        svg.appendChild(body);
-        svg.appendChild(wave);
-        return svg;
-    }
 
     var tts = {
         rate: 1,
@@ -576,25 +724,6 @@
 
     SP.tts = tts;
 
-    // A 44px round-cornered speak button. Returns null when speech is absent,
-    // so callers simply skip appending it.
-    SP.speakButton = function (text, label) {
-        if (!tts.available() || !text) return null;
-        var btn = SP.el('button', 'sp-speak');
-        btn.type = 'button';
-        btn.setAttribute('aria-label', label || ('Listen: ' + text));
-        btn.appendChild(SP.icon.speaker());
-        btn.addEventListener('click', function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            btn.classList.add('speaking');
-            tts.speak(text, { onend: function () { btn.classList.remove('speaking'); } });
-            // Safety net: some platforms never fire "end" on a cancelled utterance.
-            setTimeout(function () { btn.classList.remove('speaking'); }, 4000);
-        });
-        return btn;
-    };
-
     /* ---------- asking ChatGPT ---------- */
 
     // chatgpt.com/?q= opens a new chat with the prompt already sent. The prompt
@@ -646,30 +775,162 @@
         return link;
     };
 
-    // The tail of a list row: the speaker, then the question. One grid cell for
-    // both, so the row keeps a single column for its controls. The keys stop
-    // here too — the row's own Enter/Space toggles the cover and would
-    // otherwise cancel the button the key was meant for.
-    // `lead` is an optional control drawn before the speaker — the chevron that
-    // opens a word's usage examples. It rides in this cell rather than beside
-    // it because the cell already stops a keydown from reaching the row's
-    // reveal toggle, which is exactly what a second button in a row needs.
-    // `voices` is what the speakers read, when that is not the row's own text:
-    // a pair is two words, so it gets a speaker each rather than one that reads
-    // the slash out loud. They follow the order the row prints them in, and
-    // each names its own word in its accessible label.
-    SP.rowTools = function (text, kind, lead, voices) {
+    // The tail of a list row: the question, then whatever the caller closes
+    // with — the chevron that opens a word's drawer. One grid cell for both, so
+    // the row keeps a single column for its controls. The keys stop here too —
+    // the row's own Enter/Space toggles the cover and would otherwise cancel
+    // the button the key was meant for, which is also why the chevron rides in
+    // this cell rather than beside it.
+    // The chevron sits last, against the edge of the card: it is the control
+    // that opens something below it, so it reads as the head of what it opens.
+    SP.rowTools = function (text, kind, tail) {
         var tools = SP.el('div', 'sp-tools');
-        if (lead) tools.appendChild(lead);
-        (voices && voices.length ? voices : [text]).forEach(function (one) {
-            var speak = SP.speakButton(one);
-            if (speak) tools.appendChild(speak);
-        });
         var ask = SP.askButton(text, kind);
         if (ask) tools.appendChild(ask);
+        if (tail) tools.appendChild(tail);
         tools.addEventListener('keydown', function (e) { e.stopPropagation(); });
         return tools;
     };
+    /* ---------- lifting an entry to the top ---------- */
+
+    // The arrow at the head of a learned row, of a rules section and of a
+    // pattern card: it takes that one entry to the top of its list, and puts
+    // it back exactly where it stood when it is pressed again. What belongs up
+    // there is whatever is being worked on right now — a word the shuffle
+    // buried, the rule being read beside it — and that outlives the page:
+    // the learned list is dealt afresh on every load, so a pick kept only in
+    // memory would be shuffled away by the next reload, which is the one thing
+    // pinning is for. The record is this browser's, like the pending marks,
+    // and holds the moment each entry went up so the newest leads.
+    var PIN_KEY = 'spanishPinned';
+    var pinState = null;
+    var pinListeners = [];
+
+    function pinRecord() {
+        if (!pinState) {
+            pinState = SP.loadState(PIN_KEY, 1) || { v: 1, ids: {} };
+            if (!pinState.ids) pinState.ids = {};
+        }
+        return pinState;
+    }
+
+    SP.pin = {
+        has: function (key) { return !!key && !!pinRecord().ids[key]; },
+
+        // The value is when it went up, so the list can put the newest first —
+        // the same place a fresh click lands it.
+        set: function (key, on) {
+            if (!key) return false;
+            var ids = pinRecord().ids;
+            if (on) ids[key] = Date.now();
+            else delete ids[key];
+            SP.saveState(PIN_KEY, pinState);
+            pinListeners.forEach(function (fn) { fn(key, !!on); });
+            return !!on;
+        },
+
+        toggle: function (key) { return SP.pin.set(key, !SP.pin.has(key)); },
+
+        // Register once per list, as with the fold: a list that re-registers
+        // on every render would redraw itself as many times as it was drawn.
+        onChange: function (fn) { pinListeners.push(fn); },
+
+        // The pinned entries in front of the rest, newest first, everything
+        // else in the order it came in. This is how a list that redraws itself
+        // keeps them up — through the next reload as well, since the record
+        // outlives the page while the shuffle behind it does not — and how they
+        // go back: the order under them never moved, so unpinning puts an entry
+        // down exactly where it was. The anchor below serves the two panels
+        // that are drawn once and never again.
+        first: function (items, keyOf) {
+            var top = [];
+            var rest = [];
+            var ids = pinRecord().ids;
+            items.forEach(function (item) {
+                var key = keyOf ? keyOf(item) : item.id;
+                if (ids[key]) top.push({ item: item, at: ids[key] });
+                else rest.push(item);
+            });
+            top.sort(function (a, b) { return b.at - a.at; });
+            return top.map(function (entry) { return entry.item; }).concat(rest);
+        },
+
+        // For the rules and the patterns, which are drawn once: hand back what
+        // was pinned before this load, oldest first, so raising them one by one
+        // onto the shelf leaves the newest on top.
+        pickPinned: function (entries) {
+            var ids = pinRecord().ids;
+            return entries.filter(function (entry) { return !!ids[entry.key]; })
+                .sort(function (a, b) { return ids[a.key] - ids[b.key]; });
+        },
+
+        raise: function (node, host) { pinRaise(node, host); },
+        lower: function (node) { pinLower(node); }
+    };
+
+    // The way back for those two panels. An anchor comment is left where the
+    // node stood, so "where it was" holds however much has been pinned, folded
+    // or marked above it meanwhile.
+    function pinRaise(node, host) {
+        if (!node || !host || node.spPin || !node.parentNode) return;
+        var anchor = document.createComment('pin');
+        node.parentNode.insertBefore(anchor, node);
+        node.spPin = anchor;
+        host.insertBefore(node, host.firstChild);
+        node.classList.add('is-pinned');
+    }
+
+    function pinLower(node) {
+        var anchor = node && node.spPin;
+        if (!anchor) return;
+        node.spPin = null;
+        node.classList.remove('is-pinned');
+        if (!anchor.parentNode) return;
+        anchor.parentNode.insertBefore(node, anchor);
+        anchor.parentNode.removeChild(anchor);
+    }
+
+    function pinNode(value) { return typeof value === 'function' ? value() : value; }
+
+    // One glyph for both jobs: the arrow points up while it would lift the
+    // entry and is turned over once the entry is up, where it reads as "put it
+    // back down". Quiet until then — a list of a hundred words does not need a
+    // hundred lit arrows down its edge, so an unpinned one is barely there
+    // until it is hovered or focused, while a pinned one carries the full
+    // orange and says on the entry itself why it is at the top.
+    // `move` is {node, host} where the list is drawn once and the entry has to
+    // be carried up by hand — the rules and the patterns. A list that redraws
+    // itself passes nothing and reorders through SP.pin.first instead.
+    SP.pinButton = function (key, move) {
+        var btn = SP.el('button', 'sp-pin');
+        btn.type = 'button';
+        btn.appendChild(SP.icon.arrowUp());
+
+        function sync(on) {
+            btn.classList.toggle('is-on', on);
+            btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            var label = on ? 'Pinned to the top — put it back where it was' : 'Pin to the top';
+            btn.title = label;
+            btn.setAttribute('aria-label', label);
+        }
+
+        // A list row is a reveal toggle on the click and on the key alike, so
+        // both stop here — the same reason .sp-tools stops the keys at the
+        // other end of the row.
+        btn.addEventListener('keydown', function (e) { e.stopPropagation(); });
+        btn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            var on = SP.pin.toggle(key);
+            if (move && on) pinRaise(pinNode(move.node), pinNode(move.host));
+            else if (move) pinLower(pinNode(move.node));
+            sync(on);
+        });
+
+        sync(SP.pin.has(key));
+        return btn;
+    };
+
     /* ---------- icons ---------- */
 
     function checkIcon() {
@@ -755,6 +1016,18 @@
         return svg;
     }
 
+    // The arrow that lifts one entry to the top of its list.
+    function arrowUpIcon() {
+        var svg = document.createElementNS(SVG_NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('class', 'sp-arrow-up');
+        var path = document.createElementNS(SVG_NS, 'path');
+        path.setAttribute('d', 'M12 19.5V5.5M5.5 12l6.5-6.5 6.5 6.5');
+        svg.appendChild(path);
+        return svg;
+    }
+
     function chevronIcon() {
         var svg = document.createElementNS(SVG_NS, 'svg');
         svg.setAttribute('viewBox', '0 0 24 24');
@@ -766,17 +1039,16 @@
         return svg;
     }
 
-    // Every glyph the section draws, in one export. They are built here, beside
-    // the speak button that needs the first of them, and wanted all over: the
+    // Every glyph the section draws, in one export, wanted all over: the
     // search field draws the ✕, a list draws the tick and the chevron.
     SP.icon = {
-        speaker: speakerIcon,
         check: checkIcon,
         copy: copyIcon,
         download: downloadIcon,
         eyeOff: eyeOffIcon,
         cross: crossIcon,
-        chevron: chevronIcon
+        chevron: chevronIcon,
+        arrowUp: arrowUpIcon
     };
 
     // Every list is split into the same four sections, in this order. Reference

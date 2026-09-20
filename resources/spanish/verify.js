@@ -606,6 +606,12 @@ if (rules) {
     const topRanks = {};
     (rules.sections || []).forEach(section => { if (section && section.id) ruleIds[section.id] = true; });
     checkBlocks(rules.intro, 'rules.json intro');
+    // Every table inside a section is folded away behind a line the reader
+    // opens, and the three words on that line live here rather than in the JS.
+    // Missing, the fold would draw "undefined · 6" and say nothing.
+    ['label', 'show', 'hide'].forEach(key => {
+        if (!rules.tables || !rules.tables[key]) fail('rules.json: tables.' + key + ' is missing — the examples fold has no caption');
+    });
     if (!Array.isArray(rules.sections) || rules.sections.length === 0) fail('rules.json: no sections');
     (rules.sections || []).forEach(section => {
         if (!section.id) fail('rules.json: section without id');
@@ -738,11 +744,29 @@ if (setIds.length) notes.push(setIds.length + ' in sets');
 const HOMONYMS = ['claro', 'salida', 'verdad', 'cómo', 'perdón', 'no', 'este', 'caja', 'comedor',
     'primero', 'segundo', 'cuarto', 'tirar', 'seco'];
 
+// And so are the six question words, which are taught twice on purpose: as
+// words of Bind, where the stage teaches asking, and again as the contrast
+// pairs of Pairs — что/кто, где/когда, как/почему — which is the one thing a
+// pair does that a word cannot. Two entries mean two Leitner boxes, and that
+// is both the price and the point: the word and the contrast are learnt apart.
+// Nothing else may be doubled. A word that turns up twice without being named
+// here is a mistake, not an entry.
+const ECHOES = ['qué', 'quién', 'dónde', 'cuándo', 'cómo', 'por qué'];
+
 function distinct(ids) { return ids.filter((id, i) => ids.indexOf(id) === i); }
 
 Object.keys(lexForms).forEach(key => {
     const ids = distinct(lexForms[key]);
-    if (ids.length > 1 && HOMONYMS.indexOf(key) === -1) fail('"' + key + '" is a word of more than one entry: ' + ids.join(', '));
+    if (ids.length > 1 && HOMONYMS.indexOf(key) === -1 && ECHOES.indexOf(key) === -1) {
+        fail('"' + key + '" is a word of more than one entry: ' + ids.join(', '));
+    }
+});
+// An echo is exactly two entries — the word and the pair. One means the pair
+// has gone and the exemption is now covering nothing; three means the escape
+// hatch is being leant on.
+ECHOES.forEach(key => {
+    const ids = distinct(lexForms[key] || []);
+    if (ids.length !== 2) fail('"' + key + '" is listed as taught twice but has ' + ids.length + ': ' + (ids.join(', ') || 'none'));
 });
 // No sentence is written twice. Three thousand usage examples put in by hand
 // repeat themselves otherwise, and one sentence illustrating two words teaches

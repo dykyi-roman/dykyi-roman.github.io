@@ -101,6 +101,10 @@
   {
    "kind": "topic",
    "name": "Реплики"
+  },
+  {
+   "kind": "topic",
+   "name": "Вопросительные слова"
   }
  ],
  "items": [
@@ -8197,6 +8201,146 @@
      "frame": [
       "Algo más",
       "Nada más"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es4-p180",
+   "type": "pair",
+   "es": "qué / quién",
+   "en": "what / who",
+   "ru": "что / кто",
+   "tr": "кэ / кьен",
+   "group": "Вопросительные слова",
+   "pairKind": "contrast",
+   "a": {
+    "es": "qué",
+    "en": "what",
+    "ru": "что",
+    "tr": "кэ"
+   },
+   "b": {
+    "es": "quién",
+    "en": "who",
+    "ru": "кто",
+    "tr": "кьен"
+   },
+   "ex": [
+    {
+     "es": "¿Qué llevas en la bolsa?",
+     "ru": "Что у тебя в сумке?",
+     "frame": [
+      "Qué"
+     ]
+    },
+    {
+     "es": "¿Quién llama a estas horas?",
+     "ru": "Кто звонит в такое время?",
+     "frame": [
+      "Quién"
+     ]
+    },
+    {
+     "es": "No sé qué pasó ni quién estaba.",
+     "ru": "Не знаю, что случилось и кто там был.",
+     "frame": [
+      "qué",
+      "quién"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es4-p181",
+   "type": "pair",
+   "es": "dónde / cuándo",
+   "en": "where / when",
+   "ru": "где / когда",
+   "tr": "до́ндэ / куа́ндо",
+   "group": "Вопросительные слова",
+   "pairKind": "contrast",
+   "a": {
+    "es": "dónde",
+    "en": "where",
+    "ru": "где",
+    "tr": "до́ндэ"
+   },
+   "b": {
+    "es": "cuándo",
+    "en": "when",
+    "ru": "когда",
+    "tr": "куа́ндо"
+   },
+   "ex": [
+    {
+     "es": "¿Dónde nos vemos?",
+     "ru": "Где встречаемся?",
+     "frame": [
+      "Dónde"
+     ]
+    },
+    {
+     "es": "¿Cuándo sale el tren?",
+     "ru": "Когда отходит поезд?",
+     "frame": [
+      "Cuándo"
+     ]
+    },
+    {
+     "es": "Dime dónde y cuándo quedamos.",
+     "ru": "Скажи, где и когда встречаемся.",
+     "frame": [
+      "dónde",
+      "cuándo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es4-p182",
+   "type": "pair",
+   "es": "cómo / por qué",
+   "en": "how / why",
+   "ru": "как / почему",
+   "tr": "ко́мо / пор кэ",
+   "group": "Вопросительные слова",
+   "pairKind": "contrast",
+   "a": {
+    "es": "cómo",
+    "en": "how",
+    "ru": "как",
+    "tr": "ко́мо"
+   },
+   "b": {
+    "es": "por qué",
+    "en": "why",
+    "ru": "почему",
+    "tr": "пор кэ"
+   },
+   "ex": [
+    {
+     "es": "¿Cómo funciona esto?",
+     "ru": "Как это работает?",
+     "frame": [
+      "Cómo"
+     ]
+    },
+    {
+     "es": "¿Por qué cierran tan pronto?",
+     "ru": "Почему так рано закрывают?",
+     "frame": [
+      "Por",
+      "qué"
+     ]
+    },
+    {
+     "es": "Explícame cómo y por qué lo hiciste.",
+     "ru": "Объясни мне, как и почему ты это сделал.",
+     "frame": [
+      "cómo",
+      "por",
+      "qué"
      ]
     }
    ]

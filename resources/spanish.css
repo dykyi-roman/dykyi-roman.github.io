@@ -56,9 +56,9 @@
 .sp-btn:focus-visible,
 .sp-chip:focus-visible,
 .sp-tab:focus-visible,
-.sp-speak:focus-visible,
 .sp-ask:focus-visible,
 .sp-mark:focus-visible,
+.sp-pin:focus-visible,
 .sp-divider:focus-visible,
 .sp-option:focus-visible {
     outline: 2px solid var(--color-primary);
@@ -182,9 +182,11 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     margin: var(--spacing-md) 0;
 }
 
-/* ---------- speak and ask buttons ---------- */
+/* ---------- the ask button ---------- */
 
-.sp-speak,
+/* The section draws no speaker: every form and every conjugation cell says
+   itself when it is tapped, and a glyph on every row of every list was a
+   column of buttons saying the same thing. */
 .sp-ask {
     flex: 0 0 auto;
     width: 44px;
@@ -203,10 +205,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.sp-speak:hover,
 .sp-ask:hover { color: var(--color-primary); border-color: var(--color-primary); }
-.sp-speak.speaking { color: var(--color-primary); border-color: var(--color-primary); }
-.sp-speak svg { width: 20px; height: 20px; fill: currentColor; }
 
 /* The ask button is a link, so it sheds what the site gives every link: the
    drawn underline, the visited colour and the dashed focus ring. */
@@ -226,32 +225,10 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     mask: url("../images/chatgpt.svg") center / contain no-repeat;
 }
 
-/* The tail cell of a list row: the examples chevron, the speaker, then the
-   ChatGPT question. */
+/* The tail cell of a list row: the examples chevron, then the ChatGPT
+   question. Two controls, so a pair no longer needs a tail of its own — it
+   used to carry four, a speaker per half among them, laid out two by two. */
 .sp-tools { display: flex; align-items: center; gap: 4px; }
-
-/* A pair carries four controls — the chevron, a speaker per word and the ask
-   link — and in one line they would leave a 360px phone about sixty pixels of
-   text. Two by two they take the width of two buttons, which is what every
-   other row's tail already costs. The two speakers share the bottom line: they
-   are one control split in two, one reading each half of "arriba / abajo", and
-   laid out in flow order they fell on either side of the square — one at the
-   top, one at the bottom — reading as two unrelated buttons. They are locked
-   to the second row instead, and the chevron and the ask link fill the free
-   cells of the first by auto-placement, so the DOM keeps the order every other
-   row has and the desktop line prints — chevron, speakers, ask — and the tab
-   order still runs chevron, first word, second word, ask. That is the one
-   place where the visual order differs from the DOM, and it is deliberate.
-   From 700px up there is room for one line. */
-@media (max-width: 699px) {
-    .sp-lex-row.is-pair > .sp-tools {
-        display: grid;
-        grid-template-columns: repeat(2, auto);
-        justify-content: end;
-    }
-
-    .sp-lex-row.is-pair > .sp-tools > .sp-speak { grid-row: 2; }
-}
 
 /* The chevron that opens a word's usage examples. Narrower than the two
    buttons beside it: it is a thin glyph, and a third full 44px target would
@@ -278,13 +255,17 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-drawer-toggle:hover,
 .sp-drawer-toggle[aria-expanded="true"] { color: var(--color-primary); border-color: var(--color-primary); }
 
-/* ---------- learned checkbox and divider ---------- */
+/* ---------- the row's two head buttons, and the divider ---------- */
 
-/* The same 44px target as the speak button, but with no border of its own:
-   the drawn box is the control. Where a pointer can hover, the tick appears at
+/* The checkbox that puts a row in Pending and the arrow that lifts a learned
+   one to the top share the head of the row, and never appear together: a row
+   is in one list or the other. So they share a shape too — the same 44px
+   target as the question at the tail, with no border of its own, the drawn
+   glyph being the control. Where a pointer can hover, the tick appears at
    half strength under it, so it is clear what the button will do before it is
    pressed. */
-.sp-mark {
+.sp-mark,
+.sp-pin {
     flex: 0 0 auto;
     width: 44px;
     height: 44px;
@@ -329,6 +310,49 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
    green is what the learned list is drawn in. */
 .sp-mark.is-on, .sp-mark.is-on:hover { color: var(--color-primary); }
 .sp-mark.is-on .sp-tick { opacity: 1; }
+
+/* The arrow that lifts one entry to the top of its list and puts it back where
+   it was. It sits in the column a learned row would otherwise leave empty —
+   that row is already learned, so there is nothing there to tick — and at the
+   end of a rules heading or a pattern's head line.
+   One glyph does both jobs: it points up while it would lift the entry, and is
+   turned over once the entry is up, where it reads as "put it back down". A
+   hundred rows do not need a hundred lit arrows down their edge, so an
+   unpinned arrow is barely there — enough to be found and pressed, not enough
+   to be read as a mark — and comes up under a pointer or a focus ring. Pinned,
+   it carries the full orange and a heavier stroke, so the state reads without
+   the colour too and the entry says for itself why it is at the top. */
+.sp-pin svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.sp-pin { opacity: 0.3; transition: opacity var(--transition-fast), color var(--transition-fast); }
+
+@media (hover: hover) {
+    .sp-pin:hover { opacity: 1; color: var(--color-primary); }
+}
+
+.sp-pin:focus-visible { opacity: 1; }
+
+.sp-pin.is-on, .sp-pin.is-on:hover { opacity: 1; color: var(--color-primary); }
+.sp-pin.is-on svg { transform: rotate(180deg); stroke-width: 2.8; }
+
+/* The shelf a pinned rules section or pattern card is carried to, at the head
+   of its panel. It takes no room at all until something sits on it. */
+.sp-pin-host:empty { display: none; }
+.sp-pin-host:not(:empty) { margin-bottom: var(--spacing-lg); }
+
+/* Up there, an entry says why it is up there: the edge in the orange of the
+   arrow that put it. A list row needs none — its own section colours it, and
+   the lit arrow is right beside the word. */
+.sp-pat.is-pinned { border-left: 3px solid var(--color-primary); }
+.sp-group.is-pinned > .sp-group-title { border-bottom-color: var(--color-primary); }
 
 /* The boundary between what is learned and what is left, and the button that
    folds the learned block away. Hidden by the renderer while nothing is
@@ -511,6 +535,17 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 
 .sp-group-title span { color: var(--color-text-light); font-weight: normal; font-size: var(--font-size-small); }
 
+/* Only a heading that carries the arrow becomes a row — the title, the ★ badge
+   where there is one, then the arrow against the right edge. Every other
+   heading stays the plain block it is. */
+.sp-group-title.has-pin {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.sp-group-title.has-pin .sp-pin { margin-left: auto; }
+
 .sp-lex { display: flex; flex-direction: column; gap: var(--spacing-xs); }
 
 /* Phone layout: one card per entry, four lines — the Spanish, its
@@ -610,7 +645,7 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
     grid-template-areas: "mark text tools";
 }
 
-.sp-lex-row.has-mark .sp-mark { grid-area: mark; align-self: start; }
+.sp-lex-row.has-mark :is(.sp-mark, .sp-pin) { grid-area: mark; align-self: start; }
 
 /* The list a found row belongs to, worn by the row itself — a search can put
    one match under a header far up the screen. Only drawn while searching. */
@@ -672,7 +707,7 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-drill-row .sp-tools { grid-row: 1 / span 2; grid-column: 2; }
 
 .sp-drill-row.has-mark { grid-template-columns: 44px minmax(0, 1fr) auto; }
-.sp-drill-row.has-mark .sp-mark { grid-row: 1 / span 2; grid-column: 1; align-self: start; }
+.sp-drill-row.has-mark :is(.sp-mark, .sp-pin) { grid-row: 1 / span 2; grid-column: 1; align-self: start; }
 .sp-drill-row.has-mark .sp-drill-es { grid-row: 1; grid-column: 2; }
 .sp-drill-row.has-mark .sp-drill-ru { grid-row: 2; grid-column: 2; }
 .sp-drill-row.has-mark .sp-tools { grid-row: 1 / span 2; grid-column: 3; }
@@ -711,8 +746,13 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-pat-ru { color: var(--color-heading); overflow-wrap: anywhere; }
 .sp-pat-ru::before { content: "→"; margin-right: 6px; color: var(--color-text-light); }
 
-/* The ★ badge sits at the far end of the card's head. */
+/* The ★ badge sits at the far end of the card's head, and the arrow closes
+   the line after it. With no badge there, the arrow takes the free space
+   itself. The head aligns on the baseline, which a 44px button has no business
+   sitting on. */
 .sp-pat-head .sp-badge { margin-left: auto; }
+.sp-pat-head .sp-pin { margin-left: auto; align-self: center; }
+.sp-pat-head .sp-badge + .sp-pin { margin-left: var(--spacing-xs); }
 
 /* A card is a link target of the top list, so it clears the sticky bar. */
 .sp-pat[id] { scroll-margin-top: 96px; }
@@ -812,10 +852,12 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-badge.is-stem { color: var(--color-caution); }
 .sp-badge.is-irregular { color: var(--color-warning); }
 
-/* The same three colours as a dot beside the word itself, so a list says which
-   verbs need work before anything is opened. Drawn from currentColor alone —
-   both the ring and the fill — which is what lets the covered-side rules below
-   put it out with one declaration. A regular verb carries none. */
+/* The same three colours as a dot beside the word itself, so a list says both
+   that a word has a table of forms under it — every verb does — and how much
+   of that table has to be learnt. The fill grows with the work: an empty ring,
+   a ring with a centre, a full disc. Drawn from currentColor alone, ring,
+   centre and fill, which is what lets the covered-side rules below put the
+   whole thing out with one declaration. */
 .sp-verb-dot {
     display: inline-block;
     flex: 0 0 auto;
@@ -830,7 +872,11 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 /* The word and its dot travel together; see wordWithDot in spanish-rows.js. */
 .sp-lex-word { white-space: nowrap; }
 
-.sp-verb-dot.is-stem { color: var(--color-caution); }
+.sp-verb-dot.is-regular { color: var(--color-success); }
+.sp-verb-dot.is-stem {
+    color: var(--color-caution);
+    background: radial-gradient(circle at 50% 50%, currentColor 0 1.6px, transparent 1.7px);
+}
 .sp-verb-dot.is-irregular { color: var(--color-warning); background: currentColor; }
 
 .sp-forms-head[aria-expanded="false"] .sp-chevron { transform: rotate(-90deg); }
@@ -869,6 +915,19 @@ td.sp-forms-person { padding: 8px 10px; }
 
 .sp-forms-cell:hover { background: var(--color-background); }
 
+/* Under every form, how it sounds — smaller and quieter, so the column still
+   reads as a column of forms. Derived by SP.translit, so it weighs nothing in
+   the files, and the table it sits in is a fold inside a fold: opening it is
+   the only thing that makes the page taller. */
+.sp-forms-form { display: block; }
+.sp-forms-tr {
+    display: block;
+    margin-top: 1px;
+    font-size: 0.72rem;
+    line-height: 1.15;
+    color: var(--color-text-light);
+}
+
 /* ---------- what to learn first (rules and patterns) ---------- */
 
 /* The words that carry the point inside an example. */
@@ -902,7 +961,7 @@ td.sp-forms-person { padding: 8px 10px; }
 
 .sp-top-row {
     display: grid;
-    grid-template-columns: 2em minmax(0, 1fr) 44px;
+    grid-template-columns: 2em minmax(0, 1fr);
     gap: var(--spacing-sm);
     align-items: center;
     padding: 4px 0;
@@ -990,6 +1049,15 @@ td.sp-forms-person { padding: 8px 10px; }
 /* ключ правила объединён на все свои строки-примеры */
 .sp-table td[rowspan] { vertical-align: middle; }
 
+/* A rule's table of examples, folded away behind the same dashed divider the
+   lists fold their Learned block with — the head is a .sp-divider, so it takes
+   the line, the chevron and the rotation from there and only the spacing
+   around the pair is set here. The prose states the rule and the table is the
+   taller half of the section; folded, a rules page reads as the rules. */
+.sp-fold { margin: 0 0 var(--spacing-sm); }
+.sp-fold-body { margin-top: var(--spacing-xs); }
+.sp-fold-body .sp-table-wrap { margin-bottom: 0; }
+
 /* ---------- rules diagrams: fork ---------- */
 
 /* A fork is a choice, so its branches are cards rather than rows of a table
@@ -1015,7 +1083,6 @@ td.sp-forms-person { padding: 8px 10px; }
 .sp-fork-col:nth-child(3) { --sp-accent: var(--color-success); }
 
 .sp-fork-head { display: flex; align-items: center; gap: var(--spacing-sm); }
-.sp-fork-head .sp-speak { margin-left: auto; }
 .sp-fork-key { color: var(--sp-accent); font-weight: 600; font-size: 1.15rem; overflow-wrap: anywhere; }
 .sp-fork-hint { margin: var(--spacing-xs) 0 0; color: var(--color-text-light); font-size: var(--font-size-small); }
 
@@ -1052,7 +1119,6 @@ td.sp-forms-person { padding: 8px 10px; }
 .sp-conj-table th { vertical-align: bottom; }
 .sp-conj-head-name { display: block; }
 .sp-conj-head-inf { display: block; font-weight: 400; font-size: 0.8rem; color: var(--color-text-light); }
-.sp-conj-table th .sp-speak { margin-top: var(--spacing-xs); }
 
 .sp-conj-label { display: block; color: var(--color-heading); }
 /* A gloss is prose and may wrap, though no other cell of the table may. */
@@ -1259,15 +1325,6 @@ a.sp-axis-item:hover .sp-axis-es { color: var(--color-primary); }
 .sp-option.wrong[disabled]:hover { border-color: var(--color-warning); }
 
 .sp-progress { font-size: var(--font-size-small); color: var(--color-text-light); margin-bottom: var(--spacing-sm); }
-
-.sp-listen-word {
-    display: flex;
-    justify-content: center;
-    margin-bottom: var(--spacing-md);
-}
-
-.sp-listen-word .sp-speak { width: 88px; height: 88px; border-radius: 50%; }
-.sp-listen-word .sp-speak svg { width: 36px; height: 36px; }
 
 /* ---------- browse ---------- */
 
@@ -1483,13 +1540,13 @@ a.sp-axis-item:hover .sp-axis-es { color: var(--color-primary); }
     .sp-lex-row > .sp-tools { align-self: center; }
     /* Room enough here for the chevron to match the buttons beside it. */
     .sp-drawer-toggle { width: 44px; }
-    .sp-lex-row.has-mark .sp-mark { align-self: center; }
+    .sp-lex-row.has-mark :is(.sp-mark, .sp-pin) { align-self: center; }
     .sp-drill-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
     .sp-drill-row .sp-drill-es { grid-column: 1; }
     .sp-drill-row .sp-drill-ru { grid-column: 2; align-self: center; }
     .sp-drill-row .sp-tools { grid-row: 1; grid-column: 3; }
     .sp-drill-row.has-mark { grid-template-columns: 44px minmax(0, 1fr) minmax(0, 1fr) auto; }
-    .sp-drill-row.has-mark .sp-mark { grid-row: 1; grid-column: 1; align-self: center; }
+    .sp-drill-row.has-mark :is(.sp-mark, .sp-pin) { grid-row: 1; grid-column: 1; align-self: center; }
     .sp-drill-row.has-mark .sp-drill-es { grid-row: 1; grid-column: 2; }
     .sp-drill-row.has-mark .sp-drill-ru { grid-row: 1; grid-column: 3; align-self: center; }
     .sp-drill-row.has-mark .sp-tools { grid-row: 1; grid-column: 4; }
@@ -1524,5 +1581,5 @@ a.sp-axis-item:hover .sp-axis-es { color: var(--color-primary); }
 @media (prefers-reduced-motion: reduce) {
     .sp-conj-cell { transition: none !important; }
     .sp-card { transition: none !important; }
-    .sp-lex-row, .sp-drill-row, .sp-mark .sp-tick, .sp-chevron { transition: none !important; }
+    .sp-lex-row, .sp-drill-row, .sp-mark .sp-tick, .sp-chevron, .sp-pin { transition: none !important; }
 }
