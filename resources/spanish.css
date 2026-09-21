@@ -257,7 +257,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 /* ---------- the row's two head buttons, and the divider ---------- */
 
-/* The checkbox that puts a row in Pending and the arrow that lifts a learned
+/* The checkbox that puts a row in Pending and the pin that lifts a learned
    one to the top share the head of the row, and never appear together: a row
    is in one list or the other. So they share a shape too — the same 44px
    target as the question at the tail, with no border of its own, the drawn
@@ -311,17 +311,18 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-mark.is-on, .sp-mark.is-on:hover { color: var(--color-primary); }
 .sp-mark.is-on .sp-tick { opacity: 1; }
 
-/* The arrow that lifts one entry to the top of its list and puts it back where
+/* The pin that lifts one entry to the top of its list and puts it back where
    it was. It sits in the column a learned row would otherwise leave empty —
    that row is already learned, so there is nothing there to tick — and at the
    end of a rules heading or a pattern's head line.
-   One glyph does both jobs: it points up while it would lift the entry, and is
-   turned over once the entry is up, where it reads as "put it back down". A
-   hundred rows do not need a hundred lit arrows down their edge, so an
-   unpinned arrow is barely there — enough to be found and pressed, not enough
-   to be read as a mark — and comes up under a pointer or a focus ring. Pinned,
-   it carries the full orange and a heavier stroke, so the state reads without
-   the colour too and the entry says for itself why it is at the top. */
+   A hundred rows do not need a hundred lit pins down their edge, so an
+   unpinned one is an outline barely there — enough to be found and pressed,
+   not enough to be read as a mark — and comes up under a pointer or a focus
+   ring. Pinned, it is filled in the full orange, so the state reads without
+   the colour too and the entry says for itself why it is at the top. Under a
+   pointer or a focus ring a pinned one is struck through instead — the unpin
+   the next press will do. Only there: a touch screen has no hover to show it
+   by, and a tap there reads the filled pin and its label. */
 .sp-pin svg {
     width: 20px;
     height: 20px;
@@ -341,7 +342,16 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-pin:focus-visible { opacity: 1; }
 
 .sp-pin.is-on, .sp-pin.is-on:hover { opacity: 1; color: var(--color-primary); }
-.sp-pin.is-on svg { transform: rotate(180deg); stroke-width: 2.8; }
+.sp-pin.is-on .sp-pin-head { fill: currentColor; }
+
+.sp-pin .sp-pin-off { display: none; }
+.sp-pin.is-on:focus-visible .sp-pin-on { display: none; }
+.sp-pin.is-on:focus-visible .sp-pin-off { display: inline; }
+
+@media (hover: hover) {
+    .sp-pin.is-on:hover .sp-pin-on { display: none; }
+    .sp-pin.is-on:hover .sp-pin-off { display: inline; }
+}
 
 /* The shelf a pinned rules section or pattern card is carried to, at the head
    of its panel. It takes no room at all until something sits on it. */
@@ -349,8 +359,8 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-pin-host:not(:empty) { margin-bottom: var(--spacing-lg); }
 
 /* Up there, an entry says why it is up there: the edge in the orange of the
-   arrow that put it. A list row needs none — its own section colours it, and
-   the lit arrow is right beside the word. */
+   pin that put it. A list row needs none — its own section colours it, and
+   the lit pin is right beside the word. */
 .sp-pat.is-pinned { border-left: 3px solid var(--color-primary); }
 .sp-group.is-pinned > .sp-group-title { border-bottom-color: var(--color-primary); }
 
@@ -535,8 +545,8 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 
 .sp-group-title span { color: var(--color-text-light); font-weight: normal; font-size: var(--font-size-small); }
 
-/* Only a heading that carries the arrow becomes a row — the title, the ★ badge
-   where there is one, then the arrow against the right edge. Every other
+/* Only a heading that carries the pin becomes a row — the title, the ★ badge
+   where there is one, then the pin against the right edge. Every other
    heading stays the plain block it is. */
 .sp-group-title.has-pin {
     display: flex;
@@ -746,8 +756,8 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-pat-ru { color: var(--color-heading); overflow-wrap: anywhere; }
 .sp-pat-ru::before { content: "→"; margin-right: 6px; color: var(--color-text-light); }
 
-/* The ★ badge sits at the far end of the card's head, and the arrow closes
-   the line after it. With no badge there, the arrow takes the free space
+/* The ★ badge sits at the far end of the card's head, and the pin closes
+   the line after it. With no badge there, the pin takes the free space
    itself. The head aligns on the baseline, which a 44px button has no business
    sitting on. */
 .sp-pat-head .sp-badge { margin-left: auto; }

@@ -562,7 +562,7 @@
             var title = block.appendChild(SP.el('h3', 'sp-group-title has-pin', section.no + '. ' + section.title));
             if (section.top) title.appendChild(SP.topBadge(section.top, top.length));
             // The rule being worked on goes to the top of the page and back:
-            // the sections are drawn once, so the arrow moves the node itself.
+            // the sections are drawn once, so the pin moves the node itself.
             title.appendChild(SP.pinButton(section.id, { node: block, host: shelf }));
             pins.push({ key: section.id, node: block });
             SP.renderBlocks(block, section.blocks, { tables: rules.tables });

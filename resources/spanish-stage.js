@@ -99,7 +99,7 @@
             // A table row has nothing to tick and nothing to move: it is looked
             // up, not worked through. A learned row has nothing to tick either —
             // it is already learned — but the column it would have used carries
-            // the arrow that lifts it to the head of its section and back.
+            // the pin that lifts it to the head of its section and back.
             var mark = null;
             if (kind === 'learned') mark = SP.pinButton(item.id);
             else if (kind !== 'reference') mark = SP.markButton(item, function (on) {

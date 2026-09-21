@@ -917,7 +917,7 @@
             // A table row has nothing to tick and nothing to move: it is looked
             // up, not worked through. A learned row has nothing to tick either —
             // it is already learned — but the column it would have used carries
-            // the arrow that lifts it to the head of its section and back.
+            // the pin that lifts it to the head of its section and back.
             var mark = null;
             if (kind === 'learned') mark = SP.pinButton(item.id);
             else if (kind !== 'reference') mark = SP.markButton(item, function (on) {
@@ -1276,7 +1276,7 @@
         head.appendChild(SP.el('div', 'sp-pat-ru', item.ru));
         if (item.top) head.appendChild(SP.topBadge(item.top, topTotal));
         // The pattern being practised goes to the head of the panel and back:
-        // the cards are drawn once, so the arrow moves the card itself.
+        // the cards are drawn once, so the pin moves the card itself.
         head.appendChild(SP.pinButton(item.id, { node: card, host: shelf }));
         card.appendChild(head);
 

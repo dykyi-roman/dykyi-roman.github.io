@@ -793,7 +793,7 @@
     };
     /* ---------- lifting an entry to the top ---------- */
 
-    // The arrow at the head of a learned row, of a rules section and of a
+    // The pin at the head of a learned row, of a rules section and of a
     // pattern card: it takes that one entry to the top of its list, and puts
     // it back exactly where it stood when it is pressed again. What belongs up
     // there is whatever is being worked on right now — a word the shuffle
@@ -892,24 +892,25 @@
 
     function pinNode(value) { return typeof value === 'function' ? value() : value; }
 
-    // One glyph for both jobs: the arrow points up while it would lift the
-    // entry and is turned over once the entry is up, where it reads as "put it
-    // back down". Quiet until then — a list of a hundred words does not need a
-    // hundred lit arrows down its edge, so an unpinned one is barely there
-    // until it is hovered or focused, while a pinned one carries the full
-    // orange and says on the entry itself why it is at the top.
+    // A pushpin: outlined while it would lift the entry, filled once the entry
+    // is up, and struck through under a pointer or a focus ring on a pinned
+    // one, since that is when the next press takes it down. Quiet until then —
+    // a list of a hundred words does not need a hundred lit pins down its
+    // edge, so an unpinned one is barely there until it is hovered or focused,
+    // while a pinned one carries the full orange and says on the entry itself
+    // why it is at the top.
     // `move` is {node, host} where the list is drawn once and the entry has to
     // be carried up by hand — the rules and the patterns. A list that redraws
     // itself passes nothing and reorders through SP.pin.first instead.
     SP.pinButton = function (key, move) {
         var btn = SP.el('button', 'sp-pin');
         btn.type = 'button';
-        btn.appendChild(SP.icon.arrowUp());
+        btn.appendChild(SP.icon.pin());
 
         function sync(on) {
             btn.classList.toggle('is-on', on);
             btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-            var label = on ? 'Pinned to the top — put it back where it was' : 'Pin to the top';
+            var label = on ? 'Unpin — put it back where it was' : 'Pin to the top';
             btn.title = label;
             btn.setAttribute('aria-label', label);
         }
@@ -1016,15 +1017,67 @@
         return svg;
     }
 
-    // The arrow that lifts one entry to the top of its list.
-    function arrowUpIcon() {
+    // The pin that lifts one entry to the top of its list, and the same pin
+    // struck through, which takes it back down. Both go into every button and
+    // CSS shows one. The strike is cut out of the pin through a mask rather
+    // than drawn across it, so a gap runs along the line and the pin still
+    // reads at 20px. A mask is found by id and each button has its own, so
+    // the id carries a counter.
+    var PIN_HEAD = 'M8 3h8l-1 1.5V9l3 4v2H6v-2l3-4V4.5Z';
+    var PIN_NEEDLE = 'M12 15v6';
+    var PIN_STRIKE = 'M4 4l16 16';
+    var pinMaskSeq = 0;
+
+    function svgPath(d, cls) {
+        var path = document.createElementNS(SVG_NS, 'path');
+        path.setAttribute('d', d);
+        if (cls) path.setAttribute('class', cls);
+        return path;
+    }
+
+    function pinIcon() {
+        var id = 'sp-pin-cut-' + (++pinMaskSeq);
         var svg = document.createElementNS(SVG_NS, 'svg');
         svg.setAttribute('viewBox', '0 0 24 24');
         svg.setAttribute('aria-hidden', 'true');
-        svg.setAttribute('class', 'sp-arrow-up');
-        var path = document.createElementNS(SVG_NS, 'path');
-        path.setAttribute('d', 'M12 19.5V5.5M5.5 12l6.5-6.5 6.5 6.5');
-        svg.appendChild(path);
+        svg.setAttribute('class', 'sp-pin-icon');
+
+        var mask = document.createElementNS(SVG_NS, 'mask');
+        mask.setAttribute('id', id);
+        mask.setAttribute('maskUnits', 'userSpaceOnUse');
+        mask.setAttribute('x', '0');
+        mask.setAttribute('y', '0');
+        mask.setAttribute('width', '24');
+        mask.setAttribute('height', '24');
+        var keep = document.createElementNS(SVG_NS, 'rect');
+        keep.setAttribute('width', '24');
+        keep.setAttribute('height', '24');
+        keep.setAttribute('fill', '#fff');
+        keep.setAttribute('stroke', 'none');
+        var cut = svgPath(PIN_STRIKE);
+        cut.setAttribute('stroke', '#000');
+        cut.setAttribute('stroke-width', '5');
+        mask.appendChild(keep);
+        mask.appendChild(cut);
+        // In <defs> at the root, not inside the struck group: that group is
+        // display: none most of the time, and a mask under it is not safe to use.
+        svg.appendChild(document.createElementNS(SVG_NS, 'defs')).appendChild(mask);
+
+        var pin = document.createElementNS(SVG_NS, 'g');
+        pin.setAttribute('class', 'sp-pin-on');
+        pin.appendChild(svgPath(PIN_HEAD, 'sp-pin-head'));
+        pin.appendChild(svgPath(PIN_NEEDLE));
+
+        var off = document.createElementNS(SVG_NS, 'g');
+        off.setAttribute('class', 'sp-pin-off');
+        var cutPin = off.appendChild(document.createElementNS(SVG_NS, 'g'));
+        cutPin.setAttribute('mask', 'url(#' + id + ')');
+        cutPin.appendChild(svgPath(PIN_HEAD));
+        cutPin.appendChild(svgPath(PIN_NEEDLE));
+        off.appendChild(svgPath(PIN_STRIKE));
+
+        svg.appendChild(pin);
+        svg.appendChild(off);
         return svg;
     }
 
@@ -1048,7 +1101,7 @@
         eyeOff: eyeOffIcon,
         cross: crossIcon,
         chevron: chevronIcon,
-        arrowUp: arrowUpIcon
+        pin: pinIcon
     };
 
     // Every list is split into the same four sections, in this order. Reference
