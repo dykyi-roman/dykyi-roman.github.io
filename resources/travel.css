@@ -365,7 +365,7 @@
 }
 
 .country-panel.expanded {
-    max-height: 600px;
+    max-height: 1200px;
     padding: 20px;
     margin-bottom: 20px;
     opacity: 1;
@@ -460,6 +460,9 @@
 }
 
 .panel-cities {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
     background: rgba(255, 255, 255, 0.08);
     border-radius: 10px;
     padding: 15px;
@@ -484,11 +487,7 @@
 /* City highlights in panel */
 .panel-cities .city-highlight {
     background: rgba(255, 255, 255, 0.1);
-    margin-bottom: 8px;
-}
-
-.panel-cities .city-highlight:last-child {
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .panel-cities .city-name {
@@ -498,7 +497,7 @@
 /* Mobile styles for panel */
 @media (max-width: 768px) {
     .country-panel.expanded {
-        max-height: 800px;
+        max-height: 1600px;
         padding: 15px;
     }
 
@@ -526,6 +525,12 @@
         right: 10px;
         width: 32px;
         height: 32px;
+    }
+}
+
+@media (max-width: 600px) {
+    .panel-cities {
+        grid-template-columns: 1fr;
     }
 }
 
