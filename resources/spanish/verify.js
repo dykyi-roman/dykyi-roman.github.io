@@ -350,6 +350,10 @@ const NOT_VERBS = ['ayer'];
         if (!set || typeof set.name !== 'string' || set.name.trim() === '') fail(entry.file + ': set #' + i + ' has no name');
         else if (sets[set.name]) fail(entry.file + ': set "' + set.name + '" is declared twice');
         else sets[set.name] = true;
+        // Reference draws every table as a tile, and the tile is its picture.
+        if (set && set.name && (typeof set.icon !== 'string' || set.icon.trim() === '')) {
+            fail(entry.file + ': set "' + set.name + '" has no icon');
+        }
     });
 
     (stage.items || []).forEach((item, i) => {

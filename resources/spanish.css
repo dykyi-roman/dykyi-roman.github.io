@@ -159,11 +159,21 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     #sp-stages .sp-chip small { display: none; }
     #sp-stages .sp-chip-short { display: block; }
     #sp-stages .sp-icon { font-size: 1.15rem; }
+    .sp-section-tabs .sp-tab-label { display: none; }
 }
 
 .sp-tabs { display: flex; gap: var(--spacing-xs); overflow-x: auto; scrollbar-width: none; }
 .sp-tabs::-webkit-scrollbar { display: none; }
 .sp-tab { flex: 1 0 auto; white-space: nowrap; padding: 8px 10px; }
+.sp-tab small { color: var(--color-text-light); font-size: 0.8em; }
+.sp-tab.active small { color: rgba(255, 255, 255, 0.75); }
+
+/* The strip of section tabs at the head of every list — Reference, Learned,
+   Pending, Left — in the shape of the mode tabs above, the count in small
+   type after the name. Held upright, a phone keeps the icon and the count
+   and drops the name, as the stage chips do: four names do not fit in 360px,
+   and the icons are the same on every list; the name stays in aria-label. */
+.sp-section-tabs { margin: 0 0 var(--spacing-sm); }
 
 .sp-panel[hidden] { display: none !important; }
 
@@ -230,13 +240,12 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
    used to carry four, a speaker per half among them, laid out two by two. */
 .sp-tools { display: flex; align-items: center; gap: 4px; }
 
-/* The chevron that opens a word's usage examples. Narrower than the two
-   buttons beside it: it is a thin glyph, and a third full 44px target would
-   take the wrapping text line of a 360px phone down to about a hundred
-   pixels. The height stays 44px, so the touch target does not. */
+/* The chevron that opens a word's usage examples — the same 44px square as
+   the ask link, so the two corners of a phone card carry the same shape. It
+   was narrower while the two sat side by side on the text's line. */
 .sp-drawer-toggle {
     flex: 0 0 auto;
-    width: 36px;
+    width: 44px;
     height: 44px;
     display: inline-flex;
     align-items: center;
@@ -364,9 +373,9 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-pat.is-pinned { border-left: 3px solid var(--color-primary); }
 .sp-group.is-pinned > .sp-group-title { border-bottom-color: var(--color-primary); }
 
-/* The boundary between what is learned and what is left, and the button that
-   folds the learned block away. Hidden by the renderer while nothing is
-   learned. A full-width control: the dashed line is its own touch target. */
+/* A dashed line with a label between its two halves: the head of a rules
+   table's fold (a button — the line is its own touch target), the seams
+   inside a list (is-sub) and the head of a search zone (is-zone). */
 .sp-divider {
     display: flex;
     align-items: center;
@@ -415,11 +424,18 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-divider.is-quiet:hover { color: var(--color-text-light); }
 
-/* The seam that opens a stage: solid rather than dashed, and in the reading
-   colour, so a run of entries inside it stays the lighter mark. */
-.sp-divider.is-stage { color: var(--color-text); min-height: 40px; }
-.sp-divider.is-stage:hover { color: var(--color-text); }
+/* A seam inside a section — the stage a run of rows comes from, the table a
+   run of Reference rows belongs to, the type one run turns into — is a
+   subhead, not a header: pushed to the left behind a short stub of line, the
+   long line after it, so it reads as a part of the section whose tab is lit
+   above. The stub is short for a stage and longer for what sits inside one. */
+.sp-divider.is-sub::before { flex: 0 0 44px; }
+
+/* The seam that opens a stage: solid rather than dashed, with the stage's own
+   icon, so a run of entries inside it stays the lighter, dashed mark. */
+.sp-divider.is-stage { min-height: 40px; }
 .sp-divider.is-stage .sp-divider-label { font-weight: 600; }
+.sp-divider.is-stage::before { flex: 0 0 var(--spacing-md); }
 .sp-divider.is-stage::before, .sp-divider.is-stage::after { border-top-style: solid; }
 
 /* The head of a search zone: the top-level seam while a query is live, so it
@@ -558,17 +574,25 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 
 .sp-lex { display: flex; flex-direction: column; gap: var(--spacing-xs); }
 
-/* Phone layout: one card per entry, four lines — the Spanish, its
-   transcription, the English gloss, the Russian one — each on a line of its
-   own whether or not they would have fitted together. Packed onto one line, a
-   card's shape depended on the length of its word: short entries read as a
-   run-on line, long ones broke at an arbitrary place, and the eye had no fixed
-   column to fall down. The real four-column table still appears from 700px
-   up. */
+/* Phone layout: one card per entry, three lines — the Spanish with its
+   transcription beside it, the English gloss, the Russian one — the glosses
+   each on a line of their own whether or not they would have fitted together.
+   Packed onto one line, a card's shape depended on the length of its word:
+   short entries read as a run-on line, long ones broke at an arbitrary place,
+   and the eye had no fixed column to fall down. The controls sit in the two
+   right-hand corners of the card — the examples chevron beside the Spanish,
+   the ask link at the foot, beside the glosses — and the checkbox leads the
+   first line alone: a control column down the whole left edge and a tool
+   column down the whole right one cost every line half of a phone and wrapped
+   the Russian of most words. The real four-column table still appears from
+   700px up. */
 .sp-lex-row {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: "text tools";
+    grid-template-areas:
+        "es more"
+        "en ask"
+        "ru ask";
     gap: 2px var(--spacing-sm);
     align-items: center;
     padding: var(--spacing-sm);
@@ -577,28 +601,88 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
     background: var(--color-white);
 }
 
-/* A plain block, not a wrapping flex line: each of the four texts is a block,
-   so each starts a line of its own. A flex line packed whatever fitted onto
-   one row, so the shape of a card depended on the length of its word; blocks
-   keep every card the same four lines. */
-.sp-lex-text {
-    grid-area: text;
+/* The box the texts are built in steps aside, so each of them is a grid item
+   of its own and takes its line from the template above; the tools box steps
+   aside the same way, so its two buttons can sit in different corners. The
+   head keeps its box: the checkbox, the Spanish and the transcription flow on
+   one line, and the transcription drops under the word when the three do not
+   fit. Centred rather than on a baseline: the transcription is small enough
+   that the two baselines land a pixel apart either way, and the checkbox is a
+   glyph with no baseline to offer. */
+.sp-lex-text, .sp-lex-row > .sp-tools { display: contents; }
+.sp-lex-head {
+    grid-area: es;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px 6px;
     min-width: 0;
 }
+.sp-lex-en { grid-area: en; }
+.sp-lex-ru { grid-area: ru; }
+
+/* A pair is two entries side by side: each half a column of three lines, a
+   rule between them, the chevron and the ask link in the corners as ever. The
+   glosses drop their drawn brackets here — the rule already says where one
+   half ends — since a column a hundred pixels wide has no room for them. */
+.sp-lex-row.is-pair {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    grid-template-areas:
+        "a b more"
+        "a b ask";
+}
+.sp-lex-half {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    align-self: stretch;
+}
+.sp-lex-half.is-a { grid-area: a; }
+.sp-lex-half.is-b { grid-area: b; border-left: 1px solid var(--color-border); padding-left: 8px; }
+.sp-lex-half .sp-lex-head { gap: 2px 4px; }
+.sp-lex-half :is(.sp-lex-en, .sp-lex-ru)::before,
+.sp-lex-half :is(.sp-lex-en, .sp-lex-ru)::after { content: none; }
+.sp-lex-row.is-pair > .sp-drawer { grid-row: 3; }
+/* A pair's mark stays on the row, in a column of its own at the top left:
+   inside the first half's head it made that half a line taller than the
+   other, and the two columns no longer started level. */
+.sp-lex-row.is-pair.has-mark {
+    grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) auto;
+    grid-template-areas:
+        "mark a b more"
+        "mark a b ask";
+}
+.sp-lex-row.is-pair.has-mark > :is(.sp-mark, .sp-pin) { align-self: start; }
+
+/* A long half shrinks its type rather than breaking its words: a column a
+   hundred pixels wide holds `compañero` at 1rem and `одноклассник` at
+   0.82rem, where at full size both broke in the middle. The tier comes from
+   the renderer, off the longest word in the pair — is-long from nine
+   letters, is-longer from twelve — and only the phone card needs it: from
+   700px up a half has a table column to itself. */
+@media (max-width: 699px) {
+    .sp-lex-row.is-pair.is-long .sp-lex-es { font-size: 1rem; }
+    .sp-lex-row.is-pair.is-long .sp-lex-ru { font-size: 0.9rem; }
+    .sp-lex-row.is-pair.is-long :is(.sp-lex-en, .sp-lex-tr) { font-size: 0.82rem; }
+    .sp-lex-row.is-pair.is-longer .sp-lex-es { font-size: 0.88rem; }
+    .sp-lex-row.is-pair.is-longer .sp-lex-ru { font-size: 0.82rem; }
+    .sp-lex-row.is-pair.is-longer :is(.sp-lex-en, .sp-lex-tr) { font-size: 0.75rem; }
+}
+.sp-lex-row > .sp-tools > .sp-drawer-toggle { grid-area: more; }
+.sp-lex-row > .sp-tools > .sp-ask { grid-area: ask; align-self: end; }
 
 /* fit-content keeps a covered text a bar the width of its own letters rather
-   than of the whole card, and the 2px is what tells two covered bars apart —
-   a block's background fills its whole line box, so touching bars read as one
-   tall rectangle (both sides can be covered at once: the Spanish with its
-   transcription, or the English with the Russian). */
+   than of the whole card, and the 2px row gap is what tells two covered bars
+   apart — a block's background fills its whole line box, so touching bars
+   read as one tall rectangle (both sides can be covered at once: the Spanish
+   with its transcription, or the English with the Russian). */
 .sp-lex-es, .sp-lex-tr, .sp-lex-en, .sp-lex-ru {
     display: block;
     width: fit-content;
     max-width: 100%;
     overflow-wrap: anywhere;
 }
-
-.sp-lex-tr, .sp-lex-en, .sp-lex-ru { margin-top: 2px; }
 
 .sp-lex-es {
     font-size: 1.15rem;
@@ -620,18 +704,18 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
     color: color-mix(in srgb, var(--color-text-light) 80%, var(--color-white));
 }
 .sp-lex-en { font-size: var(--font-size-small); color: var(--color-text); }
-.sp-lex-row > .sp-tools { grid-area: tools; align-self: start; }
 
 /* The examples of a word, drawn under it and spanning the whole row.
-   Deliberately an implicit second row rather than a named area: a named area
-   is an explicit track, and the row gutter between two explicit tracks is laid
-   out even when the second holds nothing — ten pixels added to every word on
-   the page, examples or not. Closed, the panel is display:none (the [hidden]
-   rule at the top of this file), so no track and no gutter are made at all.
-   1 / -1 counts against the explicit columns, so one line spans all four row
+   Deliberately the row after the template rather than a named area: a named
+   area is an explicit track, and the row gutter between two explicit tracks
+   is laid out even when the second holds nothing — ten pixels added to every
+   word on the page, examples or not. Closed, the panel is display:none (the
+   [hidden] rule at the top of this file), so no track and no gutter are made
+   at all: the fourth line of the phone card, the second of the table. 1 / -1
+   counts against the explicit columns, so one line spans all four row
    shapes: two columns, three with the checkbox, five wide, six wide. */
 .sp-lex-row > .sp-drawer {
-    grid-row: 2;
+    grid-row: 4;
     grid-column: 1 / -1;
     min-width: 0;
     margin-top: var(--spacing-xs);
@@ -648,14 +732,64 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 
 .sp-lex-row.is-pair .sp-lex-es { color: var(--color-primary); }
 
-/* With the checkbox the card gains a control column on its left edge — away
-   from the speak button, so a tap aimed at one cannot land on the other. */
-.sp-lex-row.has-mark {
-    grid-template-columns: 44px minmax(0, 1fr) auto;
-    grid-template-areas: "mark text tools";
+/* With the checkbox the first line gains a control at its head — away from
+   the chevron at its tail, so a tap aimed at one cannot land on the other. It
+   rides inside the head, so the phone template is the same with it and
+   without, and the gloss lines under it keep their width. On a phone it is
+   as narrow as the chevron, for the same reason that one is; the height stays
+   44px, so the touch target does. The grid-area speaks only from 700px up,
+   where the head is display:contents and the mark a cell of the row. */
+.sp-lex-row.has-mark :is(.sp-mark, .sp-pin) { grid-area: mark; }
+.sp-lex-row :is(.sp-mark, .sp-pin), .sp-drill-row > :is(.sp-mark, .sp-pin) { width: 36px; }
+
+/* Reference opens on its tiles: one per table, a card carrying the table's
+   picture, its name and its size, in a grid three across on a phone — 92px
+   is what three of them come to at 320px, with the gaps — and as many as the
+   width allows above it. A tap unfolds the table under the grid and a second
+   tap folds it back; the open tile wears the blue of the Reference tag, so
+   the grid itself says which tables are out. */
+.sp-set-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+    gap: var(--spacing-sm);
 }
 
-.sp-lex-row.has-mark :is(.sp-mark, .sp-pin) { grid-area: mark; align-self: start; }
+.sp-set-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    min-height: 44px;
+    padding: var(--spacing-sm) 6px 6px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+@media (hover: hover) {
+    .sp-set-tile:hover { border-color: var(--color-primary); transform: translateY(-2px); }
+}
+
+.sp-set-tile:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+.sp-set-tile[aria-expanded="true"] {
+    border-color: var(--color-info);
+    box-shadow: inset 0 0 0 1px var(--color-info);
+}
+
+/* The picture is the point of the tile, so it is the largest thing on it. */
+.sp-set-icon { font-size: 1.9rem; line-height: 1; }
+.sp-set-name { font-weight: 600; font-size: 0.82rem; line-height: 1.2; text-align: center; overflow-wrap: anywhere; }
+.sp-set-count { color: var(--color-text-light); font-size: 0.75rem; }
+.sp-set-tile .sp-chevron { width: 12px; height: 12px; color: var(--color-text-light); }
+/* Down while the table is folded, since it opens below the grid; up once it is out. */
+.sp-set-tile[aria-expanded="true"] .sp-chevron { transform: rotate(180deg); }
 
 /* The list a found row belongs to, worn by the row itself — a search can put
    one match under a header far up the screen. Only drawn while searching. */
@@ -716,7 +850,7 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-drill-ru { font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
 .sp-drill-row .sp-tools { grid-row: 1 / span 2; grid-column: 2; }
 
-.sp-drill-row.has-mark { grid-template-columns: 44px minmax(0, 1fr) auto; }
+.sp-drill-row.has-mark { grid-template-columns: 36px minmax(0, 1fr) auto; }
 .sp-drill-row.has-mark :is(.sp-mark, .sp-pin) { grid-row: 1 / span 2; grid-column: 1; align-self: start; }
 .sp-drill-row.has-mark .sp-drill-es { grid-row: 1; grid-column: 2; }
 .sp-drill-row.has-mark .sp-drill-ru { grid-row: 2; grid-column: 2; }
@@ -931,12 +1065,16 @@ td.sp-forms-person { padding: 8px 10px; }
    the only thing that makes the page taller. */
 .sp-forms-form { display: block; }
 .sp-forms-tr {
+    color: var(--color-primary);
     display: block;
     margin-top: 1px;
     font-size: 0.72rem;
     line-height: 1.15;
-    color: var(--color-text-light);
 }
+/* In the orange of the row's own transcription and in the same brackets, so
+   a form reads like the word above it: `trato (тра́то)`. */
+.sp-forms-tr::before { content: "("; }
+.sp-forms-tr::after { content: ")"; }
 
 /* ---------- what to learn first (rules and patterns) ---------- */
 
@@ -1528,29 +1666,49 @@ a.sp-axis-item:hover .sp-axis-es { color: var(--color-primary); }
         gap: var(--spacing-sm);
     }
 
-    /* The wrapper steps aside so its four children are the grid items again,
-       and the drawn punctuation of the phone line goes with it. */
-    .sp-lex-text { display: contents; }
-    .sp-lex-es { grid-area: es; }
-    .sp-lex-tr { grid-area: tr; }
-    .sp-lex-en { grid-area: en; }
-    .sp-lex-ru { grid-area: ru; }
+    /* The drawn punctuation of the phone lines goes: here the columns are the
+       seams, and a covered cell is a bar across its column rather than one
+       the width of its letters. The two tools come back into one cell at the
+       end of the line. */
     .sp-lex-tr::before, .sp-lex-tr::after,
     .sp-lex-en::before, .sp-lex-en::after,
     .sp-lex-ru::before, .sp-lex-ru::after { content: none; }
-    /* The phone card's own spacing goes with it: here the gap between the
-       columns does the work, and a covered cell is a bar across its column. */
-    .sp-lex-es, .sp-lex-tr, .sp-lex-en, .sp-lex-ru { width: auto; margin-top: 0; }
+    .sp-lex-es, .sp-lex-tr, .sp-lex-en, .sp-lex-ru { width: auto; }
+    .sp-lex-head, .sp-lex-half { display: contents; }
+    .sp-lex-es { grid-area: es; }
+    .sp-lex-tr { grid-area: tr; }
+    .sp-lex-row > .sp-tools { display: flex; grid-area: tools; }
+    .sp-lex-row > .sp-tools > .sp-ask { align-self: auto; }
+    .sp-lex-row > .sp-drawer { grid-row: 2; }
 
     .sp-lex-row.has-mark {
         grid-template-columns: 44px minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) auto;
         grid-template-areas: "mark es tr en ru tools";
     }
 
-    .sp-lex-row > .sp-tools { align-self: center; }
-    /* Room enough here for the chevron to match the buttons beside it. */
-    .sp-drawer-toggle { width: 44px; }
-    .sp-lex-row.has-mark :is(.sp-mark, .sp-pin) { align-self: center; }
+    /* A pair is two lines of the table in one card, the tools and the mark
+       spanning both; the second half takes the second line, cell by cell. */
+    .sp-lex-row.is-pair {
+        row-gap: 4px;
+        grid-template-areas:
+            "es tr en ru tools"
+            "es2 tr2 en2 ru2 tools";
+    }
+    .sp-lex-row.is-pair.has-mark {
+        grid-template-columns: 44px minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr) auto;
+        grid-template-areas:
+            "mark es tr en ru tools"
+            "mark es2 tr2 en2 ru2 tools";
+    }
+    .sp-lex-row.is-pair.has-mark > :is(.sp-mark, .sp-pin) { align-self: center; }
+    .sp-lex-half.is-b .sp-lex-es { grid-area: es2; }
+    .sp-lex-half.is-b .sp-lex-tr { grid-area: tr2; }
+    .sp-lex-half.is-b .sp-lex-en { grid-area: en2; }
+    .sp-lex-half.is-b .sp-lex-ru { grid-area: ru2; }
+    .sp-lex-row.is-pair > .sp-drawer { grid-row: 3; }
+
+    /* Room enough here for the checkbox to match the buttons beside it. */
+    .sp-lex-row :is(.sp-mark, .sp-pin), .sp-drill-row > :is(.sp-mark, .sp-pin) { width: 44px; }
     .sp-drill-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
     .sp-drill-row .sp-drill-es { grid-column: 1; }
     .sp-drill-row .sp-drill-ru { grid-column: 2; align-self: center; }

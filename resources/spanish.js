@@ -823,7 +823,7 @@
 
     function stageDivider(item) {
         var stage = stageInfo(item.stage);
-        var node = SP.el('div', 'sp-divider is-quiet is-stage');
+        var node = SP.el('div', 'sp-divider is-quiet is-sub is-stage');
         var icon = SP.iconSpan(stage && stage.icon);
         if (icon) node.appendChild(icon);
         node.appendChild(SP.el('span', 'sp-divider-label',
@@ -833,6 +833,14 @@
 
     function runDivider(item) {
         return SP.quietDivider(RUN_LABEL[item.type] || SP.TYPE_LABEL[item.type] || item.type);
+    }
+
+    // Puts `node` right after `ref` inside `parent` and hands it back, so a
+    // run of rows can follow the tiles of its stage while another stage's
+    // tiles already stand below them.
+    function insertAfter(parent, node, ref) {
+        parent.insertBefore(node, ref.nextSibling);
+        return node;
     }
 
     function runKey(item) { return item.stage + '/' + typeRank(item.type); }
@@ -866,12 +874,13 @@
         if (left > 0) more.textContent = 'Show ' + Math.min(BROWSE_STEP, left) + ' more (' + left + ' left)';
     }
 
-    // The list is the same four sections a stage page shows, over the same
-    // lists: the tables of the stage's sets, Learned from the file, Pending
-    // from this browser, then the rest. `browseFiltered` keeps the plain
-    // (stage, type, file) order, so the CSV export is unaffected and the split
-    // is recomputed on every render, stars included. A folded section is left
-    // undrawn rather than hidden, so a page is never spent on rows nobody sees.
+    // The list is the same four sections a stage page shows, behind the same
+    // strip of tabs, over the same lists: the tables of the stage's sets,
+    // Learned from the file, Pending from this browser, then the rest.
+    // `browseFiltered` keeps the plain (stage, type, file) order, so the CSV
+    // export is unaffected and the split is recomputed on every render, stars
+    // included. A section not on show is left undrawn rather than hidden, so
+    // a page is never spent on rows nobody sees.
     function renderBrowse() {
         var list = byId('sp-browse-list');
         SP.clear(list);
@@ -895,19 +904,19 @@
         // move, so unpinning drops a word back exactly where it was.
         buckets.learned = SP.pin.first(SP.learned.shuffle(buckets.learned, runKey));
 
+        var tabs = SP.sectionTabs();
+        list.appendChild(tabs.node);
         var counts = {};
-        var heads = {};
         var zones = {};
         SP.SECTIONS.forEach(function (kind) {
             counts[kind] = buckets[kind].length;
-            heads[kind] = SP.sectionDivider(kind);
             zones[kind] = SP.el('div', 'sp-lex');
-            list.appendChild(heads[kind].node);
             list.appendChild(zones[kind]);
         });
+        var section = SP.sectionShown(counts);
 
         function sync() {
-            SP.syncSectionHeads(heads, counts);
+            tabs.sync(counts);
             syncExportButtons();
         }
 
@@ -928,7 +937,7 @@
                 // rest — the closest spot on the other side of the header. With
                 // Pending folded there is nowhere to move to, so the row simply
                 // leaves.
-                if (on && SP.view.folded('pending')) row.remove();
+                if (on && section !== 'pending') row.remove();
                 else if (on) zones.pending.appendChild(row);
                 else zones.left.insertBefore(row, zones.left.firstChild);
                 sync();
@@ -940,31 +949,53 @@
             return row;
         }
 
-        var plan = [];
-        SP.SECTIONS.forEach(function (kind) {
-            if (SP.view.folded(kind)) return;
-            buckets[kind].forEach(function (item) { plan.push({ item: item, kind: kind }); });
-        });
-
         // A stage is named whenever the list can hold more than one of them.
         // (A search names them too — that is renderBrowseZones' seam.)
         var stages = {};
         browseFiltered.forEach(function (item) { stages[item.stage] = true; });
         var nameStages = Object.keys(stages).length > 1;
 
+        // Reference opens on its tiles — a grid per stage, under the stage's
+        // seam — and a table's rows are drawn only while its tile is open,
+        // right after that stage's grid. The seams and the grids come from the
+        // whole bucket rather than the plan: with every table closed the plan
+        // holds no row of the stage to draw them from.
+        var plan = [];
+        var tail = {};   // stage -> the last node drawn under its tiles
+        if (section === 'reference') {
+            buckets.reference.forEach(function (item) {
+                if (!tail[item.stage]) {
+                    if (nameStages) zones.reference.appendChild(stageDivider(item));
+                    tail[item.stage] = zones.reference.appendChild(SP.setTiles(buckets.reference.filter(function (other) {
+                        return other.stage === item.stage;
+                    })));
+                }
+                if (SP.tables.isOpen(item)) plan.push({ item: item, kind: 'reference' });
+            });
+        }
+        SP.SECTIONS.forEach(function (kind) {
+            if (kind === 'reference' || kind !== section) return;
+            buckets[kind].forEach(function (item) { plan.push({ item: item, kind: kind }); });
+        });
+
         var previous = {};
         plan.slice(0, browseShown).forEach(function (entry) {
             var zone = zones[entry.kind];
             var prev = previous[entry.kind];
+            if (entry.kind === 'reference') {
+                // Under its stage's tiles, and every table under its own name,
+                // the first one too: the header above names the section.
+                var stage = entry.item.stage;
+                if (!prev || prev.stage !== stage || prev.set !== entry.item.set) {
+                    tail[stage] = insertAfter(zone, SP.quietDivider(entry.item.set), tail[stage]);
+                }
+                tail[stage] = insertAfter(zone, makeRow(entry.item), tail[stage]);
+                previous.reference = entry.item;
+                return;
+            }
             var newStage = nameStages && (!prev || prev.stage !== entry.item.stage);
             if (newStage) zone.appendChild(stageDivider(entry.item));
-            if (entry.kind === 'reference') {
-                // Every table opens under its own name, the first one too: the
-                // header above names the section, not the table.
-                if (newStage || !prev || prev.set !== entry.item.set) zone.appendChild(SP.quietDivider(entry.item.set));
-            } else if (!newStage && prev && runKey(prev) !== runKey(entry.item)) {
-                zone.appendChild(runDivider(entry.item));
-            }
+            else if (prev && runKey(prev) !== runKey(entry.item)) zone.appendChild(runDivider(entry.item));
             zone.appendChild(makeRow(entry.item));
             previous[entry.kind] = entry.item;
         });
@@ -1121,9 +1152,9 @@
     }
 
     function initBrowseControls() {
-        // Registered once: folding is page-wide, and re-registering on every
-        // render would redraw the list as many times as it had been drawn.
-        SP.view.onFold(function () {
+        // Registered once: the section on show is page-wide, and re-registering
+        // on every render would redraw the list as many times as it had been drawn.
+        SP.view.onSection(function () {
             browseShown = BROWSE_PAGE;
             renderBrowse();
         });
@@ -1131,6 +1162,9 @@
         // registered once here, as the fold is, and keeping the page the reader
         // has already asked for.
         SP.pin.onChange(renderBrowse);
+        // A tile of Reference opened or closed changes which rows are drawn;
+        // the page the reader has already asked for is kept, as with a pin.
+        SP.tables.onChange(renderBrowse);
         byId('sp-browse-group').addEventListener('change', applyBrowse);
         byId('sp-browse-reset').addEventListener('click', function () {
             byId('sp-browse-group').value = '';

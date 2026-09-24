@@ -92,16 +92,21 @@
                 if (legacy) SP.saveState(PENDING_KEY, pendingState);
             }
             if (!pendingState.ids) pendingState.ids = {};
-            if (!pendingState.fold) pendingState.fold = {};
             // localStorage leads, as it does in projects/business — the cookie
             // speaks only when it has nothing to say, which is exactly the case
             // the mirror exists for: site data cleared, cookie still there.
-            if (!Object.keys(pendingState.fold).length) {
-                var fromCookie = foldFromCookie();
+            if (!pendingState.section) {
+                var fromCookie = sectionFromCookie();
                 if (fromCookie) {
-                    pendingState.fold = fromCookie;
+                    pendingState.section = fromCookie;
                     SP.saveState(PENDING_KEY, pendingState);   // the two stores converge again
                 }
+            }
+            // The fold of each section, from before the sections were tabs,
+            // leaves the record once: the tabs keep one choice in its place.
+            if (pendingState.fold) {
+                delete pendingState.fold;
+                SP.saveState(PENDING_KEY, pendingState);
             }
         }
         return pendingState;
@@ -147,14 +152,18 @@
         }
     };
 
-    /* ---------- the fold, kept in a cookie as well ---------- */
+    /* ---------- the section on show, kept in a cookie as well ---------- */
 
-    // Whether a section is folded is written to both stores, the way
-    // projects/business keeps its parameters: the two are cleared by different
-    // things, so a preference kept in both survives more than it would in
-    // either. Only the fold is mirrored — the marks would outgrow the ~4KB a
-    // cookie holds, and localStorage carries those alone.
-    var FOLD_COOKIE = 'spanishFold';
+    // Which of the four sections a list shows is written to both stores, the
+    // way projects/business keeps its parameters: the two are cleared by
+    // different things, so a preference kept in both survives more than it
+    // would in either. Only this choice is mirrored — the marks would outgrow
+    // the ~4KB a cookie holds, and localStorage carries those alone. The
+    // `spanishFold` cookie, from when each section folded on its own, is
+    // expired below so it does not linger for a year.
+    var SECTION_COOKIE = 'spanishSection';
+    var SECTION_KINDS = { reference: true, learned: true, pending: true, left: true };
+    var DEFAULT_SECTION = 'left';
 
     function readCookie(name) {
         if (typeof document === 'undefined') return '';
@@ -171,41 +180,41 @@
         } catch (e) { /* cookies off, or a file:// page, where Chrome drops them */ }
     }
 
-    function foldFromCookie() {
-        var raw = readCookie(FOLD_COOKIE);
-        if (!raw) return null;
-        try {
-            var fold = JSON.parse(raw);
-            return fold && typeof fold === 'object' && !Array.isArray(fold) ? fold : null;
-        } catch (e) { return null; }
+    function expireCookie(name) {
+        try { document.cookie = name + '=; path=/; max-age=0; SameSite=Lax'; } catch (e) { /* as above */ }
     }
 
-    // Folding a section is one switch for the whole page: every list subscribes
-    // and redraws itself, so no two lists can disagree about what is showing.
-    var foldListeners = [];
+    function sectionFromCookie() {
+        var raw = readCookie(SECTION_COOKIE);
+        return SECTION_KINDS[raw] ? raw : null;
+    }
 
-    // How a section opens while nothing is on record for it. Reference holds
-    // tables that are looked up rather than worked through, so it starts folded
-    // away; the first fold or unfold is recorded like any other and wins.
-    var FOLDED_BY_DEFAULT = { reference: true };
+    // The section on show is one choice for the whole page: every list
+    // subscribes and redraws itself, so no two lists can disagree about what
+    // is showing. While nothing is on record a list opens on Left — what is
+    // still to learn — and the first pick is recorded like any other.
+    var sectionListeners = [];
 
     SP.view = {
-        folded: function (kind) {
-            var fold = pendingRecord().fold;
-            return fold[kind] === undefined ? !!FOLDED_BY_DEFAULT[kind] : !!fold[kind];
+        section: function () {
+            var kind = pendingRecord().section;
+            return SECTION_KINDS[kind] ? kind : DEFAULT_SECTION;
         },
 
-        setFolded: function (kind, on) {
-            pendingRecord().fold[kind] = !!on;
+        setSection: function (kind) {
+            if (!SECTION_KINDS[kind]) return;
+            pendingRecord().section = kind;
             SP.saveState(PENDING_KEY, pendingState);
-            writeCookie(FOLD_COOKIE, JSON.stringify(pendingState.fold));
-            foldListeners.forEach(function (fn) { fn(kind, !!on); });
+            writeCookie(SECTION_COOKIE, kind);
+            sectionListeners.forEach(function (fn) { fn(kind); });
         },
 
         // Register once per list: a list that re-registers on every render
         // would pile up listeners and redraw itself many times over.
-        onFold: function (fn) { foldListeners.push(fn); }
+        onSection: function (fn) { sectionListeners.push(fn); }
     };
+
+    if (typeof document !== 'undefined') expireCookie('spanishFold');
 
     /* ---------- the side a covered row hides ---------- */
 
@@ -288,14 +297,18 @@
         // them in; a set the stage forgot to declare goes after the rest.
         var sets = stage.sets || [];
         var setRank = Object.create(null);
-        sets.forEach(function (set, i) { setRank[set.name] = i; });
+        var setIcon = Object.create(null);
+        sets.forEach(function (set, i) { setRank[set.name] = i; setIcon[set.name] = set.icon; });
         stage.items.forEach(function (item) {
             if (!item.id || !item.type) throw new Error(entry.file + ': incomplete item');
             if (seen[item.id]) throw new Error(entry.file + ': duplicate id ' + item.id);
             seen[item.id] = true;
             item.stage = stage.no;          // injected, never stored in the file
             item.stageId = stage.id;
-            if (item.set) item.setRank = item.set in setRank ? setRank[item.set] : sets.length;
+            if (item.set) {
+                item.setRank = item.set in setRank ? setRank[item.set] : sets.length;
+                item.setIcon = setIcon[item.set];   // the picture on the table's tile
+            }
         });
         (stage.notes || []).forEach(function (note) { note.stage = stage.no; });
         stage.icon = entry.icon;        // lives in the manifest, injected like item.stage

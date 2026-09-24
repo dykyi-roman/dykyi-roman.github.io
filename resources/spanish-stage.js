@@ -34,16 +34,17 @@
 
     /* ---------- lists split into reference, learned, pending and the rest ---------- */
 
-    // Every list is drawn as four sections in the same order: the tables of
+    // Every list is four sections behind one strip of tabs: the tables of
     // the stage's sets, what the learned list holds, what this browser has
-    // marked as pending, then everything else. Each section has a header
-    // naming it and counting it, and all but the last fold — Reference until
-    // it is first opened. Marking a row moves it across on the spot — the order
+    // marked as pending, then everything else. The section whose tab is lit
+    // is the one drawn — Left, what is still to learn, unless the reader
+    // picked another (SP.view, page-wide) — and Reference opens on its tiles,
+    // one per table, a table's rows drawn only while its tile is open
+    // (SP.tables). Marking a row moves it across on the spot — the order
     // holds without a reload — while a table row and a learned row do not move
-    // at all, because both are already above. Folded, a section is not drawn
-    // rather than hidden with CSS: otherwise a page of a long list could be
-    // spent on rows nobody sees. Long lists are still drawn a page at a time:
-    // stage 2 runs to 679 words.
+    // at all. A section not on show is not drawn rather than hidden with CSS:
+    // otherwise a page of a long list could be spent on rows nobody sees.
+    // Long lists are still drawn a page at a time: stage 2 runs to 679 words.
     //
     // opts.zone  () -> the container for one section (div.sp-lex, div.sp-ex, ol)
     // opts.row   (item, mark) -> the row element
@@ -52,14 +53,13 @@
         var pageSize = opts.pageSize || items.length;
         var pageStep = opts.pageStep || pageSize;
 
-        var heads = {};
+        var tabs = SP.sectionTabs();
+        parent.appendChild(tabs.node);
         var zones = {};
         var counts = {};
         SP.SECTIONS.forEach(function (kind) {
-            heads[kind] = SP.sectionDivider(kind);
             zones[kind] = opts.zone();
             counts[kind] = 0;
-            parent.appendChild(heads[kind].node);
             parent.appendChild(zones[kind]);
         });
 
@@ -70,15 +70,13 @@
         var plan = [];        // [{item, kind}] — what this pass draws, in order
         var shown = 0;
         var lastSet = null;   // the table the last Reference row drawn belongs to
+        var section = null;   // the section this list draws (SP.sectionShown)
 
         function sync() {
-            SP.syncSectionHeads(heads, counts);
-            // An ordered section (the drills) numbers what is on screen, running
-            // on from one section into the next.
-            var n = 1;
+            tabs.sync(counts);
+            // An ordered section (the drills) numbers what is on screen.
             SP.SECTIONS.forEach(function (kind) {
-                if (zones[kind].tagName === 'OL') zones[kind].start = n;
-                if (!SP.view.folded(kind)) n += counts[kind];
+                if (zones[kind].tagName === 'OL') zones[kind].start = 1;
             });
         }
 
@@ -87,7 +85,7 @@
             if (SP.learned.has(item.id)) return;
             counts.pending += marked ? 1 : -1;
             counts.left += marked ? -1 : 1;
-            if (marked && SP.view.folded('pending')) row.remove();
+            if (marked && section !== 'pending') row.remove();
             else if (marked) zones.pending.appendChild(row);
             else zones.left.insertBefore(row, zones.left.firstChild);
             sync();
@@ -155,8 +153,15 @@
             SP.SECTIONS.forEach(function (kind) {
                 SP.clear(zones[kind]);
                 counts[kind] = buckets[kind].length;
-                if (SP.view.folded(kind)) return;
-                buckets[kind].forEach(function (item) { plan.push({ item: item, kind: kind }); });
+            });
+            section = SP.sectionShown(counts);
+            SP.SECTIONS.forEach(function (kind) {
+                if (kind !== section) return;
+                if (kind === 'reference' && buckets.reference.length) zones.reference.appendChild(SP.setTiles(buckets.reference));
+                buckets[kind].forEach(function (item) {
+                    if (kind === 'reference' && !SP.tables.isOpen(item)) return;
+                    plan.push({ item: item, kind: kind });
+                });
             });
             shown = 0;
             lastSet = null;
@@ -165,7 +170,9 @@
         }
 
         more.addEventListener('click', draw);
-        SP.view.onFold(build);
+        SP.view.onSection(build);
+        // A tile opened or closed changes which rows Reference draws.
+        SP.tables.onChange(build);
         // Pinning reorders the Learned section, so the list is built again.
         // Registered once per list, as the fold is.
         SP.pin.onChange(build);
