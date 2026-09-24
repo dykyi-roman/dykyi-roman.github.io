@@ -845,6 +845,52 @@
 
     function runKey(item) { return item.stage + '/' + typeRank(item.type); }
 
+    // One stage in scope that gives its topics an icon opens on their tiles,
+    // the way Reference opens on its tables — and only then: under All the
+    // list runs across the stages, and with a topic picked the tiles would
+    // repeat the filter. The stage is read off the filtered rows: the scope
+    // chips are one way to a single stage, but a topic of it picked under All
+    // is another, and that one is the filter, not a tiled list.
+    function tiledStage() {
+        if (byId('sp-browse-group').value) return null;
+        var id = null;
+        for (var i = 0; i < browseFiltered.length; i++) {
+            if (id === null) id = browseFiltered[i].stageId;
+            else if (browseFiltered[i].stageId !== id) return null;
+        }
+        var stage = id === null ? null : SP.stages[id];
+        return stage && SP.topicIcons(stage) ? stage : null;
+    }
+
+    // The rows of one section of a tiled stage, in runs by topic in the order
+    // the stage declares its topics: [{key, icon, name, items}]. The drills
+    // carry no topic and so have no tile: a tiled list is the stage's words,
+    // and its drills stay on the stage page, in a search and in the CSV.
+    function topicRuns(stage, items) {
+        var icons = SP.topicIcons(stage);
+        var order = {};
+        (stage.groups || []).forEach(function (g, i) { order[g.name] = i; });
+        var runs = {};
+        items.forEach(function (item) {
+            var name = item.group;
+            if (!name) return;
+            if (!runs[name]) runs[name] = { key: SP.topicKey(stage, name), icon: icons[name], name: name, items: [] };
+            runs[name].items.push(item);
+        });
+        return Object.keys(runs).sort(function (a, b) {
+            return (a in order ? order[a] : 1e9) - (b in order ? order[b] : 1e9);
+        }).map(function (name) { return runs[name]; });
+    }
+
+    // An open topic's rows run under its name and picture, as a table of
+    // Reference runs under its name.
+    function topicDivider(run) {
+        var node = SP.quietDivider(run.name);
+        var icon = SP.iconSpan(run.icon);
+        if (icon) node.insertBefore(icon, node.firstChild);
+        return node;
+    }
+
     // What a search leaves, drawn as the three zones of SP.renderZoneList:
     // the word itself first, then the words that merely begin with it, then
     // the words that carry it in an example — with NO EXACT MATCH said in
@@ -891,9 +937,14 @@
         var searching = browseSearch ? browseSearch.query() : '';
         if (searching) return renderBrowseZones(list, searching);
 
+        // A tiled stage (below) lists its words alone, so its drills stay out
+        // of the buckets: the tabs then count what the list can show. The
+        // exports and the copy read browseFiltered and keep them.
+        var tiled = tiledStage();
         var buckets = {};
         SP.SECTIONS.forEach(function (kind) { buckets[kind] = []; });
         browseFiltered.forEach(function (item) {
+            if (tiled && !item.group) return;
             buckets[SP.sectionOf(item)].push(item);
         });
         // Reference reads table by table. Learned comes in this page load's
@@ -973,12 +1024,28 @@
                 if (SP.tables.isOpen(item)) plan.push({ item: item, kind: 'reference' });
             });
         }
+        // A tiled stage opens on its topics: the grid at the head of the
+        // section on show, one tile per topic that has rows there, and under
+        // it the rows of the open topics alone, each run under its own name.
+        // Like the tables, it rebuilds on every tap (SP.topics.onChange in
+        // initBrowseControls), since a closed topic's rows are not drawn.
+        if (tiled && section !== 'reference') {
+            var runs = topicRuns(tiled, buckets[section]);
+            zones[section].appendChild(SP.tileGrid(runs.map(function (run) {
+                return { key: run.key, icon: run.icon, name: run.name, count: run.items.length };
+            }), { state: SP.topics, what: 'topic', kind: 'topic' }).node);
+            runs.forEach(function (run) {
+                if (!SP.topics.isOpen(run.key)) return;
+                run.items.forEach(function (item) { plan.push({ item: item, kind: section, topic: run }); });
+            });
+        }
         SP.SECTIONS.forEach(function (kind) {
-            if (kind === 'reference' || kind !== section) return;
+            if (kind === 'reference' || kind !== section || tiled) return;   // a tiled section was planned above
             buckets[kind].forEach(function (item) { plan.push({ item: item, kind: kind }); });
         });
 
         var previous = {};
+        var previousTopic = null;
         plan.slice(0, browseShown).forEach(function (entry) {
             var zone = zones[entry.kind];
             var prev = previous[entry.kind];
@@ -993,9 +1060,16 @@
                 previous.reference = entry.item;
                 return;
             }
-            var newStage = nameStages && (!prev || prev.stage !== entry.item.stage);
-            if (newStage) zone.appendChild(stageDivider(entry.item));
-            else if (prev && runKey(prev) !== runKey(entry.item)) zone.appendChild(runDivider(entry.item));
+            if (entry.topic) {
+                // The tile names the run; the type seams inside it would only
+                // split a topic's words from its pairs.
+                if (entry.topic !== previousTopic) zone.appendChild(topicDivider(entry.topic));
+                previousTopic = entry.topic;
+            } else {
+                var newStage = nameStages && (!prev || prev.stage !== entry.item.stage);
+                if (newStage) zone.appendChild(stageDivider(entry.item));
+                else if (prev && runKey(prev) !== runKey(entry.item)) zone.appendChild(runDivider(entry.item));
+            }
             zone.appendChild(makeRow(entry.item));
             previous[entry.kind] = entry.item;
         });
@@ -1165,6 +1239,8 @@
         // A tile of Reference opened or closed changes which rows are drawn;
         // the page the reader has already asked for is kept, as with a pin.
         SP.tables.onChange(renderBrowse);
+        // A topic tile likewise: the rows of a closed topic are not drawn.
+        SP.topics.onChange(renderBrowse);
         byId('sp-browse-group').addEventListener('change', applyBrowse);
         byId('sp-browse-reset').addEventListener('click', function () {
             byId('sp-browse-group').value = '';

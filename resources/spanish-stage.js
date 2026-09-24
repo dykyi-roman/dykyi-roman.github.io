@@ -347,14 +347,47 @@
                 if (note.section === 'vocab' && note.group) notesByGroup[note.group] = note;
             });
 
+            // A stage that gives every topic an icon opens on tiles, one per
+            // topic, the way Reference opens on its tables: a topic's block is
+            // on the page only while its tile is open (SP.topics), so the ten
+            // topics of Situations read as a grid of pictures rather than a
+            // wall of words. Unlike the tables, the blocks are all built — a
+            // list of a hundred words is nothing the page cannot hold — and a
+            // closed one is hidden, so a tap costs no rebuild. The tiles are
+            // then the index of the topics, and no chip row names them again.
+            var icons = SP.topicIcons(stage);
+            var topicBlocks = {};   // by name — the drills below keep a `blocks` of their own
+            if (icons) {
+                var grid = SP.tileGrid(lexGroups.filter(Boolean).map(function (name) {
+                    return { key: SP.topicKey(stage, name), icon: icons[name], name: name, count: byGroup[name].length };
+                }), { state: SP.topics, what: 'topic', kind: 'topic' });
+                lexSection.appendChild(grid.node);
+                SP.topics.onChange(function () {
+                    grid.sync();
+                    Object.keys(topicBlocks).forEach(function (name) {
+                        topicBlocks[name].hidden = !SP.topics.isOpen(SP.topicKey(stage, name));
+                    });
+                });
+            }
+
             lexGroups.forEach(function (name, i) {
                 var block = SP.el('div', 'sp-group');
                 if (name) {
                     block.id = 'lex-' + i;
-                    var title = SP.el('h4', 'sp-group-title', name + ' ');
+                    var title = SP.el('h4', 'sp-group-title');
+                    if (icons) {
+                        // The block wears its tile's picture, so an open topic
+                        // under the grid is known at a glance.
+                        title.appendChild(SP.iconSpan(icons[name]));
+                        title.appendChild(document.createTextNode(' '));
+                        topicBlocks[name] = block;
+                        block.hidden = !SP.topics.isOpen(SP.topicKey(stage, name));
+                    } else {
+                        index.push({ row: 'sub', label: name, target: block.id });
+                    }
+                    title.appendChild(document.createTextNode(name + ' '));
                     title.appendChild(SP.el('span', null, byGroup[name].length));
                     block.appendChild(title);
-                    index.push({ row: 'sub', label: name, target: block.id });
                 }
                 renderMarkedList(block, byGroup[name], {
                     zone: lexZone,

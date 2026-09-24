@@ -742,19 +742,26 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-lex-row.has-mark :is(.sp-mark, .sp-pin) { grid-area: mark; }
 .sp-lex-row :is(.sp-mark, .sp-pin), .sp-drill-row > :is(.sp-mark, .sp-pin) { width: 36px; }
 
-/* Reference opens on its tiles: one per table, a card carrying the table's
-   picture, its name and its size, in a grid three across on a phone — 92px
-   is what three of them come to at 320px, with the gaps — and as many as the
-   width allows above it. A tap unfolds the table under the grid and a second
-   tap folds it back; the open tile wears the blue of the Reference tag, so
-   the grid itself says which tables are out. */
-.sp-set-grid {
+/* A grid of tiles. Reference opens on one, a tile per table, and a stage
+   that gives its topics a picture opens its lexicon on one, a tile per
+   topic. Each tile is a card carrying the picture, the name and the size,
+   three across on a phone — 92px is what three of them come to at 320px,
+   with the gaps — and as many as the width allows above it. A tap unfolds
+   what the tile stands for under the grid and a second tap folds it back;
+   the open tile wears the blue of the Reference tag over a table and the
+   site's orange over a topic, so the grid itself says what is out. */
+.sp-tile-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
     gap: var(--spacing-sm);
 }
 
-.sp-set-tile {
+/* The open blocks of a topic grid follow it as plain sections, so the grid
+   keeps them off its edge; a table under Reference opens under a divider,
+   which carries its own room. */
+.sp-tile-grid.is-topic { margin-bottom: var(--spacing-md); }
+
+.sp-tile {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -773,23 +780,41 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 }
 
 @media (hover: hover) {
-    .sp-set-tile:hover { border-color: var(--color-primary); transform: translateY(-2px); }
+    .sp-tile:hover { border-color: var(--color-primary); transform: translateY(-2px); }
 }
 
-.sp-set-tile:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.sp-tile:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
 
-.sp-set-tile[aria-expanded="true"] {
+.sp-tile[aria-expanded="true"] {
     border-color: var(--color-info);
     box-shadow: inset 0 0 0 1px var(--color-info);
 }
 
+.sp-tile-grid.is-topic .sp-tile[aria-expanded="true"] {
+    border-color: var(--color-primary);
+    box-shadow: inset 0 0 0 1px var(--color-primary);
+}
+
 /* The picture is the point of the tile, so it is the largest thing on it. */
-.sp-set-icon { font-size: 1.9rem; line-height: 1; }
-.sp-set-name { font-weight: 600; font-size: 0.82rem; line-height: 1.2; text-align: center; overflow-wrap: anywhere; }
-.sp-set-count { color: var(--color-text-light); font-size: 0.75rem; }
-.sp-set-tile .sp-chevron { width: 12px; height: 12px; color: var(--color-text-light); }
-/* Down while the table is folded, since it opens below the grid; up once it is out. */
-.sp-set-tile[aria-expanded="true"] .sp-chevron { transform: rotate(180deg); }
+.sp-tile-icon { font-size: 1.9rem; line-height: 1; }
+/* A topic's name runs to four words and its longest word past a phone's
+   tile, so it breaks by the syllable where the browser knows how (the stage
+   pages are lang="ru") and anywhere where it does not. */
+.sp-tile-name { font-weight: 600; font-size: 0.82rem; line-height: 1.2; text-align: center; overflow-wrap: anywhere; hyphens: auto; }
+/* The count and the chevron sit at the foot of the tile: the tiles of a row
+   are one height, and a topic's name runs to three lines where a table's
+   runs to one, so left where the name ends they sat at as many heights. */
+.sp-tile-count { margin-top: auto; color: var(--color-text-light); font-size: 0.75rem; }
+.sp-tile .sp-chevron { width: 12px; height: 12px; color: var(--color-text-light); }
+/* Down while folded, since it opens below the grid; up once it is out. */
+.sp-tile[aria-expanded="true"] .sp-chevron { transform: rotate(180deg); }
+
+/* From 700px up a topic's tile gets room for its name: a three-word name in
+   a 95px tile broke inside its words. Reference keeps the tight grid — a
+   table's name is one word. */
+@media (min-width: 700px) {
+    .sp-tile-grid.is-topic { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+}
 
 /* The list a found row belongs to, worn by the row itself — a search can put
    one match under a header far up the screen. Only drawn while searching. */

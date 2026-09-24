@@ -90,54 +90,94 @@
         node.appendChild(SP.el('span', 'sp-divider-label', label));
         return node;
     };
-    // Which tables of Reference are open, kept for this page load alone: a
-    // table is looked up, not worked through over days, so a fresh page opens
-    // on the tiles. Keyed by stage and name — a set's name is unique within
-    // its stage, and two stages may one day call a table the same thing.
-    var openTables = Object.create(null);
-    var tableListeners = [];
-    function tableKey(item) { return item.stage + ':' + item.set; }
-    SP.tables = {
-        isOpen: function (item) { return !!openTables[tableKey(item)]; },
-        setOpen: function (item, on) {
-            openTables[tableKey(item)] = !!on;
-            tableListeners.forEach(function (fn) { fn(); });
-        },
-        onChange: function (fn) { tableListeners.push(fn); }
+    // Which tiles are open, kept for this page load alone — the tables of
+    // Reference, and the topics of a stage that gives them an icon. A table
+    // is looked up, not worked through over days, and a topic is one tap
+    // away on a fresh page, where the grid is the overview of the stage; so
+    // neither is remembered. One record per kind, keyed by stage and name: a
+    // name is unique within its stage, and two stages may one day share one.
+    function openState(keyOf) {
+        var open = Object.create(null);
+        var listeners = [];
+        return {
+            isOpen: function (key) { return !!open[keyOf(key)]; },
+            setOpen: function (key, on) {
+                open[keyOf(key)] = !!on;
+                listeners.forEach(function (fn) { fn(); });
+            },
+            onChange: function (fn) { listeners.push(fn); }
+        };
+    }
+    SP.tables = openState(function (item) { return item.stage + ':' + item.set; });
+    SP.topics = openState(function (topic) { return topic.stage + ':' + topic.name; });
+
+    // The pictures of a stage's topics, by name — or null when the stage
+    // declares none, and its lexicon is drawn as plain blocks. It is all or
+    // nothing, and verify.js holds the file to that. `SP.topicKey` is what
+    // SP.topics is asked about.
+    SP.topicIcons = function (stage) {
+        var groups = stage.groups || [];
+        if (!groups.length || !groups.every(function (g) { return g.icon; })) return null;
+        var icons = {};
+        groups.forEach(function (g) { icons[g.name] = g.icon; });
+        return icons;
+    };
+
+    SP.topicKey = function (stage, name) { return { stage: stage.no, name: name }; };
+
+    // A grid of tiles: one button per entry, carrying its picture, its name
+    // and its size, in the order given. A tap opens what the tile stands for
+    // below the grid and a second tap closes it; `state` is the record of
+    // which are out (SP.tables, SP.topics), `what` names the thing a tile
+    // opens for its tooltip, and `kind` marks the grid for CSS. `tiles` is
+    // [{key, icon, name, count}], `key` being what the state is asked about.
+    // Returns the node and a sync that repaints the tiles from the state, for
+    // a grid that stays on the page while what is under it comes and goes.
+    SP.tileGrid = function (tiles, opts) {
+        var grid = SP.el('div', 'sp-tile-grid' + (opts.kind ? ' is-' + opts.kind : ''));
+        var buttons = [];
+        function paint() {
+            buttons.forEach(function (entry) {
+                var open = opts.state.isOpen(entry.key);
+                entry.tile.setAttribute('aria-expanded', open ? 'true' : 'false');
+                entry.tile.title = (open ? 'Hide' : 'Show') + ' the ' + opts.what;
+            });
+        }
+        tiles.forEach(function (entry) {
+            var tile = SP.el('button', 'sp-tile');
+            tile.type = 'button';
+            var pic = SP.iconSpan(entry.icon);
+            if (pic) { pic.classList.add('sp-tile-icon'); tile.appendChild(pic); }
+            var name = SP.el('span', 'sp-tile-name', entry.name);
+            // The names are Russian on a page that may be lang="en" (the hub),
+            // and the syllable breaks of `hyphens: auto` follow the language.
+            if (/[\u0400-\u04FF]/.test(entry.name)) name.lang = 'ru';
+            tile.appendChild(name);
+            tile.appendChild(SP.el('span', 'sp-tile-count', entry.count));
+            tile.appendChild(SP.icon.chevron());
+            tile.addEventListener('click', function () {
+                opts.state.setOpen(entry.key, !opts.state.isOpen(entry.key));
+            });
+            buttons.push({ key: entry.key, tile: tile });
+            grid.appendChild(tile);
+        });
+        paint();
+        return { node: grid, sync: paint };
     };
 
     // Reference opens on its tiles: one per table, in the order the stage
-    // declares its sets, each a button carrying the table's picture (the
-    // set's icon), its name and its size. A tap unfolds the table below the
-    // grid and a second tap folds it back; the rows of a closed table are not
-    // drawn at all, so a page of a long list is never spent on them. `items`
-    // are the Reference rows of one stage, already through SP.orderBySet, so
-    // every table is one run of them.
+    // declares its sets. The rows of a closed table are not drawn at all, so
+    // a page of a long list is never spent on them — which is why the list
+    // rebuilds, grid and all, on every tap. `items` are the Reference rows of
+    // one stage, already through SP.orderBySet, so every table is one run.
     SP.setTiles = function (items) {
-        var grid = SP.el('div', 'sp-set-grid');
         var tables = [];
         items.forEach(function (item) {
             var last = tables[tables.length - 1];
-            if (last && last.item.set === item.set) { last.count++; return; }
-            tables.push({ item: item, count: 1 });
+            if (last && last.key.set === item.set) { last.count++; return; }
+            tables.push({ key: item, icon: item.setIcon, name: item.set, count: 1 });
         });
-        tables.forEach(function (table) {
-            var tile = SP.el('button', 'sp-set-tile');
-            tile.type = 'button';
-            var pic = SP.iconSpan(table.item.setIcon);
-            if (pic) { pic.classList.add('sp-set-icon'); tile.appendChild(pic); }
-            tile.appendChild(SP.el('span', 'sp-set-name', table.item.set));
-            tile.appendChild(SP.el('span', 'sp-set-count', table.count));
-            tile.appendChild(SP.icon.chevron());
-            var open = SP.tables.isOpen(table.item);
-            tile.setAttribute('aria-expanded', open ? 'true' : 'false');
-            tile.title = (open ? 'Hide' : 'Show') + ' the table';
-            tile.addEventListener('click', function () {
-                SP.tables.setOpen(table.item, !SP.tables.isOpen(table.item));
-            });
-            grid.appendChild(tile);
-        });
-        return grid;
+        return SP.tileGrid(tables, { state: SP.tables, what: 'table' }).node;
     };
 
     // `slot` is where the mark goes when it is not the row itself: a lexicon

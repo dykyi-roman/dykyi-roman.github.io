@@ -334,6 +334,20 @@ const NOT_VERBS = ['ayer'];
     const groups = {};
     (stage.groups || []).forEach(g => { groups[g.name] = true; });
 
+    // A stage that gives its topics an icon opens its lexicon on their tiles,
+    // one per topic, so it is all or nothing: a topic without one would be a
+    // tile with no picture, and a stage with icons on some topics a grid with
+    // tiles missing. A word of such a stage that carries no topic has no tile
+    // to open under, which the item loop below checks.
+    const iconed = (stage.groups || []).filter(g => g && g.icon !== undefined);
+    const tiled = iconed.length > 0;
+    if (tiled && iconed.length !== (stage.groups || []).length) {
+        fail(entry.file + ': some topics carry an icon and some do not — the tiles are all or nothing');
+    }
+    iconed.forEach(g => {
+        if (typeof g.icon !== 'string' || g.icon.trim() === '') fail(entry.file + ': topic "' + g.name + '" has an empty icon');
+    });
+
     // The hub's topic filter keys its options by the bare name, so a name two
     // stages share would fold two topics into one option.
     Object.keys(groups).forEach(name => {
@@ -419,6 +433,9 @@ const NOT_VERBS = ['ayer'];
 
         if (item.group && !groups[item.group]) fail(at + ': group "' + item.group + '" is not declared in stage.groups');
         if (item.set && !sets[item.set]) fail(at + ': set "' + item.set + '" is not declared in stage.sets');
+        if (tiled && (item.type === 'vocab' || item.type === 'pair') && !item.set && !item.group) {
+            fail(at + ': carries no topic, and on a stage drawn as tiles that leaves it no tile to open under');
+        }
         if (item.group) usedGroups[item.group] = true;
         if (item.set) usedSets[item.set] = true;
 
