@@ -2,9 +2,8 @@
    - a stage page when #sp-root carries data-stage="N"
    - the phonetics/grammar page when it carries data-rules
    A stage page gets a sticky two-row chip index rather than a floating
-   overlay — on a phone it steps away while the page is read downwards and is
-   back on the way up (SP.tuckBar) — and the rules page gets none: its map is
-   the way in. The index and the rules renderer itself live in
+   overlay — stuck on a phone too, unlike the hub's bar, which steps away
+   there (SP.tuckBar) — and the rules page gets none: its map is the way in. The index and the rules renderer itself live in
    spanish-prose.js, because the hub renders the rules in a tab too.
    Every list on a stage page — words, live examples and drills alike — is split
    into Reference, Learned, Pending and the rest, and every row below the first
@@ -261,7 +260,7 @@
         bar.appendChild(searchRow);
         bar.appendChild(chips);
         root.appendChild(bar);
-        SP.tuckBar(bar);
+        SP.tuckBar(bar, { tuck: false });
 
         var body = SP.el('div');
         root.appendChild(body);

@@ -811,16 +811,19 @@
     // it until the page is at rest: a jump down would otherwise tuck it and
     // leave its height as a gap above the heading, and a jump up would bring it
     // back over the heading. One bar per page, and SP.jumpTo works through it.
+    // `{tuck: false}` keeps the bar stuck on a phone as well: a stage page's
+    // bar is the index of the page, and a reader expects it to stay put.
     var TUCK_AFTER = 24;    // px travelled down before the bar steps away
     var SHOW_AFTER = 12;    // px travelled up before it is back
     var HOLD_QUIET = 150;   // ms without scrolling that end a jump where scrollend is unknown
     var HOLD_MAX = 1500;    // ms a jump holds the bar at most
     var pageBar = null;
 
-    SP.tuckBar = function (bar) {
+    SP.tuckBar = function (bar, opts) {
         if (!bar || !bar.parentNode) return null;
         var html = document.documentElement;
-        var phone = window.matchMedia ? window.matchMedia('(max-width: 699px), (max-height: 500px)') : null;
+        var canTuck = !(opts && opts.tuck === false);
+        var phone = canTuck && window.matchMedia ? window.matchMedia('(max-width: 699px), (max-height: 500px)') : null;
         var hasScrollEnd = 'onscrollend' in window;
 
         // Where the bar would stand if it did not stick: once this line has
