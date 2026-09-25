@@ -219,6 +219,10 @@
             tab.setAttribute('aria-selected', String(active));
         });
         syncChipActive();
+        // The four study tabs work a stage scope; the rules and the patterns
+        // are read, not studied, so while either is open the tabs step aside.
+        // The way back is a stage chip, which returns to Browse.
+        byId('sp-modes').hidden = !!REFERENCE_MODES[mode];
         if (coverSwitch) coverSwitch.hidden = mode !== 'browse';
         MODES.forEach(function (name) {
             var panel = byId('panel-' + name);

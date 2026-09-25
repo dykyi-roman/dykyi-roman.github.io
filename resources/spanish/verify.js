@@ -20,9 +20,9 @@ function read(file) {
 }
 
 const TEXT_KEYS = ['es', 'en', 'ru', 'tr', 'prompt', 'answer', 'title', 'titleRu', 'goal', 't', 'set', 'name',
-    'how', 'lit', 'trap', 'gist',
-    // the rules diagrams: a fork, a conjugation grid and the time axis
-    'label', 'hint', 'q', 'head', 'inf', 'f', 'stem', 'band', 'hl', 'chip'];
+    'how', 'lit', 'trap', 'introTitle',
+    // the rules diagrams — a fork and a conjugation grid — and a rule's examples
+    'label', 'hint', 'q', 'head', 'inf', 'f', 'stem', 'band', 'hl', 'sound'];
 // A single asterisk counts too: "*th*" left over from the markdown is shown
 // to the reader as it is, stars and all. Emphasis is a span with s: 'b'.
 const BAD_MARKUP = /<[a-z/!][^>]*>|&[a-zA-Z]+;|&#x?[0-9a-fA-F]+;|\*/;
@@ -63,7 +63,7 @@ function checkStageNumbers(node, where) {
 // The kinds SP.renderBlocks knows. A block whose `k` is none of them is
 // appended nowhere: a typo drops it off the page and nothing says so, which
 // is why an unknown kind is an error rather than a shrug.
-const BLOCK_KINDS = ['p', 'note', 'ul', 'ol', 'table', 'fork', 'conj', 'axis'];
+const BLOCK_KINDS = ['p', 'note', 'ul', 'ol', 'table', 'fork', 'conj'];
 
 // A filled string, the thing most of the new fields have to be.
 function text(value) { return typeof value === 'string' && value.trim() !== ''; }
@@ -80,17 +80,22 @@ function checkBlocks(blocks, at) {
         }
         if (block.k === 'p' || block.k === 'note') {
             if (!Array.isArray(block.spans) || block.spans.length === 0) fail(where + ': ' + block.k + ' carries no spans');
+            if (block.k === 'p') checkExamples(block.ex, where);
+            else if (block.ex !== undefined) fail(where + ': a note carries no examples — the renderer draws none under it');
         } else if (block.k === 'ul' || block.k === 'ol') {
             if (!Array.isArray(block.items) || block.items.length === 0) { fail(where + ': ' + block.k + ' carries no items'); return; }
+            // A grid of forms (venir → ven) is read at a glance; its examples
+            // go together under the «Примеры:» line after it, never per cell.
+            if (block.grid !== undefined && block.grid !== true) fail(where + ': "grid" is true or absent');
             block.items.forEach((item, j) => {
                 if (!item || !Array.isArray(item.spans) || item.spans.length === 0) fail(where + ' item ' + j + ': carries no spans');
+                if (item && block.grid && item.ex !== undefined) fail(where + ' item ' + j + ': a cell of a grid keeps no examples — they go under the «Примеры:» line after it');
+                else if (item) checkExamples(item.ex, where + ' item ' + j);
             });
         } else if (block.k === 'fork') {
             checkFork(block, where);
         } else if (block.k === 'conj') {
             checkConj(block, where);
-        } else if (block.k === 'axis') {
-            checkAxis(block, where);
         } else if (block.k === 'table') {
             if (!Array.isArray(block.head) || block.head.length === 0) fail(where + ': table has no head');
             if (!Array.isArray(block.rows) || block.rows.length === 0) { fail(where + ': table has no rows'); return; }
@@ -186,34 +191,36 @@ function checkConj(block, at) {
     });
 }
 
-// The time axis. Three zones and no more: the whole point is past, now and
-// ahead, and a fourth would say the shape means something else. An item either
-// points at the section that teaches it or is marked as still to come.
-// `ruleIds` is filled once rules.json is read, so the check runs from there.
+// The rules sections, by id — filled once rules.json is read, for the map
+// and for the tenses of verbs.json, which name the section that teaches them.
 const ruleIds = Object.create(null);
 
-function checkAxis(block, at) {
-    if (!Array.isArray(block.zones) || block.zones.length !== 3) {
-        fail(at + ': an axis has exactly 3 zones — past, now and ahead');
-        return;
-    }
-    block.zones.forEach((zone, i) => {
-        const where = at + ' zone ' + (zone && zone.title ? JSON.stringify(zone.title) : '#' + i);
-        if (!zone || typeof zone !== 'object') { fail(where + ': not a zone'); return; }
-        if (!text(zone.title)) fail(where + ': no title');
-        if (!Array.isArray(zone.items) || zone.items.length === 0 || zone.items.length > 5) {
-            fail(where + ': a zone needs 1 to 5 items');
-            return;
-        }
-        zone.items.forEach((item, j) => {
-            const spot = where + ' item ' + j;
-            if (!item || typeof item !== 'object') { fail(spot + ': not an item'); return; }
-            if (!text(item.es) || !text(item.ru)) fail(spot + ': needs both "es" and "ru"');
-            const linked = text(item.ref);
-            const ahead = item.next === true;
-            if (linked === ahead) fail(spot + ': needs exactly one of "ref" and "next"');
-            if (linked && !ruleIds[item.ref]) fail(spot + ': "ref" points at no section — ' + JSON.stringify(item.ref));
+// The examples a line of a rule keeps under it, behind the chevron at its
+// end: the {es, ru, frame?} of a usage example, plus how a reading rule's
+// example sounds and the caption over a run of them. Three at the least: a
+// chevron that opens on a single line is a button pressed for nothing, and a
+// list of forms with one example each becomes a grid with its examples
+// together instead. A field the renderer does not know is one the reader
+// never sees.
+const EX_FIELDS = ['es', 'ru', 'sound', 'label', 'frame'];
+const EX_MIN = 3;
+
+function checkExamples(ex, at) {
+    if (ex === undefined) return;
+    if (!Array.isArray(ex) || ex.length === 0) { fail(at + ': "ex" holds no examples — leave it out instead'); return; }
+    if (ex.length < EX_MIN) fail(at + ': ' + ex.length + ' example(s) — a line of a rule keeps at least ' + EX_MIN);
+    ex.forEach((line, i) => {
+        const where = at + ' ex ' + i;
+        checkLine(line, where, true);
+        if (!line || typeof line !== 'object') return;
+        Object.keys(line).forEach(k => {
+            if (EX_FIELDS.indexOf(k) === -1) fail(where + ': unknown field ' + JSON.stringify(k));
         });
+        ['sound', 'label'].forEach(k => {
+            if (line[k] !== undefined && !text(line[k])) fail(where + ': empty "' + k + '"');
+        });
+        // The brackets round a sound are drawn by CSS, as the lexicon's are.
+        if (text(line.sound) && /^\[|\]$/.test(line.sound.trim())) fail(where + ': "sound" carries its own brackets — the page draws them');
     });
 }
 
@@ -592,8 +599,8 @@ function checkRanks(ranks, file) {
     return sorted.length;
 }
 
-// Anchors renderRules synthesises: the top list and the map of the layers.
-const RULES_PANEL_IDS = ['esr-top', 'esr-map'];
+// Anchors renderRules synthesises: the key to the transcription and the map.
+const RULES_PANEL_IDS = ['esr-key', 'esr-map'];
 
 // The map says which layer each section belongs to. It is one field rather
 // than a `layer` on all 39 sections, so the one thing that can go wrong is
@@ -601,7 +608,7 @@ const RULES_PANEL_IDS = ['esr-top', 'esr-map'];
 function checkMap(map, sections) {
     const at = 'rules.json map';
     if (!text(map.title)) fail(at + ': no title');
-    if (map.chip !== undefined && !text(map.chip)) fail(at + ': empty "chip"');
+    if (map.chip !== undefined) fail(at + ': "chip" is left over — the rules have no chip index any more');
     if (!Array.isArray(map.layers) || map.layers.length < 2) { fail(at + ': needs at least 2 layers'); return; }
     const placed = Object.create(null);
     map.layers.forEach((layer, i) => {
@@ -622,17 +629,44 @@ function checkMap(map, sections) {
     return Object.keys(placed).length;
 }
 
+// A table in a rules section is a reference — the genders, the pronouns, the
+// stems. A table with a column of translations is a run of examples, and those
+// live under the line they illustrate, behind its chevron, where the reader
+// opens them one line at a time.
+function checkNoExampleTables(blocks, at) {
+    (blocks || []).forEach((block, i) => {
+        if (!block || block.k !== 'table' || !Array.isArray(block.head)) return;
+        const heads = block.head.map(cell => (cell || []).map(span => span && span.t).join(''));
+        if (heads.indexOf('Перевод') !== -1) {
+            fail(at + '[' + i + ']: a table of examples (' + heads.join(' | ') + ') — move its rows into "ex" under the line they illustrate');
+        }
+    });
+}
+
+// The key to the transcription: a row per reading rule — the letters, an
+// example, how the lists transcribe it, how it sounds. The transcription is
+// held to the same rules as every `tr` of the lists, since it is what teaches
+// them to read one.
+function checkKey(rules) {
+    if (rules.intro === undefined) return;
+    if (!text(rules.introTitle)) fail('rules.json: "introTitle" is missing — the folded key has nothing to say what it is');
+    const table = (rules.intro || []).find(block => block && block.k === 'table');
+    if (!table) { fail('rules.json intro: the key is not a table'); return; }
+    const col = (table.head || []).findIndex(cell => (cell || []).map(span => span && span.t).join('') === 'Транскрипция');
+    if (col === -1) { fail('rules.json intro: the key has no "Транскрипция" column'); return; }
+    (table.rows || []).forEach((row, i) => {
+        const cell = (row && row[col]) || [];
+        checkTranscription(cell.map(span => span && span.t).join(''), 'rules.json intro key row ' + i);
+    });
+}
+
 const rules = read(manifest.rules ? manifest.rules.file : 'rules.json');
 if (rules) {
     const topRanks = {};
     (rules.sections || []).forEach(section => { if (section && section.id) ruleIds[section.id] = true; });
     checkBlocks(rules.intro, 'rules.json intro');
-    // Every table inside a section is folded away behind a line the reader
-    // opens, and the three words on that line live here rather than in the JS.
-    // Missing, the fold would draw "undefined · 6" and say nothing.
-    ['label', 'show', 'hide'].forEach(key => {
-        if (!rules.tables || !rules.tables[key]) fail('rules.json: tables.' + key + ' is missing — the examples fold has no caption');
-    });
+    checkKey(rules);
+    if (rules.tables !== undefined) fail('rules.json: "tables" is left over — the examples fold it captioned is gone');
     if (!Array.isArray(rules.sections) || rules.sections.length === 0) fail('rules.json: no sections');
     (rules.sections || []).forEach(section => {
         if (!section.id) fail('rules.json: section without id');
@@ -643,21 +677,24 @@ if (rules) {
         const body = (section.blocks || []).length + (section.parts || []).length;
         if (body === 0) fail('rules.json: section ' + section.id + ' is empty');
         checkBlocks(section.blocks, 'rules.json section ' + section.id + ' blocks');
+        checkNoExampleTables(section.blocks, 'rules.json section ' + section.id + ' blocks');
         (section.parts || []).forEach((part, i) => {
             const partAt = 'rules.json section ' + section.id + ' part ' + (part && part.title ? JSON.stringify(part.title) : '#' + i);
             if (!part || !part.title) fail(partAt + ': no title');
             if (!part || !Array.isArray(part.blocks) || part.blocks.length === 0) fail(partAt + ': no blocks');
-            else checkBlocks(part.blocks, partAt);
+            else {
+                checkBlocks(part.blocks, partAt);
+                checkNoExampleTables(part.blocks, partAt);
+            }
         });
 
-        // A section to learn first says what it comes down to and shows it.
+        // A section to learn first wears a star with its rank, beside its title
+        // and on the map. The list that once closed the page — each section with
+        // a gist and a short example — is gone, and so are the two fields.
         const at = 'rules.json section ' + section.id;
-        if (section.top !== undefined) {
-            claimRank(topRanks, section, at);
-            if (typeof section.gist !== 'string' || section.gist.trim() === '') fail(at + ': a top section needs a "gist"');
-            checkLine(section.short, at + ' short');
-        } else if (section.gist !== undefined || section.short !== undefined) {
-            fail(at + ': "gist" and "short" belong to the top list, but the section has no "top" rank');
+        if (section.top !== undefined) claimRank(topRanks, section, at);
+        if (section.gist !== undefined || section.short !== undefined) {
+            fail(at + ': "gist" and "short" are left over — the rules draw no top list any more');
         }
     });
     const ranked = checkRanks(topRanks, 'rules.json');
@@ -670,7 +707,19 @@ if (rules) {
     }
     checkStrings(rules, 'rules.json');
     checkStageNumbers(rules, 'rules.json');
-    if (ranked) notes.push(ranked + ' rules in the top list');
+    if (ranked) notes.push(ranked + ' rules starred to learn first');
+    let ruleLines = 0;
+    let ruleExamples = 0;
+    const countEx = blocks => (blocks || []).forEach(block => {
+        if (!block) return;
+        if (block.k === 'p' && block.ex) { ruleLines += 1; ruleExamples += block.ex.length; }
+        (block.items || []).forEach(item => { if (item && item.ex) { ruleLines += 1; ruleExamples += item.ex.length; } });
+    });
+    (rules.sections || []).forEach(section => {
+        countEx(section.blocks);
+        (section.parts || []).forEach(part => countEx(part && part.blocks));
+    });
+    notes.push(ruleLines + ' lines of the rules keep ' + ruleExamples + ' examples behind a chevron');
 }
 
 /* ---------- patterns.json: the conversational patterns ---------- */

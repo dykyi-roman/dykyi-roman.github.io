@@ -1263,6 +1263,18 @@ ol.sp-rules { padding-left: 1.5em; }
 /* A paragraph that keeps examples stands alone, with a paragraph's margin. */
 div.sp-rule { margin: 0 0 var(--spacing-sm); }
 
+/* A grid of forms — venir → ven, romper → roto — as many across as the width
+   holds, two on a phone. A Spanish chunk never breaks inside itself; a long
+   cell wraps at the arrow instead. Its examples wait together under the
+   «Примеры:» line after it. */
+.sp-grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+    gap: 2px var(--spacing-md);
+    margin: 0 0 var(--spacing-xs);
+}
+.sp-grid-list .sp-es { white-space: nowrap; }
+
 /* Open, the examples hang under their line on a thin rule of their own, set
    in from the text so they read as its illustration. The dashed top the
    drawer has under a word would only double the seam between two lines. */

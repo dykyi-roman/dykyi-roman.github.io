@@ -999,6 +999,11 @@
          "es": "gimnasio",
          "sound": "химнасио",
          "ru": "спортзал"
+        },
+        {
+         "es": "página",
+         "sound": "пахина",
+         "ru": "страница"
         }
        ]
       },
@@ -1029,6 +1034,11 @@
          "es": "gusto",
          "sound": "густо",
          "ru": "вкус, удовольствие"
+        },
+        {
+         "es": "amigo",
+         "sound": "амиго",
+         "ru": "друг"
         }
        ]
       },
@@ -1059,6 +1069,11 @@
          "es": "seguir",
          "sound": "сэгир",
          "ru": "продолжать"
+        },
+        {
+         "es": "hamburguesa",
+         "sound": "амбургэса",
+         "ru": "гамбургер"
         }
        ]
       }
@@ -1137,6 +1152,11 @@
          "es": "guitarra",
          "sound": "гитарра",
          "ru": "гитара"
+        },
+        {
+         "es": "águila",
+         "sound": "агила",
+         "ru": "орёл"
         }
        ]
       },
@@ -1167,6 +1187,11 @@
          "es": "vergüenza",
          "sound": "бэргвэнθа",
          "ru": "стыд"
+        },
+        {
+         "es": "bilingüe",
+         "sound": "билингвэ",
+         "ru": "двуязычный"
         }
        ]
       },
@@ -1294,6 +1319,11 @@
          "es": "vaca",
          "sound": "бака",
          "ru": "корова"
+        },
+        {
+         "es": "verano",
+         "sound": "бэрано",
+         "ru": "лето"
         }
        ]
       }
@@ -1330,6 +1360,11 @@
          "es": "hacer",
          "sound": "аθэр",
          "ru": "делать"
+        },
+        {
+         "es": "hijo",
+         "sound": "ихо",
+         "ru": "сын"
         }
        ]
       },
@@ -1360,6 +1395,11 @@
          "es": "leche",
          "sound": "лэчэ",
          "ru": "молоко"
+        },
+        {
+         "es": "noche",
+         "sound": "ночэ",
+         "ru": "ночь"
         }
        ]
       },
@@ -1390,6 +1430,11 @@
          "es": "calle",
          "sound": "кайэ",
          "ru": "улица"
+        },
+        {
+         "es": "pollo",
+         "sound": "пойо",
+         "ru": "курица"
         }
        ]
       },
@@ -1462,6 +1507,11 @@
          "es": "niño",
          "sound": "ниньо",
          "ru": "ребёнок"
+        },
+        {
+         "es": "mañana",
+         "sound": "маньяна",
+         "ru": "завтра, утро"
         }
        ]
       },
@@ -1492,6 +1542,11 @@
          "es": "texto",
          "sound": "тэксто",
          "ru": "текст"
+        },
+        {
+         "es": "taxi",
+         "sound": "такси",
+         "ru": "такси"
         }
        ]
       },
@@ -1522,6 +1577,11 @@
          "es": "lección",
          "sound": "лэкθьон",
          "ru": "урок"
+        },
+        {
+         "es": "dirección",
+         "sound": "дирэкθьон",
+         "ru": "адрес, направление"
         }
        ]
       }
@@ -1565,6 +1625,11 @@
          "es": "en Valencia",
          "sound": "эм балэнθиа",
          "ru": "в Валенсии"
+        },
+        {
+         "es": "un vaso",
+         "sound": "ум басо",
+         "ru": "стакан"
         }
        ]
       },
@@ -1588,6 +1653,11 @@
          "es": "español",
          "sound": "эспаньол",
          "ru": "испанский"
+        },
+        {
+         "es": "papel",
+         "sound": "папэл",
+         "ru": "бумага"
         }
        ]
       },
@@ -1611,6 +1681,11 @@
          "es": "caro",
          "sound": "каро",
          "ru": "дорогой"
+        },
+        {
+         "es": "para",
+         "sound": "пара",
+         "ru": "для"
         }
        ]
       },
@@ -1641,6 +1716,11 @@
          "es": "rojo",
          "sound": "ррохо",
          "ru": "красный"
+        },
+        {
+         "es": "arroz",
+         "sound": "арроθ",
+         "ru": "рис"
         }
        ]
       },
@@ -1664,6 +1744,11 @@
          "es": "ciudad",
          "sound": "θьюда(д)",
          "ru": "город"
+        },
+        {
+         "es": "usted",
+         "sound": "устэ(д)",
+         "ru": "вы"
         }
        ]
       },
@@ -1687,6 +1772,11 @@
          "es": "todo",
          "sound": "тоδо",
          "ru": "всё"
+        },
+        {
+         "es": "cansado",
+         "sound": "кансаδо",
+         "ru": "уставший"
         }
        ]
       }
@@ -1791,6 +1881,11 @@
          "es": "país",
          "sound": "па-ис",
          "ru": "страна"
+        },
+        {
+         "es": "tío",
+         "sound": "ти-о",
+         "ru": "дядя"
         }
        ]
       },
@@ -1814,6 +1909,11 @@
          "es": "teatro",
          "sound": "тэ-атро",
          "ru": "театр"
+        },
+        {
+         "es": "museo",
+         "sound": "му-сэо",
+         "ru": "музей"
         }
        ]
       }
@@ -2141,6 +2241,10 @@
         {
          "es": "Los niños están en casa.",
          "ru": "Дети дома."
+        },
+        {
+         "es": "Los lunes trabajo desde casa.",
+         "ru": "По понедельникам я работаю из дома."
         }
        ]
       }
@@ -2178,6 +2282,10 @@
         {
          "es": "coche → coches",
          "ru": "машина → машины"
+        },
+        {
+         "es": "libro → libros",
+         "ru": "книга → книги"
         }
        ]
       },
@@ -2202,6 +2310,10 @@
         {
          "es": "ciudad → ciudades",
          "ru": "город → города"
+        },
+        {
+         "es": "mes → meses",
+         "ru": "месяц → месяцы"
         }
        ]
       },
@@ -2233,6 +2345,10 @@
         {
          "es": "lápiz → lápices",
          "ru": "карандаш → карандаши"
+        },
+        {
+         "es": "vez → veces",
+         "ru": "раз → разы"
         }
        ]
       },
@@ -2246,6 +2362,14 @@
         {
          "es": "la casa blanca → las casas blancas",
          "ru": "белый дом → белые дома"
+        },
+        {
+         "es": "el chico alto → los chicos altos",
+         "ru": "высокий парень → высокие парни"
+        },
+        {
+         "es": "un coche nuevo → unos coches nuevos",
+         "ru": "новая машина → новые машины"
         }
        ]
       }
@@ -2451,6 +2575,10 @@
         {
          "es": "Vivimos aquí.",
          "ru": "Мы живём здесь."
+        },
+        {
+         "es": "Somos de Ucrania.",
+         "ru": "Мы из Украины."
         }
        ]
       },
@@ -2482,6 +2610,10 @@
         {
          "es": "¿Ustedes son de aquí?",
          "ru": "Вы отсюда?"
+        },
+        {
+         "es": "¿Queréis un café?",
+         "ru": "Хотите кофе?"
         }
        ]
       }
@@ -3159,7 +3291,27 @@
        "ex": [
         {
          "es": "Tengo hambre.",
-         "ru": "Я голоден."
+         "ru": "Я голоден.",
+         "frame": [
+          "Tengo",
+          "hambre"
+         ]
+        },
+        {
+         "es": "¿Tienes hambre? Hay tortilla.",
+         "ru": "Ты голоден? Есть тортилья.",
+         "frame": [
+          "Tienes",
+          "hambre"
+         ]
+        },
+        {
+         "es": "Los niños siempre tienen hambre después del cole.",
+         "ru": "Дети всегда голодные после школы.",
+         "frame": [
+          "tienen",
+          "hambre"
+         ]
         }
        ]
       },
@@ -3176,7 +3328,27 @@
        "ex": [
         {
          "es": "¿Tienes sed?",
-         "ru": "Хочешь пить?"
+         "ru": "Хочешь пить?",
+         "frame": [
+          "Tienes",
+          "sed"
+         ]
+        },
+        {
+         "es": "Tengo mucha sed, ¿hay agua?",
+         "ru": "Очень хочу пить, есть вода?",
+         "frame": [
+          "Tengo",
+          "sed"
+         ]
+        },
+        {
+         "es": "Con este calor todos tenemos sed.",
+         "ru": "В такую жару нам всем хочется пить.",
+         "frame": [
+          "tenemos",
+          "sed"
+         ]
         }
        ]
       },
@@ -3193,7 +3365,27 @@
        "ex": [
         {
          "es": "Tengo frío.",
-         "ru": "Мне холодно."
+         "ru": "Мне холодно.",
+         "frame": [
+          "Tengo",
+          "frío"
+         ]
+        },
+        {
+         "es": "¿Tienes frío? Cierro la ventana.",
+         "ru": "Тебе холодно? Закрою окно.",
+         "frame": [
+          "Tienes",
+          "frío"
+         ]
+        },
+        {
+         "es": "La niña tiene frío, ponle la chaqueta.",
+         "ru": "Дочке холодно, надень ей куртку.",
+         "frame": [
+          "tiene",
+          "frío"
+         ]
         }
        ]
       },
@@ -3210,7 +3402,27 @@
        "ex": [
         {
          "es": "Tenemos calor.",
-         "ru": "Нам жарко."
+         "ru": "Нам жарко.",
+         "frame": [
+          "Tenemos",
+          "calor"
+         ]
+        },
+        {
+         "es": "En agosto siempre tengo calor.",
+         "ru": "В августе мне всегда жарко.",
+         "frame": [
+          "tengo",
+          "calor"
+         ]
+        },
+        {
+         "es": "¿Tienes calor? Abre la ventana.",
+         "ru": "Тебе жарко? Открой окно.",
+         "frame": [
+          "Tienes",
+          "calor"
+         ]
         }
        ]
       },
@@ -3227,7 +3439,27 @@
        "ex": [
         {
          "es": "Tengo sueño.",
-         "ru": "Я хочу спать."
+         "ru": "Я хочу спать.",
+         "frame": [
+          "Tengo",
+          "sueño"
+         ]
+        },
+        {
+         "es": "La niña tiene sueño, ya es tarde.",
+         "ru": "Дочка хочет спать, уже поздно.",
+         "frame": [
+          "tiene",
+          "sueño"
+         ]
+        },
+        {
+         "es": "¿No tienes sueño?",
+         "ru": "Тебе не хочется спать?",
+         "frame": [
+          "tienes",
+          "sueño"
+         ]
         }
        ]
       },
@@ -3244,7 +3476,27 @@
        "ex": [
         {
          "es": "Tiene miedo.",
-         "ru": "Ему страшно."
+         "ru": "Ему страшно.",
+         "frame": [
+          "Tiene",
+          "miedo"
+         ]
+        },
+        {
+         "es": "Tengo miedo a los perros.",
+         "ru": "Я боюсь собак.",
+         "frame": [
+          "Tengo",
+          "miedo"
+         ]
+        },
+        {
+         "es": "¿Tienes miedo de volar?",
+         "ru": "Ты боишься летать?",
+         "frame": [
+          "Tienes",
+          "miedo"
+         ]
         }
        ]
       },
@@ -3261,7 +3513,27 @@
        "ex": [
         {
          "es": "Mi hija tiene cinco años.",
-         "ru": "Моей дочери пять лет."
+         "ru": "Моей дочери пять лет.",
+         "frame": [
+          "tiene",
+          "años"
+         ]
+        },
+        {
+         "es": "¿Cuántos años tienes?",
+         "ru": "Сколько тебе лет?",
+         "frame": [
+          "años",
+          "tienes"
+         ]
+        },
+        {
+         "es": "Tengo cuarenta años.",
+         "ru": "Мне сорок лет.",
+         "frame": [
+          "Tengo",
+          "años"
+         ]
         }
        ]
       },
@@ -3278,7 +3550,27 @@
        "ex": [
         {
          "es": "Tengo prisa.",
-         "ru": "Я спешу."
+         "ru": "Я спешу.",
+         "frame": [
+          "Tengo",
+          "prisa"
+         ]
+        },
+        {
+         "es": "Lo siento, tenemos prisa.",
+         "ru": "Извините, мы спешим.",
+         "frame": [
+          "tenemos",
+          "prisa"
+         ]
+        },
+        {
+         "es": "¿Tienes prisa? Te llevo en coche.",
+         "ru": "Ты спешишь? Подвезу тебя на машине.",
+         "frame": [
+          "Tienes",
+          "prisa"
+         ]
         }
        ]
       },
@@ -3295,7 +3587,27 @@
        "ex": [
         {
          "es": "Tienes razón.",
-         "ru": "Ты прав."
+         "ru": "Ты прав.",
+         "frame": [
+          "Tienes",
+          "razón"
+         ]
+        },
+        {
+         "es": "Creo que ella tiene razón.",
+         "ru": "Думаю, она права.",
+         "frame": [
+          "tiene",
+          "razón"
+         ]
+        },
+        {
+         "es": "No siempre tengo razón.",
+         "ru": "Я не всегда прав.",
+         "frame": [
+          "tengo",
+          "razón"
+         ]
         }
        ]
       },
@@ -3312,7 +3624,30 @@
        "ex": [
         {
          "es": "Tengo ganas de verte.",
-         "ru": "Очень хочу тебя увидеть."
+         "ru": "Очень хочу тебя увидеть.",
+         "frame": [
+          "Tengo",
+          "ganas",
+          "de"
+         ]
+        },
+        {
+         "es": "No tengo ganas de cocinar hoy.",
+         "ru": "Сегодня мне не хочется готовить.",
+         "frame": [
+          "tengo",
+          "ganas",
+          "de"
+         ]
+        },
+        {
+         "es": "¿Tienes ganas de ir a la playa?",
+         "ru": "Хочешь пойти на пляж?",
+         "frame": [
+          "Tienes",
+          "ganas",
+          "de"
+         ]
         }
        ]
       },
@@ -3329,7 +3664,27 @@
        "ex": [
         {
          "es": "Ten cuidado.",
-         "ru": "Будь осторожен."
+         "ru": "Будь осторожен.",
+         "frame": [
+          "Ten",
+          "cuidado"
+         ]
+        },
+        {
+         "es": "Hay que tener cuidado en la carretera.",
+         "ru": "На дороге нужно быть осторожным.",
+         "frame": [
+          "tener",
+          "cuidado"
+         ]
+        },
+        {
+         "es": "Tened cuidado, el suelo está mojado.",
+         "ru": "Осторожнее, пол мокрый.",
+         "frame": [
+          "Tened",
+          "cuidado"
+         ]
         }
        ]
       }
@@ -3382,6 +3737,10 @@
         {
          "es": "No hablo francés.",
          "ru": "Я не говорю по-французски."
+        },
+        {
+         "es": "No tengo tiempo.",
+         "ru": "У меня нет времени."
         }
        ]
       },
@@ -3406,6 +3765,10 @@
         {
          "es": "Yo tampoco.",
          "ru": "Я тоже нет."
+        },
+        {
+         "es": "Nadie sabe la respuesta.",
+         "ru": "Никто не знает ответа."
         }
        ]
       },
@@ -3423,6 +3786,10 @@
         {
          "es": "No conozco a nadie aquí.",
          "ru": "Я здесь никого не знаю."
+        },
+        {
+         "es": "No voy nunca al gimnasio.",
+         "ru": "Я никогда не хожу в спортзал."
         }
        ]
       }
@@ -3461,7 +3828,24 @@
        "ex": [
         {
          "es": "¿Qué es esto?",
-         "ru": "Что это?"
+         "ru": "Что это?",
+         "frame": [
+          "Qué"
+         ]
+        },
+        {
+         "es": "¿Qué quieres tomar?",
+         "ru": "Что будешь заказывать?",
+         "frame": [
+          "Qué"
+         ]
+        },
+        {
+         "es": "¿Qué autobús va al centro?",
+         "ru": "Какой автобус идёт в центр?",
+         "frame": [
+          "Qué"
+         ]
         }
        ]
       },
@@ -3478,7 +3862,24 @@
        "ex": [
         {
          "es": "¿Quién es?",
-         "ru": "Кто это?"
+         "ru": "Кто это?",
+         "frame": [
+          "Quién"
+         ]
+        },
+        {
+         "es": "¿Quién viene a la cena?",
+         "ru": "Кто придёт на ужин?",
+         "frame": [
+          "Quién"
+         ]
+        },
+        {
+         "es": "¿Con quién hablas?",
+         "ru": "С кем ты говоришь?",
+         "frame": [
+          "quién"
+         ]
         }
        ]
       },
@@ -3495,7 +3896,24 @@
        "ex": [
         {
          "es": "¿Dónde está el baño?",
-         "ru": "Где туалет?"
+         "ru": "Где туалет?",
+         "frame": [
+          "Dónde"
+         ]
+        },
+        {
+         "es": "¿Dónde vives?",
+         "ru": "Где ты живёшь?",
+         "frame": [
+          "Dónde"
+         ]
+        },
+        {
+         "es": "¿Dónde trabaja tu mujer?",
+         "ru": "Где работает твоя жена?",
+         "frame": [
+          "Dónde"
+         ]
         }
        ]
       },
@@ -3512,7 +3930,27 @@
        "ex": [
         {
          "es": "¿A dónde vas?",
-         "ru": "Куда ты идёшь?"
+         "ru": "Куда ты идёшь?",
+         "frame": [
+          "A",
+          "dónde"
+         ]
+        },
+        {
+         "es": "¿A dónde vamos este fin de semana?",
+         "ru": "Куда поедем в эти выходные?",
+         "frame": [
+          "A",
+          "dónde"
+         ]
+        },
+        {
+         "es": "¿A dónde va este tren?",
+         "ru": "Куда идёт этот поезд?",
+         "frame": [
+          "A",
+          "dónde"
+         ]
         }
        ]
       },
@@ -3529,7 +3967,27 @@
        "ex": [
         {
          "es": "¿De dónde eres?",
-         "ru": "Ты откуда?"
+         "ru": "Ты откуда?",
+         "frame": [
+          "De",
+          "dónde"
+         ]
+        },
+        {
+         "es": "¿De dónde sois?",
+         "ru": "Вы откуда?",
+         "frame": [
+          "De",
+          "dónde"
+         ]
+        },
+        {
+         "es": "¿De dónde viene este vino?",
+         "ru": "Откуда это вино?",
+         "frame": [
+          "De",
+          "dónde"
+         ]
         }
        ]
       },
@@ -3546,7 +4004,24 @@
        "ex": [
         {
          "es": "¿Cuándo abre?",
-         "ru": "Когда открывается?"
+         "ru": "Когда открывается?",
+         "frame": [
+          "Cuándo"
+         ]
+        },
+        {
+         "es": "¿Cuándo empiezan las clases?",
+         "ru": "Когда начинаются занятия?",
+         "frame": [
+          "Cuándo"
+         ]
+        },
+        {
+         "es": "¿Cuándo vuelves a casa?",
+         "ru": "Когда ты вернёшься домой?",
+         "frame": [
+          "Cuándo"
+         ]
         }
        ]
       },
@@ -3563,7 +4038,24 @@
        "ex": [
         {
          "es": "¿Cómo estás?",
-         "ru": "Как дела?"
+         "ru": "Как дела?",
+         "frame": [
+          "Cómo"
+         ]
+        },
+        {
+         "es": "¿Cómo se llama tu hija?",
+         "ru": "Как зовут твою дочь?",
+         "frame": [
+          "Cómo"
+         ]
+        },
+        {
+         "es": "¿Cómo vas al trabajo?",
+         "ru": "Как ты добираешься до работы?",
+         "frame": [
+          "Cómo"
+         ]
         }
        ]
       },
@@ -3580,7 +4072,27 @@
        "ex": [
         {
          "es": "¿Por qué no?",
-         "ru": "Почему нет?"
+         "ru": "Почему нет?",
+         "frame": [
+          "Por",
+          "qué"
+         ]
+        },
+        {
+         "es": "¿Por qué estás cansado?",
+         "ru": "Почему ты устал?",
+         "frame": [
+          "Por",
+          "qué"
+         ]
+        },
+        {
+         "es": "¿Por qué no vienes con nosotros?",
+         "ru": "Почему ты не идёшь с нами?",
+         "frame": [
+          "Por",
+          "qué"
+         ]
         }
        ]
       },
@@ -3597,7 +4109,24 @@
        "ex": [
         {
          "es": "¿Cuánto cuesta?",
-         "ru": "Сколько стоит?"
+         "ru": "Сколько стоит?",
+         "frame": [
+          "Cuánto"
+         ]
+        },
+        {
+         "es": "¿Cuántos años tiene tu hija?",
+         "ru": "Сколько лет твоей дочери?",
+         "frame": [
+          "Cuántos"
+         ]
+        },
+        {
+         "es": "¿Cuántas personas sois?",
+         "ru": "Сколько вас человек?",
+         "frame": [
+          "Cuántas"
+         ]
         }
        ]
       },
@@ -3614,7 +4143,24 @@
        "ex": [
         {
          "es": "¿Cuál es tu número?",
-         "ru": "Какой у тебя номер?"
+         "ru": "Какой у тебя номер?",
+         "frame": [
+          "Cuál"
+         ]
+        },
+        {
+         "es": "¿Cuál prefieres, el rojo o el azul?",
+         "ru": "Какой тебе больше нравится, красный или синий?",
+         "frame": [
+          "Cuál"
+         ]
+        },
+        {
+         "es": "¿Cuál es tu dirección?",
+         "ru": "Какой у тебя адрес?",
+         "frame": [
+          "Cuál"
+         ]
         }
        ]
       }
@@ -3744,6 +4290,14 @@
         {
          "es": "alto → alta",
          "ru": "высокий → высокая"
+        },
+        {
+         "es": "bonito → bonita",
+         "ru": "красивый → красивая"
+        },
+        {
+         "es": "nuevo → nueva",
+         "ru": "новый → новая"
         }
        ]
       },
@@ -3758,6 +4312,14 @@
         {
          "es": "grande → grande",
          "ru": "большой → большая"
+        },
+        {
+         "es": "verde → verde",
+         "ru": "зелёный → зелёная"
+        },
+        {
+         "es": "inteligente → inteligente",
+         "ru": "умный → умная"
         }
        ]
       },
@@ -3772,6 +4334,14 @@
         {
          "es": "popular → populares",
          "ru": "популярный → популярные"
+        },
+        {
+         "es": "azul → azules",
+         "ru": "синий → синие"
+        },
+        {
+         "es": "fácil → fáciles",
+         "ru": "лёгкий → лёгкие"
         }
        ]
       }
@@ -3809,7 +4379,24 @@
        "ex": [
         {
          "es": "Voy a Madrid.",
-         "ru": "Я еду в Мадрид."
+         "ru": "Я еду в Мадрид.",
+         "frame": [
+          "a"
+         ]
+        },
+        {
+         "es": "Llamo a mi madre cada día.",
+         "ru": "Я звоню маме каждый день.",
+         "frame": [
+          "a"
+         ]
+        },
+        {
+         "es": "Llegamos a casa a las siete.",
+         "ru": "Мы приходим домой в семь.",
+         "frame": [
+          "a"
+         ]
         }
        ]
       },
@@ -3826,7 +4413,24 @@
        "ex": [
         {
          "es": "el coche de Juan",
-         "ru": "машина Хуана"
+         "ru": "машина Хуана",
+         "frame": [
+          "de"
+         ]
+        },
+        {
+         "es": "Mi mujer es de Valencia.",
+         "ru": "Моя жена из Валенсии.",
+         "frame": [
+          "de"
+         ]
+        },
+        {
+         "es": "una taza de café",
+         "ru": "чашка кофе",
+         "frame": [
+          "de"
+         ]
         }
        ]
       },
@@ -3843,7 +4447,24 @@
        "ex": [
         {
          "es": "Estoy en casa.",
-         "ru": "Я дома."
+         "ru": "Я дома.",
+         "frame": [
+          "en"
+         ]
+        },
+        {
+         "es": "Trabajo en una empresa grande.",
+         "ru": "Я работаю в большой компании.",
+         "frame": [
+          "en"
+         ]
+        },
+        {
+         "es": "Nos vemos en la estación.",
+         "ru": "Встретимся на вокзале.",
+         "frame": [
+          "en"
+         ]
         }
        ]
       },
@@ -3860,7 +4481,24 @@
        "ex": [
         {
          "es": "Voy con amigos.",
-         "ru": "Я иду с друзьями."
+         "ru": "Я иду с друзьями.",
+         "frame": [
+          "con"
+         ]
+        },
+        {
+         "es": "Un café con leche, por favor.",
+         "ru": "Кофе с молоком, пожалуйста.",
+         "frame": [
+          "con"
+         ]
+        },
+        {
+         "es": "Vivo con mi familia.",
+         "ru": "Я живу с семьёй.",
+         "frame": [
+          "con"
+         ]
         }
        ]
       },
@@ -3877,7 +4515,24 @@
        "ex": [
         {
          "es": "un café sin azúcar",
-         "ru": "кофе без сахара"
+         "ru": "кофе без сахара",
+         "frame": [
+          "sin"
+         ]
+        },
+        {
+         "es": "No puedo vivir sin música.",
+         "ru": "Я не могу жить без музыки.",
+         "frame": [
+          "sin"
+         ]
+        },
+        {
+         "es": "Salgo sin paraguas.",
+         "ru": "Выхожу без зонта.",
+         "frame": [
+          "sin"
+         ]
         }
        ]
       },
@@ -3894,7 +4549,24 @@
        "ex": [
         {
          "es": "Trabajo desde casa.",
-         "ru": "Я работаю из дома."
+         "ru": "Я работаю из дома.",
+         "frame": [
+          "desde"
+         ]
+        },
+        {
+         "es": "Vivo aquí desde 2020.",
+         "ru": "Я живу здесь с 2020 года.",
+         "frame": [
+          "desde"
+         ]
+        },
+        {
+         "es": "Desde mi ventana se ve el mar.",
+         "ru": "Из моего окна видно море.",
+         "frame": [
+          "Desde"
+         ]
         }
        ]
       },
@@ -3911,7 +4583,24 @@
        "ex": [
         {
          "es": "Hasta mañana.",
-         "ru": "До завтра."
+         "ru": "До завтра.",
+         "frame": [
+          "Hasta"
+         ]
+        },
+        {
+         "es": "La tienda está abierta hasta las nueve.",
+         "ru": "Магазин открыт до девяти.",
+         "frame": [
+          "hasta"
+         ]
+        },
+        {
+         "es": "Camina hasta el semáforo.",
+         "ru": "Иди до светофора.",
+         "frame": [
+          "hasta"
+         ]
         }
        ]
       },
@@ -3928,7 +4617,24 @@
        "ex": [
         {
          "es": "entre el banco y la farmacia",
-         "ru": "между банком и аптекой"
+         "ru": "между банком и аптекой",
+         "frame": [
+          "entre"
+         ]
+        },
+        {
+         "es": "Nos vemos entre las cinco y las seis.",
+         "ru": "Встретимся между пятью и шестью.",
+         "frame": [
+          "entre"
+         ]
+        },
+        {
+         "es": "Entre nosotros, no me gusta.",
+         "ru": "Между нами, мне это не нравится.",
+         "frame": [
+          "Entre"
+         ]
         }
        ]
       },
@@ -3945,7 +4651,24 @@
        "ex": [
         {
          "es": "un libro sobre España",
-         "ru": "книга об Испании"
+         "ru": "книга об Испании",
+         "frame": [
+          "sobre"
+         ]
+        },
+        {
+         "es": "Las llaves están sobre la mesa.",
+         "ru": "Ключи на столе.",
+         "frame": [
+          "sobre"
+         ]
+        },
+        {
+         "es": "Hablamos sobre el viaje.",
+         "ru": "Мы говорим о поездке.",
+         "frame": [
+          "sobre"
+         ]
         }
        ]
       }
@@ -3969,11 +4692,24 @@
          "ex": [
           {
            "es": "Voy al banco.",
-           "ru": "Я иду в банк."
+           "ru": "Я иду в банк.",
+           "frame": [
+            "al"
+           ]
           },
           {
            "es": "Vamos al médico.",
-           "ru": "Мы идём к врачу."
+           "ru": "Мы идём к врачу.",
+           "frame": [
+            "al"
+           ]
+          },
+          {
+           "es": "Llego al trabajo a las nueve.",
+           "ru": "Я прихожу на работу в девять.",
+           "frame": [
+            "al"
+           ]
           }
          ]
         },
@@ -3987,11 +4723,24 @@
          "ex": [
           {
            "es": "Vengo del trabajo.",
-           "ru": "Я иду с работы."
+           "ru": "Я иду с работы.",
+           "frame": [
+            "del"
+           ]
           },
           {
            "es": "la puerta del hotel",
-           "ru": "дверь отеля"
+           "ru": "дверь отеля",
+           "frame": [
+            "del"
+           ]
+          },
+          {
+           "es": "Salimos del cine a las diez.",
+           "ru": "Мы выходим из кино в десять.",
+           "frame": [
+            "del"
+           ]
           }
          ]
         }
@@ -4050,6 +4799,10 @@
       {
        "es": "Busco el hotel.",
        "ru": "Я ищу отель."
+      },
+      {
+       "es": "Necesito un taxi.",
+       "ru": "Мне нужно такси."
       }
      ]
     }
@@ -4384,7 +5137,24 @@
        "ex": [
         {
          "es": "Me gusta el café.",
-         "ru": "Мне нравится кофе."
+         "ru": "Мне нравится кофе.",
+         "frame": [
+          "gusta"
+         ]
+        },
+        {
+         "es": "¿Te gusta tu trabajo?",
+         "ru": "Тебе нравится твоя работа?",
+         "frame": [
+          "gusta"
+         ]
+        },
+        {
+         "es": "A mi hija le gusta bailar.",
+         "ru": "Моя дочь любит танцевать.",
+         "frame": [
+          "gusta"
+         ]
         }
        ]
       },
@@ -4398,7 +5168,24 @@
        "ex": [
         {
          "es": "Me gustan los libros.",
-         "ru": "Мне нравятся книги."
+         "ru": "Мне нравятся книги.",
+         "frame": [
+          "gustan"
+         ]
+        },
+        {
+         "es": "¿Te gustan los perros?",
+         "ru": "Тебе нравятся собаки?",
+         "frame": [
+          "gustan"
+         ]
+        },
+        {
+         "es": "No me gustan las películas de miedo.",
+         "ru": "Мне не нравятся фильмы ужасов.",
+         "frame": [
+          "gustan"
+         ]
         }
        ]
       },
@@ -4412,7 +5199,24 @@
        "ex": [
         {
          "es": "Me encanta España.",
-         "ru": "Я обожаю Испанию."
+         "ru": "Я обожаю Испанию.",
+         "frame": [
+          "encanta"
+         ]
+        },
+        {
+         "es": "Nos encanta la paella.",
+         "ru": "Мы обожаем паэлью.",
+         "frame": [
+          "encanta"
+         ]
+        },
+        {
+         "es": "A los niños les encantan los dibujos.",
+         "ru": "Дети обожают мультики.",
+         "frame": [
+          "encantan"
+         ]
         }
        ]
       },
@@ -4426,7 +5230,24 @@
        "ex": [
         {
          "es": "Me interesa la arquitectura.",
-         "ru": "Меня интересует архитектура."
+         "ru": "Меня интересует архитектура.",
+         "frame": [
+          "interesa"
+         ]
+        },
+        {
+         "es": "¿Te interesa el fútbol?",
+         "ru": "Тебя интересует футбол?",
+         "frame": [
+          "interesa"
+         ]
+        },
+        {
+         "es": "No me interesan las noticias.",
+         "ru": "Меня не интересуют новости.",
+         "frame": [
+          "interesan"
+         ]
         }
        ]
       },
@@ -4440,7 +5261,24 @@
        "ex": [
         {
          "es": "¿Te gusta el pescado?",
-         "ru": "Тебе нравится рыба?"
+         "ru": "Тебе нравится рыба?",
+         "frame": [
+          "Te"
+         ]
+        },
+        {
+         "es": "Le gusta el té.",
+         "ru": "Ему нравится чай.",
+         "frame": [
+          "Le"
+         ]
+        },
+        {
+         "es": "Me gusta caminar por la playa.",
+         "ru": "Мне нравится гулять по пляжу.",
+         "frame": [
+          "Me"
+         ]
         }
        ]
       },
@@ -4454,7 +5292,24 @@
        "ex": [
         {
          "es": "Me duele la cabeza.",
-         "ru": "У меня болит голова."
+         "ru": "У меня болит голова.",
+         "frame": [
+          "duele"
+         ]
+        },
+        {
+         "es": "Me duelen los pies.",
+         "ru": "У меня болят ноги.",
+         "frame": [
+          "duelen"
+         ]
+        },
+        {
+         "es": "¿Te duele algo?",
+         "ru": "У тебя что-то болит?",
+         "frame": [
+          "duele"
+         ]
         }
        ]
       },
@@ -4468,7 +5323,24 @@
        "ex": [
         {
          "es": "Me falta un euro.",
-         "ru": "Мне не хватает одного евро."
+         "ru": "Мне не хватает одного евро.",
+         "frame": [
+          "falta"
+         ]
+        },
+        {
+         "es": "Nos faltan dos sillas.",
+         "ru": "Нам не хватает двух стульев.",
+         "frame": [
+          "faltan"
+         ]
+        },
+        {
+         "es": "¿Te falta algo?",
+         "ru": "Тебе чего-нибудь не хватает?",
+         "frame": [
+          "falta"
+         ]
         }
        ]
       },
@@ -4482,7 +5354,24 @@
        "ex": [
         {
          "es": "¿Te apetece un café?",
-         "ru": "Хочешь кофе?"
+         "ru": "Хочешь кофе?",
+         "frame": [
+          "apetece"
+         ]
+        },
+        {
+         "es": "Hoy no me apetece salir.",
+         "ru": "Сегодня мне не хочется никуда идти.",
+         "frame": [
+          "apetece"
+         ]
+        },
+        {
+         "es": "¿Os apetece ir al cine?",
+         "ru": "Хотите пойти в кино?",
+         "frame": [
+          "apetece"
+         ]
         }
        ]
       }
@@ -4540,7 +5429,24 @@
        "ex": [
         {
          "es": "Quiero comer.",
-         "ru": "Я хочу поесть."
+         "ru": "Я хочу поесть.",
+         "frame": [
+          "Quiero"
+         ]
+        },
+        {
+         "es": "¿Quieres venir con nosotros?",
+         "ru": "Хочешь пойти с нами?",
+         "frame": [
+          "Quieres"
+         ]
+        },
+        {
+         "es": "Queremos comprar un piso.",
+         "ru": "Мы хотим купить квартиру.",
+         "frame": [
+          "Queremos"
+         ]
         }
        ]
       },
@@ -4554,7 +5460,24 @@
        "ex": [
         {
          "es": "¿Puedo pagar con tarjeta?",
-         "ru": "Можно заплатить картой?"
+         "ru": "Можно заплатить картой?",
+         "frame": [
+          "Puedo"
+         ]
+        },
+        {
+         "es": "No puedo ir hoy.",
+         "ru": "Я не могу пойти сегодня.",
+         "frame": [
+          "puedo"
+         ]
+        },
+        {
+         "es": "¿Puedes ayudarme?",
+         "ru": "Можешь мне помочь?",
+         "frame": [
+          "Puedes"
+         ]
         }
        ]
       },
@@ -4568,7 +5491,24 @@
        "ex": [
         {
          "es": "Necesito trabajar.",
-         "ru": "Мне нужно работать."
+         "ru": "Мне нужно работать.",
+         "frame": [
+          "Necesito"
+         ]
+        },
+        {
+         "es": "Necesitamos hablar.",
+         "ru": "Нам нужно поговорить.",
+         "frame": [
+          "Necesitamos"
+         ]
+        },
+        {
+         "es": "¿Necesitas descansar?",
+         "ru": "Тебе нужно отдохнуть?",
+         "frame": [
+          "Necesitas"
+         ]
         }
        ]
       },
@@ -4582,7 +5522,24 @@
        "ex": [
         {
          "es": "Debo hacerlo.",
-         "ru": "Я должен это сделать."
+         "ru": "Я должен это сделать.",
+         "frame": [
+          "Debo"
+         ]
+        },
+        {
+         "es": "Debes dormir más.",
+         "ru": "Тебе нужно больше спать.",
+         "frame": [
+          "Debes"
+         ]
+        },
+        {
+         "es": "No debemos llegar tarde.",
+         "ru": "Мы не должны опаздывать.",
+         "frame": [
+          "debemos"
+         ]
         }
        ]
       }
@@ -4745,6 +5702,7 @@
     },
     {
      "k": "ul",
+     "grid": true,
      "items": [
       {
        "spans": [
@@ -4758,12 +5716,6 @@
         {
          "t": "hablar → hablando",
          "s": "es"
-        }
-       ],
-       "ex": [
-        {
-         "es": "Está hablando.",
-         "ru": "Он сейчас говорит."
         }
        ]
       },
@@ -4780,12 +5732,6 @@
          "t": "comer → comiendo",
          "s": "es"
         }
-       ],
-       "ex": [
-        {
-         "es": "Estoy comiendo.",
-         "ru": "Я сейчас ем."
-        }
        ]
       },
       {
@@ -4801,12 +5747,37 @@
          "t": "vivir → viviendo",
          "s": "es"
         }
-       ],
-       "ex": [
-        {
-         "es": "Estamos viviendo aquí.",
-         "ru": "Мы сейчас живём здесь."
-        }
+       ]
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Примеры:"
+      }
+     ],
+     "ex": [
+      {
+       "es": "Está hablando.",
+       "ru": "Он сейчас говорит.",
+       "frame": [
+        "hablando"
+       ]
+      },
+      {
+       "es": "Estoy comiendo.",
+       "ru": "Я сейчас ем.",
+       "frame": [
+        "comiendo"
+       ]
+      },
+      {
+       "es": "Estamos viviendo aquí.",
+       "ru": "Мы сейчас живём здесь.",
+       "frame": [
+        "viviendo"
        ]
       }
      ]
@@ -5167,111 +6138,294 @@
        "s": "es"
       },
       {
-       "t": ". Эти формы стоит выучить сразу: без них не сказать самое простое."
+       "t": ". Чаще всего «я» кончается на "
+      },
+      {
+       "t": "-go",
+       "s": "es"
+      },
+      {
+       "t": " или "
+      },
+      {
+       "t": "-zco",
+       "s": "es"
+      },
+      {
+       "t": ". У "
+      },
+      {
+       "t": "tener",
+       "s": "es"
+      },
+      {
+       "t": ", "
+      },
+      {
+       "t": "venir",
+       "s": "es"
+      },
+      {
+       "t": " и "
+      },
+      {
+       "t": "decir",
+       "s": "es"
+      },
+      {
+       "t": " в других лицах меняется ещё и корень — "
+      },
+      {
+       "t": "tienes, vienes, dices",
+       "s": "es"
+      },
+      {
+       "t": ", это правило 31. Эти формы стоит выучить сразу: без них не сказать самое простое."
       }
      ]
     },
     {
-     "k": "conj",
-     "rowsHead": "Глагол",
-     "hide": "Скрыть формы",
-     "cols": [
+     "k": "ul",
+     "grid": true,
+     "items": [
       {
-       "head": "yo"
-      }
-     ],
-     "rows": [
-      {
-       "label": "hacer",
-       "cells": [
+       "spans": [
         {
-         "f": "hago",
-         "hl": "go"
+         "t": "hacer",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "hago",
+         "s": "es"
         }
        ]
       },
       {
-       "label": "poner",
-       "cells": [
+       "spans": [
         {
-         "f": "pongo",
-         "hl": "go"
+         "t": "poner",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "pongo",
+         "s": "es"
         }
        ]
       },
       {
-       "label": "salir",
-       "cells": [
+       "spans": [
         {
-         "f": "salgo",
-         "hl": "go"
+         "t": "salir",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "salgo",
+         "s": "es"
         }
        ]
       },
       {
-       "label": "venir",
-       "cells": [
+       "spans": [
         {
-         "f": "vengo",
-         "hl": "go"
+         "t": "traer",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "traigo",
+         "s": "es"
         }
        ]
       },
       {
-       "label": "tener",
-       "cells": [
+       "spans": [
         {
-         "f": "tengo",
-         "hl": "go"
+         "t": "tener",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "tengo",
+         "s": "es"
         }
        ]
       },
       {
-       "label": "decir",
-       "cells": [
+       "spans": [
         {
-         "f": "digo",
-         "hl": "go"
+         "t": "venir",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "vengo",
+         "s": "es"
         }
        ]
       },
       {
-       "label": "traer",
-       "cells": [
+       "spans": [
         {
-         "f": "traigo",
-         "hl": "go"
+         "t": "decir",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "digo",
+         "s": "es"
         }
        ]
       },
       {
-       "label": "conocer",
-       "cells": [
-        "conozco"
+       "spans": [
+        {
+         "t": "conocer",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "conozco",
+         "s": "es"
+        }
        ]
       },
       {
-       "label": "saber",
-       "cells": [
-        "sé"
+       "spans": [
+        {
+         "t": "conducir",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "conduzco",
+         "s": "es"
+        }
        ]
       },
       {
-       "label": "dar",
-       "cells": [
-        "doy"
+       "spans": [
+        {
+         "t": "agradecer",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "agradezco",
+         "s": "es"
+        }
        ]
       },
       {
-       "label": "ver",
-       "cells": [
-        "veo"
+       "spans": [
+        {
+         "t": "saber",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "sé",
+         "s": "es"
+        }
        ]
       },
       {
-       "label": "coger",
-       "cells": [
-        "cojo"
+       "spans": [
+        {
+         "t": "dar",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "doy",
+         "s": "es"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "ver",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "veo",
+         "s": "es"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "coger",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "cojo",
+         "s": "es"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "recoger",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "recojo",
+         "s": "es"
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "escoger",
+         "s": "es"
+        },
+        {
+         "t": " → "
+        },
+        {
+         "t": "escojo",
+         "s": "es"
+        }
        ]
       }
      ]
@@ -5285,64 +6439,116 @@
      ],
      "ex": [
       {
-       "label": "hacer",
        "es": "Hoy hago yo la cena.",
-       "ru": "Сегодня ужин готовлю я."
+       "ru": "Сегодня ужин готовлю я.",
+       "frame": [
+        "hago"
+       ]
       },
       {
-       "label": "poner",
        "es": "¿Dónde pongo la maleta?",
-       "ru": "Куда поставить чемодан?"
+       "ru": "Куда поставить чемодан?",
+       "frame": [
+        "pongo"
+       ]
       },
       {
-       "label": "salir",
        "es": "Salgo de casa a las ocho.",
-       "ru": "Я выхожу из дома в восемь."
+       "ru": "Я выхожу из дома в восемь.",
+       "frame": [
+        "Salgo"
+       ]
       },
       {
-       "label": "venir",
-       "es": "Vengo mañana.",
-       "ru": "Я приду завтра."
-      },
-      {
-       "label": "tener",
-       "es": "Tengo dos hijos.",
-       "ru": "У меня двое детей."
-      },
-      {
-       "label": "decir",
-       "es": "Te digo la verdad.",
-       "ru": "Я говорю тебе правду."
-      },
-      {
-       "label": "traer",
        "es": "Te traigo el libro mañana.",
-       "ru": "Принесу тебе книгу завтра."
+       "ru": "Принесу тебе книгу завтра.",
+       "frame": [
+        "traigo"
+       ]
       },
       {
-       "label": "conocer",
+       "es": "Tengo dos hijos.",
+       "ru": "У меня двое детей.",
+       "frame": [
+        "Tengo"
+       ]
+      },
+      {
+       "es": "Vengo mañana.",
+       "ru": "Я приду завтра.",
+       "frame": [
+        "Vengo"
+       ]
+      },
+      {
+       "es": "Te digo la verdad.",
+       "ru": "Я говорю тебе правду.",
+       "frame": [
+        "digo"
+       ]
+      },
+      {
        "es": "No conozco este barrio.",
-       "ru": "Я не знаю этот район."
+       "ru": "Я не знаю этот район.",
+       "frame": [
+        "conozco"
+       ]
       },
       {
-       "label": "saber",
+       "es": "Conduzco todos los días al trabajo.",
+       "ru": "Я каждый день езжу на работу на машине.",
+       "frame": [
+        "Conduzco"
+       ]
+      },
+      {
+       "es": "Te agradezco la ayuda.",
+       "ru": "Спасибо тебе за помощь.",
+       "frame": [
+        "agradezco"
+       ]
+      },
+      {
        "es": "No lo sé.",
-       "ru": "Я не знаю."
+       "ru": "Я не знаю.",
+       "frame": [
+        "sé"
+       ]
       },
       {
-       "label": "dar",
        "es": "Te doy mi número.",
-       "ru": "Даю тебе мой номер."
+       "ru": "Даю тебе мой номер.",
+       "frame": [
+        "doy"
+       ]
       },
       {
-       "label": "ver",
        "es": "No veo nada.",
-       "ru": "Я ничего не вижу."
+       "ru": "Я ничего не вижу.",
+       "frame": [
+        "veo"
+       ]
       },
       {
-       "label": "coger",
        "es": "Cojo el autobús a las nueve.",
-       "ru": "Я сажусь на автобус в девять."
+       "ru": "Я сажусь на автобус в девять.",
+       "frame": [
+        "Cojo"
+       ]
+      },
+      {
+       "es": "Recojo a la niña a las cinco.",
+       "ru": "Я забираю дочку в пять.",
+       "frame": [
+        "Recojo"
+       ]
+      },
+      {
+       "es": "Siempre escojo la mesa de la ventana.",
+       "ru": "Я всегда выбираю столик у окна.",
+       "frame": [
+        "escojo"
+       ]
       }
      ]
     }
@@ -5501,6 +6707,7 @@
       },
       {
        "k": "ul",
+       "grid": true,
        "items": [
         {
          "spans": [
@@ -5514,12 +6721,6 @@
           {
            "t": "roto",
            "s": "es"
-          }
-         ],
-         "ex": [
-          {
-           "es": "Se ha roto el móvil.",
-           "ru": "Сломался телефон."
           }
          ]
         },
@@ -5536,12 +6737,6 @@
            "t": "hecho",
            "s": "es"
           }
-         ],
-         "ex": [
-          {
-           "es": "¿Qué has hecho hoy?",
-           "ru": "Что ты сегодня делал?"
-          }
          ]
         },
         {
@@ -5556,12 +6751,6 @@
           {
            "t": "dicho",
            "s": "es"
-          }
-         ],
-         "ex": [
-          {
-           "es": "¿Qué te ha dicho?",
-           "ru": "Что он тебе сказал?"
           }
          ]
         },
@@ -5578,12 +6767,6 @@
            "t": "visto",
            "s": "es"
           }
-         ],
-         "ex": [
-          {
-           "es": "No lo he visto.",
-           "ru": "Я его не видел."
-          }
          ]
         },
         {
@@ -5598,12 +6781,6 @@
           {
            "t": "puesto",
            "s": "es"
-          }
-         ],
-         "ex": [
-          {
-           "es": "¿Dónde has puesto las llaves?",
-           "ru": "Куда ты положил ключи?"
           }
          ]
         },
@@ -5620,12 +6797,6 @@
            "t": "vuelto",
            "s": "es"
           }
-         ],
-         "ex": [
-          {
-           "es": "Todavía no ha vuelto.",
-           "ru": "Он ещё не вернулся."
-          }
          ]
         },
         {
@@ -5640,12 +6811,6 @@
           {
            "t": "escrito",
            "s": "es"
-          }
-         ],
-         "ex": [
-          {
-           "es": "Te he escrito un mensaje.",
-           "ru": "Я написал тебе сообщение."
           }
          ]
         },
@@ -5662,12 +6827,72 @@
            "t": "abierto",
            "s": "es"
           }
-         ],
-         "ex": [
-          {
-           "es": "Han abierto una tienda nueva.",
-           "ru": "Открыли новый магазин."
-          }
+         ]
+        }
+       ]
+      },
+      {
+       "k": "p",
+       "spans": [
+        {
+         "t": "Примеры:"
+        }
+       ],
+       "ex": [
+        {
+         "es": "Se ha roto el móvil.",
+         "ru": "Сломался телефон.",
+         "frame": [
+          "roto"
+         ]
+        },
+        {
+         "es": "¿Qué has hecho hoy?",
+         "ru": "Что ты сегодня делал?",
+         "frame": [
+          "hecho"
+         ]
+        },
+        {
+         "es": "¿Qué te ha dicho?",
+         "ru": "Что он тебе сказал?",
+         "frame": [
+          "dicho"
+         ]
+        },
+        {
+         "es": "No lo he visto.",
+         "ru": "Я его не видел.",
+         "frame": [
+          "visto"
+         ]
+        },
+        {
+         "es": "¿Dónde has puesto las llaves?",
+         "ru": "Куда ты положил ключи?",
+         "frame": [
+          "puesto"
+         ]
+        },
+        {
+         "es": "Todavía no ha vuelto.",
+         "ru": "Он ещё не вернулся.",
+         "frame": [
+          "vuelto"
+         ]
+        },
+        {
+         "es": "Te he escrito un mensaje.",
+         "ru": "Я написал тебе сообщение.",
+         "frame": [
+          "escrito"
+         ]
+        },
+        {
+         "es": "Han abierto una tienda nueva.",
+         "ru": "Открыли новый магазин.",
+         "frame": [
+          "abierto"
          ]
         }
        ]
@@ -5882,6 +7107,7 @@
      "blocks": [
       {
        "k": "ul",
+       "grid": true,
        "items": [
         {
          "spans": [
@@ -5895,12 +7121,6 @@
           {
            "t": "ven",
            "s": "es"
-          }
-         ],
-         "ex": [
-          {
-           "es": "Ven aquí.",
-           "ru": "Иди сюда."
           }
          ]
         },
@@ -5917,12 +7137,6 @@
            "t": "ten",
            "s": "es"
           }
-         ],
-         "ex": [
-          {
-           "es": "Ten cuidado.",
-           "ru": "Будь осторожен."
-          }
          ]
         },
         {
@@ -5937,12 +7151,6 @@
           {
            "t": "pon",
            "s": "es"
-          }
-         ],
-         "ex": [
-          {
-           "es": "Pon la mesa.",
-           "ru": "Накрой на стол."
           }
          ]
         },
@@ -5959,12 +7167,6 @@
            "t": "sal",
            "s": "es"
           }
-         ],
-         "ex": [
-          {
-           "es": "Sal ya, que llegamos tarde.",
-           "ru": "Выходи уже, мы опаздываем."
-          }
          ]
         },
         {
@@ -5979,12 +7181,6 @@
           {
            "t": "haz",
            "s": "es"
-          }
-         ],
-         "ex": [
-          {
-           "es": "Haz los deberes.",
-           "ru": "Сделай уроки."
           }
          ]
         },
@@ -6001,12 +7197,6 @@
            "t": "di",
            "s": "es"
           }
-         ],
-         "ex": [
-          {
-           "es": "Di la verdad.",
-           "ru": "Скажи правду."
-          }
          ]
         },
         {
@@ -6022,12 +7212,65 @@
            "t": "ve",
            "s": "es"
           }
-         ],
-         "ex": [
-          {
-           "es": "Ve a la cama.",
-           "ru": "Иди в кровать."
-          }
+         ]
+        }
+       ]
+      },
+      {
+       "k": "p",
+       "spans": [
+        {
+         "t": "Примеры:"
+        }
+       ],
+       "ex": [
+        {
+         "es": "Ven aquí.",
+         "ru": "Иди сюда.",
+         "frame": [
+          "Ven"
+         ]
+        },
+        {
+         "es": "Ten cuidado.",
+         "ru": "Будь осторожен.",
+         "frame": [
+          "Ten"
+         ]
+        },
+        {
+         "es": "Pon la mesa.",
+         "ru": "Накрой на стол.",
+         "frame": [
+          "Pon"
+         ]
+        },
+        {
+         "es": "Sal ya, que llegamos tarde.",
+         "ru": "Выходи уже, мы опаздываем.",
+         "frame": [
+          "Sal"
+         ]
+        },
+        {
+         "es": "Haz los deberes.",
+         "ru": "Сделай уроки.",
+         "frame": [
+          "Haz"
+         ]
+        },
+        {
+         "es": "Di la verdad.",
+         "ru": "Скажи правду.",
+         "frame": [
+          "Di"
+         ]
+        },
+        {
+         "es": "Ve a la cama.",
+         "ru": "Иди в кровать.",
+         "frame": [
+          "Ve"
          ]
         }
        ]
@@ -6160,6 +7403,10 @@
           {
            "es": "Se habla inglés.",
            "ru": "Здесь говорят по-английски."
+          },
+          {
+           "es": "Se alquila habitación.",
+           "ru": "Сдаётся комната."
           }
          ]
         }
@@ -6278,6 +7525,7 @@
     },
     {
      "k": "ul",
+     "grid": true,
      "items": [
       {
        "spans": [
@@ -6291,12 +7539,6 @@
         {
          "t": "mí",
          "s": "es"
-        }
-       ],
-       "ex": [
-        {
-         "es": "Esto es para mí.",
-         "ru": "Это для меня."
         }
        ]
       },
@@ -6313,12 +7555,6 @@
          "t": "ti",
          "s": "es"
         }
-       ],
-       "ex": [
-        {
-         "es": "Tengo algo para ti.",
-         "ru": "У меня кое-что для тебя."
-        }
        ]
       },
       {
@@ -6333,12 +7569,6 @@
         {
          "t": "conmigo, contigo",
          "s": "es"
-        }
-       ],
-       "ex": [
-        {
-         "es": "¿Vienes conmigo?",
-         "ru": "Пойдёшь со мной?"
         }
        ]
       },
@@ -6355,12 +7585,6 @@
          "t": "él, ella, usted",
          "s": "es"
         }
-       ],
-       "ex": [
-        {
-         "es": "Hablo con ella mañana.",
-         "ru": "Поговорю с ней завтра."
-        }
        ]
       },
       {
@@ -6376,12 +7600,51 @@
          "t": "nosotros, ellos",
          "s": "es"
         }
-       ],
-       "ex": [
-        {
-         "es": "Es un regalo para ellos.",
-         "ru": "Это подарок для них."
-        }
+       ]
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Примеры:"
+      }
+     ],
+     "ex": [
+      {
+       "es": "Esto es para mí.",
+       "ru": "Это для меня.",
+       "frame": [
+        "mí"
+       ]
+      },
+      {
+       "es": "Tengo algo para ti.",
+       "ru": "У меня кое-что для тебя.",
+       "frame": [
+        "ti"
+       ]
+      },
+      {
+       "es": "¿Vienes conmigo?",
+       "ru": "Пойдёшь со мной?",
+       "frame": [
+        "conmigo"
+       ]
+      },
+      {
+       "es": "Hablo con ella mañana.",
+       "ru": "Поговорю с ней завтра.",
+       "frame": [
+        "ella"
+       ]
+      },
+      {
+       "es": "Es un regalo para ellos.",
+       "ru": "Это подарок для них.",
+       "frame": [
+        "ellos"
        ]
       }
      ]
@@ -6441,6 +7704,10 @@
         {
          "es": "¿Y a ti?",
          "ru": "А тебе?"
+        },
+        {
+         "es": "A él no le gusta el café.",
+         "ru": "А ему кофе не нравится."
         }
        ]
       }
@@ -6771,7 +8038,24 @@
          "ex": [
           {
            "es": "Cuando llegues, llámame.",
-           "ru": "Когда приедешь, позвони мне."
+           "ru": "Когда приедешь, позвони мне.",
+           "frame": [
+            "Cuando"
+           ]
+          },
+          {
+           "es": "Cuando tenga tiempo, te escribo.",
+           "ru": "Когда будет время, напишу тебе.",
+           "frame": [
+            "Cuando"
+           ]
+          },
+          {
+           "es": "Te lo cuento cuando nos veamos.",
+           "ru": "Расскажу тебе, когда увидимся.",
+           "frame": [
+            "cuando"
+           ]
           }
          ]
         },
@@ -6785,7 +8069,27 @@
          "ex": [
           {
            "es": "Te lo digo para que lo sepas.",
-           "ru": "Говорю тебе, чтобы ты знал."
+           "ru": "Говорю тебе, чтобы ты знал.",
+           "frame": [
+            "para",
+            "que"
+           ]
+          },
+          {
+           "es": "Habla más despacio para que te entiendan.",
+           "ru": "Говори медленнее, чтобы тебя поняли.",
+           "frame": [
+            "para",
+            "que"
+           ]
+          },
+          {
+           "es": "Te dejo las llaves para que puedas entrar.",
+           "ru": "Оставлю тебе ключи, чтобы ты мог войти.",
+           "frame": [
+            "para",
+            "que"
+           ]
           }
          ]
         },
@@ -6799,7 +8103,24 @@
          "ex": [
           {
            "es": "Ojalá haga sol mañana.",
-           "ru": "Хоть бы завтра было солнечно."
+           "ru": "Хоть бы завтра было солнечно.",
+           "frame": [
+            "Ojalá"
+           ]
+          },
+          {
+           "es": "Ojalá tengas suerte.",
+           "ru": "Хоть бы тебе повезло.",
+           "frame": [
+            "Ojalá"
+           ]
+          },
+          {
+           "es": "¡Ojalá venga pronto!",
+           "ru": "Хоть бы он скорее пришёл!",
+           "frame": [
+            "Ojalá"
+           ]
           }
          ]
         },
@@ -6813,7 +8134,24 @@
          "ex": [
           {
            "es": "¡Que te mejores!",
-           "ru": "Выздоравливай!"
+           "ru": "Выздоравливай!",
+           "frame": [
+            "Que"
+           ]
+          },
+          {
+           "es": "¡Que aproveche!",
+           "ru": "Приятного аппетита!",
+           "frame": [
+            "Que"
+           ]
+          },
+          {
+           "es": "¡Que tengas un buen día!",
+           "ru": "Хорошего дня!",
+           "frame": [
+            "Que"
+           ]
           }
          ]
         },
@@ -6827,7 +8165,30 @@
          "ex": [
           {
            "es": "No creo que venga.",
-           "ru": "Не думаю, что он придёт."
+           "ru": "Не думаю, что он придёт.",
+           "frame": [
+            "No",
+            "creo",
+            "que"
+           ]
+          },
+          {
+           "es": "No creo que llueva hoy.",
+           "ru": "Не думаю, что сегодня пойдёт дождь.",
+           "frame": [
+            "No",
+            "creo",
+            "que"
+           ]
+          },
+          {
+           "es": "No creo que sea tan difícil.",
+           "ru": "Не думаю, что это так сложно.",
+           "frame": [
+            "No",
+            "creo",
+            "que"
+           ]
           }
          ]
         },
@@ -6841,7 +8202,24 @@
          "ex": [
           {
            "es": "Aunque llueva, vamos.",
-           "ru": "Даже если пойдёт дождь, идём."
+           "ru": "Даже если пойдёт дождь, идём.",
+           "frame": [
+            "Aunque"
+           ]
+          },
+          {
+           "es": "Aunque no quieras, tienes que ir.",
+           "ru": "Даже если не хочешь, тебе надо идти.",
+           "frame": [
+            "Aunque"
+           ]
+          },
+          {
+           "es": "Te llamo mañana aunque sea tarde.",
+           "ru": "Позвоню тебе завтра, даже если будет поздно.",
+           "frame": [
+            "aunque"
+           ]
           }
          ]
         }

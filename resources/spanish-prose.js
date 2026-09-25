@@ -334,6 +334,17 @@
                 SP.renderSpans(parent.appendChild(SP.el('p', 'sp-callout')), block.spans);
             } else if (block.k === 'ul' || block.k === 'ol') {
                 var items = block.items || [];
+                // A grid of forms — venir → ven, romper → roto — is read at a
+                // glance, so its lines are short cells side by side. One example
+                // per form under a chevron of its own was a column of buttons
+                // opening a line each; the examples of the whole grid wait
+                // together under the «Примеры:» line that follows it.
+                if (block.grid) {
+                    var grid = SP.el(block.k === 'ul' ? 'ul' : 'ol', 'sp-grid-list');
+                    items.forEach(function (item) { SP.renderSpans(grid.appendChild(SP.el('li')), item.spans); });
+                    parent.appendChild(grid);
+                    return;
+                }
                 var ruled = items.some(function (item) { return item.ex && item.ex.length; });
                 var list = SP.el(block.k === 'ul' ? 'ul' : 'ol', ruled ? 'sp-rules' : null);
                 items.forEach(function (item) {
