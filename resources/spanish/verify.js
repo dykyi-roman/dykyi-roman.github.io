@@ -319,15 +319,16 @@ const SP = (() => {
     }
 })();
 
-// What the table cannot show: the separator read as typed, the zeros after
-// it, the apocope before mil and millones, the scales past a million, the
-// minus, and what is refused.
+// What the table cannot show: the separator kept as the sign typed (and
+// said as a word, the third column), the zeros after it, the apocope before
+// mil and millones, the scales past a million, the minus, and what is refused.
 const CALC_CASES = [
-    ['10.24', 'diez punto veinticuatro'],
-    ['10,24', 'diez coma veinticuatro'],
-    ['10,05', 'diez coma cero cinco'],
-    ['3,14159', 'tres coma uno cuatro uno cinco nueve'],
-    ['.5', 'cero punto cinco'],
+    ['10.24', 'diez . veinticuatro', 'diez punto veinticuatro'],
+    ['10,24', 'diez , veinticuatro', 'diez coma veinticuatro'],
+    ['10,05', 'diez , cero cinco', 'diez coma cero cinco'],
+    ['3,14159', 'tres , uno cuatro uno cinco nueve'],
+    ['.5', 'cero . cinco'],
+    ['-2,5', 'menos dos , cinco', 'menos dos coma cinco'],
     ['21000', 'veintiún mil'],
     ['31000', 'treinta y un mil'],
     ['101000', 'ciento un mil'],
@@ -339,12 +340,27 @@ const CALC_CASES = [
     ['-7', 'menos siete'],
     ['-0', 'cero'],
     ['1.2.3', null],
-    ['1000000000000000', null]
+    ['1000000000000000', null],
+    // A sum in euros: euros and cents joined by "con", "un" before either
+    // noun, "de" after a round million, and no "cero euros" before cents alone.
+    ['4 euro 50', 'cuatro euros con cincuenta céntimos'],
+    ['4,50 €', 'cuatro euros con cincuenta céntimos'],
+    ['4,5€', 'cuatro euros con cincuenta céntimos'],
+    ['€4.05', 'cuatro euros con cinco céntimos'],
+    ['4 EUR 5 ct', 'cuatro euros con cinco céntimos'],
+    ['1 euro 1', 'un euro con un céntimo'],
+    ['21 €', 'veintiún euros'],
+    ['0,50 €', 'cincuenta céntimos'],
+    ['50 céntimos', 'cincuenta céntimos'],
+    ['1000000 €', 'un millón de euros'],
+    ['1200000 €', 'un millón doscientos mil euros'],
+    ['4 euro 150', null],
+    ['4,50 € 20', null]
 ];
 
-// A stage's `calc` is a tile of its Reference: a picture, a name, the table
-// it follows, and an optional note. The words of that table must be what the
-// calculator says for some number, or the tile and the rows beside it teach
+// A stage's `calc` is the first tile of its Reference: a picture, a name and
+// the table it spells (`set`). The words of that table must be what the
+// calculator says for some number, or the tile and the rows under it teach
 // two spellings.
 function checkCalc(stage, entry, sets) {
     const calc = stage.calc;
@@ -355,7 +371,9 @@ function checkCalc(stage, entry, sets) {
     if (!text(calc.set) || !sets[calc.set]) fail(at + ': "set" names no set declared in stage.sets');
     // The tile's open state is keyed by stage and name, as a table's is.
     if (sets[calc.name]) fail(at + ': its name is also the name of a set');
-    checkBlocks(calc.blocks, at + ' blocks');
+    // The note that once sat under the field is gone; one written back
+    // would be drawn nowhere.
+    if (calc.blocks !== undefined) fail(at + ': carries a note, which the calculator does not draw');
     if (!SP || !sets[calc.set]) return;
 
     const spelled = {};
@@ -364,10 +382,11 @@ function checkCalc(stage, entry, sets) {
     (stage.items || []).filter(item => item.set === calc.set).forEach(item => {
         if (!spelled[item.es]) fail(entry.file + ' item ' + item.id + ': "' + item.es + '" is not how the calculator spells any number');
     });
-    CALC_CASES.forEach(([typed, words]) => {
+    CALC_CASES.forEach(([typed, words, spoken]) => {
         const said = SP.spellNumber(typed);
         const got = said && said.es !== undefined ? said.es : null;
         if (got !== words) fail('SP.spellNumber(' + JSON.stringify(typed) + ') is ' + JSON.stringify(got) + ', expected ' + JSON.stringify(words));
+        if (spoken && said && said.say !== spoken) fail('SP.spellNumber(' + JSON.stringify(typed) + ') says ' + JSON.stringify(said.say) + ', expected ' + JSON.stringify(spoken));
     });
 }
 
@@ -510,6 +529,12 @@ function checkCalc(stage, entry, sets) {
 
         if (item.group && !groups[item.group]) fail(at + ': group "' + item.group + '" is not declared in stage.groups');
         if (item.set && !sets[item.set]) fail(at + ': set "' + item.set + '" is not declared in stage.sets');
+        // The square a colour of a table is drawn with: a table word alone,
+        // and a colour CSS reads as it is.
+        if (item.swatch !== undefined) {
+            if (!item.set) fail(at + ': "swatch" belongs to a word of a table (set)');
+            if (typeof item.swatch !== 'string' || !/^#[0-9a-f]{6}$/i.test(item.swatch)) fail(at + ': "swatch" is not a #rrggbb colour');
+        }
         if (tiled && (item.type === 'vocab' || item.type === 'pair') && !item.set && !item.group) {
             fail(at + ': carries no topic, and on a stage drawn as tiles that leaves it no tile to open under');
         }

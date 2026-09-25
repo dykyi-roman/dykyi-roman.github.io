@@ -823,6 +823,18 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 
 .sp-lex-tr { font-size: var(--font-size-small); color: var(--color-primary); }
 
+/* The colour a word of the colours table names, as a square ahead of it.
+   The grey edge keeps white on a light card and black on a dark one. */
+.sp-swatch {
+    display: inline-block;
+    width: 0.85em;
+    height: 0.85em;
+    margin-right: 0.4em;
+    border-radius: 3px;
+    vertical-align: -0.05em;
+    box-shadow: inset 0 0 0 1px rgba(128, 128, 128, 0.6);
+}
+
 /* The English is the bright side of the line and the Russian the quiet one:
    the gloss you read at a glance is the English, and the Russian is there to
    settle a doubt. The Russian sits a step below even the site's light text —
@@ -953,7 +965,7 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 /* The calculator a tile of Reference opens (SP.setTiles): a card under the
    grid, above the tables' rows, holding the field, the number in words — in
    the lexicon's own weight and colours, the sound in orange and in its
-   brackets, as under a word — and the note on how the separator is read. */
+   brackets, as under a word. */
 .sp-calc {
     display: grid;
     gap: var(--spacing-sm);
@@ -974,8 +986,6 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-calc-tr::before { content: "("; }
 .sp-calc-tr::after { content: ")"; }
 .sp-calc-error { color: var(--color-text-light); font-size: var(--font-size-small); }
-.sp-calc-note { color: var(--color-text-light); font-size: var(--font-size-small); }
-.sp-calc-note > :last-child { margin-bottom: 0; }
 
 @media (hover: hover) {
     .sp-calc-line[data-say]:hover .sp-calc-es { text-decoration: underline dotted; text-underline-offset: 3px; }

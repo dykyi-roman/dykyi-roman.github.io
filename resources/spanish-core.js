@@ -721,24 +721,81 @@
         return words.join(' ');
     }
 
-    // A number typed in digits, said in words: {es} for the words, {error}
-    // for what cannot be read (`nan`, or `long` past fifteen digits a side),
-    // null for an empty field. The separator is read as it was typed —
-    // a comma is "coma", as Spain writes it, a point "punto" — and spaces
-    // between the digits are ignored, so "1 000 000" is un millón.
+    // A number typed in digits, said in words: {es, tr, say} for what it is
+    // written, how it sounds and what is spoken aloud; {error} for what
+    // cannot be read (`nan`, or `long` past fifteen digits a side); null for
+    // an empty field. Spaces between the digits are ignored, so "1 000 000"
+    // is un millón. The separator stays the sign that was typed — `10.24` is
+    // "diez . veinticuatro" — and only the speech says it, as "coma" for a
+    // comma, the way Spain writes it, and "punto" for a point: read aloud,
+    // a bare "." is a pause between two numbers.
+    //
+    // A sum in euros is understood too, the sign or the word on either side
+    // and the cents after the euros or behind the separator — `4 euro 50`,
+    // `4,50 €`, `€4.50`, `50 céntimos` — and comes back as euros and cents
+    // said the way a price is: cuatro euros con cincuenta céntimos. Past two
+    // digits of cents it is {error: 'cents'}.
+    var NUM_PLAIN = /^(-?)(\d*)(?:([.,])(\d*))?$/;
+    var NUM_EURO_AFTER = /^(-?)(\d*)(?:([.,])(\d*))?(?:€|euros?|eur)(\d*)(?:c|ct|cts|cents?|c[eé]ntimos?)?$/;
+    var NUM_EURO_BEFORE = /^(-?)(?:€|euros?|eur)(\d*)(?:([.,])(\d*))?$/;
+    var NUM_CENTS = /^(-?)(\d+)(?:c|ct|cts|cents?|c[eé]ntimos?)$/;
+
     SP.spellNumber = function (text) {
-        var typed = String(text || '').replace(/\s+/g, '');
+        var typed = String(text || '').replace(/\s+/g, '').replace(/\u2212/g, '-').toLowerCase();
         if (!typed) return null;
-        var m = /^([-−]?)(\d*)(?:([.,])(\d*))?$/.exec(typed);
-        if (!m || !(m[2] || m[4])) return { error: 'nan' };
+        var m = NUM_PLAIN.exec(typed);
+        if (m) return spellPlain(m);
+        if ((m = NUM_EURO_AFTER.exec(typed))) return spellEuros(m[1], m[2], m[4] || '', m[5]);
+        if ((m = NUM_EURO_BEFORE.exec(typed))) return spellEuros(m[1], m[2], m[4] || '', '');
+        if ((m = NUM_CENTS.exec(typed))) return spellEuros(m[1], '', '', m[2]);
+        return { error: 'nan' };
+    };
+
+    function spellPlain(m) {
+        if (!(m[2] || m[4])) return { error: 'nan' };
         var whole = m[2].replace(/^0+(?=\d)/, '') || '0';
         var fraction = m[4] || '';
         if (whole.length > NUM_MAX_DIGITS || fraction.length > NUM_MAX_DIGITS) return { error: 'long' };
-        var words = numWhole(+whole);
-        if (fraction) words += (m[3] === ',' ? ' coma ' : ' punto ') + numFraction(fraction);
-        if (m[1] && /[1-9]/.test(whole + fraction)) words = 'menos ' + words;
-        return { es: words };
-    };
+        var head = numWhole(+whole);
+        if (m[1] && /[1-9]/.test(whole + fraction)) head = 'menos ' + head;
+        if (!fraction) return { es: head, tr: SP.translit(head), say: head };
+        var tail = numFraction(fraction);
+        return {
+            es: head + ' ' + m[3] + ' ' + tail,
+            tr: SP.translit(head) + ' ' + m[3] + ' ' + SP.translit(tail),
+            say: head + (m[3] === ',' ? ' coma ' : ' punto ') + tail
+        };
+    }
+
+    // `fraction` is what stood behind the separator (4,5 € is four fifty),
+    // `cents` what followed the euros (4 euro 5 is four and five cents); a sum
+    // written with both is not a sum.
+    function spellEuros(sign, whole, fraction, cents) {
+        if (!whole && !fraction && !cents) return { error: 'nan' };
+        if (fraction && cents) return { error: 'nan' };
+        if (fraction.length > 2 || cents.length > 2) return { error: 'cents' };
+        whole = whole.replace(/^0+(?=\d)/, '') || '0';
+        if (whole.length > NUM_MAX_DIGITS) return { error: 'long' };
+        var euros = +whole;
+        var cent = fraction ? +(fraction + '0').slice(0, 2) : +(cents || 0);
+        var parts = [];
+        // No "cero euros con" before the cents alone: 0,50 € is cincuenta céntimos.
+        if (euros || !cent) parts.push(numAmount(euros, 'euro', 'euros'));
+        if (cent) parts.push(numAmount(cent, 'céntimo', 'céntimos'));
+        var es = parts.join(' con ');
+        if (sign && (euros || cent)) es = 'menos ' + es;
+        return { es: es, tr: SP.translit(es), say: es };
+    }
+
+    // A number before a noun: "uno" becomes "un" (un euro, veintiún euros),
+    // and a round million takes "de" (un millón de euros, but un millón
+    // doscientos mil euros).
+    function numAmount(n, one, many) {
+        if (n === 1) return 'un ' + one;
+        var words = numWhole(n);
+        if (/(?:millón|millones|billón|billones)$/.test(words)) return words + ' de ' + many;
+        return numApocope(words) + ' ' + many;
+    }
 
     /* ---------- speech ---------- */
 

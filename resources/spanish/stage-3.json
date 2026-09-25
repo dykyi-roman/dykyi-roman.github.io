@@ -245,38 +245,7 @@
  "calc": {
   "set": "Числа",
   "name": "Число прописью",
-  "icon": "🧮",
-  "blocks": [
-   {
-    "k": "p",
-    "spans": [
-     {
-      "t": "В Испании дробную часть отделяют запятой и читают её "
-     },
-     {
-      "t": "coma",
-      "s": "es"
-     },
-     {
-      "t": "; точку — "
-     },
-     {
-      "t": "punto",
-      "s": "es"
-     },
-     {
-      "t": " — чаще услышишь в Латинской Америке. После запятой идёт отдельное число, а нули в его начале читают по одному: 10,05 — "
-     },
-     {
-      "t": "diez coma cero cinco",
-      "s": "es"
-     },
-     {
-      "t": "."
-     }
-    ]
-   }
-  ]
+  "icon": "🧮"
  },
  "items": [
   {
@@ -1080,6 +1049,7 @@
    "tr": "бла́нко",
    "group": null,
    "set": "Цвета",
+   "swatch": "#ffffff",
    "ex": [
     {
      "es": "El coche blanco es el mío.",
@@ -1113,6 +1083,7 @@
    "tr": "нэ́гро",
    "group": null,
    "set": "Цвета",
+   "swatch": "#000000",
    "ex": [
     {
      "es": "Prefiero el bolso negro.",
@@ -1146,6 +1117,7 @@
    "tr": "грис",
    "group": null,
    "set": "Цвета",
+   "swatch": "#9e9e9e",
    "ex": [
     {
      "es": "Hoy el cielo está gris.",
@@ -1179,6 +1151,7 @@
    "tr": "рро́хо",
    "group": null,
    "set": "Цвета",
+   "swatch": "#e53935",
    "ex": [
     {
      "es": "El semáforo está en rojo.",
@@ -1212,6 +1185,7 @@
    "tr": "асу́л",
    "group": null,
    "set": "Цвета",
+   "swatch": "#1e6fd9",
    "ex": [
     {
      "es": "El cielo está azul hoy.",
@@ -1245,6 +1219,7 @@
    "tr": "бэ́рдэ",
    "group": null,
    "set": "Цвета",
+   "swatch": "#43a047",
    "ex": [
     {
      "es": "La luz está en verde, pasa.",
@@ -1278,6 +1253,7 @@
    "tr": "амари́йо",
    "group": null,
    "set": "Цвета",
+   "swatch": "#fdd835",
    "ex": [
     {
      "es": "El taxi amarillo es más caro.",
@@ -1311,6 +1287,7 @@
    "tr": "нара́нха",
    "group": null,
    "set": "Цвета",
+   "swatch": "#fb8c00",
    "ex": [
     {
      "es": "La camiseta naranja es de mi hijo.",
@@ -1344,6 +1321,7 @@
    "tr": "марро́н",
    "group": null,
    "set": "Цвета",
+   "swatch": "#795548",
    "ex": [
     {
      "es": "Los zapatos marrones van mejor.",
@@ -1377,6 +1355,7 @@
    "tr": "рро́са",
    "group": null,
    "set": "Цвета",
+   "swatch": "#f48fb1",
    "ex": [
     {
      "es": "A mi hija le gusta el rosa.",
@@ -1410,6 +1389,7 @@
    "tr": "мора́до",
    "group": null,
    "set": "Цвета",
+   "swatch": "#8e24aa",
    "ex": [
     {
      "es": "Tiene el brazo morado del golpe.",

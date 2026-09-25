@@ -177,10 +177,10 @@
     // rebuilds, grid and all, on every tap. `items` are the Reference rows of
     // one stage, already through SP.orderBySet, so every table is one run.
     //
-    // A stage that declares a `calc` gets one more tile, right after the table
-    // it belongs to (`calc.set`): not a table but a field that spells a typed
-    // number out in words. It opens between the grid and the tables' rows, so
-    // what comes back is a block holding both, not the bare grid.
+    // A stage that declares a `calc` gets one more tile, ahead of the tables:
+    // not a table but a field that spells a typed number, or a sum in euros,
+    // out in words. It opens between the grid and the tables' rows, so what
+    // comes back is a block holding both, not the bare grid.
     SP.setTiles = function (items) {
         var tables = [];
         items.forEach(function (item) {
@@ -190,16 +190,10 @@
         });
         var stage = items.length ? SP.stages[items[0].stageId] : null;
         var calc = stage && stage.calc;
-        var block = SP.el('div', 'sp-set-tiles');
-        if (!calc) {
-            block.appendChild(SP.tileGrid(tables, { state: SP.tables, what: 'table' }).node);
-            return block;
-        }
         // Keyed like a table, by stage and name; verify.js keeps the name off
         // the stage's sets, so the two never share a state.
-        var key = { stage: stage.no, set: calc.name };
-        var at = tables.map(function (t) { return t.name; }).indexOf(calc.set);
-        tables.splice(at === -1 ? tables.length : at + 1, 0, {
+        var key = calc && { stage: stage.no, set: calc.name };
+        if (calc) tables.unshift({
             key: key, icon: calc.icon, name: calc.name, what: 'calculator',
             // The tile is tapped to type into the field, so it takes the focus.
             onOpen: function () {
@@ -207,8 +201,9 @@
                 if (input) input.focus();
             }
         });
+        var block = SP.el('div', 'sp-set-tiles');
         block.appendChild(SP.tileGrid(tables, { state: SP.tables, what: 'table' }).node);
-        if (SP.tables.isOpen(key)) block.appendChild(calcPanel(calc));
+        if (calc && SP.tables.isOpen(key)) block.appendChild(calcPanel());
         return block;
     };
 
@@ -217,26 +212,26 @@
     // not empty it.
     var calcTyped = '';
     var CALC_ERROR = {
-        nan: 'Digits only, with one point or comma',
-        long: 'Up to 15 digits on each side of the point'
+        nan: 'A number like 10.24, or a sum like 4 euro 50',
+        long: 'Up to 15 digits on each side of the point',
+        cents: 'Cents run from 0 to 99'
     };
 
     // The field and what it says: the words in bold, their sound in orange
     // under them, and a tap on the line says them aloud (slower on a second
-    // tap), as a line of examples does. The words and the sound are worked
-    // out as the reader types — SP.spellNumber and SP.translit — so nothing
-    // of it is stored.
-    function calcPanel(calc) {
+    // tap), as a line of examples does. All three are worked out as the
+    // reader types, by SP.spellNumber, so nothing of it is stored.
+    function calcPanel() {
         var box = SP.el('div', 'sp-calc');
         var input = SP.el('input', 'sp-search sp-calc-input');
+        // The full keyboard rather than the number pad: a sum is typed with
+        // `euro` or `€`, which the pad has no key for.
         input.type = 'text';
-        // The phone's number pad, with the separator of its own locale —
-        // a comma or a point, and the words follow whichever it is.
-        input.inputMode = 'decimal';
         input.autocomplete = 'off';
+        input.autocapitalize = 'off';
         input.spellcheck = false;
-        input.placeholder = '10.24';
-        input.setAttribute('aria-label', 'A number in digits');
+        input.placeholder = '10.24 · 4 euro 50';
+        input.setAttribute('aria-label', 'A number or a sum in euros, in digits');
         input.value = calcTyped;
         var out = SP.el('div', 'sp-calc-out');
         out.setAttribute('aria-live', 'polite');
@@ -249,8 +244,9 @@
             if (said.error) { out.appendChild(SP.el('div', 'sp-calc-error', CALC_ERROR[said.error])); return; }
             var line = SP.el('div', 'sp-calc-line');
             line.appendChild(SP.el('span', 'sp-calc-es', said.es));
-            line.appendChild(SP.el('span', 'sp-calc-tr', SP.translit(said.es)));
-            if (SP.speakable(line, said.es).dataset.say) line.setAttribute('role', 'button');
+            line.appendChild(SP.el('span', 'sp-calc-tr', said.tr));
+            // The line writes the separator as a sign and says it as a word.
+            if (SP.speakable(line, said.say).dataset.say) line.setAttribute('role', 'button');
             out.appendChild(line);
         }
         input.addEventListener('input', paint);
@@ -258,11 +254,6 @@
 
         box.appendChild(input);
         box.appendChild(out);
-        if (calc.blocks) {
-            var note = SP.el('div', 'sp-calc-note');
-            SP.renderBlocks(note, calc.blocks);
-            box.appendChild(note);
-        }
         return box;
     }
 
@@ -768,8 +759,17 @@
         return box;
     }
 
-    function lexEs(es) {
+    // A colour of the colours table wears its own square ahead of the word
+    // (`swatch` in the file): the word is learnt against the colour itself,
+    // not against its name in another language. Decorative — the word says it.
+    function lexEs(es, swatch) {
         var box = SP.el('div', 'sp-lex-es');
+        if (swatch) {
+            var chip = SP.el('span', 'sp-swatch');
+            chip.style.backgroundColor = swatch;
+            chip.setAttribute('aria-hidden', 'true');
+            box.appendChild(chip);
+        }
         box.appendChild(wordWithDot(es, verbDot(SP.verbs.get(es))));
         return box;
     }
@@ -781,7 +781,7 @@
     // Returns the head, which is where the row's mark goes.
     function lexText(parent, part) {
         var head = SP.el('div', 'sp-lex-head');
-        head.appendChild(lexEs(part.es));
+        head.appendChild(lexEs(part.es, part.swatch));
         if (part.tr) head.appendChild(SP.el('div', 'sp-lex-tr', part.tr));
         parent.appendChild(head);
         if (part.en) parent.appendChild(SP.el('div', 'sp-lex-en', part.en));
