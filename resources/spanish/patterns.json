@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-20",
+ "updated": "2026-09-25",
  "title": "Spanish patterns",
  "titleRu": "Разговорные конструкции: формула, смысл и два примера",
  "themes": [
@@ -34,15 +34,7 @@
        ]
       }
      ],
-     "top": 1,
-     "short": {
-      "es": "No es mío, sino tuyo.",
-      "ru": "Не моё, а твоё.",
-      "frame": [
-       "No",
-       "sino"
-      ]
-     }
+     "top": 1
     },
     {
      "id": "esp-c002",
@@ -196,14 +188,7 @@
        ]
       }
      ],
-     "top": 8,
-     "short": {
-      "es": "No puedo. — Yo tampoco.",
-      "ru": "Не могу. — Я тоже.",
-      "frame": [
-       "Yo tampoco"
-      ]
-     }
+     "top": 8
     }
    ]
   },
@@ -314,15 +299,7 @@
        ]
       }
      ],
-     "top": 18,
-     "short": {
-      "es": "Es más caro que aquí.",
-      "ru": "Это дороже, чем здесь.",
-      "frame": [
-       "más",
-       "que"
-      ]
-     }
+     "top": 18
     },
     {
      "id": "esp-c012",
@@ -430,14 +407,7 @@
        ]
       }
      ],
-     "top": 20,
-     "short": {
-      "es": "Llueve, por eso no salgo.",
-      "ru": "Идёт дождь, поэтому не выхожу.",
-      "frame": [
-       "por eso"
-      ]
-     }
+     "top": 20
     },
     {
      "id": "esp-c016",
@@ -486,14 +456,7 @@
        ]
       }
      ],
-     "top": 14,
-     "short": {
-      "es": "Te llamo para confirmar.",
-      "ru": "Звоню подтвердить.",
-      "frame": [
-       "para"
-      ]
-     }
+     "top": 14
     },
     {
      "id": "esp-c018",
@@ -517,14 +480,7 @@
        ]
       }
      ],
-     "top": 13,
-     "short": {
-      "es": "Es que no puedo.",
-      "ru": "Просто не могу.",
-      "frame": [
-       "Es que"
-      ]
-     }
+     "top": 13
     }
    ]
   },
@@ -555,14 +511,7 @@
        ]
       }
      ],
-     "top": 2,
-     "short": {
-      "es": "Si puedes, ven.",
-      "ru": "Если можешь, приходи.",
-      "frame": [
-       "Si"
-      ]
-     }
+     "top": 2
     },
     {
      "id": "esp-c020",
@@ -665,14 +614,7 @@
        ]
       }
      ],
-     "top": 3,
-     "short": {
-      "es": "Lo compré hace un mes.",
-      "ru": "Купил месяц назад.",
-      "frame": [
-       "hace"
-      ]
-     }
+     "top": 3
     },
     {
      "id": "esp-c024",
@@ -697,14 +639,7 @@
        ]
       }
      ],
-     "top": 4,
-     "short": {
-      "es": "Vuelvo dentro de una hora.",
-      "ru": "Вернусь через час.",
-      "frame": [
-       "dentro de"
-      ]
-     }
+     "top": 4
     },
     {
      "id": "esp-c025",
@@ -731,15 +666,7 @@
        ]
       }
      ],
-     "top": 17,
-     "short": {
-      "es": "Llevo una hora esperando.",
-      "ru": "Жду уже час.",
-      "frame": [
-       "Llevo",
-       "esperando"
-      ]
-     }
+     "top": 17
     },
     {
      "id": "esp-c026",
@@ -764,14 +691,7 @@
        ]
       }
      ],
-     "top": 7,
-     "short": {
-      "es": "¿Has comido? — Todavía no.",
-      "ru": "Поел? — Ещё нет.",
-      "frame": [
-       "Todavía no"
-      ]
-     }
+     "top": 7
     },
     {
      "id": "esp-c051",
@@ -850,15 +770,7 @@
        ]
       }
      ],
-     "top": 9,
-     "short": {
-      "es": "Me gusta mucho, pero es muy caro.",
-      "ru": "Очень нравится, но очень дорого.",
-      "frame": [
-       "mucho",
-       "muy"
-      ]
-     }
+     "top": 9
     },
     {
      "id": "esp-c028",
@@ -960,14 +872,7 @@
        ]
       }
      ],
-     "top": 15,
-     "short": {
-      "es": "Lávate las manos antes de comer.",
-      "ru": "Помой руки перед едой.",
-      "frame": [
-       "antes de"
-      ]
-     }
+     "top": 15
     },
     {
      "id": "esp-c032",
@@ -991,14 +896,7 @@
        ]
       }
      ],
-     "top": 16,
-     "short": {
-      "es": "Cuando puedas, llámame.",
-      "ru": "Как сможешь, позвони.",
-      "frame": [
-       "Cuando puedas"
-      ]
-     }
+     "top": 16
     },
     {
      "id": "esp-c033",
@@ -1047,14 +945,7 @@
        ]
       }
      ],
-     "top": 5,
-     "short": {
-      "es": "Acabo de verlo.",
-      "ru": "Только что его видел.",
-      "frame": [
-       "Acabo de"
-      ]
-     }
+     "top": 5
     },
     {
      "id": "esp-c035",
@@ -1078,14 +969,7 @@
        ]
       }
      ],
-     "top": 6,
-     "short": {
-      "es": "¿Me lo vuelves a decir?",
-      "ru": "Повторишь ещё раз?",
-      "frame": [
-       "vuelves a"
-      ]
-     }
+     "top": 6
     },
     {
      "id": "esp-c036",
@@ -1164,14 +1048,7 @@
        ]
       }
      ],
-     "top": 19,
-     "short": {
-      "es": "¿Qué te parece mañana?",
-      "ru": "Как насчёт завтра?",
-      "frame": [
-       "Qué te parece"
-      ]
-     }
+     "top": 19
     },
     {
      "id": "esp-c039",
@@ -1358,14 +1235,7 @@
        ]
       }
      ],
-     "top": 10,
-     "short": {
-      "es": "¿Me pones una caña?",
-      "ru": "Можно мне пива?",
-      "frame": [
-       "Me pones"
-      ]
-     }
+     "top": 10
     },
     {
      "id": "esp-c046",
@@ -1390,14 +1260,7 @@
        ]
       }
      ],
-     "top": 12,
-     "short": {
-      "es": "¿Te importa si me siento?",
-      "ru": "Можно я сяду?",
-      "frame": [
-       "Te importa si"
-      ]
-     }
+     "top": 12
     },
     {
      "id": "esp-c047",
@@ -1422,14 +1285,7 @@
        ]
       }
      ],
-     "top": 11,
-     "short": {
-      "es": "¿Te apetece ir a la playa?",
-      "ru": "Хочешь на пляж?",
-      "frame": [
-       "Te apetece"
-      ]
-     }
+     "top": 11
     },
     {
      "id": "esp-c048",

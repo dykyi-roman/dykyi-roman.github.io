@@ -1348,8 +1348,9 @@
 
     // Conversational patterns — no …, sino …; acabar de + глагол — kept in
     // patterns.json and read like the rules: theme by theme, each pattern a
-    // card, then the look-alike patterns side by side and the ones to learn
-    // first. A chip index of the themes heads the panel.
+    // card, then the look-alike patterns side by side. A map of the themes
+    // heads the panel, as the map of the rules heads theirs, and the ones to
+    // learn first wear their star there and on the card.
     var patternsRendered = false;
 
     function initPatterns() {
@@ -1411,74 +1412,80 @@
         return section;
     }
 
-    // No intro above the index: the chip that opens the panel already names
+    // The map of the panel, as the rules have one: a layer per theme with a
+    // link to each of its cards, the formula lit up as on the card and the
+    // star of a ranked one after it, then a layer of the contrasts.
+    function patternMap(data, topTotal) {
+        var layers = data.themes.map(function (theme) {
+            return {
+                title: theme.no + '. ' + theme.title,
+                links: theme.items.map(function (item) {
+                    return {
+                        target: item.id,
+                        name: renderFormula(document.createDocumentFragment(), item.es),
+                        top: item.top
+                    };
+                })
+            };
+        });
+        if (data.contrasts && data.contrasts.length) {
+            layers.push({
+                title: 'Похожие шаблоны',
+                cls: 'is-contrasts',
+                links: data.contrasts.map(function (note) { return { target: note.id, name: note.title }; })
+            });
+        }
+        return SP.renderMap('esp-map', 'Карта: шаблоны по темам', layers, topTotal);
+    }
+
+    // No intro above the map: the chip that opens the panel already names
     // it, and the marks explain themselves in their tooltips.
     function renderPatterns(host, data) {
-        var index = [];
         SP.clear(host);
-
-        var bar = SP.el('div', 'sp-bar');
-        host.appendChild(bar);
 
         var body = SP.el('div');
         host.appendChild(body);
 
-        // Where a pinned card is carried: a shelf at the head of the panel,
-        // a .sp-lex of its own so the cards on it keep the gap they have in a
-        // theme. It takes no room while nothing sits on it.
+        // Every star on a card names its place out of how many.
+        var topTotal = 0;
+        data.themes.forEach(function (theme) {
+            theme.items.forEach(function (item) { if (item.top) topTotal += 1; });
+        });
+
+        body.appendChild(patternMap(data, topTotal));
+
+        // Where a pinned card is carried: a shelf under the map, which stays
+        // the way in, and above the themes — a .sp-lex of its own so the cards
+        // on it keep the gap they have in a theme. It takes no room while
+        // nothing sits on it.
         var shelf = SP.el('div', 'sp-lex sp-pin-host');
         body.appendChild(shelf);
         var pins = [];      // {key, node} of every card, for the restore below
 
-        // The top list is gathered first: every star on a card names its place
-        // out of how many.
-        var top = [];
         data.themes.forEach(function (theme) {
-            theme.items.forEach(function (item) { if (item.top) top.push(item); });
-        });
-        top.sort(function (a, b) { return a.top - b.top; });
-
-        data.themes.forEach(function (theme) {
-            var label = theme.no + '. ' + theme.title;
-            var section = patternSection(theme.id, label);
+            var section = patternSection(theme.id, theme.no + '. ' + theme.title);
             var cards = SP.el('div', 'sp-lex');
             theme.items.forEach(function (item) {
-                var card = patternCard(item, top.length, shelf);
+                var card = patternCard(item, topTotal, shelf);
                 cards.appendChild(card);
                 pins.push({ key: item.id, node: card });
             });
             section.appendChild(cards);
             body.appendChild(section);
-            index.push({ row: 'main', label: label, target: theme.id });
         });
 
         if (data.contrasts && data.contrasts.length) {
             var contrasts = patternSection('esp-contrasts', 'Похожие шаблоны: в чём разница');
-            data.contrasts.forEach(function (note) { contrasts.appendChild(SP.renderNote(note)); });
+            data.contrasts.forEach(function (note) {
+                // The map links to each note by the id it keeps in the file.
+                var box = contrasts.appendChild(SP.renderNote(note));
+                box.id = note.id;
+            });
             body.appendChild(contrasts);
-            index.push({ row: 'main', label: 'Сравнения', target: contrasts.id });
         }
 
-        if (top.length) {
-            var topLabel = 'ТОП-' + top.length;
-            var topSection = patternSection('esp-top', topLabel + ': выучить первыми');
-            topSection.appendChild(SP.renderTopList(top.map(function (item) {
-                return {
-                    name: renderFormula(SP.el('span', 'sp-pat-es'), item.es),
-                    href: '#' + item.id,
-                    meaning: item.ru,
-                    short: item.short
-                };
-            })));
-            body.appendChild(topSection);
-            index.push({ row: 'main', label: topLabel, target: topSection.id });
-        }
-
-        // What was pinned on an earlier visit goes up before the index is
-        // built, so the observer watches the cards where they now stand.
+        // What was pinned on an earlier visit goes up as the panel is drawn.
         SP.pin.pickPinned(pins).forEach(function (entry) { SP.pin.raise(entry.node, shelf); });
-
-        SP.buildIndex(bar, index, true);
     }
 
     /* ---------- boot ---------- */

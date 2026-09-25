@@ -206,16 +206,36 @@
         row.title = (row.classList.contains('is-revealed') ? 'Hide the ' : 'Show the ') + what;
     }
 
+    // A row with a drawer opens it wherever it is tapped, as the line of a
+    // rule does: the chevron sits at the far edge of the card, and reaching
+    // for it word after word was a chore. On a covered row that is still the
+    // reveal — opening shows the hidden side and closing hides it again (see
+    // SP.setDrawerOpen) — with the examples and the forms beside it. A row
+    // with no drawer, a drill, keeps the plain reveal. Another control in the
+    // row keeps its own tap, a tap inside the open drawer is the drawer's, and
+    // a drag that selected some text is not a tap at all.
     function attachReveal(row) {
-        function toggle(e) {
-            if (!covered(row)) return;
-            e.preventDefault();
+        function toggle() {
+            if (row.querySelector('.sp-drawer-toggle')) {
+                SP.setDrawerOpen(row, !row.classList.contains('is-open'));
+                return true;
+            }
+            if (!covered(row)) return false;
             row.classList.toggle('is-revealed');
             revealTitle(row);
+            return true;
         }
-        row.addEventListener('click', toggle);
+        row.addEventListener('click', function (e) {
+            if (e.target.closest && e.target.closest('button, a, input, select, textarea, .sp-drawer')) return;
+            var picked = window.getSelection && window.getSelection();
+            if (picked && !picked.isCollapsed && row.contains(picked.anchorNode)) return;
+            if (toggle()) e.preventDefault();
+        });
+        // Only while the row itself has the focus: Enter on a button inside it
+        // is that button's.
         row.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') toggle(e);
+            if (e.target !== row) return;
+            if ((e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') && toggle()) e.preventDefault();
         });
     }
 
@@ -268,9 +288,11 @@
     // a hundred rows, and three speak buttons each for panels nobody opens is
     // three hundred listeners bought for nothing.
     //
-    // Opening also reveals the row. The examples spell out the Spanish and the
-    // Russian alike, so leaving the word itself under a bar would be hiding an
-    // answer that is already on the screen.
+    // Opening also reveals the row, and closing covers it again. The examples
+    // spell out the Spanish and the Russian alike, so leaving the word itself
+    // under a bar would be hiding an answer that is already on the screen; and
+    // since a tap on the row opens the drawer, the same tap has to be the way
+    // back to the covered side.
     SP.setDrawerOpen = function (row, on) {
         if (!on && !row.classList.contains('is-open')) return;
         var btn = row.querySelector('.sp-drawer-toggle');
@@ -282,7 +304,7 @@
         drawer.hidden = !on;
         // Only a covered row has anything to reveal; on any other, the class
         // would be a leftover waiting to show a side that is about to be hidden.
-        if (on && covered(row)) row.classList.add('is-revealed');
+        if (covered(row)) row.classList.toggle('is-revealed', on);
         drawerTitle(btn, on);
         revealTitle(row);
     };
@@ -679,7 +701,11 @@
         row.appendChild(text);
 
         row.appendChild(SP.rowTools(item.es, 'word', ex && ex.button));
-        if (ex) row.appendChild(ex.drawer);
+        if (ex) {
+            row.appendChild(ex.drawer);
+            // The whole card opens the drawer (attachReveal), so it takes the pointer.
+            row.classList.add('is-toggle');
+        }
         // The mark leads a word's first line, inside its head; a pair keeps it
         // on the row, in a column of its own, so the two halves start level.
         return SP.attachMark(row, mark, halves ? null : head);

@@ -444,8 +444,8 @@
     /* ---------- what to learn first ---------- */
 
     // The rules and the patterns each pick the entries to start with, and a
-    // star with the rank marks each on the entry itself. The patterns close
-    // their panel with a numbered list of them as well; the rules do not.
+    // star with the rank marks each on the entry itself and on its link in
+    // the map. Neither draws a list of them apart: the stars are the list.
 
     // An example lights up the words that carry the point, so the sentence
     // shows the frame your own words go into. `line.frame` lists them in
@@ -500,70 +500,63 @@
         return badge;
     };
 
-    // One row per entry, in rank order: its name (a link to it when `href` is
-    // given) → what it comes down to → one short example.
-    // rows: [{ name: Node, href?, meaning, short: {es, ru, frame} }]
-    SP.renderTopList = function (rows) {
-        var list = SP.el('ol', 'sp-top');
-        rows.forEach(function (row) {
-            var li = SP.el('li', 'sp-top-row');
-            var text = SP.el('div', 'sp-top-text');
-            var name = row.name;
-            if (row.href) {
-                var link = SP.el('a', 'sp-top-link');
-                link.href = row.href;
-                link.appendChild(name);
-                name = link;
-            }
-            text.appendChild(name);
-            text.appendChild(SP.el('span', 'sp-top-meaning', row.meaning));
-            var example = text.appendChild(SP.el('span', 'sp-top-ex'));
-            SP.renderFramed(example.appendChild(SP.el('span', 'sp-top-es')), row.short);
-            example.appendChild(SP.el('span', 'sp-top-ru', row.short.ru));
-            li.appendChild(text);
-            list.appendChild(li);
+    /* ---------- the map of a reference panel ---------- */
+
+    // A map is the way into a panel that carries no chip index of its own —
+    // the rules and the patterns. A layer is a short column of links — the
+    // number when the entry has one, the name and the star — and the layers
+    // flow into as many columns as the width holds, so the whole map is one
+    // glance on a wide screen rather than a wall of tiles. It is built by the
+    // caller rather than as a block because every link needs the name and the
+    // star of an entry, and renderBlocks never sees the file those live in.
+    // layers: [{ title, hint?, cls?, links: [{ target, no?, name, top? }] }] —
+    // `name` is text, or a node when the name carries markup of its own.
+    SP.renderMap = function (id, title, layers, topTotal) {
+        var block = SP.el('section', 'sp-group');
+        block.id = id;
+        block.appendChild(SP.el('h3', 'sp-group-title', title));
+        var map = SP.el('div', 'sp-map');
+        layers.forEach(function (layer) {
+            var box = SP.el('div', 'sp-map-layer' + (layer.cls ? ' ' + layer.cls : ''));
+            box.appendChild(SP.el('div', 'sp-map-title', layer.title));
+            if (layer.hint) box.appendChild(SP.el('div', 'sp-map-hint', layer.hint));
+            var list = SP.el('ul', 'sp-map-list');
+            layer.links.forEach(function (entry) {
+                var link = SP.el('a', 'sp-map-link');
+                link.href = '#' + entry.target;
+                if (entry.no !== undefined) link.appendChild(SP.el('span', 'sp-map-no', String(entry.no)));
+                // The star rides at the end of the name's last line, wherever
+                // the name wraps, rather than at the edge of the column.
+                var name = link.appendChild(SP.el('span', 'sp-map-name'));
+                if (typeof entry.name === 'string') name.textContent = entry.name;
+                else name.appendChild(entry.name);
+                if (entry.top) name.appendChild(SP.topBadge(entry.top, topTotal));
+                list.appendChild(SP.el('li')).appendChild(link);
+            });
+            box.appendChild(list);
+            map.appendChild(box);
         });
-        return list;
+        block.appendChild(map);
+        return block;
     };
 
     /* ---------- rules (phonetics and grammar) ---------- */
 
-    // The map of the rules, by layer: the way into them, since the rules carry
-    // no chip index of their own. A layer is a short column of links — the
-    // number, the title and the star of each section — and the layers flow
-    // into as many columns as the width holds, so the whole map is one glance
-    // on a wide screen rather than a wall of tiles. It is built here rather
-    // than as a block because every link needs the number, the title and the
-    // star of a section, and renderBlocks never sees the file those live in.
+    // The map of the rules, by layer: each section sits in the layer the file
+    // names for it, and its link carries the section's number.
     function mapSection(map, sections, topTotal) {
         var byId = {};
         sections.forEach(function (section) { byId[section.id] = section; });
-        var block = SP.el('section', 'sp-group');
-        block.id = 'esr-map';
-        block.appendChild(SP.el('h3', 'sp-group-title', map.title));
-        var layers = SP.el('div', 'sp-map');
-        (map.layers || []).forEach(function (layer) {
-            var box = SP.el('div', 'sp-map-layer');
-            box.appendChild(SP.el('div', 'sp-map-title', layer.title));
-            if (layer.hint) box.appendChild(SP.el('div', 'sp-map-hint', layer.hint));
-            var list = SP.el('ul', 'sp-map-list');
-            (layer.ids || []).forEach(function (id) {
-                var section = byId[id];
-                if (!section) return;
-                var link = SP.el('a', 'sp-map-link');
-                link.href = '#' + id;
-                link.appendChild(SP.el('span', 'sp-map-no', String(section.no)));
-                // The star rides at the end of the title's last line, wherever
-                // the title wraps, rather than at the edge of the column.
-                var name = link.appendChild(SP.el('span', 'sp-map-name', section.title));
-                if (section.top) name.appendChild(SP.topBadge(section.top, topTotal));
-                list.appendChild(SP.el('li')).appendChild(link);
-            });
-            box.appendChild(list);
-            layers.appendChild(box);
-        });
-        block.appendChild(layers);
-        return block;
+        return SP.renderMap('esr-map', map.title, (map.layers || []).map(function (layer) {
+            return {
+                title: layer.title,
+                hint: layer.hint,
+                links: (layer.ids || []).filter(function (id) { return byId[id]; }).map(function (id) {
+                    var section = byId[id];
+                    return { target: id, no: section.no, name: section.title, top: section.top };
+                })
+            };
+        }), topTotal);
     }
 
     // Rendered both as its own page and as a tab on the hub. It carries no title
@@ -587,18 +580,18 @@
         var body = SP.el('div');
         host.appendChild(body);
 
-        // Where a pinned section is carried: a shelf of its own at the head of
-        // the body, above the map. A section keeps its margins there, and the
-        // shelf takes no room while nothing sits on it.
-        var shelf = SP.el('div', 'sp-pin-host');
-        body.appendChild(shelf);
-        var pins = [];      // {key, node} of every section, for the restore below
-
         var topTotal = rules.sections.filter(function (section) { return section.top; }).length;
 
         if (rules.map && rules.map.layers && rules.map.layers.length) {
             body.appendChild(mapSection(rules.map, rules.sections, topTotal));
         }
+
+        // Where a pinned section is carried: a shelf of its own under the map,
+        // which stays the way in, and above the sections. A section keeps its
+        // margins there, and the shelf takes no room while nothing sits on it.
+        var shelf = SP.el('div', 'sp-pin-host');
+        body.appendChild(shelf);
+        var pins = [];      // {key, node} of every section, for the restore below
 
         rules.sections.forEach(function (section) {
             var block = SP.el('section', 'sp-group');

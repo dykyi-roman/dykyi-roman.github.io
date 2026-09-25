@@ -550,10 +550,11 @@ const NOT_VERBS = ['ayer'];
 /* ---------- what to learn first: the top ranks and their examples ---------- */
 
 // The rules and the patterns each mark the entries to start with by a `top`
-// rank, and give each a short example whose `frame` names the words it lights
-// up. Those words must really be in it — in order and as whole words, the
-// same search the page runs — or the highlight silently lights nothing. The
-// list is numbered by the ranks, so they run from 1 with no gap.
+// rank, drawn as a star on the entry and on its link in the map. The star
+// names its place out of how many, so the ranks run from 1 with no gap.
+// An example's `frame` names the words it lights up. Those words must really
+// be in it — in order and as whole words, the same search the page runs — or
+// the highlight silently lights nothing.
 
 function findWord(text, word, from) {
     let at = text.indexOf(word, from);
@@ -726,8 +727,8 @@ if (rules) {
 
 // Reference like the rules, read theme by theme in the hub's Patterns panel.
 // Each pattern is a formula with its meaning, an explanation and exactly two
-// examples lit up the same way as the short example of the top list.
-const PANEL_IDS = ['esp-contrasts', 'esp-top'];   // anchors the panel draws for itself
+// examples, each lighting up the words of the formula it contains.
+const PANEL_IDS = ['esp-map', 'esp-contrasts'];   // anchors the panel draws for itself
 
 const patterns = manifest.patterns ? read(manifest.patterns.file) : null;
 if (patterns) {
@@ -762,12 +763,10 @@ if (patterns) {
             if (!Array.isArray(item.ex) || item.ex.length !== 2) fail(where + ': needs exactly two examples in "ex"');
             else item.ex.forEach((line, n) => checkLine(line, where + ' ex[' + n + ']'));
 
-            if (item.top !== undefined) {
-                claimRank(topRanks, item, where);
-                checkLine(item.short, where + ' short');
-            } else if (item.short !== undefined) {
-                fail(where + ': "short" belongs to the top list, but the pattern has no "top" rank');
-            }
+            if (item.top !== undefined) claimRank(topRanks, item, where);
+            // The panel closed with a top list once, a short example to each
+            // ranked pattern; the list is gone, and the field with it.
+            if (item.short !== undefined) fail(where + ': "short" is left over — the patterns draw no top list any more');
         });
     });
     const ranked = checkRanks(topRanks, 'patterns.json');
@@ -790,7 +789,7 @@ if (patterns) {
     });
     checkStrings(patterns, 'patterns.json');
     checkStageNumbers(patterns, 'patterns.json');
-    notes.push(count + ' patterns, ' + ranked + ' in the top list');
+    notes.push(count + ' patterns, ' + ranked + ' ranked to learn first');
 }
 
 /* ---------- a word of a set lives in its table and nowhere else ---------- */

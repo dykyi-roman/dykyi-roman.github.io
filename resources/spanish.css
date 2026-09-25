@@ -265,8 +265,9 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-drawer-toggle[aria-expanded="true"] { color: var(--color-primary); border-color: var(--color-primary); }
 
 /* The line that owns a drawer opens it wherever it is tapped — a rule's line,
-   the key's heading, a pattern's head — so it takes the pointer, and under
-   one the chevron at its end lights up to say what the tap will do. */
+   the key's heading, a pattern's head, a word's whole card — so it takes the
+   pointer, and under one the chevron at its end lights up to say what the tap
+   will do. */
 .is-toggle {
     cursor: pointer;
     touch-action: manipulation;
@@ -274,7 +275,8 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 }
 
 @media (hover: hover) {
-    .is-toggle:hover > .sp-drawer-toggle { color: var(--color-primary); border-color: var(--color-primary); }
+    .is-toggle:hover > .sp-drawer-toggle,
+    .sp-lex-row.is-toggle:hover > .sp-tools > .sp-drawer-toggle { color: var(--color-primary); border-color: var(--color-primary); }
 }
 
 /* ---------- the row's two head buttons, and the divider ---------- */
@@ -954,7 +956,7 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-pat-head .sp-pin { width: 32px; margin-left: -6px; }
 
 /* A card is a link target of the top list, so it clears the sticky bar. */
-.sp-pat[id] { scroll-margin-top: 96px; }
+.sp-pat[id], .sp-note[id] { scroll-margin-top: 96px; }
 
 /* Where Russian logic leads astray: no label and no mark, only the edge in
    the warning colour sets it apart from the meaning above it. */
@@ -1157,52 +1159,6 @@ td.sp-forms-person { padding: 8px 10px; }
    a quiet count, so the badge restates its own colour and size. */
 .sp-group-title .sp-badge { margin-left: var(--spacing-xs); font-size: 0.72rem; }
 .sp-group-title .sp-badge.is-top { color: var(--color-info); }
-
-/* The list itself: name → gist → one short example, numbered by a counter
-   because a grid row is no longer a list item with a marker of its own. */
-.sp-top { margin: 0; padding: 0; list-style: none; counter-reset: sp-top; }
-
-.sp-top-row {
-    display: grid;
-    grid-template-columns: 2em minmax(0, 1fr);
-    gap: var(--spacing-sm);
-    align-items: center;
-    padding: 4px 0;
-    border-bottom: 1px dashed var(--color-border);
-}
-
-.sp-top-row::before {
-    counter-increment: sp-top;
-    content: counter(sp-top) ".";
-    color: var(--color-text-light);
-    font-size: var(--font-size-small);
-    text-align: right;
-}
-
-.sp-top-text {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 2px 6px;
-    min-width: 0;
-}
-
-/* The name leads to the entry itself — a card, or a section of the rules. */
-.sp-top-link { text-decoration: none; overflow-wrap: anywhere; }
-.sp-top-link:hover { text-decoration: underline; }
-.sp-top-link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
-.sp-top-text .sp-pat-es { font-size: 1rem; }
-.sp-top-title { color: var(--color-heading); font-weight: 600; }
-
-/* The arrows and the dash are drawn, as the rest of the section's
-   punctuation is. */
-.sp-top-meaning { color: var(--color-text); overflow-wrap: anywhere; }
-.sp-top-meaning::before,
-.sp-top-ex::before { content: "→"; margin-right: 6px; color: var(--color-text-light); }
-.sp-top-ex { overflow-wrap: anywhere; }
-.sp-top-es { color: var(--color-heading); }
-.sp-top-ru { font-size: var(--font-size-small); color: var(--color-text-light); }
-.sp-top-ru::before { content: " — "; }
 
 /* ---------- drills ---------- */
 
@@ -1437,12 +1393,13 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
     .sp-conj.is-picky[data-pick="4"] :is(.sp-c0, .sp-c1, .sp-c2, .sp-c3) { display: none; }
 }
 
-/* ---------- the map of the rules ---------- */
+/* ---------- the map of the rules and of the patterns ---------- */
 
-/* The way into the rules, which carry no chip index of their own. A layer is
-   a short column of links, and the layers flow into as many columns as the
-   width holds — three on a laptop, one on a phone — so the whole map is one
-   glance rather than a wall of tiles. A layer never breaks across columns. */
+/* The way into the rules and the patterns, which carry no chip index of their
+   own. A layer is a short column of links, and the layers flow into as many
+   columns as the width holds — three on a laptop, one on a phone — so the
+   whole map is one glance rather than a wall of tiles. A layer never breaks
+   across columns. */
 .sp-map { columns: 3 15rem; column-gap: var(--spacing-lg); }
 
 .sp-map-layer {
@@ -1453,12 +1410,15 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
     margin-bottom: var(--spacing-md);
 }
 
-/* The three verb layers share one accent, so they read as one block. */
-.sp-map-layer:nth-child(2) { --sp-accent: var(--color-success); }
-.sp-map-layer:nth-child(3),
-.sp-map-layer:nth-child(4),
-.sp-map-layer:nth-child(5) { --sp-accent: var(--color-primary); }
-.sp-map-layer:nth-child(7) { --sp-accent: var(--color-success); }
+/* The three verb layers of the rules share one accent, so they read as one
+   block. The themes of the patterns are siblings and keep one accent; the
+   contrasts, which set the patterns side by side, take the site's orange. */
+#esr-map .sp-map-layer:nth-child(2) { --sp-accent: var(--color-success); }
+#esr-map .sp-map-layer:nth-child(3),
+#esr-map .sp-map-layer:nth-child(4),
+#esr-map .sp-map-layer:nth-child(5) { --sp-accent: var(--color-primary); }
+#esr-map .sp-map-layer:nth-child(7) { --sp-accent: var(--color-success); }
+.sp-map-layer.is-contrasts { --sp-accent: var(--color-primary); }
 
 .sp-map-title { color: var(--color-heading); font-weight: 600; font-size: var(--font-size-small); line-height: 1.3; }
 .sp-map-hint { color: var(--color-text-light); font-size: 0.8rem; line-height: 1.3; margin-bottom: 2px; }
@@ -1493,6 +1453,11 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
 .sp-map-no { flex: 0 0 1.4em; text-align: right; color: var(--color-text-light); font-variant-numeric: tabular-nums; }
 .sp-map-name { min-width: 0; overflow-wrap: anywhere; }
 .sp-map-name .sp-badge { margin-left: 6px; }
+
+/* A pattern's link is its formula: the slots are set apart as on the card,
+   the fixed Spanish keeps the link's own colour so a column of links does
+   not turn orange. */
+.sp-map-name .sp-slot { color: var(--color-text-light); font-style: italic; }
 
 /* A finger needs a taller line than a pointer does; the map stays a list. */
 @media (pointer: coarse) {
