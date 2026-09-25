@@ -450,8 +450,10 @@
 
         var hr = SP.el('tr');
         hr.appendChild(SP.el('th', 'sp-forms-person', ''));
-        tenses.forEach(function (tense) {
-            var th = SP.el('th');
+        // A tense's column is sp-cN, as a verb's column of a conjugation grid
+        // in the rules is: on a phone the same rules show one at a time.
+        tenses.forEach(function (tense, t) {
+            var th = SP.el('th', 'sp-c' + t);
             th.appendChild(SP.el('span', 'sp-forms-tense', tense.ru));
             th.appendChild(SP.el('span', 'sp-forms-tense-es', tense.es));
             th.title = tense.es + ' — ' + tense.hint;
@@ -465,9 +467,9 @@
             var label = SP.el('td', 'sp-forms-person', person.short);
             label.title = person.full;
             tr.appendChild(label);
-            tenses.forEach(function (tense) {
+            tenses.forEach(function (tense, t) {
                 var form = (verb[tense.key] || [])[i] || '';
-                var td = SP.el('td');
+                var td = SP.el('td', 'sp-c' + t);
                 // A button, like a conjugation grid in the rules: one tap says
                 // the form out loud, which is the one thing a table of forms
                 // cannot do on paper. Under the form, in a quieter and smaller
@@ -494,9 +496,47 @@
             if (!cell || !wrap.contains(cell)) return;
             e.stopPropagation();
             e.preventDefault();
-            SP.tts.speak(cell.dataset.form);
+            SP.say(cell.dataset.form);      // a second tap says it slower
         });
         return wrap;
+    }
+
+    // A phone has room for one tense at a time: the persons and three columns
+    // of forms ran off a 360px screen, and the future was reached only by
+    // scrolling the table sideways. A row of the tense names picks the one
+    // shown, as the verb chips over a conjugation grid of the rules do, and
+    // the pick carries over to the next verb opened on the page, so a reader
+    // going through the past stays in the past. From 700px up the three stand
+    // side by side and the row is hidden (spanish.css, .sp-conj-chips).
+    var formsPick = 0;
+
+    function formsChips(grid) {
+        var chips = SP.el('div', 'sp-conj-chips sp-forms-chips');
+        SP.verbs.tenses().forEach(function (tense, t) {
+            var chip = SP.el('button', 'sp-btn', tense.ru);
+            chip.type = 'button';
+            chip.dataset.pick = String(t);
+            chip.title = tense.es;
+            chips.appendChild(chip);
+        });
+        function paint(pick) {
+            grid.dataset.pick = String(pick);
+            Array.prototype.forEach.call(chips.children, function (chip) {
+                var on = chip.dataset.pick === String(pick);
+                chip.classList.toggle('active', on);
+                chip.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+        }
+        chips.addEventListener('click', function (e) {
+            var chip = e.target.closest && e.target.closest('.sp-btn');
+            if (!chip || !chips.contains(chip)) return;
+            e.stopPropagation();
+            e.preventDefault();
+            formsPick = Number(chip.dataset.pick);
+            paint(formsPick);
+        });
+        paint(formsPick);
+        return chips;
     }
 
     // `named` spells the infinitive out on the head line. A word has it written
@@ -504,7 +544,7 @@
     // of forms says which half it belongs to.
     function formsBlock(verb, named) {
         var box = SP.el('div', 'sp-forms');
-        var grid = SP.el('div', 'sp-forms-grid');
+        var grid = SP.el('div', 'sp-forms-grid is-picky');
         grid.id = 'sp-forms-' + (formsSeq += 1);
         grid.hidden = true;
 
@@ -537,7 +577,10 @@
             e.stopPropagation();
             e.preventDefault();
             var on = grid.hidden;
-            if (on && !grid.firstChild) grid.appendChild(formsTable(verb));
+            if (on && !grid.firstChild) {
+                grid.appendChild(formsChips(grid));
+                grid.appendChild(formsTable(verb));
+            }
             grid.hidden = !on;
             box.classList.toggle('is-open', on);
             head.setAttribute('aria-expanded', on ? 'true' : 'false');
@@ -709,5 +752,127 @@
         // The mark leads a word's first line, inside its head; a pair keeps it
         // on the row, in a column of its own, so the two halves start level.
         return SP.attachMark(row, mark, halves ? null : head);
+    };
+
+    /* ---------- the legend ---------- */
+
+    // What the icons and the marks mean, said once and in words. Held upright,
+    // a phone shows the stage chips and the section tabs as icons alone, and
+    // every mark of a row explains itself only in a tooltip — which a touch
+    // screen never shows. A quiet button on the line of the page heading opens
+    // it under the heading, so shut it costs the page no line of its own. On
+    // the hub `opts.stages` and `opts.reference` explain the chip row and
+    // `opts.stars` the ★ of the rules and the patterns; a stage page passes
+    // nothing. What is Russian in it comes from the files, like everywhere.
+    var SECTION_HINT = {
+        reference: 'closed sets to look up: days, months, numbers, question frames. A tile opens its table',
+        learned: 'the learned list. One side of every row is covered: recall it, then tap the row to check',
+        pending: 'what you ticked to learn next, covered the same way',
+        left: 'everything not learned yet'
+    };
+    var legendSeq = 0;
+
+    function legendMark(cls, glyph) {
+        var mark = SP.el('span', cls);
+        mark.setAttribute('aria-hidden', 'true');
+        if (glyph) mark.appendChild(glyph);
+        return mark;
+    }
+
+    SP.legend = function (opts) {
+        var options = opts || {};
+        var body = SP.el('div', 'sp-legend');
+        body.id = 'sp-legend-' + (legendSeq += 1);
+        body.hidden = true;
+
+        var toggle = SP.el('button', 'sp-btn quiet sp-legend-toggle', 'Legend');
+        toggle.type = 'button';
+        toggle.title = 'What the icons and the marks mean';
+        toggle.setAttribute('aria-controls', body.id);
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.addEventListener('click', function () {
+            var open = body.hidden;
+            body.hidden = !open;
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+            toggle.classList.toggle('active', open);
+        });
+
+        // One titled list of {marks, name, text}; a row may carry two marks
+        // where a thing has two states, and an empty group draws nothing.
+        function group(title, rows) {
+            rows = rows.filter(Boolean);
+            if (!rows.length) return;
+            // One block per group, so the columns of a wide screen never part
+            // a title from its list.
+            var box = body.appendChild(SP.el('div', 'sp-legend-group'));
+            box.appendChild(SP.el('h4', 'sp-legend-title', title));
+            var list = SP.el('dl', 'sp-legend-list');
+            rows.forEach(function (row) {
+                var dt = SP.el('dt', 'sp-legend-mark');
+                row.marks.forEach(function (mark) { if (mark) dt.appendChild(mark); });
+                var dd = SP.el('dd', 'sp-legend-text');
+                if (row.name) dd.appendChild(SP.el('b', null, row.name));
+                if (row.name && row.text) dd.appendChild(document.createTextNode(' — '));
+                if (row.text) {
+                    var text = SP.el('span', null, row.text);
+                    if (/[Ѐ-ӿ]/.test(row.text)) text.lang = 'ru';
+                    dd.appendChild(text);
+                }
+                list.appendChild(dt);
+                list.appendChild(dd);
+            });
+            box.appendChild(list);
+        }
+
+        group('Chips', (options.stages || []).map(function (stage) {
+            return { marks: [SP.iconSpan(stage.icon)], name: stage.title, text: stage.titleRu };
+        }).concat((options.reference || []).map(function (entry) {
+            return { marks: [SP.iconSpan(entry.icon)], name: entry.name, text: entry.text };
+        })));
+
+        group('Lists', SP.SECTIONS.map(function (kind) {
+            return { marks: [SP.iconSpan(SP.SECTION_ICON[kind])], name: SP.SECTION_LABEL[kind], text: SECTION_HINT[kind] };
+        }).concat([{
+            marks: [legendMark('sp-legend-edge is-learned'), legendMark('sp-legend-edge is-pending')],
+            text: 'the edge of a row: green in Learned, orange in Pending'
+        }]));
+
+        group('Marks', [
+            {
+                marks: [legendMark('sp-mark', SP.icon.check()), legendMark('sp-mark is-on', SP.icon.check())],
+                text: 'tick a word to put it in Pending, untick to take it out'
+            },
+            {
+                marks: [legendMark('sp-pin', SP.icon.pin()), legendMark('sp-pin is-on', SP.icon.pin())],
+                text: 'lift a learned word' + (options.stars ? ', a rule or a pattern' : '') +
+                    ' to the top of its list; again to put it back'
+            },
+            {
+                marks: [SP.icon.eyeOff()],
+                name: 'ES · EN',
+                text: 'the lit one is the side a covered row hides: ES the Spanish, EN the English and the Russian'
+            },
+            {
+                marks: [legendMark('sp-legend-chevron', SP.icon.chevron())],
+                text: 'a tap on a row opens its forms and examples, and on a covered row shows the hidden side'
+            },
+            {
+                marks: [legendMark('sp-legend-sample', document.createTextNode('tengo'))],
+                text: 'a tap on an example, a form or a Spanish cell of a table says it aloud; a second tap, slower'
+            },
+            { marks: [legendMark('sp-ask-icon')], text: 'ask ChatGPT about the word' },
+            options.stars ? {
+                marks: [legendMark('sp-badge is-top', document.createTextNode('★ 1'))],
+                text: 'learn first: the place among the rules or the patterns to start with'
+            } : null
+        ]);
+
+        // A dot beside a verb says how much of its table of forms is to learn.
+        group('Verbs', ['regular', 'stem', 'irregular'].map(function (key) {
+            var kind = SP.verbs.kind(key);
+            return kind && { marks: [legendMark('sp-verb-dot is-' + key)], name: kind.ru, text: kind.hint };
+        }));
+
+        return { toggle: toggle, body: body };
     };
 })();

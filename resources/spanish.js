@@ -17,6 +17,10 @@
     // the tab strip, and while one is open no stage chip is lit.
     var REFERENCE_MODES = { rules: true, patterns: true };
 
+    // The modes worked through one screen at a time: opening one scrolls it
+    // to the top (enterMode).
+    var STUDY_MODES = { cards: true, quiz: true, listen: true };
+
     var BOX_INTERVALS = { 1: 0, 2: 1, 3: 3, 4: 7, 5: 21 };
     var NEW_PER_BATCH = 10;
     var QUIZ_LENGTH = 10;
@@ -40,11 +44,14 @@
     var CARDS_KEY = 'spanishCards';
     var QUIZ_KEY = 'spanishQuiz';
 
-    // Only the scope and the card direction are remembered; the mode is not,
-    // so every visit opens on the browse list unless the hash asks otherwise.
+    // Only the scope, the card direction and whether the cards and the quiz
+    // speak are remembered; the mode is not, so every visit opens on the
+    // browse list unless the hash asks otherwise. There is no speed to keep:
+    // whatever is said again at once comes slower (SP.say).
     var saved = SP.loadState(PREFS_KEY, 1) || {};
-    var prefs = { v: 1, stage: saved.stage || 'all', dir: saved.dir || 'es-ru', rate: saved.rate || 1 };
+    var prefs = { v: 1, stage: saved.stage || 'all', dir: saved.dir || 'es-ru', voice: saved.voice !== false };
     var currentMode = MODES[0];
+    var booted = false;     // the first mode is on screen; from here a switch may scroll
     var manifest = null;
     var pool = [];          // studyable items of the selected stages
     var allItems = [];      // everything, drills included (browse)
@@ -237,6 +244,15 @@
         else if (mode === 'rules') initRules();
         else if (mode === 'patterns') initPatterns();
         else initCards();
+
+        // The bar sticks, so a mode can be picked deep in a list, and would
+        // then open wherever the page happened to be. A study mode takes the
+        // screen — on a phone the card and its buttons, or the question and
+        // all four answers, fit only with the site header and the bar out of
+        // the way; the others open at their head, and only when the page is
+        // already past it. Not on the first draw, which is the browser's own
+        // restoring of where the page was.
+        if (booted) SP.jumpTo(byId('panel-' + mode), STUDY_MODES[mode] ? { tuck: true } : { ifPast: true });
     }
 
     /* ---------- flashcards ---------- */
@@ -321,6 +337,13 @@
         tr.textContent = prefs.dir === 'es-ru' && item.tr ? item.tr : '';
         tr.hidden = !tr.textContent;
         byId('sp-card-back').textContent = cardBack(item);
+        // The Spanish is said as soon as it is on the card: here when it is the
+        // question, in revealCard when it is the answer.
+        if (prefs.dir === 'es-ru') sayCard(item);
+    }
+
+    function sayCard(item) {
+        if (prefs.voice && item) SP.say(SP.spokenText(item));
     }
 
     function revealCard() {
@@ -329,12 +352,18 @@
         card.classList.add('revealed');
         byId('sp-card-again').disabled = false;
         byId('sp-card-good').disabled = false;
+        if (prefs.dir === 'ru-es') sayCard(cardsQueue[cardsIndex]);
     }
 
     function answerCard(good) {
         var item = cardsQueue[cardsIndex];
         if (!item) return;
-        var record = cardsState.cards[item.id] || { b: 0, due: SP.todayStr(), ok: 0, ko: 0 };
+        // A new card starts in box 1, as Leitner's do: Good moves it on to box
+        // 2, due tomorrow, and Again keeps it in box 1 and brings it back
+        // before the round ends. Started at 0, Good only reached box 1 — due
+        // today with nothing to bring it back — while Again then Good reached
+        // box 2: a card known at first sight came round later than one missed.
+        var record = cardsState.cards[item.id] || { b: 1, due: SP.todayStr(), ok: 0, ko: 0 };
         if (good) {
             record.b = Math.min(5, (record.b || 0) + 1);
             record.due = SP.dateInDays(BOX_INTERVALS[record.b]);
@@ -387,8 +416,13 @@
             showCard();
         });
 
+        // The first tap shows the answer; a tap on a card already shown says
+        // its Spanish again — slower, when it was only just said.
         var card = byId('sp-card');
-        card.addEventListener('click', function () { revealCard(); });
+        card.addEventListener('click', function () {
+            if (card.classList.contains('revealed')) sayCard(cardsQueue[cardsIndex]);
+            else revealCard();
+        });
 
         // Swipe: left = Again, right = Good. Buttons stay the primary path.
         var startX = 0, startY = 0, tracking = false;
@@ -424,8 +458,15 @@
         document.addEventListener('keydown', function (e) {
             var panel = byId('panel-cards');
             if (!panel || panel.hidden) return;
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
             var tag = document.activeElement && document.activeElement.tagName;
             if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+            // Space and Enter on a button of the panel press that button — the
+            // direction, +10 new, the voice. Only there: the Cards tab keeps
+            // the focus after it is clicked, and letting it take Space would
+            // open the mode again and deal the queue afresh mid-card.
+            var own = e.target.closest && e.target.closest('#panel-cards button, #panel-cards a');
+            if (own && (e.key === ' ' || e.key === 'Enter')) return;
             if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); revealCard(); }
             else if (e.key === '1') { e.preventDefault(); if (!byId('sp-card-again').disabled) answerCard(false); }
             else if (e.key === '2') { e.preventDefault(); if (!byId('sp-card-good').disabled) answerCard(true); }
@@ -436,6 +477,38 @@
 
     function updateDirLabel() {
         byId('sp-dir').textContent = prefs.dir === 'es-ru' ? 'ES → RU' : 'RU → ES';
+    }
+
+    // Whether the cards and the quiz say the Spanish by themselves. The switch
+    // stands in both panels and the two never disagree; a browser that cannot
+    // speak shows neither. Listening speaks whatever this says — it is nothing
+    // without the voice — and so do the taps on examples and forms.
+    var VOICE_BUTTONS = ['sp-card-voice', 'sp-quiz-voice'];
+
+    function syncVoiceButtons() {
+        VOICE_BUTTONS.forEach(function (id) {
+            var btn = byId(id);
+            if (!btn) return;
+            btn.hidden = !SP.tts.available();
+            btn.textContent = prefs.voice ? 'Voice on' : 'Voice off';
+            btn.classList.toggle('active', prefs.voice);
+            btn.setAttribute('aria-pressed', prefs.voice ? 'true' : 'false');
+            btn.title = prefs.voice ? 'The Spanish is said aloud; tap to keep quiet' : 'Say the Spanish aloud';
+        });
+    }
+
+    function initVoiceControls() {
+        VOICE_BUTTONS.forEach(function (id) {
+            var btn = byId(id);
+            if (!btn) return;
+            btn.addEventListener('click', function () {
+                prefs.voice = !prefs.voice;
+                savePrefs();
+                if (!prefs.voice) SP.tts.stop();
+                syncVoiceButtons();
+            });
+        });
+        syncVoiceButtons();
     }
 
     /* ---------- question building (shared by quiz and listening) ---------- */
@@ -470,6 +543,7 @@
             transcription: item.tr || '',
             options: SP.shuffleCopy([answer].concat(others.map(ruKey))),
             answer: answer,
+            say: SP.spokenText(item),
             item: item
         };
     }
@@ -483,6 +557,7 @@
             russian: SP.meaningOf(item),
             options: SP.shuffleCopy([item.es].concat(others.map(esKey))),
             answer: item.es,
+            say: SP.spokenText(item),
             item: item
         };
     }
@@ -499,6 +574,7 @@
             transcription: entry.cueTr || '',
             options: SP.shuffleCopy([entry.answer].concat(others.map(function (e) { return e.answer; }))),
             answer: entry.answer,
+            say: SP.spokenText(entry.item),     // the pair whole, both halves
             item: entry.item
         };
     }
@@ -511,6 +587,7 @@
             spanish: item.prompt,
             options: SP.shuffleCopy(item.options.slice()),
             answer: item.answer,
+            say: item.prompt.replace(/_{2,}/, item.answer),     // the sentence, gap filled
             item: item
         };
     }
@@ -603,6 +680,9 @@
         byId('sp-quiz-done').hidden = true;
         byId('sp-quiz-round').hidden = false;
         showQuestion();
+        // The question and its four answers on one screen, however the page
+        // was scrolled when the round began.
+        SP.jumpTo(byId('panel-quiz'), { tuck: true });
     }
 
     function renderQuestion(hostId, optionsId, question, onAnswer) {
@@ -644,12 +724,16 @@
             'Question ' + (quizIndex + 1) + ' of ' + quizQuestions.length + ' · ' + quizCorrect + ' correct';
         byId('sp-quiz-next').hidden = true;
         renderQuestion('sp-quiz-question', 'sp-quiz-options', question, function (correct) {
+            // Said once the answer is given — before, it would give it away
+            // wherever the question is the Russian.
+            if (prefs.voice) SP.say(question.say);
             if (correct) quizCorrect += 1;
             quizStats.answered += 1;
             if (correct) quizStats.correct += 1;
             SP.saveState(QUIZ_KEY, quizStats);
             byId('sp-quiz-next').hidden = false;
-            byId('sp-quiz-next').focus();
+            // The focus is for the keyboard; the page stays where the answer was.
+            byId('sp-quiz-next').focus({ preventScroll: true });
         });
     }
 
@@ -1318,6 +1402,9 @@
         }
 
         applyBrowse();
+        // Typed into the stuck bar deep in the list, the results would start
+        // above the screen.
+        SP.jumpTo(byId('panel-browse'), { ifPast: true });
     }
 
     /* ---------- the side a covered row hides ---------- */
@@ -1488,6 +1575,26 @@
         SP.pin.pickPinned(pins).forEach(function (entry) { SP.pin.raise(entry.node, shelf); });
     }
 
+    /* ---------- legend ---------- */
+
+    // What the icons of the chip row and the marks of the lists mean, behind a
+    // button on the line of the page heading (SP.legend). The Rules and the
+    // Patterns chips are named as their buttons are; the stages bring their own.
+    function renderLegend() {
+        var head = byId('sp-page-head');
+        if (!head) return;
+        var legend = SP.legend({
+            stages: manifest.stages,
+            reference: [
+                manifest.rules && { icon: manifest.rules.icon, name: 'Rules', text: manifest.rules.titleRu },
+                manifest.patterns && { icon: manifest.patterns.icon, name: 'Patterns', text: manifest.patterns.titleRu }
+            ].filter(Boolean),
+            stars: true
+        });
+        head.appendChild(legend.toggle);
+        head.parentNode.insertBefore(legend.body, head.nextSibling);
+    }
+
     /* ---------- boot ---------- */
 
     function boot() {
@@ -1500,7 +1607,9 @@
         initCardControls();
         initQuizControls();
         initListenControls();
+        initVoiceControls();
         initBrowseControls();
+        SP.tuckBar(root.querySelector('.sp-bar'));
 
         // The learned list and the verb forms are both wanted before the first
         // row is drawn and belong to no stage, so they ride with the manifest.
@@ -1508,11 +1617,13 @@
             manifest = loaded[0];
             renderStageChips();
             renderModeTabs();
+            renderLegend();
             return loadScope();
         }).then(function () {
             root.hidden = false;
             var fromHash = location.hash.slice(1);
             enterMode(MODES.indexOf(fromHash) !== -1 ? fromHash : 'browse', true);
+            booted = true;
         }).catch(function (e) {
             SP.showError('sp-error', e);
         });

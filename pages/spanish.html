@@ -37,7 +37,9 @@
     </nav>
 
     <main id="main-content">
-        <h2>Spanish</h2>
+        <div class="sp-page-head" id="sp-page-head">
+            <h2>Spanish</h2>
+        </div>
         <div class="sp-error" id="sp-error" hidden></div>
 
         <div id="sp-app" data-base="../resources/spanish/" hidden>
@@ -83,6 +85,7 @@
                     <button type="button" class="sp-btn" id="sp-dir" title="Swap the card direction">ES → RU</button>
                     <button type="button" class="sp-btn" id="sp-card-new">+10 new</button>
                     <button type="button" class="sp-btn" id="sp-card-ahead">Practice ahead</button>
+                    <button type="button" class="sp-btn" id="sp-card-voice" hidden>Voice on</button>
                 </div>
                 <div class="sp-card" id="sp-card" hidden>
                     <div class="sp-card-meta" id="sp-card-meta"></div>
@@ -101,7 +104,7 @@
                     <button type="button" class="sp-btn" id="sp-card-again" disabled>Again</button>
                     <button type="button" class="sp-btn primary" id="sp-card-good" disabled>Good</button>
                 </div>
-                <p class="sp-keys">Swipe left for Again, right for Good · keyboard: Space, 1, 2</p>
+                <p class="sp-keys">Swipe left for Again, right for Good · tap a shown card to hear it again · keyboard: Space, 1, 2</p>
             </section>
 
             <!-- Quiz -->
@@ -112,6 +115,7 @@
                     </p>
                     <div class="sp-actions">
                         <button type="button" class="sp-btn primary" id="sp-quiz-begin">Start a round of 10</button>
+                        <button type="button" class="sp-btn" id="sp-quiz-voice" hidden>Voice on</button>
                     </div>
                 </div>
 

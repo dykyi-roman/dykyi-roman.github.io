@@ -1,9 +1,10 @@
 /* Renders the Spanish reference pages from JSON:
    - a stage page when #sp-root carries data-stage="N"
    - the phonetics/grammar page when it carries data-rules
-   A stage page gets a sticky two-row chip index that stays put on a phone
-   instead of collapsing into a floating overlay; the rules page gets none —
-   its map is the way in. The index and the rules renderer itself live in
+   A stage page gets a sticky two-row chip index rather than a floating
+   overlay — on a phone it steps away while the page is read downwards and is
+   back on the way up (SP.tuckBar) — and the rules page gets none: its map is
+   the way in. The index and the rules renderer itself live in
    spanish-prose.js, because the hub renders the rules in a tab too.
    Every list on a stage page — words, live examples and drills alike — is split
    into Reference, Learned, Pending and the rest, and every row below the first
@@ -17,6 +18,14 @@
     var SP = window.SP;
     var PAGE_SIZE = 100;
     var PAGE_STEP = 200;
+
+    // The lists on screen now, and the tile grids of their topics. A search
+    // redraws the whole body, and a list that registered for the page-wide
+    // changes itself would outlive the body it was drawn into — every redraw
+    // left its lists listening, and a tap on a section tab kept building them,
+    // detached, one more set per search. So the page listens once
+    // (renderStage) and calls whatever is here, which every redraw refills.
+    var live = { builds: [], topicSyncs: [] };
 
     function sectionShell(id, title, count) {
         var section = SP.el('section', 'sp-section');
@@ -171,12 +180,10 @@
         }
 
         more.addEventListener('click', draw);
-        SP.view.onSection(build);
-        // A tile opened or closed changes which rows Reference draws.
-        SP.tables.onChange(build);
-        // Pinning reorders the Learned section, so the list is built again.
-        // Registered once per list, as the fold is.
-        SP.pin.onChange(build);
+        // Another section picked, a tile opened or closed (it changes which
+        // rows Reference draws), a word pinned (it reorders Learned): each is
+        // a full build, called by the page for every list on screen (`live`).
+        live.builds.push(build);
         build();
     }
 
@@ -229,7 +236,14 @@
         var icon = SP.iconSpan(stage.icon);
         if (icon) title.appendChild(icon);
         title.appendChild(document.createTextNode('Stage ' + stage.no + ' — ' + stage.title));
-        head.appendChild(title);
+        // The legend's button rides on the line of the heading, so shut it
+        // costs the page no line of its own; open, it sits under the heading.
+        var titleRow = SP.el('div', 'sp-page-head');
+        var legend = SP.legend();
+        titleRow.appendChild(title);
+        titleRow.appendChild(legend.toggle);
+        head.appendChild(titleRow);
+        head.appendChild(legend.body);
         head.appendChild(SP.el('p', 'sp-intro', stage.titleRu));
         if (stage.goal) head.appendChild(SP.el('p', 'sp-intro', 'Цель: ' + stage.goal));
         SP.renderBlocks(head, stage.intro);
@@ -247,9 +261,18 @@
         bar.appendChild(searchRow);
         bar.appendChild(chips);
         root.appendChild(bar);
+        SP.tuckBar(bar);
 
         var body = SP.el('div');
         root.appendChild(body);
+
+        // The page listens once for what changes every list at once and hands
+        // it to the lists on screen now (see `live`).
+        function rebuildLists() { live.builds.forEach(function (build) { build(); }); }
+        SP.view.onSection(rebuildLists);
+        SP.tables.onChange(rebuildLists);
+        SP.pin.onChange(rebuildLists);
+        SP.topics.onChange(function () { live.topicSyncs.forEach(function (sync) { sync(); }); });
 
         // The chip index is rebuilt with the body, so the strip always names
         // the sections that are actually on screen; the observer of the index
@@ -266,15 +289,17 @@
             SP.clear(body);
             SP.clear(chips);
             if (spy) { spy.disconnect(); spy = null; }
+            // The lists being thrown away stop hearing the page with them.
+            live = { builds: [], topicSyncs: [] };
             var index = renderSections(body, stage, query, {
                 shown: shown,
                 more: function () { shown += PAGE_STEP; draw(true); }
             });
-            if (!index.length) {
-                body.appendChild(SP.el('p', 'sp-empty', 'Nothing matches.'));
-                return;
-            }
-            spy = SP.buildIndex(chips, index, root.dataset.index === 'sections');
+            if (!index.length) body.appendChild(SP.el('p', 'sp-empty', 'Nothing matches.'));
+            else spy = SP.buildIndex(chips, index, root.dataset.index === 'sections');
+            // Typed into the stuck bar far down the page, the results would
+            // start above the screen. "Show more" keeps the place.
+            if (!keepShown) SP.jumpTo(body, { ifPast: true });
         }
 
         draw();
@@ -363,7 +388,7 @@
                     return { key: SP.topicKey(stage, name), icon: icons[name], name: name, count: byGroup[name].length };
                 }), { state: SP.topics, what: 'topic', kind: 'topic' });
                 lexSection.appendChild(grid.node);
-                SP.topics.onChange(function () {
+                live.topicSyncs.push(function () {
                     grid.sync();
                     Object.keys(topicBlocks).forEach(function (name) {
                         topicBlocks[name].hidden = !SP.topics.isOpen(SP.topicKey(stage, name));

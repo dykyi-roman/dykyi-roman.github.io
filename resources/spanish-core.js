@@ -737,6 +737,214 @@
 
     SP.tts = tts;
 
+    /* ---------- a tap that says the Spanish ---------- */
+
+    // Speech for everything a reader taps, with no speaker drawn anywhere: the
+    // thing tapped is the button. The same text said again within a few
+    // seconds comes slower — the one control a learner reaches for next — and
+    // the time after that at speed again. A pair's "dulce / salado" is read
+    // as two words, not as a slash.
+    var SAY_AGAIN_MS = 6000;
+    var SAY_SLOW = 0.7;
+    var lastSaid = null;    // {text, at, slow}
+
+    SP.say = function (text, opts) {
+        var options = opts || {};
+        var clean = String(text || '').replace(/\s*\/\s*/g, ', ').trim();
+        if (!clean) return false;
+        var now = Date.now();
+        var again = !!(lastSaid && lastSaid.text === clean && now - lastSaid.at < SAY_AGAIN_MS && !lastSaid.slow);
+        lastSaid = { text: clean, at: now, slow: again };
+        return tts.speak(clean, { rate: again ? SAY_SLOW : undefined, onend: options.onend });
+    };
+
+    // Marks a node that says `text` when it is tapped: an example line, a row
+    // of a fork, a Spanish cell of a table. One listener on the document
+    // serves them all (below) — a rules page holds hundreds. Nothing is marked
+    // where the browser cannot speak.
+    SP.speakable = function (node, text) {
+        if (!node || !text || !tts.available()) return node;
+        node.dataset.say = text;
+        if (!node.hasAttribute('tabindex')) node.tabIndex = 0;
+        if (!node.title) node.title = 'Tap to hear it, again to hear it slower';
+        return node;
+    };
+
+    function sayNode(node) {
+        node.classList.add('is-saying');
+        var done = function () { node.classList.remove('is-saying'); };
+        SP.say(node.dataset.say, { onend: done });
+        setTimeout(done, 8000);     // an engine that never reports the end
+    }
+
+    if (typeof document !== 'undefined') {
+        document.addEventListener('click', function (e) {
+            var node = e.target.closest && e.target.closest('[data-say]');
+            if (!node) return;
+            // A control inside the line keeps its own tap, and a drag that
+            // selected some text is not a tap at all.
+            var control = e.target.closest('button, a, input, select, textarea');
+            if (control && node.contains(control)) return;
+            var picked = window.getSelection && window.getSelection();
+            if (picked && !picked.isCollapsed && node.contains(picked.anchorNode)) return;
+            sayNode(node);
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') return;
+            var node = e.target;
+            if (!node || !node.dataset || node.dataset.say === undefined) return;
+            e.preventDefault();
+            sayNode(node);
+        });
+    }
+
+    /* ---------- the sticky bar ---------- */
+
+    // The strip of search, chips and tabs at the head of the hub and of a
+    // stage page sticks to the top of the screen (.sp-bar in spanish.css, which
+    // needs the overflow-x: clip set there). Stuck for good it would keep a
+    // fifth of a phone screen, so on a phone it steps out of the way while the
+    // page is read downwards and is back the moment the page moves up, the way
+    // a phone browser's own toolbar is; a wider screen simply keeps it. Its
+    // height is published as --sp-bar-h, which every anchor's scroll margin is
+    // measured by. While the page jumps the bar is held where the jump wants
+    // it until the page is at rest: a jump down would otherwise tuck it and
+    // leave its height as a gap above the heading, and a jump up would bring it
+    // back over the heading. One bar per page, and SP.jumpTo works through it.
+    var TUCK_AFTER = 24;    // px travelled down before the bar steps away
+    var SHOW_AFTER = 12;    // px travelled up before it is back
+    var HOLD_QUIET = 150;   // ms without scrolling that end a jump where scrollend is unknown
+    var HOLD_MAX = 1500;    // ms a jump holds the bar at most
+    var pageBar = null;
+
+    SP.tuckBar = function (bar) {
+        if (!bar || !bar.parentNode) return null;
+        var html = document.documentElement;
+        var phone = window.matchMedia ? window.matchMedia('(max-width: 699px), (max-height: 500px)') : null;
+        var hasScrollEnd = 'onscrollend' in window;
+
+        // Where the bar would stand if it did not stick: once this line has
+        // gone above the screen, the bar is stuck.
+        var line = SP.el('div', 'sp-bar-line');
+        line.setAttribute('aria-hidden', 'true');
+        bar.parentNode.insertBefore(line, bar);
+
+        var lastY = window.pageYOffset;
+        var travel = 0;         // > 0 down, < 0 up; starts over when the direction turns
+        var tucked = false;
+        var held = null;        // 'shown' or 'tucked' while a jump settles
+        var quietTimer = 0;
+        var maxTimer = 0;
+        var queued = false;
+
+        function publish() { html.style.setProperty('--sp-bar-h', bar.offsetHeight + 'px'); }
+        function mayTuck() { return !!(phone && phone.matches); }
+        function isStuck() { return line.getBoundingClientRect().top < 0; }
+
+        function setTucked(on) {
+            if (tucked === on) return;
+            tucked = on;
+            bar.classList.toggle('is-tucked', on);
+        }
+
+        function update() {
+            queued = false;
+            var max = Math.max(0, html.scrollHeight - window.innerHeight);
+            var y = Math.min(Math.max(window.pageYOffset, 0), max);   // no rubber band
+            var dy = y - lastY;
+            lastY = y;
+            var stuck = isStuck();
+            if (held) { setTucked(held === 'tucked' && stuck && mayTuck()); return; }
+            if (!stuck || !mayTuck()) { travel = 0; setTucked(false); return; }
+            if (!dy) return;
+            travel = (dy > 0) === (travel > 0) ? travel + dy : dy;
+            // Typing in the search moves the page under the field; the bar
+            // that holds the field does not step away from under the finger.
+            if (travel >= TUCK_AFTER && !bar.contains(document.activeElement)) setTucked(true);
+            else if (travel <= -SHOW_AFTER) setTucked(false);
+        }
+
+        function queue() {
+            if (queued) return;
+            queued = true;
+            window.requestAnimationFrame(update);
+        }
+
+        function release() {
+            held = null;
+            clearTimeout(quietTimer);
+            clearTimeout(maxTimer);
+            lastY = window.pageYOffset;
+            travel = 0;
+            queue();
+        }
+
+        function hold(state) {
+            held = state;
+            clearTimeout(quietTimer);
+            clearTimeout(maxTimer);
+            maxTimer = setTimeout(release, HOLD_MAX);
+            // Room for the smooth scroll to start before silence counts.
+            if (!hasScrollEnd) quietTimer = setTimeout(release, HOLD_QUIET * 2);
+            queue();
+        }
+
+        window.addEventListener('scroll', function () {
+            if (held && !hasScrollEnd) {
+                clearTimeout(quietTimer);
+                quietTimer = setTimeout(release, HOLD_QUIET);
+            }
+            queue();
+        }, { passive: true });
+        if (hasScrollEnd) window.addEventListener('scrollend', function () { if (held) release(); });
+
+        // A tap on a link within the page is a jump — the maps of the rules and
+        // of the patterns, a stage page's chip index — so the bar is held out
+        // for it, and the target lands under it (scroll-margin-top).
+        document.addEventListener('click', function (e) {
+            var link = e.target.closest && e.target.closest('a[href^="#"]');
+            if (link && link.getAttribute('href').length > 1) hold('shown');
+        }, true);
+
+        // Reaching into the bar from the keyboard brings it back.
+        bar.addEventListener('focusin', function () { if (!held) setTucked(false); });
+
+        if (window.ResizeObserver) new window.ResizeObserver(publish).observe(bar);
+        else window.addEventListener('resize', publish);
+        if (phone && phone.addEventListener) phone.addEventListener('change', queue);
+        else if (phone && phone.addListener) phone.addListener(queue);
+        publish();
+        queue();
+
+        pageBar = {
+            hold: hold,
+            height: function () { return bar.offsetHeight; },
+            mayTuck: mayTuck
+        };
+        return pageBar;
+    };
+
+    // A jump made by the page rather than by a link: a mode picked from the
+    // stuck bar, a query typed into it, a round of the quiz begun. It lands
+    // `node` just under the bar — or, with `tuck`, where the bar can step away
+    // (a phone), at the very top with the bar out of the way, which is what
+    // puts a flashcard and its buttons, or a question and all four answers, on
+    // one screen. `ifPast` jumps only when the page is already below the
+    // node's head, so a choice made at the top of the page moves nothing.
+    SP.jumpTo = function (node, opts) {
+        if (!node) return;
+        var options = opts || {};
+        var tuck = !!(options.tuck && pageBar && pageBar.mayTuck());
+        var offset = 8 + (pageBar && !tuck ? pageBar.height() : 0);
+        var top = node.getBoundingClientRect().top;
+        if (options.ifPast && top >= offset) return;
+        var target = Math.max(0, window.pageYOffset + top - offset);
+        if (Math.abs(target - window.pageYOffset) < 4) return;
+        if (pageBar) pageBar.hold(tuck ? 'tucked' : 'shown');
+        var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: target, behavior: still ? 'auto' : 'smooth' });
+    };
+
     /* ---------- asking ChatGPT ---------- */
 
     // chatgpt.com/?q= opens a new chat with the prompt already sent. The prompt

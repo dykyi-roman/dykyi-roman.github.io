@@ -350,7 +350,11 @@ function revealCard() {
 function answerCard(good) {
     const item = cardsQueue[cardsIndex];
     if (!item) return;
-    const record = cardsState.cards[item.id] || { b: 0, due: todayStr(), ok: 0, ko: 0 };
+    // A new card starts in box 1: Good moves it to box 2 (due tomorrow), Again
+    // keeps it in box 1 and brings it back this round. Starting at 0, Good only
+    // reached box 1, due today with nothing to bring it back, while Again then
+    // Good reached box 2 — a card known at once came round later than a miss.
+    const record = cardsState.cards[item.id] || { b: 1, due: todayStr(), ok: 0, ko: 0 };
     if (good) {
         record.b = Math.min(5, (record.b || 0) + 1);
         record.due = dateInDays(BOX_INTERVALS[record.b]);

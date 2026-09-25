@@ -94,6 +94,20 @@
 
 /* ---------- sticky control bar ---------- */
 
+/* style.css trims the page sideways with overflow-x: hidden on html, body and
+   .container — and hidden makes .container a scroll container, which is what
+   a sticky element sticks to: the bar sat in it and scrolled away with the
+   page. clip trims the same overflow without making a scroll container, so
+   the bar sticks to the screen. It also stops making a block formatting
+   context, which flow-root gives the container back. A browser that does not
+   know clip keeps hidden, and the bar merely scrolls away as it always did. */
+html, body, .container { overflow-x: clip; }
+.container { display: flow-root; }
+
+/* The height of the bar on this page, kept true by SP.tuckBar — 0 where there
+   is none. Every anchor clears it (scroll-margin-top below). */
+:root { --sp-bar-h: 0px; }
+
 .sp-bar {
     position: sticky;
     top: 0;
@@ -102,12 +116,21 @@
     padding: var(--spacing-sm) 0;
     margin-bottom: var(--spacing-md);
     border-bottom: 1px solid var(--color-border);
+    transition: transform var(--transition-fast);
 }
 
-/* A chip row scrolls sideways instead of wrapping into a wall of buttons.
-   The negative margin lets it bleed to the container edge so the last chip
-   does not look clipped, and overscroll-behavior stops the swipe from
-   turning into a browser back-gesture. */
+/* On a phone a stuck bar steps away while the page is read downwards and is
+   back as soon as it moves up (SP.tuckBar): stuck for good, it would keep a
+   fifth of the screen. A transform, so nothing below it reflows. */
+.sp-bar.is-tucked { transform: translateY(calc(-100% - 1px)); }
+
+@media (prefers-reduced-motion: reduce) {
+    .sp-bar { transition: none; }
+}
+
+/* A chip row scrolls sideways instead of wrapping into a wall of buttons,
+   and overscroll-behavior stops the swipe from turning into a browser
+   back-gesture. */
 .sp-chips {
     display: flex;
     gap: var(--spacing-xs);
@@ -160,6 +183,11 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     #sp-stages .sp-chip-short { display: block; }
     #sp-stages .sp-icon { font-size: 1.15rem; }
     .sp-section-tabs .sp-tab-label { display: none; }
+    /* The lit chip and the lit section tab say their names: with icons alone
+       "where am I" was left to memory, and one name fits where seven did not. */
+    #sp-stages .sp-chip.active .sp-chip-label { display: block; }
+    #sp-stages .sp-chip.active .sp-chip-short { display: none; }
+    .sp-section-tabs .sp-tab.active .sp-tab-label { display: inline; }
 }
 
 .sp-tabs { display: flex; gap: var(--spacing-xs); overflow-x: auto; scrollbar-width: none; }
@@ -175,15 +203,96 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
    and the icons are the same on every list; the name stays in aria-label. */
 .sp-section-tabs { margin: 0 0 var(--spacing-sm); }
 
+/* ---------- the page heading and the legend ---------- */
+
+/* The heading and the legend's button share one line, so shut the legend
+   costs the page no line of its own; a long stage title pushes it under. */
+.sp-page-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--spacing-sm);
+}
+.sp-legend-toggle { flex: 0 0 auto; }
+
+/* What the icons and the marks mean (SP.legend): a mark, then its line. */
+.sp-legend {
+    margin: 0 0 var(--spacing-md);
+    padding: var(--spacing-xs) var(--spacing-md) var(--spacing-md);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-background);
+    font-size: var(--font-size-small);
+}
+
+/* The space above a group is padding, not the title's margin: a margin at the
+   head of the second column is cut off, and the two titles would not align. */
+.sp-legend-group { padding-top: var(--spacing-sm); }
+
+.sp-legend-title {
+    margin: 0 0 var(--spacing-xs);
+    color: var(--color-text-light);
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* One width for the marks of every group, so every line starts at one edge;
+   the widest mark is a pair of states (the tick, the pin). */
+.sp-legend-list {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr);
+    align-items: center;
+    gap: 6px var(--spacing-sm);
+    margin: 0;
+}
+
+/* From 700px up the groups flow into two columns, a group never split. */
+@media (min-width: 700px) {
+    .sp-legend { column-count: 2; column-gap: var(--spacing-lg); }
+    .sp-legend-group { break-inside: avoid; }
+}
+
+.sp-legend-mark { display: flex; align-items: center; gap: 4px; min-width: 32px; margin: 0; }
+.sp-legend-text { margin: 0; color: var(--color-text); }
+.sp-legend-text b { color: var(--color-heading); font-weight: 600; }
+
+/* The marks are the lists' own, drawn at rest: no buttons here, none faded. */
+.sp-legend :is(.sp-mark, .sp-pin) { width: 28px; height: 28px; opacity: 1; cursor: default; }
+.sp-legend .sp-cover-icon { margin: 0; }
+.sp-legend .sp-ask-icon { color: var(--color-text-light); }
+.sp-legend-chevron { display: inline-flex; color: var(--color-text-light); }
+.sp-legend-chevron .sp-chevron { transform: rotate(-90deg); }
+
+.sp-legend-sample {
+    padding: 0 6px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    color: var(--color-heading);
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+/* A row's edge in miniature: green in Learned, orange in Pending. */
+.sp-legend-edge {
+    display: inline-block;
+    width: 14px;
+    height: 20px;
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-success);
+    border-radius: 4px;
+}
+.sp-legend-edge.is-pending { border-left-color: var(--color-primary); }
+
 .sp-panel[hidden] { display: none !important; }
 
-/* The patterns panel brings its own .sp-bar. Inside a panel the hub's own bar
-   is already sticky at the top, so the nested one stays put instead of
-   fighting it for the same strip of screen. */
-.sp-panel .sp-bar { position: static; border-bottom: 0; margin-bottom: var(--spacing-sm); }
-
-/* Anchored sections must clear the sticky bar they are jumped to from. */
-.sp-group[id], .sp-section[id] { scroll-margin-top: 96px; }
+/* Whatever a jump lands on clears the bar it was jumped from — the sections,
+   the topics, the zones of a search, a rule, a pattern card — by the bar's
+   own height rather than a guess at it. SP.tuckBar holds the bar out while
+   the page is jumping, so the gap is the same going up and going down; on a
+   page with no bar (rules.html) it is the 8px alone. */
+#main-content [id] { scroll-margin-top: calc(var(--sp-bar-h) + 8px); }
 
 .sp-actions {
     display: flex;
@@ -944,6 +1053,16 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-pat-es .sp-fixed { color: var(--color-primary); }
 .sp-pat-es .sp-slot { color: var(--color-heading); font-style: italic; font-weight: 400; }
 
+/* A phone gives the formula the line to itself: the card takes the 10px edge
+   of a word's card instead of 20px, and the formula a size under the meaning's
+   — colour and weight still make it the head. That keeps all 57 formulas on
+   one line at 390px; at 360px the four longest still wrap, and balance splits
+   them in two halves rather than leaving the last slot alone on a line. */
+@media (max-width: 699px) {
+    .sp-pat { padding: var(--spacing-sm); }
+    .sp-pat-es { font-size: 0.95rem; text-wrap: balance; }
+}
+
 /* The arrow between formula and meaning is drawn, as the lexicon's
    punctuation is: the JSON holds the two texts and nothing between them. */
 .sp-pat-ru { color: var(--color-heading); overflow-wrap: anywhere; }
@@ -954,9 +1073,6 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
    the trap and the examples start from. */
 .sp-pat-main .sp-badge { margin-left: auto; }
 .sp-pat-head .sp-pin { width: 32px; margin-left: -6px; }
-
-/* A card is a link target of the top list, so it clears the sticky bar. */
-.sp-pat[id], .sp-note[id] { scroll-margin-top: 96px; }
 
 /* Where Russian logic leads astray: no label and no mark, only the edge in
    the warning colour sets it apart from the meaning above it. */
@@ -993,13 +1109,39 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-exline-ru { grid-column: 1; font-size: var(--font-size-small); color: var(--color-text-light); overflow-wrap: anywhere; }
 .sp-exline .sp-tools { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
 
-/* A word's examples carry no tail — the word's own row holds the speaker and
-   the question — so their lines are plain text on the full width, the Russian
-   under the Spanish at every size. Dropping the grid is what keeps it that way:
-   the two-column rule from 700px up needs a grid container to mean anything,
-   so it stops at the panel without a second selector to undo it. The patterns
+/* A word's examples carry no tail — the word's own row holds the question —
+   so their lines are plain text on the full width, the Russian under the
+   Spanish at every size. Dropping the grid is what keeps it that way: the
+   two-column rule from 700px up needs a grid container to mean anything, so
+   it stops at the panel without a second selector to undo it. The patterns
    keep their side-by-side lines. */
 .sp-lex-row > .sp-drawer .sp-exline { display: block; }
+
+/* ---------- a tap that says the Spanish ---------- */
+
+/* An example line, a row of a fork, a Spanish cell of a table: each says its
+   Spanish when tapped, and again slower on a second tap (SP.speakable,
+   SP.say). No speaker is drawn — the thing is the button. The pointer is not
+   decoration: iOS sends no click to a plain element that lacks one, and the
+   one listener that speaks sits on the document. */
+[data-say] {
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    border-radius: 6px;
+    transition: background var(--transition-fast);
+}
+
+@media (hover: hover) {
+    .sp-exline[data-say]:hover .sp-exline-es,
+    .sp-fork-row[data-say]:hover .sp-fork-es,
+    td[data-say]:hover { text-decoration: underline dotted; text-underline-offset: 3px; }
+}
+
+[data-say]:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+/* While it speaks the line is lit: the answer to "did that tap take?". */
+[data-say].is-saying { background: rgba(220, 118, 3, 0.12); }
 
 /* ---------- a verb's forms ---------- */
 
@@ -1082,8 +1224,11 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 
 .sp-forms-head[aria-expanded="false"] .sp-chevron { transform: rotate(-90deg); }
 
-/* Four columns — the person and three tenses — which is the width this table
-   scrolls sideways within on a phone, like every other table here. */
+/* Four columns — the person and three tenses — side by side from 700px up.
+   Below that a row of the tense names shows one tense at a time (the
+   .is-picky rules by the conjugation grids), so the table keeps to the card. */
+.sp-forms-chips { margin: 4px 0; }
+.sp-forms-chips .sp-btn { padding: 8px 12px; }
 .sp-forms-table { font-size: var(--font-size-small); }
 .sp-forms-table td { padding: 0; }
 .sp-forms-table th { vertical-align: bottom; }
@@ -1384,13 +1529,15 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
    page keeps its width; the chip row picks which. Where they name persons the
    grid is not .is-picky and falls back to the table's own sideways scroll.
    Which it is was decided from the data, in JS; how wide the screen is stays
-   here, because the hub builds its Rules panel while it is still hidden. */
+   here, because the hub builds its Rules panel while it is still hidden.
+   A verb's own table of forms (.sp-forms-grid) is picked the same way, by
+   tense: its three columns of forms did not fit beside the persons either. */
 @media (max-width: 699px) {
-    .sp-conj.is-picky[data-pick="0"] :is(.sp-c1, .sp-c2, .sp-c3, .sp-c4) { display: none; }
-    .sp-conj.is-picky[data-pick="1"] :is(.sp-c0, .sp-c2, .sp-c3, .sp-c4) { display: none; }
-    .sp-conj.is-picky[data-pick="2"] :is(.sp-c0, .sp-c1, .sp-c3, .sp-c4) { display: none; }
-    .sp-conj.is-picky[data-pick="3"] :is(.sp-c0, .sp-c1, .sp-c2, .sp-c4) { display: none; }
-    .sp-conj.is-picky[data-pick="4"] :is(.sp-c0, .sp-c1, .sp-c2, .sp-c3) { display: none; }
+    :is(.sp-conj, .sp-forms-grid).is-picky[data-pick="0"] :is(.sp-c1, .sp-c2, .sp-c3, .sp-c4) { display: none; }
+    :is(.sp-conj, .sp-forms-grid).is-picky[data-pick="1"] :is(.sp-c0, .sp-c2, .sp-c3, .sp-c4) { display: none; }
+    :is(.sp-conj, .sp-forms-grid).is-picky[data-pick="2"] :is(.sp-c0, .sp-c1, .sp-c3, .sp-c4) { display: none; }
+    :is(.sp-conj, .sp-forms-grid).is-picky[data-pick="3"] :is(.sp-c0, .sp-c1, .sp-c2, .sp-c4) { display: none; }
+    :is(.sp-conj, .sp-forms-grid).is-picky[data-pick="4"] :is(.sp-c0, .sp-c1, .sp-c2, .sp-c3) { display: none; }
 }
 
 /* ---------- the map of the rules and of the patterns ---------- */

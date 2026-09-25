@@ -46,6 +46,15 @@
         return spans;
     }
 
+    // A cell holding Spanish alone — the examples of the transcription key, the
+    // forms of a table of pronouns — says it when tapped. A cell that mixes in
+    // Russian or a letter in bold is a description, not something to hear.
+    function sayCell(td, cell) {
+        var parts = (cell || []).filter(function (span) { return span && span.t; });
+        if (!parts.length || !parts.every(function (span) { return span.s === 'es'; })) return;
+        SP.speakable(td, parts.map(function (span) { return span.t; }).join(''));
+    }
+
     function renderTable(block) {
         var wrap = SP.el('div', 'sp-table-wrap');
         var table = SP.el('table', 'sp-table');
@@ -67,9 +76,10 @@
                     var td = SP.el('td');
                     if (spans[i] > 1) td.rowSpan = spans[i];
                     SP.renderSpans(tr.appendChild(td), cell);
+                    sayCell(td, cell);
                     return;
                 }
-                SP.renderSpans(tr.appendChild(SP.el('td')), cell);
+                sayCell(SP.renderSpans(tr.appendChild(SP.el('td')), cell), cell);
             });
             tbody.appendChild(tr);
         });
@@ -186,6 +196,8 @@
                 if (line.label) row.appendChild(SP.el('span', 'sp-fork-label', line.label));
                 SP.renderFramed(row.appendChild(SP.el('span', 'sp-fork-es')), line);
                 row.appendChild(SP.el('span', 'sp-fork-ru', line.ru));
+                // A row says its sentence when tapped, as an example line does.
+                if (SP.speakable(row, line.es).dataset.say) row.setAttribute('role', 'button');
                 rows.appendChild(row);
             });
             card.appendChild(rows);
@@ -318,7 +330,7 @@
             if (!cell || !root.contains(cell)) return;
             if (root.classList.contains('is-hiding') && !cell.classList.contains('is-shown')) {
                 cell.classList.add('is-shown');
-                SP.tts.speak(cell.dataset.form);
+                SP.say(cell.dataset.form);
                 return;
             }
             var key = cell.dataset.hl || '';
@@ -328,7 +340,7 @@
                 node.classList.toggle('is-lit', on);
                 node.setAttribute('aria-pressed', on ? 'true' : 'false');
             });
-            SP.tts.speak(cell.dataset.form);
+            SP.say(cell.dataset.form);      // a second tap says it slower
         });
         return root;
     }
@@ -483,12 +495,15 @@
     // all under a word, where the lines are plain text on the full width and
     // the row above them carries the controls. An example of a reading rule
     // says how it sounds, after the Spanish: cena [θэна].
+    // The whole line says its Spanish when tapped (SP.speakable) — the
+    // examples of a reading rule most of all, which exist to be heard.
     SP.exampleLine = function (line, tools) {
         var row = SP.el('div', 'sp-exline');
         var es = SP.renderFramed(row.appendChild(SP.el('div', 'sp-exline-es')), line);
         if (line.sound) es.appendChild(SP.el('span', 'sp-exline-sound', line.sound));
         row.appendChild(SP.el('div', 'sp-exline-ru', line.ru));
         if (tools) row.appendChild(tools);
+        if (SP.speakable(row, line.es).dataset.say) row.setAttribute('role', 'button');
         return row;
     };
 
