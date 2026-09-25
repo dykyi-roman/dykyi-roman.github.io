@@ -6,6 +6,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const vm = require('vm');
 
 const DIR = __dirname;
 const problems = [];
@@ -302,6 +303,74 @@ function wordKey(es) { return es.trim().toLowerCase(); }
 const INFINITIVE = /^[a-záéíóúüñ]*(?:ar|er|ir|ír)(?:se)?$/i;   // the star, not a plus: `ir` is all ending
 const NOT_VERBS = ['ayer'];
 
+// The calculator of Reference spells a typed number in code (SP.spellNumber),
+// while the numbers table spells the same numbers in the file, so the two are
+// held to each other. spanish-core.js reaches the DOM only behind typeof
+// guards, which is what lets it load here as it is.
+const SP = (() => {
+    try {
+        const ctx = { window: {} };
+        vm.createContext(ctx);
+        vm.runInContext(fs.readFileSync(path.join(DIR, '..', 'spanish-core.js'), 'utf8'), ctx);
+        return ctx.window.SP;
+    } catch (e) {
+        fail('spanish-core.js does not load in Node — ' + e.message);
+        return null;
+    }
+})();
+
+// What the table cannot show: the separator read as typed, the zeros after
+// it, the apocope before mil and millones, the scales past a million, the
+// minus, and what is refused.
+const CALC_CASES = [
+    ['10.24', 'diez punto veinticuatro'],
+    ['10,24', 'diez coma veinticuatro'],
+    ['10,05', 'diez coma cero cinco'],
+    ['3,14159', 'tres coma uno cuatro uno cinco nueve'],
+    ['.5', 'cero punto cinco'],
+    ['21000', 'veintiún mil'],
+    ['31000', 'treinta y un mil'],
+    ['101000', 'ciento un mil'],
+    ['21000000', 'veintiún millones'],
+    ['1 000 000', 'un millón'],
+    ['1000000000', 'mil millones'],
+    ['2500000000', 'dos mil quinientos millones'],
+    ['1000000000000', 'un billón'],
+    ['-7', 'menos siete'],
+    ['-0', 'cero'],
+    ['1.2.3', null],
+    ['1000000000000000', null]
+];
+
+// A stage's `calc` is a tile of its Reference: a picture, a name, the table
+// it follows, and an optional note. The words of that table must be what the
+// calculator says for some number, or the tile and the rows beside it teach
+// two spellings.
+function checkCalc(stage, entry, sets) {
+    const calc = stage.calc;
+    const at = entry.file + ' calc';
+    if (!calc || typeof calc !== 'object') { fail(at + ': is not an object'); return; }
+    if (!text(calc.name)) fail(at + ': has no name');
+    if (!text(calc.icon)) fail(at + ': has no icon');
+    if (!text(calc.set) || !sets[calc.set]) fail(at + ': "set" names no set declared in stage.sets');
+    // The tile's open state is keyed by stage and name, as a table's is.
+    if (sets[calc.name]) fail(at + ': its name is also the name of a set');
+    checkBlocks(calc.blocks, at + ' blocks');
+    if (!SP || !sets[calc.set]) return;
+
+    const spelled = {};
+    for (let n = 0; n <= 1000; n++) spelled[SP.spellNumber(String(n)).es] = true;
+    [1e6, 1e9, 1e12].forEach(n => { spelled[SP.spellNumber(String(n)).es] = true; });
+    (stage.items || []).filter(item => item.set === calc.set).forEach(item => {
+        if (!spelled[item.es]) fail(entry.file + ' item ' + item.id + ': "' + item.es + '" is not how the calculator spells any number');
+    });
+    CALC_CASES.forEach(([typed, words]) => {
+        const said = SP.spellNumber(typed);
+        const got = said && said.es !== undefined ? said.es : null;
+        if (got !== words) fail('SP.spellNumber(' + JSON.stringify(typed) + ') is ' + JSON.stringify(got) + ', expected ' + JSON.stringify(words));
+    });
+}
+
 (manifest.stages || []).forEach(entry => {
     ['id', 'prefix', 'no', 'title', 'titleRu', 'url', 'file', 'counts'].forEach(k => {
         if (entry[k] === undefined || entry[k] === null || entry[k] === '') {
@@ -376,6 +445,7 @@ const NOT_VERBS = ['ayer'];
             fail(entry.file + ': set "' + set.name + '" has no icon');
         }
     });
+    if (stage.calc !== undefined) checkCalc(stage, entry, sets);
 
     (stage.items || []).forEach((item, i) => {
         const at = entry.file + ' item ' + (item.id || '#' + i);

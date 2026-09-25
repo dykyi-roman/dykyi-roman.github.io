@@ -672,6 +672,74 @@
         }).filter(Boolean).join(' ');
     };
 
+    /* ---------- a number in words ---------- */
+
+    // Up to 29 a Spanish number is one word of its own (veintidós, not
+    // veinte y dos); from 31 the tens join the units with "y".
+    var NUM_UNITS = ['cero', 'uno', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve',
+        'diez', 'once', 'doce', 'trece', 'catorce', 'quince', 'dieciséis', 'diecisiete', 'dieciocho', 'diecinueve',
+        'veinte', 'veintiuno', 'veintidós', 'veintitrés', 'veinticuatro', 'veinticinco', 'veintiséis',
+        'veintisiete', 'veintiocho', 'veintinueve'];
+    var NUM_TENS = ['', '', '', 'treinta', 'cuarenta', 'cincuenta', 'sesenta', 'setenta', 'ochenta', 'noventa'];
+    var NUM_HUNDREDS = ['', 'ciento', 'doscientos', 'trescientos', 'cuatrocientos', 'quinientos',
+        'seiscientos', 'setecientos', 'ochocientos', 'novecientos'];
+    var NUM_MAX_DIGITS = 15;    // below a thousand billones, and exact in a double
+
+    function numHundreds(n) {
+        if (n < 30) return NUM_UNITS[n];
+        if (n < 100) return NUM_TENS[Math.floor(n / 10)] + (n % 10 ? ' y ' + NUM_UNITS[n % 10] : '');
+        if (n === 100) return 'cien';
+        return NUM_HUNDREDS[Math.floor(n / 100)] + (n % 100 ? ' ' + numHundreds(n % 100) : '');
+    }
+
+    // "uno" loses its end before mil, millones and billones: veintiún mil,
+    // treinta y un millones.
+    function numApocope(words) {
+        return words.replace(/veintiuno$/, 'veintiún').replace(/uno$/, 'un');
+    }
+
+    // A thousand millions is "mil millones": Spanish has no word of its own
+    // for it, and its "billón" is a million millions.
+    function numWhole(n) {
+        if (n < 1000) return numHundreds(n);
+        var scale = n < 1e6 ? [1e3, 'mil', 'mil'] : n < 1e12 ? [1e6, 'un millón', 'millones'] : [1e12, 'un billón', 'billones'];
+        var head = Math.floor(n / scale[0]);
+        var rest = n % scale[0];
+        var words = head === 1 ? scale[1] : numApocope(numWhole(head)) + ' ' + scale[2];
+        return rest ? words + ' ' + numWhole(rest) : words;
+    }
+
+    // After the separator the digits are a number of their own, their
+    // leading zeros read one by one (10,05 — diez coma cero cinco); past three
+    // digits every digit is read alone, as a long decimal is said aloud.
+    function numFraction(digits) {
+        if (digits.length > 3) return digits.split('').map(function (d) { return NUM_UNITS[+d]; }).join(' ');
+        var zeros = /^0*/.exec(digits)[0].length;
+        var words = [];
+        for (var i = 0; i < zeros; i++) words.push('cero');
+        if (zeros < digits.length) words.push(numWhole(+digits.slice(zeros)));
+        return words.join(' ');
+    }
+
+    // A number typed in digits, said in words: {es} for the words, {error}
+    // for what cannot be read (`nan`, or `long` past fifteen digits a side),
+    // null for an empty field. The separator is read as it was typed —
+    // a comma is "coma", as Spain writes it, a point "punto" — and spaces
+    // between the digits are ignored, so "1 000 000" is un millón.
+    SP.spellNumber = function (text) {
+        var typed = String(text || '').replace(/\s+/g, '');
+        if (!typed) return null;
+        var m = /^([-−]?)(\d*)(?:([.,])(\d*))?$/.exec(typed);
+        if (!m || !(m[2] || m[4])) return { error: 'nan' };
+        var whole = m[2].replace(/^0+(?=\d)/, '') || '0';
+        var fraction = m[4] || '';
+        if (whole.length > NUM_MAX_DIGITS || fraction.length > NUM_MAX_DIGITS) return { error: 'long' };
+        var words = numWhole(+whole);
+        if (fraction) words += (m[3] === ',' ? ' coma ' : ' punto ') + numFraction(fraction);
+        if (m[1] && /[1-9]/.test(whole + fraction)) words = 'menos ' + words;
+        return { es: words };
+    };
+
     /* ---------- speech ---------- */
 
     var SVG_NS = 'http://www.w3.org/2000/svg';

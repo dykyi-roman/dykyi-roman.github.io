@@ -130,7 +130,9 @@
     // below the grid and a second tap closes it; `state` is the record of
     // which are out (SP.tables, SP.topics), `what` names the thing a tile
     // opens for its tooltip, and `kind` marks the grid for CSS. `tiles` is
-    // [{key, icon, name, count}], `key` being what the state is asked about.
+    // [{key, icon, name, count, what?, onOpen?}], `key` being what the state
+    // is asked about; a tile that is not a list (the number calculator) has
+    // no count, names itself in `what`, and may act once it is opened.
     // Returns the node and a sync that repaints the tiles from the state, for
     // a grid that stays on the page while what is under it comes and goes.
     SP.tileGrid = function (tiles, opts) {
@@ -140,7 +142,7 @@
             buttons.forEach(function (entry) {
                 var open = opts.state.isOpen(entry.key);
                 entry.tile.setAttribute('aria-expanded', open ? 'true' : 'false');
-                entry.tile.title = (open ? 'Hide' : 'Show') + ' the ' + opts.what;
+                entry.tile.title = (open ? 'Hide' : 'Show') + ' the ' + entry.what;
             });
         }
         tiles.forEach(function (entry) {
@@ -153,12 +155,16 @@
             // and the syllable breaks of `hyphens: auto` follow the language.
             if (/[\u0400-\u04FF]/.test(entry.name)) name.lang = 'ru';
             tile.appendChild(name);
+            // Empty, the count still holds its line (CSS), so the chevron
+            // stands level with its neighbours'.
             tile.appendChild(SP.el('span', 'sp-tile-count', entry.count));
             tile.appendChild(SP.icon.chevron());
             tile.addEventListener('click', function () {
-                opts.state.setOpen(entry.key, !opts.state.isOpen(entry.key));
+                var open = !opts.state.isOpen(entry.key);
+                opts.state.setOpen(entry.key, open);
+                if (open && entry.onOpen) entry.onOpen();
             });
-            buttons.push({ key: entry.key, tile: tile });
+            buttons.push({ key: entry.key, tile: tile, what: entry.what || opts.what });
             grid.appendChild(tile);
         });
         paint();
@@ -170,6 +176,11 @@
     // a page of a long list is never spent on them — which is why the list
     // rebuilds, grid and all, on every tap. `items` are the Reference rows of
     // one stage, already through SP.orderBySet, so every table is one run.
+    //
+    // A stage that declares a `calc` gets one more tile, right after the table
+    // it belongs to (`calc.set`): not a table but a field that spells a typed
+    // number out in words. It opens between the grid and the tables' rows, so
+    // what comes back is a block holding both, not the bare grid.
     SP.setTiles = function (items) {
         var tables = [];
         items.forEach(function (item) {
@@ -177,8 +188,83 @@
             if (last && last.key.set === item.set) { last.count++; return; }
             tables.push({ key: item, icon: item.setIcon, name: item.set, count: 1 });
         });
-        return SP.tileGrid(tables, { state: SP.tables, what: 'table' }).node;
+        var stage = items.length ? SP.stages[items[0].stageId] : null;
+        var calc = stage && stage.calc;
+        var block = SP.el('div', 'sp-set-tiles');
+        if (!calc) {
+            block.appendChild(SP.tileGrid(tables, { state: SP.tables, what: 'table' }).node);
+            return block;
+        }
+        // Keyed like a table, by stage and name; verify.js keeps the name off
+        // the stage's sets, so the two never share a state.
+        var key = { stage: stage.no, set: calc.name };
+        var at = tables.map(function (t) { return t.name; }).indexOf(calc.set);
+        tables.splice(at === -1 ? tables.length : at + 1, 0, {
+            key: key, icon: calc.icon, name: calc.name, what: 'calculator',
+            // The tile is tapped to type into the field, so it takes the focus.
+            onOpen: function () {
+                var input = document.querySelector('.sp-calc-input');
+                if (input) input.focus();
+            }
+        });
+        block.appendChild(SP.tileGrid(tables, { state: SP.tables, what: 'table' }).node);
+        if (SP.tables.isOpen(key)) block.appendChild(calcPanel(calc));
+        return block;
     };
+
+    // What was typed into the calculator, kept for the page load: the list
+    // rebuilds on every tile tap, and opening a table beside the field should
+    // not empty it.
+    var calcTyped = '';
+    var CALC_ERROR = {
+        nan: 'Digits only, with one point or comma',
+        long: 'Up to 15 digits on each side of the point'
+    };
+
+    // The field and what it says: the words in bold, their sound in orange
+    // under them, and a tap on the line says them aloud (slower on a second
+    // tap), as a line of examples does. The words and the sound are worked
+    // out as the reader types — SP.spellNumber and SP.translit — so nothing
+    // of it is stored.
+    function calcPanel(calc) {
+        var box = SP.el('div', 'sp-calc');
+        var input = SP.el('input', 'sp-search sp-calc-input');
+        input.type = 'text';
+        // The phone's number pad, with the separator of its own locale —
+        // a comma or a point, and the words follow whichever it is.
+        input.inputMode = 'decimal';
+        input.autocomplete = 'off';
+        input.spellcheck = false;
+        input.placeholder = '10.24';
+        input.setAttribute('aria-label', 'A number in digits');
+        input.value = calcTyped;
+        var out = SP.el('div', 'sp-calc-out');
+        out.setAttribute('aria-live', 'polite');
+
+        function paint() {
+            calcTyped = input.value;
+            SP.clear(out);
+            var said = SP.spellNumber(input.value);
+            if (!said) return;
+            if (said.error) { out.appendChild(SP.el('div', 'sp-calc-error', CALC_ERROR[said.error])); return; }
+            var line = SP.el('div', 'sp-calc-line');
+            line.appendChild(SP.el('span', 'sp-calc-es', said.es));
+            line.appendChild(SP.el('span', 'sp-calc-tr', SP.translit(said.es)));
+            if (SP.speakable(line, said.es).dataset.say) line.setAttribute('role', 'button');
+            out.appendChild(line);
+        }
+        input.addEventListener('input', paint);
+        paint();
+
+        box.appendChild(input);
+        box.appendChild(out);
+        if (calc.blocks) {
+            var note = SP.el('div', 'sp-calc-note');
+            SP.renderBlocks(note, calc.blocks);
+            box.appendChild(note);
+        }
+        return box;
+    }
 
     // `slot` is where the mark goes when it is not the row itself: a lexicon
     // row keeps it at the head of its first line, beside the Spanish, so the
@@ -210,13 +296,17 @@
     // rule does: the chevron sits at the far edge of the card, and reaching
     // for it word after word was a chore. On a covered row that is still the
     // reveal — opening shows the hidden side and closing hides it again (see
-    // SP.setDrawerOpen) — with the examples and the forms beside it. A row
-    // with no drawer, a drill, keeps the plain reveal. Another control in the
+    // SP.setDrawerOpen) — with the examples and the forms beside it. A learned
+    // word is the exception: it is there to be recalled, so its tap is the
+    // plain reveal and the drawer waits for the chevron; once the chevron has
+    // opened it, a tap closes it and covers the word again. A row with no
+    // drawer, a drill, keeps the plain reveal too. Another control in the
     // row keeps its own tap, a tap inside the open drawer is the drawer's, and
     // a drag that selected some text is not a tap at all.
     function attachReveal(row) {
         function toggle() {
-            if (row.querySelector('.sp-drawer-toggle')) {
+            var recall = row.classList.contains('is-learned') && !row.classList.contains('is-open');
+            if (!recall && row.querySelector('.sp-drawer-toggle')) {
                 SP.setDrawerOpen(row, !row.classList.contains('is-open'));
                 return true;
             }
@@ -291,8 +381,8 @@
     // Opening also reveals the row, and closing covers it again. The examples
     // spell out the Spanish and the Russian alike, so leaving the word itself
     // under a bar would be hiding an answer that is already on the screen; and
-    // since a tap on the row opens the drawer, the same tap has to be the way
-    // back to the covered side.
+    // since a tap on the row opens the drawer (on any row but a learned one),
+    // the same tap has to be the way back to the covered side.
     SP.setDrawerOpen = function (row, on) {
         if (!on && !row.classList.contains('is-open')) return;
         var btn = row.querySelector('.sp-drawer-toggle');
@@ -746,7 +836,8 @@
         row.appendChild(SP.rowTools(item.es, 'word', ex && ex.button));
         if (ex) {
             row.appendChild(ex.drawer);
-            // The whole card opens the drawer (attachReveal), so it takes the pointer.
+            // The whole card opens the drawer (attachReveal), so it takes the
+            // pointer — on a learned word it reveals instead, but a tap is a tap.
             row.classList.add('is-toggle');
         }
         // The mark leads a word's first line, inside its head; a pair keeps it

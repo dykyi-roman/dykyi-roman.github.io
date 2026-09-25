@@ -376,7 +376,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 /* The line that owns a drawer opens it wherever it is tapped — a rule's line,
    the key's heading, a pattern's head, a word's whole card — so it takes the
    pointer, and under one the chevron at its end lights up to say what the tap
-   will do. */
+   will do. A learned word's tap only reveals it, so its chevron stays quiet. */
 .is-toggle {
     cursor: pointer;
     touch-action: manipulation;
@@ -385,7 +385,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 @media (hover: hover) {
     .is-toggle:hover > .sp-drawer-toggle,
-    .sp-lex-row.is-toggle:hover > .sp-tools > .sp-drawer-toggle { color: var(--color-primary); border-color: var(--color-primary); }
+    .sp-lex-row.is-toggle:not(.is-learned):hover > .sp-tools > .sp-drawer-toggle { color: var(--color-primary); border-color: var(--color-primary); }
 }
 
 /* ---------- the row's two head buttons, and the divider ---------- */
@@ -936,6 +936,9 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
    are one height, and a topic's name runs to three lines where a table's
    runs to one, so left where the name ends they sat at as many heights. */
 .sp-tile-count { margin-top: auto; color: var(--color-text-light); font-size: 0.75rem; }
+/* A tile with nothing to count (the calculator) keeps the line all the same,
+   or its chevron would stand a line above its neighbours'. */
+.sp-tile-count:empty::before { content: "\00a0"; }
 .sp-tile .sp-chevron { width: 12px; height: 12px; color: var(--color-text-light); }
 /* Down while folded, since it opens below the grid; up once it is out. */
 .sp-tile[aria-expanded="true"] .sp-chevron { transform: rotate(180deg); }
@@ -945,6 +948,37 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
    table's name is one word. */
 @media (min-width: 700px) {
     .sp-tile-grid.is-topic { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+}
+
+/* The calculator a tile of Reference opens (SP.setTiles): a card under the
+   grid, above the tables' rows, holding the field, the number in words — in
+   the lexicon's own weight and colours, the sound in orange and in its
+   brackets, as under a word — and the note on how the separator is read. */
+.sp-calc {
+    display: grid;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-info);
+    border-radius: 8px;
+    background: var(--color-white);
+}
+
+.sp-calc > * { min-width: 0; }
+.sp-calc-input { width: 100%; }
+.sp-calc-out:empty { display: none; }
+.sp-calc-line { padding: 2px 4px; }
+.sp-calc-es { display: block; font-size: 1.15rem; font-weight: 600; color: var(--color-heading); overflow-wrap: anywhere; }
+.sp-calc-tr { display: block; font-size: var(--font-size-small); color: var(--color-primary); overflow-wrap: anywhere; }
+.sp-calc-tr::before { content: "("; }
+.sp-calc-tr::after { content: ")"; }
+.sp-calc-error { color: var(--color-text-light); font-size: var(--font-size-small); }
+.sp-calc-note { color: var(--color-text-light); font-size: var(--font-size-small); }
+.sp-calc-note > :last-child { margin-bottom: 0; }
+
+@media (hover: hover) {
+    .sp-calc-line[data-say]:hover .sp-calc-es { text-decoration: underline dotted; text-underline-offset: 3px; }
 }
 
 /* The list a found row belongs to, worn by the row itself — a search can put
