@@ -52,6 +52,7 @@
     var prefs = { v: 1, stage: saved.stage || 'all', dir: saved.dir || 'es-ru', voice: saved.voice !== false };
     var currentMode = MODES[0];
     var booted = false;     // the first mode is on screen; from here a switch may scroll
+    var pageBar = null;     // SP.tuckBar's handle on the sticky bar
     var manifest = null;
     var pool = [];          // studyable items of the selected stages
     var allItems = [];      // everything, drills included (browse)
@@ -253,6 +254,8 @@
         // already past it. Not on the first draw, which is the browser's own
         // restoring of where the page was.
         if (booted) SP.jumpTo(byId('panel-' + mode), STUDY_MODES[mode] ? { tuck: true } : { ifPast: true });
+        // Left tucked by a study mode, the bar comes back without a scroll.
+        if (pageBar) pageBar.refresh();
     }
 
     /* ---------- flashcards ---------- */
@@ -1609,7 +1612,12 @@
         initListenControls();
         initVoiceControls();
         initBrowseControls();
-        SP.tuckBar(root.querySelector('.sp-bar'));
+        // On a phone the bar steps away in a study mode alone, where the card
+        // or the question needs the screen; Browse, the rules and the patterns
+        // are read down a long page and keep it pinned.
+        pageBar = SP.tuckBar(root.querySelector('.sp-bar'), {
+            tuck: function () { return !!STUDY_MODES[currentMode]; }
+        });
 
         // The learned list and the verb forms are both wanted before the first
         // row is drawn and belong to no stage, so they ride with the manifest.

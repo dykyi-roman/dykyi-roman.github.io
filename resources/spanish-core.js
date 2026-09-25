@@ -812,7 +812,9 @@
     // leave its height as a gap above the heading, and a jump up would bring it
     // back over the heading. One bar per page, and SP.jumpTo works through it.
     // `{tuck: false}` keeps the bar stuck on a phone as well: a stage page's
-    // bar is the index of the page, and a reader expects it to stay put.
+    // bar is the index of the page, and a reader expects it to stay put. A
+    // function asks the page each time instead — the hub's bar steps away in
+    // its study modes alone, and refresh() re-reads the answer once it changes.
     var TUCK_AFTER = 24;    // px travelled down before the bar steps away
     var SHOW_AFTER = 12;    // px travelled up before it is back
     var HOLD_QUIET = 150;   // ms without scrolling that end a jump where scrollend is unknown
@@ -822,8 +824,9 @@
     SP.tuckBar = function (bar, opts) {
         if (!bar || !bar.parentNode) return null;
         var html = document.documentElement;
-        var canTuck = !(opts && opts.tuck === false);
-        var phone = canTuck && window.matchMedia ? window.matchMedia('(max-width: 699px), (max-height: 500px)') : null;
+        var tuck = opts && opts.tuck !== undefined ? opts.tuck : true;
+        var canTuck = typeof tuck === 'function' ? tuck : function () { return !!tuck; };
+        var phone = tuck && window.matchMedia ? window.matchMedia('(max-width: 699px), (max-height: 500px)') : null;
         var hasScrollEnd = 'onscrollend' in window;
 
         // Where the bar would stand if it did not stick: once this line has
@@ -841,7 +844,7 @@
         var queued = false;
 
         function publish() { html.style.setProperty('--sp-bar-h', bar.offsetHeight + 'px'); }
-        function mayTuck() { return !!(phone && phone.matches); }
+        function mayTuck() { return !!(phone && phone.matches && canTuck()); }
         function isStuck() { return line.getBoundingClientRect().top < 0; }
 
         function setTucked(on) {
@@ -922,7 +925,8 @@
         pageBar = {
             hold: hold,
             height: function () { return bar.offsetHeight; },
-            mayTuck: mayTuck
+            mayTuck: mayTuck,
+            refresh: queue
         };
         return pageBar;
     };
