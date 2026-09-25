@@ -177,7 +177,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-panel[hidden] { display: none !important; }
 
-/* The rules renderer brings its own .sp-bar. Inside a panel the hub's own bar
+/* The patterns panel brings its own .sp-bar. Inside a panel the hub's own bar
    is already sticky at the top, so the nested one stays put instead of
    fighting it for the same strip of screen. */
 .sp-panel .sp-bar { position: static; border-bottom: 0; margin-bottom: var(--spacing-sm); }
@@ -240,9 +240,9 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
    used to carry four, a speaker per half among them, laid out two by two. */
 .sp-tools { display: flex; align-items: center; gap: 4px; }
 
-/* The chevron that opens a word's usage examples — the same 44px square as
-   the ask link, so the two corners of a phone card carry the same shape. It
-   was narrower while the two sat side by side on the text's line. */
+/* The chevron that opens the examples — of a word, a line of a rule or a
+   pattern — and the key of the rules page. The same 44px square as the ask
+   link, so the two corners of a phone card carry the same shape. */
 .sp-drawer-toggle {
     flex: 0 0 auto;
     width: 44px;
@@ -373,9 +373,8 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-pat.is-pinned { border-left: 3px solid var(--color-primary); }
 .sp-group.is-pinned > .sp-group-title { border-bottom-color: var(--color-primary); }
 
-/* A dashed line with a label between its two halves: the head of a rules
-   table's fold (a button — the line is its own touch target), the seams
-   inside a list (is-sub) and the head of a search zone (is-zone). */
+/* A dashed line with a label between its two halves: the seams inside a list
+   (is-sub) and the head of a search zone (is-zone). */
 .sp-divider {
     display: flex;
     align-items: center;
@@ -478,7 +477,6 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     transition: transform var(--transition-fast);
 }
 
-.sp-divider[aria-expanded="false"] .sp-chevron,
 .sp-drawer-toggle[aria-expanded="false"] .sp-chevron { transform: rotate(-90deg); }
 
 /* An entry in one of the two top sections keeps its Spanish at full strength
@@ -561,16 +559,25 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 
 .sp-group-title span { color: var(--color-text-light); font-weight: normal; font-size: var(--font-size-small); }
 
-/* Only a heading that carries the pin becomes a row — the title, the ★ badge
-   where there is one, then the pin against the right edge. Every other
-   heading stays the plain block it is. */
-.sp-group-title.has-pin {
+/* Only a heading that carries a control becomes a row. The pin leads it, as
+   it leads a learned word in the lists — the end of the line is where the
+   chevrons of the lines below stand — then the title and the ★ badge where
+   there is one. The pin is drawn narrower than its 44px height and pulled
+   into the margin, so its glyph stands on the text's left edge and the title
+   moves over by little more than the glyph. The key's heading ends in the
+   chevron that opens its table. Every other heading stays a plain block. */
+.sp-group-title.has-pin,
+.sp-group-title.has-toggle {
     display: flex;
     align-items: center;
     gap: var(--spacing-xs);
 }
 
-.sp-group-title.has-pin .sp-pin { margin-left: auto; }
+.sp-group-title.has-pin .sp-pin { width: 32px; margin-left: -6px; }
+/* The title of a pinned heading is a span so the star can ride inside it; it
+   keeps the heading's own type, which the rule for spans above would take. */
+.sp-group-title .sp-group-name { min-width: 0; color: inherit; font-weight: inherit; font-size: inherit; }
+.sp-group-title.has-toggle .sp-drawer-toggle { margin-left: auto; }
 
 .sp-lex { display: flex; flex-direction: column; gap: var(--spacing-xs); }
 
@@ -884,10 +891,10 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 /* ---------- patterns (the hub's Patterns panel) ---------- */
 
 /* One formula per card, the cards of a theme stacked in a .sp-lex: the formula
-   and the meaning, the trap where there is one, then the two examples under a
-   dashed rule. On a phone an example stacks its Spanish over its Russian; from
-   700px up the two stand side by side (see the block at the end), the way an
-   example row of the lists reads. */
+   and the meaning, the trap where there is one, then the two examples, folded
+   behind the chevron at the end of the head and opening under a dashed rule.
+   On a phone an example stacks its Spanish over its Russian; from 700px up the
+   two stand side by side (see the block at the end). */
 .sp-pat {
     display: grid;
     gap: var(--spacing-xs);
@@ -897,7 +904,19 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
     background: var(--color-white);
 }
 
+/* The head is one line of three: the pin leading, as it leads a learned word,
+   the formula and its meaning in the middle — wrapping there and nowhere
+   else, so the pin can no longer fall to a line of its own on a phone — and
+   the chevron of the examples closing the line. */
 .sp-pat-head {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.sp-pat-main {
+    flex: 1 1 auto;
+    min-width: 0;
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -915,13 +934,11 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-pat-ru { color: var(--color-heading); overflow-wrap: anywhere; }
 .sp-pat-ru::before { content: "→"; margin-right: 6px; color: var(--color-text-light); }
 
-/* The ★ badge sits at the far end of the card's head, and the pin closes
-   the line after it. With no badge there, the pin takes the free space
-   itself. The head aligns on the baseline, which a 44px button has no business
-   sitting on. */
-.sp-pat-head .sp-badge { margin-left: auto; }
-.sp-pat-head .sp-pin { margin-left: auto; align-self: center; }
-.sp-pat-head .sp-badge + .sp-pin { margin-left: var(--spacing-xs); }
+/* The ★ badge sits at the far end of the text, before the chevron. The pin is
+   drawn narrow and pulled into the padding, so its glyph stands on the edge
+   the trap and the examples start from. */
+.sp-pat-main .sp-badge { margin-left: auto; }
+.sp-pat-head .sp-pin { width: 32px; margin-left: -6px; }
 
 /* A card is a link target of the top list, so it clears the sticky bar. */
 .sp-pat[id] { scroll-margin-top: 96px; }
@@ -1222,14 +1239,61 @@ td.sp-forms-person { padding: 8px 10px; }
 /* ключ правила объединён на все свои строки-примеры */
 .sp-table td[rowspan] { vertical-align: middle; }
 
-/* A rule's table of examples, folded away behind the same dashed divider the
-   lists fold their Learned block with — the head is a .sp-divider, so it takes
-   the line, the chevron and the rotation from there and only the spacing
-   around the pair is set here. The prose states the rule and the table is the
-   taller half of the section; folded, a rules page reads as the rules. */
-.sp-fold { margin: 0 0 var(--spacing-sm); }
-.sp-fold-body { margin-top: var(--spacing-xs); }
-.sp-fold-body .sp-table-wrap { margin-bottom: 0; }
+/* ---------- a rule's lines and their examples ---------- */
+
+/* A list whose lines keep examples is a column of rows: a line of the rule,
+   the chevron at its end, a dashed seam under it — so every chevron plainly
+   belongs to the text beside it. A ul keeps the site's reset, no bullet and
+   no indent; an ol keeps its numbers. */
+.sp-rules { margin: 0 0 var(--spacing-sm); }
+ol.sp-rules { padding-left: 1.5em; }
+.sp-rules > .sp-rule { border-bottom: 1px dashed var(--color-border); }
+.sp-rules > .sp-rule:last-child { border-bottom: 0; }
+
+.sp-rule-head {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    min-height: 44px;
+    padding: 2px 0;
+}
+
+.sp-rule-text { flex: 1 1 auto; min-width: 0; margin: 0; }
+
+/* A paragraph that keeps examples stands alone, with a paragraph's margin. */
+div.sp-rule { margin: 0 0 var(--spacing-sm); }
+
+/* Open, the examples hang under their line on a thin rule of their own, set
+   in from the text so they read as its illustration. The dashed top the
+   drawer has under a word would only double the seam between two lines. */
+.sp-rule > .sp-drawer {
+    border-top: 0;
+    border-left: 2px solid var(--color-border);
+    padding: 2px 0 2px var(--spacing-sm);
+    margin: 0 0 var(--spacing-sm) var(--spacing-xs);
+}
+
+/* The case a run of examples illustrates — -ar, ser, «Перед глаголом» —
+   as a caption over the run. */
+.sp-exline-label {
+    margin-top: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-info);
+}
+.sp-drawer > .sp-exline-label:first-child { margin-top: 0; }
+
+/* An example of a rule reads the way a word of the lists does: the Spanish in
+   the heavier type, and how it sounds after it in the site's orange, as the
+   transcription of a word is. The brackets are drawn, as the lexicon's are:
+   the JSON holds the sound alone. */
+.sp-rule .sp-exline-es { font-weight: 600; }
+.sp-exline-sound { margin-left: 6px; font-size: var(--font-size-small); font-weight: 400; color: var(--color-primary); }
+.sp-exline-sound::before { content: "["; }
+.sp-exline-sound::after { content: "]"; }
+
+/* The key to the transcription opens as its table alone. */
+.sp-key > .sp-drawer { display: block; padding-top: 0; border-top: 0; }
 
 /* ---------- rules diagrams: fork ---------- */
 
@@ -1347,77 +1411,67 @@ td.sp-forms-person { padding: 8px 10px; }
     .sp-conj.is-picky[data-pick="4"] :is(.sp-c0, .sp-c1, .sp-c2, .sp-c3) { display: none; }
 }
 
-/* ---------- rules diagrams: the time axis ---------- */
+/* ---------- the map of the rules ---------- */
 
-.sp-axis { display: grid; grid-template-columns: 1fr; gap: var(--spacing-md); margin-bottom: var(--spacing-md); }
+/* The way into the rules, which carry no chip index of their own. A layer is
+   a short column of links, and the layers flow into as many columns as the
+   width holds — three on a laptop, one on a phone — so the whole map is one
+   glance rather than a wall of tiles. A layer never breaks across columns. */
+.sp-map { columns: 3 15rem; column-gap: var(--spacing-lg); }
 
-.sp-axis-zone {
-    --sp-accent: var(--color-primary);
-    position: relative;
-    border: 1px solid var(--color-border);
-    border-top: 3px solid var(--sp-accent);
-    border-radius: 8px;
-    padding: var(--spacing-sm) var(--spacing-md);
-    background: var(--color-white);
-}
-
-/* The past is quiet, now is lit, ahead is cool. */
-.sp-axis-zone:nth-child(1) { --sp-accent: var(--color-text-light); }
-.sp-axis-zone:nth-child(2) { --sp-accent: var(--color-primary); }
-.sp-axis-zone:nth-child(3) { --sp-accent: var(--color-info); }
-
-/* Stacked, the zones are joined downwards; side by side, rightwards. */
-.sp-axis-zone:not(:last-child)::after {
-    content: "\2193";
-    position: absolute;
-    left: 50%;
-    bottom: calc(-1 * var(--spacing-md));
-    transform: translateX(-50%);
-    color: var(--color-text-light);
-    line-height: var(--spacing-md);
-}
-
-.sp-axis-title { color: var(--sp-accent); font-weight: 600; }
-.sp-axis-items { display: grid; gap: var(--spacing-xs); margin-top: var(--spacing-sm); }
-
-.sp-axis-item {
-    display: block;
-    border-left: 2px solid var(--sp-accent);
+.sp-map-layer {
+    --sp-accent: var(--color-info);
+    break-inside: avoid;
+    border-left: 3px solid var(--sp-accent);
     padding-left: var(--spacing-sm);
-    font-weight: 400;
+    margin-bottom: var(--spacing-md);
 }
 
-a.sp-axis-item::after { content: none; }
-a.sp-axis-item:hover .sp-axis-es { color: var(--color-primary); }
-.sp-axis-es { display: block; color: var(--color-heading); overflow-wrap: anywhere; }
-.sp-axis-ru { display: block; font-size: var(--font-size-small); color: var(--color-text-light); }
-/* Not taught here yet: dashed and dimmed, and not a link. */
-.sp-axis-item.is-next { border-left-style: dashed; opacity: 0.65; }
-
-/* ---------- rules diagrams: the map of the rules ---------- */
-
-.sp-map { display: grid; gap: var(--spacing-md); }
-.sp-map-layer { --sp-accent: var(--color-info); border-left: 3px solid var(--sp-accent); padding-left: var(--spacing-sm); }
-
-/* The three verb layers share one accent, so they read as one block; the last
-   layer is quiet because it is what these rules do not teach yet. */
+/* The three verb layers share one accent, so they read as one block. */
 .sp-map-layer:nth-child(2) { --sp-accent: var(--color-success); }
 .sp-map-layer:nth-child(3),
 .sp-map-layer:nth-child(4),
 .sp-map-layer:nth-child(5) { --sp-accent: var(--color-primary); }
 .sp-map-layer:nth-child(7) { --sp-accent: var(--color-success); }
-.sp-map-layer:last-child { --sp-accent: var(--color-text-light); }
 
-.sp-map-title { color: var(--color-heading); font-weight: 600; }
-.sp-map-hint { color: var(--color-text-light); font-size: var(--font-size-small); }
-/* Tiles wrap onto as many lines as they need: a strip that scrolled sideways
-   would hide half the map behind a gesture nobody makes on an overview. */
-.sp-map-tiles { display: flex; flex-wrap: wrap; gap: var(--spacing-xs); margin-top: var(--spacing-xs); }
+.sp-map-title { color: var(--color-heading); font-weight: 600; font-size: var(--font-size-small); line-height: 1.3; }
+.sp-map-hint { color: var(--color-text-light); font-size: 0.8rem; line-height: 1.3; margin-bottom: 2px; }
 
-.sp-map-tile { justify-content: flex-start; text-align: left; padding: 6px 10px; max-width: 100%; }
-/* A chip of the index is one ellipsed line; a tile of the map is a title. */
-.sp-map-tile .sp-chip-label { max-width: none; overflow: visible; text-overflow: clip; white-space: normal; }
-.sp-map-no { color: var(--color-text-light); font-size: var(--font-size-small); }
+/* A link is a line: the number in a column of its own, so the titles start
+   level, then the title and its star. No box around it — the hover lights the
+   line, and the whole line is the target. It sheds what the site gives every
+   link — the drawn underline, the visited colour, the dashed focus ring — as
+   the ask link does. */
+.sp-map-link {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 3px 6px;
+    margin-left: -6px;
+    border-radius: 6px;
+    color: var(--color-text);
+    font-size: var(--font-size-small);
+    font-weight: 400;
+    line-height: 1.35;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+.sp-map-link::after { content: none; }
+.sp-map-link:visited { color: var(--color-text); }
+.sp-map-link:hover {
+    color: var(--color-primary);
+    background: var(--color-background);
+    background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+.sp-map-link:focus:not(:focus-visible) { outline: none; }
+.sp-map-link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 0; }
+.sp-map-no { flex: 0 0 1.4em; text-align: right; color: var(--color-text-light); font-variant-numeric: tabular-nums; }
+.sp-map-name { min-width: 0; overflow-wrap: anywhere; }
+.sp-map-name .sp-badge { margin-left: 6px; }
+
+/* A finger needs a taller line than a pointer does; the map stays a list. */
+@media (pointer: coarse) {
+    .sp-map-link { padding-top: 7px; padding-bottom: 7px; }
+}
 
 /* ---------- excluded list ---------- */
 
@@ -1749,17 +1803,6 @@ a.sp-axis-item:hover .sp-axis-es { color: var(--color-primary); }
     /* An example of a pattern reads like an example row of the lists: the
        Spanish and the Russian side by side, the speak button after them. */
     .sp-conj-chips { display: none; }
-    .sp-axis { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .sp-axis-zone:not(:last-child)::after {
-        content: "\2192";
-        left: auto;
-        right: calc(-1 * var(--spacing-md));
-        bottom: auto;
-        top: 50%;
-        transform: translateY(-50%);
-        width: var(--spacing-md);
-        text-align: center;
-    }
     .sp-fork-cols { grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); grid-template-rows: auto auto 1fr; }
     /* Side by side, a hint that runs to two lines in one branch and one in
        another pushes their examples out of step. Subgrid puts head, hint and

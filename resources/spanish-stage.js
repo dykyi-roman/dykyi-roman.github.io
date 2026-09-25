@@ -1,9 +1,10 @@
 /* Renders the Spanish reference pages from JSON:
    - a stage page when #sp-root carries data-stage="N"
    - the phonetics/grammar page when it carries data-rules
-   Both get a sticky two-row chip index that stays put on a phone instead of
-   collapsing into a floating overlay; the index and the rules renderer itself
-   live in spanish-core.js, because the hub renders the rules in a tab too.
+   A stage page gets a sticky two-row chip index that stays put on a phone
+   instead of collapsing into a floating overlay; the rules page gets none —
+   its map is the way in. The index and the rules renderer itself live in
+   spanish-prose.js, because the hub renders the rules in a tab too.
    Every list on a stage page — words, live examples and drills alike — is split
    into Reference, Learned, Pending and the rest, and every row below the first
    two carries the pending checkbox. Only a stage whose words belong to sets
@@ -460,7 +461,7 @@
 
         if (root.dataset.rules !== undefined) {
             SP.loadRules().then(function (rules) {
-                SP.renderRules(root, rules, { mainOnly: root.dataset.index === 'sections' });
+                SP.renderRules(root, rules);
             }).catch(function (e) { SP.showError('sp-error', e); });
             return;
         }

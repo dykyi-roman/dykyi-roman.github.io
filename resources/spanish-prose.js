@@ -78,45 +78,76 @@
         return wrap;
     }
 
-    // A rule states itself in the prose above and shows itself in the table
-    // below. The table is open on arrival — the examples are what the rule is
-    // read for, and a page that hides them asks for a tap before it teaches
-    // anything — and folds away behind one dashed line for whoever is scanning
-    // the rules rather than reading one. It is the same fold the lists give
-    // their Learned block, down to the divider and the chevron. The state is
-    // not remembered: a rules section is read through once, not worked with
-    // over days like a list of words, so there is nothing here worth keeping.
-    // The captions come from rules.tables, because no Russian word belongs in
-    // this file.
-    var foldSeq = 0;
+    /* ---------- what waits behind a chevron ---------- */
 
-    function foldedTable(block, captions) {
-        var box = SP.el('div', 'sp-fold');
-        var body = SP.el('div', 'sp-fold-body');
-        body.id = 'sp-fold-' + (foldSeq += 1);
-        body.appendChild(renderTable(block));
+    // A rule states itself in a line and keeps its examples under that line,
+    // out of sight until the chevron at the line's end is pressed — the drawer
+    // a word opens in the lists, down to the button and its titles. A rule is
+    // read for what it says; a page that showed every example at once was a
+    // wall of tables between one rule and the next, and on a phone each of
+    // them scrolled sideways. The state is not remembered: a rules section is
+    // read through, not worked with over days like a list of words.
+    //
+    // `box` gets the drawer after everything already in it, and is-open while
+    // the drawer is out; `head` gets the chevron at its end; `fill` puts in
+    // what the drawer holds, and `what` names it for the button. The drawer is
+    // filled at once rather than on the first open: a rules page holds a couple
+    // of hundred short lines, and a page drawn whole can still be searched and
+    // printed from the browser.
+    var drawerSeq = 0;
 
-        var head = SP.el('button', 'sp-divider sp-fold-head');
-        head.type = 'button';
-        head.setAttribute('aria-controls', body.id);
-        head.appendChild(SP.icon.chevron());
-        head.appendChild(SP.el('span', 'sp-divider-label',
-            captions.label + ' \u00b7 ' + (block.rows || []).length));
+    SP.drawer = function (box, head, fill, what) {
+        var drawer = SP.el('div', 'sp-drawer');
+        drawer.id = 'sp-drawer-x' + (drawerSeq += 1);
+        drawer.hidden = true;
+        fill(drawer);
 
-        function label(open) {
-            head.setAttribute('aria-expanded', open ? 'true' : 'false');
-            head.title = open ? captions.hide : captions.show;
+        var btn = SP.el('button', 'sp-drawer-toggle');
+        btn.type = 'button';
+        btn.setAttribute('aria-controls', drawer.id);
+        btn.appendChild(SP.icon.chevron());
+
+        function sync(open) {
+            var label = (open ? 'Hide ' : 'Show ') + what;
+            btn.title = label;
+            btn.setAttribute('aria-label', label);
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+            box.classList.toggle('is-open', open);
         }
-        label(true);
+        sync(false);
 
-        head.addEventListener('click', function () {
-            var open = body.hidden;
-            body.hidden = !open;
-            label(open);
+        btn.addEventListener('click', function () {
+            var open = drawer.hidden;
+            drawer.hidden = !open;
+            sync(open);
         });
 
-        box.appendChild(head);
-        box.appendChild(body);
+        head.appendChild(btn);
+        box.appendChild(drawer);
+        return drawer;
+    };
+
+    // The examples of one line. A line may carry a label — the case a run of
+    // examples illustrates (-ar, ser, «Перед глаголом») — drawn once, above
+    // the run it opens.
+    SP.exampleDrawer = function (box, head, lines) {
+        return SP.drawer(box, head, function (drawer) {
+            (lines || []).forEach(function (line) {
+                if (line.label) drawer.appendChild(SP.el('div', 'sp-exline-label', line.label));
+                drawer.appendChild(SP.exampleLine(line));
+            });
+        }, 'the examples');
+    };
+
+    // A line of a rule: its text, the chevron at the end of it when it has
+    // examples, and the drawer under both. A list any of whose lines carries
+    // examples draws every line this way, so a line without them keeps the
+    // shape of its neighbours and simply has no button.
+    function ruleLine(tag, textTag, spans, lines) {
+        var box = SP.el(tag, 'sp-rule');
+        var head = box.appendChild(SP.el('div', 'sp-rule-head'));
+        SP.renderSpans(head.appendChild(SP.el(textTag, 'sp-rule-text')), spans);
+        if (lines && lines.length) SP.exampleDrawer(box, head, lines);
         return box;
     }
 
@@ -290,53 +321,32 @@
         return root;
     }
 
-    // The time axis: past, now and ahead, one verb across all of them. An item
-    // either points at the section that teaches it or is marked as still to
-    // come — never both, so the reader sees at a glance where the ground ends.
-    function axisBlock(block) {
-        var root = SP.el('div', 'sp-axis');
-        (block.zones || []).forEach(function (zone) {
-            var box = SP.el('div', 'sp-axis-zone');
-            box.appendChild(SP.el('div', 'sp-axis-title', zone.title));
-            var items = SP.el('div', 'sp-axis-items');
-            (zone.items || []).forEach(function (item) {
-                var node = item.ref ? SP.el('a', 'sp-axis-item') : SP.el('div', 'sp-axis-item is-next');
-                if (item.ref) node.href = '#' + item.ref;
-                node.appendChild(SP.el('span', 'sp-axis-es', item.es));
-                node.appendChild(SP.el('span', 'sp-axis-ru', item.ru));
-                items.appendChild(node);
-            });
-            box.appendChild(items);
-            root.appendChild(box);
-        });
-        return root;
-    }
-
-    // opts.tables, when given, folds every table away behind a divider that
-    // its three captions name. Only the rules pass it: a note or a stage's
-    // intro is short enough to read whole.
-    SP.renderBlocks = function (parent, blocks, opts) {
-        var tables = (opts && opts.tables) || null;
+    // A paragraph or a list line with `ex` keeps its examples behind a chevron
+    // (see ruleLine above). Only the rules carry them; a note or a stage's
+    // intro is drawn as it always was.
+    SP.renderBlocks = function (parent, blocks) {
         (blocks || []).forEach(function (block) {
             if (!block) return;
             if (block.k === 'p') {
-                SP.renderSpans(parent.appendChild(SP.el('p')), block.spans);
+                if (block.ex && block.ex.length) parent.appendChild(ruleLine('div', 'p', block.spans, block.ex));
+                else SP.renderSpans(parent.appendChild(SP.el('p')), block.spans);
             } else if (block.k === 'note') {
                 SP.renderSpans(parent.appendChild(SP.el('p', 'sp-callout')), block.spans);
             } else if (block.k === 'ul' || block.k === 'ol') {
-                var list = SP.el(block.k === 'ul' ? 'ul' : 'ol');
-                (block.items || []).forEach(function (item) {
-                    SP.renderSpans(list.appendChild(SP.el('li')), item.spans);
+                var items = block.items || [];
+                var ruled = items.some(function (item) { return item.ex && item.ex.length; });
+                var list = SP.el(block.k === 'ul' ? 'ul' : 'ol', ruled ? 'sp-rules' : null);
+                items.forEach(function (item) {
+                    if (ruled) list.appendChild(ruleLine('li', 'div', item.spans, item.ex));
+                    else SP.renderSpans(list.appendChild(SP.el('li')), item.spans);
                 });
                 parent.appendChild(list);
             } else if (block.k === 'table') {
-                parent.appendChild(tables ? foldedTable(block, tables) : renderTable(block));
+                parent.appendChild(renderTable(block));
             } else if (block.k === 'fork') {
                 parent.appendChild(forkBlock(block));
             } else if (block.k === 'conj') {
                 parent.appendChild(conjBlock(block));
-            } else if (block.k === 'axis') {
-                parent.appendChild(axisBlock(block));
             }
         });
         return parent;
@@ -401,9 +411,9 @@
 
     /* ---------- what to learn first ---------- */
 
-    // The rules and the patterns each pick the entries to start with. The
-    // pick is marked twice: a star with the rank on the entry itself, and a
-    // numbered list closing the panel.
+    // The rules and the patterns each pick the entries to start with, and a
+    // star with the rank marks each on the entry itself. The patterns close
+    // their panel with a numbered list of them as well; the rules do not.
 
     // An example lights up the words that carry the point, so the sentence
     // shows the frame your own words go into. `line.frame` lists them in
@@ -435,14 +445,16 @@
         return node;
     };
 
-    // One example under a parent entry — a pattern's formula or a word of the
-    // lists. The Spanish over the Russian on a phone, side by side from 700px
-    // up, with whatever tail the caller hands it: a lone speaker for a pattern,
-    // nothing at all under a word, where the lines are plain text on the full
-    // width and the row above them carries the controls.
+    // One example under a parent entry — a pattern's formula, a line of a rule
+    // or a word of the lists. The Spanish over the Russian on a phone, side by
+    // side from 700px up, with whatever tail the caller hands it — nothing at
+    // all under a word, where the lines are plain text on the full width and
+    // the row above them carries the controls. An example of a reading rule
+    // says how it sounds, after the Spanish: cena [θэна].
     SP.exampleLine = function (line, tools) {
         var row = SP.el('div', 'sp-exline');
-        SP.renderFramed(row.appendChild(SP.el('div', 'sp-exline-es')), line);
+        var es = SP.renderFramed(row.appendChild(SP.el('div', 'sp-exline-es')), line);
+        if (line.sound) es.appendChild(SP.el('span', 'sp-exline-sound', line.sound));
         row.appendChild(SP.el('div', 'sp-exline-ru', line.ru));
         if (tools) row.appendChild(tools);
         return row;
@@ -484,17 +496,13 @@
 
     /* ---------- rules (phonetics and grammar) ---------- */
 
-    // Rendered both as its own page and as a tab on the hub. It carries no title
-    // of its own: on the page the breadcrumb and the tab say what this is, and
-    // inside the hub panel a heading only repeated the Rules chip above it.
-    // The single option is opts.mainOnly, which keeps the chip index to one row.
-    // The sections to learn first carry a `top` rank: a star beside their
-    // title, and a list of them — each with its gist and a short example —
-    // closing the page, reachable from its own chip.
-    // The map of the rules, by layer. It is built here rather than as a block
-    // because every tile needs the number, the title and the star of a section,
-    // and renderBlocks never sees the file those live in — the same reason the
-    // top list is synthesised here too.
+    // The map of the rules, by layer: the way into them, since the rules carry
+    // no chip index of their own. A layer is a short column of links — the
+    // number, the title and the star of each section — and the layers flow
+    // into as many columns as the width holds, so the whole map is one glance
+    // on a wide screen rather than a wall of tiles. It is built here rather
+    // than as a block because every link needs the number, the title and the
+    // star of a section, and renderBlocks never sees the file those live in.
     function mapSection(map, sections, topTotal) {
         var byId = {};
         sections.forEach(function (section) { byId[section.id] = section; });
@@ -506,36 +514,43 @@
             var box = SP.el('div', 'sp-map-layer');
             box.appendChild(SP.el('div', 'sp-map-title', layer.title));
             if (layer.hint) box.appendChild(SP.el('div', 'sp-map-hint', layer.hint));
-            var tiles = SP.el('div', 'sp-map-tiles');
+            var list = SP.el('ul', 'sp-map-list');
             (layer.ids || []).forEach(function (id) {
                 var section = byId[id];
                 if (!section) return;
-                var tile = SP.el('a', 'sp-chip sp-map-tile');
-                tile.href = '#' + id;
-                tile.title = section.no + '. ' + section.title;
-                tile.appendChild(SP.el('span', 'sp-map-no', section.no + '.'));
-                tile.appendChild(SP.el('span', 'sp-chip-label', section.title));
-                if (section.top) tile.appendChild(SP.topBadge(section.top, topTotal));
-                tiles.appendChild(tile);
+                var link = SP.el('a', 'sp-map-link');
+                link.href = '#' + id;
+                link.appendChild(SP.el('span', 'sp-map-no', String(section.no)));
+                // The star rides at the end of the title's last line, wherever
+                // the title wraps, rather than at the edge of the column.
+                var name = link.appendChild(SP.el('span', 'sp-map-name', section.title));
+                if (section.top) name.appendChild(SP.topBadge(section.top, topTotal));
+                list.appendChild(SP.el('li')).appendChild(link);
             });
-            box.appendChild(tiles);
+            box.appendChild(list);
             layers.appendChild(box);
         });
         block.appendChild(layers);
         return block;
     }
 
-    SP.renderRules = function (host, rules, options) {
-        var opts = options || {};
-        var index = [];
+    // Rendered both as its own page and as a tab on the hub. It carries no title
+    // of its own: on the page the breadcrumb and the tab say what this is, and
+    // inside the hub panel a heading only repeated the Rules chip above it.
+    // First the key to the transcription, folded to its heading — a table of a
+    // row per reading rule that is looked up, not read on arrival — then the
+    // map, then the sections. The sections to learn first carry a `top` rank,
+    // a star beside their title and on the map.
+    SP.renderRules = function (host, rules) {
         SP.clear(host);
 
-        var head = SP.el('header');
-        SP.renderBlocks(head, rules.intro);
-        host.appendChild(head);
-
-        var bar = SP.el('div', 'sp-bar');
-        host.appendChild(bar);
+        if (rules.intro && rules.intro.length) {
+            var key = SP.el('section', 'sp-group sp-key');
+            key.id = 'esr-key';
+            var keyHead = key.appendChild(SP.el('h3', 'sp-group-title has-toggle', rules.introTitle || ''));
+            SP.drawer(key, keyHead, function (drawer) { SP.renderBlocks(drawer, rules.intro); }, 'the key');
+            host.appendChild(key);
+        }
 
         var body = SP.el('div');
         host.appendChild(body);
@@ -547,54 +562,35 @@
         body.appendChild(shelf);
         var pins = [];      // {key, node} of every section, for the restore below
 
-        var top = rules.sections.filter(function (section) { return section.top; })
-            .sort(function (a, b) { return a.top - b.top; });
+        var topTotal = rules.sections.filter(function (section) { return section.top; }).length;
 
-        // Map first, top list last: what is here → the material → where to start.
         if (rules.map && rules.map.layers && rules.map.layers.length) {
-            body.appendChild(mapSection(rules.map, rules.sections, top.length));
-            index.push({ row: 'main', label: rules.map.chip || rules.map.title, target: 'esr-map' });
+            body.appendChild(mapSection(rules.map, rules.sections, topTotal));
         }
 
         rules.sections.forEach(function (section) {
             var block = SP.el('section', 'sp-group');
             block.id = section.id;
-            var title = block.appendChild(SP.el('h3', 'sp-group-title has-pin', section.no + '. ' + section.title));
-            if (section.top) title.appendChild(SP.topBadge(section.top, top.length));
+            var title = block.appendChild(SP.el('h3', 'sp-group-title has-pin'));
             // The rule being worked on goes to the top of the page and back:
             // the sections are drawn once, so the pin moves the node itself.
+            // It leads the heading, as it leads a learned word in the lists —
+            // the end of the line is where the chevrons of the lines below it
+            // stand. The star rides at the end of the title's last line, as it
+            // does on the map.
             title.appendChild(SP.pinButton(section.id, { node: block, host: shelf }));
+            var name = title.appendChild(SP.el('span', 'sp-group-name', section.no + '. ' + section.title));
+            if (section.top) name.appendChild(SP.topBadge(section.top, topTotal));
             pins.push({ key: section.id, node: block });
-            SP.renderBlocks(block, section.blocks, { tables: rules.tables });
+            SP.renderBlocks(block, section.blocks);
             (section.parts || []).forEach(function (part) {
                 block.appendChild(SP.el('h4', null, part.title));
-                SP.renderBlocks(block, part.blocks, { tables: rules.tables });
+                SP.renderBlocks(block, part.blocks);
             });
             body.appendChild(block);
-            index.push({ row: 'main', label: section.no + '. ' + section.title, target: section.id });
         });
 
-        if (top.length) {
-            var label = 'ТОП-' + top.length;
-            var first = SP.el('section', 'sp-group');
-            first.id = 'esr-top';
-            first.appendChild(SP.el('h3', 'sp-group-title', label + ': выучить первыми'));
-            first.appendChild(SP.renderTopList(top.map(function (section) {
-                return {
-                    name: SP.el('span', 'sp-top-title', section.no + '. ' + section.title),
-                    href: '#' + section.id,
-                    meaning: section.gist,
-                    short: section.short
-                };
-            })));
-            body.appendChild(first);
-            index.push({ row: 'main', label: label, target: first.id });
-        }
-
-        // What was pinned on an earlier visit goes up before the index is
-        // built, so the observer watches the sections where they now stand.
+        // What was pinned on an earlier visit goes up as the page is drawn.
         SP.pin.pickPinned(pins).forEach(function (entry) { SP.pin.raise(entry.node, shelf); });
-
-        SP.buildIndex(bar, index, opts.mainOnly);
     };
 })();

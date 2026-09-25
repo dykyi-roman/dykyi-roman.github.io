@@ -1345,7 +1345,7 @@
     // Conversational patterns — no …, sino …; acabar de + глагол — kept in
     // patterns.json and read like the rules: theme by theme, each pattern a
     // card, then the look-alike patterns side by side and the ones to learn
-    // first. A chip index of the themes heads the panel, as the rules have.
+    // first. A chip index of the themes heads the panel.
     var patternsRendered = false;
 
     function initPatterns() {
@@ -1374,27 +1374,29 @@
     }
 
     // One pattern as a card: the formula and its meaning on top, the trap where
-    // Russian logic leads astray, then the two examples. The file's how and lit
+    // Russian logic leads astray, then the two examples, folded behind the
+    // chevron at the end of the head as a word's are. The file's how and lit
     // stay there for whoever edits it and are not drawn. The id is what the
     // top list links to.
     function patternCard(item, topTotal, shelf) {
         var card = SP.el('div', 'sp-pat');
         card.id = item.id;
 
-        var head = SP.el('div', 'sp-pat-head');
-        renderFormula(head.appendChild(SP.el('div', 'sp-pat-es')), item.es);
-        head.appendChild(SP.el('div', 'sp-pat-ru', item.ru));
-        if (item.top) head.appendChild(SP.topBadge(item.top, topTotal));
         // The pattern being practised goes to the head of the panel and back:
-        // the cards are drawn once, so the pin moves the card itself.
+        // the cards are drawn once, so the pin moves the card itself. The pin
+        // leads the head, as it leads a learned word in the lists; the end of
+        // the line is the chevron's.
+        var head = SP.el('div', 'sp-pat-head');
         head.appendChild(SP.pinButton(item.id, { node: card, host: shelf }));
+        var main = head.appendChild(SP.el('div', 'sp-pat-main'));
+        renderFormula(main.appendChild(SP.el('div', 'sp-pat-es')), item.es);
+        main.appendChild(SP.el('div', 'sp-pat-ru', item.ru));
+        if (item.top) main.appendChild(SP.topBadge(item.top, topTotal));
         card.appendChild(head);
 
         if (item.trap) card.appendChild(SP.el('p', 'sp-pat-trap', item.trap));
 
-        var examples = SP.el('div', 'sp-drawer');
-        (item.ex || []).forEach(function (line) { examples.appendChild(SP.exampleLine(line, null)); });
-        card.appendChild(examples);
+        SP.exampleDrawer(card, head, item.ex || []);
         return card;
     }
 
