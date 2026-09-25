@@ -122,6 +122,18 @@
             sync(open);
         });
 
+        // The whole line opens it too: the chevron sits at the far edge of
+        // every line, and reaching for it line after line was the chore the
+        // drawers left. Another control in the line — the pin — keeps its own
+        // tap, and a drag that selected some text is not a tap at all.
+        head.classList.add('is-toggle');
+        head.addEventListener('click', function (e) {
+            if (e.target.closest && e.target.closest('button, a, input, select, textarea')) return;
+            var picked = window.getSelection && window.getSelection();
+            if (picked && !picked.isCollapsed && head.contains(picked.anchorNode)) return;
+            btn.click();
+        });
+
         head.appendChild(btn);
         box.appendChild(drawer);
         return drawer;
@@ -340,7 +352,16 @@
                 // opening a line each; the examples of the whole grid wait
                 // together under the «Примеры:» line that follows it.
                 if (block.grid) {
-                    var grid = SP.el(block.k === 'ul' ? 'ul' : 'ol', 'sp-grid-list');
+                    // A cell longer than a phone's half — «Согласная: только
+                    // число», «с «я», с «ты» → conmigo, contigo» — takes a wider
+                    // track, one to a line on a phone, instead of breaking into
+                    // three lines in a narrow one.
+                    var longest = 0;
+                    items.forEach(function (item) {
+                        var text = (item.spans || []).map(function (span) { return span.t; }).join('');
+                        longest = Math.max(longest, text.length);
+                    });
+                    var grid = SP.el(block.k === 'ul' ? 'ul' : 'ol', 'sp-grid-list' + (longest > 22 ? ' is-wide' : ''));
                     items.forEach(function (item) { SP.renderSpans(grid.appendChild(SP.el('li')), item.spans); });
                     parent.appendChild(grid);
                     return;

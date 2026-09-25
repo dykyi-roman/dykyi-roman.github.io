@@ -264,6 +264,19 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-drawer-toggle:hover,
 .sp-drawer-toggle[aria-expanded="true"] { color: var(--color-primary); border-color: var(--color-primary); }
 
+/* The line that owns a drawer opens it wherever it is tapped — a rule's line,
+   the key's heading, a pattern's head — so it takes the pointer, and under
+   one the chevron at its end lights up to say what the tap will do. */
+.is-toggle {
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+@media (hover: hover) {
+    .is-toggle:hover > .sp-drawer-toggle { color: var(--color-primary); border-color: var(--color-primary); }
+}
+
 /* ---------- the row's two head buttons, and the divider ---------- */
 
 /* The checkbox that puts a row in Pending and the pin that lifts a learned
@@ -1274,6 +1287,7 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
     margin: 0 0 var(--spacing-xs);
 }
 .sp-grid-list .sp-es { white-space: nowrap; }
+.sp-grid-list.is-wide { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
 
 /* Open, the examples hang under their line on a thin rule of their own, set
    in from the text so they read as its illustration. The dashed top the
