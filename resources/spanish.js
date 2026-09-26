@@ -14,7 +14,7 @@
     var MODES = ['browse', 'cards', 'quiz', 'listen', 'rules', 'patterns'];   // the browse list leads and opens by default
 
     // The modes read rather than studied. Their buttons head the chip row, not
-    // the tab strip, and while one is open no stage chip is lit.
+    // the mode menu, and while one is open no stage chip is lit.
     var REFERENCE_MODES = { rules: true, patterns: true };
 
     // The modes worked through one screen at a time: opening one scrolls it
@@ -156,7 +156,7 @@
         chip.addEventListener('click', function () {
             // The scope is already the one selected, so there is nothing to
             // load — but while the rules or the patterns are open the chip
-            // still means "back to the list", the way the Browse tab does.
+            // still means "back to the list", the way Browse in the mode menu does.
             // Without this the chip of the current scope is a dead button
             // there, and All, being the default scope, is the one it hits.
             if (prefs.stage === option.key) {
@@ -196,22 +196,122 @@
         });
     }
 
-    function renderModeTabs() {
-        var strip = byId('sp-modes');
-        SP.clear(strip);
-        var labels = { browse: 'Browse', cards: 'Flashcards', quiz: 'Quiz', listen: 'Listening' };
-        MODES.forEach(function (mode) {
-            if (REFERENCE_MODES[mode]) return;     // its button sits in the chip row
+    /* ---------- the mode menu ---------- */
+
+    // The four study modes sit behind one button at the end of the search row
+    // instead of on a strip of their own: the bar is a row shorter, which on a
+    // phone is a row more of the list or of the card. The button wears the
+    // glyph of the mode on screen, and its name from 700px up, so where the
+    // reader is stays in sight without the strip that used to say it. It stays
+    // in the rules and the patterns too, wearing the grid of four: from there
+    // it is the way straight into a mode, beside the stage chips' way back to
+    // the list.
+    var MODE_LABEL = { browse: 'Browse', cards: 'Flashcards', quiz: 'Quiz', listen: 'Listening' };
+    var modeMenu = null;
+
+    function initModeMenu() {
+        var wrap = SP.el('div', 'sp-mode');
+        var btn = SP.el('button', 'sp-btn sp-mode-btn');
+        btn.type = 'button';
+        btn.id = 'sp-mode-btn';
+        btn.setAttribute('aria-haspopup', 'menu');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-controls', 'sp-mode-list');
+        var glyph = SP.el('span', 'sp-mode-glyph');
+        var name = SP.el('span', 'sp-mode-name');
+        btn.appendChild(glyph);
+        btn.appendChild(name);
+        btn.appendChild(SP.icon.chevron());
+
+        var list = SP.el('div', 'sp-mode-list');
+        list.id = 'sp-mode-list';
+        list.setAttribute('role', 'menu');
+        list.setAttribute('aria-label', 'Practice mode');
+        list.hidden = true;
+
+        var items = [];
+        Object.keys(MODE_LABEL).forEach(function (mode) {
             if (mode === 'listen' && !SP.tts.available()) return;
-            var tab = SP.el('button', 'sp-tab', labels[mode]);
-            tab.type = 'button';
-            tab.dataset.mode = mode;
-            tab.setAttribute('role', 'tab');
-            strip.appendChild(tab);
-            tab.addEventListener('click', function () {
+            var item = SP.el('button', 'sp-mode-item');
+            item.type = 'button';
+            item.tabIndex = -1;
+            item.dataset.mode = mode;
+            item.setAttribute('role', 'menuitemradio');
+            item.appendChild(SP.icon.mode(mode));
+            item.appendChild(SP.el('span', null, MODE_LABEL[mode]));
+            item.addEventListener('click', function (e) {
+                // From the keyboard the focus goes back to the button, as a
+                // menu's does; a tap leaves it where it was, or a phone would
+                // keep the bar from stepping away over a card.
+                setOpen(false, e.detail === 0);
                 if (searchReturn) searchReturn.mode = mode;   // this is where to come back to now
                 enterMode(mode);
             });
+            list.appendChild(item);
+            items.push(item);
+        });
+
+        function setOpen(open, focusButton) {
+            list.hidden = !open;
+            btn.setAttribute('aria-expanded', String(open));
+            wrap.classList.toggle('is-open', open);
+            if (open) {
+                var current = items.filter(function (item) { return item.dataset.mode === currentMode; })[0];
+                (current || items[0]).focus({ preventScroll: true });
+            } else if (focusButton) {
+                btn.focus({ preventScroll: true });
+            }
+        }
+
+        btn.addEventListener('click', function () { setOpen(list.hidden, false); });
+        btn.addEventListener('keydown', function (e) {
+            if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && list.hidden) {
+                e.preventDefault();
+                setOpen(true, false);
+            }
+        });
+        list.addEventListener('keydown', function (e) {
+            var at = items.indexOf(document.activeElement);
+            var next = -1;
+            if (e.key === 'ArrowDown') next = (at + 1) % items.length;
+            else if (e.key === 'ArrowUp') next = (at - 1 + items.length) % items.length;
+            else if (e.key === 'Home') next = 0;
+            else if (e.key === 'End') next = items.length - 1;
+            else if (e.key === 'Escape') { e.preventDefault(); setOpen(false, true); return; }
+            else if (e.key === 'Tab') { setOpen(false, false); return; }
+            if (next === -1) return;
+            e.preventDefault();
+            items[next].focus({ preventScroll: true });
+        });
+        // A tap anywhere else, or the focus leaving for somewhere else, puts
+        // the menu away without a choice.
+        document.addEventListener('pointerdown', function (e) {
+            if (!list.hidden && !wrap.contains(e.target)) setOpen(false, false);
+        }, true);
+        wrap.addEventListener('focusout', function (e) {
+            if (!list.hidden && e.relatedTarget && !wrap.contains(e.relatedTarget)) setOpen(false, false);
+        });
+
+        wrap.appendChild(btn);
+        wrap.appendChild(list);
+        byId('sp-search-host').appendChild(wrap);
+        modeMenu = { btn: btn, glyph: glyph, name: name, items: items };
+    }
+
+    // The button says the mode on screen; in the rules or the patterns, which
+    // are no mode of the menu, it says only what it opens.
+    function syncModeMenu(mode) {
+        if (!modeMenu) return;
+        var label = MODE_LABEL[mode];
+        SP.clear(modeMenu.glyph);
+        modeMenu.glyph.appendChild(SP.icon.mode(label ? mode : 'any'));
+        modeMenu.name.textContent = label || 'Practice';
+        modeMenu.btn.setAttribute('aria-label', label ? 'Practice mode: ' + label : 'Practice mode');
+        modeMenu.btn.title = label ? 'Practice mode: ' + label : 'Pick a practice mode';
+        modeMenu.items.forEach(function (item) {
+            var on = item.dataset.mode === mode;
+            item.classList.toggle('active', on);
+            item.setAttribute('aria-checked', String(on));
         });
     }
 
@@ -219,18 +319,11 @@
         if (MODES.indexOf(mode) === -1) mode = 'browse';
         if (mode === 'listen' && !SP.tts.available()) mode = 'browse';
         if (currentMode === mode && !force) { /* still re-render below */ }
+        if (booted) keepReadingPlace(currentMode);
         currentMode = mode;
 
-        document.querySelectorAll('#sp-modes .sp-tab').forEach(function (tab) {
-            var active = tab.dataset.mode === mode;
-            tab.classList.toggle('active', active);
-            tab.setAttribute('aria-selected', String(active));
-        });
+        syncModeMenu(mode);
         syncChipActive();
-        // The four study tabs work a stage scope; the rules and the patterns
-        // are read, not studied, so while either is open the tabs step aside.
-        // The way back is a stage chip, which returns to Browse.
-        byId('sp-modes').hidden = !!REFERENCE_MODES[mode];
         if (coverSwitch) coverSwitch.hidden = mode !== 'browse';
         MODES.forEach(function (name) {
             var panel = byId('panel-' + name);
@@ -253,9 +346,60 @@
         // the way; the others open at their head, and only when the page is
         // already past it. Not on the first draw, which is the browser's own
         // restoring of where the page was.
-        if (booted) SP.jumpTo(byId('panel-' + mode), STUDY_MODES[mode] ? { tuck: true } : { ifPast: true });
+        // The rules and the patterns go back to where they were left instead.
+        if (booted && !returnToReadingPlace(mode)) {
+            SP.jumpTo(byId('panel-' + mode), STUDY_MODES[mode] ? { tuck: true } : { ifPast: true });
+        }
         // Left tucked by a study mode, the bar comes back without a scroll.
         if (pageBar) pageBar.refresh();
+    }
+
+    // The rules and the patterns are read, and a reader leaves them mid-page —
+    // to look a word up, to run a quiz — meaning to come back to the same
+    // line. Both panels are drawn once and only hidden while away, so the
+    // place survives as a node: the deepest one with an id (a section, a
+    // card, a contrast note) that has passed under the bar, and how far past
+    // it the reader was. A node rather than a scroll offset, because what sits
+    // above the panel — the legend, the bar — may be another height by then.
+    // Kept for the page load only; a reload is the browser's own business.
+    var readingPlace = {};
+
+    function readingLine() {
+        return (pageBar ? pageBar.height() : 0) + 8;
+    }
+
+    function keepReadingPlace(mode) {
+        if (!REFERENCE_MODES[mode]) return;
+        var panel = byId('panel-' + mode);
+        if (!panel || panel.hidden) return;
+        var line = readingLine();
+        if (panel.getBoundingClientRect().top >= line) { delete readingPlace[mode]; return; }
+        var best = null;
+        var bestTop = -Infinity;
+        panel.querySelectorAll('[id]').forEach(function (node) {
+            if (!node.getClientRects().length) return;      // not drawn: inside a closed drawer
+            var top = node.getBoundingClientRect().top;
+            if (top <= line && top > bestTop) { best = node; bestTop = top; }
+        });
+        readingPlace[mode] = best
+            ? { id: best.id, past: line - bestTop }
+            : { id: null, past: line - panel.getBoundingClientRect().top };
+    }
+
+    function returnToReadingPlace(mode) {
+        var place = readingPlace[mode];
+        if (!place) return false;
+        var node = place.id ? document.getElementById(place.id) : byId('panel-' + mode);
+        if (!node || !node.getClientRects().length) return false;
+        var target = Math.max(0, window.pageYOffset + node.getBoundingClientRect().top - readingLine() + place.past);
+        // Straight there: the site scrolls smoothly, and a glide down a page
+        // of rules reads as the page going somewhere else.
+        var roots = [document.documentElement, document.body];
+        var was = roots.map(function (node) { return node.style.scrollBehavior; });
+        roots.forEach(function (node) { node.style.scrollBehavior = 'auto'; });
+        window.scrollTo(0, target);
+        roots.forEach(function (node, i) { node.style.scrollBehavior = was[i]; });
+        return true;
     }
 
     /* ---------- flashcards ---------- */
@@ -1412,9 +1556,11 @@
 
     /* ---------- the side a covered row hides ---------- */
 
-    // It shares the strip with the search, so it stays in reach however far
-    // the list is scrolled, and it shows only over the browse list: no other
-    // mode has rows to cover, and the flashcards keep a direction of their own.
+    // It shares the strip with the search and the mode menu, so it stays in
+    // reach however far the list is scrolled, and it shows only over the
+    // browse list: no other mode has rows to cover, and the flashcards keep a
+    // direction of their own. It goes before the menu, which is there in
+    // every mode, so the one that comes and goes leaves the other in place.
     var coverSwitch = null;
 
     function initCoverSwitch() {
@@ -1607,6 +1753,7 @@
 
         initSearch();
         initCoverSwitch();
+        initModeMenu();
         initCardControls();
         initQuizControls();
         initListenControls();
@@ -1624,7 +1771,6 @@
         Promise.all([SP.loadManifest(), SP.loadLearned(), SP.loadVerbs()]).then(function (loaded) {
             manifest = loaded[0];
             renderStageChips();
-            renderModeTabs();
             renderLegend();
             return loadScope();
         }).then(function () {

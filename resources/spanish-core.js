@@ -1445,6 +1445,27 @@
         return svg;
     }
 
+    // The four ways the hub works a stage, a glyph each for the menu that
+    // picks among them: a list, a stack of cards, a question, headphones. The
+    // grid of four is the menu itself, worn while the rules or the patterns
+    // are open and none of the four is on screen.
+    var MODE_GLYPHS = {
+        browse: ['M9 6h11', 'M9 12h11', 'M9 18h11', 'M4.5 6h.01', 'M4.5 12h.01', 'M4.5 18h.01'],
+        cards: ['M5 8h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z', 'M7 4h12a2 2 0 0 1 2 2v9'],
+        quiz: ['M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z', 'M9.6 9.3a2.5 2.5 0 1 1 3.4 2.4c-.6.3-1 .8-1 1.5v.3', 'M12 17h.01'],
+        listen: ['M4 16v-4a8 8 0 0 1 16 0v4', 'M4 16a2 2 0 0 1 2-2h1v6H6a2 2 0 0 1-2-2z', 'M20 16a2 2 0 0 0-2-2h-1v6h1a2 2 0 0 0 2-2z'],
+        any: ['M4 4h6v6H4z', 'M14 4h6v6h-6z', 'M4 14h6v6H4z', 'M14 14h6v6h-6z']
+    };
+
+    function modeIcon(mode) {
+        var svg = document.createElementNS(SVG_NS, 'svg');
+        svg.setAttribute('viewBox', '0 0 24 24');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.setAttribute('class', 'sp-mode-icon');
+        (MODE_GLYPHS[mode] || MODE_GLYPHS.any).forEach(function (d) { svg.appendChild(svgPath(d)); });
+        return svg;
+    }
+
     // Every glyph the section draws, in one export, wanted all over: the
     // search field draws the ✕, a list draws the tick and the chevron.
     SP.icon = {
@@ -1454,7 +1475,8 @@
         eyeOff: eyeOffIcon,
         cross: crossIcon,
         chevron: chevronIcon,
-        pin: pinIcon
+        pin: pinIcon,
+        mode: modeIcon
     };
 
     // Every list is split into the same four sections, in this order. Reference

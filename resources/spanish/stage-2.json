@@ -3359,6 +3359,41 @@
    ]
   },
   {
+   "id": "es2-v155",
+   "type": "vocab",
+   "es": "¿Cuál es…?",
+   "en": "what / which is…?",
+   "ru": "какой…? (перед es)",
+   "tr": "куал эс",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Cuál es tu número?",
+     "ru": "Какой у тебя номер?",
+     "frame": [
+      "Cuál",
+      "es"
+     ]
+    },
+    {
+     "es": "¿Cuál es la contraseña del wifi?",
+     "ru": "Какой пароль от вайфая?",
+     "frame": [
+      "Cuál",
+      "es"
+     ]
+    },
+    {
+     "es": "¿Cuál es tu plato favorito?",
+     "ru": "Какое твоё любимое блюдо?",
+     "frame": [
+      "Cuál",
+      "es"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es2-v144",
    "type": "vocab",
    "es": "¿Quién es…?",
@@ -3607,6 +3642,79 @@
    ]
   },
   {
+   "id": "es2-v156",
+   "type": "vocab",
+   "es": "¿A dónde va…?",
+   "en": "where is… going?",
+   "ru": "куда идёт / едет…?",
+   "tr": "а до́ндэ ба",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿A dónde va este autobús?",
+     "ru": "Куда идёт этот автобус?",
+     "frame": [
+      "A",
+      "dónde",
+      "va"
+     ]
+    },
+    {
+     "es": "¿A dónde vamos este fin de semana?",
+     "ru": "Куда поедем в эти выходные?",
+     "frame": [
+      "A",
+      "dónde"
+     ]
+    },
+    {
+     "es": "¿A dónde vais de vacaciones?",
+     "ru": "Куда вы едете в отпуск?",
+     "frame": [
+      "A",
+      "dónde"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v157",
+   "type": "vocab",
+   "es": "¿De dónde es…?",
+   "en": "where is… from?",
+   "ru": "откуда родом…?",
+   "tr": "дэ до́ндэ эс",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿De dónde sois?",
+     "ru": "Вы откуда?",
+     "frame": [
+      "De",
+      "dónde"
+     ]
+    },
+    {
+     "es": "¿De dónde es tu mujer?",
+     "ru": "Откуда родом твоя жена?",
+     "frame": [
+      "De",
+      "dónde",
+      "es"
+     ]
+    },
+    {
+     "es": "¿De dónde es este vino?",
+     "ru": "Откуда это вино?",
+     "frame": [
+      "De",
+      "dónde",
+      "es"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es2-v151",
    "type": "vocab",
    "es": "¿Cómo se dice…?",
@@ -3645,6 +3753,44 @@
    ]
   },
   {
+   "id": "es2-v158",
+   "type": "vocab",
+   "es": "¿Cómo se llama…?",
+   "en": "what's… called?",
+   "ru": "как зовут…? / как называется…?",
+   "tr": "ко́мо сэ йа́ма",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Cómo se llama tu hija?",
+     "ru": "Как зовут твою дочь?",
+     "frame": [
+      "Cómo",
+      "se",
+      "llama"
+     ]
+    },
+    {
+     "es": "¿Cómo se llama esta calle?",
+     "ru": "Как называется эта улица?",
+     "frame": [
+      "Cómo",
+      "se",
+      "llama"
+     ]
+    },
+    {
+     "es": "¿Cómo se llama el profesor de inglés?",
+     "ru": "Как зовут учителя английского?",
+     "frame": [
+      "Cómo",
+      "se",
+      "llama"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es2-v152",
    "type": "vocab",
    "es": "¿Cuánto cuesta…?",
@@ -3675,6 +3821,43 @@
      "frame": [
       "Cuánto",
       "cuesta"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-v159",
+   "type": "vocab",
+   "es": "¿Cuántos años tiene…?",
+   "en": "how old is…?",
+   "ru": "сколько лет…?",
+   "tr": "куа́нтос а́ньос тье́нэ",
+   "set": "Вопросы",
+   "ex": [
+    {
+     "es": "¿Cuántos años tienes?",
+     "ru": "Сколько тебе лет?",
+     "frame": [
+      "Cuántos",
+      "años"
+     ]
+    },
+    {
+     "es": "¿Cuántos años tiene el coche?",
+     "ru": "Сколько лет машине?",
+     "frame": [
+      "Cuántos",
+      "años",
+      "tiene"
+     ]
+    },
+    {
+     "es": "¿Cuántos años tiene tu abuela?",
+     "ru": "Сколько лет твоей бабушке?",
+     "frame": [
+      "Cuántos",
+      "años",
+      "tiene"
      ]
     }
    ]
@@ -3905,6 +4088,93 @@
          "t": " — выход из разговора без неловкости."
         }
        ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es2-n006",
+   "type": "note",
+   "title": "Как устроен вопрос",
+   "section": "notes",
+   "blocks": [
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Перед существительным «какой» — это "
+      },
+      {
+       "t": "qué",
+       "s": "es"
+      },
+      {
+       "t": " ("
+      },
+      {
+       "t": "¿Qué autobús?",
+       "s": "es"
+      },
+      {
+       "t": "), а перед "
+      },
+      {
+       "t": "es",
+       "s": "es"
+      },
+      {
+       "t": " и "
+      },
+      {
+       "t": "son",
+       "s": "es"
+      },
+      {
+       "t": " или при выборе из известного — "
+      },
+      {
+       "t": "cuál",
+       "s": "es"
+      },
+      {
+       "t": " ("
+      },
+      {
+       "t": "¿Cuál es tu teléfono?",
+       "s": "es"
+      },
+      {
+       "t": ")."
+      }
+     ]
+    },
+    {
+     "k": "p",
+     "spans": [
+      {
+       "t": "Порядок слов часто остаётся близким к обычному утверждению — вопросом его делают интонация и знаки "
+      },
+      {
+       "t": "¿…?",
+       "s": "es"
+      },
+      {
+       "t": ":"
+      }
+     ],
+     "ex": [
+      {
+       "es": "¿Hablas español?",
+       "ru": "Ты говоришь по-испански?"
+      },
+      {
+       "es": "¿Tú vives aquí?",
+       "ru": "Ты здесь живёшь?"
+      },
+      {
+       "es": "¿El banco está abierto?",
+       "ru": "Банк открыт?"
       }
      ]
     }

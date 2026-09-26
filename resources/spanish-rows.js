@@ -32,7 +32,7 @@
     };
 
     // The head of one list: a strip of tabs, one per section, in the shape of
-    // the hub's mode tabs — the icon, the name and the count — with the one on
+    // the stage chips — the icon, the name and the count — with the one on
     // show lit. A section's rows are drawn only while its tab is lit; a tap
     // makes the page-wide pick (SP.view), and every list resolves it through
     // SP.sectionShown. A tab with nothing to show is hidden unless it is the

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-20",
+ "updated": "2026-09-26",
  "stages": [
   {
    "id": "stage-1",
@@ -14,7 +14,7 @@
    "file": "stage-1.json",
    "counts": {
     "vocab": 126,
-    "pair": 0,
+    "pair": 1,
     "phrase": 0,
     "exchange": 0,
     "drill": 0
@@ -70,13 +70,13 @@
    "url": "spanish/stage-4.html",
    "file": "stage-2.json",
    "counts": {
-    "vocab": 112,
+    "vocab": 117,
     "pair": 0,
     "phrase": 0,
     "exchange": 0,
     "drill": 0
    },
-   "notes": 2
+   "notes": 3
   },
   {
    "id": "stage-5",
@@ -105,7 +105,7 @@
   "icon": "📐",
   "url": "spanish/rules.html",
   "file": "rules.json",
-  "sections": 40
+  "sections": 38
  },
  "patterns": {
   "id": "patterns",

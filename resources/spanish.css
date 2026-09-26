@@ -197,7 +197,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 .sp-tab.active small { color: rgba(255, 255, 255, 0.75); }
 
 /* The strip of section tabs at the head of every list — Reference, Learned,
-   Pending, Left — in the shape of the mode tabs above, the count in small
+   Pending, Left — in the shape of the chips, the count in small
    type after the name. Held upright, a phone keeps the icon and the count
    and drops the name, as the stage chips do: four names do not fit in 360px,
    and the icons are the same on every list; the name stays in aria-label. */
@@ -1386,7 +1386,11 @@ td.sp-forms-person { padding: 8px 10px; }
 .sp-note .sp-callout { border-left: 2px solid var(--color-info); padding-left: var(--spacing-sm); color: var(--color-text-light); }
 
 .sp-es { color: var(--color-primary); font-weight: 600; }
-.sp-b { font-weight: 600; color: var(--color-heading); }
+/* What a rule turns on — «по роду и числу», «слитно», [θ] — is lit in a
+   colour of its own: bold in the text's own colour was lost in a paragraph,
+   and in the orange of the Spanish it could not be told from the Spanish.
+   Orange is what is said, blue is what to remember. */
+.sp-b { font-weight: 700; color: var(--color-info); }
 
 /* ---------- wide tables (conjugations) ---------- */
 
@@ -1916,6 +1920,82 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
 /* Drawn inside: the control clips what spills past its rounded corners. */
 .sp-cover-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -4px; }
 .sp-cover-btn.active:focus-visible { outline-color: #fff; }
+
+/* ---------- the mode menu (hub) ---------- */
+
+/* Browse, Flashcards, Quiz and Listening behind one button at the end of the
+   search row. The button wears the glyph of the mode on screen and a chevron,
+   and from 700px up the mode's name as well; held upright on a phone the
+   glyph alone has to do, so the name is in its aria-label. */
+.sp-mode { position: relative; flex: 0 0 auto; display: flex; }
+
+/* Narrow on a phone: the search field beside it is what gives up the room. */
+.sp-mode-btn { gap: 2px; padding: 0 6px 0 8px; }
+.sp-mode.is-open .sp-mode-btn { border-color: var(--color-primary); color: var(--color-primary); }
+.sp-mode-glyph { display: inline-flex; }
+.sp-mode-name { display: none; }
+.sp-mode-btn .sp-chevron { width: 14px; height: 14px; color: var(--color-text-light); }
+.sp-mode.is-open .sp-mode-btn .sp-chevron { transform: rotate(180deg); color: currentColor; }
+
+.sp-mode-icon {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* The menu hangs from the button's right edge, over the page below the bar;
+   the bar is a stacking context of its own (z-index 20), so this only has to
+   clear what shares the bar. */
+.sp-mode-list {
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 190px;
+    padding: 4px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-white);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.sp-mode-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    min-height: 44px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: var(--font-size-small);
+    text-align: left;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.sp-mode-item:hover { background: var(--color-background); color: var(--color-primary); }
+.sp-mode-item:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+
+/* The mode on screen: the site's orange and a tick at the far end. */
+.sp-mode-item.active { color: var(--color-primary); font-weight: 600; }
+.sp-mode-item.active::after { content: "✓"; margin-left: auto; padding-left: var(--spacing-sm); }
+
+@media (min-width: 700px) {
+    .sp-mode-name { display: inline; }
+    .sp-mode-btn { padding: 0 10px 0 12px; gap: 6px; }
+}
 
 /* ---------- 700px and up: the lexicon becomes a real table ---------- */
 

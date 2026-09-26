@@ -98,10 +98,6 @@
   },
   {
    "kind": "topic",
-   "name": "Предлоги"
-  },
-  {
-   "kind": "topic",
    "name": "Указание"
   },
   {
@@ -141,6 +137,12 @@
    "name": "Чей / с кем / для кого"
   }
  ],
+ "sets": [
+  {
+   "name": "Предлоги",
+   "icon": "🔗"
+  }
+ ],
  "items": [
   {
    "id": "es1-v024",
@@ -149,7 +151,7 @@
    "en": "to",
    "ru": "в / к",
    "tr": "а",
-   "group": "Предлоги",
+   "set": "Предлоги",
    "ex": [
     {
      "es": "Voy a casa.",
@@ -159,14 +161,434 @@
      ]
     },
     {
-     "es": "Voy al centro.",
-     "ru": "Я еду в центр."
+     "es": "Llamo a mi madre cada día.",
+     "ru": "Я звоню маме каждый день.",
+     "frame": [
+      "a"
+     ]
     },
     {
      "es": "¿Vas a la playa mañana?",
      "ru": "Ты завтра идёшь на пляж?",
      "frame": [
       "a"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v152",
+   "type": "vocab",
+   "es": "al",
+   "en": "to the",
+   "ru": "в / к (a + el)",
+   "tr": "ал",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "Voy al banco.",
+     "ru": "Я иду в банк.",
+     "frame": [
+      "al"
+     ]
+    },
+    {
+     "es": "Vamos al médico.",
+     "ru": "Мы идём к врачу.",
+     "frame": [
+      "al"
+     ]
+    },
+    {
+     "es": "Llego al trabajo a las nueve.",
+     "ru": "Я прихожу на работу в девять.",
+     "frame": [
+      "al"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v025",
+   "type": "vocab",
+   "es": "de",
+   "en": "from / of",
+   "ru": "из / от",
+   "tr": "дэ",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "Soy de Ucrania.",
+     "ru": "Я из Украины.",
+     "frame": [
+      "de"
+     ]
+    },
+    {
+     "es": "Es el coche de mi hermana.",
+     "ru": "Это машина моей сестры.",
+     "frame": [
+      "de"
+     ]
+    },
+    {
+     "es": "Vengo de trabajar.",
+     "ru": "Я возвращаюсь с работы.",
+     "frame": [
+      "de"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v153",
+   "type": "vocab",
+   "es": "del",
+   "en": "of the / from the",
+   "ru": "из / от (de + el)",
+   "tr": "дэл",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "la puerta del hotel",
+     "ru": "дверь отеля",
+     "frame": [
+      "del"
+     ]
+    },
+    {
+     "es": "Salimos del cine a las diez.",
+     "ru": "Мы выходим из кино в десять.",
+     "frame": [
+      "del"
+     ]
+    },
+    {
+     "es": "Vuelvo del colegio con los niños.",
+     "ru": "Я возвращаюсь из школы с детьми.",
+     "frame": [
+      "del"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v023",
+   "type": "vocab",
+   "es": "en",
+   "en": "in / on / at",
+   "ru": "в / на",
+   "tr": "эн",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "Estoy en casa.",
+     "ru": "Я дома.",
+     "frame": [
+      "en"
+     ]
+    },
+    {
+     "es": "El móvil está en la mochila.",
+     "ru": "Телефон в рюкзаке.",
+     "frame": [
+      "en"
+     ]
+    },
+    {
+     "es": "Nos vemos en el parque.",
+     "ru": "Увидимся в парке.",
+     "frame": [
+      "en"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v026",
+   "type": "vocab",
+   "es": "con",
+   "en": "with",
+   "ru": "с",
+   "tr": "кон",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "Voy con mi familia.",
+     "ru": "Я иду с семьёй.",
+     "frame": [
+      "con"
+     ]
+    },
+    {
+     "es": "Un café con leche, por favor.",
+     "ru": "Кофе с молоком, пожалуйста.",
+     "frame": [
+      "con"
+     ]
+    },
+    {
+     "es": "¿Con quién hablo?",
+     "ru": "С кем я говорю?",
+     "frame": [
+      "Con"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v027",
+   "type": "vocab",
+   "es": "sin",
+   "en": "without",
+   "ru": "без",
+   "tr": "син",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "Café sin azúcar, por favor.",
+     "ru": "Кофе без сахара, пожалуйста.",
+     "frame": [
+      "sin"
+     ]
+    },
+    {
+     "es": "He salido sin las llaves.",
+     "ru": "Я вышел без ключей.",
+     "frame": [
+      "sin"
+     ]
+    },
+    {
+     "es": "Sin cita no atienden.",
+     "ru": "Без записи не принимают.",
+     "frame": [
+      "Sin"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v028",
+   "type": "vocab",
+   "es": "por",
+   "en": "through / along / by",
+   "ru": "через / по",
+   "tr": "пор",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "Paseamos por el centro.",
+     "ru": "Мы гуляем по центру.",
+     "frame": [
+      "por"
+     ]
+    },
+    {
+     "es": "Gracias por todo.",
+     "ru": "Спасибо за всё.",
+     "frame": [
+      "por"
+     ]
+    },
+    {
+     "es": "Te llamo por la tarde.",
+     "ru": "Я позвоню тебе во второй половине дня.",
+     "frame": [
+      "por"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v029",
+   "type": "vocab",
+   "es": "para",
+   "en": "for / to",
+   "ru": "для / чтобы",
+   "tr": "па́ра",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "Esto es para mi hija.",
+     "ru": "Это для моей дочери.",
+     "frame": [
+      "para"
+     ]
+    },
+    {
+     "es": "¿Para llevar o para tomar aquí?",
+     "ru": "С собой или здесь?",
+     "frame": [
+      "Para",
+      "para"
+     ]
+    },
+    {
+     "es": "Necesito una cita para el lunes.",
+     "ru": "Мне нужна запись на понедельник.",
+     "frame": [
+      "para"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v088",
+   "type": "vocab",
+   "es": "desde",
+   "en": "from / since",
+   "ru": "из / с (начиная от)",
+   "tr": "дэ́сдэ",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "Trabajo desde casa.",
+     "ru": "Я работаю из дома.",
+     "frame": [
+      "desde"
+     ]
+    },
+    {
+     "es": "Vivo aquí desde enero.",
+     "ru": "Я живу здесь с января.",
+     "frame": [
+      "desde"
+     ]
+    },
+    {
+     "es": "¿Desde dónde llamas?",
+     "ru": "Откуда ты звонишь?",
+     "frame": [
+      "Desde"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v031",
+   "type": "vocab",
+   "es": "hasta",
+   "en": "until / up to",
+   "ru": "до",
+   "tr": "а́ста",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "Voy hasta la estación.",
+     "ru": "Я еду до станции.",
+     "frame": [
+      "hasta"
+     ]
+    },
+    {
+     "es": "Está abierto hasta las diez.",
+     "ru": "Открыто до десяти.",
+     "frame": [
+      "hasta"
+     ]
+    },
+    {
+     "es": "¿Hasta qué hora abren?",
+     "ru": "До скольких вы работаете?",
+     "frame": [
+      "Hasta"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v032",
+   "type": "vocab",
+   "es": "hacia",
+   "en": "towards",
+   "ru": "в сторону / к",
+   "tr": "а́сья",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "Vamos hacia el centro.",
+     "ru": "Мы идём в сторону центра.",
+     "frame": [
+      "hacia"
+     ]
+    },
+    {
+     "es": "Camina hacia la plaza.",
+     "ru": "Иди в сторону площади.",
+     "frame": [
+      "hacia"
+     ]
+    },
+    {
+     "es": "El tren va hacia el norte.",
+     "ru": "Поезд идёт на север.",
+     "frame": [
+      "hacia"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v014",
+   "type": "vocab",
+   "es": "entre",
+   "en": "between / among",
+   "ru": "между / среди",
+   "tr": "э́нтрэ",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "Está entre los dos.",
+     "ru": "Это между двумя.",
+     "frame": [
+      "entre"
+     ]
+    },
+    {
+     "es": "La farmacia está entre el banco y el bar.",
+     "ru": "Аптека между банком и баром.",
+     "frame": [
+      "entre"
+     ]
+    },
+    {
+     "es": "Entre semana trabajo en casa.",
+     "ru": "В будни я работаю дома.",
+     "frame": [
+      "Entre"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v030",
+   "type": "vocab",
+   "es": "sobre",
+   "en": "on / over / about",
+   "ru": "на / над / о",
+   "tr": "со́брэ",
+   "set": "Предлоги",
+   "ex": [
+    {
+     "es": "El móvil está sobre la mesa.",
+     "ru": "Телефон на столе.",
+     "frame": [
+      "sobre"
+     ]
+    },
+    {
+     "es": "Hablamos sobre el colegio.",
+     "ru": "Мы говорили о школе.",
+     "frame": [
+      "sobre"
+     ]
+    },
+    {
+     "es": "Deja el paquete sobre la silla.",
+     "ru": "Оставь пакет на стуле.",
+     "frame": [
+      "sobre"
      ]
     }
    ]
@@ -231,70 +653,6 @@
      "ru": "Платишь картой или наличными?",
      "frame": [
       "o"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v023",
-   "type": "vocab",
-   "es": "en",
-   "en": "in / on / at",
-   "ru": "в / на",
-   "tr": "эн",
-   "group": "Предлоги",
-   "ex": [
-    {
-     "es": "Estoy en casa.",
-     "ru": "Я дома.",
-     "frame": [
-      "en"
-     ]
-    },
-    {
-     "es": "El móvil está en la mochila.",
-     "ru": "Телефон в рюкзаке.",
-     "frame": [
-      "en"
-     ]
-    },
-    {
-     "es": "Nos vemos en el parque.",
-     "ru": "Увидимся в парке.",
-     "frame": [
-      "en"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v025",
-   "type": "vocab",
-   "es": "de",
-   "en": "from / of",
-   "ru": "из / от",
-   "tr": "дэ",
-   "group": "Предлоги",
-   "ex": [
-    {
-     "es": "Soy de Ucrania.",
-     "ru": "Я из Украины.",
-     "frame": [
-      "de"
-     ]
-    },
-    {
-     "es": "Es el coche de mi hermana.",
-     "ru": "Это машина моей сестры.",
-     "frame": [
-      "de"
-     ]
-    },
-    {
-     "es": "Vengo de trabajar.",
-     "ru": "Я возвращаюсь с работы.",
-     "frame": [
-      "de"
      ]
     }
    ]
@@ -910,102 +1268,6 @@
    ]
   },
   {
-   "id": "es1-v026",
-   "type": "vocab",
-   "es": "con",
-   "en": "with",
-   "ru": "с",
-   "tr": "кон",
-   "group": "Предлоги",
-   "ex": [
-    {
-     "es": "Voy con mi familia.",
-     "ru": "Я иду с семьёй.",
-     "frame": [
-      "con"
-     ]
-    },
-    {
-     "es": "Un café con leche, por favor.",
-     "ru": "Кофе с молоком, пожалуйста.",
-     "frame": [
-      "con"
-     ]
-    },
-    {
-     "es": "¿Con quién hablo?",
-     "ru": "С кем я говорю?",
-     "frame": [
-      "Con"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v027",
-   "type": "vocab",
-   "es": "sin",
-   "en": "without",
-   "ru": "без",
-   "tr": "син",
-   "group": "Предлоги",
-   "ex": [
-    {
-     "es": "Café sin azúcar, por favor.",
-     "ru": "Кофе без сахара, пожалуйста.",
-     "frame": [
-      "sin"
-     ]
-    },
-    {
-     "es": "He salido sin las llaves.",
-     "ru": "Я вышел без ключей.",
-     "frame": [
-      "sin"
-     ]
-    },
-    {
-     "es": "Sin cita no atienden.",
-     "ru": "Без записи не принимают.",
-     "frame": [
-      "Sin"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v028",
-   "type": "vocab",
-   "es": "por",
-   "en": "through / along / by",
-   "ru": "через / по",
-   "tr": "пор",
-   "group": "Предлоги",
-   "ex": [
-    {
-     "es": "Paseamos por el centro.",
-     "ru": "Мы гуляем по центру.",
-     "frame": [
-      "por"
-     ]
-    },
-    {
-     "es": "Gracias por todo.",
-     "ru": "Спасибо за всё.",
-     "frame": [
-      "por"
-     ]
-    },
-    {
-     "es": "Te llamo por la tarde.",
-     "ru": "Я позвоню тебе во второй половине дня.",
-     "frame": [
-      "por"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es1-v038",
    "type": "vocab",
    "es": "eso",
@@ -1225,39 +1487,6 @@
      "ru": "Там никого нет.",
      "frame": [
       "Allí"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v029",
-   "type": "vocab",
-   "es": "para",
-   "en": "for / to",
-   "ru": "для / чтобы",
-   "tr": "па́ра",
-   "group": "Предлоги",
-   "ex": [
-    {
-     "es": "Esto es para mi hija.",
-     "ru": "Это для моей дочери.",
-     "frame": [
-      "para"
-     ]
-    },
-    {
-     "es": "¿Para llevar o para tomar aquí?",
-     "ru": "С собой или здесь?",
-     "frame": [
-      "Para",
-      "para"
-     ]
-    },
-    {
-     "es": "Necesito una cita para el lunes.",
-     "ru": "Мне нужна запись на понедельник.",
-     "frame": [
-      "para"
      ]
     }
    ]
@@ -1583,134 +1812,6 @@
    ]
   },
   {
-   "id": "es1-v014",
-   "type": "vocab",
-   "es": "entre",
-   "en": "between",
-   "ru": "между",
-   "tr": "э́нтрэ",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Está entre los dos.",
-     "ru": "Это между двумя.",
-     "frame": [
-      "entre"
-     ]
-    },
-    {
-     "es": "La farmacia está entre el banco y el bar.",
-     "ru": "Аптека между банком и баром.",
-     "frame": [
-      "entre"
-     ]
-    },
-    {
-     "es": "Entre semana trabajo en casa.",
-     "ru": "В будни я работаю дома.",
-     "frame": [
-      "Entre"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v030",
-   "type": "vocab",
-   "es": "sobre",
-   "en": "on / about",
-   "ru": "на / о",
-   "tr": "со́брэ",
-   "group": "Предлоги",
-   "ex": [
-    {
-     "es": "El móvil está sobre la mesa.",
-     "ru": "Телефон на столе.",
-     "frame": [
-      "sobre"
-     ]
-    },
-    {
-     "es": "Hablamos sobre el colegio.",
-     "ru": "Мы говорили о школе.",
-     "frame": [
-      "sobre"
-     ]
-    },
-    {
-     "es": "Deja el paquete sobre la silla.",
-     "ru": "Оставь пакет на стуле.",
-     "frame": [
-      "sobre"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v031",
-   "type": "vocab",
-   "es": "hasta",
-   "en": "until / up to",
-   "ru": "до",
-   "tr": "а́ста",
-   "group": "Навигация",
-   "ex": [
-    {
-     "es": "Voy hasta la estación.",
-     "ru": "Я еду до станции.",
-     "frame": [
-      "hasta"
-     ]
-    },
-    {
-     "es": "Está abierto hasta las diez.",
-     "ru": "Открыто до десяти.",
-     "frame": [
-      "hasta"
-     ]
-    },
-    {
-     "es": "¿Hasta qué hora abren?",
-     "ru": "До скольких вы работаете?",
-     "frame": [
-      "Hasta"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v032",
-   "type": "vocab",
-   "es": "hacia",
-   "en": "towards",
-   "ru": "в сторону / к",
-   "tr": "а́сья",
-   "group": "Навигация",
-   "ex": [
-    {
-     "es": "Vamos hacia el centro.",
-     "ru": "Мы идём в сторону центра.",
-     "frame": [
-      "hacia"
-     ]
-    },
-    {
-     "es": "Camina hacia la plaza.",
-     "ru": "Иди в сторону площади.",
-     "frame": [
-      "hacia"
-     ]
-    },
-    {
-     "es": "El tren va hacia el norte.",
-     "ru": "Поезд идёт на север.",
-     "frame": [
-      "hacia"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es1-v051",
    "type": "vocab",
    "es": "usted",
@@ -1738,38 +1839,6 @@
      "ru": "Это для вас.",
      "frame": [
       "usted"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v088",
-   "type": "vocab",
-   "es": "desde",
-   "en": "from/since",
-   "ru": "из/с",
-   "tr": "дэ́сдэ",
-   "group": "Предлоги",
-   "ex": [
-    {
-     "es": "Trabajo desde casa.",
-     "ru": "Я работаю из дома.",
-     "frame": [
-      "desde"
-     ]
-    },
-    {
-     "es": "Vivo aquí desde enero.",
-     "ru": "Я живу здесь с января.",
-     "frame": [
-      "desde"
-     ]
-    },
-    {
-     "es": "¿Desde dónde llamas?",
-     "ru": "Откуда ты звонишь?",
-     "frame": [
-      "Desde"
      ]
     }
    ]
@@ -1935,38 +2004,6 @@
    ]
   },
   {
-   "id": "es1-v115",
-   "type": "vocab",
-   "es": "fuera",
-   "en": "outside",
-   "ru": "снаружи",
-   "tr": "фуэ́ра",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Está fuera.",
-     "ru": "Это снаружи.",
-     "frame": [
-      "fuera"
-     ]
-    },
-    {
-     "es": "Te espero fuera.",
-     "ru": "Жду тебя на улице.",
-     "frame": [
-      "fuera"
-     ]
-    },
-    {
-     "es": "Hoy comemos fuera.",
-     "ru": "Сегодня едим не дома.",
-     "frame": [
-      "fuera"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es1-v126",
    "type": "vocab",
    "es": "quién",
@@ -2127,21 +2164,27 @@
    ]
   },
   {
-   "id": "es1-v116",
-   "type": "vocab",
-   "es": "dentro",
-   "en": "inside",
-   "ru": "внутри",
-   "tr": "дэ́нтро",
+   "id": "es1-p001",
+   "type": "pair",
+   "es": "dentro / fuera",
+   "en": "inside / outside",
+   "ru": "внутри / снаружи",
+   "tr": "дэ́нтро / фуэ́ра",
    "group": "Место",
+   "pairKind": "opposite",
+   "a": {
+    "es": "dentro",
+    "en": "inside",
+    "ru": "внутри",
+    "tr": "дэ́нтро"
+   },
+   "b": {
+    "es": "fuera",
+    "en": "outside",
+    "ru": "снаружи",
+    "tr": "фуэ́ра"
+   },
    "ex": [
-    {
-     "es": "Está dentro.",
-     "ru": "Это внутри.",
-     "frame": [
-      "dentro"
-     ]
-    },
     {
      "es": "Los niños están dentro.",
      "ru": "Дети внутри.",
@@ -2150,10 +2193,18 @@
      ]
     },
     {
-     "es": "¿Puedo esperar dentro?",
-     "ru": "Можно подождать внутри?",
+     "es": "Te espero fuera.",
+     "ru": "Жду тебя на улице.",
      "frame": [
-      "dentro"
+      "fuera"
+     ]
+    },
+    {
+     "es": "¿Comemos dentro o fuera?",
+     "ru": "Едим внутри или на улице?",
+     "frame": [
+      "dentro",
+      "fuera"
      ]
     }
    ]
@@ -4179,35 +4230,9 @@
   {
    "id": "es1-n001",
    "type": "note",
-   "title": "Предлоги",
+   "title": "Наречие места + de",
    "section": "vocab",
    "blocks": [
-    {
-     "k": "note",
-     "spans": [
-      {
-       "t": "Важно:",
-       "s": "b"
-      },
-      {
-       "t": " "
-      },
-      {
-       "t": "a + el = al",
-       "s": "es"
-      },
-      {
-       "t": ", "
-      },
-      {
-       "t": "de + el = del",
-       "s": "es"
-      },
-      {
-       "t": "."
-      }
-     ]
-    },
     {
      "k": "p",
      "spans": [
@@ -4266,7 +4291,7 @@
      ]
     }
    ],
-   "group": "Предлоги"
+   "group": "Место"
   },
   {
    "id": "es1-n002",
