@@ -1825,6 +1825,17 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
 .sp-search-row { display: flex; gap: var(--spacing-xs); margin-bottom: var(--spacing-xs); }
 .sp-search-row .sp-search-box { flex: 1 1 auto; }
 
+/* On a phone the field steps out of that share while it is being typed in:
+   beside the switch (and the hub's mode menu) it kept 140–200px, and a query
+   ran out of sight after a word or two. The field leads the row, so the
+   sibling combinator reaches everything after it without :has(); the row
+   keeps its height, so nothing below moves when the focus goes and they come
+   back. Held by the focus, not by the text: with the keyboard put away a live
+   query still wants the switch in reach. */
+@media (max-width: 699px) {
+    .sp-search-row .sp-search-box:focus-within ~ * { display: none; }
+}
+
 /* The downloads and the copy button wrap as one block. Laid out one by one, a
    phone wide enough to take the downloads beside Reset (430px) would leave
    the copy button alone on the line below. */
