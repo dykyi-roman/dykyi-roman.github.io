@@ -558,14 +558,19 @@
     /* ---------- rules (phonetics and grammar) ---------- */
 
     // The map of the rules, by layer: each section sits in the layer the file
-    // names for it, and its link carries the section's number.
-    function mapSection(map, sections, topTotal) {
+    // names for it, and its link carries the section's number. The sections
+    // that can wait a year (`rules.later`) close the map in a layer of their
+    // own, as they close the page.
+    function mapSection(rules, topTotal) {
         var byId = {};
-        sections.forEach(function (section) { byId[section.id] = section; });
-        return SP.renderMap('esr-map', map.title, (map.layers || []).map(function (layer) {
+        rules.sections.forEach(function (section) { byId[section.id] = section; });
+        var layers = (rules.map.layers || []).slice();
+        if (rules.later) layers.push({ title: rules.later.title, hint: rules.later.hint, ids: rules.later.ids, cls: 'is-later' });
+        return SP.renderMap('esr-map', rules.map.title, layers.map(function (layer) {
             return {
                 title: layer.title,
                 hint: layer.hint,
+                cls: layer.cls,
                 links: (layer.ids || []).filter(function (id) { return byId[id]; }).map(function (id) {
                     var section = byId[id];
                     return { target: id, no: section.no, name: section.title, top: section.top };
@@ -579,8 +584,9 @@
     // inside the hub panel a heading only repeated the Rules chip above it.
     // First the key to the transcription, folded to its heading — a table of a
     // row per reading rule that is looked up, not read on arrival — then the
-    // map, then the sections. The sections to learn first carry a `top` rank,
-    // a star beside their title and on the map.
+    // map, then the sections, the last of them folded away for later. The
+    // sections to learn first carry a `top` rank, a star beside their title
+    // and on the map.
     SP.renderRules = function (host, rules) {
         SP.clear(host);
 
@@ -598,7 +604,30 @@
         var topTotal = rules.sections.filter(function (section) { return section.top; }).length;
 
         if (rules.map && rules.map.layers && rules.map.layers.length) {
-            body.appendChild(mapSection(rules.map, rules.sections, topTotal));
+            body.appendChild(mapSection(rules, topTotal));
+        }
+
+        // The rules that can wait a year close the page, folded under a
+        // heading of their own: still a tap away, but not on the road through
+        // the first year. A link of the map into the fold opens it on the way
+        // down, so the jump lands on the section rather than on nothing.
+        var later = rules.later && rules.later.ids && rules.later.ids.length ? rules.later : null;
+        var folded = {};
+        var laterBox = null;
+        var laterDrawer = null;
+        if (later) {
+            later.ids.forEach(function (id) { folded[id] = true; });
+            laterBox = SP.el('section', 'sp-group sp-later');
+            laterBox.id = 'esr-later';
+            var laterHead = laterBox.appendChild(SP.el('h3', 'sp-group-title has-toggle', later.title));
+            if (later.hint) laterBox.appendChild(SP.el('p', 'sp-later-hint', later.hint));
+            laterDrawer = SP.drawer(laterBox, laterHead, function () {}, 'the rules for later');
+            body.addEventListener('click', function (e) {
+                var link = e.target.closest && e.target.closest('a[href^="#"]');
+                if (!link || !laterDrawer.hidden) return;
+                var target = document.getElementById(link.getAttribute('href').slice(1));
+                if (target && laterDrawer.contains(target)) laterHead.querySelector('.sp-drawer-toggle').click();
+            });
         }
 
         // Where a pinned section is carried: a shelf of its own under the map,
@@ -627,8 +656,9 @@
                 block.appendChild(SP.el('h4', null, part.title));
                 SP.renderBlocks(block, part.blocks);
             });
-            body.appendChild(block);
+            (folded[section.id] ? laterDrawer : body).appendChild(block);
         });
+        if (laterBox) body.appendChild(laterBox);
 
         // What was pinned on an earlier visit goes up as the page is drawn.
         SP.pin.pickPinned(pins).forEach(function (entry) { SP.pin.raise(entry.node, shelf); });

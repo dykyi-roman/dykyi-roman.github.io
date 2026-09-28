@@ -1470,6 +1470,18 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
 /* The key to the transcription opens as its table alone. */
 .sp-key > .sp-drawer { display: block; padding-top: 0; border-top: 0; }
 
+/* The rules that can wait a year close the page under a fold of their own,
+   set off by a dashed rule so the page reads as done above it. Open, the
+   fold holds whole sections, which keep their own headings and spacing. */
+.sp-later { margin-top: var(--spacing-lg); padding-top: var(--spacing-md); border-top: 2px dashed var(--color-border); }
+.sp-later-hint { margin: 0 0 var(--spacing-sm); color: var(--color-text-light); font-size: var(--font-size-small); }
+.sp-later > .sp-drawer { display: block; padding-top: var(--spacing-sm); border-top: 0; }
+
+/* A rule a stage keeps in its Reference (SP.setTiles): the rules' own
+   blocks under the grid, above the tables' rows. A fork brings its cards,
+   so the panel draws no card of its own around them. */
+.sp-guide { margin-top: var(--spacing-md); }
+
 /* ---------- rules diagrams: fork ---------- */
 
 /* A fork is a choice, so its branches are cards rather than rows of a table
@@ -1607,13 +1619,15 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
 
 /* The three verb layers of the rules share one accent, so they read as one
    block. The themes of the patterns are siblings and keep one accent; the
-   contrasts, which set the patterns side by side, take the site's orange. */
+   contrasts, which set the patterns side by side, take the site's orange.
+   The rules for later close the map in grey, whatever place that is — the
+   id keeps the rule level with the numbered ones above, and order lets it win. */
 #esr-map .sp-map-layer:nth-child(2) { --sp-accent: var(--color-success); }
 #esr-map .sp-map-layer:nth-child(3),
 #esr-map .sp-map-layer:nth-child(4),
 #esr-map .sp-map-layer:nth-child(5) { --sp-accent: var(--color-primary); }
-#esr-map .sp-map-layer:nth-child(7) { --sp-accent: var(--color-success); }
 .sp-map-layer.is-contrasts { --sp-accent: var(--color-primary); }
+#esr-map .sp-map-layer.is-later { --sp-accent: var(--color-text-light); }
 
 .sp-map-title { color: var(--color-heading); font-weight: 600; font-size: var(--font-size-small); line-height: 1.3; }
 .sp-map-hint { color: var(--color-text-light); font-size: 0.8rem; line-height: 1.3; margin-bottom: 2px; }

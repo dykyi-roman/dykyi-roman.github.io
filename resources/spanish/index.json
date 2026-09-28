@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-26",
+ "updated": "2026-09-28",
  "stages": [
   {
    "id": "stage-1",
@@ -105,7 +105,7 @@
   "icon": "📐",
   "url": "spanish/rules.html",
   "file": "rules.json",
-  "sections": 38
+  "sections": 37
  },
  "patterns": {
   "id": "patterns",

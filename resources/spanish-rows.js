@@ -201,11 +201,31 @@
                 if (input) input.focus();
             }
         });
+        // A stage may keep a rule in its Reference too — a tile that opens
+        // prose instead of a table, as Bind keeps por / para beside its
+        // prepositions. It follows the tables and opens where the calculator
+        // does; like the calculator it has no rows, so no count.
+        var guides = (stage && stage.guides) || [];
+        guides.forEach(function (guide) {
+            tables.push({ key: { stage: stage.no, set: guide.name }, icon: guide.icon, name: guide.name, what: 'rule', guide: guide });
+        });
         var block = SP.el('div', 'sp-set-tiles');
         block.appendChild(SP.tileGrid(tables, { state: SP.tables, what: 'table' }).node);
         if (calc && SP.tables.isOpen(key)) block.appendChild(calcPanel());
+        tables.forEach(function (tile) {
+            if (tile.guide && SP.tables.isOpen(tile.key)) block.appendChild(guidePanel(tile.guide));
+        });
         return block;
     };
+
+    // A rule kept in a stage's Reference, drawn by the rules' own renderer.
+    // Its prose is Russian on a page that may be lang="en" (the hub).
+    function guidePanel(guide) {
+        var box = SP.el('div', 'sp-guide');
+        box.lang = 'ru';
+        SP.renderBlocks(box, guide.blocks);
+        return box;
+    }
 
     // What was typed into the calculator, kept for the page load: the list
     // rebuilds on every tile tap, and opening a table beside the field should

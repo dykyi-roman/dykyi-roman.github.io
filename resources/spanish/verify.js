@@ -390,6 +390,30 @@ function checkCalc(stage, entry, sets) {
     });
 }
 
+// A rule a stage keeps in its Reference: a tile — a picture and a name —
+// that opens the rules' own blocks instead of a table (Bind's por / para).
+// The tile is drawn with the tables, so a stage with no table would never
+// show it; and its open state is keyed by stage and name, as a table's is, so
+// the name is no set's and not the calculator's.
+function checkGuides(stage, entry, sets) {
+    const at = entry.file + ' guides';
+    if (!Array.isArray(stage.guides) || stage.guides.length === 0) { fail(at + ': no guides — leave the field out instead'); return; }
+    if (!Object.keys(sets).length) fail(at + ': the stage has no table, so Reference — and the tile with it — is never drawn');
+    const names = {};
+    stage.guides.forEach((guide, i) => {
+        const where = at + ' ' + (guide && guide.name ? JSON.stringify(guide.name) : '#' + i);
+        if (!guide || typeof guide !== 'object') { fail(where + ': not a guide'); return; }
+        if (!text(guide.name)) fail(where + ': has no name');
+        if (!text(guide.icon)) fail(where + ': has no icon');
+        if (sets[guide.name] || (stage.calc && stage.calc.name === guide.name)) fail(where + ': its name is also the name of a set or of the calculator');
+        if (names[guide.name]) fail(where + ': declared twice');
+        names[guide.name] = true;
+        if (!Array.isArray(guide.blocks) || guide.blocks.length === 0) { fail(where + ': no blocks'); return; }
+        checkBlocks(guide.blocks, where);
+        checkNoExampleTables(guide.blocks, where);
+    });
+}
+
 (manifest.stages || []).forEach(entry => {
     ['id', 'prefix', 'no', 'title', 'titleRu', 'url', 'file', 'counts'].forEach(k => {
         if (entry[k] === undefined || entry[k] === null || entry[k] === '') {
@@ -465,6 +489,7 @@ function checkCalc(stage, entry, sets) {
         }
     });
     if (stage.calc !== undefined) checkCalc(stage, entry, sets);
+    if (stage.guides !== undefined) checkGuides(stage, entry, sets);
 
     (stage.items || []).forEach((item, i) => {
         const at = entry.file + ' item ' + (item.id || '#' + i);
@@ -639,7 +664,7 @@ function checkCalc(stage, entry, sets) {
 
     checkBlocks(stage.intro, entry.file + ' intro');
     checkStrings(stage, entry.file);
-    checkStageNumbers({ goal: stage.goal, intro: stage.intro, notes: stage.notes, excluded: stage.excluded }, entry.file);
+    checkStageNumbers({ goal: stage.goal, intro: stage.intro, notes: stage.notes, excluded: stage.excluded, guides: stage.guides }, entry.file);
 });
 
 /* ---------- what to learn first: the top ranks and their examples ---------- */
@@ -695,18 +720,41 @@ function checkRanks(ranks, file) {
     return sorted.length;
 }
 
-// Anchors renderRules synthesises: the key to the transcription and the map.
-const RULES_PANEL_IDS = ['esr-key', 'esr-map'];
+// Anchors renderRules synthesises: the key to the transcription, the map and
+// the fold of the rules for later.
+const RULES_PANEL_IDS = ['esr-key', 'esr-map', 'esr-later'];
+
+// The rules that can wait a year are folded under one heading at the foot of
+// the page, and the map draws them as a layer of its own. They must be the
+// tail of the list, or the numbers would jump on the page; and none of them
+// may be starred to learn first, which is the opposite of what the fold says.
+function checkLater(later, sections) {
+    const at = 'rules.json later';
+    if (!later || typeof later !== 'object') { fail(at + ': is not an object'); return []; }
+    if (!text(later.title)) fail(at + ': no title');
+    if (later.hint !== undefined && !text(later.hint)) fail(at + ': empty "hint"');
+    if (!Array.isArray(later.ids) || later.ids.length === 0) { fail(at + ': no ids — leave "later" out instead'); return []; }
+    const tail = sections.slice(sections.length - later.ids.length).map(section => section.id);
+    later.ids.forEach((id, i) => {
+        const section = sections.find(s => s.id === id);
+        if (!section) { fail(at + ': no section with id ' + JSON.stringify(id)); return; }
+        if (tail[i] !== id) fail(at + ': ' + id + ' is not where the fold stands — the folded sections close the list, in the order of "ids"');
+        if (section.top !== undefined) fail(at + ': ' + id + ' is starred to learn first and folded for later at once');
+    });
+    return later.ids;
+}
 
 // The map says which layer each section belongs to. It is one field rather
 // than a `layer` on all 39 sections, so the one thing that can go wrong is
 // coverage — and that is exactly what a comparison of the two sets catches.
-function checkMap(map, sections) {
+// The folded sections are the map's last layer, drawn from `later`.
+function checkMap(map, sections, laterIds) {
     const at = 'rules.json map';
     if (!text(map.title)) fail(at + ': no title');
     if (map.chip !== undefined) fail(at + ': "chip" is left over — the rules have no chip index any more');
     if (!Array.isArray(map.layers) || map.layers.length < 2) { fail(at + ': needs at least 2 layers'); return; }
     const placed = Object.create(null);
+    (laterIds || []).forEach(id => { placed[id] = 'later'; });
     map.layers.forEach((layer, i) => {
         const where = at + ' layer ' + (layer && layer.title ? JSON.stringify(layer.title) : '#' + i);
         if (!layer || typeof layer !== 'object') { fail(where + ': not a layer'); return; }
@@ -764,8 +812,12 @@ if (rules) {
     checkKey(rules);
     if (rules.tables !== undefined) fail('rules.json: "tables" is left over — the examples fold it captioned is gone');
     if (!Array.isArray(rules.sections) || rules.sections.length === 0) fail('rules.json: no sections');
-    (rules.sections || []).forEach(section => {
+    (rules.sections || []).forEach((section, i) => {
         if (!section.id) fail('rules.json: section without id');
+        // A section's number is its place on the page. Sections have left the
+        // rules and moved to the fold at its foot, and every such move closes
+        // the numbers up; a number written by hand drifts at the first one.
+        if (section.no !== i + 1) fail('rules.json: section ' + section.id + ' is numbered ' + section.no + ' but stands #' + (i + 1));
         else if (seenIds[section.id]) fail('duplicate id ' + section.id);
         else seenIds[section.id] = 'rules.json';
         if (RULES_PANEL_IDS.indexOf(section.id) !== -1) fail('rules.json: id "' + section.id + '" is taken by an anchor the renderer draws itself');
@@ -797,9 +849,11 @@ if (rules) {
     if (manifest.rules && manifest.rules.sections !== rules.sections.length) {
         fail('index.json: rules count ' + manifest.rules.sections + ' but rules.json has ' + rules.sections.length);
     }
+    const laterIds = rules.later !== undefined ? checkLater(rules.later, rules.sections || []) : [];
+    if (laterIds.length) notes.push(laterIds.length + ' rules folded for later');
     if (rules.map) {
-        const placed = checkMap(rules.map, rules.sections || []);
-        if (placed) notes.push('the map covers ' + placed + ' rules in ' + rules.map.layers.length + ' layers');
+        const placed = checkMap(rules.map, rules.sections || [], laterIds);
+        if (placed) notes.push('the map covers ' + placed + ' rules in ' + (rules.map.layers.length + (laterIds.length ? 1 : 0)) + ' layers');
     }
     checkStrings(rules, 'rules.json');
     checkStageNumbers(rules, 'rules.json');
