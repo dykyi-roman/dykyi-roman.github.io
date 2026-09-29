@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-28",
+ "updated": "2026-09-29",
  "stages": [
   {
    "id": "stage-1",
@@ -32,7 +32,7 @@
    "url": "spanish/stage-2.html",
    "file": "stage-3.json",
    "counts": {
-    "vocab": 667,
+    "vocab": 739,
     "pair": 0,
     "phrase": 0,
     "exchange": 0,
@@ -52,7 +52,7 @@
    "file": "stage-4.json",
    "counts": {
     "vocab": 0,
-    "pair": 179,
+    "pair": 175,
     "phrase": 0,
     "exchange": 0,
     "drill": 0
@@ -121,6 +121,6 @@
   "titleRu": "Формы глаголов: настоящее, прошедшее и будущее",
   "icon": "🔀",
   "file": "verbs.json",
-  "count": 218
+  "count": 225
  }
 }

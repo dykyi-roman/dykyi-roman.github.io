@@ -32,6 +32,13 @@
    "fut": ["abriré", "abrirás", "abrirá", "abriremos", "abriréis", "abrirán"]
   },
   {
+   "es": "aburrirse",
+   "kind": "regular",
+   "pres": ["me aburro", "te aburres", "se aburre", "nos aburrimos", "os aburrís", "se aburren"],
+   "pret": ["me aburrí", "te aburriste", "se aburrió", "nos aburrimos", "os aburristeis", "se aburrieron"],
+   "fut": ["me aburriré", "te aburrirás", "se aburrirá", "nos aburriremos", "os aburriréis", "se aburrirán"]
+  },
+  {
    "es": "acabar",
    "kind": "regular",
    "pres": ["acabo", "acabas", "acaba", "acabamos", "acabáis", "acaban"],
@@ -543,6 +550,20 @@
    "fut": ["discutiré", "discutirás", "discutirá", "discutiremos", "discutiréis", "discutirán"]
   },
   {
+   "es": "disfrutar",
+   "kind": "regular",
+   "pres": ["disfruto", "disfrutas", "disfruta", "disfrutamos", "disfrutáis", "disfrutan"],
+   "pret": ["disfruté", "disfrutaste", "disfrutó", "disfrutamos", "disfrutasteis", "disfrutaron"],
+   "fut": ["disfrutaré", "disfrutarás", "disfrutará", "disfrutaremos", "disfrutaréis", "disfrutarán"]
+  },
+  {
+   "es": "divertirse",
+   "kind": "stem",
+   "pres": ["me divierto", "te diviertes", "se divierte", "nos divertimos", "os divertís", "se divierten"],
+   "pret": ["me divertí", "te divertiste", "se divirtió", "nos divertimos", "os divertisteis", "se divirtieron"],
+   "fut": ["me divertiré", "te divertirás", "se divertirá", "nos divertiremos", "os divertiréis", "se divertirán"]
+  },
+  {
    "es": "doler",
    "kind": "stem",
    "pres": ["duelo", "dueles", "duele", "dolemos", "doléis", "duelen"],
@@ -618,6 +639,13 @@
    "pres": ["encuentro", "encuentras", "encuentra", "encontramos", "encontráis", "encuentran"],
    "pret": ["encontré", "encontraste", "encontró", "encontramos", "encontrasteis", "encontraron"],
    "fut": ["encontraré", "encontrarás", "encontrará", "encontraremos", "encontraréis", "encontrarán"]
+  },
+  {
+   "es": "enfadarse",
+   "kind": "regular",
+   "pres": ["me enfado", "te enfadas", "se enfada", "nos enfadamos", "os enfadáis", "se enfadan"],
+   "pret": ["me enfadé", "te enfadaste", "se enfadó", "nos enfadamos", "os enfadasteis", "se enfadaron"],
+   "fut": ["me enfadaré", "te enfadarás", "se enfadará", "nos enfadaremos", "os enfadaréis", "se enfadarán"]
   },
   {
    "es": "enseñar",
@@ -1040,6 +1068,13 @@
    "fut": ["ocurriré", "ocurrirás", "ocurrirá", "ocurriremos", "ocurriréis", "ocurrirán"]
   },
   {
+   "es": "odiar",
+   "kind": "regular",
+   "pres": ["odio", "odias", "odia", "odiamos", "odiáis", "odian"],
+   "pret": ["odié", "odiaste", "odió", "odiamos", "odiasteis", "odiaron"],
+   "fut": ["odiaré", "odiarás", "odiará", "odiaremos", "odiaréis", "odiarán"]
+  },
+  {
    "es": "ofrecer",
    "kind": "irregular",
    "pres": ["ofrezco", "ofreces", "ofrece", "ofrecemos", "ofrecéis", "ofrecen"],
@@ -1383,6 +1418,13 @@
    "fut": ["sentiré", "sentirás", "sentirá", "sentiremos", "sentiréis", "sentirán"]
   },
   {
+   "es": "sentirse",
+   "kind": "stem",
+   "pres": ["me siento", "te sientes", "se siente", "nos sentimos", "os sentís", "se sienten"],
+   "pret": ["me sentí", "te sentiste", "se sintió", "nos sentimos", "os sentisteis", "se sintieron"],
+   "fut": ["me sentiré", "te sentirás", "se sentirá", "nos sentiremos", "os sentiréis", "se sentirán"]
+  },
+  {
    "es": "ser",
    "kind": "irregular",
    "pres": ["soy", "eres", "es", "somos", "sois", "son"],
@@ -1402,6 +1444,13 @@
    "pres": ["sobro", "sobras", "sobra", "sobramos", "sobráis", "sobran"],
    "pret": ["sobré", "sobraste", "sobró", "sobramos", "sobrasteis", "sobraron"],
    "fut": ["sobraré", "sobrarás", "sobrará", "sobraremos", "sobraréis", "sobrarán"]
+  },
+  {
+   "es": "sonreír",
+   "kind": "irregular",
+   "pres": ["sonrío", "sonríes", "sonríe", "sonreímos", "sonreís", "sonríen"],
+   "pret": ["sonreí", "sonreíste", "sonrió", "sonreímos", "sonreísteis", "sonrieron"],
+   "fut": ["sonreiré", "sonreirás", "sonreirá", "sonreiremos", "sonreiréis", "sonreirán"]
   },
   {
    "es": "subir",

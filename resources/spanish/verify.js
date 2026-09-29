@@ -560,6 +560,12 @@ function checkGuides(stage, entry, sets) {
             if (!item.set) fail(at + ': "swatch" belongs to a word of a table (set)');
             if (typeof item.swatch !== 'string' || !/^#[0-9a-f]{6}$/i.test(item.swatch)) fail(at + ': "swatch" is not a #rrggbb colour');
         }
+        // The letter a row of the alphabet table names, drawn ahead of the
+        // word like a colour's square: a table word alone, one or two characters.
+        if (item.glyph !== undefined) {
+            if (!item.set) fail(at + ': "glyph" belongs to a word of a table (set)');
+            if (typeof item.glyph !== 'string' || !/^\S{1,2}$/.test(item.glyph)) fail(at + ': "glyph" is not one or two characters');
+        }
         if (tiled && (item.type === 'vocab' || item.type === 'pair') && !item.set && !item.group) {
             fail(at + ': carries no topic, and on a stage drawn as tiles that leaves it no tile to open under');
         }
@@ -943,24 +949,32 @@ if (patterns) {
 
 /* ---------- a word of a set lives in its table and nowhere else ---------- */
 
-// Reference gathers the closed sets — days, months, numbers — into tables so
-// that their words are not also scattered through the lists. The same Spanish
-// in another entry, or in either half of a pair, in any stage, is a duplicate.
-const setIds = Object.keys(setEs);
-setIds.forEach(id => {
-    const others = (lexIds[wordKey(setEs[id])] || []).filter(other => other !== id);
-    if (others.length) fail(id + ' ("' + setEs[id] + '") is in a set but also lives in ' + others.join(', '));
-});
-if (setIds.length) notes.push(setIds.length + ' in sets');
-
-/* ---------- no entry twice ---------- */
-
 // The same word in two cards splits its progress between two Leitner boxes,
 // and two cards with the same Russian cannot be answered from the Russian
 // side: "там" is ahí and allí alike. Homonyms — one spelling, two words — are
 // the exception, and are listed by name.
 const HOMONYMS = ['claro', 'salida', 'verdad', 'cómo', 'perdón', 'no', 'este', 'caja', 'comedor',
-    'primero', 'segundo', 'cuarto', 'tirar', 'seco'];
+    'primero', 'segundo', 'cuarto', 'tirar', 'seco', 'tiempo',
+    // the letters of the alphabet table (a, de, o, te, ese) beside the
+    // preposition, conjunction, pronoun and demonstrative spelled the same
+    'a', 'de', 'o', 'te', 'ese'];
+
+// Reference gathers the closed sets — days, months, numbers — into tables so
+// that their words are not also scattered through the lists. The same Spanish
+// in another entry, or in either half of a pair, in any stage, is a duplicate
+// — unless HOMONYMS names it as two words.
+const setIds = Object.keys(setEs);
+setIds.forEach(id => {
+    const others = (lexIds[wordKey(setEs[id])] || []).filter(other => other !== id);
+    // A homonym is two words in one spelling, and one of them may be a
+    // table's: "el tiempo" of the weather table beside "el tiempo" of Время.
+    if (others.length && HOMONYMS.indexOf(spanishKey(setEs[id])) === -1) {
+        fail(id + ' ("' + setEs[id] + '") is in a set but also lives in ' + others.join(', '));
+    }
+});
+if (setIds.length) notes.push(setIds.length + ' in sets');
+
+/* ---------- no entry twice ---------- */
 
 // And so are the six question words, which are taught twice on purpose: as
 // words of Bind, where the stage teaches asking, and again as the contrast

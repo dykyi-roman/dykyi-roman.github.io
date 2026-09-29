@@ -782,7 +782,11 @@
     // A colour of the colours table wears its own square ahead of the word
     // (`swatch` in the file): the word is learnt against the colour itself,
     // not against its name in another language. Decorative — the word says it.
-    function lexEs(es, swatch) {
+    // A letter of the alphabet table wears the letter itself ahead of its
+    // name (`glyph` in the file) the same way; it rides as data-glyph and CSS
+    // prints it through ::before, so it is no text node — neither the search
+    // nor anything reading textContent sees it.
+    function lexEs(es, swatch, glyph) {
         var box = SP.el('div', 'sp-lex-es');
         if (swatch) {
             var chip = SP.el('span', 'sp-swatch');
@@ -790,6 +794,7 @@
             chip.setAttribute('aria-hidden', 'true');
             box.appendChild(chip);
         }
+        if (glyph) box.setAttribute('data-glyph', glyph);
         box.appendChild(wordWithDot(es, verbDot(SP.verbs.get(es))));
         return box;
     }
@@ -801,7 +806,7 @@
     // Returns the head, which is where the row's mark goes.
     function lexText(parent, part) {
         var head = SP.el('div', 'sp-lex-head');
-        head.appendChild(lexEs(part.es, part.swatch));
+        head.appendChild(lexEs(part.es, part.swatch, part.glyph));
         if (part.tr) head.appendChild(SP.el('div', 'sp-lex-tr', part.tr));
         parent.appendChild(head);
         if (part.en) parent.appendChild(SP.el('div', 'sp-lex-en', part.en));

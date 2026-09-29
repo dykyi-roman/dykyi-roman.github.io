@@ -106,7 +106,7 @@
    "k": "p",
    "spans": [
     {
-     "t": "Закрытые наборы — дни недели, месяцы, времена года, цвета, числа и порядковые числа — собраны в свёрнутый раздел "
+     "t": "Закрытые наборы — алфавит, календарь (дни недели, месяцы и год), времена года и погода, цвета, числа и порядковые числа — собраны в свёрнутый раздел "
     },
     {
      "t": "Reference",
@@ -218,16 +218,16 @@
  ],
  "sets": [
   {
-   "name": "Дни недели",
+   "name": "Алфавит",
+   "icon": "🔤"
+  },
+  {
+   "name": "Календарь",
    "icon": "📅"
   },
   {
-   "name": "Месяцы",
-   "icon": "🗓️"
-  },
-  {
-   "name": "Времена года",
-   "icon": "🍂"
+   "name": "Времена года и погода",
+   "icon": "🌤️"
   },
   {
    "name": "Цвета",
@@ -240,6 +240,10 @@
   {
    "name": "Порядковые числа",
    "icon": "🥇"
+  },
+  {
+   "name": "Эмоции",
+   "icon": "🎭"
   }
  ],
  "calc": {
@@ -249,6 +253,553 @@
  },
  "items": [
   {
+   "id": "es3-v705",
+   "type": "vocab",
+   "es": "a",
+   "en": "the letter A",
+   "ru": "буква A",
+   "tr": "а",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "A",
+   "ex": [
+    {
+     "es": "A de Alicante.",
+     "ru": "A, как в Alicante.",
+     "frame": [
+      "A"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v706",
+   "type": "vocab",
+   "es": "be",
+   "en": "the letter B",
+   "ru": "буква B",
+   "tr": "бэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "B",
+   "ex": [
+    {
+     "es": "Be de Barcelona.",
+     "ru": "B, как в Barcelona.",
+     "frame": [
+      "Be"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v707",
+   "type": "vocab",
+   "es": "ce",
+   "en": "the letter C",
+   "ru": "буква C",
+   "tr": "сэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "C",
+   "ex": [
+    {
+     "es": "Ce de Cádiz.",
+     "ru": "C, как в Cádiz.",
+     "frame": [
+      "Ce"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v708",
+   "type": "vocab",
+   "es": "de",
+   "en": "the letter D",
+   "ru": "буква D",
+   "tr": "дэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "D",
+   "ex": [
+    {
+     "es": "De de Dinamarca.",
+     "ru": "D, как в Dinamarca.",
+     "frame": [
+      "De"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v709",
+   "type": "vocab",
+   "es": "e",
+   "en": "the letter E",
+   "ru": "буква E",
+   "tr": "э",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "E",
+   "ex": [
+    {
+     "es": "E de España.",
+     "ru": "E, как в España.",
+     "frame": [
+      "E"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v710",
+   "type": "vocab",
+   "es": "efe",
+   "en": "the letter F",
+   "ru": "буква F",
+   "tr": "э́фэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "F",
+   "ex": [
+    {
+     "es": "Efe de Francia.",
+     "ru": "F, как в Francia.",
+     "frame": [
+      "Efe"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v711",
+   "type": "vocab",
+   "es": "ge",
+   "en": "the letter G",
+   "ru": "буква G",
+   "tr": "хэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "G",
+   "ex": [
+    {
+     "es": "Ge de Granada.",
+     "ru": "G, как в Granada.",
+     "frame": [
+      "Ge"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v712",
+   "type": "vocab",
+   "es": "hache",
+   "en": "the letter H",
+   "ru": "буква H",
+   "tr": "а́чэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "H",
+   "ex": [
+    {
+     "es": "Hache de Huelva.",
+     "ru": "H, как в Huelva.",
+     "frame": [
+      "Hache"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v713",
+   "type": "vocab",
+   "es": "i",
+   "en": "the letter I",
+   "ru": "буква I",
+   "tr": "и",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "I",
+   "ex": [
+    {
+     "es": "I de Italia.",
+     "ru": "I, как в Italia.",
+     "frame": [
+      "I"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v714",
+   "type": "vocab",
+   "es": "jota",
+   "en": "the letter J",
+   "ru": "буква J",
+   "tr": "хо́та",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "J",
+   "ex": [
+    {
+     "es": "Jota de Jaén.",
+     "ru": "J, как в Jaén.",
+     "frame": [
+      "Jota"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v715",
+   "type": "vocab",
+   "es": "ka",
+   "en": "the letter K",
+   "ru": "буква K",
+   "tr": "ка",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "K",
+   "ex": [
+    {
+     "es": "Ka de kilo.",
+     "ru": "K, как в kilo.",
+     "frame": [
+      "Ka"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v716",
+   "type": "vocab",
+   "es": "ele",
+   "en": "the letter L",
+   "ru": "буква L",
+   "tr": "э́лэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "L",
+   "ex": [
+    {
+     "es": "Ele de León.",
+     "ru": "L, как в León.",
+     "frame": [
+      "Ele"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v717",
+   "type": "vocab",
+   "es": "eme",
+   "en": "the letter M",
+   "ru": "буква M",
+   "tr": "э́мэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "M",
+   "ex": [
+    {
+     "es": "Eme de Madrid.",
+     "ru": "M, как в Madrid.",
+     "frame": [
+      "Eme"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v718",
+   "type": "vocab",
+   "es": "ene",
+   "en": "the letter N",
+   "ru": "буква N",
+   "tr": "э́нэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "N",
+   "ex": [
+    {
+     "es": "Ene de Navarra.",
+     "ru": "N, как в Navarra.",
+     "frame": [
+      "Ene"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v719",
+   "type": "vocab",
+   "es": "eñe",
+   "en": "the letter Ñ",
+   "ru": "буква Ñ",
+   "tr": "э́ньэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "Ñ",
+   "ex": [
+    {
+     "es": "Eñe, como en España.",
+     "ru": "Ñ, как в España.",
+     "frame": [
+      "Eñe"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v720",
+   "type": "vocab",
+   "es": "o",
+   "en": "the letter O",
+   "ru": "буква O",
+   "tr": "о",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "O",
+   "ex": [
+    {
+     "es": "O de Oviedo.",
+     "ru": "O, как в Oviedo.",
+     "frame": [
+      "O"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v721",
+   "type": "vocab",
+   "es": "pe",
+   "en": "the letter P",
+   "ru": "буква P",
+   "tr": "пэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "P",
+   "ex": [
+    {
+     "es": "Pe de Pamplona.",
+     "ru": "P, как в Pamplona.",
+     "frame": [
+      "Pe"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v722",
+   "type": "vocab",
+   "es": "cu",
+   "en": "the letter Q",
+   "ru": "буква Q",
+   "tr": "ку",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "Q",
+   "ex": [
+    {
+     "es": "Cu de queso.",
+     "ru": "Q, как в queso.",
+     "frame": [
+      "Cu"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v723",
+   "type": "vocab",
+   "es": "erre",
+   "en": "the letter R",
+   "ru": "буква R",
+   "tr": "э́ррэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "R",
+   "ex": [
+    {
+     "es": "Erre de Roma.",
+     "ru": "R, как в Roma.",
+     "frame": [
+      "Erre"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v724",
+   "type": "vocab",
+   "es": "ese",
+   "en": "the letter S",
+   "ru": "буква S",
+   "tr": "э́сэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "S",
+   "ex": [
+    {
+     "es": "Ese de Sevilla.",
+     "ru": "S, как в Sevilla.",
+     "frame": [
+      "Ese"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v725",
+   "type": "vocab",
+   "es": "te",
+   "en": "the letter T",
+   "ru": "буква T",
+   "tr": "тэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "T",
+   "ex": [
+    {
+     "es": "Te de Toledo.",
+     "ru": "T, как в Toledo.",
+     "frame": [
+      "Te"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v726",
+   "type": "vocab",
+   "es": "u",
+   "en": "the letter U",
+   "ru": "буква U",
+   "tr": "у",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "U",
+   "ex": [
+    {
+     "es": "U de Uruguay.",
+     "ru": "U, как в Uruguay.",
+     "frame": [
+      "U"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v727",
+   "type": "vocab",
+   "es": "uve",
+   "en": "the letter V",
+   "ru": "буква V",
+   "tr": "у́бэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "V",
+   "ex": [
+    {
+     "es": "Uve de Valencia.",
+     "ru": "V, как в Valencia.",
+     "frame": [
+      "Uve"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v728",
+   "type": "vocab",
+   "es": "uve doble",
+   "en": "the letter W",
+   "ru": "буква W",
+   "tr": "у́бэ до́блэ",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "W",
+   "ex": [
+    {
+     "es": "Uve doble de Washington.",
+     "ru": "W, как в Washington.",
+     "frame": [
+      "Uve doble"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v729",
+   "type": "vocab",
+   "es": "equis",
+   "en": "the letter X",
+   "ru": "буква X",
+   "tr": "э́кис",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "X",
+   "ex": [
+    {
+     "es": "Equis, como en taxi.",
+     "ru": "X, как в taxi.",
+     "frame": [
+      "Equis"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v730",
+   "type": "vocab",
+   "es": "i griega",
+   "en": "the letter Y",
+   "ru": "буква Y",
+   "tr": "и грье́га",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "Y",
+   "ex": [
+    {
+     "es": "I griega de yogur.",
+     "ru": "Y, как в yogur.",
+     "frame": [
+      "I griega"
+     ]
+    },
+    {
+     "es": "La i griega también se llama ye.",
+     "ru": "И-гриега также называют ye.",
+     "frame": [
+      "i griega"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v731",
+   "type": "vocab",
+   "es": "zeta",
+   "en": "the letter Z",
+   "ru": "буква Z",
+   "tr": "сэ́та",
+   "group": null,
+   "set": "Алфавит",
+   "glyph": "Z",
+   "ex": [
+    {
+     "es": "Zeta de Zaragoza.",
+     "ru": "Z, как в Zaragoza.",
+     "frame": [
+      "Zeta"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es3-v311",
    "type": "vocab",
    "es": "el lunes",
@@ -256,7 +807,7 @@
    "ru": "понедельник",
    "tr": "эл лу́нэс",
    "group": null,
-   "set": "Дни недели",
+   "set": "Календарь",
    "ex": [
     {
      "es": "El lunes empiezo el curso.",
@@ -289,7 +840,7 @@
    "ru": "вторник",
    "tr": "эл ма́ртэс",
    "group": null,
-   "set": "Дни недели",
+   "set": "Календарь",
    "ex": [
     {
      "es": "El martes tengo el día libre.",
@@ -322,7 +873,7 @@
    "ru": "среда",
    "tr": "эл мье́рколэс",
    "group": null,
-   "set": "Дни недели",
+   "set": "Календарь",
    "ex": [
     {
      "es": "El miércoles es mi día más largo.",
@@ -355,7 +906,7 @@
    "ru": "четверг",
    "tr": "эл хуэ́бэс",
    "group": null,
-   "set": "Дни недели",
+   "set": "Календарь",
    "ex": [
     {
      "es": "El jueves salgo antes del trabajo.",
@@ -388,7 +939,7 @@
    "ru": "пятница",
    "tr": "эл бье́рнэс",
    "group": null,
-   "set": "Дни недели",
+   "set": "Календарь",
    "ex": [
     {
      "es": "El viernes llega mi hermana.",
@@ -421,7 +972,7 @@
    "ru": "суббота",
    "tr": "эл са́бадо",
    "group": null,
-   "set": "Дни недели",
+   "set": "Календарь",
    "ex": [
     {
      "es": "El sábado no trabajo.",
@@ -454,7 +1005,7 @@
    "ru": "воскресенье",
    "tr": "эл доми́нго",
    "group": null,
-   "set": "Дни недели",
+   "set": "Календарь",
    "ex": [
     {
      "es": "El domingo comemos con la familia.",
@@ -487,7 +1038,7 @@
    "ru": "январь",
    "tr": "энэ́ро",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "En enero hay rebajas.",
@@ -520,7 +1071,7 @@
    "ru": "февраль",
    "tr": "фэбрэ́ро",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "Febrero tiene veintiocho días.",
@@ -553,7 +1104,7 @@
    "ru": "март",
    "tr": "ма́рсо",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "En marzo cambia la hora.",
@@ -586,7 +1137,7 @@
    "ru": "апрель",
    "tr": "абри́л",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "En abril llueve casi cada día.",
@@ -619,7 +1170,7 @@
    "ru": "май",
    "tr": "ма́йо",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "En mayo ya se puede ir a la playa.",
@@ -652,7 +1203,7 @@
    "ru": "июнь",
    "tr": "ху́ньо",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "En junio empiezan las vacaciones.",
@@ -685,7 +1236,7 @@
    "ru": "июль",
    "tr": "ху́льо",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "En julio la ciudad se vacía.",
@@ -718,7 +1269,7 @@
    "ru": "август",
    "tr": "аго́сто",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "En agosto casi nadie trabaja.",
@@ -751,7 +1302,7 @@
    "ru": "сентябрь",
    "tr": "сэптье́мбрэ",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "En septiembre vuelve la rutina.",
@@ -784,7 +1335,7 @@
    "ru": "октябрь",
    "tr": "окту́брэ",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "En octubre empieza a refrescar.",
@@ -817,7 +1368,7 @@
    "ru": "ноябрь",
    "tr": "нобье́мбрэ",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "En noviembre llueve bastante.",
@@ -850,7 +1401,7 @@
    "ru": "декабрь",
    "tr": "дисье́мбрэ",
    "group": null,
-   "set": "Месяцы",
+   "set": "Календарь",
    "ex": [
     {
      "es": "En diciembre todo está lleno.",
@@ -876,6 +1427,39 @@
    ]
   },
   {
+   "id": "es3-v304",
+   "type": "vocab",
+   "es": "el año",
+   "en": "year",
+   "ru": "год",
+   "tr": "эл а́ньо",
+   "group": null,
+   "ex": [
+    {
+     "es": "Vivo aquí desde hace un año.",
+     "ru": "Я живу здесь год.",
+     "frame": [
+      "año"
+     ]
+    },
+    {
+     "es": "Mi hija tiene seis años.",
+     "ru": "Моей дочери шесть лет.",
+     "frame": [
+      "años"
+     ]
+    },
+    {
+     "es": "El año pasado fuimos a Portugal.",
+     "ru": "В прошлом году мы ездили в Португалию.",
+     "frame": [
+      "año"
+     ]
+    }
+   ],
+   "set": "Календарь"
+  },
+  {
    "id": "es3-v669",
    "type": "vocab",
    "es": "la primavera",
@@ -883,7 +1467,7 @@
    "ru": "весна",
    "tr": "ла примабэ́ра",
    "group": null,
-   "set": "Времена года",
+   "set": "Времена года и погода",
    "ex": [
     {
      "es": "En primavera todo florece.",
@@ -916,7 +1500,7 @@
    "ru": "лето",
    "tr": "эл бэра́но",
    "group": null,
-   "set": "Времена года",
+   "set": "Времена года и погода",
    "ex": [
     {
      "es": "El verano dura hasta octubre.",
@@ -949,7 +1533,7 @@
    "ru": "осень",
    "tr": "эл ото́ньо",
    "group": null,
-   "set": "Времена года",
+   "set": "Времена года и погода",
    "ex": [
     {
      "es": "En otoño empieza el colegio.",
@@ -982,7 +1566,7 @@
    "ru": "зима",
    "tr": "эл инбье́рно",
    "group": null,
-   "set": "Времена года",
+   "set": "Времена года и погода",
    "ex": [
     {
      "es": "El invierno aquí es suave.",
@@ -1003,6 +1587,497 @@
      "ru": "Прошлой зимой один раз шёл снег.",
      "frame": [
       "El invierno"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v704",
+   "type": "vocab",
+   "es": "el tiempo",
+   "en": "weather",
+   "ru": "погода",
+   "tr": "эл тье́мпо",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "¿Qué tiempo hace en Madrid?",
+     "ru": "Какая погода в Мадриде?",
+     "frame": [
+      "tiempo"
+     ]
+    },
+    {
+     "es": "Si hace buen tiempo, comemos fuera.",
+     "ru": "Если погода хорошая, поедим на улице.",
+     "frame": [
+      "tiempo"
+     ]
+    },
+    {
+     "es": "Hace mal tiempo, mejor nos quedamos en casa.",
+     "ru": "Погода плохая, лучше останемся дома.",
+     "frame": [
+      "tiempo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v690",
+   "type": "vocab",
+   "es": "hace sol",
+   "en": "it's sunny",
+   "ru": "солнечно",
+   "tr": "а́сэ сол",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "Hace sol y no hay ni una nube.",
+     "ru": "Солнечно, и ни облачка.",
+     "frame": [
+      "Hace sol"
+     ]
+    },
+    {
+     "es": "Cuando hace sol, la terraza se llena.",
+     "ru": "Когда солнечно, терраса заполняется.",
+     "frame": [
+      "hace sol"
+     ]
+    },
+    {
+     "es": "Aquí hace sol casi todo el año.",
+     "ru": "Здесь солнечно почти весь год.",
+     "frame": [
+      "hace sol"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v691",
+   "type": "vocab",
+   "es": "hace calor",
+   "en": "it's hot",
+   "ru": "жарко",
+   "tr": "а́сэ кало́р",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "Hace mucho calor, vamos a la sombra.",
+     "ru": "Очень жарко, пойдём в тень.",
+     "frame": [
+      "Hace",
+      "calor"
+     ]
+    },
+    {
+     "es": "En agosto hace calor incluso de noche.",
+     "ru": "В августе жарко даже ночью.",
+     "frame": [
+      "hace calor"
+     ]
+    },
+    {
+     "es": "Hoy hace calor, ponte algo ligero.",
+     "ru": "Сегодня жарко, надень что-нибудь лёгкое.",
+     "frame": [
+      "hace calor"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v692",
+   "type": "vocab",
+   "es": "hace fresco",
+   "en": "it's cool",
+   "ru": "прохладно",
+   "tr": "а́сэ фрэ́ско",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "Por la noche hace fresco, coge una chaqueta.",
+     "ru": "Вечером прохладно, возьми куртку.",
+     "frame": [
+      "hace fresco"
+     ]
+    },
+    {
+     "es": "En la sierra hace fresco incluso en julio.",
+     "ru": "В горах прохладно даже в июле.",
+     "frame": [
+      "hace fresco"
+     ]
+    },
+    {
+     "es": "Ya hace fresco, se nota el otoño.",
+     "ru": "Уже прохладно, чувствуется осень.",
+     "frame": [
+      "hace fresco"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v693",
+   "type": "vocab",
+   "es": "hace frío",
+   "en": "it's cold",
+   "ru": "холодно",
+   "tr": "а́сэ фри́о",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "Hace frío, enciende la calefacción.",
+     "ru": "Холодно, включи отопление.",
+     "frame": [
+      "Hace frío"
+     ]
+    },
+    {
+     "es": "¿Hace frío fuera?",
+     "ru": "На улице холодно?",
+     "frame": [
+      "Hace frío"
+     ]
+    },
+    {
+     "es": "En enero hace frío hasta en Sevilla.",
+     "ru": "В январе холодно даже в Севилье.",
+     "frame": [
+      "hace frío"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v694",
+   "type": "vocab",
+   "es": "hace viento",
+   "en": "it's windy",
+   "ru": "ветрено",
+   "tr": "а́сэ бье́нто",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "Hace viento, cierra la sombrilla.",
+     "ru": "Ветрено, закрой зонт от солнца.",
+     "frame": [
+      "Hace viento"
+     ]
+    },
+    {
+     "es": "Hoy hace mucho viento en la playa.",
+     "ru": "Сегодня на пляже очень ветрено.",
+     "frame": [
+      "hace",
+      "viento"
+     ]
+    },
+    {
+     "es": "Cuando hace viento, el mar está revuelto.",
+     "ru": "Когда ветрено, море неспокойное.",
+     "frame": [
+      "hace viento"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v695",
+   "type": "vocab",
+   "es": "está nublado",
+   "en": "it's cloudy",
+   "ru": "облачно",
+   "tr": "эста́ нубла́до",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "Está nublado, pero no llueve.",
+     "ru": "Облачно, но дождя нет.",
+     "frame": [
+      "Está nublado"
+     ]
+    },
+    {
+     "es": "Por la mañana estaba nublado y luego salió el sol.",
+     "ru": "Утром было облачно, а потом вышло солнце."
+    },
+    {
+     "es": "Está nublado desde el mediodía.",
+     "ru": "Облачно с полудня.",
+     "frame": [
+      "Está nublado"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v696",
+   "type": "vocab",
+   "es": "está despejado",
+   "en": "it's clear",
+   "ru": "ясно (без облаков)",
+   "tr": "эста́ дэспэха́до",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "El cielo está despejado, se ven las estrellas.",
+     "ru": "Небо ясное, видны звёзды.",
+     "frame": [
+      "está despejado"
+     ]
+    },
+    {
+     "es": "Mañana estará despejado todo el día.",
+     "ru": "Завтра весь день будет ясно."
+    },
+    {
+     "es": "Está despejado, buen día para la montaña.",
+     "ru": "Ясно, хороший день для гор.",
+     "frame": [
+      "Está despejado"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v697",
+   "type": "vocab",
+   "es": "llueve",
+   "en": "it's raining",
+   "ru": "идёт дождь",
+   "tr": "йуэ́бэ",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "Llueve desde esta mañana.",
+     "ru": "Дождь идёт с самого утра.",
+     "frame": [
+      "Llueve"
+     ]
+    },
+    {
+     "es": "Aquí llueve poco en verano.",
+     "ru": "Здесь летом редко идёт дождь.",
+     "frame": [
+      "llueve"
+     ]
+    },
+    {
+     "es": "¿Llueve mucho en el norte?",
+     "ru": "На севере часто идёт дождь?",
+     "frame": [
+      "Llueve"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v698",
+   "type": "vocab",
+   "es": "va a llover",
+   "en": "it's going to rain",
+   "ru": "будет дождь",
+   "tr": "ба а йобэ́р",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "Va a llover esta tarde, no salgas sin paraguas.",
+     "ru": "Днём будет дождь, не выходи без зонта.",
+     "frame": [
+      "Va a llover"
+     ]
+    },
+    {
+     "es": "Dicen que va a llover todo el fin de semana.",
+     "ru": "Говорят, все выходные будет дождь.",
+     "frame": [
+      "va a llover"
+     ]
+    },
+    {
+     "es": "Mira el cielo, va a llover.",
+     "ru": "Посмотри на небо, сейчас пойдёт дождь.",
+     "frame": [
+      "va a llover"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v699",
+   "type": "vocab",
+   "es": "nieva",
+   "en": "it's snowing",
+   "ru": "идёт снег",
+   "tr": "нье́ба",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "En la sierra nieva cada invierno.",
+     "ru": "В горах снег идёт каждую зиму.",
+     "frame": [
+      "nieva"
+     ]
+    },
+    {
+     "es": "Hoy nieva en Madrid, algo raro.",
+     "ru": "Сегодня в Мадриде идёт снег, редкость.",
+     "frame": [
+      "nieva"
+     ]
+    },
+    {
+     "es": "Cuando nieva, cierran el puerto de montaña.",
+     "ru": "Когда идёт снег, горный перевал закрывают.",
+     "frame": [
+      "nieva"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v700",
+   "type": "vocab",
+   "es": "hay niebla",
+   "en": "it's foggy",
+   "ru": "туман",
+   "tr": "ай нье́бла",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "Hay niebla, conduce despacio.",
+     "ru": "Туман, веди машину медленно.",
+     "frame": [
+      "Hay niebla"
+     ]
+    },
+    {
+     "es": "Por la mañana hay niebla en el valle.",
+     "ru": "По утрам в долине туман.",
+     "frame": [
+      "hay niebla"
+     ]
+    },
+    {
+     "es": "Con tanta niebla no se ve nada.",
+     "ru": "В таком тумане ничего не видно.",
+     "frame": [
+      "niebla"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v701",
+   "type": "vocab",
+   "es": "hay tormenta",
+   "en": "there's a storm",
+   "ru": "гроза",
+   "tr": "ай тормэ́нта",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "Hay tormenta, mejor no salgas en barco.",
+     "ru": "Гроза, лучше не выходи в море на лодке.",
+     "frame": [
+      "Hay tormenta"
+     ]
+    },
+    {
+     "es": "Esta noche hay tormenta, cierra las ventanas.",
+     "ru": "Ночью гроза, закрой окна.",
+     "frame": [
+      "hay tormenta"
+     ]
+    },
+    {
+     "es": "Después de la tormenta, el aire está limpio.",
+     "ru": "После грозы воздух чистый.",
+     "frame": [
+      "tormenta"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v702",
+   "type": "vocab",
+   "es": "la previsión del tiempo",
+   "en": "the weather forecast",
+   "ru": "прогноз погоды",
+   "tr": "ла прэбисьо́н дэл тье́мпо",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "¿Has visto la previsión del tiempo?",
+     "ru": "Ты смотрел прогноз погоды?",
+     "frame": [
+      "la previsión del tiempo"
+     ]
+    },
+    {
+     "es": "La previsión del tiempo da lluvia para el sábado.",
+     "ru": "Прогноз погоды обещает дождь на субботу.",
+     "frame": [
+      "La previsión del tiempo"
+     ]
+    },
+    {
+     "es": "Según la previsión, mañana hace sol.",
+     "ru": "По прогнозу, завтра солнечно.",
+     "frame": [
+      "previsión"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v703",
+   "type": "vocab",
+   "es": "la ola de calor",
+   "en": "the heatwave",
+   "ru": "волна жары",
+   "tr": "ла о́ла дэ кало́р",
+   "group": null,
+   "set": "Времена года и погода",
+   "ex": [
+    {
+     "es": "Esta semana hay ola de calor.",
+     "ru": "На этой неделе волна жары.",
+     "frame": [
+      "ola de calor"
+     ]
+    },
+    {
+     "es": "Con la ola de calor, cierran los parques al mediodía.",
+     "ru": "Из-за волны жары парки в полдень закрывают.",
+     "frame": [
+      "la ola de calor"
+     ]
+    },
+    {
+     "es": "La ola de calor dura hasta el jueves.",
+     "ru": "Волна жары продлится до четверга.",
+     "frame": [
+      "La ola de calor"
      ]
     }
    ]
@@ -3127,6 +4202,1096 @@
      "ru": "Он пришёл десятым.",
      "frame": [
       "décima"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v732",
+   "type": "vocab",
+   "es": "contento",
+   "en": "pleased",
+   "ru": "довольный",
+   "tr": "контэ́нто",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Estoy contento.",
+     "ru": "Я доволен.",
+     "frame": [
+      "contento"
+     ]
+    },
+    {
+     "es": "Estamos muy contentos con el piso.",
+     "ru": "Мы очень довольны квартирой.",
+     "frame": [
+      "contentos"
+     ]
+    },
+    {
+     "es": "¿Estás contento con el resultado?",
+     "ru": "Ты доволен результатом?",
+     "frame": [
+      "contento"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v733",
+   "type": "vocab",
+   "es": "feliz",
+   "en": "happy",
+   "ru": "счастливый",
+   "tr": "фэли́с",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Estoy muy feliz.",
+     "ru": "Я очень счастлив.",
+     "frame": [
+      "feliz"
+     ]
+    },
+    {
+     "es": "Fue el día más feliz de mi vida.",
+     "ru": "Это был самый счастливый день моей жизни.",
+     "frame": [
+      "feliz"
+     ]
+    },
+    {
+     "es": "¡Feliz cumpleaños!",
+     "ru": "С днём рождения!",
+     "frame": [
+      "Feliz"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v734",
+   "type": "vocab",
+   "es": "alegre",
+   "en": "cheerful",
+   "ru": "весёлый, радостный",
+   "tr": "алэ́грэ",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Es una persona muy alegre.",
+     "ru": "Он очень весёлый человек.",
+     "frame": [
+      "alegre"
+     ]
+    },
+    {
+     "es": "Hoy estás muy alegre, ¿qué pasa?",
+     "ru": "Ты сегодня очень весёлый, что случилось?",
+     "frame": [
+      "alegre"
+     ]
+    },
+    {
+     "es": "Es una canción alegre.",
+     "ru": "Это весёлая песня.",
+     "frame": [
+      "alegre"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v735",
+   "type": "vocab",
+   "es": "triste",
+   "en": "sad",
+   "ru": "грустный",
+   "tr": "три́стэ",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Está triste.",
+     "ru": "Ему грустно.",
+     "frame": [
+      "triste"
+     ]
+    },
+    {
+     "es": "¿Por qué estás tan triste?",
+     "ru": "Почему ты такой грустный?",
+     "frame": [
+      "triste"
+     ]
+    },
+    {
+     "es": "Es una noticia muy triste.",
+     "ru": "Это очень грустная новость.",
+     "frame": [
+      "triste"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v736",
+   "type": "vocab",
+   "es": "enfadado",
+   "en": "angry",
+   "ru": "злой, сердитый",
+   "tr": "энфада́до",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "¿Estás enfadado conmigo?",
+     "ru": "Ты на меня злишься?",
+     "frame": [
+      "enfadado"
+     ]
+    },
+    {
+     "es": "Mi madre está enfadada porque llegué tarde.",
+     "ru": "Мама сердится, потому что я опоздал.",
+     "frame": [
+      "enfadada"
+     ]
+    },
+    {
+     "es": "No me hables, estoy enfadado.",
+     "ru": "Не говори со мной, я зол.",
+     "frame": [
+      "enfadado"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v737",
+   "type": "vocab",
+   "es": "nervioso",
+   "en": "nervous",
+   "ru": "нервный",
+   "tr": "нэрбьо́со",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Está nerviosa por el examen.",
+     "ru": "Она нервничает из-за экзамена.",
+     "frame": [
+      "nerviosa"
+     ]
+    },
+    {
+     "es": "Me pongo nervioso cuando hablo en público.",
+     "ru": "Я нервничаю, когда говорю на публике.",
+     "frame": [
+      "nervioso"
+     ]
+    },
+    {
+     "es": "Los niños están nerviosos antes del viaje.",
+     "ru": "Дети волнуются перед поездкой.",
+     "frame": [
+      "nerviosos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v738",
+   "type": "vocab",
+   "es": "tranquilo",
+   "en": "calm",
+   "ru": "спокойный",
+   "tr": "транки́ло",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Tranquilo, no pasa nada.",
+     "ru": "Спокойно, ничего страшного.",
+     "frame": [
+      "Tranquilo"
+     ]
+    },
+    {
+     "es": "Es un barrio muy tranquilo.",
+     "ru": "Это очень спокойный район.",
+     "frame": [
+      "tranquilo"
+     ]
+    },
+    {
+     "es": "Ahora estoy más tranquila.",
+     "ru": "Теперь я спокойнее.",
+     "frame": [
+      "tranquila"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v342",
+   "type": "vocab",
+   "es": "preocupado",
+   "en": "worried",
+   "ru": "обеспокоенный",
+   "tr": "прэокупа́до",
+   "group": null,
+   "ex": [
+    {
+     "es": "Está preocupado por el examen.",
+     "ru": "Он переживает из-за экзамена.",
+     "frame": [
+      "preocupado"
+     ]
+    },
+    {
+     "es": "No estés preocupada, va bien.",
+     "ru": "Не переживай, всё хорошо.",
+     "frame": [
+      "preocupada"
+     ]
+    },
+    {
+     "es": "Tiene cara de preocupado.",
+     "ru": "У него обеспокоенный вид.",
+     "frame": [
+      "preocupado"
+     ]
+    }
+   ],
+   "set": "Эмоции"
+  },
+  {
+   "id": "es3-v343",
+   "type": "vocab",
+   "es": "sorprendido",
+   "en": "surprised",
+   "ru": "удивлённый",
+   "tr": "сорпрэнди́до",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me quedé sorprendido con el precio.",
+     "ru": "Я удивился цене.",
+     "frame": [
+      "sorprendido"
+     ]
+    },
+    {
+     "es": "Está sorprendida por la noticia.",
+     "ru": "Она удивлена новостью.",
+     "frame": [
+      "sorprendida"
+     ]
+    },
+    {
+     "es": "No pongas cara de sorprendido.",
+     "ru": "Не делай удивлённое лицо.",
+     "frame": [
+      "sorprendido"
+     ]
+    }
+   ],
+   "set": "Эмоции"
+  },
+  {
+   "id": "es3-v344",
+   "type": "vocab",
+   "es": "asustado",
+   "en": "scared",
+   "ru": "испуганный",
+   "tr": "асуста́до",
+   "group": null,
+   "ex": [
+    {
+     "es": "El niño está asustado.",
+     "ru": "Ребёнок напуган.",
+     "frame": [
+      "asustado"
+     ]
+    },
+    {
+     "es": "No estés asustada, es normal.",
+     "ru": "Не пугайся, это нормально.",
+     "frame": [
+      "asustada"
+     ]
+    },
+    {
+     "es": "Salió asustado de la consulta.",
+     "ru": "Он вышел от врача напуганным.",
+     "frame": [
+      "asustado"
+     ]
+    }
+   ],
+   "set": "Эмоции"
+  },
+  {
+   "id": "es3-v739",
+   "type": "vocab",
+   "es": "emocionado",
+   "en": "excited, moved",
+   "ru": "взволнованный (радостно), растроганный",
+   "tr": "эмосьона́до",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Estoy emocionado con el viaje.",
+     "ru": "Я в предвкушении поездки.",
+     "frame": [
+      "emocionado"
+     ]
+    },
+    {
+     "es": "Se puso emocionada al ver a su abuela.",
+     "ru": "Она растрогалась, увидев бабушку.",
+     "frame": [
+      "emocionada"
+     ]
+    },
+    {
+     "es": "Los niños están emocionados con los regalos.",
+     "ru": "Дети в восторге от подарков.",
+     "frame": [
+      "emocionados"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v740",
+   "type": "vocab",
+   "es": "avergonzado",
+   "en": "embarrassed",
+   "ru": "смущённый, пристыженный",
+   "tr": "абэргонса́до",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Estoy avergonzado por lo que dije.",
+     "ru": "Мне стыдно за то, что я сказал.",
+     "frame": [
+      "avergonzado"
+     ]
+    },
+    {
+     "es": "Se fue avergonzada de la reunión.",
+     "ru": "Она ушла со встречи смущённая.",
+     "frame": [
+      "avergonzada"
+     ]
+    },
+    {
+     "es": "No estés avergonzado, a todos nos pasa.",
+     "ru": "Не смущайся, со всеми бывает.",
+     "frame": [
+      "avergonzado"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v741",
+   "type": "vocab",
+   "es": "orgulloso",
+   "en": "proud",
+   "ru": "гордый",
+   "tr": "оргуйо́со",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Estoy orgulloso de ti.",
+     "ru": "Я горжусь тобой.",
+     "frame": [
+      "orgulloso"
+     ]
+    },
+    {
+     "es": "Está orgullosa de su trabajo.",
+     "ru": "Она гордится своей работой.",
+     "frame": [
+      "orgullosa"
+     ]
+    },
+    {
+     "es": "Es demasiado orgulloso para pedir ayuda.",
+     "ru": "Он слишком гордый, чтобы просить о помощи.",
+     "frame": [
+      "orgulloso"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v742",
+   "type": "vocab",
+   "es": "celoso",
+   "en": "jealous",
+   "ru": "ревнивый",
+   "tr": "сэло́со",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Mi perro es muy celoso.",
+     "ru": "Мой пёс очень ревнивый.",
+     "frame": [
+      "celoso"
+     ]
+    },
+    {
+     "es": "No seas celoso, es solo un amigo.",
+     "ru": "Не ревнуй, это просто друг.",
+     "frame": [
+      "celoso"
+     ]
+    },
+    {
+     "es": "Está celosa de su hermana pequeña.",
+     "ru": "Она ревнует к младшей сестре.",
+     "frame": [
+      "celosa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v743",
+   "type": "vocab",
+   "es": "estresado",
+   "en": "stressed",
+   "ru": "в стрессе",
+   "tr": "эстрэса́до",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Estoy muy estresado con el trabajo.",
+     "ru": "Я в сильном стрессе из-за работы.",
+     "frame": [
+      "estresado"
+     ]
+    },
+    {
+     "es": "Últimamente está estresada.",
+     "ru": "В последнее время она в стрессе.",
+     "frame": [
+      "estresada"
+     ]
+    },
+    {
+     "es": "Los exámenes me tienen estresado.",
+     "ru": "Экзамены держат меня в стрессе.",
+     "frame": [
+      "estresado"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v744",
+   "type": "vocab",
+   "es": "harto",
+   "en": "fed up",
+   "ru": "сыт по горло, надоело",
+   "tr": "а́рто",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Estoy harto de esperar.",
+     "ru": "Мне надоело ждать.",
+     "frame": [
+      "harto"
+     ]
+    },
+    {
+     "es": "Estamos hartos del ruido de los vecinos.",
+     "ru": "Нам надоел шум соседей.",
+     "frame": [
+      "hartos"
+     ]
+    },
+    {
+     "es": "Ya estoy harta, me voy.",
+     "ru": "С меня хватит, я ухожу.",
+     "frame": [
+      "harta"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v745",
+   "type": "vocab",
+   "es": "reír",
+   "en": "to laugh",
+   "ru": "смеяться",
+   "tr": "ррэи́р",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Nos reímos toda la tarde.",
+     "ru": "Мы смеялись весь вечер.",
+     "frame": [
+      "reímos"
+     ]
+    },
+    {
+     "es": "Me río mucho con esa serie.",
+     "ru": "Я много смеюсь над этим сериалом.",
+     "frame": [
+      "río"
+     ]
+    },
+    {
+     "es": "No te rías de mí.",
+     "ru": "Не смейся надо мной.",
+     "frame": [
+      "rías"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v746",
+   "type": "vocab",
+   "es": "llorar",
+   "en": "to cry",
+   "ru": "плакать",
+   "tr": "йора́р",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "La niña está llorando.",
+     "ru": "Дочь плачет.",
+     "frame": [
+      "llorando"
+     ]
+    },
+    {
+     "es": "No llores, ya está.",
+     "ru": "Не плачь, всё уже прошло.",
+     "frame": [
+      "llores"
+     ]
+    },
+    {
+     "es": "Lloré con el final de la película.",
+     "ru": "Я плакала на финале фильма.",
+     "frame": [
+      "Lloré"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v747",
+   "type": "vocab",
+   "es": "sonreír",
+   "en": "to smile",
+   "ru": "улыбаться",
+   "tr": "сонррэи́р",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Sonríe, que te hago una foto.",
+     "ru": "Улыбнись, я тебя фотографирую.",
+     "frame": [
+      "Sonríe"
+     ]
+    },
+    {
+     "es": "Siempre sonríe cuando me ve.",
+     "ru": "Он всегда улыбается, когда видит меня.",
+     "frame": [
+      "sonríe"
+     ]
+    },
+    {
+     "es": "El bebé ya sonríe.",
+     "ru": "Малыш уже улыбается.",
+     "frame": [
+      "sonríe"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v748",
+   "type": "vocab",
+   "es": "divertirse",
+   "en": "to have fun",
+   "ru": "веселиться, развлекаться",
+   "tr": "дибэрти́рсэ",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Nos divertimos mucho en la fiesta.",
+     "ru": "Мы очень повеселились на празднике.",
+     "frame": [
+      "divertimos"
+     ]
+    },
+    {
+     "es": "¡Que te diviertas!",
+     "ru": "Развлекайся!",
+     "frame": [
+      "diviertas"
+     ]
+    },
+    {
+     "es": "Los niños se divierten en el parque.",
+     "ru": "Дети веселятся в парке.",
+     "frame": [
+      "divierten"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v749",
+   "type": "vocab",
+   "es": "disfrutar",
+   "en": "to enjoy",
+   "ru": "наслаждаться, получать удовольствие",
+   "tr": "дисфрута́р",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Disfruta del fin de semana.",
+     "ru": "Наслаждайся выходными.",
+     "frame": [
+      "Disfruta"
+     ]
+    },
+    {
+     "es": "Disfrutamos mucho de la comida.",
+     "ru": "Мы получили большое удовольствие от еды.",
+     "frame": [
+      "Disfrutamos"
+     ]
+    },
+    {
+     "es": "Hay que disfrutar de la vida.",
+     "ru": "Надо получать удовольствие от жизни.",
+     "frame": [
+      "disfrutar"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v750",
+   "type": "vocab",
+   "es": "enfadarse",
+   "en": "to get angry",
+   "ru": "злиться, сердиться",
+   "tr": "энфада́рсэ",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "No te enfades, era una broma.",
+     "ru": "Не злись, это была шутка.",
+     "frame": [
+      "enfades"
+     ]
+    },
+    {
+     "es": "Se enfada por cualquier cosa.",
+     "ru": "Он злится по любому поводу.",
+     "frame": [
+      "enfada"
+     ]
+    },
+    {
+     "es": "Me enfadé con mi hermano.",
+     "ru": "Я разозлился на брата.",
+     "frame": [
+      "enfadé"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v751",
+   "type": "vocab",
+   "es": "aburrirse",
+   "en": "to get bored",
+   "ru": "скучать (от скуки)",
+   "tr": "абурри́рсэ",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Me aburro en casa.",
+     "ru": "Мне скучно дома.",
+     "frame": [
+      "aburro"
+     ]
+    },
+    {
+     "es": "Los niños se aburren rápido.",
+     "ru": "Дети быстро начинают скучать.",
+     "frame": [
+      "aburren"
+     ]
+    },
+    {
+     "es": "No te vas a aburrir, hay mucho que hacer.",
+     "ru": "Скучать не придётся, дел много.",
+     "frame": [
+      "aburrir"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v752",
+   "type": "vocab",
+   "es": "sentirse",
+   "en": "to feel",
+   "ru": "чувствовать себя",
+   "tr": "сэнти́рсэ",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "¿Cómo te sientes hoy?",
+     "ru": "Как ты себя сегодня чувствуешь?",
+     "frame": [
+      "sientes"
+     ]
+    },
+    {
+     "es": "Hoy me siento mucho mejor.",
+     "ru": "Сегодня я чувствую себя гораздо лучше.",
+     "frame": [
+      "siento"
+     ]
+    },
+    {
+     "es": "Se siente sola en la ciudad nueva.",
+     "ru": "Она чувствует себя одиноко в новом городе.",
+     "frame": [
+      "siente"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v753",
+   "type": "vocab",
+   "es": "odiar",
+   "en": "to hate",
+   "ru": "ненавидеть",
+   "tr": "одья́р",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Odio madrugar.",
+     "ru": "Ненавижу рано вставать.",
+     "frame": [
+      "Odio"
+     ]
+    },
+    {
+     "es": "Odia el calor del verano.",
+     "ru": "Он ненавидит летнюю жару.",
+     "frame": [
+      "Odia"
+     ]
+    },
+    {
+     "es": "No odies a nadie.",
+     "ru": "Никого не ненавидь.",
+     "frame": [
+      "odies"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v754",
+   "type": "vocab",
+   "es": "tener miedo",
+   "en": "to be afraid",
+   "ru": "бояться",
+   "tr": "тэнэ́р мье́до",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Tengo miedo a los perros.",
+     "ru": "Я боюсь собак.",
+     "frame": [
+      "Tengo miedo"
+     ]
+    },
+    {
+     "es": "No tengas miedo, yo estoy aquí.",
+     "ru": "Не бойся, я здесь.",
+     "frame": [
+      "tengas miedo"
+     ]
+    },
+    {
+     "es": "Tiene miedo de perder el trabajo.",
+     "ru": "Он боится потерять работу.",
+     "frame": [
+      "Tiene miedo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v755",
+   "type": "vocab",
+   "es": "echar de menos",
+   "en": "to miss (someone)",
+   "ru": "скучать (по кому-то)",
+   "tr": "эча́р дэ мэ́нос",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Te echo de menos.",
+     "ru": "Я скучаю по тебе.",
+     "frame": [
+      "echo de menos"
+     ]
+    },
+    {
+     "es": "Echo de menos a mis amigos.",
+     "ru": "Я скучаю по друзьям.",
+     "frame": [
+      "Echo de menos"
+     ]
+    },
+    {
+     "es": "¿Echas de menos tu país?",
+     "ru": "Ты скучаешь по своей стране?",
+     "frame": [
+      "Echas de menos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v756",
+   "type": "vocab",
+   "es": "me da vergüenza",
+   "en": "I am embarrassed",
+   "ru": "мне неловко, стыдно",
+   "tr": "мэ да бэргуэ́нса",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Me da vergüenza hablar en español.",
+     "ru": "Мне неловко говорить по-испански.",
+     "frame": [
+      "Me da vergüenza"
+     ]
+    },
+    {
+     "es": "No le da vergüenza nada.",
+     "ru": "Ему ничего не стыдно.",
+     "frame": [
+      "da vergüenza"
+     ]
+    },
+    {
+     "es": "¿No te da vergüenza?",
+     "ru": "Тебе не стыдно?",
+     "frame": [
+      "da vergüenza"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v757",
+   "type": "vocab",
+   "es": "me hace ilusión",
+   "en": "I am really looking forward to it",
+   "ru": "мне очень приятно, очень жду",
+   "tr": "мэ а́сэ илусьо́н",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Me hace mucha ilusión el viaje.",
+     "ru": "Я очень жду поездку.",
+     "frame": [
+      "hace",
+      "ilusión"
+     ]
+    },
+    {
+     "es": "Nos hace ilusión verte.",
+     "ru": "Нам очень приятно тебя увидеть.",
+     "frame": [
+      "hace ilusión"
+     ]
+    },
+    {
+     "es": "¿Te hace ilusión la fiesta?",
+     "ru": "Ждёшь праздник?",
+     "frame": [
+      "hace ilusión"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v758",
+   "type": "vocab",
+   "es": "la alegría",
+   "en": "joy",
+   "ru": "радость",
+   "tr": "ла алэгри́а",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "¡Qué alegría verte!",
+     "ru": "Как я рад тебя видеть!",
+     "frame": [
+      "alegría"
+     ]
+    },
+    {
+     "es": "Lo hizo con mucha alegría.",
+     "ru": "Он сделал это с большой радостью.",
+     "frame": [
+      "alegría"
+     ]
+    },
+    {
+     "es": "La alegría dura poco.",
+     "ru": "Радость длится недолго.",
+     "frame": [
+      "alegría"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v759",
+   "type": "vocab",
+   "es": "la tristeza",
+   "en": "sadness",
+   "ru": "грусть",
+   "tr": "ла тристэ́са",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Tiene una tristeza en los ojos.",
+     "ru": "У него грусть в глазах.",
+     "frame": [
+      "tristeza"
+     ]
+    },
+    {
+     "es": "La tristeza pasa con el tiempo.",
+     "ru": "Грусть проходит со временем.",
+     "frame": [
+      "tristeza"
+     ]
+    },
+    {
+     "es": "Me da tristeza dejar esta casa.",
+     "ru": "Мне грустно покидать этот дом.",
+     "frame": [
+      "tristeza"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v760",
+   "type": "vocab",
+   "es": "el miedo",
+   "en": "fear",
+   "ru": "страх",
+   "tr": "эл мье́до",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "El miedo es normal al principio.",
+     "ru": "Страх в начале нормален.",
+     "frame": [
+      "miedo"
+     ]
+    },
+    {
+     "es": "Lo hizo sin miedo.",
+     "ru": "Он сделал это без страха.",
+     "frame": [
+      "miedo"
+     ]
+    },
+    {
+     "es": "El niño tiene miedo a la oscuridad.",
+     "ru": "Ребёнок боится темноты.",
+     "frame": [
+      "miedo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v761",
+   "type": "vocab",
+   "es": "la rabia",
+   "en": "rage, anger",
+   "ru": "злость, ярость",
+   "tr": "ла рра́бья",
+   "group": null,
+   "set": "Эмоции",
+   "ex": [
+    {
+     "es": "Me da rabia perder el tren.",
+     "ru": "Меня злит опоздать на поезд.",
+     "frame": [
+      "rabia"
+     ]
+    },
+    {
+     "es": "Lo dijo con rabia.",
+     "ru": "Он сказал это со злостью.",
+     "frame": [
+      "rabia"
+     ]
+    },
+    {
+     "es": "¡Qué rabia!",
+     "ru": "Как досадно!",
+     "frame": [
+      "rabia"
      ]
     }
    ]
@@ -12607,8 +14772,8 @@
    "id": "es3-v298",
    "type": "vocab",
    "es": "el tiempo",
-   "en": "time/weather",
-   "ru": "время/погода",
+   "en": "time",
+   "ru": "время",
    "tr": "эл тье́мпо",
    "group": "Время",
    "ex": [
@@ -12620,8 +14785,8 @@
      ]
     },
     {
-     "es": "Hace buen tiempo hoy.",
-     "ru": "Сегодня хорошая погода.",
+     "es": "El tiempo pasa muy rápido.",
+     "ru": "Время идёт очень быстро.",
      "frame": [
       "tiempo"
      ]
@@ -12759,38 +14924,6 @@
      "ru": "Этот месяц вышел дорогим.",
      "frame": [
       "mes"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v304",
-   "type": "vocab",
-   "es": "el año",
-   "en": "year",
-   "ru": "год",
-   "tr": "эл а́ньо",
-   "group": "Время",
-   "ex": [
-    {
-     "es": "Vivo aquí desde hace un año.",
-     "ru": "Я живу здесь год.",
-     "frame": [
-      "año"
-     ]
-    },
-    {
-     "es": "Mi hija tiene seis años.",
-     "ru": "Моей дочери шесть лет.",
-     "frame": [
-      "años"
-     ]
-    },
-    {
-     "es": "El año pasado fuimos a Portugal.",
-     "ru": "В прошлом году мы ездили в Португалию.",
-     "frame": [
-      "año"
      ]
     }
    ]
@@ -17265,102 +19398,6 @@
      "ru": "Он вполне может прийти раньше.",
      "frame": [
       "capaz"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v342",
-   "type": "vocab",
-   "es": "preocupado",
-   "en": "worried",
-   "ru": "обеспокоенный",
-   "tr": "прэокупа́до",
-   "group": "Состояния и оценки",
-   "ex": [
-    {
-     "es": "Está preocupado por el examen.",
-     "ru": "Он переживает из-за экзамена.",
-     "frame": [
-      "preocupado"
-     ]
-    },
-    {
-     "es": "No estés preocupada, va bien.",
-     "ru": "Не переживай, всё хорошо.",
-     "frame": [
-      "preocupada"
-     ]
-    },
-    {
-     "es": "Tiene cara de preocupado.",
-     "ru": "У него обеспокоенный вид.",
-     "frame": [
-      "preocupado"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v343",
-   "type": "vocab",
-   "es": "sorprendido",
-   "en": "surprised",
-   "ru": "удивлённый",
-   "tr": "сорпрэнди́до",
-   "group": "Состояния и оценки",
-   "ex": [
-    {
-     "es": "Me quedé sorprendido con el precio.",
-     "ru": "Я удивился цене.",
-     "frame": [
-      "sorprendido"
-     ]
-    },
-    {
-     "es": "Está sorprendida por la noticia.",
-     "ru": "Она удивлена новостью.",
-     "frame": [
-      "sorprendida"
-     ]
-    },
-    {
-     "es": "No pongas cara de sorprendido.",
-     "ru": "Не делай удивлённое лицо.",
-     "frame": [
-      "sorprendido"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v344",
-   "type": "vocab",
-   "es": "asustado",
-   "en": "scared",
-   "ru": "испуганный",
-   "tr": "асуста́до",
-   "group": "Состояния и оценки",
-   "ex": [
-    {
-     "es": "El niño está asustado.",
-     "ru": "Ребёнок напуган.",
-     "frame": [
-      "asustado"
-     ]
-    },
-    {
-     "es": "No estés asustada, es normal.",
-     "ru": "Не пугайся, это нормально.",
-     "frame": [
-      "asustada"
-     ]
-    },
-    {
-     "es": "Salió asustado de la consulta.",
-     "ru": "Он вышел от врача напуганным.",
-     "frame": [
-      "asustado"
      ]
     }
    ]
