@@ -96,20 +96,27 @@
     // away on a fresh page, where the grid is the overview of the stage; so
     // neither is remembered. One record per kind, keyed by stage and name: a
     // name is unique within its stage, and two stages may one day share one.
-    function openState(keyOf) {
+    // Both records hold one open at a time: opening a tile closes the one
+    // that was out. Two open at once left the first forgotten under the
+    // second, a hundred rows up, and a table of Reference — or the guide and
+    // the calculator beside it — is looked up one at a time just as a topic
+    // is worked through one at a time. `solo` is a parameter all the same,
+    // so a record that should hold several is one word away.
+    function openState(keyOf, solo) {
         var open = Object.create(null);
         var listeners = [];
         return {
             isOpen: function (key) { return !!open[keyOf(key)]; },
             setOpen: function (key, on) {
+                if (on && solo) open = Object.create(null);
                 open[keyOf(key)] = !!on;
                 listeners.forEach(function (fn) { fn(); });
             },
             onChange: function (fn) { listeners.push(fn); }
         };
     }
-    SP.tables = openState(function (item) { return item.stage + ':' + item.set; });
-    SP.topics = openState(function (topic) { return topic.stage + ':' + topic.name; });
+    SP.tables = openState(function (item) { return item.stage + ':' + item.set; }, true);
+    SP.topics = openState(function (topic) { return topic.stage + ':' + topic.name; }, true);
 
     // The pictures of a stage's topics, by name — or null when the stage
     // declares none, and its lexicon is drawn as plain blocks. It is all or

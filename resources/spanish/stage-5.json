@@ -134,4257 +134,31 @@
   },
   {
    "kind": "topic",
-   "name": "Звонки, сообщения и договорённости",
-   "icon": "📞"
-  }
- ],
- "sets": [
-  {
    "name": "Комнаты и мебель",
    "icon": "🛋️"
   },
   {
+   "kind": "topic",
    "name": "Предметы дома",
    "icon": "🔌"
   },
   {
+   "kind": "topic",
    "name": "Домашние дела",
    "icon": "🧹"
   },
   {
+   "kind": "topic",
+   "name": "Звонки, сообщения и договорённости",
+   "icon": "📞"
+  },
+  {
+   "kind": "topic",
    "name": "Пляж и море",
    "icon": "🏖️"
   }
  ],
  "items": [
-  {
-   "id": "es5-v136",
-   "type": "vocab",
-   "es": "el recibidor",
-   "en": "entrance hall",
-   "ru": "прихожая",
-   "tr": "эл ррэсибидо́р",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Deja las llaves en el recibidor.",
-     "ru": "Оставь ключи в прихожей.",
-     "frame": [
-      "recibidor"
-     ]
-    },
-    {
-     "es": "El recibidor es pequeño pero tiene un armario.",
-     "ru": "Прихожая маленькая, но со шкафом.",
-     "frame": [
-      "recibidor"
-     ]
-    },
-    {
-     "es": "En el recibidor hay un espejo.",
-     "ru": "В прихожей есть зеркало.",
-     "frame": [
-      "recibidor"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v137",
-   "type": "vocab",
-   "es": "el aseo",
-   "en": "toilet (small, no bath)",
-   "ru": "туалет (без ванны)",
-   "tr": "эл асэ́о",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "El piso tiene un baño y un aseo.",
-     "ru": "В квартире есть ванная и туалет.",
-     "frame": [
-      "aseo"
-     ]
-    },
-    {
-     "es": "El aseo está al fondo del pasillo.",
-     "ru": "Туалет в конце коридора.",
-     "frame": [
-      "aseo"
-     ]
-    },
-    {
-     "es": "En el aseo no hay ducha.",
-     "ru": "В туалете нет душа.",
-     "frame": [
-      "aseo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v138",
-   "type": "vocab",
-   "es": "el lavadero",
-   "en": "utility room",
-   "ru": "постирочная",
-   "tr": "эл лабадэ́ро",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "La lavadora está en el lavadero.",
-     "ru": "Стиральная машина в постирочной.",
-     "frame": [
-      "lavadero"
-     ]
-    },
-    {
-     "es": "Tiende la ropa en el lavadero.",
-     "ru": "Развесь бельё в постирочной.",
-     "frame": [
-      "lavadero"
-     ]
-    },
-    {
-     "es": "El lavadero da al patio.",
-     "ru": "Постирочная выходит во двор.",
-     "frame": [
-      "lavadero"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v139",
-   "type": "vocab",
-   "es": "la despensa",
-   "en": "pantry",
-   "ru": "кладовая (для продуктов)",
-   "tr": "ла дэспэ́нса",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Guardo el arroz en la despensa.",
-     "ru": "Я храню рис в кладовой.",
-     "frame": [
-      "despensa"
-     ]
-    },
-    {
-     "es": "La despensa está vacía, hay que comprar.",
-     "ru": "Кладовая пуста, нужно закупиться.",
-     "frame": [
-      "despensa"
-     ]
-    },
-    {
-     "es": "Una cocina con despensa, qué lujo.",
-     "ru": "Кухня с кладовой — какая роскошь.",
-     "frame": [
-      "despensa"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v140",
-   "type": "vocab",
-   "es": "el balcón",
-   "en": "balcony",
-   "ru": "балкон",
-   "tr": "эл балко́н",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Desayunamos en el balcón.",
-     "ru": "Мы завтракаем на балконе.",
-     "frame": [
-      "balcón"
-     ]
-    },
-    {
-     "es": "El balcón da a la calle.",
-     "ru": "Балкон выходит на улицу.",
-     "frame": [
-      "balcón"
-     ]
-    },
-    {
-     "es": "Tengo plantas en el balcón.",
-     "ru": "У меня на балконе растения.",
-     "frame": [
-      "balcón"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v141",
-   "type": "vocab",
-   "es": "el trastero",
-   "en": "storage room",
-   "ru": "кладовка (чулан)",
-   "tr": "эл трастэ́ро",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Las maletas están en el trastero.",
-     "ru": "Чемоданы в кладовке.",
-     "frame": [
-      "trastero"
-     ]
-    },
-    {
-     "es": "El piso viene con trastero y garaje.",
-     "ru": "Квартира с кладовкой и гаражом.",
-     "frame": [
-      "trastero"
-     ]
-    },
-    {
-     "es": "Baja la bici al trastero.",
-     "ru": "Отнеси велосипед в кладовку.",
-     "frame": [
-      "trastero"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v142",
-   "type": "vocab",
-   "es": "el garaje",
-   "en": "garage",
-   "ru": "гараж",
-   "tr": "эл гара́хэ",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Aparco en el garaje del edificio.",
-     "ru": "Я паркуюсь в гараже дома.",
-     "frame": [
-      "garaje"
-     ]
-    },
-    {
-     "es": "La plaza de garaje cuesta cien euros al mes.",
-     "ru": "Место в гараже стоит сто евро в месяц.",
-     "frame": [
-      "garaje"
-     ]
-    },
-    {
-     "es": "El mando del garaje no funciona.",
-     "ru": "Пульт от гаража не работает.",
-     "frame": [
-      "garaje"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v143",
-   "type": "vocab",
-   "es": "el sótano",
-   "en": "basement",
-   "ru": "подвал",
-   "tr": "эл со́тано",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Los contadores están en el sótano.",
-     "ru": "Счётчики в подвале.",
-     "frame": [
-      "sótano"
-     ]
-    },
-    {
-     "es": "En el sótano hay humedad.",
-     "ru": "В подвале сыро.",
-     "frame": [
-      "sótano"
-     ]
-    },
-    {
-     "es": "El garaje está en el sótano.",
-     "ru": "Гараж в подвале.",
-     "frame": [
-      "sótano"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v144",
-   "type": "vocab",
-   "es": "el ático",
-   "en": "top-floor flat (penthouse)",
-   "ru": "квартира на последнем этаже с террасой",
-   "tr": "эл а́тико",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Vivimos en un ático con terraza.",
-     "ru": "Мы живём на последнем этаже с террасой.",
-     "frame": [
-      "ático"
-     ]
-    },
-    {
-     "es": "Los áticos son los más caros.",
-     "ru": "Верхние квартиры с террасой — самые дорогие.",
-     "frame": [
-      "áticos"
-     ]
-    },
-    {
-     "es": "Desde el ático se ve el mar.",
-     "ru": "С верхнего этажа видно море.",
-     "frame": [
-      "ático"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v145",
-   "type": "vocab",
-   "es": "el patio",
-   "en": "courtyard",
-   "ru": "двор (внутренний)",
-   "tr": "эл па́тьо",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Los niños juegan en el patio.",
-     "ru": "Дети играют во дворе.",
-     "frame": [
-      "patio"
-     ]
-    },
-    {
-     "es": "La ventana da a un patio interior.",
-     "ru": "Окно выходит во внутренний двор.",
-     "frame": [
-      "patio"
-     ]
-    },
-    {
-     "es": "Hay una mesa en el patio para cenar fuera.",
-     "ru": "Во дворе есть стол, чтобы ужинать на улице.",
-     "frame": [
-      "patio"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v146",
-   "type": "vocab",
-   "es": "la azotea",
-   "en": "roof terrace",
-   "ru": "крыша-терраса",
-   "tr": "ла асотэ́а",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Tendemos la ropa en la azotea.",
-     "ru": "Мы развешиваем бельё на крыше.",
-     "frame": [
-      "azotea"
-     ]
-    },
-    {
-     "es": "Desde la azotea se ve toda la ciudad.",
-     "ru": "С крыши видно весь город.",
-     "frame": [
-      "azotea"
-     ]
-    },
-    {
-     "es": "En verano cenamos en la azotea.",
-     "ru": "Летом мы ужинаем на крыше.",
-     "frame": [
-      "azotea"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v147",
-   "type": "vocab",
-   "es": "el mueble",
-   "en": "piece of furniture",
-   "ru": "мебель (предмет)",
-   "tr": "эл муэ́блэ",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "El piso se alquila con muebles.",
-     "ru": "Квартира сдаётся с мебелью.",
-     "frame": [
-      "muebles"
-     ]
-    },
-    {
-     "es": "Este mueble no cabe por la puerta.",
-     "ru": "Эта мебель не проходит в дверь.",
-     "frame": [
-      "mueble"
-     ]
-    },
-    {
-     "es": "Compramos los muebles de segunda mano.",
-     "ru": "Мы купили мебель с рук.",
-     "frame": [
-      "muebles"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v148",
-   "type": "vocab",
-   "es": "el sillón",
-   "en": "armchair",
-   "ru": "кресло",
-   "tr": "эл сийо́н",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Mi padre lee en el sillón.",
-     "ru": "Мой отец читает в кресле.",
-     "frame": [
-      "sillón"
-     ]
-    },
-    {
-     "es": "El sillón es muy cómodo para la siesta.",
-     "ru": "Кресло очень удобное для сиесты.",
-     "frame": [
-      "sillón"
-     ]
-    },
-    {
-     "es": "Hemos comprado un sillón de cuero.",
-     "ru": "Мы купили кожаное кресло.",
-     "frame": [
-      "sillón"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v149",
-   "type": "vocab",
-   "es": "la estantería",
-   "en": "shelving unit",
-   "ru": "стеллаж",
-   "tr": "ла эстантэри́а",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "La estantería está llena de libros.",
-     "ru": "Стеллаж полон книг.",
-     "frame": [
-      "estantería"
-     ]
-    },
-    {
-     "es": "Monta la estantería con este destornillador.",
-     "ru": "Собери стеллаж этой отвёрткой.",
-     "frame": [
-      "estantería"
-     ]
-    },
-    {
-     "es": "Fija la estantería a la pared.",
-     "ru": "Прикрепи стеллаж к стене.",
-     "frame": [
-      "estantería"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v150",
-   "type": "vocab",
-   "es": "el estante",
-   "en": "shelf",
-   "ru": "полка",
-   "tr": "эл эста́нтэ",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Pon los platos en el estante de arriba.",
-     "ru": "Поставь тарелки на верхнюю полку.",
-     "frame": [
-      "estante"
-     ]
-    },
-    {
-     "es": "El estante se ha caído con el peso.",
-     "ru": "Полка упала под тяжестью.",
-     "frame": [
-      "estante"
-     ]
-    },
-    {
-     "es": "Un estante para las especias.",
-     "ru": "Полка для специй.",
-     "frame": [
-      "estante"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v151",
-   "type": "vocab",
-   "es": "el escritorio",
-   "en": "desk",
-   "ru": "письменный стол",
-   "tr": "эл эскрито́рьо",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Trabajo en un escritorio junto a la ventana.",
-     "ru": "Я работаю за столом у окна.",
-     "frame": [
-      "escritorio"
-     ]
-    },
-    {
-     "es": "El escritorio del niño está lleno de papeles.",
-     "ru": "Стол ребёнка завален бумагами.",
-     "frame": [
-      "escritorio"
-     ]
-    },
-    {
-     "es": "Necesito un escritorio más grande.",
-     "ru": "Мне нужен стол побольше.",
-     "frame": [
-      "escritorio"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v152",
-   "type": "vocab",
-   "es": "la mesita de noche",
-   "en": "bedside table",
-   "ru": "тумбочка",
-   "tr": "ла мэси́та дэ но́чэ",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Dejo el móvil en la mesita de noche.",
-     "ru": "Я оставляю телефон на тумбочке.",
-     "frame": [
-      "mesita de noche"
-     ]
-    },
-    {
-     "es": "Hay un vaso de agua en la mesita de noche.",
-     "ru": "На тумбочке стакан воды.",
-     "frame": [
-      "mesita de noche"
-     ]
-    },
-    {
-     "es": "La lámpara de la mesita de noche no funciona.",
-     "ru": "Лампа на тумбочке не работает.",
-     "frame": [
-      "mesita de noche"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v153",
-   "type": "vocab",
-   "es": "la cómoda",
-   "en": "chest of drawers",
-   "ru": "комод",
-   "tr": "ла ко́мода",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "La ropa del bebé está en la cómoda.",
-     "ru": "Одежда малыша в комоде.",
-     "frame": [
-      "cómoda"
-     ]
-    },
-    {
-     "es": "Una cómoda de tres cajones.",
-     "ru": "Комод с тремя ящиками.",
-     "frame": [
-      "cómoda"
-     ]
-    },
-    {
-     "es": "Pon el espejo encima de la cómoda.",
-     "ru": "Поставь зеркало на комод.",
-     "frame": [
-      "cómoda"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v154",
-   "type": "vocab",
-   "es": "el colchón",
-   "en": "mattress",
-   "ru": "матрас",
-   "tr": "эл колчо́н",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "El colchón es demasiado blando.",
-     "ru": "Матрас слишком мягкий.",
-     "frame": [
-      "colchón"
-     ]
-    },
-    {
-     "es": "Hay que cambiar el colchón cada diez años.",
-     "ru": "Матрас нужно менять раз в десять лет.",
-     "frame": [
-      "colchón"
-     ]
-    },
-    {
-     "es": "Dormimos en un colchón en el suelo.",
-     "ru": "Мы спим на матрасе на полу.",
-     "frame": [
-      "colchón"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v155",
-   "type": "vocab",
-   "es": "la litera",
-   "en": "bunk bed",
-   "ru": "двухъярусная кровать",
-   "tr": "ла литэ́ра",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Los niños duermen en una litera.",
-     "ru": "Дети спят на двухъярусной кровати.",
-     "frame": [
-      "litera"
-     ]
-    },
-    {
-     "es": "Yo quiero la litera de arriba.",
-     "ru": "Я хочу верхнюю койку.",
-     "frame": [
-      "litera"
-     ]
-    },
-    {
-     "es": "En el albergue hay literas.",
-     "ru": "В хостеле двухъярусные кровати.",
-     "frame": [
-      "literas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v156",
-   "type": "vocab",
-   "es": "el taburete",
-   "en": "stool",
-   "ru": "табурет",
-   "tr": "эл табурэ́тэ",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Súbete al taburete para alcanzar el estante.",
-     "ru": "Встань на табурет, чтобы достать до полки.",
-     "frame": [
-      "taburete"
-     ]
-    },
-    {
-     "es": "Los taburetes de la cocina son altos.",
-     "ru": "Табуреты на кухне высокие.",
-     "frame": [
-      "taburetes"
-     ]
-    },
-    {
-     "es": "Un taburete para la barra.",
-     "ru": "Табурет для барной стойки.",
-     "frame": [
-      "taburete"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v157",
-   "type": "vocab",
-   "es": "el perchero",
-   "en": "coat stand",
-   "ru": "вешалка (стойка)",
-   "tr": "эл пэрчэ́ро",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Cuelga el abrigo en el perchero.",
-     "ru": "Повесь пальто на вешалку.",
-     "frame": [
-      "perchero"
-     ]
-    },
-    {
-     "es": "El perchero está en la entrada.",
-     "ru": "Вешалка у входа.",
-     "frame": [
-      "perchero"
-     ]
-    },
-    {
-     "es": "Un perchero de pie para el dormitorio.",
-     "ru": "Напольная вешалка для спальни.",
-     "frame": [
-      "perchero"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v158",
-   "type": "vocab",
-   "es": "la percha",
-   "en": "coat hanger",
-   "ru": "вешалка (плечики)",
-   "tr": "ла пэ́рча",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Pon la camisa en una percha.",
-     "ru": "Повесь рубашку на плечики.",
-     "frame": [
-      "percha"
-     ]
-    },
-    {
-     "es": "Faltan perchas en el armario.",
-     "ru": "В шкафу не хватает плечиков.",
-     "frame": [
-      "perchas"
-     ]
-    },
-    {
-     "es": "Perchas de madera para los abrigos.",
-     "ru": "Деревянные плечики для пальто.",
-     "frame": [
-      "Perchas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v159",
-   "type": "vocab",
-   "es": "la alfombra",
-   "en": "rug / carpet",
-   "ru": "ковёр",
-   "tr": "ла алфо́мбра",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "La alfombra del salón es de lana.",
-     "ru": "Ковёр в гостиной шерстяной.",
-     "frame": [
-      "alfombra"
-     ]
-    },
-    {
-     "es": "Sacude la alfombra en el balcón.",
-     "ru": "Вытряхни ковёр на балконе.",
-     "frame": [
-      "alfombra"
-     ]
-    },
-    {
-     "es": "El gato duerme en la alfombra.",
-     "ru": "Кот спит на ковре.",
-     "frame": [
-      "alfombra"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v160",
-   "type": "vocab",
-   "es": "la cortina",
-   "en": "curtain",
-   "ru": "штора",
-   "tr": "ла корти́на",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Corre las cortinas, hay mucho sol.",
-     "ru": "Задёрни шторы, очень солнечно.",
-     "frame": [
-      "cortinas"
-     ]
-    },
-    {
-     "es": "Lavo las cortinas dos veces al año.",
-     "ru": "Я стираю шторы два раза в год.",
-     "frame": [
-      "cortinas"
-     ]
-    },
-    {
-     "es": "Unas cortinas blancas para el dormitorio.",
-     "ru": "Белые шторы для спальни.",
-     "frame": [
-      "cortinas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v161",
-   "type": "vocab",
-   "es": "la persiana",
-   "en": "roller blind / shutter",
-   "ru": "жалюзи (рольставни)",
-   "tr": "ла пэрсья́на",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Baja la persiana, que entra calor.",
-     "ru": "Опусти жалюзи, жарко.",
-     "frame": [
-      "persiana"
-     ]
-    },
-    {
-     "es": "La persiana se ha quedado atascada.",
-     "ru": "Рольставни заело.",
-     "frame": [
-      "persiana"
-     ]
-    },
-    {
-     "es": "En España casi todas las ventanas tienen persiana.",
-     "ru": "В Испании почти на всех окнах есть рольставни.",
-     "frame": [
-      "persiana"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v162",
-   "type": "vocab",
-   "es": "el cojín",
-   "en": "cushion",
-   "ru": "подушка (диванная)",
-   "tr": "эл кохи́н",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "El sofá tiene demasiados cojines.",
-     "ru": "На диване слишком много подушек."
-    },
-    {
-     "es": "Pon un cojín en la silla del niño.",
-     "ru": "Положи подушку на стул ребёнка.",
-     "frame": [
-      "cojín"
-     ]
-    },
-    {
-     "es": "Cojines nuevos para el salón.",
-     "ru": "Новые подушки для гостиной."
-    }
-   ]
-  },
-  {
-   "id": "es5-v163",
-   "type": "vocab",
-   "es": "la almohada",
-   "en": "pillow",
-   "ru": "подушка (для сна)",
-   "tr": "ла алмоа́да",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Duermo con dos almohadas.",
-     "ru": "Я сплю на двух подушках.",
-     "frame": [
-      "almohadas"
-     ]
-    },
-    {
-     "es": "Esta almohada es muy alta.",
-     "ru": "Эта подушка слишком высокая.",
-     "frame": [
-      "almohada"
-     ]
-    },
-    {
-     "es": "Cambia la funda de la almohada.",
-     "ru": "Смени наволочку.",
-     "frame": [
-      "almohada"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v164",
-   "type": "vocab",
-   "es": "la manta",
-   "en": "blanket",
-   "ru": "плед / одеяло",
-   "tr": "ла ма́нта",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "Trae una manta, tengo frío.",
-     "ru": "Принеси плед, мне холодно.",
-     "frame": [
-      "manta"
-     ]
-    },
-    {
-     "es": "Hay una manta en el sofá.",
-     "ru": "На диване плед.",
-     "frame": [
-      "manta"
-     ]
-    },
-    {
-     "es": "En invierno pongo dos mantas.",
-     "ru": "Зимой я кладу два одеяла.",
-     "frame": [
-      "mantas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v165",
-   "type": "vocab",
-   "es": "el edredón",
-   "en": "duvet",
-   "ru": "одеяло (пуховое)",
-   "tr": "эл эдрэдо́н",
-   "group": null,
-   "set": "Комнаты и мебель",
-   "ex": [
-    {
-     "es": "El edredón nórdico es muy calentito.",
-     "ru": "Пуховое одеяло очень тёплое.",
-     "frame": [
-      "edredón"
-     ]
-    },
-    {
-     "es": "Lava el edredón en la lavandería.",
-     "ru": "Постирай одеяло в прачечной.",
-     "frame": [
-      "edredón"
-     ]
-    },
-    {
-     "es": "En verano guardamos el edredón.",
-     "ru": "Летом мы убираем одеяло.",
-     "frame": [
-      "edredón"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v166",
-   "type": "vocab",
-   "es": "la nevera",
-   "en": "fridge",
-   "ru": "холодильник",
-   "tr": "ла нэбэ́ра",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Mete la leche en la nevera.",
-     "ru": "Поставь молоко в холодильник.",
-     "frame": [
-      "nevera"
-     ]
-    },
-    {
-     "es": "La nevera está vacía.",
-     "ru": "Холодильник пуст.",
-     "frame": [
-      "nevera"
-     ]
-    },
-    {
-     "es": "La nevera hace mucho ruido.",
-     "ru": "Холодильник сильно шумит.",
-     "frame": [
-      "nevera"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v167",
-   "type": "vocab",
-   "es": "el congelador",
-   "en": "freezer",
-   "ru": "морозилка",
-   "tr": "эл конхэладо́р",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "El pan está en el congelador.",
-     "ru": "Хлеб в морозилке.",
-     "frame": [
-      "congelador"
-     ]
-    },
-    {
-     "es": "Hay que descongelar el congelador.",
-     "ru": "Нужно разморозить морозилку.",
-     "frame": [
-      "congelador"
-     ]
-    },
-    {
-     "es": "Guarda el helado en el congelador.",
-     "ru": "Убери мороженое в морозилку.",
-     "frame": [
-      "congelador"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v168",
-   "type": "vocab",
-   "es": "el horno",
-   "en": "oven",
-   "ru": "духовка",
-   "tr": "эл о́рно",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Precalienta el horno a doscientos grados.",
-     "ru": "Разогрей духовку до двухсот градусов.",
-     "frame": [
-      "horno"
-     ]
-    },
-    {
-     "es": "El pollo está en el horno.",
-     "ru": "Курица в духовке.",
-     "frame": [
-      "horno"
-     ]
-    },
-    {
-     "es": "El horno no calienta bien.",
-     "ru": "Духовка плохо греет.",
-     "frame": [
-      "horno"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v169",
-   "type": "vocab",
-   "es": "el microondas",
-   "en": "microwave",
-   "ru": "микроволновка",
-   "tr": "эл микроо́ндас",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Calienta la sopa en el microondas.",
-     "ru": "Разогрей суп в микроволновке.",
-     "frame": [
-      "microondas"
-     ]
-    },
-    {
-     "es": "Un minuto de microondas y listo.",
-     "ru": "Минута в микроволновке — и готово.",
-     "frame": [
-      "microondas"
-     ]
-    },
-    {
-     "es": "El microondas está sucio por dentro.",
-     "ru": "Микроволновка грязная внутри.",
-     "frame": [
-      "microondas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v170",
-   "type": "vocab",
-   "es": "la vitrocerámica",
-   "en": "ceramic hob",
-   "ru": "варочная панель",
-   "tr": "ла битросэра́мика",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "La vitrocerámica se limpia con un paño húmedo.",
-     "ru": "Варочную панель протирают влажной тряпкой.",
-     "frame": [
-      "vitrocerámica"
-     ]
-    },
-    {
-     "es": "No pongas esa olla en la vitrocerámica.",
-     "ru": "Не ставь эту кастрюлю на панель.",
-     "frame": [
-      "vitrocerámica"
-     ]
-    },
-    {
-     "es": "Apaga la vitrocerámica cuando termines.",
-     "ru": "Выключи панель, когда закончишь.",
-     "frame": [
-      "vitrocerámica"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v171",
-   "type": "vocab",
-   "es": "la lavadora",
-   "en": "washing machine",
-   "ru": "стиральная машина",
-   "tr": "ла лабадо́ра",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "La lavadora ha terminado.",
-     "ru": "Стиральная машина закончила.",
-     "frame": [
-      "lavadora"
-     ]
-    },
-    {
-     "es": "Pon la lavadora a treinta grados.",
-     "ru": "Поставь стирку на тридцать градусов.",
-     "frame": [
-      "lavadora"
-     ]
-    },
-    {
-     "es": "La lavadora pierde agua.",
-     "ru": "Стиральная машина протекает.",
-     "frame": [
-      "lavadora"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v172",
-   "type": "vocab",
-   "es": "la secadora",
-   "en": "tumble dryer",
-   "ru": "сушильная машина",
-   "tr": "ла сэкадо́ра",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Aquí nadie tiene secadora, la ropa se tiende.",
-     "ru": "Здесь ни у кого нет сушилки, бельё развешивают.",
-     "frame": [
-      "secadora"
-     ]
-    },
-    {
-     "es": "El jersey se ha encogido en la secadora.",
-     "ru": "Свитер сел в сушилке.",
-     "frame": [
-      "secadora"
-     ]
-    },
-    {
-     "es": "La secadora gasta mucha luz.",
-     "ru": "Сушилка потребляет много электричества.",
-     "frame": [
-      "secadora"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v173",
-   "type": "vocab",
-   "es": "el lavavajillas",
-   "en": "dishwasher",
-   "ru": "посудомоечная машина",
-   "tr": "эл лабабахи́йас",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Mete los platos en el lavavajillas.",
-     "ru": "Поставь тарелки в посудомойку.",
-     "frame": [
-      "lavavajillas"
-     ]
-    },
-    {
-     "es": "Se ha acabado el detergente del lavavajillas.",
-     "ru": "Закончилось средство для посудомойки.",
-     "frame": [
-      "lavavajillas"
-     ]
-    },
-    {
-     "es": "El lavavajillas no seca bien.",
-     "ru": "Посудомойка плохо сушит.",
-     "frame": [
-      "lavavajillas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v174",
-   "type": "vocab",
-   "es": "el fregadero",
-   "en": "kitchen sink",
-   "ru": "раковина (на кухне)",
-   "tr": "эл фрэгадэ́ро",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Hay platos sucios en el fregadero.",
-     "ru": "В раковине грязная посуда.",
-     "frame": [
-      "fregadero"
-     ]
-    },
-    {
-     "es": "El fregadero está atascado.",
-     "ru": "Раковина засорилась.",
-     "frame": [
-      "fregadero"
-     ]
-    },
-    {
-     "es": "Deja el vaso en el fregadero.",
-     "ru": "Оставь стакан в раковине.",
-     "frame": [
-      "fregadero"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v175",
-   "type": "vocab",
-   "es": "el grifo",
-   "en": "tap",
-   "ru": "кран",
-   "tr": "эл гри́фо",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Cierra bien el grifo.",
-     "ru": "Закрой кран как следует.",
-     "frame": [
-      "grifo"
-     ]
-    },
-    {
-     "es": "El grifo gotea.",
-     "ru": "Кран капает.",
-     "frame": [
-      "grifo"
-     ]
-    },
-    {
-     "es": "Abre el grifo del agua caliente.",
-     "ru": "Открой кран горячей воды.",
-     "frame": [
-      "grifo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v176",
-   "type": "vocab",
-   "es": "el lavabo",
-   "en": "washbasin",
-   "ru": "раковина (в ванной)",
-   "tr": "эл лаба́бо",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Lávate las manos en el lavabo.",
-     "ru": "Помой руки в раковине.",
-     "frame": [
-      "lavabo"
-     ]
-    },
-    {
-     "es": "El lavabo está lleno de pelos.",
-     "ru": "Раковина вся в волосах.",
-     "frame": [
-      "lavabo"
-     ]
-    },
-    {
-     "es": "Hay jabón junto al lavabo.",
-     "ru": "Рядом с раковиной есть мыло.",
-     "frame": [
-      "lavabo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v177",
-   "type": "vocab",
-   "es": "la ducha",
-   "en": "shower",
-   "ru": "душ",
-   "tr": "ла ду́ча",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "La ducha no tiene agua caliente.",
-     "ru": "В душе нет горячей воды.",
-     "frame": [
-      "ducha"
-     ]
-    },
-    {
-     "es": "Prefiero ducha a bañera.",
-     "ru": "Я предпочитаю душ ванне.",
-     "frame": [
-      "ducha"
-     ]
-    },
-    {
-     "es": "Limpia la ducha después de usarla.",
-     "ru": "Мой душ после использования.",
-     "frame": [
-      "ducha"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v178",
-   "type": "vocab",
-   "es": "la bañera",
-   "en": "bathtub",
-   "ru": "ванна",
-   "tr": "ла баньэ́ра",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "La niña se baña en la bañera.",
-     "ru": "Девочка купается в ванне.",
-     "frame": [
-      "bañera"
-     ]
-    },
-    {
-     "es": "Llena la bañera con agua templada.",
-     "ru": "Наполни ванну тёплой водой.",
-     "frame": [
-      "bañera"
-     ]
-    },
-    {
-     "es": "El piso tiene bañera, no ducha.",
-     "ru": "В квартире ванна, а не душ.",
-     "frame": [
-      "bañera"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v179",
-   "type": "vocab",
-   "es": "el váter",
-   "en": "toilet bowl",
-   "ru": "унитаз",
-   "tr": "эл ба́тэр",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "El váter está atascado.",
-     "ru": "Унитаз засорился.",
-     "frame": [
-      "váter"
-     ]
-    },
-    {
-     "es": "Tira de la cadena del váter.",
-     "ru": "Смой в унитазе.",
-     "frame": [
-      "váter"
-     ]
-    },
-    {
-     "es": "Baja la tapa del váter.",
-     "ru": "Опусти крышку унитаза.",
-     "frame": [
-      "váter"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v180",
-   "type": "vocab",
-   "es": "la sartén",
-   "en": "frying pan",
-   "ru": "сковорода",
-   "tr": "ла сартэ́н",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Fríe el huevo en la sartén.",
-     "ru": "Пожарь яйцо на сковороде.",
-     "frame": [
-      "sartén"
-     ]
-    },
-    {
-     "es": "Esta sartén se pega.",
-     "ru": "Эта сковорода пригорает.",
-     "frame": [
-      "sartén"
-     ]
-    },
-    {
-     "es": "Necesito una sartén nueva.",
-     "ru": "Мне нужна новая сковорода.",
-     "frame": [
-      "sartén"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v181",
-   "type": "vocab",
-   "es": "la olla",
-   "en": "pot",
-   "ru": "кастрюля",
-   "tr": "ла о́йа",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Pon agua a hervir en la olla.",
-     "ru": "Поставь воду кипятиться в кастрюле.",
-     "frame": [
-      "olla"
-     ]
-    },
-    {
-     "es": "La olla es demasiado pequeña para la sopa.",
-     "ru": "Кастрюля слишком мала для супа.",
-     "frame": [
-      "olla"
-     ]
-    },
-    {
-     "es": "Tapa la olla para que hierva antes.",
-     "ru": "Накрой кастрюлю, чтобы быстрее закипело.",
-     "frame": [
-      "olla"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v182",
-   "type": "vocab",
-   "es": "la tabla de cortar",
-   "en": "chopping board",
-   "ru": "разделочная доска",
-   "tr": "ла та́бла дэ корта́р",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Corta la cebolla en la tabla de cortar.",
-     "ru": "Режь лук на разделочной доске.",
-     "frame": [
-      "tabla de cortar"
-     ]
-    },
-    {
-     "es": "Lava la tabla de cortar después del pollo.",
-     "ru": "Помой доску после курицы.",
-     "frame": [
-      "tabla de cortar"
-     ]
-    },
-    {
-     "es": "Una tabla de cortar de madera.",
-     "ru": "Деревянная разделочная доска.",
-     "frame": [
-      "tabla de cortar"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v183",
-   "type": "vocab",
-   "es": "la bombilla",
-   "en": "light bulb",
-   "ru": "лампочка",
-   "tr": "ла бомби́йа",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Se ha fundido la bombilla del pasillo.",
-     "ru": "Перегорела лампочка в коридоре.",
-     "frame": [
-      "bombilla"
-     ]
-    },
-    {
-     "es": "Compra bombillas de bajo consumo.",
-     "ru": "Купи энергосберегающие лампочки.",
-     "frame": [
-      "bombillas"
-     ]
-    },
-    {
-     "es": "Cambia la bombilla, que no veo nada.",
-     "ru": "Смени лампочку, ничего не видно.",
-     "frame": [
-      "bombilla"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v184",
-   "type": "vocab",
-   "es": "el radiador",
-   "en": "radiator",
-   "ru": "батарея (отопления)",
-   "tr": "эл ррадьядо́р",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "El radiador está frío.",
-     "ru": "Батарея холодная.",
-     "frame": [
-      "radiador"
-     ]
-    },
-    {
-     "es": "Seca los guantes en el radiador.",
-     "ru": "Высуши перчатки на батарее.",
-     "frame": [
-      "radiador"
-     ]
-    },
-    {
-     "es": "Hay que purgar los radiadores.",
-     "ru": "Нужно спустить воздух из батарей.",
-     "frame": [
-      "radiadores"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v185",
-   "type": "vocab",
-   "es": "la caldera",
-   "en": "boiler (gas)",
-   "ru": "котёл (газовый)",
-   "tr": "ла калдэ́ра",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "La caldera se ha apagado otra vez.",
-     "ru": "Котёл снова отключился.",
-     "frame": [
-      "caldera"
-     ]
-    },
-    {
-     "es": "La revisión de la caldera es cada año.",
-     "ru": "Проверка котла — каждый год.",
-     "frame": [
-      "caldera"
-     ]
-    },
-    {
-     "es": "Sin caldera no hay agua caliente.",
-     "ru": "Без котла нет горячей воды.",
-     "frame": [
-      "caldera"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v186",
-   "type": "vocab",
-   "es": "el termo",
-   "en": "water heater",
-   "ru": "водонагреватель (бойлер)",
-   "tr": "эл тэ́рмо",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "El termo tarda una hora en calentar.",
-     "ru": "Бойлер греет воду час.",
-     "frame": [
-      "termo"
-     ]
-    },
-    {
-     "es": "Apaga el termo cuando te vayas de viaje.",
-     "ru": "Выключи бойлер, когда уезжаешь.",
-     "frame": [
-      "termo"
-     ]
-    },
-    {
-     "es": "El termo eléctrico gasta mucho.",
-     "ru": "Электрический бойлер потребляет много.",
-     "frame": [
-      "termo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v187",
-   "type": "vocab",
-   "es": "el contador",
-   "en": "meter (electricity, water)",
-   "ru": "счётчик",
-   "tr": "эл контадо́р",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "El contador de la luz está en el portal.",
-     "ru": "Электросчётчик в подъезде.",
-     "frame": [
-      "contador"
-     ]
-    },
-    {
-     "es": "Apunta la lectura del contador del agua.",
-     "ru": "Запиши показания счётчика воды.",
-     "frame": [
-      "contador"
-     ]
-    },
-    {
-     "es": "Vienen a leer el contador el martes.",
-     "ru": "Во вторник придут снимать показания счётчика.",
-     "frame": [
-      "contador"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v188",
-   "type": "vocab",
-   "es": "la llave de paso",
-   "en": "stopcock",
-   "ru": "запорный кран (вентиль)",
-   "tr": "ла йа́бэ дэ па́со",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Cierra la llave de paso si hay una fuga.",
-     "ru": "Закрой запорный кран, если есть протечка.",
-     "frame": [
-      "llave de paso"
-     ]
-    },
-    {
-     "es": "¿Dónde está la llave de paso del gas?",
-     "ru": "Где вентиль газа?",
-     "frame": [
-      "llave de paso"
-     ]
-    },
-    {
-     "es": "La llave de paso está debajo del fregadero.",
-     "ru": "Запорный кран под раковиной.",
-     "frame": [
-      "llave de paso"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v189",
-   "type": "vocab",
-   "es": "el ventilador",
-   "en": "fan",
-   "ru": "вентилятор",
-   "tr": "эл бэнтиладо́р",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Enciende el ventilador, hace calor.",
-     "ru": "Включи вентилятор, жарко.",
-     "frame": [
-      "ventilador"
-     ]
-    },
-    {
-     "es": "Un ventilador de techo para el dormitorio.",
-     "ru": "Потолочный вентилятор для спальни.",
-     "frame": [
-      "ventilador"
-     ]
-    },
-    {
-     "es": "El ventilador hace ruido por la noche.",
-     "ru": "Вентилятор шумит ночью.",
-     "frame": [
-      "ventilador"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v190",
-   "type": "vocab",
-   "es": "el mando",
-   "en": "remote control",
-   "ru": "пульт",
-   "tr": "эл ма́ндо",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "¿Dónde está el mando de la tele?",
-     "ru": "Где пульт от телевизора?",
-     "frame": [
-      "mando"
-     ]
-    },
-    {
-     "es": "El mando no tiene pilas.",
-     "ru": "В пульте нет батареек.",
-     "frame": [
-      "mando"
-     ]
-    },
-    {
-     "es": "Dame el mando, quiero cambiar de canal.",
-     "ru": "Дай пульт, хочу переключить канал.",
-     "frame": [
-      "mando"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v191",
-   "type": "vocab",
-   "es": "la escoba",
-   "en": "broom",
-   "ru": "веник / метла",
-   "tr": "ла эско́ба",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Barre con la escoba antes de fregar.",
-     "ru": "Подмети веником перед мытьём пола.",
-     "frame": [
-      "escoba"
-     ]
-    },
-    {
-     "es": "La escoba está detrás de la puerta.",
-     "ru": "Веник за дверью.",
-     "frame": [
-      "escoba"
-     ]
-    },
-    {
-     "es": "Necesito una escoba nueva.",
-     "ru": "Мне нужен новый веник.",
-     "frame": [
-      "escoba"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v192",
-   "type": "vocab",
-   "es": "la fregona",
-   "en": "mop",
-   "ru": "швабра",
-   "tr": "ла фрэго́на",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "La fregona es un invento español.",
-     "ru": "Швабра с ведром — испанское изобретение.",
-     "frame": [
-      "fregona"
-     ]
-    },
-    {
-     "es": "Pasa la fregona por la cocina.",
-     "ru": "Протри кухню шваброй.",
-     "frame": [
-      "fregona"
-     ]
-    },
-    {
-     "es": "Escurre bien la fregona.",
-     "ru": "Хорошо отожми швабру.",
-     "frame": [
-      "fregona"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v193",
-   "type": "vocab",
-   "es": "el cubo",
-   "en": "bucket",
-   "ru": "ведро",
-   "tr": "эл ку́бо",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Llena el cubo de agua.",
-     "ru": "Наполни ведро водой.",
-     "frame": [
-      "cubo"
-     ]
-    },
-    {
-     "es": "El cubo y la fregona están en el lavadero.",
-     "ru": "Ведро и швабра в постирочной.",
-     "frame": [
-      "cubo"
-     ]
-    },
-    {
-     "es": "Un cubo de pintura blanca.",
-     "ru": "Ведро белой краски.",
-     "frame": [
-      "cubo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v194",
-   "type": "vocab",
-   "es": "la aspiradora",
-   "en": "vacuum cleaner",
-   "ru": "пылесос",
-   "tr": "ла аспирадо́ра",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "La aspiradora no aspira bien.",
-     "ru": "Пылесос плохо тянет.",
-     "frame": [
-      "aspiradora"
-     ]
-    },
-    {
-     "es": "Cambia la bolsa de la aspiradora.",
-     "ru": "Смени мешок в пылесосе.",
-     "frame": [
-      "aspiradora"
-     ]
-    },
-    {
-     "es": "Compramos una aspiradora robot.",
-     "ru": "Мы купили робот-пылесос.",
-     "frame": [
-      "aspiradora"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v195",
-   "type": "vocab",
-   "es": "la plancha",
-   "en": "iron",
-   "ru": "утюг",
-   "tr": "ла пла́нча",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "La plancha está muy caliente.",
-     "ru": "Утюг очень горячий.",
-     "frame": [
-      "plancha"
-     ]
-    },
-    {
-     "es": "Desenchufa la plancha al terminar.",
-     "ru": "Выключи утюг из розетки, когда закончишь.",
-     "frame": [
-      "plancha"
-     ]
-    },
-    {
-     "es": "Esta camisa no necesita plancha.",
-     "ru": "Эту рубашку не нужно гладить.",
-     "frame": [
-      "plancha"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v196",
-   "type": "vocab",
-   "es": "la tabla de planchar",
-   "en": "ironing board",
-   "ru": "гладильная доска",
-   "tr": "ла та́бла дэ планча́р",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Saca la tabla de planchar.",
-     "ru": "Достань гладильную доску.",
-     "frame": [
-      "tabla de planchar"
-     ]
-    },
-    {
-     "es": "La tabla de planchar está en el armario.",
-     "ru": "Гладильная доска в шкафу.",
-     "frame": [
-      "tabla de planchar"
-     ]
-    },
-    {
-     "es": "Guarda la tabla de planchar, ya he terminado.",
-     "ru": "Убери гладильную доску, я закончил.",
-     "frame": [
-      "tabla de planchar"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v197",
-   "type": "vocab",
-   "es": "el trapo",
-   "en": "cloth / rag",
-   "ru": "тряпка",
-   "tr": "эл тра́по",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Limpia la mesa con un trapo.",
-     "ru": "Протри стол тряпкой.",
-     "frame": [
-      "trapo"
-     ]
-    },
-    {
-     "es": "Un trapo húmedo para el polvo.",
-     "ru": "Влажная тряпка для пыли.",
-     "frame": [
-      "trapo"
-     ]
-    },
-    {
-     "es": "Este trapo huele mal, lávalo.",
-     "ru": "Эта тряпка плохо пахнет, постирай её.",
-     "frame": [
-      "trapo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v198",
-   "type": "vocab",
-   "es": "la esponja",
-   "en": "sponge",
-   "ru": "губка",
-   "tr": "ла эспо́нха",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Friega con la esponja, no con el estropajo.",
-     "ru": "Мой губкой, а не жёсткой мочалкой.",
-     "frame": [
-      "esponja"
-     ]
-    },
-    {
-     "es": "La esponja está vieja, tírala.",
-     "ru": "Губка старая, выброси её.",
-     "frame": [
-      "esponja"
-     ]
-    },
-    {
-     "es": "Una esponja nueva para los platos.",
-     "ru": "Новая губка для посуды.",
-     "frame": [
-      "esponja"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v199",
-   "type": "vocab",
-   "es": "el detergente",
-   "en": "detergent",
-   "ru": "стиральный порошок / моющее средство",
-   "tr": "эл дэтэрхэ́нтэ",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Se ha acabado el detergente.",
-     "ru": "Закончился порошок.",
-     "frame": [
-      "detergente"
-     ]
-    },
-    {
-     "es": "Echa el detergente en el cajón de la lavadora.",
-     "ru": "Насыпь порошок в отсек стиральной машины.",
-     "frame": [
-      "detergente"
-     ]
-    },
-    {
-     "es": "Detergente para ropa de color.",
-     "ru": "Порошок для цветного белья.",
-     "frame": [
-      "Detergente"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v200",
-   "type": "vocab",
-   "es": "el papel higiénico",
-   "en": "toilet paper",
-   "ru": "туалетная бумага",
-   "tr": "эл папэ́л ихье́нико",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "No queda papel higiénico.",
-     "ru": "Туалетная бумага закончилась.",
-     "frame": [
-      "papel higiénico"
-     ]
-    },
-    {
-     "es": "Compra papel higiénico, es urgente.",
-     "ru": "Купи туалетную бумагу, срочно.",
-     "frame": [
-      "papel higiénico"
-     ]
-    },
-    {
-     "es": "El papel higiénico está en el armario del baño.",
-     "ru": "Туалетная бумага в шкафчике в ванной.",
-     "frame": [
-      "papel higiénico"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v201",
-   "type": "vocab",
-   "es": "el cepillo de dientes",
-   "en": "toothbrush",
-   "ru": "зубная щётка",
-   "tr": "эл сэпи́йо дэ дье́нтэс",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Cambia el cepillo de dientes cada tres meses.",
-     "ru": "Меняй зубную щётку каждые три месяца.",
-     "frame": [
-      "cepillo de dientes"
-     ]
-    },
-    {
-     "es": "Me he dejado el cepillo de dientes en casa.",
-     "ru": "Я забыл зубную щётку дома.",
-     "frame": [
-      "cepillo de dientes"
-     ]
-    },
-    {
-     "es": "Un cepillo de dientes eléctrico.",
-     "ru": "Электрическая зубная щётка.",
-     "frame": [
-      "cepillo de dientes"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v202",
-   "type": "vocab",
-   "es": "la pasta de dientes",
-   "en": "toothpaste",
-   "ru": "зубная паста",
-   "tr": "ла па́ста дэ дье́нтэс",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Se ha acabado la pasta de dientes.",
-     "ru": "Закончилась зубная паста.",
-     "frame": [
-      "pasta de dientes"
-     ]
-    },
-    {
-     "es": "Pasta de dientes para niños, con sabor a fresa.",
-     "ru": "Детская зубная паста со вкусом клубники.",
-     "frame": [
-      "Pasta de dientes"
-     ]
-    },
-    {
-     "es": "Cierra el tubo de pasta de dientes.",
-     "ru": "Закрой тюбик зубной пасты.",
-     "frame": [
-      "pasta de dientes"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v203",
-   "type": "vocab",
-   "es": "el secador",
-   "en": "hairdryer",
-   "ru": "фен",
-   "tr": "эл сэкадо́р",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "¿Tienes secador de pelo?",
-     "ru": "У тебя есть фен?",
-     "frame": [
-      "secador"
-     ]
-    },
-    {
-     "es": "El secador del hotel no funciona.",
-     "ru": "Фен в отеле не работает.",
-     "frame": [
-      "secador"
-     ]
-    },
-    {
-     "es": "Sécate el pelo con el secador.",
-     "ru": "Высуши волосы феном.",
-     "frame": [
-      "secador"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v204",
-   "type": "vocab",
-   "es": "el cubo de la basura",
-   "en": "rubbish bin",
-   "ru": "мусорное ведро",
-   "tr": "эл ку́бо дэ ла басу́ра",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "El cubo de la basura está lleno.",
-     "ru": "Мусорное ведро полное.",
-     "frame": [
-      "cubo de la basura"
-     ]
-    },
-    {
-     "es": "Tira eso al cubo de la basura.",
-     "ru": "Выброси это в мусорное ведро.",
-     "frame": [
-      "cubo de la basura"
-     ]
-    },
-    {
-     "es": "Lava el cubo de la basura, huele mal.",
-     "ru": "Помой мусорное ведро, оно плохо пахнет.",
-     "frame": [
-      "cubo de la basura"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v205",
-   "type": "vocab",
-   "es": "la bolsa de basura",
-   "en": "bin bag",
-   "ru": "мусорный пакет",
-   "tr": "ла бо́лса дэ басу́ра",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Se han acabado las bolsas de basura.",
-     "ru": "Закончились мусорные пакеты.",
-     "frame": [
-      "bolsas de basura"
-     ]
-    },
-    {
-     "es": "Cierra bien la bolsa de basura.",
-     "ru": "Хорошо завяжи мусорный пакет.",
-     "frame": [
-      "bolsa de basura"
-     ]
-    },
-    {
-     "es": "Baja la bolsa de basura al contenedor.",
-     "ru": "Отнеси мусорный пакет в контейнер.",
-     "frame": [
-      "bolsa de basura"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v206",
-   "type": "vocab",
-   "es": "el felpudo",
-   "en": "doormat",
-   "ru": "коврик у двери",
-   "tr": "эл фэлпу́до",
-   "group": null,
-   "set": "Предметы дома",
-   "ex": [
-    {
-     "es": "Límpiate los pies en el felpudo.",
-     "ru": "Вытри ноги о коврик.",
-     "frame": [
-      "felpudo"
-     ]
-    },
-    {
-     "es": "La llave está debajo del felpudo.",
-     "ru": "Ключ под ковриком.",
-     "frame": [
-      "felpudo"
-     ]
-    },
-    {
-     "es": "Un felpudo con la palabra bienvenidos.",
-     "ru": "Коврик с надписью «добро пожаловать».",
-     "frame": [
-      "felpudo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v207",
-   "type": "vocab",
-   "es": "hacer la cama",
-   "en": "to make the bed",
-   "ru": "заправлять кровать",
-   "tr": "асэ́р ла ка́ма",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Haz la cama antes de salir.",
-     "ru": "Заправь кровать перед выходом.",
-     "frame": [
-      "Haz",
-      "cama"
-     ]
-    },
-    {
-     "es": "Mi hijo nunca hace la cama.",
-     "ru": "Мой сын никогда не заправляет кровать.",
-     "frame": [
-      "hace",
-      "cama"
-     ]
-    },
-    {
-     "es": "Hago la cama nada más levantarme.",
-     "ru": "Я заправляю кровать сразу, как встаю.",
-     "frame": [
-      "Hago",
-      "cama"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v208",
-   "type": "vocab",
-   "es": "poner la mesa",
-   "en": "to lay the table",
-   "ru": "накрывать на стол",
-   "tr": "понэ́р ла мэ́са",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "¿Me ayudas a poner la mesa?",
-     "ru": "Поможешь накрыть на стол?",
-     "frame": [
-      "poner la mesa"
-     ]
-    },
-    {
-     "es": "Pon la mesa para cuatro.",
-     "ru": "Накрой на четверых.",
-     "frame": [
-      "Pon la mesa"
-     ]
-    },
-    {
-     "es": "Los niños ponen la mesa cada día.",
-     "ru": "Дети накрывают на стол каждый день.",
-     "frame": [
-      "ponen la mesa"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v209",
-   "type": "vocab",
-   "es": "quitar la mesa",
-   "en": "to clear the table",
-   "ru": "убирать со стола",
-   "tr": "кита́р ла мэ́са",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Yo cocino y tú quitas la mesa.",
-     "ru": "Я готовлю, а ты убираешь со стола.",
-     "frame": [
-      "quitas la mesa"
-     ]
-    },
-    {
-     "es": "Quita la mesa y friega los platos.",
-     "ru": "Убери со стола и помой посуду.",
-     "frame": [
-      "Quita la mesa"
-     ]
-    },
-    {
-     "es": "Después de cenar quitamos la mesa juntos.",
-     "ru": "После ужина мы вместе убираем со стола.",
-     "frame": [
-      "quitamos la mesa"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v210",
-   "type": "vocab",
-   "es": "fregar los platos",
-   "en": "to wash the dishes",
-   "ru": "мыть посуду",
-   "tr": "фрэга́р лос пла́тос",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Hoy te toca fregar los platos.",
-     "ru": "Сегодня твоя очередь мыть посуду.",
-     "frame": [
-      "fregar los platos"
-     ]
-    },
-    {
-     "es": "Friego los platos mientras tú bañas a los niños.",
-     "ru": "Я мою посуду, пока ты купаешь детей.",
-     "frame": [
-      "Friego los platos"
-     ]
-    },
-    {
-     "es": "Odio fregar los platos.",
-     "ru": "Ненавижу мыть посуду.",
-     "frame": [
-      "fregar los platos"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v211",
-   "type": "vocab",
-   "es": "poner el lavavajillas",
-   "en": "to run the dishwasher",
-   "ru": "запускать посудомойку",
-   "tr": "понэ́р эл лабабахи́йас",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Pon el lavavajillas antes de acostarte.",
-     "ru": "Запусти посудомойку перед сном.",
-     "frame": [
-      "Pon el lavavajillas"
-     ]
-    },
-    {
-     "es": "Ya he puesto el lavavajillas.",
-     "ru": "Я уже запустил посудомойку.",
-     "frame": [
-      "puesto el lavavajillas"
-     ]
-    },
-    {
-     "es": "Ponemos el lavavajillas una vez al día.",
-     "ru": "Мы запускаем посудомойку раз в день.",
-     "frame": [
-      "Ponemos el lavavajillas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v212",
-   "type": "vocab",
-   "es": "poner la lavadora",
-   "en": "to do a wash",
-   "ru": "запускать стирку",
-   "tr": "понэ́р ла лабадо́ра",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Voy a poner una lavadora de ropa blanca.",
-     "ru": "Я поставлю стирку белого.",
-     "frame": [
-      "poner",
-      "lavadora"
-     ]
-    },
-    {
-     "es": "¿Has puesto la lavadora?",
-     "ru": "Ты запустил стирку?",
-     "frame": [
-      "puesto la lavadora"
-     ]
-    },
-    {
-     "es": "Pon la lavadora por la noche, la luz es más barata.",
-     "ru": "Ставь стирку на ночь, электричество дешевле.",
-     "frame": [
-      "Pon la lavadora"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v213",
-   "type": "vocab",
-   "es": "tender la ropa",
-   "en": "to hang out the washing",
-   "ru": "развешивать бельё",
-   "tr": "тэндэ́р ла рро́па",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Tiende la ropa antes de que llueva.",
-     "ru": "Развесь бельё, пока не пошёл дождь.",
-     "frame": [
-      "Tiende la ropa"
-     ]
-    },
-    {
-     "es": "Tendemos la ropa en la terraza.",
-     "ru": "Мы развешиваем бельё на террасе.",
-     "frame": [
-      "Tendemos la ropa"
-     ]
-    },
-    {
-     "es": "Se me ha olvidado tender la ropa.",
-     "ru": "Я забыл развесить бельё.",
-     "frame": [
-      "tender la ropa"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v214",
-   "type": "vocab",
-   "es": "doblar la ropa",
-   "en": "to fold the clothes",
-   "ru": "складывать одежду",
-   "tr": "добла́р ла рро́па",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Dobla la ropa y guárdala en el armario.",
-     "ru": "Сложи одежду и убери в шкаф.",
-     "frame": [
-      "Dobla la ropa"
-     ]
-    },
-    {
-     "es": "Doblo la ropa viendo la tele.",
-     "ru": "Я складываю одежду, смотря телевизор.",
-     "frame": [
-      "Doblo la ropa"
-     ]
-    },
-    {
-     "es": "La ropa doblada está en la cama.",
-     "ru": "Сложенная одежда на кровати.",
-     "frame": [
-      "ropa doblada"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v215",
-   "type": "vocab",
-   "es": "planchar",
-   "en": "to iron",
-   "ru": "гладить",
-   "tr": "планча́р",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Plancho las camisas los domingos.",
-     "ru": "Я глажу рубашки по воскресеньям.",
-     "frame": [
-      "Plancho"
-     ]
-    },
-    {
-     "es": "No hace falta planchar las camisetas.",
-     "ru": "Футболки гладить не нужно.",
-     "frame": [
-      "planchar"
-     ]
-    },
-    {
-     "es": "¿Sabes planchar?",
-     "ru": "Ты умеешь гладить?",
-     "frame": [
-      "planchar"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v216",
-   "type": "vocab",
-   "es": "barrer",
-   "en": "to sweep",
-   "ru": "подметать",
-   "tr": "баррэ́р",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Barre la cocina, hay migas.",
-     "ru": "Подмети на кухне, там крошки.",
-     "frame": [
-      "Barre"
-     ]
-    },
-    {
-     "es": "Barro la terraza cada mañana.",
-     "ru": "Я подметаю террасу каждое утро.",
-     "frame": [
-      "Barro"
-     ]
-    },
-    {
-     "es": "Primero se barre y luego se friega.",
-     "ru": "Сначала подметают, потом моют пол.",
-     "frame": [
-      "barre"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v217",
-   "type": "vocab",
-   "es": "fregar el suelo",
-   "en": "to mop the floor",
-   "ru": "мыть пол",
-   "tr": "фрэга́р эл суэ́ло",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Friego el suelo los sábados.",
-     "ru": "Я мою пол по субботам.",
-     "frame": [
-      "Friego el suelo"
-     ]
-    },
-    {
-     "es": "Cuidado, acabo de fregar el suelo.",
-     "ru": "Осторожно, я только что помыл пол.",
-     "frame": [
-      "fregar el suelo"
-     ]
-    },
-    {
-     "es": "Hay que fregar el suelo de la cocina.",
-     "ru": "Нужно помыть пол на кухне.",
-     "frame": [
-      "fregar el suelo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v218",
-   "type": "vocab",
-   "es": "pasar la aspiradora",
-   "en": "to vacuum",
-   "ru": "пылесосить",
-   "tr": "паса́р ла аспирадо́ра",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Paso la aspiradora dos veces por semana.",
-     "ru": "Я пылесошу два раза в неделю.",
-     "frame": [
-      "Paso la aspiradora"
-     ]
-    },
-    {
-     "es": "Pasa la aspiradora por debajo del sofá.",
-     "ru": "Пропылесось под диваном.",
-     "frame": [
-      "Pasa la aspiradora"
-     ]
-    },
-    {
-     "es": "Los sábados toca pasar la aspiradora.",
-     "ru": "По субботам нужно пылесосить.",
-     "frame": [
-      "pasar la aspiradora"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v219",
-   "type": "vocab",
-   "es": "quitar el polvo",
-   "en": "to dust",
-   "ru": "вытирать пыль",
-   "tr": "кита́р эл по́лбо",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Quita el polvo de la estantería.",
-     "ru": "Вытри пыль со стеллажа.",
-     "frame": [
-      "Quita el polvo"
-     ]
-    },
-    {
-     "es": "Hay que quitar el polvo cada semana.",
-     "ru": "Пыль нужно вытирать каждую неделю.",
-     "frame": [
-      "quitar el polvo"
-     ]
-    },
-    {
-     "es": "Quito el polvo con un trapo húmedo.",
-     "ru": "Я вытираю пыль влажной тряпкой.",
-     "frame": [
-      "Quito el polvo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v220",
-   "type": "vocab",
-   "es": "limpiar los cristales",
-   "en": "to clean the windows",
-   "ru": "мыть окна",
-   "tr": "лимпья́р лос криста́лэс",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Limpio los cristales cuando hace sol.",
-     "ru": "Я мою окна, когда солнечно.",
-     "frame": [
-      "Limpio los cristales"
-     ]
-    },
-    {
-     "es": "Toca limpiar los cristales del salón.",
-     "ru": "Пора помыть окна в гостиной.",
-     "frame": [
-      "limpiar los cristales"
-     ]
-    },
-    {
-     "es": "Después de la lluvia hay que limpiar los cristales.",
-     "ru": "После дождя нужно помыть окна.",
-     "frame": [
-      "limpiar los cristales"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v221",
-   "type": "vocab",
-   "es": "limpiar el baño",
-   "en": "to clean the bathroom",
-   "ru": "мыть ванную",
-   "tr": "лимпья́р эл ба́ньо",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Limpio el baño los viernes.",
-     "ru": "Я мою ванную по пятницам.",
-     "frame": [
-      "Limpio el baño"
-     ]
-    },
-    {
-     "es": "¿Quién limpia el baño esta semana?",
-     "ru": "Кто моет ванную на этой неделе?",
-     "frame": [
-      "limpia el baño"
-     ]
-    },
-    {
-     "es": "Limpia el baño con guantes.",
-     "ru": "Мой ванную в перчатках.",
-     "frame": [
-      "Limpia el baño"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v222",
-   "type": "vocab",
-   "es": "sacar la basura",
-   "en": "to take the rubbish out",
-   "ru": "выносить мусор",
-   "tr": "сака́р ла басу́ра",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "¿Has sacado la basura?",
-     "ru": "Ты вынес мусор?",
-     "frame": [
-      "sacado la basura"
-     ]
-    },
-    {
-     "es": "Aquí la basura se saca por la noche.",
-     "ru": "Здесь мусор выносят вечером.",
-     "frame": [
-      "basura se saca"
-     ]
-    },
-    {
-     "es": "Se me ha olvidado sacar la basura.",
-     "ru": "Я забыл вынести мусор.",
-     "frame": [
-      "sacar la basura"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v223",
-   "type": "vocab",
-   "es": "hacer la compra",
-   "en": "to do the food shopping",
-   "ru": "покупать продукты",
-   "tr": "асэ́р ла ко́мпра",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Hago la compra los sábados por la mañana.",
-     "ru": "Я закупаюсь по субботам утром.",
-     "frame": [
-      "Hago la compra"
-     ]
-    },
-    {
-     "es": "¿Vienes a hacer la compra conmigo?",
-     "ru": "Пойдёшь со мной за продуктами?",
-     "frame": [
-      "hacer la compra"
-     ]
-    },
-    {
-     "es": "Hacemos la compra por internet.",
-     "ru": "Мы заказываем продукты через интернет.",
-     "frame": [
-      "Hacemos la compra"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v224",
-   "type": "vocab",
-   "es": "regar las plantas",
-   "en": "to water the plants",
-   "ru": "поливать растения",
-   "tr": "ррэга́р лас пла́нтас",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Riega las plantas mientras estoy fuera.",
-     "ru": "Поливай растения, пока меня нет.",
-     "frame": [
-      "Riega las plantas"
-     ]
-    },
-    {
-     "es": "Riego las plantas por la tarde.",
-     "ru": "Я поливаю растения вечером.",
-     "frame": [
-      "Riego las plantas"
-     ]
-    },
-    {
-     "es": "Se me olvidó regar las plantas y se secaron.",
-     "ru": "Я забыл полить растения, и они засохли.",
-     "frame": [
-      "regar las plantas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v225",
-   "type": "vocab",
-   "es": "cambiar las sábanas",
-   "en": "to change the sheets",
-   "ru": "менять постельное бельё",
-   "tr": "камбья́р лас са́банас",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Cambio las sábanas cada semana.",
-     "ru": "Я меняю постельное бельё каждую неделю.",
-     "frame": [
-      "Cambio las sábanas"
-     ]
-    },
-    {
-     "es": "Hay que cambiar las sábanas de la cama de los niños.",
-     "ru": "Нужно поменять бельё на детской кровати.",
-     "frame": [
-      "cambiar las sábanas"
-     ]
-    },
-    {
-     "es": "Cambia las sábanas, tienen manchas.",
-     "ru": "Смени бельё, на нём пятна.",
-     "frame": [
-      "Cambia las sábanas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v226",
-   "type": "vocab",
-   "es": "ordenar la habitación",
-   "en": "to tidy the room",
-   "ru": "прибирать в комнате",
-   "tr": "ордэна́р ла абитасьо́н",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Ordena tu habitación antes de jugar.",
-     "ru": "Приберись в комнате, прежде чем играть.",
-     "frame": [
-      "Ordena",
-      "habitación"
-     ]
-    },
-    {
-     "es": "Mi hija ordena su habitación sola.",
-     "ru": "Моя дочь сама прибирает свою комнату.",
-     "frame": [
-      "ordena",
-      "habitación"
-     ]
-    },
-    {
-     "es": "Ordenar la habitación lleva diez minutos.",
-     "ru": "Уборка комнаты занимает десять минут.",
-     "frame": [
-      "Ordenar la habitación"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v227",
-   "type": "vocab",
-   "es": "recoger la cocina",
-   "en": "to tidy up the kitchen",
-   "ru": "прибирать кухню",
-   "tr": "ррэкохэ́р ла коси́на",
-   "group": null,
-   "set": "Домашние дела",
-   "ex": [
-    {
-     "es": "Recoge la cocina después de cenar.",
-     "ru": "Прибери кухню после ужина.",
-     "frame": [
-      "Recoge la cocina"
-     ]
-    },
-    {
-     "es": "Recojo la cocina y me voy a la cama.",
-     "ru": "Я прибираю кухню и иду спать.",
-     "frame": [
-      "Recojo la cocina"
-     ]
-    },
-    {
-     "es": "Entre los dos recogemos la cocina en cinco minutos.",
-     "ru": "Вдвоём мы прибираем кухню за пять минут.",
-     "frame": [
-      "recogemos la cocina"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v228",
-   "type": "vocab",
-   "es": "la ola",
-   "en": "wave",
-   "ru": "волна",
-   "tr": "ла о́ла",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Hoy hay olas grandes.",
-     "ru": "Сегодня большие волны.",
-     "frame": [
-      "olas"
-     ]
-    },
-    {
-     "es": "Una ola me ha tirado al suelo.",
-     "ru": "Волна сбила меня с ног.",
-     "frame": [
-      "ola"
-     ]
-    },
-    {
-     "es": "Los niños saltan las olas.",
-     "ru": "Дети прыгают через волны.",
-     "frame": [
-      "olas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v229",
-   "type": "vocab",
-   "es": "la orilla",
-   "en": "shore / water's edge",
-   "ru": "берег (кромка воды)",
-   "tr": "ла ори́йа",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Paseamos por la orilla.",
-     "ru": "Мы гуляем вдоль берега.",
-     "frame": [
-      "orilla"
-     ]
-    },
-    {
-     "es": "El niño juega en la orilla.",
-     "ru": "Ребёнок играет у кромки воды.",
-     "frame": [
-      "orilla"
-     ]
-    },
-    {
-     "es": "Deja la toalla lejos de la orilla.",
-     "ru": "Оставь полотенце подальше от воды.",
-     "frame": [
-      "orilla"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v230",
-   "type": "vocab",
-   "es": "la marea alta",
-   "en": "high tide",
-   "ru": "прилив",
-   "tr": "ла марэ́а а́лта",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Con la marea alta la playa desaparece.",
-     "ru": "При приливе пляж исчезает.",
-     "frame": [
-      "marea alta"
-     ]
-    },
-    {
-     "es": "La marea alta es a las cinco.",
-     "ru": "Прилив в пять.",
-     "frame": [
-      "marea alta"
-     ]
-    },
-    {
-     "es": "Con marea alta no se puede pasar por las rocas.",
-     "ru": "При приливе нельзя пройти по скалам.",
-     "frame": [
-      "marea alta"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v231",
-   "type": "vocab",
-   "es": "la marea baja",
-   "en": "low tide",
-   "ru": "отлив",
-   "tr": "ла марэ́а ба́ха",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Con la marea baja se ven las rocas.",
-     "ru": "При отливе видны скалы.",
-     "frame": [
-      "marea baja"
-     ]
-    },
-    {
-     "es": "Aprovecha la marea baja para buscar conchas.",
-     "ru": "Воспользуйся отливом, чтобы искать ракушки.",
-     "frame": [
-      "marea baja"
-     ]
-    },
-    {
-     "es": "La marea baja deja charcos en la arena.",
-     "ru": "Отлив оставляет лужи на песке.",
-     "frame": [
-      "marea baja"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v232",
-   "type": "vocab",
-   "es": "la costa",
-   "en": "coast",
-   "ru": "побережье",
-   "tr": "ла ко́ста",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Vivimos en la costa.",
-     "ru": "Мы живём на побережье.",
-     "frame": [
-      "costa"
-     ]
-    },
-    {
-     "es": "La costa de Alicante tiene muchas playas.",
-     "ru": "На побережье Аликанте много пляжей.",
-     "frame": [
-      "costa"
-     ]
-    },
-    {
-     "es": "En la costa hace menos calor.",
-     "ru": "На побережье не так жарко.",
-     "frame": [
-      "costa"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v233",
-   "type": "vocab",
-   "es": "la cala",
-   "en": "cove",
-   "ru": "бухта (небольшая)",
-   "tr": "ла ка́ла",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Conozco una cala escondida.",
-     "ru": "Я знаю укромную бухту.",
-     "frame": [
-      "cala"
-     ]
-    },
-    {
-     "es": "A la cala se llega andando.",
-     "ru": "До бухты добираются пешком.",
-     "frame": [
-      "cala"
-     ]
-    },
-    {
-     "es": "La cala es pequeña pero el agua es limpísima.",
-     "ru": "Бухта маленькая, но вода чистейшая.",
-     "frame": [
-      "cala"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v234",
-   "type": "vocab",
-   "es": "la roca",
-   "en": "rock",
-   "ru": "скала (камень)",
-   "tr": "ла рро́ка",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "No te subas a las rocas mojadas.",
-     "ru": "Не залезай на мокрые скалы.",
-     "frame": [
-      "rocas"
-     ]
-    },
-    {
-     "es": "Hay peces entre las rocas.",
-     "ru": "Между скал есть рыбы.",
-     "frame": [
-      "rocas"
-     ]
-    },
-    {
-     "es": "Me he cortado con una roca.",
-     "ru": "Я порезался о скалу.",
-     "frame": [
-      "roca"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v235",
-   "type": "vocab",
-   "es": "el acantilado",
-   "en": "cliff",
-   "ru": "обрыв (утёс)",
-   "tr": "эл акантила́до",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Desde el acantilado se ve toda la costa.",
-     "ru": "С утёса видно всё побережье.",
-     "frame": [
-      "acantilado"
-     ]
-    },
-    {
-     "es": "No te acerques al borde del acantilado.",
-     "ru": "Не подходи к краю обрыва.",
-     "frame": [
-      "acantilado"
-     ]
-    },
-    {
-     "es": "Hay un camino por encima del acantilado.",
-     "ru": "Над обрывом есть тропа.",
-     "frame": [
-      "acantilado"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v236",
-   "type": "vocab",
-   "es": "el puerto",
-   "en": "port / harbour",
-   "ru": "порт",
-   "tr": "эл пуэ́рто",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Los barcos de pesca vuelven al puerto.",
-     "ru": "Рыбацкие лодки возвращаются в порт.",
-     "frame": [
-      "puerto"
-     ]
-    },
-    {
-     "es": "Cenamos en un restaurante del puerto.",
-     "ru": "Мы ужинаем в ресторане в порту.",
-     "frame": [
-      "puerto"
-     ]
-    },
-    {
-     "es": "El ferry sale del puerto a las ocho.",
-     "ru": "Паром отходит из порта в восемь.",
-     "frame": [
-      "puerto"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v237",
-   "type": "vocab",
-   "es": "el faro",
-   "en": "lighthouse",
-   "ru": "маяк",
-   "tr": "эл фа́ро",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "El faro se enciende al anochecer.",
-     "ru": "Маяк зажигается с наступлением темноты.",
-     "frame": [
-      "faro"
-     ]
-    },
-    {
-     "es": "Subimos al faro para ver el mar.",
-     "ru": "Мы поднялись на маяк, чтобы посмотреть на море.",
-     "frame": [
-      "faro"
-     ]
-    },
-    {
-     "es": "El faro está en la punta del cabo.",
-     "ru": "Маяк на оконечности мыса.",
-     "frame": [
-      "faro"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v238",
-   "type": "vocab",
-   "es": "el paseo marítimo",
-   "en": "seafront promenade",
-   "ru": "набережная",
-   "tr": "эл пасэ́о мари́тимо",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Paseamos por el paseo marítimo al atardecer.",
-     "ru": "Мы гуляем по набережной на закате.",
-     "frame": [
-      "paseo marítimo"
-     ]
-    },
-    {
-     "es": "En el paseo marítimo hay muchos bares.",
-     "ru": "На набережной много баров.",
-     "frame": [
-      "paseo marítimo"
-     ]
-    },
-    {
-     "es": "Los niños van en bici por el paseo marítimo.",
-     "ru": "Дети катаются на велосипеде по набережной.",
-     "frame": [
-      "paseo marítimo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v239",
-   "type": "vocab",
-   "es": "el chiringuito",
-   "en": "beach bar",
-   "ru": "пляжный бар",
-   "tr": "эл чиринги́то",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Comemos en el chiringuito de la playa.",
-     "ru": "Мы обедаем в пляжном баре.",
-     "frame": [
-      "chiringuito"
-     ]
-    },
-    {
-     "es": "El chiringuito abre solo en verano.",
-     "ru": "Пляжный бар открыт только летом.",
-     "frame": [
-      "chiringuito"
-     ]
-    },
-    {
-     "es": "Una caña en el chiringuito, qué gusto.",
-     "ru": "Пиво в пляжном баре — какое удовольствие.",
-     "frame": [
-      "chiringuito"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v240",
-   "type": "vocab",
-   "es": "la sombrilla",
-   "en": "parasol",
-   "ru": "зонт от солнца",
-   "tr": "ла сомбри́йа",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Clava bien la sombrilla en la arena.",
-     "ru": "Хорошо воткни зонт в песок.",
-     "frame": [
-      "sombrilla"
-     ]
-    },
-    {
-     "es": "Alquilan sombrillas por diez euros.",
-     "ru": "Зонты сдают за десять евро.",
-     "frame": [
-      "sombrillas"
-     ]
-    },
-    {
-     "es": "El viento se ha llevado la sombrilla.",
-     "ru": "Ветер унёс зонт.",
-     "frame": [
-      "sombrilla"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v241",
-   "type": "vocab",
-   "es": "la tumbona",
-   "en": "sun lounger",
-   "ru": "шезлонг",
-   "tr": "ла тумбо́на",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Dos tumbonas y una sombrilla, por favor.",
-     "ru": "Два шезлонга и зонт, пожалуйста.",
-     "frame": [
-      "tumbonas"
-     ]
-    },
-    {
-     "es": "Me quedé dormido en la tumbona.",
-     "ru": "Я заснул в шезлонге.",
-     "frame": [
-      "tumbona"
-     ]
-    },
-    {
-     "es": "Las tumbonas del hotel son gratis.",
-     "ru": "Шезлонги отеля бесплатные.",
-     "frame": [
-      "tumbonas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v242",
-   "type": "vocab",
-   "es": "la toalla de playa",
-   "en": "beach towel",
-   "ru": "пляжное полотенце",
-   "tr": "ла тоа́йа дэ пла́йа",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "No olvides la toalla de playa.",
-     "ru": "Не забудь пляжное полотенце.",
-     "frame": [
-      "toalla de playa"
-     ]
-    },
-    {
-     "es": "Sacude la toalla de playa, tiene arena.",
-     "ru": "Вытряхни пляжное полотенце, оно в песке.",
-     "frame": [
-      "toalla de playa"
-     ]
-    },
-    {
-     "es": "Una toalla de playa grande para los dos.",
-     "ru": "Большое пляжное полотенце на двоих.",
-     "frame": [
-      "toalla de playa"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v243",
-   "type": "vocab",
-   "es": "el bañador",
-   "en": "swimsuit / trunks",
-   "ru": "купальник / плавки",
-   "tr": "эл баньядо́р",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Ponte el bañador, nos vamos a la playa.",
-     "ru": "Надевай купальник, мы идём на пляж.",
-     "frame": [
-      "bañador"
-     ]
-    },
-    {
-     "es": "El bañador todavía está mojado.",
-     "ru": "Купальник ещё мокрый.",
-     "frame": [
-      "bañador"
-     ]
-    },
-    {
-     "es": "He comprado un bañador nuevo para el niño.",
-     "ru": "Я купил ребёнку новые плавки.",
-     "frame": [
-      "bañador"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v244",
-   "type": "vocab",
-   "es": "el bikini",
-   "en": "bikini",
-   "ru": "бикини",
-   "tr": "эл бики́ни",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Un bikini rojo para el verano.",
-     "ru": "Красное бикини на лето.",
-     "frame": [
-      "bikini"
-     ]
-    },
-    {
-     "es": "Se le ha perdido la parte de arriba del bikini.",
-     "ru": "Она потеряла верх от бикини.",
-     "frame": [
-      "bikini"
-     ]
-    },
-    {
-     "es": "Prefiero bikini a bañador.",
-     "ru": "Я предпочитаю бикини купальнику.",
-     "frame": [
-      "bikini"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v245",
-   "type": "vocab",
-   "es": "las chanclas",
-   "en": "flip-flops",
-   "ru": "шлёпанцы",
-   "tr": "лас ча́нклас",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "En la playa siempre llevo chanclas.",
-     "ru": "На пляже я всегда в шлёпанцах.",
-     "frame": [
-      "chanclas"
-     ]
-    },
-    {
-     "es": "Se me ha roto una chancla.",
-     "ru": "У меня порвался шлёпанец.",
-     "frame": [
-      "chancla"
-     ]
-    },
-    {
-     "es": "No vayas en chanclas por la ciudad.",
-     "ru": "Не ходи в шлёпанцах по городу.",
-     "frame": [
-      "chanclas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v246",
-   "type": "vocab",
-   "es": "las gafas de sol",
-   "en": "sunglasses",
-   "ru": "солнечные очки",
-   "tr": "лас га́фас дэ сол",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Sin gafas de sol no veo nada.",
-     "ru": "Без солнечных очков я ничего не вижу.",
-     "frame": [
-      "gafas de sol"
-     ]
-    },
-    {
-     "es": "He perdido las gafas de sol en el mar.",
-     "ru": "Я потерял солнечные очки в море.",
-     "frame": [
-      "gafas de sol"
-     ]
-    },
-    {
-     "es": "Unas gafas de sol para el niño.",
-     "ru": "Солнечные очки для ребёнка.",
-     "frame": [
-      "gafas de sol"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v247",
-   "type": "vocab",
-   "es": "la crema solar",
-   "en": "sunscreen",
-   "ru": "солнцезащитный крем",
-   "tr": "ла крэ́ма сола́р",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Ponte crema solar cada dos horas.",
-     "ru": "Наноси солнцезащитный крем каждые два часа.",
-     "frame": [
-      "crema solar"
-     ]
-    },
-    {
-     "es": "Crema solar factor cincuenta para los niños.",
-     "ru": "Солнцезащитный крем с фактором пятьдесят для детей.",
-     "frame": [
-      "Crema solar"
-     ]
-    },
-    {
-     "es": "Se me ha acabado la crema solar.",
-     "ru": "У меня закончился солнцезащитный крем.",
-     "frame": [
-      "crema solar"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v248",
-   "type": "vocab",
-   "es": "la quemadura",
-   "en": "burn (sunburn)",
-   "ru": "ожог",
-   "tr": "ла кэмаду́ра",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Tengo una quemadura en la espalda.",
-     "ru": "У меня ожог на спине.",
-     "frame": [
-      "quemadura"
-     ]
-    },
-    {
-     "es": "Las quemaduras de sol duelen mucho.",
-     "ru": "Солнечные ожоги очень болят.",
-     "frame": [
-      "quemaduras"
-     ]
-    },
-    {
-     "es": "Ponte aloe vera en la quemadura.",
-     "ru": "Нанеси алоэ вера на ожог.",
-     "frame": [
-      "quemadura"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v249",
-   "type": "vocab",
-   "es": "el flotador",
-   "en": "rubber ring",
-   "ru": "надувной круг",
-   "tr": "эл флотадо́р",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "El niño nada con flotador.",
-     "ru": "Ребёнок плавает с кругом.",
-     "frame": [
-      "flotador"
-     ]
-    },
-    {
-     "es": "Hincha el flotador.",
-     "ru": "Надуй круг.",
-     "frame": [
-      "flotador"
-     ]
-    },
-    {
-     "es": "Un flotador con forma de flamenco.",
-     "ru": "Круг в форме фламинго.",
-     "frame": [
-      "flotador"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v250",
-   "type": "vocab",
-   "es": "los manguitos",
-   "en": "armbands",
-   "ru": "нарукавники",
-   "tr": "лос манги́тос",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Ponle los manguitos a la niña.",
-     "ru": "Надень девочке нарукавники.",
-     "frame": [
-      "manguitos"
-     ]
-    },
-    {
-     "es": "Sin manguitos no entra al agua.",
-     "ru": "Без нарукавников он в воду не заходит.",
-     "frame": [
-      "manguitos"
-     ]
-    },
-    {
-     "es": "Los manguitos están desinflados.",
-     "ru": "Нарукавники сдулись.",
-     "frame": [
-      "manguitos"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v251",
-   "type": "vocab",
-   "es": "el cubo y la pala",
-   "en": "bucket and spade",
-   "ru": "ведёрко и лопатка",
-   "tr": "эл ку́бо и ла па́ла",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "El niño juega con el cubo y la pala.",
-     "ru": "Ребёнок играет с ведёрком и лопаткой.",
-     "frame": [
-      "cubo",
-      "pala"
-     ]
-    },
-    {
-     "es": "Compra un cubo y una pala para la playa.",
-     "ru": "Купи ведёрко и лопатку для пляжа.",
-     "frame": [
-      "cubo",
-      "pala"
-     ]
-    },
-    {
-     "es": "Hacemos un castillo con el cubo y la pala.",
-     "ru": "Мы строим замок ведёрком и лопаткой.",
-     "frame": [
-      "cubo",
-      "pala"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v252",
-   "type": "vocab",
-   "es": "el socorrista",
-   "en": "lifeguard",
-   "ru": "спасатель",
-   "tr": "эл сокорри́ста",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "El socorrista vigila desde la torre.",
-     "ru": "Спасатель следит с вышки.",
-     "frame": [
-      "socorrista"
-     ]
-    },
-    {
-     "es": "Pregunta al socorrista si se puede nadar.",
-     "ru": "Спроси у спасателя, можно ли плавать.",
-     "frame": [
-      "socorrista"
-     ]
-    },
-    {
-     "es": "El socorrista ha sacado a un niño del agua.",
-     "ru": "Спасатель вытащил ребёнка из воды.",
-     "frame": [
-      "socorrista"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v253",
-   "type": "vocab",
-   "es": "la bandera",
-   "en": "flag",
-   "ru": "флаг",
-   "tr": "ла бандэ́ра",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Bandera roja: prohibido bañarse.",
-     "ru": "Красный флаг: купаться запрещено.",
-     "frame": [
-      "Bandera"
-     ]
-    },
-    {
-     "es": "Hoy hay bandera verde.",
-     "ru": "Сегодня зелёный флаг.",
-     "frame": [
-      "bandera"
-     ]
-    },
-    {
-     "es": "Con bandera amarilla hay que tener cuidado.",
-     "ru": "При жёлтом флаге нужно быть осторожным.",
-     "frame": [
-      "bandera"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v254",
-   "type": "vocab",
-   "es": "la medusa",
-   "en": "jellyfish",
-   "ru": "медуза",
-   "tr": "ла мэду́са",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Me ha picado una medusa.",
-     "ru": "Меня ужалила медуза.",
-     "frame": [
-      "medusa"
-     ]
-    },
-    {
-     "es": "Hoy hay medusas, mejor no bañarse.",
-     "ru": "Сегодня медузы, лучше не купаться.",
-     "frame": [
-      "medusas"
-     ]
-    },
-    {
-     "es": "Las medusas llegan con el viento de levante.",
-     "ru": "Медузы приходят с восточным ветром.",
-     "frame": [
-      "medusas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v255",
-   "type": "vocab",
-   "es": "la concha",
-   "en": "seashell",
-   "ru": "ракушка",
-   "tr": "ла ко́нча",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "La niña colecciona conchas.",
-     "ru": "Девочка собирает ракушки.",
-     "frame": [
-      "conchas"
-     ]
-    },
-    {
-     "es": "Hay conchas por toda la orilla.",
-     "ru": "По всему берегу ракушки.",
-     "frame": [
-      "conchas"
-     ]
-    },
-    {
-     "es": "Una concha grande de recuerdo.",
-     "ru": "Большая ракушка на память.",
-     "frame": [
-      "concha"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v256",
-   "type": "vocab",
-   "es": "el pez",
-   "en": "fish (alive)",
-   "ru": "рыба (живая)",
-   "tr": "эл пэс",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Se ven peces desde las rocas.",
-     "ru": "Со скал видно рыб.",
-     "frame": [
-      "peces"
-     ]
-    },
-    {
-     "es": "Un pez de colores.",
-     "ru": "Разноцветная рыбка.",
-     "frame": [
-      "pez"
-     ]
-    },
-    {
-     "es": "El niño quiere ver peces con las gafas de buceo.",
-     "ru": "Ребёнок хочет посмотреть на рыб в маске.",
-     "frame": [
-      "peces"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v257",
-   "type": "vocab",
-   "es": "la brisa",
-   "en": "breeze",
-   "ru": "бриз",
-   "tr": "ла бри́са",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Por la tarde sopla la brisa del mar.",
-     "ru": "Вечером дует морской бриз.",
-     "frame": [
-      "brisa"
-     ]
-    },
-    {
-     "es": "Con la brisa no se nota tanto el calor.",
-     "ru": "С бризом жара не так чувствуется.",
-     "frame": [
-      "brisa"
-     ]
-    },
-    {
-     "es": "Una brisa suave mueve la sombrilla.",
-     "ru": "Лёгкий бриз качает зонт.",
-     "frame": [
-      "brisa"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v258",
-   "type": "vocab",
-   "es": "la barca",
-   "en": "small boat",
-   "ru": "лодка",
-   "tr": "ла ба́рка",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Alquilamos una barca por una hora.",
-     "ru": "Мы арендовали лодку на час.",
-     "frame": [
-      "barca"
-     ]
-    },
-    {
-     "es": "Las barcas de los pescadores son de colores.",
-     "ru": "Лодки рыбаков разноцветные.",
-     "frame": [
-      "barcas"
-     ]
-    },
-    {
-     "es": "La barca se mueve mucho con las olas.",
-     "ru": "Лодку сильно качает на волнах.",
-     "frame": [
-      "barca"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v259",
-   "type": "vocab",
-   "es": "nadar",
-   "en": "to swim",
-   "ru": "плавать",
-   "tr": "нада́р",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Nado todos los días media hora.",
-     "ru": "Я плаваю каждый день полчаса.",
-     "frame": [
-      "Nado"
-     ]
-    },
-    {
-     "es": "Mi hija ya sabe nadar.",
-     "ru": "Моя дочь уже умеет плавать.",
-     "frame": [
-      "nadar"
-     ]
-    },
-    {
-     "es": "No nades tan lejos.",
-     "ru": "Не заплывай так далеко.",
-     "frame": [
-      "nades"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v260",
-   "type": "vocab",
-   "es": "bucear",
-   "en": "to snorkel / dive",
-   "ru": "нырять (с маской)",
-   "tr": "бусэа́р",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Buceamos con gafas y tubo.",
-     "ru": "Мы ныряем с маской и трубкой.",
-     "frame": [
-      "Buceamos"
-     ]
-    },
-    {
-     "es": "En esta cala se bucea muy bien.",
-     "ru": "В этой бухте отлично нырять.",
-     "frame": [
-      "bucea"
-     ]
-    },
-    {
-     "es": "¿Sabes bucear?",
-     "ru": "Ты умеешь нырять?",
-     "frame": [
-      "bucear"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v261",
-   "type": "vocab",
-   "es": "bañarse",
-   "en": "to bathe / go for a swim",
-   "ru": "купаться",
-   "tr": "банья́рсэ",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Nos bañamos en el mar cada tarde.",
-     "ru": "Мы купаемся в море каждый вечер.",
-     "frame": [
-      "bañamos"
-     ]
-    },
-    {
-     "es": "El agua está fría, pero me baño igual.",
-     "ru": "Вода холодная, но я всё равно купаюсь.",
-     "frame": [
-      "baño"
-     ]
-    },
-    {
-     "es": "No te bañes después de comer.",
-     "ru": "Не купайся после еды.",
-     "frame": [
-      "bañes"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v262",
-   "type": "vocab",
-   "es": "tomar el sol",
-   "en": "to sunbathe",
-   "ru": "загорать",
-   "tr": "тома́р эл сол",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "Tomo el sol solo por la mañana.",
-     "ru": "Я загораю только утром.",
-     "frame": [
-      "Tomo el sol"
-     ]
-    },
-    {
-     "es": "No tomes el sol a mediodía.",
-     "ru": "Не загорай в полдень.",
-     "frame": [
-      "tomes el sol"
-     ]
-    },
-    {
-     "es": "Le encanta tomar el sol en la terraza.",
-     "ru": "Она обожает загорать на террасе.",
-     "frame": [
-      "tomar el sol"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v263",
-   "type": "vocab",
-   "es": "hacer surf",
-   "en": "to surf",
-   "ru": "заниматься сёрфингом",
-   "tr": "асэ́р сурф",
-   "group": null,
-   "set": "Пляж и море",
-   "ex": [
-    {
-     "es": "En el norte se hace mucho surf.",
-     "ru": "На севере много занимаются сёрфингом.",
-     "frame": [
-      "hace",
-      "surf"
-     ]
-    },
-    {
-     "es": "Aprendí a hacer surf en Cádiz.",
-     "ru": "Я научился сёрфингу в Кадисе.",
-     "frame": [
-      "hacer surf"
-     ]
-    },
-    {
-     "es": "Con estas olas no se puede hacer surf.",
-     "ru": "С такими волнами сёрфить нельзя.",
-     "frame": [
-      "hacer surf"
-     ]
-    }
-   ]
-  },
   {
    "id": "es5-v001",
    "type": "vocab",
@@ -8214,6 +3988,2950 @@
    ]
   },
   {
+   "id": "es5-v136",
+   "type": "vocab",
+   "es": "el recibidor",
+   "en": "entrance hall",
+   "ru": "прихожая",
+   "tr": "эл ррэсибидо́р",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Deja las llaves en el recibidor.",
+     "ru": "Оставь ключи в прихожей.",
+     "frame": [
+      "recibidor"
+     ]
+    },
+    {
+     "es": "El recibidor es pequeño pero tiene un armario.",
+     "ru": "Прихожая маленькая, но со шкафом.",
+     "frame": [
+      "recibidor"
+     ]
+    },
+    {
+     "es": "En el recibidor hay un espejo.",
+     "ru": "В прихожей есть зеркало.",
+     "frame": [
+      "recibidor"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v137",
+   "type": "vocab",
+   "es": "el aseo",
+   "en": "toilet (small, no bath)",
+   "ru": "туалет (без ванны)",
+   "tr": "эл асэ́о",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "El piso tiene un baño y un aseo.",
+     "ru": "В квартире есть ванная и туалет.",
+     "frame": [
+      "aseo"
+     ]
+    },
+    {
+     "es": "El aseo está al fondo del pasillo.",
+     "ru": "Туалет в конце коридора.",
+     "frame": [
+      "aseo"
+     ]
+    },
+    {
+     "es": "En el aseo no hay ducha.",
+     "ru": "В туалете нет душа.",
+     "frame": [
+      "aseo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v138",
+   "type": "vocab",
+   "es": "el lavadero",
+   "en": "utility room",
+   "ru": "постирочная",
+   "tr": "эл лабадэ́ро",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "La lavadora está en el lavadero.",
+     "ru": "Стиральная машина в постирочной.",
+     "frame": [
+      "lavadero"
+     ]
+    },
+    {
+     "es": "Tiende la ropa en el lavadero.",
+     "ru": "Развесь бельё в постирочной.",
+     "frame": [
+      "lavadero"
+     ]
+    },
+    {
+     "es": "El lavadero da al patio.",
+     "ru": "Постирочная выходит во двор.",
+     "frame": [
+      "lavadero"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v139",
+   "type": "vocab",
+   "es": "la despensa",
+   "en": "pantry",
+   "ru": "кладовая (для продуктов)",
+   "tr": "ла дэспэ́нса",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Guardo el arroz en la despensa.",
+     "ru": "Я храню рис в кладовой.",
+     "frame": [
+      "despensa"
+     ]
+    },
+    {
+     "es": "La despensa está vacía, hay que comprar.",
+     "ru": "Кладовая пуста, нужно закупиться.",
+     "frame": [
+      "despensa"
+     ]
+    },
+    {
+     "es": "Una cocina con despensa, qué lujo.",
+     "ru": "Кухня с кладовой — какая роскошь.",
+     "frame": [
+      "despensa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v140",
+   "type": "vocab",
+   "es": "el balcón",
+   "en": "balcony",
+   "ru": "балкон",
+   "tr": "эл балко́н",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Desayunamos en el balcón.",
+     "ru": "Мы завтракаем на балконе.",
+     "frame": [
+      "balcón"
+     ]
+    },
+    {
+     "es": "El balcón da a la calle.",
+     "ru": "Балкон выходит на улицу.",
+     "frame": [
+      "balcón"
+     ]
+    },
+    {
+     "es": "Tengo plantas en el balcón.",
+     "ru": "У меня на балконе растения.",
+     "frame": [
+      "balcón"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v141",
+   "type": "vocab",
+   "es": "el trastero",
+   "en": "storage room",
+   "ru": "кладовка (чулан)",
+   "tr": "эл трастэ́ро",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Las maletas están en el trastero.",
+     "ru": "Чемоданы в кладовке.",
+     "frame": [
+      "trastero"
+     ]
+    },
+    {
+     "es": "El piso viene con trastero y garaje.",
+     "ru": "Квартира с кладовкой и гаражом.",
+     "frame": [
+      "trastero"
+     ]
+    },
+    {
+     "es": "Baja la bici al trastero.",
+     "ru": "Отнеси велосипед в кладовку.",
+     "frame": [
+      "trastero"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v142",
+   "type": "vocab",
+   "es": "el garaje",
+   "en": "garage",
+   "ru": "гараж",
+   "tr": "эл гара́хэ",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Aparco en el garaje del edificio.",
+     "ru": "Я паркуюсь в гараже дома.",
+     "frame": [
+      "garaje"
+     ]
+    },
+    {
+     "es": "La plaza de garaje cuesta cien euros al mes.",
+     "ru": "Место в гараже стоит сто евро в месяц.",
+     "frame": [
+      "garaje"
+     ]
+    },
+    {
+     "es": "El mando del garaje no funciona.",
+     "ru": "Пульт от гаража не работает.",
+     "frame": [
+      "garaje"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v143",
+   "type": "vocab",
+   "es": "el sótano",
+   "en": "basement",
+   "ru": "подвал",
+   "tr": "эл со́тано",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Los contadores están en el sótano.",
+     "ru": "Счётчики в подвале.",
+     "frame": [
+      "sótano"
+     ]
+    },
+    {
+     "es": "En el sótano hay humedad.",
+     "ru": "В подвале сыро.",
+     "frame": [
+      "sótano"
+     ]
+    },
+    {
+     "es": "El garaje está en el sótano.",
+     "ru": "Гараж в подвале.",
+     "frame": [
+      "sótano"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v144",
+   "type": "vocab",
+   "es": "el ático",
+   "en": "top-floor flat (penthouse)",
+   "ru": "квартира на последнем этаже с террасой",
+   "tr": "эл а́тико",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Vivimos en un ático con terraza.",
+     "ru": "Мы живём на последнем этаже с террасой.",
+     "frame": [
+      "ático"
+     ]
+    },
+    {
+     "es": "Los áticos son los más caros.",
+     "ru": "Верхние квартиры с террасой — самые дорогие.",
+     "frame": [
+      "áticos"
+     ]
+    },
+    {
+     "es": "Desde el ático se ve el mar.",
+     "ru": "С верхнего этажа видно море.",
+     "frame": [
+      "ático"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v145",
+   "type": "vocab",
+   "es": "el patio",
+   "en": "courtyard",
+   "ru": "двор (внутренний)",
+   "tr": "эл па́тьо",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Los niños juegan en el patio.",
+     "ru": "Дети играют во дворе.",
+     "frame": [
+      "patio"
+     ]
+    },
+    {
+     "es": "La ventana da a un patio interior.",
+     "ru": "Окно выходит во внутренний двор.",
+     "frame": [
+      "patio"
+     ]
+    },
+    {
+     "es": "Hay una mesa en el patio para cenar fuera.",
+     "ru": "Во дворе есть стол, чтобы ужинать на улице.",
+     "frame": [
+      "patio"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v146",
+   "type": "vocab",
+   "es": "la azotea",
+   "en": "roof terrace",
+   "ru": "крыша-терраса",
+   "tr": "ла асотэ́а",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Tendemos la ropa en la azotea.",
+     "ru": "Мы развешиваем бельё на крыше.",
+     "frame": [
+      "azotea"
+     ]
+    },
+    {
+     "es": "Desde la azotea se ve toda la ciudad.",
+     "ru": "С крыши видно весь город.",
+     "frame": [
+      "azotea"
+     ]
+    },
+    {
+     "es": "En verano cenamos en la azotea.",
+     "ru": "Летом мы ужинаем на крыше.",
+     "frame": [
+      "azotea"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v147",
+   "type": "vocab",
+   "es": "el mueble",
+   "en": "piece of furniture",
+   "ru": "мебель (предмет)",
+   "tr": "эл муэ́блэ",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "El piso se alquila con muebles.",
+     "ru": "Квартира сдаётся с мебелью.",
+     "frame": [
+      "muebles"
+     ]
+    },
+    {
+     "es": "Este mueble no cabe por la puerta.",
+     "ru": "Эта мебель не проходит в дверь.",
+     "frame": [
+      "mueble"
+     ]
+    },
+    {
+     "es": "Compramos los muebles de segunda mano.",
+     "ru": "Мы купили мебель с рук.",
+     "frame": [
+      "muebles"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v148",
+   "type": "vocab",
+   "es": "el sillón",
+   "en": "armchair",
+   "ru": "кресло",
+   "tr": "эл сийо́н",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Mi padre lee en el sillón.",
+     "ru": "Мой отец читает в кресле.",
+     "frame": [
+      "sillón"
+     ]
+    },
+    {
+     "es": "El sillón es muy cómodo para la siesta.",
+     "ru": "Кресло очень удобное для сиесты.",
+     "frame": [
+      "sillón"
+     ]
+    },
+    {
+     "es": "Hemos comprado un sillón de cuero.",
+     "ru": "Мы купили кожаное кресло.",
+     "frame": [
+      "sillón"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v149",
+   "type": "vocab",
+   "es": "la estantería",
+   "en": "shelving unit",
+   "ru": "стеллаж",
+   "tr": "ла эстантэри́а",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "La estantería está llena de libros.",
+     "ru": "Стеллаж полон книг.",
+     "frame": [
+      "estantería"
+     ]
+    },
+    {
+     "es": "Monta la estantería con este destornillador.",
+     "ru": "Собери стеллаж этой отвёрткой.",
+     "frame": [
+      "estantería"
+     ]
+    },
+    {
+     "es": "Fija la estantería a la pared.",
+     "ru": "Прикрепи стеллаж к стене.",
+     "frame": [
+      "estantería"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v150",
+   "type": "vocab",
+   "es": "el estante",
+   "en": "shelf",
+   "ru": "полка",
+   "tr": "эл эста́нтэ",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Pon los platos en el estante de arriba.",
+     "ru": "Поставь тарелки на верхнюю полку.",
+     "frame": [
+      "estante"
+     ]
+    },
+    {
+     "es": "El estante se ha caído con el peso.",
+     "ru": "Полка упала под тяжестью.",
+     "frame": [
+      "estante"
+     ]
+    },
+    {
+     "es": "Un estante para las especias.",
+     "ru": "Полка для специй.",
+     "frame": [
+      "estante"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v151",
+   "type": "vocab",
+   "es": "el escritorio",
+   "en": "desk",
+   "ru": "письменный стол",
+   "tr": "эл эскрито́рьо",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Trabajo en un escritorio junto a la ventana.",
+     "ru": "Я работаю за столом у окна.",
+     "frame": [
+      "escritorio"
+     ]
+    },
+    {
+     "es": "El escritorio del niño está lleno de papeles.",
+     "ru": "Стол ребёнка завален бумагами.",
+     "frame": [
+      "escritorio"
+     ]
+    },
+    {
+     "es": "Necesito un escritorio más grande.",
+     "ru": "Мне нужен стол побольше.",
+     "frame": [
+      "escritorio"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v152",
+   "type": "vocab",
+   "es": "la mesita de noche",
+   "en": "bedside table",
+   "ru": "тумбочка",
+   "tr": "ла мэси́та дэ но́чэ",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Dejo el móvil en la mesita de noche.",
+     "ru": "Я оставляю телефон на тумбочке.",
+     "frame": [
+      "mesita de noche"
+     ]
+    },
+    {
+     "es": "Hay un vaso de agua en la mesita de noche.",
+     "ru": "На тумбочке стакан воды.",
+     "frame": [
+      "mesita de noche"
+     ]
+    },
+    {
+     "es": "La lámpara de la mesita de noche no funciona.",
+     "ru": "Лампа на тумбочке не работает.",
+     "frame": [
+      "mesita de noche"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v153",
+   "type": "vocab",
+   "es": "la cómoda",
+   "en": "chest of drawers",
+   "ru": "комод",
+   "tr": "ла ко́мода",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "La ropa del bebé está en la cómoda.",
+     "ru": "Одежда малыша в комоде.",
+     "frame": [
+      "cómoda"
+     ]
+    },
+    {
+     "es": "Una cómoda de tres cajones.",
+     "ru": "Комод с тремя ящиками.",
+     "frame": [
+      "cómoda"
+     ]
+    },
+    {
+     "es": "Pon el espejo encima de la cómoda.",
+     "ru": "Поставь зеркало на комод.",
+     "frame": [
+      "cómoda"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v154",
+   "type": "vocab",
+   "es": "el colchón",
+   "en": "mattress",
+   "ru": "матрас",
+   "tr": "эл колчо́н",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "El colchón es demasiado blando.",
+     "ru": "Матрас слишком мягкий.",
+     "frame": [
+      "colchón"
+     ]
+    },
+    {
+     "es": "Hay que cambiar el colchón cada diez años.",
+     "ru": "Матрас нужно менять раз в десять лет.",
+     "frame": [
+      "colchón"
+     ]
+    },
+    {
+     "es": "Dormimos en un colchón en el suelo.",
+     "ru": "Мы спим на матрасе на полу.",
+     "frame": [
+      "colchón"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v155",
+   "type": "vocab",
+   "es": "la litera",
+   "en": "bunk bed",
+   "ru": "двухъярусная кровать",
+   "tr": "ла литэ́ра",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Los niños duermen en una litera.",
+     "ru": "Дети спят на двухъярусной кровати.",
+     "frame": [
+      "litera"
+     ]
+    },
+    {
+     "es": "Yo quiero la litera de arriba.",
+     "ru": "Я хочу верхнюю койку.",
+     "frame": [
+      "litera"
+     ]
+    },
+    {
+     "es": "En el albergue hay literas.",
+     "ru": "В хостеле двухъярусные кровати.",
+     "frame": [
+      "literas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v156",
+   "type": "vocab",
+   "es": "el taburete",
+   "en": "stool",
+   "ru": "табурет",
+   "tr": "эл табурэ́тэ",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Súbete al taburete para alcanzar el estante.",
+     "ru": "Встань на табурет, чтобы достать до полки.",
+     "frame": [
+      "taburete"
+     ]
+    },
+    {
+     "es": "Los taburetes de la cocina son altos.",
+     "ru": "Табуреты на кухне высокие.",
+     "frame": [
+      "taburetes"
+     ]
+    },
+    {
+     "es": "Un taburete para la barra.",
+     "ru": "Табурет для барной стойки.",
+     "frame": [
+      "taburete"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v157",
+   "type": "vocab",
+   "es": "el perchero",
+   "en": "coat stand",
+   "ru": "вешалка (стойка)",
+   "tr": "эл пэрчэ́ро",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Cuelga el abrigo en el perchero.",
+     "ru": "Повесь пальто на вешалку.",
+     "frame": [
+      "perchero"
+     ]
+    },
+    {
+     "es": "El perchero está en la entrada.",
+     "ru": "Вешалка у входа.",
+     "frame": [
+      "perchero"
+     ]
+    },
+    {
+     "es": "Un perchero de pie para el dormitorio.",
+     "ru": "Напольная вешалка для спальни.",
+     "frame": [
+      "perchero"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v158",
+   "type": "vocab",
+   "es": "la percha",
+   "en": "coat hanger",
+   "ru": "вешалка (плечики)",
+   "tr": "ла пэ́рча",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Pon la camisa en una percha.",
+     "ru": "Повесь рубашку на плечики.",
+     "frame": [
+      "percha"
+     ]
+    },
+    {
+     "es": "Faltan perchas en el armario.",
+     "ru": "В шкафу не хватает плечиков.",
+     "frame": [
+      "perchas"
+     ]
+    },
+    {
+     "es": "Perchas de madera para los abrigos.",
+     "ru": "Деревянные плечики для пальто.",
+     "frame": [
+      "Perchas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v159",
+   "type": "vocab",
+   "es": "la alfombra",
+   "en": "rug / carpet",
+   "ru": "ковёр",
+   "tr": "ла алфо́мбра",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "La alfombra del salón es de lana.",
+     "ru": "Ковёр в гостиной шерстяной.",
+     "frame": [
+      "alfombra"
+     ]
+    },
+    {
+     "es": "Sacude la alfombra en el balcón.",
+     "ru": "Вытряхни ковёр на балконе.",
+     "frame": [
+      "alfombra"
+     ]
+    },
+    {
+     "es": "El gato duerme en la alfombra.",
+     "ru": "Кот спит на ковре.",
+     "frame": [
+      "alfombra"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v160",
+   "type": "vocab",
+   "es": "la cortina",
+   "en": "curtain",
+   "ru": "штора",
+   "tr": "ла корти́на",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Corre las cortinas, hay mucho sol.",
+     "ru": "Задёрни шторы, очень солнечно.",
+     "frame": [
+      "cortinas"
+     ]
+    },
+    {
+     "es": "Lavo las cortinas dos veces al año.",
+     "ru": "Я стираю шторы два раза в год.",
+     "frame": [
+      "cortinas"
+     ]
+    },
+    {
+     "es": "Unas cortinas blancas para el dormitorio.",
+     "ru": "Белые шторы для спальни.",
+     "frame": [
+      "cortinas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v161",
+   "type": "vocab",
+   "es": "la persiana",
+   "en": "roller blind / shutter",
+   "ru": "жалюзи (рольставни)",
+   "tr": "ла пэрсья́на",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Baja la persiana, que entra calor.",
+     "ru": "Опусти жалюзи, жарко.",
+     "frame": [
+      "persiana"
+     ]
+    },
+    {
+     "es": "La persiana se ha quedado atascada.",
+     "ru": "Рольставни заело.",
+     "frame": [
+      "persiana"
+     ]
+    },
+    {
+     "es": "En España casi todas las ventanas tienen persiana.",
+     "ru": "В Испании почти на всех окнах есть рольставни.",
+     "frame": [
+      "persiana"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v162",
+   "type": "vocab",
+   "es": "el cojín",
+   "en": "cushion",
+   "ru": "подушка (диванная)",
+   "tr": "эл кохи́н",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "El sofá tiene demasiados cojines.",
+     "ru": "На диване слишком много подушек."
+    },
+    {
+     "es": "Pon un cojín en la silla del niño.",
+     "ru": "Положи подушку на стул ребёнка.",
+     "frame": [
+      "cojín"
+     ]
+    },
+    {
+     "es": "Cojines nuevos para el salón.",
+     "ru": "Новые подушки для гостиной."
+    }
+   ]
+  },
+  {
+   "id": "es5-v163",
+   "type": "vocab",
+   "es": "la almohada",
+   "en": "pillow",
+   "ru": "подушка (для сна)",
+   "tr": "ла алмоа́да",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Duermo con dos almohadas.",
+     "ru": "Я сплю на двух подушках.",
+     "frame": [
+      "almohadas"
+     ]
+    },
+    {
+     "es": "Esta almohada es muy alta.",
+     "ru": "Эта подушка слишком высокая.",
+     "frame": [
+      "almohada"
+     ]
+    },
+    {
+     "es": "Cambia la funda de la almohada.",
+     "ru": "Смени наволочку.",
+     "frame": [
+      "almohada"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v164",
+   "type": "vocab",
+   "es": "la manta",
+   "en": "blanket",
+   "ru": "плед / одеяло",
+   "tr": "ла ма́нта",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "Trae una manta, tengo frío.",
+     "ru": "Принеси плед, мне холодно.",
+     "frame": [
+      "manta"
+     ]
+    },
+    {
+     "es": "Hay una manta en el sofá.",
+     "ru": "На диване плед.",
+     "frame": [
+      "manta"
+     ]
+    },
+    {
+     "es": "En invierno pongo dos mantas.",
+     "ru": "Зимой я кладу два одеяла.",
+     "frame": [
+      "mantas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v165",
+   "type": "vocab",
+   "es": "el edredón",
+   "en": "duvet",
+   "ru": "одеяло (пуховое)",
+   "tr": "эл эдрэдо́н",
+   "group": "Комнаты и мебель",
+   "ex": [
+    {
+     "es": "El edredón nórdico es muy calentito.",
+     "ru": "Пуховое одеяло очень тёплое.",
+     "frame": [
+      "edredón"
+     ]
+    },
+    {
+     "es": "Lava el edredón en la lavandería.",
+     "ru": "Постирай одеяло в прачечной.",
+     "frame": [
+      "edredón"
+     ]
+    },
+    {
+     "es": "En verano guardamos el edredón.",
+     "ru": "Летом мы убираем одеяло.",
+     "frame": [
+      "edredón"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v166",
+   "type": "vocab",
+   "es": "la nevera",
+   "en": "fridge",
+   "ru": "холодильник",
+   "tr": "ла нэбэ́ра",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Mete la leche en la nevera.",
+     "ru": "Поставь молоко в холодильник.",
+     "frame": [
+      "nevera"
+     ]
+    },
+    {
+     "es": "La nevera está vacía.",
+     "ru": "Холодильник пуст.",
+     "frame": [
+      "nevera"
+     ]
+    },
+    {
+     "es": "La nevera hace mucho ruido.",
+     "ru": "Холодильник сильно шумит.",
+     "frame": [
+      "nevera"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v167",
+   "type": "vocab",
+   "es": "el congelador",
+   "en": "freezer",
+   "ru": "морозилка",
+   "tr": "эл конхэладо́р",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "El pan está en el congelador.",
+     "ru": "Хлеб в морозилке.",
+     "frame": [
+      "congelador"
+     ]
+    },
+    {
+     "es": "Hay que descongelar el congelador.",
+     "ru": "Нужно разморозить морозилку.",
+     "frame": [
+      "congelador"
+     ]
+    },
+    {
+     "es": "Guarda el helado en el congelador.",
+     "ru": "Убери мороженое в морозилку.",
+     "frame": [
+      "congelador"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v168",
+   "type": "vocab",
+   "es": "el horno",
+   "en": "oven",
+   "ru": "духовка",
+   "tr": "эл о́рно",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Precalienta el horno a doscientos grados.",
+     "ru": "Разогрей духовку до двухсот градусов.",
+     "frame": [
+      "horno"
+     ]
+    },
+    {
+     "es": "El pollo está en el horno.",
+     "ru": "Курица в духовке.",
+     "frame": [
+      "horno"
+     ]
+    },
+    {
+     "es": "El horno no calienta bien.",
+     "ru": "Духовка плохо греет.",
+     "frame": [
+      "horno"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v169",
+   "type": "vocab",
+   "es": "el microondas",
+   "en": "microwave",
+   "ru": "микроволновка",
+   "tr": "эл микроо́ндас",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Calienta la sopa en el microondas.",
+     "ru": "Разогрей суп в микроволновке.",
+     "frame": [
+      "microondas"
+     ]
+    },
+    {
+     "es": "Un minuto de microondas y listo.",
+     "ru": "Минута в микроволновке — и готово.",
+     "frame": [
+      "microondas"
+     ]
+    },
+    {
+     "es": "El microondas está sucio por dentro.",
+     "ru": "Микроволновка грязная внутри.",
+     "frame": [
+      "microondas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v170",
+   "type": "vocab",
+   "es": "la vitrocerámica",
+   "en": "ceramic hob",
+   "ru": "варочная панель",
+   "tr": "ла битросэра́мика",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "La vitrocerámica se limpia con un paño húmedo.",
+     "ru": "Варочную панель протирают влажной тряпкой.",
+     "frame": [
+      "vitrocerámica"
+     ]
+    },
+    {
+     "es": "No pongas esa olla en la vitrocerámica.",
+     "ru": "Не ставь эту кастрюлю на панель.",
+     "frame": [
+      "vitrocerámica"
+     ]
+    },
+    {
+     "es": "Apaga la vitrocerámica cuando termines.",
+     "ru": "Выключи панель, когда закончишь.",
+     "frame": [
+      "vitrocerámica"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v171",
+   "type": "vocab",
+   "es": "la lavadora",
+   "en": "washing machine",
+   "ru": "стиральная машина",
+   "tr": "ла лабадо́ра",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "La lavadora ha terminado.",
+     "ru": "Стиральная машина закончила.",
+     "frame": [
+      "lavadora"
+     ]
+    },
+    {
+     "es": "Pon la lavadora a treinta grados.",
+     "ru": "Поставь стирку на тридцать градусов.",
+     "frame": [
+      "lavadora"
+     ]
+    },
+    {
+     "es": "La lavadora pierde agua.",
+     "ru": "Стиральная машина протекает.",
+     "frame": [
+      "lavadora"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v172",
+   "type": "vocab",
+   "es": "la secadora",
+   "en": "tumble dryer",
+   "ru": "сушильная машина",
+   "tr": "ла сэкадо́ра",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Aquí nadie tiene secadora, la ropa se tiende.",
+     "ru": "Здесь ни у кого нет сушилки, бельё развешивают.",
+     "frame": [
+      "secadora"
+     ]
+    },
+    {
+     "es": "El jersey se ha encogido en la secadora.",
+     "ru": "Свитер сел в сушилке.",
+     "frame": [
+      "secadora"
+     ]
+    },
+    {
+     "es": "La secadora gasta mucha luz.",
+     "ru": "Сушилка потребляет много электричества.",
+     "frame": [
+      "secadora"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v173",
+   "type": "vocab",
+   "es": "el lavavajillas",
+   "en": "dishwasher",
+   "ru": "посудомоечная машина",
+   "tr": "эл лабабахи́йас",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Mete los platos en el lavavajillas.",
+     "ru": "Поставь тарелки в посудомойку.",
+     "frame": [
+      "lavavajillas"
+     ]
+    },
+    {
+     "es": "Se ha acabado el detergente del lavavajillas.",
+     "ru": "Закончилось средство для посудомойки.",
+     "frame": [
+      "lavavajillas"
+     ]
+    },
+    {
+     "es": "El lavavajillas no seca bien.",
+     "ru": "Посудомойка плохо сушит.",
+     "frame": [
+      "lavavajillas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v174",
+   "type": "vocab",
+   "es": "el fregadero",
+   "en": "kitchen sink",
+   "ru": "раковина (на кухне)",
+   "tr": "эл фрэгадэ́ро",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Hay platos sucios en el fregadero.",
+     "ru": "В раковине грязная посуда.",
+     "frame": [
+      "fregadero"
+     ]
+    },
+    {
+     "es": "El fregadero está atascado.",
+     "ru": "Раковина засорилась.",
+     "frame": [
+      "fregadero"
+     ]
+    },
+    {
+     "es": "Deja el vaso en el fregadero.",
+     "ru": "Оставь стакан в раковине.",
+     "frame": [
+      "fregadero"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v175",
+   "type": "vocab",
+   "es": "el grifo",
+   "en": "tap",
+   "ru": "кран",
+   "tr": "эл гри́фо",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Cierra bien el grifo.",
+     "ru": "Закрой кран как следует.",
+     "frame": [
+      "grifo"
+     ]
+    },
+    {
+     "es": "El grifo gotea.",
+     "ru": "Кран капает.",
+     "frame": [
+      "grifo"
+     ]
+    },
+    {
+     "es": "Abre el grifo del agua caliente.",
+     "ru": "Открой кран горячей воды.",
+     "frame": [
+      "grifo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v176",
+   "type": "vocab",
+   "es": "el lavabo",
+   "en": "washbasin",
+   "ru": "раковина (в ванной)",
+   "tr": "эл лаба́бо",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Lávate las manos en el lavabo.",
+     "ru": "Помой руки в раковине.",
+     "frame": [
+      "lavabo"
+     ]
+    },
+    {
+     "es": "El lavabo está lleno de pelos.",
+     "ru": "Раковина вся в волосах.",
+     "frame": [
+      "lavabo"
+     ]
+    },
+    {
+     "es": "Hay jabón junto al lavabo.",
+     "ru": "Рядом с раковиной есть мыло.",
+     "frame": [
+      "lavabo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v177",
+   "type": "vocab",
+   "es": "la ducha",
+   "en": "shower",
+   "ru": "душ",
+   "tr": "ла ду́ча",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "La ducha no tiene agua caliente.",
+     "ru": "В душе нет горячей воды.",
+     "frame": [
+      "ducha"
+     ]
+    },
+    {
+     "es": "Prefiero ducha a bañera.",
+     "ru": "Я предпочитаю душ ванне.",
+     "frame": [
+      "ducha"
+     ]
+    },
+    {
+     "es": "Limpia la ducha después de usarla.",
+     "ru": "Мой душ после использования.",
+     "frame": [
+      "ducha"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v178",
+   "type": "vocab",
+   "es": "la bañera",
+   "en": "bathtub",
+   "ru": "ванна",
+   "tr": "ла баньэ́ра",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "La niña se baña en la bañera.",
+     "ru": "Девочка купается в ванне.",
+     "frame": [
+      "bañera"
+     ]
+    },
+    {
+     "es": "Llena la bañera con agua templada.",
+     "ru": "Наполни ванну тёплой водой.",
+     "frame": [
+      "bañera"
+     ]
+    },
+    {
+     "es": "El piso tiene bañera, no ducha.",
+     "ru": "В квартире ванна, а не душ.",
+     "frame": [
+      "bañera"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v179",
+   "type": "vocab",
+   "es": "el váter",
+   "en": "toilet bowl",
+   "ru": "унитаз",
+   "tr": "эл ба́тэр",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "El váter está atascado.",
+     "ru": "Унитаз засорился.",
+     "frame": [
+      "váter"
+     ]
+    },
+    {
+     "es": "Tira de la cadena del váter.",
+     "ru": "Смой в унитазе.",
+     "frame": [
+      "váter"
+     ]
+    },
+    {
+     "es": "Baja la tapa del váter.",
+     "ru": "Опусти крышку унитаза.",
+     "frame": [
+      "váter"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v180",
+   "type": "vocab",
+   "es": "la sartén",
+   "en": "frying pan",
+   "ru": "сковорода",
+   "tr": "ла сартэ́н",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Fríe el huevo en la sartén.",
+     "ru": "Пожарь яйцо на сковороде.",
+     "frame": [
+      "sartén"
+     ]
+    },
+    {
+     "es": "Esta sartén se pega.",
+     "ru": "Эта сковорода пригорает.",
+     "frame": [
+      "sartén"
+     ]
+    },
+    {
+     "es": "Necesito una sartén nueva.",
+     "ru": "Мне нужна новая сковорода.",
+     "frame": [
+      "sartén"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v181",
+   "type": "vocab",
+   "es": "la olla",
+   "en": "pot",
+   "ru": "кастрюля",
+   "tr": "ла о́йа",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Pon agua a hervir en la olla.",
+     "ru": "Поставь воду кипятиться в кастрюле.",
+     "frame": [
+      "olla"
+     ]
+    },
+    {
+     "es": "La olla es demasiado pequeña para la sopa.",
+     "ru": "Кастрюля слишком мала для супа.",
+     "frame": [
+      "olla"
+     ]
+    },
+    {
+     "es": "Tapa la olla para que hierva antes.",
+     "ru": "Накрой кастрюлю, чтобы быстрее закипело.",
+     "frame": [
+      "olla"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v182",
+   "type": "vocab",
+   "es": "la tabla de cortar",
+   "en": "chopping board",
+   "ru": "разделочная доска",
+   "tr": "ла та́бла дэ корта́р",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Corta la cebolla en la tabla de cortar.",
+     "ru": "Режь лук на разделочной доске.",
+     "frame": [
+      "tabla de cortar"
+     ]
+    },
+    {
+     "es": "Lava la tabla de cortar después del pollo.",
+     "ru": "Помой доску после курицы.",
+     "frame": [
+      "tabla de cortar"
+     ]
+    },
+    {
+     "es": "Una tabla de cortar de madera.",
+     "ru": "Деревянная разделочная доска.",
+     "frame": [
+      "tabla de cortar"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v183",
+   "type": "vocab",
+   "es": "la bombilla",
+   "en": "light bulb",
+   "ru": "лампочка",
+   "tr": "ла бомби́йа",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Se ha fundido la bombilla del pasillo.",
+     "ru": "Перегорела лампочка в коридоре.",
+     "frame": [
+      "bombilla"
+     ]
+    },
+    {
+     "es": "Compra bombillas de bajo consumo.",
+     "ru": "Купи энергосберегающие лампочки.",
+     "frame": [
+      "bombillas"
+     ]
+    },
+    {
+     "es": "Cambia la bombilla, que no veo nada.",
+     "ru": "Смени лампочку, ничего не видно.",
+     "frame": [
+      "bombilla"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v184",
+   "type": "vocab",
+   "es": "el radiador",
+   "en": "radiator",
+   "ru": "батарея (отопления)",
+   "tr": "эл ррадьядо́р",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "El radiador está frío.",
+     "ru": "Батарея холодная.",
+     "frame": [
+      "radiador"
+     ]
+    },
+    {
+     "es": "Seca los guantes en el radiador.",
+     "ru": "Высуши перчатки на батарее.",
+     "frame": [
+      "radiador"
+     ]
+    },
+    {
+     "es": "Hay que purgar los radiadores.",
+     "ru": "Нужно спустить воздух из батарей.",
+     "frame": [
+      "radiadores"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v185",
+   "type": "vocab",
+   "es": "la caldera",
+   "en": "boiler (gas)",
+   "ru": "котёл (газовый)",
+   "tr": "ла калдэ́ра",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "La caldera se ha apagado otra vez.",
+     "ru": "Котёл снова отключился.",
+     "frame": [
+      "caldera"
+     ]
+    },
+    {
+     "es": "La revisión de la caldera es cada año.",
+     "ru": "Проверка котла — каждый год.",
+     "frame": [
+      "caldera"
+     ]
+    },
+    {
+     "es": "Sin caldera no hay agua caliente.",
+     "ru": "Без котла нет горячей воды.",
+     "frame": [
+      "caldera"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v186",
+   "type": "vocab",
+   "es": "el termo",
+   "en": "water heater",
+   "ru": "водонагреватель (бойлер)",
+   "tr": "эл тэ́рмо",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "El termo tarda una hora en calentar.",
+     "ru": "Бойлер греет воду час.",
+     "frame": [
+      "termo"
+     ]
+    },
+    {
+     "es": "Apaga el termo cuando te vayas de viaje.",
+     "ru": "Выключи бойлер, когда уезжаешь.",
+     "frame": [
+      "termo"
+     ]
+    },
+    {
+     "es": "El termo eléctrico gasta mucho.",
+     "ru": "Электрический бойлер потребляет много.",
+     "frame": [
+      "termo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v187",
+   "type": "vocab",
+   "es": "el contador",
+   "en": "meter (electricity, water)",
+   "ru": "счётчик",
+   "tr": "эл контадо́р",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "El contador de la luz está en el portal.",
+     "ru": "Электросчётчик в подъезде.",
+     "frame": [
+      "contador"
+     ]
+    },
+    {
+     "es": "Apunta la lectura del contador del agua.",
+     "ru": "Запиши показания счётчика воды.",
+     "frame": [
+      "contador"
+     ]
+    },
+    {
+     "es": "Vienen a leer el contador el martes.",
+     "ru": "Во вторник придут снимать показания счётчика.",
+     "frame": [
+      "contador"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v188",
+   "type": "vocab",
+   "es": "la llave de paso",
+   "en": "stopcock",
+   "ru": "запорный кран (вентиль)",
+   "tr": "ла йа́бэ дэ па́со",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Cierra la llave de paso si hay una fuga.",
+     "ru": "Закрой запорный кран, если есть протечка.",
+     "frame": [
+      "llave de paso"
+     ]
+    },
+    {
+     "es": "¿Dónde está la llave de paso del gas?",
+     "ru": "Где вентиль газа?",
+     "frame": [
+      "llave de paso"
+     ]
+    },
+    {
+     "es": "La llave de paso está debajo del fregadero.",
+     "ru": "Запорный кран под раковиной.",
+     "frame": [
+      "llave de paso"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v189",
+   "type": "vocab",
+   "es": "el ventilador",
+   "en": "fan",
+   "ru": "вентилятор",
+   "tr": "эл бэнтиладо́р",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Enciende el ventilador, hace calor.",
+     "ru": "Включи вентилятор, жарко.",
+     "frame": [
+      "ventilador"
+     ]
+    },
+    {
+     "es": "Un ventilador de techo para el dormitorio.",
+     "ru": "Потолочный вентилятор для спальни.",
+     "frame": [
+      "ventilador"
+     ]
+    },
+    {
+     "es": "El ventilador hace ruido por la noche.",
+     "ru": "Вентилятор шумит ночью.",
+     "frame": [
+      "ventilador"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v190",
+   "type": "vocab",
+   "es": "el mando",
+   "en": "remote control",
+   "ru": "пульт",
+   "tr": "эл ма́ндо",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "¿Dónde está el mando de la tele?",
+     "ru": "Где пульт от телевизора?",
+     "frame": [
+      "mando"
+     ]
+    },
+    {
+     "es": "El mando no tiene pilas.",
+     "ru": "В пульте нет батареек.",
+     "frame": [
+      "mando"
+     ]
+    },
+    {
+     "es": "Dame el mando, quiero cambiar de canal.",
+     "ru": "Дай пульт, хочу переключить канал.",
+     "frame": [
+      "mando"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v191",
+   "type": "vocab",
+   "es": "la escoba",
+   "en": "broom",
+   "ru": "веник / метла",
+   "tr": "ла эско́ба",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Barre con la escoba antes de fregar.",
+     "ru": "Подмети веником перед мытьём пола.",
+     "frame": [
+      "escoba"
+     ]
+    },
+    {
+     "es": "La escoba está detrás de la puerta.",
+     "ru": "Веник за дверью.",
+     "frame": [
+      "escoba"
+     ]
+    },
+    {
+     "es": "Necesito una escoba nueva.",
+     "ru": "Мне нужен новый веник.",
+     "frame": [
+      "escoba"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v192",
+   "type": "vocab",
+   "es": "la fregona",
+   "en": "mop",
+   "ru": "швабра",
+   "tr": "ла фрэго́на",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "La fregona es un invento español.",
+     "ru": "Швабра с ведром — испанское изобретение.",
+     "frame": [
+      "fregona"
+     ]
+    },
+    {
+     "es": "Pasa la fregona por la cocina.",
+     "ru": "Протри кухню шваброй.",
+     "frame": [
+      "fregona"
+     ]
+    },
+    {
+     "es": "Escurre bien la fregona.",
+     "ru": "Хорошо отожми швабру.",
+     "frame": [
+      "fregona"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v193",
+   "type": "vocab",
+   "es": "el cubo",
+   "en": "bucket",
+   "ru": "ведро",
+   "tr": "эл ку́бо",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Llena el cubo de agua.",
+     "ru": "Наполни ведро водой.",
+     "frame": [
+      "cubo"
+     ]
+    },
+    {
+     "es": "El cubo y la fregona están en el lavadero.",
+     "ru": "Ведро и швабра в постирочной.",
+     "frame": [
+      "cubo"
+     ]
+    },
+    {
+     "es": "Un cubo de pintura blanca.",
+     "ru": "Ведро белой краски.",
+     "frame": [
+      "cubo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v194",
+   "type": "vocab",
+   "es": "la aspiradora",
+   "en": "vacuum cleaner",
+   "ru": "пылесос",
+   "tr": "ла аспирадо́ра",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "La aspiradora no aspira bien.",
+     "ru": "Пылесос плохо тянет.",
+     "frame": [
+      "aspiradora"
+     ]
+    },
+    {
+     "es": "Cambia la bolsa de la aspiradora.",
+     "ru": "Смени мешок в пылесосе.",
+     "frame": [
+      "aspiradora"
+     ]
+    },
+    {
+     "es": "Compramos una aspiradora robot.",
+     "ru": "Мы купили робот-пылесос.",
+     "frame": [
+      "aspiradora"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v195",
+   "type": "vocab",
+   "es": "la plancha",
+   "en": "iron",
+   "ru": "утюг",
+   "tr": "ла пла́нча",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "La plancha está muy caliente.",
+     "ru": "Утюг очень горячий.",
+     "frame": [
+      "plancha"
+     ]
+    },
+    {
+     "es": "Desenchufa la plancha al terminar.",
+     "ru": "Выключи утюг из розетки, когда закончишь.",
+     "frame": [
+      "plancha"
+     ]
+    },
+    {
+     "es": "Esta camisa no necesita plancha.",
+     "ru": "Эту рубашку не нужно гладить.",
+     "frame": [
+      "plancha"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v196",
+   "type": "vocab",
+   "es": "la tabla de planchar",
+   "en": "ironing board",
+   "ru": "гладильная доска",
+   "tr": "ла та́бла дэ планча́р",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Saca la tabla de planchar.",
+     "ru": "Достань гладильную доску.",
+     "frame": [
+      "tabla de planchar"
+     ]
+    },
+    {
+     "es": "La tabla de planchar está en el armario.",
+     "ru": "Гладильная доска в шкафу.",
+     "frame": [
+      "tabla de planchar"
+     ]
+    },
+    {
+     "es": "Guarda la tabla de planchar, ya he terminado.",
+     "ru": "Убери гладильную доску, я закончил.",
+     "frame": [
+      "tabla de planchar"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v197",
+   "type": "vocab",
+   "es": "el trapo",
+   "en": "cloth / rag",
+   "ru": "тряпка",
+   "tr": "эл тра́по",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Limpia la mesa con un trapo.",
+     "ru": "Протри стол тряпкой.",
+     "frame": [
+      "trapo"
+     ]
+    },
+    {
+     "es": "Un trapo húmedo para el polvo.",
+     "ru": "Влажная тряпка для пыли.",
+     "frame": [
+      "trapo"
+     ]
+    },
+    {
+     "es": "Este trapo huele mal, lávalo.",
+     "ru": "Эта тряпка плохо пахнет, постирай её.",
+     "frame": [
+      "trapo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v198",
+   "type": "vocab",
+   "es": "la esponja",
+   "en": "sponge",
+   "ru": "губка",
+   "tr": "ла эспо́нха",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Friega con la esponja, no con el estropajo.",
+     "ru": "Мой губкой, а не жёсткой мочалкой.",
+     "frame": [
+      "esponja"
+     ]
+    },
+    {
+     "es": "La esponja está vieja, tírala.",
+     "ru": "Губка старая, выброси её.",
+     "frame": [
+      "esponja"
+     ]
+    },
+    {
+     "es": "Una esponja nueva para los platos.",
+     "ru": "Новая губка для посуды.",
+     "frame": [
+      "esponja"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v199",
+   "type": "vocab",
+   "es": "el detergente",
+   "en": "detergent",
+   "ru": "стиральный порошок / моющее средство",
+   "tr": "эл дэтэрхэ́нтэ",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Se ha acabado el detergente.",
+     "ru": "Закончился порошок.",
+     "frame": [
+      "detergente"
+     ]
+    },
+    {
+     "es": "Echa el detergente en el cajón de la lavadora.",
+     "ru": "Насыпь порошок в отсек стиральной машины.",
+     "frame": [
+      "detergente"
+     ]
+    },
+    {
+     "es": "Detergente para ropa de color.",
+     "ru": "Порошок для цветного белья.",
+     "frame": [
+      "Detergente"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v200",
+   "type": "vocab",
+   "es": "el papel higiénico",
+   "en": "toilet paper",
+   "ru": "туалетная бумага",
+   "tr": "эл папэ́л ихье́нико",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "No queda papel higiénico.",
+     "ru": "Туалетная бумага закончилась.",
+     "frame": [
+      "papel higiénico"
+     ]
+    },
+    {
+     "es": "Compra papel higiénico, es urgente.",
+     "ru": "Купи туалетную бумагу, срочно.",
+     "frame": [
+      "papel higiénico"
+     ]
+    },
+    {
+     "es": "El papel higiénico está en el armario del baño.",
+     "ru": "Туалетная бумага в шкафчике в ванной.",
+     "frame": [
+      "papel higiénico"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v201",
+   "type": "vocab",
+   "es": "el cepillo de dientes",
+   "en": "toothbrush",
+   "ru": "зубная щётка",
+   "tr": "эл сэпи́йо дэ дье́нтэс",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Cambia el cepillo de dientes cada tres meses.",
+     "ru": "Меняй зубную щётку каждые три месяца.",
+     "frame": [
+      "cepillo de dientes"
+     ]
+    },
+    {
+     "es": "Me he dejado el cepillo de dientes en casa.",
+     "ru": "Я забыл зубную щётку дома.",
+     "frame": [
+      "cepillo de dientes"
+     ]
+    },
+    {
+     "es": "Un cepillo de dientes eléctrico.",
+     "ru": "Электрическая зубная щётка.",
+     "frame": [
+      "cepillo de dientes"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v202",
+   "type": "vocab",
+   "es": "la pasta de dientes",
+   "en": "toothpaste",
+   "ru": "зубная паста",
+   "tr": "ла па́ста дэ дье́нтэс",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Se ha acabado la pasta de dientes.",
+     "ru": "Закончилась зубная паста.",
+     "frame": [
+      "pasta de dientes"
+     ]
+    },
+    {
+     "es": "Pasta de dientes para niños, con sabor a fresa.",
+     "ru": "Детская зубная паста со вкусом клубники.",
+     "frame": [
+      "Pasta de dientes"
+     ]
+    },
+    {
+     "es": "Cierra el tubo de pasta de dientes.",
+     "ru": "Закрой тюбик зубной пасты.",
+     "frame": [
+      "pasta de dientes"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v203",
+   "type": "vocab",
+   "es": "el secador",
+   "en": "hairdryer",
+   "ru": "фен",
+   "tr": "эл сэкадо́р",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "¿Tienes secador de pelo?",
+     "ru": "У тебя есть фен?",
+     "frame": [
+      "secador"
+     ]
+    },
+    {
+     "es": "El secador del hotel no funciona.",
+     "ru": "Фен в отеле не работает.",
+     "frame": [
+      "secador"
+     ]
+    },
+    {
+     "es": "Sécate el pelo con el secador.",
+     "ru": "Высуши волосы феном.",
+     "frame": [
+      "secador"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v204",
+   "type": "vocab",
+   "es": "el cubo de la basura",
+   "en": "rubbish bin",
+   "ru": "мусорное ведро",
+   "tr": "эл ку́бо дэ ла басу́ра",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "El cubo de la basura está lleno.",
+     "ru": "Мусорное ведро полное.",
+     "frame": [
+      "cubo de la basura"
+     ]
+    },
+    {
+     "es": "Tira eso al cubo de la basura.",
+     "ru": "Выброси это в мусорное ведро.",
+     "frame": [
+      "cubo de la basura"
+     ]
+    },
+    {
+     "es": "Lava el cubo de la basura, huele mal.",
+     "ru": "Помой мусорное ведро, оно плохо пахнет.",
+     "frame": [
+      "cubo de la basura"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v205",
+   "type": "vocab",
+   "es": "la bolsa de basura",
+   "en": "bin bag",
+   "ru": "мусорный пакет",
+   "tr": "ла бо́лса дэ басу́ра",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Se han acabado las bolsas de basura.",
+     "ru": "Закончились мусорные пакеты.",
+     "frame": [
+      "bolsas de basura"
+     ]
+    },
+    {
+     "es": "Cierra bien la bolsa de basura.",
+     "ru": "Хорошо завяжи мусорный пакет.",
+     "frame": [
+      "bolsa de basura"
+     ]
+    },
+    {
+     "es": "Baja la bolsa de basura al contenedor.",
+     "ru": "Отнеси мусорный пакет в контейнер.",
+     "frame": [
+      "bolsa de basura"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v206",
+   "type": "vocab",
+   "es": "el felpudo",
+   "en": "doormat",
+   "ru": "коврик у двери",
+   "tr": "эл фэлпу́до",
+   "group": "Предметы дома",
+   "ex": [
+    {
+     "es": "Límpiate los pies en el felpudo.",
+     "ru": "Вытри ноги о коврик.",
+     "frame": [
+      "felpudo"
+     ]
+    },
+    {
+     "es": "La llave está debajo del felpudo.",
+     "ru": "Ключ под ковриком.",
+     "frame": [
+      "felpudo"
+     ]
+    },
+    {
+     "es": "Un felpudo con la palabra bienvenidos.",
+     "ru": "Коврик с надписью «добро пожаловать».",
+     "frame": [
+      "felpudo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v207",
+   "type": "vocab",
+   "es": "hacer la cama",
+   "en": "to make the bed",
+   "ru": "заправлять кровать",
+   "tr": "асэ́р ла ка́ма",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Haz la cama antes de salir.",
+     "ru": "Заправь кровать перед выходом.",
+     "frame": [
+      "Haz",
+      "cama"
+     ]
+    },
+    {
+     "es": "Mi hijo nunca hace la cama.",
+     "ru": "Мой сын никогда не заправляет кровать.",
+     "frame": [
+      "hace",
+      "cama"
+     ]
+    },
+    {
+     "es": "Hago la cama nada más levantarme.",
+     "ru": "Я заправляю кровать сразу, как встаю.",
+     "frame": [
+      "Hago",
+      "cama"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v208",
+   "type": "vocab",
+   "es": "poner la mesa",
+   "en": "to lay the table",
+   "ru": "накрывать на стол",
+   "tr": "понэ́р ла мэ́са",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "¿Me ayudas a poner la mesa?",
+     "ru": "Поможешь накрыть на стол?",
+     "frame": [
+      "poner la mesa"
+     ]
+    },
+    {
+     "es": "Pon la mesa para cuatro.",
+     "ru": "Накрой на четверых.",
+     "frame": [
+      "Pon la mesa"
+     ]
+    },
+    {
+     "es": "Los niños ponen la mesa cada día.",
+     "ru": "Дети накрывают на стол каждый день.",
+     "frame": [
+      "ponen la mesa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v209",
+   "type": "vocab",
+   "es": "quitar la mesa",
+   "en": "to clear the table",
+   "ru": "убирать со стола",
+   "tr": "кита́р ла мэ́са",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Yo cocino y tú quitas la mesa.",
+     "ru": "Я готовлю, а ты убираешь со стола.",
+     "frame": [
+      "quitas la mesa"
+     ]
+    },
+    {
+     "es": "Quita la mesa y friega los platos.",
+     "ru": "Убери со стола и помой посуду.",
+     "frame": [
+      "Quita la mesa"
+     ]
+    },
+    {
+     "es": "Después de cenar quitamos la mesa juntos.",
+     "ru": "После ужина мы вместе убираем со стола.",
+     "frame": [
+      "quitamos la mesa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v210",
+   "type": "vocab",
+   "es": "fregar los platos",
+   "en": "to wash the dishes",
+   "ru": "мыть посуду",
+   "tr": "фрэга́р лос пла́тос",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Hoy te toca fregar los platos.",
+     "ru": "Сегодня твоя очередь мыть посуду.",
+     "frame": [
+      "fregar los platos"
+     ]
+    },
+    {
+     "es": "Friego los platos mientras tú bañas a los niños.",
+     "ru": "Я мою посуду, пока ты купаешь детей.",
+     "frame": [
+      "Friego los platos"
+     ]
+    },
+    {
+     "es": "Odio fregar los platos.",
+     "ru": "Ненавижу мыть посуду.",
+     "frame": [
+      "fregar los platos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v211",
+   "type": "vocab",
+   "es": "poner el lavavajillas",
+   "en": "to run the dishwasher",
+   "ru": "запускать посудомойку",
+   "tr": "понэ́р эл лабабахи́йас",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Pon el lavavajillas antes de acostarte.",
+     "ru": "Запусти посудомойку перед сном.",
+     "frame": [
+      "Pon el lavavajillas"
+     ]
+    },
+    {
+     "es": "Ya he puesto el lavavajillas.",
+     "ru": "Я уже запустил посудомойку.",
+     "frame": [
+      "puesto el lavavajillas"
+     ]
+    },
+    {
+     "es": "Ponemos el lavavajillas una vez al día.",
+     "ru": "Мы запускаем посудомойку раз в день.",
+     "frame": [
+      "Ponemos el lavavajillas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v212",
+   "type": "vocab",
+   "es": "poner la lavadora",
+   "en": "to do a wash",
+   "ru": "запускать стирку",
+   "tr": "понэ́р ла лабадо́ра",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Voy a poner una lavadora de ropa blanca.",
+     "ru": "Я поставлю стирку белого.",
+     "frame": [
+      "poner",
+      "lavadora"
+     ]
+    },
+    {
+     "es": "¿Has puesto la lavadora?",
+     "ru": "Ты запустил стирку?",
+     "frame": [
+      "puesto la lavadora"
+     ]
+    },
+    {
+     "es": "Pon la lavadora por la noche, la luz es más barata.",
+     "ru": "Ставь стирку на ночь, электричество дешевле.",
+     "frame": [
+      "Pon la lavadora"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v213",
+   "type": "vocab",
+   "es": "tender la ropa",
+   "en": "to hang out the washing",
+   "ru": "развешивать бельё",
+   "tr": "тэндэ́р ла рро́па",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Tiende la ropa antes de que llueva.",
+     "ru": "Развесь бельё, пока не пошёл дождь.",
+     "frame": [
+      "Tiende la ropa"
+     ]
+    },
+    {
+     "es": "Tendemos la ropa en la terraza.",
+     "ru": "Мы развешиваем бельё на террасе.",
+     "frame": [
+      "Tendemos la ropa"
+     ]
+    },
+    {
+     "es": "Se me ha olvidado tender la ropa.",
+     "ru": "Я забыл развесить бельё.",
+     "frame": [
+      "tender la ropa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v214",
+   "type": "vocab",
+   "es": "doblar la ropa",
+   "en": "to fold the clothes",
+   "ru": "складывать одежду",
+   "tr": "добла́р ла рро́па",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Dobla la ropa y guárdala en el armario.",
+     "ru": "Сложи одежду и убери в шкаф.",
+     "frame": [
+      "Dobla la ropa"
+     ]
+    },
+    {
+     "es": "Doblo la ropa viendo la tele.",
+     "ru": "Я складываю одежду, смотря телевизор.",
+     "frame": [
+      "Doblo la ropa"
+     ]
+    },
+    {
+     "es": "La ropa doblada está en la cama.",
+     "ru": "Сложенная одежда на кровати.",
+     "frame": [
+      "ropa doblada"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v215",
+   "type": "vocab",
+   "es": "planchar",
+   "en": "to iron",
+   "ru": "гладить",
+   "tr": "планча́р",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Plancho las camisas los domingos.",
+     "ru": "Я глажу рубашки по воскресеньям.",
+     "frame": [
+      "Plancho"
+     ]
+    },
+    {
+     "es": "No hace falta planchar las camisetas.",
+     "ru": "Футболки гладить не нужно.",
+     "frame": [
+      "planchar"
+     ]
+    },
+    {
+     "es": "¿Sabes planchar?",
+     "ru": "Ты умеешь гладить?",
+     "frame": [
+      "planchar"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v216",
+   "type": "vocab",
+   "es": "barrer",
+   "en": "to sweep",
+   "ru": "подметать",
+   "tr": "баррэ́р",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Barre la cocina, hay migas.",
+     "ru": "Подмети на кухне, там крошки.",
+     "frame": [
+      "Barre"
+     ]
+    },
+    {
+     "es": "Barro la terraza cada mañana.",
+     "ru": "Я подметаю террасу каждое утро.",
+     "frame": [
+      "Barro"
+     ]
+    },
+    {
+     "es": "Primero se barre y luego se friega.",
+     "ru": "Сначала подметают, потом моют пол.",
+     "frame": [
+      "barre"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v217",
+   "type": "vocab",
+   "es": "fregar el suelo",
+   "en": "to mop the floor",
+   "ru": "мыть пол",
+   "tr": "фрэга́р эл суэ́ло",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Friego el suelo los sábados.",
+     "ru": "Я мою пол по субботам.",
+     "frame": [
+      "Friego el suelo"
+     ]
+    },
+    {
+     "es": "Cuidado, acabo de fregar el suelo.",
+     "ru": "Осторожно, я только что помыл пол.",
+     "frame": [
+      "fregar el suelo"
+     ]
+    },
+    {
+     "es": "Hay que fregar el suelo de la cocina.",
+     "ru": "Нужно помыть пол на кухне.",
+     "frame": [
+      "fregar el suelo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v218",
+   "type": "vocab",
+   "es": "pasar la aspiradora",
+   "en": "to vacuum",
+   "ru": "пылесосить",
+   "tr": "паса́р ла аспирадо́ра",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Paso la aspiradora dos veces por semana.",
+     "ru": "Я пылесошу два раза в неделю.",
+     "frame": [
+      "Paso la aspiradora"
+     ]
+    },
+    {
+     "es": "Pasa la aspiradora por debajo del sofá.",
+     "ru": "Пропылесось под диваном.",
+     "frame": [
+      "Pasa la aspiradora"
+     ]
+    },
+    {
+     "es": "Los sábados toca pasar la aspiradora.",
+     "ru": "По субботам нужно пылесосить.",
+     "frame": [
+      "pasar la aspiradora"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v219",
+   "type": "vocab",
+   "es": "quitar el polvo",
+   "en": "to dust",
+   "ru": "вытирать пыль",
+   "tr": "кита́р эл по́лбо",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Quita el polvo de la estantería.",
+     "ru": "Вытри пыль со стеллажа.",
+     "frame": [
+      "Quita el polvo"
+     ]
+    },
+    {
+     "es": "Hay que quitar el polvo cada semana.",
+     "ru": "Пыль нужно вытирать каждую неделю.",
+     "frame": [
+      "quitar el polvo"
+     ]
+    },
+    {
+     "es": "Quito el polvo con un trapo húmedo.",
+     "ru": "Я вытираю пыль влажной тряпкой.",
+     "frame": [
+      "Quito el polvo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v220",
+   "type": "vocab",
+   "es": "limpiar los cristales",
+   "en": "to clean the windows",
+   "ru": "мыть окна",
+   "tr": "лимпья́р лос криста́лэс",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Limpio los cristales cuando hace sol.",
+     "ru": "Я мою окна, когда солнечно.",
+     "frame": [
+      "Limpio los cristales"
+     ]
+    },
+    {
+     "es": "Toca limpiar los cristales del salón.",
+     "ru": "Пора помыть окна в гостиной.",
+     "frame": [
+      "limpiar los cristales"
+     ]
+    },
+    {
+     "es": "Después de la lluvia hay que limpiar los cristales.",
+     "ru": "После дождя нужно помыть окна.",
+     "frame": [
+      "limpiar los cristales"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v221",
+   "type": "vocab",
+   "es": "limpiar el baño",
+   "en": "to clean the bathroom",
+   "ru": "мыть ванную",
+   "tr": "лимпья́р эл ба́ньо",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Limpio el baño los viernes.",
+     "ru": "Я мою ванную по пятницам.",
+     "frame": [
+      "Limpio el baño"
+     ]
+    },
+    {
+     "es": "¿Quién limpia el baño esta semana?",
+     "ru": "Кто моет ванную на этой неделе?",
+     "frame": [
+      "limpia el baño"
+     ]
+    },
+    {
+     "es": "Limpia el baño con guantes.",
+     "ru": "Мой ванную в перчатках.",
+     "frame": [
+      "Limpia el baño"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v222",
+   "type": "vocab",
+   "es": "sacar la basura",
+   "en": "to take the rubbish out",
+   "ru": "выносить мусор",
+   "tr": "сака́р ла басу́ра",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "¿Has sacado la basura?",
+     "ru": "Ты вынес мусор?",
+     "frame": [
+      "sacado la basura"
+     ]
+    },
+    {
+     "es": "Aquí la basura se saca por la noche.",
+     "ru": "Здесь мусор выносят вечером.",
+     "frame": [
+      "basura se saca"
+     ]
+    },
+    {
+     "es": "Se me ha olvidado sacar la basura.",
+     "ru": "Я забыл вынести мусор.",
+     "frame": [
+      "sacar la basura"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v223",
+   "type": "vocab",
+   "es": "hacer la compra",
+   "en": "to do the food shopping",
+   "ru": "покупать продукты",
+   "tr": "асэ́р ла ко́мпра",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Hago la compra los sábados por la mañana.",
+     "ru": "Я закупаюсь по субботам утром.",
+     "frame": [
+      "Hago la compra"
+     ]
+    },
+    {
+     "es": "¿Vienes a hacer la compra conmigo?",
+     "ru": "Пойдёшь со мной за продуктами?",
+     "frame": [
+      "hacer la compra"
+     ]
+    },
+    {
+     "es": "Hacemos la compra por internet.",
+     "ru": "Мы заказываем продукты через интернет.",
+     "frame": [
+      "Hacemos la compra"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v224",
+   "type": "vocab",
+   "es": "regar las plantas",
+   "en": "to water the plants",
+   "ru": "поливать растения",
+   "tr": "ррэга́р лас пла́нтас",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Riega las plantas mientras estoy fuera.",
+     "ru": "Поливай растения, пока меня нет.",
+     "frame": [
+      "Riega las plantas"
+     ]
+    },
+    {
+     "es": "Riego las plantas por la tarde.",
+     "ru": "Я поливаю растения вечером.",
+     "frame": [
+      "Riego las plantas"
+     ]
+    },
+    {
+     "es": "Se me olvidó regar las plantas y se secaron.",
+     "ru": "Я забыл полить растения, и они засохли.",
+     "frame": [
+      "regar las plantas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v225",
+   "type": "vocab",
+   "es": "cambiar las sábanas",
+   "en": "to change the sheets",
+   "ru": "менять постельное бельё",
+   "tr": "камбья́р лас са́банас",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Cambio las sábanas cada semana.",
+     "ru": "Я меняю постельное бельё каждую неделю.",
+     "frame": [
+      "Cambio las sábanas"
+     ]
+    },
+    {
+     "es": "Hay que cambiar las sábanas de la cama de los niños.",
+     "ru": "Нужно поменять бельё на детской кровати.",
+     "frame": [
+      "cambiar las sábanas"
+     ]
+    },
+    {
+     "es": "Cambia las sábanas, tienen manchas.",
+     "ru": "Смени бельё, на нём пятна.",
+     "frame": [
+      "Cambia las sábanas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v226",
+   "type": "vocab",
+   "es": "ordenar la habitación",
+   "en": "to tidy the room",
+   "ru": "прибирать в комнате",
+   "tr": "ордэна́р ла абитасьо́н",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Ordena tu habitación antes de jugar.",
+     "ru": "Приберись в комнате, прежде чем играть.",
+     "frame": [
+      "Ordena",
+      "habitación"
+     ]
+    },
+    {
+     "es": "Mi hija ordena su habitación sola.",
+     "ru": "Моя дочь сама прибирает свою комнату.",
+     "frame": [
+      "ordena",
+      "habitación"
+     ]
+    },
+    {
+     "es": "Ordenar la habitación lleva diez minutos.",
+     "ru": "Уборка комнаты занимает десять минут.",
+     "frame": [
+      "Ordenar la habitación"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v227",
+   "type": "vocab",
+   "es": "recoger la cocina",
+   "en": "to tidy up the kitchen",
+   "ru": "прибирать кухню",
+   "tr": "ррэкохэ́р ла коси́на",
+   "group": "Домашние дела",
+   "ex": [
+    {
+     "es": "Recoge la cocina después de cenar.",
+     "ru": "Прибери кухню после ужина.",
+     "frame": [
+      "Recoge la cocina"
+     ]
+    },
+    {
+     "es": "Recojo la cocina y me voy a la cama.",
+     "ru": "Я прибираю кухню и иду спать.",
+     "frame": [
+      "Recojo la cocina"
+     ]
+    },
+    {
+     "es": "Entre los dos recogemos la cocina en cinco minutos.",
+     "ru": "Вдвоём мы прибираем кухню за пять минут.",
+     "frame": [
+      "recogemos la cocina"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es5-v118",
    "type": "vocab",
    "es": "te llamo",
@@ -8465,6 +7183,1162 @@
      "ru": "Я еду в аэропорт.",
      "frame": [
       "de camino"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v228",
+   "type": "vocab",
+   "es": "la ola",
+   "en": "wave",
+   "ru": "волна",
+   "tr": "ла о́ла",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Hoy hay olas grandes.",
+     "ru": "Сегодня большие волны.",
+     "frame": [
+      "olas"
+     ]
+    },
+    {
+     "es": "Una ola me ha tirado al suelo.",
+     "ru": "Волна сбила меня с ног.",
+     "frame": [
+      "ola"
+     ]
+    },
+    {
+     "es": "Los niños saltan las olas.",
+     "ru": "Дети прыгают через волны.",
+     "frame": [
+      "olas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v229",
+   "type": "vocab",
+   "es": "la orilla",
+   "en": "shore / water's edge",
+   "ru": "берег (кромка воды)",
+   "tr": "ла ори́йа",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Paseamos por la orilla.",
+     "ru": "Мы гуляем вдоль берега.",
+     "frame": [
+      "orilla"
+     ]
+    },
+    {
+     "es": "El niño juega en la orilla.",
+     "ru": "Ребёнок играет у кромки воды.",
+     "frame": [
+      "orilla"
+     ]
+    },
+    {
+     "es": "Deja la toalla lejos de la orilla.",
+     "ru": "Оставь полотенце подальше от воды.",
+     "frame": [
+      "orilla"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v230",
+   "type": "vocab",
+   "es": "la marea alta",
+   "en": "high tide",
+   "ru": "прилив",
+   "tr": "ла марэ́а а́лта",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Con la marea alta la playa desaparece.",
+     "ru": "При приливе пляж исчезает.",
+     "frame": [
+      "marea alta"
+     ]
+    },
+    {
+     "es": "La marea alta es a las cinco.",
+     "ru": "Прилив в пять.",
+     "frame": [
+      "marea alta"
+     ]
+    },
+    {
+     "es": "Con marea alta no se puede pasar por las rocas.",
+     "ru": "При приливе нельзя пройти по скалам.",
+     "frame": [
+      "marea alta"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v231",
+   "type": "vocab",
+   "es": "la marea baja",
+   "en": "low tide",
+   "ru": "отлив",
+   "tr": "ла марэ́а ба́ха",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Con la marea baja se ven las rocas.",
+     "ru": "При отливе видны скалы.",
+     "frame": [
+      "marea baja"
+     ]
+    },
+    {
+     "es": "Aprovecha la marea baja para buscar conchas.",
+     "ru": "Воспользуйся отливом, чтобы искать ракушки.",
+     "frame": [
+      "marea baja"
+     ]
+    },
+    {
+     "es": "La marea baja deja charcos en la arena.",
+     "ru": "Отлив оставляет лужи на песке.",
+     "frame": [
+      "marea baja"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v232",
+   "type": "vocab",
+   "es": "la costa",
+   "en": "coast",
+   "ru": "побережье",
+   "tr": "ла ко́ста",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Vivimos en la costa.",
+     "ru": "Мы живём на побережье.",
+     "frame": [
+      "costa"
+     ]
+    },
+    {
+     "es": "La costa de Alicante tiene muchas playas.",
+     "ru": "На побережье Аликанте много пляжей.",
+     "frame": [
+      "costa"
+     ]
+    },
+    {
+     "es": "En la costa hace menos calor.",
+     "ru": "На побережье не так жарко.",
+     "frame": [
+      "costa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v233",
+   "type": "vocab",
+   "es": "la cala",
+   "en": "cove",
+   "ru": "бухта (небольшая)",
+   "tr": "ла ка́ла",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Conozco una cala escondida.",
+     "ru": "Я знаю укромную бухту.",
+     "frame": [
+      "cala"
+     ]
+    },
+    {
+     "es": "A la cala se llega andando.",
+     "ru": "До бухты добираются пешком.",
+     "frame": [
+      "cala"
+     ]
+    },
+    {
+     "es": "La cala es pequeña pero el agua es limpísima.",
+     "ru": "Бухта маленькая, но вода чистейшая.",
+     "frame": [
+      "cala"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v234",
+   "type": "vocab",
+   "es": "la roca",
+   "en": "rock",
+   "ru": "скала (камень)",
+   "tr": "ла рро́ка",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "No te subas a las rocas mojadas.",
+     "ru": "Не залезай на мокрые скалы.",
+     "frame": [
+      "rocas"
+     ]
+    },
+    {
+     "es": "Hay peces entre las rocas.",
+     "ru": "Между скал есть рыбы.",
+     "frame": [
+      "rocas"
+     ]
+    },
+    {
+     "es": "Me he cortado con una roca.",
+     "ru": "Я порезался о скалу.",
+     "frame": [
+      "roca"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v235",
+   "type": "vocab",
+   "es": "el acantilado",
+   "en": "cliff",
+   "ru": "обрыв (утёс)",
+   "tr": "эл акантила́до",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Desde el acantilado se ve toda la costa.",
+     "ru": "С утёса видно всё побережье.",
+     "frame": [
+      "acantilado"
+     ]
+    },
+    {
+     "es": "No te acerques al borde del acantilado.",
+     "ru": "Не подходи к краю обрыва.",
+     "frame": [
+      "acantilado"
+     ]
+    },
+    {
+     "es": "Hay un camino por encima del acantilado.",
+     "ru": "Над обрывом есть тропа.",
+     "frame": [
+      "acantilado"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v236",
+   "type": "vocab",
+   "es": "el puerto",
+   "en": "port / harbour",
+   "ru": "порт",
+   "tr": "эл пуэ́рто",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Los barcos de pesca vuelven al puerto.",
+     "ru": "Рыбацкие лодки возвращаются в порт.",
+     "frame": [
+      "puerto"
+     ]
+    },
+    {
+     "es": "Cenamos en un restaurante del puerto.",
+     "ru": "Мы ужинаем в ресторане в порту.",
+     "frame": [
+      "puerto"
+     ]
+    },
+    {
+     "es": "El ferry sale del puerto a las ocho.",
+     "ru": "Паром отходит из порта в восемь.",
+     "frame": [
+      "puerto"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v237",
+   "type": "vocab",
+   "es": "el faro",
+   "en": "lighthouse",
+   "ru": "маяк",
+   "tr": "эл фа́ро",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "El faro se enciende al anochecer.",
+     "ru": "Маяк зажигается с наступлением темноты.",
+     "frame": [
+      "faro"
+     ]
+    },
+    {
+     "es": "Subimos al faro para ver el mar.",
+     "ru": "Мы поднялись на маяк, чтобы посмотреть на море.",
+     "frame": [
+      "faro"
+     ]
+    },
+    {
+     "es": "El faro está en la punta del cabo.",
+     "ru": "Маяк на оконечности мыса.",
+     "frame": [
+      "faro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v238",
+   "type": "vocab",
+   "es": "el paseo marítimo",
+   "en": "seafront promenade",
+   "ru": "набережная",
+   "tr": "эл пасэ́о мари́тимо",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Paseamos por el paseo marítimo al atardecer.",
+     "ru": "Мы гуляем по набережной на закате.",
+     "frame": [
+      "paseo marítimo"
+     ]
+    },
+    {
+     "es": "En el paseo marítimo hay muchos bares.",
+     "ru": "На набережной много баров.",
+     "frame": [
+      "paseo marítimo"
+     ]
+    },
+    {
+     "es": "Los niños van en bici por el paseo marítimo.",
+     "ru": "Дети катаются на велосипеде по набережной.",
+     "frame": [
+      "paseo marítimo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v239",
+   "type": "vocab",
+   "es": "el chiringuito",
+   "en": "beach bar",
+   "ru": "пляжный бар",
+   "tr": "эл чиринги́то",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Comemos en el chiringuito de la playa.",
+     "ru": "Мы обедаем в пляжном баре.",
+     "frame": [
+      "chiringuito"
+     ]
+    },
+    {
+     "es": "El chiringuito abre solo en verano.",
+     "ru": "Пляжный бар открыт только летом.",
+     "frame": [
+      "chiringuito"
+     ]
+    },
+    {
+     "es": "Una caña en el chiringuito, qué gusto.",
+     "ru": "Пиво в пляжном баре — какое удовольствие.",
+     "frame": [
+      "chiringuito"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v240",
+   "type": "vocab",
+   "es": "la sombrilla",
+   "en": "parasol",
+   "ru": "зонт от солнца",
+   "tr": "ла сомбри́йа",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Clava bien la sombrilla en la arena.",
+     "ru": "Хорошо воткни зонт в песок.",
+     "frame": [
+      "sombrilla"
+     ]
+    },
+    {
+     "es": "Alquilan sombrillas por diez euros.",
+     "ru": "Зонты сдают за десять евро.",
+     "frame": [
+      "sombrillas"
+     ]
+    },
+    {
+     "es": "El viento se ha llevado la sombrilla.",
+     "ru": "Ветер унёс зонт.",
+     "frame": [
+      "sombrilla"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v241",
+   "type": "vocab",
+   "es": "la tumbona",
+   "en": "sun lounger",
+   "ru": "шезлонг",
+   "tr": "ла тумбо́на",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Dos tumbonas y una sombrilla, por favor.",
+     "ru": "Два шезлонга и зонт, пожалуйста.",
+     "frame": [
+      "tumbonas"
+     ]
+    },
+    {
+     "es": "Me quedé dormido en la tumbona.",
+     "ru": "Я заснул в шезлонге.",
+     "frame": [
+      "tumbona"
+     ]
+    },
+    {
+     "es": "Las tumbonas del hotel son gratis.",
+     "ru": "Шезлонги отеля бесплатные.",
+     "frame": [
+      "tumbonas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v242",
+   "type": "vocab",
+   "es": "la toalla de playa",
+   "en": "beach towel",
+   "ru": "пляжное полотенце",
+   "tr": "ла тоа́йа дэ пла́йа",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "No olvides la toalla de playa.",
+     "ru": "Не забудь пляжное полотенце.",
+     "frame": [
+      "toalla de playa"
+     ]
+    },
+    {
+     "es": "Sacude la toalla de playa, tiene arena.",
+     "ru": "Вытряхни пляжное полотенце, оно в песке.",
+     "frame": [
+      "toalla de playa"
+     ]
+    },
+    {
+     "es": "Una toalla de playa grande para los dos.",
+     "ru": "Большое пляжное полотенце на двоих.",
+     "frame": [
+      "toalla de playa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v243",
+   "type": "vocab",
+   "es": "el bañador",
+   "en": "swimsuit / trunks",
+   "ru": "купальник / плавки",
+   "tr": "эл баньядо́р",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Ponte el bañador, nos vamos a la playa.",
+     "ru": "Надевай купальник, мы идём на пляж.",
+     "frame": [
+      "bañador"
+     ]
+    },
+    {
+     "es": "El bañador todavía está mojado.",
+     "ru": "Купальник ещё мокрый.",
+     "frame": [
+      "bañador"
+     ]
+    },
+    {
+     "es": "He comprado un bañador nuevo para el niño.",
+     "ru": "Я купил ребёнку новые плавки.",
+     "frame": [
+      "bañador"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v244",
+   "type": "vocab",
+   "es": "el bikini",
+   "en": "bikini",
+   "ru": "бикини",
+   "tr": "эл бики́ни",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Un bikini rojo para el verano.",
+     "ru": "Красное бикини на лето.",
+     "frame": [
+      "bikini"
+     ]
+    },
+    {
+     "es": "Se le ha perdido la parte de arriba del bikini.",
+     "ru": "Она потеряла верх от бикини.",
+     "frame": [
+      "bikini"
+     ]
+    },
+    {
+     "es": "Prefiero bikini a bañador.",
+     "ru": "Я предпочитаю бикини купальнику.",
+     "frame": [
+      "bikini"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v245",
+   "type": "vocab",
+   "es": "las chanclas",
+   "en": "flip-flops",
+   "ru": "шлёпанцы",
+   "tr": "лас ча́нклас",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "En la playa siempre llevo chanclas.",
+     "ru": "На пляже я всегда в шлёпанцах.",
+     "frame": [
+      "chanclas"
+     ]
+    },
+    {
+     "es": "Se me ha roto una chancla.",
+     "ru": "У меня порвался шлёпанец.",
+     "frame": [
+      "chancla"
+     ]
+    },
+    {
+     "es": "No vayas en chanclas por la ciudad.",
+     "ru": "Не ходи в шлёпанцах по городу.",
+     "frame": [
+      "chanclas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v246",
+   "type": "vocab",
+   "es": "las gafas de sol",
+   "en": "sunglasses",
+   "ru": "солнечные очки",
+   "tr": "лас га́фас дэ сол",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Sin gafas de sol no veo nada.",
+     "ru": "Без солнечных очков я ничего не вижу.",
+     "frame": [
+      "gafas de sol"
+     ]
+    },
+    {
+     "es": "He perdido las gafas de sol en el mar.",
+     "ru": "Я потерял солнечные очки в море.",
+     "frame": [
+      "gafas de sol"
+     ]
+    },
+    {
+     "es": "Unas gafas de sol para el niño.",
+     "ru": "Солнечные очки для ребёнка.",
+     "frame": [
+      "gafas de sol"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v247",
+   "type": "vocab",
+   "es": "la crema solar",
+   "en": "sunscreen",
+   "ru": "солнцезащитный крем",
+   "tr": "ла крэ́ма сола́р",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Ponte crema solar cada dos horas.",
+     "ru": "Наноси солнцезащитный крем каждые два часа.",
+     "frame": [
+      "crema solar"
+     ]
+    },
+    {
+     "es": "Crema solar factor cincuenta para los niños.",
+     "ru": "Солнцезащитный крем с фактором пятьдесят для детей.",
+     "frame": [
+      "Crema solar"
+     ]
+    },
+    {
+     "es": "Se me ha acabado la crema solar.",
+     "ru": "У меня закончился солнцезащитный крем.",
+     "frame": [
+      "crema solar"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v248",
+   "type": "vocab",
+   "es": "la quemadura",
+   "en": "burn (sunburn)",
+   "ru": "ожог",
+   "tr": "ла кэмаду́ра",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Tengo una quemadura en la espalda.",
+     "ru": "У меня ожог на спине.",
+     "frame": [
+      "quemadura"
+     ]
+    },
+    {
+     "es": "Las quemaduras de sol duelen mucho.",
+     "ru": "Солнечные ожоги очень болят.",
+     "frame": [
+      "quemaduras"
+     ]
+    },
+    {
+     "es": "Ponte aloe vera en la quemadura.",
+     "ru": "Нанеси алоэ вера на ожог.",
+     "frame": [
+      "quemadura"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v249",
+   "type": "vocab",
+   "es": "el flotador",
+   "en": "rubber ring",
+   "ru": "надувной круг",
+   "tr": "эл флотадо́р",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "El niño nada con flotador.",
+     "ru": "Ребёнок плавает с кругом.",
+     "frame": [
+      "flotador"
+     ]
+    },
+    {
+     "es": "Hincha el flotador.",
+     "ru": "Надуй круг.",
+     "frame": [
+      "flotador"
+     ]
+    },
+    {
+     "es": "Un flotador con forma de flamenco.",
+     "ru": "Круг в форме фламинго.",
+     "frame": [
+      "flotador"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v250",
+   "type": "vocab",
+   "es": "los manguitos",
+   "en": "armbands",
+   "ru": "нарукавники",
+   "tr": "лос манги́тос",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Ponle los manguitos a la niña.",
+     "ru": "Надень девочке нарукавники.",
+     "frame": [
+      "manguitos"
+     ]
+    },
+    {
+     "es": "Sin manguitos no entra al agua.",
+     "ru": "Без нарукавников он в воду не заходит.",
+     "frame": [
+      "manguitos"
+     ]
+    },
+    {
+     "es": "Los manguitos están desinflados.",
+     "ru": "Нарукавники сдулись.",
+     "frame": [
+      "manguitos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v251",
+   "type": "vocab",
+   "es": "el cubo y la pala",
+   "en": "bucket and spade",
+   "ru": "ведёрко и лопатка",
+   "tr": "эл ку́бо и ла па́ла",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "El niño juega con el cubo y la pala.",
+     "ru": "Ребёнок играет с ведёрком и лопаткой.",
+     "frame": [
+      "cubo",
+      "pala"
+     ]
+    },
+    {
+     "es": "Compra un cubo y una pala para la playa.",
+     "ru": "Купи ведёрко и лопатку для пляжа.",
+     "frame": [
+      "cubo",
+      "pala"
+     ]
+    },
+    {
+     "es": "Hacemos un castillo con el cubo y la pala.",
+     "ru": "Мы строим замок ведёрком и лопаткой.",
+     "frame": [
+      "cubo",
+      "pala"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v252",
+   "type": "vocab",
+   "es": "el socorrista",
+   "en": "lifeguard",
+   "ru": "спасатель",
+   "tr": "эл сокорри́ста",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "El socorrista vigila desde la torre.",
+     "ru": "Спасатель следит с вышки.",
+     "frame": [
+      "socorrista"
+     ]
+    },
+    {
+     "es": "Pregunta al socorrista si se puede nadar.",
+     "ru": "Спроси у спасателя, можно ли плавать.",
+     "frame": [
+      "socorrista"
+     ]
+    },
+    {
+     "es": "El socorrista ha sacado a un niño del agua.",
+     "ru": "Спасатель вытащил ребёнка из воды.",
+     "frame": [
+      "socorrista"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v253",
+   "type": "vocab",
+   "es": "la bandera",
+   "en": "flag",
+   "ru": "флаг",
+   "tr": "ла бандэ́ра",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Bandera roja: prohibido bañarse.",
+     "ru": "Красный флаг: купаться запрещено.",
+     "frame": [
+      "Bandera"
+     ]
+    },
+    {
+     "es": "Hoy hay bandera verde.",
+     "ru": "Сегодня зелёный флаг.",
+     "frame": [
+      "bandera"
+     ]
+    },
+    {
+     "es": "Con bandera amarilla hay que tener cuidado.",
+     "ru": "При жёлтом флаге нужно быть осторожным.",
+     "frame": [
+      "bandera"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v254",
+   "type": "vocab",
+   "es": "la medusa",
+   "en": "jellyfish",
+   "ru": "медуза",
+   "tr": "ла мэду́са",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Me ha picado una medusa.",
+     "ru": "Меня ужалила медуза.",
+     "frame": [
+      "medusa"
+     ]
+    },
+    {
+     "es": "Hoy hay medusas, mejor no bañarse.",
+     "ru": "Сегодня медузы, лучше не купаться.",
+     "frame": [
+      "medusas"
+     ]
+    },
+    {
+     "es": "Las medusas llegan con el viento de levante.",
+     "ru": "Медузы приходят с восточным ветром.",
+     "frame": [
+      "medusas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v255",
+   "type": "vocab",
+   "es": "la concha",
+   "en": "seashell",
+   "ru": "ракушка",
+   "tr": "ла ко́нча",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "La niña colecciona conchas.",
+     "ru": "Девочка собирает ракушки.",
+     "frame": [
+      "conchas"
+     ]
+    },
+    {
+     "es": "Hay conchas por toda la orilla.",
+     "ru": "По всему берегу ракушки.",
+     "frame": [
+      "conchas"
+     ]
+    },
+    {
+     "es": "Una concha grande de recuerdo.",
+     "ru": "Большая ракушка на память.",
+     "frame": [
+      "concha"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v256",
+   "type": "vocab",
+   "es": "el pez",
+   "en": "fish (alive)",
+   "ru": "рыба (живая)",
+   "tr": "эл пэс",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Se ven peces desde las rocas.",
+     "ru": "Со скал видно рыб.",
+     "frame": [
+      "peces"
+     ]
+    },
+    {
+     "es": "Un pez de colores.",
+     "ru": "Разноцветная рыбка.",
+     "frame": [
+      "pez"
+     ]
+    },
+    {
+     "es": "El niño quiere ver peces con las gafas de buceo.",
+     "ru": "Ребёнок хочет посмотреть на рыб в маске.",
+     "frame": [
+      "peces"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v257",
+   "type": "vocab",
+   "es": "la brisa",
+   "en": "breeze",
+   "ru": "бриз",
+   "tr": "ла бри́са",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Por la tarde sopla la brisa del mar.",
+     "ru": "Вечером дует морской бриз.",
+     "frame": [
+      "brisa"
+     ]
+    },
+    {
+     "es": "Con la brisa no se nota tanto el calor.",
+     "ru": "С бризом жара не так чувствуется.",
+     "frame": [
+      "brisa"
+     ]
+    },
+    {
+     "es": "Una brisa suave mueve la sombrilla.",
+     "ru": "Лёгкий бриз качает зонт.",
+     "frame": [
+      "brisa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v258",
+   "type": "vocab",
+   "es": "la barca",
+   "en": "small boat",
+   "ru": "лодка",
+   "tr": "ла ба́рка",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Alquilamos una barca por una hora.",
+     "ru": "Мы арендовали лодку на час.",
+     "frame": [
+      "barca"
+     ]
+    },
+    {
+     "es": "Las barcas de los pescadores son de colores.",
+     "ru": "Лодки рыбаков разноцветные.",
+     "frame": [
+      "barcas"
+     ]
+    },
+    {
+     "es": "La barca se mueve mucho con las olas.",
+     "ru": "Лодку сильно качает на волнах.",
+     "frame": [
+      "barca"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v259",
+   "type": "vocab",
+   "es": "nadar",
+   "en": "to swim",
+   "ru": "плавать",
+   "tr": "нада́р",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Nado todos los días media hora.",
+     "ru": "Я плаваю каждый день полчаса.",
+     "frame": [
+      "Nado"
+     ]
+    },
+    {
+     "es": "Mi hija ya sabe nadar.",
+     "ru": "Моя дочь уже умеет плавать.",
+     "frame": [
+      "nadar"
+     ]
+    },
+    {
+     "es": "No nades tan lejos.",
+     "ru": "Не заплывай так далеко.",
+     "frame": [
+      "nades"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v260",
+   "type": "vocab",
+   "es": "bucear",
+   "en": "to snorkel / dive",
+   "ru": "нырять (с маской)",
+   "tr": "бусэа́р",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Buceamos con gafas y tubo.",
+     "ru": "Мы ныряем с маской и трубкой.",
+     "frame": [
+      "Buceamos"
+     ]
+    },
+    {
+     "es": "En esta cala se bucea muy bien.",
+     "ru": "В этой бухте отлично нырять.",
+     "frame": [
+      "bucea"
+     ]
+    },
+    {
+     "es": "¿Sabes bucear?",
+     "ru": "Ты умеешь нырять?",
+     "frame": [
+      "bucear"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v261",
+   "type": "vocab",
+   "es": "bañarse",
+   "en": "to bathe / go for a swim",
+   "ru": "купаться",
+   "tr": "банья́рсэ",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Nos bañamos en el mar cada tarde.",
+     "ru": "Мы купаемся в море каждый вечер.",
+     "frame": [
+      "bañamos"
+     ]
+    },
+    {
+     "es": "El agua está fría, pero me baño igual.",
+     "ru": "Вода холодная, но я всё равно купаюсь.",
+     "frame": [
+      "baño"
+     ]
+    },
+    {
+     "es": "No te bañes después de comer.",
+     "ru": "Не купайся после еды.",
+     "frame": [
+      "bañes"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v262",
+   "type": "vocab",
+   "es": "tomar el sol",
+   "en": "to sunbathe",
+   "ru": "загорать",
+   "tr": "тома́р эл сол",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "Tomo el sol solo por la mañana.",
+     "ru": "Я загораю только утром.",
+     "frame": [
+      "Tomo el sol"
+     ]
+    },
+    {
+     "es": "No tomes el sol a mediodía.",
+     "ru": "Не загорай в полдень.",
+     "frame": [
+      "tomes el sol"
+     ]
+    },
+    {
+     "es": "Le encanta tomar el sol en la terraza.",
+     "ru": "Она обожает загорать на террасе.",
+     "frame": [
+      "tomar el sol"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es5-v263",
+   "type": "vocab",
+   "es": "hacer surf",
+   "en": "to surf",
+   "ru": "заниматься сёрфингом",
+   "tr": "асэ́р сурф",
+   "group": "Пляж и море",
+   "ex": [
+    {
+     "es": "En el norte se hace mucho surf.",
+     "ru": "На севере много занимаются сёрфингом.",
+     "frame": [
+      "hace",
+      "surf"
+     ]
+    },
+    {
+     "es": "Aprendí a hacer surf en Cádiz.",
+     "ru": "Я научился сёрфингу в Кадисе.",
+     "frame": [
+      "hacer surf"
+     ]
+    },
+    {
+     "es": "Con estas olas no se puede hacer surf.",
+     "ru": "С такими волнами сёрфить нельзя.",
+     "frame": [
+      "hacer surf"
      ]
     }
    ]
