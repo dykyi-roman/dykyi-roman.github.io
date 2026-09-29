@@ -955,6 +955,8 @@ if (patterns) {
 // the exception, and are listed by name.
 const HOMONYMS = ['claro', 'salida', 'verdad', 'cómo', 'perdón', 'no', 'este', 'caja', 'comedor',
     'primero', 'segundo', 'cuarto', 'tirar', 'seco', 'tiempo',
+    // the colour and the fruit (naranja), the underground and the measure (metro)
+    'naranja', 'metro',
     // the letters of the alphabet table (a, de, o, te, ese) beside the
     // preposition, conjunction, pronoun and demonstrative spelled the same
     'a', 'de', 'o', 'te', 'ese'];

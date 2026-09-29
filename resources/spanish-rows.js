@@ -291,12 +291,18 @@
         return row;
     };
 
+    // A row of Reference is covered like a learned one: the tables are read as
+    // learned, so their words are recalled the same way — unless the switch is
+    // on the open eye, which covers nothing anywhere.
     function covered(row) {
-        return row.classList.contains('is-learned') || row.classList.contains('is-pending');
+        return row.classList.contains('is-learned') || row.classList.contains('is-pending') ||
+            row.classList.contains('is-reference');
     }
 
+    function hiding() { return SP.cover.side() !== 'none'; }
+
     function revealTitle(row) {
-        if (!covered(row)) { row.removeAttribute('title'); return; }
+        if (!covered(row) || !hiding()) { row.removeAttribute('title'); return; }
         // A drill covers its answer on either side; any other row, the side picked.
         var what = row.classList.contains('sp-drill-row') ? 'answer'
             : (SP.cover.side() === 'spanish' ? 'Spanish' : 'translation');
@@ -308,20 +314,23 @@
     // for it word after word was a chore. On a covered row that is still the
     // reveal — opening shows the hidden side and closing hides it again (see
     // SP.setDrawerOpen) — with the examples and the forms beside it. A learned
-    // word is the exception: it is there to be recalled, so its tap is the
-    // plain reveal and the drawer waits for the chevron; once the chevron has
-    // opened it, a tap closes it and covers the word again. A row with no
-    // drawer, a drill, keeps the plain reveal too. Another control in the
+    // word, and a table row, which counts as learned, is the exception: it is
+    // there to be recalled, so its tap is the plain reveal and the drawer
+    // waits for the chevron; once the chevron has opened it, a tap closes it
+    // and covers the word again. With nothing covered (the open eye) there is
+    // nothing to recall, and the tap opens the drawer on every row. A row with
+    // no drawer, a drill, keeps the plain reveal too. Another control in the
     // row keeps its own tap, a tap inside the open drawer is the drawer's, and
     // a drag that selected some text is not a tap at all.
     function attachReveal(row) {
         function toggle() {
-            var recall = row.classList.contains('is-learned') && !row.classList.contains('is-open');
+            var recall = hiding() && !row.classList.contains('is-open') &&
+                (row.classList.contains('is-learned') || row.classList.contains('is-reference'));
             if (!recall && row.querySelector('.sp-drawer-toggle')) {
                 SP.setDrawerOpen(row, !row.classList.contains('is-open'));
                 return true;
             }
-            if (!covered(row)) return false;
+            if (!covered(row) || !hiding()) return false;
             row.classList.toggle('is-revealed');
             revealTitle(row);
             return true;
@@ -362,12 +371,13 @@
         }).map(function (entry) { return entry.item; });
     };
 
-    // Paints a row for the section it is in. A row in Learned or Pending covers
-    // one side (SP.cover) until it is tapped, and takes the focus so a keyboard
-    // can do the same; a Reference row covers nothing, as the rest does not.
-    SP.setRowState = function (row, learned, pending) {
+    // Paints a row for the section it is in. A row in Learned, Pending or
+    // Reference covers one side (SP.cover) until it is tapped, and takes the
+    // focus so a keyboard can do the same; a row of the rest covers nothing.
+    SP.setRowState = function (row, learned, pending, reference) {
         row.classList.toggle('is-learned', learned);
         row.classList.toggle('is-pending', !learned && pending);
+        row.classList.toggle('is-reference', !!reference);
         if (covered(row)) {
             row.tabIndex = 0;
             // A row that starts hiding a side puts its hints away with it: an
@@ -478,22 +488,25 @@
         return btn;
     };
 
-    // The switch between the two sides a covered row can hide: one control of
-    // two segments in row order, the lit one naming the side that is hidden.
-    // Every copy follows SP.cover, so no two on a page can disagree.
+    // The switch between the sides a covered row can hide: one control of
+    // three segments in row order — ES, EN and an open eye — the lit one
+    // naming the side that is hidden, the eye hiding nothing. Every copy
+    // follows SP.cover, so no two on a page can disagree.
     var COVER_OPTIONS = [
         { side: 'spanish', label: 'ES', hint: 'Hide the Spanish and its transliteration' },
-        { side: 'meaning', label: 'EN', hint: 'Hide the English and Russian' }
+        { side: 'meaning', label: 'EN', hint: 'Hide the English and Russian' },
+        { side: 'none', label: 'All', eye: true, hint: 'Hide nothing — show both sides' }
     ];
 
     SP.coverSwitch = function () {
         var group = SP.el('div', 'sp-cover');
         group.setAttribute('role', 'group');
-        group.setAttribute('aria-label', 'What Learned and Pending rows hide');
+        group.setAttribute('aria-label', 'What a covered row hides');
         group.appendChild(SP.icon.eyeOff());
 
         var buttons = COVER_OPTIONS.map(function (option) {
-            var btn = SP.el('button', 'sp-cover-btn', option.label);
+            var btn = SP.el('button', 'sp-cover-btn' + (option.eye ? ' is-eye' : ''), option.eye ? null : option.label);
+            if (option.eye) btn.appendChild(SP.icon.eye());
             btn.type = 'button';
             btn.title = option.hint;
             btn.setAttribute('aria-label', option.label + ' — ' + option.hint);
@@ -526,7 +539,7 @@
         document.querySelectorAll('.is-revealed').forEach(function (row) {
             row.classList.remove('is-revealed');
         });
-        document.querySelectorAll(':is(.sp-lex-row, .sp-drill-row):is(.is-learned, .is-pending)').forEach(revealTitle);
+        document.querySelectorAll(':is(.sp-lex-row, .sp-drill-row):is(.is-learned, .is-pending, .is-reference)').forEach(revealTitle);
     });
 
     /* ---------- item rows ---------- */
@@ -881,7 +894,7 @@
     // `opts.stars` the ★ of the rules and the patterns; a stage page passes
     // nothing. What is Russian in it comes from the files, like everywhere.
     var SECTION_HINT = {
-        reference: 'closed sets to look up: days, months, numbers, question frames. A tile opens its table',
+        reference: 'closed sets counted as learned: days, numbers, the body, clothes, the home. A tile opens its table, and its rows are covered like the learned ones',
         learned: 'the learned list. One side of every row is covered: recall it, then tap the row to check',
         pending: 'what you ticked to learn next, covered the same way',
         left: 'everything not learned yet'
@@ -949,8 +962,8 @@
         group('Lists', SP.SECTIONS.map(function (kind) {
             return { marks: [SP.iconSpan(SP.SECTION_ICON[kind])], name: SP.SECTION_LABEL[kind], text: SECTION_HINT[kind] };
         }).concat([{
-            marks: [legendMark('sp-legend-edge is-learned'), legendMark('sp-legend-edge is-pending')],
-            text: 'the edge of a row: green in Learned, orange in Pending'
+            marks: [legendMark('sp-legend-edge is-reference'), legendMark('sp-legend-edge is-learned'), legendMark('sp-legend-edge is-pending')],
+            text: 'the edge of a row: blue in Reference, green in Learned, orange in Pending'
         }]));
 
         group('Marks', [
@@ -964,9 +977,9 @@
                     ' to the top of its list; again to put it back'
             },
             {
-                marks: [SP.icon.eyeOff()],
+                marks: [SP.icon.eyeOff(), SP.icon.eye()],
                 name: 'ES · EN',
-                text: 'the lit one is the side a covered row hides: ES the Spanish, EN the English and the Russian'
+                text: 'the lit one is the side a covered row hides: ES the Spanish, EN the English and the Russian; the open eye hides nothing'
             },
             {
                 marks: [legendMark('sp-legend-chevron', SP.icon.chevron())],

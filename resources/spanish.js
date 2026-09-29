@@ -1174,12 +1174,14 @@
 
         // A tiled stage (below) lists its words alone, so its drills stay out
         // of the buckets: the tabs then count what the list can show. The
-        // exports and the copy read browseFiltered and keep them.
+        // exports and the copy read browseFiltered and keep them. A word of a
+        // table carries no topic either, but it has a tile of its own under
+        // Reference, so it stays.
         var tiled = tiledStage();
         var buckets = {};
         SP.SECTIONS.forEach(function (kind) { buckets[kind] = []; });
         browseFiltered.forEach(function (item) {
-            if (tiled && !item.group) return;
+            if (tiled && !item.group && !item.set) return;
             buckets[SP.sectionOf(item)].push(item);
         });
         // Reference reads table by table. Learned comes in this page load's
@@ -1231,7 +1233,7 @@
             // No query here: a search is drawn by renderBrowseZones, which
             // paints the match, opens the panel holding it and tags the row.
             row = browseRow(item, mark);
-            SP.setRowState(row, kind === 'learned', kind === 'pending');
+            SP.setRowState(row, kind === 'learned', kind === 'pending', kind === 'reference');
             return row;
         }
 

@@ -304,7 +304,7 @@
                 if (opts.onMark) opts.onMark(on);
             });
             row = opts.row(item, mark, query);
-            SP.setRowState(row, kind === 'learned', kind === 'pending');
+            SP.setRowState(row, kind === 'learned', kind === 'pending', kind === 'reference');
             // Found by an example alone, the row would come up with nothing on
             // it that matches — so the drawer holding the match opens itself.
             if (!SP.matchesOwn(item, query) && SP.matchesExample(item, query)) {

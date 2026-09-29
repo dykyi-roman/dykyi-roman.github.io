@@ -117,7 +117,7 @@
             // three zones, which paint the match, open the panel holding it and
             // tag the row with the list it comes from.
             row = opts.row(item, mark);
-            SP.setRowState(row, kind === 'learned', kind === 'pending');
+            SP.setRowState(row, kind === 'learned', kind === 'pending', kind === 'reference');
             return row;
         }
 

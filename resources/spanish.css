@@ -284,6 +284,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     border-radius: 4px;
 }
 .sp-legend-edge.is-pending { border-left-color: var(--color-primary); }
+.sp-legend-edge.is-reference { border-left-color: var(--color-info); }
 
 .sp-panel[hidden] { display: none !important; }
 
@@ -385,7 +386,7 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 @media (hover: hover) {
     .is-toggle:hover > .sp-drawer-toggle,
-    .sp-lex-row.is-toggle:not(.is-learned):hover > .sp-tools > .sp-drawer-toggle { color: var(--color-primary); border-color: var(--color-primary); }
+    .sp-lex-row.is-toggle:not(.is-learned):not(.is-reference):hover > .sp-tools > .sp-drawer-toggle { color: var(--color-primary); border-color: var(--color-primary); }
 }
 
 /* ---------- the row's two head buttons, and the divider ---------- */
@@ -603,17 +604,19 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
 
 .sp-drawer-toggle[aria-expanded="false"] .sp-chevron { transform: rotate(-90deg); }
 
-/* An entry in one of the two top sections keeps its Spanish at full strength
+/* An entry in one of the three top sections keeps its Spanish at full strength
    and is told apart by the tinted edge: green for the learned list, the site's
-   own orange for a pending one. The tint fades in, so a row that jumps into
-   another section is seen changing rather than vanishing under the finger. */
+   own orange for a pending one, the Reference blue for a row of a table. The
+   tint fades in, so a row that jumps into another section is seen changing
+   rather than vanishing under the finger. */
 .sp-lex-row,
 .sp-drill-row { transition: background var(--transition-normal), border-color var(--transition-normal); }
 
 .sp-lex-row.is-learned,
 .sp-drill-row.is-learned,
 .sp-lex-row.is-pending,
-.sp-drill-row.is-pending {
+.sp-drill-row.is-pending,
+.sp-lex-row.is-reference {
     border-left: 3px solid var(--color-success);
     padding-left: calc(var(--spacing-sm) - 2px);
     background: rgba(76, 175, 80, 0.06);
@@ -626,17 +629,23 @@ h2 > .sp-icon, h3 > .sp-icon { margin-right: var(--spacing-xs); }
     background: rgba(220, 118, 3, 0.07);
 }
 
+.sp-lex-row.is-reference {
+    border-left-color: var(--color-info);
+    background: rgba(91, 155, 213, 0.07);
+}
+
 /* One side of them, though, is covered: the point of a word you know or are
-   working on is to recall it, so that side is a bar until the row is tapped —
-   and a second tap covers it again. Which side is the reader's pick, carried
-   by data-sp-cover on <html> (SP.cover): the meaning by default, or the Spanish
-   with its transliteration, to practise the other way round. A drill covers
-   its answer either way — its prompt is the question, whatever language it is
-   in. The drawn brackets and dashes sit inside those boxes and go under the
-   bar with them. */
-html:not([data-sp-cover="spanish"]) .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) :is(.sp-lex-en, .sp-lex-ru),
-html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) :is(.sp-lex-es, .sp-lex-tr),
-.sp-drill-row:is(.is-learned, .is-pending):not(.is-revealed) .sp-drill-ru {
+   working on — and a table of Reference counts as known — is to recall it, so
+   that side is a bar until the row is tapped, and a second tap covers it
+   again. Which side is the reader's pick, carried by data-sp-cover on <html>
+   (SP.cover): the meaning by default, or the Spanish with its transliteration,
+   to practise the other way round — or `none`, the open eye, under which
+   nothing is covered anywhere. A drill covers its answer either way — its
+   prompt is the question, whatever language it is in. The drawn brackets and
+   dashes sit inside those boxes and go under the bar with them. */
+html:not([data-sp-cover="spanish"]):not([data-sp-cover="none"]) .sp-lex-row:is(.is-learned, .is-pending, .is-reference):not(.is-revealed) :is(.sp-lex-en, .sp-lex-ru),
+html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending, .is-reference):not(.is-revealed) :is(.sp-lex-es, .sp-lex-tr),
+html:not([data-sp-cover="none"]) .sp-drill-row:is(.is-learned, .is-pending, .is-reference):not(.is-revealed) .sp-drill-ru {
     color: transparent;
     background: rgba(255, 255, 255, 0.07);
     border-radius: 4px;
@@ -646,9 +655,9 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 /* A covered side stays covered even when the search found the word there: the
    painted letters carry a colour of their own, and one word left visible under
    the bar is the answer given away. */
-html:not([data-sp-cover="spanish"]) .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) :is(.sp-lex-en, .sp-lex-ru) .sp-hit,
-html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) :is(.sp-lex-es, .sp-lex-tr) .sp-hit,
-.sp-drill-row:is(.is-learned, .is-pending):not(.is-revealed) .sp-drill-ru .sp-hit {
+html:not([data-sp-cover="spanish"]):not([data-sp-cover="none"]) .sp-lex-row:is(.is-learned, .is-pending, .is-reference):not(.is-revealed) :is(.sp-lex-en, .sp-lex-ru) .sp-hit,
+html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending, .is-reference):not(.is-revealed) :is(.sp-lex-es, .sp-lex-tr) .sp-hit,
+html:not([data-sp-cover="none"]) .sp-drill-row:is(.is-learned, .is-pending, .is-reference):not(.is-revealed) .sp-drill-ru .sp-hit {
     color: inherit;
     background: none;
 }
@@ -656,7 +665,7 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 /* The verb dot goes under the bar with the word it belongs to: it is drawn
    from currentColor, so inheriting the transparent of the bar puts out the
    ring and the fill alike. */
-html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-revealed) .sp-verb-dot {
+html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending, .is-reference):not(.is-revealed) .sp-verb-dot {
     color: inherit;
     background: none;
 }
@@ -664,7 +673,8 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending):not(.is-r
 .sp-lex-row.is-learned:focus-visible,
 .sp-drill-row.is-learned:focus-visible,
 .sp-lex-row.is-pending:focus-visible,
-.sp-drill-row.is-pending:focus-visible {
+.sp-drill-row.is-pending:focus-visible,
+.sp-lex-row.is-reference:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
@@ -1919,9 +1929,10 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
 
 /* ---------- the side a covered row hides ---------- */
 
-/* One control of two segments, in row order — ES, then EN — and the lit one
-   is the side that is hidden, which is what the crossed-out eye before them
-   says. It keeps the 44px of every other control in the bar. */
+/* One control of three segments, in row order — ES, EN, then an open eye —
+   and the lit one is the side that is hidden, which is what the crossed-out
+   eye before them says; the open eye lit means nothing is hidden. It keeps
+   the 44px of every other control in the bar. */
 .sp-cover {
     flex: 0 0 auto;
     display: inline-flex;
@@ -1966,6 +1977,18 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
 /* Drawn inside: the control clips what spills past its rounded corners. */
 .sp-cover-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -4px; }
 .sp-cover-btn.active:focus-visible { outline-color: #fff; }
+/* The third segment is a glyph rather than letters: the open eye, in the
+   button's own colour, so it goes white when lit like the letters do. */
+.sp-cover-btn.is-eye { display: inline-flex; align-items: center; justify-content: center; }
+.sp-cover-btn .sp-cover-icon { margin: 0; stroke: currentColor; }
+
+/* Three segments cost the search field a third of its width at 360px, so on
+   a phone they draw in — 38px each, still a finger wide — and the leading eye
+   gives up a few pixels of margin: 145px in all, against 170px full size. */
+@media (max-width: 699px) {
+    .sp-cover-btn { min-width: 38px; padding: 0 6px; }
+    .sp-cover > .sp-cover-icon { margin: 0 5px 0 8px; }
+}
 
 /* ---------- the mode menu (hub) ---------- */
 

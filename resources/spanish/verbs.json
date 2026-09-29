@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-19",
+ "updated": "2026-09-29",
  "title": "Spanish verb forms",
  "titleRu": "Формы глаголов: настоящее, прошедшее и будущее",
  "icon": "🔀",
@@ -53,11 +53,25 @@
    "fut": ["aceptaré", "aceptarás", "aceptará", "aceptaremos", "aceptaréis", "aceptarán"]
   },
   {
+   "es": "acostarse",
+   "kind": "stem",
+   "pres": ["me acuesto","te acuestas","se acuesta","nos acostamos","os acostáis","se acuestan"],
+   "pret": ["me acosté","te acostaste","se acostó","nos acostamos","os acostasteis","se acostaron"],
+   "fut": ["me acostaré","te acostarás","se acostará","nos acostaremos","os acostaréis","se acostarán"]
+  },
+  {
    "es": "actualizar",
    "kind": "regular",
    "pres": ["actualizo", "actualizas", "actualiza", "actualizamos", "actualizáis", "actualizan"],
    "pret": ["actualicé", "actualizaste", "actualizó", "actualizamos", "actualizasteis", "actualizaron"],
    "fut": ["actualizaré", "actualizarás", "actualizará", "actualizaremos", "actualizaréis", "actualizarán"]
+  },
+  {
+   "es": "afeitarse",
+   "kind": "regular",
+   "pres": ["me afeito","te afeitas","se afeita","nos afeitamos","os afeitáis","se afeitan"],
+   "pret": ["me afeité","te afeitaste","se afeitó","nos afeitamos","os afeitasteis","se afeitaron"],
+   "fut": ["me afeitaré","te afeitarás","se afeitará","nos afeitaremos","os afeitaréis","se afeitarán"]
   },
   {
    "es": "ahorrar",
@@ -158,6 +172,20 @@
    "fut": ["bajaré", "bajarás", "bajará", "bajaremos", "bajaréis", "bajarán"]
   },
   {
+   "es": "bañarse",
+   "kind": "regular",
+   "pres": ["me baño","te bañas","se baña","nos bañamos","os bañáis","se bañan"],
+   "pret": ["me bañé","te bañaste","se bañó","nos bañamos","os bañasteis","se bañaron"],
+   "fut": ["me bañaré","te bañarás","se bañará","nos bañaremos","os bañaréis","se bañarán"]
+  },
+  {
+   "es": "barrer",
+   "kind": "regular",
+   "pres": ["barro","barres","barre","barremos","barréis","barren"],
+   "pret": ["barrí","barriste","barrió","barrimos","barristeis","barrieron"],
+   "fut": ["barreré","barrerás","barrerá","barreremos","barreréis","barrerán"]
+  },
+  {
    "es": "beber",
    "kind": "regular",
    "pres": ["bebo", "bebes", "bebe", "bebemos", "bebéis", "beben"],
@@ -170,6 +198,13 @@
    "pres": ["borro", "borras", "borra", "borramos", "borráis", "borran"],
    "pret": ["borré", "borraste", "borró", "borramos", "borrasteis", "borraron"],
    "fut": ["borraré", "borrarás", "borrará", "borraremos", "borraréis", "borrarán"]
+  },
+  {
+   "es": "bucear",
+   "kind": "regular",
+   "pres": ["buceo","buceas","bucea","buceamos","buceáis","bucean"],
+   "pret": ["buceé","buceaste","buceó","buceamos","buceasteis","bucearon"],
+   "fut": ["bucearé","bucearás","buceará","bucearemos","bucearéis","bucearán"]
   },
   {
    "es": "buscar",
@@ -998,6 +1033,13 @@
    "fut": ["mantendré", "mantendrás", "mantendrá", "mantendremos", "mantendréis", "mantendrán"]
   },
   {
+   "es": "maquillarse",
+   "kind": "regular",
+   "pres": ["me maquillo","te maquillas","se maquilla","nos maquillamos","os maquilláis","se maquillan"],
+   "pret": ["me maquillé","te maquillaste","se maquilló","nos maquillamos","os maquillasteis","se maquillaron"],
+   "fut": ["me maquillaré","te maquillarás","se maquillará","nos maquillaremos","os maquillaréis","se maquillarán"]
+  },
+  {
    "es": "medir",
    "kind": "stem",
    "pres": ["mido", "mides", "mide", "medimos", "medís", "miden"],
@@ -1010,6 +1052,13 @@
    "pres": ["mejoro", "mejoras", "mejora", "mejoramos", "mejoráis", "mejoran"],
    "pret": ["mejoré", "mejoraste", "mejoró", "mejoramos", "mejorasteis", "mejoraron"],
    "fut": ["mejoraré", "mejorarás", "mejorará", "mejoraremos", "mejoraréis", "mejorarán"]
+  },
+  {
+   "es": "merendar",
+   "kind": "stem",
+   "pres": ["meriendo","meriendas","merienda","merendamos","merendáis","meriendan"],
+   "pret": ["merendé","merendaste","merendó","merendamos","merendasteis","merendaron"],
+   "fut": ["merendaré","merendarás","merendará","merendaremos","merendaréis","merendarán"]
   },
   {
    "es": "meter",
@@ -1052,6 +1101,13 @@
    "pres": ["nazco", "naces", "nace", "nacemos", "nacéis", "nacen"],
    "pret": ["nací", "naciste", "nació", "nacimos", "nacisteis", "nacieron"],
    "fut": ["naceré", "nacerás", "nacerá", "naceremos", "naceréis", "nacerán"]
+  },
+  {
+   "es": "nadar",
+   "kind": "regular",
+   "pres": ["nado","nadas","nada","nadamos","nadáis","nadan"],
+   "pret": ["nadé","nadaste","nadó","nadamos","nadasteis","nadaron"],
+   "fut": ["nadaré","nadarás","nadará","nadaremos","nadaréis","nadarán"]
   },
   {
    "es": "necesitar",
@@ -1124,6 +1180,13 @@
    "fut": ["pareceré", "parecerás", "parecerá", "pareceremos", "pareceréis", "parecerán"]
   },
   {
+   "es": "parecerse",
+   "kind": "irregular",
+   "pres": ["me parezco","te pareces","se parece","nos parecemos","os parecéis","se parecen"],
+   "pret": ["me parecí","te pareciste","se pareció","nos parecimos","os parecisteis","se parecieron"],
+   "fut": ["me pareceré","te parecerás","se parecerá","nos pareceremos","os pareceréis","se parecerán"]
+  },
+  {
    "es": "participar",
    "kind": "regular",
    "pres": ["participo", "participas", "participa", "participamos", "participáis", "participan"],
@@ -1143,6 +1206,13 @@
    "pres": ["pido", "pides", "pide", "pedimos", "pedís", "piden"],
    "pret": ["pedí", "pediste", "pidió", "pedimos", "pedisteis", "pidieron"],
    "fut": ["pediré", "pedirás", "pedirá", "pediremos", "pediréis", "pedirán"]
+  },
+  {
+   "es": "peinarse",
+   "kind": "regular",
+   "pres": ["me peino","te peinas","se peina","nos peinamos","os peináis","se peinan"],
+   "pret": ["me peiné","te peinaste","se peinó","nos peinamos","os peinasteis","se peinaron"],
+   "fut": ["me peinaré","te peinarás","se peinará","nos peinaremos","os peinaréis","se peinarán"]
   },
   {
    "es": "pensar",
@@ -1166,6 +1236,20 @@
    "fut": ["permitiré", "permitirás", "permitirá", "permitiremos", "permitiréis", "permitirán"]
   },
   {
+   "es": "pesar",
+   "kind": "regular",
+   "pres": ["peso","pesas","pesa","pesamos","pesáis","pesan"],
+   "pret": ["pesé","pesaste","pesó","pesamos","pesasteis","pesaron"],
+   "fut": ["pesaré","pesarás","pesará","pesaremos","pesaréis","pesarán"]
+  },
+  {
+   "es": "planchar",
+   "kind": "regular",
+   "pres": ["plancho","planchas","plancha","planchamos","plancháis","planchan"],
+   "pret": ["planché","planchaste","planchó","planchamos","planchasteis","plancharon"],
+   "fut": ["plancharé","plancharás","planchará","plancharemos","plancharéis","plancharán"]
+  },
+  {
    "es": "poder",
    "kind": "irregular",
    "pres": ["puedo", "puedes", "puede", "podemos", "podéis", "pueden"],
@@ -1178,6 +1262,13 @@
    "pres": ["pongo", "pones", "pone", "ponemos", "ponéis", "ponen"],
    "pret": ["puse", "pusiste", "puso", "pusimos", "pusisteis", "pusieron"],
    "fut": ["pondré", "pondrás", "pondrá", "pondremos", "pondréis", "pondrán"]
+  },
+  {
+   "es": "ponerse",
+   "kind": "irregular",
+   "pres": ["me pongo","te pones","se pone","nos ponemos","os ponéis","se ponen"],
+   "pret": ["me puse","te pusiste","se puso","nos pusimos","os pusisteis","se pusieron"],
+   "fut": ["me pondré","te pondrás","se pondrá","nos pondremos","os pondréis","se pondrán"]
   },
   {
    "es": "preferir",
@@ -1229,6 +1320,13 @@
    "fut": ["probaré", "probarás", "probará", "probaremos", "probaréis", "probarán"]
   },
   {
+   "es": "probarse",
+   "kind": "stem",
+   "pres": ["me pruebo","te pruebas","se prueba","nos probamos","os probáis","se prueban"],
+   "pret": ["me probé","te probaste","se probó","nos probamos","os probasteis","se probaron"],
+   "fut": ["me probaré","te probarás","se probará","nos probaremos","os probaréis","se probarán"]
+  },
+  {
    "es": "prohibir",
    "kind": "stem",
    "pres": ["prohíbo", "prohíbes", "prohíbe", "prohibimos", "prohibís", "prohíben"],
@@ -1262,6 +1360,13 @@
    "pres": ["quito", "quitas", "quita", "quitamos", "quitáis", "quitan"],
    "pret": ["quité", "quitaste", "quitó", "quitamos", "quitasteis", "quitaron"],
    "fut": ["quitaré", "quitarás", "quitará", "quitaremos", "quitaréis", "quitarán"]
+  },
+  {
+   "es": "quitarse",
+   "kind": "regular",
+   "pres": ["me quito","te quitas","se quita","nos quitamos","os quitáis","se quitan"],
+   "pret": ["me quité","te quitaste","se quitó","nos quitamos","os quitasteis","se quitaron"],
+   "fut": ["me quitaré","te quitarás","se quitará","nos quitaremos","os quitaréis","se quitarán"]
   },
   {
    "es": "recargar",

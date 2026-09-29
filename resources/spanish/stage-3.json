@@ -165,10 +165,6 @@
   },
   {
    "kind": "topic",
-   "name": "Тело"
-  },
-  {
-   "kind": "topic",
    "name": "Здоровье"
   },
   {
@@ -193,7 +189,7 @@
   },
   {
    "kind": "topic",
-   "name": "Одежда и аксессуары"
+   "name": "Аксессуары"
   },
   {
    "kind": "topic",
@@ -244,6 +240,26 @@
   {
    "name": "Эмоции",
    "icon": "🎭"
+  },
+  {
+   "name": "Тело и внешность",
+   "icon": "🧍"
+  },
+  {
+   "name": "Одежда",
+   "icon": "👕"
+  },
+  {
+   "name": "Фрукты и овощи",
+   "icon": "🥕"
+  },
+  {
+   "name": "Ежедневные действия",
+   "icon": "⏰"
+  },
+  {
+   "name": "Количество и меры",
+   "icon": "⚖️"
   }
  ],
  "calc": {
@@ -2358,7 +2374,7 @@
    "type": "vocab",
    "es": "naranja",
    "en": "orange",
-   "ru": "оранжевый / апельсин",
+   "ru": "оранжевый",
    "tr": "нара́нха",
    "group": null,
    "set": "Цвета",
@@ -2372,17 +2388,17 @@
      ]
     },
     {
-     "es": "Las naranjas de aquí son dulces.",
-     "ru": "Здешние апельсины сладкие.",
+     "es": "Pinta la pared de naranja.",
+     "ru": "Покрась стену в оранжевый.",
      "frame": [
-      "naranjas"
+      "naranja"
      ]
     },
     {
-     "es": "Pídeme un zumo de naranja.",
-     "ru": "Закажи мне апельсиновый сок.",
+     "es": "Los chalecos de obra son naranjas.",
+     "ru": "Строительные жилеты оранжевые.",
      "frame": [
-      "naranja"
+      "naranjas"
      ]
     }
    ]
@@ -5297,6 +5313,7518 @@
    ]
   },
   {
+   "id": "es3-v348",
+   "type": "vocab",
+   "es": "el cuerpo",
+   "en": "body",
+   "ru": "тело",
+   "tr": "эл куэ́рпо",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me duele todo el cuerpo.",
+     "ru": "У меня болит всё тело.",
+     "frame": [
+      "cuerpo"
+     ]
+    },
+    {
+     "es": "El cuerpo necesita descanso.",
+     "ru": "Телу нужен отдых.",
+     "frame": [
+      "cuerpo"
+     ]
+    },
+    {
+     "es": "Tiene el cuerpo lleno de arena.",
+     "ru": "Он весь в песке.",
+     "frame": [
+      "cuerpo"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v349",
+   "type": "vocab",
+   "es": "la cabeza",
+   "en": "head",
+   "ru": "голова",
+   "tr": "ла кабэ́са",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me duele la cabeza.",
+     "ru": "У меня болит голова.",
+     "frame": [
+      "cabeza"
+     ]
+    },
+    {
+     "es": "Cuidado con la cabeza al entrar.",
+     "ru": "Осторожно, голова, когда заходишь.",
+     "frame": [
+      "cabeza"
+     ]
+    },
+    {
+     "es": "No me entra en la cabeza.",
+     "ru": "У меня это в голове не укладывается.",
+     "frame": [
+      "cabeza"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v350",
+   "type": "vocab",
+   "es": "la cara",
+   "en": "face",
+   "ru": "лицо",
+   "tr": "ла ка́ра",
+   "group": null,
+   "ex": [
+    {
+     "es": "Tienes buena cara hoy.",
+     "ru": "Ты сегодня хорошо выглядишь.",
+     "frame": [
+      "cara"
+     ]
+    },
+    {
+     "es": "Lávate la cara antes de salir.",
+     "ru": "Умойся перед выходом.",
+     "frame": [
+      "cara"
+     ]
+    },
+    {
+     "es": "Le he visto la cara un momento.",
+     "ru": "Я на секунду увидел его лицо.",
+     "frame": [
+      "cara"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v351",
+   "type": "vocab",
+   "es": "el ojo",
+   "en": "eye",
+   "ru": "глаз",
+   "tr": "эл о́хо",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me ha entrado algo en el ojo.",
+     "ru": "Мне что-то попало в глаз.",
+     "frame": [
+      "ojo"
+     ]
+    },
+    {
+     "es": "Tiene los ojos azules.",
+     "ru": "У него голубые глаза.",
+     "frame": [
+      "ojos"
+     ]
+    },
+    {
+     "es": "Cierra los ojos un momento.",
+     "ru": "Закрой глаза на минуту.",
+     "frame": [
+      "ojos"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v352",
+   "type": "vocab",
+   "es": "la nariz",
+   "en": "nose",
+   "ru": "нос",
+   "tr": "ла нари́с",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me sangra la nariz.",
+     "ru": "У меня идёт кровь из носа.",
+     "frame": [
+      "nariz"
+     ]
+    },
+    {
+     "es": "Respira por la nariz.",
+     "ru": "Дыши носом.",
+     "frame": [
+      "nariz"
+     ]
+    },
+    {
+     "es": "Tengo la nariz tapada.",
+     "ru": "У меня заложен нос.",
+     "frame": [
+      "nariz"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v353",
+   "type": "vocab",
+   "es": "la boca",
+   "en": "mouth",
+   "ru": "рот",
+   "tr": "ла бо́ка",
+   "group": null,
+   "ex": [
+    {
+     "es": "Abra la boca, por favor.",
+     "ru": "Откройте рот, пожалуйста.",
+     "frame": [
+      "boca"
+     ]
+    },
+    {
+     "es": "No hables con la boca llena.",
+     "ru": "Не говори с набитым ртом.",
+     "frame": [
+      "boca"
+     ]
+    },
+    {
+     "es": "La boca de metro está cerrada.",
+     "ru": "Вход в метро закрыт.",
+     "frame": [
+      "boca"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v354",
+   "type": "vocab",
+   "es": "la oreja",
+   "en": "ear",
+   "ru": "ухо",
+   "tr": "ла орэ́ха",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me duele la oreja derecha.",
+     "ru": "У меня болит правое ухо.",
+     "frame": [
+      "oreja"
+     ]
+    },
+    {
+     "es": "Tiene un pendiente en la oreja.",
+     "ru": "У неё серьга в ухе.",
+     "frame": [
+      "oreja"
+     ]
+    },
+    {
+     "es": "Acércate y te lo digo al oído.",
+     "ru": "Подойди, скажу тебе на ухо."
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v355",
+   "type": "vocab",
+   "es": "el cuello",
+   "en": "neck",
+   "ru": "шея",
+   "tr": "эл куэ́йо",
+   "group": null,
+   "ex": [
+    {
+     "es": "Tengo el cuello duro.",
+     "ru": "У меня затекла шея.",
+     "frame": [
+      "cuello"
+     ]
+    },
+    {
+     "es": "La camisa me aprieta en el cuello.",
+     "ru": "Рубашка жмёт в шее.",
+     "frame": [
+      "cuello"
+     ]
+    },
+    {
+     "es": "Ponte algo en el cuello, hace frío.",
+     "ru": "Надень что-нибудь на шею, холодно.",
+     "frame": [
+      "cuello"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v356",
+   "type": "vocab",
+   "es": "el hombro",
+   "en": "shoulder",
+   "ru": "плечо",
+   "tr": "эл о́мбро",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me duele el hombro izquierdo.",
+     "ru": "У меня болит левое плечо.",
+     "frame": [
+      "hombro"
+     ]
+    },
+    {
+     "es": "Llevo la mochila en un hombro.",
+     "ru": "Я ношу рюкзак на одном плече.",
+     "frame": [
+      "hombro"
+     ]
+    },
+    {
+     "es": "Le puse la mano en el hombro.",
+     "ru": "Я положил ему руку на плечо.",
+     "frame": [
+      "hombro"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v357",
+   "type": "vocab",
+   "es": "el brazo",
+   "en": "arm",
+   "ru": "рука",
+   "tr": "эл бра́со",
+   "group": null,
+   "ex": [
+    {
+     "es": "Se ha roto el brazo.",
+     "ru": "Он сломал руку.",
+     "frame": [
+      "brazo"
+     ]
+    },
+    {
+     "es": "Levanta el brazo despacio.",
+     "ru": "Подними руку медленно.",
+     "frame": [
+      "brazo"
+     ]
+    },
+    {
+     "es": "Lleva al niño en brazos.",
+     "ru": "Он несёт ребёнка на руках.",
+     "frame": [
+      "brazos"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v358",
+   "type": "vocab",
+   "es": "la mano",
+   "en": "hand",
+   "ru": "кисть/рука",
+   "tr": "ла ма́но",
+   "group": null,
+   "ex": [
+    {
+     "es": "Dame la mano.",
+     "ru": "Дай руку.",
+     "frame": [
+      "mano"
+     ]
+    },
+    {
+     "es": "Tengo las manos frías.",
+     "ru": "У меня холодные руки.",
+     "frame": [
+      "manos"
+     ]
+    },
+    {
+     "es": "Lo hice a mano.",
+     "ru": "Я сделал это вручную.",
+     "frame": [
+      "mano"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v359",
+   "type": "vocab",
+   "es": "el dedo",
+   "en": "finger/toe",
+   "ru": "палец",
+   "tr": "эл дэ́до",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me he cortado el dedo.",
+     "ru": "Я порезал палец.",
+     "frame": [
+      "dedo"
+     ]
+    },
+    {
+     "es": "Señala con el dedo dónde duele.",
+     "ru": "Покажи пальцем, где болит.",
+     "frame": [
+      "dedo"
+     ]
+    },
+    {
+     "es": "El anillo no me entra en el dedo.",
+     "ru": "Кольцо не налезает на палец.",
+     "frame": [
+      "dedo"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v360",
+   "type": "vocab",
+   "es": "el pecho",
+   "en": "chest",
+   "ru": "грудь",
+   "tr": "эл пэ́чо",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me duele el pecho al respirar.",
+     "ru": "У меня болит грудь при дыхании.",
+     "frame": [
+      "pecho"
+     ]
+    },
+    {
+     "es": "El niño se durmió en mi pecho.",
+     "ru": "Ребёнок уснул у меня на груди.",
+     "frame": [
+      "pecho"
+     ]
+    },
+    {
+     "es": "Siente un peso en el pecho.",
+     "ru": "Он чувствует тяжесть в груди.",
+     "frame": [
+      "pecho"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v361",
+   "type": "vocab",
+   "es": "la espalda",
+   "en": "back",
+   "ru": "спина",
+   "tr": "ла эспа́лда",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me duele la espalda.",
+     "ru": "У меня болит спина.",
+     "frame": [
+      "espalda"
+     ]
+    },
+    {
+     "es": "Duerme boca abajo por la espalda.",
+     "ru": "Он спит на животе из-за спины.",
+     "frame": [
+      "espalda"
+     ]
+    },
+    {
+     "es": "Lleva la mochila a la espalda.",
+     "ru": "Он носит рюкзак за спиной.",
+     "frame": [
+      "espalda"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v362",
+   "type": "vocab",
+   "es": "la barriga",
+   "en": "belly",
+   "ru": "живот",
+   "tr": "ла барри́га",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me duele la barriga.",
+     "ru": "У меня болит живот.",
+     "frame": [
+      "barriga"
+     ]
+    },
+    {
+     "es": "El niño tiene la barriga llena.",
+     "ru": "Ребёнок наелся.",
+     "frame": [
+      "barriga"
+     ]
+    },
+    {
+     "es": "Túmbate boca arriba y relaja la barriga.",
+     "ru": "Ляг на спину и расслабь живот.",
+     "frame": [
+      "barriga"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v363",
+   "type": "vocab",
+   "es": "la pierna",
+   "en": "leg",
+   "ru": "нога",
+   "tr": "ла пье́рна",
+   "group": null,
+   "ex": [
+    {
+     "es": "Se ha hecho daño en la pierna.",
+     "ru": "Он повредил ногу.",
+     "frame": [
+      "pierna"
+     ]
+    },
+    {
+     "es": "Estira la pierna despacio.",
+     "ru": "Вытяни ногу медленно.",
+     "frame": [
+      "pierna"
+     ]
+    },
+    {
+     "es": "Me duele la pierna al andar.",
+     "ru": "У меня болит нога при ходьбе.",
+     "frame": [
+      "pierna"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v364",
+   "type": "vocab",
+   "es": "la rodilla",
+   "en": "knee",
+   "ru": "колено",
+   "tr": "ла рроди́йа",
+   "group": null,
+   "ex": [
+    {
+     "es": "Se cayó y se hizo daño en la rodilla.",
+     "ru": "Он упал и ушиб колено.",
+     "frame": [
+      "rodilla"
+     ]
+    },
+    {
+     "es": "Me duele la rodilla al subir escaleras.",
+     "ru": "У меня болит колено на лестнице.",
+     "frame": [
+      "rodilla"
+     ]
+    },
+    {
+     "es": "El niño tiene la rodilla roja.",
+     "ru": "У ребёнка красное колено.",
+     "frame": [
+      "rodilla"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v365",
+   "type": "vocab",
+   "es": "el pie",
+   "en": "foot",
+   "ru": "ступня",
+   "tr": "эл пье",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me duele el pie derecho.",
+     "ru": "У меня болит правая ступня.",
+     "frame": [
+      "pie"
+     ]
+    },
+    {
+     "es": "Vamos a pie, está cerca.",
+     "ru": "Пойдём пешком, это рядом.",
+     "frame": [
+      "pie"
+     ]
+    },
+    {
+     "es": "Se me ha dormido el pie.",
+     "ru": "У меня затекла нога.",
+     "frame": [
+      "pie"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v366",
+   "type": "vocab",
+   "es": "la piel",
+   "en": "skin",
+   "ru": "кожа",
+   "tr": "ла пьел",
+   "group": null,
+   "ex": [
+    {
+     "es": "Tengo la piel muy seca.",
+     "ru": "У меня очень сухая кожа.",
+     "frame": [
+      "piel"
+     ]
+    },
+    {
+     "es": "Protege la piel del sol.",
+     "ru": "Защищай кожу от солнца.",
+     "frame": [
+      "piel"
+     ]
+    },
+    {
+     "es": "Esta crema es para la piel sensible.",
+     "ru": "Этот крем для чувствительной кожи.",
+     "frame": [
+      "piel"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v367",
+   "type": "vocab",
+   "es": "el pelo",
+   "en": "hair",
+   "ru": "волосы",
+   "tr": "эл пэ́ло",
+   "group": null,
+   "ex": [
+    {
+     "es": "Tengo que cortarme el pelo.",
+     "ru": "Мне нужно постричься.",
+     "frame": [
+      "pelo"
+     ]
+    },
+    {
+     "es": "Tiene el pelo largo y rizado.",
+     "ru": "У неё длинные кудрявые волосы.",
+     "frame": [
+      "pelo"
+     ]
+    },
+    {
+     "es": "Sécate el pelo, hace frío.",
+     "ru": "Высуши волосы, холодно.",
+     "frame": [
+      "pelo"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v368",
+   "type": "vocab",
+   "es": "el diente",
+   "en": "tooth",
+   "ru": "зуб",
+   "tr": "эл дье́нтэ",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me duele un diente.",
+     "ru": "У меня болит зуб.",
+     "frame": [
+      "diente"
+     ]
+    },
+    {
+     "es": "Al niño se le ha caído un diente.",
+     "ru": "У ребёнка выпал зуб.",
+     "frame": [
+      "diente"
+     ]
+    },
+    {
+     "es": "Lávate los dientes.",
+     "ru": "Почисти зубы.",
+     "frame": [
+      "dientes"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v369",
+   "type": "vocab",
+   "es": "el corazón",
+   "en": "heart",
+   "ru": "сердце",
+   "tr": "эл корасо́н",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me late muy rápido el corazón.",
+     "ru": "У меня очень быстро бьётся сердце.",
+     "frame": [
+      "corazón"
+     ]
+    },
+    {
+     "es": "Tiene problemas de corazón.",
+     "ru": "У него проблемы с сердцем.",
+     "frame": [
+      "corazón"
+     ]
+    },
+    {
+     "es": "Es una persona de buen corazón.",
+     "ru": "Он человек с добрым сердцем.",
+     "frame": [
+      "corazón"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v370",
+   "type": "vocab",
+   "es": "la sangre",
+   "en": "blood",
+   "ru": "кровь",
+   "tr": "ла са́нгрэ",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me hicieron un análisis de sangre.",
+     "ru": "Мне сделали анализ крови.",
+     "frame": [
+      "sangre"
+     ]
+    },
+    {
+     "es": "La herida sangra un poco.",
+     "ru": "Рана немного кровит."
+    },
+    {
+     "es": "No soporto ver sangre.",
+     "ru": "Я не переношу вид крови.",
+     "frame": [
+      "sangre"
+     ]
+    }
+   ],
+   "set": "Тело и внешность"
+  },
+  {
+   "id": "es3-v762",
+   "type": "vocab",
+   "es": "el aspecto",
+   "en": "appearance / look",
+   "ru": "внешний вид",
+   "tr": "эл аспэ́кто",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tiene buen aspecto.",
+     "ru": "Он хорошо выглядит.",
+     "frame": [
+      "aspecto"
+     ]
+    },
+    {
+     "es": "No me gusta el aspecto de esa fruta.",
+     "ru": "Мне не нравится, как выглядит этот фрукт.",
+     "frame": [
+      "aspecto"
+     ]
+    },
+    {
+     "es": "Cuida mucho su aspecto.",
+     "ru": "Она очень следит за своим внешним видом.",
+     "frame": [
+      "aspecto"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v763",
+   "type": "vocab",
+   "es": "la frente",
+   "en": "forehead",
+   "ru": "лоб",
+   "tr": "ла фрэ́нтэ",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tiene la frente muy alta.",
+     "ru": "У него очень высокий лоб.",
+     "frame": [
+      "frente"
+     ]
+    },
+    {
+     "es": "Me he dado un golpe en la frente.",
+     "ru": "Я ударился лбом.",
+     "frame": [
+      "frente"
+     ]
+    },
+    {
+     "es": "El niño tiene la frente caliente.",
+     "ru": "У ребёнка горячий лоб.",
+     "frame": [
+      "frente"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v764",
+   "type": "vocab",
+   "es": "la ceja",
+   "en": "eyebrow",
+   "ru": "бровь",
+   "tr": "ла сэ́ха",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Se ha cortado en la ceja.",
+     "ru": "Он рассёк бровь.",
+     "frame": [
+      "ceja"
+     ]
+    },
+    {
+     "es": "Tiene las cejas muy pobladas.",
+     "ru": "У него очень густые брови.",
+     "frame": [
+      "cejas"
+     ]
+    },
+    {
+     "es": "Levantó una ceja y no dijo nada.",
+     "ru": "Он поднял бровь и ничего не сказал.",
+     "frame": [
+      "ceja"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v765",
+   "type": "vocab",
+   "es": "la pestaña",
+   "en": "eyelash",
+   "ru": "ресница",
+   "tr": "ла пэста́нья",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tiene las pestañas muy largas.",
+     "ru": "У неё очень длинные ресницы.",
+     "frame": [
+      "pestañas"
+     ]
+    },
+    {
+     "es": "Se me ha metido una pestaña en el ojo.",
+     "ru": "Мне в глаз попала ресница.",
+     "frame": [
+      "pestaña"
+     ]
+    },
+    {
+     "es": "Se pinta las pestañas cada mañana.",
+     "ru": "Она красит ресницы каждое утро.",
+     "frame": [
+      "pestañas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v766",
+   "type": "vocab",
+   "es": "el labio",
+   "en": "lip",
+   "ru": "губа",
+   "tr": "эл ла́бьо",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tengo los labios secos.",
+     "ru": "У меня сухие губы.",
+     "frame": [
+      "labios"
+     ]
+    },
+    {
+     "es": "Se ha mordido el labio.",
+     "ru": "Он прикусил губу.",
+     "frame": [
+      "labio"
+     ]
+    },
+    {
+     "es": "Lleva los labios pintados de rojo.",
+     "ru": "У неё губы накрашены красным.",
+     "frame": [
+      "labios"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v767",
+   "type": "vocab",
+   "es": "la lengua",
+   "en": "tongue",
+   "ru": "язык (во рту)",
+   "tr": "ла лэ́нгуа",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Me he quemado la lengua con el café.",
+     "ru": "Я обжёг язык кофе.",
+     "frame": [
+      "lengua"
+     ]
+    },
+    {
+     "es": "Saca la lengua, dice el médico.",
+     "ru": "«Высунь язык», — говорит врач.",
+     "frame": [
+      "lengua"
+     ]
+    },
+    {
+     "es": "Al perro le cuelga la lengua del calor.",
+     "ru": "У собаки от жары свисает язык.",
+     "frame": [
+      "lengua"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v768",
+   "type": "vocab",
+   "es": "la mejilla",
+   "en": "cheek",
+   "ru": "щека",
+   "tr": "ла мэхи́йа",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Le dio un beso en la mejilla.",
+     "ru": "Он поцеловал её в щёку.",
+     "frame": [
+      "mejilla"
+     ]
+    },
+    {
+     "es": "Tiene las mejillas rojas del frío.",
+     "ru": "У него щёки красные от холода.",
+     "frame": [
+      "mejillas"
+     ]
+    },
+    {
+     "es": "En España se dan dos besos en las mejillas.",
+     "ru": "В Испании целуют в обе щеки.",
+     "frame": [
+      "mejillas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v769",
+   "type": "vocab",
+   "es": "la barbilla",
+   "en": "chin",
+   "ru": "подбородок",
+   "tr": "ла барби́йа",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Se apoya la barbilla en la mano.",
+     "ru": "Он подпирает подбородок рукой.",
+     "frame": [
+      "barbilla"
+     ]
+    },
+    {
+     "es": "Tiene un lunar en la barbilla.",
+     "ru": "У него родинка на подбородке.",
+     "frame": [
+      "barbilla"
+     ]
+    },
+    {
+     "es": "Levanta la barbilla para la foto.",
+     "ru": "Подними подбородок для фото.",
+     "frame": [
+      "barbilla"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v770",
+   "type": "vocab",
+   "es": "la garganta",
+   "en": "throat",
+   "ru": "горло",
+   "tr": "ла гарга́нта",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tengo la garganta seca.",
+     "ru": "У меня пересохло в горле.",
+     "frame": [
+      "garganta"
+     ]
+    },
+    {
+     "es": "Toma miel para la garganta.",
+     "ru": "Прими мёд от горла.",
+     "frame": [
+      "garganta"
+     ]
+    },
+    {
+     "es": "Con la garganta así no puedes cantar.",
+     "ru": "С таким горлом ты не можешь петь.",
+     "frame": [
+      "garganta"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v771",
+   "type": "vocab",
+   "es": "el estómago",
+   "en": "stomach",
+   "ru": "желудок",
+   "tr": "эл эсто́маго",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tengo el estómago vacío.",
+     "ru": "У меня пустой желудок.",
+     "frame": [
+      "estómago"
+     ]
+    },
+    {
+     "es": "Me duele el estómago después de comer.",
+     "ru": "У меня болит желудок после еды.",
+     "frame": [
+      "estómago"
+     ]
+    },
+    {
+     "es": "No tomes café con el estómago vacío.",
+     "ru": "Не пей кофе на голодный желудок.",
+     "frame": [
+      "estómago"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v772",
+   "type": "vocab",
+   "es": "el codo",
+   "en": "elbow",
+   "ru": "локоть",
+   "tr": "эл ко́до",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Me he golpeado el codo con la puerta.",
+     "ru": "Я ударился локтем о дверь.",
+     "frame": [
+      "codo"
+     ]
+    },
+    {
+     "es": "No pongas los codos en la mesa.",
+     "ru": "Не клади локти на стол.",
+     "frame": [
+      "codos"
+     ]
+    },
+    {
+     "es": "Tiene el codo hinchado.",
+     "ru": "У него распух локоть.",
+     "frame": [
+      "codo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v773",
+   "type": "vocab",
+   "es": "la muñeca",
+   "en": "wrist",
+   "ru": "запястье",
+   "tr": "ла муньэ́ка",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Me duele la muñeca de tanto escribir.",
+     "ru": "У меня болит запястье от письма.",
+     "frame": [
+      "muñeca"
+     ]
+    },
+    {
+     "es": "Lleva el reloj en la muñeca izquierda.",
+     "ru": "Он носит часы на левом запястье.",
+     "frame": [
+      "muñeca"
+     ]
+    },
+    {
+     "es": "Se ha roto la muñeca jugando al fútbol.",
+     "ru": "Он сломал запястье, играя в футбол.",
+     "frame": [
+      "muñeca"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v774",
+   "type": "vocab",
+   "es": "la uña",
+   "en": "nail",
+   "ru": "ноготь",
+   "tr": "ла у́нья",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Se muerde las uñas cuando está nervioso.",
+     "ru": "Он грызёт ногти, когда нервничает.",
+     "frame": [
+      "uñas"
+     ]
+    },
+    {
+     "es": "Tengo que cortarme las uñas.",
+     "ru": "Мне нужно подстричь ногти.",
+     "frame": [
+      "uñas"
+     ]
+    },
+    {
+     "es": "Lleva las uñas pintadas de azul.",
+     "ru": "У неё ногти накрашены синим.",
+     "frame": [
+      "uñas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v775",
+   "type": "vocab",
+   "es": "el tobillo",
+   "en": "ankle",
+   "ru": "лодыжка",
+   "tr": "эл тоби́йо",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Me he torcido el tobillo.",
+     "ru": "Я подвернул лодыжку.",
+     "frame": [
+      "tobillo"
+     ]
+    },
+    {
+     "es": "Tiene el tobillo hinchado.",
+     "ru": "У него распухла лодыжка.",
+     "frame": [
+      "tobillo"
+     ]
+    },
+    {
+     "es": "El agua me llega al tobillo.",
+     "ru": "Вода мне по щиколотку.",
+     "frame": [
+      "tobillo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v776",
+   "type": "vocab",
+   "es": "el hueso",
+   "en": "bone",
+   "ru": "кость",
+   "tr": "эл уэ́со",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Se ha roto un hueso del pie.",
+     "ru": "Он сломал кость стопы.",
+     "frame": [
+      "hueso"
+     ]
+    },
+    {
+     "es": "La leche es buena para los huesos.",
+     "ru": "Молоко полезно для костей.",
+     "frame": [
+      "huesos"
+     ]
+    },
+    {
+     "es": "El perro está royendo un hueso.",
+     "ru": "Собака грызёт кость.",
+     "frame": [
+      "hueso"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v777",
+   "type": "vocab",
+   "es": "la cintura",
+   "en": "waist",
+   "ru": "талия",
+   "tr": "ла синту́ра",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tiene la cintura muy estrecha.",
+     "ru": "У неё очень тонкая талия.",
+     "frame": [
+      "cintura"
+     ]
+    },
+    {
+     "es": "El agua nos llegaba hasta la cintura.",
+     "ru": "Вода доходила нам до пояса.",
+     "frame": [
+      "cintura"
+     ]
+    },
+    {
+     "es": "Estos pantalones me aprietan en la cintura.",
+     "ru": "Эти брюки жмут мне в талии.",
+     "frame": [
+      "cintura"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v778",
+   "type": "vocab",
+   "es": "la cadera",
+   "en": "hip",
+   "ru": "бедро",
+   "tr": "ла кадэ́ра",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Mi abuela se ha operado de la cadera.",
+     "ru": "Моей бабушке сделали операцию на бедре.",
+     "frame": [
+      "cadera"
+     ]
+    },
+    {
+     "es": "Lleva las manos en las caderas.",
+     "ru": "Она стоит, уперев руки в бока.",
+     "frame": [
+      "caderas"
+     ]
+    },
+    {
+     "es": "Me duele la cadera al andar.",
+     "ru": "У меня болит бедро при ходьбе.",
+     "frame": [
+      "cadera"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v779",
+   "type": "vocab",
+   "es": "el culo",
+   "en": "bottom (colloquial)",
+   "ru": "попа (разг.)",
+   "tr": "эл ку́ло",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Se ha caído de culo.",
+     "ru": "Он упал на попу.",
+     "frame": [
+      "culo"
+     ]
+    },
+    {
+     "es": "Siéntate bien, con el culo en la silla.",
+     "ru": "Сядь как следует, попой на стул.",
+     "frame": [
+      "culo"
+     ]
+    },
+    {
+     "es": "Me duele el culo de estar tanto tiempo sentado.",
+     "ru": "У меня болит попа от долгого сидения.",
+     "frame": [
+      "culo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v780",
+   "type": "vocab",
+   "es": "la estatura",
+   "en": "height (of a person)",
+   "ru": "рост",
+   "tr": "ла эстату́ра",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "¿Cuánto mides de estatura?",
+     "ru": "Какой у тебя рост?",
+     "frame": [
+      "estatura"
+     ]
+    },
+    {
+     "es": "Es de estatura media.",
+     "ru": "Он среднего роста.",
+     "frame": [
+      "estatura"
+     ]
+    },
+    {
+     "es": "Los niños se ordenan por estatura.",
+     "ru": "Дети выстраиваются по росту.",
+     "frame": [
+      "estatura"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v781",
+   "type": "vocab",
+   "es": "la barba",
+   "en": "beard",
+   "ru": "борода",
+   "tr": "ла ба́рба",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Se está dejando barba.",
+     "ru": "Он отращивает бороду.",
+     "frame": [
+      "barba"
+     ]
+    },
+    {
+     "es": "Tiene una barba larga y gris.",
+     "ru": "У него длинная седая борода.",
+     "frame": [
+      "barba"
+     ]
+    },
+    {
+     "es": "Con barba pareces mayor.",
+     "ru": "С бородой ты выглядишь старше.",
+     "frame": [
+      "barba"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v782",
+   "type": "vocab",
+   "es": "el bigote",
+   "en": "moustache",
+   "ru": "усы",
+   "tr": "эл биго́тэ",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Mi abuelo llevaba bigote.",
+     "ru": "Мой дед носил усы.",
+     "frame": [
+      "bigote"
+     ]
+    },
+    {
+     "es": "Se ha afeitado el bigote.",
+     "ru": "Он сбрил усы.",
+     "frame": [
+      "bigote"
+     ]
+    },
+    {
+     "es": "Tienes bigote de leche.",
+     "ru": "У тебя молочные усы.",
+     "frame": [
+      "bigote"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v783",
+   "type": "vocab",
+   "es": "las canas",
+   "en": "grey hair",
+   "ru": "седина",
+   "tr": "лас ка́нас",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Le han salido las primeras canas.",
+     "ru": "У него появилась первая седина.",
+     "frame": [
+      "canas"
+     ]
+    },
+    {
+     "es": "Se tiñe para tapar las canas.",
+     "ru": "Она красится, чтобы скрыть седину.",
+     "frame": [
+      "canas"
+     ]
+    },
+    {
+     "es": "Con cuarenta años ya tiene muchas canas.",
+     "ru": "В сорок лет у него уже много седых волос.",
+     "frame": [
+      "canas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v784",
+   "type": "vocab",
+   "es": "rubio",
+   "en": "blond",
+   "ru": "светловолосый",
+   "tr": "рру́бьо",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Mi hija es rubia como su madre.",
+     "ru": "Моя дочь светловолосая, как её мать.",
+     "frame": [
+      "rubia"
+     ]
+    },
+    {
+     "es": "De pequeño era rubio.",
+     "ru": "В детстве он был блондином.",
+     "frame": [
+      "rubio"
+     ]
+    },
+    {
+     "es": "Busca a un chico rubio con gafas.",
+     "ru": "Ищи светловолосого парня в очках.",
+     "frame": [
+      "rubio"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v785",
+   "type": "vocab",
+   "es": "moreno",
+   "en": "dark-haired / tanned",
+   "ru": "темноволосый / смуглый",
+   "tr": "морэ́но",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Es moreno y con los ojos oscuros.",
+     "ru": "Он темноволосый, с тёмными глазами.",
+     "frame": [
+      "moreno"
+     ]
+    },
+    {
+     "es": "Después del verano estás muy morena.",
+     "ru": "После лета ты очень загорела.",
+     "frame": [
+      "morena"
+     ]
+    },
+    {
+     "es": "La chica morena de la foto es mi prima.",
+     "ru": "Темноволосая девушка на фото — моя кузина.",
+     "frame": [
+      "morena"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v786",
+   "type": "vocab",
+   "es": "castaño",
+   "en": "brown (hair)",
+   "ru": "каштановый (о волосах)",
+   "tr": "каста́ньо",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tiene el pelo castaño claro.",
+     "ru": "У неё светло-каштановые волосы.",
+     "frame": [
+      "castaño"
+     ]
+    },
+    {
+     "es": "Los dos hermanos son castaños.",
+     "ru": "Оба брата шатены.",
+     "frame": [
+      "castaños"
+     ]
+    },
+    {
+     "es": "Mi color natural es el castaño.",
+     "ru": "Мой натуральный цвет — каштановый.",
+     "frame": [
+      "castaño"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v787",
+   "type": "vocab",
+   "es": "pelirrojo",
+   "en": "red-haired",
+   "ru": "рыжий",
+   "tr": "пэлирро́хо",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "En Irlanda hay muchos pelirrojos.",
+     "ru": "В Ирландии много рыжих.",
+     "frame": [
+      "pelirrojos"
+     ]
+    },
+    {
+     "es": "Mi hijo salió pelirrojo como su abuelo.",
+     "ru": "Мой сын родился рыжим, как его дед.",
+     "frame": [
+      "pelirrojo"
+     ]
+    },
+    {
+     "es": "La niña pelirroja es la más alta de la clase.",
+     "ru": "Рыжая девочка — самая высокая в классе.",
+     "frame": [
+      "pelirroja"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v788",
+   "type": "vocab",
+   "es": "calvo",
+   "en": "bald",
+   "ru": "лысый",
+   "tr": "ка́лбо",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Mi padre se quedó calvo muy joven.",
+     "ru": "Мой отец облысел очень молодым.",
+     "frame": [
+      "calvo"
+     ]
+    },
+    {
+     "es": "El profesor calvo es el de matemáticas.",
+     "ru": "Лысый учитель — это математик.",
+     "frame": [
+      "calvo"
+     ]
+    },
+    {
+     "es": "Prefiero ir calvo a llevar peluca.",
+     "ru": "Лучше ходить лысым, чем носить парик.",
+     "frame": [
+      "calvo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v789",
+   "type": "vocab",
+   "es": "liso",
+   "en": "straight (hair) / plain",
+   "ru": "прямой (о волосах) / гладкий",
+   "tr": "ли́со",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tengo el pelo liso y fino.",
+     "ru": "У меня прямые тонкие волосы.",
+     "frame": [
+      "liso"
+     ]
+    },
+    {
+     "es": "Se plancha el pelo para llevarlo liso.",
+     "ru": "Она выпрямляет волосы утюжком.",
+     "frame": [
+      "liso"
+     ]
+    },
+    {
+     "es": "Prefiero una camiseta lisa, sin dibujos.",
+     "ru": "Я предпочитаю однотонную футболку без рисунков.",
+     "frame": [
+      "lisa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v790",
+   "type": "vocab",
+   "es": "rizado",
+   "en": "curly",
+   "ru": "кудрявый",
+   "tr": "рриса́до",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Mi hija tiene el pelo rizado.",
+     "ru": "У моей дочери кудрявые волосы.",
+     "frame": [
+      "rizado"
+     ]
+    },
+    {
+     "es": "El pelo rizado se seca más despacio.",
+     "ru": "Кудрявые волосы сохнут медленнее.",
+     "frame": [
+      "rizado"
+     ]
+    },
+    {
+     "es": "De pequeño era rizado, ahora lo tiene liso.",
+     "ru": "В детстве он был кудрявым, теперь волосы прямые.",
+     "frame": [
+      "rizado"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v791",
+   "type": "vocab",
+   "es": "las pecas",
+   "en": "freckles",
+   "ru": "веснушки",
+   "tr": "лас пэ́кас",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "En verano le salen pecas.",
+     "ru": "Летом у неё появляются веснушки.",
+     "frame": [
+      "pecas"
+     ]
+    },
+    {
+     "es": "Tiene la cara llena de pecas.",
+     "ru": "У него лицо всё в веснушках.",
+     "frame": [
+      "pecas"
+     ]
+    },
+    {
+     "es": "Me gustan tus pecas.",
+     "ru": "Мне нравятся твои веснушки.",
+     "frame": [
+      "pecas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v792",
+   "type": "vocab",
+   "es": "el lunar",
+   "en": "mole",
+   "ru": "родинка",
+   "tr": "эл луна́р",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tengo un lunar en la espalda.",
+     "ru": "У меня родинка на спине.",
+     "frame": [
+      "lunar"
+     ]
+    },
+    {
+     "es": "Si el lunar cambia, ve al dermatólogo.",
+     "ru": "Если родинка меняется, иди к дерматологу.",
+     "frame": [
+      "lunar"
+     ]
+    },
+    {
+     "es": "Lleva un vestido de lunares.",
+     "ru": "На ней платье в горошек.",
+     "frame": [
+      "lunares"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v793",
+   "type": "vocab",
+   "es": "la cicatriz",
+   "en": "scar",
+   "ru": "шрам",
+   "tr": "ла сикатри́с",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tiene una cicatriz en la rodilla.",
+     "ru": "У него шрам на колене.",
+     "frame": [
+      "cicatriz"
+     ]
+    },
+    {
+     "es": "La cicatriz de la operación casi no se ve.",
+     "ru": "Шрам от операции почти не виден.",
+     "frame": [
+      "cicatriz"
+     ]
+    },
+    {
+     "es": "Cada cicatriz tiene su historia.",
+     "ru": "У каждого шрама своя история.",
+     "frame": [
+      "cicatriz"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v794",
+   "type": "vocab",
+   "es": "el tatuaje",
+   "en": "tattoo",
+   "ru": "татуировка",
+   "tr": "эл татуа́хэ",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Se ha hecho un tatuaje en el brazo.",
+     "ru": "Он сделал татуировку на руке.",
+     "frame": [
+      "tatuaje"
+     ]
+    },
+    {
+     "es": "No me gustan los tatuajes en la cara.",
+     "ru": "Мне не нравятся татуировки на лице.",
+     "frame": [
+      "tatuajes"
+     ]
+    },
+    {
+     "es": "¿Duele hacerse un tatuaje?",
+     "ru": "Больно ли делать татуировку?",
+     "frame": [
+      "tatuaje"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v795",
+   "type": "vocab",
+   "es": "la arruga",
+   "en": "wrinkle",
+   "ru": "морщина",
+   "tr": "ла арру́га",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Tiene arrugas alrededor de los ojos.",
+     "ru": "У неё морщины вокруг глаз.",
+     "frame": [
+      "arrugas"
+     ]
+    },
+    {
+     "es": "Esta crema es para las arrugas.",
+     "ru": "Этот крем от морщин.",
+     "frame": [
+      "arrugas"
+     ]
+    },
+    {
+     "es": "La camisa está llena de arrugas.",
+     "ru": "Рубашка вся мятая.",
+     "frame": [
+      "arrugas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v796",
+   "type": "vocab",
+   "es": "parecerse",
+   "en": "to look like",
+   "ru": "быть похожим",
+   "tr": "парэсэ́рсэ",
+   "group": null,
+   "set": "Тело и внешность",
+   "ex": [
+    {
+     "es": "Se parece mucho a su madre.",
+     "ru": "Она очень похожа на свою мать.",
+     "frame": [
+      "parece"
+     ]
+    },
+    {
+     "es": "Los gemelos se parecen como dos gotas de agua.",
+     "ru": "Близнецы похожи как две капли воды.",
+     "frame": [
+      "parecen"
+     ]
+    },
+    {
+     "es": "No nos parecemos en nada.",
+     "ru": "Мы совсем не похожи.",
+     "frame": [
+      "parecemos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v487",
+   "type": "vocab",
+   "es": "la ropa",
+   "en": "clothes",
+   "ru": "одежда",
+   "tr": "ла рро́па",
+   "group": null,
+   "ex": [
+    {
+     "es": "Guarda la ropa en el armario.",
+     "ru": "Убери одежду в шкаф.",
+     "frame": [
+      "ropa"
+     ]
+    },
+    {
+     "es": "La ropa está todavía mojada.",
+     "ru": "Одежда ещё мокрая.",
+     "frame": [
+      "ropa"
+     ]
+    },
+    {
+     "es": "Necesito ropa de invierno.",
+     "ru": "Мне нужна зимняя одежда.",
+     "frame": [
+      "ropa"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v488",
+   "type": "vocab",
+   "es": "la camisa",
+   "en": "shirt",
+   "ru": "рубашка",
+   "tr": "ла ками́са",
+   "group": null,
+   "ex": [
+    {
+     "es": "La camisa está arrugada.",
+     "ru": "Рубашка мятая.",
+     "frame": [
+      "camisa"
+     ]
+    },
+    {
+     "es": "Ponte la camisa blanca.",
+     "ru": "Надень белую рубашку.",
+     "frame": [
+      "camisa"
+     ]
+    },
+    {
+     "es": "Esta camisa me queda grande.",
+     "ru": "Эта рубашка мне велика.",
+     "frame": [
+      "camisa"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v489",
+   "type": "vocab",
+   "es": "la camiseta",
+   "en": "T-shirt",
+   "ru": "футболка",
+   "tr": "ла камисэ́та",
+   "group": null,
+   "ex": [
+    {
+     "es": "Compré dos camisetas en rebajas.",
+     "ru": "Я купил две футболки на распродаже.",
+     "frame": [
+      "camisetas"
+     ]
+    },
+    {
+     "es": "La camiseta encoge al lavarla.",
+     "ru": "Футболка садится при стирке.",
+     "frame": [
+      "camiseta"
+     ]
+    },
+    {
+     "es": "¿Tienen esta camiseta en negro?",
+     "ru": "Есть эта футболка в чёрном?",
+     "frame": [
+      "camiseta"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v490",
+   "type": "vocab",
+   "es": "el pantalón",
+   "en": "trousers",
+   "ru": "брюки",
+   "tr": "эл пантало́н",
+   "group": null,
+   "ex": [
+    {
+     "es": "El pantalón me queda corto.",
+     "ru": "Брюки мне коротки.",
+     "frame": [
+      "pantalón"
+     ]
+    },
+    {
+     "es": "Necesito un pantalón más ancho.",
+     "ru": "Мне нужны брюки пошире.",
+     "frame": [
+      "pantalón"
+     ]
+    },
+    {
+     "es": "El pantalón está en el armario.",
+     "ru": "Брюки в шкафу.",
+     "frame": [
+      "pantalón"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v491",
+   "type": "vocab",
+   "es": "la falda",
+   "en": "skirt",
+   "ru": "юбка",
+   "tr": "ла фа́лда",
+   "group": null,
+   "ex": [
+    {
+     "es": "La falda es demasiado corta.",
+     "ru": "Юбка слишком короткая.",
+     "frame": [
+      "falda"
+     ]
+    },
+    {
+     "es": "Se ha puesto una falda larga.",
+     "ru": "Она надела длинную юбку.",
+     "frame": [
+      "falda"
+     ]
+    },
+    {
+     "es": "¿Tienen esta falda en otra talla?",
+     "ru": "Есть эта юбка другого размера?",
+     "frame": [
+      "falda"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v492",
+   "type": "vocab",
+   "es": "el vestido",
+   "en": "dress",
+   "ru": "платье",
+   "tr": "эл бэсти́до",
+   "group": null,
+   "ex": [
+    {
+     "es": "El vestido es para la boda.",
+     "ru": "Платье на свадьбу.",
+     "frame": [
+      "vestido"
+     ]
+    },
+    {
+     "es": "Me he probado el vestido azul.",
+     "ru": "Я примерила синее платье.",
+     "frame": [
+      "vestido"
+     ]
+    },
+    {
+     "es": "El vestido cuesta una fortuna.",
+     "ru": "Платье стоит целое состояние.",
+     "frame": [
+      "vestido"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v493",
+   "type": "vocab",
+   "es": "los zapatos",
+   "en": "shoes",
+   "ru": "обувь",
+   "tr": "лос сапа́тос",
+   "group": null,
+   "ex": [
+    {
+     "es": "Los zapatos me hacen daño.",
+     "ru": "Обувь мне натирает.",
+     "frame": [
+      "zapatos"
+     ]
+    },
+    {
+     "es": "Quítate los zapatos en la entrada.",
+     "ru": "Сними обувь в прихожей.",
+     "frame": [
+      "zapatos"
+     ]
+    },
+    {
+     "es": "Necesito zapatos cómodos.",
+     "ru": "Мне нужна удобная обувь.",
+     "frame": [
+      "zapatos"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v494",
+   "type": "vocab",
+   "es": "los calcetines",
+   "en": "socks",
+   "ru": "носки",
+   "tr": "лос калсэти́нэс",
+   "group": null,
+   "ex": [
+    {
+     "es": "Los calcetines están en el cajón.",
+     "ru": "Носки в ящике.",
+     "frame": [
+      "calcetines"
+     ]
+    },
+    {
+     "es": "Ponte calcetines, hace frío.",
+     "ru": "Надень носки, холодно.",
+     "frame": [
+      "calcetines"
+     ]
+    },
+    {
+     "es": "Siempre pierdo un calcetín.",
+     "ru": "Я всегда теряю один носок.",
+     "frame": [
+      "calcetín"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v495",
+   "type": "vocab",
+   "es": "la chaqueta",
+   "en": "jacket",
+   "ru": "куртка",
+   "tr": "ла чакэ́та",
+   "group": null,
+   "ex": [
+    {
+     "es": "Coge la chaqueta, refresca.",
+     "ru": "Возьми куртку, свежеет.",
+     "frame": [
+      "chaqueta"
+     ]
+    },
+    {
+     "es": "La chaqueta tiene dos bolsillos.",
+     "ru": "У куртки два кармана.",
+     "frame": [
+      "chaqueta"
+     ]
+    },
+    {
+     "es": "Me he dejado la chaqueta en el bar.",
+     "ru": "Я забыл куртку в баре.",
+     "frame": [
+      "chaqueta"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v496",
+   "type": "vocab",
+   "es": "el abrigo",
+   "en": "coat",
+   "ru": "пальто",
+   "tr": "эл абри́го",
+   "group": null,
+   "ex": [
+    {
+     "es": "En invierno llevo abrigo largo.",
+     "ru": "Зимой я ношу длинное пальто.",
+     "frame": [
+      "abrigo"
+     ]
+    },
+    {
+     "es": "Cuelga el abrigo en la entrada.",
+     "ru": "Повесь пальто в прихожей.",
+     "frame": [
+      "abrigo"
+     ]
+    },
+    {
+     "es": "El abrigo pesa mucho.",
+     "ru": "Пальто очень тяжёлое.",
+     "frame": [
+      "abrigo"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v497",
+   "type": "vocab",
+   "es": "la gorra",
+   "en": "cap",
+   "ru": "кепка",
+   "tr": "ла го́рра",
+   "group": null,
+   "ex": [
+    {
+     "es": "Ponte la gorra, hace sol.",
+     "ru": "Надень кепку, солнце.",
+     "frame": [
+      "gorra"
+     ]
+    },
+    {
+     "es": "Ha perdido la gorra en el parque.",
+     "ru": "Он потерял кепку в парке.",
+     "frame": [
+      "gorra"
+     ]
+    },
+    {
+     "es": "La gorra es del equipo del colegio.",
+     "ru": "Кепка школьной команды.",
+     "frame": [
+      "gorra"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v498",
+   "type": "vocab",
+   "es": "el sombrero",
+   "en": "hat",
+   "ru": "шляпа",
+   "tr": "эл сомбрэ́ро",
+   "group": null,
+   "ex": [
+    {
+     "es": "Lleva un sombrero de paja.",
+     "ru": "На нём соломенная шляпа.",
+     "frame": [
+      "sombrero"
+     ]
+    },
+    {
+     "es": "El sombrero le queda grande.",
+     "ru": "Шляпа ему велика.",
+     "frame": [
+      "sombrero"
+     ]
+    },
+    {
+     "es": "Quítate el sombrero dentro.",
+     "ru": "Сними шляпу в помещении.",
+     "frame": [
+      "sombrero"
+     ]
+    }
+   ],
+   "set": "Одежда"
+  },
+  {
+   "id": "es3-v797",
+   "type": "vocab",
+   "es": "los vaqueros",
+   "en": "jeans",
+   "ru": "джинсы",
+   "tr": "лос бакэ́рос",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Llevo vaqueros casi todos los días.",
+     "ru": "Я ношу джинсы почти каждый день.",
+     "frame": [
+      "vaqueros"
+     ]
+    },
+    {
+     "es": "Estos vaqueros me quedan grandes.",
+     "ru": "Эти джинсы мне велики.",
+     "frame": [
+      "vaqueros"
+     ]
+    },
+    {
+     "es": "Se ha roto los vaqueros por la rodilla.",
+     "ru": "Он порвал джинсы на колене.",
+     "frame": [
+      "vaqueros"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v798",
+   "type": "vocab",
+   "es": "los pantalones cortos",
+   "en": "shorts",
+   "ru": "шорты",
+   "tr": "лос пантало́нэс ко́ртос",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "En verano voy en pantalones cortos.",
+     "ru": "Летом я хожу в шортах.",
+     "frame": [
+      "pantalones cortos"
+     ]
+    },
+    {
+     "es": "Al gimnasio llevo pantalones cortos.",
+     "ru": "В спортзал я надеваю шорты.",
+     "frame": [
+      "pantalones cortos"
+     ]
+    },
+    {
+     "es": "¿Me dejas unos pantalones cortos?",
+     "ru": "Одолжишь мне шорты?",
+     "frame": [
+      "pantalones cortos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v799",
+   "type": "vocab",
+   "es": "el jersey",
+   "en": "jumper / sweater",
+   "ru": "свитер",
+   "tr": "эл хэрсэ́й",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Ponte un jersey, que hace frío.",
+     "ru": "Надень свитер, холодно.",
+     "frame": [
+      "jersey"
+     ]
+    },
+    {
+     "es": "Este jersey es de lana.",
+     "ru": "Этот свитер из шерсти.",
+     "frame": [
+      "jersey"
+     ]
+    },
+    {
+     "es": "He lavado el jersey y ha encogido.",
+     "ru": "Я постирал свитер, и он сел.",
+     "frame": [
+      "jersey"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v800",
+   "type": "vocab",
+   "es": "la sudadera",
+   "en": "hoodie / sweatshirt",
+   "ru": "толстовка",
+   "tr": "ла судадэ́ра",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Mi hijo vive en sudadera.",
+     "ru": "Мой сын не вылезает из толстовки.",
+     "frame": [
+      "sudadera"
+     ]
+    },
+    {
+     "es": "Una sudadera con capucha, por favor.",
+     "ru": "Толстовку с капюшоном, пожалуйста.",
+     "frame": [
+      "sudadera"
+     ]
+    },
+    {
+     "es": "Se ha dejado la sudadera en el cole.",
+     "ru": "Он забыл толстовку в школе.",
+     "frame": [
+      "sudadera"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v801",
+   "type": "vocab",
+   "es": "la blusa",
+   "en": "blouse",
+   "ru": "блузка",
+   "tr": "ла блу́са",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Lleva una blusa blanca de seda.",
+     "ru": "На ней белая шёлковая блузка.",
+     "frame": [
+      "blusa"
+     ]
+    },
+    {
+     "es": "Esta blusa hay que plancharla.",
+     "ru": "Эту блузку нужно гладить.",
+     "frame": [
+      "blusa"
+     ]
+    },
+    {
+     "es": "Compré la blusa en rebajas.",
+     "ru": "Я купила блузку на распродаже.",
+     "frame": [
+      "blusa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v802",
+   "type": "vocab",
+   "es": "el traje",
+   "en": "suit",
+   "ru": "костюм",
+   "tr": "эл тра́хэ",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Va a la boda con traje y corbata.",
+     "ru": "Он идёт на свадьбу в костюме и галстуке.",
+     "frame": [
+      "traje"
+     ]
+    },
+    {
+     "es": "El traje le queda perfecto.",
+     "ru": "Костюм сидит на нём идеально.",
+     "frame": [
+      "traje"
+     ]
+    },
+    {
+     "es": "Hay que llevar el traje a la tintorería.",
+     "ru": "Костюм нужно отнести в химчистку.",
+     "frame": [
+      "traje"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v803",
+   "type": "vocab",
+   "es": "la corbata",
+   "en": "tie",
+   "ru": "галстук",
+   "tr": "ла корба́та",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "No sé hacer el nudo de la corbata.",
+     "ru": "Я не умею завязывать галстук.",
+     "frame": [
+      "corbata"
+     ]
+    },
+    {
+     "es": "En mi trabajo nadie lleva corbata.",
+     "ru": "На моей работе никто не носит галстук.",
+     "frame": [
+      "corbata"
+     ]
+    },
+    {
+     "es": "Le regalé una corbata azul.",
+     "ru": "Я подарил ему синий галстук.",
+     "frame": [
+      "corbata"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v804",
+   "type": "vocab",
+   "es": "el pijama",
+   "en": "pyjamas",
+   "ru": "пижама",
+   "tr": "эл пиха́ма",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Ponte el pijama, es hora de dormir.",
+     "ru": "Надевай пижаму, пора спать.",
+     "frame": [
+      "pijama"
+     ]
+    },
+    {
+     "es": "Trabajo desde casa en pijama.",
+     "ru": "Я работаю из дома в пижаме.",
+     "frame": [
+      "pijama"
+     ]
+    },
+    {
+     "es": "El pijama de la niña tiene dibujos de gatos.",
+     "ru": "На пижаме девочки нарисованы коты.",
+     "frame": [
+      "pijama"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v805",
+   "type": "vocab",
+   "es": "la ropa interior",
+   "en": "underwear",
+   "ru": "нижнее бельё",
+   "tr": "ла рро́па интэрьо́р",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Necesito comprar ropa interior.",
+     "ru": "Мне нужно купить нижнее бельё.",
+     "frame": [
+      "ropa interior"
+     ]
+    },
+    {
+     "es": "Mete la ropa interior en la maleta.",
+     "ru": "Положи нижнее бельё в чемодан.",
+     "frame": [
+      "ropa interior"
+     ]
+    },
+    {
+     "es": "La ropa interior está en el primer cajón.",
+     "ru": "Нижнее бельё в первом ящике.",
+     "frame": [
+      "ropa interior"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v806",
+   "type": "vocab",
+   "es": "los calzoncillos",
+   "en": "underpants (men)",
+   "ru": "трусы (мужские)",
+   "tr": "лос калсонси́йос",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Compra un paquete de calzoncillos.",
+     "ru": "Купи упаковку трусов.",
+     "frame": [
+      "calzoncillos"
+     ]
+    },
+    {
+     "es": "Se quedó en calzoncillos para bañarse.",
+     "ru": "Он остался в трусах, чтобы искупаться.",
+     "frame": [
+      "calzoncillos"
+     ]
+    },
+    {
+     "es": "Estos calzoncillos son de algodón.",
+     "ru": "Эти трусы хлопковые.",
+     "frame": [
+      "calzoncillos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v807",
+   "type": "vocab",
+   "es": "las bragas",
+   "en": "knickers (women)",
+   "ru": "трусы (женские)",
+   "tr": "лас бра́гас",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "He comprado tres bragas nuevas.",
+     "ru": "Я купила три пары новых трусов.",
+     "frame": [
+      "bragas"
+     ]
+    },
+    {
+     "es": "Las bragas están en el cajón de arriba.",
+     "ru": "Трусы в верхнем ящике.",
+     "frame": [
+      "bragas"
+     ]
+    },
+    {
+     "es": "La niña ya sabe ponerse las bragas sola.",
+     "ru": "Девочка уже умеет сама надевать трусики.",
+     "frame": [
+      "bragas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v808",
+   "type": "vocab",
+   "es": "el sujetador",
+   "en": "bra",
+   "ru": "бюстгальтер",
+   "tr": "эл сухэтадо́р",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Este sujetador me aprieta.",
+     "ru": "Этот бюстгальтер мне жмёт.",
+     "frame": [
+      "sujetador"
+     ]
+    },
+    {
+     "es": "Busco un sujetador deportivo.",
+     "ru": "Я ищу спортивный бюстгальтер.",
+     "frame": [
+      "sujetador"
+     ]
+    },
+    {
+     "es": "Lava el sujetador a mano.",
+     "ru": "Стирай бюстгальтер вручную.",
+     "frame": [
+      "sujetador"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v809",
+   "type": "vocab",
+   "es": "las medias",
+   "en": "tights / stockings",
+   "ru": "колготки / чулки",
+   "tr": "лас мэ́дьяс",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Se me han roto las medias.",
+     "ru": "У меня порвались колготки.",
+     "frame": [
+      "medias"
+     ]
+    },
+    {
+     "es": "Con la falda lleva medias negras.",
+     "ru": "С юбкой она носит чёрные колготки.",
+     "frame": [
+      "medias"
+     ]
+    },
+    {
+     "es": "En verano nadie lleva medias.",
+     "ru": "Летом никто не носит колготки.",
+     "frame": [
+      "medias"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v810",
+   "type": "vocab",
+   "es": "las zapatillas",
+   "en": "trainers / slippers",
+   "ru": "кроссовки / тапочки",
+   "tr": "лас сапати́йас",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Voy a correr con las zapatillas nuevas.",
+     "ru": "Я иду бегать в новых кроссовках.",
+     "frame": [
+      "zapatillas"
+     ]
+    },
+    {
+     "es": "Quítate las zapatillas al entrar.",
+     "ru": "Снимай кроссовки при входе.",
+     "frame": [
+      "zapatillas"
+     ]
+    },
+    {
+     "es": "Estas zapatillas son muy cómodas.",
+     "ru": "Эти кроссовки очень удобные.",
+     "frame": [
+      "zapatillas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v811",
+   "type": "vocab",
+   "es": "las botas",
+   "en": "boots",
+   "ru": "сапоги / ботинки",
+   "tr": "лас бо́тас",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "En invierno llevo botas.",
+     "ru": "Зимой я ношу сапоги.",
+     "frame": [
+      "botas"
+     ]
+    },
+    {
+     "es": "Las botas de agua están en la entrada.",
+     "ru": "Резиновые сапоги у входа.",
+     "frame": [
+      "botas"
+     ]
+    },
+    {
+     "es": "Estas botas son de cuero.",
+     "ru": "Эти сапоги кожаные.",
+     "frame": [
+      "botas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v812",
+   "type": "vocab",
+   "es": "las sandalias",
+   "en": "sandals",
+   "ru": "сандалии / босоножки",
+   "tr": "лас санда́льяс",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Con este calor mejor sandalias.",
+     "ru": "В такую жару лучше сандалии.",
+     "frame": [
+      "sandalias"
+     ]
+    },
+    {
+     "es": "Se le ha roto una sandalia.",
+     "ru": "У неё порвалась сандалия.",
+     "frame": [
+      "sandalia"
+     ]
+    },
+    {
+     "es": "Las sandalias de la niña le quedan pequeñas.",
+     "ru": "Сандалии девочки ей уже малы.",
+     "frame": [
+      "sandalias"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v813",
+   "type": "vocab",
+   "es": "la bufanda",
+   "en": "scarf",
+   "ru": "шарф",
+   "tr": "ла буфа́нда",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Ponte la bufanda, que hay viento.",
+     "ru": "Надень шарф, ветрено.",
+     "frame": [
+      "bufanda"
+     ]
+    },
+    {
+     "es": "Mi abuela me hizo una bufanda.",
+     "ru": "Бабушка связала мне шарф.",
+     "frame": [
+      "bufanda"
+     ]
+    },
+    {
+     "es": "He perdido la bufanda en el autobús.",
+     "ru": "Я потерял шарф в автобусе.",
+     "frame": [
+      "bufanda"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v814",
+   "type": "vocab",
+   "es": "el gorro",
+   "en": "woolly hat / cap",
+   "ru": "шапка",
+   "tr": "эл го́рро",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "El niño no quiere ponerse el gorro.",
+     "ru": "Ребёнок не хочет надевать шапку.",
+     "frame": [
+      "gorro"
+     ]
+    },
+    {
+     "es": "Un gorro de lana para el invierno.",
+     "ru": "Шерстяная шапка на зиму.",
+     "frame": [
+      "gorro"
+     ]
+    },
+    {
+     "es": "En la piscina hay que llevar gorro.",
+     "ru": "В бассейне нужно быть в шапочке.",
+     "frame": [
+      "gorro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v815",
+   "type": "vocab",
+   "es": "los guantes",
+   "en": "gloves",
+   "ru": "перчатки",
+   "tr": "лос гуа́нтэс",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Sin guantes se me hielan las manos.",
+     "ru": "Без перчаток у меня мёрзнут руки.",
+     "frame": [
+      "guantes"
+     ]
+    },
+    {
+     "es": "He perdido un guante.",
+     "ru": "Я потерял одну перчатку.",
+     "frame": [
+      "guante"
+     ]
+    },
+    {
+     "es": "Ponte guantes para limpiar el baño.",
+     "ru": "Надень перчатки, чтобы мыть ванную.",
+     "frame": [
+      "guantes"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v816",
+   "type": "vocab",
+   "es": "el cinturón",
+   "en": "belt",
+   "ru": "ремень",
+   "tr": "эл синтуро́н",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Necesito un cinturón, los pantalones me quedan anchos.",
+     "ru": "Мне нужен ремень, брюки широкие.",
+     "frame": [
+      "cinturón"
+     ]
+    },
+    {
+     "es": "Un cinturón de cuero marrón.",
+     "ru": "Коричневый кожаный ремень.",
+     "frame": [
+      "cinturón"
+     ]
+    },
+    {
+     "es": "Se ha comprado un cinturón nuevo.",
+     "ru": "Он купил новый ремень.",
+     "frame": [
+      "cinturón"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v817",
+   "type": "vocab",
+   "es": "el chándal",
+   "en": "tracksuit",
+   "ru": "спортивный костюм",
+   "tr": "эл ча́ндал",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Los lunes los niños van al cole en chándal.",
+     "ru": "По понедельникам дети ходят в школу в спортивном костюме.",
+     "frame": [
+      "chándal"
+     ]
+    },
+    {
+     "es": "Me he comprado un chándal para correr.",
+     "ru": "Я купил спортивный костюм для бега.",
+     "frame": [
+      "chándal"
+     ]
+    },
+    {
+     "es": "El chándal del cole es azul.",
+     "ru": "Школьный спортивный костюм синий.",
+     "frame": [
+      "chándal"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v818",
+   "type": "vocab",
+   "es": "el chaleco",
+   "en": "waistcoat / vest",
+   "ru": "жилет",
+   "tr": "эл чалэ́ко",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Lleva un chaleco encima de la camisa.",
+     "ru": "На нём жилет поверх рубашки.",
+     "frame": [
+      "chaleco"
+     ]
+    },
+    {
+     "es": "Un chaleco reflectante para la bici.",
+     "ru": "Светоотражающий жилет для велосипеда.",
+     "frame": [
+      "chaleco"
+     ]
+    },
+    {
+     "es": "Este chaleco abriga mucho.",
+     "ru": "Этот жилет очень тёплый.",
+     "frame": [
+      "chaleco"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v819",
+   "type": "vocab",
+   "es": "la manga",
+   "en": "sleeve",
+   "ru": "рукав",
+   "tr": "ла ма́нга",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Una camisa de manga corta.",
+     "ru": "Рубашка с коротким рукавом.",
+     "frame": [
+      "manga"
+     ]
+    },
+    {
+     "es": "Súbete las mangas para lavarte.",
+     "ru": "Закатай рукава, чтобы помыться.",
+     "frame": [
+      "mangas"
+     ]
+    },
+    {
+     "es": "La manga está manchada de café.",
+     "ru": "Рукав испачкан кофе.",
+     "frame": [
+      "manga"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v820",
+   "type": "vocab",
+   "es": "el bolsillo",
+   "en": "pocket",
+   "ru": "карман",
+   "tr": "эл болси́йо",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Tengo las llaves en el bolsillo.",
+     "ru": "Ключи у меня в кармане.",
+     "frame": [
+      "bolsillo"
+     ]
+    },
+    {
+     "es": "Este abrigo no tiene bolsillos.",
+     "ru": "У этого пальто нет карманов.",
+     "frame": [
+      "bolsillos"
+     ]
+    },
+    {
+     "es": "Saca las manos de los bolsillos.",
+     "ru": "Вынь руки из карманов.",
+     "frame": [
+      "bolsillos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v821",
+   "type": "vocab",
+   "es": "el botón",
+   "en": "button",
+   "ru": "пуговица",
+   "tr": "эл бото́н",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Se me ha caído un botón.",
+     "ru": "У меня оторвалась пуговица.",
+     "frame": [
+      "botón"
+     ]
+    },
+    {
+     "es": "Abróchate el botón de arriba.",
+     "ru": "Застегни верхнюю пуговицу.",
+     "frame": [
+      "botón"
+     ]
+    },
+    {
+     "es": "¿Sabes coser un botón?",
+     "ru": "Ты умеешь пришивать пуговицу?",
+     "frame": [
+      "botón"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v822",
+   "type": "vocab",
+   "es": "la cremallera",
+   "en": "zip",
+   "ru": "молния (застёжка)",
+   "tr": "ла крэмайэ́ра",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "La cremallera se ha atascado.",
+     "ru": "Молния заела.",
+     "frame": [
+      "cremallera"
+     ]
+    },
+    {
+     "es": "Súbete la cremallera del abrigo.",
+     "ru": "Застегни молнию на пальто.",
+     "frame": [
+      "cremallera"
+     ]
+    },
+    {
+     "es": "El bolso tiene cremallera.",
+     "ru": "У сумки есть молния.",
+     "frame": [
+      "cremallera"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v823",
+   "type": "vocab",
+   "es": "los cordones",
+   "en": "shoelaces",
+   "ru": "шнурки",
+   "tr": "лос кордо́нэс",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Átate los cordones.",
+     "ru": "Завяжи шнурки.",
+     "frame": [
+      "cordones"
+     ]
+    },
+    {
+     "es": "Se me han desatado los cordones.",
+     "ru": "У меня развязались шнурки.",
+     "frame": [
+      "cordones"
+     ]
+    },
+    {
+     "es": "Mi hija ya sabe atarse los cordones.",
+     "ru": "Моя дочь уже умеет завязывать шнурки.",
+     "frame": [
+      "cordones"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v824",
+   "type": "vocab",
+   "es": "la tela",
+   "en": "fabric",
+   "ru": "ткань",
+   "tr": "ла тэ́ла",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "¿De qué tela es este vestido?",
+     "ru": "Из какой ткани это платье?",
+     "frame": [
+      "tela"
+     ]
+    },
+    {
+     "es": "La tela es muy fina.",
+     "ru": "Ткань очень тонкая.",
+     "frame": [
+      "tela"
+     ]
+    },
+    {
+     "es": "Compro la tela y me lo coso yo.",
+     "ru": "Я покупаю ткань и шью сама.",
+     "frame": [
+      "tela"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v825",
+   "type": "vocab",
+   "es": "el algodón",
+   "en": "cotton",
+   "ru": "хлопок",
+   "tr": "эл алгодо́н",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Prefiero las camisetas de algodón.",
+     "ru": "Я предпочитаю хлопковые футболки.",
+     "frame": [
+      "algodón"
+     ]
+    },
+    {
+     "es": "Es cien por cien algodón.",
+     "ru": "Это стопроцентный хлопок.",
+     "frame": [
+      "algodón"
+     ]
+    },
+    {
+     "es": "El algodón se arruga mucho.",
+     "ru": "Хлопок сильно мнётся.",
+     "frame": [
+      "algodón"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v826",
+   "type": "vocab",
+   "es": "la lana",
+   "en": "wool",
+   "ru": "шерсть",
+   "tr": "ла ла́на",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "El jersey de lana pica un poco.",
+     "ru": "Шерстяной свитер немного колется.",
+     "frame": [
+      "lana"
+     ]
+    },
+    {
+     "es": "La lana no se lava en caliente.",
+     "ru": "Шерсть не стирают в горячей воде.",
+     "frame": [
+      "lana"
+     ]
+    },
+    {
+     "es": "Unos calcetines de lana para el invierno.",
+     "ru": "Шерстяные носки на зиму.",
+     "frame": [
+      "lana"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v827",
+   "type": "vocab",
+   "es": "el cuero",
+   "en": "leather",
+   "ru": "кожа (материал)",
+   "tr": "эл куэ́ро",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Una chaqueta de cuero negro.",
+     "ru": "Чёрная кожаная куртка.",
+     "frame": [
+      "cuero"
+     ]
+    },
+    {
+     "es": "El cuero bueno dura años.",
+     "ru": "Хорошая кожа служит годами.",
+     "frame": [
+      "cuero"
+     ]
+    },
+    {
+     "es": "¿Es cuero de verdad o sintético?",
+     "ru": "Это настоящая кожа или искусственная?",
+     "frame": [
+      "cuero"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v828",
+   "type": "vocab",
+   "es": "ponerse",
+   "en": "to put on",
+   "ru": "надевать",
+   "tr": "понэ́рсэ",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Me pongo el abrigo y salgo.",
+     "ru": "Я надеваю пальто и выхожу.",
+     "frame": [
+      "pongo"
+     ]
+    },
+    {
+     "es": "Ponte los zapatos, nos vamos.",
+     "ru": "Надевай ботинки, мы уходим.",
+     "frame": [
+      "Ponte"
+     ]
+    },
+    {
+     "es": "¿Qué me pongo para la fiesta?",
+     "ru": "Что мне надеть на праздник?",
+     "frame": [
+      "pongo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v829",
+   "type": "vocab",
+   "es": "quitarse",
+   "en": "to take off",
+   "ru": "снимать (одежду)",
+   "tr": "кита́рсэ",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "Quítate el abrigo, aquí hace calor.",
+     "ru": "Сними пальто, здесь жарко.",
+     "frame": [
+      "Quítate"
+     ]
+    },
+    {
+     "es": "Me quito los zapatos al entrar en casa.",
+     "ru": "Я снимаю обувь, входя в дом.",
+     "frame": [
+      "quito"
+     ]
+    },
+    {
+     "es": "Se quitó el sombrero para saludar.",
+     "ru": "Он снял шляпу, чтобы поздороваться.",
+     "frame": [
+      "quitó"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v830",
+   "type": "vocab",
+   "es": "probarse",
+   "en": "to try on",
+   "ru": "примерять",
+   "tr": "проба́рсэ",
+   "group": null,
+   "set": "Одежда",
+   "ex": [
+    {
+     "es": "¿Puedo probarme este vestido?",
+     "ru": "Можно примерить это платье?",
+     "frame": [
+      "probarme"
+     ]
+    },
+    {
+     "es": "Pruébate la talla más grande.",
+     "ru": "Примерь размер побольше.",
+     "frame": [
+      "Pruébate"
+     ]
+    },
+    {
+     "es": "Se probó tres chaquetas y no compró ninguna.",
+     "ru": "Она примерила три куртки и ни одну не купила.",
+     "frame": [
+      "probó"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v195",
+   "type": "vocab",
+   "es": "la manzana",
+   "en": "apple",
+   "ru": "яблоко",
+   "tr": "ла манса́на",
+   "group": null,
+   "ex": [
+    {
+     "es": "Como una manzana cada día.",
+     "ru": "Я ем по яблоку в день.",
+     "frame": [
+      "manzana"
+     ]
+    },
+    {
+     "es": "Estas manzanas están muy dulces.",
+     "ru": "Эти яблоки очень сладкие.",
+     "frame": [
+      "manzanas"
+     ]
+    },
+    {
+     "es": "¿Quieres una manzana?",
+     "ru": "Хочешь яблоко?",
+     "frame": [
+      "manzana"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v196",
+   "type": "vocab",
+   "es": "el plátano",
+   "en": "banana",
+   "ru": "банан",
+   "tr": "эл пла́тано",
+   "group": null,
+   "ex": [
+    {
+     "es": "Un plátano para el desayuno.",
+     "ru": "Банан на завтрак.",
+     "frame": [
+      "plátano"
+     ]
+    },
+    {
+     "es": "Los plátanos están verdes.",
+     "ru": "Бананы зелёные.",
+     "frame": [
+      "plátanos"
+     ]
+    },
+    {
+     "es": "Compra plátanos de Canarias.",
+     "ru": "Купи канарские бананы.",
+     "frame": [
+      "plátanos"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v198",
+   "type": "vocab",
+   "es": "el limón",
+   "en": "lemon",
+   "ru": "лимон",
+   "tr": "эл лимо́н",
+   "group": null,
+   "ex": [
+    {
+     "es": "Té con limón, por favor.",
+     "ru": "Чай с лимоном, пожалуйста.",
+     "frame": [
+      "limón"
+     ]
+    },
+    {
+     "es": "Exprime medio limón.",
+     "ru": "Выжми половину лимона.",
+     "frame": [
+      "limón"
+     ]
+    },
+    {
+     "es": "El limón está muy ácido.",
+     "ru": "Лимон очень кислый.",
+     "frame": [
+      "limón"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v199",
+   "type": "vocab",
+   "es": "la fresa",
+   "en": "strawberry",
+   "ru": "клубника",
+   "tr": "ла фрэ́са",
+   "group": null,
+   "ex": [
+    {
+     "es": "Las fresas están de temporada.",
+     "ru": "Клубника сейчас в сезон.",
+     "frame": [
+      "fresas"
+     ]
+    },
+    {
+     "es": "Un helado de fresa.",
+     "ru": "Клубничное мороженое.",
+     "frame": [
+      "fresa"
+     ]
+    },
+    {
+     "es": "Compré fresas en el mercado.",
+     "ru": "Я купил клубнику на рынке.",
+     "frame": [
+      "fresas"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v200",
+   "type": "vocab",
+   "es": "la sandía",
+   "en": "watermelon",
+   "ru": "арбуз",
+   "tr": "ла санди́а",
+   "group": null,
+   "ex": [
+    {
+     "es": "La sandía está muy dulce.",
+     "ru": "Арбуз очень сладкий.",
+     "frame": [
+      "sandía"
+     ]
+    },
+    {
+     "es": "En verano comemos sandía.",
+     "ru": "Летом мы едим арбуз.",
+     "frame": [
+      "sandía"
+     ]
+    },
+    {
+     "es": "Media sandía, por favor.",
+     "ru": "Поларбуза, пожалуйста.",
+     "frame": [
+      "sandía"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v201",
+   "type": "vocab",
+   "es": "el melón",
+   "en": "melon",
+   "ru": "дыня",
+   "tr": "эл мэло́н",
+   "group": null,
+   "ex": [
+    {
+     "es": "El melón está frío.",
+     "ru": "Дыня холодная.",
+     "frame": [
+      "melón"
+     ]
+    },
+    {
+     "es": "Melón con jamón de primero.",
+     "ru": "На первое дыня с хамоном.",
+     "frame": [
+      "Melón"
+     ]
+    },
+    {
+     "es": "Este melón pesa tres kilos.",
+     "ru": "Эта дыня весит три килограмма.",
+     "frame": [
+      "melón"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v202",
+   "type": "vocab",
+   "es": "la uva",
+   "en": "grape",
+   "ru": "виноград",
+   "tr": "ла у́ба",
+   "group": null,
+   "ex": [
+    {
+     "es": "Un kilo de uva, por favor.",
+     "ru": "Килограмм винограда, пожалуйста.",
+     "frame": [
+      "uva"
+     ]
+    },
+    {
+     "es": "La uva de aquí es muy buena.",
+     "ru": "Виноград здесь очень хороший.",
+     "frame": [
+      "uva"
+     ]
+    },
+    {
+     "es": "Comemos uvas en Nochevieja.",
+     "ru": "В новогоднюю ночь мы едим виноград.",
+     "frame": [
+      "uvas"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v190",
+   "type": "vocab",
+   "es": "el tomate",
+   "en": "tomato",
+   "ru": "помидор",
+   "tr": "эл тома́тэ",
+   "group": null,
+   "ex": [
+    {
+     "es": "Un kilo de tomates, por favor.",
+     "ru": "Килограмм помидоров, пожалуйста.",
+     "frame": [
+      "tomates"
+     ]
+    },
+    {
+     "es": "El tomate está muy maduro.",
+     "ru": "Помидор очень спелый.",
+     "frame": [
+      "tomate"
+     ]
+    },
+    {
+     "es": "Pan con tomate para desayunar.",
+     "ru": "На завтрак хлеб с помидором.",
+     "frame": [
+      "tomate"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v191",
+   "type": "vocab",
+   "es": "la patata",
+   "en": "potato",
+   "ru": "картофель",
+   "tr": "ла пата́та",
+   "group": null,
+   "ex": [
+    {
+     "es": "Dos kilos de patatas.",
+     "ru": "Два килограмма картошки.",
+     "frame": [
+      "patatas"
+     ]
+    },
+    {
+     "es": "Las patatas están en la bolsa.",
+     "ru": "Картошка в пакете.",
+     "frame": [
+      "patatas"
+     ]
+    },
+    {
+     "es": "¿Con patatas o con ensalada?",
+     "ru": "С картошкой или с салатом?",
+     "frame": [
+      "patatas"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v192",
+   "type": "vocab",
+   "es": "la cebolla",
+   "en": "onion",
+   "ru": "лук",
+   "tr": "ла сэбо́йа",
+   "group": null,
+   "ex": [
+    {
+     "es": "Corta la cebolla muy fina.",
+     "ru": "Нарежь лук очень тонко.",
+     "frame": [
+      "cebolla"
+     ]
+    },
+    {
+     "es": "Sin cebolla, por favor.",
+     "ru": "Без лука, пожалуйста.",
+     "frame": [
+      "cebolla"
+     ]
+    },
+    {
+     "es": "La cebolla me hace llorar.",
+     "ru": "От лука я плачу.",
+     "frame": [
+      "cebolla"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v193",
+   "type": "vocab",
+   "es": "el ajo",
+   "en": "garlic",
+   "ru": "чеснок",
+   "tr": "эл а́хо",
+   "group": null,
+   "ex": [
+    {
+     "es": "Lleva mucho ajo.",
+     "ru": "Здесь много чеснока.",
+     "frame": [
+      "ajo"
+     ]
+    },
+    {
+     "es": "Compra una cabeza de ajo.",
+     "ru": "Купи головку чеснока.",
+     "frame": [
+      "ajo"
+     ]
+    },
+    {
+     "es": "No le pongas ajo.",
+     "ru": "Не клади туда чеснок.",
+     "frame": [
+      "ajo"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v194",
+   "type": "vocab",
+   "es": "la lechuga",
+   "en": "lettuce",
+   "ru": "салат",
+   "tr": "ла лэчу́га",
+   "group": null,
+   "ex": [
+    {
+     "es": "Una ensalada de lechuga y tomate.",
+     "ru": "Салат из листьев и помидора.",
+     "frame": [
+      "lechuga"
+     ]
+    },
+    {
+     "es": "La lechuga no está fresca.",
+     "ru": "Салат несвежий.",
+     "frame": [
+      "lechuga"
+     ]
+    },
+    {
+     "es": "Lava la lechuga, por favor.",
+     "ru": "Помой салат, пожалуйста.",
+     "frame": [
+      "lechuga"
+     ]
+    }
+   ],
+   "set": "Фрукты и овощи"
+  },
+  {
+   "id": "es3-v831",
+   "type": "vocab",
+   "es": "la naranja",
+   "en": "orange (fruit)",
+   "ru": "апельсин",
+   "tr": "ла нара́нха",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Las naranjas de aquí son dulces.",
+     "ru": "Здешние апельсины сладкие.",
+     "frame": [
+      "naranjas"
+     ]
+    },
+    {
+     "es": "Pídeme un zumo de naranja.",
+     "ru": "Закажи мне апельсиновый сок.",
+     "frame": [
+      "naranja"
+     ]
+    },
+    {
+     "es": "Una naranja tiene mucha vitamina C.",
+     "ru": "В апельсине много витамина C.",
+     "frame": [
+      "naranja"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v832",
+   "type": "vocab",
+   "es": "la pera",
+   "en": "pear",
+   "ru": "груша",
+   "tr": "ла пэ́ра",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Las peras están muy maduras.",
+     "ru": "Груши очень спелые.",
+     "frame": [
+      "peras"
+     ]
+    },
+    {
+     "es": "De postre, una pera.",
+     "ru": "На десерт — груша.",
+     "frame": [
+      "pera"
+     ]
+    },
+    {
+     "es": "Esta pera está dura todavía.",
+     "ru": "Эта груша ещё твёрдая.",
+     "frame": [
+      "pera"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v833",
+   "type": "vocab",
+   "es": "la mandarina",
+   "en": "tangerine",
+   "ru": "мандарин",
+   "tr": "ла мандари́на",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "En Navidad comemos mandarinas.",
+     "ru": "На Рождество мы едим мандарины.",
+     "frame": [
+      "mandarinas"
+     ]
+    },
+    {
+     "es": "Las mandarinas se pelan fácil.",
+     "ru": "Мандарины легко чистятся.",
+     "frame": [
+      "mandarinas"
+     ]
+    },
+    {
+     "es": "Ponle una mandarina en la mochila.",
+     "ru": "Положи ему мандарин в рюкзак.",
+     "frame": [
+      "mandarina"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v834",
+   "type": "vocab",
+   "es": "el melocotón",
+   "en": "peach",
+   "ru": "персик",
+   "tr": "эл мэлокото́н",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "El melocotón está en su punto.",
+     "ru": "Персик в самый раз.",
+     "frame": [
+      "melocotón"
+     ]
+    },
+    {
+     "es": "Un zumo de melocotón, por favor.",
+     "ru": "Персиковый сок, пожалуйста.",
+     "frame": [
+      "melocotón"
+     ]
+    },
+    {
+     "es": "Los melocotones de Calanda son famosos.",
+     "ru": "Персики из Каланды знамениты."
+    }
+   ]
+  },
+  {
+   "id": "es3-v835",
+   "type": "vocab",
+   "es": "la cereza",
+   "en": "cherry",
+   "ru": "черешня",
+   "tr": "ла сэрэ́са",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Las cerezas del Jerte llegan en junio.",
+     "ru": "Черешня из долины Херте появляется в июне.",
+     "frame": [
+      "cerezas"
+     ]
+    },
+    {
+     "es": "Un kilo de cerezas cuesta ocho euros.",
+     "ru": "Килограмм черешни стоит восемь евро.",
+     "frame": [
+      "cerezas"
+     ]
+    },
+    {
+     "es": "Cuidado con el hueso de la cereza.",
+     "ru": "Осторожно с косточкой черешни.",
+     "frame": [
+      "cereza"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v836",
+   "type": "vocab",
+   "es": "la piña",
+   "en": "pineapple",
+   "ru": "ананас",
+   "tr": "ла пи́нья",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Pizza con piña, ni hablar.",
+     "ru": "Пицца с ананасом — ни за что.",
+     "frame": [
+      "piña"
+     ]
+    },
+    {
+     "es": "Corta la piña en trozos.",
+     "ru": "Нарежь ананас кусочками.",
+     "frame": [
+      "piña"
+     ]
+    },
+    {
+     "es": "Esta piña está muy dulce.",
+     "ru": "Этот ананас очень сладкий.",
+     "frame": [
+      "piña"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v837",
+   "type": "vocab",
+   "es": "el kiwi",
+   "en": "kiwi",
+   "ru": "киви",
+   "tr": "эл ки́уи",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "El kiwi tiene más vitamina C que la naranja.",
+     "ru": "В киви больше витамина C, чем в апельсине.",
+     "frame": [
+      "kiwi"
+     ]
+    },
+    {
+     "es": "Pela el kiwi con cuidado.",
+     "ru": "Чисти киви осторожно.",
+     "frame": [
+      "kiwi"
+     ]
+    },
+    {
+     "es": "Un kiwi cada mañana.",
+     "ru": "По одному киви каждое утро.",
+     "frame": [
+      "kiwi"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v838",
+   "type": "vocab",
+   "es": "el mango",
+   "en": "mango",
+   "ru": "манго",
+   "tr": "эл ма́нго",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "El mango está maduro cuando cede al tocarlo.",
+     "ru": "Манго спелое, когда мягкое на ощупь.",
+     "frame": [
+      "mango"
+     ]
+    },
+    {
+     "es": "Un batido de mango, por favor.",
+     "ru": "Смузи из манго, пожалуйста.",
+     "frame": [
+      "mango"
+     ]
+    },
+    {
+     "es": "En Málaga cultivan mangos.",
+     "ru": "В Малаге выращивают манго.",
+     "frame": [
+      "mangos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v839",
+   "type": "vocab",
+   "es": "la ciruela",
+   "en": "plum",
+   "ru": "слива",
+   "tr": "ла сируэ́ла",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Las ciruelas rojas están de oferta.",
+     "ru": "Красные сливы по акции.",
+     "frame": [
+      "ciruelas"
+     ]
+    },
+    {
+     "es": "Compra ciruelas para la mermelada.",
+     "ru": "Купи сливы на варенье.",
+     "frame": [
+      "ciruelas"
+     ]
+    },
+    {
+     "es": "Esta ciruela está ácida.",
+     "ru": "Эта слива кислая.",
+     "frame": [
+      "ciruela"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v840",
+   "type": "vocab",
+   "es": "el albaricoque",
+   "en": "apricot",
+   "ru": "абрикос",
+   "tr": "эл албарико́кэ",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Los albaricoques son de junio.",
+     "ru": "Абрикосы — июньские.",
+     "frame": [
+      "albaricoques"
+     ]
+    },
+    {
+     "es": "Mermelada de albaricoque para el desayuno.",
+     "ru": "Абрикосовое варенье на завтрак.",
+     "frame": [
+      "albaricoque"
+     ]
+    },
+    {
+     "es": "El albaricoque se parece al melocotón.",
+     "ru": "Абрикос похож на персик.",
+     "frame": [
+      "albaricoque"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v841",
+   "type": "vocab",
+   "es": "el higo",
+   "en": "fig",
+   "ru": "инжир",
+   "tr": "эл и́го",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Los higos maduran en agosto.",
+     "ru": "Инжир созревает в августе.",
+     "frame": [
+      "higos"
+     ]
+    },
+    {
+     "es": "Queso con higos, un clásico.",
+     "ru": "Сыр с инжиром — классика.",
+     "frame": [
+      "higos"
+     ]
+    },
+    {
+     "es": "Mi vecino tiene una higuera llena de higos.",
+     "ru": "У моего соседа инжирное дерево, полное плодов.",
+     "frame": [
+      "higos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v842",
+   "type": "vocab",
+   "es": "la frambuesa",
+   "en": "raspberry",
+   "ru": "малина",
+   "tr": "ла фрамбуэ́са",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Un yogur con frambuesas.",
+     "ru": "Йогурт с малиной.",
+     "frame": [
+      "frambuesas"
+     ]
+    },
+    {
+     "es": "Las frambuesas se estropean rápido.",
+     "ru": "Малина быстро портится.",
+     "frame": [
+      "frambuesas"
+     ]
+    },
+    {
+     "es": "Tarta de frambuesa para el cumpleaños.",
+     "ru": "Малиновый торт на день рождения.",
+     "frame": [
+      "frambuesa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v843",
+   "type": "vocab",
+   "es": "el arándano",
+   "en": "blueberry",
+   "ru": "черника / голубика",
+   "tr": "эл ара́ндано",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Pongo arándanos en la avena.",
+     "ru": "Я добавляю чернику в овсянку.",
+     "frame": [
+      "arándanos"
+     ]
+    },
+    {
+     "es": "Los arándanos están carísimos.",
+     "ru": "Черника очень дорогая.",
+     "frame": [
+      "arándanos"
+     ]
+    },
+    {
+     "es": "Un puñado de arándanos al día.",
+     "ru": "Горсть черники в день.",
+     "frame": [
+      "arándanos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v844",
+   "type": "vocab",
+   "es": "el pomelo",
+   "en": "grapefruit",
+   "ru": "грейпфрут",
+   "tr": "эл помэ́ло",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "El pomelo es un poco amargo.",
+     "ru": "Грейпфрут немного горчит.",
+     "frame": [
+      "pomelo"
+     ]
+    },
+    {
+     "es": "Zumo de pomelo por la mañana.",
+     "ru": "Грейпфрутовый сок по утрам.",
+     "frame": [
+      "pomelo"
+     ]
+    },
+    {
+     "es": "Medio pomelo con azúcar.",
+     "ru": "Половина грейпфрута с сахаром.",
+     "frame": [
+      "pomelo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v845",
+   "type": "vocab",
+   "es": "el coco",
+   "en": "coconut",
+   "ru": "кокос",
+   "tr": "эл ко́ко",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Un helado de coco, por favor.",
+     "ru": "Кокосовое мороженое, пожалуйста.",
+     "frame": [
+      "coco"
+     ]
+    },
+    {
+     "es": "Abrir un coco no es fácil.",
+     "ru": "Открыть кокос непросто.",
+     "frame": [
+      "coco"
+     ]
+    },
+    {
+     "es": "Leche de coco para el curry.",
+     "ru": "Кокосовое молоко для карри.",
+     "frame": [
+      "coco"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v846",
+   "type": "vocab",
+   "es": "la granada",
+   "en": "pomegranate",
+   "ru": "гранат",
+   "tr": "ла грана́да",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "La granada tiene muchos granos rojos.",
+     "ru": "В гранате много красных зёрен.",
+     "frame": [
+      "granada"
+     ]
+    },
+    {
+     "es": "Ensalada con granada y queso.",
+     "ru": "Салат с гранатом и сыром.",
+     "frame": [
+      "granada"
+     ]
+    },
+    {
+     "es": "Pelar una granada lleva tiempo.",
+     "ru": "Чистить гранат — долго.",
+     "frame": [
+      "granada"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v847",
+   "type": "vocab",
+   "es": "la lima",
+   "en": "lime",
+   "ru": "лайм",
+   "tr": "ла ли́ма",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Un mojito lleva lima.",
+     "ru": "В мохито кладут лайм.",
+     "frame": [
+      "lima"
+     ]
+    },
+    {
+     "es": "Exprime media lima sobre el pescado.",
+     "ru": "Выжми половину лайма на рыбу.",
+     "frame": [
+      "lima"
+     ]
+    },
+    {
+     "es": "La lima es más pequeña que el limón.",
+     "ru": "Лайм меньше лимона.",
+     "frame": [
+      "lima"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v848",
+   "type": "vocab",
+   "es": "el aguacate",
+   "en": "avocado",
+   "ru": "авокадо",
+   "tr": "эл агуака́тэ",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Tostada con aguacate.",
+     "ru": "Тост с авокадо.",
+     "frame": [
+      "aguacate"
+     ]
+    },
+    {
+     "es": "El aguacate aún está verde.",
+     "ru": "Авокадо ещё зелёное.",
+     "frame": [
+      "aguacate"
+     ]
+    },
+    {
+     "es": "Un aguacate maduro para el guacamole.",
+     "ru": "Спелое авокадо для гуакамоле.",
+     "frame": [
+      "aguacate"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v849",
+   "type": "vocab",
+   "es": "la zanahoria",
+   "en": "carrot",
+   "ru": "морковь",
+   "tr": "ла санао́рья",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Las zanahorias son buenas para la vista.",
+     "ru": "Морковь полезна для зрения.",
+     "frame": [
+      "zanahorias"
+     ]
+    },
+    {
+     "es": "Ralla una zanahoria para la ensalada.",
+     "ru": "Натри морковь для салата.",
+     "frame": [
+      "zanahoria"
+     ]
+    },
+    {
+     "es": "Al conejo le encantan las zanahorias.",
+     "ru": "Кролик обожает морковь.",
+     "frame": [
+      "zanahorias"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v850",
+   "type": "vocab",
+   "es": "el pepino",
+   "en": "cucumber",
+   "ru": "огурец",
+   "tr": "эл пэпи́но",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Ensalada de tomate y pepino.",
+     "ru": "Салат из помидоров и огурцов.",
+     "frame": [
+      "pepino"
+     ]
+    },
+    {
+     "es": "El gazpacho lleva pepino.",
+     "ru": "В гаспачо кладут огурец.",
+     "frame": [
+      "pepino"
+     ]
+    },
+    {
+     "es": "Corta el pepino en rodajas.",
+     "ru": "Нарежь огурец кружочками.",
+     "frame": [
+      "pepino"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v851",
+   "type": "vocab",
+   "es": "el pimiento",
+   "en": "pepper (vegetable)",
+   "ru": "перец (овощ)",
+   "tr": "эл пимье́нто",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Pimientos rojos asados.",
+     "ru": "Запечённые красные перцы.",
+     "frame": [
+      "Pimientos"
+     ]
+    },
+    {
+     "es": "Los pimientos de Padrón, unos pican y otros no.",
+     "ru": "Перцы из Падрона: одни острые, другие нет.",
+     "frame": [
+      "pimientos"
+     ]
+    },
+    {
+     "es": "Quita las semillas del pimiento.",
+     "ru": "Убери семечки из перца.",
+     "frame": [
+      "pimiento"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v852",
+   "type": "vocab",
+   "es": "el calabacín",
+   "en": "courgette",
+   "ru": "кабачок",
+   "tr": "эл калабаси́н",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Crema de calabacín para cenar.",
+     "ru": "Крем-суп из кабачка на ужин.",
+     "frame": [
+      "calabacín"
+     ]
+    },
+    {
+     "es": "El calabacín se cocina rápido.",
+     "ru": "Кабачок готовится быстро.",
+     "frame": [
+      "calabacín"
+     ]
+    },
+    {
+     "es": "Dos calabacines y una berenjena.",
+     "ru": "Два кабачка и один баклажан."
+    }
+   ]
+  },
+  {
+   "id": "es3-v853",
+   "type": "vocab",
+   "es": "la berenjena",
+   "en": "aubergine",
+   "ru": "баклажан",
+   "tr": "ла бэрэнхэ́на",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Berenjenas rellenas de carne.",
+     "ru": "Баклажаны, фаршированные мясом.",
+     "frame": [
+      "Berenjenas"
+     ]
+    },
+    {
+     "es": "La berenjena absorbe mucho aceite.",
+     "ru": "Баклажан впитывает много масла.",
+     "frame": [
+      "berenjena"
+     ]
+    },
+    {
+     "es": "Sala la berenjena antes de freírla.",
+     "ru": "Посоли баклажан перед жаркой.",
+     "frame": [
+      "berenjena"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v854",
+   "type": "vocab",
+   "es": "el champiñón",
+   "en": "mushroom (button)",
+   "ru": "шампиньон",
+   "tr": "эл чампиньо́н",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Una pizza de champiñones.",
+     "ru": "Пицца с шампиньонами."
+    },
+    {
+     "es": "Limpia los champiñones con un paño.",
+     "ru": "Протри шампиньоны тряпочкой."
+    },
+    {
+     "es": "Champiñones al ajillo, una tapa típica.",
+     "ru": "Шампиньоны с чесноком — типичная тапа."
+    }
+   ]
+  },
+  {
+   "id": "es3-v855",
+   "type": "vocab",
+   "es": "la seta",
+   "en": "mushroom (wild)",
+   "ru": "гриб",
+   "tr": "ла сэ́та",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "En otoño vamos a coger setas.",
+     "ru": "Осенью мы ходим за грибами.",
+     "frame": [
+      "setas"
+     ]
+    },
+    {
+     "es": "No comas setas que no conoces.",
+     "ru": "Не ешь грибы, которых не знаешь.",
+     "frame": [
+      "setas"
+     ]
+    },
+    {
+     "es": "Revuelto de setas con huevo.",
+     "ru": "Грибы, жаренные с яйцом.",
+     "frame": [
+      "setas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v856",
+   "type": "vocab",
+   "es": "las espinacas",
+   "en": "spinach",
+   "ru": "шпинат",
+   "tr": "лас эспина́кас",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Espinacas con garbanzos, plato sevillano.",
+     "ru": "Шпинат с нутом — севильское блюдо.",
+     "frame": [
+      "Espinacas"
+     ]
+    },
+    {
+     "es": "A los niños no les gustan las espinacas.",
+     "ru": "Детям не нравится шпинат.",
+     "frame": [
+      "espinacas"
+     ]
+    },
+    {
+     "es": "Las espinacas encogen al cocinarlas.",
+     "ru": "Шпинат сильно уменьшается при готовке.",
+     "frame": [
+      "espinacas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v857",
+   "type": "vocab",
+   "es": "el brócoli",
+   "en": "broccoli",
+   "ru": "брокколи",
+   "tr": "эл бро́коли",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Brócoli al vapor con un poco de aceite.",
+     "ru": "Брокколи на пару с капелькой масла.",
+     "frame": [
+      "Brócoli"
+     ]
+    },
+    {
+     "es": "El brócoli es muy sano.",
+     "ru": "Брокколи очень полезна.",
+     "frame": [
+      "brócoli"
+     ]
+    },
+    {
+     "es": "Mi hijo come brócoli sin protestar.",
+     "ru": "Мой сын ест брокколи без протестов.",
+     "frame": [
+      "brócoli"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v858",
+   "type": "vocab",
+   "es": "la coliflor",
+   "en": "cauliflower",
+   "ru": "цветная капуста",
+   "tr": "ла колифло́р",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "La coliflor huele fuerte al cocerla.",
+     "ru": "Цветная капуста сильно пахнет при варке.",
+     "frame": [
+      "coliflor"
+     ]
+    },
+    {
+     "es": "Coliflor gratinada con queso.",
+     "ru": "Цветная капуста, запечённая с сыром.",
+     "frame": [
+      "Coliflor"
+     ]
+    },
+    {
+     "es": "Una coliflor entera cuesta dos euros.",
+     "ru": "Целая цветная капуста стоит два евро.",
+     "frame": [
+      "coliflor"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v859",
+   "type": "vocab",
+   "es": "la col",
+   "en": "cabbage",
+   "ru": "капуста",
+   "tr": "ла кол",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Un cuarto de col para la sopa.",
+     "ru": "Четверть кочана капусты для супа.",
+     "frame": [
+      "col"
+     ]
+    },
+    {
+     "es": "La col lombarda es morada.",
+     "ru": "Краснокочанная капуста фиолетовая.",
+     "frame": [
+      "col"
+     ]
+    },
+    {
+     "es": "Ensalada de col con zanahoria.",
+     "ru": "Салат из капусты с морковью.",
+     "frame": [
+      "col"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v860",
+   "type": "vocab",
+   "es": "el maíz",
+   "en": "corn",
+   "ru": "кукуруза",
+   "tr": "эл маи́с",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Una lata de maíz para la ensalada.",
+     "ru": "Банка кукурузы для салата.",
+     "frame": [
+      "maíz"
+     ]
+    },
+    {
+     "es": "Mazorcas de maíz a la brasa.",
+     "ru": "Кукурузные початки на гриле.",
+     "frame": [
+      "maíz"
+     ]
+    },
+    {
+     "es": "Las palomitas se hacen con maíz.",
+     "ru": "Попкорн делают из кукурузы.",
+     "frame": [
+      "maíz"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v861",
+   "type": "vocab",
+   "es": "la calabaza",
+   "en": "pumpkin",
+   "ru": "тыква",
+   "tr": "ла калаба́са",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Crema de calabaza en otoño.",
+     "ru": "Тыквенный крем-суп осенью.",
+     "frame": [
+      "calabaza"
+     ]
+    },
+    {
+     "es": "Compramos una calabaza para Halloween.",
+     "ru": "Мы купили тыкву на Хэллоуин.",
+     "frame": [
+      "calabaza"
+     ]
+    },
+    {
+     "es": "La calabaza asada queda dulce.",
+     "ru": "Запечённая тыква получается сладкой.",
+     "frame": [
+      "calabaza"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v862",
+   "type": "vocab",
+   "es": "los guisantes",
+   "en": "peas",
+   "ru": "горошек",
+   "tr": "лос гиса́нтэс",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Guisantes con jamón.",
+     "ru": "Горошек с хамоном.",
+     "frame": [
+      "Guisantes"
+     ]
+    },
+    {
+     "es": "Un paquete de guisantes congelados.",
+     "ru": "Пачка замороженного горошка.",
+     "frame": [
+      "guisantes"
+     ]
+    },
+    {
+     "es": "El niño aparta los guisantes del plato.",
+     "ru": "Ребёнок откладывает горошек с тарелки.",
+     "frame": [
+      "guisantes"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v863",
+   "type": "vocab",
+   "es": "las judías verdes",
+   "en": "green beans",
+   "ru": "стручковая фасоль",
+   "tr": "лас худи́ас бэ́рдэс",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Judías verdes con patata, muy típico.",
+     "ru": "Стручковая фасоль с картофелем — очень типично.",
+     "frame": [
+      "Judías verdes"
+     ]
+    },
+    {
+     "es": "Corta las puntas de las judías verdes.",
+     "ru": "Обрежь кончики стручковой фасоли.",
+     "frame": [
+      "judías verdes"
+     ]
+    },
+    {
+     "es": "Las judías verdes se cuecen diez minutos.",
+     "ru": "Стручковая фасоль варится десять минут.",
+     "frame": [
+      "judías verdes"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v864",
+   "type": "vocab",
+   "es": "el apio",
+   "en": "celery",
+   "ru": "сельдерей",
+   "tr": "эл а́пьо",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "El apio da sabor al caldo.",
+     "ru": "Сельдерей придаёт вкус бульону.",
+     "frame": [
+      "apio"
+     ]
+    },
+    {
+     "es": "Un zumo de apio y manzana.",
+     "ru": "Сок из сельдерея и яблока.",
+     "frame": [
+      "apio"
+     ]
+    },
+    {
+     "es": "No me gusta el apio crudo.",
+     "ru": "Я не люблю сырой сельдерей.",
+     "frame": [
+      "apio"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v865",
+   "type": "vocab",
+   "es": "el puerro",
+   "en": "leek",
+   "ru": "лук-порей",
+   "tr": "эл пуэ́рро",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Crema de puerros y patata.",
+     "ru": "Крем-суп из лука-порея с картофелем.",
+     "frame": [
+      "puerros"
+     ]
+    },
+    {
+     "es": "Lava bien el puerro, tiene tierra.",
+     "ru": "Хорошо промой порей, в нём земля.",
+     "frame": [
+      "puerro"
+     ]
+    },
+    {
+     "es": "Tres puerros para la sopa.",
+     "ru": "Три стебля порея для супа.",
+     "frame": [
+      "puerros"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v866",
+   "type": "vocab",
+   "es": "los espárragos",
+   "en": "asparagus",
+   "ru": "спаржа",
+   "tr": "лос эспа́ррагос",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Espárragos verdes a la plancha.",
+     "ru": "Зелёная спаржа на гриле.",
+     "frame": [
+      "Espárragos"
+     ]
+    },
+    {
+     "es": "Los espárragos blancos vienen en lata.",
+     "ru": "Белая спаржа продаётся в банках.",
+     "frame": [
+      "espárragos"
+     ]
+    },
+    {
+     "es": "En primavera los espárragos están baratos.",
+     "ru": "Весной спаржа дешёвая.",
+     "frame": [
+      "espárragos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v867",
+   "type": "vocab",
+   "es": "la alcachofa",
+   "en": "artichoke",
+   "ru": "артишок",
+   "tr": "ла алкачо́фа",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Alcachofas a la plancha con jamón.",
+     "ru": "Артишоки на гриле с хамоном.",
+     "frame": [
+      "Alcachofas"
+     ]
+    },
+    {
+     "es": "Las alcachofas son de invierno.",
+     "ru": "Артишоки — зимний овощ.",
+     "frame": [
+      "alcachofas"
+     ]
+    },
+    {
+     "es": "Quita las hojas duras de la alcachofa.",
+     "ru": "Убери жёсткие листья артишока.",
+     "frame": [
+      "alcachofa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v868",
+   "type": "vocab",
+   "es": "la aceituna",
+   "en": "olive",
+   "ru": "оливка",
+   "tr": "ла асэйту́на",
+   "group": null,
+   "set": "Фрукты и овощи",
+   "ex": [
+    {
+     "es": "Con la caña te ponen unas aceitunas.",
+     "ru": "К пиву подают оливки.",
+     "frame": [
+      "aceitunas"
+     ]
+    },
+    {
+     "es": "¿Aceitunas verdes o negras?",
+     "ru": "Оливки зелёные или чёрные?",
+     "frame": [
+      "Aceitunas"
+     ]
+    },
+    {
+     "es": "El aceite se hace con aceitunas.",
+     "ru": "Масло делают из оливок.",
+     "frame": [
+      "aceitunas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v869",
+   "type": "vocab",
+   "es": "despertarse",
+   "en": "to wake up",
+   "ru": "просыпаться",
+   "tr": "дэспэрта́рсэ",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Me despierto a las seis sin despertador.",
+     "ru": "Я просыпаюсь в шесть без будильника.",
+     "frame": [
+      "despierto"
+     ]
+    },
+    {
+     "es": "Duerme poco y se despierta pronto.",
+     "ru": "Он мало спит и рано просыпается.",
+     "frame": [
+      "despierta"
+     ]
+    },
+    {
+     "es": "¿A qué hora te despiertas?",
+     "ru": "Во сколько ты просыпаешься?",
+     "frame": [
+      "despiertas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v870",
+   "type": "vocab",
+   "es": "levantarse",
+   "en": "to get up",
+   "ru": "вставать",
+   "tr": "лэбанта́рсэ",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Levántate, ya es tarde.",
+     "ru": "Вставай, уже поздно.",
+     "frame": [
+      "Levántate"
+     ]
+    },
+    {
+     "es": "Me levanto a las siete.",
+     "ru": "Я встаю в семь.",
+     "frame": [
+      "levanto"
+     ]
+    },
+    {
+     "es": "Los domingos me levanto tarde.",
+     "ru": "По воскресеньям я встаю поздно.",
+     "frame": [
+      "levanto"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v091",
+   "type": "vocab",
+   "es": "ducharse",
+   "en": "to shower",
+   "ru": "принимать душ",
+   "tr": "дуча́рсэ",
+   "group": null,
+   "ex": [
+    {
+     "es": "Me ducho antes de salir.",
+     "ru": "Я принимаю душ перед выходом.",
+     "frame": [
+      "ducho"
+     ]
+    },
+    {
+     "es": "Dúchate rápido, llegamos tarde.",
+     "ru": "Быстро в душ, мы опаздываем.",
+     "frame": [
+      "Dúchate"
+     ]
+    },
+    {
+     "es": "Se ducha por la noche.",
+     "ru": "Он принимает душ вечером.",
+     "frame": [
+      "ducha"
+     ]
+    }
+   ],
+   "set": "Ежедневные действия"
+  },
+  {
+   "id": "es3-v092",
+   "type": "vocab",
+   "es": "lavarse",
+   "en": "to wash",
+   "ru": "мыться",
+   "tr": "лаба́рсэ",
+   "group": null,
+   "ex": [
+    {
+     "es": "Lávate las manos.",
+     "ru": "Помой руки.",
+     "frame": [
+      "Lávate"
+     ]
+    },
+    {
+     "es": "Me lavo la cara con agua fría.",
+     "ru": "Я умываюсь холодной водой.",
+     "frame": [
+      "lavo"
+     ]
+    },
+    {
+     "es": "Los niños se lavan solos.",
+     "ru": "Дети моются сами.",
+     "frame": [
+      "lavan"
+     ]
+    }
+   ],
+   "set": "Ежедневные действия"
+  },
+  {
+   "id": "es3-v871",
+   "type": "vocab",
+   "es": "lavarse los dientes",
+   "en": "to brush one's teeth",
+   "ru": "чистить зубы",
+   "tr": "лаба́рсэ лос дье́нтэс",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Me lavo los dientes tres veces al día.",
+     "ru": "Я чищу зубы три раза в день.",
+     "frame": [
+      "lavo",
+      "dientes"
+     ]
+    },
+    {
+     "es": "Lávate los dientes antes de acostarte.",
+     "ru": "Почисти зубы перед сном.",
+     "frame": [
+      "Lávate",
+      "dientes"
+     ]
+    },
+    {
+     "es": "El niño ya se lava los dientes solo.",
+     "ru": "Ребёнок уже сам чистит зубы.",
+     "frame": [
+      "lava",
+      "dientes"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v872",
+   "type": "vocab",
+   "es": "afeitarse",
+   "en": "to shave",
+   "ru": "бриться",
+   "tr": "афэйта́рсэ",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Me afeito cada dos días.",
+     "ru": "Я бреюсь раз в два дня.",
+     "frame": [
+      "afeito"
+     ]
+    },
+    {
+     "es": "Se afeita con maquinilla eléctrica.",
+     "ru": "Он бреется электробритвой.",
+     "frame": [
+      "afeita"
+     ]
+    },
+    {
+     "es": "Hoy no me he afeitado.",
+     "ru": "Сегодня я не побрился.",
+     "frame": [
+      "afeitado"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v873",
+   "type": "vocab",
+   "es": "peinarse",
+   "en": "to comb one's hair",
+   "ru": "причёсываться",
+   "tr": "пэйна́рсэ",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Péinate antes de salir.",
+     "ru": "Причешись перед выходом.",
+     "frame": [
+      "Péinate"
+     ]
+    },
+    {
+     "es": "Se peina delante del espejo.",
+     "ru": "Она причёсывается перед зеркалом.",
+     "frame": [
+      "peina"
+     ]
+    },
+    {
+     "es": "No me da tiempo ni a peinarme.",
+     "ru": "Мне некогда даже причесаться.",
+     "frame": [
+      "peinarme"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v874",
+   "type": "vocab",
+   "es": "maquillarse",
+   "en": "to put on make-up",
+   "ru": "краситься (макияж)",
+   "tr": "макийа́рсэ",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Se maquilla en diez minutos.",
+     "ru": "Она красится за десять минут.",
+     "frame": [
+      "maquilla"
+     ]
+    },
+    {
+     "es": "Hoy no me he maquillado.",
+     "ru": "Сегодня я не накрасилась.",
+     "frame": [
+      "maquillado"
+     ]
+    },
+    {
+     "es": "Mi hija quiere maquillarse como su madre.",
+     "ru": "Моя дочь хочет краситься, как её мама.",
+     "frame": [
+      "maquillarse"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v875",
+   "type": "vocab",
+   "es": "vestirse",
+   "en": "to get dressed",
+   "ru": "одеваться",
+   "tr": "бэсти́рсэ",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Vístete, que llegamos tarde.",
+     "ru": "Одевайся, мы опаздываем.",
+     "frame": [
+      "Vístete"
+     ]
+    },
+    {
+     "es": "Se viste rápido y se desnuda despacio.",
+     "ru": "Одевается быстро, раздевается медленно.",
+     "frame": [
+      "viste"
+     ]
+    },
+    {
+     "es": "Me visto en cinco minutos.",
+     "ru": "Я одеваюсь за пять минут.",
+     "frame": [
+      "visto"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v096",
+   "type": "vocab",
+   "es": "desayunar",
+   "en": "to have breakfast",
+   "ru": "завтракать",
+   "tr": "дэсайуна́р",
+   "group": null,
+   "ex": [
+    {
+     "es": "Desayuno a las ocho.",
+     "ru": "Я завтракаю в восемь.",
+     "frame": [
+      "Desayuno"
+     ]
+    },
+    {
+     "es": "¿Has desayunado ya?",
+     "ru": "Ты уже позавтракал?",
+     "frame": [
+      "desayunado"
+     ]
+    },
+    {
+     "es": "Desayunamos en el bar de abajo.",
+     "ru": "Мы завтракаем в баре внизу.",
+     "frame": [
+      "Desayunamos"
+     ]
+    }
+   ],
+   "set": "Ежедневные действия"
+  },
+  {
+   "id": "es3-v876",
+   "type": "vocab",
+   "es": "salir de casa",
+   "en": "to leave home",
+   "ru": "выходить из дома",
+   "tr": "сали́р дэ ка́са",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Salgo de casa a las ocho.",
+     "ru": "Я выхожу из дома в восемь.",
+     "frame": [
+      "Salgo",
+      "casa"
+     ]
+    },
+    {
+     "es": "Antes de salir de casa, apaga las luces.",
+     "ru": "Перед выходом из дома выключи свет.",
+     "frame": [
+      "salir de casa"
+     ]
+    },
+    {
+     "es": "Hoy no he salido de casa.",
+     "ru": "Сегодня я не выходил из дома.",
+     "frame": [
+      "salido",
+      "casa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v877",
+   "type": "vocab",
+   "es": "ir al trabajo",
+   "en": "to go to work",
+   "ru": "идти на работу",
+   "tr": "ир ал траба́хо",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Voy al trabajo en bici.",
+     "ru": "Я езжу на работу на велосипеде.",
+     "frame": [
+      "Voy",
+      "trabajo"
+     ]
+    },
+    {
+     "es": "Los lunes cuesta ir al trabajo.",
+     "ru": "По понедельникам тяжело идти на работу.",
+     "frame": [
+      "ir al trabajo"
+     ]
+    },
+    {
+     "es": "¿Hoy no vas al trabajo?",
+     "ru": "Ты сегодня не идёшь на работу?",
+     "frame": [
+      "vas",
+      "trabajo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v878",
+   "type": "vocab",
+   "es": "trabajar",
+   "en": "to work",
+   "ru": "работать",
+   "tr": "трабаха́р",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Trabajo hasta las seis.",
+     "ru": "Я работаю до шести.",
+     "frame": [
+      "Trabajo"
+     ]
+    },
+    {
+     "es": "Trabajo de lunes a viernes y descanso el domingo.",
+     "ru": "Работаю с понедельника по пятницу, отдыхаю в воскресенье.",
+     "frame": [
+      "Trabajo"
+     ]
+    },
+    {
+     "es": "Mi mujer trabaja desde casa.",
+     "ru": "Моя жена работает из дома.",
+     "frame": [
+      "trabaja"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v094",
+   "type": "vocab",
+   "es": "comer",
+   "en": "to eat / to have lunch",
+   "ru": "есть / обедать",
+   "tr": "комэ́р",
+   "group": null,
+   "ex": [
+    {
+     "es": "¿A qué hora comemos?",
+     "ru": "Во сколько мы обедаем?",
+     "frame": [
+      "comemos"
+     ]
+    },
+    {
+     "es": "No como carne.",
+     "ru": "Я не ем мясо.",
+     "frame": [
+      "como"
+     ]
+    },
+    {
+     "es": "¿Ha comido bien hoy?",
+     "ru": "Она сегодня хорошо поела?",
+     "frame": [
+      "comido"
+     ]
+    }
+   ],
+   "set": "Ежедневные действия"
+  },
+  {
+   "id": "es3-v879",
+   "type": "vocab",
+   "es": "merendar",
+   "en": "to have an afternoon snack",
+   "ru": "полдничать",
+   "tr": "мэрэнда́р",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Los niños meriendan a las cinco.",
+     "ru": "Дети полдничают в пять.",
+     "frame": [
+      "meriendan"
+     ]
+    },
+    {
+     "es": "¿Qué merendamos hoy?",
+     "ru": "Что у нас сегодня на полдник?",
+     "frame": [
+      "merendamos"
+     ]
+    },
+    {
+     "es": "Merienda un bocadillo y fruta.",
+     "ru": "На полдник он ест бутерброд и фрукты.",
+     "frame": [
+      "Merienda"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v880",
+   "type": "vocab",
+   "es": "hacer deporte",
+   "en": "to do sport",
+   "ru": "заниматься спортом",
+   "tr": "асэ́р дэпо́ртэ",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Hago deporte tres veces por semana.",
+     "ru": "Я занимаюсь спортом три раза в неделю.",
+     "frame": [
+      "Hago",
+      "deporte"
+     ]
+    },
+    {
+     "es": "Deberías hacer más deporte.",
+     "ru": "Тебе стоило бы больше заниматься спортом.",
+     "frame": [
+      "hacer",
+      "deporte"
+     ]
+    },
+    {
+     "es": "Después del trabajo hace deporte.",
+     "ru": "После работы он занимается спортом.",
+     "frame": [
+      "hace deporte"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v881",
+   "type": "vocab",
+   "es": "volver a casa",
+   "en": "to come back home",
+   "ru": "возвращаться домой",
+   "tr": "болбэ́р а ка́са",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Vuelvo a casa a las seis.",
+     "ru": "Я возвращаюсь домой в шесть.",
+     "frame": [
+      "Vuelvo",
+      "casa"
+     ]
+    },
+    {
+     "es": "Cuando vuelvas a casa, llámame.",
+     "ru": "Когда вернёшься домой, позвони мне.",
+     "frame": [
+      "vuelvas",
+      "casa"
+     ]
+    },
+    {
+     "es": "Volvimos a casa muy tarde.",
+     "ru": "Мы вернулись домой очень поздно.",
+     "frame": [
+      "Volvimos",
+      "casa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v093",
+   "type": "vocab",
+   "es": "cocinar",
+   "en": "to cook",
+   "ru": "готовить",
+   "tr": "косина́р",
+   "group": null,
+   "ex": [
+    {
+     "es": "Hoy cocino yo.",
+     "ru": "Сегодня готовлю я.",
+     "frame": [
+      "cocino"
+     ]
+    },
+    {
+     "es": "¿Sabes cocinar arroz?",
+     "ru": "Ты умеешь готовить рис?",
+     "frame": [
+      "cocinar"
+     ]
+    },
+    {
+     "es": "Cocinamos juntos los domingos.",
+     "ru": "По воскресеньям мы готовим вместе.",
+     "frame": [
+      "Cocinamos"
+     ]
+    }
+   ],
+   "set": "Ежедневные действия"
+  },
+  {
+   "id": "es3-v097",
+   "type": "vocab",
+   "es": "cenar",
+   "en": "to have dinner",
+   "ru": "ужинать",
+   "tr": "сэна́р",
+   "group": null,
+   "ex": [
+    {
+     "es": "Cenamos sobre las nueve.",
+     "ru": "Мы ужинаем около девяти.",
+     "frame": [
+      "Cenamos"
+     ]
+    },
+    {
+     "es": "¿Cenas con nosotros?",
+     "ru": "Поужинаешь с нами?",
+     "frame": [
+      "Cenas"
+     ]
+    },
+    {
+     "es": "Hoy ceno en casa.",
+     "ru": "Сегодня я ужинаю дома.",
+     "frame": [
+      "ceno"
+     ]
+    }
+   ],
+   "set": "Ежедневные действия"
+  },
+  {
+   "id": "es3-v882",
+   "type": "vocab",
+   "es": "ver la tele",
+   "en": "to watch TV",
+   "ru": "смотреть телевизор",
+   "tr": "бэр ла тэ́лэ",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Por la noche vemos la tele un rato.",
+     "ru": "Вечером мы немного смотрим телевизор.",
+     "frame": [
+      "vemos",
+      "tele"
+     ]
+    },
+    {
+     "es": "Los niños ven demasiada tele.",
+     "ru": "Дети слишком много смотрят телевизор.",
+     "frame": [
+      "ven",
+      "tele"
+     ]
+    },
+    {
+     "es": "No veo la tele, prefiero leer.",
+     "ru": "Я не смотрю телевизор, предпочитаю читать.",
+     "frame": [
+      "veo",
+      "tele"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v883",
+   "type": "vocab",
+   "es": "descansar",
+   "en": "to rest",
+   "ru": "отдыхать",
+   "tr": "дэсканса́р",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Descansa un rato.",
+     "ru": "Отдохни немного.",
+     "frame": [
+      "Descansa"
+     ]
+    },
+    {
+     "es": "Después de comer descansamos media hora.",
+     "ru": "После обеда мы отдыхаем полчаса.",
+     "frame": [
+      "descansamos"
+     ]
+    },
+    {
+     "es": "Necesito descansar del trabajo.",
+     "ru": "Мне нужно отдохнуть от работы.",
+     "frame": [
+      "descansar"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v884",
+   "type": "vocab",
+   "es": "desnudarse",
+   "en": "to undress",
+   "ru": "раздеваться",
+   "tr": "дэснуда́рсэ",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "El niño se desnuda solo.",
+     "ru": "Ребёнок раздевается сам.",
+     "frame": [
+      "desnuda"
+     ]
+    },
+    {
+     "es": "Desnúdate y ponte el pijama.",
+     "ru": "Раздевайся и надевай пижаму.",
+     "frame": [
+      "Desnúdate"
+     ]
+    },
+    {
+     "es": "Se desnudó para la ducha.",
+     "ru": "Он разделся для душа.",
+     "frame": [
+      "desnudó"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v885",
+   "type": "vocab",
+   "es": "acostarse",
+   "en": "to go to bed",
+   "ru": "ложиться спать",
+   "tr": "акоста́рсэ",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "Me acuesto a las once.",
+     "ru": "Я ложусь в одиннадцать.",
+     "frame": [
+      "acuesto"
+     ]
+    },
+    {
+     "es": "Los niños se acuestan a las nueve.",
+     "ru": "Дети ложатся в девять.",
+     "frame": [
+      "acuestan"
+     ]
+    },
+    {
+     "es": "Acuéstate ya, mañana hay cole.",
+     "ru": "Ложись уже, завтра в школу.",
+     "frame": [
+      "Acuéstate"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v886",
+   "type": "vocab",
+   "es": "dormir",
+   "en": "to sleep",
+   "ru": "спать",
+   "tr": "дорми́р",
+   "group": null,
+   "set": "Ежедневные действия",
+   "ex": [
+    {
+     "es": "No duermo bien con este calor.",
+     "ru": "В такую жару я плохо сплю.",
+     "frame": [
+      "duermo"
+     ]
+    },
+    {
+     "es": "El bebé duerme toda la noche.",
+     "ru": "Малыш спит всю ночь.",
+     "frame": [
+      "duerme"
+     ]
+    },
+    {
+     "es": "¿Has dormido bien?",
+     "ru": "Ты хорошо спал?",
+     "frame": [
+      "dormido"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v250",
+   "type": "vocab",
+   "es": "el kilo",
+   "en": "kilogram",
+   "ru": "килограмм",
+   "tr": "эл ки́ло",
+   "group": null,
+   "ex": [
+    {
+     "es": "Un kilo de naranjas, por favor.",
+     "ru": "Килограмм апельсинов, пожалуйста.",
+     "frame": [
+      "kilo"
+     ]
+    },
+    {
+     "es": "¿A cuánto está el kilo?",
+     "ru": "Почём килограмм?",
+     "frame": [
+      "kilo"
+     ]
+    },
+    {
+     "es": "He perdido tres kilos.",
+     "ru": "Я похудел на три килограмма.",
+     "frame": [
+      "kilos"
+     ]
+    }
+   ],
+   "set": "Количество и меры"
+  },
+  {
+   "id": "es3-v887",
+   "type": "vocab",
+   "es": "medio kilo",
+   "en": "half a kilo",
+   "ru": "полкило",
+   "tr": "мэ́дьо ки́ло",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "¿Me pone medio kilo de jamón?",
+     "ru": "Полкило хамона, пожалуйста.",
+     "frame": [
+      "medio kilo"
+     ]
+    },
+    {
+     "es": "Medio kilo de queso, por favor.",
+     "ru": "Полкило сыра, пожалуйста.",
+     "frame": [
+      "Medio kilo"
+     ]
+    },
+    {
+     "es": "Con medio kilo es suficiente.",
+     "ru": "Полкило хватит.",
+     "frame": [
+      "medio kilo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v888",
+   "type": "vocab",
+   "es": "un cuarto de kilo",
+   "en": "a quarter of a kilo",
+   "ru": "четверть кило",
+   "tr": "ун куа́рто дэ ки́ло",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Un cuarto de kilo de jamón.",
+     "ru": "Четверть кило хамона.",
+     "frame": [
+      "cuarto de kilo"
+     ]
+    },
+    {
+     "es": "¿Me pone un cuarto de kilo?",
+     "ru": "Дайте четверть кило, пожалуйста.",
+     "frame": [
+      "cuarto de kilo"
+     ]
+    },
+    {
+     "es": "Con un cuarto de kilo basta.",
+     "ru": "Четверти кило хватит.",
+     "frame": [
+      "cuarto de kilo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v251",
+   "type": "vocab",
+   "es": "el gramo",
+   "en": "gram",
+   "ru": "грамм",
+   "tr": "эл гра́мо",
+   "group": null,
+   "ex": [
+    {
+     "es": "Doscientos gramos de jamón.",
+     "ru": "Двести граммов хамона.",
+     "frame": [
+      "gramos"
+     ]
+    },
+    {
+     "es": "Pesa cien gramos justos.",
+     "ru": "Весит ровно сто граммов.",
+     "frame": [
+      "gramos"
+     ]
+    },
+    {
+     "es": "¿Cuántos gramos quiere?",
+     "ru": "Сколько граммов вам?",
+     "frame": [
+      "gramos"
+     ]
+    }
+   ],
+   "set": "Количество и меры"
+  },
+  {
+   "id": "es3-v252",
+   "type": "vocab",
+   "es": "el litro",
+   "en": "litre",
+   "ru": "литр",
+   "tr": "эл ли́тро",
+   "group": null,
+   "ex": [
+    {
+     "es": "Un litro de leche, por favor.",
+     "ru": "Литр молока, пожалуйста.",
+     "frame": [
+      "litro"
+     ]
+    },
+    {
+     "es": "El coche gasta seis litros.",
+     "ru": "Машина ест шесть литров.",
+     "frame": [
+      "litros"
+     ]
+    },
+    {
+     "es": "Compra dos litros de agua.",
+     "ru": "Купи два литра воды.",
+     "frame": [
+      "litros"
+     ]
+    }
+   ],
+   "set": "Количество и меры"
+  },
+  {
+   "id": "es3-v889",
+   "type": "vocab",
+   "es": "medio litro",
+   "en": "half a litre",
+   "ru": "пол-литра",
+   "tr": "мэ́дьо ли́тро",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Medio litro de leche para la tarta.",
+     "ru": "Пол-литра молока для торта.",
+     "frame": [
+      "Medio litro"
+     ]
+    },
+    {
+     "es": "Bebe medio litro de agua después de correr.",
+     "ru": "Выпей пол-литра воды после пробежки.",
+     "frame": [
+      "medio litro"
+     ]
+    },
+    {
+     "es": "Una jarra de medio litro.",
+     "ru": "Кувшин на пол-литра.",
+     "frame": [
+      "medio litro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v890",
+   "type": "vocab",
+   "es": "el metro",
+   "en": "metre",
+   "ru": "метр",
+   "tr": "эл мэ́тро",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "El armario mide dos metros.",
+     "ru": "Шкаф два метра.",
+     "frame": [
+      "metros"
+     ]
+    },
+    {
+     "es": "Un metro de tela cuesta cinco euros.",
+     "ru": "Метр ткани стоит пять евро.",
+     "frame": [
+      "metro"
+     ]
+    },
+    {
+     "es": "Mantén un metro de distancia.",
+     "ru": "Держи метр дистанции.",
+     "frame": [
+      "metro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v891",
+   "type": "vocab",
+   "es": "el centímetro",
+   "en": "centimetre",
+   "ru": "сантиметр",
+   "tr": "эл сэнти́мэтро",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "La mesa mide ochenta centímetros de ancho.",
+     "ru": "Стол восемьдесят сантиметров в ширину.",
+     "frame": [
+      "centímetros"
+     ]
+    },
+    {
+     "es": "El niño ha crecido tres centímetros.",
+     "ru": "Ребёнок вырос на три сантиметра.",
+     "frame": [
+      "centímetros"
+     ]
+    },
+    {
+     "es": "Corta dos centímetros de las puntas.",
+     "ru": "Отрежь два сантиметра с кончиков.",
+     "frame": [
+      "centímetros"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v892",
+   "type": "vocab",
+   "es": "el kilómetro",
+   "en": "kilometre",
+   "ru": "километр",
+   "tr": "эл кило́мэтро",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Corro cinco kilómetros al día.",
+     "ru": "Я бегаю пять километров в день.",
+     "frame": [
+      "kilómetros"
+     ]
+    },
+    {
+     "es": "La playa está a dos kilómetros.",
+     "ru": "Пляж в двух километрах.",
+     "frame": [
+      "kilómetros"
+     ]
+    },
+    {
+     "es": "Quedan diez kilómetros para Valencia.",
+     "ru": "До Валенсии осталось десять километров.",
+     "frame": [
+      "kilómetros"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v893",
+   "type": "vocab",
+   "es": "el metro cuadrado",
+   "en": "square metre",
+   "ru": "квадратный метр",
+   "tr": "эл мэ́тро куадра́до",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "El piso tiene setenta metros cuadrados.",
+     "ru": "Квартира семьдесят квадратных метров.",
+     "frame": [
+      "metros cuadrados"
+     ]
+    },
+    {
+     "es": "¿Cuánto cuesta el metro cuadrado aquí?",
+     "ru": "Сколько стоит квадратный метр здесь?",
+     "frame": [
+      "metro cuadrado"
+     ]
+    },
+    {
+     "es": "Un jardín de cien metros cuadrados.",
+     "ru": "Сад в сто квадратных метров.",
+     "frame": [
+      "metros cuadrados"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v894",
+   "type": "vocab",
+   "es": "la docena",
+   "en": "dozen",
+   "ru": "дюжина",
+   "tr": "ла досэ́на",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Una docena de huevos.",
+     "ru": "Дюжина яиц.",
+     "frame": [
+      "docena"
+     ]
+    },
+    {
+     "es": "Compra una docena de churros.",
+     "ru": "Купи дюжину чуррос.",
+     "frame": [
+      "docena"
+     ]
+    },
+    {
+     "es": "Había una docena de personas.",
+     "ru": "Там было человек двенадцать.",
+     "frame": [
+      "docena"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v895",
+   "type": "vocab",
+   "es": "media docena",
+   "en": "half a dozen",
+   "ru": "полдюжины",
+   "tr": "мэ́дья досэ́на",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Media docena de huevos, por favor.",
+     "ru": "Полдюжины яиц, пожалуйста.",
+     "frame": [
+      "Media docena"
+     ]
+    },
+    {
+     "es": "Me han llamado media docena de veces.",
+     "ru": "Мне звонили раз шесть.",
+     "frame": [
+      "media docena"
+     ]
+    },
+    {
+     "es": "Con media docena de ostras basta.",
+     "ru": "Полдюжины устриц хватит.",
+     "frame": [
+      "media docena"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v896",
+   "type": "vocab",
+   "es": "la lata",
+   "en": "tin / can",
+   "ru": "банка (жестяная)",
+   "tr": "ла ла́та",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Una lata de atún.",
+     "ru": "Банка тунца.",
+     "frame": [
+      "lata"
+     ]
+    },
+    {
+     "es": "¿Dónde se tiran las latas?",
+     "ru": "Куда выбрасывают банки?",
+     "frame": [
+      "latas"
+     ]
+    },
+    {
+     "es": "Abre la lata de tomate.",
+     "ru": "Открой банку томатов.",
+     "frame": [
+      "lata"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v897",
+   "type": "vocab",
+   "es": "el bote",
+   "en": "jar / tub",
+   "ru": "банка (стеклянная или пластиковая)",
+   "tr": "эл бо́тэ",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Un bote de mermelada.",
+     "ru": "Банка варенья.",
+     "frame": [
+      "bote"
+     ]
+    },
+    {
+     "es": "Guarda las lentejas en un bote.",
+     "ru": "Храни чечевицу в банке.",
+     "frame": [
+      "bote"
+     ]
+    },
+    {
+     "es": "El bote de champú está vacío.",
+     "ru": "Банка шампуня пуста.",
+     "frame": [
+      "bote"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v898",
+   "type": "vocab",
+   "es": "el cartón",
+   "en": "carton",
+   "ru": "картонная упаковка (молока, сока)",
+   "tr": "эл карто́н",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Un cartón de leche.",
+     "ru": "Пачка молока.",
+     "frame": [
+      "cartón"
+     ]
+    },
+    {
+     "es": "Compra dos cartones de zumo.",
+     "ru": "Купи две пачки сока."
+    },
+    {
+     "es": "El cartón va al contenedor azul.",
+     "ru": "Картон идёт в синий контейнер.",
+     "frame": [
+      "cartón"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v899",
+   "type": "vocab",
+   "es": "el envase",
+   "en": "packaging / container",
+   "ru": "упаковка / тара",
+   "tr": "эл энба́сэ",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Devuelve el envase y te dan diez céntimos.",
+     "ru": "Верни тару, и тебе дадут десять центов.",
+     "frame": [
+      "envase"
+     ]
+    },
+    {
+     "es": "Lee la fecha en el envase.",
+     "ru": "Прочитай дату на упаковке.",
+     "frame": [
+      "envase"
+     ]
+    },
+    {
+     "es": "Envase de un litro o de medio.",
+     "ru": "Упаковка на литр или на пол-литра.",
+     "frame": [
+      "Envase"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v900",
+   "type": "vocab",
+   "es": "el trozo",
+   "en": "piece",
+   "ru": "кусок",
+   "tr": "эл тро́со",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Un trozo de tarta, por favor.",
+     "ru": "Кусок торта, пожалуйста.",
+     "frame": [
+      "trozo"
+     ]
+    },
+    {
+     "es": "Corta el queso en trozos.",
+     "ru": "Нарежь сыр кусками.",
+     "frame": [
+      "trozos"
+     ]
+    },
+    {
+     "es": "Dame un trozo de pan.",
+     "ru": "Дай мне кусок хлеба.",
+     "frame": [
+      "trozo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v901",
+   "type": "vocab",
+   "es": "la loncha",
+   "en": "slice (of ham, cheese)",
+   "ru": "ломтик (нарезка)",
+   "tr": "ла ло́нча",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Cien gramos de jamón en lonchas finas.",
+     "ru": "Сто граммов хамона тонкими ломтиками.",
+     "frame": [
+      "lonchas"
+     ]
+    },
+    {
+     "es": "Pon dos lonchas de queso en el bocadillo.",
+     "ru": "Положи два ломтика сыра в бутерброд.",
+     "frame": [
+      "lonchas"
+     ]
+    },
+    {
+     "es": "Una loncha de pavo para el niño.",
+     "ru": "Ломтик индейки для ребёнка.",
+     "frame": [
+      "loncha"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v902",
+   "type": "vocab",
+   "es": "la rebanada",
+   "en": "slice (of bread)",
+   "ru": "ломоть (хлеба)",
+   "tr": "ла ррэбана́да",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Una rebanada de pan con tomate.",
+     "ru": "Ломоть хлеба с помидором.",
+     "frame": [
+      "rebanada"
+     ]
+    },
+    {
+     "es": "Corta el pan en rebanadas.",
+     "ru": "Нарежь хлеб ломтями.",
+     "frame": [
+      "rebanadas"
+     ]
+    },
+    {
+     "es": "Dos rebanadas de pan tostado.",
+     "ru": "Два ломтя поджаренного хлеба.",
+     "frame": [
+      "rebanadas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v903",
+   "type": "vocab",
+   "es": "la cucharada",
+   "en": "spoonful",
+   "ru": "столовая ложка (мера)",
+   "tr": "ла кучара́да",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Una cucharada de aceite.",
+     "ru": "Столовая ложка масла.",
+     "frame": [
+      "cucharada"
+     ]
+    },
+    {
+     "es": "Añade dos cucharadas de azúcar.",
+     "ru": "Добавь две ложки сахара.",
+     "frame": [
+      "cucharadas"
+     ]
+    },
+    {
+     "es": "Toma una cucharada de jarabe.",
+     "ru": "Прими ложку сиропа.",
+     "frame": [
+      "cucharada"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v904",
+   "type": "vocab",
+   "es": "la pizca",
+   "en": "pinch",
+   "ru": "щепотка",
+   "tr": "ла пи́ска",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Una pizca de sal.",
+     "ru": "Щепотка соли.",
+     "frame": [
+      "pizca"
+     ]
+    },
+    {
+     "es": "Ponle una pizca de canela.",
+     "ru": "Добавь щепотку корицы.",
+     "frame": [
+      "pizca"
+     ]
+    },
+    {
+     "es": "Ni una pizca de suerte.",
+     "ru": "Ни капли удачи.",
+     "frame": [
+      "pizca"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v905",
+   "type": "vocab",
+   "es": "el puñado",
+   "en": "handful",
+   "ru": "горсть",
+   "tr": "эл пунья́до",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Un puñado de almendras.",
+     "ru": "Горсть миндаля.",
+     "frame": [
+      "puñado"
+     ]
+    },
+    {
+     "es": "Echa un puñado de arroz.",
+     "ru": "Брось горсть риса.",
+     "frame": [
+      "puñado"
+     ]
+    },
+    {
+     "es": "Solo vino un puñado de gente.",
+     "ru": "Пришла только горстка людей.",
+     "frame": [
+      "puñado"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v906",
+   "type": "vocab",
+   "es": "el par",
+   "en": "pair / couple",
+   "ru": "пара",
+   "tr": "эл пар",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Un par de zapatos.",
+     "ru": "Пара обуви.",
+     "frame": [
+      "par"
+     ]
+    },
+    {
+     "es": "Dame un par de minutos.",
+     "ru": "Дай мне пару минут.",
+     "frame": [
+      "par"
+     ]
+    },
+    {
+     "es": "Compré un par de calcetines.",
+     "ru": "Я купил пару носков.",
+     "frame": [
+      "par"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v907",
+   "type": "vocab",
+   "es": "la unidad",
+   "en": "unit / piece",
+   "ru": "штука / единица",
+   "tr": "ла унида́д",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Las manzanas se venden por unidades.",
+     "ru": "Яблоки продают поштучно.",
+     "frame": [
+      "unidades"
+     ]
+    },
+    {
+     "es": "Un euro la unidad.",
+     "ru": "Один евро за штуку.",
+     "frame": [
+      "unidad"
+     ]
+    },
+    {
+     "es": "¿Cuántas unidades quiere?",
+     "ru": "Сколько штук вам?",
+     "frame": [
+      "unidades"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v908",
+   "type": "vocab",
+   "es": "la pieza",
+   "en": "piece (of fruit, a part)",
+   "ru": "штука (о фруктах), деталь",
+   "tr": "ла пье́са",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Tres piezas de fruta al día.",
+     "ru": "Три фрукта в день.",
+     "frame": [
+      "piezas"
+     ]
+    },
+    {
+     "es": "El precio es por pieza.",
+     "ru": "Цена за штуку.",
+     "frame": [
+      "pieza"
+     ]
+    },
+    {
+     "es": "Falta una pieza del mueble.",
+     "ru": "Не хватает одной детали мебели.",
+     "frame": [
+      "pieza"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v909",
+   "type": "vocab",
+   "es": "la mitad",
+   "en": "half",
+   "ru": "половина",
+   "tr": "ла мита́д",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Dame la mitad.",
+     "ru": "Дай мне половину.",
+     "frame": [
+      "mitad"
+     ]
+    },
+    {
+     "es": "La mitad de la clase está enferma.",
+     "ru": "Половина класса болеет.",
+     "frame": [
+      "mitad"
+     ]
+    },
+    {
+     "es": "Lo compré a mitad de precio.",
+     "ru": "Я купил это за полцены.",
+     "frame": [
+      "mitad"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v910",
+   "type": "vocab",
+   "es": "el doble",
+   "en": "double / twice as much",
+   "ru": "вдвое больше / двойной",
+   "tr": "эл до́блэ",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Cuesta el doble que el año pasado.",
+     "ru": "Стоит вдвое дороже, чем в прошлом году.",
+     "frame": [
+      "doble"
+     ]
+    },
+    {
+     "es": "Trabaja el doble y cobra lo mismo.",
+     "ru": "Работает вдвое больше, а получает столько же.",
+     "frame": [
+      "doble"
+     ]
+    },
+    {
+     "es": "Un café doble, por favor.",
+     "ru": "Двойной кофе, пожалуйста.",
+     "frame": [
+      "doble"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v911",
+   "type": "vocab",
+   "es": "un tercio",
+   "en": "a third",
+   "ru": "треть",
+   "tr": "ун тэ́рсьо",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Un tercio de los alumnos son extranjeros.",
+     "ru": "Треть учеников — иностранцы.",
+     "frame": [
+      "tercio"
+     ]
+    },
+    {
+     "es": "Me queda un tercio del libro.",
+     "ru": "Мне осталась треть книги.",
+     "frame": [
+      "tercio"
+     ]
+    },
+    {
+     "es": "Un tercio de cerveza, por favor.",
+     "ru": "Бутылку пива на треть литра, пожалуйста.",
+     "frame": [
+      "tercio"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v912",
+   "type": "vocab",
+   "es": "el porcentaje",
+   "en": "percentage",
+   "ru": "процент (доля)",
+   "tr": "эл порсэнта́хэ",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "¿Qué porcentaje de descuento tiene?",
+     "ru": "Какой процент скидки?",
+     "frame": [
+      "porcentaje"
+     ]
+    },
+    {
+     "es": "Un porcentaje alto de la gente vive de alquiler.",
+     "ru": "Большой процент людей живёт в аренде.",
+     "frame": [
+      "porcentaje"
+     ]
+    },
+    {
+     "es": "¿Qué porcentaje de la casa es tuyo?",
+     "ru": "Какой процент дома твой?",
+     "frame": [
+      "porcentaje"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v913",
+   "type": "vocab",
+   "es": "por ciento",
+   "en": "per cent",
+   "ru": "процентов (после числа)",
+   "tr": "пор сье́нто",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Un veinte por ciento de descuento.",
+     "ru": "Скидка двадцать процентов.",
+     "frame": [
+      "por ciento"
+     ]
+    },
+    {
+     "es": "Ha subido un diez por ciento.",
+     "ru": "Выросло на десять процентов.",
+     "frame": [
+      "por ciento"
+     ]
+    },
+    {
+     "es": "Estoy seguro al cien por cien.",
+     "ru": "Я уверен на сто процентов."
+    }
+   ]
+  },
+  {
+   "id": "es3-v914",
+   "type": "vocab",
+   "es": "un poco de",
+   "en": "a bit of",
+   "ru": "немного (чего-то)",
+   "tr": "ун по́ко дэ",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Un poco de sal y ya está.",
+     "ru": "Немного соли — и готово.",
+     "frame": [
+      "poco de"
+     ]
+    },
+    {
+     "es": "¿Quieres un poco de agua?",
+     "ru": "Хочешь немного воды?",
+     "frame": [
+      "poco de"
+     ]
+    },
+    {
+     "es": "Con un poco de suerte llegamos a tiempo.",
+     "ru": "Если немного повезёт, успеем.",
+     "frame": [
+      "poco de"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v915",
+   "type": "vocab",
+   "es": "un montón de",
+   "en": "loads of",
+   "ru": "куча (чего-то), очень много",
+   "tr": "ун монто́н дэ",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Tengo un montón de trabajo.",
+     "ru": "У меня куча работы.",
+     "frame": [
+      "montón de"
+     ]
+    },
+    {
+     "es": "Había un montón de gente en la playa.",
+     "ru": "На пляже была куча народу.",
+     "frame": [
+      "montón de"
+     ]
+    },
+    {
+     "es": "Me gusta un montón.",
+     "ru": "Мне очень нравится.",
+     "frame": [
+      "montón"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v916",
+   "type": "vocab",
+   "es": "la mayoría",
+   "en": "the majority",
+   "ru": "большинство",
+   "tr": "ла майори́а",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "La mayoría de la gente cena tarde.",
+     "ru": "Большинство людей ужинает поздно.",
+     "frame": [
+      "mayoría"
+     ]
+    },
+    {
+     "es": "La mayoría votó que sí.",
+     "ru": "Большинство проголосовало «за».",
+     "frame": [
+      "mayoría"
+     ]
+    },
+    {
+     "es": "La mayoría de las veces voy andando.",
+     "ru": "В большинстве случаев я иду пешком.",
+     "frame": [
+      "mayoría"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v917",
+   "type": "vocab",
+   "es": "el resto",
+   "en": "the rest",
+   "ru": "остальное / остаток",
+   "tr": "эл ррэ́сто",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Cómete el resto mañana.",
+     "ru": "Доешь остальное завтра.",
+     "frame": [
+      "resto"
+     ]
+    },
+    {
+     "es": "El resto del grupo llega en tren.",
+     "ru": "Остальная группа приезжает на поезде.",
+     "frame": [
+      "resto"
+     ]
+    },
+    {
+     "es": "Pago la mitad ahora y el resto después.",
+     "ru": "Плачу половину сейчас, а остальное потом.",
+     "frame": [
+      "resto"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v009",
+   "type": "vocab",
+   "es": "bastante",
+   "en": "quite/enough",
+   "ru": "довольно/достаточно",
+   "tr": "баста́нтэ",
+   "group": null,
+   "ex": [
+    {
+     "es": "Hay bastante gente hoy.",
+     "ru": "Сегодня довольно много народу.",
+     "frame": [
+      "bastante"
+     ]
+    },
+    {
+     "es": "Es bastante caro para mí.",
+     "ru": "Для меня это довольно дорого.",
+     "frame": [
+      "bastante"
+     ]
+    },
+    {
+     "es": "Con esto tengo bastante.",
+     "ru": "Мне этого хватит.",
+     "frame": [
+      "bastante"
+     ]
+    }
+   ],
+   "set": "Количество и меры"
+  },
+  {
+   "id": "es3-v010",
+   "type": "vocab",
+   "es": "demasiado",
+   "en": "too much",
+   "ru": "слишком",
+   "tr": "дэмасья́до",
+   "group": null,
+   "ex": [
+    {
+     "es": "Es demasiado tarde para llamar.",
+     "ru": "Слишком поздно звонить.",
+     "frame": [
+      "demasiado"
+     ]
+    },
+    {
+     "es": "Has puesto demasiada sal.",
+     "ru": "Ты положил слишком много соли.",
+     "frame": [
+      "demasiada"
+     ]
+    },
+    {
+     "es": "Hay demasiado ruido aquí.",
+     "ru": "Здесь слишком шумно.",
+     "frame": [
+      "demasiado"
+     ]
+    }
+   ],
+   "set": "Количество и меры"
+  },
+  {
+   "id": "es3-v330",
+   "type": "vocab",
+   "es": "suficiente",
+   "en": "enough",
+   "ru": "достаточный",
+   "tr": "суфисье́нтэ",
+   "group": null,
+   "ex": [
+    {
+     "es": "Con esto es suficiente.",
+     "ru": "Этого достаточно.",
+     "frame": [
+      "suficiente"
+     ]
+    },
+    {
+     "es": "No tengo dinero suficiente.",
+     "ru": "У меня недостаточно денег.",
+     "frame": [
+      "suficiente"
+     ]
+    },
+    {
+     "es": "¿Es suficiente con una hora?",
+     "ru": "Часа достаточно?",
+     "frame": [
+      "suficiente"
+     ]
+    }
+   ],
+   "set": "Количество и меры"
+  },
+  {
+   "id": "es3-v918",
+   "type": "vocab",
+   "es": "al menos",
+   "en": "at least",
+   "ru": "по крайней мере / минимум",
+   "tr": "ал мэ́нос",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Bebe al menos dos litros de agua.",
+     "ru": "Пей по крайней мере два литра воды.",
+     "frame": [
+      "al menos"
+     ]
+    },
+    {
+     "es": "Al menos no llueve.",
+     "ru": "По крайней мере, дождя нет.",
+     "frame": [
+      "Al menos"
+     ]
+    },
+    {
+     "es": "Espera al menos diez minutos.",
+     "ru": "Подожди хотя бы десять минут.",
+     "frame": [
+      "al menos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v919",
+   "type": "vocab",
+   "es": "como mucho",
+   "en": "at most",
+   "ru": "максимум / самое большее",
+   "tr": "ко́мо му́чо",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Tardo como mucho media hora.",
+     "ru": "Я потрачу максимум полчаса.",
+     "frame": [
+      "como mucho"
+     ]
+    },
+    {
+     "es": "Como mucho, cuesta veinte euros.",
+     "ru": "Самое большее, это стоит двадцать евро.",
+     "frame": [
+      "Como mucho"
+     ]
+    },
+    {
+     "es": "Vienen cinco personas como mucho.",
+     "ru": "Придёт максимум пять человек.",
+     "frame": [
+      "como mucho"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v920",
+   "type": "vocab",
+   "es": "cada uno",
+   "en": "each one / apiece",
+   "ru": "каждый / за штуку",
+   "tr": "ка́да у́но",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Los plátanos cuestan treinta céntimos cada uno.",
+     "ru": "Бананы стоят по тридцать центов за штуку.",
+     "frame": [
+      "cada uno"
+     ]
+    },
+    {
+     "es": "Cada uno paga lo suyo.",
+     "ru": "Каждый платит за себя.",
+     "frame": [
+      "Cada uno"
+     ]
+    },
+    {
+     "es": "Dos bocadillos, uno para cada uno.",
+     "ru": "Два бутерброда, по одному на каждого.",
+     "frame": [
+      "cada uno"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v921",
+   "type": "vocab",
+   "es": "por persona",
+   "en": "per person",
+   "ru": "на человека",
+   "tr": "пор пэрсо́на",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Son diez euros por persona.",
+     "ru": "Десять евро с человека.",
+     "frame": [
+      "por persona"
+     ]
+    },
+    {
+     "es": "Un plato por persona.",
+     "ru": "По одному блюду на человека.",
+     "frame": [
+      "por persona"
+     ]
+    },
+    {
+     "es": "Máximo dos maletas por persona.",
+     "ru": "Максимум два чемодана на человека.",
+     "frame": [
+      "por persona"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v922",
+   "type": "vocab",
+   "es": "el peso",
+   "en": "weight",
+   "ru": "вес",
+   "tr": "эл пэ́со",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "¿Cuál es el peso máximo de la maleta?",
+     "ru": "Какой максимальный вес чемодана?",
+     "frame": [
+      "peso"
+     ]
+    },
+    {
+     "es": "El bebé ha ganado peso.",
+     "ru": "Малыш набрал вес.",
+     "frame": [
+      "peso"
+     ]
+    },
+    {
+     "es": "El precio es por peso.",
+     "ru": "Цена по весу.",
+     "frame": [
+      "peso"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v923",
+   "type": "vocab",
+   "es": "el tamaño",
+   "en": "size (of a thing)",
+   "ru": "размер (величина)",
+   "tr": "эл тама́ньо",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "¿De qué tamaño es la habitación?",
+     "ru": "Какого размера комната?",
+     "frame": [
+      "tamaño"
+     ]
+    },
+    {
+     "es": "Tienen la pizza en tres tamaños.",
+     "ru": "У них пицца трёх размеров.",
+     "frame": [
+      "tamaños"
+     ]
+    },
+    {
+     "es": "Un perro de tamaño mediano.",
+     "ru": "Собака среднего размера.",
+     "frame": [
+      "tamaño"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v924",
+   "type": "vocab",
+   "es": "la altura",
+   "en": "height",
+   "ru": "высота",
+   "tr": "ла алту́ра",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "¿Qué altura tiene el techo?",
+     "ru": "Какая высота потолка?",
+     "frame": [
+      "altura"
+     ]
+    },
+    {
+     "es": "La estantería tiene dos metros de altura.",
+     "ru": "Стеллаж два метра в высоту.",
+     "frame": [
+      "altura"
+     ]
+    },
+    {
+     "es": "Tengo miedo a las alturas.",
+     "ru": "Я боюсь высоты.",
+     "frame": [
+      "alturas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v925",
+   "type": "vocab",
+   "es": "la longitud",
+   "en": "length",
+   "ru": "длина",
+   "tr": "ла лонхиту́д",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "Mide la longitud de la mesa.",
+     "ru": "Измерь длину стола.",
+     "frame": [
+      "longitud"
+     ]
+    },
+    {
+     "es": "La piscina tiene veinticinco metros de longitud.",
+     "ru": "Бассейн двадцать пять метров в длину.",
+     "frame": [
+      "longitud"
+     ]
+    },
+    {
+     "es": "¿Qué longitud tiene el cable?",
+     "ru": "Какой длины кабель?",
+     "frame": [
+      "longitud"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v926",
+   "type": "vocab",
+   "es": "la anchura",
+   "en": "width",
+   "ru": "ширина",
+   "tr": "ла анчу́ра",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "La anchura de la puerta es de ochenta centímetros.",
+     "ru": "Ширина двери — восемьдесят сантиметров.",
+     "frame": [
+      "anchura"
+     ]
+    },
+    {
+     "es": "Mide la anchura antes de comprar el sofá.",
+     "ru": "Измерь ширину перед покупкой дивана.",
+     "frame": [
+      "anchura"
+     ]
+    },
+    {
+     "es": "Mide la anchura de la ventana para la persiana.",
+     "ru": "Измерь ширину окна для жалюзи.",
+     "frame": [
+      "anchura"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v927",
+   "type": "vocab",
+   "es": "la profundidad",
+   "en": "depth",
+   "ru": "глубина",
+   "tr": "ла профундида́д",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "La piscina tiene dos metros de profundidad.",
+     "ru": "Глубина бассейна — два метра.",
+     "frame": [
+      "profundidad"
+     ]
+    },
+    {
+     "es": "¿Qué profundidad tiene el armario?",
+     "ru": "Какая глубина у шкафа?",
+     "frame": [
+      "profundidad"
+     ]
+    },
+    {
+     "es": "Aquí el mar no tiene profundidad.",
+     "ru": "Здесь море мелкое.",
+     "frame": [
+      "profundidad"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v928",
+   "type": "vocab",
+   "es": "la distancia",
+   "en": "distance",
+   "ru": "расстояние",
+   "tr": "ла диста́нсья",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "¿A qué distancia está el aeropuerto?",
+     "ru": "На каком расстоянии аэропорт?",
+     "frame": [
+      "distancia"
+     ]
+    },
+    {
+     "es": "Mantén la distancia de seguridad.",
+     "ru": "Держи безопасную дистанцию.",
+     "frame": [
+      "distancia"
+     ]
+    },
+    {
+     "es": "Es una distancia corta, vamos andando.",
+     "ru": "Расстояние небольшое, пойдём пешком.",
+     "frame": [
+      "distancia"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v929",
+   "type": "vocab",
+   "es": "la velocidad",
+   "en": "speed",
+   "ru": "скорость",
+   "tr": "ла бэлосида́д",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "¿A qué velocidad vas?",
+     "ru": "С какой скоростью ты едешь?",
+     "frame": [
+      "velocidad"
+     ]
+    },
+    {
+     "es": "La velocidad máxima aquí es de cincuenta.",
+     "ru": "Максимальная скорость здесь — пятьдесят.",
+     "frame": [
+      "velocidad"
+     ]
+    },
+    {
+     "es": "Baja la velocidad, hay niños.",
+     "ru": "Сбавь скорость, здесь дети.",
+     "frame": [
+      "velocidad"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v930",
+   "type": "vocab",
+   "es": "pesar",
+   "en": "to weigh",
+   "ru": "весить / взвешивать",
+   "tr": "пэса́р",
+   "group": null,
+   "set": "Количество и меры",
+   "ex": [
+    {
+     "es": "¿Cuánto pesa la maleta?",
+     "ru": "Сколько весит чемодан?",
+     "frame": [
+      "pesa"
+     ]
+    },
+    {
+     "es": "Peso setenta kilos.",
+     "ru": "Я вешу семьдесят килограммов.",
+     "frame": [
+      "Peso"
+     ]
+    },
+    {
+     "es": "Pesa la fruta antes de pagar.",
+     "ru": "Взвесь фрукты перед оплатой.",
+     "frame": [
+      "Pesa"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es3-v634",
    "type": "vocab",
    "es": "ser",
@@ -7281,134 +14809,6 @@
    ]
   },
   {
-   "id": "es3-v091",
-   "type": "vocab",
-   "es": "ducharse",
-   "en": "to shower",
-   "ru": "принимать душ",
-   "tr": "дуча́рсэ",
-   "group": "Глаголы: быт и дела",
-   "ex": [
-    {
-     "es": "Me ducho antes de salir.",
-     "ru": "Я принимаю душ перед выходом.",
-     "frame": [
-      "ducho"
-     ]
-    },
-    {
-     "es": "Dúchate rápido, llegamos tarde.",
-     "ru": "Быстро в душ, мы опаздываем.",
-     "frame": [
-      "Dúchate"
-     ]
-    },
-    {
-     "es": "Se ducha por la noche.",
-     "ru": "Он принимает душ вечером.",
-     "frame": [
-      "ducha"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v092",
-   "type": "vocab",
-   "es": "lavarse",
-   "en": "to wash",
-   "ru": "мыться",
-   "tr": "лаба́рсэ",
-   "group": "Глаголы: быт и дела",
-   "ex": [
-    {
-     "es": "Lávate las manos.",
-     "ru": "Помой руки.",
-     "frame": [
-      "Lávate"
-     ]
-    },
-    {
-     "es": "Me lavo la cara con agua fría.",
-     "ru": "Я умываюсь холодной водой.",
-     "frame": [
-      "lavo"
-     ]
-    },
-    {
-     "es": "Los niños se lavan solos.",
-     "ru": "Дети моются сами.",
-     "frame": [
-      "lavan"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v093",
-   "type": "vocab",
-   "es": "cocinar",
-   "en": "to cook",
-   "ru": "готовить",
-   "tr": "косина́р",
-   "group": "Глаголы: быт и дела",
-   "ex": [
-    {
-     "es": "Hoy cocino yo.",
-     "ru": "Сегодня готовлю я.",
-     "frame": [
-      "cocino"
-     ]
-    },
-    {
-     "es": "¿Sabes cocinar arroz?",
-     "ru": "Ты умеешь готовить рис?",
-     "frame": [
-      "cocinar"
-     ]
-    },
-    {
-     "es": "Cocinamos juntos los domingos.",
-     "ru": "По воскресеньям мы готовим вместе.",
-     "frame": [
-      "Cocinamos"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v094",
-   "type": "vocab",
-   "es": "comer",
-   "en": "to eat",
-   "ru": "есть",
-   "tr": "комэ́р",
-   "group": "Глаголы: быт и дела",
-   "ex": [
-    {
-     "es": "¿A qué hora comemos?",
-     "ru": "Во сколько мы обедаем?",
-     "frame": [
-      "comemos"
-     ]
-    },
-    {
-     "es": "No como carne.",
-     "ru": "Я не ем мясо.",
-     "frame": [
-      "como"
-     ]
-    },
-    {
-     "es": "¿Ha comido bien hoy?",
-     "ru": "Она сегодня хорошо поела?",
-     "frame": [
-      "comido"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es3-v095",
    "type": "vocab",
    "es": "beber",
@@ -7436,70 +14836,6 @@
      "ru": "Он не пьёт алкоголь.",
      "frame": [
       "bebe"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v096",
-   "type": "vocab",
-   "es": "desayunar",
-   "en": "to have breakfast",
-   "ru": "завтракать",
-   "tr": "дэсайуна́р",
-   "group": "Глаголы: быт и дела",
-   "ex": [
-    {
-     "es": "Desayuno a las ocho.",
-     "ru": "Я завтракаю в восемь.",
-     "frame": [
-      "Desayuno"
-     ]
-    },
-    {
-     "es": "¿Has desayunado ya?",
-     "ru": "Ты уже позавтракал?",
-     "frame": [
-      "desayunado"
-     ]
-    },
-    {
-     "es": "Desayunamos en el bar de abajo.",
-     "ru": "Мы завтракаем в баре внизу.",
-     "frame": [
-      "Desayunamos"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v097",
-   "type": "vocab",
-   "es": "cenar",
-   "en": "to have dinner",
-   "ru": "ужинать",
-   "tr": "сэна́р",
-   "group": "Глаголы: быт и дела",
-   "ex": [
-    {
-     "es": "Cenamos sobre las nueve.",
-     "ru": "Мы ужинаем около девяти.",
-     "frame": [
-      "Cenamos"
-     ]
-    },
-    {
-     "es": "¿Cenas con nosotros?",
-     "ru": "Поужинаешь с нами?",
-     "frame": [
-      "Cenas"
-     ]
-    },
-    {
-     "es": "Hoy ceno en casa.",
-     "ru": "Сегодня я ужинаю дома.",
-     "frame": [
-      "ceno"
      ]
     }
    ]
@@ -9100,6 +16436,38 @@
      "ru": "Участвовали двадцать семей.",
      "frame": [
       "Participaron"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v931",
+   "type": "vocab",
+   "es": "sentarse",
+   "en": "to sit down",
+   "ru": "садиться",
+   "tr": "сэнта́рсэ",
+   "group": "Глаголы: быт и дела",
+   "ex": [
+    {
+     "es": "Siéntate aquí, por favor.",
+     "ru": "Сядь сюда, пожалуйста.",
+     "frame": [
+      "Siéntate"
+     ]
+    },
+    {
+     "es": "Se levanta temprano y se sienta a trabajar.",
+     "ru": "Он встаёт рано и садится работать.",
+     "frame": [
+      "sienta"
+     ]
+    },
+    {
+     "es": "Nos sentamos en la terraza.",
+     "ru": "Мы садимся на террасе.",
+     "frame": [
+      "sentamos"
      ]
     }
    ]
@@ -11221,7 +18589,7 @@
    "type": "vocab",
    "es": "la pimienta",
    "en": "pepper",
-   "ru": "перец",
+   "ru": "перец (специя)",
    "tr": "ла пимье́нта",
    "group": "Еда и напитки",
    "ex": [
@@ -11244,390 +18612,6 @@
      "ru": "У вас есть чёрный перец?",
      "frame": [
       "pimienta"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v190",
-   "type": "vocab",
-   "es": "el tomate",
-   "en": "tomato",
-   "ru": "помидор",
-   "tr": "эл тома́тэ",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "Un kilo de tomates, por favor.",
-     "ru": "Килограмм помидоров, пожалуйста.",
-     "frame": [
-      "tomates"
-     ]
-    },
-    {
-     "es": "El tomate está muy maduro.",
-     "ru": "Помидор очень спелый.",
-     "frame": [
-      "tomate"
-     ]
-    },
-    {
-     "es": "Pan con tomate para desayunar.",
-     "ru": "На завтрак хлеб с помидором.",
-     "frame": [
-      "tomate"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v191",
-   "type": "vocab",
-   "es": "la patata",
-   "en": "potato",
-   "ru": "картофель",
-   "tr": "ла пата́та",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "Dos kilos de patatas.",
-     "ru": "Два килограмма картошки.",
-     "frame": [
-      "patatas"
-     ]
-    },
-    {
-     "es": "Las patatas están en la bolsa.",
-     "ru": "Картошка в пакете.",
-     "frame": [
-      "patatas"
-     ]
-    },
-    {
-     "es": "¿Con patatas o con ensalada?",
-     "ru": "С картошкой или с салатом?",
-     "frame": [
-      "patatas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v192",
-   "type": "vocab",
-   "es": "la cebolla",
-   "en": "onion",
-   "ru": "лук",
-   "tr": "ла сэбо́йа",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "Corta la cebolla muy fina.",
-     "ru": "Нарежь лук очень тонко.",
-     "frame": [
-      "cebolla"
-     ]
-    },
-    {
-     "es": "Sin cebolla, por favor.",
-     "ru": "Без лука, пожалуйста.",
-     "frame": [
-      "cebolla"
-     ]
-    },
-    {
-     "es": "La cebolla me hace llorar.",
-     "ru": "От лука я плачу.",
-     "frame": [
-      "cebolla"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v193",
-   "type": "vocab",
-   "es": "el ajo",
-   "en": "garlic",
-   "ru": "чеснок",
-   "tr": "эл а́хо",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "Lleva mucho ajo.",
-     "ru": "Здесь много чеснока.",
-     "frame": [
-      "ajo"
-     ]
-    },
-    {
-     "es": "Compra una cabeza de ajo.",
-     "ru": "Купи головку чеснока.",
-     "frame": [
-      "ajo"
-     ]
-    },
-    {
-     "es": "No le pongas ajo.",
-     "ru": "Не клади туда чеснок.",
-     "frame": [
-      "ajo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v194",
-   "type": "vocab",
-   "es": "la lechuga",
-   "en": "lettuce",
-   "ru": "салат",
-   "tr": "ла лэчу́га",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "Una ensalada de lechuga y tomate.",
-     "ru": "Салат из листьев и помидора.",
-     "frame": [
-      "lechuga"
-     ]
-    },
-    {
-     "es": "La lechuga no está fresca.",
-     "ru": "Салат несвежий.",
-     "frame": [
-      "lechuga"
-     ]
-    },
-    {
-     "es": "Lava la lechuga, por favor.",
-     "ru": "Помой салат, пожалуйста.",
-     "frame": [
-      "lechuga"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v195",
-   "type": "vocab",
-   "es": "la manzana",
-   "en": "apple",
-   "ru": "яблоко",
-   "tr": "ла манса́на",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "Como una manzana cada día.",
-     "ru": "Я ем по яблоку в день.",
-     "frame": [
-      "manzana"
-     ]
-    },
-    {
-     "es": "Estas manzanas están muy dulces.",
-     "ru": "Эти яблоки очень сладкие.",
-     "frame": [
-      "manzanas"
-     ]
-    },
-    {
-     "es": "¿Quieres una manzana?",
-     "ru": "Хочешь яблоко?",
-     "frame": [
-      "manzana"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v196",
-   "type": "vocab",
-   "es": "el plátano",
-   "en": "banana",
-   "ru": "банан",
-   "tr": "эл пла́тано",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "Un plátano para el desayuno.",
-     "ru": "Банан на завтрак.",
-     "frame": [
-      "plátano"
-     ]
-    },
-    {
-     "es": "Los plátanos están verdes.",
-     "ru": "Бананы зелёные.",
-     "frame": [
-      "plátanos"
-     ]
-    },
-    {
-     "es": "Compra plátanos de Canarias.",
-     "ru": "Купи канарские бананы.",
-     "frame": [
-      "plátanos"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v198",
-   "type": "vocab",
-   "es": "el limón",
-   "en": "lemon",
-   "ru": "лимон",
-   "tr": "эл лимо́н",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "Té con limón, por favor.",
-     "ru": "Чай с лимоном, пожалуйста.",
-     "frame": [
-      "limón"
-     ]
-    },
-    {
-     "es": "Exprime medio limón.",
-     "ru": "Выжми половину лимона.",
-     "frame": [
-      "limón"
-     ]
-    },
-    {
-     "es": "El limón está muy ácido.",
-     "ru": "Лимон очень кислый.",
-     "frame": [
-      "limón"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v199",
-   "type": "vocab",
-   "es": "la fresa",
-   "en": "strawberry",
-   "ru": "клубника",
-   "tr": "ла фрэ́са",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "Las fresas están de temporada.",
-     "ru": "Клубника сейчас в сезон.",
-     "frame": [
-      "fresas"
-     ]
-    },
-    {
-     "es": "Un helado de fresa.",
-     "ru": "Клубничное мороженое.",
-     "frame": [
-      "fresa"
-     ]
-    },
-    {
-     "es": "Compré fresas en el mercado.",
-     "ru": "Я купил клубнику на рынке.",
-     "frame": [
-      "fresas"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v200",
-   "type": "vocab",
-   "es": "la sandía",
-   "en": "watermelon",
-   "ru": "арбуз",
-   "tr": "ла санди́а",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "La sandía está muy dulce.",
-     "ru": "Арбуз очень сладкий.",
-     "frame": [
-      "sandía"
-     ]
-    },
-    {
-     "es": "En verano comemos sandía.",
-     "ru": "Летом мы едим арбуз.",
-     "frame": [
-      "sandía"
-     ]
-    },
-    {
-     "es": "Media sandía, por favor.",
-     "ru": "Поларбуза, пожалуйста.",
-     "frame": [
-      "sandía"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v201",
-   "type": "vocab",
-   "es": "el melón",
-   "en": "melon",
-   "ru": "дыня",
-   "tr": "эл мэло́н",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "El melón está frío.",
-     "ru": "Дыня холодная.",
-     "frame": [
-      "melón"
-     ]
-    },
-    {
-     "es": "Melón con jamón de primero.",
-     "ru": "На первое дыня с хамоном.",
-     "frame": [
-      "Melón"
-     ]
-    },
-    {
-     "es": "Este melón pesa tres kilos.",
-     "ru": "Эта дыня весит три килограмма.",
-     "frame": [
-      "melón"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v202",
-   "type": "vocab",
-   "es": "la uva",
-   "en": "grape",
-   "ru": "виноград",
-   "tr": "ла у́ба",
-   "group": "Еда и напитки",
-   "ex": [
-    {
-     "es": "Un kilo de uva, por favor.",
-     "ru": "Килограмм винограда, пожалуйста.",
-     "frame": [
-      "uva"
-     ]
-    },
-    {
-     "es": "La uva de aquí es muy buena.",
-     "ru": "Виноград здесь очень хороший.",
-     "frame": [
-      "uva"
-     ]
-    },
-    {
-     "es": "Comemos uvas en Nochevieja.",
-     "ru": "В новогоднюю ночь мы едим виноград.",
-     "frame": [
-      "uvas"
      ]
     }
    ]
@@ -12780,102 +19764,6 @@
      "ru": "Эта модель больше не продаётся.",
      "frame": [
       "modelo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v250",
-   "type": "vocab",
-   "es": "el kilo",
-   "en": "kilogram",
-   "ru": "килограмм",
-   "tr": "эл ки́ло",
-   "group": "Покупки и деньги",
-   "ex": [
-    {
-     "es": "Un kilo de naranjas, por favor.",
-     "ru": "Килограмм апельсинов, пожалуйста.",
-     "frame": [
-      "kilo"
-     ]
-    },
-    {
-     "es": "¿A cuánto está el kilo?",
-     "ru": "Почём килограмм?",
-     "frame": [
-      "kilo"
-     ]
-    },
-    {
-     "es": "He perdido tres kilos.",
-     "ru": "Я похудел на три килограмма.",
-     "frame": [
-      "kilos"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v251",
-   "type": "vocab",
-   "es": "el gramo",
-   "en": "gram",
-   "ru": "грамм",
-   "tr": "эл гра́мо",
-   "group": "Покупки и деньги",
-   "ex": [
-    {
-     "es": "Doscientos gramos de jamón.",
-     "ru": "Двести граммов хамона.",
-     "frame": [
-      "gramos"
-     ]
-    },
-    {
-     "es": "Pesa cien gramos justos.",
-     "ru": "Весит ровно сто граммов.",
-     "frame": [
-      "gramos"
-     ]
-    },
-    {
-     "es": "¿Cuántos gramos quiere?",
-     "ru": "Сколько граммов вам?",
-     "frame": [
-      "gramos"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v252",
-   "type": "vocab",
-   "es": "el litro",
-   "en": "litre",
-   "ru": "литр",
-   "tr": "эл ли́тро",
-   "group": "Покупки и деньги",
-   "ex": [
-    {
-     "es": "Un litro de leche, por favor.",
-     "ru": "Литр молока, пожалуйста.",
-     "frame": [
-      "litro"
-     ]
-    },
-    {
-     "es": "El coche gasta seis litros.",
-     "ru": "Машина ест шесть литров.",
-     "frame": [
-      "litros"
-     ]
-    },
-    {
-     "es": "Compra dos litros de agua.",
-     "ru": "Купи два литра воды.",
-     "frame": [
-      "litros"
      ]
     }
    ]
@@ -15148,736 +22036,6 @@
      "ru": "Последний день месяца праздничный.",
      "frame": [
       "último"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v348",
-   "type": "vocab",
-   "es": "el cuerpo",
-   "en": "body",
-   "ru": "тело",
-   "tr": "эл куэ́рпо",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me duele todo el cuerpo.",
-     "ru": "У меня болит всё тело.",
-     "frame": [
-      "cuerpo"
-     ]
-    },
-    {
-     "es": "El cuerpo necesita descanso.",
-     "ru": "Телу нужен отдых.",
-     "frame": [
-      "cuerpo"
-     ]
-    },
-    {
-     "es": "Tiene el cuerpo lleno de arena.",
-     "ru": "Он весь в песке.",
-     "frame": [
-      "cuerpo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v349",
-   "type": "vocab",
-   "es": "la cabeza",
-   "en": "head",
-   "ru": "голова",
-   "tr": "ла кабэ́са",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me duele la cabeza.",
-     "ru": "У меня болит голова.",
-     "frame": [
-      "cabeza"
-     ]
-    },
-    {
-     "es": "Cuidado con la cabeza al entrar.",
-     "ru": "Осторожно, голова, когда заходишь.",
-     "frame": [
-      "cabeza"
-     ]
-    },
-    {
-     "es": "No me entra en la cabeza.",
-     "ru": "У меня это в голове не укладывается.",
-     "frame": [
-      "cabeza"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v350",
-   "type": "vocab",
-   "es": "la cara",
-   "en": "face",
-   "ru": "лицо",
-   "tr": "ла ка́ра",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Tienes buena cara hoy.",
-     "ru": "Ты сегодня хорошо выглядишь.",
-     "frame": [
-      "cara"
-     ]
-    },
-    {
-     "es": "Lávate la cara antes de salir.",
-     "ru": "Умойся перед выходом.",
-     "frame": [
-      "cara"
-     ]
-    },
-    {
-     "es": "Le he visto la cara un momento.",
-     "ru": "Я на секунду увидел его лицо.",
-     "frame": [
-      "cara"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v351",
-   "type": "vocab",
-   "es": "el ojo",
-   "en": "eye",
-   "ru": "глаз",
-   "tr": "эл о́хо",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me ha entrado algo en el ojo.",
-     "ru": "Мне что-то попало в глаз.",
-     "frame": [
-      "ojo"
-     ]
-    },
-    {
-     "es": "Tiene los ojos azules.",
-     "ru": "У него голубые глаза.",
-     "frame": [
-      "ojos"
-     ]
-    },
-    {
-     "es": "Cierra los ojos un momento.",
-     "ru": "Закрой глаза на минуту.",
-     "frame": [
-      "ojos"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v352",
-   "type": "vocab",
-   "es": "la nariz",
-   "en": "nose",
-   "ru": "нос",
-   "tr": "ла нари́с",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me sangra la nariz.",
-     "ru": "У меня идёт кровь из носа.",
-     "frame": [
-      "nariz"
-     ]
-    },
-    {
-     "es": "Respira por la nariz.",
-     "ru": "Дыши носом.",
-     "frame": [
-      "nariz"
-     ]
-    },
-    {
-     "es": "Tengo la nariz tapada.",
-     "ru": "У меня заложен нос.",
-     "frame": [
-      "nariz"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v353",
-   "type": "vocab",
-   "es": "la boca",
-   "en": "mouth",
-   "ru": "рот",
-   "tr": "ла бо́ка",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Abra la boca, por favor.",
-     "ru": "Откройте рот, пожалуйста.",
-     "frame": [
-      "boca"
-     ]
-    },
-    {
-     "es": "No hables con la boca llena.",
-     "ru": "Не говори с набитым ртом.",
-     "frame": [
-      "boca"
-     ]
-    },
-    {
-     "es": "La boca de metro está cerrada.",
-     "ru": "Вход в метро закрыт.",
-     "frame": [
-      "boca"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v354",
-   "type": "vocab",
-   "es": "la oreja",
-   "en": "ear",
-   "ru": "ухо",
-   "tr": "ла орэ́ха",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me duele la oreja derecha.",
-     "ru": "У меня болит правое ухо.",
-     "frame": [
-      "oreja"
-     ]
-    },
-    {
-     "es": "Tiene un pendiente en la oreja.",
-     "ru": "У неё серьга в ухе.",
-     "frame": [
-      "oreja"
-     ]
-    },
-    {
-     "es": "Acércate y te lo digo al oído.",
-     "ru": "Подойди, скажу тебе на ухо."
-    }
-   ]
-  },
-  {
-   "id": "es3-v355",
-   "type": "vocab",
-   "es": "el cuello",
-   "en": "neck",
-   "ru": "шея",
-   "tr": "эл куэ́йо",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Tengo el cuello duro.",
-     "ru": "У меня затекла шея.",
-     "frame": [
-      "cuello"
-     ]
-    },
-    {
-     "es": "La camisa me aprieta en el cuello.",
-     "ru": "Рубашка жмёт в шее.",
-     "frame": [
-      "cuello"
-     ]
-    },
-    {
-     "es": "Ponte algo en el cuello, hace frío.",
-     "ru": "Надень что-нибудь на шею, холодно.",
-     "frame": [
-      "cuello"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v356",
-   "type": "vocab",
-   "es": "el hombro",
-   "en": "shoulder",
-   "ru": "плечо",
-   "tr": "эл о́мбро",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me duele el hombro izquierdo.",
-     "ru": "У меня болит левое плечо.",
-     "frame": [
-      "hombro"
-     ]
-    },
-    {
-     "es": "Llevo la mochila en un hombro.",
-     "ru": "Я ношу рюкзак на одном плече.",
-     "frame": [
-      "hombro"
-     ]
-    },
-    {
-     "es": "Le puse la mano en el hombro.",
-     "ru": "Я положил ему руку на плечо.",
-     "frame": [
-      "hombro"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v357",
-   "type": "vocab",
-   "es": "el brazo",
-   "en": "arm",
-   "ru": "рука",
-   "tr": "эл бра́со",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Se ha roto el brazo.",
-     "ru": "Он сломал руку.",
-     "frame": [
-      "brazo"
-     ]
-    },
-    {
-     "es": "Levanta el brazo despacio.",
-     "ru": "Подними руку медленно.",
-     "frame": [
-      "brazo"
-     ]
-    },
-    {
-     "es": "Lleva al niño en brazos.",
-     "ru": "Он несёт ребёнка на руках.",
-     "frame": [
-      "brazos"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v358",
-   "type": "vocab",
-   "es": "la mano",
-   "en": "hand",
-   "ru": "кисть/рука",
-   "tr": "ла ма́но",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Dame la mano.",
-     "ru": "Дай руку.",
-     "frame": [
-      "mano"
-     ]
-    },
-    {
-     "es": "Tengo las manos frías.",
-     "ru": "У меня холодные руки.",
-     "frame": [
-      "manos"
-     ]
-    },
-    {
-     "es": "Lo hice a mano.",
-     "ru": "Я сделал это вручную.",
-     "frame": [
-      "mano"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v359",
-   "type": "vocab",
-   "es": "el dedo",
-   "en": "finger/toe",
-   "ru": "палец",
-   "tr": "эл дэ́до",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me he cortado el dedo.",
-     "ru": "Я порезал палец.",
-     "frame": [
-      "dedo"
-     ]
-    },
-    {
-     "es": "Señala con el dedo dónde duele.",
-     "ru": "Покажи пальцем, где болит.",
-     "frame": [
-      "dedo"
-     ]
-    },
-    {
-     "es": "El anillo no me entra en el dedo.",
-     "ru": "Кольцо не налезает на палец.",
-     "frame": [
-      "dedo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v360",
-   "type": "vocab",
-   "es": "el pecho",
-   "en": "chest",
-   "ru": "грудь",
-   "tr": "эл пэ́чо",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me duele el pecho al respirar.",
-     "ru": "У меня болит грудь при дыхании.",
-     "frame": [
-      "pecho"
-     ]
-    },
-    {
-     "es": "El niño se durmió en mi pecho.",
-     "ru": "Ребёнок уснул у меня на груди.",
-     "frame": [
-      "pecho"
-     ]
-    },
-    {
-     "es": "Siente un peso en el pecho.",
-     "ru": "Он чувствует тяжесть в груди.",
-     "frame": [
-      "pecho"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v361",
-   "type": "vocab",
-   "es": "la espalda",
-   "en": "back",
-   "ru": "спина",
-   "tr": "ла эспа́лда",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me duele la espalda.",
-     "ru": "У меня болит спина.",
-     "frame": [
-      "espalda"
-     ]
-    },
-    {
-     "es": "Duerme boca abajo por la espalda.",
-     "ru": "Он спит на животе из-за спины.",
-     "frame": [
-      "espalda"
-     ]
-    },
-    {
-     "es": "Lleva la mochila a la espalda.",
-     "ru": "Он носит рюкзак за спиной.",
-     "frame": [
-      "espalda"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v362",
-   "type": "vocab",
-   "es": "la barriga",
-   "en": "belly",
-   "ru": "живот",
-   "tr": "ла барри́га",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me duele la barriga.",
-     "ru": "У меня болит живот.",
-     "frame": [
-      "barriga"
-     ]
-    },
-    {
-     "es": "El niño tiene la barriga llena.",
-     "ru": "Ребёнок наелся.",
-     "frame": [
-      "barriga"
-     ]
-    },
-    {
-     "es": "Túmbate boca arriba y relaja la barriga.",
-     "ru": "Ляг на спину и расслабь живот.",
-     "frame": [
-      "barriga"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v363",
-   "type": "vocab",
-   "es": "la pierna",
-   "en": "leg",
-   "ru": "нога",
-   "tr": "ла пье́рна",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Se ha hecho daño en la pierna.",
-     "ru": "Он повредил ногу.",
-     "frame": [
-      "pierna"
-     ]
-    },
-    {
-     "es": "Estira la pierna despacio.",
-     "ru": "Вытяни ногу медленно.",
-     "frame": [
-      "pierna"
-     ]
-    },
-    {
-     "es": "Me duele la pierna al andar.",
-     "ru": "У меня болит нога при ходьбе.",
-     "frame": [
-      "pierna"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v364",
-   "type": "vocab",
-   "es": "la rodilla",
-   "en": "knee",
-   "ru": "колено",
-   "tr": "ла рроди́йа",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Se cayó y se hizo daño en la rodilla.",
-     "ru": "Он упал и ушиб колено.",
-     "frame": [
-      "rodilla"
-     ]
-    },
-    {
-     "es": "Me duele la rodilla al subir escaleras.",
-     "ru": "У меня болит колено на лестнице.",
-     "frame": [
-      "rodilla"
-     ]
-    },
-    {
-     "es": "El niño tiene la rodilla roja.",
-     "ru": "У ребёнка красное колено.",
-     "frame": [
-      "rodilla"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v365",
-   "type": "vocab",
-   "es": "el pie",
-   "en": "foot",
-   "ru": "ступня",
-   "tr": "эл пье",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me duele el pie derecho.",
-     "ru": "У меня болит правая ступня.",
-     "frame": [
-      "pie"
-     ]
-    },
-    {
-     "es": "Vamos a pie, está cerca.",
-     "ru": "Пойдём пешком, это рядом.",
-     "frame": [
-      "pie"
-     ]
-    },
-    {
-     "es": "Se me ha dormido el pie.",
-     "ru": "У меня затекла нога.",
-     "frame": [
-      "pie"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v366",
-   "type": "vocab",
-   "es": "la piel",
-   "en": "skin",
-   "ru": "кожа",
-   "tr": "ла пьел",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Tengo la piel muy seca.",
-     "ru": "У меня очень сухая кожа.",
-     "frame": [
-      "piel"
-     ]
-    },
-    {
-     "es": "Protege la piel del sol.",
-     "ru": "Защищай кожу от солнца.",
-     "frame": [
-      "piel"
-     ]
-    },
-    {
-     "es": "Esta crema es para la piel sensible.",
-     "ru": "Этот крем для чувствительной кожи.",
-     "frame": [
-      "piel"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v367",
-   "type": "vocab",
-   "es": "el pelo",
-   "en": "hair",
-   "ru": "волосы",
-   "tr": "эл пэ́ло",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Tengo que cortarme el pelo.",
-     "ru": "Мне нужно постричься.",
-     "frame": [
-      "pelo"
-     ]
-    },
-    {
-     "es": "Tiene el pelo largo y rizado.",
-     "ru": "У неё длинные кудрявые волосы.",
-     "frame": [
-      "pelo"
-     ]
-    },
-    {
-     "es": "Sécate el pelo, hace frío.",
-     "ru": "Высуши волосы, холодно.",
-     "frame": [
-      "pelo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v368",
-   "type": "vocab",
-   "es": "el diente",
-   "en": "tooth",
-   "ru": "зуб",
-   "tr": "эл дье́нтэ",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me duele un diente.",
-     "ru": "У меня болит зуб.",
-     "frame": [
-      "diente"
-     ]
-    },
-    {
-     "es": "Al niño se le ha caído un diente.",
-     "ru": "У ребёнка выпал зуб.",
-     "frame": [
-      "diente"
-     ]
-    },
-    {
-     "es": "Lávate los dientes.",
-     "ru": "Почисти зубы.",
-     "frame": [
-      "dientes"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v369",
-   "type": "vocab",
-   "es": "el corazón",
-   "en": "heart",
-   "ru": "сердце",
-   "tr": "эл корасо́н",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me late muy rápido el corazón.",
-     "ru": "У меня очень быстро бьётся сердце.",
-     "frame": [
-      "corazón"
-     ]
-    },
-    {
-     "es": "Tiene problemas de corazón.",
-     "ru": "У него проблемы с сердцем.",
-     "frame": [
-      "corazón"
-     ]
-    },
-    {
-     "es": "Es una persona de buen corazón.",
-     "ru": "Он человек с добрым сердцем.",
-     "frame": [
-      "corazón"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v370",
-   "type": "vocab",
-   "es": "la sangre",
-   "en": "blood",
-   "ru": "кровь",
-   "tr": "ла са́нгрэ",
-   "group": "Тело",
-   "ex": [
-    {
-     "es": "Me hicieron un análisis de sangre.",
-     "ru": "Мне сделали анализ крови.",
-     "frame": [
-      "sangre"
-     ]
-    },
-    {
-     "es": "La herida sangra un poco.",
-     "ru": "Рана немного кровит."
-    },
-    {
-     "es": "No soporto ver sangre.",
-     "ru": "Я не переношу вид крови.",
-     "frame": [
-      "sangre"
      ]
     }
    ]
@@ -19019,38 +25177,6 @@
    ]
   },
   {
-   "id": "es3-v330",
-   "type": "vocab",
-   "es": "suficiente",
-   "en": "enough",
-   "ru": "достаточный",
-   "tr": "суфисье́нтэ",
-   "group": "Состояния и оценки",
-   "ex": [
-    {
-     "es": "Con esto es suficiente.",
-     "ru": "Этого достаточно.",
-     "frame": [
-      "suficiente"
-     ]
-    },
-    {
-     "es": "No tengo dinero suficiente.",
-     "ru": "У меня недостаточно денег.",
-     "frame": [
-      "suficiente"
-     ]
-    },
-    {
-     "es": "¿Es suficiente con una hora?",
-     "ru": "Часа достаточно?",
-     "frame": [
-      "suficiente"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es3-v331",
    "type": "vocab",
    "es": "fresco",
@@ -20107,397 +26233,13 @@
    ]
   },
   {
-   "id": "es3-v487",
-   "type": "vocab",
-   "es": "la ropa",
-   "en": "clothes",
-   "ru": "одежда",
-   "tr": "ла рро́па",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "Guarda la ropa en el armario.",
-     "ru": "Убери одежду в шкаф.",
-     "frame": [
-      "ropa"
-     ]
-    },
-    {
-     "es": "La ropa está todavía mojada.",
-     "ru": "Одежда ещё мокрая.",
-     "frame": [
-      "ropa"
-     ]
-    },
-    {
-     "es": "Necesito ropa de invierno.",
-     "ru": "Мне нужна зимняя одежда.",
-     "frame": [
-      "ropa"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v488",
-   "type": "vocab",
-   "es": "la camisa",
-   "en": "shirt",
-   "ru": "рубашка",
-   "tr": "ла ками́са",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "La camisa está arrugada.",
-     "ru": "Рубашка мятая.",
-     "frame": [
-      "camisa"
-     ]
-    },
-    {
-     "es": "Ponte la camisa blanca.",
-     "ru": "Надень белую рубашку.",
-     "frame": [
-      "camisa"
-     ]
-    },
-    {
-     "es": "Esta camisa me queda grande.",
-     "ru": "Эта рубашка мне велика.",
-     "frame": [
-      "camisa"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v489",
-   "type": "vocab",
-   "es": "la camiseta",
-   "en": "T-shirt",
-   "ru": "футболка",
-   "tr": "ла камисэ́та",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "Compré dos camisetas en rebajas.",
-     "ru": "Я купил две футболки на распродаже.",
-     "frame": [
-      "camisetas"
-     ]
-    },
-    {
-     "es": "La camiseta encoge al lavarla.",
-     "ru": "Футболка садится при стирке.",
-     "frame": [
-      "camiseta"
-     ]
-    },
-    {
-     "es": "¿Tienen esta camiseta en negro?",
-     "ru": "Есть эта футболка в чёрном?",
-     "frame": [
-      "camiseta"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v490",
-   "type": "vocab",
-   "es": "el pantalón",
-   "en": "trousers",
-   "ru": "брюки",
-   "tr": "эл пантало́н",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "El pantalón me queda corto.",
-     "ru": "Брюки мне коротки.",
-     "frame": [
-      "pantalón"
-     ]
-    },
-    {
-     "es": "Necesito un pantalón más ancho.",
-     "ru": "Мне нужны брюки пошире.",
-     "frame": [
-      "pantalón"
-     ]
-    },
-    {
-     "es": "El pantalón está en el armario.",
-     "ru": "Брюки в шкафу.",
-     "frame": [
-      "pantalón"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v491",
-   "type": "vocab",
-   "es": "la falda",
-   "en": "skirt",
-   "ru": "юбка",
-   "tr": "ла фа́лда",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "La falda es demasiado corta.",
-     "ru": "Юбка слишком короткая.",
-     "frame": [
-      "falda"
-     ]
-    },
-    {
-     "es": "Se ha puesto una falda larga.",
-     "ru": "Она надела длинную юбку.",
-     "frame": [
-      "falda"
-     ]
-    },
-    {
-     "es": "¿Tienen esta falda en otra talla?",
-     "ru": "Есть эта юбка другого размера?",
-     "frame": [
-      "falda"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v492",
-   "type": "vocab",
-   "es": "el vestido",
-   "en": "dress",
-   "ru": "платье",
-   "tr": "эл бэсти́до",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "El vestido es para la boda.",
-     "ru": "Платье на свадьбу.",
-     "frame": [
-      "vestido"
-     ]
-    },
-    {
-     "es": "Me he probado el vestido azul.",
-     "ru": "Я примерила синее платье.",
-     "frame": [
-      "vestido"
-     ]
-    },
-    {
-     "es": "El vestido cuesta una fortuna.",
-     "ru": "Платье стоит целое состояние.",
-     "frame": [
-      "vestido"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v493",
-   "type": "vocab",
-   "es": "los zapatos",
-   "en": "shoes",
-   "ru": "обувь",
-   "tr": "лос сапа́тос",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "Los zapatos me hacen daño.",
-     "ru": "Обувь мне натирает.",
-     "frame": [
-      "zapatos"
-     ]
-    },
-    {
-     "es": "Quítate los zapatos en la entrada.",
-     "ru": "Сними обувь в прихожей.",
-     "frame": [
-      "zapatos"
-     ]
-    },
-    {
-     "es": "Necesito zapatos cómodos.",
-     "ru": "Мне нужна удобная обувь.",
-     "frame": [
-      "zapatos"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v494",
-   "type": "vocab",
-   "es": "los calcetines",
-   "en": "socks",
-   "ru": "носки",
-   "tr": "лос калсэти́нэс",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "Los calcetines están en el cajón.",
-     "ru": "Носки в ящике.",
-     "frame": [
-      "calcetines"
-     ]
-    },
-    {
-     "es": "Ponte calcetines, hace frío.",
-     "ru": "Надень носки, холодно.",
-     "frame": [
-      "calcetines"
-     ]
-    },
-    {
-     "es": "Siempre pierdo un calcetín.",
-     "ru": "Я всегда теряю один носок.",
-     "frame": [
-      "calcetín"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v495",
-   "type": "vocab",
-   "es": "la chaqueta",
-   "en": "jacket",
-   "ru": "куртка",
-   "tr": "ла чакэ́та",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "Coge la chaqueta, refresca.",
-     "ru": "Возьми куртку, свежеет.",
-     "frame": [
-      "chaqueta"
-     ]
-    },
-    {
-     "es": "La chaqueta tiene dos bolsillos.",
-     "ru": "У куртки два кармана.",
-     "frame": [
-      "chaqueta"
-     ]
-    },
-    {
-     "es": "Me he dejado la chaqueta en el bar.",
-     "ru": "Я забыл куртку в баре.",
-     "frame": [
-      "chaqueta"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v496",
-   "type": "vocab",
-   "es": "el abrigo",
-   "en": "coat",
-   "ru": "пальто",
-   "tr": "эл абри́го",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "En invierno llevo abrigo largo.",
-     "ru": "Зимой я ношу длинное пальто.",
-     "frame": [
-      "abrigo"
-     ]
-    },
-    {
-     "es": "Cuelga el abrigo en la entrada.",
-     "ru": "Повесь пальто в прихожей.",
-     "frame": [
-      "abrigo"
-     ]
-    },
-    {
-     "es": "El abrigo pesa mucho.",
-     "ru": "Пальто очень тяжёлое.",
-     "frame": [
-      "abrigo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v497",
-   "type": "vocab",
-   "es": "la gorra",
-   "en": "cap",
-   "ru": "кепка",
-   "tr": "ла го́рра",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "Ponte la gorra, hace sol.",
-     "ru": "Надень кепку, солнце.",
-     "frame": [
-      "gorra"
-     ]
-    },
-    {
-     "es": "Ha perdido la gorra en el parque.",
-     "ru": "Он потерял кепку в парке.",
-     "frame": [
-      "gorra"
-     ]
-    },
-    {
-     "es": "La gorra es del equipo del colegio.",
-     "ru": "Кепка школьной команды.",
-     "frame": [
-      "gorra"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v498",
-   "type": "vocab",
-   "es": "el sombrero",
-   "en": "hat",
-   "ru": "шляпа",
-   "tr": "эл сомбрэ́ро",
-   "group": "Одежда и аксессуары",
-   "ex": [
-    {
-     "es": "Lleva un sombrero de paja.",
-     "ru": "На нём соломенная шляпа.",
-     "frame": [
-      "sombrero"
-     ]
-    },
-    {
-     "es": "El sombrero le queda grande.",
-     "ru": "Шляпа ему велика.",
-     "frame": [
-      "sombrero"
-     ]
-    },
-    {
-     "es": "Quítate el sombrero dentro.",
-     "ru": "Сними шляпу в помещении.",
-     "frame": [
-      "sombrero"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es3-v499",
    "type": "vocab",
    "es": "el paraguas",
    "en": "umbrella",
    "ru": "зонт",
    "tr": "эл пара́гуас",
-   "group": "Одежда и аксессуары",
+   "group": "Аксессуары",
    "ex": [
     {
      "es": "Coge el paraguas, va a llover.",
@@ -20529,7 +26271,7 @@
    "en": "glasses",
    "ru": "очки",
    "tr": "лас га́фас",
-   "group": "Одежда и аксессуары",
+   "group": "Аксессуары",
    "ex": [
     {
      "es": "Sin gafas no leo nada.",
@@ -20561,7 +26303,7 @@
    "en": "watch/clock",
    "ru": "часы",
    "tr": "эл ррэло́х",
-   "group": "Одежда и аксессуары",
+   "group": "Аксессуары",
    "ex": [
     {
      "es": "Mi reloj va cinco minutos adelantado.",
@@ -20593,7 +26335,7 @@
    "en": "wallet",
    "ru": "кошелёк",
    "tr": "ла картэ́ра",
-   "group": "Одежда и аксессуары",
+   "group": "Аксессуары",
    "ex": [
     {
      "es": "Me han robado la cartera.",
@@ -20625,7 +26367,7 @@
    "en": "handbag",
    "ru": "сумочка",
    "tr": "эл бо́лсо",
-   "group": "Одежда и аксессуары",
+   "group": "Аксессуары",
    "ex": [
     {
      "es": "Lleva el bolso en el hombro.",
@@ -21734,70 +27476,6 @@
      "ru": "Сегодня я очень устал.",
      "frame": [
       "muy"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v009",
-   "type": "vocab",
-   "es": "bastante",
-   "en": "quite/enough",
-   "ru": "довольно/достаточно",
-   "tr": "баста́нтэ",
-   "group": "Союзы и наречия",
-   "ex": [
-    {
-     "es": "Hay bastante gente hoy.",
-     "ru": "Сегодня довольно много народу.",
-     "frame": [
-      "bastante"
-     ]
-    },
-    {
-     "es": "Es bastante caro para mí.",
-     "ru": "Для меня это довольно дорого.",
-     "frame": [
-      "bastante"
-     ]
-    },
-    {
-     "es": "Con esto tengo bastante.",
-     "ru": "Мне этого хватит.",
-     "frame": [
-      "bastante"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v010",
-   "type": "vocab",
-   "es": "demasiado",
-   "en": "too much",
-   "ru": "слишком",
-   "tr": "дэмасья́до",
-   "group": "Союзы и наречия",
-   "ex": [
-    {
-     "es": "Es demasiado tarde para llamar.",
-     "ru": "Слишком поздно звонить.",
-     "frame": [
-      "demasiado"
-     ]
-    },
-    {
-     "es": "Has puesto demasiada sal.",
-     "ru": "Ты положил слишком много соли.",
-     "frame": [
-      "demasiada"
-     ]
-    },
-    {
-     "es": "Hay demasiado ruido aquí.",
-     "ru": "Здесь слишком шумно.",
-     "frame": [
-      "demasiado"
      ]
     }
    ]

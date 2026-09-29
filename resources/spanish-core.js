@@ -218,14 +218,16 @@
 
     /* ---------- the side a covered row hides ---------- */
 
-    // A row in Learned or Pending covers one side of itself until it is tapped:
-    // the meaning (English and Russian) by default, or the Spanish with its
-    // transliteration, to practise the other way round. It is one choice for
-    // the whole section, kept in a cookie so the hub and every stage page open
-    // on the side picked last, and carried by an attribute on <html>, so the
-    // switch repaints every list on the page without redrawing any of them.
+    // A row in Learned, Pending or Reference covers one side of itself until it
+    // is tapped: the meaning (English and Russian) by default, or the Spanish
+    // with its transliteration, to practise the other way round — or nothing
+    // at all (`none`), both sides on show, which is how a table of Reference is
+    // read through rather than recalled. It is one choice for the whole
+    // section, kept in a cookie so the hub and every stage page open on the
+    // side picked last, and carried by an attribute on <html>, so the switch
+    // repaints every list on the page without redrawing any of them.
     var COVER_COOKIE = 'spanishCover';
-    var COVER_SIDES = ['meaning', 'spanish'];
+    var COVER_SIDES = ['meaning', 'spanish', 'none'];
     var coverSide = readCookie(COVER_COOKIE);
 
     if (COVER_SIDES.indexOf(coverSide) === -1) {
@@ -1339,8 +1341,10 @@
         return svg;
     }
 
-    // A crossed-out eye: the lit segment beside it is the side that is hidden.
-    function eyeOffIcon() {
+    // An eye, crossed out or open. Crossed out it leads the cover switch: the
+    // lit segment beside it is the side that is hidden. Open, it is the third
+    // segment of that switch — the one that hides nothing.
+    function eyeShape(crossed) {
         var svg = document.createElementNS(SVG_NS, 'svg');
         svg.setAttribute('viewBox', '0 0 24 24');
         svg.setAttribute('aria-hidden', 'true');
@@ -1351,13 +1355,17 @@
         pupil.setAttribute('cx', '12');
         pupil.setAttribute('cy', '12');
         pupil.setAttribute('r', '3');
-        var slash = document.createElementNS(SVG_NS, 'path');
-        slash.setAttribute('d', 'M4 4l16 16');
         svg.appendChild(eye);
         svg.appendChild(pupil);
-        svg.appendChild(slash);
+        if (crossed) {
+            var slash = document.createElementNS(SVG_NS, 'path');
+            slash.setAttribute('d', 'M4 4l16 16');
+            svg.appendChild(slash);
+        }
         return svg;
     }
+    function eyeOffIcon() { return eyeShape(true); }
+    function eyeIcon() { return eyeShape(false); }
 
     // The ✕ that empties the search field.
     function crossIcon() {
@@ -1473,6 +1481,7 @@
         copy: copyIcon,
         download: downloadIcon,
         eyeOff: eyeOffIcon,
+        eye: eyeIcon,
         cross: crossIcon,
         chevron: chevronIcon,
         pin: pinIcon,
