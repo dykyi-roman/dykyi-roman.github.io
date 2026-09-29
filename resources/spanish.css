@@ -104,6 +104,24 @@
 html, body, .container { overflow-x: clip; }
 .container { display: flow-root; }
 
+/* On a phone the page takes the whole screen. style.css keeps a 15px gutter
+   on each side (6vw from 600 to 700px), and over a list of cards that was two
+   empty strips down the page. A narrow gutter is left so the cards' borders
+   do not sit on the edge of the glass, and the bar reaches through it, so a
+   stuck bar is one strip across the screen rather than a box inside it. */
+:root { --sp-gutter: 8px; }
+
+@media (max-width: 699px) {
+    .container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding-left: var(--sp-gutter);
+        padding-right: var(--sp-gutter);
+        border-radius: 0;
+    }
+}
+
 /* The height of the bar on this page, kept true by SP.tuckBar — 0 where there
    is none. Every anchor clears it (scroll-margin-top below). */
 :root { --sp-bar-h: 0px; }
@@ -123,6 +141,15 @@ html, body, .container { overflow-x: clip; }
    back as soon as it moves up (SP.tuckBar): stuck for good, it would keep a
    fifth of the screen. A transform, so nothing below it reflows. */
 .sp-bar.is-tucked { transform: translateY(calc(-100% - 1px)); }
+
+@media (max-width: 699px) {
+    .sp-bar {
+        margin-left: calc(-1 * var(--sp-gutter));
+        margin-right: calc(-1 * var(--sp-gutter));
+        padding-left: var(--sp-gutter);
+        padding-right: var(--sp-gutter);
+    }
+}
 
 @media (prefers-reduced-motion: reduce) {
     .sp-bar { transition: none; }
