@@ -263,7 +263,7 @@
    ]
   },
   {
-   "name": "On",
+   "name": "На",
    "icon": "📍",
    "blocks": [
     {
@@ -492,6 +492,750 @@
          "ru": "Возвращаюсь домой в семь.",
          "frame": [
           "a"
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "В",
+   "icon": "📦",
+   "blocks": [
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "en",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "где",
+         "s": "b"
+        },
+        {
+         "t": " и "
+        },
+        {
+         "t": "когда",
+         "s": "b"
+        },
+        {
+         "t": ": в городе, в офисе, в мае. День недели — без предлога: "
+        },
+        {
+         "t": "el lunes",
+         "s": "es"
+        },
+        {
+         "t": "."
+        }
+       ],
+       "ex": [
+        {
+         "label": "где",
+         "es": "Mi hermana vive en Valencia.",
+         "ru": "Моя сестра живёт в Валенсии.",
+         "frame": [
+          "en"
+         ]
+        },
+        {
+         "es": "Hay leche en la nevera.",
+         "ru": "В холодильнике есть молоко.",
+         "frame": [
+          "en"
+         ]
+        },
+        {
+         "es": "Trabajo en una oficina pequeña.",
+         "ru": "Я работаю в маленьком офисе.",
+         "frame": [
+          "en"
+         ]
+        },
+        {
+         "label": "когда",
+         "es": "Mi cumpleaños es en mayo.",
+         "ru": "Мой день рождения в мае.",
+         "frame": [
+          "en"
+         ]
+        },
+        {
+         "es": "La tienda abrió en 2015.",
+         "ru": "Магазин открылся в 2015 году.",
+         "frame": [
+          "en"
+         ]
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "dentro de",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "внутри",
+         "s": "b"
+        },
+        {
+         "t": ", когда это важно: в ящике, в коробке. О времени — «через»: "
+        },
+        {
+         "t": "dentro de una hora",
+         "s": "es"
+        },
+        {
+         "t": "."
+        }
+       ],
+       "ex": [
+        {
+         "label": "внутри",
+         "es": "Las llaves están dentro del cajón.",
+         "ru": "Ключи в ящике.",
+         "frame": [
+          "dentro del"
+         ]
+        },
+        {
+         "es": "Dentro de la caja hay fotos viejas.",
+         "ru": "В коробке старые фотографии.",
+         "frame": [
+          "Dentro de"
+         ]
+        },
+        {
+         "es": "El móvil estaba dentro de la lavadora.",
+         "ru": "Телефон был в стиральной машине.",
+         "frame": [
+          "dentro de"
+         ]
+        },
+        {
+         "label": "через",
+         "es": "Te llamo dentro de diez minutos.",
+         "ru": "Позвоню тебе через десять минут.",
+         "frame": [
+          "dentro de"
+         ]
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "a",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "куда",
+         "s": "b"
+        },
+        {
+         "t": ": после глагола движения. И "
+        },
+        {
+         "t": "во сколько",
+         "s": "b"
+        },
+        {
+         "t": ": "
+        },
+        {
+         "t": "a las ocho",
+         "s": "es"
+        },
+        {
+         "t": "."
+        }
+       ],
+       "ex": [
+        {
+         "label": "куда",
+         "es": "Mañana vamos a Madrid.",
+         "ru": "Завтра едем в Мадрид.",
+         "frame": [
+          "a"
+         ]
+        },
+        {
+         "es": "Los niños ya van al colegio.",
+         "ru": "Дети уже ходят в школу.",
+         "frame": [
+          "al"
+         ]
+        },
+        {
+         "es": "¿Vienes al cine con nosotros?",
+         "ru": "Пойдёшь с нами в кино?",
+         "frame": [
+          "al"
+         ]
+        },
+        {
+         "label": "во сколько",
+         "es": "Te recojo a las ocho.",
+         "ru": "Заберу тебя в восемь.",
+         "frame": [
+          "a"
+         ]
+        },
+        {
+         "es": "El tren sale a las seis y media.",
+         "ru": "Поезд отправляется в шесть тридцать.",
+         "frame": [
+          "a"
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "С",
+   "icon": "🤝",
+   "blocks": [
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "con",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "вместе с",
+         "s": "b"
+        },
+        {
+         "t": ": с друзьями, хлеб с помидором, с удовольствием."
+        }
+       ],
+       "ex": [
+        {
+         "es": "Hoy ceno con unos amigos.",
+         "ru": "Сегодня ужинаю с друзьями.",
+         "frame": [
+          "con"
+         ]
+        },
+        {
+         "es": "¿Puedo hablar con el encargado?",
+         "ru": "Можно поговорить с менеджером?",
+         "frame": [
+          "con"
+         ]
+        },
+        {
+         "es": "Me gusta el pan con tomate.",
+         "ru": "Я люблю хлеб с помидором.",
+         "frame": [
+          "con"
+         ]
+        },
+        {
+         "es": "Lo hago con mucho gusto.",
+         "ru": "Сделаю это с большим удовольствием.",
+         "frame": [
+          "con"
+         ]
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "de",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "откуда",
+         "s": "b"
+        },
+        {
+         "t": ": со стола, с работы. И "
+        },
+        {
+         "t": "с … до",
+         "s": "b"
+        },
+        {
+         "t": " — в паре с "
+        },
+        {
+         "t": "a",
+         "s": "es"
+        },
+        {
+         "t": ": "
+        },
+        {
+         "t": "de nueve a cinco",
+         "s": "es"
+        },
+        {
+         "t": "."
+        }
+       ],
+       "ex": [
+        {
+         "label": "откуда",
+         "es": "Quita los platos de la mesa.",
+         "ru": "Убери тарелки со стола.",
+         "frame": [
+          "de"
+         ]
+        },
+        {
+         "es": "Vuelvo del trabajo a las seis.",
+         "ru": "Возвращаюсь с работы в шесть.",
+         "frame": [
+          "del"
+         ]
+        },
+        {
+         "es": "Baja la maleta del armario.",
+         "ru": "Сними чемодан со шкафа.",
+         "frame": [
+          "del"
+         ]
+        },
+        {
+         "label": "с … до",
+         "es": "La tienda abre de nueve a cinco.",
+         "ru": "Магазин работает с девяти до пяти.",
+         "frame": [
+          "de",
+          "a"
+         ]
+        },
+        {
+         "es": "Tenemos clase de lunes a jueves.",
+         "ru": "У нас занятия с понедельника по четверг.",
+         "frame": [
+          "de",
+          "a"
+         ]
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "desde",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "с какого момента",
+         "s": "b"
+        },
+        {
+         "t": ": с 2020 года, с детства. С … до — "
+        },
+        {
+         "t": "desde … hasta",
+         "s": "es"
+        },
+        {
+         "t": "."
+        }
+       ],
+       "ex": [
+        {
+         "es": "Vivimos aquí desde 2020.",
+         "ru": "Мы живём здесь с 2020 года.",
+         "frame": [
+          "desde"
+         ]
+        },
+        {
+         "es": "Te estoy esperando desde las cinco.",
+         "ru": "Я жду тебя с пяти.",
+         "frame": [
+          "desde"
+         ]
+        },
+        {
+         "es": "Se conocen desde niños.",
+         "ru": "Они знакомы с детства.",
+         "frame": [
+          "desde"
+         ]
+        },
+        {
+         "es": "La oferta es válida desde hoy hasta el domingo.",
+         "ru": "Скидка действует с сегодняшнего дня до воскресенья.",
+         "frame": [
+          "desde",
+          "hasta"
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Из",
+   "icon": "🚪",
+   "blocks": [
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "de",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "откуда",
+         "s": "b"
+        },
+        {
+         "t": ": родом из, выйти из, достать из. И "
+        },
+        {
+         "t": "из чего",
+         "s": "b"
+        },
+        {
+         "t": ", "
+        },
+        {
+         "t": "один из",
+         "s": "b"
+        },
+        {
+         "t": "."
+        }
+       ],
+       "ex": [
+        {
+         "label": "откуда",
+         "es": "Mi vecina es de Italia.",
+         "ru": "Моя соседка из Италии.",
+         "frame": [
+          "de"
+         ]
+        },
+        {
+         "es": "Sale de la oficina muy tarde.",
+         "ru": "Он выходит из офиса очень поздно.",
+         "frame": [
+          "de"
+         ]
+        },
+        {
+         "es": "Saca la leche de la nevera.",
+         "ru": "Достань молоко из холодильника.",
+         "frame": [
+          "de"
+         ]
+        },
+        {
+         "label": "из чего",
+         "es": "Es una camisa de algodón.",
+         "ru": "Это рубашка из хлопка.",
+         "frame": [
+          "de"
+         ]
+        },
+        {
+         "label": "один из",
+         "es": "Es uno de mis mejores amigos.",
+         "ru": "Он один из моих лучших друзей.",
+         "frame": [
+          "de"
+         ]
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "desde",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "из какой точки",
+         "s": "b"
+        },
+        {
+         "t": ": откуда звонят, смотрят, летят."
+        }
+       ],
+       "ex": [
+        {
+         "es": "Te llamo desde el hotel.",
+         "ru": "Звоню тебе из отеля.",
+         "frame": [
+          "desde"
+         ]
+        },
+        {
+         "es": "Desde la ventana se ve el mar.",
+         "ru": "Из окна видно море.",
+         "frame": [
+          "Desde"
+         ]
+        },
+        {
+         "es": "Hay vuelos directos desde Barcelona.",
+         "ru": "Есть прямые рейсы из Барселоны.",
+         "frame": [
+          "desde"
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "По",
+   "icon": "🛣️",
+   "blocks": [
+    {
+     "k": "ul",
+     "items": [
+      {
+       "spans": [
+        {
+         "t": "por",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "путь, связь, причина",
+         "s": "b"
+        },
+        {
+         "t": ": по улице, по телефону, по ошибке."
+        }
+       ],
+       "ex": [
+        {
+         "label": "путь",
+         "es": "Me gusta pasear por la playa.",
+         "ru": "Люблю гулять по пляжу.",
+         "frame": [
+          "por"
+         ]
+        },
+        {
+         "es": "Viajamos por el norte de España.",
+         "ru": "Мы путешествуем по северу Испании.",
+         "frame": [
+          "por"
+         ]
+        },
+        {
+         "label": "связь",
+         "es": "Te mando las fotos por correo.",
+         "ru": "Пришлю тебе фото по почте.",
+         "frame": [
+          "por"
+         ]
+        },
+        {
+         "es": "Hablamos por teléfono cada domingo.",
+         "ru": "Мы говорим по телефону каждое воскресенье.",
+         "frame": [
+          "por"
+         ]
+        },
+        {
+         "label": "причина",
+         "es": "Lo borré por error.",
+         "ru": "Я удалил это по ошибке.",
+         "frame": [
+          "por"
+         ]
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "para",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "мнение",
+         "s": "b"
+        },
+        {
+         "t": ": по-моему — "
+        },
+        {
+         "t": "para mí",
+         "s": "es"
+        },
+        {
+         "t": ", по мнению мамы — "
+        },
+        {
+         "t": "para mi madre",
+         "s": "es"
+        },
+        {
+         "t": "."
+        }
+       ],
+       "ex": [
+        {
+         "es": "Para mí, este café está muy fuerte.",
+         "ru": "По-моему, этот кофе очень крепкий.",
+         "frame": [
+          "Para mí"
+         ]
+        },
+        {
+         "es": "Para mí, el examen fue fácil.",
+         "ru": "По-моему, экзамен был лёгким.",
+         "frame": [
+          "Para mí"
+         ]
+        },
+        {
+         "es": "Para mi madre, todo está demasiado salado.",
+         "ru": "По мнению мамы, всё пересолено.",
+         "frame": [
+          "Para"
+         ]
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "según",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "согласно",
+         "s": "b"
+        },
+        {
+         "t": ": по словам врача, по расписанию, по плану."
+        }
+       ],
+       "ex": [
+        {
+         "es": "Según el médico, no es nada grave.",
+         "ru": "По словам врача, ничего серьёзного.",
+         "frame": [
+          "Según"
+         ]
+        },
+        {
+         "es": "Según el horario, el autobús pasa cada veinte minutos.",
+         "ru": "По расписанию автобус ходит каждые двадцать минут.",
+         "frame": [
+          "Según"
+         ]
+        },
+        {
+         "es": "Todo va según el plan.",
+         "ru": "Всё идёт по плану.",
+         "frame": [
+          "según"
+         ]
+        }
+       ]
+      },
+      {
+       "spans": [
+        {
+         "t": "en",
+         "s": "es"
+        },
+        {
+         "t": " — "
+        },
+        {
+         "t": "язык и эфир",
+         "s": "b"
+        },
+        {
+         "t": ": по-испански, по телевизору, по радио."
+        }
+       ],
+       "ex": [
+        {
+         "label": "язык",
+         "es": "El niño ya cuenta hasta diez en inglés.",
+         "ru": "Мальчик уже считает до десяти по-английски.",
+         "frame": [
+          "en"
+         ]
+        },
+        {
+         "es": "¿Me lo puedes decir en español?",
+         "ru": "Можешь сказать мне это по-испански?",
+         "frame": [
+          "en"
+         ]
+        },
+        {
+         "label": "эфир",
+         "es": "Lo vi en la tele.",
+         "ru": "Я видел это по телевизору.",
+         "frame": [
+          "en"
+         ]
+        },
+        {
+         "es": "Lo dijeron en la radio esta mañana.",
+         "ru": "Об этом сказали по радио сегодня утром.",
+         "frame": [
+          "en"
          ]
         }
        ]
