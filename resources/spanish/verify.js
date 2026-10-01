@@ -726,41 +726,55 @@ function checkRanks(ranks, file) {
     return sorted.length;
 }
 
-// Anchors renderRules synthesises: the key to the transcription, the map and
-// the fold of the rules for later.
-const RULES_PANEL_IDS = ['esr-key', 'esr-map', 'esr-later'];
+// Anchors renderRules synthesises: the key to the transcription and the map.
+// The folds of the rules that can wait name their own anchors (`later[].id`),
+// which are held to the same rule.
+const RULES_PANEL_IDS = ['esr-key', 'esr-map'];
 
-// The rules that can wait a year are folded under one heading at the foot of
-// the page, and the map draws them as a layer of its own. They must be the
-// tail of the list, or the numbers would jump on the page; and none of them
-// may be starred to learn first, which is the opposite of what the fold says.
+// The rules that can wait are folded at the foot of the page, a fold per
+// stage of learning — the second year, then what can wait longer — and the
+// map draws each fold as a layer of its own. Together they must be the tail of
+// the list, fold after fold in the order of `later` and of each `ids`, or the
+// numbers would jump on the page; and none of them may be starred to learn
+// first, which is the opposite of what a fold says.
 function checkLater(later, sections) {
     const at = 'rules.json later';
-    if (!later || typeof later !== 'object') { fail(at + ': is not an object'); return []; }
-    if (!text(later.title)) fail(at + ': no title');
-    if (later.hint !== undefined && !text(later.hint)) fail(at + ': empty "hint"');
-    if (!Array.isArray(later.ids) || later.ids.length === 0) { fail(at + ': no ids — leave "later" out instead'); return []; }
-    const tail = sections.slice(sections.length - later.ids.length).map(section => section.id);
-    later.ids.forEach((id, i) => {
-        const section = sections.find(s => s.id === id);
-        if (!section) { fail(at + ': no section with id ' + JSON.stringify(id)); return; }
-        if (tail[i] !== id) fail(at + ': ' + id + ' is not where the fold stands — the folded sections close the list, in the order of "ids"');
-        if (section.top !== undefined) fail(at + ': ' + id + ' is starred to learn first and folded for later at once');
+    if (!Array.isArray(later)) { fail(at + ': is not a list of folds — one {id, title, hint, ids} per stage of learning'); return { ids: [], folds: 0 }; }
+    if (later.length === 0) { fail(at + ': no folds — leave "later" out instead'); return { ids: [], folds: 0 }; }
+    const ids = [];
+    const anchors = Object.create(null);
+    later.forEach((fold, n) => {
+        const where = at + ' fold ' + (fold && fold.title ? JSON.stringify(fold.title) : '#' + n);
+        if (!fold || typeof fold !== 'object') { fail(where + ': not a fold'); return; }
+        if (!/^esr-[a-z0-9-]+$/.test(fold.id || '')) fail(where + ': "id" must be an esr- anchor, it is ' + JSON.stringify(fold.id));
+        else if (RULES_PANEL_IDS.indexOf(fold.id) !== -1 || ruleIds[fold.id] || anchors[fold.id]) fail(where + ': id ' + fold.id + ' is taken');
+        else anchors[fold.id] = true;
+        if (!text(fold.title)) fail(where + ': no title');
+        if (fold.hint !== undefined && !text(fold.hint)) fail(where + ': empty "hint"');
+        if (!Array.isArray(fold.ids) || fold.ids.length === 0) { fail(where + ': no ids — leave the fold out instead'); return; }
+        fold.ids.forEach(id => ids.push({ id, where }));
     });
-    return later.ids;
+    const tail = sections.slice(sections.length - ids.length).map(section => section.id);
+    ids.forEach(({ id, where }, i) => {
+        const section = sections.find(s => s.id === id);
+        if (!section) { fail(where + ': no section with id ' + JSON.stringify(id)); return; }
+        if (tail[i] !== id) fail(where + ': ' + id + ' is not where the fold stands — the folded sections close the list, fold after fold, in the order of "ids"');
+        if (section.top !== undefined) fail(where + ': ' + id + ' is starred to learn first and folded for later at once');
+    });
+    return { ids: ids.map(entry => entry.id), folds: later.length };
 }
 
 // The map says which layer each section belongs to. It is one field rather
 // than a `layer` on all 39 sections, so the one thing that can go wrong is
 // coverage — and that is exactly what a comparison of the two sets catches.
-// The folded sections are the map's last layer, drawn from `later`.
+// The folded sections are the map's last layers, one per fold of `later`.
 function checkMap(map, sections, laterIds) {
     const at = 'rules.json map';
     if (!text(map.title)) fail(at + ': no title');
     if (map.chip !== undefined) fail(at + ': "chip" is left over — the rules have no chip index any more');
     if (!Array.isArray(map.layers) || map.layers.length < 2) { fail(at + ': needs at least 2 layers'); return; }
     const placed = Object.create(null);
-    (laterIds || []).forEach(id => { placed[id] = 'later'; });
+    (laterIds || []).forEach(id => { placed[id] = 'a fold of later'; });
     map.layers.forEach((layer, i) => {
         const where = at + ' layer ' + (layer && layer.title ? JSON.stringify(layer.title) : '#' + i);
         if (!layer || typeof layer !== 'object') { fail(where + ': not a layer'); return; }
@@ -855,11 +869,11 @@ if (rules) {
     if (manifest.rules && manifest.rules.sections !== rules.sections.length) {
         fail('index.json: rules count ' + manifest.rules.sections + ' but rules.json has ' + rules.sections.length);
     }
-    const laterIds = rules.later !== undefined ? checkLater(rules.later, rules.sections || []) : [];
-    if (laterIds.length) notes.push(laterIds.length + ' rules folded for later');
+    const later = rules.later !== undefined ? checkLater(rules.later, rules.sections || []) : { ids: [], folds: 0 };
+    if (later.ids.length) notes.push(later.ids.length + ' rules folded for later in ' + later.folds + ' folds');
     if (rules.map) {
-        const placed = checkMap(rules.map, rules.sections || [], laterIds);
-        if (placed) notes.push('the map covers ' + placed + ' rules in ' + (rules.map.layers.length + (laterIds.length ? 1 : 0)) + ' layers');
+        const placed = checkMap(rules.map, rules.sections || [], later.ids);
+        if (placed) notes.push('the map covers ' + placed + ' rules in ' + (rules.map.layers.length + later.folds) + ' layers');
     }
     checkStrings(rules, 'rules.json');
     checkStageNumbers(rules, 'rules.json');

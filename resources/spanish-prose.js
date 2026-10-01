@@ -557,15 +557,23 @@
 
     /* ---------- rules (phonetics and grammar) ---------- */
 
+    // The folds of the rules that can wait (`rules.later`), in the order they
+    // close the page: the second year, then whatever can wait longer.
+    function laterFolds(rules) {
+        return (rules.later || []).filter(function (fold) { return fold && fold.ids && fold.ids.length; });
+    }
+
     // The map of the rules, by layer: each section sits in the layer the file
-    // names for it, and its link carries the section's number. The sections
-    // that can wait a year (`rules.later`) close the map in a layer of their
-    // own, as they close the page.
+    // names for it, and its link carries the section's number. Each fold of
+    // the rules that can wait closes the map in a layer of its own, as it
+    // closes the page.
     function mapSection(rules, topTotal) {
         var byId = {};
         rules.sections.forEach(function (section) { byId[section.id] = section; });
         var layers = (rules.map.layers || []).slice();
-        if (rules.later) layers.push({ title: rules.later.title, hint: rules.later.hint, ids: rules.later.ids, cls: 'is-later' });
+        laterFolds(rules).forEach(function (fold) {
+            layers.push({ title: fold.title, hint: fold.hint, ids: fold.ids, cls: 'is-later' });
+        });
         return SP.renderMap('esr-map', rules.map.title, layers.map(function (layer) {
             return {
                 title: layer.title,
@@ -607,26 +615,30 @@
             body.appendChild(mapSection(rules, topTotal));
         }
 
-        // The rules that can wait a year close the page, folded under a
-        // heading of their own: still a tap away, but not on the road through
-        // the first year. A link of the map into the fold opens it on the way
-        // down, so the jump lands on the section rather than on nothing.
-        var later = rules.later && rules.later.ids && rules.later.ids.length ? rules.later : null;
-        var folded = {};
-        var laterBox = null;
-        var laterDrawer = null;
-        if (later) {
-            later.ids.forEach(function (id) { folded[id] = true; });
-            laterBox = SP.el('section', 'sp-group sp-later');
-            laterBox.id = 'esr-later';
-            var laterHead = laterBox.appendChild(SP.el('h3', 'sp-group-title has-toggle', later.title));
-            if (later.hint) laterBox.appendChild(SP.el('p', 'sp-later-hint', later.hint));
-            laterDrawer = SP.drawer(laterBox, laterHead, function () {}, 'the rules for later');
+        // The rules that can wait close the page, each fold under a heading of
+        // its own — the second year, then what can wait longer: still a tap
+        // away, but not on the road through the first year. A link of the map
+        // into a fold opens it on the way down, so the jump lands on the
+        // section rather than on nothing.
+        var folded = {};    // section id → the drawer of its fold
+        var folds = laterFolds(rules).map(function (fold) {
+            var box = SP.el('section', 'sp-group sp-later');
+            box.id = fold.id;
+            var head = box.appendChild(SP.el('h3', 'sp-group-title has-toggle', fold.title));
+            if (fold.hint) box.appendChild(SP.el('p', 'sp-later-hint', fold.hint));
+            var drawer = SP.drawer(box, head, function () {}, 'the rules for later');
+            fold.ids.forEach(function (id) { folded[id] = drawer; });
+            return { box: box, head: head, drawer: drawer };
+        });
+        if (folds.length) {
             body.addEventListener('click', function (e) {
                 var link = e.target.closest && e.target.closest('a[href^="#"]');
-                if (!link || !laterDrawer.hidden) return;
+                if (!link) return;
                 var target = document.getElementById(link.getAttribute('href').slice(1));
-                if (target && laterDrawer.contains(target)) laterHead.querySelector('.sp-drawer-toggle').click();
+                if (!target) return;
+                folds.forEach(function (fold) {
+                    if (fold.drawer.hidden && fold.drawer.contains(target)) fold.head.querySelector('.sp-drawer-toggle').click();
+                });
             });
         }
 
@@ -656,9 +668,9 @@
                 block.appendChild(SP.el('h4', null, part.title));
                 SP.renderBlocks(block, part.blocks);
             });
-            (folded[section.id] ? laterDrawer : body).appendChild(block);
+            (folded[section.id] || body).appendChild(block);
         });
-        if (laterBox) body.appendChild(laterBox);
+        folds.forEach(function (fold) { body.appendChild(fold.box); });
 
         // What was pinned on an earlier visit goes up as the page is drawn.
         SP.pin.pickPinned(pins).forEach(function (entry) { SP.pin.raise(entry.node, shelf); });
