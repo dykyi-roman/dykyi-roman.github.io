@@ -687,6 +687,7 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending, .is-refer
 html:not([data-sp-cover="none"]) .sp-drill-row:is(.is-learned, .is-pending, .is-reference):not(.is-revealed) .sp-drill-ru .sp-hit {
     color: inherit;
     background: none;
+    box-shadow: none;
 }
 
 /* The verb dot goes under the bar with the word it belongs to: it is drawn
@@ -893,6 +894,19 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending, .is-refer
     color: var(--color-info);
 }
 
+/* An animal of the animals table wears its picture ahead of its name, by the
+   road the letter takes (data-emoji, see lexEs). Like the colour's square it
+   is the thing itself rather than a word for it, so it stays in sight when
+   the Spanish goes under the bar and is the prompt there — the colour of its
+   own is what keeps it visible, since a colour emoji takes the alpha of the
+   text it is set in. */
+.sp-lex-es[data-emoji]::before {
+    content: attr(data-emoji);
+    margin-right: 0.35em;
+    font-weight: 400;
+    color: var(--color-heading);
+}
+
 /* The English is the bright side of the line and the Russian the quiet one:
    the gloss you read at a glance is the English, and the Russian is there to
    settle a doubt. The Russian sits a step below even the site's light text —
@@ -1076,10 +1090,13 @@ html[data-sp-cover="spanish"] .sp-lex-row:is(.is-learned, .is-pending, .is-refer
     background: rgba(220, 118, 3, 0.45);
     color: var(--color-heading);
     border-radius: 3px;
-    /* padded sideways but pulled back by the same amount: inside a word the
-       band has to breathe without `horario` reading as `hora rio`. */
-    padding: 0 2px;
-    margin: 0 -2px;
+    /* The band breathes 2px either side, so that inside a word `horario` does
+       not read as `hora rio` — as two shadows, which take no room. It was
+       padding pulled back by a negative margin once, and on iOS Safari a box
+       sized to its text (the `fit-content` of the lexicon fields) then came
+       out short of it, and `overflow-wrap: anywhere` sent the last letter to
+       a line of its own: `cas|h`, `casad|o`. */
+    box-shadow: -2px 0 0 rgba(220, 118, 3, 0.45), 2px 0 0 rgba(220, 118, 3, 0.45);
     font-weight: 600;
     /* a match that falls across a line break keeps the band on both halves */
     box-decoration-break: clone;
@@ -1675,15 +1692,17 @@ div.sp-rule { margin: 0 0 var(--spacing-sm); }
     margin-bottom: var(--spacing-md);
 }
 
-/* The three verb layers of the rules share one accent, so they read as one
-   block. The themes of the patterns are siblings and keep one accent; the
+/* The words that come from English and the sound and the writing open the
+   map in the default blue, one block of how a word looks before what it
+   does. The three verb layers of the rules share one accent, so they read as
+   one block. The themes of the patterns are siblings and keep one accent; the
    contrasts, which set the patterns side by side, take the site's orange.
    The rules for later close the map in grey, whatever place that is — the
    id keeps the rule level with the numbered ones above, and order lets it win. */
-#esr-map .sp-map-layer:nth-child(2) { --sp-accent: var(--color-success); }
-#esr-map .sp-map-layer:nth-child(3),
+#esr-map .sp-map-layer:nth-child(3) { --sp-accent: var(--color-success); }
 #esr-map .sp-map-layer:nth-child(4),
-#esr-map .sp-map-layer:nth-child(5) { --sp-accent: var(--color-primary); }
+#esr-map .sp-map-layer:nth-child(5),
+#esr-map .sp-map-layer:nth-child(6) { --sp-accent: var(--color-primary); }
 .sp-map-layer.is-contrasts { --sp-accent: var(--color-primary); }
 #esr-map .sp-map-layer.is-later { --sp-accent: var(--color-text-light); }
 

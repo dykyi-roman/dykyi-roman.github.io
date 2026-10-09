@@ -106,14 +106,14 @@
    "k": "p",
    "spans": [
     {
-     "t": "Закрытые наборы — алфавит, календарь (дни недели, месяцы и год), времена года и погода, цвета, числа и порядковые числа — собраны в свёрнутый раздел "
+     "t": "Закрытые наборы — алфавит, календарь (дни недели, месяцы и год), времена года и погода, цвета, числа и порядковые числа, эмоции, тело и внешность, одежда, фрукты и овощи, животные, распорядок дня, меры — собраны в раздел "
     },
     {
      "t": "Reference",
      "s": "b"
     },
     {
-     "t": " над списком: такие слова учат таблицей целиком, а не по одному, поэтому в остальных разделах их нет."
+     "t": ": такие слова учат таблицей целиком, а не по одному, поэтому в остальных разделах их нет."
     }
    ]
   }
@@ -252,6 +252,10 @@
   {
    "name": "Фрукты и овощи",
    "icon": "🥕"
+  },
+  {
+   "name": "Животные",
+   "icon": "🐾"
   },
   {
    "name": "Ежедневные действия",
@@ -10369,6 +10373,1738 @@
      "ru": "Масло делают из оливок.",
      "frame": [
       "aceitunas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v932",
+   "type": "vocab",
+   "es": "el animal",
+   "en": "animal",
+   "ru": "животное",
+   "tr": "эл анима́л",
+   "group": null,
+   "set": "Животные",
+   "ex": [
+    {
+     "es": "¿Qué animal te gusta más?",
+     "ru": "Какое животное тебе нравится больше всего?",
+     "frame": [
+      "animal"
+     ]
+    },
+    {
+     "es": "En este piso no se admiten animales.",
+     "ru": "В этой квартире нельзя держать животных.",
+     "frame": [
+      "animales"
+     ]
+    },
+    {
+     "es": "Los niños quieren ver los animales de la granja.",
+     "ru": "Дети хотят посмотреть на животных на ферме.",
+     "frame": [
+      "animales"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v933",
+   "type": "vocab",
+   "es": "la mascota",
+   "en": "pet",
+   "ru": "домашний питомец",
+   "tr": "ла маско́та",
+   "group": null,
+   "set": "Животные",
+   "ex": [
+    {
+     "es": "¿Tienes mascota?",
+     "ru": "У тебя есть домашний питомец?",
+     "frame": [
+      "mascota"
+     ]
+    },
+    {
+     "es": "Las mascotas no pueden entrar en la tienda.",
+     "ru": "С питомцами в магазин нельзя.",
+     "frame": [
+      "mascotas"
+     ]
+    },
+    {
+     "es": "Nuestra mascota es un gato negro.",
+     "ru": "Наш питомец — чёрный кот.",
+     "frame": [
+      "mascota"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v934",
+   "type": "vocab",
+   "es": "el perro",
+   "en": "dog",
+   "ru": "собака",
+   "tr": "эл пэ́рро",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐕",
+   "ex": [
+    {
+     "es": "Saco al perro por la mañana.",
+     "ru": "Я выгуливаю собаку по утрам.",
+     "frame": [
+      "perro"
+     ]
+    },
+    {
+     "es": "El perro del vecino ladra toda la noche.",
+     "ru": "Соседская собака лает всю ночь.",
+     "frame": [
+      "perro"
+     ]
+    },
+    {
+     "es": "¿Se puede entrar con perro?",
+     "ru": "Можно войти с собакой?",
+     "frame": [
+      "perro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v935",
+   "type": "vocab",
+   "es": "el gato",
+   "en": "cat",
+   "ru": "кот / кошка",
+   "tr": "эл га́то",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐈",
+   "ex": [
+    {
+     "es": "Mi gato no come pescado.",
+     "ru": "Мой кот не ест рыбу.",
+     "frame": [
+      "gato"
+     ]
+    },
+    {
+     "es": "Hay un gato en el tejado.",
+     "ru": "На крыше кошка.",
+     "frame": [
+      "gato"
+     ]
+    },
+    {
+     "es": "¿Quién da de comer al gato?",
+     "ru": "Кто кормит кота?",
+     "frame": [
+      "gato"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v936",
+   "type": "vocab",
+   "es": "el pájaro",
+   "en": "bird",
+   "ru": "птица",
+   "tr": "эл па́харо",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐦",
+   "ex": [
+    {
+     "es": "Por la mañana cantan los pájaros.",
+     "ru": "По утрам поют птицы.",
+     "frame": [
+      "pájaros"
+     ]
+    },
+    {
+     "es": "Un pájaro ha entrado por la ventana.",
+     "ru": "В окно залетела птица.",
+     "frame": [
+      "pájaro"
+     ]
+    },
+    {
+     "es": "Los niños dan pan a los pájaros.",
+     "ru": "Дети кормят птиц хлебом.",
+     "frame": [
+      "pájaros"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v937",
+   "type": "vocab",
+   "es": "el pez",
+   "en": "fish (alive)",
+   "ru": "рыба (живая)",
+   "tr": "эл пэс",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐟",
+   "ex": [
+    {
+     "es": "Se ven peces desde las rocas.",
+     "ru": "Со скал видно рыб.",
+     "frame": [
+      "peces"
+     ]
+    },
+    {
+     "es": "Un pez de colores.",
+     "ru": "Разноцветная рыбка.",
+     "frame": [
+      "pez"
+     ]
+    },
+    {
+     "es": "El niño quiere ver peces con las gafas de buceo.",
+     "ru": "Ребёнок хочет посмотреть на рыб в маске.",
+     "frame": [
+      "peces"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v938",
+   "type": "vocab",
+   "es": "el conejo",
+   "en": "rabbit",
+   "ru": "кролик",
+   "tr": "эл конэ́хо",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐇",
+   "ex": [
+    {
+     "es": "Mi hija quiere un conejo.",
+     "ru": "Моя дочь хочет кролика.",
+     "frame": [
+      "conejo"
+     ]
+    },
+    {
+     "es": "El conejo come zanahorias.",
+     "ru": "Кролик ест морковку.",
+     "frame": [
+      "conejo"
+     ]
+    },
+    {
+     "es": "En el campo hay muchos conejos.",
+     "ru": "В поле много кроликов.",
+     "frame": [
+      "conejos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v939",
+   "type": "vocab",
+   "es": "la tortuga",
+   "en": "turtle / tortoise",
+   "ru": "черепаха",
+   "tr": "ла торту́га",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐢",
+   "ex": [
+    {
+     "es": "La tortuga es muy lenta.",
+     "ru": "Черепаха очень медленная.",
+     "frame": [
+      "tortuga"
+     ]
+    },
+    {
+     "es": "En la playa protegen los huevos de tortuga.",
+     "ru": "На пляже охраняют черепашьи яйца.",
+     "frame": [
+      "tortuga"
+     ]
+    },
+    {
+     "es": "Tenemos una tortuga en casa.",
+     "ru": "У нас дома черепаха.",
+     "frame": [
+      "tortuga"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v940",
+   "type": "vocab",
+   "es": "el caballo",
+   "en": "horse",
+   "ru": "лошадь",
+   "tr": "эл каба́йо",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐎",
+   "ex": [
+    {
+     "es": "¿Has montado a caballo?",
+     "ru": "Ты катался на лошади?",
+     "frame": [
+      "caballo"
+     ]
+    },
+    {
+     "es": "Los caballos están en el campo.",
+     "ru": "Лошади в поле.",
+     "frame": [
+      "caballos"
+     ]
+    },
+    {
+     "es": "El caballo blanco es muy tranquilo.",
+     "ru": "Белая лошадь очень спокойная.",
+     "frame": [
+      "caballo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v941",
+   "type": "vocab",
+   "es": "el burro",
+   "en": "donkey",
+   "ru": "осёл",
+   "tr": "эл бу́рро",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🫏",
+   "ex": [
+    {
+     "es": "En el pueblo todavía hay burros.",
+     "ru": "В деревне ещё есть ослы.",
+     "frame": [
+      "burros"
+     ]
+    },
+    {
+     "es": "El burro lleva la carga.",
+     "ru": "Осёл везёт груз.",
+     "frame": [
+      "burro"
+     ]
+    },
+    {
+     "es": "Es más terco que un burro.",
+     "ru": "Он упрямее осла.",
+     "frame": [
+      "burro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v942",
+   "type": "vocab",
+   "es": "la vaca",
+   "en": "cow",
+   "ru": "корова",
+   "tr": "ла ба́ка",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐄",
+   "ex": [
+    {
+     "es": "Las vacas dan leche.",
+     "ru": "Коровы дают молоко.",
+     "frame": [
+      "vacas"
+     ]
+    },
+    {
+     "es": "En Asturias se ven muchas vacas.",
+     "ru": "В Астурии много коров.",
+     "frame": [
+      "vacas"
+     ]
+    },
+    {
+     "es": "Este queso es de leche de vaca.",
+     "ru": "Этот сыр из коровьего молока.",
+     "frame": [
+      "vaca"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v943",
+   "type": "vocab",
+   "es": "el toro",
+   "en": "bull",
+   "ru": "бык",
+   "tr": "эл то́ро",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐂",
+   "ex": [
+    {
+     "es": "El toro es un símbolo de España.",
+     "ru": "Бык — один из символов Испании.",
+     "frame": [
+      "toro"
+     ]
+    },
+    {
+     "es": "Cuidado, en ese campo hay toros.",
+     "ru": "Осторожно, на том поле быки.",
+     "frame": [
+      "toros"
+     ]
+    },
+    {
+     "es": "Desde la carretera se ve el toro de Osborne.",
+     "ru": "С дороги видно быка Осборна.",
+     "frame": [
+      "toro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v944",
+   "type": "vocab",
+   "es": "el cerdo",
+   "en": "pig",
+   "ru": "свинья",
+   "tr": "эл сэ́рдо",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐖",
+   "ex": [
+    {
+     "es": "El jamón ibérico es de cerdo.",
+     "ru": "Иберийский хамон — из свинины.",
+     "frame": [
+      "cerdo"
+     ]
+    },
+    {
+     "es": "Los cerdos comen bellotas.",
+     "ru": "Свиньи едят жёлуди.",
+     "frame": [
+      "cerdos"
+     ]
+    },
+    {
+     "es": "En la granja hay cerdos y gallinas.",
+     "ru": "На ферме есть свиньи и куры.",
+     "frame": [
+      "cerdos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v945",
+   "type": "vocab",
+   "es": "la oveja",
+   "en": "sheep",
+   "ru": "овца",
+   "tr": "ла обэ́ха",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐑",
+   "ex": [
+    {
+     "es": "El queso manchego es de leche de oveja.",
+     "ru": "Манчего — сыр из овечьего молока.",
+     "frame": [
+      "oveja"
+     ]
+    },
+    {
+     "es": "El pastor cuenta las ovejas.",
+     "ru": "Пастух считает овец.",
+     "frame": [
+      "ovejas"
+     ]
+    },
+    {
+     "es": "Hay ovejas en la montaña.",
+     "ru": "В горах пасутся овцы.",
+     "frame": [
+      "ovejas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v946",
+   "type": "vocab",
+   "es": "la cabra",
+   "en": "goat",
+   "ru": "коза",
+   "tr": "ла ка́бра",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐐",
+   "ex": [
+    {
+     "es": "En la montaña vimos un rebaño de cabras.",
+     "ru": "В горах мы видели стадо коз.",
+     "frame": [
+      "cabras"
+     ]
+    },
+    {
+     "es": "Las cabras suben por las rocas.",
+     "ru": "Козы карабкаются по скалам.",
+     "frame": [
+      "cabras"
+     ]
+    },
+    {
+     "es": "Está como una cabra.",
+     "ru": "Он совсем чокнутый.",
+     "frame": [
+      "cabra"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v947",
+   "type": "vocab",
+   "es": "la gallina",
+   "en": "hen",
+   "ru": "курица (птица)",
+   "tr": "ла гайи́на",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐔",
+   "ex": [
+    {
+     "es": "Las gallinas ponen huevos.",
+     "ru": "Куры несут яйца.",
+     "frame": [
+      "gallinas"
+     ]
+    },
+    {
+     "es": "Mi abuela tiene gallinas en el pueblo.",
+     "ru": "У бабушки в деревне куры.",
+     "frame": [
+      "gallinas"
+     ]
+    },
+    {
+     "es": "Estos huevos son de gallinas camperas.",
+     "ru": "Эти яйца от кур свободного выгула.",
+     "frame": [
+      "gallinas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v948",
+   "type": "vocab",
+   "es": "el gallo",
+   "en": "rooster",
+   "ru": "петух",
+   "tr": "эл га́йо",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐓",
+   "ex": [
+    {
+     "es": "El gallo canta muy temprano.",
+     "ru": "Петух поёт очень рано.",
+     "frame": [
+      "gallo"
+     ]
+    },
+    {
+     "es": "En el pueblo me despierta el gallo.",
+     "ru": "В деревне меня будит петух.",
+     "frame": [
+      "gallo"
+     ]
+    },
+    {
+     "es": "Tiene un gallo y tres gallinas.",
+     "ru": "У него петух и три курицы.",
+     "frame": [
+      "gallo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v949",
+   "type": "vocab",
+   "es": "el pato",
+   "en": "duck",
+   "ru": "утка",
+   "tr": "эл па́то",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦆",
+   "ex": [
+    {
+     "es": "Vamos al parque a ver los patos.",
+     "ru": "Пойдём в парк посмотреть на уток.",
+     "frame": [
+      "patos"
+     ]
+    },
+    {
+     "es": "No des pan a los patos.",
+     "ru": "Не корми уток хлебом.",
+     "frame": [
+      "patos"
+     ]
+    },
+    {
+     "es": "En el estanque hay un pato.",
+     "ru": "В пруду утка.",
+     "frame": [
+      "pato"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v950",
+   "type": "vocab",
+   "es": "el ratón",
+   "en": "mouse",
+   "ru": "мышь",
+   "tr": "эл ррато́н",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐁",
+   "ex": [
+    {
+     "es": "He visto un ratón en la cocina.",
+     "ru": "Я видел мышь на кухне.",
+     "frame": [
+      "ratón"
+     ]
+    },
+    {
+     "es": "El gato persigue al ratón.",
+     "ru": "Кот гоняется за мышью.",
+     "frame": [
+      "ratón"
+     ]
+    },
+    {
+     "es": "Los ratones salen de noche.",
+     "ru": "Мыши выходят ночью.",
+     "frame": [
+      "ratones"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v951",
+   "type": "vocab",
+   "es": "la rata",
+   "en": "rat",
+   "ru": "крыса",
+   "tr": "ла рра́та",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐀",
+   "ex": [
+    {
+     "es": "Hay ratas cerca del contenedor.",
+     "ru": "Возле мусорного бака крысы.",
+     "frame": [
+      "ratas"
+     ]
+    },
+    {
+     "es": "Una rata cruzó la calle.",
+     "ru": "Улицу перебежала крыса.",
+     "frame": [
+      "rata"
+     ]
+    },
+    {
+     "es": "En el metro vi una rata.",
+     "ru": "В метро я видел крысу.",
+     "frame": [
+      "rata"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v952",
+   "type": "vocab",
+   "es": "el lobo",
+   "en": "wolf",
+   "ru": "волк",
+   "tr": "эл ло́бо",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐺",
+   "ex": [
+    {
+     "es": "En el norte de España todavía hay lobos.",
+     "ru": "На севере Испании ещё водятся волки.",
+     "frame": [
+      "lobos"
+     ]
+    },
+    {
+     "es": "El lobo aúlla por la noche.",
+     "ru": "Волк воет ночью.",
+     "frame": [
+      "lobo"
+     ]
+    },
+    {
+     "es": "Mi hija quiere el cuento del lobo.",
+     "ru": "Дочь хочет сказку про волка.",
+     "frame": [
+      "lobo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v953",
+   "type": "vocab",
+   "es": "el zorro",
+   "en": "fox",
+   "ru": "лиса",
+   "tr": "эл со́рро",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦊",
+   "ex": [
+    {
+     "es": "Un zorro entró en el gallinero.",
+     "ru": "Лиса забралась в курятник.",
+     "frame": [
+      "zorro"
+     ]
+    },
+    {
+     "es": "El zorro es muy listo.",
+     "ru": "Лиса очень хитрая.",
+     "frame": [
+      "zorro"
+     ]
+    },
+    {
+     "es": "Vimos un zorro en el bosque.",
+     "ru": "Мы видели лису в лесу.",
+     "frame": [
+      "zorro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v954",
+   "type": "vocab",
+   "es": "el oso",
+   "en": "bear",
+   "ru": "медведь",
+   "tr": "эл о́со",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐻",
+   "ex": [
+    {
+     "es": "En los Pirineos hay osos.",
+     "ru": "В Пиренеях водятся медведи.",
+     "frame": [
+      "osos"
+     ]
+    },
+    {
+     "es": "El oso de peluche es de la niña.",
+     "ru": "Плюшевый мишка — девочкин.",
+     "frame": [
+      "oso"
+     ]
+    },
+    {
+     "es": "El oso come miel.",
+     "ru": "Медведь ест мёд.",
+     "frame": [
+      "oso"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v955",
+   "type": "vocab",
+   "es": "el jabalí",
+   "en": "wild boar",
+   "ru": "кабан",
+   "tr": "эл хабали́",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐗",
+   "ex": [
+    {
+     "es": "Por la noche bajan jabalíes al pueblo.",
+     "ru": "Ночью в посёлок спускаются кабаны.",
+     "frame": [
+      "jabalíes"
+     ]
+    },
+    {
+     "es": "Cuidado con los jabalíes en la carretera.",
+     "ru": "Осторожно, на дороге кабаны.",
+     "frame": [
+      "jabalíes"
+     ]
+    },
+    {
+     "es": "Un jabalí cruzó delante del coche.",
+     "ru": "Перед машиной перебежал кабан.",
+     "frame": [
+      "jabalí"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v956",
+   "type": "vocab",
+   "es": "la ardilla",
+   "en": "squirrel",
+   "ru": "белка",
+   "tr": "ла арди́йа",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐿️",
+   "ex": [
+    {
+     "es": "En el Retiro hay ardillas.",
+     "ru": "В парке Ретиро есть белки.",
+     "frame": [
+      "ardillas"
+     ]
+    },
+    {
+     "es": "La ardilla sube al árbol.",
+     "ru": "Белка залезает на дерево.",
+     "frame": [
+      "ardilla"
+     ]
+    },
+    {
+     "es": "Mira, una ardilla roja.",
+     "ru": "Смотри, рыжая белка.",
+     "frame": [
+      "ardilla"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v957",
+   "type": "vocab",
+   "es": "el murciélago",
+   "en": "bat",
+   "ru": "летучая мышь",
+   "tr": "эл мурсье́лаго",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦇",
+   "ex": [
+    {
+     "es": "Al anochecer salen los murciélagos.",
+     "ru": "В сумерках вылетают летучие мыши.",
+     "frame": [
+      "murciélagos"
+     ]
+    },
+    {
+     "es": "Hay un murciélago en el garaje.",
+     "ru": "В гараже летучая мышь.",
+     "frame": [
+      "murciélago"
+     ]
+    },
+    {
+     "es": "La palabra «murciélago» tiene las cinco vocales.",
+     "ru": "В слове «murciélago» есть все пять гласных.",
+     "frame": [
+      "murciélago"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v958",
+   "type": "vocab",
+   "es": "la lagartija",
+   "en": "lizard",
+   "ru": "ящерица",
+   "tr": "ла лагарти́ха",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦎",
+   "ex": [
+    {
+     "es": "Hay una lagartija en la pared.",
+     "ru": "На стене ящерица.",
+     "frame": [
+      "lagartija"
+     ]
+    },
+    {
+     "es": "Las lagartijas toman el sol.",
+     "ru": "Ящерицы греются на солнце.",
+     "frame": [
+      "lagartijas"
+     ]
+    },
+    {
+     "es": "La niña quiere coger la lagartija.",
+     "ru": "Девочка хочет поймать ящерицу.",
+     "frame": [
+      "lagartija"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v959",
+   "type": "vocab",
+   "es": "la serpiente",
+   "en": "snake",
+   "ru": "змея",
+   "tr": "ла сэрпье́нтэ",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐍",
+   "ex": [
+    {
+     "es": "Cuidado, puede haber serpientes.",
+     "ru": "Осторожно, тут могут быть змеи.",
+     "frame": [
+      "serpientes"
+     ]
+    },
+    {
+     "es": "Le dan miedo las serpientes.",
+     "ru": "Он боится змей.",
+     "frame": [
+      "serpientes"
+     ]
+    },
+    {
+     "es": "La serpiente se escondió entre las piedras.",
+     "ru": "Змея спряталась между камнями.",
+     "frame": [
+      "serpiente"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v960",
+   "type": "vocab",
+   "es": "la rana",
+   "en": "frog",
+   "ru": "лягушка",
+   "tr": "ла рра́на",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐸",
+   "ex": [
+    {
+     "es": "Por la noche se oyen las ranas.",
+     "ru": "Ночью слышно лягушек.",
+     "frame": [
+      "ranas"
+     ]
+    },
+    {
+     "es": "La rana salta al agua.",
+     "ru": "Лягушка прыгает в воду.",
+     "frame": [
+      "rana"
+     ]
+    },
+    {
+     "es": "Mi hijo ha cogido una rana.",
+     "ru": "Сын поймал лягушку.",
+     "frame": [
+      "rana"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v961",
+   "type": "vocab",
+   "es": "el león",
+   "en": "lion",
+   "ru": "лев",
+   "tr": "эл лэо́н",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦁",
+   "ex": [
+    {
+     "es": "El león es el rey de la selva.",
+     "ru": "Лев — царь джунглей.",
+     "frame": [
+      "león"
+     ]
+    },
+    {
+     "es": "En el zoo vimos dos leones.",
+     "ru": "В зоопарке мы видели двух львов.",
+     "frame": [
+      "leones"
+     ]
+    },
+    {
+     "es": "El león duerme casi todo el día.",
+     "ru": "Лев спит почти весь день.",
+     "frame": [
+      "león"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v962",
+   "type": "vocab",
+   "es": "el tigre",
+   "en": "tiger",
+   "ru": "тигр",
+   "tr": "эл ти́грэ",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐅",
+   "ex": [
+    {
+     "es": "El tigre tiene rayas negras.",
+     "ru": "У тигра чёрные полосы.",
+     "frame": [
+      "tigre"
+     ]
+    },
+    {
+     "es": "Los tigres no viven en África.",
+     "ru": "Тигры не живут в Африке.",
+     "frame": [
+      "tigres"
+     ]
+    },
+    {
+     "es": "Mi hijo va disfrazado de tigre.",
+     "ru": "Сын в костюме тигра.",
+     "frame": [
+      "tigre"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v963",
+   "type": "vocab",
+   "es": "el elefante",
+   "en": "elephant",
+   "ru": "слон",
+   "tr": "эл элэфа́нтэ",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐘",
+   "ex": [
+    {
+     "es": "El elefante es enorme.",
+     "ru": "Слон огромный.",
+     "frame": [
+      "elefante"
+     ]
+    },
+    {
+     "es": "Los elefantes tienen buena memoria.",
+     "ru": "У слонов хорошая память.",
+     "frame": [
+      "elefantes"
+     ]
+    },
+    {
+     "es": "Hay un elefante bebiendo agua.",
+     "ru": "Слон пьёт воду.",
+     "frame": [
+      "elefante"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v964",
+   "type": "vocab",
+   "es": "el mono",
+   "en": "monkey",
+   "ru": "обезьяна",
+   "tr": "эл мо́но",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐒",
+   "ex": [
+    {
+     "es": "Los monos comen plátanos.",
+     "ru": "Обезьяны едят бананы.",
+     "frame": [
+      "monos"
+     ]
+    },
+    {
+     "es": "En Gibraltar hay monos.",
+     "ru": "В Гибралтаре живут обезьяны.",
+     "frame": [
+      "monos"
+     ]
+    },
+    {
+     "es": "Mira el mono: ¡qué mono es!",
+     "ru": "Посмотри на обезьянку — какая милая!",
+     "frame": [
+      "mono"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v965",
+   "type": "vocab",
+   "es": "la jirafa",
+   "en": "giraffe",
+   "ru": "жираф",
+   "tr": "ла хира́фа",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦒",
+   "ex": [
+    {
+     "es": "La jirafa tiene el cuello muy largo.",
+     "ru": "У жирафа очень длинная шея.",
+     "frame": [
+      "jirafa"
+     ]
+    },
+    {
+     "es": "Las jirafas comen hojas.",
+     "ru": "Жирафы едят листья.",
+     "frame": [
+      "jirafas"
+     ]
+    },
+    {
+     "es": "Mi hija dibuja una jirafa.",
+     "ru": "Дочь рисует жирафа.",
+     "frame": [
+      "jirafa"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v966",
+   "type": "vocab",
+   "es": "la paloma",
+   "en": "pigeon / dove",
+   "ru": "голубь",
+   "tr": "ла пало́ма",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🕊️",
+   "ex": [
+    {
+     "es": "En la plaza hay muchas palomas.",
+     "ru": "На площади много голубей.",
+     "frame": [
+      "palomas"
+     ]
+    },
+    {
+     "es": "No des de comer a las palomas.",
+     "ru": "Не корми голубей.",
+     "frame": [
+      "palomas"
+     ]
+    },
+    {
+     "es": "Una paloma ha hecho el nido en el balcón.",
+     "ru": "Голубь свил гнездо на балконе.",
+     "frame": [
+      "paloma"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v967",
+   "type": "vocab",
+   "es": "el loro",
+   "en": "parrot",
+   "ru": "попугай",
+   "tr": "эл ло́ро",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦜",
+   "ex": [
+    {
+     "es": "El loro repite todo.",
+     "ru": "Попугай всё повторяет.",
+     "frame": [
+      "loro"
+     ]
+    },
+    {
+     "es": "Mi vecina tiene un loro que habla.",
+     "ru": "У соседки говорящий попугай.",
+     "frame": [
+      "loro"
+     ]
+    },
+    {
+     "es": "Habla como un loro.",
+     "ru": "Он болтает без умолку.",
+     "frame": [
+      "loro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v968",
+   "type": "vocab",
+   "es": "el búho",
+   "en": "owl",
+   "ru": "сова",
+   "tr": "эл бу́о",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦉",
+   "ex": [
+    {
+     "es": "El búho caza de noche.",
+     "ru": "Сова охотится ночью.",
+     "frame": [
+      "búho"
+     ]
+    },
+    {
+     "es": "Anoche oí un búho.",
+     "ru": "Вчера ночью я слышал сову.",
+     "frame": [
+      "búho"
+     ]
+    },
+    {
+     "es": "Mi hija tiene una mochila de búho.",
+     "ru": "У дочки рюкзак с совой.",
+     "frame": [
+      "búho"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v969",
+   "type": "vocab",
+   "es": "el águila",
+   "en": "eagle",
+   "ru": "орёл",
+   "tr": "эл а́гила",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦅",
+   "ex": [
+    {
+     "es": "Un águila vuela sobre la montaña.",
+     "ru": "Над горой летит орёл.",
+     "frame": [
+      "águila"
+     ]
+    },
+    {
+     "es": "El águila tiene muy buena vista.",
+     "ru": "У орла очень острое зрение.",
+     "frame": [
+      "águila"
+     ]
+    },
+    {
+     "es": "Las águilas hacen sus nidos en las rocas.",
+     "ru": "Орлы вьют гнёзда на скалах.",
+     "frame": [
+      "águilas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v970",
+   "type": "vocab",
+   "es": "el delfín",
+   "en": "dolphin",
+   "ru": "дельфин",
+   "tr": "эл дэлфи́н",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐬",
+   "ex": [
+    {
+     "es": "Desde el barco vimos delfines.",
+     "ru": "С лодки мы видели дельфинов.",
+     "frame": [
+      "delfines"
+     ]
+    },
+    {
+     "es": "El delfín salta fuera del agua.",
+     "ru": "Дельфин выпрыгивает из воды.",
+     "frame": [
+      "delfín"
+     ]
+    },
+    {
+     "es": "A los niños les encantan los delfines.",
+     "ru": "Дети обожают дельфинов.",
+     "frame": [
+      "delfines"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v971",
+   "type": "vocab",
+   "es": "la ballena",
+   "en": "whale",
+   "ru": "кит",
+   "tr": "ла байэ́на",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐋",
+   "ex": [
+    {
+     "es": "La ballena azul es el animal más grande del mundo.",
+     "ru": "Синий кит — самое большое животное на свете.",
+     "frame": [
+      "ballena"
+     ]
+    },
+    {
+     "es": "En Canarias se pueden ver ballenas.",
+     "ru": "На Канарах можно увидеть китов.",
+     "frame": [
+      "ballenas"
+     ]
+    },
+    {
+     "es": "Una ballena apareció cerca de la costa.",
+     "ru": "У берега появился кит.",
+     "frame": [
+      "ballena"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v972",
+   "type": "vocab",
+   "es": "el tiburón",
+   "en": "shark",
+   "ru": "акула",
+   "tr": "эл тибуро́н",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦈",
+   "ex": [
+    {
+     "es": "Aquí no hay tiburones, tranquilo.",
+     "ru": "Тут нет акул, не бойся.",
+     "frame": [
+      "tiburones"
+     ]
+    },
+    {
+     "es": "El tiburón tiene muchos dientes.",
+     "ru": "У акулы много зубов.",
+     "frame": [
+      "tiburón"
+     ]
+    },
+    {
+     "es": "Vimos un tiburón en el acuario.",
+     "ru": "Мы видели акулу в океанариуме.",
+     "frame": [
+      "tiburón"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v973",
+   "type": "vocab",
+   "es": "el pulpo",
+   "en": "octopus",
+   "ru": "осьминог",
+   "tr": "эл пу́лпо",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐙",
+   "ex": [
+    {
+     "es": "Pulpo a la gallega, por favor.",
+     "ru": "Осьминога по-галисийски, пожалуйста.",
+     "frame": [
+      "Pulpo"
+     ]
+    },
+    {
+     "es": "El pulpo tiene ocho brazos.",
+     "ru": "У осьминога восемь щупалец.",
+     "frame": [
+      "pulpo"
+     ]
+    },
+    {
+     "es": "En las rocas se esconde un pulpo.",
+     "ru": "В камнях прячется осьминог.",
+     "frame": [
+      "pulpo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v974",
+   "type": "vocab",
+   "es": "el cangrejo",
+   "en": "crab",
+   "ru": "краб",
+   "tr": "эл кангрэ́хо",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦀",
+   "ex": [
+    {
+     "es": "Los niños buscan cangrejos en las rocas.",
+     "ru": "Дети ищут крабов среди камней.",
+     "frame": [
+      "cangrejos"
+     ]
+    },
+    {
+     "es": "Un cangrejo me ha pellizcado el dedo.",
+     "ru": "Краб ущипнул меня за палец.",
+     "frame": [
+      "cangrejo"
+     ]
+    },
+    {
+     "es": "El cangrejo anda de lado.",
+     "ru": "Краб ходит боком.",
+     "frame": [
+      "cangrejo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v975",
+   "type": "vocab",
+   "es": "la mariposa",
+   "en": "butterfly",
+   "ru": "бабочка",
+   "tr": "ла марипо́са",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦋",
+   "ex": [
+    {
+     "es": "Una mariposa se ha posado en la flor.",
+     "ru": "На цветок села бабочка.",
+     "frame": [
+      "mariposa"
+     ]
+    },
+    {
+     "es": "En primavera hay muchas mariposas.",
+     "ru": "Весной много бабочек.",
+     "frame": [
+      "mariposas"
+     ]
+    },
+    {
+     "es": "La niña persigue mariposas.",
+     "ru": "Девочка гоняется за бабочками.",
+     "frame": [
+      "mariposas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v976",
+   "type": "vocab",
+   "es": "la abeja",
+   "en": "bee",
+   "ru": "пчела",
+   "tr": "ла абэ́ха",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐝",
+   "ex": [
+    {
+     "es": "Una abeja me picó en la mano.",
+     "ru": "Пчела ужалила меня в руку.",
+     "frame": [
+      "abeja"
+     ]
+    },
+    {
+     "es": "Las abejas hacen miel.",
+     "ru": "Пчёлы делают мёд.",
+     "frame": [
+      "abejas"
+     ]
+    },
+    {
+     "es": "No muevas los brazos, que es una abeja.",
+     "ru": "Не маши руками, это пчела.",
+     "frame": [
+      "abeja"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v977",
+   "type": "vocab",
+   "es": "la mosca",
+   "en": "fly",
+   "ru": "муха",
+   "tr": "ла мо́ска",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🪰",
+   "ex": [
+    {
+     "es": "Cierra la ventana, que entran moscas.",
+     "ru": "Закрой окно, залетают мухи.",
+     "frame": [
+      "moscas"
+     ]
+    },
+    {
+     "es": "Hay una mosca en la sopa.",
+     "ru": "В супе муха.",
+     "frame": [
+      "mosca"
+     ]
+    },
+    {
+     "es": "En verano hay muchas moscas.",
+     "ru": "Летом много мух.",
+     "frame": [
+      "moscas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v978",
+   "type": "vocab",
+   "es": "el mosquito",
+   "en": "mosquito",
+   "ru": "комар",
+   "tr": "эл моски́то",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🦟",
+   "ex": [
+    {
+     "es": "Me han picado los mosquitos.",
+     "ru": "Меня искусали комары.",
+     "frame": [
+      "mosquitos"
+     ]
+    },
+    {
+     "es": "Anoche no dormí por culpa de un mosquito.",
+     "ru": "Ночью я не спал из-за комара.",
+     "frame": [
+      "mosquito"
+     ]
+    },
+    {
+     "es": "Cerca del río hay muchos mosquitos.",
+     "ru": "У реки много комаров.",
+     "frame": [
+      "mosquitos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v979",
+   "type": "vocab",
+   "es": "la hormiga",
+   "en": "ant",
+   "ru": "муравей",
+   "tr": "ла орми́га",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐜",
+   "ex": [
+    {
+     "es": "Hay hormigas en la cocina.",
+     "ru": "На кухне муравьи.",
+     "frame": [
+      "hormigas"
+     ]
+    },
+    {
+     "es": "La hormiga lleva una miga de pan.",
+     "ru": "Муравей тащит хлебную крошку.",
+     "frame": [
+      "hormiga"
+     ]
+    },
+    {
+     "es": "No dejes el azúcar abierto, que vienen hormigas.",
+     "ru": "Не оставляй сахар открытым, а то набегут муравьи.",
+     "frame": [
+      "hormigas"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v980",
+   "type": "vocab",
+   "es": "la araña",
+   "en": "spider",
+   "ru": "паук",
+   "tr": "ла ара́нья",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🕷️",
+   "ex": [
+    {
+     "es": "Hay una araña en el techo.",
+     "ru": "На потолке паук.",
+     "frame": [
+      "araña"
+     ]
+    },
+    {
+     "es": "Me dan miedo las arañas.",
+     "ru": "Я боюсь пауков.",
+     "frame": [
+      "arañas"
+     ]
+    },
+    {
+     "es": "La araña ha hecho una telaraña en la esquina.",
+     "ru": "Паук сплёл паутину в углу.",
+     "frame": [
+      "araña"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v981",
+   "type": "vocab",
+   "es": "la cucaracha",
+   "en": "cockroach",
+   "ru": "таракан",
+   "tr": "ла кукара́ча",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🪳",
+   "ex": [
+    {
+     "es": "En verano salen cucarachas.",
+     "ru": "Летом вылезают тараканы.",
+     "frame": [
+      "cucarachas"
+     ]
+    },
+    {
+     "es": "He visto una cucaracha en el baño.",
+     "ru": "Я видел таракана в ванной.",
+     "frame": [
+      "cucaracha"
+     ]
+    },
+    {
+     "es": "Mi hija grita cuando ve una cucaracha.",
+     "ru": "Дочь кричит, когда видит таракана.",
+     "frame": [
+      "cucaracha"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es3-v982",
+   "type": "vocab",
+   "es": "el caracol",
+   "en": "snail",
+   "ru": "улитка",
+   "tr": "эл карако́л",
+   "group": null,
+   "set": "Животные",
+   "emoji": "🐌",
+   "ex": [
+    {
+     "es": "Después de la lluvia salen los caracoles.",
+     "ru": "После дождя выползают улитки.",
+     "frame": [
+      "caracoles"
+     ]
+    },
+    {
+     "es": "En Andalucía se comen caracoles.",
+     "ru": "В Андалусии едят улиток.",
+     "frame": [
+      "caracoles"
+     ]
+    },
+    {
+     "es": "Va más lento que un caracol.",
+     "ru": "Он ползёт медленнее улитки.",
+     "frame": [
+      "caracol"
      ]
     }
    ]
@@ -26620,8 +28356,8 @@
    "id": "es3-v510",
    "type": "vocab",
    "es": "el ratón",
-   "en": "mouse",
-   "ru": "мышь",
+   "en": "computer mouse",
+   "ru": "компьютерная мышь",
    "tr": "эл ррато́н",
    "group": "Техника",
    "ex": [
@@ -28052,38 +29788,6 @@
      "ru": "Придётся начать сначала.",
      "frame": [
       "de nuevo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es3-v566",
-   "type": "vocab",
-   "es": "alrededor",
-   "en": "around",
-   "ru": "вокруг",
-   "tr": "алррэдэдо́р",
-   "group": "Союзы и наречия",
-   "ex": [
-    {
-     "es": "Hay tiendas alrededor de la plaza.",
-     "ru": "Вокруг площади магазины.",
-     "frame": [
-      "alrededor"
-     ]
-    },
-    {
-     "es": "Llego alrededor de las ocho.",
-     "ru": "Я приду около восьми.",
-     "frame": [
-      "alrededor"
-     ]
-    },
-    {
-     "es": "Mira alrededor antes de cruzar.",
-     "ru": "Посмотри вокруг перед переходом.",
-     "frame": [
-      "alrededor"
      ]
     }
    ]

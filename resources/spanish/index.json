@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-29",
+ "updated": "2026-10-08",
  "stages": [
   {
    "id": "stage-1",
@@ -13,8 +13,8 @@
    "url": "spanish/stage-1.html",
    "file": "stage-1.json",
    "counts": {
-    "vocab": 126,
-    "pair": 1,
+    "vocab": 138,
+    "pair": 0,
     "phrase": 0,
     "exchange": 0,
     "drill": 0
@@ -32,7 +32,7 @@
    "url": "spanish/stage-2.html",
    "file": "stage-3.json",
    "counts": {
-    "vocab": 909,
+    "vocab": 959,
     "pair": 0,
     "phrase": 0,
     "exchange": 0,
@@ -52,7 +52,7 @@
    "file": "stage-4.json",
    "counts": {
     "vocab": 0,
-    "pair": 171,
+    "pair": 170,
     "phrase": 0,
     "exchange": 0,
     "drill": 0
@@ -70,7 +70,7 @@
    "url": "spanish/stage-4.html",
    "file": "stage-2.json",
    "counts": {
-    "vocab": 117,
+    "vocab": 119,
     "pair": 0,
     "phrase": 0,
     "exchange": 0,
@@ -89,7 +89,7 @@
    "url": "spanish/stage-5.html",
    "file": "stage-5.json",
    "counts": {
-    "vocab": 247,
+    "vocab": 246,
     "pair": 6,
     "phrase": 0,
     "exchange": 0,
@@ -105,7 +105,7 @@
   "icon": "📐",
   "url": "spanish/rules.html",
   "file": "rules.json",
-  "sections": 37
+  "sections": 38
  },
  "patterns": {
   "id": "patterns",

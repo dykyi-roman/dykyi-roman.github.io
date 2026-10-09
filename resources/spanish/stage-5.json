@@ -129,23 +129,8 @@
   },
   {
    "kind": "topic",
-   "name": "Дом, аренда и соседи",
+   "name": "Дом",
    "icon": "🏠"
-  },
-  {
-   "kind": "topic",
-   "name": "Комнаты и мебель",
-   "icon": "🛋️"
-  },
-  {
-   "kind": "topic",
-   "name": "Предметы дома",
-   "icon": "🔌"
-  },
-  {
-   "kind": "topic",
-   "name": "Домашние дела",
-   "icon": "🧹"
   },
   {
    "kind": "topic",
@@ -3532,7 +3517,7 @@
    "en": "building entrance",
    "ru": "подъезд",
    "tr": "эл порта́л",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "¿Me puedes abrir el portal?",
@@ -3564,7 +3549,7 @@
    "en": "concierge desk",
    "ru": "консьерж, вахта",
    "tr": "ла портэри́а",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "No estaré en casa, déjelo en portería.",
@@ -3596,7 +3581,7 @@
    "en": "doorbell",
    "ru": "дверной звонок",
    "tr": "эл ти́мбрэ",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "El timbre no suena.",
@@ -3628,7 +3613,7 @@
    "en": "landlord / landlady",
    "ru": "арендодатель / арендодательница",
    "tr": "эл касэ́ро / ла касэ́ра",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "pairKind": "gender",
    "a": {
     "es": "el casero",
@@ -3674,7 +3659,7 @@
    "en": "deposit",
    "ru": "залог",
    "tr": "ла фья́нса",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "¿Cuánto es la fianza?",
@@ -3706,7 +3691,7 @@
    "en": "rental contract",
    "ru": "договор аренды",
    "tr": "эл контра́то дэ алкилэ́р",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "Firmamos el contrato de alquiler el lunes.",
@@ -3738,7 +3723,7 @@
    "en": "community fees, residents' association",
    "ru": "плата за содержание дома / жильцы дома",
    "tr": "ла комунида́д дэ бэси́нос",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "¿La comunidad está incluida?",
@@ -3770,7 +3755,7 @@
    "en": "utilities",
    "ru": "свет, вода, газ",
    "tr": "лос сумини́строс лус а́гуа гас",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "¿Los suministros van aparte?",
@@ -3802,7 +3787,7 @@
    "en": "breakdown, fault",
    "ru": "поломка",
    "tr": "ла абэри́а",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "Hay una avería en el ascensor.",
@@ -3834,7 +3819,7 @@
    "en": "plumber",
    "ru": "сантехник",
    "tr": "эл фонтанэ́ро",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "¿Puede venir un fontanero hoy?",
@@ -3866,7 +3851,7 @@
    "en": "electrician",
    "ru": "электрик",
    "tr": "эл элэктриси́ста",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "Necesito un electricista.",
@@ -3898,7 +3883,7 @@
    "en": "it has broken down",
    "ru": "сломалось (о технике)",
    "tr": "сэ а эстропэа́до",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "Se ha estropeado la caldera.",
@@ -3930,7 +3915,7 @@
    "en": "water leak",
    "ru": "протечка",
    "tr": "ла фу́га дэ а́гуа",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "Hay una fuga de agua en el baño.",
@@ -3962,7 +3947,7 @@
    "en": "rubbish container",
    "ru": "мусорный контейнер",
    "tr": "эл контэнэдо́р",
-   "group": "Дом, аренда и соседи",
+   "group": "Дом",
    "ex": [
     {
      "es": "¿Dónde están los contenedores?",
@@ -3994,7 +3979,7 @@
    "en": "entrance hall",
    "ru": "прихожая",
    "tr": "эл ррэсибидо́р",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Deja las llaves en el recibidor.",
@@ -4026,7 +4011,7 @@
    "en": "toilet (small, no bath)",
    "ru": "туалет (без ванны)",
    "tr": "эл асэ́о",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "El piso tiene un baño y un aseo.",
@@ -4058,7 +4043,7 @@
    "en": "utility room",
    "ru": "постирочная",
    "tr": "эл лабадэ́ро",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "La lavadora está en el lavadero.",
@@ -4090,7 +4075,7 @@
    "en": "pantry",
    "ru": "кладовая (для продуктов)",
    "tr": "ла дэспэ́нса",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Guardo el arroz en la despensa.",
@@ -4122,7 +4107,7 @@
    "en": "balcony",
    "ru": "балкон",
    "tr": "эл балко́н",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Desayunamos en el balcón.",
@@ -4154,7 +4139,7 @@
    "en": "storage room",
    "ru": "кладовка (чулан)",
    "tr": "эл трастэ́ро",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Las maletas están en el trastero.",
@@ -4186,7 +4171,7 @@
    "en": "garage",
    "ru": "гараж",
    "tr": "эл гара́хэ",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Aparco en el garaje del edificio.",
@@ -4218,7 +4203,7 @@
    "en": "basement",
    "ru": "подвал",
    "tr": "эл со́тано",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Los contadores están en el sótano.",
@@ -4250,7 +4235,7 @@
    "en": "top-floor flat (penthouse)",
    "ru": "квартира на последнем этаже с террасой",
    "tr": "эл а́тико",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Vivimos en un ático con terraza.",
@@ -4282,7 +4267,7 @@
    "en": "courtyard",
    "ru": "двор (внутренний)",
    "tr": "эл па́тьо",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Los niños juegan en el patio.",
@@ -4314,7 +4299,7 @@
    "en": "roof terrace",
    "ru": "крыша-терраса",
    "tr": "ла асотэ́а",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Tendemos la ropa en la azotea.",
@@ -4346,7 +4331,7 @@
    "en": "piece of furniture",
    "ru": "мебель (предмет)",
    "tr": "эл муэ́блэ",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "El piso se alquila con muebles.",
@@ -4378,7 +4363,7 @@
    "en": "armchair",
    "ru": "кресло",
    "tr": "эл сийо́н",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Mi padre lee en el sillón.",
@@ -4410,7 +4395,7 @@
    "en": "shelving unit",
    "ru": "стеллаж",
    "tr": "ла эстантэри́а",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "La estantería está llena de libros.",
@@ -4442,7 +4427,7 @@
    "en": "shelf",
    "ru": "полка",
    "tr": "эл эста́нтэ",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Pon los platos en el estante de arriba.",
@@ -4474,7 +4459,7 @@
    "en": "desk",
    "ru": "письменный стол",
    "tr": "эл эскрито́рьо",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Trabajo en un escritorio junto a la ventana.",
@@ -4506,7 +4491,7 @@
    "en": "bedside table",
    "ru": "тумбочка",
    "tr": "ла мэси́та дэ но́чэ",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Dejo el móvil en la mesita de noche.",
@@ -4538,7 +4523,7 @@
    "en": "chest of drawers",
    "ru": "комод",
    "tr": "ла ко́мода",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "La ropa del bebé está en la cómoda.",
@@ -4570,7 +4555,7 @@
    "en": "mattress",
    "ru": "матрас",
    "tr": "эл колчо́н",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "El colchón es demasiado blando.",
@@ -4602,7 +4587,7 @@
    "en": "bunk bed",
    "ru": "двухъярусная кровать",
    "tr": "ла литэ́ра",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Los niños duermen en una litera.",
@@ -4634,7 +4619,7 @@
    "en": "stool",
    "ru": "табурет",
    "tr": "эл табурэ́тэ",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Súbete al taburete para alcanzar el estante.",
@@ -4666,7 +4651,7 @@
    "en": "coat stand",
    "ru": "вешалка (стойка)",
    "tr": "эл пэрчэ́ро",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Cuelga el abrigo en el perchero.",
@@ -4698,7 +4683,7 @@
    "en": "coat hanger",
    "ru": "вешалка (плечики)",
    "tr": "ла пэ́рча",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Pon la camisa en una percha.",
@@ -4730,7 +4715,7 @@
    "en": "rug / carpet",
    "ru": "ковёр",
    "tr": "ла алфо́мбра",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "La alfombra del salón es de lana.",
@@ -4762,7 +4747,7 @@
    "en": "curtain",
    "ru": "штора",
    "tr": "ла корти́на",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Corre las cortinas, hay mucho sol.",
@@ -4794,7 +4779,7 @@
    "en": "roller blind / shutter",
    "ru": "жалюзи (рольставни)",
    "tr": "ла пэрсья́на",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Baja la persiana, que entra calor.",
@@ -4826,7 +4811,7 @@
    "en": "cushion",
    "ru": "подушка (диванная)",
    "tr": "эл кохи́н",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "El sofá tiene demasiados cojines.",
@@ -4852,7 +4837,7 @@
    "en": "pillow",
    "ru": "подушка (для сна)",
    "tr": "ла алмоа́да",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Duermo con dos almohadas.",
@@ -4884,7 +4869,7 @@
    "en": "blanket",
    "ru": "плед / одеяло",
    "tr": "ла ма́нта",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "Trae una manta, tengo frío.",
@@ -4916,7 +4901,7 @@
    "en": "duvet",
    "ru": "одеяло (пуховое)",
    "tr": "эл эдрэдо́н",
-   "group": "Комнаты и мебель",
+   "group": "Дом",
    "ex": [
     {
      "es": "El edredón nórdico es muy calentito.",
@@ -4948,7 +4933,7 @@
    "en": "fridge",
    "ru": "холодильник",
    "tr": "ла нэбэ́ра",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Mete la leche en la nevera.",
@@ -4980,7 +4965,7 @@
    "en": "freezer",
    "ru": "морозилка",
    "tr": "эл конхэладо́р",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "El pan está en el congelador.",
@@ -5012,7 +4997,7 @@
    "en": "oven",
    "ru": "духовка",
    "tr": "эл о́рно",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Precalienta el horno a doscientos grados.",
@@ -5044,7 +5029,7 @@
    "en": "microwave",
    "ru": "микроволновка",
    "tr": "эл микроо́ндас",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Calienta la sopa en el microondas.",
@@ -5076,7 +5061,7 @@
    "en": "ceramic hob",
    "ru": "варочная панель",
    "tr": "ла битросэра́мика",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "La vitrocerámica se limpia con un paño húmedo.",
@@ -5108,7 +5093,7 @@
    "en": "washing machine",
    "ru": "стиральная машина",
    "tr": "ла лабадо́ра",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "La lavadora ha terminado.",
@@ -5140,7 +5125,7 @@
    "en": "tumble dryer",
    "ru": "сушильная машина",
    "tr": "ла сэкадо́ра",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Aquí nadie tiene secadora, la ropa se tiende.",
@@ -5172,7 +5157,7 @@
    "en": "dishwasher",
    "ru": "посудомоечная машина",
    "tr": "эл лабабахи́йас",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Mete los platos en el lavavajillas.",
@@ -5204,7 +5189,7 @@
    "en": "kitchen sink",
    "ru": "раковина (на кухне)",
    "tr": "эл фрэгадэ́ро",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Hay platos sucios en el fregadero.",
@@ -5236,7 +5221,7 @@
    "en": "tap",
    "ru": "кран",
    "tr": "эл гри́фо",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Cierra bien el grifo.",
@@ -5268,7 +5253,7 @@
    "en": "washbasin",
    "ru": "раковина (в ванной)",
    "tr": "эл лаба́бо",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Lávate las manos en el lavabo.",
@@ -5300,7 +5285,7 @@
    "en": "shower",
    "ru": "душ",
    "tr": "ла ду́ча",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "La ducha no tiene agua caliente.",
@@ -5332,7 +5317,7 @@
    "en": "bathtub",
    "ru": "ванна",
    "tr": "ла баньэ́ра",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "La niña se baña en la bañera.",
@@ -5364,7 +5349,7 @@
    "en": "toilet bowl",
    "ru": "унитаз",
    "tr": "эл ба́тэр",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "El váter está atascado.",
@@ -5396,7 +5381,7 @@
    "en": "frying pan",
    "ru": "сковорода",
    "tr": "ла сартэ́н",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Fríe el huevo en la sartén.",
@@ -5428,7 +5413,7 @@
    "en": "pot",
    "ru": "кастрюля",
    "tr": "ла о́йа",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Pon agua a hervir en la olla.",
@@ -5460,7 +5445,7 @@
    "en": "chopping board",
    "ru": "разделочная доска",
    "tr": "ла та́бла дэ корта́р",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Corta la cebolla en la tabla de cortar.",
@@ -5492,7 +5477,7 @@
    "en": "light bulb",
    "ru": "лампочка",
    "tr": "ла бомби́йа",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Se ha fundido la bombilla del pasillo.",
@@ -5524,7 +5509,7 @@
    "en": "radiator",
    "ru": "батарея (отопления)",
    "tr": "эл ррадьядо́р",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "El radiador está frío.",
@@ -5556,7 +5541,7 @@
    "en": "boiler (gas)",
    "ru": "котёл (газовый)",
    "tr": "ла калдэ́ра",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "La caldera se ha apagado otra vez.",
@@ -5588,7 +5573,7 @@
    "en": "water heater",
    "ru": "водонагреватель (бойлер)",
    "tr": "эл тэ́рмо",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "El termo tarda una hora en calentar.",
@@ -5620,7 +5605,7 @@
    "en": "meter (electricity, water)",
    "ru": "счётчик",
    "tr": "эл контадо́р",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "El contador de la luz está en el portal.",
@@ -5652,7 +5637,7 @@
    "en": "stopcock",
    "ru": "запорный кран (вентиль)",
    "tr": "ла йа́бэ дэ па́со",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Cierra la llave de paso si hay una fuga.",
@@ -5684,7 +5669,7 @@
    "en": "fan",
    "ru": "вентилятор",
    "tr": "эл бэнтиладо́р",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Enciende el ventilador, hace calor.",
@@ -5716,7 +5701,7 @@
    "en": "remote control",
    "ru": "пульт",
    "tr": "эл ма́ндо",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "¿Dónde está el mando de la tele?",
@@ -5748,7 +5733,7 @@
    "en": "broom",
    "ru": "веник / метла",
    "tr": "ла эско́ба",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Barre con la escoba antes de fregar.",
@@ -5780,7 +5765,7 @@
    "en": "mop",
    "ru": "швабра",
    "tr": "ла фрэго́на",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "La fregona es un invento español.",
@@ -5812,7 +5797,7 @@
    "en": "bucket",
    "ru": "ведро",
    "tr": "эл ку́бо",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Llena el cubo de agua.",
@@ -5844,7 +5829,7 @@
    "en": "vacuum cleaner",
    "ru": "пылесос",
    "tr": "ла аспирадо́ра",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "La aspiradora no aspira bien.",
@@ -5876,7 +5861,7 @@
    "en": "iron",
    "ru": "утюг",
    "tr": "ла пла́нча",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "La plancha está muy caliente.",
@@ -5908,7 +5893,7 @@
    "en": "ironing board",
    "ru": "гладильная доска",
    "tr": "ла та́бла дэ планча́р",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Saca la tabla de planchar.",
@@ -5940,7 +5925,7 @@
    "en": "cloth / rag",
    "ru": "тряпка",
    "tr": "эл тра́по",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Limpia la mesa con un trapo.",
@@ -5972,7 +5957,7 @@
    "en": "sponge",
    "ru": "губка",
    "tr": "ла эспо́нха",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Friega con la esponja, no con el estropajo.",
@@ -6004,7 +5989,7 @@
    "en": "detergent",
    "ru": "стиральный порошок / моющее средство",
    "tr": "эл дэтэрхэ́нтэ",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Se ha acabado el detergente.",
@@ -6036,7 +6021,7 @@
    "en": "toilet paper",
    "ru": "туалетная бумага",
    "tr": "эл папэ́л ихье́нико",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "No queda papel higiénico.",
@@ -6068,7 +6053,7 @@
    "en": "toothbrush",
    "ru": "зубная щётка",
    "tr": "эл сэпи́йо дэ дье́нтэс",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Cambia el cepillo de dientes cada tres meses.",
@@ -6100,7 +6085,7 @@
    "en": "toothpaste",
    "ru": "зубная паста",
    "tr": "ла па́ста дэ дье́нтэс",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Se ha acabado la pasta de dientes.",
@@ -6132,7 +6117,7 @@
    "en": "hairdryer",
    "ru": "фен",
    "tr": "эл сэкадо́р",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "¿Tienes secador de pelo?",
@@ -6164,7 +6149,7 @@
    "en": "rubbish bin",
    "ru": "мусорное ведро",
    "tr": "эл ку́бо дэ ла басу́ра",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "El cubo de la basura está lleno.",
@@ -6196,7 +6181,7 @@
    "en": "bin bag",
    "ru": "мусорный пакет",
    "tr": "ла бо́лса дэ басу́ра",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Se han acabado las bolsas de basura.",
@@ -6228,7 +6213,7 @@
    "en": "doormat",
    "ru": "коврик у двери",
    "tr": "эл фэлпу́до",
-   "group": "Предметы дома",
+   "group": "Дом",
    "ex": [
     {
      "es": "Límpiate los pies en el felpudo.",
@@ -6260,7 +6245,7 @@
    "en": "to make the bed",
    "ru": "заправлять кровать",
    "tr": "асэ́р ла ка́ма",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Haz la cama antes de salir.",
@@ -6295,7 +6280,7 @@
    "en": "to lay the table",
    "ru": "накрывать на стол",
    "tr": "понэ́р ла мэ́са",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "¿Me ayudas a poner la mesa?",
@@ -6327,7 +6312,7 @@
    "en": "to clear the table",
    "ru": "убирать со стола",
    "tr": "кита́р ла мэ́са",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Yo cocino y tú quitas la mesa.",
@@ -6359,7 +6344,7 @@
    "en": "to wash the dishes",
    "ru": "мыть посуду",
    "tr": "фрэга́р лос пла́тос",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Hoy te toca fregar los platos.",
@@ -6391,7 +6376,7 @@
    "en": "to run the dishwasher",
    "ru": "запускать посудомойку",
    "tr": "понэ́р эл лабабахи́йас",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Pon el lavavajillas antes de acostarte.",
@@ -6423,7 +6408,7 @@
    "en": "to do a wash",
    "ru": "запускать стирку",
    "tr": "понэ́р ла лабадо́ра",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Voy a poner una lavadora de ropa blanca.",
@@ -6456,7 +6441,7 @@
    "en": "to hang out the washing",
    "ru": "развешивать бельё",
    "tr": "тэндэ́р ла рро́па",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Tiende la ropa antes de que llueva.",
@@ -6488,7 +6473,7 @@
    "en": "to fold the clothes",
    "ru": "складывать одежду",
    "tr": "добла́р ла рро́па",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Dobla la ropa y guárdala en el armario.",
@@ -6520,7 +6505,7 @@
    "en": "to iron",
    "ru": "гладить",
    "tr": "планча́р",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Plancho las camisas los domingos.",
@@ -6552,7 +6537,7 @@
    "en": "to sweep",
    "ru": "подметать",
    "tr": "баррэ́р",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Barre la cocina, hay migas.",
@@ -6584,7 +6569,7 @@
    "en": "to mop the floor",
    "ru": "мыть пол",
    "tr": "фрэга́р эл суэ́ло",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Friego el suelo los sábados.",
@@ -6616,7 +6601,7 @@
    "en": "to vacuum",
    "ru": "пылесосить",
    "tr": "паса́р ла аспирадо́ра",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Paso la aspiradora dos veces por semana.",
@@ -6648,7 +6633,7 @@
    "en": "to dust",
    "ru": "вытирать пыль",
    "tr": "кита́р эл по́лбо",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Quita el polvo de la estantería.",
@@ -6680,7 +6665,7 @@
    "en": "to clean the windows",
    "ru": "мыть окна",
    "tr": "лимпья́р лос криста́лэс",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Limpio los cristales cuando hace sol.",
@@ -6712,7 +6697,7 @@
    "en": "to clean the bathroom",
    "ru": "мыть ванную",
    "tr": "лимпья́р эл ба́ньо",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Limpio el baño los viernes.",
@@ -6744,7 +6729,7 @@
    "en": "to take the rubbish out",
    "ru": "выносить мусор",
    "tr": "сака́р ла басу́ра",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "¿Has sacado la basura?",
@@ -6776,7 +6761,7 @@
    "en": "to do the food shopping",
    "ru": "покупать продукты",
    "tr": "асэ́р ла ко́мпра",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Hago la compra los sábados por la mañana.",
@@ -6808,7 +6793,7 @@
    "en": "to water the plants",
    "ru": "поливать растения",
    "tr": "ррэга́р лас пла́нтас",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Riega las plantas mientras estoy fuera.",
@@ -6840,7 +6825,7 @@
    "en": "to change the sheets",
    "ru": "менять постельное бельё",
    "tr": "камбья́р лас са́банас",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Cambio las sábanas cada semana.",
@@ -6872,7 +6857,7 @@
    "en": "to tidy the room",
    "ru": "прибирать в комнате",
    "tr": "ордэна́р ла абитасьо́н",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Ordena tu habitación antes de jugar.",
@@ -6906,7 +6891,7 @@
    "en": "to tidy up the kitchen",
    "ru": "прибирать кухню",
    "tr": "ррэкохэ́р ла коси́на",
-   "group": "Домашние дела",
+   "group": "Дом",
    "ex": [
     {
      "es": "Recoge la cocina después de cenar.",
@@ -8082,38 +8067,6 @@
      "ru": "Большая ракушка на память.",
      "frame": [
       "concha"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es5-v256",
-   "type": "vocab",
-   "es": "el pez",
-   "en": "fish (alive)",
-   "ru": "рыба (живая)",
-   "tr": "эл пэс",
-   "group": "Пляж и море",
-   "ex": [
-    {
-     "es": "Se ven peces desde las rocas.",
-     "ru": "Со скал видно рыб.",
-     "frame": [
-      "peces"
-     ]
-    },
-    {
-     "es": "Un pez de colores.",
-     "ru": "Разноцветная рыбка.",
-     "frame": [
-      "pez"
-     ]
-    },
-    {
-     "es": "El niño quiere ver peces con las gafas de buceo.",
-     "ru": "Ребёнок хочет посмотреть на рыб в маске.",
-     "frame": [
-      "peces"
      ]
     }
    ]

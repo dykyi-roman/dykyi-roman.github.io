@@ -69,6 +69,14 @@ const BLOCK_KINDS = ['p', 'note', 'ul', 'ol', 'table', 'fork', 'conj'];
 // A filled string, the thing most of the new fields have to be.
 function text(value) { return typeof value === 'string' && value.trim() !== ''; }
 
+// One emoji as the reader sees it: a single grapheme that is a pictograph.
+const PICTOGRAPH = /\p{Extended_Pictographic}/u;
+const GRAPHEMES = new Intl.Segmenter('en', { granularity: 'grapheme' });
+function isOneEmoji(value) {
+    if (typeof value !== 'string' || !PICTOGRAPH.test(value)) return false;
+    return Array.from(GRAPHEMES.segment(value)).length === 1;
+}
+
 function checkBlocks(blocks, at) {
     if (blocks === undefined || blocks === null) return;
     if (!Array.isArray(blocks)) { fail(at + ': blocks is not an array'); return; }
@@ -566,6 +574,15 @@ function checkGuides(stage, entry, sets) {
             if (!item.set) fail(at + ': "glyph" belongs to a word of a table (set)');
             if (typeof item.glyph !== 'string' || !/^\S{1,2}$/.test(item.glyph)) fail(at + ': "glyph" is not one or two characters');
         }
+        // The picture a row of the animals table wears ahead of the word, the
+        // same way: a table word alone, one emoji — a single grapheme, which
+        // may still be several code points (🕷️ is the spider and a variation
+        // selector). It takes the place a glyph would, so never both.
+        if (item.emoji !== undefined) {
+            if (!item.set) fail(at + ': "emoji" belongs to a word of a table (set)');
+            if (item.glyph !== undefined || item.swatch !== undefined) fail(at + ': "emoji" beside a "glyph" or a "swatch" — a row wears one picture');
+            if (!isOneEmoji(item.emoji)) fail(at + ': "emoji" is not one emoji — ' + JSON.stringify(item.emoji));
+        }
         if (tiled && (item.type === 'vocab' || item.type === 'pair') && !item.set && !item.group) {
             fail(at + ': carries no topic, and on a stage drawn as tiles that leaves it no tile to open under');
         }
@@ -969,8 +986,9 @@ if (patterns) {
 // the exception, and are listed by name.
 const HOMONYMS = ['claro', 'salida', 'verdad', 'cómo', 'perdón', 'no', 'este', 'caja', 'comedor',
     'primero', 'segundo', 'cuarto', 'tirar', 'seco', 'tiempo',
-    // the colour and the fruit (naranja), the underground and the measure (metro)
-    'naranja', 'metro',
+    // the colour and the fruit (naranja), the underground and the measure (metro),
+    // the animal and the computer mouse (ratón)
+    'naranja', 'metro', 'ratón',
     // the letters of the alphabet table (a, de, o, te, ese) beside the
     // preposition, conjunction, pronoun and demonstrative spelled the same
     'a', 'de', 'o', 'te', 'ese'];

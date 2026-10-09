@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-09-29",
+ "updated": "2026-10-08",
  "comment": "Words considered learned. Hand-kept, like the stage files: this list is the same on every device, unlike the pending marks, which live in the browser. The value of each entry is the Spanish it points at — documentation for whoever edits this by hand, and checked against the stage files by verify.js.",
  "ids": {
   "es1-v047": "si",
@@ -38,7 +38,6 @@
   "es3-v137": "el baño",
   "es3-v175": "la leche",
   "es3-v297": "la mochila",
-  "es4-p001": "arriba / abajo",
   "es4-p002": "grande / pequeño",
   "es4-p003": "alto / bajo",
   "es4-p004": "largo / corto",
@@ -70,7 +69,6 @@
   "es1-v133": "por qué",
   "es1-v134": "para qué",
   "es1-v084": "ya",
-  "es1-v001": "aquí",
   "es1-v110": "nada",
   "es3-v630": "venir",
   "es3-v039": "querer",
@@ -127,10 +125,8 @@
   "es1-v139": "de quién",
   "es1-v140": "con quién",
   "es1-v141": "para quién",
-  "es1-v142": "por dónde",
   "es1-v143": "desde dónde",
   "es1-v144": "hacia dónde",
-  "es1-v145": "hasta dónde",
   "es1-v146": "a qué hora",
   "es1-v147": "cuánto tiempo",
   "es1-v148": "desde cuándo",
@@ -158,6 +154,8 @@
   "es4-p152": "siempre / nunca",
   "es4-p154": "antes / después",
   "es4-p158": "próximo / pasado",
-  "es5-v068": "la próxima parada"
+  "es5-v068": "la próxima parada",
+  "es2-v160": "sí, puedo",
+  "es2-v161": "¿hay un quiosco por aquí?"
  }
 }

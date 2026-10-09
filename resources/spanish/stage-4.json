@@ -109,52 +109,6 @@
  ],
  "items": [
   {
-   "id": "es4-p001",
-   "type": "pair",
-   "es": "arriba / abajo",
-   "en": "up / down",
-   "ru": "наверху / внизу",
-   "tr": "арри́ба / аба́хо",
-   "group": "Размер и количество",
-   "pairKind": "opposite",
-   "a": {
-    "es": "arriba",
-    "en": "up",
-    "ru": "наверху",
-    "tr": "арри́ба"
-   },
-   "b": {
-    "es": "abajo",
-    "en": "down",
-    "ru": "внизу",
-    "tr": "аба́хо"
-   },
-   "ex": [
-    {
-     "es": "Vivo arriba, en el tercero.",
-     "ru": "Я живу наверху, на третьем.",
-     "frame": [
-      "arriba"
-     ]
-    },
-    {
-     "es": "La farmacia está abajo.",
-     "ru": "Аптека внизу.",
-     "frame": [
-      "abajo"
-     ]
-    },
-    {
-     "es": "Arriba hace más calor que abajo.",
-     "ru": "Наверху жарче, чем внизу.",
-     "frame": [
-      "Arriba",
-      "abajo"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es4-p002",
    "type": "pair",
    "es": "grande / pequeño",
@@ -8738,7 +8692,7 @@
   "сравнительные конструкции целиком (más … que, tan … como, el más …) — они в разговорных конструкциях тренажёра;",
   "превосходная степень на -ísimo;",
   "цвета — они таблицей в Words (раздел Reference); материалы — позже;",
-  "пространственные слова delante / detrás, cerca / lejos, dentro / fuera и направления a la derecha / a la izquierda — они в Bind, а здесь только сами la izquierda / la derecha;",
+  "пространственные слова arriba / abajo, delante / detrás, cerca / lejos, dentro / fuera и направления a la derecha / a la izquierda — они в Bind (таблица «Место» в Reference), а здесь только сами la izquierda / la derecha;",
   "тематические наборы, которые парами не работают: части тела, дни недели, месяцы, числа, посуда, одежда — они в Words;",
   "синонимы к уже вынесенным словам (contestar к responder, comprender к entender, finalizar к terminar, continuar к seguir, enviar к mandar) — тоже в Words;",
   "одиночные прилагательные без пары (importante, necesario, listo, perdido, preocupado, gratis, fresco и др.) — они в общем списке Words;",

@@ -805,8 +805,9 @@
     // A letter of the alphabet table wears the letter itself ahead of its
     // name (`glyph` in the file) the same way; it rides as data-glyph and CSS
     // prints it through ::before, so it is no text node — neither the search
-    // nor anything reading textContent sees it.
-    function lexEs(es, swatch, glyph) {
+    // nor anything reading textContent sees it. An animal of the animals
+    // table wears its picture (`emoji`) by the same road, as data-emoji.
+    function lexEs(es, swatch, glyph, emoji) {
         var box = SP.el('div', 'sp-lex-es');
         if (swatch) {
             var chip = SP.el('span', 'sp-swatch');
@@ -815,6 +816,7 @@
             box.appendChild(chip);
         }
         if (glyph) box.setAttribute('data-glyph', glyph);
+        if (emoji) box.setAttribute('data-emoji', emoji);
         box.appendChild(wordWithDot(es, verbDot(SP.verbs.get(es))));
         return box;
     }
@@ -826,7 +828,7 @@
     // Returns the head, which is where the row's mark goes.
     function lexText(parent, part) {
         var head = SP.el('div', 'sp-lex-head');
-        head.appendChild(lexEs(part.es, part.swatch, part.glyph));
+        head.appendChild(lexEs(part.es, part.swatch, part.glyph, part.emoji));
         if (part.tr) head.appendChild(SP.el('div', 'sp-lex-tr', part.tr));
         parent.appendChild(head);
         if (part.en) parent.appendChild(SP.el('div', 'sp-lex-en', part.en));

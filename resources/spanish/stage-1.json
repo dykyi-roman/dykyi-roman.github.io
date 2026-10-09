@@ -90,14 +90,6 @@
  "groups": [
   {
    "kind": "topic",
-   "name": "Место"
-  },
-  {
-   "kind": "topic",
-   "name": "Навигация"
-  },
-  {
-   "kind": "topic",
    "name": "Указание"
   },
   {
@@ -141,6 +133,10 @@
   {
    "name": "Предлоги",
    "icon": "🔗"
+  },
+  {
+   "name": "Место",
+   "icon": "🗺️"
   }
  ],
  "guides": [
@@ -1696,6 +1692,1030 @@
    ]
   },
   {
+   "id": "es1-v001",
+   "type": "vocab",
+   "es": "aquí",
+   "en": "here",
+   "ru": "здесь",
+   "tr": "аки́",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Estoy aquí.",
+     "ru": "Я здесь.",
+     "frame": [
+      "aquí"
+     ]
+    },
+    {
+     "es": "Firma aquí, por favor.",
+     "ru": "Распишитесь здесь, пожалуйста.",
+     "frame": [
+      "aquí"
+     ]
+    },
+    {
+     "es": "Es aquí, ¿verdad?",
+     "ru": "Это здесь, правда?",
+     "frame": [
+      "aquí"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v002",
+   "type": "vocab",
+   "es": "ahí",
+   "en": "there",
+   "ru": "там (рядом с тобой)",
+   "tr": "аи́",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Está ahí.",
+     "ru": "Это там.",
+     "frame": [
+      "ahí"
+     ]
+    },
+    {
+     "es": "Déjalo ahí, gracias.",
+     "ru": "Оставь это там, спасибо.",
+     "frame": [
+      "ahí"
+     ]
+    },
+    {
+     "es": "¿Qué hay ahí dentro?",
+     "ru": "Что там внутри?",
+     "frame": [
+      "ahí"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v003",
+   "type": "vocab",
+   "es": "allí",
+   "en": "there / over there",
+   "ru": "там (вдали)",
+   "tr": "айи́",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "El baño está allí.",
+     "ru": "Туалет вон там.",
+     "frame": [
+      "allí"
+     ]
+    },
+    {
+     "es": "Nos vemos allí a las ocho.",
+     "ru": "Встретимся там в восемь.",
+     "frame": [
+      "allí"
+     ]
+    },
+    {
+     "es": "Allí no hay nadie.",
+     "ru": "Там никого нет.",
+     "frame": [
+      "Allí"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v089",
+   "type": "vocab",
+   "es": "allá",
+   "en": "over there, that way",
+   "ru": "туда, там (далеко)",
+   "tr": "айа́",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Vamos allá.",
+     "ru": "Пойдём туда.",
+     "frame": [
+      "allá"
+     ]
+    },
+    {
+     "es": "Allá hace mucho calor.",
+     "ru": "Там очень жарко.",
+     "frame": [
+      "Allá"
+     ]
+    },
+    {
+     "es": "Más allá está el mar.",
+     "ru": "Дальше — море.",
+     "frame": [
+      "allá"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v114",
+   "type": "vocab",
+   "es": "cerca",
+   "en": "near / close",
+   "ru": "близко",
+   "tr": "сэ́рка",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Está cerca.",
+     "ru": "Это близко.",
+     "frame": [
+      "cerca"
+     ]
+    },
+    {
+     "es": "¿El metro está cerca?",
+     "ru": "Метро близко?",
+     "frame": [
+      "cerca"
+     ]
+    },
+    {
+     "es": "Vivo muy cerca.",
+     "ru": "Я живу совсем рядом.",
+     "frame": [
+      "cerca"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v017",
+   "type": "vocab",
+   "es": "cerca de",
+   "en": "near",
+   "ru": "рядом с / недалеко от",
+   "tr": "сэ́рка дэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Vivo cerca de la playa.",
+     "ru": "Я живу рядом с пляжем.",
+     "frame": [
+      "cerca de"
+     ]
+    },
+    {
+     "es": "¿Hay un cajero cerca de aquí?",
+     "ru": "Тут рядом есть банкомат?",
+     "frame": [
+      "cerca de"
+     ]
+    },
+    {
+     "es": "El hotel está cerca de la estación.",
+     "ru": "Отель рядом со станцией.",
+     "frame": [
+      "cerca de"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v113",
+   "type": "vocab",
+   "es": "lejos",
+   "en": "far",
+   "ru": "далеко",
+   "tr": "лэ́хос",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Está lejos.",
+     "ru": "Это далеко.",
+     "frame": [
+      "lejos"
+     ]
+    },
+    {
+     "es": "No, no está lejos.",
+     "ru": "Нет, это недалеко.",
+     "frame": [
+      "lejos"
+     ]
+    },
+    {
+     "es": "Mi trabajo está lejos.",
+     "ru": "Моя работа далеко.",
+     "frame": [
+      "lejos"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v018",
+   "type": "vocab",
+   "es": "lejos de",
+   "en": "far from",
+   "ru": "далеко от",
+   "tr": "лэ́хос дэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Vivo lejos de la oficina.",
+     "ru": "Я живу далеко от офиса.",
+     "frame": [
+      "lejos de"
+     ]
+    },
+    {
+     "es": "No está lejos de aquí.",
+     "ru": "Это недалеко отсюда.",
+     "frame": [
+      "lejos de"
+     ]
+    },
+    {
+     "es": "El aeropuerto está lejos de la ciudad.",
+     "ru": "Аэропорт далеко от города.",
+     "frame": [
+      "lejos de"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v154",
+   "type": "vocab",
+   "es": "arriba",
+   "en": "up / upstairs",
+   "ru": "вверху / наверх",
+   "tr": "арри́ба",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Vivo arriba, en el tercero.",
+     "ru": "Я живу наверху, на третьем.",
+     "frame": [
+      "arriba"
+     ]
+    },
+    {
+     "es": "Arriba hace más calor que abajo.",
+     "ru": "Наверху жарче, чем внизу.",
+     "frame": [
+      "Arriba"
+     ]
+    },
+    {
+     "es": "Las toallas están arriba, en el armario.",
+     "ru": "Полотенца наверху, в шкафу.",
+     "frame": [
+      "arriba"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v155",
+   "type": "vocab",
+   "es": "abajo",
+   "en": "down / downstairs",
+   "ru": "внизу / вниз",
+   "tr": "аба́хо",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "La farmacia está abajo.",
+     "ru": "Аптека внизу.",
+     "frame": [
+      "abajo"
+     ]
+    },
+    {
+     "es": "El coche está abajo, en el garaje.",
+     "ru": "Машина внизу, в гараже.",
+     "frame": [
+      "abajo"
+     ]
+    },
+    {
+     "es": "Mira hacia abajo.",
+     "ru": "Посмотри вниз.",
+     "frame": [
+      "abajo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v006",
+   "type": "vocab",
+   "es": "encima",
+   "en": "on top / above",
+   "ru": "сверху",
+   "tr": "энси́ма",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Ponlo encima, por favor.",
+     "ru": "Положи это сверху, пожалуйста.",
+     "frame": [
+      "encima"
+     ]
+    },
+    {
+     "es": "La caja grande abajo y la pequeña encima.",
+     "ru": "Большую коробку вниз, маленькую сверху.",
+     "frame": [
+      "encima"
+     ]
+    },
+    {
+     "es": "¿Llevas dinero encima?",
+     "ru": "У тебя есть с собой деньги?",
+     "frame": [
+      "encima"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v156",
+   "type": "vocab",
+   "es": "encima de",
+   "en": "on top of",
+   "ru": "на / поверх",
+   "tr": "энси́ма дэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Está encima de la mesa.",
+     "ru": "Это на столе.",
+     "frame": [
+      "encima de"
+     ]
+    },
+    {
+     "es": "El gato duerme encima del sofá.",
+     "ru": "Кот спит на диване.",
+     "frame": [
+      "encima"
+     ]
+    },
+    {
+     "es": "No pongas nada encima de la tele.",
+     "ru": "Ничего не ставь на телевизор.",
+     "frame": [
+      "encima de"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v009",
+   "type": "vocab",
+   "es": "debajo",
+   "en": "underneath / below",
+   "ru": "снизу / под низом",
+   "tr": "дэба́хо",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Las llaves están debajo.",
+     "ru": "Ключи снизу.",
+     "frame": [
+      "debajo"
+     ]
+    },
+    {
+     "es": "El precio está debajo, en la etiqueta.",
+     "ru": "Цена снизу, на этикетке.",
+     "frame": [
+      "debajo"
+     ]
+    },
+    {
+     "es": "Firma aquí debajo.",
+     "ru": "Распишитесь вот здесь, внизу.",
+     "frame": [
+      "debajo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v157",
+   "type": "vocab",
+   "es": "debajo de",
+   "en": "under / beneath",
+   "ru": "под",
+   "tr": "дэба́хо дэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Está debajo de la mesa.",
+     "ru": "Это под столом.",
+     "frame": [
+      "debajo de"
+     ]
+    },
+    {
+     "es": "Mira debajo de la cama.",
+     "ru": "Посмотри под кроватью.",
+     "frame": [
+      "debajo de"
+     ]
+    },
+    {
+     "es": "El perro se esconde debajo del coche.",
+     "ru": "Собака прячется под машиной.",
+     "frame": [
+      "debajo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v004",
+   "type": "vocab",
+   "es": "delante",
+   "en": "in front",
+   "ru": "впереди / перед",
+   "tr": "дэла́нтэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Estoy delante.",
+     "ru": "Я впереди.",
+     "frame": [
+      "delante"
+     ]
+    },
+    {
+     "es": "La parada está delante.",
+     "ru": "Остановка впереди.",
+     "frame": [
+      "delante"
+     ]
+    },
+    {
+     "es": "Pasa tú delante.",
+     "ru": "Проходи вперёд.",
+     "frame": [
+      "delante"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v015",
+   "type": "vocab",
+   "es": "delante de",
+   "en": "in front of",
+   "ru": "перед",
+   "tr": "дэла́нтэ дэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Te espero delante del cine.",
+     "ru": "Жду тебя перед кинотеатром.",
+     "frame": [
+      "delante"
+     ]
+    },
+    {
+     "es": "Hay una cola delante de la caja.",
+     "ru": "Перед кассой очередь.",
+     "frame": [
+      "delante de"
+     ]
+    },
+    {
+     "es": "No fumes delante de los niños.",
+     "ru": "Не кури при детях.",
+     "frame": [
+      "delante de"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v005",
+   "type": "vocab",
+   "es": "detrás",
+   "en": "behind",
+   "ru": "сзади / за",
+   "tr": "дэтра́с",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Está detrás.",
+     "ru": "Это сзади.",
+     "frame": [
+      "detrás"
+     ]
+    },
+    {
+     "es": "La salida está detrás.",
+     "ru": "Выход сзади.",
+     "frame": [
+      "detrás"
+     ]
+    },
+    {
+     "es": "Yo voy detrás.",
+     "ru": "Я пойду сзади.",
+     "frame": [
+      "detrás"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v016",
+   "type": "vocab",
+   "es": "detrás de",
+   "en": "behind",
+   "ru": "за / позади",
+   "tr": "дэтра́с дэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "El parque está detrás del colegio.",
+     "ru": "Парк за школой.",
+     "frame": [
+      "detrás"
+     ]
+    },
+    {
+     "es": "Estoy detrás de ti.",
+     "ru": "Я за тобой.",
+     "frame": [
+      "detrás de"
+     ]
+    },
+    {
+     "es": "Aparca detrás de aquel coche.",
+     "ru": "Припаркуйся за той машиной.",
+     "frame": [
+      "detrás de"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v012",
+   "type": "vocab",
+   "es": "enfrente",
+   "en": "opposite / across",
+   "ru": "напротив",
+   "tr": "энфрэ́нтэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "El supermercado está enfrente.",
+     "ru": "Супермаркет напротив.",
+     "frame": [
+      "enfrente"
+     ]
+    },
+    {
+     "es": "El baño está enfrente del parque.",
+     "ru": "Туалет напротив парка.",
+     "frame": [
+      "enfrente"
+     ]
+    },
+    {
+     "es": "¿Está enfrente o al lado?",
+     "ru": "Это напротив или рядом?",
+     "frame": [
+      "enfrente"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v158",
+   "type": "vocab",
+   "es": "al lado",
+   "en": "beside / next door",
+   "ru": "сбоку / по соседству",
+   "tr": "ал ла́до",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "¿Quién vive al lado?",
+     "ru": "Кто живёт по соседству?",
+     "frame": [
+      "al lado"
+     ]
+    },
+    {
+     "es": "La puerta está al lado, no delante.",
+     "ru": "Дверь сбоку, а не спереди.",
+     "frame": [
+      "al lado"
+     ]
+    },
+    {
+     "es": "Ponte al lado, que no veo.",
+     "ru": "Встань сбоку, мне не видно.",
+     "frame": [
+      "al lado"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v013",
+   "type": "vocab",
+   "es": "al lado de",
+   "en": "next to / beside",
+   "ru": "рядом с",
+   "tr": "ал ла́до дэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "El hotel está al lado del restaurante.",
+     "ru": "Отель рядом с рестораном.",
+     "frame": [
+      "al lado"
+     ]
+    },
+    {
+     "es": "Siéntate al lado de la ventana.",
+     "ru": "Сядь у окна.",
+     "frame": [
+      "al lado de"
+     ]
+    },
+    {
+     "es": "Vivo al lado de mis padres.",
+     "ru": "Я живу рядом с родителями.",
+     "frame": [
+      "al lado de"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v159",
+   "type": "vocab",
+   "es": "en medio de",
+   "en": "in the middle of",
+   "ru": "посреди / в середине",
+   "tr": "эн мэ́дьо дэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Hay una fuente en medio de la plaza.",
+     "ru": "Посреди площади фонтан.",
+     "frame": [
+      "en medio de"
+     ]
+    },
+    {
+     "es": "No te quedes en medio de la calle.",
+     "ru": "Не стой посреди улицы.",
+     "frame": [
+      "en medio de"
+     ]
+    },
+    {
+     "es": "Se fue en medio de la película.",
+     "ru": "Он ушёл посреди фильма.",
+     "frame": [
+      "en medio de"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v160",
+   "type": "vocab",
+   "es": "alrededor",
+   "en": "around",
+   "ru": "вокруг",
+   "tr": "алррэдэдо́р",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Hay tiendas alrededor de la plaza.",
+     "ru": "Вокруг площади магазины.",
+     "frame": [
+      "alrededor"
+     ]
+    },
+    {
+     "es": "Llego alrededor de las ocho.",
+     "ru": "Я приду около восьми.",
+     "frame": [
+      "alrededor"
+     ]
+    },
+    {
+     "es": "Mira alrededor antes de cruzar.",
+     "ru": "Посмотри вокруг перед переходом.",
+     "frame": [
+      "alrededor"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v161",
+   "type": "vocab",
+   "es": "dentro",
+   "en": "inside",
+   "ru": "внутри",
+   "tr": "дэ́нтро",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Los niños están dentro.",
+     "ru": "Дети внутри.",
+     "frame": [
+      "dentro"
+     ]
+    },
+    {
+     "es": "¿Comemos dentro o fuera?",
+     "ru": "Едим внутри или на улице?",
+     "frame": [
+      "dentro"
+     ]
+    },
+    {
+     "es": "Hace frío, vamos dentro.",
+     "ru": "Холодно, пойдём внутрь.",
+     "frame": [
+      "dentro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v162",
+   "type": "vocab",
+   "es": "dentro de",
+   "en": "inside / in (time)",
+   "ru": "внутри чего-то / через (о времени)",
+   "tr": "дэ́нтро дэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "El pasaporte está dentro de la maleta.",
+     "ru": "Паспорт в чемодане.",
+     "frame": [
+      "dentro de"
+     ]
+    },
+    {
+     "es": "Vuelvo dentro de una hora.",
+     "ru": "Вернусь через час.",
+     "frame": [
+      "dentro de"
+     ]
+    },
+    {
+     "es": "La factura está dentro del sobre.",
+     "ru": "Счёт в конверте.",
+     "frame": [
+      "dentro"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v163",
+   "type": "vocab",
+   "es": "fuera",
+   "en": "outside / away",
+   "ru": "снаружи / на улице",
+   "tr": "фуэ́ра",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Te espero fuera.",
+     "ru": "Жду тебя на улице.",
+     "frame": [
+      "fuera"
+     ]
+    },
+    {
+     "es": "Fuera hace mucho frío.",
+     "ru": "На улице очень холодно.",
+     "frame": [
+      "Fuera"
+     ]
+    },
+    {
+     "es": "Mi marido está fuera esta semana.",
+     "ru": "Мужа на этой неделе нет в городе.",
+     "frame": [
+      "fuera"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v164",
+   "type": "vocab",
+   "es": "fuera de",
+   "en": "outside of / out of",
+   "ru": "вне / за пределами",
+   "tr": "фуэ́ра дэ",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Vivimos fuera de la ciudad.",
+     "ru": "Мы живём за городом.",
+     "frame": [
+      "fuera de"
+     ]
+    },
+    {
+     "es": "El ascensor está fuera de servicio.",
+     "ru": "Лифт не работает.",
+     "frame": [
+      "fuera de"
+     ]
+    },
+    {
+     "es": "Hoy comemos fuera de casa.",
+     "ru": "Сегодня едим не дома.",
+     "frame": [
+      "fuera de"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v165",
+   "type": "vocab",
+   "es": "desde fuera",
+   "en": "from outside",
+   "ru": "извне",
+   "tr": "дэ́сдэ фуэ́ра",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Desde fuera no se ve nada.",
+     "ru": "Снаружи ничего не видно.",
+     "frame": [
+      "Desde fuera"
+     ]
+    },
+    {
+     "es": "El ruido viene desde fuera.",
+     "ru": "Шум идёт с улицы.",
+     "frame": [
+      "desde fuera"
+     ]
+    },
+    {
+     "es": "La puerta se abre desde fuera con la llave.",
+     "ru": "Дверь открывается снаружи ключом.",
+     "frame": [
+      "desde fuera"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v120",
+   "type": "vocab",
+   "es": "al fondo",
+   "en": "at the back / at the end",
+   "ru": "в конце / в глубине",
+   "tr": "ал фо́ндо",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "El baño está al fondo a la derecha.",
+     "ru": "Туалет в конце справа.",
+     "frame": [
+      "al fondo"
+     ]
+    },
+    {
+     "es": "Hay una mesa libre al fondo.",
+     "ru": "В глубине есть свободный стол.",
+     "frame": [
+      "al fondo"
+     ]
+    },
+    {
+     "es": "Los probadores están al fondo.",
+     "ru": "Примерочные в глубине зала.",
+     "frame": [
+      "al fondo"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v117",
+   "type": "vocab",
+   "es": "a la derecha",
+   "en": "to / on the right",
+   "ru": "направо / справа",
+   "tr": "а ла дэрэ́ча",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "El banco está a la derecha.",
+     "ru": "Банк справа.",
+     "frame": [
+      "a la derecha"
+     ]
+    },
+    {
+     "es": "Gira a la derecha en el semáforo.",
+     "ru": "Поверни направо на светофоре.",
+     "frame": [
+      "a la derecha"
+     ]
+    },
+    {
+     "es": "La tercera puerta a la derecha.",
+     "ru": "Третья дверь справа.",
+     "frame": [
+      "a la derecha"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v118",
+   "type": "vocab",
+   "es": "a la izquierda",
+   "en": "to / on the left",
+   "ru": "налево / слева",
+   "tr": "а ла искье́рда",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Gira a la izquierda.",
+     "ru": "Поверни налево.",
+     "frame": [
+      "a la izquierda"
+     ]
+    },
+    {
+     "es": "El ascensor está a la izquierda.",
+     "ru": "Лифт слева.",
+     "frame": [
+      "a la izquierda"
+     ]
+    },
+    {
+     "es": "Al salir, a la izquierda.",
+     "ru": "На выходе — налево.",
+     "frame": [
+      "a la izquierda"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "es1-v119",
+   "type": "vocab",
+   "es": "todo recto",
+   "en": "straight ahead",
+   "ru": "прямо (по дороге)",
+   "tr": "то́до ррэ́кто",
+   "set": "Место",
+   "ex": [
+    {
+     "es": "Sigue todo recto.",
+     "ru": "Иди прямо.",
+     "frame": [
+      "todo recto"
+     ]
+    },
+    {
+     "es": "Todo recto y luego a la derecha.",
+     "ru": "Прямо, потом направо.",
+     "frame": [
+      "Todo recto"
+     ]
+    },
+    {
+     "es": "¿Voy todo recto?",
+     "ru": "Мне идти прямо?",
+     "frame": [
+      "todo recto"
+     ]
+    }
+   ]
+  },
+  {
    "id": "es1-v044",
    "type": "vocab",
    "es": "y",
@@ -2338,38 +3358,6 @@
    ]
   },
   {
-   "id": "es1-v002",
-   "type": "vocab",
-   "es": "ahí",
-   "en": "there",
-   "ru": "там (рядом с тобой)",
-   "tr": "аи́",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Está ahí.",
-     "ru": "Это там.",
-     "frame": [
-      "ahí"
-     ]
-    },
-    {
-     "es": "Déjalo ahí, gracias.",
-     "ru": "Оставь это там, спасибо.",
-     "frame": [
-      "ahí"
-     ]
-    },
-    {
-     "es": "¿Qué hay ahí dentro?",
-     "ru": "Что там внутри?",
-     "frame": [
-      "ahí"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es1-v038",
    "type": "vocab",
    "es": "eso",
@@ -2530,70 +3518,6 @@
    ]
   },
   {
-   "id": "es1-v001",
-   "type": "vocab",
-   "es": "aquí",
-   "en": "here",
-   "ru": "здесь",
-   "tr": "аки́",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Estoy aquí.",
-     "ru": "Я здесь.",
-     "frame": [
-      "aquí"
-     ]
-    },
-    {
-     "es": "Firma aquí, por favor.",
-     "ru": "Распишитесь здесь, пожалуйста.",
-     "frame": [
-      "aquí"
-     ]
-    },
-    {
-     "es": "Es aquí, ¿verdad?",
-     "ru": "Это здесь, правда?",
-     "frame": [
-      "aquí"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v003",
-   "type": "vocab",
-   "es": "allí",
-   "en": "there / over there",
-   "ru": "там (вдали)",
-   "tr": "айи́",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "El baño está allí.",
-     "ru": "Туалет вон там.",
-     "frame": [
-      "allí"
-     ]
-    },
-    {
-     "es": "Nos vemos allí a las ocho.",
-     "ru": "Встретимся там в восемь.",
-     "frame": [
-      "allí"
-     ]
-    },
-    {
-     "es": "Allí no hay nadie.",
-     "ru": "Там никого нет.",
-     "frame": [
-      "Allí"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es1-v037",
    "type": "vocab",
    "es": "esto",
@@ -2717,38 +3641,6 @@
      "ru": "Делай как хочешь.",
      "frame": [
       "como"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v089",
-   "type": "vocab",
-   "es": "allá",
-   "en": "over there, that way",
-   "ru": "туда, там (далеко)",
-   "tr": "айа́",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Vamos allá.",
-     "ru": "Пойдём туда.",
-     "frame": [
-      "allá"
-     ]
-    },
-    {
-     "es": "Allá hace mucho calor.",
-     "ru": "Там очень жарко.",
-     "frame": [
-      "Allá"
-     ]
-    },
-    {
-     "es": "Más allá está el mar.",
-     "ru": "Дальше — море.",
-     "frame": [
-      "allá"
      ]
     }
    ]
@@ -3042,70 +3934,6 @@
    ]
   },
   {
-   "id": "es1-v113",
-   "type": "vocab",
-   "es": "lejos",
-   "en": "far",
-   "ru": "далеко",
-   "tr": "лэ́хос",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Está lejos.",
-     "ru": "Это далеко.",
-     "frame": [
-      "lejos"
-     ]
-    },
-    {
-     "es": "No, no está lejos.",
-     "ru": "Нет, это недалеко.",
-     "frame": [
-      "lejos"
-     ]
-    },
-    {
-     "es": "Mi trabajo está lejos.",
-     "ru": "Моя работа далеко.",
-     "frame": [
-      "lejos"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v114",
-   "type": "vocab",
-   "es": "cerca",
-   "en": "near / close",
-   "ru": "близко",
-   "tr": "сэ́рка",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Está cerca.",
-     "ru": "Это близко.",
-     "frame": [
-      "cerca"
-     ]
-    },
-    {
-     "es": "¿El metro está cerca?",
-     "ru": "Метро близко?",
-     "frame": [
-      "cerca"
-     ]
-    },
-    {
-     "es": "Vivo muy cerca.",
-     "ru": "Я живу совсем рядом.",
-     "frame": [
-      "cerca"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es1-v126",
    "type": "vocab",
    "es": "quién",
@@ -3170,148 +3998,6 @@
    ]
   },
   {
-   "id": "es1-v005",
-   "type": "vocab",
-   "es": "detrás",
-   "en": "behind",
-   "ru": "сзади / за",
-   "tr": "дэтра́с",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Está detrás.",
-     "ru": "Это сзади.",
-     "frame": [
-      "detrás"
-     ]
-    },
-    {
-     "es": "La salida está detrás.",
-     "ru": "Выход сзади.",
-     "frame": [
-      "detrás"
-     ]
-    },
-    {
-     "es": "Yo voy detrás.",
-     "ru": "Я пойду сзади.",
-     "frame": [
-      "detrás"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v006",
-   "type": "vocab",
-   "es": "encima",
-   "en": "on top / above",
-   "ru": "сверху / на",
-   "tr": "энси́ма",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Está encima de la mesa.",
-     "ru": "Это на столе.",
-     "frame": [
-      "encima"
-     ]
-    },
-    {
-     "es": "Ponlo encima, por favor.",
-     "ru": "Положи это сверху, пожалуйста.",
-     "frame": [
-      "encima"
-     ]
-    },
-    {
-     "es": "El gato duerme encima del sofá.",
-     "ru": "Кот спит на диване.",
-     "frame": [
-      "encima"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v009",
-   "type": "vocab",
-   "es": "debajo",
-   "en": "underneath / below",
-   "ru": "под",
-   "tr": "дэба́хо",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Está debajo de la mesa.",
-     "ru": "Это под столом.",
-     "frame": [
-      "debajo"
-     ]
-    },
-    {
-     "es": "Mira debajo de la cama.",
-     "ru": "Посмотри под кроватью.",
-     "frame": [
-      "debajo"
-     ]
-    },
-    {
-     "es": "Las llaves están debajo.",
-     "ru": "Ключи снизу.",
-     "frame": [
-      "debajo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-p001",
-   "type": "pair",
-   "es": "dentro / fuera",
-   "en": "inside / outside",
-   "ru": "внутри / снаружи",
-   "tr": "дэ́нтро / фуэ́ра",
-   "group": "Место",
-   "pairKind": "opposite",
-   "a": {
-    "es": "dentro",
-    "en": "inside",
-    "ru": "внутри",
-    "tr": "дэ́нтро"
-   },
-   "b": {
-    "es": "fuera",
-    "en": "outside",
-    "ru": "снаружи",
-    "tr": "фуэ́ра"
-   },
-   "ex": [
-    {
-     "es": "Los niños están dentro.",
-     "ru": "Дети внутри.",
-     "frame": [
-      "dentro"
-     ]
-    },
-    {
-     "es": "Te espero fuera.",
-     "ru": "Жду тебя на улице.",
-     "frame": [
-      "fuera"
-     ]
-    },
-    {
-     "es": "¿Comemos dentro o fuera?",
-     "ru": "Едим внутри или на улице?",
-     "frame": [
-      "dentro",
-      "fuera"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es1-v131",
    "type": "vocab",
    "es": "cuándo",
@@ -3371,38 +4057,6 @@
      "ru": "Скажи, каких не хватает.",
      "frame": [
       "cuáles"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v004",
-   "type": "vocab",
-   "es": "delante",
-   "en": "in front",
-   "ru": "впереди / перед",
-   "tr": "дэла́нтэ",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Estoy delante.",
-     "ru": "Я впереди.",
-     "frame": [
-      "delante"
-     ]
-    },
-    {
-     "es": "La parada está delante.",
-     "ru": "Остановка впереди.",
-     "frame": [
-      "delante"
-     ]
-    },
-    {
-     "es": "Pasa tú delante.",
-     "ru": "Проходи вперёд.",
-     "frame": [
-      "delante"
      ]
     }
    ]
@@ -3792,102 +4446,6 @@
    ]
   },
   {
-   "id": "es1-v012",
-   "type": "vocab",
-   "es": "enfrente",
-   "en": "opposite / across",
-   "ru": "напротив",
-   "tr": "энфрэ́нтэ",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "El supermercado está enfrente.",
-     "ru": "Супермаркет напротив.",
-     "frame": [
-      "enfrente"
-     ]
-    },
-    {
-     "es": "El baño está enfrente del parque.",
-     "ru": "Туалет напротив парка.",
-     "frame": [
-      "enfrente"
-     ]
-    },
-    {
-     "es": "¿Está enfrente o al lado?",
-     "ru": "Это напротив или рядом?",
-     "frame": [
-      "enfrente"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v017",
-   "type": "vocab",
-   "es": "cerca de",
-   "en": "near",
-   "ru": "рядом с / недалеко от",
-   "tr": "сэ́рка дэ",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Vivo cerca de la playa.",
-     "ru": "Я живу рядом с пляжем.",
-     "frame": [
-      "cerca de"
-     ]
-    },
-    {
-     "es": "¿Hay un cajero cerca de aquí?",
-     "ru": "Тут рядом есть банкомат?",
-     "frame": [
-      "cerca de"
-     ]
-    },
-    {
-     "es": "El hotel está cerca de la estación.",
-     "ru": "Отель рядом со станцией.",
-     "frame": [
-      "cerca de"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v018",
-   "type": "vocab",
-   "es": "lejos de",
-   "en": "far from",
-   "ru": "далеко от",
-   "tr": "лэ́хос дэ",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Vivo lejos de la oficina.",
-     "ru": "Я живу далеко от офиса.",
-     "frame": [
-      "lejos de"
-     ]
-    },
-    {
-     "es": "No está lejos de aquí.",
-     "ru": "Это недалеко отсюда.",
-     "frame": [
-      "lejos de"
-     ]
-    },
-    {
-     "es": "El aeropuerto está lejos de la ciudad.",
-     "ru": "Аэропорт далеко от города.",
-     "frame": [
-      "lejos de"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es1-v086",
    "type": "vocab",
    "es": "entonces",
@@ -3915,38 +4473,6 @@
      "ru": "И что тогда делаем?",
      "frame": [
       "Entonces"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v120",
-   "type": "vocab",
-   "es": "al fondo",
-   "en": "at the back / at the end",
-   "ru": "в конце / в глубине",
-   "tr": "ал фо́ндо",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "El baño está al fondo a la derecha.",
-     "ru": "Туалет в конце справа.",
-     "frame": [
-      "al fondo"
-     ]
-    },
-    {
-     "es": "Hay una mesa libre al fondo.",
-     "ru": "В глубине есть свободный стол.",
-     "frame": [
-      "al fondo"
-     ]
-    },
-    {
-     "es": "Los probadores están al fondo.",
-     "ru": "Примерочные в глубине зала.",
-     "frame": [
-      "al fondo"
      ]
     }
    ]
@@ -4144,38 +4670,6 @@
    ]
   },
   {
-   "id": "es1-v016",
-   "type": "vocab",
-   "es": "detrás de",
-   "en": "behind",
-   "ru": "за / позади",
-   "tr": "дэтра́с дэ",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "El parque está detrás del colegio.",
-     "ru": "Парк за школой.",
-     "frame": [
-      "detrás"
-     ]
-    },
-    {
-     "es": "Estoy detrás de ti.",
-     "ru": "Я за тобой.",
-     "frame": [
-      "detrás de"
-     ]
-    },
-    {
-     "es": "Aparca detrás de aquel coche.",
-     "ru": "Припаркуйся за той машиной.",
-     "frame": [
-      "detrás de"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es1-v140",
    "type": "vocab",
    "es": "con quién",
@@ -4240,70 +4734,6 @@
    ]
   },
   {
-   "id": "es1-v013",
-   "type": "vocab",
-   "es": "al lado de",
-   "en": "next to / beside",
-   "ru": "рядом с",
-   "tr": "ал ла́до дэ",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "El hotel está al lado del restaurante.",
-     "ru": "Отель рядом с рестораном.",
-     "frame": [
-      "al lado"
-     ]
-    },
-    {
-     "es": "Siéntate al lado de la ventana.",
-     "ru": "Сядь у окна.",
-     "frame": [
-      "al lado de"
-     ]
-    },
-    {
-     "es": "¿Quién vive al lado?",
-     "ru": "Кто живёт по соседству?",
-     "frame": [
-      "al lado"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v015",
-   "type": "vocab",
-   "es": "delante de",
-   "en": "in front of",
-   "ru": "перед",
-   "tr": "дэла́нтэ дэ",
-   "group": "Место",
-   "ex": [
-    {
-     "es": "Te espero delante del cine.",
-     "ru": "Жду тебя перед кинотеатром.",
-     "frame": [
-      "delante"
-     ]
-    },
-    {
-     "es": "Hay una cola delante de la caja.",
-     "ru": "Перед кассой очередь.",
-     "frame": [
-      "delante de"
-     ]
-    },
-    {
-     "es": "No fumes delante de los niños.",
-     "ru": "Не кури при детях.",
-     "frame": [
-      "delante de"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es1-v103",
    "type": "vocab",
    "es": "cualquiera",
@@ -4331,38 +4761,6 @@
      "ru": "Спроси любого из них.",
      "frame": [
       "cualquiera"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v119",
-   "type": "vocab",
-   "es": "todo recto",
-   "en": "straight ahead",
-   "ru": "прямо (по дороге)",
-   "tr": "то́до ррэ́кто",
-   "group": "Навигация",
-   "ex": [
-    {
-     "es": "Sigue todo recto.",
-     "ru": "Иди прямо.",
-     "frame": [
-      "todo recto"
-     ]
-    },
-    {
-     "es": "Todo recto y luego a la derecha.",
-     "ru": "Прямо, потом направо.",
-     "frame": [
-      "Todo recto"
-     ]
-    },
-    {
-     "es": "¿Voy todo recto?",
-     "ru": "Мне идти прямо?",
-     "frame": [
-      "todo recto"
      ]
     }
    ]
@@ -4752,38 +5150,6 @@
    ]
   },
   {
-   "id": "es1-v117",
-   "type": "vocab",
-   "es": "a la derecha",
-   "en": "to / on the right",
-   "ru": "направо / справа",
-   "tr": "а ла дэрэ́ча",
-   "group": "Навигация",
-   "ex": [
-    {
-     "es": "El banco está a la derecha.",
-     "ru": "Банк справа.",
-     "frame": [
-      "a la derecha"
-     ]
-    },
-    {
-     "es": "Gira a la derecha en el semáforo.",
-     "ru": "Поверни направо на светофоре.",
-     "frame": [
-      "a la derecha"
-     ]
-    },
-    {
-     "es": "La tercera puerta a la derecha.",
-     "ru": "Третья дверь справа.",
-     "frame": [
-      "a la derecha"
-     ]
-    }
-   ]
-  },
-  {
    "id": "es1-v148",
    "type": "vocab",
    "es": "desde cuándo",
@@ -4971,38 +5337,6 @@
      "ru": "Не знаю, сколько это займёт.",
      "frame": [
       "cuánto tiempo"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "es1-v118",
-   "type": "vocab",
-   "es": "a la izquierda",
-   "en": "to / on the left",
-   "ru": "налево / слева",
-   "tr": "а ла искье́рда",
-   "group": "Навигация",
-   "ex": [
-    {
-     "es": "Gira a la izquierda.",
-     "ru": "Поверни налево.",
-     "frame": [
-      "a la izquierda"
-     ]
-    },
-    {
-     "es": "El ascensor está a la izquierda.",
-     "ru": "Лифт слева.",
-     "frame": [
-      "a la izquierda"
-     ]
-    },
-    {
-     "es": "Al salir, a la izquierda.",
-     "ru": "На выходе — налево.",
-     "frame": [
-      "a la izquierda"
      ]
     }
    ]
@@ -5333,7 +5667,7 @@
    "id": "es1-n001",
    "type": "note",
    "title": "Наречие места + de",
-   "section": "vocab",
+   "section": "notes",
    "blocks": [
     {
      "k": "p",
@@ -5392,8 +5726,7 @@
       }
      ]
     }
-   ],
-   "group": "Место"
+   ]
   },
   {
    "id": "es1-n002",
@@ -5697,7 +6030,7 @@
   }
  ],
  "excluded": [
-  "arriba / abajo, lleno / vacío, más / menos — они парами в Pairs;",
+  "lleno / vacío, más / menos — они парами в Pairs;",
   "solo, muy, vale, ahora, luego — они одиночками в Words;",
   "глаголы движения ir, venir, entrar, salir, volver и глагол ser — они в Words, здесь только примеры с ними;",
   "aquello — встречается редко, позже."
