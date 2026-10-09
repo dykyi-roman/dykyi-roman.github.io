@@ -54,7 +54,7 @@
     var booted = false;     // the first mode is on screen; from here a switch may scroll
     var pageBar = null;     // SP.tuckBar's handle on the sticky bar
     var manifest = null;
-    var pool = [];          // studyable items of the selected stages
+    var pool = [];          // the learned words and pairs of the selected stages
     var allItems = [];      // everything, drills included (browse)
 
     function savePrefs() { SP.saveState(PREFS_KEY, prefs); }
@@ -67,12 +67,20 @@
         return manifest.stages.filter(function (s) { return String(s.no) === String(prefs.stage); });
     }
 
+    // The cards, the quiz and listening drill what is learned and nothing
+    // else: a word comes into them when its id goes into learned.json and
+    // leaves when it is taken out, while its Leitner box stays on record. The
+    // words of a Reference table stay out with the rest — a set word never
+    // sits in learned.json. The list loads with the manifest, so it is there
+    // before the first scope is built.
     function rebuildPools(stages) {
         allItems = [];
         stages.forEach(function (stage) {
             stage.items.forEach(function (item) { allItems.push(item); });
         });
-        pool = allItems.filter(SP.isStudyable);
+        pool = allItems.filter(function (item) {
+            return SP.isStudyable(item) && SP.learned.has(item.id);
+        });
     }
 
     // Every scope switch takes a ticket. A stage body can come back after a
@@ -455,11 +463,15 @@
     function showCard() {
         var card = byId('sp-card');
         var empty = byId('sp-cards-empty');
+        var none = byId('sp-cards-none');
 
         var item = cardsQueue[cardsIndex];
         if (!item) {
             card.hidden = true;
-            empty.hidden = false;
+            // Nothing due is answered by +10 new or Practice ahead; a scope
+            // with nothing learned in it, by learned.json alone.
+            empty.hidden = !pool.length;
+            none.hidden = !!pool.length;
             byId('sp-card-reveal').disabled = true;
             byId('sp-card-again').disabled = true;
             byId('sp-card-good').disabled = true;
@@ -467,6 +479,7 @@
         }
 
         empty.hidden = true;
+        none.hidden = true;
         card.hidden = false;
         card.classList.remove('revealed', 'swipe-good', 'swipe-again');
         byId('sp-card-reveal').disabled = false;
@@ -759,7 +772,10 @@
     function makeQuestions(count) {
         var words = pool.filter(function (i) { return i.type === 'vocab' || i.type === 'pair'; });
         var pairs = pairEntries();
-        var drills = allItems.filter(function (i) { return i.type === 'drill' && i.kind === 'choice'; });
+        // A choice drill comes into the round on the terms a word does.
+        var drills = allItems.filter(function (i) {
+            return i.type === 'drill' && i.kind === 'choice' && SP.learned.has(i.id);
+        });
 
         var generators = [];
         if (words.length >= 4) {
