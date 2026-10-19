@@ -1602,6 +1602,26 @@ const countriesData = {
             notes: 'Atlantic coast and historic towns',
             instagram: [],
             facebook: []
+        },
+        {
+            flag: '🇲🇪',
+            name: 'Montenegro',
+            visitDate: '2026-10',
+            duration: '5 days',
+            rating: '⭐⭐⭐⭐',
+            highlights: {
+                'Herceg Novi': {
+                    instagram: [],
+                    facebook: []
+                },
+                'Kotor': {
+                    instagram: [],
+                    facebook: []
+                }
+            },
+            notes: 'Where mountains meet the Adriatic',
+            instagram: [],
+            facebook: []
         }
     ],
     northAmerica: [],
@@ -2373,6 +2393,10 @@ function initMap() {
             {lat: 41.4424396, lng: -8.2957337, title: "Guimarães"},
             {lat: 38.6979, lng: -9.42146, title: "Cascais"},
         ],
+        "Montenegro": [
+            {lat: 42.4531, lng: 18.5375, title: "Herceg Novi"},
+            {lat: 42.4247, lng: 18.7712, title: "Kotor"},
+        ],
         "Jordan": [
             {lat: 30.3285, lng: 35.4444, title: "Petra (Wishlist)", wishlist: true},
         ],
@@ -2426,6 +2450,7 @@ function initMap() {
         "Vatican": "europe",
         "Albania": "europe",
         "Portugal": "europe",
+        "Montenegro": "europe",
         "UAE": "asia",
         "Nepal": "asia",
         "India": "asia",
