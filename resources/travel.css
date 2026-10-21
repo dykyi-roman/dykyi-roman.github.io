@@ -1235,6 +1235,10 @@
         gap: 12px;
     }
 
+    .world-progress-header .progress-bar {
+        flex: none;
+    }
+
     .world-progress-header .search-container {
         flex: 1;
         max-width: none;

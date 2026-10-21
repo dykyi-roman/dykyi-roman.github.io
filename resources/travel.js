@@ -1651,8 +1651,7 @@ const wishlistCountries = {
         {flag: '🇧🇼', name: 'Botswana', wishIcon: '🌟'},
         {flag: '🇿🇲', name: 'Zambia', wishIcon: '🌟'},
         {flag: '🇺🇬', name: 'Uganda', wishIcon: '🌟'},
-        {flag: '🇪🇹', name: 'Ethiopia', wishIcon: '🌟'},
-        {flag: '🇾🇪', name: 'Socotra', wishIcon: '🌟'}
+        {flag: '🇪🇹', name: 'Ethiopia', wishIcon: '🌟'}
     ],
     asia: [
         {flag: '🇶🇦', name: 'Qatar', wishIcon: '🌟'},
@@ -1661,7 +1660,7 @@ const wishlistCountries = {
         {flag: '🇸🇦', name: 'Saudi Arabia', wishIcon: '🌟'},
         {flag: '🇰🇷', name: 'South Korea', wishIcon: '🌟'},
         {flag: '🇨🇳', name: 'China', wishIcon: '🌟'},
-        {flag: '🇾🇪', name: 'Yamen', wishIcon: '🌟'},
+        {flag: '🇾🇪', name: 'Yemen', wishIcon: '🌟'},
     ],
     oceania: [
         {flag: '🇵🇫', name: 'French Polynesia', wishIcon: '🌟'},
@@ -1786,20 +1785,19 @@ function updateCountriesDisplay() {
         ).join('');
     }
 
-    // Update world exploration progress
+    // Update personal exploration progress: 100% = visited + wishlist
     const visitedCount = totalCount;
-    const totalWorldCountries = 195;
-    const progressPercentage = (visitedCount / totalWorldCountries) * 100;
-    const planCount = visitedCount + wishlistCount;
-    const planPercentage = Math.min((planCount / totalWorldCountries) * 100, 100);
+    const goalCount = visitedCount + wishlistCount;
+    const progressPercentage = goalCount ? (visitedCount / goalCount) * 100 : 0;
+    const wishlistPercentage = 100 - progressPercentage;
     document.getElementById('world-progress-fill').style.width = `${progressPercentage}%`;
-    document.getElementById('world-progress-plan-fill').style.width = `${planPercentage}%`;
+    document.getElementById('world-progress-plan-fill').style.width = '100%';
     const visitedText = document.getElementById('world-progress-text');
     const planText = document.getElementById('plan-progress-text');
     visitedText.textContent = `${progressPercentage.toFixed(1)}%`;
     visitedText.style.left = `${progressPercentage / 2}%`;
-    planText.textContent = `${planPercentage.toFixed(1)}%`;
-    planText.style.left = `${(progressPercentage + planPercentage) / 2}%`;
+    planText.textContent = `${wishlistPercentage.toFixed(1)}%`;
+    planText.style.left = `${(progressPercentage + 100) / 2}%`;
 
     // Add event listeners to country flags after they are created
     setTimeout(() => {
